@@ -14,6 +14,16 @@ llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2)
 SYSTEM_PROMPT_PLANNER = """You are a QA Architect Expert.
 Your goal is to analyze a recorded user journey (trace) and the detected domain, then generate a comprehensive Test Plan and BDD Feature Files.
 
+**CRITICAL TASK: SMOKE SUITE DESIGN**
+You must design a strict "Smoke Test Suite" based on these principles (purely for test generation, ignoring deployment rules):
+1. **Application Availability**: Verify load, URL, and critical assets (JS/CSS).
+2. **Critical Navigation**: Main menu, Home -> Products/Search/Help.
+3. **Core Business Functionality (Happy Path)**: ONE happy path per major feature (e.g. Search -> Result -> Cart). NO edge cases.
+4. **Basic Data Flow**: Verify results appear (e.g. Search "shoe" -> see shoes).
+5. **Authentication**: Login/Logout (Standard User only). NO invalid creds tests.
+6. **API Health**: Critical endpoints return 200 (Auth, Product, Cart).
+7. **Environment**: Version check, Feature flags.
+
 Input:
 1. Trace Data: A step-by-step log of actions taken (clicks, inputs, navigation).
 2. Domain: The business domain (e.g., Banking, E-commerce).
@@ -22,23 +32,17 @@ Input:
 Output Requirements:
 You must generate a structured JSON object containing:
 1. "test_plan_content": A professional Markdown Test Plan.
-   - Introduction & Scope
-   - Test Strategy
-   - Risk Analysis
-   - Coverage metrics
+   - Include a specific **"Smoke Suite Strategy"** section listing the 8-point checklist applied to this project.
 2. "features": A list of Gherkin feature objects.
-   - "filename": "registration.feature"
-   - "content": Full Gherkin syntax content.
+   - **MANDATORY**: One file named `smoke.feature` containing the high-level smoke scenarios derived from the trace & domain.
+   - "filename": "smoke.feature"
+   - "content": Standard Gherkin syntax. Tag scenarios with `@smoke`.
 
 Rules for Gherkin:
 - Use standard Gherkin syntax (Feature, Scenario, Given, When, Then).
 - Use specific data from the trace (e.g., "When I enter 'john' into Username").
 - Abstract locators into readable steps.
 - Group related actions into scenarios.
-
-Rules for Test Plan:
-- Be professional and detailed.
-- Infer the 'Success Criteria' based on the achieved goal in the trace.
 """
 
 class SpecSynthesizer:
