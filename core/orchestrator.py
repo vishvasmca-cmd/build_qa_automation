@@ -15,8 +15,26 @@ def run_pipeline(config_path):
     trace_path = config.get("paths", {}).get("trace", os.path.join(project_root, "outputs/trace.json"))
     test_path = config.get("paths", {}).get("test", os.path.join(project_root, "tests/test_main.py"))
 
-    # Step 1: Explorer
-    print(colored("\n[Step 1/6] 🗺️  Exploring & Mining...", "cyan"))
+    # Phase 0: Pre-Run Test Planning (REAL WORLD FIRST)
+    print(colored("\n[Step 0/6] 📋 Strategic Test Planning...", "cyan"))
+    try:
+        from spec_synthesizer import SpecSynthesizer
+        domain = config.get("domain", "generic")
+        syn = SpecSynthesizer(project_root, domain)
+        plan = syn.generate_master_plan(
+            url=config.get("target_url"),
+            testing_type=config.get("testing_type", "regression"),
+            goal=config.get("workflow_description")
+        )
+        if plan:
+            config["master_plan"] = plan
+            with open(config_path, "w") as f:
+                json.dump(config, f, indent=2)
+    except Exception as e:
+        print(colored(f"⚠️ Pre-Planning Failed: {e}", "yellow"))
+
+    # Step 1: Explorer (Guided by the Plan)
+    print(colored("\n[Step 1/6] 🗺️  Exploring & Mining (Plan-Guided)...", "cyan"))
     # We pass the config path to explorer
     explorer_script = os.path.join(os.path.dirname(__file__), "explorer.py")
     ret = subprocess.run(["python", explorer_script, config_path], capture_output=False)

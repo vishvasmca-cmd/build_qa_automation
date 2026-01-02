@@ -96,6 +96,7 @@ class ExplorerAgent:
         self.domain_knowledge = {}
         self.kb = KnowledgeBank()
         self.knowledge_context = self.kb.get_rag_context(self.config["target_url"], self.workflow)
+        self.master_plan = self.config.get("master_plan", "")
         self.total_cost = {"input": 0, "output": 0}
 
     async def explore(self):
@@ -307,7 +308,10 @@ class ExplorerAgent:
             smoke_instruction = "\n**SMOKE MODE**: PRIORITIZE basic verification (Menu, Home, 1 Happy Path) over deep exploration. Do NOT test edge cases. Stop once core availability is confirmed."
 
         user_msg = f"""
-        Workflow: {self.workflow}
+        **MASTER TEST PLAN (Strategic Guide)**:
+        {self.master_plan}
+
+        Workflow Goal: {self.workflow}
         {smoke_instruction}
         
         Current Page: {page_data['summary']}

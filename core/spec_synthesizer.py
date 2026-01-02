@@ -38,11 +38,22 @@ You must generate a structured JSON object containing:
    - "filename": "smoke.feature"
    - "content": Standard Gherkin syntax. Tag scenarios with `@smoke`.
 
-Rules for Gherkin:
-- Use standard Gherkin syntax (Feature, Scenario, Given, When, Then).
-- Use specific data from the trace (e.g., "When I enter 'john' into Username").
-- Abstract locators into readable steps.
-- Group related actions into scenarios.
+# ... (Gherkin rules continue)
+"""
+
+SYSTEM_PROMPT_PRE_PLANNER = """You are a Senior QA Strategist.
+Your goal is to create a "Master Test Plan" for a website BEFORE any automation starts.
+This plan will guide the autonomous agents on what to mine, what to verify, and how to structure the suite.
+
+**Requirement Checklist**:
+1. **Domain Information**: Detailed analysis of the site domain based on URL and goal.
+2. **Smoke Suite Definition**: 
+   - Basic check that the Website is UP and RUNNING.
+   - Core Navigation: Ensure Menu links work.
+   - Core Flow: One end-to-end "Happy Path".
+3. **Strategic Mining Instructions**: Tell the agent exactly which elements or pages to prioritize.
+
+Output a professional Markdown report.
 """
 
 class SpecSynthesizer:
@@ -53,6 +64,37 @@ class SpecSynthesizer:
         self.specs_dir = os.path.join(project_dir, "specs")
         self.features_dir = os.path.join(self.specs_dir, "features")
         self.plans_dir = os.path.join(self.specs_dir, "test-plans")
+
+    def generate_master_plan(self, url, testing_type, goal):
+        """Phase 1: Generate Plan BEFORE mining starts."""
+        print(f"📋 Creating Strategic Test Plan for {url}...")
+        
+        user_msg = f"""
+        Target URL: {url}
+        Business Domain: {self.domain}
+        Testing Type: {testing_type}
+        User Goal: {goal}
+        """
+
+        try:
+            resp = llm.invoke([
+                ("system", SYSTEM_PROMPT_PRE_PLANNER),
+                ("human", user_msg)
+            ])
+            
+            plan_content = resp.content
+            
+            # Save to folder
+            os.makedirs(self.plans_dir, exist_ok=True)
+            plan_path = os.path.join(self.plans_dir, "master_test_plan.md")
+            with open(plan_path, "w", encoding="utf-8") as f:
+                f.write(plan_content)
+                
+            print(f"✅ Master Test Plan created: {plan_path}")
+            return plan_content
+        except Exception as e:
+            print(f"❌ Error during Pre-Planning: {e}")
+            return None
 
     def generate_specs(self):
         """Main entry point to generate all specs."""
