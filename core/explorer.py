@@ -311,12 +311,13 @@ class ExplorerAgent:
         
         resp = llm.invoke([("system", SYSTEM_PROMPT_DECIDER), ("human", user_msg)])
     
-    # Capture AI Cost
-    if hasattr(resp, 'response_metadata'):
-        usage = resp.response_metadata.get('token_usage', {}) or resp.response_metadata.get('usage_metadata', {})
-        self.total_cost["input"] += usage.get('prompt_tokens', 0)
-        self.total_cost["output"] += usage.get('completion_tokens', 0)
-        # print(f"💰 Decision Cost: {usage.get('prompt_tokens', 0)} in, {usage.get('completion_tokens', 0)} out")
+        # Capture AI Cost
+        if hasattr(resp, 'response_metadata'):
+            usage = resp.response_metadata.get('token_usage', {}) or resp.response_metadata.get('usage_metadata', {})
+            self.total_cost["input"] += usage.get('prompt_tokens', 0)
+            self.total_cost["output"] += usage.get('completion_tokens', 0)
+            # print(f"💰 Decision Cost: {usage.get('prompt_tokens', 0)} in, {usage.get('completion_tokens', 0)} out")
+        
         try:
             decision = json.loads(resp.content.replace("```json", "").replace("```", "").strip())
         except:
