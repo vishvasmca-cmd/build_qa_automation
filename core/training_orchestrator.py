@@ -1,6 +1,7 @@
 import os
 import subprocess
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 # Comprehensive Training Sites - From Basic to Advanced
 TRAINING_SITES = [
@@ -10,7 +11,7 @@ TRAINING_SITES = [
         "url": "https://ultimateqa.com/automation",
         "goal": "Navigate to Big Page and interact with elements",
         "domain": "tutorial",
-        "docs": "Click 'Big page with many elements'. Scroll to discover buttons. Click a few."
+        "docs": "Click 'Big page with many elements'. (Hint: It might be a Section Link). If that fails, scroll down and look for 'Complicated Page'."
     },
     {
         "project": "train_webdriveruniv",
@@ -60,35 +61,66 @@ TRAINING_SITES = [
     }
 ]
 
-def run_training_loop():
-    print("🧠 Starting Advanced Training Loop with Enhanced Reasoning...")
-    print("   → Scenarios: Basic Navigation → CRUD → Complex Forms")
+def process_site(site):
+    print(f"🚀 [Started] Training on: {site['project']}")
     
-    for site in TRAINING_SITES:
-        print(f"\n--- 🏫 Training on: {site['project']} ({site['url']}) ---")
+    # Ensure logs dir exists
+    log_dir = os.path.join("projects", site["project"])
+    os.makedirs(log_dir, exist_ok=True)
+    log_file = os.path.join(log_dir, "training.log")
+    
+    cmd = [
+        "python", "-u", "continuous_learning.py",
+        "--project", site["project"],
+        "--url", site["url"],
+        "--goal", site["goal"],
+        "--domain", site["domain"],
+        "--docs", site["docs"],
+        "--iterations", "10" # Run 10 iterations per site for deep learning
+    ]
+    
+    try:
+        start_time = time.time()
+        # Redirect output to log file to avoid console chaos in parallel mode
+        # Enable UTF-8 for emojis
+        env = os.environ.copy()
+        env["PYTHONIOENCODING"] = "utf-8"
         
-        cmd = [
-            "python", "run.py",
-            "--project", site["project"],
-            "--url", site["url"],
-            "--goal", site["goal"],
-            "--domain", site["domain"],
-            "--docs", site["docs"]
-        ]
-        
-        try:
-            start_time = time.time()
-            subprocess.run(cmd, check=True)
-            duration = time.time() - start_time
-            print(f"✅ Training on {site['project']} completed in {duration:.2f}s")
-        except subprocess.CalledProcessError as e:
-            print(f"❌ Training on {site['project']} failed: {e}")
+        with open(log_file, "w", encoding="utf-8") as f:
+            subprocess.run(cmd, check=True, stdout=f, stderr=subprocess.STDOUT, env=env)
             
+        duration = time.time() - start_time
+        print(f"✅ [Finished] Training on {site['project']} in {duration:.2f}s")
+    except subprocess.CalledProcessError as e:
+        print(f"❌ [Failed] Training on {site['project']}. See logs in {log_file}")
+    except Exception as e:
+        print(f"❌ [Error] {site['project']}: {e}")
+
+def run_training_loop():
+    print("🧠 Starting Advanced Training Loop (Headless & Parallel)")
+    print("   → Max Workers: 3")
+    print("   → Logging to: projects/{name}/training.log")
+    
+    # Use ThreadPoolExecutor to run 3 sites in parallel
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        futures = [executor.submit(process_site, site) for site in TRAINING_SITES]
+        
+        # Wait for all futures to complete
+        for future in futures:
+            try:
+                future.result()
+            except Exception as e:
+                print(f"Worker exception: {e}")
+
     print("\n📦 Finalizing Advanced Knowledge Bank...")
-    from core.knowledge_bank import KnowledgeBank
-    kb = KnowledgeBank()
-    kb.export_knowledge("trained_kb_advanced_v1.json")
-    print("🚀 Advanced training complete! Enhanced KB with multi-site patterns saved.")
+    # Import locally to avoid startup overhead/conflicts
+    try:
+        from core.knowledge_bank import KnowledgeBank
+        kb = KnowledgeBank()
+        kb.export_knowledge("trained_kb_advanced_v1.json")
+        print("🚀 Advanced training complete! Enhanced KB with multi-site patterns saved.")
+    except Exception as e:
+        print(f"⚠️ Could not export KB: {e}")
 
 if __name__ == "__main__":
     run_training_loop()

@@ -35,6 +35,7 @@ A JSON object deciding the NEXT action:
   "thought": "No login credentials found. I will look for a Register or Sign Up link to create a new user account.",
   "action": "fill" | "click" | "navigate" | "scroll" | "done",
   "target_element_id": "el_0" (from available_elements) OR null,
+  "expected_outcome": "Description of what should happen (e.g., 'Page redirects to /dashboard')",
   "value_to_fill": "standard_user" (if fill),
   "scroll_direction": "down" | "up" | "to_element",
   "is_goal_achieved": false
@@ -99,11 +100,18 @@ class ExplorerAgent:
     async def explore(self):
         print(f"🚀 Explorer Starting. Goal: {self.workflow}")
         
+        step_count = 0
+        consecutive_failures = 0
+        loop_blacklist = set()
+        repetition_count = 0
+        last_target = None
+        last_action = None
+        
         # Path for cache
         cache_path = self.config.get("paths", {}).get("cache", "locator_cache.json")
         
         async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=False)
+            browser = await p.chromium.launch(headless=True)
             context = await browser.new_context() 
             page = await context.new_page()
             
@@ -154,8 +162,43 @@ class ExplorerAgent:
                     self._save_test_data()
                 
                 # 2. Decide
-                decision = await self._make_decision(page_data)
+                # Loop Warning Logic
+                feedback_msg = None
+                if repetition_count == 1:
+                    feedback_msg = f"⚠️ SYSTEM ALERT: You performed '{last_action}' on '{last_target}' in the previous step. It seems you are stuck. Please try a DIFFERENT method or element."
+
+                # 2. Decide
+                decision = await self._make_decision(page_data, loop_blacklist, feedback_msg)
                 print(f"🤔 AI Thought: {decision['thought']}")
+                
+                # LOOP DETECTION
+                target_id = decision.get('target_element_id')
+                action = decision.get('action')
+                
+                if last_target and target_id == last_target and action == last_action:
+                    repetition_count += 1
+                else:
+                    repetition_count = 0
+                
+                last_target = target_id
+                last_action = action
+                
+                if repetition_count >= 2:
+                    print(f"🛑 Loop Detected on {target_id}. Blacklisting and skipping.")
+                    loop_blacklist.add(target_id)
+                    # Record failure to help training
+                    self.trace.append({
+                        "step": step_count,
+                        "url": active_page.url,
+                        "page_name": page_data['summary']['page_name'],
+                        "action": action,
+                        "target": target_id,
+                        "success": False,
+                        "decision_reason": "Loop Detected - Skipped",
+                        "expected_outcome": "Break Loop"
+                    })
+                    step_count += 1
+                    continue
                 
                 if decision['is_goal_achieved'] or decision['action'] == 'done':
                     print("🎉 Goal Achieved (according to AI)!")
@@ -216,7 +259,8 @@ class ExplorerAgent:
                     "locator_used": loc_str,
                     "success": result.get("success", False),
                     "value": decision.get('value_to_fill'),
-                    "decision_reason": decision['thought']
+                    "decision_reason": decision['thought'],
+                    "expected_outcome": decision.get('expected_outcome')
                 })
                 
                 step_count += 1
@@ -226,10 +270,16 @@ class ExplorerAgent:
             await self._save_trace()
             await browser.close()
             
-    async def _make_decision(self, page_data):
+    async def _make_decision(self, page_data, blacklist=None, feedback=None):
+        if blacklist is None: blacklist = set()
+        
         # Simplify elements for LLM context
         simple_elements = []
         for el in page_data['locators']:
+            # Skip blacklisted elements (Loop Breaking)
+            if el.get('elementId') in blacklist:
+                continue
+                
             # Find best locator string for context
             candidates = el.get("locatorCandidates", [])
             best_loc = candidates[0]['playwrightLocator'] if candidates else "unknown"
@@ -254,6 +304,9 @@ class ExplorerAgent:
         Available Elements:
         {json.dumps(simple_elements[:60])}
         """
+        
+        if feedback:
+            user_msg += f"\n\n{feedback}\n"
         
         resp = llm.invoke([("system", SYSTEM_PROMPT_DECIDER), ("human", user_msg)])
         try:
@@ -359,6 +412,34 @@ class ExplorerAgent:
                          pythonic_loc = pythonic_loc.replace(js, py)
                      
                      locator = eval(pythonic_loc, {"page": page, "re": re})
+
+                     # ---------------------------------------------------------
+                     # SELF-HEALING: Ambiguity Handler
+                     # If locator matches multiple elements, prioritize the VISIBLE one.
+                     # This solves "Strict Mode" errors and prevents interacting with hidden/overlay elements.
+                     # ---------------------------------------------------------
+                     try:
+                         count = await locator.count()
+                         if count > 1:
+                             print(f"   ⚠️ Ambiguous Locator: Found {count} matches for {loc_str}. Filtering for visibility...")
+                             found_visible = False
+                             for i in range(count):
+                                 try:
+                                     # Check visibility with short timeout
+                                     if await locator.nth(i).is_visible(timeout=500):
+                                         locator = locator.nth(i)
+                                         print(f"   ✅ Self-Healed: Selected match #{i+1} (Visible)")
+                                         found_visible = True
+                                         break
+                                 except: pass
+                             
+                             if not found_visible:
+                                 print("   ⚠️ No visible matches found. Defaulting to first match.")
+                                 locator = locator.first
+                     except Exception as e:
+                         # Some dynamic locators might fail count check, ignore
+                         pass
+                     # ---------------------------------------------------------
 
                 result = {"locator": loc_str, "new_page": None, "success": True}
 

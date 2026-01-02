@@ -10,6 +10,7 @@ def continuous_learning():
     parser.add_argument("--url", required=True, help="Target URL")
     parser.add_argument("--goal", required=True, help="Test goal")
     parser.add_argument("--domain", default="auto", help="Project domain")
+    parser.add_argument("--docs", default=None, help="Documentation/context for the agent")
     parser.add_argument("--iterations", type=int, default=5, help="Number of learning feedback loops to run")
     args = parser.parse_args()
 
@@ -48,6 +49,8 @@ def continuous_learning():
             "--goal", args.goal,
             "--domain", args.domain
         ]
+        if args.docs:
+            cmd.extend(["--docs", args.docs])
         
         try:
             # Run and stream output

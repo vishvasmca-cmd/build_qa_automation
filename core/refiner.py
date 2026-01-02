@@ -25,7 +25,8 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         "action": t['action'],
         "locator": t.get('locator_used'),
         "value": t.get('value'),
-        "reason": t.get('decision_reason')
+        "reason": t.get('decision_reason'),
+        "expectation": t.get('expected_outcome')
     } for t in trace], indent=2)
     
     prompt = f"""
@@ -36,7 +37,7 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     1. For interactive steps, use ONLY `smart_action(page, locator_string, "click"|"fill", value)`. 
        - locator_string MUST be the full `page.locator(...)` or `page.get_by_role(...)` string.
     2. After EVERY `smart_action`, call `take_screenshot(page, "step_N")` where N is the current step number.
-    3. Add assertions. NOTE: `expect(page).to_have_text` IS INVALID. Use `expect(page.locator("body")).to_contain_text(...)`.
+    3. Add assertions based on 'expectation' in step. Use `expect(page).to_have_url(...)` or `expect(page.locator("body")).to_contain_text(...)`.
     4. **RANDOMIZATION**: If trace fills a username/email, use the variable `username` or `email` instead of hardcoded value.
     5. **PYTHON RE-REQUIREMENT**: Use Python snake_case for methods (e.g., `get_by_role`, `get_by_text`).
     6. **NO JS OBJECTS**: For `get_by_role`, use: `page.get_by_role("button", name="Login")`. NEVER use JS-style `{{ name: 'Login' }}`.
