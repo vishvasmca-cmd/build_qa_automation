@@ -76,7 +76,7 @@ def process_site(site):
         "--goal", site["goal"],
         "--domain", site["domain"],
         "--docs", site["docs"],
-        "--iterations", "10" # Run 10 iterations per site for deep learning
+        "--iterations", os.environ.get("CI_ITERATIONS", "10") # Default 10, override in CI
     ]
     
     try:
