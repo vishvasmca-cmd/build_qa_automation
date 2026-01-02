@@ -52,6 +52,26 @@ jobs:
           echo "No knowledge updates to commit."
         else
           git commit -m "🧠 Knowledge Bank Update [Auto-Learned]"
-          git pull --rebase
-          git push
+          
+          # Retry loop for robust pushing
+          MAX_RETRIES=10
+          count=0
+          success=false
+          
+          while [ $count -lt $MAX_RETRIES ]; do
+            if git pull --rebase origin main && git push origin main; then
+              echo "✅ Successfully pushed knowledge updates."
+              success=true
+              break
+            else
+              echo "⚠️ Push failed (likely race condition). Retrying in 5-10s..."
+              sleep $((RANDOM % 6 + 5))
+              count=$((count + 1))
+            fi
+          done
+          
+          if [ "$success" = false ]; then
+            echo "❌ Failed to push after $MAX_RETRIES attempts."
+            exit 1
+          fi
         fi
