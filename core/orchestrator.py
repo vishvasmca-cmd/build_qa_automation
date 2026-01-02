@@ -33,6 +33,13 @@ def run_pipeline(config_path):
         if os.path.exists(trace_path):
             with open(trace_path, "r") as f:
                 trace_data = json.load(f)
+                
+                # Report Cost
+                cost = trace_data.get("metadata", {}).get("cost", {})
+                if cost:
+                    # Input/Output tokens
+                    print(colored(f"💰 AI Cost: {cost.get('input', 0)} In / {cost.get('output', 0)} Out Tokens", "yellow"))
+
                 kb.update_from_run(trace_data["trace"], config)
     except Exception as e:
         print(colored(f"⚠️ Knowledge Update Failed: {e}", "yellow"))

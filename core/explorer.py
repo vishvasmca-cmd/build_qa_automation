@@ -96,6 +96,7 @@ class ExplorerAgent:
         self.domain_knowledge = {}
         self.kb = KnowledgeBank()
         self.knowledge_context = self.kb.get_rag_context(self.config["target_url"], self.workflow)
+        self.total_cost = {"input": 0, "output": 0}
 
     async def explore(self):
         print(f"🚀 Explorer Starting. Goal: {self.workflow}")
@@ -309,6 +310,13 @@ class ExplorerAgent:
             user_msg += f"\n\n{feedback}\n"
         
         resp = llm.invoke([("system", SYSTEM_PROMPT_DECIDER), ("human", user_msg)])
+    
+    # Capture AI Cost
+    if hasattr(resp, 'response_metadata'):
+        usage = resp.response_metadata.get('token_usage', {}) or resp.response_metadata.get('usage_metadata', {})
+        self.total_cost["input"] += usage.get('prompt_tokens', 0)
+        self.total_cost["output"] += usage.get('completion_tokens', 0)
+        # print(f"💰 Decision Cost: {usage.get('prompt_tokens', 0)} in, {usage.get('completion_tokens', 0)} out")
         try:
             decision = json.loads(resp.content.replace("```json", "").replace("```", "").strip())
         except:
@@ -553,7 +561,10 @@ class ExplorerAgent:
         output = {
             "workflow": self.workflow,
             "domain_info": self.domain_knowledge,
-            "trace": self.trace
+            "trace": self.trace,
+            "metadata": {
+                "cost": self.total_cost
+            }
         }
         trace_path = self.config.get("paths", {}).get("trace", "explorer_trace.json")
         # Ensure dir exists
