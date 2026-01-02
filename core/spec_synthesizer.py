@@ -1,0 +1,117 @@
+
+import os
+import json
+import yaml
+from langchain_core.messages import SystemMessage, HumanMessage
+from langchain_google_genai import ChatGoogleGenerativeAI
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Initialize LLM
+llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2)
+
+SYSTEM_PROMPT_PLANNER = """You are a QA Architect Expert.
+Your goal is to analyze a recorded user journey (trace) and the detected domain, then generate a comprehensive Test Plan and BDD Feature Files.
+
+Input:
+1. Trace Data: A step-by-step log of actions taken (clicks, inputs, navigation).
+2. Domain: The business domain (e.g., Banking, E-commerce).
+3. Project Name: The name of the test project.
+
+Output Requirements:
+You must generate a structured JSON object containing:
+1. "test_plan_content": A professional Markdown Test Plan.
+   - Introduction & Scope
+   - Test Strategy
+   - Risk Analysis
+   - Coverage metrics
+2. "features": A list of Gherkin feature objects.
+   - "filename": "registration.feature"
+   - "content": Full Gherkin syntax content.
+
+Rules for Gherkin:
+- Use standard Gherkin syntax (Feature, Scenario, Given, When, Then).
+- Use specific data from the trace (e.g., "When I enter 'john' into Username").
+- Abstract locators into readable steps.
+- Group related actions into scenarios.
+
+Rules for Test Plan:
+- Be professional and detailed.
+- Infer the 'Success Criteria' based on the achieved goal in the trace.
+"""
+
+class SpecSynthesizer:
+    def __init__(self, project_dir, domain="generic"):
+        self.project_dir = project_dir
+        self.domain = domain
+        self.trace_path = os.path.join(project_dir, "outputs", "trace.json")
+        self.specs_dir = os.path.join(project_dir, "specs")
+        self.features_dir = os.path.join(self.specs_dir, "features")
+        self.plans_dir = os.path.join(self.specs_dir, "test-plans")
+
+    def generate_specs(self):
+        """Main entry point to generate all specs."""
+        if not os.path.exists(self.trace_path):
+            print(f"⚠️ Trace file not found at {self.trace_path}. Skipping spec generation.")
+            return
+
+        print(f"🧠 Synthesizing Specs & Test Plans based on exploration...")
+        
+        # Load Data
+        with open(self.trace_path, "r") as f:
+            trace_data = json.load(f)
+            
+        # Call LLM
+        response = self._synthesize_with_llm(trace_data)
+        
+        if not response:
+            print("❌ Failed to synthesize specs.")
+            return
+
+        # Write Output
+        self._write_files(response)
+        print("✅ Spec Generation Complete!")
+
+    def _synthesize_with_llm(self, trace_data):
+        user_msg = f"""
+        Project: {os.path.basename(self.project_dir)}
+        Domain: {self.domain}
+        
+        Trace Data:
+        {json.dumps(trace_data, indent=2)}
+        """
+        
+        try:
+            resp = llm.invoke([
+                ("system", SYSTEM_PROMPT_PLANNER),
+                ("human", user_msg)
+            ])
+            
+            # Clean and parse JSON
+            content = resp.content.replace("```json", "").replace("```", "").strip()
+            return json.loads(content)
+        except Exception as e:
+            print(f"❌ Error during LLM synthesis: {e}")
+            return None
+
+    def _write_files(self, data):
+        # 1. Create Directories
+        os.makedirs(self.features_dir, exist_ok=True)
+        os.makedirs(self.plans_dir, exist_ok=True)
+        
+        # 2. Write Test Plan
+        plan_path = os.path.join(self.plans_dir, "master_test_plan.md")
+        with open(plan_path, "w", encoding="utf-8") as f:
+            f.write(data.get("test_plan_content", "# Test Plan\nNo content generated."))
+        print(f"   📄 Test Plan: {plan_path}")
+        
+        # 3. Write Features
+        for feature in data.get("features", []):
+            filename = feature.get("filename", "unknown.feature")
+            content = feature.get("content", "")
+            
+            feat_path = os.path.join(self.features_dir, filename)
+            with open(feat_path, "w", encoding="utf-8") as f:
+                f.write(content)
+            print(f"   🥒 Feature: {feat_path}")
