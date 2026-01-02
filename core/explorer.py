@@ -120,7 +120,13 @@ class ExplorerAgent:
             await page.goto(self.config["target_url"], timeout=60000)  # 60 seconds
             active_page = page
             step_count = 0
-            max_steps = 60 # Safety limit increased for full flows
+            # Adjust depth based on Testing Type
+            if self.config.get("testing_type") == "smoke":
+                max_steps = 15
+                print(f"🔥 Smoke Mode: Limiting exploration to {max_steps} steps.")
+            else:
+                max_steps = 60 # Standard deep exploration
+            
             consecutive_failures = 0
             
             while step_count < max_steps:
@@ -295,8 +301,15 @@ class ExplorerAgent:
                 "locator_hint": best_loc
             })
             
+        # Smoke Mode Instruction
+        smoke_instruction = ""
+        if self.config.get("testing_type") == "smoke":
+            smoke_instruction = "\n**SMOKE MODE**: PRIORITIZE basic verification (Menu, Home, 1 Happy Path) over deep exploration. Do NOT test edge cases. Stop once core availability is confirmed."
+
         user_msg = f"""
         Workflow: {self.workflow}
+        {smoke_instruction}
+        
         Current Page: {page_data['summary']}
         RAG Knowledge Context: {self.knowledge_context}
         Test Data: {json.dumps(self.test_data)}

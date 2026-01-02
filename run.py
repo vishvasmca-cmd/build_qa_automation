@@ -147,6 +147,7 @@ def main():
     parser.add_argument("--docs", help="Documentation/Rules for this project")
     parser.add_argument("--goal", help="Specific Test Goal")
     parser.add_argument("--domain", default="auto", help="Domain type (auto/ecommerce/banking/saas)")
+    parser.add_argument("--type", default="regression", choices=["smoke", "regression"], help="Testing Type: smoke (fast, basic) or regression (deep, thorough)")
     parser.add_argument("--generate-spec", action="store_true", help="Generate comprehensive test spec before execution")
     parser.add_argument("--use-playwright-agents", action="store_true", help="🎭 Use Playwright native Codegen/Trace tools (recommended for production)")
     args = parser.parse_args()
@@ -526,6 +527,7 @@ config/test-data.json
             "workflow_description": args.goal or "Standard Exploration",
             "docs": args.docs or "",
             "domain": detected_domain,
+            "testing_type": args.type,
             "test_data": {
                 "username": "standard_user",
                 "password": "secret_sauce",
