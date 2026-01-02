@@ -36,13 +36,14 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     1. For interactive steps, use ONLY `smart_action(page, locator_string, "click"|"fill", value)`. 
        - locator_string MUST be the full `page.locator(...)` or `page.get_by_role(...)` string.
     2. After EVERY `smart_action`, call `take_screenshot(page, "step_N")` where N is the current step number.
-    3. Add standard Playwright `expect` assertions after key navigation/state changes.
-    4. **PYTHON RE-REQUIREMENT**: Use Python snake_case for methods (e.g., `get_by_role`, `get_by_text`).
-    5. **NO JS OBJECTS**: For `get_by_role`, use: `page.get_by_role("button", name="Login")`. NEVER use JS-style `{{ name: 'Login' }}`.
-    6. **PYTHON SYNTAX ONLY**: Do NOT use JavaScript syntax (e.g., NO `/regex/` literals). Use strings or `re.compile("...")`.
-    7. **DANGER**: Do NOT output any imports, function definitions, or your own helper logic. 
-    8. **DANGER**: Your output must consist ONLY of the code lines that go inside the `test_...` function.
-    9. Ensure perfect 4-space indentation for every line of code.
+    3. Add assertions. NOTE: `expect(page).to_have_text` IS INVALID. Use `expect(page.locator("body")).to_contain_text(...)`.
+    4. **RANDOMIZATION**: If trace fills a username/email, use the variable `username` or `email` instead of hardcoded value.
+    5. **PYTHON RE-REQUIREMENT**: Use Python snake_case for methods (e.g., `get_by_role`, `get_by_text`).
+    6. **NO JS OBJECTS**: For `get_by_role`, use: `page.get_by_role("button", name="Login")`. NEVER use JS-style `{{ name: 'Login' }}`.
+    7. **PYTHON SYNTAX ONLY**: Do NOT use JavaScript syntax (e.g., NO `/regex/` literals). Use strings or `re.compile("...")`.
+    8. **DANGER**: Do NOT output any imports, function definitions, or your own helper logic. 
+    9. **DANGER**: Your output must consist ONLY of the code lines that go inside the `test_...` function.
+    10. Ensure perfect 4-space indentation for every line of code.
     
     **TRACE TO REFINE**:
     {trace_summary}
@@ -83,6 +84,7 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         "import pytest",
         "import os",
         "import re",
+        "import random",
         "from playwright.sync_api import Page, expect",
         "",
         "def smart_action(page, primary_locator, action_type, value=None):",
@@ -161,6 +163,10 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         "    print(f'📸 Saved: {path}')",
         "",
         "def test_autonomous_flow(page: Page):",
+        "    timestamp = random.randint(1000, 9999)",
+        "    username = f'user_{timestamp}'",
+        "    email = f'test_{timestamp}@example.com'",
+        "    page.context.set_default_timeout(60000)",
         f"    # Generated for {project_name}",
         f'    page.goto("{trace[0]["url"]}")' if trace else ""
     ]
