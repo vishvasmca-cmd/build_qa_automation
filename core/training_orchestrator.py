@@ -1,65 +1,18 @@
 import os
 import subprocess
 import time
+import json
+import random
 from concurrent.futures import ThreadPoolExecutor
 
-# Comprehensive Training Sites - From Basic to Advanced
-TRAINING_SITES = [
-    # === BASIC: Simple Navigation & Forms ===
-    {
-        "project": "train_ultimateqa",
-        "url": "https://ultimateqa.com/automation",
-        "goal": "Navigate to Big Page and interact with elements",
-        "domain": "tutorial",
-        "docs": "Click 'Big page with many elements'. (Hint: It might be a Section Link). If that fails, scroll down and look for 'Complicated Page'."
-    },
-    {
-        "project": "train_webdriveruniv",
-        "url": "http://webdriveruniversity.com/index.html",
-        "goal": "Complete Contact Us form in new tab",
-        "domain": "tutorial",
-        "docs": "Click Contact Us. Fill form with dummy data. Submit."
-    },
-    
-    # === INTERMEDIATE: Login & CRUD ===
-    {
-        "project": "train_contact_list",
-        "url": "https://thinking-tester-contact-list.herokuapp.com/",
-        "goal": "Register, login, and manage contacts",
-        "domain": "saas",
-        "docs": "No credentials provided. Find Sign Up. Register realistic user. Login. Add 2 contacts."
-    },
-    {
-        "project": "train_github_search",
-        "url": "https://gh-users-search.netlify.app/",
-        "goal": "Search users and view profile",
-        "domain": "api_ui",
-        "docs": "Search 'torvalds'. Click first result. Scroll to see repositories."
-    },
-    
-    # === ADVANCED: Complex Forms & Components ===
-    {
-        "project": "train_demoqa_forms",
-        "url": "https://demoqa.com/automation-practice-form",
-        "goal": "Fill complete automation practice form",
-        "domain": "forms",
-        "docs": "Fill all fields: text, email, gender radio, date picker, subjects, hobbies checkboxes. Submit."
-    },
-    {
-        "project": "train_parabank_full",
-        "url": "https://parabank.parasoft.com/parabank/index.htm",
-        "goal": "Register new account and explore features",
-        "domain": "banking",
-        "docs": "Find Register. Fill form. Login with new credentials. Navigate to Account Overview."
-    },
-    {
-        "project": "train_acme_visual",
-        "url": "https://demo.applitools.com/",
-        "goal": "Login and verify dashboard",
-        "domain": "banking",
-        "docs": "Click Login (no credentials needed). Verify you see account balances."
-    }
-]
+def load_training_sites():
+    """Loads the list of training sites from the external JSON config."""
+    config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config", "training_targets.json")
+    if not os.path.exists(config_path):
+        print(f"⚠️ Config not found at {config_path}. Returning empty list.")
+        return []
+    with open(config_path, "r") as f:
+        return json.load(f)
 
 def process_site(site):
     print(f"🚀 [Started] Training on: {site['project']}")
@@ -74,8 +27,8 @@ def process_site(site):
         "--project", site["project"],
         "--url", site["url"],
         "--goal", site["goal"],
-        "--domain", site["domain"],
-        "--docs", site["docs"],
+        "--domain", site.get("domain", "auto"),
+        "--docs", site.get("docs", ""),
         "--iterations", os.environ.get("CI_ITERATIONS", "10") # Default 10, override in CI
     ]
     
@@ -103,13 +56,30 @@ def process_site(site):
         print(f"❌ [Error] {site['project']}: {e}")
 
 def run_training_loop():
-    print("🧠 Starting Advanced Training Loop (Headless & Parallel)")
-    print("   → Max Workers: 3")
-    print("   → Logging to: projects/{name}/training.log")
+    print("🧠 Starting Advanced Training Loop (Headless & Parallel & Dynamic)")
     
-    # Use ThreadPoolExecutor to run 3 sites in parallel
-    with ThreadPoolExecutor(max_workers=3) as executor:
-        futures = [executor.submit(process_site, site) for site in TRAINING_SITES]
+    try:
+        all_sites = load_training_sites()
+    except Exception as e:
+        print(f"❌ Failed to load sites: {e}")
+        return
+
+    if not all_sites:
+        print("❌ No sites found in config/training_targets.json")
+        return
+
+    # Dynamic Sampling for "New Sites Each Time"
+    # We prioritize exploring a random subset each run to ensure variety and coverage over time.
+    batch_size = int(os.environ.get("BATCH_SIZE", "3"))
+    sites_to_run = random.sample(all_sites, min(len(all_sites), batch_size))
+    
+    print(f"   → Mode: Random Sampling (Batch Size: {batch_size})")
+    print(f"   → Pool Size: {len(all_sites)} sites")
+    print(f"   → Selected for this run: {[s['project'] for s in sites_to_run]}")
+    
+    # Use ThreadPoolExecutor to run sites in parallel
+    with ThreadPoolExecutor(max_workers=batch_size) as executor:
+        futures = [executor.submit(process_site, site) for site in sites_to_run]
         
         # Wait for all futures to complete
         for future in futures:
