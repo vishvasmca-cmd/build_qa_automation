@@ -81,13 +81,19 @@ def process_site(site):
     
     try:
         start_time = time.time()
-        # Redirect output to log file to avoid console chaos in parallel mode
-        # Enable UTF-8 for emojis
-        env = os.environ.copy()
-        env["PYTHONIOENCODING"] = "utf-8"
+        # Redirect output to log file to avoid console chaos in parallel mode, UNLESS in CI
+        is_ci = os.environ.get("CI") == "true"
         
-        with open(log_file, "w", encoding="utf-8") as f:
-            subprocess.run(cmd, check=True, stdout=f, stderr=subprocess.STDOUT, env=env)
+        if is_ci:
+            # In CI, we WANT to see logs in the console
+            subprocess.run(cmd, check=True)
+        else:
+             # Enable UTF-8 for emojis in local file logs
+            env = os.environ.copy()
+            env["PYTHONIOENCODING"] = "utf-8"
+            
+            with open(log_file, "w", encoding="utf-8") as f:
+                subprocess.run(cmd, check=True, stdout=f, stderr=subprocess.STDOUT, env=env)
             
         duration = time.time() - start_time
         print(f"✅ [Finished] Training on {site['project']} in {duration:.2f}s")
