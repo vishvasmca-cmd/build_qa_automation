@@ -126,8 +126,17 @@ Generate a comprehensive test specification for this {domain} application.
   ],
   "test_suites": [
     {{
-      "suite_name": "Smoke Tests",
-      "features": ["List of critical features"],
+      "suite_name": "Smoke Suite",
+      "description": "Fast, high-confidence check of core stability (5-15% of tests).",
+      "checklist_coverage": {{
+        "availability": "Verify app loads, no 4xx/5xx",
+        "navigation": "Main menu, key pages reachable",
+        "happy_path": "One core flow (e.g. Search->Cart->Checkout)",
+        "auth": "Login/Logout (valid credentials only)",
+        "api_health": "Critical API 200 checks",
+        "env_config": "Feature flags, version check"
+      }},
+      "scenarios": ["List of @smoke tagged scenario names"],
       "execution_time_estimate": "5-10 minutes"
     }}
   ]
@@ -191,17 +200,27 @@ async def detect_domain(url):
     
     return domain_info
 
-def generate_universal_spec(url, domain_info):
+def generate_universal_spec(url, domain_info, testing_type="regression"):
     """Generate test spec based on detected domain"""
     print(f"\n📋 Generating {domain_info['primary_domain']} test specification...")
     
     llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2)
     
+    extra_instruction = ""
+    if testing_type == "smoke":
+        extra_instruction = """
+        **SMOKE TEST ONLY**:
+        - Generate ONLY "Critical / P0" scenarios.
+        - Scenarios must be verifiable in < 5 steps.
+        - NO Edge Cases. NO Negative Scenarios.
+        - Focus on: Availability, Login, Navigation, 1 Happy Path.
+        """
+    
     prompt = UNIVERSAL_SPEC_PROMPT.format(
         domain=domain_info['primary_domain'],
         sub_domain=domain_info['sub_domain'],
         features=", ".join(domain_info['key_features_detected'])
-    )
+    ) + extra_instruction
     
     resp = llm.invoke(prompt)
     spec_json = resp.content.replace("```json", "").replace("```", "").strip()
@@ -290,7 +309,7 @@ def create_domain_features(spec, output_dir="specs/features"):
         
         print(f"✅ Created: {feature_file}")
 
-async def main(url):
+async def main(url, testing_type="regression"):
     """Main orchestration"""
     print("=" * 70)
     print("🌐 Universal Test Specification Generator")
@@ -303,7 +322,7 @@ async def main(url):
         return
     
     # Step 2: Generate spec
-    spec = generate_universal_spec(url, domain_info)
+    spec = generate_universal_spec(url, domain_info, testing_type)
     if not spec:
         print("❌ Could not generate spec. Exiting.")
         return
@@ -335,13 +354,13 @@ if __name__ == "__main__":
     
     if len(sys.argv) > 1:
         target_url = sys.argv[1]
+        t_type = sys.argv[2] if len(sys.argv) > 2 else "regression"
     else:
         # Default test URLs
-        print("Usage: python universal_spec_generator.py <URL>")
+        print("Usage: python universal_spec_generator.py <URL> [type]")
         print("\nExample URLs to try:")
-        print("  python universal_spec_generator.py https://parabank.parasoft.com/parabank/")
+        print("  python universal_spec_generator.py https://parabank.parasoft.com/parabank/ smoke")
         print("  python universal_spec_generator.py https://www.saucedemo.com")
-        print("  python universal_spec_generator.py https://thinking-tester-contact-list.herokuapp.com/")
         sys.exit(1)
     
-    asyncio.run(main(target_url))
+    asyncio.run(main(target_url, t_type))

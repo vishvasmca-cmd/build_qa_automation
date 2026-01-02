@@ -92,7 +92,7 @@ Output JSON ONLY:
     
     return domain_info['domain']
 
-def generate_spec_files(url, project_name, domain):
+def generate_spec_files(url, project_name, domain, testing_type="regression"):
     """Generate comprehensive test specs based on domain"""
     from langchain_google_genai import ChatGoogleGenerativeAI
     from dotenv import load_dotenv
@@ -103,26 +103,37 @@ def generate_spec_files(url, project_name, domain):
     
     llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2)
     
+    smoke_instructions = ""
+    if testing_type == "smoke":
+        smoke_instructions = """
+        **SMOKE TEST ONLY MODE**:
+        - Generate ONLY "Critical" P0 workflows.
+        - MAX 1-2 scenarios per workflow.
+        - NO Edge Cases. NO Negative Scenarios.
+        - Focus strictly on Availability, Navigation, and Core Happy Path.
+        """
+
     spec_prompt = f"""
-Generate a comprehensive test specification for this {domain} application at {url}.
-
-Include critical workflows, edge cases, and domain-specific tests.
-
-Output JSON with structure:
-{{
-  "critical_workflows": ["workflow1", "workflow2"],
-  "test_scenarios": [
+    Generate a comprehensive test specification for this {domain} application at {url}.
+    {smoke_instructions}
+    
+    Include critical workflows, edge cases (unless smoke), and domain-specific tests.
+    
+    Output JSON with structure:
     {{
-      "name": "scenario",
-      "priority": "P0/P1/P2",
-      "steps": ["step1", "step2"],
-      "expected_result": "result"
+      "critical_workflows": ["workflow1", "workflow2"],
+      "test_scenarios": [
+        {{
+          "name": "scenario",
+          "priority": "P0/P1/P2",
+          "steps": ["step1", "step2"],
+          "expected_result": "result"
+        }}
+      ],
+      "edge_cases": ["case1", "case2"],
+      "security_checks": ["check1", "check2"]
     }}
-  ],
-  "edge_cases": ["case1", "case2"],
-  "security_checks": ["check1", "check2"]
-}}
-"""
+    """
     
     resp = llm.invoke(spec_prompt)
     spec = json.loads(resp.content.replace("```json", "").replace("```", "").strip())
@@ -516,7 +527,7 @@ config/test-data.json
         
         # Generate comprehensive spec
         if args.generate_spec:
-            generate_spec_files(args.url, args.project, detected_domain)
+            generate_spec_files(args.url, args.project, detected_domain, args.type)
     
     # 3. Manage Config
     if args.url:
