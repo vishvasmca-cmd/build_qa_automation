@@ -70,13 +70,14 @@ def run_training_loop():
 
     # Dynamic Sampling for "New Sites Each Time"
     # We prioritize exploring a random subset each run to ensure variety and coverage over time.
+    batch_size = int(os.environ.get("BATCH_SIZE", "3"))
+    
     # TEMP: Force specific sites for verification
     target_names = ["train_demoblaze", "train_realworld_conduit"]
     sites_to_run = [s for s in all_sites if s['project'] in target_names]
     
     if len(sites_to_run) < len(target_names):
          print(f"⚠️ warning: Could not find all targets in config. Falling back to random.")
-         batch_size = int(os.environ.get("BATCH_SIZE", "3"))
          sites_to_run = random.sample(all_sites, min(len(all_sites), batch_size))
 
     print(f"   → Mode: FORCED VERIFICATION")
