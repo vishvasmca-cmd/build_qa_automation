@@ -232,10 +232,24 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         # Fallback if trace is totally matching
          code.append(f"{INDENT}pass")
 
+    # Post-process the code steps to preserve structure but ensure indentation
+    
+    # 1. Remove ANY 'def' wrappers the LLM might have hallucinated
+    final_lines = []
     for line in clean_steps.split("\n"):
-        if line.strip():
-            # Force standard 1-level indent (4 spaces)
-            code.append(f"{INDENT}{line.lstrip().rstrip()}")
+        if line.strip().startswith("def ") or line.strip().startswith("@"):
+            continue
+        final_lines.append(line)
+        
+    cleaned_block = "\n".join(final_lines)
+    
+    # 2. Smart Dedent (handle if LLM indented everything by 4 spaces)
+    dedented_block = textwrap.dedent(cleaned_block)
+    
+    # 3. Indent everything by 4 spaces for our function body
+    indented_block = textwrap.indent(dedented_block, INDENT)
+    
+    code.append(indented_block)
             
     code.append(f'{INDENT}take_screenshot(page, "final_state")')
     
