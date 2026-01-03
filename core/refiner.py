@@ -60,27 +60,48 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     """
     print(f"TRACE SUMMARY:\n{trace_summary}")
     
-    resp = llm.invoke(prompt)
-    raw_steps = resp.content.replace("```python", "").replace("```", "").strip()
+    print(f"TRACE SUMMARY:\n{trace_summary}")
     
-    # Severe filtering of LLM garbage
+    resp = llm.invoke(prompt)
+    content = resp.content
+    
+    # 1. Strict Markdown Code Block Extraction
+    import re
+    code_match = re.search(r"```python(.*?)```", content, re.DOTALL)
+    if code_match:
+        raw_steps = code_match.group(1).strip()
+    else:
+        # Fallback: Just try to use the whole content if no blocks
+        raw_steps = content.strip()
+
+    # 2. Filter out conversational lines (starting with alphabetic sentence)
     lines = raw_steps.split("\n")
     clean_lines = []
-    forbidden = ("import ", "from ", "def ", "class ", "if action ", "if locator ")
+    
+    # helper to check if a line is likely code
+    def is_code(line):
+        line = line.strip()
+        if not line: return True
+        if line.startswith("#"): return True
+        # Logic words
+        if line.startswith(("if ", "elif ", "else:", "for ", "while ", "try:", "except ", "with ", "def ", "class ")): return True
+        # Action calls
+        if "smart_action" in line or "take_screenshot" in line or "expect(" in line or "page." in line: return True
+        # Variable assignment
+        if "=" in line: return True
+        return False
+
     for line in lines:
         stripped = line.strip()
         if not stripped:
             clean_lines.append("")
             continue
-        if stripped.startswith(forbidden):
-            continue
-        # If it looks like a function definition start, skip it
-        if stripped.endswith(":"):
-            # Check if it's a loop or valid control flow
-            if stripped.startswith(("for ", "while ", "if ", "elif ", "else ", "try ", "except ")):
-                pass
-            else:
-                continue
+            
+        # Eliminate chatty lines "Okay, I will..."
+        if not is_code(stripped) and len(stripped) > 0 and stripped[0].isalpha() and "=" not in stripped and "(" not in stripped:
+             print(f"   ✂️ Removing chatty line: {stripped}")
+             continue
+             
         clean_lines.append(line)
         
     clean_steps = textwrap.dedent("\n".join(clean_lines))
