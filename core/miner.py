@@ -4,6 +4,7 @@ import os
 from playwright.async_api import async_playwright, Page
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
+from termcolor import colored
 
 load_dotenv()
 
