@@ -38,8 +38,38 @@ def run_pipeline(config_path):
     # We pass the config path to explorer
     explorer_script = os.path.join(os.path.dirname(__file__), "explorer.py")
     ret = subprocess.run(["python", explorer_script, config_path], capture_output=False)
+    
     if ret.returncode != 0:
-        print(colored("❌ Exploration Failed!", "red"))
+        print(colored("❌ Explorer Agent Failed / Crashed!", "red"))
+        print(colored("⚠️ Triggering Fallback: Generating Basic Test from User Goal...", "yellow"))
+        
+        # FALLBACK: Create a dummy trace so Refiner can still generate valid code
+        fake_trace = {
+            "workflow": config.get("workflow_description"),
+            "trace": [
+                {
+                    "step": 1,
+                    "url": config.get("target_url"),
+                    "action": "navigate", 
+                    "decision_reason": "Fallback: Navigating to target.",
+                    "locator_used": None,
+                    "success": True
+                },
+                {
+                    "step": 2, 
+                    "url": config.get("target_url"),
+                    "action": "check",
+                    "decision_reason": "Fallback: Checking if page loaded and contains goal keywords.",
+                    "locator_used": "body",
+                    "success": True
+                }
+            ]
+        }
+        with open(trace_path, "w") as f:
+            json.dump(fake_trace, f, indent=2)
+            
+    if not os.path.exists(trace_path):
+        print(colored("❌ Critical: No trace available even after fallback. Aborting.", "red"))
         return
 
     # Step 2: Knowledge Update (RAG-Ready)
