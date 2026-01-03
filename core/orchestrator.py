@@ -95,7 +95,7 @@ def run_pipeline(config_path):
     # Step 3: Code Generation
     print(colored("\n[Step 3/7] 💻 Generating Robust Code...", "cyan"))
     refiner_script = os.path.join(os.path.dirname(__file__), "refiner.py")
-    ret = subprocess.run(["python", refiner_script, trace_path, test_path], capture_output=False)
+    ret = subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", "")], capture_output=False)
     if ret.returncode != 0:
         print(colored("❌ Code Generation Failed!", "red"))
         return
