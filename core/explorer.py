@@ -731,26 +731,47 @@ class ExplorerAgent:
                                 return # Only dismiss one per check to be safe
                         except: pass
             
-            # 2. NUCLEAR OPTION: Remove large obscuring elements and backdrops
+            # 2. Bootstrap/Generic Modal Handling (Aggressive)
+            # DemoBlaze uses 'modal fade show'
+            try:
+                # Find visible blocking modals
+                active_modals = await page.locator(".modal.show, .modal.open, [role='dialog']:visible").all()
+                for modal in active_modals:
+                    print(colored("   🛡️  Detected Active Modal. Attempting to close...", "yellow"))
+                    # Try clicking the 'x' or 'Close' specific to this modal
+                    for btn_selector in [".close", "[data-dismiss='modal']", "button:has-text('Close')"]:
+                        try:
+                            btn = modal.locator(btn_selector).first
+                            if await btn.is_visible():
+                                await btn.click(timeout=1000)
+                                await asyncio.sleep(0.5)
+                                break
+                        except: pass
+            except: pass
+
+            # 3. NUCLEAR OPTION: Remove large obscuring elements and backdrops
             await page.evaluate("""() => {
-                const overlays = Array.from(document.querySelectorAll('div, section, aside, [class*="z-"], [data-state="open"]'));
+                const overlays = Array.from(document.querySelectorAll('div, section, aside, [class*="z-"], [data-state="open"], .modal-backdrop'));
                 overlays.forEach(el => {
                     const style = window.getComputedStyle(el);
                     const rect = el.getBoundingClientRect();
                     const isFixed = style.position === 'fixed' || style.position === 'absolute';
-                    const isFullscreen = rect.width >= window.innerWidth * 0.95 && rect.height >= window.innerHeight * 0.95;
-                    const isBackdrop = style.backgroundColor.includes('rgba(0, 0, 0') || style.backgroundColor.includes('rgb(0, 0, 0') || el.classList.contains('bg-black/50');
-                    const hasHighZ = parseInt(style.zIndex) > 100 || el.className.includes('z-[999]') || el.className.includes('z-50');
+                    const isFullscreen = rect.width >= window.innerWidth * 0.9 && rect.height >= window.innerHeight * 0.9;
+                    const isBackdrop = style.backgroundColor.includes('rgba(0, 0, 0') || style.backgroundColor.includes('rgb(0, 0, 0') || el.classList.contains('modal-backdrop');
+                    const hasHighZ = parseInt(style.zIndex) > 100 || el.className.includes('z-[999]') || el.className.includes('z-50') || el.classList.contains('show');
                     
-                    if (isFixed && isFullscreen && (hasHighZ || isBackdrop)) {
+                    if ((isFixed && isFullscreen && (hasHighZ || isBackdrop)) || el.classList.contains('modal-backdrop')) {
+                        // Special check for DemoBlaze headers being mistaken
+                        if (el.id === 'navbar-example') return; 
+
                         // If it has no children or very few nodes, it's likely a backdrop
-                        if (el.innerText.length < 50 || el.querySelectorAll('*').length < 10) {
+                        if (el.innerText.length < 50 || el.querySelectorAll('*').length < 10 || el.classList.contains('modal-backdrop')) {
                            console.log('Removing suspected blocking backdrop:', el);
                            el.remove();
-                        } else if (hasHighZ && isFullscreen) {
-                           // Probably a modal container. If we can't find a close button, removing it is risky but 
-                           // often better than a terminal loop.
-                           console.log('Hiding suspected blocking modal:', el);
+                        } else if (hasHighZ && isFullscreen && el.classList.contains('modal') && el.classList.contains('show')) {
+                           // Hide stuck modals
+                           console.log('Hiding stuck modal:', el);
+                           el.classList.remove('show');
                            el.style.display = 'none';
                         }
                     }
