@@ -97,9 +97,15 @@ def run_pipeline(config_path):
     print(colored("\n[Step 6/7] 🧪 Executing Verified Test...", "cyan"))
     max_retries = 2
     success = False
+    execution_log = ""
+    
     for attempt in range(max_retries):
         print(f"Attempt {attempt + 1}/{max_retries}...")
-        ret = subprocess.run(["pytest", test_path, "-v"], capture_output=False)
+        # Capture output for the Feedback Agent
+        ret = subprocess.run(["pytest", test_path, "-v"], capture_output=True, text=True)
+        execution_log = ret.stdout + "\n" + ret.stderr
+        print(execution_log) # Show to user as well
+        
         if ret.returncode == 0:
             print(colored("\n✅ Test Execution SUCCESS!", "green", attrs=["bold"]))
             success = True
@@ -108,6 +114,15 @@ def run_pipeline(config_path):
 
     if not success:
         print(colored("\n❌ All test attempts failed!", "red", attrs=["bold"]))
+
+    # Step 6.5: Feedback & Self-Training
+    print(colored("\n[Step 6.5] 🧠 Feedback & Self-Training...", "cyan"))
+    try:
+        from feedback_agent import FeedbackAgent
+        feedback = FeedbackAgent()
+        feedback.analyze_run(config_path, execution_log, success)
+    except Exception as e:
+        print(colored(f"⚠️ Feedback Loop Failed: {e}", "yellow"))
 
     # Step 7: Security Audit (Conditional)
     if "security check" in config.get("workflow_description", "").lower():
