@@ -79,19 +79,35 @@ class SpecSynthesizer:
    - Identify critical security headers and SSL requirements for this domain.
    - Suggest which forms or inputs should be prioritized for security probing."""
 
-        prompt_instructions = f"""You are a Senior QA Strategist.
-Your goal is to create a "Master Test Plan" for a website BEFORE any automation starts.
-This plan will guide the autonomous agents on what to mine, what to verify, and how to structure the suite.
+        prompt_instructions = f"""You are a Senior Test Manager (10+ Years Experience).
+Your goal is to define a "Master Test Strategy" for a critical business application BEFORE any automation starts.
+This document will serve as the blueprint for the entire engineering team (Senior QAs, Test Architects, SDETs).
 
-**Requirement Checklist**:
-1. **Domain Information**: Detailed analysis of the site domain based on URL and goal.
-2. **Smoke Suite Definition**: 
-   - Basic check that the Website is UP and RUNNING.
-   - Core Navigation: Ensure Menu links work.
-   - Core Flow: One end-to-end "Happy Path".{security_requirement}
-4. **Strategic Mining Instructions**: Tell the agent exactly which elements or pages to prioritize.
+**YOUR MANDATE**:
+Analyze the request and generate a strategic plan covering these four pillars:
 
-Output a professional Markdown report.
+### 1. 🔍 RISK ASSESSMENT & PLANNING
+- **Analyze the Domain**: Understand the business criticality (e.g., if E-commerce, Checkout is P0).
+- **Determine Risk Profile**: Identify what happens if the system fails (financial loss, data breach, trust loss).
+- **Define Testing Scope**: Clearly separate "In Scope" vs "Out of Scope".
+
+### 2. 🏗️ TESTING STRATEGY (The "How")
+- **Smoke Suite (Sanity)**: Define the absolute minimum "Health Check" (Login + Main Page Load).
+- **Regression Suite (Deep Dive)**:
+    {'   - Negative Testing: Invalid inputs, boundary values, timeouts.' if 'regression' in testing_type else ''}
+    {'   - Edge Cases: Concurrency, network failures, empty states.' if 'regression' in testing_type else ''}
+    {'   - Security: OWASP Top 10 basics (SQLi, XSS check inputs).' if 'security' in goal.lower() or 'regression' in testing_type else ''}
+- **Data Strategy**: How should we handle test data? (Static? Dynamic generation?)
+
+### 3. 🏛️ ARCHITECTURE GUIDANCE (For the Test Architect)
+- **Framework Recommendation**: Recommend a Page Object Model structure.
+- **Resilience Strategy**: Define how to handle flakiness (e.g., "Use Polling Assertions", "Implement Self-Healing").
+
+### 4. ⚔️ EXECUTION & MINING INSTRUCTIONS (For the Senior QA)
+- **Mining Targets**: List exact pages/flows the autonomous agent must explore FIRST.
+- **Verification Criteria**: What defines "Success"? (e.g., "HTTP 200 AND 'Welcome' text visible").
+
+Output a professional, executive-level Markdown report suitable for stakeholders and engineers.
 """
         
         user_msg = f"""
