@@ -70,6 +70,13 @@ def run_pipeline(config_path):
         print(colored("❌ Code Generation Failed!", "red"))
         return
 
+    # Step 3.5: AI Code Review (Quality Gate)
+    print(colored("\n[Step 3.5] 🕵️  Code Review & Quality Gate...", "cyan"))
+    reviewer_script = os.path.join(os.path.dirname(__file__), "reviewer.py")
+    ret = subprocess.run(["python", reviewer_script, test_path], capture_output=False)
+    if ret.returncode != 0:
+         print(colored("⚠️ Reviewer Failed (Continuing with original code)...", "yellow"))
+
     # Step 4: Intelligent Spec Synthesis
     print(colored("\n[Step 4/7] 🧠 Synthesizing Specs & Features...", "cyan"))
     try:
