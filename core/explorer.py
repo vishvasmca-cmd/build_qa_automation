@@ -170,6 +170,16 @@ class ExplorerAgent:
                 self.domain_knowledge[active_page.url] = page_data["summary"]
                 print(f"📍 On Page: {page_data['summary']['page_name']}")
                 
+                # ZOMBIE LOOP PROTECTION: Rescue Mode
+                if page_data['summary']['page_name'] == 'Rescue Mode':
+                    if not hasattr(self, 'rescue_loop_count'): self.rescue_loop_count = 0
+                    self.rescue_loop_count += 1
+                    if self.rescue_loop_count > 3:
+                        print("❌ Stuck in Rescue Mode Loop. Aborting.")
+                        break
+                else:
+                    self.rescue_loop_count = 0
+
                 # Discovered Test Data
                 extracted = page_data["summary"].get("extracted_test_data", {})
                 if extracted:
@@ -192,10 +202,23 @@ class ExplorerAgent:
                     else:
                         feedback_msg = next_step_feedback
                     next_step_feedback = None # Reset after consuming
+                
+                # 3. Infinite Scroll Feedback
+                if getattr(self, 'consecutive_scrolls', 0) >= 3:
+                     msg = "⚠️ SYSTEM ALERT: You have scrolled 3 times in a row. STOP SCROLLING. Look at the available elements and CLICK something or Verify."
+                     if feedback_msg: feedback_msg += f"\n{msg}"
+                     else: feedback_msg = msg
 
                 # 2. Decide
                 decision = await self._make_decision(page_data, loop_blacklist, feedback_msg)
                 print(f"🤔 AI Thought: {decision['thought']}")
+                
+                # ZOMBIE LOOP PROTECTION: Scrolling
+                if decision['action'] == 'scroll_down':
+                    if not hasattr(self, 'consecutive_scrolls'): self.consecutive_scrolls = 0
+                    self.consecutive_scrolls += 1
+                else:
+                    self.consecutive_scrolls = 0
                 
                 # LOOP DETECTION
                 target_id = decision.get('target_element_id')
@@ -524,9 +547,12 @@ class ExplorerAgent:
                 for js, py in method_map:
                         if js in pythonic_loc and "page." in pythonic_loc:
                             pythonic_loc = pythonic_loc.replace(js, py)
-
-
-                # 3. Safe Eval
+                
+                # Fix common LLM hallucination: "main.locator(...)" or "body.locator(...)"
+                if pythonic_loc.startswith("main."):
+                    pythonic_loc = pythonic_loc.replace("main.", "page.")
+                if pythonic_loc.startswith("body."):
+                    pythonic_loc = pythonic_loc.replace("body.", "page.")
                 # We create a safe context with the page object
                 local_context = {"page": page, "re": re}
                 
