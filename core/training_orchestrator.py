@@ -69,23 +69,24 @@ def run_training_loop():
         return
 
     # Dynamic Sampling for "New Sites Each Time"
-    # We prioritize exploring a random subset each run to ensure variety and coverage over time.
-    batch_size = int(os.environ.get("BATCH_SIZE", "3"))
+    # Dynamic Sampling request
+    # Since the user specifically configured the target list for a batch run, we should run ALL of them.
+    sites_to_run = all_sites
     
-    # TEMP: Force specific sites for verification
-    target_names = ["train_demoblaze", "train_realworld_conduit"]
-    sites_to_run = [s for s in all_sites if s['project'] in target_names]
-    
-    if len(sites_to_run) < len(target_names):
-         print(f"⚠️ warning: Could not find all targets in config. Falling back to random.")
-         sites_to_run = random.sample(all_sites, min(len(all_sites), batch_size))
+    # Check for Limit Override
+    batch_limit = os.environ.get("BATCH_LIMIT")
+    if batch_limit:
+        sites_to_run = sites_to_run[:int(batch_limit)]
 
-    print(f"   → Mode: FORCED VERIFICATION")
-    print(f"   → Pool Size: {len(all_sites)} sites")
-    print(f"   → Selected for this run: {[s['project'] for s in sites_to_run]}")
+    print(f"   → Mode: BATCH RUN ({len(sites_to_run)} sites)")
+    print(f"   → Selected: {[s['project'] for s in sites_to_run]}")
+    
+    # Safe Concurrency Limit
+    max_workers = int(os.environ.get("MAX_WORKERS", "4"))
+    print(f"   → Parallel Workers: {max_workers}")
     
     # Use ThreadPoolExecutor to run sites in parallel
-    with ThreadPoolExecutor(max_workers=batch_size) as executor:
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = [executor.submit(process_site, site) for site in sites_to_run]
         
         # Wait for all futures to complete
