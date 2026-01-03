@@ -197,6 +197,11 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
             
     code.append(f'    take_screenshot(page, "final_state")')
     
+    # Ensure output directory exists
+    output_dir = os.path.dirname(output_path)
+    if output_dir and not os.path.exists(output_dir):
+        os.makedirs(output_dir, exist_ok=True)
+
     with open(output_path, "w", encoding='utf-8') as f:
         f.write("\n".join(code))
     print(f"✅ Self-Healing Code Generated: {output_path}")

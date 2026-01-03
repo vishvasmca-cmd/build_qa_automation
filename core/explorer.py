@@ -129,6 +129,7 @@ class ExplorerAgent:
                 max_steps = 60 # Standard deep exploration
             
             consecutive_failures = 0
+            next_step_feedback = None
             
             while step_count < max_steps:
                 print(f"\n--- Step {step_count + 1} ---")
@@ -174,8 +175,18 @@ class ExplorerAgent:
                 # 2. Decide
                 # Loop Warning Logic
                 feedback_msg = None
+                
+                # 1. Loop Feedback
                 if repetition_count == 1:
                     feedback_msg = f"⚠️ SYSTEM ALERT: You performed '{last_action}' on '{last_target}' in the previous step. It seems you are stuck. Please try a DIFFERENT method or element."
+
+                # 2. Execution Error Feedback (from previous step)
+                if next_step_feedback:
+                    if feedback_msg:
+                        feedback_msg += f"\n{next_step_feedback}"
+                    else:
+                        feedback_msg = next_step_feedback
+                    next_step_feedback = None # Reset after consuming
 
                 # 2. Decide
                 decision = await self._make_decision(page_data, loop_blacklist, feedback_msg)
@@ -220,6 +231,10 @@ class ExplorerAgent:
                 
                 if not loc_str:
                     print("⚠️ Action failed or target not found.")
+                    
+                    if result.get('error'):
+                         next_step_feedback = f"⚠️ PREVIOUS ACTION FAILED: {result.get('error')}"
+                    
                     consecutive_failures += 1
                     await asyncio.sleep(2)
                     continue
@@ -626,8 +641,9 @@ class ExplorerAgent:
                 elif decision['action'] == 'fill':
                     # Prevent filling non-inputs
                     if target_el and target_el.get('role') in ['link', 'button', 'img']:
-                         print(f"⚠️ Skipping fill on non-input role: {target_el.get('role')}")
-                         return {"locator": None, "new_page": None}
+                         msg = f"Skipping fill on non-input role: {target_el.get('role')}. You should CLICK this element instead."
+                         print(f"⚠️ {msg}")
+                         return {"locator": None, "new_page": None, "error": msg}
 
                     val = str(decision.get('value_to_fill', ''))
                     # Smart interaction for fields

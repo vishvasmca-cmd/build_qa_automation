@@ -59,15 +59,22 @@ jobs:
           success=false
           
           while [ $count -lt $MAX_RETRIES ]; do
-            if git pull --rebase origin main && git push origin main; then
-              echo "✅ Successfully pushed knowledge updates."
-              success=true
-              break
+            # Try to pull with rebase, favoring "theirs" (current runner's changes) to resolve conflicts
+            if git pull --rebase -Xtheirs origin main; then
+              if git push origin main; then
+                echo "✅ Successfully pushed knowledge updates."
+                success=true
+                break
+              else
+                echo "⚠️ Push failed. Retrying..."
+              fi
             else
-              echo "⚠️ Push failed (likely race condition). Retrying in 5-10s..."
-              sleep $((RANDOM % 6 + 5))
-              count=$((count + 1))
+              echo "⚠️ Pull/Rebase failed (conflict?). Aborting rebase to clean up..."
+              git rebase --abort
             fi
+            
+            sleep $((RANDOM % 6 + 5))
+            count=$((count + 1))
           done
           
           if [ "$success" = false ]; then

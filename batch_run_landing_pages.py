@@ -10,6 +10,7 @@ def clean_project_name(brand):
     clean = re.sub(r'[^a-zA-Z0-9]', '_', brand).lower()
     return f"train_{clean}"
 
+def run_batch():
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=0, help="Max number of sites to run (0 for all)")
     parser.add_argument("--offset", type=int, default=0, help="Start index")
