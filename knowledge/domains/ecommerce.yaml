@@ -3,14 +3,13 @@ common_elements:
   checkout: '[data-test=''checkout''], button:contains(''Checkout'')'
   login_button: input[type='submit'], button:contains('Login')
 learned_rules:
-- Ensure Playwright is correctly configured as a pytest plugin to provide the `page`
-  fixture.
-- Ensure pytest is configured to recognize Playwright fixtures (e.g., 'page'). Verify
-  pytest-playwright is installed and configured correctly in pytest.ini or conftest.py.
-- Ensure the Playwright 'page' fixture is correctly configured and available in the
-  Pytest environment. Verify that Playwright is installed, configured, and the fixture
-  is properly imported or defined in the conftest.py file or within the test file
-  itself.
+- Ensure pytest-playwright is installed and configured correctly in the test environment.
+  Verify the 'page' fixture is available and correctly scoped for the tests.
+- Ensure Playwright's `page` fixture is correctly configured and accessible in Pytest
+  environments before running tests. Verify installation, configuration files (e.g.,
+  pytest.ini or conftest.py), and fixture definitions.
+- Ensure Playwright is correctly configured as a pytest plugin and that the 'page'
+  fixture is properly injected into tests. Verify playwright.ini or pytest.ini configuration.
 workflow_rules:
 - Always search for a cart icon after adding an item.
 - If login fails, check for error-message-container.
