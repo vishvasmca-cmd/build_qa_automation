@@ -1,0 +1,46 @@
+{
+  "critical_workflows": [
+    "Login",
+    "Send Payment",
+    "Receive Payment"
+  ],
+  "test_scenarios": [
+    {
+      "name": "Login - Successful Login",
+      "priority": "P0",
+      "steps": [
+        "Navigate to paypal.com",
+        "Enter valid email address in the email field",
+        "Enter valid password in the password field",
+        "Click 'Log In'"
+      ],
+      "expected_result": "User is successfully logged in and redirected to the account summary page."
+    },
+    {
+      "name": "Send Payment - Successful Payment",
+      "priority": "P0",
+      "steps": [
+        "Login to PayPal account",
+        "Click on 'Send & Request'",
+        "Enter a valid recipient email address or phone number",
+        "Enter a valid amount to send",
+        "Select a payment method (e.g., PayPal Balance, linked bank account)",
+        "Click 'Continue'",
+        "Review the payment details and click 'Send Payment Now'"
+      ],
+      "expected_result": "Payment is successfully sent, and confirmation message is displayed.  Transaction appears in account history."
+    },
+    {
+      "name": "Receive Payment - Check Payment Received",
+      "priority": "P0",
+      "steps": [
+        "Login to PayPal account",
+        "Check account activity for recent incoming payments.",
+        "Verify the received payment details (sender, amount, date, and description if any)."
+      ],
+      "expected_result": "The received payment is displayed in the account activity with correct details."
+    }
+  ],
+  "edge_cases": [],
+  "security_checks": []
+}

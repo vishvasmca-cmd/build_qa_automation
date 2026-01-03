@@ -1,0 +1,45 @@
+{
+  "critical_workflows": [
+    "Login",
+    "View Account Balance",
+    "Initiate Funds Transfer (Internal)"
+  ],
+  "test_scenarios": [
+    {
+      "name": "Successful Login",
+      "priority": "P0",
+      "steps": [
+        "Navigate to https://www.joinroot.com",
+        "Enter valid username",
+        "Enter valid password",
+        "Click 'Login'"
+      ],
+      "expected_result": "User is successfully logged in and redirected to the account dashboard."
+    },
+    {
+      "name": "View Account Balance",
+      "priority": "P0",
+      "steps": [
+        "Login successfully (precondition)",
+        "Navigate to the 'Accounts' section.",
+        "Select a specific account."
+      ],
+      "expected_result": "Account details, including the current balance, are displayed correctly."
+    },
+    {
+      "name": "Successful Internal Funds Transfer",
+      "priority": "P0",
+      "steps": [
+        "Login successfully (precondition)",
+        "Navigate to the 'Transfer Funds' section.",
+        "Select a 'From' account.",
+        "Select a 'To' account (must be an account within the same banking system/user).",
+        "Enter a valid transfer amount.",
+        "Click 'Submit' or 'Transfer'."
+      ],
+      "expected_result": "Funds are transferred successfully between the selected accounts, and a confirmation message is displayed. Account balances are updated to reflect the transfer."
+    }
+  ],
+  "edge_cases": [],
+  "security_checks": []
+}

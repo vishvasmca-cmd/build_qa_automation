@@ -1,0 +1,37 @@
+{
+  "critical_workflows": [
+    "Flight Search and Booking",
+    "Hotel Search and Booking"
+  ],
+  "test_scenarios": [
+    {
+      "name": "P0: Flight Search - One Way - Successful Result",
+      "priority": "P0",
+      "steps": [
+        "Navigate to expedia.com",
+        "Click on 'Flights' tab",
+        "Select 'One-way' trip type",
+        "Enter a valid origin city",
+        "Enter a valid destination city",
+        "Select a valid departure date in the future",
+        "Click 'Search'"
+      ],
+      "expected_result": "A list of available flights for the selected route and date are displayed with details such as price, airline, and flight duration."
+    },
+    {
+      "name": "P0: Hotel Search - Valid City - Successful Result",
+      "priority": "P0",
+      "steps": [
+        "Navigate to expedia.com",
+        "Click on 'Hotels' tab",
+        "Enter a valid city in the destination field",
+        "Select a check-in date in the future",
+        "Select a check-out date after the check-in date",
+        "Click 'Search'"
+      ],
+      "expected_result": "A list of available hotels in the specified city for the given dates are displayed with details such as price, hotel name, and rating."
+    }
+  ],
+  "edge_cases": [],
+  "security_checks": []
+}

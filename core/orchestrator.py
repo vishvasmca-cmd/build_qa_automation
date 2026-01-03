@@ -16,7 +16,7 @@ def run_pipeline(config_path):
     test_path = config.get("paths", {}).get("test", os.path.join(project_root, "tests/test_main.py"))
 
     # Phase 0: Pre-Run Test Planning (REAL WORLD FIRST)
-    print(colored("\n[Step 0/6] 📋 Strategic Test Planning...", "cyan"))
+    print(colored("\n[Step 0/7] 📋 Strategic Test Planning...", "cyan"))
     try:
         from spec_synthesizer import SpecSynthesizer
         domain = config.get("domain", "generic")
@@ -34,7 +34,7 @@ def run_pipeline(config_path):
         print(colored(f"⚠️ Pre-Planning Failed: {e}", "yellow"))
 
     # Step 1: Explorer (Guided by the Plan)
-    print(colored("\n[Step 1/6] 🗺️  Exploring & Mining (Plan-Guided)...", "cyan"))
+    print(colored("\n[Step 1/7] 🗺️  Exploring & Mining (Plan-Guided)...", "cyan"))
     # We pass the config path to explorer
     explorer_script = os.path.join(os.path.dirname(__file__), "explorer.py")
     ret = subprocess.run(["python", explorer_script, config_path], capture_output=False)
@@ -43,7 +43,7 @@ def run_pipeline(config_path):
         return
 
     # Step 2: Knowledge Update (RAG-Ready)
-    print(colored("\n[Step 2/6] 📖 Updating Knowledge Bank...", "cyan"))
+    print(colored("\n[Step 2/7] 📖 Updating Knowledge Bank...", "cyan"))
     try:
         sys.path.append(os.path.dirname(__file__))
         from knowledge_bank import KnowledgeBank
@@ -63,7 +63,7 @@ def run_pipeline(config_path):
         print(colored(f"⚠️ Knowledge Update Failed: {e}", "yellow"))
 
     # Step 3: Code Generation
-    print(colored("\n[Step 3/6] 💻 Generating Robust Code...", "cyan"))
+    print(colored("\n[Step 3/7] 💻 Generating Robust Code...", "cyan"))
     refiner_script = os.path.join(os.path.dirname(__file__), "refiner.py")
     ret = subprocess.run(["python", refiner_script, trace_path, test_path], capture_output=False)
     if ret.returncode != 0:
@@ -71,7 +71,7 @@ def run_pipeline(config_path):
         return
 
     # Step 4: Intelligent Spec Synthesis
-    print(colored("\n[Step 4/6] 🧠 Synthesizing Specs & Features...", "cyan"))
+    print(colored("\n[Step 4/7] 🧠 Synthesizing Specs & Features...", "cyan"))
     try:
         from spec_synthesizer import SpecSynthesizer
         domain = config.get("domain", "generic")
@@ -81,20 +81,50 @@ def run_pipeline(config_path):
         print(colored(f"⚠️ Spec Synthesis Failed: {e}", "yellow"))
 
     # Step 5: Final Report
-    print(colored("\n[Step 5/6] 📝 Creating Exploration Report...", "cyan"))
+    print(colored("\n[Step 5/7] 📝 Creating Exploration Report...", "cyan"))
     report_path = config.get("paths", {}).get("report", os.path.join(project_root, "outputs/report.md"))
     reporter_script = os.path.join(os.path.dirname(__file__), "reporter.py")
     ret = subprocess.run(["python", reporter_script, trace_path, report_path], capture_output=False)
 
     # Step 6: Execution (With Retry)
-    print(colored("\n[Step 6/6] 🧪 Executing Verified Test...", "cyan"))
+    print(colored("\n[Step 6/7] 🧪 Executing Verified Test...", "cyan"))
     max_retries = 2
+    success = False
     for attempt in range(max_retries):
         print(f"Attempt {attempt + 1}/{max_retries}...")
         ret = subprocess.run(["pytest", test_path, "-v"], capture_output=False)
         if ret.returncode == 0:
-            print(colored("\n✅ Pipeline SUCCESS!", "green", attrs=["bold"]))
-            return
+            print(colored("\n✅ Test Execution SUCCESS!", "green", attrs=["bold"]))
+            success = True
+            break
         print(colored(f"⚠️ Attempt {attempt + 1} Failed. Retrying...", "yellow"))
 
-    print(colored("\n❌ All test attempts failed!", "red", attrs=["bold"]))
+    if not success:
+        print(colored("\n❌ All test attempts failed!", "red", attrs=["bold"]))
+
+    # Step 7: Security Audit (Conditional)
+    if "security check" in config.get("workflow_description", "").lower():
+        print(colored("\n[Step 7/7] 🛡️  Running Security Audit...", "cyan"))
+        try:
+            from security_auditor import SecurityAuditor
+            auditor = SecurityAuditor(config.get("target_url"), project_root)
+            auditor.run_all_checks()
+        except Exception as e:
+            print(colored(f"⚠️ Security Audit Failed: {e}", "yellow"))
+    else:
+        print(colored("\n[Step 7/7] 🛡️  Security Audit skipped (not requested).", "white"))
+
+    # Step 8: Premium Web Dashboard
+    print(colored("\n[Step 8] 🚀 Generating Premium Web Dashboard...", "cyan"))
+    try:
+        dashboard_script = os.path.join(os.path.dirname(__file__), "generator_dashboard.py")
+        ret = subprocess.run(["python", dashboard_script, project_root, str(success)], capture_output=False)
+        if ret.returncode == 0:
+            print(colored(f"✅ Web Dashboard ready: {os.path.join(project_root, 'outputs/dashboard.html')}", "green"))
+    except Exception as e:
+        print(colored(f"⚠️ Dashboard Generation Failed: {e}", "yellow"))
+
+    if success:
+        print(colored("\n✅ Pipeline COMPLETE!", "green", attrs=["bold"]))
+    else:
+        print(colored("\n⚠️ Pipeline ended with test failures.", "yellow"))

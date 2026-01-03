@@ -22,6 +22,7 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     
     trace_summary = json.dumps([{
         "step": t['step'],
+        "url": t.get('url'),
         "action": t['action'],
         "locator": t.get('locator_used'),
         "value": t.get('value'),
@@ -29,16 +30,24 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         "expectation": t.get('expected_outcome')
     } for t in trace], indent=2)
     
+    base_url = next(iter(data.get("domain_info", {}).keys()), "the target website")
+
     prompt = f"""
     You are a Test Automation Engineer.
-    Refine the trace into a linear Playwright script.
+    Refine the trace into a linear Playwright script for {base_url}.
     
-    **RULES**:
-    1. For interactive steps, use ONLY `smart_action(page, locator_string, "click"|"fill", value)`. 
+    **CRITICAL RULES**:
+    1. **NO EXTERNAL URLS**: Your assertions MUST ONLY use the URL provided in the trace step's 'url' field. 
+       - NEVER use 'academy.testifyltd.com' or any other URL not found in the trace.
+       - If the trace step url is 'https://www.careerraah.com/blog', use THAT exactly.
+    2. For interactive steps, use ONLY `smart_action(page, locator_string, "click"|"fill", value)`. 
        - locator_string MUST be the full `page.locator(...)` or `page.get_by_role(...)` string.
-    2. After EVERY `smart_action`, call `take_screenshot(page, "step_N")` where N is the current step number.
-    3. Add assertions based on 'expectation' in step. Use `expect(page).to_have_url(...)` or `expect(page.locator("body")).to_contain_text(...)`.
-    4. **RANDOMIZATION**: If trace fills a username/email, use the variable `username` or `email` instead of hardcoded value.
+       - **CRITICAL**: Use the `locator` field from the trace VERBATIM. Do not try to "simplify" it. If the trace says `page.locator('a[href="/foo"]')`, use exactly that.
+    3. After EVERY `smart_action`, call `take_screenshot(page, "step_N")` where N is the current step number.
+    4. AddAssertions based on 'expectation' in step. Use `expect(page).to_have_url(...)` or `expect(page.locator("...")).to_have_value(...)` or `expect(page.locator("body")).to_contain_text(...)`.
+       - **CRITICAL**: In assertions, the locator string MUST be clean. DO NOT add extra escaped quotes or brackets (e.g., NO `expect(page.locator("...\" )")`).
+       - **CRITICAL**: In `expect(page).to_have_url(URL)`, the URL MUST be exactly the `url` field from the trace step. NEVER hallucinate or use external URLs.
+    5. **RANDOMIZATION**: If trace fills a username/email, use the variable `username` or `email` instead of hardcoded value.
     5. **PYTHON RE-REQUIREMENT**: Use Python snake_case for methods (e.g., `get_by_role`, `get_by_text`).
     6. **NO JS OBJECTS**: For `get_by_role`, use: `page.get_by_role("button", name="Login")`. NEVER use JS-style `{{ name: 'Login' }}`.
     7. **PYTHON SYNTAX ONLY**: Do NOT use JavaScript syntax (e.g., NO `/regex/` literals). Use strings or `re.compile("...")`.
@@ -49,6 +58,7 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     **TRACE TO REFINE**:
     {trace_summary}
     """
+    print(f"TRACE SUMMARY:\n{trace_summary}")
     
     resp = llm.invoke(prompt)
     raw_steps = resp.content.replace("```python", "").replace("```", "").strip()
@@ -105,6 +115,12 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         "             loc = eval(loc_str, {'page': page, 're': re})",
         "        else:",
         "             loc = page.locator(loc_str)",
+        "        # DISMISS BACKDROPS",
+        "        page.evaluate(\"\"\"() => {",
+        "            const overlays = document.querySelectorAll('div[class*=\"z-\"], div[class*=\"fixed\"], [data-state=\"open\"]');",
+        "            overlays.forEach(el => { el.remove(); });",
+        "        }\"\"\")",
+        "",
         "        if action_type == 'click':",
         "            try:",
         "                loc.click(timeout=5000)",

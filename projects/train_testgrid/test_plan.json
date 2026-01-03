@@ -1,0 +1,91 @@
+{
+  "test_name": "Testgrid.io Smoke Test - Availability and Homepage Sanity (No Login)",
+  "steps": [
+    {
+      "step": 1,
+      "action": "navigate",
+      "target": "https://testgrid.io/",
+      "description": "Navigate to the Testgrid homepage and verify it loads successfully."
+    },
+    {
+      "step": 2,
+      "action": "assert",
+      "type": "status_code",
+      "expected": 200,
+      "description": "Verify that the HTTP status code is 200 (OK)."
+    },
+    {
+      "step": 3,
+      "action": "assert",
+      "type": "element_visible",
+      "target": "nav",
+      "description": "Verify that the main navigation bar is visible."
+    },
+    {
+      "step": 4,
+      "action": "assert",
+      "type": "element_visible",
+      "target": "body",
+      "description": "Verify that the page body is visible and loaded."
+    },
+    {
+      "step": 5,
+      "action": "assert",
+      "type": "element_visible",
+      "target": "img[alt='Testgrid Logo']",
+      "description": "Verify the Testgrid logo is visible."
+    },
+    {
+      "step": 6,
+      "action": "assert",
+      "type": "element_visible",
+      "target": "a[href='/pricing']",
+      "description": "Verify that the pricing link is visible in the navigation."
+    },
+    {
+      "step": 7,
+      "action": "assert",
+      "type": "element_visible",
+      "target": "a[href='/blog']",
+      "description": "Verify that the blog link is visible in the navigation."
+    },
+    {
+      "step": 8,
+      "action": "assert",
+      "type": "element_visible",
+      "target": "a[href*='mailto:']",
+      "description": "Verify that a support/contact link with an email address is present."
+    },
+    {
+      "step": 9,
+      "action": "assert",
+      "type": "element_visible",
+      "target": "a[href*='github.com/testgrid-io']",
+      "description": "Verify that a link to the Testgrid Github Repository is present"
+    },
+    {
+      "step": 10,
+      "action": "assert",
+      "type": "element_visible",
+      "target": "text=Start Free Trial",
+      "description": "Verify that the 'Start Free Trial' button is visible."
+    },
+    {
+      "step": 11,
+      "action": "assert",
+      "type": "element_visible",
+      "target": "text=Sign In",
+      "description": "Verify that the Sign In button is visible."
+    },
+    {
+      "step": 12,
+      "action": "assert",
+      "type": "element_attribute",
+      "target": "https://testgrid.io/",
+      "attribute": "protocol",
+      "expected": "https:",
+      "description": "Verify the page uses HTTPS for secure communication."
+    }
+  ],
+  "test_data": {}
+}

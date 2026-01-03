@@ -1,0 +1,61 @@
+{
+  "critical_workflows": [
+    "User Registration and Login",
+    "Creating a Customer",
+    "Creating a Charge",
+    "Viewing Dashboard and Transactions"
+  ],
+  "test_scenarios": [
+    {
+      "name": "Successful User Registration and Login",
+      "priority": "P0",
+      "steps": [
+        "Navigate to the Stripe website (https://stripe.com).",
+        "Click on 'Sign In' or 'Register'.",
+        "Enter valid email address, full name, and password.",
+        "Agree to the terms of service.",
+        "Click on 'Create Account'.",
+        "Verify account creation (e.g., via email verification if required).",
+        "Login with the newly created credentials."
+      ],
+      "expected_result": "User is successfully logged into the Stripe dashboard."
+    },
+    {
+      "name": "Creating a Basic Customer",
+      "priority": "P0",
+      "steps": [
+        "Log into the Stripe dashboard.",
+        "Navigate to the 'Customers' section.",
+        "Click on 'Add Customer'.",
+        "Enter a valid email address for the customer.",
+        "Click on 'Save'."
+      ],
+      "expected_result": "A new customer is successfully created in the Stripe dashboard."
+    },
+    {
+      "name": "Creating a Simple Charge",
+      "priority": "P0",
+      "steps": [
+        "Log into the Stripe dashboard.",
+        "Navigate to the 'Payments' or 'Charges' section.",
+        "Click on 'Create Payment' or 'Create Charge'.",
+        "Enter a valid amount (e.g., 10.00).",
+        "Select an existing customer or create a new one with a test card.",
+        "Click on 'Charge' or 'Create Payment'."
+      ],
+      "expected_result": "A successful charge is created and displayed in the dashboard with a status of 'Succeeded'."
+    },
+    {
+      "name": "Viewing Dashboard Summary",
+      "priority": "P0",
+      "steps": [
+        "Log into the Stripe dashboard.",
+        "Navigate to the main dashboard (should be the default view).",
+        "Observe the displayed metrics and summary information."
+      ],
+      "expected_result": "The dashboard displays the expected summary information (e.g., total revenue, recent transactions) without any errors or broken elements."
+    }
+  ],
+  "edge_cases": [],
+  "security_checks": []
+}

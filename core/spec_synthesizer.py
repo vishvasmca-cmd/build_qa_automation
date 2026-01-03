@@ -51,7 +51,10 @@ This plan will guide the autonomous agents on what to mine, what to verify, and 
    - Basic check that the Website is UP and RUNNING.
    - Core Navigation: Ensure Menu links work.
    - Core Flow: One end-to-end "Happy Path".
-3. **Strategic Mining Instructions**: Tell the agent exactly which elements or pages to prioritize.
+3. **Security Audit (NEW)**:
+   - Identify critical security headers and SSL requirements for this domain.
+   - Suggest which forms or inputs should be prioritized for security probing.
+4. **Strategic Mining Instructions**: Tell the agent exactly which elements or pages to prioritize.
 
 Output a professional Markdown report.
 """
@@ -69,6 +72,28 @@ class SpecSynthesizer:
         """Phase 1: Generate Plan BEFORE mining starts."""
         print(f"📋 Creating Strategic Test Plan for {url}...")
         
+        security_requirement = ""
+        if "security check" in goal.lower():
+            security_requirement = """
+3. **Security Audit (NEW)**:
+   - Identify critical security headers and SSL requirements for this domain.
+   - Suggest which forms or inputs should be prioritized for security probing."""
+
+        prompt_instructions = f"""You are a Senior QA Strategist.
+Your goal is to create a "Master Test Plan" for a website BEFORE any automation starts.
+This plan will guide the autonomous agents on what to mine, what to verify, and how to structure the suite.
+
+**Requirement Checklist**:
+1. **Domain Information**: Detailed analysis of the site domain based on URL and goal.
+2. **Smoke Suite Definition**: 
+   - Basic check that the Website is UP and RUNNING.
+   - Core Navigation: Ensure Menu links work.
+   - Core Flow: One end-to-end "Happy Path".{security_requirement}
+4. **Strategic Mining Instructions**: Tell the agent exactly which elements or pages to prioritize.
+
+Output a professional Markdown report.
+"""
+        
         user_msg = f"""
         Target URL: {url}
         Business Domain: {self.domain}
@@ -78,7 +103,7 @@ class SpecSynthesizer:
 
         try:
             resp = llm.invoke([
-                ("system", SYSTEM_PROMPT_PRE_PLANNER),
+                ("system", prompt_instructions),
                 ("human", user_msg)
             ])
             

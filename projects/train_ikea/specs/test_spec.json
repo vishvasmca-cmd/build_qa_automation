@@ -1,0 +1,38 @@
+{
+  "critical_workflows": [
+    "Homepage Navigation and Product Search",
+    "Add to Cart and Checkout"
+  ],
+  "test_scenarios": [
+    {
+      "name": "Verify Homepage Loads and Search Functionality",
+      "priority": "P0",
+      "steps": [
+        "Navigate to https://www.ikea.com",
+        "Verify the homepage loads successfully",
+        "Enter 'desk' in the search bar and press enter."
+      ],
+      "expected_result": "Homepage loads without errors. Search results page displays with relevant desk products."
+    },
+    {
+      "name": "Add to Cart and Checkout (Basic)",
+      "priority": "P0",
+      "steps": [
+        "Search for 'MALM dresser'",
+        "Select the first 'MALM dresser' from the search results",
+        "Click 'Add to Cart'",
+        "View cart",
+        "Click 'Checkout'",
+        "Proceed as Guest (if applicable)",
+        "Enter a valid email address and postal code for delivery (San Francisco, CA, USA postal code) to calculate shipping",
+        "Select Shipping Option (if applicable)",
+        "Proceed to payment",
+        "Select a valid payment method (e.g., Credit Card) and fill in the details with dummy data.",
+        "Review Order and Place Order"
+      ],
+      "expected_result": "Product is added to cart. Checkout process proceeds successfully with shipping rates calculated and allows order placement, *without completing the actual payment.*"
+    }
+  ],
+  "edge_cases": [],
+  "security_checks": []
+}

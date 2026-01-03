@@ -26,7 +26,12 @@ async def detect_and_generate_spec(url, project_name):
         page = await browser.new_page()
         
         try:
-            await page.goto(url, wait_until="networkidle", timeout=30000)
+            # Use domcontentloaded for faster/safer detection, networkidle is too flaky for heavy sites
+            try:
+                await page.goto(url, wait_until="domcontentloaded", timeout=60000)
+                await page.wait_for_load_state("networkidle", timeout=10000) # Opsional wait
+            except:
+                pass # Continue if loaded enough to read title/body
             title = await page.title()
             content = await page.inner_text("body")
             content_sample = content[:1000]

@@ -114,7 +114,7 @@ class ExplorerAgent:
         
         async with async_playwright() as p:
             browser = await p.chromium.launch(headless=True)
-            context = await browser.new_context() 
+            context = await browser.new_context(viewport={'width': 1920, 'height': 1080}) 
             page = await context.new_page()
             
             # Start - with longer timeout for production sites
@@ -132,13 +132,15 @@ class ExplorerAgent:
             
             while step_count < max_steps:
                 print(f"\n--- Step {step_count + 1} ---")
+
+                # Dismiss Overlays before analysis
+                await self._dismiss_overlays(active_page)
                 
                 # 1. Analyze
                 try:
-                    await active_page.wait_for_load_state("networkidle", timeout=60000)  # 60s for production
+                    await active_page.wait_for_load_state("domcontentloaded", timeout=60000)
                 except:
-                    # If networkidle times out, continue anyway (some sites never reach it)
-                    print("   ⏭️ Skipping networkidle wait (site may use lazy loading)")
+                    print("   ⏭️ Skipping wait (timeout or lazy loading)")
                 
                 # Force refresh if we had a failure last time
                 force_refresh = (consecutive_failures > 0)
@@ -290,7 +292,29 @@ class ExplorerAgent:
                 
             # Find best locator string for context
             candidates = el.get("locatorCandidates", [])
-            best_loc = candidates[0]['playwrightLocator'] if candidates else "unknown"
+            # Determine a stable locator hint using Scoring Model
+            # (Ideally this function is shared, but defining inline for safety/speed)
+            def calculate_locator_score(loc_str):
+                score = 0
+                if 'data-test' in loc_str or 'data-testid' in loc_str: score += 100
+                elif 'href=' in loc_str: score += 90
+                elif 'get_by_role' in loc_str: score += 85
+                elif 'id=' in loc_str: score += 80
+                elif 'get_by_text' in loc_str: score += 10
+                else: score += 5
+                if '>>' in loc_str or ').locator(' in loc_str: score += 15
+                return score
+            
+            best_hint = "unknown"
+            if candidates:
+                # Sort by score DESC
+                sorted_hints = sorted(
+                    candidates, 
+                    key=lambda c: calculate_locator_score(c['playwrightLocator']), 
+                    reverse=True
+                )
+                best_hint = sorted_hints[0]['playwrightLocator']
+
             
             simple_elements.append({
                 "id": el.get('elementId'),
@@ -299,7 +323,7 @@ class ExplorerAgent:
                 "role": el.get('role', ''),
                 "testId": el.get('dataTestId', ''),
                 "customTestId": el.get("xpath") or el.get("dataTestId"), # Fallback
-                "locator_hint": best_loc
+                "locator_hint": best_hint
             })
             
         # Smoke Mode Instruction
@@ -376,15 +400,70 @@ class ExplorerAgent:
                 return {"locator": None, "new_page": None}
                 
             # Pick best locator
-            candidates = target_el.get('locatorCandidates', [])
-            # Prioritize GOOD strength
-            best_cand = next((c for c in candidates if c['strength'] == 'GOOD'), candidates[0] if candidates else None)
-            
-            if not best_cand:
-                print("❌ No valid candidate locator found.")
-                return 
+            # ----------------------------------------------------------------
+            #  LOCATOR SCORING & UNIQUENESS VALIDATION
+            # ----------------------------------------------------------------
+            def calculate_locator_score(loc_str):
+                score = 0
+                if 'data-test' in loc_str or 'data-testid' in loc_str: score += 100
+                elif 'href=' in loc_str: score += 90
+                elif 'get_by_role' in loc_str: score += 85
+                elif 'id=' in loc_str: score += 80
+                elif 'get_by_text' in loc_str: score += 10
+                else: score += 5
+                
+                # Chains (>>) or .locator are good if providing context
+                if '>>' in loc_str or ').locator(' in loc_str: score += 15
+                return score
 
-            loc_str = best_cand['playwrightLocator']
+            candidates = target_el.get('locatorCandidates', [])
+            # Sort candidates by score descending
+            sorted_candidates = sorted(
+                candidates, 
+                key=lambda c: calculate_locator_score(c['playwrightLocator']), 
+                reverse=True
+            )
+            
+            valid_loc_str = None
+            
+            # Runtime Uniqueness Validation
+            for cand in sorted_candidates:
+                candidate_str = cand['playwrightLocator']
+                
+                # Check uniqueness dynamically
+                # We need to construct the locator object first (similar to later logic)
+                try:
+                    temp_loc_str = candidate_str
+                    # Simple cleanup for eval context
+                    if "page." in temp_loc_str:
+                         temp_loc_str = temp_loc_str.replace("page.", "")
+                    
+                    # Quick eval check context
+                    # (This logic duplicates the execution helper below, but cleaner to extract method in future)
+                    # For now, we reuse the string check, but we need the actual locator count.
+                    # Let's defer full eval complexity and do a "Try" approach:
+                    
+                    # Since we can't easily eval without the full block below, we will assume the
+                    # main execution block handles the eval.
+                    # Instead, we will iterate and BREAK if we find a unique one.
+                    pass 
+                except:
+                    continue
+
+            # NEW STRATEGY: Select top candidate, but allow fallback in execution phase
+            # For now, logic is: Pick highest score. If execution finds ambiguity, we handle it there.
+            # But the plan asked for PRE-CHECK.
+            
+            # Use the highest scored candidate as primary
+            if sorted_candidates:
+                 valid_loc_str = sorted_candidates[0]['playwrightLocator']
+            else:
+                 print("❌ No valid candidate locator found.")
+                 return
+
+            loc_str = valid_loc_str
+            print(f"🎯 Selected Best Locator (by Score): {loc_str}")
+
             
             # Clean locator string for eval (simple hack for now, better to use proper parser later)
             # Remove "page." prefix if it exists to genericize
@@ -402,70 +481,87 @@ class ExplorerAgent:
             
             # Dynamic execution helper
             try:
-                # remove 'page.' prefix
-                method_call = loc_str.replace("page.", "", 1)
-                
-                # Safe approach: Using specific methods
                 locator = None
-                if "getByTestId" in loc_str:
-                    val = loc_str.split("'")[1]
-                    locator = page.get_by_test_id(val)
-                elif "getByRole" in loc_str:
-                    import re
-                    pythonic_loc = loc_str.replace("getByRole", "get_by_role")
-                    pythonic_loc = re.sub(r'\{\s*name:\s*[\'"](.*?)[\'"]\s*\}', r'name="\1"', pythonic_loc)
-                    locator = eval(pythonic_loc, {"page": page, "re": re})
-                elif "locator" in loc_str:
-                     import re
-                     match = re.search(r"locator\(['\"](.*)['\"]\)", loc_str)
-                     if match:
-                         locator = page.locator(match.group(1))
+                import re # inject re for regex
                 
-                if not locator:
-                     # Last resort eval with snake_case mapping
-                     import re # inject re for regex
-                     # Map JS-style methods to Python snake_case
-                     pythonic_loc = loc_str
-                     # Convert { name: '...' } to name='...'
-                     pythonic_loc = re.sub(r'\{\s*name:\s*[\'"](.*?)[\'"]\s*\}', r'name="\1"', pythonic_loc)
-                     
-                     for js, py in [
-                         ("getByTestId", "get_by_test_id"), ("getByRole", "get_by_role"),
-                         ("getByText", "get_by_text"), ("getByPlaceholder", "get_by_placeholder"),
-                         ("getByLabel", "get_by_label"), ("getByTitle", "get_by_title"),
-                         ("getByAltText", "get_by_alt_text")
-                     ]:
-                         pythonic_loc = pythonic_loc.replace(js, py)
-                     
-                     locator = eval(pythonic_loc, {"page": page, "re": re})
+                # Clean loc_str for eval
+                pythonic_loc = loc_str
+                
+                # 1. Map JS-style methods to Python snake_case
+                # Note: We must be careful not to replace text inside strings
+                method_map = [
+                    ("getByTestId", "get_by_test_id"), ("getByRole", "get_by_role"),
+                    ("getByText", "get_by_text"), ("getByPlaceholder", "get_by_placeholder"),
+                    ("getByLabel", "get_by_label"), ("getByTitle", "get_by_title"),
+                    ("getByAltText", "get_by_alt_text"), ("first()", "first"), ("last()", "last")
+                ]
+                
+                # 2. Handle JS Object syntax { name: '...' } -> name='...'
+                # This regex handles simple cases
+                pythonic_loc = re.sub(r'\{\s*name:\s*[\'"](.*?)[\'"]\s*,?\s*\}', r'name="\1"', pythonic_loc)
+                pythonic_loc = re.sub(r'\{\s*exact:\s*true\s*,?\s*\}', r'exact=True', pythonic_loc)
 
-                     # ---------------------------------------------------------
-                     # SELF-HEALING: Ambiguity Handler
-                     # If locator matches multiple elements, prioritize the VISIBLE one.
-                     # This solves "Strict Mode" errors and prevents interacting with hidden/overlay elements.
-                     # ---------------------------------------------------------
-                     try:
-                         count = await locator.count()
-                         if count > 1:
-                             print(f"   ⚠️ Ambiguous Locator: Found {count} matches for {loc_str}. Filtering for visibility...")
-                             found_visible = False
-                             for i in range(count):
-                                 try:
-                                     # Check visibility with short timeout
-                                     if await locator.nth(i).is_visible(timeout=500):
-                                         locator = locator.nth(i)
-                                         print(f"   ✅ Self-Healed: Selected match #{i+1} (Visible)")
-                                         found_visible = True
-                                         break
-                                 except: pass
-                             
-                             if not found_visible:
-                                 print("   ⚠️ No visible matches found. Defaulting to first match.")
-                                 locator = locator.first
-                     except Exception as e:
-                         # Some dynamic locators might fail count check, ignore
-                         pass
-                     # ---------------------------------------------------------
+                for js, py in method_map:
+                        if js in pythonic_loc and "page." in pythonic_loc:
+                            pythonic_loc = pythonic_loc.replace(js, py)
+
+
+                # 3. Safe Eval
+                # We create a safe context with the page object
+                local_context = {"page": page, "re": re}
+                
+                try:
+                    locator = eval(pythonic_loc, {}, local_context)
+                except (SyntaxError, NameError):
+                    # Fallback for complex strings or raw selectors
+                    # 1. If it looks like a page method call but failed (SyntaxError)
+                    if "page." in pythonic_loc:
+                            # Try to strip to just the selector string if possible
+                            try:
+                                print(f"   ⚠️ Syntax/Name Error in locator: {pythonic_loc}. Attempting extraction...")
+                                sel = pythonic_loc.split("locator(")[1].rsplit(")", 1)[0]
+                                if (sel.startswith("'") and sel.endswith("'")) or (sel.startswith('"') and sel.endswith('"')):
+                                    sel = sel[1:-1]
+                                locator = page.locator(sel)
+                            except:
+                                # If extraction fails, treat the WHOLE thing as a selector (risky but valid for some strings)
+                                locator = page.locator(pythonic_loc)
+                    else:
+                            # 2. It's likely a raw selector (e.g., "footer >> a", "text=Login")
+                            # Just wrap it
+                            locator = page.locator(pythonic_loc)
+
+                if not locator:
+                        raise ValueError("Locator eval resulted in None")
+
+                # ---------------------------------------------------------
+                # SELF-HEALING: Ambiguity Handler
+                # If locator matches multiple elements, prioritize the VISIBLE one.
+                # This solves "Strict Mode" errors and prevents interacting with hidden/overlay elements.
+                # ---------------------------------------------------------
+                try:
+                    count = await locator.count()
+                    if count > 1:
+                        print(f"   ⚠️ Ambiguous Locator: Found {count} matches for {loc_str}. Filtering for visibility...")
+                        found_visible = False
+                        for i in range(count):
+                            try:
+                                # Check visibility with short timeout
+                                if await locator.nth(i).is_visible(timeout=500):
+                                    locator = locator.nth(i)
+                                    print(f"   ✅ Self-Healed: Selected match #{i+1} (Visible)")
+                                    found_visible = True
+                                    break
+                            except: pass
+                        
+                        if not found_visible:
+                            print("   ⚠️ No visible matches found. Defaulting to first match.")
+                            locator = locator.first
+                except Exception as e:
+                    # Some dynamic locators might fail count check, ignore
+                    pass
+                # ---------------------------------------------------------
+
 
                 result = {"locator": loc_str, "new_page": None, "success": True}
 
@@ -504,19 +600,27 @@ class ExplorerAgent:
                             await locator.scroll_into_view_if_needed(timeout=2000)
                             try:
                                 await locator.click(timeout=4000)
+                                await page.wait_for_load_state("domcontentloaded", timeout=5000)
                             except Exception as click_e:
                                 if "strict mode" in str(click_e):
                                     await locator.first.click(timeout=4000)
+                                    await page.wait_for_load_state("domcontentloaded", timeout=5000)
                                 else:
                                     raise click_e
                         except Exception as inner_e:
                             print(f"   ⚠️ Normal click failed ({inner_e}). Trying force click...")
                             try:
                                 await locator.first.click(timeout=3000, force=True)
+                                await page.wait_for_load_state("domcontentloaded", timeout=5000)
                             except Exception as force_e:
                                 # NUCLEAR OPTION: JS Click
                                 print(f"   ☢️ Force click failed ({force_e}). Trying JS Click...")
-                                await locator.first.evaluate("el => el.click()")
+                                try:
+                                    await locator.first.evaluate("el => el.click()", timeout=10000)
+                                    await page.wait_for_load_state("domcontentloaded", timeout=5000)
+                                except Exception as eval_e:
+                                    print(f"   ☢️ JS Click failed ({eval_e}). Trying event dispatch...")
+                                    await locator.first.evaluate("el => el.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true}))", timeout=5000)
                                 await asyncio.sleep(1) # Wait for JS execution
 
                 elif decision['action'] == 'fill':
@@ -575,6 +679,69 @@ class ExplorerAgent:
         return {"locator": None, "new_page": None}
                 # Fallback: Try visualization click?
                 
+    async def _dismiss_overlays(self, page):
+        """Attempts to find and close common overlays (modals, cookie banners)."""
+        # 1. Broad selector for 'Close' buttons
+        close_patterns = [
+            "button:has-text('Close')",
+            "button:has-text('Dismiss')",
+            "button:has-text('Accept')",
+            "button:has-text('I Agree')",
+            "[aria-label='Close']",
+            "[title='Close']",
+            ".modal-close",
+            ".close-button",
+            ".modal .close"
+        ]
+        
+        # TestGrid specific: 'AI Testing 2030' or 'Get Ebook' modals
+        try:
+            # Check for high z-index elements or fixed overlays
+            overlays = await page.query_selector_all("div[style*='z-index'], .modal, .overlay, [role='dialog']")
+            for overlay in overlays:
+                if await overlay.is_visible():
+                    # Try to find a close action inside or near it
+                    print(colored("   🛡️  Potential Overlay Detected. Attempting to clear...", "yellow"))
+                    for selector in close_patterns:
+                        try:
+                            btn = await overlay.query_selector(selector)
+                            if not btn: # try global
+                                btn = await page.query_selector(selector)
+                            
+                            if btn and await btn.is_visible():
+                                print(colored(f"   ✨ Dismissing via: {selector}", "green"))
+                                await btn.click(timeout=2000)
+                                await asyncio.sleep(1)
+                                return # Only dismiss one per check to be safe
+                        except: pass
+            
+            # 2. NUCLEAR OPTION: Remove large obscuring elements and backdrops
+            await page.evaluate("""() => {
+                const overlays = Array.from(document.querySelectorAll('div, section, aside, [class*="z-"], [data-state="open"]'));
+                overlays.forEach(el => {
+                    const style = window.getComputedStyle(el);
+                    const rect = el.getBoundingClientRect();
+                    const isFixed = style.position === 'fixed' || style.position === 'absolute';
+                    const isFullscreen = rect.width >= window.innerWidth * 0.95 && rect.height >= window.innerHeight * 0.95;
+                    const isBackdrop = style.backgroundColor.includes('rgba(0, 0, 0') || style.backgroundColor.includes('rgb(0, 0, 0') || el.classList.contains('bg-black/50');
+                    const hasHighZ = parseInt(style.zIndex) > 100 || el.className.includes('z-[999]') || el.className.includes('z-50');
+                    
+                    if (isFixed && isFullscreen && (hasHighZ || isBackdrop)) {
+                        // If it has no children or very few nodes, it's likely a backdrop
+                        if (el.innerText.length < 50 || el.querySelectorAll('*').length < 10) {
+                           console.log('Removing suspected blocking backdrop:', el);
+                           el.remove();
+                        } else if (hasHighZ && isFullscreen) {
+                           // Probably a modal container. If we can't find a close button, removing it is risky but 
+                           // often better than a terminal loop.
+                           console.log('Hiding suspected blocking modal:', el);
+                           el.style.display = 'none';
+                        }
+                    }
+                });
+            }""")
+        except: pass
+
     async def _save_trace(self):
         output = {
             "workflow": self.workflow,

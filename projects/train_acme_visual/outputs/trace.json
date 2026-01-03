@@ -1,0 +1,77 @@
+{
+  "workflow": "Login and verify dashboard",
+  "domain_info": {
+    "https://demo.applitools.com/": {
+      "page_name": "Login Page",
+      "domain_context": "Banking",
+      "available_actions": [
+        "Login",
+        "Fill username",
+        "Fill password",
+        "Remember Me"
+      ],
+      "is_checkout_step": false,
+      "form_fields_detected": [
+        "username",
+        "password"
+      ],
+      "extracted_test_data": {
+        "username": "standard_user",
+        "password": "**********"
+      }
+    },
+    "https://demo.applitools.com/app.html": {
+      "page_name": "Financial Overview",
+      "domain_context": "Banking",
+      "available_actions": [
+        "View Statement",
+        "Request Increase",
+        "Pay Now",
+        "Add Account",
+        "Make Payment",
+        "Search Transactions"
+      ],
+      "is_checkout_step": false,
+      "form_fields_detected": [],
+      "extracted_test_data": {}
+    }
+  },
+  "trace": [
+    {
+      "step": 0,
+      "url": "https://demo.applitools.com/",
+      "page_name": "Login Page",
+      "action": "fill",
+      "target": "el_1",
+      "locator_used": "page.locator(\"input[placeholder='Enter your username']\")",
+      "success": true,
+      "value": "standard_user",
+      "decision_reason": "I have the username and password in the test_data. I need to fill in the username and password fields and click the Sign in button.",
+      "expected_outcome": "Username field should be filled with standard_user"
+    },
+    {
+      "step": 1,
+      "url": "https://demo.applitools.com/",
+      "page_name": "Login Page",
+      "action": "fill",
+      "target": "el_2",
+      "locator_used": "page.locator(\"input[placeholder='Enter your password']\")",
+      "success": true,
+      "value": "**********",
+      "decision_reason": "I have the username and now need to fill in the password using the test data. I will then click the Sign In button to attempt to log in.",
+      "expected_outcome": "The password field should be filled with the provided password."
+    },
+    {
+      "step": 2,
+      "url": "https://demo.applitools.com/app.html",
+      "page_name": "Login Page",
+      "action": "click",
+      "target": "el_3",
+      "locator_used": "page.get_by_role(\"link\", name=\"Sign in\")",
+      "success": false,
+      "value": null,
+      "decision_reason": "The username and password fields are already filled with the values from the test data. Now, I need to click the Sign in button to log in.",
+      "expected_outcome": "Should redirect to the user's dashboard"
+    }
+  ]
+}
