@@ -73,36 +73,57 @@ def run_training_loop():
     # Since the user specifically configured the target list for a batch run, we should run ALL of them.
     sites_to_run = all_sites
     
-    # Check for Limit Override
+    # SHARDING LOGIC (For Parallel Github Actions Matrix)
+    shard_index = int(os.environ.get("SHARD_INDEX", "1"))
+    total_shards = int(os.environ.get("TOTAL_SHARDS", "1"))
+    
+    if total_shards > 1:
+        # Simple modulo slicing won't work well if sites are ordered by rank/difficulty.
+        # We just chunk it.
+        # e.g. 5000 sites, 50 shards = 100 sites per shard.
+        # Shard 1: 0-100, Shard 2: 100-200...
+        
+        chunk_size = (len(all_sites) + total_shards - 1) // total_shards # Ceiling division
+        start_idx = (shard_index - 1) * chunk_size
+        end_idx = start_idx + chunk_size
+        
+        sites_to_run = all_sites[start_idx:end_idx]
+        print(f"   → SHARDING ENABLED: Running Shard {shard_index}/{total_shards} (Indices {start_idx}-{end_idx})")
+
+    # Check for Limit Override (Testing)
     batch_limit = os.environ.get("BATCH_LIMIT")
     if batch_limit:
         sites_to_run = sites_to_run[:int(batch_limit)]
 
     print(f"   → Mode: BATCH RUN ({len(sites_to_run)} sites)")
-    print(f"   → Selected: {[s['project'] for s in sites_to_run]}")
     
     # Safe Concurrency Limit
     max_workers = int(os.environ.get("MAX_WORKERS", "4"))
     print(f"   → Parallel Workers: {max_workers}")
     
     # Use ThreadPoolExecutor to run sites in parallel
+    results = []
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = [executor.submit(process_site, site) for site in sites_to_run]
+        futures = {executor.submit(process_site, site): site for site in sites_to_run}
         
-        # Wait for all futures to complete
         for future in futures:
             try:
                 future.result()
             except Exception as e:
                 print(f"Worker exception: {e}")
 
-    print("\n📦 Finalizing Advanced Knowledge Bank...")
-    # Import locally to avoid startup overhead/conflicts
+    print("\n📦 Finalizing Shard Knowledge Bank...")
+    # Generate unique output name for this shard
+    kb_name = f"knowledge_shard_{shard_index}.json"
+    
     try:
         from core.knowledge_bank import KnowledgeBank
         kb = KnowledgeBank()
-        kb.export_knowledge("trained_kb_advanced_v1.json")
-        print("🚀 Advanced training complete! Enhanced KB with multi-site patterns saved.")
+        # Export only what we learned?
+        # Actually kb.export_knowledge dumps everything in memory.
+        # Since this runner only ran 'sites_to_run', memory should imply only those sites + preloaded.
+        kb.export_knowledge(kb_name)
+        print(f"🚀 Shard complete! Saved partial KB to {kb_name}")
     except Exception as e:
         print(f"⚠️ Could not export KB: {e}")
 

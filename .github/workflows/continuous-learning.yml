@@ -9,15 +9,19 @@ permissions:
   contents: write
 
 jobs:
-  train-and-refine:
-    name: 🧠 Train Agent & Update Knowledge
+  # 1. PARALLEL TRAINING MATRIX
+  train-shard:
+    name: 🧠 Train Shard ${{ matrix.shard }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Define 5 shards (can process 200 sites / 5 = 40 sites per runner)
+        shard: [1, 2, 3, 4, 5]
     
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -31,54 +35,61 @@ jobs:
         pip install -r requirements.txt
         playwright install chromium
         
-    - name: 🚀 Run Autonomous Training Loop
+    - name: 🚀 Run Training Shard
       env:
-        CI_ITERATIONS: "3"         # Run 3 iterations per site (Fast Feedback)
+        CI_ITERATIONS: "1"         # 1 iteration per site for speed
         PYTHONIOENCODING: "utf-8"
-        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }} # Required for Gemini
+        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        SHARD_INDEX: ${{ matrix.shard }}
+        TOTAL_SHARDS: 5
+        MAX_WORKERS: 5             # 5 threads per runner
       run: python -m core.training_orchestrator
       
-    - name: 📦 Commit Learned Patterns
-      if: success()
+    - name: 📤 Upload Shard Artifact
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: knowledge-shard-${{ matrix.shard }}
+        path: knowledge_shard_${{ matrix.shard }}.json
+        retention-days: 1
+
+  # 2. MERGE & COMMIT
+  merge-results:
+    name: 🧹 Merge & Commit Knowledge
+    needs: [train-shard]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Download All Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+        pattern: knowledge-shard-*
+        merge-multiple: true
+
+    - name: Display Artifacts
+      run: ls -R artifacts
+        
+    - name: 🧹 Merge Knowledge Banks
       run: |
-        git config --global user.name 'Antigravity Agent'
+        python scripts/merge_kb.py "artifacts/knowledge_shard_*.json" "knowledge/learned_patterns_v2.json"
+        
+    - name: 📦 Commit Merged Knowledge
+      run: |
+        git config --global user.name 'Antigravity Janitor'
         git config --global user.email 'agent@antigravity.ai'
         
-        # Add Knowledge Bank updates
         git add knowledge/
         
-        # Check if there are changes
         if git diff --staged --quiet; then
-          echo "No knowledge updates to commit."
+          echo "No changes to commit."
         else
-          git commit -m "🧠 Knowledge Bank Update [Auto-Learned]"
-          
-          # Retry loop for robust pushing
-          MAX_RETRIES=10
-          count=0
-          success=false
-          
-          while [ $count -lt $MAX_RETRIES ]; do
-            # Try to pull with rebase, favoring "theirs" (current runner's changes) to resolve conflicts
-            if git pull --rebase -Xtheirs origin main; then
-              if git push origin main; then
-                echo "✅ Successfully pushed knowledge updates."
-                success=true
-                break
-              else
-                echo "⚠️ Push failed. Retrying..."
-              fi
-            else
-              echo "⚠️ Pull/Rebase failed (conflict?). Aborting rebase to clean up..."
-              git rebase --abort
-            fi
-            
-            sleep $((RANDOM % 6 + 5))
-            count=$((count + 1))
-          done
-          
-          if [ "$success" = false ]; then
-            echo "❌ Failed to push after $MAX_RETRIES attempts."
-            exit 1
-          fi
+          git commit -m "🧠 Mass Update: Merged 5000-site Knowledge Bank"
+          git push
         fi
