@@ -5,7 +5,7 @@ import textwrap
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 
-def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test_generated_from_trace.py"):
+def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test_generated_from_trace.py", workflow_goal=""):
     if not os.path.exists(trace_path):
         print(f"❌ No trace found at {trace_path}")
         return
@@ -14,7 +14,17 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         data = json.load(f)
 
     trace = data.get("trace", [])
+    target_url = data.get("domain_info", {}).keys()
+    target_url = next(iter(target_url)) if target_url else "https://example.com"
     
+    # SPECIAL CASE: Empty Trace + Goal = Direct Assertion Mode
+    if not trace and workflow_goal:
+        print(f"⚠️ Empty trace detected. Generating assertions based on Goal: '{workflow_goal}'")
+        trace = [
+            {"step": 1, "url": target_url, "action": "navigate", "locator_used": None, "decision_reason": "Navigate to target"},
+            {"step": 2, "url": target_url, "action": "assert", "locator_used": "PROPOSE_BEST_LOCATOR", "decision_reason": f"Verify user goal: {workflow_goal}", "expected_outcome": workflow_goal}
+        ]
+
     # Analyze Trace with LLM
     print(f"🧠 Refining Trace from {trace_path}...")
     load_dotenv()
@@ -30,31 +40,26 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         "expectation": t.get('expected_outcome')
     } for t in trace], indent=2)
     
-    base_url = next(iter(data.get("domain_info", {}).keys()), "the target website")
+    base_url = target_url
 
     prompt = f"""
     You are a Test Automation Engineer.
     Refine the trace into a linear Playwright script for {base_url}.
     
     **CRITICAL RULES**:
-    1. **NO EXTERNAL URLS**: Your assertions MUST ONLY use the URL provided in the trace step's 'url' field. 
-       - NEVER use 'academy.testifyltd.com' or any other URL not found in the trace.
-       - If the trace step url is 'https://www.careerraah.com/blog', use THAT exactly.
-    2. For interactive steps, use ONLY `smart_action(page, locator_string, "click"|"fill", value)`. 
-       - locator_string MUST be the full `page.locator(...)` or `page.get_by_role(...)` string.
-       - **CRITICAL**: Use the `locator` field from the trace VERBATIM. Do not try to "simplify" it. If the trace says `page.locator('a[href="/foo"]')`, use exactly that.
-    3. After EVERY `smart_action`, call `take_screenshot(page, "step_N")` where N is the current step number.
-    4. AddAssertions based on 'expectation' in step. Use `expect(page).to_have_url(...)` or `expect(page.locator("...")).to_have_value(...)` or `expect(page.locator("body")).to_contain_text(...)`.
-       - **CRITICAL**: In assertions, the locator string MUST be clean. DO NOT add extra escaped quotes or brackets (e.g., NO `expect(page.locator("...\" )")`).
-       - **CRITICAL**: In `expect(page).to_have_url(URL)`, the URL MUST be exactly the `url` field from the trace step. NEVER hallucinate or use external URLs.
-    5. **RANDOMIZATION**: If trace fills a username/email, use the variable `username` or `email` instead of hardcoded value.
-    5. **PYTHON RE-REQUIREMENT**: Use Python snake_case for methods (e.g., `get_by_role`, `get_by_text`).
-    6. **NO JS OBJECTS**: For `get_by_role`, use: `page.get_by_role("button", name="Login")`. NEVER use JS-style `{{ name: 'Login' }}`.
-    7. **PYTHON SYNTAX ONLY**: Do NOT use JavaScript syntax (e.g., NO `/regex/` literals). Use strings or `re.compile("...")`.
-    8. **DANGER**: Do NOT output any imports, function definitions, or your own helper logic. 
-    9. **DANGER**: Your output must consist ONLY of the code lines that go inside the `test_...` function.
-    10. Ensure perfect 4-space indentation for every line of code.
+    1. **NO EXTERNAL URLS**: Assertions MUST use {base_url}.
+    2. **Smart Actions**: For 'click'/'fill', use `smart_action(...)`.
+    3. **ASSERTION GENERATION (CRITICAL)**:
+       - If step action is 'assert' or 'check':
+       - You MUST generate a `page.expect(...)` or `expect(page.locator(...))` line.
+       - Base the locator on the 'expected_outcome' or 'decision_reason'.
+       - Example: If goal is "Check Login is blue", generate: 
+         `expect(page.get_by_text("Login")).to_be_visible()`
+         `expect(page.get_by_text("Login")).to_have_css("color", "rgb(0, 0, 255)")` (approximation)
+    4. **Trace Fidelity**: Follow the trace steps.
     
+    5. **PYTHON SYNTAX ONLY**: Output valid Python code inside the test function.
+        
     **TRACE TO REFINE**:
     {trace_summary}
     """
@@ -236,4 +241,5 @@ if __name__ == "__main__":
     import sys
     t_path = sys.argv[1] if len(sys.argv) > 1 else "explorer_trace.json"
     o_path = sys.argv[2] if len(sys.argv) > 2 else "test_generated_from_trace.py"
-    generate_code_from_trace(t_path, o_path)
+    goal = sys.argv[3] if len(sys.argv) > 3 else ""
+    generate_code_from_trace(t_path, o_path, goal)
