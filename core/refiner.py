@@ -116,117 +116,128 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     project_name = os.path.basename(os.path.dirname(os.path.dirname(trace_path)))
     screenshot_dir = os.path.join("projects", project_name, "screenshots").replace("\\", "/")
     
-    # Build complete test file
-    code = [
+    # Build complete test file - STRICT INDENTATION
+    INDENT = "    "
+    code = []
+    
+    # Imports
+    code.extend([
         "import pytest",
         "import os",
         "import re",
         "import random",
         "from playwright.sync_api import Page, expect",
         "",
+    ])
+    
+    # Helper Functions
+    code.extend([
         "def wait_for_stability(page):",
-        "    \"\"\"Ensures page is stable before interaction\"\"\"",
-        "    try:",
-        "        page.wait_for_load_state('domcontentloaded', timeout=5000)",
-        "        page.wait_for_load_state('networkidle', timeout=3000)",
-        "    except: pass",
-        "    # Check for blocking overlays",
-        "    page.evaluate(\"\"\"() => {",
-        "        const overlays = document.querySelectorAll('.modal.show, .modal-backdrop.show, .overlay, [role=\"dialog\"]');",
-        "        overlays.forEach(el => {",
-        "             if (window.getComputedStyle(el).display !== 'none') {",
-        "                 console.log('Found overlay, waiting/hiding:', el);",
-        "                 // el.style.display = 'none'; // Optional: Aggressively hide if needed",
-        "             }",
-        "        });",
-        "    }\"\"\")",
+        f"{INDENT}\"\"\"Ensures page is stable before interaction\"\"\"",
+        f"{INDENT}try:",
+        f"{INDENT}{INDENT}page.wait_for_load_state('domcontentloaded', timeout=5000)",
+        f"{INDENT}{INDENT}page.wait_for_load_state('networkidle', timeout=3000)",
+        f"{INDENT}except: pass",
+        f"{INDENT}# Check for blocking overlays",
+        f"{INDENT}page.evaluate(\"\"\"() => {{",
+        f"{INDENT}{INDENT}const overlays = document.querySelectorAll('.modal.show, .modal-backdrop.show, .overlay, [role=\"dialog\"]');",
+        f"{INDENT}{INDENT}overlays.forEach(el => {{",
+        f"{INDENT}{INDENT}{INDENT}if (window.getComputedStyle(el).display !== 'none') {{",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}console.log('Found overlay, waiting/hiding:', el);",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}// el.style.display = 'none'; // Optional: Aggressively hide if needed",
+        f"{INDENT}{INDENT}{INDENT}}}",
+        f"{INDENT}{INDENT}}});",
+        f"{INDENT}}}\"\"\")",
         "",
         "def smart_action(page, primary_locator, action_type, value=None):",
-        "    \"\"\"Robust, Self-Healing Action Wrapper\"\"\"",
-        "    wait_for_stability(page)",
-        "    loc = None",
-        "    try:",
-        "        # 1. Parsing Locator",
-        "        loc_str = primary_locator",
-        "        import re",
-        "        if 'page.' in loc_str:",
-        "            loc_str = loc_str.replace('getByRole', 'get_by_role').replace('{ name:', 'name=').replace(' }', '')",
-        "            match = re.search(r\"['\\\"](.*)['\\\"]\", loc_str)",
-        "            if match and 'locator' in loc_str: loc_str = match.group(1)",
-        "            if 'page.' in loc_str: loc = eval(loc_str, {'page': page, 're': re})",
-        "        ",
-        "        if not loc: loc = page.locator(loc_str)",
-        "",
-        "        # 2. Pre-Action Checks",
-        "        if not loc.count() and 'strict mode' not in action_type:",
-        "             # Try relaxed visibility",
-        "             pass  ",
-        "             ",
-        "        # 3. Execution",
-        "        if action_type == 'click':",
-        "            try:",
-        "                # Try normal Click",
-        "                loc.click(timeout=5000)",
-        "            except Exception as e:",
-        "                print(f'⚠️ Standard click failed: {e}. Trying force.')",
-        "                try:",
-        "                    loc.click(timeout=3000, force=True)",
-        "                except:",
-        "                    # Last resort: JS Click",
-        "                    print(f'☢️ JS Click needed for: {primary_locator}')",
-        "                    loc.first.evaluate('el => el.click()')",
-        "",
-        "        elif action_type == 'fill':",
-        "            loc.fill(str(value), timeout=5000)",
-        "",
-        "        return True",
-        "",
-        "    except Exception as e:",
-        "        # 4. Self-Healing Fallback",
-        "        print(f'🚑 Healing needed for: {primary_locator} ({e})')",
-        "        try:",
-        "            # Fallback 1: Text approximations",
-        "            keyword = ''",
-        "            match = re.search(r\"['\\\"](.*)['\\\"]\", primary_locator)",
-        "            if match: keyword = match.group(1).lower()",
-        "            ",
-        "            # Find any button/link/input with similar text",
-        "            if keyword:",
-        "                healed = page.get_by_role('button', name=re.compile(keyword, re.IGNORECASE))",
-        "                if healed.count():",
-        "                     print('✨ Healed via Role/Name match!')",
-        "                     if action_type == 'click': healed.first.click()",
-        "                     else: healed.first.fill(str(value))",
-        "                     return True",
-        "        except: pass",
-        "        ",
-        "        print('❌ Action failed after healing attempts.')",
-        "        raise e",
+        f"{INDENT}\"\"\"Robust, Self-Healing Action Wrapper\"\"\"",
+        f"{INDENT}wait_for_stability(page)",
+        f"{INDENT}loc = None",
+        f"{INDENT}try:",
+        f"{INDENT}{INDENT}# 1. Parsing Locator",
+        f"{INDENT}{INDENT}loc_str = primary_locator",
+        f"{INDENT}{INDENT}import re",
+        f"{INDENT}{INDENT}if 'page.' in loc_str:",
+        f"{INDENT}{INDENT}{INDENT}loc_str = loc_str.replace('getByRole', 'get_by_role').replace('{{ name:', 'name=').replace(' }}', '')",
+        f"{INDENT}{INDENT}{INDENT}match = re.search(r\"['\\\"](.*?)['\\\"]\", loc_str)",
+        f"{INDENT}{INDENT}{INDENT}if match and 'locator' in loc_str: loc_str = match.group(1)",
+        f"{INDENT}{INDENT}{INDENT}if 'page.' in loc_str: loc = eval(loc_str, {{'page': page, 're': re}})",
+        f"{INDENT}{INDENT}",
+        f"{INDENT}{INDENT}if not loc: loc = page.locator(loc_str)",
+        f"{INDENT}",
+        f"{INDENT}{INDENT}# 2. Pre-Action Checks",
+        f"{INDENT}{INDENT}if not loc.count() and 'strict mode' not in action_type:",
+        f"{INDENT}{INDENT}{INDENT}# Try relaxed visibility",
+        f"{INDENT}{INDENT}{INDENT}pass",
+        f"{INDENT}{INDENT}",
+        f"{INDENT}{INDENT}# 3. Execution",
+        f"{INDENT}{INDENT}if action_type == 'click':",
+        f"{INDENT}{INDENT}{INDENT}try:",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}loc.click(timeout=5000)",
+        f"{INDENT}{INDENT}{INDENT}except Exception as e:",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}print(f'⚠️ Standard click failed: {{e}}. Trying force.')",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}try:",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}loc.click(timeout=3000, force=True)",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}except:",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}# Last resort: JS Click",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}print(f'☢️ JS Click needed for: {{primary_locator}}')",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}loc.first.evaluate('el => el.click()')",
+        f"{INDENT}{INDENT}",
+        f"{INDENT}{INDENT}elif action_type == 'fill':",
+        f"{INDENT}{INDENT}{INDENT}loc.fill(str(value), timeout=5000)",
+        f"{INDENT}{INDENT}",
+        f"{INDENT}{INDENT}return True",
+        f"{INDENT}",
+        f"{INDENT}except Exception as e:",
+        f"{INDENT}{INDENT}# 4. Self-Healing Fallback",
+        f"{INDENT}{INDENT}print(f'🚑 Healing needed for: {{primary_locator}} ({{e}})')",
+        f"{INDENT}{INDENT}try:",
+        f"{INDENT}{INDENT}{INDENT}# Fallback 1: Text approximations",
+        f"{INDENT}{INDENT}{INDENT}keyword = ''",
+        f"{INDENT}{INDENT}{INDENT}match = re.search(r\"['\\\"](.*?)['\\\"]\", primary_locator)",
+        f"{INDENT}{INDENT}{INDENT}if match: keyword = match.group(1).lower()",
+        f"{INDENT}{INDENT}{INDENT}",
+        f"{INDENT}{INDENT}{INDENT}if keyword:",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}healed = page.get_by_role('button', name=re.compile(keyword, re.IGNORECASE))",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}if healed.count():",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}print('✨ Healed via Role/Name match!')",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}if action_type == 'click': healed.first.click()",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}else: healed.first.fill(str(value))",
+        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}return True",
+        f"{INDENT}{INDENT}except: pass",
+        f"{INDENT}{INDENT}",
+        f"{INDENT}{INDENT}print('❌ Action failed after healing attempts.')",
+        f"{INDENT}{INDENT}raise e",
         "",
         "def take_screenshot(page, name):",
-        "    \"\"\"Consistent screenshot utility\"\"\"",
-        f"    path = os.path.join('{screenshot_dir}', f'{{name}}.png')",
-        "    os.makedirs(os.path.dirname(path), exist_ok=True)",
-        "    page.screenshot(path=path)",
-        "    print(f'📸 Saved: {path}')",
-        "",
-        "def test_autonomous_flow(page: Page):",
-        "    timestamp = random.randint(1000, 9999)",
-        "    username = f'user_{timestamp}'",
-        "    email = f'test_{timestamp}@example.com'",
-        "    page.context.set_default_timeout(60000)",
-        f"    # Generated for {project_name}",
-        f'    page.goto("{trace[0]["url"]}")' if trace else ""
-    ]
+        f"{INDENT}\"\"\"Consistent screenshot utility\"\"\"",
+        f"{INDENT}path = os.path.join('{screenshot_dir}', f'{{name}}.png')",
+        f"{INDENT}os.makedirs(os.path.dirname(path), exist_ok=True)",
+        f"{INDENT}page.screenshot(path=path)",
+        f"{INDENT}print(f'📸 Saved: {{path}}')",
+        ""
+    ])
+
+    # Main Test Function
+    code.append("def test_autonomous_flow(page: Page):")
+    code.append(f"{INDENT}timestamp = random.randint(1000, 9999)")
+    code.append(f"{INDENT}username = f'user_{{timestamp}}'")
+    code.append(f"{INDENT}email = f'test_{{timestamp}}@example.com'")
+    code.append(f"{INDENT}page.context.set_default_timeout(60000)")
+    code.append(f"{INDENT}# Generated for {project_name}")
     
+    if trace:
+        code.append(f"{INDENT}page.goto(\"{trace[0]['url']}\")")
+    else:
+        # Fallback if trace is totally matching
+         code.append(f"{INDENT}pass")
+
     for line in clean_steps.split("\n"):
         if line.strip():
             # Force standard 1-level indent (4 spaces)
-            code.append(f"    {line.lstrip().rstrip()}")
-        else:
-            code.append("")
+            code.append(f"{INDENT}{line.lstrip().rstrip()}")
             
-    code.append(f'    take_screenshot(page, "final_state")')
+    code.append(f'{INDENT}take_screenshot(page, "final_state")')
     
     # Ensure output directory exists
     output_dir = os.path.dirname(output_path)
