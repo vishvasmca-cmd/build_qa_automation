@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 import sys
 sys.path.append(os.path.dirname(__file__))
 from miner import analyze_page
+from termcolor import colored
 
 load_dotenv()
 
@@ -42,11 +43,15 @@ A JSON object deciding the NEXT action:
 }
 
 **RULES:**
-1. **CHECK STATE & GOAL**:
-   - If you see "Welcome [User]", "Log Out", or "Overview", you are **LOGGED IN**.
-   - If goal is "Login": You are DONE. Set `is_goal_achieved: true`.
-   - If goal is "Register" and you are logged in: **SKIP** registration and assume success, OR logout ONLY if strictly necessary.
-   - **DO NOT LOGOUT** proactively. Assume current session is valid for next steps (Transfer, etc).
+1. **CHECK GOAL & STOP EARLY**:
+   - **READ THE GOAL CAREFULLY**.
+   - If goal is "Check if Login button exists":
+     * LOOK for the button in `available_elements`.
+     * If found, set `is_goal_achieved: true` IMMEDIATELY. **DO NOT CLICK IT**.
+     * Return `action: "done"`.
+   - If goal is "Login": Then you MUST click and fill.
+   - If goal is "Register" and logged in: Skip.
+   - ALWAYS ask: "Have I already satisfied the strict text of the user's goal?"
 
 2. **CREDENTIALS**: Check `test_data` FIRST.
    - If `test_data` has 'username' and 'password', USE THEM to login.
