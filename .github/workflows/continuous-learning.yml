@@ -82,7 +82,7 @@ jobs:
         
     - name: 📦 Commit Merged Knowledge
       run: |
-        git config --global user.name 'Antigravity Janitor'
+        git config --global user.name 'Antigravity Agent'
         git config --global user.email 'agent@antigravity.ai'
         
         git add knowledge/
@@ -90,6 +90,37 @@ jobs:
         if git diff --staged --quiet; then
           echo "No changes to commit."
         else
-          git commit -m "🧠 Mass Update: Merged 5000-site Knowledge Bank"
-          git push
+          git commit -m "🧠 Knowledge Bank Update [Auto-Learned]"
+          
+          # CRITICAL FIX: Discard any unstaged changes (logs, temp files) that block rebase
+          git checkout .
+          
+          # Retry loop for robust pushing
+          MAX_RETRIES=10
+          count=0
+          success=false
+          
+          while [ $count -lt $MAX_RETRIES ]; do
+            # Pull with rebase, favoring "theirs" (our new knowledge) to resolve conflicts
+            if git pull --rebase -Xtheirs origin main; then
+              if git push origin main; then
+                echo "✅ Successfully pushed knowledge updates."
+                success=true
+                break
+              else
+                echo "⚠️ Push failed. Retrying..."
+              fi
+            else
+              echo "⚠️ Pull/Rebase failed. Aborting to retry..."
+              git rebase --abort
+            fi
+            
+            sleep $((RANDOM % 6 + 5))
+            count=$((count + 1))
+          done
+          
+          if [ "$success" = false ]; then
+            echo "❌ Failed to push after $MAX_RETRIES attempts."
+            exit 1
+          fi
         fi

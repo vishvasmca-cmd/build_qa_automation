@@ -16,16 +16,16 @@ llm = ChatGoogleGenerativeAI(
 
 SYSTEM_PROMPT_LOCATORS = """
 You are a production-grade Web Scraping & Locator Mining Agent.
-You MUST prioritize `data-test` attributes for SauceDemo compatibility.
+You MUST prioritize `data-test` attributes and Shadow DOM compatibility.
 
 **MANDATORY OUTPUT FORMAT**:
 {
   "visibleElements": [
     {
-      "elementId": "el_0 (must match input)",
+      "elementId": "el_0",
       "visibleText": "text",
       "role": "button",
-      "dataTestId": "...",
+      "center": {"x": 100, "y": 200},
       "locatorCandidates": [
          {
            "playwrightLocator": "page.locator(...)",
@@ -37,104 +37,177 @@ You MUST prioritize `data-test` attributes for SauceDemo compatibility.
   ]
 }
 
-**CRITICAL RULES FOR LOCATORS:**
-1. **PYTHON SYNTAX ONLY**: Propose locators using Python snake_case (e.g., `get_by_role`, `get_by_test_id`).
-2. **FORM FIELDS vs BUTTONS**: 
-   - Text inputs, selects, textareas: Set role to "textbox" or "input". Include placeholder/name in visibleText.  
-   - Submit buttons (type="submit" or value="Register"/"Submit"): Set role to "button". Mark with "ACTION_SUBMIT" in reason.
-   - Regular buttons/links: Set role to "button" or "link".
-3. If `customTestId` is present (from 'data-test'), you MUST propose: `page.locator("[data-test='VALUE']")`. 
-4. If `testId` is present (from 'data-testid'), propose: `page.get_by_test_id("VALUE")`.
-5. For inputs, prefer `page.locator("input[name='firstName']")` or by placeholder.
-6. If using `get_by_role`, use keyword arguments: `page.get_by_role("button", name="Login")`.
-7. **SHOPPING CART**: Ensure cart links are included in `visibleElements`.
-9. **AVOID GENERIC**: Avoid generic selectors like `page.locator("button")`. Be specific.
-10. **CONTEXT SCOPING**: If `context` field is present (e.g. "nav" or "footer"), PREPEND it to the locator for uniqueness.
-    - Example: `page.locator('nav').locator('a[href="/signup"]')`
-    - Example: `page.locator('footer').get_by_text("Contact")`
+**CRITICAL RULES:**
+1. **NO HALLUCINATIONS**: If you see an input in the screenshot but it is NOT in the `visibleElements` list (or has no ID), **DO NOT** invent a locator on a nearby button.
+2. **COORDINATE ACTIONS**: 
+   - If a selector is complex or unstable, you MAY propose `page.mouse.click(x, y)` using the provided `center` coordinates. Mark strength as "FALLBACK".
+   - **VISUAL FILL**: You can even use `page.mouse.click(x, y)` for "fill" actions. The agent will click the location and then simulate typing.
+3. **FORM FIELDS vs BUTTONS**: 
+   - NEVER suggest `fill()` on a "button" or "link" role. Only on "textbox", "input", "textarea".
+   - If an input is missing from the DOM list, say "Input missing from DOM" in the summary.
+4. **SHADOW DOM**: If the locator involves `shadowRoot`, use standard CSS/Playwright selectors as Playwright handles open shadow roots automatically (e.g., `page.locator('my-component >> input')`).
 
 Output JSON only.
 """
 
 SYSTEM_PROMPT_SUMMARY = """
 You are a Website Analyst.
-Given the text content and interactive elements of a page, provide:
-1. `page_name`: Short name (e.g. "Login Page", "Registration Form", "Inventory List").
-2. `domain_context`: What kind of app is this? (e.g. "E-commerce", "Banking", "SaaS").
-3. `available_actions`: List of high-level actions user can take here (e.g. "Login", "Register new user", "Fill form fields", "Sort items").
-4. `is_checkout_step`: Boolean.
-5. `form_fields_detected`: If this is a form page, list field names you see (e.g., ["firstName", "lastName", "email", "password"]). Empty array if not a form.
-6. `extracted_test_data`: Object containing any credentials or test data mentioned on the page (e.g., {"username": "tomsmith", "password": "SuperSecretPassword!"}). If none found, return empty object {}.
+Given the text content and interactive elements:
+1. `page_name`: Short name.
+2. `domain_context`: E-commerce / Banking / SaaS / ISP.
+3. `available_actions`: High-level user actions.
+4. `form_fields_detected`: specific inputs visible.
+5. `extracted_test_data`: Any credentials/data seen.
 
 Output JSON only.
 """
 
-async def extract_dom_snapshot(page: Page):
+async def extract_dom_snapshot(frame: Page):
     """
-    Extracts visible interactables and page text summary.
+    Extracts visible interactables using recursive Shadow DOM traversal from a specific frame.
     """
-    return await page.evaluate("""() => {
-        const interactables = [];
-        // Expanded selector to catch more interactive elements
-        const selector = 'button, a, input:not([type=hidden]), select, textarea, [role="button"], [data-test], [data-testid], .shopping_cart_link';
+    try:
+        if frame.is_detached(): return {"interactables": [], "bodyText": ""}
         
-        document.querySelectorAll(selector).forEach((el, index) => {
-            const rect = el.getBoundingClientRect();
-            const style = window.getComputedStyle(el);
+        return await frame.evaluate("""() => {
+            const interactables = [];
+            const selector = 'button, a, input:not([type=hidden]), select, textarea, [role="button"], [role="textbox"], [role="searchbox"], [role="checkbox"], [role="radio"], [contenteditable], [data-test], [data-testid], .shopping_cart_link';
             
-            if (rect.width > 0 && rect.height > 0 && style.visibility !== 'hidden' && style.display !== 'none') {
-                let testId = el.getAttribute('data-testid') || el.getAttribute('data-test-id') || '';
-                let customTestId = el.getAttribute('data-test') || '';
-                
-                // Context Scoping Logic
-                let context = '';
-                try {
-                    let parent = el.parentElement;
-                    while (parent && parent !== document.body) {
-                        if (parent.tagName) {
-                            const tag = parent.tagName.toLowerCase();
-                            if (['nav', 'footer', 'header', 'main', 'section'].includes(tag) || (parent.getAttribute && parent.getAttribute('role') === 'navigation')) {
-                                context = tag;
-                                // Add class/id specificity if available and simple
-                                if (parent.id) context += `#${parent.id}`;
-                                else if (parent.classList.length > 0) context += `.${parent.classList[0]}`;
-                                break;
-                            }
-                        }
-                        parent = parent.parentElement;
-                    }
-                } catch (e) {
-                    // Ignore context errors
-                }
-
-                interactables.push({
-                    id: `el_${index}`,
-                    tag: el.tagName.toLowerCase(),
-                    type: el.getAttribute('type') || '',
-                    name: el.getAttribute('name') || '',
-                    text: (el.innerText || el.textContent || '').slice(0, 50).replace(/\\n/g, ' ').trim(),
-                    value: el.value || '', // Extract value for inputs
-                    role: el.getAttribute('role') || '',
-                    testId: testId,
-                    customTestId: customTestId,
-                    placeholder: el.getAttribute('placeholder') || '',
-                    href: el.getAttribute('href') || '',
-                    context: context
-                });
+            function getVisibleText(el) {
+                return (el.innerText || el.textContent || el.value || el.getAttribute('aria-label') || '').slice(0, 50).replace(/\\n/g, ' ').trim();
             }
-        });
-        
-        // Also get main page text for context
-        const bodyText = (document.body && document.body.innerText) ? document.body.innerText.slice(0, 1000) : "";
-        
-        return { interactables, bodyText };
-    }""")
+
+            function isVisible(el) {
+                const rect = el.getBoundingClientRect();
+                const style = window.getComputedStyle(el);
+                return rect.width > 0 && rect.height > 0 && style.visibility !== 'hidden' && style.display !== 'none';
+            }
+
+            function traverse(root) {
+                if (!root) return;
+                
+                // 1. Check direct children matching selector
+                const elements = root.querySelectorAll(selector);
+                elements.forEach(el => {
+                    if (!isVisible(el)) return;
+                    
+                    const rect = el.getBoundingClientRect();
+                    interactables.push({
+                        tag: el.tagName.toLowerCase(),
+                        type: el.getAttribute('type') || '',
+                        name: el.getAttribute('name') || '',
+                        text: getVisibleText(el),
+                        role: el.getAttribute('role') || el.tagName.toLowerCase(),
+                        testId: el.getAttribute('data-testid') || el.getAttribute('data-test-id') || '',
+                        customTestId: el.getAttribute('data-test') || '',
+                        placeholder: el.getAttribute('placeholder') || '',
+                        href: el.getAttribute('href') || '',
+                        center: {
+                            x: Math.round(rect.left + rect.width / 2),
+                            y: Math.round(rect.top + rect.height / 2)
+                        }
+                    });
+                });
+
+                // 2. Walker for Shadow Roots
+                const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, null, false);
+                let node;
+                while (node = walker.nextNode()) {
+                    if (node.shadowRoot) {
+                        traverse(node.shadowRoot);
+                    }
+                }
+            }
+
+            traverse(document);
+            
+            // Post-processing: Assign IDs based on visual order (Top-Left to Bottom-Right)
+            interactables.sort((a, b) => (a.center.y * 10000 + a.center.x) - (b.center.y * 10000 + b.center.x));
+            interactables.forEach((el, idx) => el.id = `el_${idx}`);
+
+            const bodyText = document.body ? document.body.innerText.slice(0, 1000) : "";
+            return { interactables, bodyText };
+        }""")
+    except Exception as e:
+        return {"interactables": [], "bodyText": ""}
+
+def try_parse_json(content):
+    import re
+    # Remove markdown blocks
+    content = re.sub(r'```json\s*', '', content)
+    content = re.sub(r'\s*```', '', content)
+    content = content.strip()
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        # Look for the last { ... } block
+        match = re.search(r'(\{.*\})', content, re.DOTALL)
+        if match:
+            try: return json.loads(match.group(1))
+            except: pass
+    return None
 
 async def analyze_page(page: Page, url: str, knowledge_context=None, cache_path="locator_cache.json", force_refresh=False):
-    # 1. Extract DOM & Text
-    data = await extract_dom_snapshot(page)
-    raw_elements = data['interactables']
-    body_text = data['bodyText']
+    # 1. Extract DOM & Text (Multi-Frame)
+    raw_elements = []
+    body_text = ""
+    
+    # Main Frame
+    main_data = await extract_dom_snapshot(page)
+    raw_elements.extend(main_data['interactables'])
+    body_text += main_data['bodyText']
+    
+    # Child Frames
+    for frame in page.frames:
+        if frame == page.main_frame: continue
+        try:
+            frame_data = await extract_dom_snapshot(frame)
+            # Add frame context to elements
+            for el in frame_data['interactables']:
+                el['context'] = f"iframe[{frame.name or frame.url}]"
+                # Coordinates in iframes are relative to the frame, which is tricky.
+                # ideally we map them to main page coords, but for now we trust the selector execution context.
+            raw_elements.extend(frame_data['interactables'])
+        except: pass
+    
+    # Re-index global IDs
+    for i, el in enumerate(raw_elements):
+         el['id'] = f"el_{i}"
+
+    # New: Deep Scan Fallback if no forms found on a likely login page
+    if len([e for e in raw_elements if e['tag'] in ['input', 'textarea']]) == 0:
+        print(colored("   🕵️‍♀️ Deep Scan: Standard mining found 0 inputs. Trying Playwright Native Scan...", "cyan"))
+        try:
+            native_inputs = await page.get_by_role("textbox").all()
+            for i, inp in enumerate(native_inputs):
+                try:
+                    box = await inp.bounding_box()
+                    if box:
+                        # DEBUG: Print what we found
+                        try:
+                            ph = await inp.get_attribute("placeholder") or ""
+                            nm = await inp.get_attribute("name") or ""
+                            lbl = await inp.get_attribute("aria-label") or ""
+                            print(colored(f"   🔎 Deep Scan Found: Input {i} | Name='{nm}' | PH='{ph}' | Label='{lbl}'", "cyan"))
+                        except: pass
+
+                        raw_elements.append({
+                            "id": f"el_native_{i}",
+                            "tag": "input",
+                            "type": "text",
+                            "role": "textbox",
+                            "text": f"Native Input {i} ({nm or ph or lbl})",
+                            "center": {"x": box['x'] + box['width']/2, "y": box['y'] + box['height']/2},
+                            "locatorCandidates": [
+                                {
+                                    "playwrightLocator": f'page.get_by_role("textbox").nth({i})',
+                                    "strength": "FALLBACK",
+                                    "reason": "Deep Scan detected native input missing from DOM snapshot"
+                                }
+                            ]
+                        })
+                except: pass
+        except: pass
 
     # Context string
     context_str = json.dumps(knowledge_context) if knowledge_context else "None"
@@ -147,58 +220,35 @@ async def analyze_page(page: Page, url: str, knowledge_context=None, cache_path=
             try: cache = json.load(f)
             except: pass
     
-    structure_sig = "".join([f"{el['tag']}{el['text']}{el.get('testId','')}" for el in raw_elements])
+    # Hash based on coordinates too now to catch layout changes
+    structure_sig = "".join([f"{el['tag']}{el['center']['x']}" for el in raw_elements])
     import hashlib
     content_hash = hashlib.md5(structure_sig.encode('utf-8')).hexdigest()
     cache_key = f"{url}_{content_hash}"
     
     if cache_key in cache:
         print(f"⚡ Using Cached Locators for: {url} (State Match)")
-        cached_data = cache[cache_key]
-        for i, cached_el in enumerate(cached_data['locators']):
-            if i < len(raw_elements):
-                cached_el['value'] = raw_elements[i].get('value', '')
-        return cached_data
+        return cache[cache_key]
 
     print(f"🕵️  Mining Page via Vision+DOM: {url}")
     
     # 3. Capture Visual context
-    screenshot_bytes = await page.screenshot(type="jpeg", quality=80) # Increased quality for better OCR
+    screenshot_bytes = await page.screenshot(type="jpeg", quality=80) 
     import base64
     b64_img = base64.b64encode(screenshot_bytes).decode('utf-8')
     
-    # 4. Single multi-modal call for both Summary and Locators
-    element_slice = raw_elements[:150] # Increased for complex pages
+    # 4. Single multi-modal call
+    element_slice = raw_elements[:200]
     
-    def try_parse_json(content):
-        import re
-        # Remove markdown blocks
-        content = re.sub(r'```json\s*', '', content)
-        content = re.sub(r'\s*```', '', content)
-        content = content.strip()
-        try:
-            return json.loads(content)
-        except json.JSONDecodeError:
-            # Look for the last { ... } block
-            match = re.search(r'(\{.*\})', content, re.DOTALL)
-            if match:
-                try: return json.loads(match.group(1))
-                except: pass
-        return None
-
     COMBINED_PROMPT = f"""
     URL: {url}
     Context: {context_str}
-    Visible Elements: {json.dumps(element_slice)}
+    Visible Elements (with Coordinates): {json.dumps(element_slice)}
     
     {SYSTEM_PROMPT_SUMMARY}
     {SYSTEM_PROMPT_LOCATORS}
     
     **MANDATORY**: Return a valid JSON object.
-    {{
-      "summary": {{ "page_name": "...", "available_actions": [...] }},
-      "locators": [ {{ "elementId": "...", "locatorCandidates": [...] }} ]
-    }}
     """
     
     from langchain_core.messages import HumanMessage

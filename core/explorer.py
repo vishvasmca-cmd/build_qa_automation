@@ -104,7 +104,7 @@ class ExplorerAgent:
         self.master_plan = self.config.get("master_plan", "")
         self.total_cost = {"input": 0, "output": 0}
 
-    async def explore(self):
+    async def run(self):
         print(f"🚀 Explorer Starting. Goal: {self.workflow}")
         
         step_count = 0
@@ -118,12 +118,27 @@ class ExplorerAgent:
         cache_path = self.config.get("paths", {}).get("cache", "locator_cache.json")
         
         async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=True)
-            context = await browser.new_context(viewport={'width': 1920, 'height': 1080}) 
+            browser = await p.chromium.launch(headless=not self.headed, args=["--disable-blink-features=AutomationControlled"])
+            context = await browser.new_context(
+                viewport={"width": 1280, "height": 800},
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            )
+            # Enable stealth
+            await context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
             page = await context.new_page()
             
             # Start - with longer timeout for production sites
-            await page.goto(self.config["target_url"], timeout=60000)  # 60 seconds
+            try:
+                response = await page.goto(self.config["target_url"], timeout=60000)  # 60 seconds
+                if response and response.status == 404:
+                    print(f"❌ [Abort] Website returned 404 Not Found: {self.config['target_url']}. Marking as N/A.")
+                    sys.exit(4)
+            except Exception as e:
+                if "ERR_NAME_NOT_RESOLVED" in str(e) or "ERR_CONNECTION_REFUSED" in str(e) or "NS_ERROR_UNKNOWN_HOST" in str(e):
+                    print(f"❌ [Abort] Website Unreachable (DNS/Connection): {self.config['target_url']}")
+                    sys.exit(4)
+                print(f"❌ [Abort] Initial Navigation Failed: {e}")
+                sys.exit(4)
             active_page = page
             step_count = 0
             # Adjust depth based on Testing Type
@@ -522,6 +537,31 @@ class ExplorerAgent:
             # But `loc_str` is a string like "page.getByTestId('user-name')". 
             # We need to map this to the actual page object.
             
+            # DIRECT MOUSE ACTION SUPPORT (Coordinates)
+            if "page.mouse.click" in loc_str:
+                print(f"👉 Executing Coordinate Click: {loc_str}")
+                try:
+                    # Extract coords
+                    import re
+                    coords = re.findall(r'(\d+)', loc_str)
+                    if len(coords) >= 2:
+                        x, y = int(coords[0]), int(coords[1])
+                        x, y = int(coords[0]), int(coords[1])
+                        await page.mouse.click(x, y)
+                        
+                        # VISUAL FILL SUPPORT
+                        if decision['action'] == 'fill':
+                             val = str(decision.get('value_to_fill', ''))
+                             print(f"⌨️ Visual Fill: Typing '{val}' at ({x},{y})")
+                             await asyncio.sleep(0.5) # Wait for focus
+                             await page.keyboard.type(val)
+                             await page.keyboard.press("Tab") # Trigger blur/validation
+
+                        return {"locator": loc_str, "success": True}
+                except Exception as e:
+                    print(f"❌ Custom Mouse Action Failed: {e}")
+                    return {"locator": loc_str, "success": False, "error": str(e)}
+
             # Dynamic execution helper
             try:
                 locator = None
@@ -854,10 +894,14 @@ class ExplorerAgent:
             print(f"⚠️ Failed to save test data: {e}")
 
 if __name__ == "__main__":
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("config", help="Config file")
-    args = parser.parse_args()
+    import sys
+    if len(sys.argv) < 2:
+        print("Usage: python explorer.py <config_path> [--headed]")
+        sys.exit(1)
     
-    agent = ExplorerAgent(args.config)
-    asyncio.run(agent.explore())
+    config_path = sys.argv[1]
+    headed = "--headed" in sys.argv
+    
+    explorer = Explorer(config_path, headed=headed)
+    asyncio.run(explorer.run())
+```

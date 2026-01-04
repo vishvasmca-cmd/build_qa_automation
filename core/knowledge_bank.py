@@ -19,13 +19,19 @@ class KnowledgeBank:
     def get_rag_context(self, url, goal):
         """
         Retrieves a context string optimized for LLM prompts.
-        Combines Site knowledge, Domain patterns, and Few-shot examples.
+        Combines Site knowledge, Domain patterns, Few-shot examples, AND Predictive History.
         """
         domain_netloc = urlparse(url).netloc
         site_path = os.path.join(self.root, "sites", domain_netloc)
         
         context = []
         
+        # 0. Predictive History (Vector-like Search)
+        # Find similar past actions for this goal/page
+        history_context = self.query_predictive_model(goal, url)
+        if history_context:
+            context.append(f"### ✨ Predictive Insights (Best Next Steps based on history):\n{history_context}")
+
         # 1. Site Specific Knowledge
         if os.path.exists(site_path):
             # Load Site Metadata
@@ -59,6 +65,58 @@ class KnowledgeBank:
                 context.append(f"### Similar Test Patterns:\n{f.read()}")
 
         return "\n\n".join(context)
+
+    def query_predictive_model(self, current_goal, current_url):
+        """
+        Performs a similarity search against the aggregated 'next_action_prediction.jsonl' dataset.
+        Mimics a Vector DB RAG retrieval.
+        """
+        dataset_path = os.path.join(self.root, "datasets", "next_action_prediction.jsonl")
+        if not os.path.exists(dataset_path):
+            return None
+            
+        matches = []
+        try:
+            import difflib
+            
+            with open(dataset_path, "r") as f:
+                for line in f:
+                    try:
+                        entry = json.loads(line)
+                        input_goal = entry["input"].get("goal", "")
+                        input_url = entry["input"].get("url", "")
+                        
+                        # Similarity Score: Match Goal AND URL Domain
+                        # 1. Domain Match (Boolean)
+                        domain_match = urlparse(current_url).netloc in input_url
+                        
+                        # 2. Goal Similarity (0-1)
+                        goal_sim = difflib.SequenceMatcher(None, current_goal.lower(), input_goal.lower()).ratio()
+                        
+                        score = (1.0 if domain_match else 0.0) + goal_sim
+                        
+                        matches.append((score, entry))
+                    except: continue
+            
+            # Sort by score descending
+            matches.sort(key=lambda x: x[0], reverse=True)
+            
+            # Take top 3 relevant examples
+            top_matches = matches[:3]
+            
+            # Format as context string
+            output = []
+            for score, m in top_matches:
+                if score > 0.4: # Threshold
+                    action = m['output']['action']
+                    reason = m['output']['reasoning']
+                    output.append(f"- When goal was '{m['input']['goal']}' on '{m['input']['current_page']}': Action '{action}' ({reason})")
+                    
+            return "\n".join(output) if output else None
+            
+        except Exception as e:
+            print(f"⚠️ Vector Search Failed: {e}")
+            return None
 
     def update_from_run(self, trace, config):
         """Distills trace into permanent site-specific knowledge files."""

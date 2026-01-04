@@ -12,6 +12,7 @@ def continuous_learning():
     parser.add_argument("--domain", default="auto", help="Project domain")
     parser.add_argument("--docs", default=None, help="Documentation/context for the agent")
     parser.add_argument("--iterations", type=int, default=5, help="Number of learning feedback loops to run")
+    parser.add_argument("--headed", action="store_true", help="Run browser in visible mode")
     args = parser.parse_args()
 
     print(f"🚀 Starting Continuous Learning Loop for {args.project}")
@@ -49,6 +50,10 @@ def continuous_learning():
             "--goal", args.goal,
             "--domain", args.domain
         ]
+        
+        if args.headed:
+            cmd.append("--headed")
+        
         if args.docs:
             cmd.extend(["--docs", args.docs])
         

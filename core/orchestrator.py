@@ -4,7 +4,7 @@ import subprocess
 import os
 from termcolor import colored
 
-def run_pipeline(config_path):
+def run_pipeline(config_path, headed=False):
     print(colored(f"🚀 Starting Autonomous Pipeline for {os.path.basename(os.path.dirname(config_path))}...", "green", attrs=["bold"]))
     
     with open(config_path, "r") as f:
@@ -37,8 +37,16 @@ def run_pipeline(config_path):
     print(colored("\n[Step 1/7] 🗺️  Exploring & Mining (Plan-Guided)...", "cyan"))
     # We pass the config path to explorer
     explorer_script = os.path.join(os.path.dirname(__file__), "explorer.py")
-    ret = subprocess.run(["python", explorer_script, config_path], capture_output=False)
+    cmd = ["python", explorer_script, config_path]
+    if headed:
+        cmd.append("--headed")
     
+    ret = subprocess.run(cmd, capture_output=False)
+    
+    if ret.returncode == 4:
+        print(colored("❌ Site Skipped: Website Unreachable or 404.", "red"))
+        return
+
     if ret.returncode != 0:
         print(colored("❌ Explorer Agent Failed / Crashed!", "red"))
         print(colored("⚠️ Triggering Fallback: Generating Basic Test from User Goal...", "yellow"))

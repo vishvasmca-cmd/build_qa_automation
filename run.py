@@ -166,6 +166,7 @@ def main():
     parser.add_argument("--type", default="regression", choices=["smoke", "regression"], help="Testing Type: smoke (fast, basic) or regression (deep, thorough)")
     parser.add_argument("--generate-spec", action="store_true", help="Generate comprehensive test spec before execution")
     parser.add_argument("--use-playwright-agents", action="store_true", help="🎭 Use Playwright native Codegen/Trace tools (recommended for production)")
+    parser.add_argument("--headed", action="store_true", help="Run in headed mode")
     args = parser.parse_args()
 
     project_dir = os.path.join("projects", args.project)
@@ -177,7 +178,7 @@ def main():
         
         # Core folders
         os.makedirs(os.path.join(project_dir, "config"), exist_ok=True)
-        os.makedirs(os.path.join(project_dir, "specs/features"), exist_ok=True)
+        # os.makedirs(os.path.join(project_dir, "specs/features"), exist_ok=True) # Unused (BDD)
         os.makedirs(os.path.join(project_dir, "specs/test-plans"), exist_ok=True)
         
         # Tests by layer
@@ -186,13 +187,13 @@ def main():
         os.makedirs(os.path.join(project_dir, "tests/integration"), exist_ok=True)
         
         # Page Object Model
-        os.makedirs(os.path.join(project_dir, "pages"), exist_ok=True)
-        os.makedirs(os.path.join(project_dir, "components"), exist_ok=True)
+        # os.makedirs(os.path.join(project_dir, "pages"), exist_ok=True) # Unused for monolithic agent
+        # os.makedirs(os.path.join(project_dir, "components"), exist_ok=True) # Unused
         
         # Test infrastructure
-        os.makedirs(os.path.join(project_dir, "fixtures"), exist_ok=True)
-        os.makedirs(os.path.join(project_dir, "utils"), exist_ok=True)
-        os.makedirs(os.path.join(project_dir, "data"), exist_ok=True)
+        # os.makedirs(os.path.join(project_dir, "fixtures"), exist_ok=True) # Unused
+        # os.makedirs(os.path.join(project_dir, "utils"), exist_ok=True)    # Unused
+        # os.makedirs(os.path.join(project_dir, "data"), exist_ok=True)     # Unused
         
         # Outputs
         os.makedirs(os.path.join(project_dir, "outputs/reports/html"), exist_ok=True)
@@ -573,7 +574,7 @@ config/test-data.json
 
     # 5. Trigger Orchestrator (The Autonomous Agent)
     print(f"\n🤖 Starting Autonomous Pipeline for {args.project}...")
-    run_pipeline(config_path)
+    run_pipeline(config_path, headed=args.headed)
 
 if __name__ == "__main__":
     main()

@@ -45,89 +45,64 @@ python run.py \
 run.py (MAIN ENTRY POINT)
   │
   ├─► Domain Detection (if --domain auto)
-  │   ├─ Browser automation analyzes site
-  │   ├─ LLM classifies domain
-  │   └─ Returns: ecommerce | banking | saas | isp_telecom | etc.
   │
   ├─► Spec Generation (if --generate-spec)
-  │   ├─ Domain-aware test scenario generation
-  │   ├─ Security/compliance checks
-  │   └─ Saves to: projects/{name}/specs/
   │
   └─► Orchestrator Pipeline
       │
-      ├─► [Step 1] Explorer (core/explorer.py)
+      ├─► [Step 1] Predictive QA (RAG Context)
+      │   ├─ Query Knowledge Bank (knowledge_bank.py)
+      │   ├─ Check 'next_action_prediction.jsonl'
+      │   └─ Inject "Best Next Steps" into Prompt
+      │
+      ├─► [Step 2] Explorer (core/explorer.py)
       │   ├─ AI-powered navigation
-      │   ├─ Multi-tab handling
-      │   ├─ Autonomous registration
+      │   ├─ Fail-Fast on 404
       │   └─ Outputs: trace.json
       │
-      ├─► [Step 2] Knowledge Bank Update (core/knowledge_bank.py)
-      │   ├─ Locator stability tracking
-      │   ├─ Domain pattern storage
-      │   └─ Outputs: knowledge/sites/{domain}/
+      ├─► [Step 3] Knowledge Aggregation (core/data_aggregator.py)
+      │   ├─ Parse trace.json
+      │   ├─ Create training datasets (*.jsonl)
+      │   └─ Update 'learned_patterns_v2.json'
       │
-      ├─► [Step 3] Code Generation (core/refiner.py)
-      │   ├─ Trace → Playwright test
-      │   ├─ Self-healing wrappers
-      │   ├─ Screenshot utilities
+      ├─► [Step 4] Code Generation (core/refiner.py)
+      │   ├─ Trace → Playwright Monolith
       │   └─ Outputs: tests/test_main.py
-      │
-      ├─► [Step 4] Report Generation (core/reporter.py)
-      │   ├─ HTML + Markdown reports
-      │   ├─ Screenshot embedding
-      │   └─ Outputs: outputs/report.html
       │
       └─► [Step 5] Test Execution
           ├─ pytest with retries
-          ├─ Self-healing on failures
-          └─ Final status code
+          └─ Self-healing on failures
 ```
 
 ---
 
 ## 📁 **Project Structure**
 
-```
 inner-event/
 ├── run.py                          ⭐ SINGLE ENTRY POINT
 ├── core/
 │   ├── orchestrator.py             # Pipeline controller
 │   ├── explorer.py                 # AI navigation agent
-│   ├── miner.py                    # DOM element extraction
+│   ├── data_aggregator.py          # 🧠 Knowledge Aggregation
 │   ├── refiner.py                  # Test code generation
-│   ├── reporter.py                 # HTML/MD report creation
-│   ├── knowledge_bank.py           # RAG knowledge storage
-│   ├── spec_generator.py           # Domain-specific specs (deprecated)
-│   └── universal_spec_generator.py # Auto-domain detection (deprecated)
+│   ├── knowledge_bank.py           # RAG & Predictive Context
+│   └── ...
 │
 ├── knowledge/                      # Knowledge Bank (RAG)
-│   ├── domains/
-│   │   ├── ecommerce.yaml          # E-commerce patterns
-│   │   ├── isp_telecom.yaml        # ISP/Telecom patterns
-│   │   └── banking.yaml            # Banking patterns
-│   └── sites/
-│       ├── www.saucedemo.com/
-│       │   ├── locators.json       # Stable selectors
-│       │   └── meta.yaml           # Site metadata
-│       └── parabank.parasoft.com/
+│   ├── learned_patterns_v2.json    # Stable Locators
+│   └── datasets/                   # Training Data
+│       └── next_action_prediction.jsonl
 │
 └── projects/                       # Generated test projects
     ├── {project_name}/
     │   ├── config.json             # Project configuration
     │   ├── outputs/
     │   │   ├── trace.json          # Exploration log
-    │   │   ├── report.html         # Visual report
-    │   │   └── report.md           # Summary
+    │   │   └── report.html         # Visual report
     │   ├── tests/
-    │   │   └── test_main.py        # Executable test
-    │   ├── screenshots/
-    │   │   └── step_*.png          # Visual proof
-    │   ├── specs/                  # (if --generate-spec)
-    │   │   └── test_spec.json      # Test scenarios
-    │   └── knowledge/
-    │       └── locator_cache.json  # Mined elements
-```
+    │   │   └── test_main.py        # 🚀 Monolithic Self-Contained Test
+    │   └── specs/
+    │       └── test-plans/         # Strategy documents
 
 ---
 
@@ -156,6 +131,7 @@ async def detect_and_generate_spec(url, project_name):
 
 **Key Capabilities**:
 - ✅ **Autonomous Navigation**: AI decides next action
+- ✅ **Fail-Fast Intelligence**: Detects 404s/DNS errors & aborts immediately
 - ✅ **Multi-Tab Handling**: Switches to new windows automatically
 - ✅ **Autonomous Registration**: Detects "no credentials" → finds Sign Up → registers
 - ✅ **Multi-Method Scrolling**: Keyboard + Mouse + JS for element discovery
@@ -167,24 +143,34 @@ async def detect_and_generate_spec(url, project_name):
 - Lazy loading detection
 - Network idle optional (skips if timeout)
 
-### **3. Knowledge Bank (RAG)** (`core/knowledge_bank.py`)
+### **3. Predictive QA (RAG)** (`core/knowledge_bank.py`)
 
-**Storage**:
+**How it works**:
+1.  **Ingest**: Reads `knowledge/datasets/next_action_prediction.jsonl`.
+2.  **Match**: Uses fuzzy logic + domain matching to find similar past goals.
+3.  **Predict**: Injects "Best Next Step" into the Agent's context.
+
+**Benefit**: Prevents the agent from repeating past mistakes (e.g., "Don't click X, click Y instead").
+
+### **4. Knowledge Aggregation** (`core/data_aggregator.py`)
+
+**Command**:
+```bash
+python core/data_aggregator.py
 ```
-knowledge/
-├── domains/{domain}.yaml       # Universal patterns
-└── sites/{domain}/
-    ├── locators.json           # Proven selectors
-    └── meta.yaml               # Site metadata
-```
+**Function**:
+- Scans all `projects/*/outputs/trace.json`.
+- Extracts successful action sequences.
+- Compiles them into training datasets for:
+    - Next Action Prediction
+    - Locator Prediction
 
-**Features**:
-- Locator stability scoring
-- Cross-site pattern recognition
-- Export for versioning
-- RAG context injection into prompts
+### **5. Code Generation** (`core/refiner.py`)
 
-### **4. Code Generation** (`core/refiner.py`)
+**Philosophy**: **Autonomous Monolith**
+- We generate single-file, self-contained tests (`test_main.py`).
+- No complex Page Object Model (POM) dependencies.
+- **Why?** Easier for AI to read, debug, and self-heal a single file than a distributed class hierarchy.
 
 **Generated Test Includes**:
 ```python
@@ -192,26 +178,16 @@ def smart_action(page, locator, action, value):
     # Self-healing wrapper
     # Auto-retries with fallback selectors
     
-def take_screenshot(page, name):
-    # Consistent screenshot naming
-    
 def test_autonomous_flow(page):
-    # Your generated test
-    # Step-by-step with assertions
+    # End-to-End User Flow
 ```
 
-**Key Features**:
-- Python syntax enforcement (no JS leakage)
-- Self-healing locators
-- Screenshot after every action
-- Smart assertions based on context
-
-### **5. Comprehensive Reporting** (`core/reporter.py`)
+### **6. Comprehensive Reporting** (`core/reporter.py`)
 
 **Outputs**:
 - `report.html` - Beautiful HTML with screenshots
 - `report.md` - Markdown summary
-- Screenshots linked in report
+- `screenshots/` - Visual evidence of every step
 
 ---
 
@@ -333,6 +309,23 @@ python run.py --project new_site --url https://new.site --goal "Main workflow" -
    ```
 
 4. **Iterate**: Update config → re-run → refine
+
+---
+
+## 🔮 **Future Roadmap**
+
+### **1. Offline Model Fine-Tuning**
+*   **Goal**: Create a specialized "QA-Agent-7B" model.
+*   **Method**: Use the `knowledge/datasets/next_action_prediction.jsonl` dataset (generated by the Data Aggregator) to fine-tune Llama 3 or Mistral.
+*   **Result**: An LLM that understands "Test Automation" natively, reducing token costs and increasing accuracy.
+
+### **2. Visual Grounding**
+*   **Goal**: Enable the agent to "see" the page layout.
+*   **Method**: Integrate Gemini Pro Vision or GPT-4o to analyze screenshots for layout issues (overlapping text, broken images) and visual locators.
+
+### **3. Parallel Sharding**
+*   **Goal**: Execute 100 tests in 5 minutes.
+*   **Method**: Use `pytest-xdist` to run the self-contained monolithic tests in parallel worker nodes.
 
 ---
 
