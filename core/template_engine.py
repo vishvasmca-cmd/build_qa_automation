@@ -28,7 +28,7 @@ class TestTemplateEngine:
             template = Template(f.read())
         
         # Render with data
-        helpers_path = os.path.abspath(self.template_dir)
+        helpers_path = os.path.abspath(self.template_dir).replace("\\", "/")
         
         rendered = template.render(
             project_name=project_name,

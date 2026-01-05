@@ -11,7 +11,10 @@ load_dotenv()
 # Initialize LLM
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2)
 
-from .strategy_loader import FrameworkStrategyLoader
+try:
+    from .strategy_loader import FrameworkStrategyLoader
+except (ImportError, ValueError):
+    from strategy_loader import FrameworkStrategyLoader
 
 SYSTEM_PROMPT_PLANNER = """You are a QA Architect Expert.
 Your goal is to analyze a recorded user journey (trace) and the detected domain, then generate a comprehensive Test Plan and BDD Feature Files.
