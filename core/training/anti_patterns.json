@@ -1,0 +1,26 @@
+[
+    {
+        "failure_mode": "Hallucinated Placeholder Variable",
+        "bad_example": "page.locator(locator_string).click()",
+        "reason": "Uses 'locator_string' or 'value' which are not defined in the local scope.",
+        "fix": "Extract the specific locator string from the trace and use it directly or via smart_action."
+    },
+    {
+        "failure_mode": "Template Logic Injection",
+        "bad_example": "if action == 'click':\n    page.locator(locator).click()",
+        "reason": "Injects generic template logic instead of concrete trace steps.",
+        "fix": "Only output direct calls to smart_action() with the values from the provided JSON trace."
+    },
+    {
+        "failure_mode": "Variable Misuse",
+        "bad_example": "page.locator(locator).fill(value)",
+        "reason": "Variables 'locator' and 'value' are often hallucinations from internal training data.",
+        "fix": "Use hardcoded strings or defined variables like 'email', 'username'."
+    },
+    {
+        "failure_mode": "Missing Navigation Wait",
+        "bad_example": "smart_action(page, '...', 'click')\n# Next line interacts immediately",
+        "reason": "Does not account for page load/stability after a navigation click.",
+        "fix": "Always follow navigation-triggering clicks with wait_for_stability(page) or page.wait_for_url()."
+    }
+]

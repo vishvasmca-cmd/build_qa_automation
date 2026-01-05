@@ -1,0 +1,43 @@
+"""
+Page Object Model: {{ page_name }}
+Represents: {{ page_url }}
+Auto-generated from exploration trace
+"""
+from playwright.sync_api import Page, expect
+
+
+class {{ page_name }}:
+    """Page Object for {{ page_url }}"""
+    
+    def __init__(self, page: Page):
+        self.page = page
+        # Locators - defined once, reused everywhere
+        {% for locator in locators %}
+        {% if 'get_by_' in locator.selector or 'get(' in locator.selector %}
+        self.{{ locator.name }} = page.{{ locator.selector }}  # {{ locator.description }}
+        {% else %}
+        self.{{ locator.name }} = page.locator("{{ locator.selector }}")  # {{ locator.description }}
+        {% endif %}
+        {% endfor %}
+
+    def goto(self):
+        """Navigate to {{ page_name }}"""
+        self.page.goto("{{ page_url }}")
+
+    {% for action in actions %}
+    def {{ action.name }}(self{% if action.params %}, {{ action.params }}{% endif %}):
+        """
+        {{ action.description }}
+        
+        {% if action.params %}
+        Args:
+        {% for param in action.param_descriptions %}
+            {{ param }}
+        {% endfor %}
+        {% endif %}
+        """
+        {% for step in action.steps %}
+        {{ step.code }}  # {{ step.comment }}
+        {% endfor %}
+    
+    {% endfor %}

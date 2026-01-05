@@ -16,21 +16,48 @@ class CodeReviewer:
 
     def _try_parse_json(self, content):
         """Attempts to parse JSON even with markdown wrapping or common errors."""
+        cleaned = content.strip()
+        # 1. Strip Markdown
+        if "```json" in cleaned:
+            cleaned = cleaned.split("```json")[1].split("```")[0].strip()
+        elif "```" in cleaned:
+            cleaned = cleaned.split("```")[1].split("```")[0].strip()
+
         try:
-            # 1. Clean Markdown
-            cleaned = content.replace("```json", "").replace("```", "").strip()
             return json.loads(cleaned)
         except json.JSONDecodeError as e:
-            # 2. Try lenient recovery for unescaped characters
+            # 2. Lenient Recovery
             import re
+            print(f"⚠️ JSON Parse Error: {e}. Attempting recovery...")
             try:
-                # Fix unescaped newlines in values
-                # Pattern explains: Look for content between quote and quote, replace \n with \\n
-                # This is a heuristic.
-                cleaned = re.sub(r'(?<=: ")(.*?)(?=")', lambda m: m.group(1).replace('\n', '\\n'), cleaned, flags=re.DOTALL)
-            except: pass
-            print(f"⚠️ JSON Parse Error: {e}")
+                # Heuristic: Fix unescaped newlines and problematic backslashes inside JSON string values
+                # This only targets content between : " and the next "
+                def _fix_value(match):
+                    val = match.group(1)
+                    val = val.replace('\n', '\\n')   # Unescaped newlines
+                    # Escape backslashes that aren't already part of a valid escape
+                    # (Quick & dirty: just double all backslashes that aren't already doubled)
+                    val = re.sub(r'\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})', r'\\\\', val)
+                    return val
+
+                cleaned_alt = re.sub(r'(?<=: ")(.*?)(?=")', _fix_value, cleaned, flags=re.DOTALL)
+                return json.loads(cleaned_alt)
+            except:
+                # 3. Final Fallback: Regex extraction for the 'final_code' field if everything else fails
+                code_match = re.search(r'"final_code":\s*"(.*)"\s*}', cleaned, re.DOTALL)
+                if code_match:
+                    code = code_match.group(1).replace('\\n', '\n').replace('\\"', '"').replace('\\\\', '\\')
+                    return {"status": "FIXED", "final_code": code, "review_summary": "Recovered via regex."}
             return None
+
+    def _validate_syntax(self, code):
+        """Checks for common autonomous hallucination patterns."""
+        placeholders = ['locator_string', 'value', 'action_type', 'primary_locator', 'locator', 'action']
+        for p in placeholders:
+            # Look for variable usage without assignment OR as a param
+            if re.search(fr"[ ,(]{p}[ ,)]", code) or re.search(fr"^{p}\b", code, re.MULTILINE):
+                return False, f"Detected hallucinated placeholder variable: {p}"
+        return True, "OK"
 
     def review_and_fix(self, file_path):
         if not os.path.exists(file_path):
@@ -42,25 +69,43 @@ class CodeReviewer:
 
         print(f"🕵️  Reviewing {os.path.basename(file_path)}...")
 
-        system_prompt = """You are a Principal Software Engineer in Test (SDET) with 15+ years of experience.
+        # Load Anti-Patterns for Quality Gate
+        anti_path = os.path.join(os.path.dirname(__file__), "training/anti_patterns.json")
+        anti_context = ""
+        if os.path.exists(anti_path):
+            try:
+                with open(anti_path, "r", encoding="utf-8") as f:
+                    anti = json.load(f)
+                    anti_context = "\n**KNOWN ANTI-PATTERNS (REJECT THESE)**:\n"
+                    for a in anti:
+                        anti_context += f"- Mode: {a['failure_mode']}\n  Bad Pattern: `{a['bad_example']}`\n  Reason: {a['reason']}\n  Requirement: {a['fix']}\n"
+            except: pass
+
+        system_prompt = f'''You are a Principal Software Engineer in Test (SDET) with 15+ years of experience.
 Your job is to CODE REVIEW and AUTO-FIX the provided Playwright Python script.
 
+{anti_context}
+
 **REVIEW CRITERIA (The "Bar"):**
-1.  **No Hardcoded Waits**: Remove `time.sleep()`. Use `expect(...).to_be_visible()` or `wait_for_load_state`.
-2.  **Robust Locators**: If you see brittle XPaths (`/div[3]/span[2]`), warn about them (or replace if obvious context exists).
-3.  **Assertions**: Code MUST have assertions (`expect(...)`). If missing, add logical ones based on variable names/context.
-4.  **Error Handling**: Ensure critical actions are wrapped in try/except or use Safe Actions (like the `smart_action` helper).
-5.  **Code Style**: Ensure PEP8 compliance, clean variable names, and proper typing hints where useful.
-6.  **Redundancy**: Remove duplicate checks or useless print statements.
+1.  **Iterative Stability**: If the script iterates through dynamic lists (e.g., courses, products), REJECT standard `.all()` for loops. REQUIRE index-based loops (`nth(i)`) with re-navigation to prevent StaleElement errors.
+2.  **Explicit Navigation Guards**: Every click that causes a URL change MUST be followed by `page.wait_for_url()` and `wait_for_stability()`.
+3.  **Recursive "Start" Logic**: If the page has intermediate onboarding or roadmap screens, ensure the script has "Recursive Start" logic to handle 2-stage entry.
+4.  **No Hardcoded Waits**: Remove `time.sleep()`. Use `expect(...).to_be_visible()` or `wait_for_load_state`.
+5.  **Robust Locators**: Use `re.compile(..., re.IGNORECASE)` for text/role matches. Reject brittle XPaths.
+6.  **Assertions**: Code MUST have assertions (`expect(...)`). 
+7.  **Self-Healing**: Ensure critical actions use the `smart_action` helper.
+8.  **Compilation Check**: REJECT any code that uses placeholder variables like `locator_string`, `value`, or `action_type` instead of actual values from the trace.
+9.  **Protect Helpers**: DO NOT modify, delete, or "refactor" the boilerplate helper functions (`wait_for_stability`, `smart_action`, `take_screenshot`). Only review and fix the code INSIDE `test_autonomous_flow`.
+10. **Syntax Integrity**: Ensure that triple-quoted strings (`"""`) are ALWAYS properly closed with `"""`.
 
 **OUTPUT FORMAT**:
 You must output a JSON object with this EXACT structure:
-{
+{{
   "status": "APPROVED" or "FIXED",
   "review_summary": "Brief bullet points of what you fixed or why it's good.",
   "final_code": "The complete, valid Python code (original or fixed)."
-}
-"""
+}}
+'''
         
         user_msg = f"""
         Please review this Python Playwright test file:
@@ -96,6 +141,11 @@ You must output a JSON object with this EXACT structure:
                 else:
                     print("⚠️ 'final_code' was empty or invalid. Skipping write.")
             else:
+                # Post-LLM Analysis Syntax Check
+                is_valid, reason = self._validate_syntax(result.get("final_code", code_content))
+                if not is_valid:
+                    print(f"❌ Reviewer REJECTED code: {reason}")
+                    return False
                 print("✅ Code Approved (No major issues found).")
             
             return True
@@ -111,4 +161,6 @@ if __name__ == "__main__":
     
     path = sys.argv[1]
     reviewer = CodeReviewer()
-    reviewer.review_and_fix(path)
+    success = reviewer.review_and_fix(path)
+    if not success:
+        sys.exit(1)

@@ -1,0 +1,65 @@
+{
+  "base_url": "https://www.careerraah.com/",
+  "workflow": "Navigate to CareerRaah homepage. Verify the main heading is visible. Click on 'Career Counseling' or 'Explore Programs' if available.",
+  "pages": [
+    {
+      "name": "HomePage",
+      "url": "/",
+      "locators": [
+        {
+          "name": "careerraah_home_link",
+          "selector": "get_by_role(\"link\", name=\"CareerRaah UPSKILL PLATFORM\")",
+          "element": {
+            "tag": "a",
+            "text": "CareerRaah Home",
+            "role": ""
+          }
+        }
+      ],
+      "actions": [
+        {
+          "name": "click_careerraah_home_link",
+          "steps": [
+            {
+              "step": 0,
+              "action": "click",
+              "locator_name": "careerraah_home_link",
+              "value": null,
+              "thought": "The goal has three parts: 1. Navigate to the homepage, 2. Verify the main heading, and 3. Click 'Career Counseling' or 'Explore Programs'. I am currently on the login screen, so I need to navigate to the homepage first. There is an element with the text 'CareerRaah Home' which should navigate me to the homepage."
+            }
+          ],
+          "params": ""
+        }
+      ]
+    }
+  ],
+  "tests": [
+    {
+      "name": "test_workflow_execution",
+      "description": "Navigate to CareerRaah homepage. Verify the main heading is visible. Click on 'Career Counseling' or 'Explore Programs' if available.",
+      "steps_description": [
+        "The goal has three parts: 1. Navigate to the homepage, 2. Verify the main heading, and 3. Click 'Career Counseling' or 'Explore Programs'. I am currently on the login screen, so I need to navigate to the homepage first. There is an element with the text 'CareerRaah Home' which should navigate me to the homepage."
+      ],
+      "page_objects": [
+        {
+          "class_name": "HomePage",
+          "var_name": "home_page",
+          "goto": true,
+          "description": "Page object for Home"
+        }
+      ],
+      "actions": [
+        {
+          "code": "home_page.click_careerraah_home_link()",
+          "comment": "The goal has three parts: 1. Navigate to the homepage, 2. Ve"
+        }
+      ],
+      "assertions": [
+        {
+          "code": "expect(page).to_have_url(re.compile(\".*\"))",
+          "comment": "Verify page navigation successful"
+        }
+      ]
+    }
+  ]
+}

@@ -14,8 +14,11 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         data = json.load(f)
 
     trace = data.get("trace", [])
-    target_url = data.get("domain_info", {}).keys()
-    target_url = next(iter(target_url)) if target_url else "https://example.com"
+    target_url = data.get("target_url")
+    if not target_url and trace:
+        target_url = trace[0].get("url")
+    if not target_url:
+        target_url = "https://example.com"
     
     # SPECIAL CASE: Empty Trace + Goal = Direct Assertion Mode
     if not trace and workflow_goal:
@@ -34,32 +37,59 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         "step": t['step'],
         "url": t.get('url'),
         "action": t['action'],
-        "locator": t.get('locator_used'),
+        "locator": t.get('locator_used') or t.get('locator'),
         "value": t.get('value'),
+        "element_context": t.get('element_context'), # Pass rich context to LLM
         "reason": t.get('decision_reason'),
         "expectation": t.get('expected_outcome')
     } for t in trace], indent=2)
     
     base_url = target_url
+    
+    # Load Golden Examples for Few-Shot Learning
+    golden_path = os.path.join(os.path.dirname(__file__), "training/golden_examples.json")
+    golden_context = ""
+    if os.path.exists(golden_path):
+        try:
+            with open(golden_path, "r", encoding="utf-8") as f:
+                examples = json.load(f)
+                golden_context = "\n**FEW-SHOT REFERENCE EXAMPLES (FOLLOW THESE PATTERNS)**:\n"
+                for ex in examples:
+                    golden_context += f"- Pattern: {ex['pattern_name']}\n  Description: {ex['description']}\n  Ideal Code Implementation:\n```python\n{ex['ideal_code']}\n```\n"
+        except: pass
 
     prompt = f"""
     You are a Test Automation Engineer.
-    Refine the trace into a linear Playwright script for {base_url}.
+    Refine the following execution trace into a linear, clean Playwright script for {target_url}.
+    
+    {golden_context}
     
     **CRITICAL RULES**:
-    1. **NO EXTERNAL URLS**: Assertions MUST use {base_url}.
-    2. **Smart Actions**: For 'click'/'fill', use `smart_action(...)`.
-    3. **ASSERTION GENERATION (CRITICAL)**:
-       - If step action is 'assert' or 'check':
-       - You MUST generate a `page.expect(...)` or `expect(page.locator(...))` line.
-       - Base the locator on the 'expected_outcome' or 'decision_reason'.
-       - Example: If goal is "Check Login is blue", generate: 
-         `expect(page.get_by_text("Login")).to_be_visible()`
-         `expect(page.get_by_text("Login")).to_have_css("color", "rgb(0, 0, 255)")` (approximation)
-    4. **Trace Fidelity**: Follow the trace steps.
+    1. **SYNC ONLY**: You MUST use SYNC Python Playwright. **DO NOT USE `await` keyword.**
+    2. **Smart Actions (MANDATORY)**: 
+       - For every interaction (fill/click), you MUST use the `smart_action` function.
+       - Syntax: `smart_action(page, "playwright_locator_string", "action_type", value="optional_value")`
+       - Example: `smart_action(page, "page.get_by_label('User')", "fill", value="admin")`
+       - **DO NOT** use `page.locator(...)` for interactive steps unless it's a composite locator.
+       - **Composite Locators**: If 'element_context' is available, use it to create robust locators!
+         - Ex: `page.locator('button.btn-primary', has_text='Start')` is better than `page.get_by_text('Start')`.
+         - Ex: `page.locator('div.course-card').filter(has_text='AI').get_by_role('button')`.
+       - **DO NOT** use `page.locator(...)` for simple interactions if `smart_action` is safer.
+    3. **Indentation**: 
+       - Use exactly 4 spaces for indentation.
+    4. **Condense Steps**: 
+       - If the trace shows redundant clicks or loops, output only the successful final interaction.
+    5. **Hardened Control Flow (MANDATORY)**:
+       - **Iterative Stability**: If the goal involves lists (courses, posts), REQUIRE index-based loops (`nth(i)`).
+       - **Navigation Guards**: ALWAYS call `wait_for_stability(page)` after every `smart_action`.
+       - **URL Verification**: Use `page.wait_for_url` after significant navigation clicks.
+    6. **Navigation**: 
+       - Use `page.goto("{target_url}")` at the start.
+    7. **NO TEMPLATE LOGIC**: 
+       - DO NOT include generic `if action == 'click':` blocks.
+       - DO NOT use placeholder variables like `locator`, `value`, or `action_type`.
+       - Use only the CONCRETE values provided in the TRACE.
     
-    5. **PYTHON SYNTAX ONLY**: Output valid Python code inside the test function.
-        
     **TRACE TO REFINE**:
     {trace_summary}
     """
@@ -79,36 +109,45 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         # Fallback: Just try to use the whole content if no blocks
         raw_steps = content.strip()
 
-    # 2. Filter out conversational lines (starting with alphabetic sentence)
+    # 2. Filter out conversational lines and setup code
     lines = raw_steps.split("\n")
     clean_lines = []
     
-    # helper to check if a line is likely code
-    def is_code(line):
+    # helper to check if a line is likely code we want to keep
+    def is_valid_step(line):
         line = line.strip()
         if not line: return True
         if line.startswith("#"): return True
-        # Logic words
-        if line.startswith(("if ", "elif ", "else:", "for ", "while ", "try:", "except ", "with ", "def ", "class ")): return True
-        # Action calls
-        if "smart_action" in line or "take_screenshot" in line or "expect(" in line or "page." in line: return True
-        # Variable assignment
-        if "=" in line: return True
+        
+        # Blacklist setup/boilerplate lines
+        blacklist = [
+            "playwright.chromium", "browser =", "context =", "new_page", 
+            "sync_playwright", "with ", "def ", "return ", "async ", 
+            "await ", "context.close", "browser.close", "Args:", "page:",
+            "locator:", "value:", "type:", "Returns:", "if action_type",
+            "if __name__"
+        ]
+        if any(item in line for item in blacklist): return False
+        
+        # Action calls and assertions are what we want
+        valid_starters = ("smart_action", "expect(", "page.goto", "page.get_by", "page.locator", "take_screenshot")
+        if any(line.startswith(s) for s in valid_starters): return True
+        
+        # Fallback for simple variable assignments
+        if "=" in line and not line.startswith(" "): return True
+        
         return False
 
     for line in lines:
         stripped = line.strip()
-        if not stripped:
-            clean_lines.append("")
-            continue
-            
-        # Eliminate chatty lines "Okay, I will..."
-        if not is_code(stripped) and len(stripped) > 0 and stripped[0].isalpha() and "=" not in stripped and "(" not in stripped:
-             print(f"   ✂️ Removing chatty line: {stripped}")
-             continue
-             
-        clean_lines.append(line)
+        # Remove 'await ' specifically from valid lines
+        clean_line = line.replace("await ", "")
         
+        if is_valid_step(clean_line):
+             clean_lines.append(clean_line)
+        else:
+             print(f"   ✂️ Removing non-step line: {stripped}")
+             
     clean_steps = textwrap.dedent("\n".join(clean_lines))
     
     # project_name = os.path.basename(os.path.dirname(os.path.dirname(output_path)))
@@ -116,150 +155,27 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     project_name = os.path.basename(os.path.dirname(os.path.dirname(trace_path)))
     screenshot_dir = os.path.join("projects", project_name, "screenshots").replace("\\", "/")
     
-    # Build complete test file - STRICT INDENTATION
-    INDENT = "    "
-    code = []
     
-    # Imports
-    code.extend([
-        "import pytest",
-        "import os",
-        "import re",
-        "import random",
-        "from playwright.sync_api import Page, expect",
-        "",
-    ])
+    # ============================================
+    # NEW: Use Template Engine (No more f-string hell!)
+    # ============================================
+    from template_engine import TestTemplateEngine
     
-    # Helper Functions
-    code.extend([
-        "def wait_for_stability(page):",
-        f"{INDENT}\"\"\"Ensures page is stable before interaction\"\"\"",
-        f"{INDENT}try:",
-        f"{INDENT}{INDENT}page.wait_for_load_state('domcontentloaded', timeout=5000)",
-        f"{INDENT}{INDENT}page.wait_for_load_state('networkidle', timeout=3000)",
-        f"{INDENT}except: pass",
-        f"{INDENT}# Check for blocking overlays",
-        f"{INDENT}page.evaluate(\"\"\"() => {{",
-        f"{INDENT}{INDENT}const overlays = document.querySelectorAll('.modal.show, .modal-backdrop.show, .overlay, [role=\"dialog\"]');",
-        f"{INDENT}{INDENT}overlays.forEach(el => {{",
-        f"{INDENT}{INDENT}{INDENT}if (window.getComputedStyle(el).display !== 'none') {{",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}console.log('Found overlay, waiting/hiding:', el);",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}// el.style.display = 'none'; // Optional: Aggressively hide if needed",
-        f"{INDENT}{INDENT}{INDENT}}}",
-        f"{INDENT}{INDENT}}});",
-        f"{INDENT}}}\"\"\")",
-        "",
-        "def smart_action(page, primary_locator, action_type, value=None):",
-        f"{INDENT}\"\"\"Robust, Self-Healing Action Wrapper\"\"\"",
-        f"{INDENT}wait_for_stability(page)",
-        f"{INDENT}loc = None",
-        f"{INDENT}try:",
-        f"{INDENT}{INDENT}# 1. Parsing Locator",
-        f"{INDENT}{INDENT}loc_str = primary_locator",
-        f"{INDENT}{INDENT}import re",
-        f"{INDENT}{INDENT}if 'page.' in loc_str:",
-        f"{INDENT}{INDENT}{INDENT}loc_str = loc_str.replace('getByRole', 'get_by_role').replace('{{ name:', 'name=').replace(' }}', '')",
-        f"{INDENT}{INDENT}{INDENT}match = re.search(r\"['\\\"](.*?)['\\\"]\", loc_str)",
-        f"{INDENT}{INDENT}{INDENT}if match and 'locator' in loc_str: loc_str = match.group(1)",
-        f"{INDENT}{INDENT}{INDENT}if 'page.' in loc_str: loc = eval(loc_str, {{'page': page, 're': re}})",
-        f"{INDENT}{INDENT}",
-        f"{INDENT}{INDENT}if not loc: loc = page.locator(loc_str)",
-        f"{INDENT}",
-        f"{INDENT}{INDENT}# 2. Pre-Action Checks",
-        f"{INDENT}{INDENT}if not loc.count() and 'strict mode' not in action_type:",
-        f"{INDENT}{INDENT}{INDENT}# Try relaxed visibility",
-        f"{INDENT}{INDENT}{INDENT}pass",
-        f"{INDENT}{INDENT}",
-        f"{INDENT}{INDENT}# 3. Execution",
-        f"{INDENT}{INDENT}if action_type == 'click':",
-        f"{INDENT}{INDENT}{INDENT}try:",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}loc.click(timeout=5000)",
-        f"{INDENT}{INDENT}{INDENT}except Exception as e:",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}print(f'⚠️ Standard click failed: {{e}}. Trying force.')",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}try:",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}loc.click(timeout=3000, force=True)",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}except:",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}# Last resort: JS Click",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}print(f'☢️ JS Click needed for: {{primary_locator}}')",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}loc.first.evaluate('el => el.click()')",
-        f"{INDENT}{INDENT}",
-        f"{INDENT}{INDENT}elif action_type == 'fill':",
-        f"{INDENT}{INDENT}{INDENT}loc.fill(str(value), timeout=5000)",
-        f"{INDENT}{INDENT}",
-        f"{INDENT}{INDENT}return True",
-        f"{INDENT}",
-        f"{INDENT}except Exception as e:",
-        f"{INDENT}{INDENT}# 4. Self-Healing Fallback",
-        f"{INDENT}{INDENT}print(f'🚑 Healing needed for: {{primary_locator}} ({{e}})')",
-        f"{INDENT}{INDENT}try:",
-        f"{INDENT}{INDENT}{INDENT}# Fallback 1: Text approximations",
-        f"{INDENT}{INDENT}{INDENT}keyword = ''",
-        f"{INDENT}{INDENT}{INDENT}match = re.search(r\"['\\\"](.*?)['\\\"]\", primary_locator)",
-        f"{INDENT}{INDENT}{INDENT}if match: keyword = match.group(1).lower()",
-        f"{INDENT}{INDENT}{INDENT}",
-        f"{INDENT}{INDENT}{INDENT}if keyword:",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}healed = page.get_by_role('button', name=re.compile(keyword, re.IGNORECASE))",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}if healed.count():",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}print('✨ Healed via Role/Name match!')",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}if action_type == 'click': healed.first.click()",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}else: healed.first.fill(str(value))",
-        f"{INDENT}{INDENT}{INDENT}{INDENT}{INDENT}return True",
-        f"{INDENT}{INDENT}except: pass",
-        f"{INDENT}{INDENT}",
-        f"{INDENT}{INDENT}print('❌ Action failed after healing attempts.')",
-        f"{INDENT}{INDENT}raise e",
-        "",
-        "def take_screenshot(page, name):",
-        f"{INDENT}\"\"\"Consistent screenshot utility\"\"\"",
-        f"{INDENT}path = os.path.join('{screenshot_dir}', f'{{name}}.png')",
-        f"{INDENT}os.makedirs(os.path.dirname(path), exist_ok=True)",
-        f"{INDENT}page.screenshot(path=path)",
-        f"{INDENT}print(f'📸 Saved: {{path}}')",
-        ""
-    ])
-
-    # Main Test Function
-    code.append("def test_autonomous_flow(page: Page):")
-    code.append(f"{INDENT}timestamp = random.randint(1000, 9999)")
-    code.append(f"{INDENT}username = f'user_{{timestamp}}'")
-    code.append(f"{INDENT}email = f'test_{{timestamp}}@example.com'")
-    code.append(f"{INDENT}page.context.set_default_timeout(60000)")
-    code.append(f"{INDENT}# Generated for {project_name}")
+    engine = TestTemplateEngine()
+    final_code = engine.generate_test(
+        project_name=project_name,
+        target_url=target_url,
+        test_steps=clean_steps
+    )
     
-    if trace:
-        code.append(f"{INDENT}page.goto(\"{trace[0]['url']}\")")
-    else:
-        # Fallback if trace is totally matching
-         code.append(f"{INDENT}pass")
-
-    # Post-process the code steps to preserve structure but ensure indentation
     
-    # 1. Remove ANY 'def' wrappers the LLM might have hallucinated
-    final_lines = []
-    for line in clean_steps.split("\n"):
-        if line.strip().startswith("def ") or line.strip().startswith("@"):
-            continue
-        final_lines.append(line)
-        
-    cleaned_block = "\n".join(final_lines)
-    
-    # 2. Smart Dedent (handle if LLM indented everything by 4 spaces)
-    dedented_block = textwrap.dedent(cleaned_block)
-    
-    # 3. Indent everything by 4 spaces for our function body
-    indented_block = textwrap.indent(dedented_block, INDENT)
-    
-    code.append(indented_block)
-            
-    code.append(f'{INDENT}take_screenshot(page, "final_state")')
-    
-    # Ensure output directory exists
+    # Write to file
     output_dir = os.path.dirname(output_path)
     if output_dir and not os.path.exists(output_dir):
         os.makedirs(output_dir, exist_ok=True)
 
     with open(output_path, "w", encoding='utf-8') as f:
-        f.write("\n".join(code))
+        f.write(final_code)
     print(f"✅ Self-Healing Code Generated: {output_path}")
 
 if __name__ == "__main__":

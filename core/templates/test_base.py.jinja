@@ -1,0 +1,31 @@
+"""
+Base Test Template
+This is a Jinja2 template that generates the final test file.
+Variables provided: project_name, target_url, test_steps
+"""
+import pytest
+import os
+import re
+import random
+from playwright.sync_api import Page, expect
+
+# Import pre-tested helpers
+import sys
+sys.path.append('{{ helpers_path }}')
+from helpers import wait_for_stability, smart_action, take_screenshot
+
+
+def test_autonomous_flow(page: Page):
+    """Auto-generated test from trace"""
+    timestamp = random.randint(1000, 9999)
+    username = f'user_{timestamp}'
+    email = f'test_{timestamp}@example.com'
+    page.context.set_default_timeout(60000)
+    
+    # Generated for {{ project_name }}
+    page.goto("{{ target_url }}")
+    wait_for_stability(page)
+
+{{ test_steps }}
+
+    take_screenshot(page, "final_state", "{{ project_name }}")

@@ -1,0 +1,166 @@
+{
+  "base_url": "https://www.saucedemo.com/",
+  "workflow": "Login with standard_user and secret_sauce. Add the 'Sauce Labs Backpack' to the cart. Verify the cart badge shows '1' and click on the cart icon.",
+  "pages": [
+    {
+      "name": "HomePage",
+      "url": "/",
+      "locators": [
+        {
+          "name": "username_input",
+          "selector": "[data-test='username']",
+          "element": {
+            "tag": "input",
+            "text": "Username",
+            "role": ""
+          }
+        },
+        {
+          "name": "password_input",
+          "selector": "[data-test='password']",
+          "element": {
+            "tag": "input",
+            "text": "Password",
+            "role": ""
+          }
+        }
+      ],
+      "actions": []
+    },
+    {
+      "name": "InventoryPage",
+      "url": "/inventory.html",
+      "locators": [
+        {
+          "name": "login_button_input",
+          "selector": "[data-test='login-button']",
+          "element": {
+            "tag": "input",
+            "text": "",
+            "role": ""
+          }
+        },
+        {
+          "name": "add_to_cart_sauce_labs_backpack_button",
+          "selector": "[data-test='add-to-cart-sauce-labs-backpack']",
+          "element": {
+            "tag": "button",
+            "text": "Add to cart",
+            "role": ""
+          }
+        }
+      ],
+      "actions": [
+        {
+          "name": "click_login_button_input",
+          "steps": [
+            {
+              "step": 2,
+              "action": "click",
+              "locator_name": "login_button_input",
+              "value": null,
+              "thought": "I have already filled in the username and password. Now, I need to click the login button which is the third input element."
+            }
+          ],
+          "params": ""
+        },
+        {
+          "name": "click_add_to_cart_sauce_labs_backpack_button",
+          "steps": [
+            {
+              "step": 3,
+              "action": "click",
+              "locator_name": "add_to_cart_sauce_labs_backpack_button",
+              "value": null,
+              "thought": "I am on the inventory page, logged in. I need to add the 'Sauce Labs Backpack' to the cart. I will click the 'Add to cart' button associated with the 'Sauce Labs Backpack'."
+            }
+          ],
+          "params": ""
+        }
+      ]
+    },
+    {
+      "name": "CartPage",
+      "url": "/cart.html",
+      "locators": [
+        {
+          "name": "cart_badge",
+          "selector": "get_by_text('1",
+          "element": {
+            "tag": "a",
+            "text": "1",
+            "role": ""
+          }
+        }
+      ],
+      "actions": [
+        {
+          "name": "click_cart_badge",
+          "steps": [
+            {
+              "step": 4,
+              "action": "click",
+              "locator_name": "cart_badge",
+              "value": null,
+              "thought": "I have successfully logged in and added an item to the cart. The next step is to verify the cart badge shows '1' and click on the cart icon. The badge element is element 2, which contains the value '1'. After verification, I will click on it to navigate to the cart page."
+            }
+          ],
+          "params": ""
+        }
+      ]
+    }
+  ],
+  "tests": [
+    {
+      "name": "test_user_can_login_and_add_item_to_cart",
+      "description": "Login with standard_user and secret_sauce. Add the 'Sauce Labs Backpack' to the cart. Verify the cart badge shows '1' and click on the cart icon.",
+      "steps_description": [
+        "The goal is to login, add an item to the cart, and verify the cart. The history is empty, so I need to start by logging in. First, I'll fill the username field.",
+        "I have already filled the username. The next step is to fill the password field with the correct password 'secret_sauce'. This is a pre-requisite for logging in and continuing with the goal.",
+        "I have already filled in the username and password. Now, I need to click the login button which is the third input element.",
+        "I am on the inventory page, logged in. I need to add the 'Sauce Labs Backpack' to the cart. I will click the 'Add to cart' button associated with the 'Sauce Labs Backpack'.",
+        "I have successfully logged in and added an item to the cart. The next step is to verify the cart badge shows '1' and click on the cart icon. The badge element is element 2, which contains the value '1'. After verification, I will click on it to navigate to the cart page."
+      ],
+      "page_objects": [
+        {
+          "class_name": "HomePage",
+          "var_name": "home_page",
+          "goto": true,
+          "description": "Page object for Home"
+        },
+        {
+          "class_name": "InventoryPage",
+          "var_name": "inventory_page",
+          "goto": false,
+          "description": "Page object for Inventory"
+        },
+        {
+          "class_name": "CartPage",
+          "var_name": "cart_page",
+          "goto": false,
+          "description": "Page object for Cart"
+        }
+      ],
+      "actions": [
+        {
+          "code": "inventory_page.click_login_button_input()",
+          "comment": "I have already filled in the username and password. Now, I n"
+        },
+        {
+          "code": "inventory_page.click_add_to_cart_sauce_labs_backpack_button()",
+          "comment": "I am on the inventory page, logged in. I need to add the 'Sa"
+        },
+        {
+          "code": "cart_page.click_cart_badge()",
+          "comment": "I have successfully logged in and added an item to the cart."
+        }
+      ],
+      "assertions": [
+        {
+          "code": "expect(page.get_by_text(\"1\")).to_be_visible()",
+          "comment": "Verify cart badge shows 1 item"
+        }
+      ]
+    }
+  ]
+}

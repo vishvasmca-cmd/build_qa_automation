@@ -18,6 +18,7 @@ def run_pipeline(config_path, headed=False):
     # Phase 0: Pre-Run Test Planning (REAL WORLD FIRST)
     print(colored("\n[Step 0/7] 📋 Strategic Test Planning...", "cyan"))
     try:
+        sys.path.append(os.path.dirname(__file__))
         from spec_synthesizer import SpecSynthesizer
         domain = config.get("domain", "generic")
         syn = SpecSynthesizer(project_root, domain)
@@ -113,7 +114,8 @@ def run_pipeline(config_path, headed=False):
     reviewer_script = os.path.join(os.path.dirname(__file__), "reviewer.py")
     ret = subprocess.run(["python", reviewer_script, test_path], capture_output=False)
     if ret.returncode != 0:
-         print(colored("⚠️ Reviewer Failed (Continuing with original code)...", "yellow"))
+         print(colored("❌ Reviewer Rejected/Failed. Halting Pipeline to prevent execution of broken code.", "red"))
+         return
 
     # Step 4: Intelligent Spec Synthesis
     print(colored("\n[Step 4/7] 🧠 Synthesizing Specs & Features...", "cyan"))
