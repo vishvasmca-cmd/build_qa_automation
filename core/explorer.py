@@ -39,7 +39,8 @@ Your goal is to complete the user's workflow by deciding the single next best ac
 2. History Check: Review `history` carefully. What have I ALREADY DONE? Use element text and URLs to verify.
 3. Validate: Did my LAST action work? Note: On SPAs, the URL might not change even if the content does.
 4. Multi-Goal Check: Look at the `goal`. Does it have multiple steps (e.g., '1. Home, 2. Price')? Check off completed steps based on history.
-5. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal?
+5. **Login Check**: If I encounter a login page and NO credentials are in `test_data`, SKIP login entirely. Instead, explore publicly accessible areas like footer links, documentation, pricing pages, or the homepage navigation.
+6. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal?
 
 **OUTPUT SCHEMA (JSON only)**:
 {
