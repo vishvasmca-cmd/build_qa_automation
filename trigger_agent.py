@@ -13,7 +13,7 @@ if __name__ == "__main__":
     else:
         config_path = os.path.abspath("projects/playwright_smoke/config.json")
         
-    print(f"🚀 Triggering agent with config: {config_path}")
+    print(f"Triggering agent with config: {config_path}")
     
     # We run headed=True by default for local debugging
     # The ExplorerAgent will automatically downgrade to headless in CI environments

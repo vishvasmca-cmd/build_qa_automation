@@ -92,7 +92,7 @@ class ExplorerAgent:
         self.history = []
 
     async def run(self):
-        print(colored(f"🚀 Explorer: Starting Strategy 2026. Goal: {self.workflow}", "blue", attrs=["bold"]))
+        print(colored(f"Explorer: Starting Strategy 2026. Goal: {self.workflow}", "blue", attrs=["bold"]))
         
         async with async_playwright() as p:
             browser = await p.chromium.launch(headless=not self.headed)
@@ -285,7 +285,7 @@ class ExplorerAgent:
                     const role = el.getAttribute('role') || (el.tagName === 'BUTTON' ? 'button' : el.tagName === 'A' ? 'link' : '');
                     const text = el.innerText || el.textContent || "";
                     if (role && text.length > 0 && text.length < 50) {
-                       return `page.get_by_role("${role}", { name: "${text.trim().replace(/\\n/g, ' ')}" })`;
+                       return `page.get_by_role("${role}", name="${text.trim().replace(/\\n/g, ' ')}")`;
                     }
 
                     if (text.length > 0 && text.length < 30) {

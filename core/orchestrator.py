@@ -56,7 +56,7 @@ def run_pipeline(config_path, headed=False):
     if headed:
         cmd.append("--headed")
     
-    ret = subprocess.run(cmd, capture_output=False)
+    ret = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='ignore')
     
     if ret.returncode == 4:
         print(colored("❌ Site Skipped: Website Unreachable or 404.", "red"))
@@ -65,6 +65,7 @@ def run_pipeline(config_path, headed=False):
 
     if ret.returncode != 0:
         print(colored("❌ Explorer Agent Failed / Crashed!", "red"))
+        print(colored(f"Output:\n{ret.stdout}\nError:\n{ret.stderr}", "red"))
         _log_error(config, "exploration", "Explorer Crashed (Non-zero exit code)")
         print(colored("⚠️ Triggering Fallback: Generating Basic Test from User Goal...", "yellow"))
         
@@ -90,16 +91,18 @@ def run_pipeline(config_path, headed=False):
                 }
             ]
         }
+        os.makedirs(os.path.dirname(trace_path), exist_ok=True)
         with open(trace_path, "w") as f:
             json.dump(fake_trace, f, indent=2)
             
     if not os.path.exists(trace_path):
         print(colored("❌ Critical: No trace available even after fallback. Aborting.", "red"))
+        print(colored("Critical: No trace available even after fallback. Aborting.", "red"))
         _log_error(config, "exploration", "No Trace File Generated")
         return
 
     # Step 2: Knowledge Update (RAG-Ready)
-    print(colored("\n[Step 2/7] 📖 Updating Knowledge Bank...", "cyan"))
+    print(colored("\n[Step 2/7] Updating Knowledge Bank...", "cyan"))
     try:
         sys.path.append(os.path.dirname(__file__))
         from knowledge_bank import KnowledgeBank
@@ -112,14 +115,14 @@ def run_pipeline(config_path, headed=False):
                 cost = trace_data.get("metadata", {}).get("cost", {})
                 if cost:
                     # Input/Output tokens
-                    print(colored(f"💰 AI Cost: {cost.get('input', 0)} In / {cost.get('output', 0)} Out Tokens", "yellow"))
+                    print(colored(f"AI Cost: {cost.get('input', 0)} In / {cost.get('output', 0)} Out Tokens", "yellow"))
 
                 kb.update_from_run(trace_data["trace"], config)
     except Exception as e:
-        print(colored(f"⚠️ Knowledge Update Failed: {e}", "yellow"))
+        print(colored(f"Knowledge Update Failed: {e}", "yellow"))
 
     # Step 3: Code Generation
-    print(colored("\n[Step 3/7] 💻 Generating Robust Code...", "cyan"))
+    print(colored("\n[Step 3/7] Generating Robust Code...", "cyan"))
     refiner_script = os.path.join(os.path.dirname(__file__), "refiner.py")
     ret = subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", "")], capture_output=False)
     if ret.returncode != 0:
@@ -162,7 +165,7 @@ def run_pipeline(config_path, headed=False):
         print(f"Attempt {attempt + 1}/{max_retries}...")
         # Capture output for the Feedback Agent
         ret = subprocess.run(["pytest", test_path, "-v"], capture_output=True, text=True)
-        execution_log = ret.stdout + "\n" + ret.stderr
+        execution_log = (ret.stdout or "") + "\n" + (ret.stderr or "")
         print(execution_log) # Show to user as well
         
         if ret.returncode == 0:
