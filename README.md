@@ -3,8 +3,29 @@
 ## 🚀 **Single Command Entry Point**
 
 ```bash
-python run.py --project <name> --url <url> --goal <goal> --domain <auto|banking|ecommerce|saas|isp_telecom>
+python run.py --project <name> --url <url> --goal <goal> --domain <auto|banking|ecommerce|saas|healthcare>
 ```
+
+---
+
+## 🔥 **Recent Major Updates (January 2026)**
+
+### 🏛️ **Autonomous POM Architecture**
+The framework now supports full **Page Object Model (POM)** generation. It analyzes the trace and automatically creates:
+- `pages/{PageName}.py`: Encapsulated locators and semantic action methods.
+- `pages/base_page.py`: The self-healing engine.
+- `tests/e2e/test_main.py`: Clean, readable tests using Page Objects.
+
+### 🧠 **Domain-Aware Test Strategist (RAG 2.0)**
+The planner is now "taught" via domain playbooks. It recognizes **E-commerce, Banking, and Healthcare** sites and automatically designs:
+- **Smoke Suites**: Critical "Must-Pass" happy paths.
+- **Regression Suites**: Deep edge cases and negative validations.
+
+### 🛡️ **Runtime Self-Healing v2**
+Native intercept detection in `BasePage`. If a click is intercepted (e.g., by a modal or overlay), the engine automatically attempts to clear the obstruction and retries the action.
+
+### 📊 **CI Failure Log Aggregation**
+Consolidated tracking of distributed test runs. All failures across 100+ sites are merged into a single `knowledge/failures.json` for rapid post-mortem analysis.
 
 ---
 
@@ -60,16 +81,25 @@ run.py (MAIN ENTRY POINT)
       │   ├─ Fail-Fast on 404
       │   └─ Outputs: trace.json
       │
-      ├─► [Step 3] Knowledge Aggregation (core/data_aggregator.py)
+      ├─► [Step 3] POM & Code Generation (core/pom_generator.py)
+      │   ├─ Trace → Page Objects & Locators
+      │   ├─ Automatic Locator Sanitization (Quotes/Apostrophes)
+      │   └─ Outputs: pages/*.py, tests/e2e/test_main.py
+      │
+      ├─► [Step 4] Test Execution (BasePage Engine)
+      │   ├─ pytest with BasePage inheritance
+      │   └─ Runtime Self-Healing (Intercept/Timeout Recovery)
+      │
+      ├─► [Step 5] Knowledge Aggregation (core/data_aggregator.py)
       │   ├─ Parse trace.json
       │   ├─ Create training datasets (*.jsonl)
       │   └─ Update 'learned_patterns_v2.json'
       │
-      ├─► [Step 4] Code Generation (core/refiner.py)
+      ├─► [Step 6] Code Generation (core/refiner.py)
       │   ├─ Trace → Playwright Monolith
       │   └─ Outputs: tests/test_main.py
       │
-      └─► [Step 5] Test Execution
+      └─► [Step 7] Test Execution
           ├─ pytest with retries
           └─ Self-healing on failures
 ```
@@ -98,11 +128,15 @@ inner-event/
     │   ├── config.json             # Project configuration
     │   ├── outputs/
     │   │   ├── trace.json          # Exploration log
+    │   │   ├── pom_structure.json  # Intermediate POM map
     │   │   └── report.html         # Visual report
+    │   ├── pages/                  # 🏛️ GENERATED PAGE OBJECTS
+    │   │   ├── base_page.py        # Self-healing engine
+    │   │   └── product_page.py     # Encapsulated logic
     │   ├── tests/
-    │   │   └── test_main.py        # 🚀 Monolithic Self-Contained Test
+    │   │   └── e2e/test_main.py    # 🚀 Readable POM-based Test
     │   └── specs/
-    │       └── test-plans/         # Strategy documents
+    │       └── test-plans/         # Domain-aware strategy
 
 ---
 
