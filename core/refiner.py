@@ -66,7 +66,11 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     
     **CRITICAL RULES**:
     1. **SYNC ONLY**: You MUST use SYNC Python Playwright. **DO NOT USE `await` keyword.**
-    2. **Smart Actions (MANDATORY)**: 
+    2. **PYTHON KWARGS ONLY**: 
+       - ❌ **WRONG (messes up Python)**: `page.get_by_role("link", {{ name: "Home" }})`
+       - ✅ **RIGHT (Pythonic)**: `page.get_by_role("link", name="Home")`
+       - **NEVER** use `{{ key: value }}` JS objects inside Python function calls. Always use `key=value`.
+    3. **Smart Actions (MANDATORY)**: 
        - For every interaction (fill/click), you MUST use the `smart_action` function.
        - Syntax: `smart_action(page, \"\"\"playwright_locator_string\"\"\", \"action_type\", value=\"optional_value\")`
        - Example: `smart_action(page, \"\"\"page.get_by_label('User')\"\"\", \"fill\", value=\"admin\")`
@@ -127,7 +131,7 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
             "sync_playwright", "with ", "def ", "return ", "async ", 
             "await ", "context.close", "browser.close", "Args:", "page:",
             "locator:", "value:", "type:", "Returns:", "if action_type",
-            "if __name__"
+            "if __name__", "screenshots/" 
         ]
         if any(item in line for item in blacklist): return False
         
