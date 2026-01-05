@@ -66,39 +66,41 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: |
-          SITE_NAME=$(echo "${{ matrix.site }}" | sed 's/[^a-zA-Z0-9]/_/g')
-          echo "SITE_NAME=${SITE_NAME}" >> $GITHUB_ENV
-          PROJECT_DIR="projects/${SITE_NAME}_regression"
-          
-          # Create project config
-          mkdir -p $PROJECT_DIR
-          cat > $PROJECT_DIR/config.json <<EOF
           {
-            "target_url": "${{ matrix.site }}",
-            "project_name": "${SITE_NAME}_regression",
-            "domain": "general",
-            "testing_type": "regression",
-            "workflow_description": "Autonomous smoke test: Navigate site, explore main features, verify key elements",
-            "paths": {
-              "trace": "$PROJECT_DIR/outputs/trace.json",
-              "test": "$PROJECT_DIR/tests/e2e/test_main.py",
-              "report": "$PROJECT_DIR/outputs/report.html"
-            }
-          }
-          EOF
-          
-          # Run the autonomous pipeline
-          echo "🚀 Starting autonomous test for ${{ matrix.site }}"
-          python trigger_agent.py $PROJECT_DIR/config.json 2>&1 | tee test_log.txt
-          
-          # Generate POM structure and files
-          if [ -f "$PROJECT_DIR/outputs/trace.json" ]; then
-            python core/pom_generator.py $PROJECT_DIR/outputs/trace.json
-            python core/pom_template_engine.py $PROJECT_DIR/outputs/pom_structure.json
+            SITE_NAME=$(echo "${{ matrix.site }}" | sed 's/[^a-zA-Z0-9]/_/g')
+            echo "SITE_NAME=${SITE_NAME}" >> $GITHUB_ENV
+            PROJECT_DIR="projects/${SITE_NAME}_regression"
             
-            # Run the generated test
-            pytest $PROJECT_DIR/tests/e2e/test_main.py --html=$PROJECT_DIR/outputs/pytest_report.html --self-contained-html -v
-          fi
+            # Create project config
+            mkdir -p $PROJECT_DIR
+            cat > $PROJECT_DIR/config.json <<EOF
+            {
+              "target_url": "${{ matrix.site }}",
+              "project_name": "${SITE_NAME}_regression",
+              "domain": "general",
+              "testing_type": "regression",
+              "workflow_description": "Autonomous smoke test: Navigate site, explore main features, verify key elements",
+              "paths": {
+                "trace": "$PROJECT_DIR/outputs/trace.json",
+                "test": "$PROJECT_DIR/tests/e2e/test_main.py",
+                "report": "$PROJECT_DIR/outputs/report.html"
+              }
+            }
+          EOF
+            
+            # Run the autonomous pipeline
+            echo "🚀 Starting autonomous test for ${{ matrix.site }}"
+            python trigger_agent.py $PROJECT_DIR/config.json
+            
+            # Generate POM structure and files
+            if [ -f "$PROJECT_DIR/outputs/trace.json" ]; then
+              python core/pom_generator.py $PROJECT_DIR/outputs/trace.json
+              python core/pom_template_engine.py $PROJECT_DIR/outputs/pom_structure.json
+              
+              # Run the generated test
+              pytest $PROJECT_DIR/tests/e2e/test_main.py --html=$PROJECT_DIR/outputs/pytest_report.html --self-contained-html -v
+            fi
+          } 2>&1 | tee test_log.txt
       
       - name: 📊 Collect Metrics
         if: always()
@@ -130,6 +132,7 @@ jobs:
           
           mkdir -p training_data
           cp metrics.json training_data/${SITE_NAME}_metrics.json
+          cp test_log.txt training_data/${SITE_NAME}_test_log.txt
       
       - name: 📤 Upload Test Artifacts
         if: always()
@@ -193,10 +196,13 @@ jobs:
         run: |
           mkdir -p knowledge/training_runs
           RUN_DIR="knowledge/training_runs/run_$(date +%Y%m%d_%H%M%S)"
-          mkdir -p $RUN_DIR
+          mkdir -p $RUN_DIR/logs
           
           # Combine all metrics
           find artifacts/training-data-* -name "*_metrics.json" -exec cat {} \; | jq -s '.' > $RUN_DIR/combined_metrics.json
+          
+          # Export and archive logs from each run
+          find artifacts/training-data-* -name "*_test_log.txt" -exec cp {} $RUN_DIR/logs/ \;
           
           # Generate summary report
           python -c "
