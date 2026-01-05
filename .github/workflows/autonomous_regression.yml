@@ -151,6 +151,15 @@ jobs:
           name: training-data-${{ env.SITE_NAME }}
           path: training_data/
           retention-days: 90
+      
+      - name: 📤 Upload Failure Log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failure-log-${{ env.SITE_NAME }}
+          path: knowledge/failures.json
+          if-no-files-found: ignore
+          retention-days: 7
 
   aggregate-results:
     name: 📈 Aggregate & Commit Results
@@ -167,6 +176,18 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts/
+
+      - name: 📥 Download Failure Logs
+        uses: actions/download-artifact@v4
+        with:
+          pattern: failure-log-*
+          path: failures_tmp/
+          merge-multiple: false
+      
+      - name: 🧩 Merge Failure Logs
+        run: |
+           python core/merge_failures.py knowledge/failures.json "failures_tmp/*/failures.json" || echo "No failures to merge"
+           rm -rf failures_tmp
       
       - name: 📊 Aggregate Training Data
         run: |
