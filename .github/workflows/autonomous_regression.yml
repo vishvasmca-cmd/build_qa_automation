@@ -60,8 +60,8 @@ jobs:
         id: test
         continue-on-error: true
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GOOGLE_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: |
           SITE_NAME=$(echo "${{ matrix.site }}" | sed 's/[^a-zA-Z0-9]/_/g')
           PROJECT_DIR="projects/${SITE_NAME}_regression"
