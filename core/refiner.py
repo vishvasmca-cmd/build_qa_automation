@@ -68,12 +68,12 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     1. **SYNC ONLY**: You MUST use SYNC Python Playwright. **DO NOT USE `await` keyword.**
     2. **Smart Actions (MANDATORY)**: 
        - For every interaction (fill/click), you MUST use the `smart_action` function.
-       - Syntax: `smart_action(page, "playwright_locator_string", "action_type", value="optional_value")`
-       - Example: `smart_action(page, "page.get_by_label('User')", "fill", value="admin")`
+       - Syntax: `smart_action(page, """playwright_locator_string""", "action_type", value="optional_value")`
+       - Example: `smart_action(page, """page.get_by_label('User')""", "fill", value="admin")`
        - **DO NOT** use `page.locator(...)` for interactive steps unless it's a composite locator.
        - **Composite Locators**: If 'element_context' is available, use it to create robust locators!
-         - Ex: `page.locator('button.btn-primary', has_text='Start')` is better than `page.get_by_text('Start')`.
-         - Ex: `page.locator('div.course-card').filter(has_text='AI').get_by_role('button')`.
+         - Ex: `smart_action(page, """page.locator('button.btn-primary', has_text='Start')""", "click")`
+         - Ex: `smart_action(page, """page.locator('div.course-card').filter(has_text='AI').get_by_role('button')""", "click")`.
        - **DO NOT** use `page.locator(...)` for simple interactions if `smart_action` is safer.
     3. **Indentation**: 
        - Use exactly 4 spaces for indentation.
