@@ -64,6 +64,7 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: |
           SITE_NAME=$(echo "${{ matrix.site }}" | sed 's/[^a-zA-Z0-9]/_/g')
+          echo "SITE_NAME=${SITE_NAME}" >> $GITHUB_ENV
           PROJECT_DIR="projects/${SITE_NAME}_regression"
           
           # Create project config
@@ -131,7 +132,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-${{ matrix.site }}
+          name: test-results-${{ env.SITE_NAME }}
           path: |
             projects/*/outputs/**
             projects/*/pages/**
@@ -144,7 +145,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: training-data-${{ matrix.site }}
+          name: training-data-${{ env.SITE_NAME }}
           path: training_data/
           retention-days: 90
 
