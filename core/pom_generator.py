@@ -3,6 +3,7 @@ POM Structure Generator
 Converts trace.json into Page Object Model structure
 """
 import json
+import re
 import os
 from urllib.parse import urlparse
 from collections import defaultdict
@@ -94,6 +95,17 @@ class POMStructureGenerator:
                 return parsed.path or '/'
         return '/'
     
+    def _sanitize_name(self, text):
+        """Sanitize text to be a valid Python identifier"""
+        # Replace spaces/hyphens with underscore first
+        text = text.replace(' ', '_').replace('-', '_')
+        # Remove any non-alphanumeric character (except underscore)
+        text = re.sub(r'[^a-zA-Z0-9_]', '', text)
+        # Remove leading numbers if present (Python variables can't start with digit)
+        if text and text[0].isdigit():
+             text = '_' + text
+        return text.lower()
+
     def _create_locator_name(self, element_context, action_type, step_data=None):
         """
         Generate semantic locator name based on:
@@ -108,7 +120,7 @@ class POMStructureGenerator:
             import re
             match = re.search(r"data-test=['\"]([^'\"]+)['\"]", locator)
             if match:
-                test_name = match.group(1).replace('-', '_')
+                test_name = self._sanitize_name(match.group(1))
                 tag = element_context.get('tag', '')
                 if tag == 'button' and 'button' not in test_name:
                     return f"{test_name}_button"
@@ -144,7 +156,7 @@ class POMStructureGenerator:
             return 'signup_button' if tag == 'button' else 'signup_link'
         
         # 3. Fallback: Use element text + tag
-        clean_text = text.replace(' ', '_').replace('-', '_')
+        clean_text = self._sanitize_name(text)
         if not clean_text or clean_text.isdigit():
             # Generic names for empty or numeric text
             if tag == 'button':
