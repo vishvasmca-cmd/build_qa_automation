@@ -52,18 +52,18 @@ def smart_action(page, primary_locator, action_type, value=None):
         # 3. Execution
         if action_type == 'click':
             try:
-                loc.click(timeout=5000)
+                loc.click(timeout=15000)
             except Exception as e:
                 print(f'⚠️ Standard click failed: {e}. Trying force.')
                 try:
-                    loc.click(timeout=3000, force=True)
+                    loc.click(timeout=5000, force=True)
                 except:
                     # Last resort: JS Click
                     print(f'☢️ JS Click needed for: {primary_locator}')
                     loc.first.evaluate('el => el.click()')
         
         elif action_type == 'fill':
-            loc.fill(str(value), timeout=5000)
+            loc.fill(str(value), timeout=15000)
         
         return True
     
