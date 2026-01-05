@@ -75,7 +75,14 @@ class ExplorerAgent:
             self.config = json.load(f)
         self.workflow = self.config["workflow_description"]
         self.test_data = self.config.get("test_data", {})
-        self.headed = headed
+        
+        # Force headless in CI environments to prevent crashes
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            print(colored("🤖 CI Environment detected: Forcing Headless Mode", "yellow"))
+            self.headed = False
+        else:
+            self.headed = headed
+            
         self.trace = []
         self.kb = KnowledgeBank()
         # RAG context if available

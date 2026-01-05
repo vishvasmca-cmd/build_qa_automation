@@ -7,7 +7,14 @@ sys.path.append(os.getcwd())
 from core.orchestrator import run_pipeline
 
 if __name__ == "__main__":
-    config_path = os.path.abspath("projects/playwright_smoke/config.json")
-    # user asked for "mining" and "test plan", which run_pipeline does.
-    # We run headed=True so user can see it if they want (though they usually can't see the screen directly, it helps debugging)
+
+    if len(sys.argv) > 1:
+        config_path = os.path.abspath(sys.argv[1])
+    else:
+        config_path = os.path.abspath("projects/playwright_smoke/config.json")
+        
+    print(f"🚀 Triggering agent with config: {config_path}")
+    
+    # We run headed=True by default for local debugging
+    # The ExplorerAgent will automatically downgrade to headless in CI environments
     run_pipeline(config_path, headed=True)

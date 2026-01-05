@@ -26,8 +26,8 @@ jobs:
         id: set-matrix
         run: |
           SITE_COUNT=${{ github.event.inputs.site_count || 100 }}
-          # Read sites from targets file (first N sites)
-          SITES=$(head -n $SITE_COUNT .github/regression_targets.txt | jq -R -s -c 'split("\n")[:-1]')
+          # Read sites from targets file, filter out comments and empty lines
+          SITES=$(grep -v '^#' .github/regression_targets.txt | grep -v '^$' | head -n $SITE_COUNT | jq -R -s -c 'split("\n")[:-1]')
           echo "matrix=${SITES}" >> $GITHUB_OUTPUT
 
   autonomous-test:
