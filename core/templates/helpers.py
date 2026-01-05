@@ -35,7 +35,7 @@ def smart_action(page, primary_locator, action_type, value=None):
         import re
         if 'page.' in loc_str:
             loc_str = loc_str.replace('getByRole', 'get_by_role').replace('{ name:', 'name=').replace(' }', '')
-            match = re.search(r'["\\'](.*?)["\\'']', loc_str)
+            match = re.search(r"['\"](.*?)['\"]", loc_str)
             if match and 'locator' in loc_str:
                 loc_str = match.group(1)
             if 'page.' in loc_str:
@@ -73,7 +73,7 @@ def smart_action(page, primary_locator, action_type, value=None):
         try:
             # Fallback 1: Text approximations
             keyword = ''
-            match = re.search(r'["\\'](.*?)["\\'']', primary_locator)
+            match = re.search(r"['\"](.*?)['\"]", primary_locator)
             if match:
                 keyword = match.group(1).lower()
             
