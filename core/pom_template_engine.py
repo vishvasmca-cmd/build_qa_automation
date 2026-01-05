@@ -28,6 +28,9 @@ class POMTemplateEngine:
         os.makedirs(pages_dir, exist_ok=True)
         os.makedirs(tests_dir, exist_ok=True)
         
+        # Generate BasePage
+        self._generate_base_page(pages_dir)
+
         # Generate Page Objects
         page_files = []
         for page in pom_data['pages']:
@@ -75,6 +78,17 @@ class POMTemplateEngine:
         
         return output_path
     
+    def _generate_base_page(self, output_dir):
+        """Generate the BasePage class file"""
+        template_path = os.path.join(self.template_dir, 'base_page.py.jinja')
+        with open(template_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+            
+        output_path = os.path.join(output_dir, 'base_page.py')
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+        print(f"✅ Generated: {output_path}")
+
     def _prepare_locators(self, locators):
         """Prepare locators for template"""
         prepared = []
@@ -100,10 +114,10 @@ class POMTemplateEngine:
                 if action_type == 'fill':
                     # Use parameter variable name
                     param_var = locator_name.replace('_input', '')
-                    code = f"self.{locator_name}.fill({param_var})"
+                    code = f"self.do_fill(self.{locator_name}, {param_var})"
                     comment = f"Fill {locator_name} with provided value"
                 elif action_type == 'click':
-                    code = f"self.{locator_name}.click()"
+                    code = f"self.do_click(self.{locator_name})"
                     comment = f"Click {locator_name}"
                 else:
                     code = f"self.{locator_name}.{action_type}()"

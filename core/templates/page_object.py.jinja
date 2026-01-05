@@ -4,13 +4,14 @@ Represents: {{ page_url }}
 Auto-generated from exploration trace
 """
 from playwright.sync_api import Page, expect
+from pages.base_page import BasePage
 
 
-class {{ page_name }}:
+class {{ page_name }}(BasePage):
     """Page Object for {{ page_url }}"""
     
     def __init__(self, page: Page):
-        self.page = page
+        super().__init__(page)
         # Locators - defined once, reused everywhere
         {% for locator in locators %}
         {% if 'get_by_' in locator.selector or 'get(' in locator.selector %}
