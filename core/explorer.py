@@ -125,6 +125,16 @@ class ExplorerAgent:
                 print(f"📍 On Page: {mindmap['summary'].get('title', 'Unknown')}")
                 print(f"🤔 State: {mindmap['summary'].get('state', 'Unknown')}")
                 
+                # Check for duplicate states (infinite loop prevention)
+                if self.is_duplicate_state(page.url, mindmap):
+                    print(colored("⚠️ Duplicate state detected. Exiting to prevent infinite loop.", "yellow"))
+                    break
+                
+                # Check for stuck loops (circular navigation)
+                if self.detect_stuck_loop():
+                    print(colored("⚠️ Stuck in repetitive pattern. Breaking out.", "yellow"))
+                    break
+                
                 # 2. PLAN (Decider)
                 print(f"📡 Sending {len(mindmap['elements'])} elements to the Planner...")
                 decision = await self._make_decision(mindmap)
