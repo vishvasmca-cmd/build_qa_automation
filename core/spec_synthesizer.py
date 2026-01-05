@@ -11,18 +11,19 @@ load_dotenv()
 # Initialize LLM
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2)
 
+from .strategy_loader import FrameworkStrategyLoader
+
 SYSTEM_PROMPT_PLANNER = """You are a QA Architect Expert.
 Your goal is to analyze a recorded user journey (trace) and the detected domain, then generate a comprehensive Test Plan and BDD Feature Files.
 
-**CRITICAL TASK: SMOKE SUITE DESIGN**
-You must design a strict "Smoke Test Suite" based on these principles (purely for test generation, ignoring deployment rules):
-1. **Application Availability**: Verify load, URL, and critical assets (JS/CSS).
-2. **Critical Navigation**: Main menu, Home -> Products/Search/Help.
-3. **Core Business Functionality (Happy Path)**: ONE happy path per major feature (e.g. Search -> Result -> Cart). NO edge cases.
-4. **Basic Data Flow**: Verify results appear (e.g. Search "shoe" -> see shoes).
-5. **Authentication**: Login/Logout (Standard User only). NO invalid creds tests.
-6. **API Health**: Critical endpoints return 200 (Auth, Product, Cart).
-7. **Environment**: Version check, Feature flags.
+**STRATEGIC GUIDANCE (Review Carefully)**:
+{strategy_context}
+
+**CRITICAL TASK: TEST SUITE DESIGN**
+Based on the defined strategies above, design the test suite:
+1. **Smoke Suite**: Follow the 'Smoke' definition provided in the strategy.
+2. **Regression Suite**: Follow the 'Regression' definition provided in the strategy.
+
 
 Input:
 1. Trace Data: A step-by-step log of actions taken (clicks, inputs, navigation).
@@ -67,6 +68,7 @@ class SpecSynthesizer:
         self.specs_dir = os.path.join(project_dir, "specs")
         self.features_dir = os.path.join(self.specs_dir, "features")
         self.plans_dir = os.path.join(self.specs_dir, "test-plans")
+        self.strategy_loader = FrameworkStrategyLoader()
 
     def generate_master_plan(self, url, testing_type, goal):
         """Phase 1: Generate Plan BEFORE mining starts."""
@@ -79,9 +81,20 @@ class SpecSynthesizer:
    - Identify critical security headers and SSL requirements for this domain.
    - Suggest which forms or inputs should be prioritized for security probing."""
 
+        # 1. Detect Domain
+        if self.domain == 'generic':
+            self.domain = self.strategy_loader.detect_domain(url)
+            print(f"🌍 Detected Domain: {self.domain.upper()}")
+
+        # 2. Load Strategy Context
+        strategy_context = self.strategy_loader.load_strategy(self.domain)
+
         prompt_instructions = f"""You are a Senior Test Manager (10+ Years Experience).
 Your goal is to define a "Master Test Strategy" for a critical business application BEFORE any automation starts.
 This document will serve as the blueprint for the entire engineering team (Senior QAs, Test Architects, SDETs).
+
+**STRATEGIC KNOWLEDGE BANK**:
+{strategy_context}
 
 **YOUR MANDATE**:
 Analyze the request and generate a strategic plan covering these four pillars:
@@ -170,8 +183,12 @@ Output a professional, executive-level Markdown report suitable for stakeholders
         """
         
         try:
+            # Inject Strategy Context into Planner Prompt
+            strategy_context = self.strategy_loader.load_strategy(self.domain)
+            system_prompt = SYSTEM_PROMPT_PLANNER.replace("{strategy_context}", strategy_context)
+
             resp = llm.invoke([
-                ("system", SYSTEM_PROMPT_PLANNER),
+                ("system", system_prompt),
                 ("human", user_msg)
             ])
             

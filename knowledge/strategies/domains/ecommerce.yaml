@@ -1,0 +1,46 @@
+version: 1.0
+domain: E-commerce
+description: "Online retail platforms for selling products to customers."
+modules:
+  - name: "Authentication"
+    criticality: "High"
+    smoke_candidates:
+      - "User Login (Valid)"
+      - "User Registration (Happy Path)"
+    regression_candidates:
+      - "Login with Invalid Password"
+      - "Login with Locked Account"
+      - "Password Reset Flow"
+      - "Registration with Existing Email"
+
+  - name: "Product Catalog"
+    criticality: "Medium"
+    smoke_candidates:
+      - "View Product Details"
+      - "Search for standard product"
+    regression_candidates:
+      - "Filter products by Price/Category"
+      - "Sort products (Price Low-High)"
+      - "Search for non-existent product"
+      - "Verify Pagination"
+
+  - name: "Shopping Cart"
+    criticality: "High"
+    smoke_candidates:
+      - "Add Item to Cart"
+      - "View Cart Summary"
+    regression_candidates:
+      - "Update Quantity in Cart"
+      - "Remove Item from Cart"
+      - "Add Out-of-Stock Item (Verify Error)"
+      - "Cart Persistence (Refresh Page)"
+
+  - name: "Checkout & Payments"
+    criticality: "Critical"
+    smoke_candidates:
+      - "Complete Purchase (Guest / Standard)"
+    regression_candidates:
+      - "Checkout with formatted Address"
+      - "Apply Valid/Invalid Coupon Code"
+      - "Payment Decline Simulation"
+      - "Calculate Tax/Shipping correctly"
