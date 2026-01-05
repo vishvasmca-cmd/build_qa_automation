@@ -5,6 +5,43 @@ import textwrap
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 
+def validate_python_syntax(code_string):
+    """
+    Check if generated Python code compiles without syntax errors.
+    Returns: (is_valid: bool, error_message: str or None)
+    """
+    import ast
+    try:
+        ast.parse(code_string)
+        return True, None
+    except SyntaxError as e:
+        return False, f"Line {e.lineno}: {e.msg}"
+    except Exception as e:
+        return False, str(e)
+
+def find_undefined_variables(code_string):
+    """
+    Static analysis to find potentially undefined placeholder variables.
+    Returns: list of suspicious variable names
+    """
+    import ast
+    try:
+        tree = ast.parse(code_string)
+        undefined = []
+        
+        # Known variables that should exist in test context
+        defined_vars = {'page', 'expect', 'context', 'browser', 'pytest', 'os', 're', 'random'}
+        
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load):
+                # Check for common placeholder variable names
+                if node.id in ['locator', 'value', 'action_type'] and node.id not in defined_vars:
+                    undefined.append(node.id)
+        
+        return list(set(undefined))
+    except:
+        return []
+
 def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test_generated_from_trace.py", workflow_goal=""):
     if not os.path.exists(trace_path):
         print(f"❌ No trace found at {trace_path}")
@@ -96,24 +133,66 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
        - DO NOT use placeholder variables like `locator`, `value`, or `action_type`.
        - Use only the CONCRETE values provided in the TRACE.
     
+    **CRITICAL: AVOID THESE PATTERNS** (Common LLM Mistakes):
+    ❌ WRONG: `page.locator(locator).click()`  # 'locator' variable undefined!
+    ❌ WRONG: `page.locator(locator).fill(value)`  # 'value' variable undefined!
+    ❌ WRONG: `if action_type == "click": page.locator(loc).click()`  # Generic conditionals
+    
+    ✅ RIGHT: `smart_action(page, \"\"\"page.locator("#signin2")\"\"\", "click")`
+    ✅ RIGHT: `smart_action(page, \"\"\"page.get_by_placeholder("Email")\"\"\", "fill", value="test@example.com")`
+    ✅ RIGHT: Use ONLY concrete locators and values from the trace JSON above.
+    
     **TRACE TO REFINE**:
     {trace_summary}
     """
     print(f"TRACE SUMMARY:\n{trace_summary}")
     
-    print(f"TRACE SUMMARY:\n{trace_summary}")
+    # Layer 4: Retry Loop with Validation
+    MAX_RETRIES = 2
+    raw_steps = None
     
-    resp = llm.invoke(prompt)
-    content = resp.content
+    for attempt in range(MAX_RETRIES + 1):
+        print(f"\n🔄 Attempt {attempt + 1}/{MAX_RETRIES + 1}...")
+        
+        resp = llm.invoke(prompt)
+        content = resp.content
+        
+        # 1. Extract code from markdown
+        code_match = re.search(r"```python(.*?)```", content, re.DOTALL)
+        if code_match:
+            candidate_code = code_match.group(1).strip()
+        else:
+            candidate_code = content.strip()
+        
+        # 2. Validate before processing
+        is_valid, syntax_error = validate_python_syntax(candidate_code)
+        undefined_vars = find_undefined_variables(candidate_code)
+        
+        if is_valid and not undefined_vars:
+            print(f"✅ Code validated successfully on attempt {attempt + 1}")
+            raw_steps = candidate_code
+            break
+        
+        # If validation failed and we have retries left
+        if attempt < MAX_RETRIES:
+            error_context = ""
+            if not is_valid:
+                error_context += f"\n**SYNTAX ERROR**: {syntax_error}\n"
+            if undefined_vars:
+                error_context += f"\n**UNDEFINED VARIABLES**: {', '.join(undefined_vars)} - NOT defined!\n"
+            
+            print(f"⚠️ Validation failed:{error_context.strip()}")
+            print(f"   Retrying with error feedback...")
+            
+            # Append error feedback for next attempt
+            prompt += f"\n\n**YOUR PREVIOUS ATTEMPT HAD ERRORS**:{error_context}"
+            prompt += "\nFix these. Use ONLY concrete values from the trace."
+        else:
+            print(f"❌ Max retries reached. Using last generation.")
+            raw_steps = candidate_code
     
-    # 1. Strict Markdown Code Block Extraction
-    import re
-    code_match = re.search(r"```python(.*?)```", content, re.DOTALL)
-    if code_match:
-        raw_steps = code_match.group(1).strip()
-    else:
-        # Fallback: Just try to use the whole content if no blocks
-        raw_steps = content.strip()
+    if not raw_steps:
+        raw_steps = candidate_code
 
     # 2. Filter out conversational lines and setup code
     lines = raw_steps.split("\n")
@@ -136,8 +215,31 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         if any(item in line for item in blacklist): return False
         
         # Blacklist garbage placeholders from LLM
-        garbage = ["locator_string", "value=", "action_type", "optional_value"]
-        if any(g in line for g in garbage): return False
+        def has_undefined_variables(line):
+            """Detect common LLM placeholder patterns that indicate undefined variables."""
+            import re
+            
+            # Pattern 1: page.locator(locator) - bare variable
+            if re.search(r'\.locator\s*\(\s*locator\s*[\),]', line):
+                return True
+            
+            # Pattern 2: .fill(value) or .type(value) - bare variable (not string)
+            if re.search(r'\.(fill|type)\s*\(\s*value\s*[\),]', line):
+                return True
+            
+            # Pattern 3: Generic action_type conditionals
+            if 'action_type' in line or 'if action ==' in line:
+                return True
+            
+            # Pattern 4: Placeholder strings
+            if any(p in line for p in ['locator_string', 'optional_value']):
+                return True
+            
+            return False
+        
+        if has_undefined_variables(line):
+            print(f"   🚫 Rejected: Undefined variable pattern")
+            return False
         
         # Action calls and assertions are what we want
         valid_starters = ("smart_action", "expect(", "page.goto", "page.get_by", "page.locator", "take_screenshot", "wait_for_stability")
