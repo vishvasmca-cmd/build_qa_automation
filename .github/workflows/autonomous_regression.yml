@@ -118,7 +118,7 @@ jobs:
               "test_execution": "$(grep -q 'passed' test_log.txt && echo 'passed' || echo 'failed')"
             },
             "artifacts": {
-              "trace_size": $([ -f "$PROJECT_DIR/outputs/trace.json" ] && stat -f%z "$PROJECT_DIR/outputs/trace.json" || echo 0),
+              "trace_size": $([ -f "$PROJECT_DIR/outputs/trace.json" ] && stat -c%s "$PROJECT_DIR/outputs/trace.json" || echo 0),
               "elements_discovered": $([ -f "$PROJECT_DIR/outputs/trace.json" ] && jq '.trace | length' "$PROJECT_DIR/outputs/trace.json" || echo 0),
               "pages_generated": $(ls $PROJECT_DIR/pages/*.py 2>/dev/null | wc -l)
             }
