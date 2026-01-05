@@ -82,6 +82,15 @@ DOM_EXTRACTION_SCRIPT = """
                     type: node.getAttribute('type') || "",
                     role: node.getAttribute('role') || "",
                     testId: node.getAttribute('data-testid') || node.getAttribute('data-test') || "",
+                    attributes: {
+                        id: node.id || "",
+                        name: node.getAttribute('name') || "",
+                        class: node.className || "",
+                        href: node.getAttribute('href') || "",
+                        placeholder: node.getAttribute('placeholder') || "",
+                        title: node.getAttribute('title') || "",
+                        src: node.getAttribute('src') || ""
+                    },
                     center: { 
                         x: Math.round(rect.left + rect.width / 2), 
                         y: Math.round(rect.top + rect.height / 2) 

@@ -78,7 +78,7 @@ class SpecSynthesizer:
         print(f"📋 Creating Strategic Test Plan for {url}...")
         
         security_requirement = ""
-        if "security check" in goal.lower():
+        if goal and "security check" in goal.lower():
             security_requirement = """
 3. **Security Audit (NEW)**:
    - Identify critical security headers and SSL requirements for this domain.
@@ -110,9 +110,9 @@ Analyze the request and generate a strategic plan covering these four pillars:
 ### 2. 🏗️ TESTING STRATEGY (The "How")
 - **Smoke Suite (Sanity)**: Define the absolute minimum "Health Check" (Login + Main Page Load).
 - **Regression Suite (Deep Dive)**:
-    {'   - Negative Testing: Invalid inputs, boundary values, timeouts.' if 'regression' in testing_type else ''}
-    {'   - Edge Cases: Concurrency, network failures, empty states.' if 'regression' in testing_type else ''}
-    {'   - Security: OWASP Top 10 basics (SQLi, XSS check inputs).' if 'security' in goal.lower() or 'regression' in testing_type else ''}
+    {f'   - Negative Testing: Invalid inputs, boundary values, timeouts.' if testing_type and 'regression' in testing_type.lower() else ''}
+    {f'   - Edge Cases: Concurrency, network failures, empty states.' if testing_type and 'regression' in testing_type.lower() else ''}
+    {f'   - Security: OWASP Top 10 basics (SQLi, XSS check inputs).' if (goal and 'security' in goal.lower()) or (testing_type and 'regression' in testing_type.lower()) else ''}
 - **Data Strategy**: How should we handle test data? (Static? Dynamic generation?)
 
 ### 3. 🏛️ ARCHITECTURE GUIDANCE (For the Test Architect)

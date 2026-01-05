@@ -28,7 +28,7 @@ def run_verification():
         config_data = {
             "project_name": project_name,
             "target_url": url,
-            "goal": goal,
+            "workflow_description": goal,
             "depth_limit": 15,
             "strategies": ["search_first", "interactive_exploration"],
             "paths": {

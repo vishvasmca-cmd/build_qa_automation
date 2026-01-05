@@ -73,7 +73,7 @@ class ExplorerAgent:
     def __init__(self, config_path, headed=False):
         with open(config_path, "r") as f:
             self.config = json.load(f)
-        self.workflow = self.config["workflow_description"]
+        self.workflow = self.config.get("workflow_description") or self.config.get("goal") or "Explore the site"
         self.test_data = self.config.get("test_data", {})
         
         # Force headless in CI environments to prevent crashes
@@ -270,30 +270,67 @@ class ExplorerAgent:
         try:
             refined = await locator.evaluate("""
                 (el) => {
-                    // 1. Test IDs
+                    // --- Tier 1: Attributes (Golden Standard) ---
                     if (el.getAttribute('data-testid')) return `page.get_by_test_id("${el.getAttribute('data-testid')}")`;
                     if (el.getAttribute('data-test')) return `page.locator("[data-test='${el.getAttribute('data-test')}']")`;
                     
-                    // 2. Form Labels & Placeholders
-                    if (el.id) {
-                        const label = document.querySelector(`label[for="${el.id}"]`);
-                        if (label) return `page.get_by_label("${label.innerText.trim()}")`;
+                    // ID is good IF it looks stable (not a long random hash)
+                    if (el.id && el.id.length < 50 && !/\\d{10,}/.test(el.id)) {
+                        return `page.locator("#${el.id}")`;
                     }
-                    if (el.placeholder) return `page.get_by_placeholder("${el.placeholder}")`;
-                    
-                    // 3. Roles & Text
+
+                    // --- Tier 2: Semantics (User-Facing) ---
                     const role = el.getAttribute('role') || (el.tagName === 'BUTTON' ? 'button' : el.tagName === 'A' ? 'link' : '');
                     const text = el.innerText || el.textContent || "";
-                    if (role && text.length > 0 && text.length < 50) {
-                       return `page.get_by_role("${role}", name="${text.trim().replace(/\\n/g, ' ')}")`;
+                    const cleanText = text.trim().replace(/\\n/g, ' ').slice(0, 60);
+                    
+                    // Name/Label/Placeholder
+                    if (el.getAttribute('name')) return `page.locator("[name='${el.getAttribute('name')}']")`;
+                    if (el.getAttribute('placeholder')) return `page.get_by_placeholder("${el.getAttribute('placeholder')}")`;
+                    if (el.getAttribute('aria-label')) return `page.get_by_label("${el.getAttribute('aria-label')}")`;
+                    
+                    if (el.id) {
+                         const label = document.querySelector(`label[for="${el.id}"]`);
+                         if (label) return `page.get_by_label("${label.innerText.trim()}")`;
                     }
 
-                    if (text.length > 0 && text.length < 30) {
-                        return `page.get_by_text("${text.trim()}")`;
+                    // Role + Name (Accessibility Standard)
+                    if (role && cleanText.length > 0) {
+                        return `page.get_by_role("${role}", name="${cleanText}")`;
+                    }
+                    
+                    if (cleanText.length > 0 && cleanText.length < 30) {
+                        return `page.get_by_text("${cleanText}")`;
                     }
 
-                    // 4. ID Fallback
-                    if (el.id) return `id=${el.id}`;
+                    // --- Tier 3: Structural/CSS (Hierarchy) ---
+                    // Try to find a unique class combination
+                    if (el.className && typeof el.className === 'string') {
+                        const classes = el.className.split(' ').filter(c => c.trim().length > 0 && !c.includes('hover') && !c.includes('active'));
+                        if (classes.length > 0) {
+                             return `page.locator(".${classes.join('.')}")`; 
+                        }
+                    }
+
+                    // --- Tier 4: XPath / Fallback ---
+                    // Simple recursive XPath generator
+                    function getXPath(node) {
+                        if (node.id && node.id.length < 50 && !/\\d{10,}/.test(node.id)) return `//*[@id="${node.id}"]`;
+                        if (node === document.body) return '/html/body';
+                        if (!node.parentNode) return '';
+                        
+                        let ix = 0;
+                        const siblings = node.parentNode.childNodes;
+                        for (let i = 0; i < siblings.length; i++) {
+                            const sibling = siblings[i];
+                            if (sibling === node) return getXPath(node.parentNode) + '/' + node.tagName.toLowerCase() + '[' + (ix + 1) + ']';
+                            if (sibling.nodeType === 1 && sibling.tagName === node.tagName) ix++;
+                        }
+                        return '';
+                    }
+                    
+                    const xpath = getXPath(el);
+                    if (xpath) return `page.locator("xpath=${xpath}")`;
 
                     return null;
                 }
