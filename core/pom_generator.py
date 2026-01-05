@@ -26,11 +26,13 @@ class POMStructureGenerator:
         
         # Group by URL (page)
         for step in self.trace:
+            if step.get('action') == 'navigate':
+                continue
             url = step.get('url', '')
             page_name = self._get_page_name(url)
             
             # Extract locator
-            locator = step.get('locator_used', '')
+            locator = step.get('locator_used') or ''
             action_type = step.get('action', '')
             element_context = step.get('element_context', {})
             
@@ -100,7 +102,7 @@ class POMStructureGenerator:
         3. Element text + tag type (fallback)
         """
         # 1. Check for data-test attribute in the locator
-        locator = step_data.get('locator_used', '') if step_data else ''
+        locator = step_data.get('locator_used') or '' if step_data else ''
         if 'data-test' in locator:
             # Extract data-test value: [data-test='add-to-cart'] -> add_to_cart_button
             import re
@@ -164,6 +166,7 @@ class POMStructureGenerator:
     def _extract_selector(self, locator_string):
         """Extract clean Playwright selector from locator_used"""
         import re
+        if not locator_string: return ''
         locator = locator_string.strip()
         
         # If it's a page.locator() call, extract the selector
