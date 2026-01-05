@@ -90,6 +90,10 @@ class ExplorerAgent:
         self.output_dir = self.config.get("paths", {}).get("outputs", "outputs")
         os.makedirs(self.output_dir, exist_ok=True)
         self.history = []
+        
+        # State deduplication and loop detection
+        self.visited_states = set()  # Track unique page states
+        self.loop_detection_window = 3  # Check last N steps for patterns
 
     async def run(self):
         print(colored(f"Explorer: Starting Strategy 2026. Goal: {self.workflow}", "blue", attrs=["bold"]))
@@ -194,6 +198,41 @@ class ExplorerAgent:
         except Exception as e:
             print(f"Error in decision: {e}")
             return None
+    
+    def is_duplicate_state(self, page_url, mindmap):
+        """Check if we've visited this exact page state before to prevent infinite loops."""
+        # Create fingerprint: URL + element count + page title
+        element_count = len(mindmap.get('elements', []))
+        page_title = mindmap.get('summary', {}).get('title', '')
+        fingerprint = f"{page_url}:{element_count}:{page_title}"
+        
+        if fingerprint in self.visited_states:
+            return True
+        
+        self.visited_states.add(fingerprint)
+        return False
+    
+    def detect_stuck_loop(self):
+        """Detect if Explorer is stuck in a repetitive pattern."""
+        if len(self.history) < self.loop_detection_window:
+            return False
+        
+        # Get last N actions with URLs
+        recent_steps = self.history[-self.loop_detection_window:]
+        action_signatures = [f"{h['action']}:{h['url']}" for h in recent_steps]
+        
+        # Pattern 1: All identical actions = stuck
+        if len(set(action_signatures)) == 1:
+            print(colored("🔁 Detected stuck loop: identical actions", "yellow"))
+            return True
+        
+        # Pattern 2: Circular A->B->A pattern
+        if len(action_signatures) >= 3:
+            if action_signatures[0] == action_signatures[2]:
+                print(colored("🔁 Detected circular navigation pattern", "yellow"))
+                return True
+        
+        return False
 
     async def _execute_action(self, page, decision, elements):
         action = decision['action']
