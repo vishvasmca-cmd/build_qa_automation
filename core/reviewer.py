@@ -111,9 +111,9 @@ Your job is to CODE REVIEW and AUTO-FIX the provided Playwright Python script.
 4.  **No Hardcoded Waits**: Remove `time.sleep()`. Use `expect(...).to_be_visible()` or `wait_for_load_state`.
 5.  **Robust Locators**: Use `re.compile(..., re.IGNORECASE)` for text/role matches. Reject brittle XPaths.
 6.  **Assertions**: Code MUST have assertions (`expect(...)`). 
-7.  **Self-Healing**: Ensure critical actions use the `smart_action` helper.
+7.  **Self-Healing**: Ensure critical actions use the `smart_action` helper (OR use Page Object methods if using POM).
 8.  **Compilation Check**: REJECT any code that uses placeholder variables like `locator_string`, `value`, or `action_type` instead of actual values from the trace.
-9.  **Protect Helpers**: DO NOT modify, delete, or "refactor" the boilerplate helper functions (`wait_for_stability`, `smart_action`, `take_screenshot`). Only review and fix the code INSIDE `test_autonomous_flow`.
+9.  **Protect Helpers**: DO NOT modify, delete, or "refactor" the boilerplate helper functions (`wait_for_stability`, `smart_action`) IF THEY EXIST. If using POM, these helpers might not be present - that is expected.
 10. **Syntax Integrity**: Ensure that triple-quoted strings (`"""`) are ALWAYS properly closed with `"""`.
 
 **OUTPUT FORMAT**:
