@@ -50,7 +50,7 @@ class CodeReviewer:
                     return {"status": "FIXED", "final_code": code, "review_summary": "Recovered via regex."}
             return None
 
-    def _validate_syntax(self, code):
+    def _validate_hallucinations(self, code):
         """Checks for common autonomous hallucination patterns."""
         placeholders = ['locator_string', 'value', 'action_type', 'primary_locator', 'locator', 'action']
         for p in placeholders:
@@ -58,6 +58,17 @@ class CodeReviewer:
             if re.search(fr"[ ,(]{p}[ ,)]", code) or re.search(fr"^{p}\b", code, re.MULTILINE):
                 return False, f"Detected hallucinated placeholder variable: {p}"
         return True, "OK"
+
+    def _validate_syntax(self, code):
+        """Checks if code is valid Python using AST."""
+        import ast
+        try:
+            ast.parse(code)
+            return True, "OK"
+        except SyntaxError as e:
+            return False, f"SyntaxError at line {e.lineno}: {e.msg}\n{e.text}"
+        except Exception as e:
+            return False, f"Compilation Error: {e}"
 
     def review_and_fix(self, file_path):
         if not os.path.exists(file_path):
@@ -68,6 +79,13 @@ class CodeReviewer:
             code_content = f.read()
 
         print(f"🕵️  Reviewing {os.path.basename(file_path)}...")
+
+        # 0. Pre-Check Syntax
+        is_valid_syntax, syntax_error = self._validate_syntax(code_content)
+        syntax_prompt_addendum = ""
+        if not is_valid_syntax:
+            print(f"⚠️ Initial Syntax Error Detected: {syntax_error}")
+            syntax_prompt_addendum = f"\n\n**CRITICAL FIX REQUIRED**: The code currently has a SYNTAX ERROR. You MUST fix this:\n{syntax_error}"
 
         # Load Anti-Patterns for Quality Gate
         anti_path = os.path.join(os.path.dirname(__file__), "training/anti_patterns.json")
@@ -113,6 +131,8 @@ You must output a JSON object with this EXACT structure:
         ```python
         {code_content}
         ```
+        
+        {syntax_prompt_addendum}
         """
 
         try:
@@ -134,6 +154,12 @@ You must output a JSON object with this EXACT structure:
                 
                 final_code = result.get("final_code")
                 if final_code and len(final_code) > 50: # Sanity check
+                    # Final Syntax Check
+                    is_valid, reason = self._validate_syntax(final_code)
+                    if not is_valid:
+                        print(f"❌ Reviewer generated INVALID code: {reason}. Aborting write.")
+                        return False
+
                     # Write back the fixed code
                     with open(file_path, "w", encoding="utf-8") as f:
                         f.write(final_code)
@@ -141,11 +167,17 @@ You must output a JSON object with this EXACT structure:
                 else:
                     print("⚠️ 'final_code' was empty or invalid. Skipping write.")
             else:
-                # Post-LLM Analysis Syntax Check
+                # Post-LLM Analysis Syntax & Hallucination Check
                 is_valid, reason = self._validate_syntax(result.get("final_code", code_content))
                 if not is_valid:
-                    print(f"❌ Reviewer REJECTED code: {reason}")
+                     print(f"❌ Reviewer REJECTED code due to syntax: {reason}")
+                     return False
+                     
+                is_valid, reason = self._validate_hallucinations(result.get("final_code", code_content))
+                if not is_valid:
+                    print(f"❌ Reviewer REJECTED code due to hallucinations: {reason}")
                     return False
+                    
                 print("✅ Code Approved (No major issues found).")
             
             return True

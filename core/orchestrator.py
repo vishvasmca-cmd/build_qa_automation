@@ -4,6 +4,19 @@ import subprocess
 import os
 from termcolor import colored
 
+def _log_error(config, phase, error_msg):
+    try:
+        sys.path.append(os.path.dirname(__file__))
+        from feedback_agent import FeedbackAgent
+        context = {
+            "site": config.get("target_url"),
+            "project": config.get("project_name"),
+            "phase": phase
+        }
+        FeedbackAgent().log_failure(context, error_msg)
+    except Exception as e:
+        print(colored(f"⚠️ Failed to log error: {e}", "yellow"))
+
 def run_pipeline(config_path, headed=False):
     print(colored(f"🚀 Starting Autonomous Pipeline for {os.path.basename(os.path.dirname(config_path))}...", "green", attrs=["bold"]))
     
@@ -33,6 +46,7 @@ def run_pipeline(config_path, headed=False):
                 json.dump(config, f, indent=2)
     except Exception as e:
         print(colored(f"⚠️ Pre-Planning Failed: {e}", "yellow"))
+        _log_error(config, "planning", str(e))
 
     # Step 1: Explorer (Guided by the Plan)
     print(colored("\n[Step 1/7] 🗺️  Exploring & Mining (Plan-Guided)...", "cyan"))
@@ -46,10 +60,12 @@ def run_pipeline(config_path, headed=False):
     
     if ret.returncode == 4:
         print(colored("❌ Site Skipped: Website Unreachable or 404.", "red"))
+        _log_error(config, "exploration", "Site Unreachable (404/DNS)")
         return
 
     if ret.returncode != 0:
         print(colored("❌ Explorer Agent Failed / Crashed!", "red"))
+        _log_error(config, "exploration", "Explorer Crashed (Non-zero exit code)")
         print(colored("⚠️ Triggering Fallback: Generating Basic Test from User Goal...", "yellow"))
         
         # FALLBACK: Create a dummy trace so Refiner can still generate valid code
@@ -79,6 +95,7 @@ def run_pipeline(config_path, headed=False):
             
     if not os.path.exists(trace_path):
         print(colored("❌ Critical: No trace available even after fallback. Aborting.", "red"))
+        _log_error(config, "exploration", "No Trace File Generated")
         return
 
     # Step 2: Knowledge Update (RAG-Ready)
@@ -107,6 +124,7 @@ def run_pipeline(config_path, headed=False):
     ret = subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", "")], capture_output=False)
     if ret.returncode != 0:
         print(colored("❌ Code Generation Failed!", "red"))
+        _log_error(config, "generation", "Refiner Script Crashed")
         return
 
     # Step 3.5: AI Code Review (Quality Gate)
@@ -115,6 +133,7 @@ def run_pipeline(config_path, headed=False):
     ret = subprocess.run(["python", reviewer_script, test_path], capture_output=False)
     if ret.returncode != 0:
          print(colored("❌ Reviewer Rejected/Failed. Halting Pipeline to prevent execution of broken code.", "red"))
+         _log_error(config, "review", "Code Review Rejected or Failed")
          return
 
     # Step 4: Intelligent Spec Synthesis
@@ -154,6 +173,7 @@ def run_pipeline(config_path, headed=False):
 
     if not success:
         print(colored("\n❌ All test attempts failed!", "red", attrs=["bold"]))
+        _log_error(config, "execution", execution_log[:500] + "...") # Log simplified error
 
     # Step 6.5: Feedback & Self-Training
     print(colored("\n[Step 6.5] 🧠 Feedback & Self-Training...", "cyan"))

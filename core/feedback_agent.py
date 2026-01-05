@@ -109,6 +109,39 @@ A JSON object containing:
                         json.dump(data, f, indent=2)
             except: pass
 
+    def log_failure(self, context, error_details):
+        """
+        Logs a failure event to a consolidated failures.json file.
+        context: dict with site, stage, etc.
+        error_details: string or dict with error info
+        """
+        import datetime
+        
+        failures_path = os.path.join(self.kb.root, "failures.json")
+        entry = {
+            "timestamp": datetime.datetime.now().isoformat(),
+            "context": context,
+            "error": str(error_details)
+        }
+        
+        current_data = []
+        if os.path.exists(failures_path):
+            try:
+                with open(failures_path, "r") as f:
+                    current_data = json.load(f)
+                    if not isinstance(current_data, list): current_data = []
+            except: 
+                current_data = []
+        
+        current_data.append(entry)
+        
+        try:
+           with open(failures_path, "w") as f:
+               json.dump(current_data, f, indent=2)
+           print(f"📝 Failure logged to {failures_path}")
+        except Exception as e:
+           print(f"⚠️ Failed to log failure: {e}")
+
     def _add_domain_rule(self, domain, rule):
         """Adds a high-level rule to the domain YAML."""
         # Clean domain name
@@ -129,3 +162,4 @@ A JSON object containing:
             
             with open(domain_file, "w") as f:
                 yaml.dump(data, f)
+
