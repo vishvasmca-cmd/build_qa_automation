@@ -52,8 +52,15 @@ def smart_action(page, primary_locator, action_type, value=None):
         # 3. Execution
         if action_type == 'click':
             try:
-                loc.click(timeout=15000)
+                # Increased CI timeout to 30s
+                loc.click(timeout=30000)
             except Exception as e:
+                # 3a. Strict Mode Fallback
+                if 'strict mode violation' in str(e) or 'Element is not attached' in str(e):
+                    print(f'⚠️ Strict mode/Stale element detected. Using .first fallback for: {primary_locator}')
+                    loc.first.click(timeout=10000)
+                    return True
+                
                 print(f'⚠️ Standard click failed: {e}. Trying force.')
                 try:
                     loc.click(timeout=5000, force=True)
@@ -63,7 +70,14 @@ def smart_action(page, primary_locator, action_type, value=None):
                     loc.first.evaluate('el => el.click()')
         
         elif action_type == 'fill':
-            loc.fill(str(value), timeout=15000)
+            try:
+                loc.fill(str(value), timeout=30000)
+            except Exception as e:
+                if 'strict mode violation' in str(e):
+                    print(f'⚠️ Strict mode detected. Using .first fallback for fill: {primary_locator}')
+                    loc.first.fill(str(value), timeout=10000)
+                    return True
+                raise e
         
         return True
     

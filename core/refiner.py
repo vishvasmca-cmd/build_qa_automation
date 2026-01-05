@@ -72,8 +72,10 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
        - Example: `smart_action(page, \"\"\"page.get_by_label('User')\"\"\", \"fill\", value=\"admin\")`
        - **DO NOT** use `page.locator(...)` for interactive steps unless it's a composite locator.
        - **Composite Locators**: If 'element_context' is available, use it to create robust locators!
+         - **Prioritize Unique IDs**: Always prefer `data-test`, `id`, or `name` if available in context.
+         - **Hierarchy**: Use hierarchy to avoid Stick Mode errors: `smart_action(page, \"\"\"page.get_by_role('form').get_by_placeholder('Name')\"\"\", \"fill\")`
          - Ex: `smart_action(page, \"\"\"page.locator('button.btn-primary', has_text='Start')\"\"\", \"click\")`
-         - Ex: `smart_action(page, \"\"\"page.locator('div.course-card').filter(has_text='AI').get_by_role('button')\"\"\", \"click\")`.
+         - Ex: `smart_action(page, \"\"\"page.locator('div.course-card').filter(has_text='AI').get_by_role('button')\"\"\", \"click\")`
        - **DO NOT** use `page.locator(...)` for simple interactions if `smart_action` is safer.
     3. **Indentation**: 
        - Use exactly 4 spaces for indentation.
@@ -129,8 +131,12 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         ]
         if any(item in line for item in blacklist): return False
         
+        # Blacklist garbage placeholders from LLM
+        garbage = ["locator_string", "value=", "action_type", "optional_value"]
+        if any(g in line for g in garbage): return False
+        
         # Action calls and assertions are what we want
-        valid_starters = ("smart_action", "expect(", "page.goto", "page.get_by", "page.locator", "take_screenshot")
+        valid_starters = ("smart_action", "expect(", "page.goto", "page.get_by", "page.locator", "take_screenshot", "wait_for_stability")
         if any(line.startswith(s) for s in valid_starters): return True
         
         # Fallback for simple variable assignments
@@ -141,14 +147,16 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     for line in lines:
         stripped = line.strip()
         # Remove 'await ' specifically from valid lines
-        clean_line = line.replace("await ", "")
+        clean_line = line.replace("await ", "").strip()
         
         if is_valid_step(clean_line):
-             clean_lines.append(clean_line)
+             # Force 8 spaces indentation for try-block inside test function
+             indented_line = "        " + clean_line
+             clean_lines.append(indented_line)
         else:
              print(f"   ✂️ Removing non-step line: {stripped}")
              
-    clean_steps = textwrap.dedent("\n".join(clean_lines))
+    clean_steps = "\n".join(clean_lines)
     
     # project_name = os.path.basename(os.path.dirname(os.path.dirname(output_path)))
     # Better: Derive from trace_path which is consistent (outputs/trace.json)
