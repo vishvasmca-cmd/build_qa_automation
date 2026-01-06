@@ -60,7 +60,52 @@ def create_project_config(target, project_dir):
     
     return config_path
 
-def run_exploration_batch():
+def sync_to_github():
+    """ Robustly syncs knowledge and dashboard to GitHub """
+    print("\n" + "="*80)
+    print("🔄 SYNCING RESULTS TO GITHUB")
+    print("="*80)
+    
+    commands = [
+        ["git", "config", "--global", "user.name", "GitHub Actions Bot"],
+        ["git", "config", "--global", "user.email", "actions@github.com"],
+        # 1. Stash any unstaged changes (lock file, logs) that might block pull
+        ["git", "stash"], 
+        # 2. Pull latest code (Rebase to avoid merge commits)
+        ["git", "pull", "--rebase", "origin", "main"],
+        # 3. Apply changes back (Pop stash)
+        ["git", "stash", "pop"], 
+        # 4. Add relevant files
+        ["git", "add", "knowledge/", "outputs/global_dashboard.html"],
+        # 5. Commit
+        ["git", "commit", "-m", "Auto-Update: Dashboard & Knowledge Bank [skip ci]"],
+        # 6. Push
+        ["git", "push", "origin", "main"]
+    ]
+
+    for cmd in commands:
+        try:
+            # Handle stash pop failure (if nothing to pop)
+            if "stash" in cmd and "pop" in cmd:
+                subprocess.run(cmd, check=False, capture_output=True) # Ignore error if stash was empty
+                continue
+                
+            print(f"Exec: {' '.join(cmd)}")
+            subprocess.run(cmd, check=True, capture_output=False)
+        except subprocess.CalledProcessError as e:
+            if "nothing to commit" in str(e) or "clean" in str(e):
+                print("✅ Nothing to commit.")
+                return
+            print(f"⚠️ Git Command Failed: {e}")
+            # Don't exit, try next steps if possible? No, push needs commit.
+            # But pull failure is critical.
+            if "pull" in cmd:
+                 print("❌ Pull failed. Aborting sync.")
+                 return
+
+    print("✅ Sync Complete.")
+
+def run_exploration_batch(sync_git=False):
     """Main runner for continuous exploration"""
     print("="*80)
     print("🚀 CONTINUOUS EXPLORATION & LEARNING BATCH")
@@ -127,6 +172,10 @@ def run_exploration_batch():
     print(f"❌ Failed: {sum(1 for r in results if not r['success'])}/{len(results)}")
     print(f"💾 Summary saved to: {summary_path}")
     print(f"{'='*80}")
+    
+    if sync_git:
+        sync_to_github()
 
 if __name__ == "__main__":
-    run_exploration_batch()
+    should_sync = "--sync-git" in sys.argv
+    run_exploration_batch(sync_git=should_sync)
