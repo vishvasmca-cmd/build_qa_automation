@@ -36,14 +36,53 @@ class BatchOrchestrator:
                 print(colored(f"❌ Failed parallel run for: {project_name}: {e}", "red"))
 
     async def run_batch(self, config_paths, headed=False):
-        """Runs a batch of projects in parallel."""
-        print(colored(f"🚀 Starting Batch Run of {len(config_paths)} projects (Concurrency: {self.semaphore._value})...", "cyan", attrs=["bold"]))
+        """Runs a batch of projects in parallel using ProcessPoolExecutor (True Parallelism)."""
+        import concurrent.futures
         
-        tasks = [self.run_project(cp, headed) for cp in config_paths]
-        await asyncio.gather(*tasks)
+        # Determine optimal worker count (leave 1 core for OS)
+        max_workers = min(self.semaphore._value, os.cpu_count() - 1 or 1)
+        print(colored(f"🚀 Starting Batch Run of {len(config_paths)} projects (Processes: {max_workers})...", "cyan", attrs=["bold"]))
         
+        loop = asyncio.get_event_loop()
+        
+        # Use ProcessPoolExecutor for true parallelism (CPU bound tasks like Gen/Review)
+        with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as executor:
+            # Wrap run_pipeline call to be distinct
+            futures = [
+                loop.run_in_executor(executor, run_pipeline_wrapper, cp, headed)
+                for cp in config_paths
+            ]
+            
+            # Wait for all to complete
+            results = await asyncio.gather(*futures, return_exceptions=True)
+            
+            for i, res in enumerate(results):
+                proj_name = os.path.basename(os.path.dirname(config_paths[i]))
+                if isinstance(res, Exception):
+                     self.results[proj_name] = {"status": "failed", "error": str(res), "duration": 0}
+                     print(colored(f"❌ Process Crash: {proj_name}: {res}", "red"))
+                else:
+                     self.results[proj_name] = res
+
         print(colored("\n🏁 Batch Run Complete!", "cyan", attrs=["bold"]))
         self._print_summary()
+
+# Standalone function for pickling
+def run_pipeline_wrapper(config_path, headed):
+    """Wrapper to run pipeline in a separate process and return result dict."""
+    start_time = time.time()
+    try:
+        # Re-import inside process
+        sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+        from core.orchestrator import run_pipeline
+        
+        run_pipeline(config_path, headed)
+        
+        duration = time.time() - start_time
+        return {"status": "success", "duration": round(duration, 2)}
+    except Exception as e:
+        duration = time.time() - start_time
+        return {"status": "failed", "error": str(e), "duration": round(duration, 2)}
 
     def _print_summary(self):
         print("\n" + "="*40)

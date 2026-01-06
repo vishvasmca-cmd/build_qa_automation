@@ -192,6 +192,14 @@ class CodeRefiner:
                         site_knowledge += json.dumps(proven_locs, indent=2)
              except: pass
 
+        # Load Platform Strategy (Dispatcher)
+        platform_rules = ""
+        try:
+            from dispatcher import Dispatcher
+            platform_rules = Dispatcher().get_specialized_context(target_url)
+        except Exception as e:
+            pass # Dispatcher is optional
+
         # Load Failure RAG (Herd Immunity)
         failure_knowledge = load_historical_failures(target_url)
 
@@ -200,6 +208,12 @@ class CodeRefiner:
         Refine the following execution trace into a linear, clean, and ROBUST Playwright script for {{TARGET_URL}}.
         
         {{GOLDEN_CONTEXT}}
+
+        {{PLATFORM_RULES}}
+
+        {{GOLDEN_CONTEXT}}
+
+        {{PLATFORM_RULES}}
 
         {{FAILURE_KNOWLEDGE}}
         
@@ -302,7 +316,8 @@ class CodeRefiner:
                                .replace("{{PROJECT_NAME}}", os.path.basename(os.getcwd()))\
                                .replace("{{DOMAIN_RULES}}", domain_rules)\
                                .replace("{{SITE_KNOWLEDGE}}", site_knowledge)\
-                               .replace("{{FAILURE_KNOWLEDGE}}", failure_knowledge)
+                               .replace("{{FAILURE_KNOWLEDGE}}", failure_knowledge)\
+                               .replace("{{PLATFORM_RULES}}", platform_rules)
 
         # Prepare Multimodal Message
         content = [{"type": "text", "text": prompt}]

@@ -441,9 +441,38 @@ class LoginPage:
                     print(colored(f"❌ Final Attempt {attempt + 1} Failed.", "red"))
     
         if not success:
-            logger.log_failure("Executor", "All test attempts failed", {"path": test_path, "log_tail": execution_log[-1000:]})
             print(colored("\n❌ All test attempts failed!", "red", attrs=["bold"]))
             _log_error(config, "execution", execution_log[-1000:]) # Log tail of error for better visibility
+
+    # Step: Business Goal Validation (The Self-Critic)
+    if success:
+        print(colored("\n[Step 6.2] 🕵️ Validating Business Goal Achievement...", "cyan"))
+        try:
+            from validator import BusinessValidator
+            validator = BusinessValidator()
+            
+            # Scan for newest screenshot
+            screenshot_path = None
+            screenshots_dir = os.path.join(project_root, "outputs", "screenshots")
+            if os.path.exists(screenshots_dir):
+                files = [os.path.join(screenshots_dir, f) for f in os.listdir(screenshots_dir) if f.endswith(".png")]
+                if files:
+                    screenshot_path = max(files, key=os.path.getctime)
+            
+            trace_path = os.path.join(project_root, "outputs/trace.json")
+            goal = config.get("goal") or config.get("workflow_description", "Unknown Goal")
+            
+            result = validator.validate_goal_completion(goal, trace_path, screenshot_path)
+            
+            if result.get("status") == "FAIL":
+                print(colored(f"⚠️ TEST PASSED BUT GOAL FAILED: {result.get('reason')}", "red", attrs=["bold"]))
+                logger.log_event("Validator", "validate_goal", None, success=False, metadata=result)
+            else:
+                print(colored(f"✅ GOAL VERIFIED: {result.get('reason')}", "green"))
+                logger.log_event("Validator", "validate_goal", None, success=True, metadata=result)
+                
+        except Exception as e:
+            print(colored(f"⚠️ Validation Skipped: {e}", "yellow"))
 
     # Step 6.5: Feedback & Self-Training
     print(colored("\n[Step 6.5] 🧠 Feedback & Self-Training...", "cyan"))
