@@ -16,3 +16,13 @@ learned_rules:
   Implement a strategy to handle it before proceeding with the main test flow. Consider
   waiting for a shorter duration initially, or checking for the element's existence
   before attempting to click.
+- Before attempting to click the 'Sign in' button, ensure that any overlaying elements
+  (e.g., cookie banners, modals) are dismissed or that the button is fully visible
+  and enabled. Consider adding an explicit wait for the button to be visible and stable.
+- When clicking navigation elements on Yandex, especially those with localized text,
+  implement retry logic with exponential backoff and consider using more robust locators
+  like role-based selectors or data attributes if available. Account for potential
+  A/B testing variations that might alter the text or presence of elements.
+- Before attempting to interact with the search input field on nist.gov, ensure the
+  page has fully loaded and the element is visible. Consider adding a wait_for_selector
+  or wait_for_load_state before attempting to fill the field.
