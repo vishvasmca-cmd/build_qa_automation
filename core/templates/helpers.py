@@ -154,6 +154,8 @@ def take_screenshot(page, name, project_name):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     try:
         page.screenshot(path=path)
-        print(f'📸 Saved: {path}')
+        # Using ASCII-safe print to avoid Windows encoding issues
+        print(f'[SCREENSHOT] Saved: {path}')
     except Exception as e:
-        print(f'⚠️ Screenshot failed: {e}')
+        # Using ASCII-safe print to avoid Windows encoding issues
+        print(f'[WARNING] Screenshot failed: {str(e)}')

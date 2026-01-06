@@ -89,6 +89,10 @@ class SpecSynthesizer:
         start_time = __import__('time').time()
         print(f"📋 Creating Strategic Test Plan for {url}...")
         
+        # Ensure parameters are strings to avoid NoneType errors
+        goal = goal or ""
+        testing_type = testing_type or "smoke"
+        
         security_requirement = ""
         if goal and "security check" in goal.lower():
             security_requirement = """
