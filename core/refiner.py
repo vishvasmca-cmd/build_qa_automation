@@ -47,46 +47,26 @@ def find_undefined_variables(code_string):
         return []
 
 def validate_pom_scope(code_string):
-    """Checks for invalid use of 'page' instead of 'self.page' in class methods."""
-    import ast
-    try:
-        tree = ast.parse(code_string)
-        errors = []
-        for node in ast.walk(tree):
-            if isinstance(node, ast.ClassDef):
-                for subnode in ast.walk(node):
-                    if isinstance(subnode, ast.FunctionDef):
-                        # Inside a method
-                        for n in ast.walk(subnode):
-                            if isinstance(n, ast.Call):
-                                # Checking for page.something()
-                                if isinstance(n.func, ast.Attribute) and isinstance(n.func.value, ast.Name):
-                                    if n.func.value.id == "page" and subnode.name != "__init__":
-                                         errors.append(f"Line {n.lineno}: Usage of 'page' inside class method '{subnode.name}'. Use 'self.page' instead.")
-        return len(errors) == 0, "\n".join(errors)
-    except Exception as e:
-        return True, "" # Skip if parse error (syntax check handles it)
+    """Checks if 'page' is used instead of 'self.page' inside class methods (Sync with Reviewer)."""
+    lines = code_string.split('\n')
+    in_class = False
+    errors = []
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.startswith('class '):
+            in_class = True
+            continue
+        if in_class and stripped.startswith('def ') and not stripped.startswith('def test_'):
+            # Basic POM methods check
+            pass
+        
+        # Look for page.something() calls without self.
+        if in_class and re.search(r"\bpage\.(get_by|locator|wait_for|goto|click|fill|select|expect)\(", line):
+            if not re.search(r"self\.page\.", line):
+                errors.append(f"Line {i+1}: Usage of 'page' inside class. Use 'self.page' instead.")
+    
+    return len(errors) == 0, "\n".join(errors)
 
-def validate_pom_scope(code_string):
-    """Checks for invalid use of 'page' instead of 'self.page' in class methods."""
-    import ast
-    try:
-        tree = ast.parse(code_string)
-        errors = []
-        for node in ast.walk(tree):
-            if isinstance(node, ast.ClassDef):
-                for subnode in ast.walk(node):
-                    if isinstance(subnode, ast.FunctionDef):
-                        # Inside a method
-                        for n in ast.walk(subnode):
-                            if isinstance(n, ast.Call):
-                                # Checking for page.something()
-                                if isinstance(n.func, ast.Attribute) and isinstance(n.func.value, ast.Name):
-                                    if n.func.value.id == "page" and subnode.name != "__init__":
-                                         errors.append(f"Line {n.lineno}: Usage of 'page' inside class method '{subnode.name}'. Use 'self.page' instead.")
-        return len(errors) == 0, "\n".join(errors)
-    except Exception as e:
-        return True, "" # Skip if parse error (syntax check handles it)
 
 class CodeRefiner:
     def __init__(self):
