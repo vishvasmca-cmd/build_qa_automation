@@ -19,52 +19,36 @@ class HomePage:
     def signup_button(self):
         return self.page.locator("#signin2")
 
-    @property
-    def laptops_category(self):
-        return self.page.get_by_text("Laptops")
-
-    def navigate_to_laptops(self):
-        smart_action(self.page, self.laptops_category, "click")
-        wait_for_stability(self.page)
-
-    def go_to_signup(self):
+    def click_signup(self):
         smart_action(self.page, self.signup_button, "click")
         wait_for_stability(self.page)
 
-class ProductPage:
+class SignupModal:
     def __init__(self, page):
         self.page = page
 
     @property
-    def sony_vaio_i5_link(self):
-        return self.page.get_by_role("link", name="Sony vaio i5")
+    def username_field(self):
+        return self.page.locator("#sign-username")
 
     @property
-    def add_to_cart_button(self):
-        return self.page.get_by_role("link", name="Add to cart")
+    def password_field(self):
+        return self.page.locator("#sign-password")
 
     @property
-    def close_button(self):
-        return self.page.get_by_label("Close")
+    def signup_button(self):
+        return self.page.get_by_role("button", name="Sign up")
 
-    def select_sony_vaio_i5(self):
-        smart_action(self.page, self.sony_vaio_i5_link, "click")
+    def fill_username(self, username):
+        smart_action(self.page, self.username_field, "fill", value=username)
         wait_for_stability(self.page)
 
-    def add_product_to_cart(self):
-        smart_action(self.page, self.add_to_cart_button, "click")
+    def fill_password(self, password):
+        smart_action(self.page, self.password_field, "fill", value=password)
         wait_for_stability(self.page)
 
-    def close_alert(self):
-         # Close the alert if it appears
-         try:
-            self.page.on('dialog', lambda dialog: dialog.accept())
-            wait_for_stability(self.page)
-         except Exception as e:
-            print(f"Error handling alert: {e}")
-
-    def close_signup_modal(self):
-        smart_action(self.page, self.close_button, "click")
+    def click_signup(self):
+        smart_action(self.page, self.signup_button, "click")
         wait_for_stability(self.page)
 
 def test_autonomous_flow(browser: Browser):
@@ -76,13 +60,13 @@ def test_autonomous_flow(browser: Browser):
 
     # 2. Logic (using POM)
     home_page = HomePage(page)
-    product_page = ProductPage(page)
-    home_page.go_to_signup()
-    home_page.navigate_to_laptops()
-    product_page.select_sony_vaio_i5()
-    product_page.add_product_to_cart()
-    product_page.close_alert()
-    product_page.close_signup_modal()
+    signup_modal = SignupModal(page)
+
+    home_page.click_signup()
+    signup_modal.fill_username("TestUser6841")
+    signup_modal.fill_password("Test")
+    signup_modal.click_signup()
+
     # 3. Cleanup
     take_screenshot(page, "final_state", "inner-event")
     context.close()

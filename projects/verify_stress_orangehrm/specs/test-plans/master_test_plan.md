@@ -1,107 +1,152 @@
 # Master Test Strategy: OrangeHRM Regression Testing
 
+This document outlines the master test strategy for the OrangeHRM application (https://opensource-demo.orangehrmlive.com/), focusing on comprehensive regression testing. This strategy aims to ensure the stability and reliability of the application following any code changes or updates.
+
 ## 1. 🔍 RISK ASSESSMENT & PLANNING
 
-**Domain Analysis**: OrangeHRM is a Human Resources Management (HRM) system. Critical functions include user management, employee information management, and directory services. Data accuracy and security are paramount.
+### 1.1. Domain Analysis
 
-**Risk Profile**: Failure in this system can lead to:
+OrangeHRM is a Human Resources Management system. Critical areas include:
 
-*   **Financial Loss**: Incorrect payroll, compliance issues.
-*   **Data Breach**: Leakage of sensitive employee information.
-*   **Trust Loss**: Damage to employee morale and company reputation.
-*   **Operational Disruption**: Inability to manage employees effectively.
+*   **User Authentication:**  Login/Logout functionality. Failure impacts all users.
+*   **User Management (Admin):** Adding, editing, and managing user accounts. Errors can lead to security vulnerabilities or access issues.
+*   **Employee Management (PIM):** Managing employee information. Incorrect data affects HR processes (payroll, benefits).
+*   **Directory:** Ability to search the directory. Impacts the business' efficiency in finding people.
 
-**Testing Scope**:
+Given the nature of HR data, data integrity and security are paramount.
 
-*   **In Scope**: All functionalities exercised in the user goal, including:
-    *   User Login/Logout
-    *   User Management (Add User)
-    *   Employee Information Management (Add Employee)
-    *   Directory Search
-    *   Input validation and error handling for all fields.
-    *   Cross-module interactions between Admin, PIM, and Directory.
-    *   Security checks for common vulnerabilities (input sanitization).
-*   **Out of Scope**:
-    *   Performance Testing (load, stress, etc.)
-    *   Full Security Audit (penetration testing)
-    *   All modules not explicitly used in the user goal (e.g., Leave, Time).
-    *   Compatibility testing across all browsers and devices (focus on major browsers).
+### 1.2. Risk Profile
 
-## 2. 🏗️ TESTING STRATEGY (The "How")
+System failures in OrangeHRM could lead to:
 
-This strategy emphasizes a comprehensive regression suite to ensure the stability and reliability of the core HR functionalities.
+*   **Data Breaches:**  Compromised employee data.
+*   **Financial Loss:**  Errors in payroll or benefits calculations.
+*   **Legal Issues:**  Non-compliance with data privacy regulations.
+*   **Reputational Damage:**  Loss of trust in the HR department and the company.
+*   **Operational Disruption:**  Inability to manage HR processes effectively.
 
-### Smoke Suite (Sanity)
+Therefore, a robust testing strategy is essential.
 
-*   **Goal**: Verify basic system health.
-*   **Test Cases**:
-    1.  Navigate to the login page.
-    2.  Enter valid credentials ("Admin"/"admin123").
-    3.  Verify successful login (e.g., dashboard is displayed).
-    4.  Logout.
-*   **Success Criteria**: All tests must pass for the build to be considered stable.
+### 1.3. Testing Scope
 
-### Regression Suite (Deep Dive)
+**In Scope:**
 
-This suite will cover the user goal with extensive variations and negative testing.
+*   All functionality described in the User Goal.
+*   All core modules related to User Management (Admin), Employee Management (PIM), and Directory.
+*   Positive and negative test cases for all input fields.
+*   Cross-browser compatibility (Chrome, Firefox, Edge).
+*   Data validation (database integrity).
+*   Security testing (basic OWASP Top 10).
 
-*   **User Management (Admin -> Add User)**:
-    *   **Positive**: Verify successful user creation with valid data.
-    *   **Negative**:
-        *   Invalid input for Role (e.g., special characters).
-        *   Empty or whitespace input for required fields (Name, User, Password).
-        *   Duplicate username.
-        *   Password strength validation (e.g., insufficient length, missing special characters).
-        *   Invalid status values.
-    *   **Boundary**: Maximum length for User and Name fields.
-*   **Employee Information Management (PIM -> Add Employee)**:
-    *   **Positive**: Verify successful employee creation.
-    *   **Negative**:
-        *   Invalid input for First Name and Last Name (e.g., numbers, special characters).
-        *   Empty or whitespace input for required fields.
-        *   Exceeding maximum field lengths.
-    *   **Boundary**: Check maximum length for First Name and Last Name.
-*   **Directory Search**:
-    *   **Positive**: Verify correct search results are displayed for existing employees.
-    *   **Negative**:
-        *   Search for non-existent employees.
-        *   Partial name search.
-        *   Case-insensitive search.
-        *   Searching with special characters.
-*   **Security**:
-    *   **XSS**: Attempt to inject JavaScript into input fields (User, Name, First Name, Last Name) to check for stored or reflected XSS vulnerabilities.
-    *   **SQL Injection**: Attempt to inject SQL code into input fields to check for SQL injection vulnerabilities.
+**Out of Scope:**
 
-### Data Strategy
+*   Performance testing (load, stress).  (Recommend a separate strategy for this).
+*   Mobile testing. (Recommend a separate strategy for this).
+*   Detailed API testing. (Consider basic API validation where relevant to core flows).
+*   Internationalization (i18n) testing (unless specifically required).
 
-*   **Dynamic Generation**: Use dynamic data generation for usernames (e.g., `testuser_<timestamp>`) to avoid conflicts. Passwords should be generated according to application security standards.
-*   **Data Persistence**: Store successful employee and user creation data in a data table (CSV, database) for use in subsequent tests (e.g., login with a created user).
-*   **Data Cleanup**: Implement a cleanup process to delete test users and employees after test execution to maintain data integrity.
+## 2. 🏗️ TESTING STRATEGY
 
-## 3. 🏛️ ARCHITECTURE GUIDANCE (For the Test Architect)
+### 2.1. Smoke Suite (Sanity)
 
-*   **Framework Recommendation**: **Page Object Model (POM)** with a modular structure.
-    *   Create separate page objects for: `LoginPage`, `AdminPage`, `AddUserPage`, `PIMPage`, `AddEmployeePage`, `DirectoryPage`.
-    *   Implement reusable components (e.g., `FormInputField`, `DropdownSelector`, `ConfirmationDialog`).
-*   **Resilience Strategy**:
-    *   **Polling Assertions**: Use polling assertions with appropriate timeouts to handle asynchronous operations (e.g., waiting for a user to be created).
-    *   **Explicit Waits**: Implement explicit waits for elements to be present and interactable before performing actions.
-    *   **Self-Healing**: Implement mechanisms to locate elements dynamically using multiple locators (e.g., ID, Name, XPath) in case of minor UI changes.
-    *   **Retry Mechanism**: Implement retry mechanisms for flaky tests (e.g., network glitches) with a limited number of retries.
+This suite verifies the basic health of the application.
 
-## 4. ⚔️ EXECUTION & MINING INSTRUCTIONS (For the Senior QA)
+*   **Login Success:** Log in with valid 'Admin'/'admin123' credentials.
+*   **Admin Page Load:** Navigate to the Admin page successfully.
+*   **PIM Page Load:** Navigate to the PIM page successfully.
+*   **Directory Page Load:** Navigate to the Directory page successfully.
 
-*   **Mining Targets**: Prioritize exploration of the following pages/flows:
-    1.  `LoginPage`:  Focus on different login attempts (valid, invalid, locked accounts).
-    2.  `AdminPage`: Explore all options under the Admin tab, paying special attention to User Management and access control.
-    3.  `AddUserPage`:  Focus on role-based access and the implications of assigning different roles.
-    4.  `PIMPage`:  Investigate different employee information fields and their impact on other modules.
-    5.  `AddEmployeePage`: Focus on the fields that determine the display in Directory.
-    6.  `DirectoryPage`: Verify different search criteria and filtering options.
-*   **Verification Criteria**:
-    *   **HTTP Status Codes**: Verify that all requests return HTTP 200 (OK) for successful operations and appropriate error codes for failures.
-    *   **UI Text**: Verify that specific text elements (e.g., success messages, error messages, labels) are displayed correctly.
-    *   **Data Validation**: Verify that data entered in the UI is correctly stored in the database.
-    *   **Database Verification**: Check created/updated records in the backend database.
-    *   **Functional Flows**: Complete end-to-end flows to ensure seamless integration between modules. (e.g., creating a user in Admin and then logging in with that user).
-*   **Reporting**: Generate detailed test reports with clear pass/fail statuses, error messages, and screenshots for failed tests. Track test execution metrics (e.g., pass rate, failure rate, execution time) to identify areas for improvement.
+If any of these tests fail, the build is considered broken and further testing is halted.
+
+### 2.2. Regression Suite (Deep Dive)
+
+This suite provides comprehensive testing of all functionality.
+
+*   **User Management (Admin Module):**
+    *   **Positive:** Add a new user with valid data (as per User Goal). Verify the user is created successfully. Verify the user can login with the new credentials.
+    *   **Negative:**
+        *   Attempt to add a user with an existing username.
+        *   Attempt to add a user with invalid password (e.g., too short, missing special characters).
+        *   Attempt to add a user with missing required fields.
+        *   Attempt to create user with XSS payload in the username field.
+    *   **Edge Cases:**
+        *   Add a user with maximum allowed length for all fields.
+        *   Add a user with special characters in the name and username fields.
+
+*   **Employee Management (PIM Module):**
+    *   **Positive:** Add a new employee with valid data (as per User Goal). Verify the employee is created successfully.
+    *   **Negative:**
+        *   Attempt to add an employee with missing required fields.
+        *   Attempt to add an employee with invalid data (e.g., invalid date format).
+    *   **Edge Cases:**
+        *   Add an employee with maximum allowed length for all fields.
+        *   Add an employee with special characters in the name fields.
+
+*   **Directory Module:**
+    *   **Positive:** Search for the newly created employee ('John Doe'). Verify the employee is found in the search results.
+    *   **Negative:**
+        *   Search for a non-existent employee.
+        *   Search with partial names.
+    *   **Edge Cases:**
+        *   Search with special characters in the search term.
+        *   Search with very long search terms.
+
+*   **Login/Logout:**
+    *   **Positive:** Verify the user can logout successfully.
+    *   **Negative:**
+        *   Attempt to login with invalid credentials.
+        *   Attempt to login with a locked account.
+    *   **Edge Cases:**
+        *   Concurrent login attempts from different browsers.
+        *   Session timeout.
+
+*   **Security Testing (Basic OWASP):**
+    *   Input field validation to prevent XSS attacks (especially in User Management and PIM modules).
+    *   Parameter tampering checks (verify that user roles cannot be manipulated through URL parameters).
+
+### 2.3. Data Strategy
+
+*   **Dynamic Test Data Generation:**  Use dynamic data generation for usernames (e.g., `testuser_<timestamp>`) to avoid conflicts.
+*   **Data Seeding:** Consider seeding the database with a set of baseline test data for consistent test execution.
+*   **Data Cleanup:** Implement mechanisms to clean up test data after test execution (e.g., delete created users and employees).
+*   **Sensitive Data Handling:**  Ensure sensitive data (passwords) are handled securely (encrypted storage, masked in logs).
+
+## 3. 🏛️ ARCHITECTURE GUIDANCE
+
+### 3.1. Framework Recommendation
+
+*   **Page Object Model (POM):** Implement a POM structure for maintainability and reusability. Each page/component in OrangeHRM should have a corresponding Page Object class.
+*   **Language:** Java or Python are recommended due to their extensive libraries and community support.
+*   **Testing Framework:** JUnit or TestNG (Java) or pytest (Python).
+*   **Assertion Library:** AssertJ (Java) or Pytest-Assert (Python).
+*   **Reporting:** ExtentReports (Java) or Allure Report (Python).
+
+### 3.2. Resilience Strategy
+
+*   **Polling Assertions:**  Use polling assertions (e.g., with `awaitility` in Java) to handle asynchronous operations and eventual consistency. Instead of immediately failing, retry assertions for a specified duration.
+*   **Explicit Waits:**  Use explicit waits (WebDriverWait) with appropriate timeouts to handle dynamic page loading.
+*   **Self-Healing:**  Implement basic self-healing mechanisms (e.g., retry failed actions, re-initialize the browser).
+*   **Test Isolation:**  Ensure tests are independent and do not rely on the state of previous tests.  Use data cleanup after each test to maintain a clean environment.
+*   **Retry Mechanism:** Configure the test framework to automatically retry failed tests (with a limited number of retries).
+
+## 4. ⚔️ EXECUTION & MINING INSTRUCTIONS
+
+### 4.1. Mining Targets (Prioritized Exploration)
+
+The autonomous agent should explore the following pages/flows first:
+
+1.  **Login Page:** `https://opensource-demo.orangehrmlive.com/web/index.php/auth/login`
+2.  **Admin -> User Management -> Users -> Add User:** `https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers` (After Login)
+3.  **PIM -> Add Employee:** `https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee` (After Login)
+4.  **Directory:** `https://opensource-demo.orangehrmlive.com/web/index.php/directory/viewDirectory` (After Login)
+
+### 4.2. Verification Criteria
+
+*   **HTTP Status Codes:** Successful requests should return HTTP 200. Redirects (e.g. after login) should return 302.
+*   **Element Presence:** Verify the presence of key elements on each page (e.g., "Welcome" text after login, form labels, buttons).
+*   **Data Validation:** Verify that data is saved correctly in the database (e.g., using SQL queries).
+*   **Error Messages:** Verify the presence and correctness of error messages for negative test cases.
+*   **UI Rendering:** Verify that the UI renders correctly across different browsers (Chrome, Firefox, Edge).
+*   **Functional Success:** The final 'Save' action on each page is successful and the expected data is visible (new user, new employee).
+
+This Master Test Strategy provides a comprehensive framework for ensuring the quality and stability of the OrangeHRM application. Regular review and updates to this strategy are essential to adapt to evolving business requirements and technological changes.

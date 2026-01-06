@@ -19,7 +19,7 @@ class HomePage:
     def form_authentication_link(self):
         return self.page.get_by_role("link", name="Form Authentication")
 
-    def navigate_to_login(self):
+    def navigate_to_form_authentication(self):
         smart_action(self.page, self.form_authentication_link, "click")
         wait_for_stability(self.page)
 
@@ -53,10 +53,6 @@ class LoginPage:
         smart_action(self.page, self.logout_button, "click")
         wait_for_stability(self.page)
 
-    def navigate_back(self):
-        self.page.go_back()
-        wait_for_stability(self.page)
-
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
@@ -68,10 +64,9 @@ def test_autonomous_flow(browser: Browser):
     home_page = HomePage(page)
     login_page = LoginPage(page)
 
-    home_page.navigate_to_login()
+    home_page.navigate_to_form_authentication()
     login_page.login("tomsmith", "SuperSecretPassword!")
     login_page.logout()
-    login_page.navigate_back()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "inner-event")
