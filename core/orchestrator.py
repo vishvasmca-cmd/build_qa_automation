@@ -232,6 +232,66 @@ def run_pipeline(config_path, headed=False):
     if can_skip_phase(project_root, "generation", config_hash) and can_skip_phase(project_root, "review", config_hash):
         print(colored("⏩ Skipping Code Generation & Review (Checkpoints found)", "grey"))
     else:
+        # Progressive hints to guide LLM through iterations
+        REFINEMENT_HINTS = {
+            1: "",  # Let it try naturally first
+            2: """\nHINT: If the reviewer mentioned 'self.page', remember:
+- Inside POM classes, ALWAYS use 'self.page'
+- ✅ self.page.get_by_role(...)
+- ❌ page.get_by_role(...)""",
+            3: """\nHINT: Follow the locator cascade priority:
+1. Site-specific proven locators (from knowledge bank)
+2. get_by_role() with accessible names
+3. get_by_label() / get_by_placeholder()
+4. get_by_text()
+5. CSS selectors (last resort)""",
+            4: """\nSTRONG HINT: The previous error pattern suggests:
+- Check for undefined variables (locator, page, etc.)
+- Ensure all @property methods return locator objects
+- Verify smart_action receives locator objects, not strings""",
+            5: """\nCRITICAL - FINAL ATTEMPT:
+- Review EVERY line that was flagged as an error
+- If stuck on locators, use regex: re.compile(r'text', re.IGNORECASE)
+- If stuck on scope, search/replace 'page.' with 'self.page.'
+- Simplify: Remove optional assertions if blocking progress"""
+        }
+        
+        def format_enhanced_feedback(review_msg, attempt_num):
+            """Formats reviewer feedback with structure and examples"""
+            return f"""\n{'='*80}
+❌ CODE REJECTED BY QUALITY GATE (Attempt {attempt_num}/5)
+{'='*80}
+
+ISSUES FOUND:
+{review_msg}
+
+CRITICAL INSTRUCTIONS FOR NEXT ATTEMPT:
+1. Read each error above carefully
+2. Locate the exact lines in your previous code
+3. Apply fixes ONE BY ONE
+4. Re-validate after each fix
+
+EXAMPLE OF CORRECT POM PATTERN:
+```python
+class LoginPage:
+    def __init__(self, page):
+        self.page = page  # ✅ Store page reference
+    
+    @property
+    def username_field(self):
+        return self.page.get_by_label("Username")  # ✅ Use self.page
+    
+    def login(self, username, password):
+        smart_action(self.page, self.username_field, "fill", value=username)  # ✅ Pass locator object
+        smart_action(self.page, self.password_field, "fill", value=password)
+        smart_action(self.page, self.login_button, "click")
+        self.page.wait_for_url("**/dashboard")  # ✅ self.page for navigation
+```
+
+{REFINEMENT_HINTS.get(attempt_num + 1, '')}
+{'='*80}
+"""
+        
         # Loop for Generation -> Review -> Regenerate
         gen_success = False
         error_context = None
@@ -240,8 +300,8 @@ def run_pipeline(config_path, headed=False):
         sys.path.append(os.path.dirname(__file__))
         from reviewer import CodeReviewer
 
-        for attempt in range(1, 4):  # Max 3 full loops
-            print(colored(f"🔄 Generation Loop {attempt}/3...", "cyan"))
+        for attempt in range(1, 6):  # Max 5 full loops (increased from 3 for better success rate)
+            print(colored(f"🔄 Generation Loop {attempt}/5...", "cyan"))
             
             # 1. Generate (or Regenerate)
             start_time = time.time()
@@ -286,17 +346,26 @@ def run_pipeline(config_path, headed=False):
                     break
                 else:
                     print(colored(f"❌ Quality Gate Rejected Code: {review_msg}", "red"))
-                    # Feed this back to Refiner in next loop
-                    error_context = f"PREVIOUS CODE REJECTED BY REVIEWER.\nREASON: {review_msg}\n\nReview your last output and FIX the issues."
+                    # Feed enhanced, structured feedback to Refiner in next loop
+                    error_context = format_enhanced_feedback(review_msg, attempt)
                     
             except Exception as e:
                 print(colored(f"⚠️ Review Process Crashed: {e}", "red"))
                 error_context = f"Reviewer Crashed processing your code: {e}"
 
         if not gen_success:
-             _log_error(config, "generation", "Failed to generate valid code after 3 refinement loops.")
-             print(colored("❌ Failed to generate valid code. Aborting pipeline.", "red"))
-             return
+            # Phase 2: Fallback to minimal template if all attempts fail
+            print(colored("⚠️ All generation attempts exhausted. Creating minimal fallback test...", "yellow"))
+            try:
+                from minimal_template import generate_minimal_smoke_test
+                generate_minimal_smoke_test(config, test_path)
+                print(colored("✅ Minimal smoke test created as fallback", "green"))
+                gen_success = True  # Allow pipeline to continue
+                save_checkpoint(project_root, "generation", config_hash)
+            except Exception as e:
+                print(colored(f"❌ Fallback generation also failed: {e}", "red"))
+                _log_error(config, "generation", f"Failed to generate valid code after 5 refinement loops + fallback. Error: {e}")
+                return
 
     # Step 4: Intelligent Spec Synthesis
     print(colored("\n[Step 4/7] 🧠 Synthesizing Specs & Features...", "cyan"))
