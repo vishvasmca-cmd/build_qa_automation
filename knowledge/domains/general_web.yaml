@@ -2,3 +2,7 @@ learned_rules:
 - Before interacting with the search input on YouTube, ensure the page is fully loaded
   and stable. Consider using a longer timeout or explicitly waiting for a specific
   element related to page load completion.
+- When searching on YouTube, implement a retry mechanism with exponential backoff
+  for handling cases where the search results page doesn't load within the initial
+  timeout. Also, verify the presence of a 'No results found' element before retrying
+  to avoid infinite loops if the search term yields no results.
