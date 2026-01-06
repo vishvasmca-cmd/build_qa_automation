@@ -75,8 +75,8 @@ def sync_to_github():
         ["git", "pull", "--rebase", "origin", "main"],
         # 3. Apply changes back (Pop stash)
         ["git", "stash", "pop"], 
-        # 4. Add relevant files
-        ["git", "add", "knowledge/", "outputs/global_dashboard.html"],
+        # 4. Add relevant files (Knowledge, Dashboard, AND Generated Projects)
+        ["git", "add", "knowledge/", "outputs/global_dashboard.html", "projects/"],
         # 5. Commit
         ["git", "commit", "-m", "Auto-Update: Dashboard & Knowledge Bank [skip ci]"],
         # 6. Push
@@ -119,40 +119,45 @@ def run_exploration_batch(sync_git=False):
         print("❌ No targets selected. Exiting.")
         return
     
-    results = []
-    
-    for idx, target in enumerate(targets, 1):
-        print(f"\n{'='*80}")
-        print(f"📌 [{idx}/{len(targets)}] Exploring: {target['url']}")
-        print(f"{'='*80}")
-        
+    # Create configs first
+    config_paths = []
+    for target in targets:
         project_name = target["project"]
         project_dir = os.path.join("projects", project_name)
-        
-        # Create project config
         config_path = create_project_config(target, project_dir)
+        config_paths.append(config_path)
+
+    # Run in Parallel (BatchOrchestrator)
+    print(f"\n🚀 Launching Parallel Batch for {len(config_paths)} sites (Concurrency: 5)...")
+    try:
+        # Import BatchOrchestrator dynamically
+        sys.path.append(os.path.join(os.path.dirname(__file__), "core"))
+        from batch_orchestrator import BatchOrchestrator
+        import asyncio
         
-        # Run the pipeline
-        start_time = time.time()
+        # Initialize Orchestrator with concurrency=5
+        orchestrator = BatchOrchestrator(concurrency_limit=5)
         
-        cmd = ["python", "trigger_agent.py", config_path, "--headless"]
-        result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace')
+        # Run Batch
+        # Since we are already in __main__, we can run async
+        asyncio.run(orchestrator.run_batch(config_paths, headed=False))
         
-        duration = time.time() - start_time
-        success = result.returncode == 0
-        
-        results.append({
-            "project": project_name,
-            "url": target["url"],
-            "rank": target.get("rank"),
-            "success": success,
-            "duration": round(duration, 2),
-            "timestamp": datetime.now().isoformat()
-        })
-        
-        status = "✅ PASSED" if success else "❌ FAILED"
-        print(f"\n{status} - Completed in {duration:.1f}s")
-    
+        # Collect results from orchestrator to save summary
+        results = []
+        for proj_name, res in orchestrator.results.items():
+            results.append({
+                "project": proj_name,
+                "status": res.get("status", "unknown"),
+                "duration": res.get("duration", 0),
+                "success": res.get("status") == "success"
+            })
+            
+    except Exception as e:
+        print(f"❌ Batch Execution Failed: {e}")
+        import traceback
+        traceback.print_exc()
+        results = []
+
     # Save batch summary
     summary_path = os.path.join("outputs", f"batch_summary_{int(time.time())}.json")
     os.makedirs("outputs", exist_ok=True)
@@ -161,15 +166,15 @@ def run_exploration_batch(sync_git=False):
         json.dump({
             "batch_time": datetime.now().isoformat(),
             "total_explored": len(targets),
-            "passed": sum(1 for r in results if r["success"]),
-            "failed": sum(1 for r in results if not r["success"]),
+            "passed": sum(1 for r in results if r.get("success")),
+            "failed": sum(1 for r in results if not r.get("success")),
             "results": results
         }, f, indent=2)
     
     print(f"\n{'='*80}")
     print("📊 BATCH COMPLETE")
-    print(f"✅ Passed: {sum(1 for r in results if r['success'])}/{len(results)}")
-    print(f"❌ Failed: {sum(1 for r in results if not r['success'])}/{len(results)}")
+    print(f"✅ Passed: {sum(1 for r in results if r.get('success'))}/{len(results)}")
+    print(f"❌ Failed: {sum(1 for r in results if not r.get('success'))}/{len(results)}")
     print(f"💾 Summary saved to: {summary_path}")
     print(f"{'='*80}")
     
