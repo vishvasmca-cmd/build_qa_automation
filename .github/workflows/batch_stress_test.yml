@@ -1,0 +1,62 @@
+name: Batch Stress Test & Monitoring
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'  # Run daily at midnight
+  workflow_dispatch:      # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  batch-stress-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120  # Batch run allows 2 hours
+
+    env:
+      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}  # Verify this secret exists in repo
+      GITHUB_ACTIONS: "true"
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        playwright install chromium
+
+    - name: Run Batch Stress Test
+      run: |
+        # Run the batch script (it handles 10 projects internally)
+        # We continue on error to ensure we can generate the dashboard even if some tests fail
+        python batch_stress_test.py || true
+
+    - name: Generate Global Dashboard
+      run: |
+        # Aggregate results into global_dashboard.html
+        python core/dashboard_aggregator.py
+
+    - name: Upload Dashboard Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: global-dashboard
+        path: outputs/global_dashboard.html
+        retention-days: 30
+
+    - name: Commit Dashboard Update
+      if: github.event_name != 'pull_request'
+      run: |
+        git config --global user.name 'GitHub Actions Bot'
+        git config --global user.email 'actions@github.com'
+        git add outputs/global_dashboard.html
+        git commit -m "Update Global Dashboard [skip ci]" || echo "No changes to commit"
+        git push

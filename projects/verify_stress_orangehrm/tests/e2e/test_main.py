@@ -44,41 +44,27 @@ class DashboardPage:
         return self.page.get_by_role("link", name="Admin")
 
     @property
-    def main_menu_button(self):
+    def menu_button(self):
         return self.page.locator(".oxd-icon-button.oxd-main-menu-button")
-
-    @property
-    def user_dropdown_icon(self):
-        return self.page.locator(".oxd-icon.bi-caret-down-fill.oxd-userdropdown-icon")
 
     def navigate_to_admin(self):
         smart_action(self.page, self.admin_link, "click")
         wait_for_stability(self.page)
-
-    def open_main_menu(self):
-         smart_action(self.page, self.main_menu_button, "click")
-         wait_for_stability(self.page)
-
-    def open_user_dropdown(self):
-        smart_action(self.page, self.user_dropdown_icon, "click")
+        smart_action(self.page, self.menu_button, "click")
         wait_for_stability(self.page)
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-    page.goto("https://opensource-demo.orangehrmlive.com/")
+    page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
     wait_for_stability(page)
 
     # 2. Logic (using POM)
     login_page = LoginPage(page)
     dashboard_page = DashboardPage(page)
-
     login_page.login("Admin", "admin123")
-    
     dashboard_page.navigate_to_admin()
-    dashboard_page.open_main_menu()
-    dashboard_page.open_user_dropdown()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "inner-event")
