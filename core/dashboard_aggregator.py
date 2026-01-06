@@ -1,13 +1,18 @@
 
 import os
+import sys
 import json
 import glob
 from datetime import datetime
 
-# Import with fallback for CI environment
+# Ensure core directory is in path for imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 try:
-    from core.knowledge_analyzer import analyze_knowledge_bank
+    from knowledge_analyzer import analyze_knowledge_bank
 except ImportError:
+    # Fallback if running from different directory
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "core"))
     from knowledge_analyzer import analyze_knowledge_bank
 
 # Path Configuration

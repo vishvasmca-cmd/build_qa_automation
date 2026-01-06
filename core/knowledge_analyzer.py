@@ -1,3 +1,6 @@
+import os
+import json
+import glob
 
 def analyze_knowledge_bank():
     """Analyzes the knowledge bank to extract learning insights"""
