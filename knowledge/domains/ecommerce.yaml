@@ -15,7 +15,16 @@ learned_rules:
   validate code formatting through linting.
 - When specifying file paths in Python, especially on Windows, use raw strings (r'path')
   or escape backslashes ('\\') to prevent them from being interpreted as escape sequences.
-- If an action (like 'About Us') opens a modal/overlay, you MUST close it (click 'Close' button or press Esc) before interacting with other elements to prevent interception errors.
+- If an action (like 'About Us') opens a modal/overlay, you MUST close it (click 'Close'
+  button or press Esc) before interacting with other elements to prevent interception
+  errors.
+- When printing messages to the console, especially error messages that might be logged,
+  ensure that the encoding is set to UTF-8 to support a wider range of characters,
+  including emojis.
+- When generating screenshot filenames or paths, avoid using Unicode characters, especially
+  emojis, to prevent encoding errors in environments with limited character set support.
+- Before interacting with sort options, ensure the dropdown is fully expanded and
+  the options are visible. Check the display attribute.
 workflow_rules:
 - Always search for a cart icon after adding an item.
 - If login fails, check for error-message-container.

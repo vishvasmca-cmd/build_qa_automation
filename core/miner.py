@@ -1,6 +1,15 @@
 
 import asyncio
 import json
+import sys
+
+# Windows Unicode Fix
+try:
+    if sys.stdout.encoding.lower() != 'utf-8':
+        sys.stdout.reconfigure(encoding='utf-8')
+except Exception:
+    pass
+
 import os
 import sys
 import io
@@ -14,7 +23,7 @@ from termcolor import colored
 
 # Force UTF-8 for console output on Windows
 if sys.platform == "win32":
-    pass # sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 # Import robust LLM wrapper
 try:

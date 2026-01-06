@@ -1,8 +1,18 @@
+import sys
+
+# Windows Unicode Fix
+try:
+    if sys.stdout.encoding.lower() != 'utf-8':
+        sys.stdout.reconfigure(encoding='utf-8')
+except Exception:
+    pass
+
 import os
 import sys
 import io
 import json
 import re
+import yaml
 from dotenv import load_dotenv
 
 # Force UTF-8 for console output on Windows
@@ -66,6 +76,25 @@ class CodeReviewer:
                     return {"status": "FIXED", "final_code": code, "review_summary": "Recovered via regex."}
             return None
 
+    def _validate_pom_scope(self, code):
+        """Checks if 'page' is used instead of 'self.page' inside class methods."""
+        lines = code.split('\n')
+        in_class = False
+        for i, line in enumerate(lines):
+            stripped = line.strip()
+            if line.startswith('class '):
+                in_class = True
+                continue
+            if in_class and line.startswith('def ') and not stripped.startswith('def test_'):
+                # Top level def (not test) ends class? Not really in Python, but for our tests yes.
+                in_class = False
+            
+            if in_class and re.search(r"\bpage\.(get_by|locator|wait_for|goto|click|fill|select)\(", line):
+                # Check if it's NOT self.page
+                if not re.search(r"self\.page\.", line):
+                    return False, f"POM Scope Violation at line {i+1}: Use 'self.page' instead of 'page' inside class methods."
+        return True, "OK"
+
     def _validate_hallucinations(self, code):
         """Checks for common autonomous hallucination patterns."""
         placeholders = ['locator_string', 'value', 'action_type', 'primary_locator', 'locator', 'action']
@@ -86,10 +115,9 @@ class CodeReviewer:
         except Exception as e:
             return False, f"Compilation Error: {e}"
 
-    def review_and_fix(self, file_path):
+    def review_and_fix(self, file_path, **kwargs):
         if not os.path.exists(file_path):
-            print(f"❌ File not found: {file_path}")
-            return False
+            return False, f"File not found: {file_path}"
 
         with open(file_path, "r", encoding="utf-8") as f:
             code_content = f.read()
@@ -117,10 +145,26 @@ class CodeReviewer:
                         anti_context += f"- Mode: {a['failure_mode']}\n  Bad Pattern: `{a['bad_example']}`\n  Reason: {a['reason']}\n  Requirement: {a['fix']}\n"
             except: pass
 
+        # Load Domain Rules
+        domain = kwargs.get("domain", "general")
+        domain_rules = ""
+        domain_path = os.path.join(os.path.dirname(__file__), "..", "knowledge", "domains", f"{domain}.yaml")
+        if os.path.exists(domain_path):
+            try:
+                with open(domain_path, "r", encoding="utf-8") as f:
+                    data = yaml.safe_load(f) or {}
+                    rules = data.get("learned_rules", [])
+                    if rules:
+                        domain_rules = "\n**LEARNED DOMAIN RULES (ENFORCE THESE)**:\n"
+                        for r in rules:
+                            domain_rules += f"- {r}\n"
+            except: pass
+
         system_prompt = f'''You are a Principal Software Engineer in Test (SDET) with 15+ years of experience.
 Your job is to CODE REVIEW and AUTO-FIX the provided Playwright Python script.
 
 {anti_context}
+{domain_rules}
 
 **REVIEW CRITERIA (The "Bar"):**
 1.  **Iterative Stability**: If the script iterates through dynamic lists (e.g., courses, products), REJECT standard `.all()` for loops. REQUIRE index-based loops (`nth(i)`) with re-navigation to prevent StaleElement errors.
@@ -136,7 +180,8 @@ Your job is to CODE REVIEW and AUTO-FIX the provided Playwright Python script.
 7.  **Robust Locators**: Use `re.compile(..., re.IGNORECASE)` for text/role matches.
 8.  **Assertions**: Code MUST have assertions (`expect(...)`). 
 9.  **Self-Healing**: Ensure critical actions use the `smart_action` helper.
-10. **Syntax Integrity**: Ensure triple-quoted strings (`"""`) are properly closed.
+10. **Syntax Integrity**: Ensure triple-quoted strings (<code>"""</code>) are properly closed.
+11. **POM Scope**: Inside Page Object class methods, you MUST use `self.page` for all Playwright calls. NEVER use `page.` directly if not in the main test function.
 
 **OUTPUT FORMAT**:
 You must output a JSON object with this EXACT structure:
@@ -167,7 +212,7 @@ You must output a JSON object with this EXACT structure:
             
             if not result:
                 print("⚠️ Reviewer returned invalid format. Skipping review.")
-                return False
+                return False, "Reviewer returned invalid JSON format."
             
             # Action
             if result.get("status") == "FIXED":
@@ -180,7 +225,7 @@ You must output a JSON object with this EXACT structure:
                     is_valid, reason = self._validate_syntax(final_code)
                     if not is_valid:
                         print(f"❌ Reviewer generated INVALID code: {reason}. Aborting write.")
-                        return False
+                        return False, f"Reviewer generated INVALID code: {reason}"
 
                     # Write back the fixed code
                     with open(file_path, "w", encoding="utf-8") as f:
@@ -188,28 +233,35 @@ You must output a JSON object with this EXACT structure:
                     print("✅ Applied Fixes to File.")
                 else:
                     print("⚠️ 'final_code' was empty or invalid. Skipping write.")
+                    return False, "Reviewer 'final_code' was empty or invalid."
             else:
                 # Post-LLM Analysis Syntax & Hallucination Check
                 is_valid, reason = self._validate_syntax(result.get("final_code", code_content))
                 if not is_valid:
                      print(f"❌ Reviewer REJECTED code due to syntax: {reason}")
-                     return False
+                     return False, f"Reviewer REJECTED code due to syntax: {reason}"
                      
                 is_valid, reason = self._validate_hallucinations(result.get("final_code", code_content))
                 if not is_valid:
                     print(f"❌ Reviewer REJECTED code due to hallucinations: {reason}")
-                    return False
+                    return False, f"Reviewer REJECTED code due to hallucinations: {reason}"
+                
+                is_valid, reason = self._validate_pom_scope(result.get("final_code", code_content))
+                if not is_valid:
+                    print(f"❌ Reviewer REJECTED code due to POM Scope: {reason}")
+                    # If it's just a scope error, we could try to auto-fix it with LLM again or just reject
+                    return False, f"Reviewer REJECTED code due to POM Scope: {reason}"
                     
                 print("✅ Code Approved (No major issues found).")
             
             duration = __import__('time').time() - start_time
             logger.log_event("Reviewer", "review_code", duration, cost=0.01)
             
-            return True
+            return True, "Code Approved"
 
         except Exception as e:
             print(f"❌ Review Agent Crashed: {e}")
-            return False
+            return False, f"Review Agent Crashed: {e}"
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -217,7 +269,9 @@ if __name__ == "__main__":
         sys.exit(1)
     
     path = sys.argv[1]
+    domain = sys.argv[2] if len(sys.argv) > 2 else "general"
     reviewer = CodeReviewer()
-    success = reviewer.review_and_fix(path)
+    success, msg = reviewer.review_and_fix(path, domain=domain)
     if not success:
+        print(f"❌ Review Failed: {msg}")
         sys.exit(1)

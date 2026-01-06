@@ -14,3 +14,16 @@ learned_rules:
   the page to ensure stability before proceeding.
 - Verify the application does not redirect from the intended URL (e.g., with versioning)
   to the base URL.
+- After clicking the 'Sign up' link, verify a successful navigation away from the
+  home page before proceeding with subsequent actions. Add wait_for_url() with a specific
+  target URL.
+- Before interacting with the customer registration form, ensure the form is fully
+  loaded and visible.  Consider adding a conditional check for the presence of a parent
+  element or an explicit wait for the form to be attached to the DOM.
+- After clicking the login button on the demo app, always check for an error message
+  or a redirect to the expected logged-in state (e.g., account dashboard) instead
+  of just the logout button.
+- When using page object model, always use `self.page` to refer current page instance
+  within a page object class method.
+- After searching for a book in the bookstore, verify that the search results are
+  filtered correctly to return only the expected book and no extraneous results.

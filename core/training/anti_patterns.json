@@ -22,5 +22,17 @@
         "bad_example": "smart_action(page, '...', 'click')\n# Next line interacts immediately",
         "reason": "Does not account for page load/stability after a navigation click.",
         "fix": "Always follow navigation-triggering clicks with wait_for_stability(page) or page.wait_for_url()."
+    },
+    {
+        "failure_mode": "POM Scope Violation",
+        "bad_example": "class MyPage:\n    def do_something(self):\n        page.wait_for_url('/home')",
+        "reason": "Inside a class, you must use 'self.page' to access the Playwright page instance.",
+        "fix": "Always use 'self.page' for all Playwright actions within class methods."
+    },
+    {
+        "failure_mode": "Reserved Keyword Redefinition",
+        "bad_example": "def smart_action(page, ...):\n    # implementation here",
+        "reason": "Redefining pre-imported global helpers like 'smart_action' or 'wait_for_stability' causes conflicts and code bloat.",
+        "fix": "NEVER define helper functions. They are already pre-imported in the template."
     }
 ]

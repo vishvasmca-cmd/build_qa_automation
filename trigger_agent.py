@@ -15,6 +15,8 @@ if __name__ == "__main__":
         
     print(f"Triggering agent with config: {config_path}")
     
-    # We run headed=True by default for local debugging
-    # The ExplorerAgent will automatically downgrade to headless in CI environments
-    run_pipeline(config_path, headed=True)
+    headed_mode = True
+    if "--headless" in sys.argv:
+        headed_mode = False
+
+    run_pipeline(config_path, headed=headed_mode)

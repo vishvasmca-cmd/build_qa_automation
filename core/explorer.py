@@ -1,24 +1,33 @@
 import asyncio
 import json
+import sys
+
+# Windows Unicode Fix
+try:
+    if sys.stdout.encoding.lower() != 'utf-8':
+        sys.stdout.reconfigure(encoding='utf-8')
+except Exception:
+    pass
+
 import os
 import sys
 import base64
 import hashlib
 import time
+import traceback
 from playwright.async_api import async_playwright, Page, Frame
 from dotenv import load_dotenv
 from termcolor import colored
 
 # Force UTF-8 for console output on Windows
 if sys.platform == "win32":
-    import io
-    # sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 # Import robust LLM wrapper
 try:
-    from .llm_utils import SafeLLM
+    from .llm_utils import SafeLLM, try_parse_json
 except (ImportError, ValueError):
-    from llm_utils import SafeLLM
+    from llm_utils import SafeLLM, try_parse_json
 
 # Import agents
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -57,7 +66,7 @@ Your goal is to complete the user's workflow by deciding the single next best ac
 2. History Check: Review `history` carefully. What have I ALREADY DONE? Use element text and URLs to verify.
 3. Validate: Did my LAST action work? Note: On SPAs, the URL might not change even if the content does.
 4. Multi-Goal Check: Look at the `goal`. Does it have multiple steps (e.g., '1. Home, 2. Price')? Check off completed steps based on history.
-5. **Login Check**: If I encounter a login page and NO credentials are in `test_data`, SKIP login entirely. Instead, explore publicly accessible areas like footer links, documentation, pricing pages, or the homepage navigation.
+5. **Login Check**: If I encounter a login page and NO credentials are in `test_data` AND NO credentials are in the `goal`, SKIP login entirely. Instead, explore publicly accessible areas. However, if credentials are provided in either `test_data` or the `goal` description, proceed with login.
 6. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal?
 
 **OUTPUT SCHEMA (JSON only)**:
@@ -70,22 +79,8 @@ Your goal is to complete the user's workflow by deciding the single next best ac
   "is_goal_achieved": false 
 }
 **CRITICAL**: Set `is_goal_achieved` to `true` ONLY if EVERY part of the user's workflow description is completed.
-}
 """
 
-def try_parse_json(content):
-    import re
-    content = re.sub(r'```json\s*', '', content)
-    content = re.sub(r'\s*```', '', content)
-    content = content.strip()
-    try:
-        return json.loads(content)
-    except json.JSONDecodeError:
-        match = re.search(r'(\{.*\})', content, re.DOTALL)
-        if match:
-            try: return json.loads(match.group(1))
-            except: pass
-    return None
 
 class ExplorerAgent:
     def __init__(self, config_path, headed=False):
@@ -118,124 +113,132 @@ class ExplorerAgent:
     async def run(self):
         print(colored(f"Explorer: Starting Strategy 2026. Goal: {self.workflow}", "blue", attrs=["bold"]))
         
-        async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=not self.headed)
-            context = await browser.new_context(viewport={"width": 1280, "height": 800})
-            page = await context.new_page()
-            
-            try:
-                await page.goto(self.config["target_url"], wait_until="networkidle", timeout=60000)
-            except:
-                await page.wait_for_load_state("domcontentloaded")
+        try:
+            async with async_playwright() as p:
+                browser = await p.chromium.launch(headless=not self.headed)
+                context = await browser.new_context(viewport={"width": 1280, "height": 800})
+                page = await context.new_page()
+                
+                try:
+                    await page.goto(self.config["target_url"], wait_until="networkidle", timeout=60000)
+                except:
+                    await page.wait_for_load_state("domcontentloaded")
 
-            step = 0
-            max_steps = 20
-            
-            while step < max_steps:
-                print(colored(f"\n--- Step {step + 1} ---", "white", attrs=["bold"]))
+                step = 0
+                max_steps = 20
                 
-                # 1. ANALYZE (Miner)
-                mindmap = await analyze_page(page, page.url, self.workflow)
-                
-                # Save screenshot for trace
-                img_name = f"step_{step}_pre.png"
-                img_path = os.path.join(self.output_dir, img_name)
-                await page.screenshot(path=img_path)
-                
-                print(f"📍 On Page: {mindmap['summary'].get('title', 'Unknown')}")
-                print(f"🤔 State: {mindmap['summary'].get('state', 'Unknown')}")
-                
-                # Check for duplicate states (infinite loop prevention)
-                if self.is_duplicate_state(page.url, mindmap):
-                    print(colored("⚠️ Duplicate state detected. Exiting to prevent infinite loop.", "yellow"))
-                    break
-                
-                # Check for stuck loops (circular navigation)
-                if self.detect_stuck_loop():
-                    print(colored("⚠️ Stuck in repetitive pattern. Breaking out.", "yellow"))
-                    break
-                
-                # 2. PLAN (Decider)
-                print(f"📡 Sending {len(mindmap['elements'])} elements to the Planner...")
-                
-                decision_start = time.time()
-                decision = await self._make_decision(mindmap)
-                
-                logger.log_event(
-                    agent="Explorer",
-                    action="make_decision",
-                    duration=time.time() - decision_start,
-                    metadata={"step": step, "url": page.url}
-                )
-                if not decision: 
-                    print(colored("❌ Failed to make a decision.", "red"))
-                    break
-                
-                print(colored(f"💭 Thought: {decision.get('thought')}", "cyan"))
-                
-                if decision.get('is_goal_achieved') or decision.get('action') == 'done':
-                    # Log final state before exiting
+                while step < max_steps:
+                    print(colored(f"\n--- Step {step + 1} ---", "white", attrs=["bold"]))
+                    
+                    # 1. ANALYZE (Miner)
+                    mindmap = await analyze_page(page, page.url, self.workflow)
+                    
+                    # Save screenshot for trace
+                    img_name = f"step_{step}_pre.png"
+                    img_path = os.path.join(self.output_dir, img_name)
+                    await page.screenshot(path=img_path)
+                    
+                    print(f"📍 On Page: {mindmap['summary'].get('title', 'Unknown')}")
+                    print(f"🤔 State: {mindmap['summary'].get('state', 'Unknown')}")
+                    
+                    # Check for duplicate states (infinite loop prevention)
+                    if self.is_duplicate_state(page.url, mindmap):
+                        print(colored("⚠️ Duplicate state detected. Exiting to prevent infinite loop.", "yellow"))
+                        break
+                    
+                    # Check for stuck loops (circular navigation)
+                    if self.detect_stuck_loop():
+                        print(colored("⚠️ Stuck in repetitive pattern. Breaking out.", "yellow"))
+                        break
+                    
+                    # 2. PLAN (Decider)
+                    print(f"📡 Sending {len(mindmap['elements'])} elements to the Planner...")
+                    
+                    decision_start = time.time()
+                    decision = await self._make_decision(mindmap)
+                    
+                    logger.log_event(
+                        agent="Explorer",
+                        action="make_decision",
+                        duration=time.time() - decision_start,
+                        metadata={"step": step, "url": page.url}
+                    )
+                    if not decision: 
+                        print(colored("❌ Failed to make a decision.", "red"))
+                        break
+                    
+                    print(colored(f"💭 Thought: {decision.get('thought')}", "cyan"))
+                    
+                    if decision.get('is_goal_achieved') or decision.get('action') == 'done':
+                        # Log final state before exiting
+                        self.trace.append({
+                            "step": step,
+                            "thought": decision.get('thought', 'Goal already achieved.'),
+                            "action": "done",
+                            "url": page.url,
+                            "screenshot": img_name,
+                            "elements_found": len(mindmap['elements'])
+                        })
+                        print(colored("✅ Goal Achieved!", "green", attrs=["bold"]))
+                        break
+                    
+                    # 3. ACT
+                    action_start = time.time()
+                    action_result = await self._execute_action(page, decision, mindmap['elements'])
+                    logger.log_event(
+                        agent="Explorer",
+                        action="execute_action",
+                        duration=time.time() - action_start,
+                        success=action_result.get('success'),
+                        metadata={"step": step, "action": decision.get('action'), "target": decision.get('target_id')}
+                    )
+                    
+                    # 4. VALIDATE & LOG
+                    self.history.append({
+                        "step": step,
+                        "action": decision['action'],
+                        "target_text": next((e['text'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
+                        "url": page.url,
+                        "outcome": action_result.get('outcome'),
+                        "success": action_result.get('success'),
+                    })
+                    
+                    # Update trace for Refiner
                     self.trace.append({
                         "step": step,
-                        "thought": decision.get('thought', 'Goal already achieved.'),
-                        "action": "done",
+                        "thought": decision['thought'],
+                        "action": decision['action'],
+                        "locator_used": action_result.get('refined_locator') or action_result.get('locator'),
+                        "value": decision.get('value'),
                         "url": page.url,
                         "screenshot": img_name,
-                        "elements_found": len(mindmap['elements'])
+                        # Capturing rich context for composite locators
+                        "element_context":  {
+                            "tag": next((e['tagName'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
+                            "text": next((e['text'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
+                            "role": next((e.get('role', '') for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
+                             # We can add more like class later if dom_driver sends it
+                        }
                     })
-                    print(colored("✅ Goal Achieved!", "green", attrs=["bold"]))
-                    break
-                
-                # 3. ACT
-                action_start = time.time()
-                action_result = await self._execute_action(page, decision, mindmap['elements'])
-                logger.log_event(
-                    agent="Explorer",
-                    action="execute_action",
-                    duration=time.time() - action_start,
-                    success=action_result.get('success'),
-                    metadata={"step": step, "action": decision.get('action'), "target": decision.get('target_id')}
-                )
-                
-                # 4. VALIDATE & LOG
-                self.history.append({
-                    "step": step,
-                    "action": decision['action'],
-                    "target_text": next((e['text'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
-                    "url": page.url,
-                    "outcome": action_result.get('outcome'),
-                    "success": action_result.get('success'),
-                })
-                
-                # Update trace for Refiner
-                self.trace.append({
-                    "step": step,
-                    "thought": decision['thought'],
-                    "action": decision['action'],
-                    "locator_used": action_result.get('refined_locator') or action_result.get('locator'),
-                    "value": decision.get('value'),
-                    "url": page.url,
-                    "screenshot": img_name,
-                    # Capturing rich context for composite locators
-                    "element_context":  {
-                        "tag": next((e['tagName'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
-                        "text": next((e['text'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
-                        "role": next((e.get('role', '') for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
-                         # We can add more like class later if dom_driver sends it
-                    }
-                })
-                self._save_trace()
-                
-                # Passive Collection: Save ALL elements
-                self._save_all_elements(page.url, step, mindmap['elements'])
-                
-                step += 1
-                if not action_result.get('success'):
-                    print(colored(f"⚠️ Action failed. Retrying...", "yellow"))
+                    self._save_trace()
+                    
+                    # Passive Collection: Save ALL elements
+                    self._save_all_elements(page.url, step, mindmap['elements'])
+                    
+                    step += 1
+                    if not action_result.get('success'):
+                        print(colored(f"⚠️ Action failed. Retrying...", "yellow"))
 
-            # Save Trace
-            self._save_trace()
-            await browser.close()
+                # Save Trace
+                self._save_trace()
+                try:
+                    await browser.close()
+                except Exception as e:
+                    print(colored(f"⚠️ Error closing browser: {e}", "yellow"))
+        except Exception as e:
+            print(colored(f"❌ Explorer Crashed: {e}", "red"))
+            traceback.print_exc()
+            raise e
 
     async def _make_decision(self, mindmap):
         context = {
@@ -260,12 +263,20 @@ class ExplorerAgent:
         # Create fingerprint: URL + element count + page title
         element_count = len(mindmap.get('elements', []))
         page_title = mindmap.get('summary', {}).get('title', '')
+        
+        # For duplicate detection, we also consider the last action taken.
+        # If we take an action (like filling a form) and the page doesn't change, 
+        # we might need to take another action on the SAME page.
+        last_action = self.history[-1]['action'] if self.history else 'none'
+        last_target = self.history[-1].get('target_text', '') if self.history else 'none'
+        
         fingerprint = f"{page_url}:{element_count}:{page_title}"
+        action_fingerprint = f"{fingerprint}:{last_action}:{last_target}"
         
-        if fingerprint in self.visited_states:
-            return True
+        if action_fingerprint in self.visited_states:
+             return True
         
-        self.visited_states.add(fingerprint)
+        self.visited_states.add(action_fingerprint)
         return False
     
     def detect_stuck_loop(self):
@@ -314,12 +325,12 @@ class ExplorerAgent:
                     dismiss(document);
                 }
             """)
-            # 2. Escape Key (Standard Accessibility Dismissal)
-            await page.keyboard.press("Escape")
+            # 2. Escape Key (Removed: Too broad, closes legitimate modals)
+            # await page.keyboard.press("Escape")
         except Exception as e:
             print(colored(f"   ⚠️ Overlay dismissal warning: {e}", "yellow"))
 
-    async def _execute_with_retry(self, func, *args, retries=3, **kwargs):
+    async def _execute_with_retry(self, page, func, *args, retries=3, **kwargs):
         """Utility to retry an async action up to `retries` times with a short pause."""
         for attempt in range(1, retries + 1):
             try:
@@ -327,6 +338,9 @@ class ExplorerAgent:
             except Exception as e:
                 print(colored(f"   ⚠️ Attempt {attempt} failed: {e}", "red"))
                 if attempt < retries:
+                    # Healing: Try dismissing blocking overlays before retrying
+                    print(colored("   🚑 Attempting to clear blocking overlays...", "magenta"))
+                    await self._dismiss_overlays(page)
                     await asyncio.sleep(1)
         return {"success": False, "outcome": f"All {retries} attempts failed."}
 
@@ -338,8 +352,8 @@ class ExplorerAgent:
         if not target_el and action in ['click', 'fill']:
             return {"success": False, "outcome": "Target element ID not found in current DOM"}
 
-        # Pre-Action Cleanup: Dismiss possible overlays
-        await self._dismiss_overlays(page)
+        # We no longer dismiss overlays UNCONDITIONALLY before every action.
+        # Instead, we will do it as a "healing" step inside _execute_with_retry if needed.
 
         locator_str = f"[data-agent-id='{target_id}']"
         refined_locator = await self._refine_locator(page, target_el) if target_el else locator_str
@@ -389,8 +403,7 @@ class ExplorerAgent:
                 "refined_locator": refined_locator
             }
 
-        except Exception as e:
-            return {"success": False, "outcome": str(e)}
+        return await self._execute_with_retry(page, perform)
 
     async def _refine_locator(self, page: Page, el: dict):
         """

@@ -2,13 +2,17 @@ import json
 import re
 import os
 import textwrap
+import yaml
 from dotenv import load_dotenv
+
+import base64
+from langchain_core.messages import HumanMessage, SystemMessage
 
 # Import robust LLM wrapper
 try:
-    from .llm_utils import SafeLLM
+    from .llm_utils import SafeLLM, try_parse_json
 except (ImportError, ValueError):
-    from llm_utils import SafeLLM
+    from llm_utils import SafeLLM, try_parse_json
 
 # Import Metrics Logger
 try:
@@ -47,8 +51,8 @@ class CodeRefiner:
         load_dotenv()
         self.llm = SafeLLM(model="gemini-2.0-flash", temperature=0.0)
 
-    def generate_code(self, target_url, trace_summary):
-        """Generates cleaner, hardened code from a JSON trace summary."""
+    def generate_code(self, target_url, trace_summary, images=None, error_context=None, domain="general"):
+        """Generates cleaner, hardened code from a JSON trace summary, with optional visual, error, and domain context."""
         
         # Load Golden Examples
         golden_path = os.path.join(os.path.dirname(__file__), "training/golden_examples.json")
@@ -60,6 +64,20 @@ class CodeRefiner:
                     golden_context = "\n**FEW-SHOT REFERENCE EXAMPLES (FOLLOW THESE PATTERNS)**:\n"
                     for ex in examples:
                         golden_context += f"- Pattern: {ex['pattern_name']}\n  Description: {ex['description']}\n  Ideal Code Implementation:\n```python\n{ex['ideal_code']}\n```\n"
+            except: pass
+
+        # Load Domain Rules
+        domain_rules = ""
+        domain_path = os.path.join(os.path.dirname(__file__), "..", "knowledge", "domains", f"{domain}.yaml")
+        if os.path.exists(domain_path):
+            try:
+                with open(domain_path, "r", encoding="utf-8") as f:
+                    data = yaml.safe_load(f) or {}
+                    rules = data.get("learned_rules", [])
+                    if rules:
+                        domain_rules = "\n**DOMAIN-SPECIFIC LEARNED RULES (FOLLOW THESE)**:\n"
+                        for r in rules:
+                            domain_rules += f"- {r}\n"
             except: pass
 
         prompt_template = """
@@ -89,54 +107,121 @@ class CodeRefiner:
         - **Using .and_()**: Combine conditions: `page.get_by_role('button').and_(page.get_by_title('Subscribe'))`
         - **Contextual Anchoring**: Find a unique parent container first, then search within it.
 
+        **MANDATORY: Page Object Model (POM) STRUCTURE**:
+        You MUST generate a modular POM structure. This includes:
+        1. **Page Object Classes**:
+           - An `__init__` taking `page` and setting `self.page = page`.
+           - **Property Locators**: Use `@property` for locators to ensure they are always fresh. 
+             - Example: `return self.page.get_by_role("button", name="Login")`
+           - **CRITICAL: Scope Integrity**: Inside class methods, you MUST use `self.page`. NEVER use a global `page` variable.
+             - ✅ `self.page.wait_for_url("**/login")`
+             - ❌ `page.wait_for_url("**/login")`  <-- THIS CAUSES NameError
+           - **Action Methods**: Clean, reusable methods.
+             - **CRITICAL**: When calling `smart_action` from a class method, pass the LOCATOR OBJECT directly, NOT a string.
+             - ✅ `smart_action(self.page, self.username_field, "fill", value=username)`
+             - ❌ `smart_action(self.page, "self.username_field", ...)`
+
+        2. **Main Test Function**: A `test_autonomous_flow` function that follows the exact structure provided below.
+           ```python
+           def test_autonomous_flow(browser: Browser):
+               # 1. Setup
+               context = browser.new_context(viewport={"width": 1920, "height": 1080})
+               page = context.new_page()
+               page.goto("{{TARGET_URL}}")
+               wait_for_stability(page)
+               
+               # 2. Logic (using POM)
+               # ...
+               
+               # 3. Cleanup
+               take_screenshot(page, "final_state", "{{PROJECT_NAME}}")
+               context.close()
+           ```
+
+        {{DOMAIN_RULES}}
+
+        **PROHIBITED PATTERNS (Anti-Hallucination)**:
+        - ❌ NEVER use `page` inside a class method without `self.`.
+        - ❌ NEVER use placeholder variables like `locator_string`, `action_type`, or `value` unless they are explicitly assigned from the trace.
+        - ❌ NEVER redefine `smart_action`, `wait_for_stability`, or `take_screenshot`.
+        - ❌ NEVER use positional `.nth(0)` if a text match or ID is available in the trace element context.
+
         **CRITICAL RULES**:
-        1. **SYNC ONLY**: You MUST use SYNC Python Playwright. **DO NOT USE `await` keyword.**
-        2. **PYTHON KWARGS ONLY**: 
+        1. **DO NOT REDEFINE HELPERS**: The following functions are ALREADY IMPORTED and available globally. **DO NOT** write code for them:
+           - `smart_action(page, locator, action_type, value=None)`
+           - `wait_for_stability(page)`
+           - `take_screenshot(page, name, project_name)`
+        2. **SYNC ONLY**: You MUST use SYNC Python Playwright. **DO NOT USE `await` keyword.**
+        3. **PYTHON KWARGS ONLY**: 
            - ✅ `page.get_by_role("link", name="Home")`
            - **NEVER** use `{{ key: value }}` JS objects. Always use `key=value`.
-        3. **Smart Actions (MANDATORY)**: 
-           - For every interaction (fill/click), you MUST use the `smart_action` function.
-           - Syntax: `smart_action(page, "playwright_locator_string", "action_type", value="optional_value")`
-           - **DO NOT** use brittle CSS like `div.container > section > button` if semantic locators can be chained.
-        4. **Navigation Guards**: ALWAYS call `wait_for_stability(page)` after every `smart_action`.
-        5. **NO TEMPLATE LOGIC**: Use only concrete locators and values from the trace JSON below.
+        4. **Smart Actions (MANDATORY)**: Use `smart_action` for ALL interactions.
+        5. **Navigation Guards**: ALWAYS call `wait_for_stability(page)` after every `smart_action`.
+        6. **Visual Verification**: You are provided with screenshots of the elements. Use them to ensure your locators (roles/text) match what is visually present.
         
+        **OUTPUT FORMAT**:
+        You must output a JSON object with this EXACT structure:
+        {
+          "pages": [
+            {
+              "class_name": "LoginPage",
+              "code": "class LoginPage:\\n    def __init__(self, page):... (full class code here)"
+            }
+          ],
+          "test_logic": "def test_autonomous_flow(browser: Browser):\\n    # Setup, calls to POM actions, assertions, cleanup"
+        }
+
         **TRACE TO REFINE**:
         {{TRACE_SUMMARY}}
         """
+        
+        if error_context:
+            prompt_template += f"\n\n**IMPORTANT: PREVIOUS EXECUTION FAILED**:\n{error_context}\nPlease analyze the error and fix it in your new generation."
         prompt = prompt_template.replace("{{TARGET_URL}}", target_url)\
-                              .replace("{{GOLDEN_CONTEXT}}", golden_context)\
-                              .replace("{{TRACE_SUMMARY}}", trace_summary)
+                               .replace("{{GOLDEN_CONTEXT}}", golden_context)\
+                               .replace("{{TRACE_SUMMARY}}", trace_summary)\
+                               .replace("{{PROJECT_NAME}}", os.path.basename(os.getcwd()))\
+                               .replace("{{DOMAIN_RULES}}", domain_rules)
 
+        # Prepare Multimodal Message
+        content = [{"type": "text", "text": prompt}]
+        if images:
+            for img_b64 in images:
+                content.append({
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/png;base64,{img_b64}"}
+                })
+        
         # Layer 4: Retry Loop with Validation
         MAX_RETRIES = 2
-        raw_steps = None
         
         for attempt in range(MAX_RETRIES + 1):
-            resp = self.llm.invoke(prompt)
-            content = resp.content
+            messages = [HumanMessage(content=content)]
+            resp = self.llm.invoke(messages)
             
-            code_match = re.search(r"```python(.*?)```", content, re.DOTALL)
-            candidate_code = code_match.group(1).strip() if code_match else content.strip()
+            result = try_parse_json(resp.content)
+            if not result:
+                if attempt < MAX_RETRIES:
+                    content.append({"type": "text", "text": "Invalid JSON format. Please return ONLY the JSON object."})
+                    continue
+                else: 
+                    return None
+
+            # Validate generated pieces
+            full_code = "\n\n".join([p["code"] for p in result.get("pages", [])]) + "\n\n" + result.get("test_logic", "")
+            is_valid, syntax_error = validate_python_syntax(full_code)
             
-            is_valid, syntax_error = validate_python_syntax(candidate_code)
-            undefined_vars = find_undefined_variables(candidate_code)
-            
-            if is_valid and not undefined_vars:
-                raw_steps = candidate_code
-                break
+            if is_valid:
+                return full_code
             
             if attempt < MAX_RETRIES:
-                error_context = ""
-                if not is_valid: error_context += f"\n**SYNTAX ERROR**: {syntax_error}\n"
-                if undefined_vars: error_context += f"\n**UNDEFINED VARIABLES**: {', '.join(undefined_vars)}\n"
-                prompt += f"\n\n**YOUR PREVIOUS ATTEMPT HAD ERRORS**:{error_context}\nFix these. Use ONLY concrete values."
+                content.append({"type": "text", "text": f"\n\n**SYNTAX ERROR IN GENERATED CODE**:{syntax_error}\nFix this and ensure the code is valid Python."})
             else:
-                raw_steps = candidate_code
+                return full_code
         
-        return raw_steps
+        return None
 
-def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test_generated_from_trace.py", workflow_goal=""):
+def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test_generated_from_trace.py", workflow_goal="", error_context=None, domain="general"):
     if not os.path.exists(trace_path):
         print(f"❌ No trace found at {trace_path}")
         return
@@ -161,6 +246,19 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     start_time = __import__('time').time()
     refiner = CodeRefiner()
     
+    # Load Images for Multimodal Context
+    images_b64 = []
+    trace_dir = os.path.dirname(trace_path)
+    for step in trace:
+        img_name = step.get("screenshot")
+        if img_name:
+            img_path = os.path.join(trace_dir, img_name)
+            if os.path.exists(img_path):
+                try:
+                    with open(img_path, "rb") as image_file:
+                        images_b64.append(base64.b64encode(image_file.read()).decode('utf-8'))
+                except: pass
+    
     trace_summary = json.dumps([{
         "step": t['step'],
         "url": t.get('url'),
@@ -171,38 +269,14 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         "expectation": t.get('expected_outcome')
     } for t in trace], indent=2)
     
-    raw_steps = refiner.generate_code(target_url, trace_summary)
+    raw_code = refiner.generate_code(target_url, trace_summary, images=images_b64, error_context=error_context, domain=domain)
 
-    # Filter out conversational lines
-    clean_lines = []
-    def is_valid_step(line):
-        line = line.strip()
-        if not line:
-            return True
-        if line.startswith("#"):
-            return True
-        # Allow chaining and filtering constructs
-        if ".filter(" in line or ".and_" in line:
-            return True
-        blacklist = ["playwright.chromium", "browser =", "context =", "new_page", "sync_playwright", "with ", "context.close", "browser.close"]
-        if any(item in line for item in blacklist):
-            return False
-        # Check for undefined variables
-        if any(p in line for p in ['locator_string', 'optional_value', 'action_type']):
-            return False
-        if re.search(r"\.locator\s*\(\s*locator\s*[\),]", line):
-            return False
-        valid_starters = ("smart_action", "expect(", "page.goto", "page.get_by", "page.locator", "take_screenshot", "wait_for_stability", "if ", "for ", "print(")
-        return any(line.startswith(s) for s in valid_starters) or ("=" in line)
+    if not raw_code:
+        print("❌ Refiner failed to generate valid code.")
+        return False
 
-    for line in raw_steps.split("\n"):
-        clean_line = line.replace("await ", "").strip()
-        if is_valid_step(clean_line):
-             # Maintain relative indentation for control flow
-             original_indent = len(line) - len(line.lstrip())
-             clean_lines.append("        " + (" " * original_indent) + clean_line)
-             
-    clean_steps = "\n".join(clean_lines)
+    clean_steps = raw_code
+
     project_name = os.path.basename(os.path.dirname(os.path.dirname(trace_path)))
     
     from template_engine import TestTemplateEngine
@@ -228,4 +302,12 @@ if __name__ == "__main__":
     t_path = sys.argv[1] if len(sys.argv) > 1 else "explorer_trace.json"
     o_path = sys.argv[2] if len(sys.argv) > 2 else "test_generated_from_trace.py"
     goal = sys.argv[3] if len(sys.argv) > 3 else ""
-    generate_code_from_trace(t_path, o_path, goal)
+    e_path = sys.argv[4] if len(sys.argv) > 4 else None
+    dom = sys.argv[5] if len(sys.argv) > 5 else "general"
+    
+    err_ctx = None
+    if e_path and os.path.exists(e_path):
+        with open(e_path, "r", encoding="utf-8", errors="ignore") as f:
+            err_ctx = f.read()
+            
+    generate_code_from_trace(t_path, o_path, goal, error_context=err_ctx, domain=dom)

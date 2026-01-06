@@ -7,7 +7,11 @@ import re
 import os
 from urllib.parse import urlparse
 from collections import defaultdict
+import sys
 
+# Force UTF-8 for console output on Windows
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 class POMStructureGenerator:
     def __init__(self, trace_path):

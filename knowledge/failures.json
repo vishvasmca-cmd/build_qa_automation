@@ -943,5 +943,392 @@
       "phase": "exploration"
     },
     "error": "Explorer failed after 3 attempts"
+  },
+  {
+    "timestamp": "2026-01-06T03:47:54.644600",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "sauce_smoke",
+      "phase": "exploration"
+    },
+    "error": "Explorer failed after 3 attempts"
+  },
+  {
+    "timestamp": "2026-01-06T03:50:35.464524",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "sauce_smoke",
+      "phase": "exploration"
+    },
+    "error": "Explorer failed after 3 attempts"
+  },
+  {
+    "timestamp": "2026-01-06T03:51:14.424435",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "sauce_smoke",
+      "phase": "exploration"
+    },
+    "error": "Explorer failed after 3 attempts"
+  },
+  {
+    "timestamp": "2026-01-06T03:51:44.637982",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "sauce_smoke",
+      "phase": "exploration"
+    },
+    "error": "Explorer failed after 3 attempts"
+  },
+  {
+    "timestamp": "2026-01-06T03:52:32.263154",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "sauce_smoke",
+      "phase": "exploration"
+    },
+    "error": "Explorer failed after 3 attempts"
+  },
+  {
+    "timestamp": "2026-01-06T03:53:55.338357",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "sauce_smoke",
+      "phase": "execution"
+    },
+    "error": "(f'\\u26a0\\ufe0f Screenshot failed: {e}')\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <encodings.cp1252.IncrementalEncoder object at 0x0000025844FE4E10>\ninput = \"\\u26a0\\ufe0f Screenshot failed: 'charmap' codec can't encode character '\\\\\\\\U0001f4f8' in position 0: character maps to <undefined>\"\nfinal = False\n\n    def encode(self, input, final=False):\n>       return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\encodings\\cp1252.py:19: UnicodeEncodeError\n=========================== short test summary info ===========================\nFAILED projects/sauce_smoke/tests/e2e/test_main.py::test_autonomous_flow[chromium]\n============================== 1 failed in 3.23s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-06T03:56:32.042902",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "sauce_smoke",
+      "phase": "execution"
+    },
+    "error": "(f'\\u26a0\\ufe0f Screenshot failed: {e}')\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <encodings.cp1252.IncrementalEncoder object at 0x000001A66A734DD0>\ninput = \"\\u26a0\\ufe0f Screenshot failed: 'charmap' codec can't encode character '\\\\\\\\U0001f4f8' in position 0: character maps to <undefined>\"\nfinal = False\n\n    def encode(self, input, final=False):\n>       return codecs.charmap_encode(input,self.errors,encoding_table)[0]\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\encodings\\cp1252.py:19: UnicodeEncodeError\n=========================== short test summary info ===========================\nFAILED projects/sauce_smoke/tests/e2e/test_main.py::test_autonomous_flow[chromium]\n============================== 1 failed in 2.92s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-06T04:03:38.952643",
+    "context": {
+      "site": "https://www.demoblaze.com/",
+      "project": "verify_custom_demoblaze",
+      "phase": "execution"
+    },
+    "error": ".demoblaze.com/\")\n            wait_for_stability(page)\n    \n            # Start of the test script\n            smart_action(page, page.get_by_role(\"link\", name=re.compile(\"Sign up\", re.IGNORECASE)), \"click\")\n            wait_for_stability(page)\n    \n            take_screenshot(page, \"final_state\", \"demoblaze\")\n>           expect(page).not_to_have_url(\"https://www.demoblaze.com/\")\nE           AssertionError: Page URL expected not to be 'https://www.demoblaze.com/'\nE           Actual value: https://www.demoblaze.com/ \nE           Call log:\nE             - Expect \"to_have_url\" with timeout 5000ms\nE               9 \u00d7 unexpected value \"https://www.demoblaze.com/\"\n\nprojects\\verify_custom_demoblaze\\tests\\e2e\\test_main.py:39: AssertionError\n=========================== short test summary info ===========================\nFAILED projects/verify_custom_demoblaze/tests/e2e/test_main.py::test_autonomous_flow[chromium]\n============================= 1 failed in 16.71s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-06T04:14:01.913857",
+    "context": {
+      "site": "https://parabank.parasoft.com/parabank/index.htm",
+      "project": "verify_custom_parabank",
+      "phase": "execution"
+    },
+    "error": " task = asyncio.current_task(self._loop)\n        st: List[inspect.FrameInfo] = getattr(\n            task, \"__pw_stack__\", None\n        ) or inspect.stack(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 10000ms exceeded.\nE           Call log:\nE             - waiting for locator(\"#customer.firstName\")\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\playwright\\_impl\\_connection.py:559: TimeoutError\n=========================== short test summary info ===========================\nFAILED projects/verify_custom_parabank/tests/e2e/test_main.py::test_autonomous_flow[chromium]\n============================= 1 failed in 14.00s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-06T04:15:35.667204",
+    "context": {
+      "site": "https://demo.applitools.com/",
+      "project": "verify_custom_ultrafast",
+      "phase": "execution"
+    },
+    "error": "ep 1: Fill password field\n            smart_action(page, \"#password\", \"fill\", value=\"password\")\n            wait_for_stability(page)\n    \n            # Step 2: Click the login button\n            smart_action(page, \"#log-in\", \"click\")\n            wait_for_stability(page)\n    \n            # Step 3: Verify successful login (check for logout button)\n>           expect(page.locator(\"#logout\")).to_be_visible()\nE           AssertionError: Locator expected to be visible\nE           Actual value: None\nE           Error: element(s) not found \nE           Call log:\nE             - Expect \"to_be_visible\" with timeout 5000ms\nE             - waiting for locator(\"#logout\")\n\nprojects\\verify_custom_ultrafast\\tests\\e2e\\test_main.py:47: AssertionError\n=========================== short test summary info ===========================\nFAILED projects/verify_custom_ultrafast/tests/e2e/test_main.py::test_autonomous_flow[chromium]\n============================== 1 failed in 8.20s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-06T04:27:55.590513",
+    "context": {
+      "site": "https://demoqa.com/books",
+      "project": "verify_custom_bookstore",
+      "phase": "execution"
+    },
+    "error": "goto(\"https://demoqa.com/books\")\n        wait_for_stability(page)\n    \n        # 2. Logic (using POM)\n        book_store_page = BookStorePage(page)\n    \n        book_store_page.search_for_book(\"Learning JavaScript Design Patterns\")\n>       book_store_page.navigate_to_login()\n\nprojects\\verify_custom_bookstore\\tests\\e2e\\test_main.py:56: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <test_main.BookStorePage object at 0x0000021422EA6350>\n\n    def navigate_to_login(self):\n        smart_action(self.page, self.login_button, \"click\")\n>       page.wait_for_url(\"**/login\")\n        ^^^^\nE       NameError: name 'page' is not defined\n\nprojects\\verify_custom_bookstore\\tests\\e2e\\test_main.py:36: NameError\n=========================== short test summary info ===========================\nFAILED projects/verify_custom_bookstore/tests/e2e/test_main.py::test_autonomous_flow[chromium]\n============================= 1 failed in 18.37s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-06T04:35:04.702340",
+    "context": {
+      "site": "https://demoqa.com/books",
+      "project": "verify_custom_bookstore",
+      "phase": "review"
+    },
+    "error": "name 'anti_context' is not defined"
+  },
+  {
+    "timestamp": "2026-01-06T04:38:56.521775",
+    "context": {
+      "site": "https://demoqa.com/books",
+      "project": "verify_custom_bookstore",
+      "phase": "execution"
+    },
+    "error": "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <test_main.BookStorePage object at 0x000001AC021DBD90>\nbook_name = 'Git Pocket Guide'\n\n    def search_book(self, book_name):\n        smart_action(self.page, \"#searchBox\", \"fill\", value=book_name)\n        wait_for_stability(self.page)\n>       expect(self.page.locator('.rt-tbody .rt-tr-group')).to_have_count(1)\nE       AssertionError: Locator expected to have count '1'\nE       Actual value: 10 \nE       Call log:\nE         - Expect \"to_have_count\" with timeout 5000ms\nE         - waiting for locator(\".rt-tbody .rt-tr-group\")\nE           7 \u00d7 locator resolved to 10 elements\nE             - unexpected value \"10\"\n\nprojects\\verify_custom_bookstore\\tests\\e2e\\test_main.py:25: AssertionError\n=========================== short test summary info ===========================\nFAILED projects/verify_custom_bookstore/tests/e2e/test_main.py::test_autonomous_flow[chromium]\n============================= 1 failed in 14.27s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-06T04:58:04.845294",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "verify_stress_sauce",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T04:59:01.475244",
+    "context": {
+      "site": "https://magento.softwaretestingboard.com/",
+      "project": "verify_stress_magento",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:01:44.673041",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "verify_stress_sauce",
+      "phase": "execution"
+    },
+    "error": "olved to <option value=\"za\">Name (Z to A)</option>\nE             - attempting click action\nE               - scrolling into view if needed\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\playwright\\_impl\\_connection.py:559: Error\n============================== warnings summary ===============================\nprojects\\verify_stress_sauce\\tests\\e2e\\test_main.py:52\n  C:\\Users\\vishv\\.gemini\\antigravity\\playground\\inner-event\\projects\\verify_stress_sauce\\tests\\e2e\\test_main.py:52: DeprecationWarning: invalid escape sequence '\\('\n    smart_action(self.page, self.page.get_by_role(\"option\", name=re.compile(\"Name \\(Z to A\\)\", re.IGNORECASE)), \"click\")\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ===========================\nFAILED projects/verify_stress_sauce/tests/e2e/test_main.py::test_autonomous_flow[chromium]\n======================== 1 failed, 1 warning in 13.25s ========================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-06T05:03:27.883819",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "verify_stress_sauce",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:04:22.869471",
+    "context": {
+      "site": "https://magento.softwaretestingboard.com/",
+      "project": "verify_stress_magento",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:05:48.910851",
+    "context": {
+      "site": "https://parabank.parasoft.com/parabank/index.htm",
+      "project": "verify_stress_parabank",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:08:55.512813",
+    "context": {
+      "site": "https://automationexercise.com/",
+      "project": "verify_stress_automationexercise",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:12:34.583139",
+    "context": {
+      "site": "https://www.demoblaze.com/",
+      "project": "verify_stress_demoblaze",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:14:05.501450",
+    "context": {
+      "site": "https://computer-database.gatling.io/computers",
+      "project": "verify_stress_computers",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:16:01.335395",
+    "context": {
+      "site": "https://opensource-demo.orangehrmlive.com/",
+      "project": "verify_stress_orangehrm",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:17:58.249669",
+    "context": {
+      "site": "https://rahulshettyacademy.com/client",
+      "project": "verify_stress_rahulshetty",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:19:53.104329",
+    "context": {
+      "site": "https://the-internet.herokuapp.com/",
+      "project": "verify_stress_internet",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:21:50.449711",
+    "context": {
+      "site": "https://ultimateqa.com/automation",
+      "project": "verify_stress_ultimateqa",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:24:16.851561",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "verify_stress_sauce",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:25:08.876613",
+    "context": {
+      "site": "https://magento.softwaretestingboard.com/",
+      "project": "verify_stress_magento",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:26:20.357368",
+    "context": {
+      "site": "https://parabank.parasoft.com/parabank/index.htm",
+      "project": "verify_stress_parabank",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:27:27.169231",
+    "context": {
+      "site": "https://automationexercise.com/",
+      "project": "verify_stress_automationexercise",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:27:35.689860",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "verify_stress_sauce",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:28:33.531616",
+    "context": {
+      "site": "https://magento.softwaretestingboard.com/",
+      "project": "verify_stress_magento",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:29:43.347876",
+    "context": {
+      "site": "https://www.demoblaze.com/",
+      "project": "verify_stress_demoblaze",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:29:52.232351",
+    "context": {
+      "site": "https://parabank.parasoft.com/parabank/index.htm",
+      "project": "verify_stress_parabank",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:29:54.483936",
+    "context": {
+      "site": "https://www.saucedemo.com/",
+      "project": "verify_stress_sauce",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:30:44.051458",
+    "context": {
+      "site": "https://computer-database.gatling.io/computers",
+      "project": "verify_stress_computers",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:31:02.522794",
+    "context": {
+      "site": "https://magento.softwaretestingboard.com/",
+      "project": "verify_stress_magento",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:32:01.409784",
+    "context": {
+      "site": "https://automationexercise.com/",
+      "project": "verify_stress_automationexercise",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:32:28.406077",
+    "context": {
+      "site": "https://parabank.parasoft.com/parabank/index.htm",
+      "project": "verify_stress_parabank",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:32:33.859666",
+    "context": {
+      "site": "https://opensource-demo.orangehrmlive.com/",
+      "project": "verify_stress_orangehrm",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:34:09.975831",
+    "context": {
+      "site": "https://rahulshettyacademy.com/client",
+      "project": "verify_stress_rahulshetty",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:34:16.420503",
+    "context": {
+      "site": "https://automationexercise.com/",
+      "project": "verify_stress_automationexercise",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
+  },
+  {
+    "timestamp": "2026-01-06T05:35:15.999452",
+    "context": {
+      "site": "https://www.demoblaze.com/",
+      "project": "verify_stress_demoblaze",
+      "phase": "generation"
+    },
+    "error": "Failed to generate valid code after 3 refinement loops."
   }
 ]

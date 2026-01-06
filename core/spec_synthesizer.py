@@ -7,9 +7,9 @@ from dotenv import load_dotenv
 
 # Import robust LLM wrapper
 try:
-    from .llm_utils import SafeLLM
+    from .llm_utils import SafeLLM, try_parse_json
 except (ImportError, ValueError):
-    from llm_utils import SafeLLM
+    from llm_utils import SafeLLM, try_parse_json
 
 # Import Metrics Logger
 try:
@@ -212,8 +212,7 @@ Output a professional, executive-level Markdown report suitable for stakeholders
             ])
             
             # Clean and parse JSON
-            content = resp.content.replace("```json", "").replace("```", "").strip()
-            return json.loads(content)
+            return try_parse_json(resp.content)
         except Exception as e:
             print(f"❌ Error during LLM synthesis: {e}")
             return None

@@ -3,7 +3,12 @@ Pre-tested Playwright Helper Functions
 These are validated once and reused across all tests.
 """
 import os
+import sys
 from playwright.sync_api import Page
+
+# Force UTF-8 for console output on Windows
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 
 def wait_for_stability(page):
@@ -82,6 +87,18 @@ def smart_action(page, primary_locator, action_type, value=None):
         
         # 3. Self-Healing Fallback
         try:
+            # First, try to clear any blocking overlays that might have appeared
+            print("   🚑 Clearing blocking overlays...")
+            page.evaluate("""() => {
+                const selectors = '[class*="overlay"], [class*="modal"], [role="dialog"], [aria-modal="true"]';
+                document.querySelectorAll(selectors).forEach(el => {
+                    const style = window.getComputedStyle(el);
+                    if (style.position === 'fixed' || style.position === 'absolute') {
+                        el.remove();
+                    }
+                });
+            }""")
+            
             # Extract keyword for fuzzy matching
             import re
             keyword = ""
@@ -105,6 +122,16 @@ def smart_action(page, primary_locator, action_type, value=None):
                     print("✨ Healed via direct text match!")
                     _perform_action(healed.first)
                     return True
+                
+                # Try labels/placeholders
+                for method in ['get_by_label', 'get_by_placeholder']:
+                    try:
+                        healed = getattr(page, method)(re.compile(keyword, re.IGNORECASE))
+                        if healed.count() > 0:
+                            print(f"✨ Healed via {method} match!")
+                            _perform_action(healed.first)
+                            return True
+                    except: pass
 
             # Coordinate Fallback (Last Resort for clicks)
             if action_type == 'click' and loc:

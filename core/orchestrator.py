@@ -7,6 +7,10 @@ from termcolor import colored
 
 import hashlib
 
+# Force UTF-8 for console output on Windows
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 # Import Metrics Logger
 try:
     from .metrics_logger import logger
@@ -223,46 +227,76 @@ def run_pipeline(config_path, headed=False):
             print(colored(f"Knowledge Update Failed: {e}", "yellow"))
 
     # Step 3: Generating Robust Code
-    print(colored("\n[Step 3/7] Generating Robust Code...", "cyan"))
-    if can_skip_phase(project_root, "generation", config_hash):
-        print(colored("⏩ Skipping Code Generation (Checkpoint found)", "grey"))
+    # Step 3: Generating Robust Code & Logic Check (Unified Loop)
+    print(colored("\n[Step 3/7] Generating Robust Code & Logic Check...", "cyan"))
+    if can_skip_phase(project_root, "generation", config_hash) and can_skip_phase(project_root, "review", config_hash):
+        print(colored("⏩ Skipping Code Generation & Review (Checkpoints found)", "grey"))
     else:
-        for attempt in range(1, 4):
+        # Loop for Generation -> Review -> Regenerate
+        gen_success = False
+        error_context = None
+        
+        # Ensure reviewer is importable
+        sys.path.append(os.path.dirname(__file__))
+        from reviewer import CodeReviewer
+
+        for attempt in range(1, 4):  # Max 3 full loops
+            print(colored(f"🔄 Generation Loop {attempt}/3...", "cyan"))
+            
+            # 1. Generate (or Regenerate)
             start_time = time.time()
             refiner_script = os.path.join(os.path.dirname(__file__), "refiner.py")
-            ret = subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", "")], capture_output=False)
+            domain = config.get("domain", "general")
             
-            if ret.returncode == 0:
-                duration = time.time() - start_time
-                logger.log_event("Refiner", "generation_phase", duration, success=True)
-                save_checkpoint(project_root, "generation", config_hash)
-                break
-            else:
-                logger.log_failure("Refiner", f"Exit code {ret.returncode}", {"attempt": attempt})
-                print(colored(f"⚠️ Generation Attempt {attempt} Failed. Retrying...", "yellow"))
-                if attempt == 3:
-                    _log_error(config, "generation", "Refiner failed after 3 attempts")
-                    return
+            # Write error context to temp file if exists from previous loop
+            error_file_arg = ""
+            if error_context:
+                error_file = os.path.join(project_root, "outputs", "gen_feedback.log")
+                with open(error_file, "w", encoding="utf-8") as f:
+                    f.write(error_context)
+                error_file_arg = error_file
+                print(colored(f"💡 Feeding Reviewer Feedback to Refiner: {error_context[:100]}...", "yellow"))
 
-    # Step 3.5: AI Code Review (Quality Gate)
-    print(colored("\n[Step 3.5] 🕵️  Code Review & Quality Gate...", "cyan"))
-    if can_skip_phase(project_root, "review", config_hash):
-        print(colored("⏩ Skipping Code Review (Checkpoint found)", "grey"))
-    else:
-        for attempt in range(1, 4):
+            # Run Refiner
+            ret = subprocess.run(
+                ["python", refiner_script, trace_path, test_path, config.get("workflow_description", ""), error_file_arg, domain], 
+                capture_output=False
+            )
+            
+            if ret.returncode != 0:
+                print(colored(f"⚠️ Generation failed (Code {ret.returncode})", "yellow"))
+                # If generation script crashes, we retry loop without changing error context? 
+                # Or maybe user error? Let's treat as a fail to retry.
+                continue
+
+            # 2. Code Review & Logic Gate
             try:
-                sys.path.append(os.path.dirname(__file__))
-                from reviewer import CodeReviewer
                 rev = CodeReviewer()
-                rev.review_and_fix(test_path)
-                save_checkpoint(project_root, "review", config_hash)
-                break
+                is_approved, review_msg = rev.review_and_fix(test_path, domain=domain)
+                
+                if is_approved:
+                    print(colored("✅ Code Approved by Quality Gate.", "green"))
+                    gen_success = True
+                    save_checkpoint(project_root, "generation", config_hash)
+                    save_checkpoint(project_root, "review", config_hash)
+                    
+                    # Log metrics
+                    duration = time.time() - start_time
+                    logger.log_event("Generator", "full_gen_cycle", duration, success=True, metadata={"loops": attempt})
+                    break
+                else:
+                    print(colored(f"❌ Quality Gate Rejected Code: {review_msg}", "red"))
+                    # Feed this back to Refiner in next loop
+                    error_context = f"PREVIOUS CODE REJECTED BY REVIEWER.\nREASON: {review_msg}\n\nReview your last output and FIX the issues."
+                    
             except Exception as e:
-                logger.log_failure("Reviewer", str(e), {"attempt": attempt})
-                print(colored(f"⚠️ Review Attempt {attempt} Failed: {e}. Retrying...", "yellow"))
-                if attempt == 3:
-                    _log_error(config, "review", str(e))
-                    return
+                print(colored(f"⚠️ Review Process Crashed: {e}", "red"))
+                error_context = f"Reviewer Crashed processing your code: {e}"
+
+        if not gen_success:
+             _log_error(config, "generation", "Failed to generate valid code after 3 refinement loops.")
+             print(colored("❌ Failed to generate valid code. Aborting pipeline.", "red"))
+             return
 
     # Step 4: Intelligent Spec Synthesis
     print(colored("\n[Step 4/7] 🧠 Synthesizing Specs & Features...", "cyan"))
@@ -294,7 +328,7 @@ def run_pipeline(config_path, headed=False):
         print(colored("⏩ Skipping Test Execution (Checkpoint found)", "grey"))
         success = True # Assume success if checkpoint exists (checkpoints only saved on success)
     else:
-        max_retries = 2
+        max_retries = 3
         success = False
         execution_log = ""
         
@@ -317,7 +351,25 @@ def run_pipeline(config_path, headed=False):
                 save_checkpoint(project_root, "execution", config_hash)
                 break
             else:
-                print(colored(f"⚠️ Attempt {attempt + 1} Failed. Retrying...", "yellow"))
+                if attempt < max_retries - 1:
+                    print(colored(f"⚠️ Attempt {attempt + 1} Failed. Triggering Self-Healing Regeneration...", "yellow"))
+                    # Save error to temp file
+                    error_file = os.path.join(project_root, "outputs", "execution_error.log")
+                    with open(error_file, "w", encoding="utf-8") as f:
+                        f.write(current_log)
+                    
+                    # Call Refiner with error context
+                    refiner_script = os.path.join(os.path.dirname(__file__), "refiner.py")
+                    print(colored("🧠 Regenerating code with error context...", "cyan"))
+                    domain = config.get("domain", "general")
+                    subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", ""), error_file, domain])
+                    
+                    # Optional: Re-run reviewer if needed
+                    from reviewer import CodeReviewer
+                    domain = config.get("domain", "general")
+                    CodeReviewer().review_and_fix(test_path, domain=domain)
+                else:
+                    print(colored(f"❌ Final Attempt {attempt + 1} Failed.", "red"))
     
         if not success:
             logger.log_failure("Executor", "All test attempts failed", {"path": test_path, "log_tail": execution_log[-1000:]})
