@@ -67,6 +67,15 @@ class BatchOrchestrator:
         print(colored("\n🏁 Batch Run Complete!", "cyan", attrs=["bold"]))
         self._print_summary()
 
+    def _print_summary(self):
+        print("\n" + "="*40)
+        print("SUMMARY")
+        print("="*40)
+        for project, res in self.results.items():
+            status = colored(res['status'].upper(), "green" if res['status'] == "success" else "red")
+            print(f"{project:30} | {status} | {res['duration']}s")
+        print("="*40)
+
 # Standalone function for pickling
 def run_pipeline_wrapper(config_path, headed):
     """Wrapper to run pipeline in a separate process and return result dict."""
@@ -83,15 +92,6 @@ def run_pipeline_wrapper(config_path, headed):
     except Exception as e:
         duration = time.time() - start_time
         return {"status": "failed", "error": str(e), "duration": round(duration, 2)}
-
-    def _print_summary(self):
-        print("\n" + "="*40)
-        print("SUMMARY")
-        print("="*40)
-        for project, res in self.results.items():
-            status = colored(res['status'].upper(), "green" if res['status'] == "success" else "red")
-            print(f"{project:30} | {status} | {res['duration']}s")
-        print("="*40)
 
 if __name__ == "__main__":
     # Example usage: python core/batch_orchestrator.py projects/p1/config.json projects/p2/config.json --concurrency 3
