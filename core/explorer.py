@@ -60,18 +60,20 @@ Your goal is to complete the user's workflow by deciding the single next best ac
 3. `elements`: A list of interactive elements found.
 4. `history`: Past actions and their outcomes.
 5. `test_data`: Available credentials or input data.
+6. `knowledge_bank`: Strategic insights and lessons learned from PREVIOUS failures on this site.
 
 **THINKING PROCESS:**
 1. Observe: What page am I on?
 2. History Check: Review `history` carefully. What have I ALREADY DONE? Use element text and URLs to verify.
-3. Validate: Did my LAST action work? Note: On SPAs, the URL might not change even if the content does.
-4. Multi-Goal Check: Look at the `goal`. Does it have multiple steps (e.g., '1. Home, 2. Price')? Check off completed steps based on history.
-5. **Login Check**: If I encounter a login page and NO credentials are in `test_data` AND NO credentials are in the `goal`, SKIP login entirely. Instead, explore publicly accessible areas. However, if credentials are provided in either `test_data` or the `goal` description, proceed with login.
-6. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal?
+3. **KNOWLEDGE CHECK (CRITICAL)**: Analyze `knowledge_bank`. If it contains "Proven Locators" for specific elements, PRIORITIZE them. If it contains "Learned Rules" or "Strategic Insights", you **MUST** follow them to avoid repeating past failures (e.g., "Always close popup X before Y").
+4. Validate: Did my LAST action work? Note: On SPAs, the URL might not change even if the content does.
+5. Multi-Goal Check: Look at the `goal`. Does it have multiple steps (e.g., '1. Home, 2. Price')? Check off completed steps based on history.
+6. **Login Check**: If I encounter a login page and NO credentials are in `test_data` AND NO credentials are in the `goal`, SKIP login entirely. Instead, explore publicly accessible areas. However, if credentials are provided in either `test_data` or the `goal` description, proceed with login.
+7. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal?
 
 **OUTPUT SCHEMA (JSON only)**:
 {
-  "thought": "Direct explanation of which part of the goal is being addressed and why this action moves us closer.",
+  "thought": "Direct explanation of which part of the goal is being addressed and why this action moves us closer, citing any applied knowledge from the Knowledge Bank.",
   "action": "click | fill | scroll | long_press | navigate | done",
   "target_id": 5, 
   "value": "...", 
@@ -155,7 +157,7 @@ class ExplorerAgent:
                     print(f"📡 Sending {len(mindmap['elements'])} elements to the Planner...")
                     
                     decision_start = time.time()
-                    decision = await self._make_decision(mindmap)
+                    decision = await self._make_decision(mindmap, page.url)
                     
                     logger.log_event(
                         agent="Explorer",
@@ -240,13 +242,17 @@ class ExplorerAgent:
             traceback.print_exc()
             raise e
 
-    async def _make_decision(self, mindmap):
+    async def _make_decision(self, mindmap, page_url):
+        # Retrieve RAG context from Knowledge Bank
+        rag_context = self.kb.get_rag_context(page_url, self.workflow)
+        
         context = {
             "goal": self.workflow,
             "page_context": mindmap['summary'],
             "elements": [{"id": e['elementId'], "text": e['text'], "tag": e['tagName']} for e in mindmap['elements'][:100]],
             "history": self.history[-10:], # Expanded history for navigation memory
-            "test_data": self.test_data
+            "test_data": self.test_data,
+            "knowledge_bank": rag_context # INJECTED: Lessons learned from previous runs
         }
         
         prompt = f"Current Mindmap Context:\n{json.dumps(context, indent=2)}"

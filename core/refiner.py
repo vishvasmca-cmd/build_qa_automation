@@ -102,25 +102,39 @@ class CodeRefiner:
                             domain_rules += f"- {r}\n"
             except: pass
 
+        # Load Site-Specific Knowledge (Proven Locators)
+        site_knowledge = ""
+        from urllib.parse import urlparse
+        netloc = urlparse(target_url).netloc
+        site_locators_path = os.path.join(os.path.dirname(__file__), "..", "knowledge", "sites", netloc, "locators.json")
+        if os.path.exists(site_locators_path):
+             try:
+                with open(site_locators_path, "r", encoding="utf-8") as f:
+                    proven_locs = json.load(f)
+                    if proven_locs:
+                        site_knowledge = f"\n**PROVEN LOCATORS FOR {netloc} (USE THESE IF THEY MATCH THE GOAL)**:\n"
+                        site_knowledge += json.dumps(proven_locs, indent=2)
+             except: pass
+
         prompt_template = """
         You are an expert Playwright test automation engineer. 
         Refine the following execution trace into a linear, clean, and ROBUST Playwright script for {{TARGET_URL}}.
         
         {{GOLDEN_CONTEXT}}
         
-        **PRIORITY ORDER (Always follow this sequence for locators)**:
-        1. **USER-FACING LOCATORS** (Highest Priority):
+        **PRIORITY ORDER (ALWAYS FOLLOW THIS LOCATOR CASCADE)**:
+        1. **SITE-SPECIFIC PROVEN LOCATORS**: First, check the `site_knowledge`. If an element in the trace matches a "Proven" locator from past successful runs, use it.
+        2. **USER-FACING LOCATORS** (Rank 1):
            - `page.get_by_role()`: Select by ARIA roles and accessible names (e.g., `role="button", name="Submit"`)
            - `page.get_by_label()`: For form inputs with labels
            - `page.get_by_placeholder()`: For inputs with placeholder text
            - `page.get_by_text()`: For visible text content
            - `page.get_by_alt_text()`: For images
-           - `page.get_by_title()`: For elements with title attributes
-        2. **TEST-SPECIFIC LOCATORS**:
+        3. **TEST-SPECIFIC LOCATORS** (Rank 2):
            - `page.get_by_test_id()`: Custom data-testid attributes
-        3. **CSS SELECTORS** (Fallback only):
-           - Use functional attributes over cosmetic ones. Keep selectors shallow and simple.
-        4. **XPATH**: AVOID unless absolutely necessary.
+        4. **CSS ATTRIBUTES** (Rank 3):
+           - Use functional attributes (e.g., `button[type="submit"]`) over positional ones.
+        5. **XPATH / DEEP CSS** (Rank 4): AVOID unless absolutely necessary for unique identification.
 
         **COMPOSITE LOCATORS & FILTERING (CRITICAL)**:
         - **Chaining**: Chain locators to narrow scope: `page.get_by_role('listitem').filter(has_text='Product 2').get_by_role('button', name='Add to cart')`
@@ -161,6 +175,8 @@ class CodeRefiner:
            ```
 
         {{DOMAIN_RULES}}
+        
+        {{SITE_KNOWLEDGE}}
 
         **PROHIBITED PATTERNS (Anti-Hallucination)**:
         - ❌ NEVER use `page` inside a class method without `self.`.
@@ -203,7 +219,8 @@ class CodeRefiner:
                                .replace("{{GOLDEN_CONTEXT}}", golden_context)\
                                .replace("{{TRACE_SUMMARY}}", trace_summary)\
                                .replace("{{PROJECT_NAME}}", os.path.basename(os.getcwd()))\
-                               .replace("{{DOMAIN_RULES}}", domain_rules)
+                               .replace("{{DOMAIN_RULES}}", domain_rules)\
+                               .replace("{{SITE_KNOWLEDGE}}", site_knowledge)
 
         # Prepare Multimodal Message
         content = [{"type": "text", "text": prompt}]
