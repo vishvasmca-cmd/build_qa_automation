@@ -9,3 +9,10 @@ learned_rules:
 - When navigating to a new section (e.g., 'sport' tab), increase the timeout for `wait_for_url`
   to accommodate potential delays in page loading or server response. Consider implementing
   a retry mechanism with incremental backoff for navigation events.
+- After clicking the 'Cookie Settings' button on applovin.com, always wait for the
+  cookie confirmation modal to appear before proceeding. If the modal does not appear
+  within 10 seconds, the test should fail.
+- When navigating to NIC.ru, anticipate a modal or advertisement with a close button.
+  Implement a strategy to handle it before proceeding with the main test flow. Consider
+  waiting for a shorter duration initially, or checking for the element's existence
+  before attempting to click.
