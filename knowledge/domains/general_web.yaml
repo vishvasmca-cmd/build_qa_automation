@@ -6,3 +6,6 @@ learned_rules:
   for handling cases where the search results page doesn't load within the initial
   timeout. Also, verify the presence of a 'No results found' element before retrying
   to avoid infinite loops if the search term yields no results.
+- When navigating to a new section (e.g., 'sport' tab), increase the timeout for `wait_for_url`
+  to accommodate potential delays in page loading or server response. Consider implementing
+  a retry mechanism with incremental backoff for navigation events.
