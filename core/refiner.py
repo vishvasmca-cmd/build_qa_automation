@@ -46,6 +46,48 @@ def find_undefined_variables(code_string):
     except:
         return []
 
+def validate_pom_scope(code_string):
+    """Checks for invalid use of 'page' instead of 'self.page' in class methods."""
+    import ast
+    try:
+        tree = ast.parse(code_string)
+        errors = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ClassDef):
+                for subnode in ast.walk(node):
+                    if isinstance(subnode, ast.FunctionDef):
+                        # Inside a method
+                        for n in ast.walk(subnode):
+                            if isinstance(n, ast.Call):
+                                # Checking for page.something()
+                                if isinstance(n.func, ast.Attribute) and isinstance(n.func.value, ast.Name):
+                                    if n.func.value.id == "page" and subnode.name != "__init__":
+                                         errors.append(f"Line {n.lineno}: Usage of 'page' inside class method '{subnode.name}'. Use 'self.page' instead.")
+        return len(errors) == 0, "\n".join(errors)
+    except Exception as e:
+        return True, "" # Skip if parse error (syntax check handles it)
+
+def validate_pom_scope(code_string):
+    """Checks for invalid use of 'page' instead of 'self.page' in class methods."""
+    import ast
+    try:
+        tree = ast.parse(code_string)
+        errors = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ClassDef):
+                for subnode in ast.walk(node):
+                    if isinstance(subnode, ast.FunctionDef):
+                        # Inside a method
+                        for n in ast.walk(subnode):
+                            if isinstance(n, ast.Call):
+                                # Checking for page.something()
+                                if isinstance(n.func, ast.Attribute) and isinstance(n.func.value, ast.Name):
+                                    if n.func.value.id == "page" and subnode.name != "__init__":
+                                         errors.append(f"Line {n.lineno}: Usage of 'page' inside class method '{subnode.name}'. Use 'self.page' instead.")
+        return len(errors) == 0, "\n".join(errors)
+    except Exception as e:
+        return True, "" # Skip if parse error (syntax check handles it)
+
 class CodeRefiner:
     def __init__(self):
         load_dotenv()
@@ -212,7 +254,16 @@ class CodeRefiner:
             is_valid, syntax_error = validate_python_syntax(full_code)
             
             if is_valid:
-                return full_code
+                # Additional: POM Scope Check
+                is_pom_valid, pom_error = validate_pom_scope(full_code)
+                if is_pom_valid:
+                    return full_code
+                else:
+                     if attempt < MAX_RETRIES:
+                        content.append({"type": "text", "text": f"\n\n**POM SCOPE ERROR**:\n{pom_error}\n\nERROR: You used 'page' inside a class. You MUST use 'self.page'."})
+                        continue
+                     else:
+                        return full_code # Return anyway on last try, maybe reviewer fixes it?
             
             if attempt < MAX_RETRIES:
                 content.append({"type": "text", "text": f"\n\n**SYNTAX ERROR IN GENERATED CODE**:{syntax_error}\nFix this and ensure the code is valid Python."})

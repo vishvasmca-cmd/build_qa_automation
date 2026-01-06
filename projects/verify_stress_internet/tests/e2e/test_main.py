@@ -19,8 +19,16 @@ class HomePage:
     def form_authentication_link(self):
         return self.page.get_by_role("link", name="Form Authentication")
 
+    @property
+    def checkboxes_link(self):
+        return self.page.get_by_role("link", name="Checkboxes")
+
     def navigate_to_form_authentication(self):
         smart_action(self.page, self.form_authentication_link, "click")
+        wait_for_stability(self.page)
+
+    def navigate_to_checkboxes(self):
+        smart_action(self.page, self.checkboxes_link, "click")
         wait_for_stability(self.page)
 
 class LoginPage:
@@ -53,6 +61,26 @@ class LoginPage:
         smart_action(self.page, self.logout_button, "click")
         wait_for_stability(self.page)
 
+class CheckboxesPage:
+    def __init__(self, page):
+        self.page = page
+
+    @property
+    def checkbox1(self):
+        return self.page.locator("xpath=//*[@id=\"checkboxes\"]/input[1]")
+
+    @property
+    def checkbox2(self):
+        return self.page.locator("xpath=//*[@id=\"checkboxes\"]/input[2]")
+
+    def toggle_checkbox1(self):
+        smart_action(self.page, self.checkbox1, "click")
+        wait_for_stability(self.page)
+
+    def toggle_checkbox2(self):
+        smart_action(self.page, self.checkbox2, "click")
+        wait_for_stability(self.page)
+
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
@@ -63,10 +91,18 @@ def test_autonomous_flow(browser: Browser):
     # 2. Logic (using POM)
     home_page = HomePage(page)
     login_page = LoginPage(page)
+    checkboxes_page = CheckboxesPage(page)
 
     home_page.navigate_to_form_authentication()
     login_page.login("tomsmith", "SuperSecretPassword!")
     login_page.logout()
+
+    page.goto("https://the-internet.herokuapp.com/")
+    wait_for_stability(page)
+    
+    home_page.navigate_to_checkboxes()
+    checkboxes_page.toggle_checkbox1()
+    checkboxes_page.toggle_checkbox2()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "inner-event")

@@ -11,13 +11,13 @@ sys.path.append('C:/Users/vishv/.gemini/antigravity/playground/inner-event/core/
 from helpers import wait_for_stability, smart_action, take_screenshot
 
 
-class RegisterPage:
+class RegistrationPage:
     def __init__(self, page):
         self.page = page
 
     @property
-    def register_link(self):
-        return self.page.get_by_role("link", name="Register")
+    def register_here_link(self):
+        return self.page.get_by_role("link", name="Register here")
 
     @property
     def first_name_input(self):
@@ -28,11 +28,11 @@ class RegisterPage:
         return self.page.locator("#lastName")
 
     @property
-    def email_input(self):
+    def user_email_input(self):
         return self.page.locator("#userEmail")
 
-    def navigate_to_register(self):
-        smart_action(self.page, self.register_link, "click")
+    def navigate_to_registration(self):
+        smart_action(self.page, self.register_here_link, "click")
         wait_for_stability(self.page)
 
     def fill_first_name(self, first_name):
@@ -43,8 +43,8 @@ class RegisterPage:
         smart_action(self.page, self.last_name_input, "fill", value=last_name)
         wait_for_stability(self.page)
 
-    def fill_email(self, email):
-        smart_action(self.page, self.email_input, "fill", value=email)
+    def fill_user_email(self, user_email):
+        smart_action(self.page, self.user_email_input, "fill", value=user_email)
         wait_for_stability(self.page)
 
 def test_autonomous_flow(browser: Browser):
@@ -55,11 +55,11 @@ def test_autonomous_flow(browser: Browser):
     wait_for_stability(page)
 
     # 2. Logic (using POM)
-    register_page = RegisterPage(page)
-    register_page.navigate_to_register()
-    register_page.fill_first_name("3531")
-    register_page.fill_last_name("Test")
-    register_page.fill_email("test3531@example.com")
+    registration_page = RegistrationPage(page)
+    registration_page.navigate_to_registration()
+    registration_page.fill_first_name("9719")
+    registration_page.fill_last_name("9719")
+    registration_page.fill_user_email("9719@example.com")
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "inner-event")
