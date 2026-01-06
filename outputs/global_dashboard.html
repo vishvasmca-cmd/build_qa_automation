@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Performance Leaderboard</title>
+    <style>
+        :root { --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --accent: #3b82f6; --success: #22c55e; --danger: #ef4444; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; margin: 0; padding: 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { font-size: 2.5rem; background: linear-gradient(to right, #60a5fa, #a78bfa); -webkit-background-clip: text; color: transparent; margin-bottom: 2rem; text-align: center; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+        .stat-card { background: var(--card); padding: 1.5rem; border-radius: 12px; border: 1px solid #334155; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .stat-value { font-size: 2.5rem; font-weight: 700; color: var(--accent); }
+        .stat-label { color: #94a3b8; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #334155; }
+        th { background: #0f172a; color: #94a3b8; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; }
+        tr:hover { background: #334155; }
+        
+        .status-badge { padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+        .status-pass { background: rgba(34, 197, 94, 0.2); color: var(--success); }
+        .status-fail { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+        
+        .progress-bar { background: #334155; height: 6px; border-radius: 3px; overflow: hidden; width: 100px; }
+        .progress-fill { height: 100%; transition: width 0.3s ease; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Agent Performance Leaderboard</h1>
+        
+        
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value" style="color: #60a5fa">100%</div>
+            <div class="stat-label">Explorer Reliability</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.5rem">Traversed 19/19 workflows</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="color: #a78bfa">21%</div>
+            <div class="stat-label">Refiner Success</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.5rem">Generated code for 4/19 projects</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="color: #22c55e">5%</div>
+            <div class="stat-label">Executor Stability</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.5rem">Passed 1/19 E2E tests</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="color: #f472b6">1</div>
+            <div class="stat-label">Self-Healing Events</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 0.5rem">Recovered from runtime errors</div>
+        </div>
+    </div>
+    
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Agent / Project</th>
+                    <th>Status</th>
+                    <th>Steps Executed</th>
+                    <th>Reliability Score</th>
+                    <th>Healing Events</th>
+                    <th>Last Run</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr>
+            <td style="font-weight: 500;">verify_sauce_complex</td>
+            <td><span class="status-badge status-pass">PASS</span></td>
+            <td>7</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">100%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 100%; background: #22c55e"></div></div>
+                </div>
+            </td>
+            <td>1</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_stress_internet</td>
+            <td><span class="status-badge status-other">IN_PROGRESS</span></td>
+            <td>10</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_stress_orangehrm</td>
+            <td><span class="status-badge status-other">IN_PROGRESS</span></td>
+            <td>7</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_stress_ultimateqa</td>
+            <td><span class="status-badge status-other">IN_PROGRESS</span></td>
+            <td>6</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">sauce_smoke</td>
+            <td><span class="status-badge status-other">UNKNOWN</span></td>
+            <td>5</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_stress_sauce</td>
+            <td><span class="status-badge status-fail">FAIL</span></td>
+            <td>5</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">90%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 90%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_custom_demoblaze</td>
+            <td><span class="status-badge status-other">UNKNOWN</span></td>
+            <td>4</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_custom_internet_hero</td>
+            <td><span class="status-badge status-other">UNKNOWN</span></td>
+            <td>4</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_custom_ultrafast</td>
+            <td><span class="status-badge status-other">UNKNOWN</span></td>
+            <td>4</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_stress_demoblaze</td>
+            <td><span class="status-badge status-other">IN_PROGRESS</span></td>
+            <td>4</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_stress_rahulshetty</td>
+            <td><span class="status-badge status-other">IN_PROGRESS</span></td>
+            <td>4</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_custom_bookstore</td>
+            <td><span class="status-badge status-fail">FAIL</span></td>
+            <td>3</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">50%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 50%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_custom_parabank</td>
+            <td><span class="status-badge status-other">UNKNOWN</span></td>
+            <td>3</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_stress_automationexercise</td>
+            <td><span class="status-badge status-other">UNKNOWN</span></td>
+            <td>3</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_stress_magento</td>
+            <td><span class="status-badge status-other">UNKNOWN</span></td>
+            <td>3</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_stress_parabank</td>
+            <td><span class="status-badge status-other">UNKNOWN</span></td>
+            <td>3</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_custom_orangehrm</td>
+            <td><span class="status-badge status-other">UNKNOWN</span></td>
+            <td>1</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_magento_complex</td>
+            <td><span class="status-badge status-fail">FAIL</span></td>
+            <td>1</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">50%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 50%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+        <tr>
+            <td style="font-weight: 500;">verify_stress_computers</td>
+            <td><span class="status-badge status-other">IN_PROGRESS</span></td>
+            <td>1</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="width: 30px;">0%</span>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 0%; background: #ef4444"></div></div>
+                </div>
+            </td>
+            <td>0</td>
+            <td style="color: #94a3b8;">Today</td>
+        </tr>
+        
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
