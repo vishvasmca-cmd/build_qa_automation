@@ -312,7 +312,7 @@ class ExplorerAgent:
             await page.evaluate("""
                 () => {
                     const dismiss = (root) => {
-                        const selectors = '[class*="overlay"], [class*="modal"], [id*="cookie"], [class*="banner"], [role="dialog"], [aria-modal="true"], [class*="popup"], [class*="consent"]';
+                        const selectors = '[class*="overlay"], [class*="modal"], [id*="cookie"], [class*="banner"], [role="dialog"], [aria-modal="true"], [class*="popup"], [class*="consent"], #hs-eu-cookie-confirmation';
                         const overlays = root.querySelectorAll(selectors);
                         overlays.forEach(el => {
                             const style = window.getComputedStyle(el);
