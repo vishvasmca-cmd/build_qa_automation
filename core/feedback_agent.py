@@ -2,9 +2,14 @@ import os
 import json
 import yaml
 from urllib.parse import urlparse
-from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 from knowledge_bank import KnowledgeBank
+
+# Import robust LLM wrapper
+try:
+    from .llm_utils import SafeLLM
+except (ImportError, ValueError):
+    from llm_utils import SafeLLM
 
 class FeedbackAgent:
     """
@@ -14,7 +19,7 @@ class FeedbackAgent:
     """
     def __init__(self):
         load_dotenv()
-        self.llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.1)
+        self.llm = SafeLLM(model="gemini-2.0-flash", temperature=0.1)
         self.kb = KnowledgeBank()
 
     def analyze_run(self, config_path, test_output_log, success):

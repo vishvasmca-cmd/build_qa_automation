@@ -1,0 +1,16 @@
+learned_rules:
+- Before interacting with any element critical for the main workflow (e.g., after
+  login), ensure the page is fully loaded and the expected URL is reached. Implement
+  explicit waiting strategies and URL validation to handle potential navigation issues.
+- When asserting the URL using Playwright's `expect` function, ensure that it's being
+  called on the `page` object (e.g., `expect(page).to_have_url(...)`).
+- After navigating to the login page, always wait for the element containing the 'Login
+  Form' header to be visible before proceeding with any assertions or actions.
+- When targeting elements with common text like 'Book Store', ensure the locator is
+  specific enough to target the desired element. Use exact match or refine with additional
+  attributes if necessary. Consider get_by_role or get_by_title.
+- Before clicking 'All in One' link, ensure the page is fully loaded and all dynamic
+  content has rendered. Consider adding an explicit wait for a specific element on
+  the page to ensure stability before proceeding.
+- Verify the application does not redirect from the intended URL (e.g., with versioning)
+  to the base URL.

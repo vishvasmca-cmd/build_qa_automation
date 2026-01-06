@@ -1,17 +1,33 @@
 import os
 import sys
+import io
 import json
-from langchain_google_genai import ChatGoogleGenerativeAI
+import re
 from dotenv import load_dotenv
+
+# Force UTF-8 for console output on Windows
+if sys.platform == "win32":
+    pass # sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+
+# Import robust LLM wrapper
+try:
+    from .llm_utils import SafeLLM
+except (ImportError, ValueError):
+    from llm_utils import SafeLLM
+
+# Import Metrics Logger
+try:
+    from .metrics_logger import logger
+except ImportError:
+    from metrics_logger import logger
 
 class CodeReviewer:
     def __init__(self):
         load_dotenv()
         # Use JSON mode for structural reliability
-        self.llm = ChatGoogleGenerativeAI(
+        self.llm = SafeLLM(
             model="gemini-2.0-flash", 
-            temperature=0.1,
-            model_kwargs={"response_mime_type": "application/json"}
+            temperature=0.1
         )
 
     def _try_parse_json(self, content):
@@ -79,6 +95,8 @@ class CodeReviewer:
             code_content = f.read()
 
         print(f"🕵️  Reviewing {os.path.basename(file_path)}...")
+        
+        start_time = __import__('time').time()
 
         # 0. Pre-Check Syntax
         is_valid_syntax, syntax_error = self._validate_syntax(code_content)
@@ -107,14 +125,18 @@ Your job is to CODE REVIEW and AUTO-FIX the provided Playwright Python script.
 **REVIEW CRITERIA (The "Bar"):**
 1.  **Iterative Stability**: If the script iterates through dynamic lists (e.g., courses, products), REJECT standard `.all()` for loops. REQUIRE index-based loops (`nth(i)`) with re-navigation to prevent StaleElement errors.
 2.  **Explicit Navigation Guards**: Every click that causes a URL change MUST be followed by `page.wait_for_url()` and `wait_for_stability()`.
-3.  **Recursive "Start" Logic**: If the page has intermediate onboarding or roadmap screens, ensure the script has "Recursive Start" logic to handle 2-stage entry.
-4.  **No Hardcoded Waits**: Remove `time.sleep()`. Use `expect(...).to_be_visible()` or `wait_for_load_state`.
-5.  **Robust Locators**: Use `re.compile(..., re.IGNORECASE)` for text/role matches. Reject brittle XPaths.
-6.  **Assertions**: Code MUST have assertions (`expect(...)`). 
-7.  **Self-Healing**: Ensure critical actions use the `smart_action` helper (OR use Page Object methods if using POM).
-8.  **Compilation Check**: REJECT any code that uses placeholder variables like `locator_string`, `value`, or `action_type` instead of actual values from the trace.
-9.  **Protect Helpers**: DO NOT modify, delete, or "refactor" the boilerplate helper functions (`wait_for_stability`, `smart_action`) IF THEY EXIST. If using POM, these helpers might not be present - that is expected.
-10. **Syntax Integrity**: Ensure that triple-quoted strings (`"""`) are ALWAYS properly closed with `"""`.
+3.  **Advanced Locator Priority**: Enforce the official Playwright priority hierarchy:
+    - **1. User-Facing**: `get_by_role`, `get_by_label`, `get_by_placeholder`, `get_by_text`, `get_by_alt_text`, `get_by_title`.
+    - **2. Test-Specific**: `get_by_test_id`.
+    - **3. Fallback**: CSS selectors (shallow and simple only).
+    - **4. Avoid**: XPath and deep/brittle CSS (e.g., `div > p > button`).
+4.  **Chaining & Filtering**: Prefer chained filters over fragile CSS. REJECT positional selectors ( `.nth()`, `.first()`) if the element can be uniquely identified via context filtering (e.g., `.filter(has_text='Item 1')`).
+5.  **Composite Logic**: Encourage the use of `.and_()` and hierarchical context (parent -> child) to create unique composite identifiers.
+6.  **No Hardcoded Waits**: Remove `time.sleep()`. Use `expect(...).to_be_visible()` or `wait_for_load_state`.
+7.  **Robust Locators**: Use `re.compile(..., re.IGNORECASE)` for text/role matches.
+8.  **Assertions**: Code MUST have assertions (`expect(...)`). 
+9.  **Self-Healing**: Ensure critical actions use the `smart_action` helper.
+10. **Syntax Integrity**: Ensure triple-quoted strings (`"""`) are properly closed.
 
 **OUTPUT FORMAT**:
 You must output a JSON object with this EXACT structure:
@@ -179,6 +201,9 @@ You must output a JSON object with this EXACT structure:
                     return False
                     
                 print("✅ Code Approved (No major issues found).")
+            
+            duration = __import__('time').time() - start_time
+            logger.log_event("Reviewer", "review_code", duration, cost=0.01)
             
             return True
 

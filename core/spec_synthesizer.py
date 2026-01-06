@@ -3,13 +3,24 @@ import os
 import json
 import yaml
 from langchain_core.messages import SystemMessage, HumanMessage
-from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
+
+# Import robust LLM wrapper
+try:
+    from .llm_utils import SafeLLM
+except (ImportError, ValueError):
+    from llm_utils import SafeLLM
+
+# Import Metrics Logger
+try:
+    from .metrics_logger import logger
+except ImportError:
+    from metrics_logger import logger
 
 load_dotenv()
 
-# Initialize LLM
-llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2)
+# Initialize LLM with Exponential Backoff
+llm = SafeLLM(model="gemini-2.0-flash", temperature=0.2)
 
 try:
     from .strategy_loader import FrameworkStrategyLoader
@@ -75,6 +86,7 @@ class SpecSynthesizer:
 
     def generate_master_plan(self, url, testing_type, goal):
         """Phase 1: Generate Plan BEFORE mining starts."""
+        start_time = __import__('time').time()
         print(f"📋 Creating Strategic Test Plan for {url}...")
         
         security_requirement = ""
@@ -148,10 +160,14 @@ Output a professional, executive-level Markdown report suitable for stakeholders
                 f.write(plan_content)
                 
             print(f"✅ Master Test Plan created: {plan_path}")
-            return plan_content
         except Exception as e:
+            logger.log_failure("SpecSynthesizer", e, {"action": "master_plan"})
             print(f"❌ Error during Pre-Planning: {e}")
             return None
+        
+        duration = __import__('time').time() - start_time
+        logger.log_event("SpecSynthesizer", "generate_master_plan", duration, cost=0.002)
+        return plan_content
 
     def generate_specs(self):
         """Main entry point to generate all specs."""

@@ -1,26 +1,44 @@
-
 import asyncio
 import json
 import os
 import sys
-from playwright.async_api import async_playwright, Page
-from langchain_google_genai import ChatGoogleGenerativeAI
+import base64
+import hashlib
+import time
+from playwright.async_api import async_playwright, Page, Frame
 from dotenv import load_dotenv
 from termcolor import colored
 
+# Force UTF-8 for console output on Windows
+if sys.platform == "win32":
+    import io
+    # sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+
+# Import robust LLM wrapper
+try:
+    from .llm_utils import SafeLLM
+except (ImportError, ValueError):
+    from llm_utils import SafeLLM
+
 # Import agents
-import sys
-os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from miner import analyze_page
 from knowledge_bank import KnowledgeBank
+
+# Import Metrics Logger
+try:
+    from .metrics_logger import logger
+except ImportError:
+    from metrics_logger import logger
 
 load_dotenv()
 
 # Initialize 2026-ready LLM
-llm = ChatGoogleGenerativeAI(
+# Initialize 2026-ready LLM
+llm = SafeLLM(
     model="gemini-2.0-flash",
     temperature=0.0,
-    response_mime_type="application/json"
+    model_kwargs={"response_mime_type": "application/json"}
 )
 
 SYSTEM_PROMPT_PLANNER = """
@@ -87,8 +105,10 @@ class ExplorerAgent:
         self.kb = KnowledgeBank()
         # RAG context if available
         self.total_cost = {"input": 0, "output": 0}
-        self.output_dir = self.config.get("paths", {}).get("outputs", "outputs")
+        self.output_dir = os.path.join(os.path.dirname(config_path), "outputs")
         os.makedirs(self.output_dir, exist_ok=True)
+        
+        logger.log_event("Explorer", "init", 0.0, metadata={"config": config_path})
         self.history = []
         
         # State deduplication and loop detection
@@ -137,7 +157,16 @@ class ExplorerAgent:
                 
                 # 2. PLAN (Decider)
                 print(f"📡 Sending {len(mindmap['elements'])} elements to the Planner...")
+                
+                decision_start = time.time()
                 decision = await self._make_decision(mindmap)
+                
+                logger.log_event(
+                    agent="Explorer",
+                    action="make_decision",
+                    duration=time.time() - decision_start,
+                    metadata={"step": step, "url": page.url}
+                )
                 if not decision: 
                     print(colored("❌ Failed to make a decision.", "red"))
                     break
@@ -145,11 +174,28 @@ class ExplorerAgent:
                 print(colored(f"💭 Thought: {decision.get('thought')}", "cyan"))
                 
                 if decision.get('is_goal_achieved') or decision.get('action') == 'done':
+                    # Log final state before exiting
+                    self.trace.append({
+                        "step": step,
+                        "thought": decision.get('thought', 'Goal already achieved.'),
+                        "action": "done",
+                        "url": page.url,
+                        "screenshot": img_name,
+                        "elements_found": len(mindmap['elements'])
+                    })
                     print(colored("✅ Goal Achieved!", "green", attrs=["bold"]))
                     break
                 
                 # 3. ACT
+                action_start = time.time()
                 action_result = await self._execute_action(page, decision, mindmap['elements'])
+                logger.log_event(
+                    agent="Explorer",
+                    action="execute_action",
+                    duration=time.time() - action_start,
+                    success=action_result.get('success'),
+                    metadata={"step": step, "action": decision.get('action'), "target": decision.get('target_id')}
+                )
                 
                 # 4. VALIDATE & LOG
                 self.history.append({
@@ -240,27 +286,67 @@ class ExplorerAgent:
         if len(action_signatures) >= 3:
             if action_signatures[0] == action_signatures[2]:
                 print(colored("🔁 Detected circular navigation pattern", "yellow"))
-                return True
-        
         return False
+
+    async def _dismiss_overlays(self, page):
+        """Aggressively dismisses modals, overlays, cookie banners, popups, and consent dialogs, including shadow DOMs."""
+        try:
+            # 1. Structural Removal (Shadow-Piercing "Nuke" Option) with broader selectors
+            await page.evaluate("""
+                () => {
+                    const dismiss = (root) => {
+                        const selectors = '[class*="overlay"], [class*="modal"], [id*="cookie"], [class*="banner"], [role="dialog"], [aria-modal="true"], [class*="popup"], [class*="consent"]';
+                        const overlays = root.querySelectorAll(selectors);
+                        overlays.forEach(el => {
+                            const style = window.getComputedStyle(el);
+                            if (style.position === 'fixed' || style.position === 'absolute') {
+                                if (parseInt(style.zIndex) > 100 || el.innerText.toLowerCase().includes('cookie') || el.innerText.toLowerCase().includes('accept')) {
+                                    el.remove();
+                                }
+                            }
+                        });
+                        // Recurse into shadows
+                        const all = root.querySelectorAll('*');
+                        all.forEach(el => {
+                            if (el.shadowRoot) dismiss(el.shadowRoot);
+                        });
+                    };
+                    dismiss(document);
+                }
+            """)
+            # 2. Escape Key (Standard Accessibility Dismissal)
+            await page.keyboard.press("Escape")
+        except Exception as e:
+            print(colored(f"   ⚠️ Overlay dismissal warning: {e}", "yellow"))
+
+    async def _execute_with_retry(self, func, *args, retries=3, **kwargs):
+        """Utility to retry an async action up to `retries` times with a short pause."""
+        for attempt in range(1, retries + 1):
+            try:
+                return await func(*args, **kwargs)
+            except Exception as e:
+                print(colored(f"   ⚠️ Attempt {attempt} failed: {e}", "red"))
+                if attempt < retries:
+                    await asyncio.sleep(1)
+        return {"success": False, "outcome": f"All {retries} attempts failed."}
 
     async def _execute_action(self, page, decision, elements):
         action = decision['action']
         target_id = decision.get('target_id')
         target_el = next((e for e in elements if str(e['elementId']) == str(target_id)), None)
-        
+
         if not target_el and action in ['click', 'fill']:
             return {"success": False, "outcome": "Target element ID not found in current DOM"}
-        
+
+        # Pre-Action Cleanup: Dismiss possible overlays
+        await self._dismiss_overlays(page)
+
         locator_str = f"[data-agent-id='{target_id}']"
-        
-        # Refinement Step: Get a stable locator for the final test script BEFORE it potentially evaporates
         refined_locator = await self._refine_locator(page, target_el) if target_el else locator_str
 
-        try:
+        async def perform():
             if action == 'click':
                 print(colored(f"🖱️ Clicking ID={target_id} ({target_el['text']})", "yellow"))
-                # 2026 Strategy: Try locator, fallback to coordinates
                 try:
                     await page.locator(locator_str).click(timeout=5000)
                 except:
@@ -297,12 +383,12 @@ class ExplorerAgent:
                 await page.mouse.up()
 
             return {
-                "success": True, 
-                "outcome": "Action executed", 
+                "success": True,
+                "outcome": "Action executed",
                 "locator": locator_str,
                 "refined_locator": refined_locator
             }
-            
+
         except Exception as e:
             return {"success": False, "outcome": str(e)}
 

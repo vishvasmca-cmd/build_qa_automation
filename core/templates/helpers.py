@@ -29,87 +29,104 @@ def smart_action(page, primary_locator, action_type, value=None):
     """Robust, Self-Healing Action Wrapper"""
     wait_for_stability(page)
     loc = None
+    
+    print(f"🤖 Executing {action_type} on: {primary_locator}")
+    
     try:
         # 1. Parsing Locator
-        loc_str = primary_locator
-        import re
-        if 'page.' in loc_str:
-            loc_str = loc_str.replace('getByRole', 'get_by_role').replace('{ name:', 'name=').replace(' }', '')
-            match = re.search(r"['\"](.*?)['\"]", loc_str)
-            if match and 'locator' in loc_str:
-                loc_str = match.group(1)
-            if 'page.' in loc_str:
-                loc = eval(loc_str, {'page': page, 're': re})
-        
-        if not loc:
-            loc = page.locator(loc_str)
-    
-        # 2. Pre-Action Checks
-        if not loc.count() and 'strict mode' not in action_type:
-            # Try relaxed visibility
-            pass
-        
-        # 3. Execution
-        if action_type == 'click':
-            try:
-                # Increased CI timeout to 30s
-                loc.click(timeout=30000)
-            except Exception as e:
-                # 3a. Strict Mode Fallback
-                if 'strict mode violation' in str(e) or 'Element is not attached' in str(e):
-                    print(f'⚠️ Strict mode/Stale element detected. Using .first fallback for: {primary_locator}')
-                    loc.first.click(timeout=10000)
-                    return True
-                
-                print(f'⚠️ Standard click failed: {e}. Trying force.')
+        if isinstance(primary_locator, str):
+            if primary_locator.startswith("page."):
+                # Direct Playwright call (e.g. page.get_by_role(...))
+                # We still need to evaluate this safely.
+                safe_vars = {'page': page, 're': __import__('re')}
                 try:
-                    loc.click(timeout=5000, force=True)
-                except:
-                    # Last resort: JS Click
-                    print(f'☢️ JS Click needed for: {primary_locator}')
-                    loc.first.evaluate('el => el.click()')
-        
-        elif action_type == 'fill':
-            try:
-                loc.fill(str(value), timeout=30000)
-            except Exception as e:
-                if 'strict mode violation' in str(e):
-                    print(f'⚠️ Strict mode detected. Using .first fallback for fill: {primary_locator}')
-                    loc.first.fill(str(value), timeout=10000)
-                    return True
+                    loc = eval(primary_locator, safe_vars)
+                except Exception as e:
+                    print(f"⚠️ Eval failed for {primary_locator}: {e}")
+                    loc = page.locator(primary_locator)
+            else:
+                loc = page.locator(primary_locator)
+        else:
+            loc = primary_locator # Already a locator object
+
+        # 2. Execution with Retries/Fallbacks
+        def _perform_action(l):
+            if action_type == 'click':
+                l.click(timeout=10000)
+            elif action_type == 'fill':
+                l.fill(str(value), timeout=10000)
+            elif action_type == 'select':
+                l.select_option(str(value), timeout=10000)
+            return True
+
+        try:
+            _perform_action(loc)
+        except Exception as e:
+            msg = str(e).lower()
+            if "strict mode violation" in msg:
+                print(f"⚠️ Strict mode violation. Falling back to .first")
+                _perform_action(loc.first)
+            elif "not visible" in msg or "not stable" in msg:
+                print(f"⚠️ Visibility/Stability issue. Forcing action.")
+                if action_type == 'click':
+                    loc.click(force=True, timeout=5000)
+                else:
+                    _perform_action(loc)
+            else:
                 raise e
         
         return True
-    
+
     except Exception as e:
-        # 4. Self-Healing Fallback
-        print(f'🚑 Healing needed for: {primary_locator} ({e})')
+        print(f"🚑 Healing triggered for: {primary_locator} (Reason: {str(e)[:100]})")
+        
+        # 3. Self-Healing Fallback
         try:
-            # Fallback 1: Text approximations
-            keyword = ''
-            match = re.search(r"['\"](.*?)['\"]", primary_locator)
+            # Extract keyword for fuzzy matching
+            import re
+            keyword = ""
+            match = re.search(r"['\"](.*?)['\"]", str(primary_locator))
             if match:
                 keyword = match.group(1).lower()
-            
-            if keyword:
-                healed = page.get_by_role('button', name=re.compile(keyword, re.IGNORECASE))
-                if healed.count():
-                    print('✨ Healed via Role/Name match!')
-                    if action_type == 'click':
-                        healed.first.click()
-                    else:
-                        healed.first.fill(str(value))
-                    return True
-        except:
-            pass
-        
-        print('❌ Action failed after healing attempts.')
-        raise e
 
+            if keyword:
+                print(f"🔍 Searching for fallback with keyword: '{keyword}'")
+                # Try common roles
+                for role in ['button', 'link', 'checkbox', 'menuitem']:
+                    healed = page.get_by_role(role, name=re.compile(keyword, re.IGNORECASE))
+                    if healed.count() > 0:
+                        print(f"✨ Healed via Role({role}) match!")
+                        _perform_action(healed.first)
+                        return True
+                
+                # Try direct text match
+                healed = page.get_by_text(re.compile(keyword, re.IGNORECASE))
+                if healed.count() > 0:
+                    print("✨ Healed via direct text match!")
+                    _perform_action(healed.first)
+                    return True
+
+            # Coordinate Fallback (Last Resort for clicks)
+            if action_type == 'click' and loc:
+                try:
+                    box = loc.bounding_box()
+                    if box:
+                        print("🎯 Using coordinate-based click fallback.")
+                        page.mouse.click(box['x'] + box['width']/2, box['y'] + box['height']/2)
+                        return True
+                except: pass
+        except Exception as heal_error:
+            print(f"❌ Healing failed: {heal_error}")
+        
+        print(f"❌ Final failure for action '{action_type}' on '{primary_locator}'")
+        raise e
 
 def take_screenshot(page, name, project_name):
     """Consistent screenshot utility"""
-    path = os.path.join(f'projects/{project_name}/screenshots', f'{name}.png')
+    path = os.path.join(f'projects/{project_name}/outputs/screenshots', f'{name}.png')
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    page.screenshot(path=path)
-    print(f'📸 Saved: {path}')
+    try:
+        page.screenshot(path=path)
+        print(f'📸 Saved: {path}')
+    except Exception as e:
+        print(f'⚠️ Screenshot failed: {e}')

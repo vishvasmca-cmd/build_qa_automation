@@ -2,13 +2,31 @@
 import asyncio
 import json
 import os
+import sys
+import io
 import base64
 import hashlib
+import time
 from playwright.async_api import async_playwright, Page, Frame
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import HumanMessage
 from dotenv import load_dotenv
 from termcolor import colored
+
+# Force UTF-8 for console output on Windows
+if sys.platform == "win32":
+    pass # sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+
+# Import robust LLM wrapper
+try:
+    from .llm_utils import SafeLLM
+except (ImportError, ValueError):
+    from llm_utils import SafeLLM
+
+# Import Metrics Logger
+try:
+    from .metrics_logger import logger
+except ImportError:
+    from metrics_logger import logger
 
 # Import the 2026-style driver
 try:
@@ -19,10 +37,11 @@ except ImportError:
 load_dotenv()
 
 # Initialize 2026-ready LLM (Vision-Capable)
-llm = ChatGoogleGenerativeAI(
+# Initialize 2026-ready LLM (Vision-Capable)
+llm = SafeLLM(
     model="gemini-2.0-flash",
     temperature=0.0,
-    response_mime_type="application/json"
+    model_kwargs={"response_mime_type": "application/json"}
 )
 
 SYSTEM_PROMPT_ANALYST = """
@@ -34,7 +53,11 @@ Your goal is to reconcile a provided list of "Interactive Elements" with a scree
 2. Verify the accuracy of the element list. If you see a button in the screenshot that is NOT in the list, note it in `visibility_notes`.
 3. Provide a high-level `page_summary` describing the page's purpose and state.
 4. For each element, identify its "Semantic Surroundings" (e.g., "Next to Login text", "Inside navigation bar").
-5. If the user goal is provided, suggest the MOST likely sequence of target elements by ID.
+5. Provide a `playwright_hint` for important elements following this hierarchy:
+   - Rank 1: `getByRole`, `getByLabel`, `getByPlaceholder`, `getByText`.
+   - Rank 2: `getByTestId` (look for `data-test*` attributes).
+   - Rank 3: CSS attributes (e.g., `button[type="submit"]`).
+6. If the user goal is provided, suggest the MOST likely sequence of target elements by ID.
 
 **OUTPUT SCHEMA**:
 {
@@ -49,7 +72,7 @@ Your goal is to reconcile a provided list of "Interactive Elements" with a scree
        "elementId": 1,
        "semantic_context": "Next to 'Forgot Password'",
        "confidence": "high | medium | low",
-       "playwright_hint": "get_by_template_selector_logic"
+       "playwright_hint": "e.g., getByRole('button', name='Submit')"
     }
   ],
   "visibility_notes": "..."
@@ -116,31 +139,71 @@ async def analyze_page(page: Page, url: str, user_goal=None):
     b64_img = base64.b64encode(screenshot_bytes).decode('utf-8')
     
     # 3. LLM Reconciliation
-    # Filter list to top 100 for token efficiency
-    element_summary = [
-        {"id": e['elementId'], "tag": e['tagName'], "text": e['text'], "type": e['type'], "center": e['center']} 
-        for e in elements[:100]
-    ]
-
-    prompt = f"""
-    URL: {url}
-    Goal: {user_goal or "Understand the page structure"}
-    Interactive Elements List (JSON): {json.dumps(element_summary)}
+    # Check Cache First
+    cache_key = hashlib.md5(f"{url}|{user_goal}|{len(elements)}".encode()).hexdigest()
+    current_time = __import__('time').time()
     
-    Analyze the screenshot and verify the list. Answer 'how many buttons are on web page' in spatial_verification.
-    """
-
-    message = HumanMessage(
-        content=[
-            {"type": "text", "text": f"{SYSTEM_PROMPT_ANALYST}\n\n{prompt}"},
-            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64_img}"}}
+    # Simple in-memory cache: {hash: {'analysis': dict, 'timestamp': float}}
+    if not hasattr(analyze_page, "cache"):
+        analyze_page.cache = {}
+        
+    cached = analyze_page.cache.get(cache_key)
+    if cached and (current_time - cached['timestamp'] < 300): # 5 Minute TTL
+        print(colored("⚡ Cache Hit! Skipping Vision Analysis.", "green"))
+        
+        # Log Cache Hit
+        logger.log_event(
+            agent="Miner", 
+            action="analyze_page_cache_hit", 
+            duration=0.001, 
+            metadata={"url": url}
+        )
+        
+        analysis = cached['analysis']
+    else:
+        start_time = time.time()
+        # Filter list to top 100 for token efficiency
+        element_summary = [
+            {"id": e['elementId'], "tag": e['tagName'], "text": e['text'], "type": e['type'], "center": e['center']} 
+            for e in elements[:100]
         ]
-    )
-
-    try:
+    
+        prompt = f"""
+        URL: {url}
+        Goal: {user_goal or "Understand the page structure"}
+        Interactive Elements List (JSON): {json.dumps(element_summary)}
+        
+        Analyze the screenshot and verify the list. Answer 'how many buttons are on web page' in spatial_verification.
+        """
+    
+        message = HumanMessage(
+            content=[
+                {"type": "text", "text": f"{SYSTEM_PROMPT_ANALYST}\n\n{prompt}"},
+                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64_img}"}}
+            ]
+        )
+        
         resp = llm.invoke([message])
         analysis = try_parse_json(resp.content) or {}
         
+        # Save to cache
+        analyze_page.cache[cache_key] = {
+            'analysis': analysis,
+            'timestamp': current_time
+        }
+        
+        # Log LLM Call
+        duration = time.time() - start_time
+        logger.log_event(
+            agent="Miner", 
+            action="analyze_page_llm_call", 
+            duration=duration, 
+            cost=0.005, # Est cost for flash vision
+            metadata={"url": url, "elements": len(elements)}
+        )
+
+
+    try:
         # Merge analysis back to elements
         important_map = {str(item['elementId']): item for item in analysis.get('important_elements', [])}
         for el in elements:
