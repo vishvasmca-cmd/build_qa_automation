@@ -44,24 +44,7 @@ html_template = """
     <div class="container">
         <h1>🚀 Agent Performance Leaderboard</h1>
         
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value">{{total_projects}}</div>
-                <div class="stat-label">Active Agents</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">{{avg_success}}%</div>
-                <div class="stat-label">Avg. Reliability</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">{{total_tests}}</div>
-                <div class="stat-label">Total Validations</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">{{total_healing}}</div>
-                <div class="stat-label">Self-Healing Events</div>
-            </div>
-        </div>
+        {{stats_grid}}
 
         <table>
             <thead>
@@ -291,11 +274,8 @@ def main():
     # Actually, I'll allow the template at the top of the file to be replaced by the tool if I didn't touch it.
     # But since I'm editing the Python code, I can just reconstruct the final HTML string directly or replace a known marker.
     
-    final_html = html_template.replace('{{table_rows}}', rows)
-    
-    # Inject stats (hacky regex/replace)
-    import re
-    final_html = re.sub(r'<div class="stats-grid">.*?</div>', stats_html, final_html, flags=re.DOTALL)
+    final_html = html_template.replace('{{table_rows}}', rows) \
+                              .replace('{{stats_grid}}', stats_html)
 
     with open(OUTPUT_HTML, "w", encoding="utf-8") as f:
         f.write(final_html)
