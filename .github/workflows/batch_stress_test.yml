@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 0 * * *'  # Run daily at midnight
+    - cron: '0 */6 * * *'  # Run every 6 hours
   workflow_dispatch:      # Allow manual trigger
 
 permissions:
@@ -34,11 +34,11 @@ jobs:
         pip install -r requirements.txt
         playwright install chromium
 
-    - name: Run Batch Stress Test
+    - name: Run Continuous Exploration (20 Random Websites)
       run: |
-        # Run the batch script (it handles 10 projects internally)
-        # We continue on error to ensure we can generate the dashboard even if some tests fail
-        python batch_stress_test.py || true
+        # Run continuous exploration (selects 20 random websites from training_targets.json)
+        # Continue on error to ensure dashboard generation even if some tests fail
+        python continuous_exploration.py || true
 
     - name: Generate Global Dashboard
       run: |

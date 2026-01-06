@@ -3,11 +3,13 @@ import os
 import json
 import glob
 from datetime import datetime
+from core.knowledge_analyzer import analyze_knowledge_bank
 
 # Path Configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECTS_DIR = os.path.join(BASE_DIR, "..", "projects")
 OUTPUT_HTML = os.path.join(BASE_DIR, "..", "outputs", "global_dashboard.html")
+KNOWLEDGE_DIR = os.path.join(BASE_DIR, "..", "knowledge")
 
 html_template = """
 <!DOCTYPE html>
@@ -45,6 +47,11 @@ html_template = """
         <h1>🚀 Agent Performance Leaderboard</h1>
         
         {{stats_grid}}
+        
+        <div style="background: var(--card); padding: 2rem; border-radius: 12px; border: 1px solid #334155; margin-bottom: 2rem;">
+            <h2 style="color: #60a5fa; font-size: 1.5rem; margin-bottom: 1.5rem;">🧠 Knowledge Bank Learning Insights</h2>
+            {{learning_insights}}
+        </div>
 
         <table>
             <thead>
@@ -274,8 +281,35 @@ def main():
     # Actually, I'll allow the template at the top of the file to be replaced by the tool if I didn't touch it.
     # But since I'm editing the Python code, I can just reconstruct the final HTML string directly or replace a known marker.
     
+    # Generate learning insights HTML
+    kb_insights = analyze_knowledge_bank()
+    
+    proven_pct = int((kb_insights["proven_locators"] / max(kb_insights["total_locators"], 1)) * 100)
+    
+    learning_html = f"""
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div>
+            <div style="font-size: 2rem; font-weight: bold; color: #60a5fa;">{kb_insights["total_sites"]}</div>
+            <div style="color: #94a3b8; font-size: 0.875rem;">Sites Learned</div>
+        </div>
+        <div>
+            <div style="font-size: 2rem; font-weight: bold; color: #a78bfa;">{kb_insights["proven_locators"]}</div>
+            <div style="color: #94a3b8; font-size: 0.875rem;">Proven Locators</div>
+        </div>
+        <div>
+            <div style="font-size: 2rem; font-weight: bold; color: #22c55e;">{kb_insights["total_rules"]}</div>
+            <div style="color: #94a3b8; font-size: 0.875rem;">Learned Rules</div>
+        </div>
+        <div>
+            <div style="font-size: 2rem; font-weight: bold; color: #f472b6;">{proven_pct}%</div>
+            <div style="color: #94a3b8; font-size: 0.875rem;">Locator Reliability</div>
+        </div>
+    </div>
+    """
+    
     final_html = html_template.replace('{{table_rows}}', rows) \
-                              .replace('{{stats_grid}}', stats_html)
+                              .replace('{{stats_grid}}', stats_html) \
+                              .replace('{{learning_insights}}', learning_html)
 
     with open(OUTPUT_HTML, "w", encoding="utf-8") as f:
         f.write(final_html)
