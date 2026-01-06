@@ -77,6 +77,72 @@ def validate_pom_scope(code_string):
     
     return len(errors) == 0, "\n".join(errors)
 
+def check_logical_errors(code_string):
+    """Advanced linter for logical bugs (unused imports, dangerous patterns)."""
+    import ast
+    errors = []
+    try:
+        tree = ast.parse(code_string)
+        
+        # 1. Unused Imports
+        imported = set()
+        used_names = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                for n in node.names: imported.add(n.asname or n.name)
+            elif isinstance(node, ast.ImportFrom):
+                for n in node.names: imported.add(n.asname or n.name)
+            elif isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load):
+                used_names.add(node.id)
+                
+        # Filter standard pytest fixture names which look unused but are needed
+        exempt = {'pytest', 'page', 'context', 'browser', 'request'} 
+        unused = [i for i in imported if i not in used_names and i not in exempt]
+        if unused:
+            errors.append(f"Unused imports detected (remove them): {', '.join(unused)}")
+
+        # 2. Bare Except
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ExceptHandler) and node.type is None:
+                errors.append(f"Line {node.lineno}: Bare 'except:' clause found. Use 'except Exception:' at minimum.")
+
+    except Exception as e:
+        pass # If AST fails, syntax check will catch it separately
+        
+    return len(errors) == 0, "\n".join(errors)
+
+def load_historical_failures(target_url):
+    """Failure RAG: Loads past failures for this site to prevent repetition (Herd Immunity)."""
+    try:
+        # Resolve path relative to this file
+        fail_path = os.path.join(os.path.dirname(__file__), "..", "knowledge", "failures.json")
+        if not os.path.exists(fail_path): return ""
+        
+        with open(fail_path, "r", encoding="utf-8") as f:
+            failures = json.load(f)
+            
+        # Filter specific to this site
+        from urllib.parse import urlparse
+        domain = urlparse(target_url).netloc.replace("www.", "")
+        
+        relevant_fails = [f for f in failures if domain in f.get("site", "")]
+        
+        if not relevant_fails: return ""
+        
+        # Summarize top errors
+        from collections import Counter
+        errors = [f.get("error", "Unknown") for f in relevant_fails]
+        top_errors = Counter(errors).most_common(3)
+        
+        summary = "\n**⚠️ HISTORICAL FAILURE WARNINGS (PREVENT THESE ERRORS)**:\n"
+        for err, count in top_errors:
+            if "valid code" in err: continue # Skip generic generation errors
+            summary += f"- PREVIOUS ERROR: '{err}'. (Happened {count} times). FIX THIS PROACTIVELY.\n"
+            
+        return summary
+    except:
+        return ""
+
 
 class CodeRefiner:
     def __init__(self):
@@ -126,11 +192,16 @@ class CodeRefiner:
                         site_knowledge += json.dumps(proven_locs, indent=2)
              except: pass
 
+        # Load Failure RAG (Herd Immunity)
+        failure_knowledge = load_historical_failures(target_url)
+
         prompt_template = """
         You are an expert Playwright test automation engineer. 
         Refine the following execution trace into a linear, clean, and ROBUST Playwright script for {{TARGET_URL}}.
         
         {{GOLDEN_CONTEXT}}
+
+        {{FAILURE_KNOWLEDGE}}
         
         **PRIORITY ORDER (ALWAYS FOLLOW THIS LOCATOR CASCADE)**:
         1. **SITE-SPECIFIC PROVEN LOCATORS**: First, check the `site_knowledge`. If an element in the trace matches a "Proven" locator from past successful runs, use it.
@@ -230,7 +301,8 @@ class CodeRefiner:
                                .replace("{{TRACE_SUMMARY}}", trace_summary)\
                                .replace("{{PROJECT_NAME}}", os.path.basename(os.getcwd()))\
                                .replace("{{DOMAIN_RULES}}", domain_rules)\
-                               .replace("{{SITE_KNOWLEDGE}}", site_knowledge)
+                               .replace("{{SITE_KNOWLEDGE}}", site_knowledge)\
+                               .replace("{{FAILURE_KNOWLEDGE}}", failure_knowledge)
 
         # Prepare Multimodal Message
         content = [{"type": "text", "text": prompt}]
@@ -270,7 +342,14 @@ class CodeRefiner:
                         content.append({"type": "text", "text": f"\n\n**POM SCOPE ERROR**:\n{pom_error}\n\nERROR: You used 'page' inside a class. You MUST use 'self.page'."})
                         continue
                      else:
-                        return full_code # Return anyway on last try, maybe reviewer fixes it?
+                        return full_code # Return anyway on last try
+            
+            # Additional: Pre-Review Linter
+            is_logic_valid, logic_error = check_logical_errors(full_code)
+            if not is_logic_valid:
+                 if attempt < MAX_RETRIES:
+                    content.append({"type": "text", "text": f"\n\n**LOGICAL ERROR (LINTER)**:\n{logic_error}\n\nFix these clean code issues."})
+                    continue
             
             if attempt < MAX_RETRIES:
                 content.append({"type": "text", "text": f"\n\n**SYNTAX ERROR IN GENERATED CODE**:{syntax_error}\nFix this and ensure the code is valid Python."})

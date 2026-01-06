@@ -232,32 +232,40 @@ def run_pipeline(config_path, headed=False):
     if can_skip_phase(project_root, "generation", config_hash) and can_skip_phase(project_root, "review", config_hash):
         print(colored("⏩ Skipping Code Generation & Review (Checkpoints found)", "grey"))
     else:
-        # Progressive hints to guide LLM through iterations
-        REFINEMENT_HINTS = {
-            1: "",  # Let it try naturally first
-            2: """\nHINT: If the reviewer mentioned 'self.page', remember:
-- Inside POM classes, ALWAYS use 'self.page'
-- ✅ self.page.get_by_role(...)
-- ❌ page.get_by_role(...)""",
-            3: """\nHINT: Follow the locator cascade priority:
-1. Site-specific proven locators (from knowledge bank)
-2. get_by_role() with accessible names
-3. get_by_label() / get_by_placeholder()
-4. get_by_text()
-5. CSS selectors (last resort)""",
-            4: """\nSTRONG HINT: The previous error pattern suggests:
-- Check for undefined variables (locator, page, etc.)
-- Ensure all @property methods return locator objects
-- Verify smart_action receives locator objects, not strings""",
-            5: """\nCRITICAL - FINAL ATTEMPT:
-- Review EVERY line that was flagged as an error
-- If stuck on locators, use regex: re.compile(r'text', re.IGNORECASE)
-- If stuck on scope, search/replace 'page.' with 'self.page.'
-- Simplify: Remove optional assertions if blocking progress"""
-        }
-        
+        # Dynamic Context-Aware Hints
+        def get_dynamic_hint(review_msg, attempt_num):
+            """Generates specific technical guidance based on error keywords."""
+            msg_lower = review_msg.lower()
+            hints = []
+            
+            # 1. Scope/POM Issues
+            if "page." in msg_lower or "self.page" in msg_lower or "scope" in msg_lower:
+                 hints.append("🔐 **SCOPE ERROR**: Inside POM classes, you MUST use `self.page` (e.g., `self.page.click()`), NEVER `page.click()`.")
+            
+            # 2. Locator Issues
+            if "selector" in msg_lower or "locator" in msg_lower or "found" in msg_lower:
+                hints.append("📍 **LOCATOR ISSUE**: Follow the cascade: Proven > Role > Label > Text. If strict locators fail, use `re.compile(r'text', re.IGNORECASE)`.")
+            
+            # 3. Timeout/Stability
+            if "timeout" in msg_lower or "wait" in msg_lower:
+                hints.append("⏳ **STABILITY**: Ensure `wait_for_stability(self.page)` is called after navigation or form submission.")
+                
+            # 4. Attribute Errors
+            if "attribute" in msg_lower or "has no attribute" in msg_lower:
+                 hints.append("🐛 **ATTRIBUTE ERROR**: Check for undefined variables or incorrect method names. Ensure @property methods return objects.")
+
+            # Default/Progressive Hints if no specific match
+            if not hints:
+                if attempt_num == 2: hints.append("💡 HINT: Review the POM structure. Use properties for locators.")
+                if attempt_num == 3: hints.append("💡 HINT: Try simpler locators or fewer assertions.")
+                if attempt_num >= 4: hints.append("🔥 CRITICAL: Simplify the logic. Remove non-essential checks.")
+
+            return "\n".join(hints)
+
         def format_enhanced_feedback(review_msg, attempt_num):
-            """Formats reviewer feedback with structure and examples"""
+            """Formats reviewer feedback with dynamic hints."""
+            dynamic_hints = get_dynamic_hint(review_msg, attempt_num)
+            
             return f"""\n{'='*80}
 ❌ CODE REJECTED BY QUALITY GATE (Attempt {attempt_num}/5)
 {'='*80}
@@ -265,11 +273,11 @@ def run_pipeline(config_path, headed=False):
 ISSUES FOUND:
 {review_msg}
 
-CRITICAL INSTRUCTIONS FOR NEXT ATTEMPT:
-1. Read each error above carefully
-2. Locate the exact lines in your previous code
-3. Apply fixes ONE BY ONE
-4. Re-validate after each fix
+🛠️ SPECIFIC FIXES REQUIRED:
+1. Read the errors above.
+2. Locate the lines in your code.
+3. Apply these fixes:
+{dynamic_hints}
 
 EXAMPLE OF CORRECT POM PATTERN:
 ```python
@@ -280,15 +288,7 @@ class LoginPage:
     @property
     def username_field(self):
         return self.page.get_by_label("Username")  # ✅ Use self.page
-    
-    def login(self, username, password):
-        smart_action(self.page, self.username_field, "fill", value=username)  # ✅ Pass locator object
-        smart_action(self.page, self.password_field, "fill", value=password)
-        smart_action(self.page, self.login_button, "click")
-        self.page.wait_for_url("**/dashboard")  # ✅ self.page for navigation
 ```
-
-{REFINEMENT_HINTS.get(attempt_num + 1, '')}
 {'='*80}
 """
         
