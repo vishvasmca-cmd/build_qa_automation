@@ -50,20 +50,30 @@ def validate_pom_scope(code_string):
     """Checks if 'page' is used instead of 'self.page' inside class methods (Sync with Reviewer)."""
     lines = code_string.split('\n')
     in_class = False
+    in_test_function = False
     errors = []
+    
     for i, line in enumerate(lines):
         stripped = line.strip()
+        
+        # Track class scope
         if stripped.startswith('class '):
             in_class = True
+            in_test_function = False
             continue
-        if in_class and stripped.startswith('def ') and not stripped.startswith('def test_'):
-            # Basic POM methods check
-            pass
         
-        # Look for page.something() calls without self.
-        if in_class and re.search(r"\bpage\.(get_by|locator|wait_for|goto|click|fill|select|expect)\(", line):
-            if not re.search(r"self\.page\.", line):
-                errors.append(f"Line {i+1}: Usage of 'page' inside class. Use 'self.page' instead.")
+        # Track if we're in test_ function (where page is OK)
+        if in_class and stripped.startswith('def test_'):
+            in_test_function = True
+        elif in_class and stripped.startswith('def ') and '__init__' not in stripped:
+            in_test_function = False
+        
+        # Look for ANY page.method() calls (not just specific ones)
+        # This catches page.wait_for_selector, page.frame, etc.
+        if in_class and not in_test_function and re.search(r'\bpage\.', line):
+            # Make sure it's not self.page or a comment
+            if not re.search(r'self\.page\.', line) and not stripped.startswith('#'):
+                errors.append(f"Line {i+1}: Usage of 'page.' inside class method. Use 'self.page.' instead. Line: {stripped[:50]}")
     
     return len(errors) == 0, "\n".join(errors)
 

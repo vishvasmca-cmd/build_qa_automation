@@ -3,7 +3,12 @@ import os
 import json
 import glob
 from datetime import datetime
-from core.knowledge_analyzer import analyze_knowledge_bank
+
+# Import with fallback for CI environment
+try:
+    from core.knowledge_analyzer import analyze_knowledge_bank
+except ImportError:
+    from knowledge_analyzer import analyze_knowledge_bank
 
 # Path Configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
