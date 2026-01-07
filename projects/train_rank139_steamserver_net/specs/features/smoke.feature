@@ -1,11 +1,16 @@
-Feature: Website Element Identification
+Feature: Website Accessibility and Element Identification
   As a user,
-  I want to verify the presence of key elements on the website
-  So that I can ensure the basic structure and navigation are functional.
+  I want to ensure the website is accessible and key elements are present,
+  So that I can start using the website.
 
   @smoke
-  Scenario: Launch website and identify elements
-    Given I navigate to "https://www.google.com"
+  Scenario: Verify website accessibility
+    Given I navigate to "https://steamserver.net"
+    Then the page should load successfully
+
+  @smoke
+  Scenario: Verify the presence of key elements
+    Given I am on the "HomePage"
     Then I should see at least 5 buttons
     And I should see at least 2 links
     And I should see at least 2 menu bars

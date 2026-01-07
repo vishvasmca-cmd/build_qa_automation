@@ -1,44 +1,55 @@
 # Test Plan: train_rank112_okcdn_ru
 
-## 1. Introduction
+## Introduction
 
-This document outlines the test plan for the train_rank112_okcdn_ru project. It details the testing scope, strategy, and deliverables.
+This test plan outlines the testing strategy for the train_rank112_okcdn_ru project. The primary goal is to ensure the website functions as expected, focusing on identifying key elements like buttons, links, and menu bars.
 
-## 2. Test Scope
+## Scope
 
-The initial trace indicated a 403 Forbidden error when accessing the target URL (https://okcdn.ru).  The bot then navigated to Google.com to verify basic functionality.  Therefore, the scope will focus on verifying basic website accessibility and element identification on Google.com, given the initial target site is inaccessible.
+The testing will cover the following areas:
 
-## 3. Testing Strategy
+*   Website accessibility and navigation.
+*   Identification of buttons, links, and menu bars on the homepage.
 
-We will employ a two-pronged testing strategy:
+## Test Strategy
 
-*   **Smoke Testing:**  To ensure the core functionality (website accessibility and element identification) is working.
-*   **Regression Testing:** To ensure that new changes do not break existing functionality (element identification and interaction).
+The testing will be conducted using a combination of smoke and regression testing.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite is designed based on the following 8-point checklist:
+The smoke suite will focus on verifying the core functionality of the website. The following checklist will be applied:
 
-1.  **Critical Path Coverage:** Focuses on the most important user flows (e.g., website loading, basic element finding).
-2.  **Positive Testing:** Primarily uses valid inputs and expected actions.
-3.  **End-to-End Flow:** Covers the complete flow from start to finish for critical functionalities.
-4.  **Minimal Data Set:** Uses a small, representative set of data for testing.
-5.  **Automated Execution:** Designed for automated execution to enable rapid feedback.
-6.  **Fast Execution Time:** Aims for a short execution time to provide quick results.
-7.  **Build Verification:** Used to verify the stability of each build.
-8.  **High Priority:** Failures in the smoke suite indicate critical issues.
+1.  **Critical Path Coverage:**  Verify basic website accessibility.
+2.  **Positive Testing:** Focus on successful navigation to the homepage.
+3.  **No Negative Testing:** No invalid inputs or error conditions will be tested in the smoke suite.
+4.  **Minimal Data Variation:** No data variations will be used.
+5.  **Independent Tests:** Each test will be independent and not rely on the state of previous tests.
+6.  **Fast Execution:** The smoke suite should execute quickly.
+7.  **Automated Execution:** The smoke suite will be automated.
+8.  **Build Acceptance:** Successful completion of the smoke suite is required for build acceptance.
 
-## 4. Test Suites
+### Regression Suite Strategy
 
-*   **Smoke Suite:**
-    *   Verify website accessibility (Google.com).
-    *   Verify the ability to identify buttons and links on the homepage.
+The regression suite will cover a broader range of scenarios, including:
 
-*   **Regression Suite:**
-    *   (Not applicable given the limited scope due to the 403 error on the original target URL).
+*   Alternative navigation paths.
+*   Error handling.
+*   Edge cases.
 
-## 5. Test Deliverables
+## Test Environment
 
-*   Test Plan Document
-*   Gherkin Feature Files
-*   Test Execution Reports
+The tests will be executed in a standard web browser environment.
+
+## Test Deliverables
+
+*   Test Plan
+*   Test Cases (Gherkin feature files)
+*   Test Results
+
+## Test Schedule
+
+The testing will be conducted according to the project schedule.
+
+## Test Team
+
+The testing will be performed by the QA team.

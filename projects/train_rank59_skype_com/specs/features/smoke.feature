@@ -1,7 +1,7 @@
-Feature: Skype Homepage - UI Element Identification
-  As a user,
-  I want to verify the presence of key UI elements on the Skype homepage
-  So that I can ensure the basic structure and navigation are functional.
+Feature: Skype Website - Element Identification
+  As a user
+  I want to verify the presence of key elements on the Skype website
+  So that I can ensure the basic structure and navigation are functional
 
   @smoke
   Scenario: Verify presence of buttons and links on the homepage

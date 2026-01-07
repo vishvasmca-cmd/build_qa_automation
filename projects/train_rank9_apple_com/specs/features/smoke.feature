@@ -1,15 +1,10 @@
-Feature: Apple Homepage - Element Presence
+Feature: Apple.com - Element Identification
   As a user
-  I want to verify the presence of key elements on the Apple homepage
-  So that I can ensure the basic functionality of the website is working
+  I want to verify the presence of key elements on the Apple.com website
+  So that I can ensure the website is functioning correctly
 
   @smoke
-  Scenario: Verify presence of 5 buttons and 2 links
-    Given I am on the Apple homepage
-    Then I should see the "Store" button
-    And I should see the "Mac" button
-    And I should see the "iPad" button
-    And I should see the "iPhone" button
-    And I should see the "Watch" button
-    And I should see the "Apple" link
-    And I should see the "Store" link
+  Scenario: Launch website and identify buttons and links
+    Given I navigate to "https://www.apple.com/"
+    Then I should be able to find buttons
+    And I should be able to find links

@@ -1,10 +1,11 @@
-Feature: Ad Traffic Quality - Element Discovery
+Feature: Website Launch and Element Presence
   As a user,
-  I want to verify the presence of key elements on the Ad Traffic Quality website
-  So that I can ensure the basic structure and navigation are available.
+  I want to verify the basic functionality of the adtrafficquality.google website
+  So that I can ensure the website is accessible and key elements are present.
 
   @smoke
-  Scenario: Verify presence of links
-    Given I am on the Ad Traffic Quality website
-    Then I should see the "Overview" link
-    And I should see the "Skip to content" link
+  Scenario: Launch website and verify presence of key elements
+    Given I navigate to "https://adtrafficquality.google"
+    Then I should see key buttons like "Login", "Signup", "GetStarted", "Try for Free" present
+    And I should see key links present
+    And I should see menu bars present

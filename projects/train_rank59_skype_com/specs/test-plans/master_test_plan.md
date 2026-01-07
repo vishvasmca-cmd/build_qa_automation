@@ -4,55 +4,55 @@
 
 This document outlines the test plan for the train_rank59_skype_com project, focusing on testing key functionalities of the Skype website (skype.com). The plan includes both smoke and regression test suites to ensure the quality and stability of the application.
 
-## Scope
+## Test Scope
 
-The testing will cover the core functionalities of the Skype website, including identifying and interacting with key UI elements such as buttons and links.
+The testing will cover the following areas:
+
+*   **Smoke Tests:** Verify the core functionalities of the website, including identifying key elements like buttons and links.
+*   **Regression Tests:** Ensure that new changes haven't introduced defects in existing functionalities.
 
 ## Test Strategy
 
-The testing strategy encompasses two main suites: Smoke and Regression.
+We will employ a risk-based testing approach, prioritizing tests based on the criticality and impact of the functionalities. The test suites will be automated using a BDD framework (Cucumber) to ensure efficient and repeatable testing.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite is designed to quickly verify the critical functionalities of the application. The following 8-point checklist is applied:
+The smoke suite will focus on the most critical functionalities of the application. The following checklist will be applied when designing the smoke tests:
 
-1.  **Critical Path Coverage:** Tests cover essential user flows (e.g., identifying key UI elements).
-2.  **Core Functionality:** Focuses on the primary functions of the application.
-3.  **Positive Testing:** Primarily positive test cases are included.
-4.  **Minimal Data Variation:** Limited data variations are used.
-5.  **Fast Execution:** Tests are designed for quick execution.
-6.  **Build Verification:** Used to determine if a build is stable enough for further testing.
-7.  **High Priority:** Smoke tests are given the highest priority.
-8.  **Automated:** Smoke tests are automated for continuous integration.
-
-### Regression Suite Strategy
-
-The Regression Suite aims to ensure that new changes haven't introduced defects in existing functionalities. This includes more in-depth testing with negative scenarios, boundary value analysis, and cross-module interactions.
-
-## Test Suites
-
-1.  **Smoke Suite:**
-    *   Objective: Verify core functionalities are working as expected.
-    *   Scope: Identifying buttons and links on the homepage.
-    *   Entry point: Skype homepage (skype.com)
-
-2.  **Regression Suite:**
-    *   Objective: Ensure that new changes haven't broken existing functionalities.
-    *   Scope: (To be defined in detail as development progresses)
+1.  **Critical Path Coverage:** Tests cover the most common user flows.
+2.  **Core Functionality:** Focus on essential features required for the application to function.
+3.  **Positive Testing:** Primarily positive test cases, verifying expected behavior.
+4.  **Minimal Data Variation:** Use a limited set of test data to keep the suite concise.
+5.  **Fast Execution:** Tests should execute quickly to provide rapid feedback.
+6.  **Independent Tests:** Tests should be independent of each other to avoid cascading failures.
+7.  **Automated Execution:** Tests should be automated for continuous integration.
+8.  **Build Acceptance:** Passing smoke tests are a prerequisite for build acceptance.
 
 ## Test Environment
 
-*   Browsers: Chrome, Firefox, Edge
-*   Operating Systems: Windows, macOS
-*   Test Data: Standard test data will be used for positive testing. Specific data sets will be created for regression testing.
+The tests will be executed in the following environment:
+
+*   **Browser:** Chrome (latest version)
+*   **Operating System:** Windows 10
+*   **Test Framework:** Cucumber
 
 ## Test Deliverables
 
-*   Test Plan Document
-*   Test Cases (Gherkin Feature Files)
+The following deliverables will be produced as part of the testing process:
+
+*   Test Plan
+*   Test Cases (Gherkin feature files)
 *   Test Execution Reports
 
-## Entry and Exit Criteria
+## Test Schedule
 
-*   Entry Criteria: Test environment is set up, test data is prepared, and the build is deployed.
-*   Exit Criteria: All planned tests are executed, and the test results are analyzed.
+The testing activities will be conducted according to the following schedule:
+
+*   Test Planning: Completed
+*   Test Case Development: Ongoing
+*   Test Execution: To be determined
+*   Test Reporting: Ongoing
+
+## Test вход
+
+The trace data provided is used to generate the test cases.

@@ -1,61 +1,51 @@
-# Test Plan: train_rank200_salesforce_com
+# Test Plan: Salesforce.com
 
-## 1. Introduction
+## Introduction
 
-This document outlines the test plan for the train_rank200_salesforce_com project. The primary goal is to ensure the core functionality of the application is working as expected based on the provided trace data. Due to the initial website inaccessibility, the test plan focuses on Google's homepage as a substitute.
+This test plan outlines the testing strategy for Salesforce.com, focusing on verifying the availability of key elements like buttons, links, and menu bars on the website. The plan includes a smoke test suite to ensure core functionality and a regression test suite for comprehensive coverage.
 
-## 2. Scope
+## Scope
 
 The scope of this test plan includes:
 
-*   Verifying the presence of specific UI elements (buttons and links) on the Google homepage.
+*   Verifying the presence of buttons, links, and menu bars on the Salesforce.com website.
+*   Smoke testing critical functionalities.
+*   Regression testing to ensure existing functionality remains intact after changes.
 
-## 3. Test Strategy
+## Test Strategy
 
-This test plan employs a smoke testing strategy to quickly assess the application's critical functionalities.
+The testing strategy consists of smoke and regression testing.
 
 ### Smoke Suite Strategy
 
-The smoke suite is designed based on the following principles:
+The smoke suite will focus on verifying the most critical functionalities of the application. The following 8-point checklist is applied:
 
-1.  **Critical Functionality:** Focuses on the most important features (identifying UI elements).
-2.  **Positive Testing:** Primarily uses positive test cases (verifying presence, not absence).
-3.  **End-to-End Flow:** Mimics a basic user journey (navigation, element identification).
-4.  **Minimal Test Cases:** Includes a small number of tests for quick execution.
-5.  **Build Acceptance:** Determines if the build is stable enough for further testing.
-6.  **High Priority:** Executed immediately after a new build or deployment.
-7.  **Automated Execution:** Designed for automated execution to ensure efficiency.
-8.  **Clear Pass/Fail Criteria:** Each test has a clearly defined pass/fail criterion.
+1.  **Critical Paths:** Tests cover essential user journeys (e.g., website access).
+2.  **Core Business Logic:** Tests validate the primary functions of the website.
+3.  **Positive Testing:** Focus on successful scenarios.
+4.  **No Negative Testing:** Exclude tests with invalid inputs or error conditions.
+5.  **No Complex Edge Cases:** Avoid intricate scenarios or boundary conditions.
+6.  **Fast Execution:** Tests should be quick to execute, providing rapid feedback.
+7.  **Independent Tests:** Each test should be independent and not rely on the state of others.
+8.  **Limited Scope:** Focus on a minimal set of critical functionalities.
 
-## 4. Test Suites
+### Regression Suite Strategy
 
-*   **Smoke Suite:** Verifies the basic functionality of identifying buttons and links on the Google homepage.
+The regression suite will provide comprehensive coverage of the application's functionality, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
 
-## 5. Test Cases
+## Test Suites
 
-See the feature files for detailed test cases.
+1.  Smoke Suite
+2.  Regression Suite
 
-## 6. Test Environment
+## Test Environment
 
-*   Browser: Chrome (latest version)
-*   Operating System: Any (cross-platform)
+*   Browsers: Chrome, Firefox, Safari
+*   Operating Systems: Windows, macOS, Linux
 
-## 7. Entry Criteria
+## Test Deliverables
 
-*   The application is deployed and accessible.
-*   Test environment is set up.
+*   Test Plan
+*   Test Cases (Gherkin Feature Files)
+*   Test Execution Reports
 
-## 8. Exit Criteria
-
-*   All smoke tests have passed.
-
-## 9. Roles and Responsibilities
-
-*   QA Architect: Responsible for creating and maintaining the test plan and test cases.
-*   QA Engineer: Responsible for executing the tests and reporting the results.
-
-## 10. Deliverables
-
-*   Test Plan document
-*   Test Automation scripts
-*   Test Execution reports

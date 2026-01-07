@@ -2,47 +2,52 @@
 
 ## 1. Introduction
 
-This document outlines the test plan for the train_rank183_miui_com project, focusing on testing the website functionality at https://miui.com. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
+This document outlines the test plan for the train_rank183_miui_com project, focusing on testing the website's basic functionality. The tests will cover identifying buttons and links on the homepage without interacting with them.
 
 ## 2. Scope
 
-The testing will cover the core functionalities of the website, including identifying key elements such as links and buttons. The tests will verify the presence and basic functionality of these elements.
+The scope of this test plan includes:
+
+*   Identifying 5 buttons on the homepage.
+*   Identifying 2 links on the homepage.
+*   Verifying the presence of 2 menu bars on the homepage.
+*   No interaction (clicking) with any of the identified elements.
 
 ## 3. Test Strategy
 
-The testing strategy includes two main suites:
+The testing will be divided into Smoke and Regression suites.
 
-### 3.1. Smoke Suite
+### 3.1. Smoke Suite Strategy
 
-The smoke suite will focus on verifying the most critical functionalities of the website. This includes ensuring that key elements like links and buttons are present and accessible.
+The Smoke Suite will focus on verifying the core functionality of the website. The following 8-point checklist is applied:
 
-**Smoke Suite Strategy (8-Point Checklist)**
+1.  **Critical Path Coverage:** Covers the most important user flows (identifying elements).
+2.  **Positive Testing:** Focuses on successful identification of elements.
+3.  **Minimal Data Variation:** No data input required.
+4.  **Fast Execution:** Designed for quick execution to provide rapid feedback.
+5.  **Build Verification:** Used to determine if a build is stable enough for further testing.
+6.  **Limited Scope:** Covers only essential functionalities.
+7.  **No Error Handling:** Does not explicitly test error conditions.
+8.  **Automated:** Designed to be automated for continuous integration.
 
-1.  **Critical Path Coverage:** Focuses on the main user journey (identifying links and buttons).
-2.  **Positive Testing:** Verifies the presence of links and buttons.
-3.  **Core Functionality:** Checks the basic functionality of identifying elements.
-4.  **Build Verification:** Determines if the build is stable enough for further testing.
-5.  **Limited Scope:** Only covers essential functionalities.
-6.  **Speed of Execution:** Designed to be executed quickly.
-7.  **Automated Execution:** Automatable to provide rapid feedback.
-8.  **No Edge Cases:** Excludes complex scenarios and edge cases.
+### 3.2. Regression Suite Strategy
 
-### 3.2. Regression Suite
+Due to the limited scope of the trace data, a comprehensive regression suite cannot be defined. However, if more functionalities were available, the regression suite would include:
 
-The regression suite will cover a broader range of functionalities, including alternative flows, negative scenarios, and edge cases. This suite will ensure that new changes have not introduced any regressions.
+*   Testing different browsers and devices.
+*   Testing with different network conditions.
+*   Testing with different user roles (if applicable).
 
-## 4. Test Environment
+## 4. Test Cases
 
-The tests will be executed in a standard web browser environment.
+Detailed test cases are defined in the Feature Files (see section 5).
 
 ## 5. Test Deliverables
 
-*   Test Plan Document
-*   Test Cases (Gherkin Feature Files)
-*   Test Execution Reports
+*   Test Plan document (this document).
+*   Gherkin feature files.
+*   Test execution reports.
 
-## 6. Test вход
+## 6. Test Environment
 
-*   Trace Data
-*   Domain Information
-*   Project Name
+The tests will be executed on a standard web browser (e.g., Chrome, Firefox) on a desktop environment.

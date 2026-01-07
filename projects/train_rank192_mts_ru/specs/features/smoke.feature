@@ -1,11 +1,12 @@
-Feature: MTS.RU Homepage - UI Element Presence
+Feature: MTS.ru Website - Homepage Verification
   As a user
-  I want to verify the presence of key UI elements on the MTS.RU homepage
-  So that I can ensure the basic structure and navigation are functional
+  I want to verify the basic elements of the MTS.ru homepage
+  So that I can ensure the website is functioning correctly
 
   @smoke
-  Scenario: Verify presence of buttons and links
-    Given I am on the MTS.RU homepage
-    Then I should see at least 5 buttons
+  Scenario: Verify website launch and basic elements presence
+    Given I navigate to "https://mts.ru"
+    Then I should see the MTS.ru homepage
+    And I should see at least 5 buttons
     And I should see at least 2 links
     And I should see at least 2 menu bars

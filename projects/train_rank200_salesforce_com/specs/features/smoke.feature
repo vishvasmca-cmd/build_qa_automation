@@ -1,10 +1,10 @@
-Feature: Google Homepage UI Elements Verification
-  As a user
-  I want to verify the presence of key UI elements on the Google homepage
-  So that I can ensure the basic page structure is loaded correctly
+Feature: Salesforce.com - Smoke Tests
+  As a user,
+  I want to verify the presence of key elements on the Salesforce.com website
+  So that I can ensure the website is accessible and functional
 
   @smoke
-  Scenario: Verify Google Homepage Loads and Displays UI Elements
-    Given I navigate to "https://www.google.com"
-    Then I should see at least 2 links
-    And I should see at least 5 buttons
+  Scenario: Verify website accessibility and presence of key elements
+    Given I navigate to the Salesforce.com news page
+    Then I should be able to access the website
+    And I should be able to identify buttons, links, and menu bars

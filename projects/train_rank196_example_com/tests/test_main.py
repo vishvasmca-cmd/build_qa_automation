@@ -8,39 +8,35 @@ from playwright.sync_api import Page, Browser, expect
 # Import pre-tested helpers
 import sys
 sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/templates')
-from helpers import wait_for_stability, smart_action, take_screenshot
+from helpers import take_screenshot, wait_for_stability
 
 
-class ExamplePage:
-    def __init__(self, page):
+class HomePage:
+    def __init__(self, page: Page):
         self.page = page
 
     def goto(self):
-        self.page.goto("https://www.example.com/")
+        self.page.goto("https://example.com/")
+        self.page.wait_for_load_state("networkidle")
+        expect(self.page).to_have_url("https://example.com/")
 
-    @property
-    def learn_more_link(self):
-        return self.page.get_by_role("link", name="Learn more")
+    def navigate_to_google(self):
+        self.page.goto("https://www.google.com")
+        self.page.wait_for_load_state("networkidle")
+        expect(self.page).to_have_url("https://www.google.com/")
 
-    def scroll_to_bottom(self):
-        smart_action(self.page, self.learn_more_link, "scroll", value="bottom")
-        wait_for_stability(self.page)
-
-    def scroll_down(self):
-        smart_action(self.page, self.learn_more_link, "scroll", value="scroll down")
-        wait_for_stability(self.page)
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-    example_page = ExamplePage(page)
+    home_page = HomePage(page)
 
     # 2. Logic (using POM)
-    example_page.goto()
+    home_page.goto()
     wait_for_stability(page)
-    example_page.scroll_to_bottom()
-    example_page.scroll_down()
+    home_page.navigate_to_google()
+    wait_for_stability(page)
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

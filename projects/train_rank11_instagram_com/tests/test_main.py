@@ -15,12 +15,9 @@ class InstagramLoginPage:
     def __init__(self, page):
         self.page = page
 
-    @property
-    def scroll_path(self):
-        return "body"
-
     def scroll_down(self):
-        self.page.evaluate("window.scrollBy(0, 500)")
+        self.page.locator('body').scroll_into_view_if_needed()
+
 
 
 def test_autonomous_flow(browser: Browser):

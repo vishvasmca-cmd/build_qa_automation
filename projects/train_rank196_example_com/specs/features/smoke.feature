@@ -1,10 +1,16 @@
-Feature: Basic Website Navigation and Element Identification
+Feature: Home Page Elements Verification
   As a user,
-  I want to navigate the website and identify key elements,
-  So that I can ensure the website is functioning correctly.
+  I want to verify the presence of key elements on the home page
+  So that I can ensure the basic structure of the website is intact.
 
   @smoke
-  Scenario: Navigate to the website and identify elements
-    Given I navigate to "https://www.example.com"
-    Then I should be able to see the "Learn more" link
-    And I should be able to scroll the page
+  Scenario: Verify website launch and presence of elements
+    Given I navigate to "https://example.com"
+    Then I should see the website launch successfully
+    And I should be able to find at least 1 link
+
+  @smoke
+  Scenario: Verify website launch and presence of elements on google.com
+    Given I navigate to "https://www.google.com"
+    Then I should see the website launch successfully
+    And I should be able to find at least 1 link

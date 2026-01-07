@@ -1,11 +1,11 @@
-Feature: Website Element Identification
-  As a user,
-  I want to verify the presence of key elements on the rubiconproject.com website
-  So that I can ensure the basic structure and navigation are functional.
+Feature: Homepage Element Verification
+  As a user
+  I want to verify the presence of key elements on the homepage
+  So that I can ensure the website is functioning correctly
 
   @smoke
-  Scenario: Identify key elements on the homepage
-    Given I navigate to "https://rubiconproject.com"
-    Then I should be able to identify 5 buttons
-    And I should be able to identify 2 links
-    And I should be able to identify 2 menu bars
+  Scenario: Verify the presence of buttons and links
+    Given I am on the "https://www.magnite.com/" homepage
+    Then I should see at least 5 buttons
+    And I should see at least 2 links
+    And I should see at least 2 menu bars

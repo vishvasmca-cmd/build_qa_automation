@@ -1,63 +1,45 @@
-# Test Plan: MTS.RU
+# Test Plan: train_rank192_mts_ru
 
-## Introduction
+## 1. Introduction
 
-This document outlines the test plan for MTS.RU, focusing on verifying the presence of key UI elements (buttons and links) on the homepage. The tests will be executed against the production environment.
+This document outlines the test plan for the train_rank192_mts_ru project, focusing on testing the MTS.ru website. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
 
-## Scope
+## 2. Scope
 
-The scope of this test plan includes:
+The testing will cover the core functionalities of the MTS.ru website, including navigation, button and link presence, and menu bar verification.  The initial trace focuses on the homepage.
 
-*   Verification of the presence of 5 buttons on the homepage.
-*   Verification of the presence of 2 links on the homepage.
-*   Verification of the presence of 2 menu bars on the homepage.
+## 3. Test Strategy
 
-## Test Environment
-
-*   Browser: Chrome (latest version)
-*   Operating System: Windows 10
-*   URL: <https://mts.ru>
-
-## Test Strategy
-
-This test plan will employ both smoke and regression testing strategies.
+We will employ a risk-based testing approach, prioritizing critical functionalities and areas prone to defects. The test suites will be divided into smoke and regression tests.
 
 ### Smoke Suite Strategy
 
-The smoke suite will focus on verifying the core functionality of the application. The following 8-point checklist has been applied to define the smoke suite for this project:
+The smoke suite will focus on verifying the basic functionality of the website. The following 8-point checklist has been applied to define the smoke tests for this project:
 
-1.  **Critical Paths:** The primary navigation and key UI elements (buttons and links) are verified.
-2.  **Core Business Logic:** N/A (This is a UI element presence check, not business logic).
-3.  **No Negative Testing:** Only positive assertions (element is present) are performed.
-4.  **No Complex Edge Cases:** Simple presence checks, no complex scenarios.
-5.  **Minimal Scope:** Only the homepage is included.
-6.  **Fast Execution:** Tests are designed to be quick to execute.
-7.  **Build Validation:** Failure of any smoke test indicates a critical issue.
-8.  **Happy Path Focus:** Only verifies the expected elements are present.
+1.  **Critical Paths:** Verify the main navigation to key pages.
+2.  **Core Business Logic:** N/A (No specific business logic in this initial trace, but will be considered in future traces).
+3.  **Positive Testing:** Focus on successful navigation and element presence.
+4.  **No Negative Testing:** No negative test cases in the smoke suite.
+5.  **No Complex Edge Cases:** No complex scenarios are included in the smoke suite.
+6.  **Fast Execution:** Smoke tests should be quick to execute.
+7.  **Build Acceptance:** Smoke tests determine if a build is acceptable for further testing.
+8.  **Limited Scope:** Only the most essential functionalities are covered.
 
 ### Regression Suite Strategy
 
-Due to the limited scope of the trace data, a full regression suite cannot be defined at this time. However, a regression suite would typically include:
+The regression suite will provide a more comprehensive test coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite will be expanded as more traces are analyzed.
 
-*   Verification of button and link functionality (e.g., click actions).
-*   Verification of menu bar navigation.
-*   Cross-browser compatibility testing.
-*   Responsive design testing.
+## 4. Test Environment
 
-## Test Cases
+The tests will be executed on a standard web browser (e.g., Chrome, Firefox) on a desktop environment. Specific browser versions will be documented in the test execution reports.
 
-The following test cases will be executed:
+## 5. Test Deliverables
 
-*   **TC\_001:** Verify the presence of 5 buttons on the homepage.
-*   **TC\_002:** Verify the presence of 2 links on the homepage.
-*   **TC\_003:** Verify the presence of 2 menu bars on the homepage.
+*   Test Plan Document
+*   Gherkin Feature Files
+*   Test Execution Reports
+*   Defect Reports
 
-## Test Deliverables
+## 6. Test Schedule
 
-*   Test Plan document
-*   Gherkin feature files
-*   Test execution reports
-
-## Test Automation
-
-The tests will be automated using Playwright.
+The test execution will be performed iteratively, with smoke tests executed after each build and regression tests executed periodically.

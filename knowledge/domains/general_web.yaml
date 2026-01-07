@@ -38,3 +38,35 @@ learned_rules:
   the element to be present.
 - Ensure that the project's `core` module is correctly structured and accessible within
   the Python environment's import path before running tests.
+- When interacting with elements that may load dynamically or be part of a carousel,
+  increase the timeout or implement retry logic to account for potential delays in
+  element visibility.
+- Ensure all test files have access to necessary utility modules by verifying the
+  correct relative or absolute import paths are used.
+- Before asserting the visibility of the 'Download Teams' button, check for and dismiss
+  any overlaying elements (e.g., cookie banners, promotional modals) that might obscure
+  the button or prevent it from rendering correctly.
+- Before asserting the visibility of the 'Contact Us' button, check for and dismiss
+  any overlaying elements (e.g., cookie banners or modals) that might obscure it.
+  Also, consider that the button text might be dynamic or localized.
+- Ensure that the `core` directory containing `utils.py` is in the Python path or
+  that relative imports are correctly configured within the project.
+- When asserting the visibility of a button, especially on documentation pages, consider
+  that the button might be dynamically loaded or part of a carousel/slider that is
+  not immediately visible.  Increase the timeout or wait for a specific state before
+  asserting visibility.
+- Ensure that the 'core' directory and its modules are correctly placed within the
+  project structure and that the Python path is configured to include the project's
+  root directory.
+- Before asserting the visibility of the 'Join now' button on the LinkedIn homepage,
+  wait for the page to fully load and consider potential A/B testing variations or
+  dynamic content loading.
+- When navigating to cloudflare.com, anticipate a potentially slow 'networkidle' event.
+  Increase the timeout or switch to 'domcontentloaded' if full network activity is
+  not critical for the test.
+- When navigating to x.com, anticipate potential delays in reaching the 'networkidle'
+  state due to the dynamic nature of the content and third-party resources. Implement
+  a more robust loading strategy.
+- Ensure the `core` directory and its modules are correctly placed within the project
+  structure and that the Python interpreter can resolve the import statement `from
+  core.utils`.

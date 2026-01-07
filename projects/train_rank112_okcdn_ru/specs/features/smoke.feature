@@ -1,13 +1,14 @@
-Feature: Google Homepage Smoke Tests
+Feature: Website Accessibility
   As a user
-  I want to verify the basic functionality of the Google homepage
+  I want to access the website
+  So that I can verify its basic functionality
 
   @smoke
-  Scenario: Verify Google.com is accessible
-    Given I navigate to "https://www.google.com"
+  Scenario: Access the website
+    Given I navigate to "https://st.okcdn.ru/"
     Then the page should load successfully
 
   @smoke
-  Scenario: Verify buttons and links can be identified on the Google homepage
-    Given I am on the "https://www.google.com" page
-    Then I should be able to identify buttons and links
+  Scenario: Verify website is accessible
+    Given I navigate to "https://st.okcdn.ru/"
+    Then the website should be accessible
