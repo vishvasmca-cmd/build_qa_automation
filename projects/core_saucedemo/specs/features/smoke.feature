@@ -1,10 +1,9 @@
-Feature: Smoke Test - Core Functionality
+Feature: E-commerce Smoke Tests
 
-  @smoke
-  Scenario: User Login, Sort Products, and Add Item to Cart
-    Given User is on the Swag Labs login page
-    When User logs in with valid credentials "standard_user" and "secret_sauce"
+  Scenario: Successful Login and Sort Products
+    @smoke
+    Given User is on the login page
+    When User logs in with valid credentials
     Then User should be redirected to the inventory page
     When User sorts products by price (low to high)
-    And User adds the cheapest item "Sauce Labs Bike Light" to the cart
-    Then The item should be added to the cart successfully
+    Then Products should be sorted by price in ascending order

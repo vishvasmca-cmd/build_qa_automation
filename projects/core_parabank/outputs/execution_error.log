@@ -16,20 +16,18 @@ browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vish
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
+        page.goto("https://parabank.parasoft.com/parabank/index.htm")
+        page.wait_for_load_state("networkidle")
     
         # 2. Logic (using POM)
         parabank_page = ParabankPage(page)
-        parabank_about_us_page = ParabankAboutUsPage(page)
-        parabank_wadl_page = ParabankWadlPage(page)
     
-        parabank_page.goto()
         parabank_page.navigate_to_about_us()
-    
->       parabank_about_us_page.navigate_to_home()
+>       parabank_page.navigate_to_home()
 
-projects\core_parabank\tests\test_main.py:79: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-projects\core_parabank\tests\test_main.py:47: in navigate_to_home
+projects/core_parabank/tests/test_main.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/core_parabank/tests/test_main.py:39: in navigate_to_home
     self.home_link.click()
 ..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:15637: in click
     self._sync(
@@ -42,8 +40,8 @@ projects\core_parabank\tests\test_main.py:47: in navigate_to_home
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-self = <playwright._impl._connection.Connection object at 0x000001C21E8A9610>
-cb = <function Channel.send.<locals>.<lambda> at 0x000001C21EB55F80>
+self = <playwright._impl._connection.Connection object at 0x7f16cd7f61d0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f16cc3cfec0>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -69,8 +67,13 @@ E
 E           Call log:
 E             - waiting for get_by_role("link", name="Home")
 
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: Error
-=========================== short test summary info ===========================
-FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium]
-============================== 1 failed in 3.61s ==============================
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+=========================== short test summary info ============================
+FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name="Home") resolved to 2 elements:
+    1) <a href="index.htm">home</a> aka get_by_role("link", name="home", exact=True)
+    2) <a href="index.htm">Home</a> aka get_by_role("link", name="Home", exact=True)
+
+Call log:
+  - waiting for get_by_role("link", name="Home")
+============================== 1 failed in 2.38s ===============================
 

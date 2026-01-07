@@ -3,42 +3,40 @@
 ## Introduction
 This document outlines the test plan for the core_automation_exercise project, focusing on the e-commerce domain. The plan details the scope, strategy, and specific test cases to ensure the quality and functionality of the application.
 
+This document outlines the test plan for the core_automation_exercise project, an e-commerce platform. The plan details the testing scope, strategy, and specific test suites to ensure the quality and reliability of the application.
+
 ## Test Scope
-The testing will cover the following modules:
-- Product Catalog
-- Shopping Cart
+
+The testing will focus on core functionalities including product browsing, searching, adding to cart, and checkout processes.
 
 ## Test Strategy
-The testing will be conducted using a combination of smoke and regression testing. Smoke tests will verify the critical functionalities, while regression tests will ensure that new changes do not introduce defects into existing features.
+
+The testing strategy will employ a combination of smoke and regression testing. Smoke tests will verify the critical path functionalities, while regression tests will ensure that new changes do not negatively impact existing features.
 
 ### Smoke Suite Strategy
+
 The smoke suite will adhere to the following 8-point checklist:
-1.  **Critical Paths Only:** Focus on the most essential workflows (e.g., product search, add to cart).
+
+1.  **Critical Paths Only:** Focus solely on the most essential workflows (e.g., product search, add to cart, checkout).
 2.  **Positive Testing:** Primarily use valid inputs and expected outcomes.
-3.  **Prioritized Scenarios:** Select tests based on business impact.
-4.  **Limited Data Set:** Use a small, representative set of data.
-5.  **No Edge Cases:** Avoid complex or unusual scenarios.
-6.  **Fast Execution:** Ensure tests run quickly to provide rapid feedback.
-7.  **Automated Execution:** Automate smoke tests for continuous integration.
-8.  **Build Acceptance:** Passing smoke tests is a prerequisite for build acceptance.
+3.  **Minimal Data:** Use a small, representative set of test data.
+4.  **No Edge Cases:** Avoid complex scenarios or boundary conditions.
+5.  **Fast Execution:** Design tests for quick execution and immediate feedback.
+6.  **Independent Tests:** Ensure each test can run independently without dependencies.
+7.  **High Priority Failures:** Treat any smoke test failure as a critical issue.
+8.  **Automated Execution:** Automate the smoke suite for continuous integration.
 
 ## Test Suites
 
-### Smoke Suite
-The smoke suite will include the following test cases:
-- Navigate to Products page
-- Search for a product ('Dress')
-- Add the product to the cart
+1.  **Smoke Suite:**
+    *   Objective: Verify the core functionalities of the application.
+    *   Scope: Product search, adding to cart, and initiating the checkout process.
+2.  **Regression Suite:**
+    *   Objective: Ensure that new changes do not negatively impact existing functionalities.
+    *   Scope: Detailed testing of all modules, including edge cases, negative scenarios, and boundary conditions.
 
-### Regression Suite
-The regression suite will include the following test cases:
-- (Not defined in this trace, but would be included based on the 'Regression' definition)
+## Modules in Scope
 
-## Test Environment
-- Browser: Chrome (latest version)
-- Operating System: Windows 10
-
-## Test Deliverables
-- Test Plan Document
-- Automated Test Scripts (Selenium with Playwright)
-- Test Execution Reports
+*   Product Catalog
+*   Shopping Cart
+*   Checkout & Payments

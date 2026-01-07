@@ -26,8 +26,20 @@ class OrangehrmLoginPage:
     def click_forgot_password_link(self):
         self.forgot_password_link.click()
 
-    def is_login_page_present(self):
-        expect(self.page).to_have_title("OrangeHRM")
+    @property
+    def orangehrm_inc_link(self):
+        return self.page.get_by_role("link", name="OrangeHRM, Inc")
+
+    def click_orangehrm_inc_link(self):
+        self.orangehrm_inc_link.click()
+
+    @property
+    def social_media_link(self):
+        return self.page.locator("xpath=//*[@id=\"app\"]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/a[1]")
+
+    def click_social_media_link(self):
+        self.social_media_link.click()
+
 
 
 class OrangehrmRequestPasswordResetPage:
@@ -35,51 +47,88 @@ class OrangehrmRequestPasswordResetPage:
         self.page = page
 
     @property
-    def username_input(self):
+    def username_field(self):
         return self.page.locator("[name='username']")
+
+    def fill_username(self, username):
+        self.username_field.fill(username)
 
     @property
     def reset_password_button(self):
         return self.page.get_by_role("button", name="Reset Password")
 
-    def fill_username(self, username):
-        self.username_input.fill(username)
-
     def click_reset_password_button(self):
         self.reset_password_button.click()
 
-    def goto(self):
-        self.page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode")
-        self.page.wait_for_load_state("networkidle")
 
-
-class OrangehrmPasswordResetPage:
+class PasswordResetConfirmationPage:
     def __init__(self, page):
         self.page = page
 
-    def is_password_reset_success_message_present(self):
-        # Add logic to verify password reset success message if needed
-        pass
+    @property
+    def orangehrm_inc_link(self):
+        return self.page.get_by_role("link", name="OrangeHRM, Inc")
 
-class GenericPage:
+    def click_orangehrm_inc_link(self):
+        self.orangehrm_inc_link.click()
+
+
+class LoginPage:
     def __init__(self, page):
         self.page = page
+
+    @property
+    def orangehrm_inc_link(self):
+        return self.page.get_by_role("link", name="OrangeHRM, Inc")
+
+    def navigate_to_homepage(self):
+        self.page.goto("https://opensource-demo.orangehrmlive.com/")
+
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
+    page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    page.wait_for_load_state("networkidle")
 
     # 2. Logic (using POM)
     login_page = OrangehrmLoginPage(page)
-    reset_password_page = OrangehrmRequestPasswordResetPage(page)
-    password_reset_page = OrangehrmPasswordResetPage(page)
+    reset_password_page = OrangehrmResetPasswordPage(page)
+    password_reset_confirmation_page = PasswordResetConfirmationPage(page)
+    base_login_page = LoginPage(page)
 
-    login_page.goto()
+    # Step 0: Click 'Forgot your password?' link
     login_page.click_forgot_password_link()
 
-    reset_password_page.fill_username("testuser")
+    # Step 1: Navigate back to login page
+    page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+
+    # Step 2: Fill username on reset password page
+    reset_password_page.fill_username("Admin")
+
+    # Step 3: Click Reset Password button
     reset_password_page.click_reset_password_button()
+
+    # Step 4: Navigate back to login page
+    page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+
+    # Step 5: Click OrangeHRM, Inc link on PasswordResetConfirmationPage
+    password_reset_confirmation_page.click_orangehrm_inc_link()
+
+    # Step 6: Navigate to homepage
+    base_login_page.navigate_to_homepage()
+
+    # Step 7: Scroll (removed as it's not reliable and auto-scrolling should handle it)
+
+    # Step 8: Click social media link
+    login_page.click_social_media_link()
+
+    # Step 9: Click social media link again
+    login_page.click_social_media_link()
+
+    # Step 10: Click social media link again
+    login_page.click_social_media_link()
 
     # Assert that we navigated back to login page
     page.wait_for_url("**/auth/sendPasswordReset", timeout=15000)

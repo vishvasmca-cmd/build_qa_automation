@@ -17,7 +17,7 @@ class HomePage:
 
     @property
     def products_link(self):
-        return self.page.get_by_role("link", name="\ue8f8 Products")
+        return self.page.get_by_role("link", name=" Products")
 
     @property
     def subscribe_email_input(self):
@@ -58,22 +58,29 @@ class ProductsPage:
     @property
     def continue_shopping_button(self):
         return self.page.get_by_role("button", name="Continue Shopping")
-        
+
     @property
     def cart_link(self):
         return self.page.get_by_role("link", name="Cart")
 
+    def navigate_to_products(self):
+        self.products_link.click()
+        self.page.wait_for_load_state("networkidle")
 
-    def search_product(self, product_name):
+    def search_for_product(self, product_name):
         self.search_product_input.fill(product_name)
-        self.submit_search_button.click()
+        self.page.locator("#submit_search").click()
+        self.page.wait_for_load_state("networkidle")
 
-    def add_first_product_to_cart(self):
-        # Use force=True to bypass potential overlay issues
-        self.add_to_cart_button.click(force=True)
+    def add_product_to_cart(self, index):
+        # Hover over the product card to make the 'Add to cart' button visible
+        self.page.locator(".overlay-content").nth(index).hover()
+        self.add_to_cart_button.nth(index).click()
+        self.page.wait_for_load_state("networkidle")
 
     def continue_shopping(self):
         self.continue_shopping_button.click()
+        self.page.wait_for_load_state("networkidle")
 
     def navigate_to_cart(self):
         self.cart_link.click()
@@ -89,39 +96,24 @@ class CartPage:
 
     def proceed_to_checkout(self):
         self.proceed_to_checkout_button.click()
-
+        self.page.wait_for_load_state("networkidle")
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
     page.goto("https://automationexercise.com/")
-    page.wait_for_load_state("networkidle")
-    
-    home_page = HomePage(page)
+    page.wait_for_load_state("domcontentloaded")
+
+    # 2. Logic (using POM)
     products_page = ProductsPage(page)
-    cart_page = CartPage(page)
 
-    # 2. Logic
-    # Navigate to Products page
-    home_page.navigate_to_products()
-    page.wait_for_load_state("networkidle")
-    
-    # Search for 'Dress'
-    products_page.search_product("Dress")
-    page.wait_for_load_state("networkidle")
-
-    # Add the first dress to the cart, using force to handle overlays
-    products_page.add_first_product_to_cart()
-
-    # Click Continue Shopping
+    products_page.navigate_to_products()
+    products_page.search_for_product("Dress")
+    products_page.add_product_to_cart(0)
     products_page.continue_shopping()
-
-    # Go to cart
-    products_page.navigate_to_cart()
-
-    # Proceed to checkout
-    #cart_page.proceed_to_checkout() # Commented out due to no checkout page created
+    products_page.add_product_to_cart(1)
+    products_page.continue_shopping()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "inner-event")

@@ -2,70 +2,80 @@
 
 ## Overview
 
-This test plan outlines the testing strategy for the core_parabank application, focusing on verifying critical functionalities and ensuring a stable user experience. The plan includes both Smoke and Regression test suites, designed to cover essential workflows and edge cases within the banking domain.
+This document outlines the test plan for the core_parabank application, focusing on verifying key functionalities related to the login page, finding transactions, and navigating to the 'About Us' page. The test plan includes both smoke and regression test suites to ensure comprehensive coverage.
 
 ## Scope
 
-The testing will cover the following modules:
+The scope of this test plan includes:
 
-*   Account Access
-*   Statements & History
+*   Verification of the login page elements.
+*   Checking the availability of the 'Find Transactions' functionality (or a similar feature).
+*   Navigation to the 'About Us' page.
 
 ## Test Suites
 
 ### Smoke Suite
 
-The Smoke Suite is a collection of high-priority tests designed to quickly verify the core functionality of the application. These tests are executed to ensure that the system is stable and that the most critical features are working as expected. If smoke tests fail, the build is rejected.
+The smoke suite will focus on the core functionalities to ensure the application's basic health.  It will cover the happy path scenarios.
 
 #### Smoke Suite Strategy
 
-The following 8-point checklist has been applied to define the Smoke Suite for this project:
+The following 8-point checklist is applied to define the Smoke Suite for this project:
 
-1.  **Critical Paths**: Focus on the most essential user flows (e.g., Login, Account Access).
-2.  **Core Business Logic**: Cover primary revenue or operational flows.
-3.  **Positive Testing**: Primarily focus on successful scenarios.
-4.  **No Negative Testing**: Exclude negative scenarios unless they represent critical security concerns.
-5.  **No Complex Edge Cases**: Avoid complex or unusual scenarios.
-6.  **Minimal Data Variation**: Use a small, representative set of test data.
-7.  **Independent Tests**: Ensure tests can be run independently without dependencies.
-8.  **Fast Execution**: Design tests for quick execution to provide rapid feedback.
+1.  **Critical Paths:** Include tests for the most critical user flows (e.g., login).
+2.  **Core Business Logic:** Verify the primary business functions are working.
+3.  **Positive Testing:** Focus on valid inputs and expected outcomes.
+4.  **No Negative Testing:** Exclude tests with invalid inputs or error conditions.
+5.  **Minimal Data Set:** Use a small, representative set of test data.
+6.  **Fast Execution:** Design tests for quick execution to provide rapid feedback.
+7.  **Independent Tests:** Ensure tests are independent and can be run in any order.
+8.  **High Priority Defects:** Cover scenarios related to recently fixed high-priority defects.
 
 ### Regression Suite
 
-The Regression Suite is a comprehensive set of tests designed to ensure that new changes or bug fixes have not introduced unintended side effects or broken existing functionality. This suite includes a wider range of scenarios, covering alternative flows, negative cases, boundary conditions, and cross-module interactions.
+The regression suite will provide a more comprehensive test coverage, including edge cases, alternative flows, and negative scenarios. This suite will ensure that new changes haven't introduced regressions in existing functionalities.
 
 ## Test Modules
 
 ### Account Access (Criticality: Critical)
 
-#### Smoke Tests
+*   **Smoke Tests:**
+    *   Verify the login page is displayed correctly.
+    *   Verify navigation to the 'About Us' page.
+*   **Regression Tests:**
+    *   (Not covered by the trace, but would be included in a full regression suite) Test login with valid and invalid credentials.
+    *   (Not covered by the trace, but would be included in a full regression suite) Test password recovery.
 
-*   Verify navigation to the About Us page.
-*   Verify navigation back to the Home page.
-*   Verify the ability to navigate to the Account History page.
+### Transfers & Payments (Criticality: Critical)
 
-#### Regression Tests
-
-*   Verify error messages when entering invalid credentials.
-*   Test password recovery functionality.
-*   Test account lockout after multiple failed login attempts.
-
-### Statements & History (Criticality: Medium)
-
-#### Smoke Tests
-
-*   Verify navigation to the Account History page.
-
-#### Regression Tests
-
-*   Verify the ability to search transactions by date range.
-*   Verify the ability to filter transactions by type.
-*   Verify the ability to download statements in different formats (PDF, CSV).
+*   **Smoke Tests:**
+    *   (Not covered by the trace, but would be included in a full regression suite) Verify the availability of the 'Find Transactions' link/functionality after login.
+*   **Regression Tests:**
+    *   (Not covered by the trace, but would be included in a full regression suite) Test searching transactions by different criteria (date, amount, etc.).
+    *   (Not covered by the trace, but would be included in a full regression suite) Test the display of transaction details.
 
 ## Test Data
 
-Test data will be managed centrally and will include valid and invalid credentials, account numbers, and transaction details.
+*   For the smoke tests, minimal test data will be used.
+*   For the regression tests, a more comprehensive set of test data will be used to cover various scenarios.
 
 ## Test Environment
 
-The tests will be executed in a dedicated test environment that mirrors the production environment. This includes the operating system, database, and network configuration.
+*   The tests will be executed in a stable test environment that mirrors the production environment.
+
+## Entry Criteria
+
+*   The application build must be successfully deployed to the test environment.
+*   All necessary test data must be available.
+
+## Exit Criteria
+
+*   All smoke tests must pass for the build to be considered stable.
+*   A defined percentage of regression tests must pass before release.
+
+## Test Deliverables
+
+*   Test Plan document
+*   Test Cases (Gherkin feature files)
+*   Test Execution Reports
+

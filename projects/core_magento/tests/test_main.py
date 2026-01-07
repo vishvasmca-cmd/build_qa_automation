@@ -11,10 +11,26 @@ sys.path.append('C:/Users/vishv/.gemini/antigravity/playground/inner-event/core/
 from helpers import take_screenshot
 
 
+class GenericPage:
+    def __init__(self, page):
+        self.page = page
 
+    def goto(self, url):
+        self.page.goto(url)
+
+    def wait_for_load_state(self, state="networkidle"):
+        self.page.wait_for_load_state(state=state)
 
 def test_autonomous_flow(browser: Browser):
-    # The test cannot proceed due to an SSL certificate error.
-    # The site 'https://magento.softwaretestingboard.com/' is inaccessible.
-    # There is no way to bypass this issue with Playwright.
-    print("Cannot proceed with the test due to an SSL certificate error on the target website.")
+    # 1. Setup
+    context = browser.new_context(viewport={"width": 1920, "height": 1080})
+    page = context.new_page()
+    
+    # 2. Logic (using POM)
+    generic_page = GenericPage(page)
+    generic_page.goto("https://magento.softwaretestingboard.com/")
+    generic_page.wait_for_load_state("networkidle")
+
+    # 3. Cleanup
+    take_screenshot(page, "final_state", "build_qa_automation")
+    context.close()

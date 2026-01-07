@@ -1,77 +1,24 @@
 ============================= test session starts =============================
 platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
 cachedir: .pytest_cache
-rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
-plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
-collecting ... collected 1 item
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'langsmith': '0.6.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
+collecting ... collected 0 items / 1 error
 
-projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium] FAILED
-
-================================== FAILURES ===================================
-_______________________ test_autonomous_flow[chromium] ________________________
-
-page = <Page url='https://www.saucedemo.com/inventory.html'>
-
-    def test_autonomous_flow(page: Page):
-        # 1. Setup
-        page.goto("https://www.saucedemo.com/")
-        wait_for_stability(page)
-    
-        # 2. Logic (using POM)
-        home_page = HomePage(page)
-        inventory_page = InventoryPage(page)
-        cart_page = CartPage(page)
-        checkout_information_page = CheckoutInformationPage(page)
-        checkout_overview_page = CheckoutOverviewPage(page)
-        checkout_complete_page = CheckoutCompletePage(page)
-    
-        # Login
-        home_page.login("standard_user", "secret_sauce")
-    
-        # Sort products by price low to high
->       inventory_page.sort_products_by_price_low_to_high()
-
-projects\core_saucedemo\tests\test_main.py:148: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-projects\core_saucedemo\tests\test_main.py:45: in sort_products_by_price_low_to_high
-    self.product_sort_dropdown.select_option(label='Price (low to high)')
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:17636: in select_option
-    self._sync(
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_locator.py:597: in select_option
-    return await self._frame.select_option(
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:781: in select_option
-    return await self._channel.send("selectOption", self._timeout, params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:69: in send
-    return await self._connection.wrap_api_call(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-self = <playwright._impl._connection.Connection object at 0x0000010A48312510>
-cb = <function Channel.send.<locals>.<lambda> at 0x0000010A47E37CE0>
-is_internal = False, title = None
-
-    async def wrap_api_call(
-        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
-    ) -> Any:
-        if self._api_zone.get():
-            return await cb()
-        task = asyncio.current_task(self._loop)
-        st: List[inspect.FrameInfo] = getattr(
-            task, "__pw_stack__", None
-        ) or inspect.stack(0)
-    
-        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
-        self._api_zone.set(parsed_st)
-        try:
-            return await cb()
-        except Exception as error:
->           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.select_option: Timeout 30000ms exceeded.
-E           Call log:
-E             - waiting for get_by_role("select")
-
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: TimeoutError
-=========================== short test summary info ===========================
-FAILED projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium]
-============================= 1 failed in 32.78s ==============================
+==================================== ERRORS ====================================
+_________ ERROR collecting projects/core_saucedemo/tests/test_main.py __________
+ImportError while importing test module '/home/runner/work/build_qa_automation/build_qa_automation/projects/core_saucedemo/tests/test_main.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+projects/core_saucedemo/tests/test_main.py:13: in <module>
+    from helpers import wait_for_stability, take_screenshot
+E   ModuleNotFoundError: No module named 'helpers'
+=========================== short test summary info ============================
+ERROR projects/core_saucedemo/tests/test_main.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+=============================== 1 error in 0.17s ===============================
 
