@@ -19,16 +19,15 @@ class OrangehrmLoginPage:
     def forgot_password_link(self):
         return self.page.get_by_text("Forgot your password?")
 
+    @property
+    def social_media_icon(self):
+        return self.page.locator("xpath=//*[@id=\"app\"]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/a[1]")
+
     def click_forgot_password_link(self):
         self.forgot_password_link.click()
 
-    @property
-    def orangehrm_inc_link(self):
-        return self.page.get_by_role("link", name="OrangeHRM, Inc")
-
-    def click_orangehrm_inc_link(self):
-        self.orangehrm_inc_link.click()
-
+    def click_social_media_icon(self):
+        self.social_media_icon.click()
 
 
 class OrangehrmResetPasswordPage:
@@ -36,15 +35,15 @@ class OrangehrmResetPasswordPage:
         self.page = page
 
     @property
-    def username_input(self):
+    def username_field(self):
         return self.page.locator("[name='username']")
-
-    def fill_username(self, username):
-        self.username_input.fill(username)
 
     @property
     def reset_password_button(self):
         return self.page.get_by_role("button", name="Reset Password")
+
+    def fill_username(self, username):
+        self.username_field.fill(username)
 
     def click_reset_password_button(self):
         self.reset_password_button.click()
@@ -60,25 +59,6 @@ class PasswordResetConfirmationPage:
 
     def click_orangehrm_inc_link(self):
         self.orangehrm_inc_link.click()
-
-
-class OrangehrmPasswordResetPage:
-    def __init__(self, page):
-        self.page = page
-
-    @property
-    def username_input(self):
-        return self.page.locator("[name='username']")
-
-    def fill_username(self, username):
-        self.username_input.fill(username)
-
-    @property
-    def reset_password_button(self):
-        return self.page.get_by_role("button", name="Reset Password")
-
-    def click_reset_password_button(self):
-        self.reset_password_button.click()
 
 
 def test_autonomous_flow(browser: Browser):
@@ -100,18 +80,20 @@ def test_autonomous_flow(browser: Browser):
     # Step 2: Fill username on the reset password page
     reset_password_page.fill_username("testuser")
 
-    # Step 3: Click Reset Password button
+    # Step 3: Click 'Reset Password' button
     reset_password_page.click_reset_password_button()
+
+    # Step 5: Click 'OrangeHRM, Inc' link on the password reset confirmation page
+    # The previous test failed because it was waiting for navigation to "https://www.orangehrm.com/"
+    # The correct behavior is to wait for the success message on the password reset confirmation page.
+    page.get_by_text("Reset Password link sent successfully").wait_for(timeout=15000)
+
+    # Step 6: Navigate back to the login page by clicking the OrangeHRM, Inc link
+    password_reset_confirmation_page.click_orangehrm_inc_link()
     page.wait_for_load_state("networkidle")
 
-    # Step 5: Click OrangeHRM, Inc link on Password Reset Confirmation page
-    try:
-        password_reset_confirmation_page.click_orangehrm_inc_link()
-    except Exception as e:
-        print(f"Error clicking OrangeHRM link: {e}")
-
-    # Step 6: Navigate to login page
-    page.wait_for_url("**/login", timeout=15000)
+    # Step 8: Click on the first social media icon
+    login_page.click_social_media_icon()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

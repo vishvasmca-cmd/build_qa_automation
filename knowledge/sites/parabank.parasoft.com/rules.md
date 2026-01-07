@@ -61,3 +61,5 @@
 - Before navigating to 'Account History', ensure all page elements are fully loaded and any potential overlays or animations are complete. Consider adding a short explicit wait if necessary.
 
 - Before navigating to 'Account History', ensure the main content area is fully loaded and any overlaying elements (e.g., advertisements or loading spinners) are dismissed. Consider adding a short explicit wait for the main content to stabilize.
+
+- Before navigating to 'Account History', ensure the main content area is fully loaded and any overlaying elements (e.g., modals, banners) are dismissed. Consider adding an explicit wait for a key element in the main content area to be visible before attempting to click 'Account History'.

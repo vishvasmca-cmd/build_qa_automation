@@ -6,8 +6,7 @@ rootdir: /home/runner/work/build_qa_automation/build_qa_automation
 plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
 collecting ... collected 1 item
 
-projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] Successfully verified the login page.
-FAILED
+projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] FAILED
 
 =================================== FAILURES ===================================
 ________________________ test_autonomous_flow[chromium] ________________________
@@ -18,24 +17,20 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
-        page.goto("https://parabank.parasoft.com/parabank/index.htm")
+        parabank_page = ParabankPage(page)
+        parabank_web_service_definition_page = ParabankWebServiceDefinitionPage(page)
+        generic_page = GenericPage(page)
+    
+        page.goto("https://parabank.parasoft.com/index.htm")
         page.wait_for_load_state("networkidle")
     
         # 2. Logic (using POM)
-        parabank_page = ParabankPage(page)
-    
-        # Verify the login page
-        if parabank_page.is_login_page():
-            print("Successfully verified the login page.")
-        else:
-            print("Failed to verify the login page.")
-    
-        # Navigate to Account History
->       parabank_page.navigate_to_account_history()
+        # Step 0
+>       parabank_page.click_account_history()
 
-projects/core_parabank/tests/test_main.py:80: 
+projects/core_parabank/tests/test_main.py:108: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_parabank/tests/test_main.py:38: in navigate_to_account_history
+projects/core_parabank/tests/test_main.py:37: in click_account_history
     self.account_history_link.click()
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
@@ -48,8 +43,8 @@ projects/core_parabank/tests/test_main.py:38: in navigate_to_account_history
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7f7a948edfd0>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f7a94877e20>
+self = <playwright._impl._connection.Connection object at 0x7f6be746cd10>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f6be74fd800>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -77,5 +72,5 @@ E             - waiting for get_by_role("link", name="Account History")
 FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 Call log:
   - waiting for get_by_role("link", name="Account History")
-============================== 1 failed in 31.52s ==============================
+============================== 1 failed in 31.17s ==============================
 

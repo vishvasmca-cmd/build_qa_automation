@@ -60,3 +60,9 @@
 - When navigating to the OrangeHRM login page, implement a retry mechanism with exponential backoff to handle potential delays in redirection. Also, check for common blocking elements like modals or banners before waiting for the URL.
 
 - When navigating to a new page, especially the login page, increase the timeout to accommodate potential server delays or network latency. Consider implementing a retry mechanism with exponential backoff.
+
+- When navigating to an external URL, implement a retry mechanism with exponential backoff to handle potential network instability or temporary website unavailability. Also, verify the target URL before navigation.
+
+- When interacting with elements in the top navigation bar of OrangeHRM, implement a retry mechanism with exponential backoff to handle potential loading delays or intermittent visibility issues. Before clicking, explicitly wait for the element to be both visible and enabled.
+
+- When clicking on elements within the OrangeHRM header/navigation, implement a retry mechanism with exponential backoff, as network conditions or server-side processing might cause intermittent delays. Also, consider using more resilient locators based on text content or ARIA roles instead of brittle XPaths.

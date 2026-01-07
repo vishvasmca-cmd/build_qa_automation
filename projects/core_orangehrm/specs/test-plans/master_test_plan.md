@@ -2,66 +2,46 @@
 
 ## Introduction
 
-This test plan outlines the testing strategy for the core_orangehrm application, a SaaS platform. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
+This document outlines the test plan for the core_orangehrm project, focusing on verifying key functionalities of the OrangeHRM application. The application is a SaaS platform, and the tests will cover critical aspects such as login page elements, password reset, and social media links.
 
 ## Scope
 
 The testing will cover the following areas:
 
-*   Login functionality
-*   Password reset functionality
-*   Verification of social media icons on the login page
+*   Login Page Verification
+*   Forgot Password Functionality
+*   Social Media Links Verification
 
 ## Test Suites
 
-### Smoke Suite
+This test plan includes two main test suites:
 
-The smoke suite will focus on the critical path of the application. It will verify the core functionality is working as expected.
+1.  Smoke Suite: A minimal set of tests to ensure the core functionality is working.
+2.  Regression Suite: A comprehensive set of tests to ensure that new changes haven't introduced regressions.
 
-#### Smoke Suite Strategy
+### Smoke Suite Strategy
 
-The Smoke Suite for this project adheres to the following 8-point checklist:
+The Smoke Suite is designed to provide a quick check of the application's health. The following checklist has been applied to define the scope of the Smoke Suite:
 
-1.  **Critical Paths Only:** Focuses solely on the most essential workflows (Login, Password Reset).
-2.  **Positive Testing:** Primarily uses valid inputs and expected actions.
-3.  **No Edge Cases:** Avoids complex scenarios or boundary conditions.
-4.  **Fast Execution:** Designed for quick feedback on build stability.
-5.  **Independent Tests:** Each test can be run in isolation.
-6.  **Clear Pass/Fail Criteria:** Easy to determine the outcome of each test.
-7.  **Automated Execution:** Fully automated for continuous integration.
-8.  **Build Validation:** Used to determine if a build is acceptable for further testing.
+1.  **Critical Paths:** Does the test cover a primary user flow (e.g., login)?
+2.  **Core Business Logic:** Does the test exercise essential business rules?
+3.  **Positive Testing:** Is the test primarily focused on successful scenarios?
+4.  **Minimal Data Variation:** Does the test avoid complex data inputs or edge cases?
+5.  **Independence:** Can the test run independently without relying on other tests?
+6.  **Speed:** Is the test quick to execute?
+7.  **Stability:** Is the test reliable and unlikely to fail due to environmental factors?
+8.  **High Impact:** Would a failure of this test indicate a major problem with the application?
 
-#### Smoke Test Cases
+### Regression Suite Strategy
 
-*   Verify login page elements are displayed.
-*   Verify the 'Forgot your password?' link navigates to the password reset page.
-*   Verify the password reset functionality.
-*   Verify social media icons are displayed on the login page.
+The Regression Suite is designed to ensure that existing functionality remains intact after new changes are introduced. This suite includes a broader range of tests, including:
 
-### Regression Suite
+*   Alternative Flows
+*   Negative Scenarios
+*   Boundary Analysis
+*   Cross-Module Interactions
+*   Validation Messages
 
-The regression suite will cover a broader range of functionality, including alternative flows, negative scenarios, and boundary conditions. This suite ensures that new changes have not introduced defects into existing functionality.
+## Test Cases
 
-#### Regression Test Cases
-
-*   Verify login with valid and invalid credentials.
-*   Verify password reset with valid and invalid usernames.
-*   Verify error messages are displayed for invalid login attempts.
-*   Verify the functionality of all links on the login page.
-*   Verify the display and functionality of social media icons on the login page.
-
-## Test Environment
-
-The tests will be executed in the following environment:
-
-*   Browser: Chrome
-*   Operating System: Windows 10
-*   Test Framework: Playwright
-
-## Test Data
-
-Test data will be used to simulate various scenarios and ensure the application handles different types of input correctly. This includes valid and invalid usernames and passwords.
-
-## Test Execution
-
-The tests will be executed automatically as part of the continuous integration process. Results will be reported to a central dashboard for analysis.
+Detailed test cases will be documented in the respective feature files.

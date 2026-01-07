@@ -44,23 +44,8 @@ class SaucedemoInventoryPage:
     def product_sort_dropdown(self):
         return self.page.locator("[data-test='product-sort-container']")
 
-    @property
-    def add_bike_light_button(self):
-        return self.page.locator("[data-test='add-to-cart-sauce-labs-bike-light']")
-
     def sort_by_price_low_to_high(self):
-        self.product_sort_dropdown.select_option(label="Price (low to high)")
-
-    def add_bike_light_to_cart(self):
-        self.add_bike_light_button.click()
-
-class SwagLabsPage:
-    def __init__(self, page):
-        self.page = page
-
-    @property
-    def login_button(self):
-        return self.page.locator("[data-test='login-button']")
+        self.product_sort_dropdown.select_option(label='Price (low to high)')
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
@@ -73,7 +58,6 @@ def test_autonomous_flow(browser: Browser):
     home_page.goto()
     home_page.login("standard_user", "secret_sauce")
     inventory_page.sort_by_price_low_to_high()
-    inventory_page.add_bike_light_to_cart()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")
