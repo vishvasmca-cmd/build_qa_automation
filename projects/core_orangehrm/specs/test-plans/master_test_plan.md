@@ -2,75 +2,78 @@
 
 ## Introduction
 
-This test plan outlines the testing strategy for the core_orangehrm project, focusing on verifying key functionalities related to the login page and password reset flow. The application under test is a SaaS platform.
+This document outlines the test plan for the core_orangehrm project, focusing on verifying key functionalities of the OrangeHRM application. The tests will cover login page elements, the 'Forgot Password' flow, and the visibility of social media icons.
 
 ## Scope
 
 The scope of this test plan includes:
 
 *   Verification of login page elements.
-*   Functionality of the "Forgot your password?" link.
-*   Password reset process.
-*   Navigation between pages.
+*   Testing the 'Forgot your password?' link functionality.
+*   Checking the password reset process.
 *   Verification of social media icons on the login page.
 
 ## Test Strategy
 
-The testing will be conducted using a combination of smoke and regression testing.
+This test plan employs a two-tiered testing strategy:
+
+1.  **Smoke Testing:** A high-level suite to ensure the core functionalities are working as expected.
+2.  **Regression Testing:** A more comprehensive suite to cover various scenarios and edge cases.
 
 ### Smoke Suite Strategy
 
-The smoke suite will focus on the critical path of the application. The following checklist is applied to define the smoke suite:
+The Smoke Suite will adhere to the following checklist:
 
-1.  **Critical Paths:** Tests cover essential functionalities like accessing the login page and initiating the password reset process.
-2.  **Core Business Logic:** Focuses on the primary function of user authentication and password recovery.
-3.  **Positive Testing:** Primarily focuses on successful scenarios (e.g., clicking the "Forgot your password?" link).
-4.  **No Negative Testing:** Negative scenarios like invalid username are excluded from the smoke suite.
-5.  **No Complex Edge Cases:** Complex scenarios or boundary conditions are not included.
-6.  **Fast Execution:** The smoke suite is designed to be executed quickly to provide rapid feedback.
-7.  **Build Acceptance:** Successful completion of the smoke suite is a prerequisite for build acceptance.
-8.  **Limited Scope:** The suite covers a minimal set of functionalities to ensure the system's basic health.
-
-### Regression Suite Strategy
-
-The regression suite will provide a comprehensive test coverage to ensure that new changes have not introduced any regressions. This will include:
-
-*   Alternative flows.
-*   Negative scenarios.
-*   Boundary analysis.
-*   Cross-module interactions.
-*   Validation messages.
+1.  **Critical Path Focus:** Tests will concentrate on the most critical paths (e.g., login, password reset).
+2.  **Core Business Logic:** Verification of the primary business logic related to authentication.
+3.  **Positive Testing:** Primarily positive testing, ensuring successful execution of core functionalities.
+4.  **No Negative Testing:** Negative scenarios (e.g., invalid login attempts) are excluded from the smoke suite.
+5.  **Minimal Edge Cases:** Complex edge cases are not considered in the smoke suite.
+6.  **Fast Execution:** Tests are designed for quick execution to provide rapid feedback.
+7.  **Build Acceptance:** Failure of any smoke test indicates a critical issue, potentially rejecting the build.
+8.  **Happy Path**: Tests follow the most common and straightforward user flows.
 
 ## Test Suites
 
-1.  **Smoke Suite:**
-    *   Verify the presence of login page elements.
-    *   Verify the functionality of the "Forgot your password?" link.
-    *   Initiate the password reset process.
-    *   Verify navigation back to the login page.
-    *   Verify the presence of social media icons on the login page.
+### 1. Smoke Suite
 
-2.  **Regression Suite:** (To be defined in detail later)
-    *   Test with invalid username and password.
-    *   Test password reset with different username formats.
-    *   Verify error messages.
-    *   Test social media links.
+*   **Description:** A set of critical tests to verify the basic functionality of the application.
+*   **Focus:** Login page elements, 'Forgot Password' flow.
+*   **Environment:** Staging
+
+### 2. Regression Suite
+
+*   **Description:** A comprehensive set of tests to ensure that new changes have not introduced regressions.
+*   **Focus:** All functionalities, including edge cases and negative scenarios.
+*   **Environment:** Staging
+
+## Test Cases (Examples)
+
+**Smoke Suite:**
+
+*   Verify that all login page elements are displayed correctly.
+*   Verify that the 'Forgot your password?' link redirects to the password reset page.
+*   Verify that a user can request a password reset.
+*   Verify that social media icons are displayed on the login page.
+
+**Regression Suite:**
+
+*   Verify that a user can log in with valid credentials.
+*   Verify that a user cannot log in with invalid credentials.
+*   Verify that the password reset functionality works correctly with a valid username.
+*   Verify that the password reset functionality displays an error message with an invalid username.
+*   Verify the appearance and functionality of all elements on the login page across different browsers and devices.
 
 ## Test Environment
 
-The tests will be executed on the following environment:
-
-*   Browser: Chrome (latest version)
-*   Operating System: Windows 10/11, macOS
+*   **Browser:** Chrome, Firefox, Safari, Edge
+*   **Operating System:** Windows, macOS, Linux
+*   **Environment:** Staging
 
 ## Test Deliverables
 
-*   Test Plan
-*   Test Cases (Gherkin Feature Files)
-*   Test Execution Reports
-
-## Test Automation
-
-*   The tests will be automated using Playwright.
-*   Gherkin syntax will be used to define the test cases.
-
+*   Test Plan document
+*   Test Cases
+*   Test Scripts
+*   Test Results
+*   Defect Reports

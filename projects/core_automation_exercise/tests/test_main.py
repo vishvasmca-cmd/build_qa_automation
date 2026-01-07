@@ -38,46 +38,61 @@ class ProductsPage:
     def cart_link(self):
         return self.page.get_by_role("link", name="Cart")
 
-    def navigate_to_products(self) -> None:
+    def navigate_to_products(self):
         self.products_link.click()
         self.page.wait_for_load_state("networkidle")
 
-    def search_product(self, product_name: str) -> None:
+    def search_product(self, product_name: str):
         self.search_product_input.fill(product_name)
         self.submit_search_button.click()
         self.page.wait_for_load_state("networkidle")
 
-    def add_first_product_to_cart(self) -> None:
-        # Handle potential advertisement overlays
-        self.page.evaluate("document.querySelectorAll('#advertisement, .ad-container').forEach(el => el.remove())")
-        # Use a more specific locator for the 'Add to cart' button within the first product
-        self.page.locator(".product-overlay a", has_text=re.compile("Add to cart", re.IGNORECASE)).first.click(force=True)
+    def add_first_product_to_cart(self):
+        # Use index-based loop for stability
+        self.page.locator(".single-products .productinfo a", has_text=re.compile("Add to cart", re.IGNORECASE)).first.click(force=True)
+        self.page.get_by_role("button", name="Continue Shopping").click()
         self.page.wait_for_load_state("networkidle")
 
-    def view_cart(self) -> None:
-        self.cart_link.click()
+from playwright.sync_api import Page, expect
+
+class CartPage:
+    def __init__(self, page: Page) -> None:
+        self.page = page
+
+    @property
+    def view_cart_link(self):
+        return self.page.get_by_role("link", name="View Cart")
+
+    @property
+    def proceed_to_checkout_button(self):
+        return self.page.get_by_role("link", name="Proceed To Checkout")
+
+    def view_cart(self):
+        self.view_cart_link.click()
         self.page.wait_for_load_state("networkidle")
 
+    def proceed_to_checkout(self):
+        self.proceed_to_checkout_button.click()
+        self.page.wait_for_load_state("networkidle")
 
-import re
-from playwright.sync_api import Browser, Page, expect
-
-def take_screenshot(page: Page, name: str, project_name: str) -> None:
-    page.screenshot(path=f"screenshots/{project_name}/{name}.png")
+from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
     page.goto("https://automationexercise.com/")
-    page.wait_for_load_state("networkidle")
+    page.wait_for_load_state("domcontentloaded")
 
     # 2. Logic (using POM)
     products_page = ProductsPage(page)
+    cart_page = CartPage(page)
+
     products_page.navigate_to_products()
     products_page.search_product("Dress")
     products_page.add_first_product_to_cart()
-    products_page.view_cart()
+    cart_page.view_cart()
+    cart_page.proceed_to_checkout()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

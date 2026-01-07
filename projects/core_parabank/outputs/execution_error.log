@@ -17,67 +17,36 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
+        parabank_page = ParabankPage(page)
+        parabank_wadl_page = ParabankWadlPage(page)
     
         # 2. Logic (using POM)
-        parabank_page = ParabankPage(page)
         parabank_page.goto()
     
-        # Step 0: Click on About Us link
->       parabank_page.about_us_link.click()
+        # Step 0: Click Account History link
+>       parabank_page.click_account_history()
 
-projects/core_parabank/tests/test_main.py:64: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
-    self._sync(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
-    return await self._frame._click(self._selector, strict=True, **params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:566: in _click
-    await self._channel.send("click", self._timeout, locals_to_params(locals()))
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
-    return await self._connection.wrap_api_call(
+projects/core_parabank/tests/test_main.py:69: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7f1c6c9f25d0>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f1c6c980c20>
-is_internal = False, title = None
+self = <test_main.ParabankPage object at 0x7f05bc526990>
 
-    async def wrap_api_call(
-        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
-    ) -> Any:
-        if self._api_zone.get():
-            return await cb()
-        task = asyncio.current_task(self._loop)
-        st: List[inspect.FrameInfo] = getattr(
-            task, "__pw_stack__", None
-        ) or inspect.stack(0)
-    
-        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
-        self._api_zone.set(parsed_st)
-        try:
-            return await cb()
-        except Exception as error:
->           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name="About Us") resolved to 2 elements:
-E               1) <a href="about.htm;jsessionid=FA923A337100C13DF4ADC81CDE2A46FC">About Us</a> aka locator("#headerPanel").get_by_role("link", name="About Us")
-E               2) <a href="about.htm;jsessionid=FA923A337100C13DF4ADC81CDE2A46FC">About Us</a> aka locator("#footerPanel").get_by_role("link", name="About Us")
-E           
-E           Call log:
-E             - waiting for get_by_role("link", name="About Us")
+    def click_account_history(self) -> None:
+        self.account_history_link.click()
+        wait_for_stability(self.page)
+>       expect(self.page).to_have_url(re.compile(".*/accountactivity.htm", re.IGNORECASE))
+E       AssertionError: Page URL expected to be 're.compile('.*/accountactivity.htm', re.IGNORECASE)'
+E       Actual value: https://parabank.parasoft.com/parabank/services/bank;jsessionid=1825DB040278DA17832C5FDE763CC7DA?_wadl&_type=xml 
+E       Call log:
+E         - Expect "to_have_url" with timeout 5000ms
+E           9 × unexpected value "https://parabank.parasoft.com/parabank/services/bank;jsessionid=1825DB040278DA17832C5FDE763CC7DA?_wadl&_type=xml"
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
-=============================== warnings summary ===============================
-projects/core_parabank/tests/test_main.py:79
-  /home/runner/work/build_qa_automation/build_qa_automation/projects/core_parabank/tests/test_main.py:79: DeprecationWarning: invalid escape sequence '\?'
-    expect(page).to_have_url(re.compile(".*/services/bank\?_wadl&_type=xml"))
-
--- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+projects/core_parabank/tests/test_main.py:35: AssertionError
 =========================== short test summary info ============================
-FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name="About Us") resolved to 2 elements:
-    1) <a href="about.htm;jsessionid=FA923A337100C13DF4ADC81CDE2A46FC">About Us</a> aka locator("#headerPanel").get_by_role("link", name="About Us")
-    2) <a href="about.htm;jsessionid=FA923A337100C13DF4ADC81CDE2A46FC">About Us</a> aka locator("#footerPanel").get_by_role("link", name="About Us")
-
+FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page URL expected to be 're.compile('.*/accountactivity.htm', re.IGNORECASE)'
+Actual value: https://parabank.parasoft.com/parabank/services/bank;jsessionid=1825DB040278DA17832C5FDE763CC7DA?_wadl&_type=xml 
 Call log:
-  - waiting for get_by_role("link", name="About Us")
-========================= 1 failed, 1 warning in 1.74s =========================
+  - Expect "to_have_url" with timeout 5000ms
+    9 × unexpected value "https://parabank.parasoft.com/parabank/services/bank;jsessionid=1825DB040278DA17832C5FDE763CC7DA?_wadl&_type=xml"
+============================== 1 failed in 7.10s ===============================
 

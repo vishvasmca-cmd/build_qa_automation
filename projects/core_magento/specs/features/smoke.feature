@@ -1,11 +1,12 @@
 Feature: Product Search and Details
   As a user
-  I want to search for a product and view its details
-  So that I can find and learn about products I'm interested in
+  I want to search for products and view their details
+  So that I can find and purchase the products I need
 
-  @smoke @skip
+  @smoke
   Scenario: Search for a product and view details
     Given I am on the home page
     When I search for "Watch"
-    And I filter by category
-    Then I should see product details
+    Then I should see search results for "Watch"
+    And I click on the first product in the search results
+    Then I should be able to view the product details

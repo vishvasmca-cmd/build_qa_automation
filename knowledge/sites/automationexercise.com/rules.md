@@ -49,3 +49,9 @@
 - Before interacting with a search input, ensure it is visible and enabled.  Consider adding a short explicit wait if the element's appearance is dependent on other network requests.
 
 - When interacting with elements found using `.first()`, ensure the element is resolved before attempting actions like `.click()`.  Use `.first().locator('self')` to resolve the element.
+
+- When interacting with locators, ensure that the correct action method (e.g., `.click()`) is called on the locator object, and that the locator is correctly identifying the target element.
+
+- Before clicking 'View Cart', ensure the page is fully loaded and any potential overlays (e.g., promotional modals) are closed.
+
+- Before clicking 'View Cart', ensure any modals or overlays are closed to prevent element occlusion. Also, wait for the page to fully load and any dynamic content to render before attempting to interact with the cart link.
