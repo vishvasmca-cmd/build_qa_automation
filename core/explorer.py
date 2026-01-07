@@ -503,7 +503,17 @@ class ExplorerAgent:
                         print(colored("   ⌛ Waiting for potential modal/animation...", "grey"))
                         await asyncio.sleep(1.5)
                 except Exception as e:
-                    print(colored(f"   👉 Locator failed ({e}). Using coordinate fallback.", "magenta"))
+                    # Fix for "intercepts pointer events" (overlays/ads)
+                    if "intercepts pointer events" in str(e):
+                        print(colored("   🛡️ Click intercepted! Retrying with force=True...", "yellow"))
+                        try:
+                            await page.locator(locator_str).click(timeout=5000, force=True)
+                        except Exception as e2:
+                            print(colored(f"   ❌ Force click also failed: {e2}", "red"))
+                            # Fallback to coordinate click below...
+                    else:
+                        print(colored(f"   👉 Locator failed ({e}). Using coordinate fallback.", "magenta"))
+                    
                     if target_el.get('center') and target_el['center'].get('x') is not None:
                         await page.mouse.click(target_el['center']['x'], target_el['center']['y'])
                     else:
