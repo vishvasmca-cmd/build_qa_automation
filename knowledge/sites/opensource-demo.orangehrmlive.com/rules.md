@@ -16,3 +16,5 @@
 - Before interacting with elements in the top navigation bar, ensure the page has fully loaded and any initial animations or transitions have completed. Consider using `locator.wait_for()` with `state='visible'` or `state='stable'` before attempting to click.
 
 - When interacting with elements in the OrangeHRM header, especially navigation links, implement retry logic with exponential backoff to handle potential intermittent loading issues or animations that might delay element availability. Consider using more robust locators than full XPaths.
+
+- When navigating to the login page, implement a retry mechanism with exponential backoff to handle potential network or server delays. Also, verify the page content instead of relying solely on URL matching, as redirects might occur.

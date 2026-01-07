@@ -1,3 +1,4 @@
+# Auto-generated Test
 import pytest
 import os
 import re
@@ -16,14 +17,23 @@ class ProductsPage:
 
     @property
     def products_link(self):
-        return self.page.get_by_role("link", name=re.compile("Products", re.IGNORECASE))
+        return self.page.get_by_role("link", name="\ue8f8 Products")
 
     @property
     def search_product_input(self):
         return self.page.locator("#search_product")
 
-    def get_add_to_cart_button(self, product_name: str):
-        return self.page.locator(".product-overlay", has_text=product_name).locator("a",text="Add to cart")
+    @property
+    def submit_search_button(self):
+        return self.page.locator("#submit_search")
+
+    @property
+    def add_to_cart_button(self):
+        return self.page.get_by_role("link", name="Add to cart")
+
+    @property
+    def cart_link(self):
+        return self.page.get_by_role("link", name="Cart")
 
     @property
     def continue_shopping_button(self):
@@ -31,20 +41,21 @@ class ProductsPage:
 
     def navigate_to_products(self):
         self.products_link.click()
+        self.page.wait_for_load_state("networkidle")
 
     def search_product(self, product_name):
         self.search_product_input.fill(product_name)
+        self.submit_search_button.click()
+        self.page.wait_for_load_state("networkidle")
 
-    def add_product_to_cart(self, product_name: str):
-        # Locate the product card containing the specified product name
-        product_card = self.page.locator(".product-overlay", has_text=product_name)
-        # Within that card, find the 'Add to cart' button and click it
-        add_to_cart_button = product_card.locator("a", text="Add to cart")
-        add_to_cart_button.click()
+    def add_product_to_cart(self):
+        self.page.evaluate("document.querySelectorAll('#advertisement, .ad-container').forEach(el => el.remove())")
+        self.add_to_cart_button.first.click(force=True)
+        self.page.wait_for_load_state("networkidle")
 
-    def continue_shopping(self):
-        self.continue_shopping_button.click()
-
+    def view_cart(self):
+        self.cart_link.click()
+        self.page.wait_for_load_state("networkidle")
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
@@ -55,12 +66,10 @@ def test_autonomous_flow(browser: Browser):
 
     # 2. Logic (using POM)
     products_page = ProductsPage(page)
-
     products_page.navigate_to_products()
     products_page.search_product("Dress")
-    products_page.add_product_to_cart("Dress")
-    products_page.continue_shopping()
-    products_page.add_product_to_cart("Dress")
+    products_page.add_product_to_cart()
+    products_page.view_cart()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

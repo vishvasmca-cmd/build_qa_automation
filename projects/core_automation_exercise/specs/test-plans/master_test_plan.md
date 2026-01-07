@@ -2,61 +2,53 @@
 
 ## Introduction
 
-This document outlines the test plan for the core_automation_exercise project, focusing on the ecommerce domain. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
+This document outlines the test plan for the core_automation_exercise project, an e-commerce platform. The plan details the testing scope, strategy, and specific test suites to be executed.
 
 ## Scope
 
-The testing will cover key functionalities such as product browsing, searching, adding items to the cart, and proceeding to checkout.
+The testing will focus on core functionalities, including product browsing, searching, adding to cart, and proceeding to checkout. This will ensure a smooth user experience and the integrity of the e-commerce platform.
+
+## Test Strategy
+
+We will employ a two-pronged testing approach:
+
+1.  **Smoke Testing:** A rapid and shallow test suite to verify the most critical functionalities after each build.
+2.  **Regression Testing:** A comprehensive test suite to ensure that new changes haven't introduced defects into existing functionalities.
+
+### Smoke Suite Strategy
+
+The Smoke Suite is designed to provide a quick health check of the application. The following checklist is applied to determine the inclusion of test cases in the Smoke Suite:
+
+1.  **Critical Path:** Does the functionality represent a critical path for the user (e.g., login, checkout)?
+2.  **Core Business Logic:** Does the functionality exercise core business logic (e.g., product pricing, inventory management)?
+3.  **High Traffic Areas:** Is the functionality frequently used by a large number of users?
+4.  **Deployment Validation:** Does the functionality verify a successful deployment?
+5.  **Positive Flow:** Does the test case focus on a positive or "happy path" scenario?
+6.  **End-to-End:** Does the test case cover an end-to-end flow, providing broad coverage?
+7.  **Data Integrity:** Does the functionality impact data integrity?
+8.  **Third-Party Integration:** Does the functionality involve critical third-party integrations?
 
 ## Test Suites
 
-### Smoke Suite
+### 1. Smoke Suite
 
-The smoke suite will focus on critical path testing to ensure the core functionalities are working as expected. These tests will be executed on every build to quickly identify any major issues.
-
-#### Smoke Suite Strategy
-
-The smoke suite strategy for this project follows an 8-point checklist:
-
-1.  **Critical Paths Only**: Focus solely on the most essential workflows (e.g., login, add to cart, checkout).
-2.  **Positive Testing**: Primarily use valid/expected inputs.
-3.  **Minimal Data**: Use a small, representative set of test data.
-4.  **No Edge Cases**: Avoid complex scenarios or boundary conditions.
-5.  **Independent Tests**: Each test should be able to run independently without relying on the state of others.
-6.  **Fast Execution**: Tests should be designed for quick execution to provide rapid feedback.
-7.  **Automated**: All smoke tests must be automated.
-8.  **Build Breaker**: Failure of any smoke test should result in a failed build.
-
-### Regression Suite
-
-The regression suite will include a more comprehensive set of tests to cover various scenarios, edge cases, and negative testing. This suite will be executed periodically to ensure that new changes have not introduced any regressions.
-
-## Test Modules
-
-### Product Catalog
-
-*   **Smoke:**
+*   **Description:** A minimal set of tests to verify the core functionalities of the e-commerce platform.
+*   **Focus:** Critical paths and core business logic.
+*   **Test Cases:**
     *   Navigate to Products page
-    *   Search for a product
-*   **Regression:**
-    *   Filter products by category
-    *   Sort products by price
+    *   Search for a product ('Dress')
+    *   Add a product to the cart
+    *   Navigate to the cart/checkout page
+
+### 2. Regression Suite
+
+*   **Description:** A comprehensive set of tests to ensure that new changes haven't broken existing functionalities.
+*   **Focus:** Alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
+*   **Test Cases:** (Examples)
     *   Search for a non-existent product
-
-### Shopping Cart
-
-*   **Smoke:**
-    *   Add item to cart
-*   **Regression:**
+    *   Attempt to add an out-of-stock item to the cart
     *   Update quantity in cart
     *   Remove item from cart
-    *   Add out-of-stock item
+    *   Apply valid/invalid coupon code
+    *   Checkout with different payment methods
 
-### Checkout
-
-*   **Smoke:**
-    *   Proceed to checkout
-*   **Regression:**
-    *   Enter shipping information
-    *   Apply coupon code
-    *   Handle payment failures

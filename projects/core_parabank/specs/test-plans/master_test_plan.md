@@ -1,35 +1,39 @@
 # Test Plan: core_parabank
 
-## Overview
+## Introduction
 
-This test plan outlines the testing strategy for the core_parabank application, focusing on verifying key functionalities within the banking domain. The plan includes both smoke and regression test suites to ensure application stability and identify potential issues introduced by recent changes.
+This document outlines the test plan for the core_parabank application, focusing on verifying key functionalities within the banking domain. The plan includes both smoke and regression test suites to ensure application stability and quality.
 
 ## Scope
 
-The testing scope encompasses account access, transfers & payments, and statements & history modules. The plan prioritizes critical paths and core business logic for smoke testing, while regression testing covers alternative flows, negative scenarios, and boundary conditions.
+The testing will cover the following modules:
+
+*   Account Access
+*   Transfers & Payments
+*   Statements & History
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite verifies the most critical functionalities of the application. It is designed to be executed quickly and efficiently to ensure the application's core features are working as expected.
+The smoke suite will focus on critical path testing to ensure the core functionalities of the application are working as expected. This suite will be executed for every build to quickly identify any major issues.
 
 #### Smoke Suite Strategy
 
-The following checklist is applied to define the smoke suite for this project:
+The following checklist has been applied when designing the Smoke Suite for this project:
 
-1.  **Critical Paths:** Focus on the most essential user flows (e.g., login, viewing account summary).
-2.  **Core Business Logic:** Cover the primary revenue or operational flows.
-3.  **Positive Testing:** Primarily focus on happy path scenarios.
-4.  **No Negative Testing:** Exclude negative test cases unless they involve critical security concerns.
-5.  **No Complex Edge Cases:** Avoid complex or less common scenarios.
-6.  **Minimal Data Variation:** Use a limited set of test data.
-7.  **Fast Execution:** Design tests for quick execution to enable rapid feedback.
-8.  **Independence:** Ensure tests are independent and can be run in any order.
+1.  **Critical Paths Only**: Tests cover only the most essential workflows (e.g., login, basic transfer).  Complex scenarios are excluded.
+2.  **Positive Testing**:  Focus is on successful execution of core functions.  Negative tests (e.g., invalid input) are skipped.
+3.  **Minimal Data**:  Use a small, representative set of test data.
+4.  **Independent Tests**:  Tests are designed to be independent and can be run in any order.
+5.  **Fast Execution**:  Tests are optimized for speed to provide quick feedback.
+6.  **Automated**:  All smoke tests are automated for consistent and repeatable execution.
+7.  **Stable Locators**:  Use robust locators to minimize test failures due to UI changes.
+8.  **Environment Stability**:  Smoke tests are run in a stable and dedicated environment.
 
 ### Regression Suite
 
-The regression suite provides comprehensive test coverage to ensure that new changes have not introduced defects into existing functionality. It includes a wide range of scenarios, including alternative flows, negative scenarios, and boundary conditions.
+The regression suite will provide comprehensive testing of the application, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite will be executed periodically to ensure that new changes have not introduced any regressions.
 
 ## Test Modules
 
@@ -37,6 +41,7 @@ The regression suite provides comprehensive test coverage to ensure that new cha
 
 *   **Smoke Tests:**
     *   Customer Login
+    *   View Account Dashboard
 *   **Regression Tests:**
     *   Login with Biometrics/MFA
     *   Recover Forgotten Username/Password
@@ -46,6 +51,7 @@ The regression suite provides comprehensive test coverage to ensure that new cha
 
 *   **Smoke Tests:**
     *   Internal Fund Transfer (Checking to Savings)
+    *   Bill Payment (Standard)
 *   **Regression Tests:**
     *   Transfer exceeding balance (Insufficient Funds)
     *   Transfer exceeding daily limit

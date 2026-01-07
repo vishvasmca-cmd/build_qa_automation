@@ -2,38 +2,54 @@
 
 ## Introduction
 
-This document outlines the test plan for the core_magento e-commerce project. It details the testing scope, strategy, and specific test cases to be executed.
+This test plan outlines the testing strategy for the core_magento e-commerce platform. It covers smoke and regression testing, focusing on key functionalities such as product search, filtering, and viewing product details.
 
-## Test Scope
+## Scope
 
-The testing will focus on the core functionalities of the e-commerce platform, including product search, filtering, and product details viewing. Due to SSL certificate issues encountered during the trace, the initial focus will be on verifying basic navigation and search functionality.
+The scope of this test plan includes:
 
-## Test Strategy
-
-The testing will be conducted using a combination of smoke and regression testing approaches.
-
-### Smoke Suite Strategy
-
-The smoke suite will focus on verifying the critical path of searching for a product and viewing its details. The following checklist will be applied:
-
-1.  **Critical Paths:** Verify the basic search functionality.
-2.  **Core Business Logic:** Ensure product details can be viewed.
-3.  **Positive Testing:** Focus on successful search and view scenarios.
-4.  **No Negative Testing:** No invalid search terms will be used in the smoke suite.
-5.  **No Complex Edge Cases:** Simple search and view scenarios only.
-6.  **Fast Execution:** The smoke suite should be quick to execute.
-7.  **Build Validation:** The smoke suite will be used to validate new builds.
-8.  **Automated Execution:** The smoke suite will be automated for continuous integration.
-
-### Regression Suite Strategy
-
-The regression suite will cover a broader range of scenarios, including filtering, sorting, and handling of invalid search terms. This suite will be executed after the smoke suite passes and will ensure that new changes have not introduced regressions.
+*   Product Catalog
 
 ## Test Suites
 
-1.  Smoke Suite: Verifies basic search and product viewing functionality.
-2.  Regression Suite: Covers a wider range of scenarios, including filtering, sorting, and error handling.
+This test plan defines two main test suites:
 
-## Test Cases (Covered in Feature Files)
+*   Smoke Suite: A minimal set of tests to verify the core functionality.
+*   Regression Suite: A comprehensive suite to ensure existing functionality remains intact after changes.
 
-Test cases are detailed in the feature files, following the BDD (Behavior-Driven Development) approach.
+### Smoke Suite Strategy
+
+The Smoke Suite is designed to provide a quick and efficient way to assess the stability of the core_magento platform. The following checklist is applied:
+
+1.  **Critical Paths:** Focus on the most critical user flows (e.g., product search and viewing product details).
+2.  **Core Business Logic:** Verify the primary functions related to product catalog.
+3.  **Positive Testing:** Primarily focus on positive scenarios (e.g., searching for existing products).
+4.  **No Negative Testing:** Exclude negative test cases (e.g., searching for non-existent products) in the smoke suite.
+5.  **Minimal Edge Cases:** Avoid complex edge cases.
+6.  **Fast Execution:** Tests should be quick to execute.
+7.  **Independent Tests:** Tests should be independent of each other.
+8.  **Automated:** All smoke tests should be automated.
+
+### Regression Suite Strategy
+
+The Regression Suite is designed to ensure that new changes do not negatively impact existing functionality. It includes a broader range of test cases, including:
+
+*   Alternative Flows
+*   Negative Scenarios
+*   Boundary Analysis
+*   Cross-Module Interactions
+*   Validation Messages
+
+## Test Modules
+
+### Product Catalog
+
+*   **Smoke Tests:**
+    *   Verify that a user can search for a product.
+    *   Verify that a user can view product details.
+*   **Regression Tests:**
+    *   Verify that a user can filter products by category.
+    *   Verify that a user can sort products.
+    *   Verify that the system handles searches for non-existent products gracefully.
+    *   Verify pagination functionality.
+

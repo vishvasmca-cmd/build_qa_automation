@@ -22,29 +22,27 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
     
         # 2. Logic (using POM)
         products_page = ProductsPage(page)
-    
         products_page.navigate_to_products()
->       products_page.search_product("Dress")
+        products_page.search_product("Dress")
+>       products_page.add_product_to_cart()
 
-projects/core_automation_exercise/tests/test_main.py:60: 
+projects/core_automation_exercise/tests/test_main.py:65: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_automation_exercise/tests/test_main.py:36: in search_product
-    self.search_product_input.fill(product_name)
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15989: in fill
+projects/core_automation_exercise/tests/test_main.py:46: in add_product_to_cart
+    self.page.get_by_role("link", name="Add to cart").first.click(force=True)
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:215: in fill
-    return await self._frame.fill(self._selector, strict=True, **params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:607: in fill
-    await self._fill(**locals_to_params(locals()))
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:619: in _fill
-    await self._channel.send("fill", self._timeout, locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:566: in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7f23138e8b10>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f2312418680>
+self = <playwright._impl._connection.Connection object at 0x7fcb2f3ddd10>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fcb2df467a0>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -63,14 +61,14 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 E           Call log:
-E             - waiting for locator("#search_product")
+E             - waiting for get_by_role("link", name="Add to cart").first
 
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
 =========================== short test summary info ============================
-FAILED projects/core_automation_exercise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+FAILED projects/core_automation_exercise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 Call log:
-  - waiting for locator("#search_product")
-============================== 1 failed in 32.41s ==============================
+  - waiting for get_by_role("link", name="Add to cart").first
+============================== 1 failed in 37.21s ==============================
 
