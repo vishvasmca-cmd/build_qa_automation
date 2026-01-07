@@ -196,5 +196,32 @@
       "phase": "execution"
     },
     "error": "   async def continuation() -> Optional[Response]:\n>       event = await waiter.result()\n                ^^^^^^^^^^^^^^^^^^^^^\nE       playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.\nE       =========================== logs ===========================\nE       waiting for navigation to \"**/about\" until 'load'\nE       ============================================================\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:239: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/train_rank60_x_com/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"**/about\" until 'load'\n============================================================\n============================== 1 failed in 32.71s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-07T04:12:51.114165",
+    "context": {
+      "site": "https://automationexercise.com/",
+      "project": "core_automation_exercise",
+      "phase": "execution"
+    },
+    "error": "or_load_state(\"domcontentloaded\")\n    \n        # 2. Logic (using POM)\n        products_page = ProductsPage(page)\n        products_page.navigate_to_products()\n        products_page.search_product(\"Dress\")\n>       products_page.add_product_to_cart()\n\nprojects/core_automation_exercise/tests/test_main.py:69: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <test_main.ProductsPage object at 0x7fdc1508e550>\n\n    def add_product_to_cart(self) -> None:\n>       self.add_to_cart_button.first().click()\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       TypeError: 'Locator' object is not callable\n\nprojects/core_automation_exercise/tests/test_main.py:46: TypeError\n=========================== short test summary info ============================\nFAILED projects/core_automation_exercise/tests/test_main.py::test_autonomous_flow[chromium] - TypeError: 'Locator' object is not callable\n============================== 1 failed in 3.05s ===============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-07T04:13:03.396253",
+    "context": {
+      "site": "https://parabank.parasoft.com/parabank/index.htm",
+      "project": "core_parabank",
+      "phase": "execution"
+    },
+    "error": "   ) or inspect.stack(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nE           Call log:\nE             - waiting for get_by_role(\"link\", name=\"Home\")\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_role(\"link\", name=\"Home\")\n============================== 1 failed in 31.47s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-07T04:16:22.701324",
+    "context": {
+      "site": "https://opensource-demo.orangehrmlive.com/",
+      "project": "core_orangehrm",
+      "phase": "execution"
+    },
+    "error": " Optional[Response]:\n>       event = await waiter.result()\n                ^^^^^^^^^^^^^^^^^^^^^\nE       playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.\nE       =========================== logs ===========================\nE       waiting for navigation to \"*requestPasswordResetCode\" until 'load'\nE       ============================================================\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:239: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"*requestPasswordResetCode\" until 'load'\n============================================================\n============================== 1 failed in 37.30s ==============================\n\n\n"
   }
 ]
