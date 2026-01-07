@@ -298,7 +298,9 @@ class CodeRefiner:
         - ❌ NEVER use positional `.nth(0)` if a text match or ID is available in the trace element context.
         - ❌ **STABILITY WARNING**: NEVER use full URLs as accessibility names (e.g. `get_by_role("link", name="https://...")`). Use visible text or labels instead.
         - ❌ **STABILITY WARNING**: NEVER use explicit `scroll` or `PageDown` actions. Playwright actions auto-scroll to the element.
+        - ❌ **STRICT MODE VIOLATION**: If a locator matches multiple elements (e.g., 'Add to cart' buttons), you **MUST** uses `.first` or `.nth(0)` to pick one.
         - ❌ **SYNTAX ERROR**: NEVER use `.first()` as a method. It is a property. Use `locator.first.click()`.
+        - ⚠️ **CLICK INTERCEPTION**: If Playwright reports "intercepts pointer events", use `.click(force=True)` ONLY if the element is known to be covered by a decorative overlay or sticky header.
 
         **CRITICAL RULES**:
         1. **STANDARDS ONLY**: You MUST use pure Playwright API. DO NOT use custom helpers like `smart_action`.
