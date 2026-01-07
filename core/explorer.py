@@ -1,3 +1,4 @@
+import re
 import asyncio
 import json
 import sys
@@ -501,19 +502,25 @@ class ExplorerAgent:
                     if "cart" in target_el.get('text', '').lower() or "add" in target_el.get('text', '').lower():
                         print(colored("   ⌛ Waiting for potential modal/animation...", "grey"))
                         await asyncio.sleep(1.5)
-                except:
-                    print(colored("   👉 Locator failed. Using coordinate fallback.", "magenta"))
-                    await page.mouse.click(target_el['center']['x'], target_el['center']['y'])
+                except Exception as e:
+                    print(colored(f"   👉 Locator failed ({e}). Using coordinate fallback.", "magenta"))
+                    if target_el.get('center') and target_el['center'].get('x') is not None:
+                        await page.mouse.click(target_el['center']['x'], target_el['center']['y'])
+                    else:
+                        print(colored("   ❌ Coordinate fallback failed: No center coordinates.", "red"))
                 
             elif action == 'fill':
                 val = decision.get('value', '')
                 print(colored(f"⌨️ Filling ID={target_id} with '{val}'", "yellow"))
                 try:
                     await page.locator(locator_str).fill(val, timeout=5000)
-                except:
-                    print(colored("   👉 Locator failed. Using coordinate fallback.", "magenta"))
-                    await page.mouse.click(target_el['center']['x'], target_el['center']['y'])
-                    await page.keyboard.type(val)
+                except Exception as e:
+                    print(colored(f"   👉 Locator failed ({e}). Using coordinate fallback.", "magenta"))
+                    if target_el.get('center') and target_el['center'].get('x') is not None:
+                        await page.mouse.click(target_el['center']['x'], target_el['center']['y'])
+                        await page.keyboard.type(val)
+                    else:
+                        print(colored("   ❌ Coordinate fallback failed: No center coordinates.", "red"))
             
             elif action == 'navigate':
                 url = decision.get('value')
@@ -528,11 +535,15 @@ class ExplorerAgent:
             elif action == 'long_press':
                 print(colored(f"👆 Long-pressing ID={target_id} (10s)...", "yellow"))
                 # Use coordinates for maximum reliability on custom widgets
-                x, y = target_el['center']['x'], target_el['center']['y']
-                await page.mouse.move(x, y)
-                await page.mouse.down()
-                await asyncio.sleep(10)
-                await page.mouse.up()
+                center = target_el.get('center', {})
+                if center.get('x') is not None and center.get('y') is not None:
+                    x, y = center['x'], center['y']
+                    await page.mouse.move(x, y)
+                    await page.mouse.down()
+                    await asyncio.sleep(10)
+                    await page.mouse.up()
+                else:
+                    print(colored("   ❌ Long-press failed: No center coordinates.", "red"))
 
             return {
                 "success": True,

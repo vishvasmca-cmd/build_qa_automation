@@ -32,6 +32,8 @@ Goal: {workflow_goal}
 import re
 from playwright.sync_api import Page, expect, Browser
 import pytest
+import sys
+sys.path.append('C:/Users/vishv/.gemini/antigravity/playground/inner-event/core/templates')
 from helpers import wait_for_stability, take_screenshot
 
 def test_minimal_smoke(browser: Browser):
