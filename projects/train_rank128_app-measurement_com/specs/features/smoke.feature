@@ -1,11 +1,12 @@
-Feature: Basic Website Elements Verification
+Feature: Basic Website Functionality
   As a user,
-  I want to verify the presence of key elements on the website
-  So that I can ensure the basic functionality is available
+  I want to verify the basic functionality of the website,
+  So that I can ensure the website is accessible and key elements are present.
 
   @smoke
-  Scenario: Verify presence of links on Google homepage
-    Given I navigate to "https://www.google.com/"
-    Then I should see the "About" link
-    And I should see the "Store" link
-    And I should see the "Gmail" link
+  Scenario: Verify website navigation and element identification
+    Given I navigate to the website "https://app-measurement.com/"
+    Then I should see the website is loaded successfully
+    And I should be able to identify at least 5 buttons
+    And I should be able to identify at least 2 links
+    And I should be able to identify at least 2 menu bars

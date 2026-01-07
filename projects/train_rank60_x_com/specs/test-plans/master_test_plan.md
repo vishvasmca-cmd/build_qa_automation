@@ -1,54 +1,61 @@
-# Test Plan for train_rank60_x_com
+# Test Plan for train_rank60_x_com (x.com)
 
 ## Introduction
 
-This document outlines the test plan for the train_rank60_x_com project, focusing on testing the X.com website. The plan includes smoke and regression test suites to ensure the quality and stability of the application.
+This document outlines the test plan for testing the x.com website. The primary goal is to ensure the core functionalities are working as expected and to identify any potential issues.
 
-## Test Strategy
+## Scope
 
-The testing strategy involves two main suites: Smoke and Regression. The Smoke suite will cover the core functionalities to ensure the application's basic health. The Regression suite will provide a more comprehensive test coverage, including edge cases and negative scenarios.
+The testing will cover the following areas:
 
-### Smoke Suite Strategy
-
-The Smoke Suite is designed to quickly verify the critical functionalities of the application. The following checklist is applied:
-
-1.  **Critical Path Coverage:** Tests cover the most important user flows (e.g., login, signup).
-2.  **Core Functionality:** Focus on testing the primary features of the application.
-3.  **Positive Testing:** Primarily focuses on positive scenarios (happy path).
-4.  **Minimal Data Variation:** Uses a limited set of test data.
-5.  **Fast Execution:** Tests are designed to execute quickly.
-6.  **Build Validation:** Used to determine if a build is stable enough for further testing.
-7.  **No Complex Dependencies:** Avoids tests with complex setup or dependencies.
-8.  **Limited Scope:** Focuses on a small subset of the application's features.
+*   Website navigation
+*   Identification of buttons and links
 
 ## Test Suites
 
-### Smoke Suite
+This test plan includes two test suites:
 
-The Smoke suite will include tests to verify the following:
+*   Smoke Suite: A minimal set of tests to verify the core functionalities.
+*   Regression Suite: A comprehensive set of tests to cover all functionalities and edge cases.
 
-*   Verify the presence of key UI elements (buttons, links).
+### Smoke Suite Strategy
 
-### Regression Suite
+The Smoke Suite is designed to provide a quick and efficient way to verify the stability of the application. The following checklist is applied to this project:
 
-The Regression suite will include tests to verify the following:
+1.  **Critical Paths:** Tests cover the most important user flows (e.g., finding buttons and links).
+2.  **Core Business Logic:** Focuses on verifying the fundamental functionalities of the website.
+3.  **Positive Testing:** Primarily focuses on positive scenarios (e.g., elements are present).
+4.  **No Negative Testing:** Negative scenarios are excluded from the smoke suite.
+5.  **Minimal Edge Cases:** Complex edge cases are not included in the smoke suite.
+6.  **Fast Execution:** Tests are designed to execute quickly.
+7.  **High Priority:** Any failures in the smoke suite will result in immediate investigation.
+8.  **Build Acceptance:** Successful completion of the smoke suite is required for build acceptance.
 
-*   All functionalities covered in the smoke suite.
-*   Negative scenarios for login and signup.
-*   Edge cases for data input.
-*   Cross-browser compatibility.
-*   Performance testing.
+### Regression Suite Strategy
+
+The Regression Suite is designed to ensure that new changes have not introduced any regressions in existing functionalities. This suite will include:
+
+*   All Smoke Tests
+*   Alternative Flows
+*   Negative Scenarios
+*   Boundary Analysis
+*   Cross-Module Interactions
+*   Validation Messages
 
 ## Test Environment
 
-*   Browsers: Chrome, Firefox, Safari, Edge
-*   Operating Systems: Windows, macOS, Linux
-*   Devices: Desktop, Mobile, Tablet
+The tests will be executed on the following environment:
+
+*   Browser: Chrome
+*   Operating System: Windows/macOS
+
+## Test Data
+
+No specific test data is required for the smoke tests.
 
 ## Test Deliverables
 
 *   Test Plan
-*   Test Cases
-*   Test Scripts
+*   Test Cases (Gherkin Feature Files)
 *   Test Results
-*   Defect Reports
+

@@ -1,10 +1,10 @@
-Feature: X.com UI Element Verification
+Feature: Home Page - Element Identification
   As a user,
-  I want to verify the presence of key UI elements on the X.com website
-  So that I can ensure the basic functionality is available.
+  I want to verify the presence of key elements on the home page
+  So that I can ensure the website is functioning correctly.
 
   @smoke
-  Scenario: Verify presence of buttons and links on the homepage
-    Given I am on the X.com homepage
-    Then I should see the "Sign up with Apple" button
-    And I should see the "About" link
+  Scenario: Verify presence of buttons and links
+    Given I am on the x.com home page
+    Then I should see at least 5 buttons
+    And I should see at least 2 links

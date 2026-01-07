@@ -2,48 +2,41 @@
 
 ## Introduction
 
-This test plan outlines the testing strategy for the wordpress.org website. It includes smoke and regression test suites to ensure the quality and stability of the application.
+This test plan outlines the testing strategy for wordpress.org. It includes smoke and regression test suites to ensure the quality and stability of the website.
 
 ## Scope
 
-The scope of this test plan covers the core functionality of the wordpress.org website, including navigation, key links, and button elements.  Specific focus is on identifying and verifying the presence of key elements without interacting with them.
+The scope of this test plan covers the functionality of the wordpress.org website, focusing on identifying key elements such as buttons, links, and menu bars.
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite focuses on verifying the most critical functionalities of the application.  It ensures that the basic features are working as expected after each build or deployment.
+The smoke suite will focus on verifying the core functionality of the website. This includes ensuring that key elements are present and accessible.
 
 #### Smoke Suite Strategy
 
-The following 8-point checklist has been applied to define the smoke suite for this project:
+The following 8-point checklist is applied to define the Smoke Suite for this project:
 
-1.  **Critical Paths:** Tests cover essential user journeys (e.g., website launch, identifying key elements).
-2.  **Core Business Logic:** Focuses on verifying the presence and accessibility of key elements.
-3.  **No Negative Testing:**  Smoke tests do not include negative scenarios.
-4.  **No Complex Edge Cases:**  Smoke tests avoid complex or unusual scenarios.
-5.  **Minimal Test Data:**  Uses a minimal set of test data to execute the tests.
-6.  **Fast Execution:**  Smoke tests are designed to execute quickly.
-7.  **Independent Tests:**  Each smoke test should be independent of others.
-8. **Clear Pass/Fail Criteria:** Each test has a clear and unambiguous pass/fail criterion.
+1.  **Critical Paths:** Identify the most critical user flows (e.g., finding key elements).
+2.  **Core Business Logic:** Focus on elements directly related to the website's purpose (e.g., buttons, links, menu bars).
+3.  **No Negative Testing:**  Smoke tests will not include negative scenarios.
+4.  **No Complex Edge Cases:** Smoke tests will avoid complex or unusual scenarios.
+5.  **Minimal Test Data:** Use a minimal set of data for smoke tests.
+6.  **Fast Execution:** Smoke tests should be designed for quick execution.
+7.  **Independent Tests:** Each smoke test should be independent of others.
+8.  **Automated:** Smoke tests should be automated for continuous integration.
 
 ### Regression Suite
 
-The regression suite provides comprehensive test coverage to ensure that new changes have not introduced any regressions in existing functionality. This includes alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
+The regression suite will cover a broader range of functionality, including alternative flows, negative scenarios, and edge cases. This suite will ensure that new changes do not introduce regressions into existing functionality.
 
 ## Test Environment
 
-*   Browser: Chrome, Firefox, Safari
-*   Operating System: Windows, macOS, Linux
-*   Network: Stable internet connection
-
-## Test Data
-
-Test data will be used to validate the functionality of the application. This includes valid and invalid inputs for forms, as well as data for different user roles and permissions.
+The tests will be executed in a standard web browser environment.
 
 ## Test Deliverables
 
 *   Test Plan
 *   Test Cases (Gherkin Feature Files)
-*   Test Execution Reports
-
+*   Test Results

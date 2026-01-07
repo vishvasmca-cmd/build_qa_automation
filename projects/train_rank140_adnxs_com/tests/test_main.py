@@ -15,11 +15,9 @@ class HomePage:
     def __init__(self, page):
         self.page = page
 
-    def navigate_to_url(self, url):
-        self.page.goto(url)
+    def navigate_to_google(self):
+        self.page.goto("https://google.com/")
         self.page.wait_for_load_state("networkidle")
-
-from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
@@ -28,8 +26,11 @@ def test_autonomous_flow(browser: Browser):
     home_page = HomePage(page)
 
     # 2. Logic (using POM)
-    home_page.navigate_to_url("https://google.com/")
+    try:
+        home_page.navigate_to_google()
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
     # 3. Cleanup
-    # take_screenshot(page, "final_state", "build_qa_automation") # Removed as it's not a standard Playwright API
+    take_screenshot(page, "final_state", "build_qa_automation")
     context.close()

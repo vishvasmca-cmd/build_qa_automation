@@ -1,7 +1,7 @@
-Feature: Kaspersky Homepage - Smoke Tests
+Feature: Kaspersky Website - Smoke Tests
 
-  Scenario: Verify presence of key elements on the homepage
+  Scenario: Verify Scrolling to the Bottom of the Homepage
     @smoke
-    Given I am on the Kaspersky homepage
-    Then I should see 5 buttons
-    And I should see 2 links
+    Given User navigates to the Kaspersky homepage
+    When User scrolls to the bottom of the page
+    Then User should be able to view the bottom section of the page

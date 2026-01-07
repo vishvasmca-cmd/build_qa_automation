@@ -1,0 +1,86 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'langsmith': '0.6.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
+collecting ... collected 1 item
+
+projects/train_rank31_github_com/tests/test_main.py::test_autonomous_flow[chromium] FAILED
+
+=================================== FAILURES ===================================
+________________________ test_autonomous_flow[chromium] ________________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser: Browser):
+        # 1. Setup
+        context = browser.new_context(viewport={"width": 1920, "height": 1080})
+        page = context.new_page()
+        page.goto("https://github.com")
+    
+        # 2. Logic (using POM)
+        home_page = HomePage(page)
+        home_page.scroll_to_platform()
+>       home_page.scroll_to_about()
+
+projects/train_rank31_github_com/tests/test_main.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/train_rank31_github_com/tests/test_main.py:34: in scroll_to_about
+    self.about_link.scroll_into_view_if_needed()
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:17556: in scroll_into_view_if_needed
+    self._sync(self._impl_obj.scroll_into_view_if_needed(timeout=timeout))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:581: in scroll_into_view_if_needed
+    return await self._with_element(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:113: in _with_element
+    handle = await self.element_handle(timeout=timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:319: in element_handle
+    handle = await self._frame.wait_for_selector(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:369: in wait_for_selector
+    await self._channel.send(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7f67238a2550>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f67225b7a60>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Locator.scroll_into_view_if_needed: Error: strict mode violation: get_by_role("link", name="About") resolved to 4 elements:
+E               1) <a href="/security/advanced-security/code-security" data-analytics-event="{"action":"learn_about_github_code_security","tag":"link","context":"features","location":"security","label":"learn_about_github_code_security_link_features_security"}" class="Primer_Brand__Link-module__Link___lvKjM Primer_Brand__Link-module__Link--accent___FWEDd Primer_Brand__Link-module__Link--arrow-end___l0EPS Primer_Brand__Pillar-module__Pillar__link___yiBNY lp-SectionTemplate-content-link">…</a> aka get_by_role("link", name="Learn about GitHub Code")
+E               2) <a href="/security/advanced-security/software-supply-chain" data-analytics-event="{"action":"learn_about_dependabot","tag":"link","context":"features","location":"security","label":"learn_about_dependabot_link_features_security"}" class="Primer_Brand__Link-module__Link___lvKjM Primer_Brand__Link-module__Link--accent___FWEDd Primer_Brand__Link-module__Link--arrow-end___l0EPS Primer_Brand__Pillar-module__Pillar__link___yiBNY lp-SectionTemplate-content-link">…</a> aka get_by_role("link", name="Learn about Dependabot")
+E               3) <a href="/security/advanced-security/secret-protection" data-analytics-event="{"action":"learn_about_github_secret_protection","tag":"link","context":"features","location":"security","label":"learn_about_github_secret_protection_link_features_security"}" class="Primer_Brand__Link-module__Link___lvKjM Primer_Brand__Link-module__Link--accent___FWEDd Primer_Brand__Link-module__Link--arrow-end___l0EPS Primer_Brand__Pillar-module__Pillar__link___yiBNY lp-SectionTemplate-content-link">…</a> aka get_by_role("link", name="Learn about GitHub Secret")
+E               4) <a class="Link--secondary" href="https://github.com/about" data-analytics-event="{"location":"footer","action":"about","context":"company","tag":"link","label":"about_link_company_footer"}">About</a> aka get_by_role("link", name="About", exact=True)
+E           
+E           Call log:
+E             - waiting for get_by_role("link", name="About")
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+=========================== short test summary info ============================
+FAILED projects/train_rank31_github_com/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.scroll_into_view_if_needed: Error: strict mode violation: get_by_role("link", name="About") resolved to 4 elements:
+    1) <a href="/security/advanced-security/code-security" data-analytics-event="{"action":"learn_about_github_code_security","tag":"link","context":"features","location":"security","label":"learn_about_github_code_security_link_features_security"}" class="Primer_Brand__Link-module__Link___lvKjM Primer_Brand__Link-module__Link--accent___FWEDd Primer_Brand__Link-module__Link--arrow-end___l0EPS Primer_Brand__Pillar-module__Pillar__link___yiBNY lp-SectionTemplate-content-link">…</a> aka get_by_role("link", name="Learn about GitHub Code")
+    2) <a href="/security/advanced-security/software-supply-chain" data-analytics-event="{"action":"learn_about_dependabot","tag":"link","context":"features","location":"security","label":"learn_about_dependabot_link_features_security"}" class="Primer_Brand__Link-module__Link___lvKjM Primer_Brand__Link-module__Link--accent___FWEDd Primer_Brand__Link-module__Link--arrow-end___l0EPS Primer_Brand__Pillar-module__Pillar__link___yiBNY lp-SectionTemplate-content-link">…</a> aka get_by_role("link", name="Learn about Dependabot")
+    3) <a href="/security/advanced-security/secret-protection" data-analytics-event="{"action":"learn_about_github_secret_protection","tag":"link","context":"features","location":"security","label":"learn_about_github_secret_protection_link_features_security"}" class="Primer_Brand__Link-module__Link___lvKjM Primer_Brand__Link-module__Link--accent___FWEDd Primer_Brand__Link-module__Link--arrow-end___l0EPS Primer_Brand__Pillar-module__Pillar__link___yiBNY lp-SectionTemplate-content-link">…</a> aka get_by_role("link", name="Learn about GitHub Secret")
+    4) <a class="Link--secondary" href="https://github.com/about" data-analytics-event="{"location":"footer","action":"about","context":"company","tag":"link","label":"about_link_company_footer"}">About</a> aka get_by_role("link", name="About", exact=True)
+
+Call log:
+  - waiting for get_by_role("link", name="About")
+============================== 1 failed in 2.13s ===============================
+

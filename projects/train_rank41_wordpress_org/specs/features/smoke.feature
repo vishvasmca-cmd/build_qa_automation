@@ -1,12 +1,14 @@
-Feature: WordPress.org - Smoke Tests
-
+Feature: WordPress.org - Element Identification
   As a user,
-  I want to verify the presence of key elements on the WordPress.org website
+  I want to verify the presence of key elements on the WordPress.org homepage
   So that I can ensure the website is functioning correctly.
 
   @smoke
-  Scenario: Launch website and identify key elements
-    Given I navigate to the WordPress.org homepage
-    Then I should be able to identify the 'Get WordPress' link
-    And I should be able to identify at least 4 other buttons or links on the page
-    And I should be able to identify at least 2 menu bars on the page
+  Scenario: Verify the presence of 'Get WordPress' button
+    Given I am on the WordPress.org homepage
+    Then I should see the 'Get WordPress' button
+
+  @smoke
+  Scenario: Verify the presence of News Link
+    Given I am on the WordPress.org homepage
+    Then I should see the 'News' link

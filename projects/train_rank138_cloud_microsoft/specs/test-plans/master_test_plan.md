@@ -1,70 +1,32 @@
 # Test Plan: train_rank138_cloud_microsoft
 
-## 1. Introduction
+## Overview
 
-This document outlines the test plan for the train_rank138_cloud_microsoft project, focusing on testing the Microsoft Cloud website. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
+This test plan outlines the testing strategy for the train_rank138_cloud_microsoft project, focusing on verifying the presence of key elements (buttons and links) on the Microsoft Cloud website. The plan includes a smoke test suite to ensure core functionality and a regression test suite for comprehensive coverage.
 
-## 2. Scope
+## Scope
 
-The testing will cover the core functionalities of the Microsoft Cloud website, including navigation, button and link identification, and basic page interactions. The primary focus is on ensuring that key elements are present and functional.
+The testing will cover the Microsoft Cloud website (https://cloud.microsoft), specifically focusing on identifying and verifying the presence of buttons and links on the homepage.
 
-## 3. Test Strategy
+## Test Suites
 
-The test strategy involves two main suites: Smoke and Regression.
+### Smoke Suite Strategy
 
-### 3.1. Smoke Suite Strategy
+The smoke suite will focus on verifying the most critical functionalities of the application. The following 8-point checklist has been applied to define the scope of the smoke suite:
 
-The smoke suite will focus on critical path testing to ensure the core functionalities are working as expected. The following checklist is applied:
+1.  **Critical Paths:** Verify the presence of key interactive elements (buttons and links) on the homepage.
+2.  **Core Business Logic:** N/A (Presence of elements, not business logic).
+3.  **No Negative Testing:** The smoke suite will not include negative tests.
+4.  **No Complex Edge Cases:** The smoke suite will not include complex edge cases.
+5.  **Positive Flow:** Focus on verifying the presence of the elements.
+6.  **Minimal Data Variation:** N/A
+7.  **Fast Execution:** The smoke tests should execute quickly.
+8.  **High Priority:** Any failures in the smoke suite will be considered critical.
 
-1.  **Critical Path Coverage:** Tests cover the most important user flows (e.g., finding buttons and links).
-2.  **Positive Testing:** Focus on successful scenarios.
-3.  **Minimal Data Variation:** Use a small set of representative data.
-4.  **Fast Execution:** Tests should be quick to execute.
-5.  **Build Verification:** Used to verify each build.
-6.  **Automated Execution:** Designed for automated execution.
-7.  **Stable Tests:** Tests are reliable and not prone to false failures.
-8.  **Clear Failure Indicators:** Failures clearly indicate a problem with the build.
+### Regression Suite
 
-### 3.2. Regression Suite Strategy
+The regression suite will provide comprehensive coverage of the application's functionality, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite will be developed in subsequent phases.
 
-The regression suite will provide a more comprehensive test coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite aims to ensure that new changes have not introduced any regressions.
+## Test Cases
 
-## 4. Test Suites
-
-### 4.1. Smoke Suite
-
-*   Objective: Verify the basic functionality of the Microsoft Cloud website.
-*   Focus: Identifying buttons and links on the page.
-*   Test Cases:
-    *   Verify that the user can successfully load the Microsoft Cloud website.
-    *   Verify that the user can identify at least 5 buttons on the page.
-    *   Verify that the user can identify at least 2 links on the page.
-
-### 4.2. Regression Suite
-
-*   Objective: Ensure that new changes have not broken existing functionality.
-*   Focus: Comprehensive testing of all features and functionalities.
-*   Test Cases:
-    *   (To be developed based on further trace data and requirements)
-
-## 5. Test Environment
-
-*   Browsers: Chrome, Firefox, Edge
-*   Operating Systems: Windows, macOS, Linux
-*   Test Framework: Playwright
-
-## 6. Test Deliverables
-
-*   Test Plan Document
-*   Test Cases (Gherkin Feature Files)
-*   Test Execution Reports
-
-## 7. Roles and Responsibilities
-
-*   QA Architect: Responsible for creating and maintaining the test plan.
-*   QA Engineers: Responsible for writing and executing test cases.
-
-## 8. Entry and Exit Criteria
-
-*   Entry Criteria: Test environment is set up and test data is available.
-*   Exit Criteria: All planned tests have been executed, and the test results have been analyzed.
+Test cases will be written in Gherkin syntax and organized into feature files. The smoke tests will be in `smoke.feature`.

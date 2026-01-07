@@ -1,9 +1,11 @@
-Feature: Homepage Element Identification
-  As a user
-  I want to verify the presence of key elements on the homepage
-  So that I can ensure the website is functioning correctly
+Feature: Vungle Website - UI Element Identification
+  As a tester
+  I want to verify the presence of key UI elements on the Vungle website
+  So that I can ensure the basic functionality is available
 
   @smoke
-  Scenario: Verify the presence of the 'Log In' button
-    Given I am on the homepage "https://liftoff.ai/"
-    Then I should see the 'Log In' button
+  Scenario: Launch website and identify buttons and links
+    Given I navigate to the Vungle website "https://vungle.com"
+    Then I should see the "Log In" button
+    And I should be able to scroll the page
+

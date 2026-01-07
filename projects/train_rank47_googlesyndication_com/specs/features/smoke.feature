@@ -1,10 +1,10 @@
-Feature: Landing Page Element Verification
-  As a user,
-  I want to verify the presence of key UI elements on the landing page,
-  So that I can ensure the basic structure of the website is intact.
+Feature: Home Page - Smoke Tests
+  As a user
+  I want to ensure the home page loads correctly and key elements are present
 
   @smoke
-  Scenario: Verify the presence of buttons and links
-    Given I am on the "https://googlesyndication.com" website
-    Then I should see at least 5 buttons
-    And I should see at least 2 links
+  Scenario: Verify Home Page Loads and Identify Links/Buttons
+    Given the user navigates to "https://googlesyndication.com"
+    Then the page should load successfully
+    And the user should be able to identify at least 2 links
+    And the user should be able to identify at least 5 buttons

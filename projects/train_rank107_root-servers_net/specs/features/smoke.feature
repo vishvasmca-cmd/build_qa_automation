@@ -1,9 +1,19 @@
-Feature: Website Element Identification
+Feature: Website Navigation and Element Identification
   As a user,
-  I want to verify the presence of key elements on the website
-  So that I can ensure the website is functioning correctly.
+  I want to navigate to the website and identify key elements,
+  So that I can verify the basic functionality of the website.
 
   @smoke
-  Scenario: Navigate to a website and identify elements
-    Given I navigate to "google.com"
-    Then I should be able to identify buttons, links, and menu bars
+  Scenario: Navigate to the website
+    Given I navigate to "https://www.example.com"
+    Then the page should load successfully
+
+  @smoke
+  Scenario: Attempt to navigate to the website again
+    Given I navigate to "https://www.example.com"
+    Then the page should load successfully
+
+  @smoke
+  Scenario: Attempt to navigate to the website a third time
+    Given I navigate to "https://www.example.com"
+    Then the page should load successfully

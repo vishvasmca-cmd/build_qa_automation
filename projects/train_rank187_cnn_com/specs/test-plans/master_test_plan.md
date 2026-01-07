@@ -1,51 +1,48 @@
-# Test Plan: train_rank187_cnn_com
+# Test Plan for train_rank187_cnn_com
 
-## 1. Introduction
+## Introduction
 
-This document outlines the test plan for the train_rank187_cnn_com project, focusing on testing core functionalities of the CNN website. The tests will cover critical user journeys and ensure the stability of the application.
+This document outlines the test plan for the train_rank187_cnn_com project, focusing on testing the CNN website. The plan includes smoke and regression test suites to ensure the quality and stability of the application.
 
-## 2. Scope
+## Scope
 
-The scope of this test plan includes:
+The testing will cover the core functionalities of the CNN website, including navigation, UI element identification (buttons, links, menus), and basic page loading.
 
-*   Verification of website launch and navigation.
-*   Identification of key interactive elements (buttons and links).
-*   Menu bar detection.
+## Test Suites
 
-## 3. Test Strategy
+### Smoke Suite
 
-We will employ a risk-based testing approach, prioritizing critical functionalities and areas prone to defects. The test suite will be divided into Smoke and Regression tests.
+The smoke suite will focus on verifying the critical functionalities of the application.  It will ensure that the core features are working as expected after each build or deployment.
 
-### Smoke Suite Strategy
+#### Smoke Suite Strategy
 
-The Smoke Suite will focus on verifying the core functionalities of the application. The following checklist will be applied:
+The following 8-point checklist has been applied to define the Smoke Suite for this project:
 
 1.  **Critical Paths:** Tests cover the most important user flows (e.g., website launch).
-2.  **Core Business Logic:** Tests validate the fundamental operations of the website.
-3.  **Positive Testing:** Focus on successful scenarios without negative or edge cases.
-4.  **Minimal Data Set:** Use a small, representative set of data for testing.
-5.  **Fast Execution:** Tests are designed to run quickly to provide rapid feedback.
-6.  **Build Acceptance:** Passing smoke tests is a prerequisite for build acceptance.
-7.  **Automated Execution:** Smoke tests are automated for continuous integration.
-8.  **Limited Scope:** Only essential functionalities are included in the smoke suite.
+2.  **Core Business Logic:** Focuses on verifying the primary functions of the CNN website.
+3.  **Positive Testing:** Primarily focuses on positive scenarios (e.g., successful website loading).
+4.  **No Negative Testing:** Negative scenarios are excluded from the smoke suite.
+5.  **Minimal Data Variation:** Uses a limited set of test data.
+6.  **Fast Execution:** Designed for quick execution to provide rapid feedback.
+7.  **Independent Tests:** Each test is independent and can be run in any order.
+8.  **Automated:** The smoke suite is designed to be fully automated.
 
-### Regression Suite Strategy
+### Regression Suite
 
-The Regression Suite will provide comprehensive test coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
+The regression suite will provide a more comprehensive test coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite will ensure that new changes have not introduced any regressions in existing functionalities.
 
-## 4. Test Environment
+## Test Cases
 
-The tests will be executed on the following environments:
+Test cases will be written based on the requirements and user stories. Each test case will have a clear description, preconditions, steps, and expected results.
 
-*   Browser: Chrome (latest version)
-*   Operating System: Windows 10
+## Test Environment
 
-## 5. Test Deliverables
+The tests will be executed on a standard web browser (e.g., Chrome, Firefox) with a stable internet connection.
 
-*   Test Plan Document
-*   Test Cases (Gherkin Feature Files)
-*   Test Execution Reports
+## Test Deliverables
 
-## 6. Test Schedule
-
-The testing activities will be conducted according to the project timeline.
+*   Test Plan
+*   Test Cases
+*   Test Scripts
+*   Test Results
+*   Defect Reports

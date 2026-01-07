@@ -17,57 +17,51 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
-        page.goto("https://x.com")
         try:
->           page.wait_for_load_state("networkidle", timeout=60000) # Increased timeout
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            page.goto("https://x.com", timeout=30000)
+            page.wait_for_load_state("domcontentloaded", timeout=30000)
+        except Exception as e:
+            print(f"Navigation to x.com failed: {e}")
+            raise
+    
+        # 2. Logic (using POM)
+        home_page = HomePage(page)
+    
+        # Step 0: Scroll to bottom
+        home_page.scroll_to_bottom()
+    
+        # Step 1: Find the 'About' link and click it
+        expect(home_page.about_link).to_be_visible(timeout=10000)
+>       home_page.click_about_link()
 
-projects/train_rank60_x_com/tests/test_main.py:32: 
+projects/train_rank60_x_com/tests/test_main.py:56: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9148: in wait_for_load_state
-    self._sync(self._impl_obj.wait_for_load_state(state=state, timeout=timeout))
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:572: in wait_for_load_state
-    return await self._main_frame.wait_for_load_state(**locals_to_params(locals()))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:273: in wait_for_load_state
-    return await self._wait_for_load_state_impl(state, timeout)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+projects/train_rank60_x_com/tests/test_main.py:27: in click_about_link
+    self.page.wait_for_url("**/about", timeout=30000)
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9193: in wait_for_url
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:580: in wait_for_url
+    return await self._main_frame.wait_for_url(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:263: in wait_for_url
+    async with self.expect_navigation(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_event_context_manager.py:33: in __aexit__
+    await self._future
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <Frame name= url='https://x.com/'>, state = 'networkidle'
-timeout = 60000
+    async def continuation() -> Optional[Response]:
+>       event = await waiter.result()
+                ^^^^^^^^^^^^^^^^^^^^^
+E       playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.
+E       =========================== logs ===========================
+E       waiting for navigation to "**/about" until 'load'
+E       ============================================================
 
-    async def _wait_for_load_state_impl(
-        self, state: DocumentLoadState = None, timeout: float = None
-    ) -> None:
-        if not state:
-            state = "load"
-        if state not in ("load", "domcontentloaded", "networkidle", "commit"):
-            raise Error(
-                "state: expected one of (load|domcontentloaded|networkidle|commit)"
-            )
-        waiter = self._setup_navigation_waiter("wait_for_load_state", timeout)
-    
-        if state in self._load_states:
-            waiter.log(f'  not waiting, "{state}" event already fired')
-            # TODO: align with upstream
-            waiter._fulfill(None)
-        else:
-    
-            def handle_load_state_event(actual_state: str) -> bool:
-                waiter.log(f'"{actual_state}" event fired')
-                return actual_state == state
-    
-            waiter.wait_for_event(
-                self._event_emitter,
-                "loadstate",
-                handle_load_state_event,
-            )
->       await waiter.result()
-E       playwright._impl._errors.TimeoutError: Timeout 60000ms exceeded.
-
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:301: TimeoutError
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:239: TimeoutError
 =========================== short test summary info ============================
-FAILED projects/train_rank60_x_com/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Timeout 60000ms exceeded.
-========================= 1 failed in 62.70s (0:01:02) =========================
+FAILED projects/train_rank60_x_com/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to "**/about" until 'load'
+============================================================
+============================== 1 failed in 32.90s ==============================
 

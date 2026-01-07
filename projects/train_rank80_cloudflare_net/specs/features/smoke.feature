@@ -1,9 +1,11 @@
-Feature: Website Element Identification
-  As a user,
-  I want to launch the website and identify key elements,
-  So that I can verify the basic structure and functionality of the website.
+Feature: Cloudflare Website - Smoke Tests
 
   @smoke
-  Scenario: Launch website and attempt to identify elements
-    Given I navigate to "https://cloudflare.net"
-    Then I should be able to identify the presence of buttons, links, and menu bars
+  Scenario: Verify website launch and presence of key elements
+    Given User navigates to "https://cloudflare.net/"
+    Then User should see the Cloudflare security check page
+
+  @smoke
+  Scenario: Attempt to bypass Cloudflare security check
+    Given User navigates to "https://cloudflare.net/"
+    Then User should be redirected to the Cloudflare homepage or see a bypass option

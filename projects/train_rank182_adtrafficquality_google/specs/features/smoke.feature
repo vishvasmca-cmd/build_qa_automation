@@ -1,11 +1,14 @@
-Feature: Website Launch and Element Presence
+Feature: AdTrafficQuality - Smoke Tests
   As a user,
-  I want to verify the basic functionality of the adtrafficquality.google website
-  So that I can ensure the website is accessible and key elements are present.
+  I want to verify the presence of key elements on the AdTrafficQuality landing page
+  So that I can ensure the basic functionality is working as expected.
 
   @smoke
-  Scenario: Launch website and verify presence of key elements
-    Given I navigate to "https://adtrafficquality.google"
-    Then I should see key buttons like "Login", "Signup", "GetStarted", "Try for Free" present
-    And I should see key links present
-    And I should see menu bars present
+  Scenario: Verify presence of links on the landing page
+    Given I am on the AdTrafficQuality landing page
+    Then I should see at least 2 links
+
+  @smoke
+  Scenario: Verify presence of menu bars on the landing page
+    Given I am on the AdTrafficQuality landing page
+    Then I should see at least 2 menu bars

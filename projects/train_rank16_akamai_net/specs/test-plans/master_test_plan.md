@@ -1,65 +1,53 @@
-# Test Plan for train_rank16_akamai_net
+# Test Plan: train_rank16_akamai_net
 
-## Introduction
+## 1. Introduction
 
-This test plan outlines the testing strategy for the train_rank16_akamai_net project, focusing on verifying the basic functionality of the website based on the provided trace data. The trace data involves launching a website and identifying specific elements (buttons, links, and menu bars) without interacting with them.
+This document outlines the test plan for the train_rank16_akamai_net project. The project involves testing a general web application, focusing on identifying key elements like buttons, links, and menu bars on the Akamai website.
 
-## Scope
+## 2. Scope
 
-The testing will cover the following areas:
+The testing will cover the functionality of the Akamai website, specifically:
 
-*   Website launch and initial page load.
-*   Identification of buttons, links, and menu bars on the homepage.
-*   Verification that these elements are present and visible.
+*   Identifying and verifying the presence of 5 buttons.
+*   Identifying and verifying the presence of 2 links.
+*   Identifying and verifying the presence of 2 menu bars.
 
-## Test Strategy
+## 3. Test Strategy
 
-We will employ a two-pronged testing strategy:
-
-1.  **Smoke Testing:**  A quick and shallow test to ensure the core functionality is working after deployment.
-2.  **Regression Testing:** A more in-depth test to ensure that new changes haven't broken existing functionality.
+The testing will be conducted using a combination of smoke and regression testing.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite will adhere to the following principles:
+The smoke suite will focus on verifying the core functionality of the Akamai website. The following 8-point checklist is applied to this project:
 
-1.  **Critical Path Focus:** Tests will concentrate on the most essential user flows.
-2.  **Positive Testing:** Primarily focus on successful scenarios.
-3.  **Minimal Data Variation:** Use a limited set of test data.
-4.  **Independent Tests:** Each test should be independent and not rely on the state of others.
-5.  **Fast Execution:** Tests should be quick to execute to provide rapid feedback.
-6.  **Automated Execution:**  Designed for automated execution as part of the CI/CD pipeline.
-7.  **Build Validation:**  A failed smoke test will block the release.
-8.  **Happy Path:** Cover the happy path scenarios.
+1.  **Critical Path Coverage:** The smoke tests will cover the most critical paths, such as loading the homepage.
+2.  **Core Functionality:** The tests will verify the presence of key elements (buttons, links, menu bars) on the homepage.
+3.  **Positive Testing:** The smoke tests will primarily focus on positive scenarios, ensuring that the website loads correctly and the elements are present.
+4.  **No Negative Testing:** Negative testing will be excluded from the smoke suite.
+5.  **No Complex Edge Cases:** Complex edge cases will be excluded from the smoke suite.
+6.  **Fast Execution:** The smoke tests will be designed to execute quickly.
+7.  **Build Acceptance:** The smoke tests will be used to determine whether a build is acceptable for further testing.
+8.  **Limited Data Variation:** Smoke tests will use a minimal set of data.
 
-## Test Suites
+### Regression Suite Strategy
 
-### 1. Smoke Suite
+The regression suite will cover a broader range of scenarios, including alternative flows, negative scenarios, boundary analysis, cross-module interactions, and validation messages. This suite will ensure that new changes have not introduced regressions into existing functionality.
 
-*   **Objective:** To verify the basic functionality of the website.
-*   **Description:** This suite will include tests to ensure the website launches successfully and that key elements (buttons, links, menu bars) are present on the homepage.
-*   **Test Cases:**
-    *   Verify website launch and page load.
-    *   Verify the presence of at least 5 buttons on the homepage.
-    *   Verify the presence of at least 2 links on the homepage.
-    *   Verify the presence of at least 2 menu bars on the homepage.
+## 4. Test Environment
 
-### 2. Regression Suite (Future Implementation)
+The tests will be executed in a standard web browser environment (e.g., Chrome, Firefox).
 
-*   **Objective:** To ensure that new changes haven't broken existing functionality.
-*   **Description:** This suite will include a more comprehensive set of tests covering various aspects of the website, including edge cases and error handling.
-*   **Test Cases:** (To be defined in future iterations)
-
-## Test Environment
-
-The tests will be executed in a Chrome browser environment.
-
-## Test Deliverables
+## 5. Test Deliverables
 
 *   Test Plan document
-*   Test scripts (Gherkin feature files)
+*   Gherkin feature files
 *   Test execution reports
 
-## Test Automation
+## 6. Test Schedule
 
-The smoke tests will be automated using a suitable test automation framework (e.g., Selenium, Cypress).
+The testing will be conducted according to the project schedule.
+
+## 7. Roles and Responsibilities
+
+*   QA Architect: Responsible for creating and maintaining the test plan and test suites.
+*   Test Engineers: Responsible for executing the tests and reporting the results.

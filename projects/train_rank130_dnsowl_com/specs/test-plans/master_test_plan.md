@@ -2,63 +2,72 @@
 
 ## 1. Introduction
 
-This document outlines the test plan for the train_rank130_dnsowl_com project, focusing on verifying the core functionality of the website. The tests will cover critical user journeys and ensure the stability of the application.
+This document outlines the test plan for the train_rank130_dnsowl_com project. The primary goal is to ensure the website functions as expected, focusing on identifying key elements like buttons, links, and menu bars.
 
 ## 2. Scope
 
-The testing will encompass functional testing of key elements, including button and link identification. The initial trace data provided was not usable, so the test plan will be based on a hypothetical successful navigation to the target URL (https://dnsowl.com) and identification of the required elements.
+The testing will cover the following areas:
+
+*   Website navigation and accessibility.
+*   Identification of buttons, links, and menu bars on the homepage.
 
 ## 3. Test Strategy
 
 The testing will be divided into two main suites: Smoke and Regression.
 
-### 3.1. Smoke Suite Strategy
+*   **Smoke Suite:** A high-level suite to verify the core functionality.
+*   **Regression Suite:** A more comprehensive suite to cover various scenarios and edge cases.
 
-The Smoke Suite will focus on verifying the most critical functionalities of the application. The following checklist will be applied:
+### Smoke Suite Strategy
 
-1.  **Critical Paths:** Verify the main navigation flow of the website.
-2.  **Core Business Logic:** Ensure the basic functionality of identifying buttons and links.
-3.  **Positive Testing:** Focus on successful identification of elements.
-4.  **No Negative Testing:** No invalid inputs or error conditions will be tested in the smoke suite.
-5.  **No Complex Edge Cases:** Simple scenarios will be prioritized.
-6.  **Fast Execution:** Tests should be quick to execute.
-7.  **Build Acceptance:** Passing smoke tests are required for build acceptance.
-8.  **Limited Scope:** Only the most essential features are covered.
+The Smoke Suite will adhere to the following 8-point checklist:
 
-### 3.2. Regression Suite Strategy
+1.  **Critical Paths:** Focus on the most important user flows (e.g., website launch).
+2.  **Core Business Logic:** Verify the fundamental functionality of the website.
+3.  **Positive Testing:** Primarily focus on successful scenarios.
+4.  **No Negative Testing:** Exclude negative test cases in the smoke suite.
+5.  **No Complex Edge Cases:** Avoid complex or unusual scenarios.
+6.  **Fast Execution:** Design tests for quick execution and feedback.
+7.  **Build Acceptance:** Use the smoke suite to determine if a build is acceptable for further testing.
+8.  **Limited Scope:** Keep the scope minimal and focused on essential functionality.
 
-The Regression Suite will provide a more comprehensive test coverage, including alternative flows, negative scenarios, and edge cases. This suite will ensure that new changes do not introduce regressions in existing functionality.
+## 4. Test Suites
 
-## 4. Test Environment
+### 4.1. Smoke Suite
 
-The tests will be executed in a standard web browser environment (e.g., Chrome, Firefox).
+The Smoke Suite will include the following test cases:
 
-## 5. Test Cases
+*   Verify that the website launches successfully.
+*   Verify the presence of at least 5 buttons on the homepage.
+*   Verify the presence of at least 2 links on the homepage.
+*   Verify the presence of at least 2 menu bars on the homepage.
 
-Test cases will be derived from the user stories and requirements. They will cover both positive and negative scenarios, as well as boundary conditions.
+### 4.2. Regression Suite
+
+The Regression Suite will include a more comprehensive set of test cases, including:
+
+*   Detailed verification of all buttons, links, and menu bars.
+*   Testing different browsers and devices.
+*   Negative testing (e.g., invalid URLs).
+*   Performance testing.
+
+## 5. Test Environment
+
+The tests will be executed in the following environment:
+
+*   Browsers: Chrome, Firefox, Safari
+*   Operating Systems: Windows, macOS, Linux
 
 ## 6. Test Deliverables
 
-*   Test Plan
-*   Test Cases
-*   Test Scripts
-*   Test Results
-*   Defect Reports
+The following deliverables will be produced:
 
-## 7. Entry Criteria
+*   Test Plan document
+*   Test Cases (Gherkin feature files)
+*   Test Execution Reports
 
-*   Stable build of the application.
-*   Test environment setup.
-*   Test data available.
+## 7. Roles and Responsibilities
 
-## 8. Exit Criteria
-
-*   All planned tests have been executed.
-*   All critical defects have been resolved.
-*   Test results have been documented.
-
-## 9. Roles and Responsibilities
-
-*   QA Architect: Responsible for creating and maintaining the test plan.
-*   Test Engineers: Responsible for executing the tests and reporting defects.
+*   QA Architect: Responsible for creating and maintaining the test plan and test cases.
+*   Test Engineers: Responsible for executing the tests and reporting the results.
 

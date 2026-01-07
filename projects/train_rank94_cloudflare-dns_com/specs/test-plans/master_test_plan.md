@@ -2,48 +2,39 @@
 
 ## Introduction
 
-This test plan outlines the testing strategy for the train_rank94_cloudflare-dns_com project, focusing on verifying the core functionality of the website. The plan includes both smoke and regression testing strategies to ensure a high level of quality.
+This document outlines the test plan for the train_rank94_cloudflare-dns_com project, focusing on testing the website's core functionalities. The tests will cover smoke and regression scenarios to ensure the quality and stability of the application.
 
 ## Scope
 
-The scope of this test plan covers the functionality of the website, including identifying key elements such as buttons and links.
+The testing will cover the following areas:
 
-## Testing Strategy
-
-We will employ a two-pronged testing strategy:
-
-1.  **Smoke Testing**: A quick, high-level test suite to ensure the most critical functionalities are working as expected.
-2.  **Regression Testing**: A more comprehensive test suite to ensure that new changes haven't introduced any regressions in existing functionality.
-
-### Smoke Suite Strategy
-
-The smoke suite will focus on the following key aspects:
-
-1.  **Core Functionality**: Verify that the main features of the website are working.
-2.  **Critical Paths**: Test the most common user flows.
-3.  **Positive Testing**: Focus on happy path scenarios.
-4.  **Build Verification**: Ensure the build is stable enough for further testing.
-5.  **Fast Execution**: The smoke suite should be quick to execute.
-6.  **Limited Scope**: Only cover the most essential functionalities.
-7.  **Automated Execution**: The smoke suite should be automated for continuous integration.
-8.  **Clear Failure Indicators**: Failures in the smoke suite should clearly indicate critical issues.
+*   Website launch and navigation
+*   Identification of key elements (buttons and links)
 
 ## Test Suites
 
-1.  **Smoke Suite**: This suite will include tests to verify the basic functionality of the website, such as identifying buttons and links.
-2.  **Regression Suite**: This suite will include more comprehensive tests to cover various scenarios and edge cases.
+1.  Smoke Suite: Verifies the basic functionality of the website.
+2.  Regression Suite: Ensures that new changes do not negatively impact existing functionality.
+
+### Smoke Suite Strategy
+
+The Smoke Suite will adhere to the following 8-point checklist:
+
+1.  **Critical Paths:** Tests will focus on the most important user flows.
+2.  **Core Business Logic:** Tests will validate the primary functions of the website.
+3.  **No Negative Testing:** The smoke suite will primarily focus on positive scenarios.
+4.  **No Complex Edge Cases:** The smoke suite will avoid complex or unusual scenarios.
+5.  **Fast Execution:** Tests will be designed for quick execution to provide rapid feedback.
+6.  **Build Validation:** The smoke suite will be used to determine whether a build is stable enough for further testing.
+7.  **Minimal Data Setup:** Tests will require minimal setup to reduce execution time.
+8.  **High Priority:** Smoke tests will be given the highest priority and run frequently.
 
 ## Test Environment
 
 The tests will be executed in a standard web browser environment.
 
-## Test Data
-
-No specific test data is required for the smoke tests.
-
 ## Test Deliverables
 
 *   Test Plan Document
-*   Test Automation Scripts
+*   Gherkin Feature Files
 *   Test Execution Reports
-

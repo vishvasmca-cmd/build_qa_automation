@@ -1,10 +1,15 @@
-Feature: Microsoft Cloud Website - Basic Functionality
+Feature: Microsoft Cloud Homepage - Element Verification
   As a user,
-  I want to verify the basic functionality of the Microsoft Cloud website,
-  So that I can ensure the core features are working as expected.
+  I want to verify the presence of key buttons and links on the Microsoft Cloud homepage
+  So that I can ensure the basic functionality is available.
 
   @smoke
-  Scenario: Load the Microsoft Cloud website and identify buttons and links
-    Given I navigate to the Microsoft Cloud website
-    Then I should be able to identify at least 5 buttons on the page
-    And I should be able to identify at least 2 links on the page
+  Scenario: Verify presence of key buttons and links
+    Given I navigate to the Microsoft Cloud homepage
+    Then I should see the "Sign in" button
+    And I should see the "Get Microsoft 365" button
+    And I should see the "More" button
+    And I should see the "All Microsoft" button
+    And I should see a fifth button
+    And I should see the "Skip to main content" link
+    And I should see the "Microsoft 365 Copilot" link

@@ -17,21 +17,17 @@ class HomePage:
 
     @property
     def beian_link(self):
-        return self.page.get_by_role("link", name=re.compile("京公网安备 11010802037409号", re.IGNORECASE))
-
+        return self.page.get_by_role("link", name="京公网安备 11010802037409号")
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-    page.goto("https://miui.com")
-
+    page.goto("https://home.miui.com")
+    page.wait_for_load_state("networkidle")
+    
     # 2. Logic (using POM)
     home_page = HomePage(page)
-    # The goal is to find 5 buttons and 2 links on the page without clicking them.
-    # The trace only contains scrolling actions, so we will just assert that the identified link is visible.
-    
-    # Step 0, 1, 2: Scroll and identify the link
     home_page.beian_link.scroll_into_view_if_needed()
     expect(home_page.beian_link).to_be_visible()
     

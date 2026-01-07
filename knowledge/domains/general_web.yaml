@@ -70,3 +70,35 @@ learned_rules:
 - Ensure the `core` directory and its modules are correctly placed within the project
   structure and that the Python interpreter can resolve the import statement `from
   core.utils`.
+- Before interacting with elements on the Google homepage, implement a retry mechanism
+  with exponential backoff to handle potential loading delays or A/B testing variations.
+  Also, consider using more robust locators that are less susceptible to UI changes,
+  such as data attributes or ARIA labels.
+- Before interacting with elements on the WhatsApp homepage, ensure the page is fully
+  loaded and the target element is present in the DOM. Consider using a more robust
+  locator strategy that is less prone to changes.
+- When navigating to cloudflare.net, anticipate a potentially long initial load time
+  due to numerous network requests. Consider increasing the default timeout or using
+  a more specific load state (e.g., 'domcontentloaded') if the test doesn't require
+  all network resources to be fully loaded.
+- Verify the correct project structure and import paths before running tests. Ensure
+  all necessary utility modules are accessible within the test environment.
+- Ensure that all project dependencies and modules are correctly installed and accessible
+  in the Python environment before running tests. Verify the project's directory structure
+  and update Python import paths if necessary.
+- Ensure the `core` directory (containing `utils.py`) is in the Python path or that
+  relative imports are correctly configured within the project.
+- When needing to scroll to a specific element using Playwright, ensure the correct
+  method is used.  `Locator` objects do not have a `scroll()` method.  Consider using
+  `page.evaluate` with `scrollIntoView` or `page.locator(<locator>).scrollIntoViewIfNeeded()`.
+- Ensure that all module dependencies are correctly specified and accessible within
+  the project's directory structure. Verify that the PYTHONPATH environment variable
+  is correctly set if the module is located outside the project's root directory.
+- When waiting for navigation to a login page, check for common redirect loops or
+  intermediate pages that might be delaying or preventing the final navigation. Implement
+  checks for these scenarios and adjust the wait conditions accordingly.
+- Ensure the `core` directory and its modules are correctly included in the Python
+  path or project structure before running tests.
+- When navigating to the 'about' page on x.com, implement a retry mechanism with exponential
+  backoff to handle potential slow server responses or intermittent network issues.
+  Also, verify the 'about' link is present and enabled before clicking.
