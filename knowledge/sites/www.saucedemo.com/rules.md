@@ -4,3 +4,5 @@
 - Before filling the username field, ensure the page is fully loaded and any modals or overlays are dismissed. Consider adding a short delay or explicit wait for the username field to be visible.
 
 - Before interacting with the 'ProductsSort by' dropdown, ensure that the page is fully loaded and the dropdown is visible and enabled. Consider adding an explicit wait for the dropdown element.
+
+- Before attempting to fill the username field, ensure the page is fully loaded and the element is visible. Consider adding a wait-for-selector with a shorter timeout before attempting to fill.

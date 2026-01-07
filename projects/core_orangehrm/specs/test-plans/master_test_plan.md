@@ -2,80 +2,57 @@
 
 ## Introduction
 
-This document outlines the test plan for the core_orangehrm project, focusing on verifying key functionalities of the OrangeHRM application. The application is a SaaS platform, and the tests will cover critical aspects like login page elements, password reset, and social media links.
+This document outlines the test plan for the core_orangehrm project, focusing on the login page elements, 'Forgot your password?' functionality, and social media icons.
 
 ## Scope
 
 The testing will cover the following areas:
 
 *   Verification of login page elements.
-*   Functionality of the 'Forgot Password' link.
-*   Visibility of social media icons.
+*   Functionality of the 'Forgot your password?' link.
+*   Visibility of social media icons on the login page.
 
 ## Test Strategy
 
-We will employ both Smoke and Regression testing strategies to ensure comprehensive coverage.
-
-*   **Smoke Testing:**  A quick, high-level test suite to verify the core functionalities are working after each build.
-*   **Regression Testing:** A more in-depth test suite to ensure that new changes haven't introduced any regressions in existing functionalities.
+We will employ both smoke and regression testing strategies.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite will adhere to the following checklist:
+The smoke suite will focus on the core functionality of the login page. The following 8-point checklist has been applied:
 
-1.  **Critical Paths Only:** Focus solely on the most essential workflows (e.g., login).
-2.  **Positive Testing:** Primarily use valid inputs and expected outcomes.
-3.  **Minimal Data Variation:** Use a small, representative set of test data.
-4.  **No Edge Cases:** Avoid complex or unusual scenarios.
-5.  **Fast Execution:** Tests should be quick to execute, providing rapid feedback.
-6.  **Independent Tests:** Each test should be independent and not rely on the state of others.
-7.  **Clear Pass/Fail Criteria:**  Define unambiguous criteria for test success or failure.
-8.  **Automated Execution:**  Smoke tests should be automated for continuous integration.
+1.  **Critical Path Coverage:** Tests cover the most common user flow (attempting to reset password).
+2.  **Positive Testing:** Focus is on successful password reset flow.
+3.  **No Negative Testing:**  Invalid username scenarios are excluded from smoke tests.
+4.  **Minimal Data Variation:** Only one username is used for the reset password flow.
+5.  **No Edge Cases:**  Boundary conditions or unusual inputs are not covered.
+6.  **Fast Execution:**  Tests are designed for quick execution to provide rapid feedback.
+7.  **Independent Tests:**  Tests are independent and can be run in any order.
+8.  **Automated:**  The smoke suite is fully automated.
+
+### Regression Suite Strategy
+
+The regression suite will provide comprehensive coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
 
 ## Test Suites
 
 1.  **Smoke Suite:**
-    *   Verify login page elements are present.
-    *   Verify the 'Forgot Password' link is functional.
+    *   Verify 'Forgot your password?' link functionality.
+    *   Verify username field on password reset page.
+    *   Verify 'Reset Password' button functionality.
+    *   Verify navigation back to login page.
     *   Verify social media icons are visible on the login page.
 
 2.  **Regression Suite:**
-    *   (To be defined based on further analysis and feature development)
+    *   All smoke tests.
+    *   Negative tests for invalid username on password reset page.
+    *   Verify error messages for invalid username.
+    *   Verify all login page elements are present and functional.
+    *   Verify all social media icons are present and link to the correct pages.
 
-## Test Cases (Examples)
+## Test Deliverables
 
-**Smoke Tests:**
+*   Test Plan document
+*   Test Cases (Gherkin feature files)
+*   Test Automation Scripts
+*   Test Execution Reports
 
-*   **TC\_SMOKE\_001:** Verify Login Page Elements
-    1.  Open the OrangeHRM login page.
-    2.  Verify the presence of username field, password field, and login button.
-*   **TC\_SMOKE\_002:** Verify 'Forgot Password' Link
-    1.  Open the OrangeHRM login page.
-    2.  Click on the 'Forgot your password?' link.
-    3.  Verify that the user is redirected to the password reset page.
-*   **TC\_SMOKE\_003:** Verify Social Media Icons
-    1.  Open the OrangeHRM login page.
-    2.  Scroll to the bottom of the page.
-    3.  Verify that social media icons (e.g., LinkedIn, Facebook, Twitter) are visible.
-
-## Environment
-
-*   Browser: Chrome (latest version)
-*   Operating System: Windows 10/11, macOS
-*   Test Framework: Playwright
-
-## Test Data
-
-*   Username: Admin
-*   Password: (To be determined or reset)
-
-## Entry Criteria
-
-*   The application is deployed and accessible in the test environment.
-*   Test environment is configured and ready.
-
-## Exit Criteria
-
-*   All planned tests have been executed.
-*   All critical and high-priority defects have been resolved.
-*   Test results have been documented and reviewed.

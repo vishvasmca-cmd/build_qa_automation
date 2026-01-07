@@ -12,34 +12,39 @@ projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium] FAILE
 ________________________ test_autonomous_flow[chromium] ________________________
 
 browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
-page = <Page url='https://www.saucedemo.com/inventory.html'>
 
-    def test_autonomous_flow(browser: Browser, page: Page):
+    def test_autonomous_flow(browser: Browser):
         # 1. Setup
-        login_page = LoginPage(page)
-        inventory_page = SaucedemoInventoryPage(page)
+        context = browser.new_context(viewport={"width": 1920, "height": 1080})
+        page = context.new_page()
+        page.goto("https://www.saucedemo.com/")
+        page.wait_for_load_state("networkidle")
     
-        login_page.goto()
-        login_page.login("standard_user", "secret_sauce")
->       inventory_page.sort_by_price_low_to_high()
+        # 2. Logic (using POM)
+        home_page = HomePage(page)
+        inventory_page = InventoryPage(page)
+    
+>       home_page.enter_username("standard_user")
 
-projects/core_saucedemo/tests/test_main.py:52: 
+projects/core_saucedemo/tests/test_main.py:48: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_saucedemo/tests/test_main.py:41: in sort_by_price_low_to_high
-    self.product_sort_dropdown.select_option(label="Price (low to high)")
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:17636: in select_option
+projects/core_saucedemo/tests/test_main.py:13: in enter_username
+    self.page.get_by_test_id("username").fill(username)
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15989: in fill
     self._sync(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:597: in select_option
-    return await self._frame.select_option(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:781: in select_option
-    return await self._channel.send("selectOption", self._timeout, params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:215: in fill
+    return await self._frame.fill(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:607: in fill
+    await self._fill(**locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:619: in _fill
+    await self._channel.send("fill", self._timeout, locals_to_params(locals()))
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7f5961728f90>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f595dc85d00>
+self = <playwright._impl._connection.Connection object at 0x7f8b7a4cfed0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f8b799f6de0>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -58,14 +63,14 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.select_option: Timeout 30000ms exceeded.
+E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
 E           Call log:
-E             - waiting for get_by_label("ProductsSort by")
+E             - waiting for get_by_test_id("username")
 
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
 =========================== short test summary info ============================
-FAILED projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.select_option: Timeout 30000ms exceeded.
+FAILED projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
 Call log:
-  - waiting for get_by_label("ProductsSort by")
-============================== 1 failed in 31.91s ==============================
+  - waiting for get_by_test_id("username")
+============================== 1 failed in 31.41s ==============================
 

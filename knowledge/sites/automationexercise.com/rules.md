@@ -79,3 +79,9 @@
 - Before clicking 'Add to cart', ensure the product is fully loaded and visible on the page. Consider adding a short explicit wait or checking for a loading spinner to disappear.
 
 - Before clicking 'Add to cart', ensure the product details are fully loaded and any overlaying elements (e.g., loading spinners, modals) are dismissed. Consider adding an explicit wait for the product image to load as a proxy for full page load.
+
+- When navigating to '/products', implement a retry mechanism with exponential backoff to handle potential network latency or server delays. Also, verify the presence of a loading indicator to ensure the application is actively processing the navigation request.
+
+- When navigating to '/products', implement a retry mechanism with exponential backoff to handle potential network latency or server delays. Also, check for modal dialogs or overlays that might prevent the page from loading correctly.
+
+- When navigating to '/products', implement a retry mechanism with exponential backoff to handle potential network latency or server delays. Also, check for any overlaying elements (e.g., modals, banners) that might prevent the page from loading correctly.

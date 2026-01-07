@@ -1,20 +1,11 @@
-Feature: Login Page Verification
+Feature: Login Page Verification and Password Reset
+  As a user, I want to be able to reset my password if I forget it and see social media icons on the login page.
 
   @smoke
-  Scenario: Verify Login Page Elements
+  Scenario: Reset password flow and verify social media icons
     Given I am on the OrangeHRM login page
-    Then I should see the username field
-    And I should see the password field
-    And I should see the login button
-
-  @smoke
-  Scenario: Verify 'Forgot Password' Link
-    Given I am on the OrangeHRM login page
-    When I click the 'Forgot your password?' link
-    Then I should be redirected to the password reset page
-
-  @smoke
-  Scenario: Verify Social Media Icons
-    Given I am on the OrangeHRM login page
-    When I scroll to the bottom of the page
+    When I click the "Forgot your password?" link
+    And I fill the username field with "Admin"
+    And I click the "Reset Password" button
+    And I navigate back to the login page
     Then I should see the social media icons

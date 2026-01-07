@@ -15,16 +15,24 @@ class OrangehrmLoginPage:
     def __init__(self, page):
         self.page = page
 
+    def goto(self):
+        self.page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+        self.page.wait_for_load_state("networkidle")
+
     @property
     def forgot_password_link(self):
         return self.page.get_by_text("Forgot your password?")
 
-    def click_forgot_password_link(self):
+    def click_forgot_password(self):
         self.forgot_password_link.click()
 
-    def goto(self):
-        self.page.goto("https://opensource-demo.orangehrmlive.com/")
-        self.page.wait_for_load_state("networkidle")
+    @property
+    def orangehrm_inc_link(self):
+        return self.page.get_by_role("link", name="OrangeHRM, Inc")
+
+    def click_orangehrm_inc(self):
+        self.orangehrm_inc_link.click()
+
 
 class OrangehrmResetPasswordPage:
     def __init__(self, page):
@@ -34,45 +42,65 @@ class OrangehrmResetPasswordPage:
     def username_input(self):
         return self.page.locator("[name='username']")
 
+    def fill_username(self, username):
+        self.username_input.fill(username)
+
     @property
     def reset_password_button(self):
         return self.page.get_by_role("button", name="Reset Password")
+
+    def click_reset_password(self):
+        self.reset_password_button.click()
+
+
+class PasswordResetConfirmationPage:
+    def __init__(self, page):
+        self.page = page
 
     @property
     def orangehrm_inc_link(self):
         return self.page.get_by_role("link", name="OrangeHRM, Inc")
 
-    def fill_username(self, username):
-        self.username_input.fill(username)
-
-    def click_reset_password_button(self):
-        self.reset_password_button.click()
-
-    def click_orangehrm_inc_link(self):
+    def click_orangehrm_inc(self):
         self.orangehrm_inc_link.click()
+
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
-    context = browser.new_context(viewport={"width": 1920, "height": 1080})
+    context = browser.new_context(viewport={
+        "width": 1920,
+        "height": 1080
+    })
     page = context.new_page()
-    page.goto("https://opensource-demo.orangehrmlive.com/")
-    page.wait_for_load_state("networkidle")
 
     # 2. Logic (using POM)
-    login_page = OrangehrmLoginPage(page)
-    reset_password_page = OrangehrmResetPasswordPage(page)
+    orangehrm_login_page = OrangehrmLoginPage(page)
+    orangehrm_reset_password_page = OrangehrmResetPasswordPage(page)
+    password_reset_confirmation_page = PasswordResetConfirmationPage(page)
 
-    # Step 0: Click the 'Forgot your password?' link
-    login_page.click_forgot_password_link()
+    orangehrm_login_page.goto()
 
-    # Step 6: Fill username on reset password page
-    reset_password_page.fill_username("Admin")
+    # Step 0: Click 'Forgot your password?'
+    orangehrm_login_page.click_forgot_password()
 
-    # Step 4: Click reset password button
-    reset_password_page.click_reset_password_button()
+    # Step 2: Fill username on reset password page
+    orangehrm_reset_password_page.fill_username("Admin")
 
-    # Step 7: Click OrangeHRM, Inc link
-    reset_password_page.click_orangehrm_inc_link()
+    # Step 3: Click 'Reset Password' button
+    orangehrm_reset_password_page.click_reset_password()
+
+    # Step 5 & 6: Click OrangeHRM, Inc link twice
+    page.wait_for_load_state("networkidle")
+    password_reset_confirmation_page.click_orangehrm_inc()
+    page.wait_for_load_state("networkidle")
+    password_reset_confirmation_page.click_orangehrm_inc()
+
+    # Step 7: Navigate back to login page
+    orangehrm_login_page.goto()
+
+    # Step 8, 9, 10: Scroll to bottom (attempt to view social media icons)
+    # Note: Scrolling is generally discouraged, but included to match the trace.
+    page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

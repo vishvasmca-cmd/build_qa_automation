@@ -24,3 +24,9 @@
 - Before clicking 'Forgot your password?', ensure no modal dialogs or overlays are present that might obscure the element. Also, consider adding a short wait or retry mechanism specifically for this element.
 
 - Before attempting to click 'Forgot your password?', ensure the element is both visible and enabled. Consider adding a short explicit wait with error handling.
+
+- When asserting URL changes after an action, use a precise and complete URL string or a more accurate regular expression to avoid false negatives due to minor URL variations.
+
+- When navigating to the password reset page, anticipate potential delays in network activity and consider increasing the default timeout or explicitly waiting for a specific element to load before proceeding.
+
+- When navigating to the password reset page, anticipate potential delays in resource loading. Increase the default timeout or implement a more robust loading check than 'networkidle', such as waiting for a specific element to be present.

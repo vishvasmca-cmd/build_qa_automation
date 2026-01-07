@@ -2,48 +2,53 @@
 
 ## Introduction
 
-This document outlines the test plan for the core_automation_exercise project, focusing on the e-commerce domain. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
+This document outlines the test plan for the core_automation_exercise project, an e-commerce platform. The plan includes both smoke and regression test suites to ensure the quality and stability of the application.
 
 ## Scope
 
-The testing will cover key functionalities such as product browsing, searching, adding items to the cart, and proceeding to checkout. The tests will be executed against the automationexercise.com website.
+The testing will cover key functionalities such as product browsing, searching, adding to cart, and checkout process.
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite will focus on verifying the core functionalities of the application. These tests are designed to be quick and efficient, providing a high level of confidence in the stability of the system.
+The smoke suite will focus on verifying the core functionalities of the application. These tests are designed to be executed quickly and efficiently to ensure that the basic functionalities are working as expected.
 
 #### Smoke Suite Strategy
 
-The Smoke Suite Strategy for this project follows an 8-point checklist to ensure comprehensive coverage of critical functionalities:
+The Smoke Suite for this project adheres to the following 8-point checklist:
 
-1.  **Critical Path Coverage**: Tests cover the most common and essential user flows (e.g., product search, add to cart, checkout).
-2.  **Core Business Logic**: Focuses on testing the primary business functions (e.g., adding products to cart, proceeding to checkout).
-3.  **Positive Testing**: Primarily uses valid and expected inputs to ensure the system functions correctly under normal conditions.
-4.  **No Negative Testing**: Excludes tests with invalid or unexpected inputs, unless critical for security.
-5.  **No Complex Edge Cases**: Avoids complex scenarios and boundary conditions to maintain simplicity and speed.
-6.  **Prioritized Scenarios**: Scenarios are prioritized based on their impact on business operations.
-7.  **Minimal Test Data**: Uses a small, representative set of test data to reduce setup and execution time.
-8.  **Fast Execution**: Designed to execute quickly, providing rapid feedback on build stability.
+1.  **Critical Paths:** Tests cover essential user flows like product search, adding to cart, and initiating checkout.
+2.  **Core Business Logic:** Focuses on verifying the basic functionality of adding items to the cart.
+3.  **No Negative Testing:**  Excludes tests with invalid inputs or error conditions.
+4.  **Happy Path Focus:**  Tests use valid data and follow the expected user journey.
+5.  **Limited Scope:** Only the most important functionalities are included.
+6.  **Speed of Execution:** Tests are designed to run quickly to provide rapid feedback.
+7.  **Build Validation:**  Aims to quickly determine if a build is stable enough for further testing.
+8.  **Automated Execution:** Designed for automated execution as part of the CI/CD pipeline.
 
 ### Regression Suite
 
-The regression suite will include a more comprehensive set of tests, covering various scenarios, edge cases, and negative test conditions. This suite ensures that new changes do not introduce defects into existing functionality.
+The regression suite will cover a broader range of functionalities, including edge cases, alternative flows, and negative scenarios. This suite ensures that new changes have not introduced any regressions in existing functionalities.
 
 ## Test Modules
 
-### Product Catalog
+### Authentication (High)
 
-*   **Smoke**: Verify product search functionality.
-*   **Regression**: Filter products by category, sort products by price, search for non-existent products.
+*   Smoke: User Login (Valid), User Registration (Happy Path)
+*   Regression: Login with Invalid Password, Login with Locked Account, Password Reset Flow, Registration with Existing Email
 
-### Shopping Cart
+### Product Catalog (Medium)
 
-*   **Smoke**: Add item to cart.
-*   **Regression**: Update quantity in cart, remove item from cart, handle out-of-stock items.
+*   Smoke: View Product Details, Search for standard product
+*   Regression: Filter products by Price/Category, Sort products (Price Low-High), Search for non-existent product, Verify Pagination
 
-### Checkout
+### Shopping Cart (High)
 
-*   **Smoke**: Proceed to checkout.
-*   **Regression**: Handle different payment methods, apply coupon codes, validate address formats.
+*   Smoke: Add Item to Cart, View Cart Summary
+*   Regression: Update Quantity in Cart, Remove Item from Cart, Add Out-of-Stock Item (Verify Error), Cart Persistence (Refresh Page)
+
+### Checkout & Payments (Critical)
+
+*   Smoke: Complete Purchase (Guest / Standard)
+*   Regression: Checkout with formatted Address, Apply Valid/Invalid Coupon Code, Payment Decline Simulation, Calculate Tax/Shipping correctly

@@ -2,9 +2,9 @@
 
 ## Introduction
 
-This document outlines the test plan for the core_saucedemo e-commerce application. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
+This document outlines the test plan for the core_saucedemo e-commerce application. It details the testing scope, strategy, and specific test cases to be executed.
 
-## Scope
+## Test Scope
 
 The testing will cover the following modules:
 
@@ -13,69 +13,33 @@ The testing will cover the following modules:
 *   Shopping Cart
 *   Checkout & Payments
 
+## Test Strategy
+
+The testing will be conducted using a combination of smoke and regression testing.
+
+*   **Smoke Testing**: Aims to verify the core functionality of the application after each build.
+*   **Regression Testing**: Aims to ensure that new changes have not introduced any regressions in existing functionality.
+
+### Smoke Suite Strategy
+
+The smoke suite will adhere to the following 8-point checklist:
+
+1.  **Critical Paths Only**: Focus solely on the most essential user flows (e.g., login, add to cart, checkout).
+2.  **Positive Testing**: Primarily use valid inputs and happy-path scenarios.
+3.  **Minimal Data**: Use a small, representative set of test data.
+4.  **Fast Execution**: Design tests for quick execution to provide rapid feedback.
+5.  **Build Validation**: Determine whether the build is stable enough for further testing.
+6.  **No Edge Cases**: Exclude complex or boundary conditions.
+7.  **Core Business Logic**: Cover the primary revenue-generating or operationally critical flows.
+8.  **Limited Scope**: Keep the number of smoke tests small and manageable.
+
 ## Test Suites
 
-### Smoke Suite
+The following test suites will be executed:
 
-The smoke suite will focus on critical path testing to ensure the core functionality of the application is working as expected.  If these tests fail, the build should be rejected.
+*   Smoke Suite
+*   Regression Suite
 
-#### Smoke Suite Strategy
+## Test Cases
 
-The following checklist was applied when designing the smoke suite:
-
-1.  **Critical Paths:**  Tests cover the most important user flows (e.g., login, add to cart, checkout).
-2.  **Core Business Logic:** Tests exercise the primary business rules and calculations.
-3.  **Positive Testing:** Focus is on successful scenarios, not error handling (unless critical security).
-4.  **No Complex Edge Cases:** Avoid tests with intricate conditions or data combinations.
-5.  **Speed:** Tests should be quick to execute, providing rapid feedback.
-6.  **Independence:** Tests should be independent of each other to avoid cascading failures.
-7.  **Data Setup:** Minimal data setup required for each test.
-8.  **Environment Stability:** Tests assume a stable and correctly configured environment.
-
-### Regression Suite
-
-The regression suite will provide comprehensive testing to ensure that new changes have not introduced any regressions. This suite will include alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
-
-## Test Modules and Coverage
-
-### Authentication
-
-*   **Smoke:**
-    *   User Login (Valid)
-*   **Regression:**
-    *   Login with Invalid Password
-    *   Login with Locked Account
-    *   Password Reset Flow
-    *   Registration with Existing Email
-
-### Product Catalog
-
-*   **Smoke:**
-    *   View Product Details
-    *   Search for standard product
-*   **Regression:**
-    *   Filter products by Price/Category
-    *   Sort products (Price Low-High)
-    *   Search for non-existent product
-    *   Verify Pagination
-
-### Shopping Cart
-
-*   **Smoke:**
-    *   Add Item to Cart
-    *   View Cart Summary
-*   **Regression:**
-    *   Update Quantity in Cart
-    *   Remove Item from Cart
-    *   Add Out-of-Stock Item (Verify Error)
-    *   Cart Persistence (Refresh Page)
-
-### Checkout & Payments
-
-*   **Smoke:**
-    *   Complete Purchase (Guest / Standard)
-*   **Regression:**
-    *   Checkout with formatted Address
-    *   Apply Valid/Invalid Coupon Code
-    *   Payment Decline Simulation
-    *   Calculate Tax/Shipping correctly
+Detailed test cases for each module are defined in the corresponding feature files.

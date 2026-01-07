@@ -19,3 +19,9 @@
   - **RECOVERY**: Implement retry mechanism with page refresh if WADL page is encountered.
 
 - **URL VERIFICATION**: Ensure `expect(page).to_have_url()` regex is strictly formatted to avoid partial matches on wrong pages.
+
+- When targeting elements that may appear in both the header and footer, use more specific locators to avoid ambiguity.  Prioritize locators scoped to a specific container (e.g., header or footer) or use nth=0/1 to target the correct element.
+
+- Before clicking 'Account History', ensure the user is logged in and the account summary page is fully loaded. Implement a visual check or state check to confirm readiness.
+
+- When using `to_have_url` with a regular expression, ensure the regex is a properly formatted string.

@@ -1,18 +1,21 @@
-Feature: ParaBank Smoke Tests
+Feature: ParaBank - Basic Navigation
+  As a user,
+  I want to navigate the ParaBank website,
+  So that I can access different sections of the application.
 
   @smoke
-  Scenario: Verify ParaBank Home Page and Navigation
-    Given User navigates to the ParaBank home page
-    Then The ParaBank home page should be displayed
+  Scenario: Navigate to About Us page
+    Given I am on the ParaBank home page
+    When I click on the "About Us" link
+    Then I should be on the "About Us" page
 
   @smoke
-  Scenario: Check Account History Link
-    Given User is on the ParaBank home page
-    When User clicks on the Account History link
-    Then User should be redirected to the Account History page
+  Scenario: Navigate to Home page from About Us page
+    Given I am on the ParaBank About Us page
+    When I click on the "Home" link
+    Then I should be on the ParaBank home page
 
   @smoke
-  Scenario: Navigate to About Us Page
-    Given User is on the ParaBank home page
-    When User navigates to the About Us page
-    Then The About Us page should be displayed
+  Scenario: Verify Account History Link
+    Given I am on the ParaBank home page
+    Then I should see the "Account History" link

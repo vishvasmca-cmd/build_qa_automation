@@ -1,68 +1,48 @@
 # Test Plan: core_parabank
 
-## Introduction
+## Domain: Banking
 
-This document outlines the test plan for the core_parabank application, focusing on verifying key functionalities within the banking domain. The plan includes both smoke and regression test suites to ensure application stability and quality.
+### Scope
 
-## Scope
+This test plan covers the core functionality of the ParaBank application, focusing on account access and basic navigation. The tests are designed to ensure the application's stability and reliability.
 
-The testing will cover the following modules:
+### Test Suites
 
-*   Account Access
-*   Transfers & Payments
-*   Statements & History
+This test plan includes a Smoke Suite and a Regression Suite.
 
-## Test Suites
+#### Smoke Suite Strategy
 
-### Smoke Suite
+The Smoke Suite is designed to verify the most critical functionalities of the ParaBank application. The following checklist is applied:
 
-The smoke suite will focus on critical path testing to ensure the core functionalities of the application are working as expected. This suite will be executed for every build to quickly identify any major issues.
+1.  **Critical Paths:** Focuses on essential user flows like login and basic navigation.
+2.  **Core Business Logic:** Verifies primary functionalities.
+3.  **Positive Testing:** Primarily uses positive test cases.
+4.  **No Negative Testing:** Excludes negative test cases unless critical for security.
+5.  **No Complex Edge Cases:** Avoids complex or boundary test cases.
+6.  **Fast Execution:** Ensures quick execution to provide rapid feedback.
+7.  **Build Validation:** Determines whether a build is stable enough for further testing.
+8.  **Limited Scope:** Covers only the most vital functionalities.
 
-**Smoke Suite Strategy**
+#### Regression Suite Strategy
 
-The following checklist was applied when designing the smoke suite:
+The Regression Suite is designed to ensure that new changes have not introduced defects into existing functionality. It includes a broader range of test cases, including alternative flows, negative scenarios, and boundary conditions.
 
-1.  **Critical Paths:** Tests cover the most important user workflows (e.g., login).
-2.  **Core Business Logic:** Focus on primary revenue or operational flows.
-3.  **Positive Testing:** Primarily happy path scenarios.
-4.  **No Negative Testing:** Unless critical security concerns exist.
-5.  **No Complex Edge Cases:** Avoid intricate scenarios in smoke tests.
-6.  **Fast Execution:** Tests should run quickly to provide rapid feedback.
-7.  **Independence:** Tests should be independent of each other.
-8.  **Minimal Data Setup:** Reduce the need for extensive data setup.
+### Test Modules
 
-### Regression Suite
-
-The regression suite will provide comprehensive testing of the application, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite will be executed periodically to ensure that new changes have not introduced any regressions.
-
-## Test Modules
-
-### Account Access (Criticality: Critical)
+#### Account Access (Criticality: Critical)
 
 *   **Smoke Tests:**
-    *   Customer Login
-    *   View Account Dashboard
-*   **Regression Tests:**
-    *   Login with Biometrics/MFA
-    *   Recover Forgotten Username/Password
-    *   Session Timeout Handling
+    *   Verify successful navigation to the About Us page.
+    *   Verify successful navigation to the Home page.
+    *   Verify the presence of the Account History link.
 
-### Transfers & Payments (Criticality: Critical)
+*   **Regression Tests:**
+    *   (Not covered in the trace, but would include MFA, password recovery, etc.)
+
+#### Statements & History (Criticality: Medium)
 
 *   **Smoke Tests:**
-    *   Internal Fund Transfer (Checking to Savings)
-    *   Bill Payment (Standard)
-*   **Regression Tests:**
-    *   Transfer exceeding balance (Insufficient Funds)
-    *   Transfer exceeding daily limit
-    *   Schedule Future Date Transfer
-    *   Add New Payee/Beneficiary
+    *   (Not covered in the trace, but would include viewing recent transactions)
 
-### Statements & History (Criticality: Medium)
-
-*   **Smoke Tests:**
-    *   View Recent Transactions
 *   **Regression Tests:**
-    *   Download Statement (PDF/CSV)
-    *   Search Transactions by Keyword
-    *   Filter Transactions by Amount Range
+    *   (Not covered in the trace, but would include downloading statements, searching transactions, etc.)
