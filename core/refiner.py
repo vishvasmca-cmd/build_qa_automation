@@ -300,6 +300,8 @@ class CodeRefiner:
         - ❌ **STABILITY WARNING**: NEVER use explicit `scroll` or `PageDown` actions. Playwright actions auto-scroll to the element.
         - ❌ **STRICT MODE VIOLATION**: If a locator matches multiple elements (e.g., 'Add to cart' buttons), you **MUST** uses `.first` or `.nth(0)` to pick one.
         - ❌ **SYNTAX ERROR**: NEVER use `.first()` as a method. It is a property. Use `locator.first.click()`.
+        - ⚠️ **HOVER VISIBILITY**: If an element appears only on hover (e.g., 'Add to cart' on product cards), you MUST `hover()` the container first.
+        - ⚠️ **NAVIGATION LOGIC**: Ensure you navigate to the destination (e.g., click Cart icon) BEFORE interacting with page-specific elements (e.g., Checkout button).
         - ⚠️ **CLICK INTERCEPTION**: If Playwright reports "intercepts pointer events", use `.click(force=True)` ONLY if the element is known to be covered by a decorative overlay or sticky header.
 
         **CRITICAL RULES**:
