@@ -2,46 +2,84 @@
 
 ## Introduction
 
-This document outlines the test plan for the core_orangehrm project, focusing on verifying key functionalities of the OrangeHRM application. The application is a SaaS platform, and the tests will cover critical aspects such as login page elements, password reset, and social media links.
+This document outlines the test plan for the core_orangehrm project, focusing on verifying key functionalities of the OrangeHRM application. The primary goal is to ensure the stability and reliability of the application through comprehensive testing.
 
 ## Scope
 
 The testing will cover the following areas:
 
-*   Login Page Verification
-*   Forgot Password Functionality
-*   Social Media Links Verification
+*   Login page elements verification
+*   'Forgot your password?' link functionality
+*   Social media icons visibility and redirection
 
-## Test Suites
+## Test Strategy
 
-This test plan includes two main test suites:
-
-1.  Smoke Suite: A minimal set of tests to ensure the core functionality is working.
-2.  Regression Suite: A comprehensive set of tests to ensure that new changes haven't introduced regressions.
+We will employ a risk-based testing approach, prioritizing critical functionalities for smoke testing and a broader range of scenarios for regression testing.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite is designed to provide a quick check of the application's health. The following checklist has been applied to define the scope of the Smoke Suite:
+The smoke suite will focus on the core functionalities to ensure the application's basic health. The following checklist is applied:
 
-1.  **Critical Paths:** Does the test cover a primary user flow (e.g., login)?
-2.  **Core Business Logic:** Does the test exercise essential business rules?
-3.  **Positive Testing:** Is the test primarily focused on successful scenarios?
-4.  **Minimal Data Variation:** Does the test avoid complex data inputs or edge cases?
-5.  **Independence:** Can the test run independently without relying on other tests?
-6.  **Speed:** Is the test quick to execute?
-7.  **Stability:** Is the test reliable and unlikely to fail due to environmental factors?
-8.  **High Impact:** Would a failure of this test indicate a major problem with the application?
+1.  **Critical Path Coverage:** Tests cover the most common and essential user flows.
+2.  **Positive Testing:** Focus on successful scenarios, avoiding negative or edge cases.
+3.  **End-to-End Flow:** Tests validate the entire flow from start to finish for critical functions.
+4.  **Data Integrity:** Verify that data is correctly saved and retrieved during the flow.
+5.  **Environment Stability:** Ensure the test environment is stable and representative of production.
+6.  **Speed of Execution:** Tests are designed to be quick to execute, providing rapid feedback.
+7.  **Independent Tests:** Each test is independent and does not rely on the state of previous tests.
+8.  **Clear Pass/Fail Criteria:** Define clear and unambiguous criteria for test success or failure.
 
 ### Regression Suite Strategy
 
-The Regression Suite is designed to ensure that existing functionality remains intact after new changes are introduced. This suite includes a broader range of tests, including:
+The regression suite will cover a wider range of scenarios, including alternative flows, negative tests, and boundary conditions, to ensure that new changes haven't introduced regressions.
 
-*   Alternative Flows
-*   Negative Scenarios
-*   Boundary Analysis
-*   Cross-Module Interactions
-*   Validation Messages
+## Test Suites
+
+1.  Smoke Suite
+2.  Regression Suite
 
 ## Test Cases
 
-Detailed test cases will be documented in the respective feature files.
+Test cases will be derived from the trace data and domain knowledge, covering both smoke and regression scenarios.
+
+## Test Environment
+
+The tests will be executed against the demo OrangeHRM instance: `https://opensource-demo.orangehrmlive.com/`
+
+## входные данные
+
+*   Trace Data: A step-by-step log of actions taken (clicks, inputs, navigation).
+*   Domain: The business domain (e.g., Banking, E-commerce).
+*   Project Name: The name of the test project.
+
+## выходные данные
+
+You must generate a structured JSON object containing:
+1.  "test\_plan\_content": A professional Markdown Test Plan.
+    *   Include a specific **"Smoke Suite Strategy"** section listing the 8-point checklist applied to this project.
+2.  "features": A list of Gherkin feature objects.
+    *   **MANDATORY**: One file named `smoke.feature` containing the high-level smoke scenarios derived from the trace & domain.
+    *   "filename": "smoke.feature"
+    *   "content": Standard Gherkin syntax. Tag scenarios with `@smoke`.
+
+## Risks and Mitigation
+
+*   **Environment Instability:** Use a stable test environment and monitor its health.
+*   **Test Data Issues:** Ensure sufficient and valid test data is available.
+*   **Tooling Issues:** Regularly maintain and update testing tools.
+
+## входные данные
+
+*   Trace Data: A step-by-step log of actions taken (clicks, inputs, navigation).
+*   Domain: The business domain (e.g., Banking, E-commerce).
+*   Project Name: The name of the test project.
+
+## выходные данные
+
+You must generate a structured JSON object containing:
+1.  "test\_plan\_content": A professional Markdown Test Plan.
+    *   Include a specific **"Smoke Suite Strategy"** section listing the 8-point checklist applied to this project.
+2.  "features": A list of Gherkin feature objects.
+    *   **MANDATORY**: One file named `smoke.feature` containing the high-level smoke scenarios derived from the trace & domain.
+    *   "filename": "smoke.feature"
+    *   "content": Standard Gherkin syntax. Tag scenarios with `@smoke`.

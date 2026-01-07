@@ -11,57 +11,61 @@ projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium] FAILE
 =================================== FAILURES ===================================
 ________________________ test_autonomous_flow[chromium] ________________________
 
-browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+page = <Page url='https://www.saucedemo.com/'>
 
-    def test_autonomous_flow(browser: Browser):
+    def test_autonomous_flow(page: Page):
         # 1. Setup
-        context = browser.new_context(viewport={"width": 1920, "height": 1080})
-        page = context.new_page()
-        page.goto("https://www.saucedemo.com/")
-    
-        # 2. Logic (using POM)
         home_page = HomePage(page)
-        swag_labs_login_page = SwagLabsLoginPage(page)
-        saucedemo_inventory_page = SaucedemoInventoryPage(page)
+        inventory_page = SaucedemoInventoryPage(page)
     
-        home_page.fill_username("standard_user")
-        home_page.fill_password("secret_sauce")
-        swag_labs_login_page.click_login()
-        saucedemo_inventory_page.sort_by_price_low_to_high()
->       saucedemo_inventory_page.verify_products_sorted_by_price()
+        home_page.goto()
+>       home_page.login("standard_user", "secret_sauce")
 
-projects/core_saucedemo/tests/test_main.py:87: 
+projects/core_saucedemo/tests/test_main.py:39: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_saucedemo/tests/test_main.py:69: in verify_products_sorted_by_price
-    expect(is_sorted).to_be_true()
-    ^^^^^^^^^^^^^^^^^
+projects/core_saucedemo/tests/test_main.py:17: in login
+    self.page.get_by_test_id("username").fill(username)
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15989: in fill
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:215: in fill
+    return await self._frame.fill(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:607: in fill
+    await self._fill(**locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:619: in _fill
+    await self._channel.send("fill", self._timeout, locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright.sync_api.Expect object at 0x7f56be02db10>, actual = True
-message = None
+self = <playwright._impl._connection.Connection object at 0x7fb058e65dd0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fb057b80cc0>
+is_internal = False, title = None
 
-    def __call__(
-        self, actual: Union[Page, Locator, APIResponse], message: Optional[str] = None
-    ) -> Union[PageAssertions, LocatorAssertions, APIResponseAssertions]:
-        if isinstance(actual, Page):
-            return PageAssertions(
-                PageAssertionsImpl(actual._impl_obj, self._timeout, message=message)
-            )
-        elif isinstance(actual, Locator):
-            return LocatorAssertions(
-                LocatorAssertionsImpl(actual._impl_obj, self._timeout, message=message)
-            )
-        elif isinstance(actual, APIResponse):
-            return APIResponseAssertions(
-                APIResponseAssertionsImpl(
-                    actual._impl_obj, self._timeout, message=message
-                )
-            )
->       raise ValueError(f"Unsupported type: {type(actual)}")
-E       ValueError: Unsupported type: <class 'bool'>
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for get_by_test_id("username")
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/__init__.py:143: ValueError
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
 =========================== short test summary info ============================
-FAILED projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium] - ValueError: Unsupported type: <class 'bool'>
-============================== 1 failed in 0.86s ===============================
+FAILED projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_test_id("username")
+============================== 1 failed in 31.04s ==============================
 

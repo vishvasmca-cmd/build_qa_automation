@@ -1,9 +1,11 @@
-Feature: Website Accessibility
-  As a user,
-  I want to access the website,
-  So that I can browse products.
+Feature: E-commerce Smoke Tests
+
+  Scenario: Navigate to the Home Page
+    Given User navigates to the home page
+    Then The home page should load successfully
 
   @smoke
-  Scenario: Verify website is accessible
-    Given I navigate to the website "https://magento.softwaretestingboard.com/"
-    Then the website should be accessible
+  Scenario: Search for a product
+    Given User is on the home page
+    When User searches for "Watch"
+    Then Search results page should be displayed

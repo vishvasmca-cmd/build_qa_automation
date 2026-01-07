@@ -117,3 +117,9 @@
 - Before clicking 'Add to cart', ensure the product details are fully loaded and any overlaying elements (e.g., modals, banners) are dismissed. Consider adding a short wait or using `element.wait_for_element_state('visible')` before attempting to click.
 
 - When interacting with 'Add to cart' buttons on the product page, implement a retry mechanism with exponential backoff to handle potential loading delays or dynamic content updates. Also, check for overlaying elements that might prevent the click.
+
+- When navigating to '/products', implement a retry mechanism with exponential backoff to handle potential slow server responses or intermittent network issues. Also, verify the page title or a unique element on the '/products' page to confirm successful navigation, rather than relying solely on the URL.
+
+- Before clicking 'Add to cart', ensure the product details are fully loaded and any promotional overlays are dismissed. Implement a retry mechanism with a short delay if the element is not immediately found.
+
+- Before clicking 'Add to cart', ensure the product is fully loaded and visible on the page. Consider waiting for a specific product detail element to load before attempting to add the product to the cart.

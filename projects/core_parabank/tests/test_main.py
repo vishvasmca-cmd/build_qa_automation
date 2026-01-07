@@ -12,94 +12,65 @@ from helpers import take_screenshot
 
 
 class ParabankPage:
-    def __init__(self, page):
+    def __init__(self, page: Page):
         self.page = page
 
-    @property
-    def account_history_link(self):
-        return self.page.get_by_role("link", name="Account History")
-
-    @property
-    def home_link(self):
-        return self.page.get_by_role("link", name="Home", exact=True).first
+    def goto(self):
+        self.page.goto("https://parabank.parasoft.com/parabank/index.htm")
+        self.page.wait_for_load_state("domcontentloaded")
 
     @property
     def about_us_link(self):
-        return self.page.locator("#headerPanel").get_by_role("link", name="About Us")
+        return self.page.locator("#headerPanel").get_by_role("link", name=re.compile("About Us", re.IGNORECASE))
 
-    def click_account_history(self):
-        self.account_history_link.click()
+    @property
+    def home_link(self):
+        return self.page.locator("#headerPanel").get_by_role("link", name=re.compile("Home", re.IGNORECASE))
 
-    def click_home_link(self):
-        self.home_link.click()
-
-    def click_about_us_link(self):
+    def navigate_to_about_us(self):
         self.about_us_link.click()
+        self.page.wait_for_url(re.compile(r".*/about.htm"), timeout=5000)
+        self.page.wait_for_load_state("domcontentloaded")
+
+    def navigate_to_home(self):
+        self.home_link.click()
+        self.page.wait_for_url("https://parabank.parasoft.com/parabank/index.htm", timeout=5000)
+        self.page.wait_for_load_state("domcontentloaded")
+
+    def is_login_form_visible(self):
+        return self.page.locator("input[name='username']").is_visible() and self.page.locator("input[name='password']").is_visible() and self.page.get_by_role("button", name=re.compile("Log In", re.IGNORECASE)).is_visible()
 
 
-class ParabankWebServiceDefinitionPage:
-    def __init__(self, page):
+class ParabankAboutUsPage:
+    def __init__(self, page: Page):
         self.page = page
 
     @property
-    def folder_button_fold(self):
-        return self.page.locator(".folder-button.fold")
+    def home_link(self):
+        return self.page.locator("#headerPanel").get_by_role("link", name=re.compile("Home", re.IGNORECASE))
 
-    @property
-    def folder_button_open(self):
-        return self.page.locator(".folder-button.open")
+    def navigate_to_home(self):
+        self.home_link.click()
+        self.page.wait_for_url("https://parabank.parasoft.com/parabank/index.htm", timeout=5000)
+        self.page.wait_for_load_state("domcontentloaded")
 
-    def click_folder_button_fold(self):
-        self.folder_button_fold.click()
-
-    def click_folder_button_open(self):
-        self.folder_button_open.click()
-
-class GenericPage:
-    def __init__(self, page):
-        self.page = page
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
     parabank_page = ParabankPage(page)
-    parabank_web_service_definition_page = ParabankWebServiceDefinitionPage(page)
-    generic_page = GenericPage(page)
-
-    page.goto("https://parabank.parasoft.com/index.htm")
-    page.wait_for_load_state("networkidle")
+    about_us_page = ParabankAboutUsPage(page)
 
     # 2. Logic (using POM)
-    # Step 0
-    try:
-        parabank_page.click_account_history()
-        page.wait_for_load_state("networkidle")
-        if "_wadl" in page.url or page.url.endswith(".xml"):
-            page.reload()
-            page.wait_for_load_state("networkidle")
-    except Exception as e:
-        print(f"Error clicking Account History: {e}")
+    parabank_page.goto()
+    parabank_page.navigate_to_about_us()
+    expect(page).to_have_url(re.compile(r".*/about.htm"))
+    about_us_page.navigate_to_home()
+    expect(page).to_have_url("https://parabank.parasoft.com/parabank/index.htm")
 
-    # Step 1
-    try:
-        parabank_web_service_definition_page.click_folder_button_fold()
-    except Exception as e:
-        print(f"Error clicking folder button fold: {e}")
-
-    # Step 2
-    try:
-        parabank_web_service_definition_page.click_folder_button_open()
-    except Exception as e:
-        print(f"Error clicking folder button open: {e}")
-
-    # Step 3
-    # The trace ends here, but the goal was to navigate to the about us page.
-    try:
-        parabank_page.click_about_us_link()
-        page.wait_for_load_state("networkidle")
-    except Exception as e:
-        print(f"Error clicking About Us link: {e}")
+    # Verify login form is visible
+    assert parabank_page.is_login_form_visible(), "Login form is not visible"
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

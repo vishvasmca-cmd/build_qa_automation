@@ -1,40 +1,39 @@
 # Test Plan: core_parabank
 
-## Introduction
+## Overview
 
-This document outlines the test plan for the core_parabank application, focusing on verifying key functionalities related to account access, transactions, and information retrieval. The plan includes both smoke and regression test suites to ensure application stability and reliability.
+This test plan outlines the testing strategy for the core_parabank application, focusing on verifying the login page, checking for the find transactions link (post-login), and navigating to the about us page. The plan includes both smoke and regression test suites to ensure comprehensive coverage.
 
 ## Scope
 
-The testing will cover the following modules:
+The scope of this test plan includes:
 
-*   Account Access
-*   Transfers & Payments
-*   Statements & History
-*   About Us Page Navigation
+*   Verification of the login page elements.
+*   Checking for the presence of the 'Find Transactions' link after successful login.
+*   Navigation to the 'About Us' page.
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite will focus on critical path testing to ensure the core functionalities of the application are working as expected. This suite will be executed for every build to quickly identify any major issues.
+The smoke suite will focus on the core functionality of the application, ensuring that the critical paths are working as expected. This suite will be executed after each build to quickly identify any major issues.
 
-#### Smoke Suite Strategy
+**Smoke Suite Strategy**
 
-The following checklist was applied when designing the smoke suite for this project:
+The following 8-point checklist has been applied to define the Smoke Suite for this project:
 
-1.  **Critical Paths Only**: Focus solely on the most essential workflows (e.g., login).
-2.  **Positive Testing**: Primarily use valid inputs and expected outcomes.
-3.  **Minimal Data**: Use a small, representative set of test data.
-4.  **No Edge Cases**: Avoid boundary conditions, error handling, or complex scenarios.
-5.  **Fast Execution**: Design tests for quick completion and rapid feedback.
-6.  **Independent Tests**: Ensure each test can run independently without dependencies.
-7.  **High Priority**: Address any failures in the smoke suite immediately.
-8.  **Automated Execution**: Automate the smoke suite for continuous integration.
+1.  **Critical Paths:** Tests cover the most essential user flows (e.g., login).
+2.  **Core Business Logic:** Focuses on primary functionalities related to banking operations.
+3.  **Positive Testing:** Primarily uses valid inputs and expected outcomes.
+4.  **No Negative Testing:** Excludes tests with invalid inputs or error conditions.
+5.  **No Complex Edge Cases:** Avoids intricate scenarios or boundary conditions.
+6.  **Speed of Execution:** Tests are designed to run quickly for rapid feedback.
+7.  **Independence:** Tests are independent and do not rely on each other.
+8.  **Minimal Data Setup:** Requires minimal or no pre-test data configuration.
 
 ### Regression Suite
 
-The regression suite will provide comprehensive testing of the application, including alternative flows, negative scenarios, and boundary conditions. This suite will be executed periodically to ensure that new changes have not introduced any regressions.
+The regression suite will provide a more comprehensive test coverage, including alternative flows, negative scenarios, and boundary analysis. This suite will be executed periodically to ensure that new changes have not introduced any regressions.
 
 ## Test Modules
 
@@ -45,33 +44,17 @@ The regression suite will provide comprehensive testing of the application, incl
 *   **Regression Tests:**
     *   Login with invalid credentials
     *   Recover Forgotten Username/Password
-    *   Session Timeout Handling
 
 ### Statements & History (Criticality: Medium)
 
-*   **Smoke Tests:**
-    *   Verify navigation to Account History
-
-### About Us (Criticality: Low)
-
-*   **Smoke Tests:**
-    *   Verify navigation to About Us page
-
-## Test Environment
-
-The tests will be executed in a staging environment that mirrors the production environment.
+*   **Regression Tests:**
+    *   Search Transactions by Keyword
+    *   Filter Transactions by Amount Range
 
 ## Test Data
 
-Test data will be created and managed to support the execution of both smoke and regression tests.
+Test data will be used to simulate different user scenarios and ensure that the application behaves as expected under various conditions.
 
-## Entry Criteria
+## Environment
 
-*   The application build must be successfully deployed to the test environment.
-*   All required test data must be available.
-
-## Exit Criteria
-
-*   All smoke tests must pass.
-*   A defined percentage of regression tests must pass.
-*   All critical and high-priority defects must be resolved.
+The tests will be executed in a dedicated test environment that closely mirrors the production environment.

@@ -66,3 +66,9 @@
 - When interacting with elements in the top navigation bar of OrangeHRM, implement a retry mechanism with exponential backoff to handle potential loading delays or intermittent visibility issues. Before clicking, explicitly wait for the element to be both visible and enabled.
 
 - When clicking on elements within the OrangeHRM header/navigation, implement a retry mechanism with exponential backoff, as network conditions or server-side processing might cause intermittent delays. Also, consider using more resilient locators based on text content or ARIA roles instead of brittle XPaths.
+
+- When asserting the presence of text on a page in Playwright, use `expect(page.locator('body')).to_have_text('expected text')` or `expect(page.locator('selector')).to_have_text('expected text')` instead of `expect(page).to_have_text('expected text')`.
+
+- When asserting the success message after a password reset request, use a more specific locator to target the message element, avoiding the surrounding HTML structure.
+
+- When asserting the presence of specific text after an action that triggers a page update (like submitting a password reset request), target a more specific locator than the entire 'body' to avoid interference from surrounding HTML and whitespace. Also, trim the actual value before comparison.
