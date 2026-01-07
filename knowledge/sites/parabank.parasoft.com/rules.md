@@ -25,3 +25,9 @@
 - Before clicking 'Account History', ensure the user is logged in and the account summary page is fully loaded. Implement a visual check or state check to confirm readiness.
 
 - When using `to_have_url` with a regular expression, ensure the regex is a properly formatted string.
+
+- When navigating to account history, implement a retry mechanism with exponential backoff to handle potential slow server responses or intermittent network issues. Also, verify the user is logged in before attempting to navigate to the account history page.
+
+- When navigating to account details, implement a retry mechanism with exponential backoff if the initial navigation times out. Also, verify the user is logged in before attempting to access account details.
+
+- When navigating to account history, check for common error messages or loading indicators on the page before waiting for the final URL. The ParaBank application is known to have intermittent performance issues.

@@ -1,48 +1,68 @@
 # Test Plan: core_parabank
 
-## Domain: Banking
+## Overview
 
-### Scope
+This test plan outlines the testing strategy for the core_parabank application, focusing on verifying key functionalities within the banking domain. The plan includes both smoke and regression test suites to ensure application stability and quality.
 
-This test plan covers the core functionality of the ParaBank application, focusing on account access and basic navigation. The tests are designed to ensure the application's stability and reliability.
+## Scope
 
-### Test Suites
+The testing will cover the following modules:
 
-This test plan includes a Smoke Suite and a Regression Suite.
+*   Account Access
+*   Transfers & Payments
+*   Statements & History
+
+## Test Suites
+
+### Smoke Suite
+
+The smoke suite will focus on critical path testing to ensure the core functionalities of the application are working as expected. This suite will be executed for every build to quickly identify any major issues.
 
 #### Smoke Suite Strategy
 
-The Smoke Suite is designed to verify the most critical functionalities of the ParaBank application. The following checklist is applied:
+The following checklist was applied when designing the smoke suite:
 
-1.  **Critical Paths:** Focuses on essential user flows like login and basic navigation.
-2.  **Core Business Logic:** Verifies primary functionalities.
-3.  **Positive Testing:** Primarily uses positive test cases.
+1.  **Critical Paths:** Tests cover the most important user workflows (e.g., login, fund transfer).
+2.  **Core Business Logic:** Focus on testing the primary revenue or operational flows.
+3.  **Positive Testing:** Primarily focuses on happy path scenarios.
 4.  **No Negative Testing:** Excludes negative test cases unless critical for security.
-5.  **No Complex Edge Cases:** Avoids complex or boundary test cases.
-6.  **Fast Execution:** Ensures quick execution to provide rapid feedback.
-7.  **Build Validation:** Determines whether a build is stable enough for further testing.
-8.  **Limited Scope:** Covers only the most vital functionalities.
+5.  **No Complex Edge Cases:** Avoids complex or less common scenarios.
+6.  **Fast Execution:** Designed for quick execution to provide rapid feedback.
+7.  **Build Validation:** Used to determine if a build is stable enough for further testing.
+8.  **Limited Scope:** Covers a minimal set of functionalities.
 
-#### Regression Suite Strategy
+### Regression Suite
 
-The Regression Suite is designed to ensure that new changes have not introduced defects into existing functionality. It includes a broader range of test cases, including alternative flows, negative scenarios, and boundary conditions.
+The regression suite will provide comprehensive testing to ensure that new changes have not introduced any regressions in existing functionalities. This suite will include positive and negative test cases, boundary analysis, and cross-module interactions.
 
-### Test Modules
+## Test Modules
 
-#### Account Access (Criticality: Critical)
-
-*   **Smoke Tests:**
-    *   Verify successful navigation to the About Us page.
-    *   Verify successful navigation to the Home page.
-    *   Verify the presence of the Account History link.
-
-*   **Regression Tests:**
-    *   (Not covered in the trace, but would include MFA, password recovery, etc.)
-
-#### Statements & History (Criticality: Medium)
+### Account Access (Criticality: Critical)
 
 *   **Smoke Tests:**
-    *   (Not covered in the trace, but would include viewing recent transactions)
-
+    *   Customer Login
+    *   View Account Dashboard
 *   **Regression Tests:**
-    *   (Not covered in the trace, but would include downloading statements, searching transactions, etc.)
+    *   Login with Biometrics/MFA
+    *   Recover Forgotten Username/Password
+    *   Session Timeout Handling
+
+### Transfers & Payments (Criticality: Critical)
+
+*   **Smoke Tests:**
+    *   Internal Fund Transfer (Checking to Savings)
+    *   Bill Payment (Standard)
+*   **Regression Tests:**
+    *   Transfer exceeding balance (Insufficient Funds)
+    *   Transfer exceeding daily limit
+    *   Schedule Future Date Transfer
+    *   Add New Payee/Beneficiary
+
+### Statements & History (Criticality: Medium)
+
+*   **Smoke Tests:**
+    *   View Recent Transactions
+*   **Regression Tests:**
+    *   Download Statement (PDF/CSV)
+    *   Search Transactions by Keyword
+    *   Filter Transactions by Amount Range

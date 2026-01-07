@@ -1,21 +1,12 @@
-Feature: ParaBank - Basic Navigation
-  As a user,
-  I want to navigate the ParaBank website,
-  So that I can access different sections of the application.
+Feature: ParaBank Smoke Tests
 
-  @smoke
-  Scenario: Navigate to About Us page
+  Scenario: Verify ParaBank Home Page Loads Successfully @smoke
+    Given I navigate to the ParaBank home page
+    Then I should see the ParaBank logo
+    And I should see the "Register" link
+    And I should see the "Forgot login info" link
+
+  Scenario: Attempt to navigate to Account History and return to home page @smoke
     Given I am on the ParaBank home page
-    When I click on the "About Us" link
-    Then I should be on the "About Us" page
-
-  @smoke
-  Scenario: Navigate to Home page from About Us page
-    Given I am on the ParaBank About Us page
-    When I click on the "Home" link
-    Then I should be on the ParaBank home page
-
-  @smoke
-  Scenario: Verify Account History Link
-    Given I am on the ParaBank home page
-    Then I should see the "Account History" link
+    When I click on the 'Account History' link
+    Then I should be navigated back to the ParaBank home page

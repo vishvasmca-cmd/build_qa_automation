@@ -205,5 +205,14 @@
       "phase": "execution"
     },
     "error": " waiting, \"{state}\" event already fired')\n            # TODO: align with upstream\n            waiter._fulfill(None)\n        else:\n    \n            def handle_load_state_event(actual_state: str) -> bool:\n                waiter.log(f'\"{actual_state}\" event fired')\n                return actual_state == state\n    \n            waiter.wait_for_event(\n                self._event_emitter,\n                \"loadstate\",\n                handle_load_state_event,\n            )\n>       await waiter.result()\nE       playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:301: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.\n============================== 1 failed in 33.09s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-07T14:26:44.875275",
+    "context": {
+      "site": "https://parabank.parasoft.com/parabank/index.htm",
+      "project": "core_parabank",
+      "phase": "execution"
+    },
+    "error": "c def continuation() -> Optional[Response]:\n>       event = await waiter.result()\n                ^^^^^^^^^^^^^^^^^^^^^\nE       playwright._impl._errors.TimeoutError: Timeout 15000ms exceeded.\nE       =========================== logs ===========================\nE       waiting for navigation to \"**/account.htm\" until 'load'\nE       ============================================================\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:239: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Timeout 15000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"**/account.htm\" until 'load'\n============================================================\n============================== 1 failed in 32.04s ==============================\n\n\n"
   }
 ]

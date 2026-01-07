@@ -30,3 +30,5 @@
 - When navigating to the password reset page, anticipate potential delays in network activity and consider increasing the default timeout or explicitly waiting for a specific element to load before proceeding.
 
 - When navigating to the password reset page, anticipate potential delays in resource loading. Increase the default timeout or implement a more robust loading check than 'networkidle', such as waiting for a specific element to be present.
+
+- Before clicking 'Forgot your password', ensure no modal dialogs or overlays are present that might obscure the link. If a modal is present, dismiss it before proceeding.

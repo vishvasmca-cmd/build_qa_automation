@@ -1,72 +1,52 @@
 # Test Plan: core_magento
 
-## Introduction
+## Overview
 
-This document outlines the test plan for the core_magento e-commerce platform. It details the testing scope, objectives, and strategies to ensure the quality and reliability of the software.
+This test plan outlines the testing strategy for the core_magento e-commerce platform. It includes a smoke test suite to ensure the basic functionality of the application and a regression test suite for more comprehensive testing.
 
 ## Scope
 
-The testing will cover core functionalities of the e-commerce platform, including product search, filtering, and product details view. Due to SSL issues encountered during trace recording, the initial focus will be on verifying basic navigation and error handling.
-
-## Objectives
-
-*   Verify the basic navigation of the website.
-*   Ensure the website handles SSL certificate errors gracefully.
-*   Confirm the ability to search for products.
-*   Validate product filtering functionality.
-*   Verify the display of product details.
+The scope of this test plan covers the core functionalities of the e-commerce platform, including product search, filtering, and viewing product details. Due to the SSL certificate issue encountered during the trace, the initial focus will be on verifying the website's accessibility and basic functionality once the certificate issue is resolved.
 
 ## Test Suites
 
-This test plan includes two main test suites:
+### Smoke Suite
 
-1.  Smoke Suite: A high-level suite to ensure critical functionalities are working.
-2.  Regression Suite: A comprehensive suite to cover various scenarios and edge cases.
+The smoke suite will focus on verifying the critical path of the application. This includes ensuring the website is accessible and that basic product search and viewing functionalities are working as expected.
 
-### Smoke Suite Strategy
+#### Smoke Suite Strategy
 
-The Smoke Suite is designed to provide a quick and efficient way to verify the stability of the core_magento e-commerce platform. It focuses on the most critical functionalities and aims to identify any major issues early in the testing process.
+This smoke suite adheres to the following principles:
 
-The following checklist has been applied to define the Smoke Suite for this project:
+1.  **Critical Paths Only:** Focuses on the most essential user flows (e.g., website accessibility).
+2.  **Positive Testing:** Primarily uses valid inputs and expected outcomes.
+3.  **Minimal Data:** Uses a small, representative set of test data.
+4.  **Fast Execution:** Designed to be quick to execute, providing rapid feedback.
+5.  **Build Acceptance:** Determines whether a build is stable enough for further testing.
+6.  **No Edge Cases:** Excludes complex scenarios or boundary conditions.
+7.  **Core Business Logic:** Verifies the fundamental business rules are functioning.
+8. **Error Handling:** Basic error handling to verify the website is accessible.
 
-1.  **Critical Paths:** Includes the most common user flows (e.g., product search).
-2.  **Core Business Logic:** Covers essential functionalities (e.g., viewing product details).
-3.  **Positive Testing:** Focuses on valid inputs and expected outcomes.
-4.  **No Negative Testing:** Excludes invalid inputs and error conditions (except for critical security issues).
-5.  **No Complex Edge Cases:** Avoids intricate scenarios and boundary conditions.
-6.  **Minimal Data Setup:** Requires minimal data configuration.
-7.  **Short Execution Time:** Designed for quick execution and fast feedback.
-8.  **Automated Execution:** Suitable for automated execution as part of the CI/CD pipeline.
+### Regression Suite
 
-## Test Modules
+The regression suite will cover a broader range of scenarios, including alternative flows, negative testing, and edge cases. This suite will ensure that new changes have not introduced any regressions in existing functionality.
 
-### Module: Product Catalog
-
-*   **Smoke Tests:**
-    *   Verify the website navigates to the base URL.
-    *   Verify the website displays an error message when encountering SSL issues.
-
-*   **Regression Tests:**
-    *   Search for a valid product and verify the results.
-    *   Filter products by category and verify the filtered results.
-    *   View product details and verify the displayed information.
-    *   Search for a non-existent product and verify the appropriate message is displayed.
-
-## Test Data
-
-Test data will include valid and invalid product names, categories, and filter criteria.
-
-## Environment
+## Test Environment
 
 The tests will be executed in a staging environment that mirrors the production environment.
 
-## Entry Criteria
+## Test Data
 
-*   The core_magento e-commerce platform is deployed in the staging environment.
-*   Test data is prepared and available.
+Test data will be created to cover various scenarios, including valid and invalid inputs, different product categories, and various user roles.
 
-## Exit Criteria
+## Test Deliverables
 
-*   All Smoke tests have passed.
-*   All Regression tests have been executed.
-*   All identified defects have been resolved or documented.
+*   Test Plan
+*   Test Cases (Gherkin Feature Files)
+*   Test Execution Reports
+
+## Test вход
+
+*   Trace Data
+*   Domain: ecommerce
+*   Project Name: core_magento

@@ -1,12 +1,19 @@
 Feature: E-commerce Smoke Tests
 
-  Scenario: Search for a product and add it to the cart
-    Given User is on the home page
-    When User navigates to the Products page
-    And User searches for "Dress"
-    And User adds the first product to the cart
-    And User continues shopping
-    And User navigates to the cart page
-    Then User proceeds to checkout
-    And User should be on the checkout page
+  @smoke
+  Scenario: Browse Products and Search
+    Given User navigates to the Products page
+    When User searches for "Dress"
+    Then Products related to "Dress" should be displayed
 
+  @smoke
+  Scenario: Add a product to the cart
+    Given User is on the Products page
+    When User adds a product to the cart
+    Then The product should be added to the cart successfully
+
+  @smoke
+  Scenario: Initiate checkout process
+    Given User has items in the cart
+    When User proceeds to checkout
+    Then User should be redirected to the checkout page

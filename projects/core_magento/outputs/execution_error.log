@@ -11,31 +11,20 @@ projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] FAILED
 =================================== FAILURES ===================================
 ________________________ test_autonomous_flow[chromium] ________________________
 
-browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+page = <Page url='https://magento.softwaretestingboard.com/'>
 
-    def test_autonomous_flow(browser: Browser):
+    def test_autonomous_flow(page: Page):
         # 1. Setup
-        context = browser.new_context(viewport={"width": 1920, "height": 1080}, ignore_https_errors=True)
-        page = context.new_page()
-        home_page = HomePage(page)
+        page.goto("https://magento.softwaretestingboard.com/")
+        page.wait_for_load_state("networkidle")
     
-        # 1. Navigate to Home Page
-        home_page.navigate_to_home()
-    
-        # 2. Assertion (example, adjust as needed)
->       expect(page).to_have_title(re.compile("Magento", re.IGNORECASE))
-E       AssertionError: Page title expected to be 're.compile('Magento', re.IGNORECASE)'
-E       Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
-E       Call log:
-E         - Expect "to_have_title" with timeout 5000ms
-E           9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
+        # 2. Assertion
+>       expect(page).to_have_title(re.compile(".*Magento.*", re.IGNORECASE))
+                                   ^^
+E       NameError: name 're' is not defined
 
-projects/core_magento/tests/test_main.py:44: AssertionError
+projects/core_magento/tests/test_main.py:11: NameError
 =========================== short test summary info ============================
-FAILED projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page title expected to be 're.compile('Magento', re.IGNORECASE)'
-Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
-Call log:
-  - Expect "to_have_title" with timeout 5000ms
-    9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
-============================== 1 failed in 6.19s ===============================
+FAILED projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] - NameError: name 're' is not defined
+============================== 1 failed in 1.34s ===============================
 

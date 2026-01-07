@@ -8,3 +8,5 @@
 - Before asserting the page title, check for SSL certificate errors and handle them gracefully (e.g., by retrying or skipping the test).
 
 - If the page title contains 'Invalid SSL certificate', the test should either be skipped or the SSL certificate issue should be resolved before proceeding.
+
+- Always import necessary modules (e.g., `re` for regular expressions) at the beginning of the test file to avoid `NameError` exceptions.
