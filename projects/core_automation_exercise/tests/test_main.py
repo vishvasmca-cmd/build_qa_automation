@@ -17,7 +17,7 @@ class ProductsPage:
 
     @property
     def products_link(self):
-        return self.page.get_by_role("link", name="\ue8f8 Products")
+        return self.page.get_by_role("link", name=" Products")
 
     @property
     def search_product_input(self):
@@ -32,21 +32,33 @@ class ProductsPage:
         return self.page.get_by_role("link", name="Add to cart")
 
     @property
+    def continue_shopping_button(self):
+        return self.page.get_by_role("button", name="Continue Shopping")
+
+    @property
     def cart_link(self):
         return self.page.get_by_role("link", name="Cart")
 
     def navigate_to_products(self):
         self.products_link.click()
-        self.page.wait_for_url("**/products", timeout=15000)
+        self.page.wait_for_load_state("networkidle")
 
-    def search_product(self, product_name):
+    def search_for_product(self, product_name):
         self.search_product_input.fill(product_name)
-        self.submit_search_button.click()
+        self.page.locator("#submit_search").click()
+        self.page.wait_for_load_state("networkidle")
 
-    def add_product_to_cart(self):
-        self.add_to_cart_button.first.click()
+    def add_product_to_cart(self, index):
+        # Hover over the product card to make the 'Add to cart' button visible
+        self.page.locator(".overlay-content").nth(index).hover()
+        self.add_to_cart_button.nth(index).click()
+        self.page.wait_for_load_state("networkidle")
 
-    def view_cart(self):
+    def continue_shopping(self):
+        self.continue_shopping_button.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def navigate_to_cart(self):
         self.cart_link.click()
         self.page.wait_for_load_state("networkidle")
 
@@ -55,15 +67,11 @@ class CartPage:
         self.page = page
 
     @property
-    def view_cart_link(self):
-        return self.page.get_by_role("link", name="View Cart")
-
-    @property
     def proceed_to_checkout_button(self):
         return self.page.get_by_role("link", name="Proceed To Checkout")
 
     def proceed_to_checkout(self):
-        self.proceed_to_checkout_button.first.click()
+        self.proceed_to_checkout_button.click()
         self.page.wait_for_load_state("networkidle")
 
 def test_autonomous_flow(browser: Browser):
@@ -71,18 +79,17 @@ def test_autonomous_flow(browser: Browser):
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
     page.goto("https://automationexercise.com/")
-    page.wait_for_load_state("networkidle")
+    page.wait_for_load_state("domcontentloaded")
 
     # 2. Logic (using POM)
     products_page = ProductsPage(page)
-    cart_page = CartPage(page)
 
     products_page.navigate_to_products()
-    products_page.search_product("Dress")
-    products_page.add_product_to_cart()
-    products_page.view_cart()
-    cart_page.proceed_to_checkout()
-    cart_page.proceed_to_checkout()
+    products_page.search_for_product("Dress")
+    products_page.add_product_to_cart(0)
+    products_page.continue_shopping()
+    products_page.add_product_to_cart(1)
+    products_page.continue_shopping()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

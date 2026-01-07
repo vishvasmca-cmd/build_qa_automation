@@ -1,50 +1,75 @@
 # Test Plan: core_saucedemo
 
-## Overview
+## Introduction
 
-This test plan outlines the testing strategy for the core_saucedemo e-commerce application. The plan includes smoke and regression test suites to ensure the quality and stability of the application.
+This document outlines the test plan for the core_saucedemo e-commerce application. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
+
+## Scope
+
+The testing will cover the following modules:
+
+*   Authentication
+*   Product Catalog
+*   Shopping Cart
+*   Checkout & Payments
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite focuses on verifying the core functionality of the application. It includes tests for login, sorting products, and adding items to the cart.
+The smoke suite will focus on critical path testing to ensure the core functionality of the application is working as expected. These tests are designed to be executed quickly and efficiently to provide rapid feedback on the stability of the application.
 
 #### Smoke Suite Strategy
 
-The following checklist was applied when designing the smoke suite:
+The following 8-point checklist has been applied to define the Smoke Suite for this project:
 
-1.  **Critical Paths:** Tests cover the most critical user flows (e.g., login, add to cart).
-2.  **Core Business Logic:** Focuses on essential e-commerce functions.
-3.  **Positive Testing:** Primarily uses valid inputs and expected outcomes.
-4.  **No Negative Testing:** Excludes tests with invalid inputs or error conditions.
-5.  **No Complex Edge Cases:** Avoids intricate scenarios or boundary conditions.
-6.  **Speed:** Tests are designed to execute quickly.
-7.  **Independence:** Tests are independent and do not rely on each other.
-8.  **Automation Feasibility:** Tests are easily automatable.
+1.  **Critical Paths:** Tests cover the most important user flows (e.g., login, adding to cart).
+2.  **Core Business Logic:** Focus on primary revenue/operation flows.
+3.  **Positive Testing:** Primarily happy path scenarios.
+4.  **No Negative Testing:** Unless critical security concerns exist.
+5.  **No Complex Edge Cases:** Avoid intricate or unusual scenarios.
+6.  **Speed of Execution:** Tests should run quickly to provide fast feedback.
+7.  **Independence:** Tests should be independent and not rely on each other.
+8.  **High Stability:** Tests should be reliable and not prone to false failures.
+
+#### Smoke Test Cases
+
+*   User Login (Valid Credentials)
+*   Sort Products by Price (Low to High)
 
 ### Regression Suite
 
-The regression suite provides comprehensive test coverage, including alternative flows, negative scenarios, and boundary conditions.
+The regression suite will provide comprehensive testing of the application, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite will ensure that new changes have not introduced any regressions in existing functionality.
 
-## Test Modules
+#### Regression Test Cases
 
-### Authentication
+*   Login with Invalid Password
+*   Password Reset Flow
+*   Search for non-existent product
+*   Filter products by Price/Category
+*   Add Item to Cart
+*   Update Quantity in Cart
+*   Remove Item from Cart
+*   Checkout with formatted Address
+*   Apply Valid/Invalid Coupon Code
+*   Payment Decline Simulation
+*   Calculate Tax/Shipping correctly
 
-*   Smoke: User Login (Valid)
-*   Regression: Login with Invalid Password, Password Reset Flow
+## Test Environment
 
-### Product Catalog
+The tests will be executed in a stable test environment that mirrors the production environment as closely as possible.
 
-*   Smoke: View Product Details, Search for standard product
-*   Regression: Filter products by Price/Category, Sort products (Price Low-High), Search for non-existent product
+## Test Data
 
-### Shopping Cart
+Appropriate test data will be used to cover various scenarios and edge cases.
 
-*   Smoke: Add Item to Cart, View Cart Summary
-*   Regression: Update Quantity in Cart, Remove Item from Cart, Add Out-of-Stock Item (Verify Error)
+## Entry Criteria
 
-### Checkout & Payments
+*   The application build is deployed to the test environment.
+*   Test data is prepared and available.
 
-*   Smoke: Complete Purchase (Guest / Standard)
-*   Regression: Checkout with formatted Address, Apply Valid/Invalid Coupon Code, Payment Decline Simulation, Calculate Tax/Shipping correctly
+## Exit Criteria
+
+*   All test cases in the smoke suite have passed.
+*   A defined percentage of test cases in the regression suite have passed.
+*   All critical and high-priority defects have been resolved.

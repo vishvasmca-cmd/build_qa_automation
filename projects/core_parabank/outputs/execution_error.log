@@ -17,20 +17,18 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
-        parabank_page = ParabankPage(page)
-        parabank_wsdl_page = ParabankWsdlPage(page)
-        parabank_page.goto()
+        page.goto("https://parabank.parasoft.com/parabank/index.htm")
+        page.wait_for_load_state("networkidle")
     
         # 2. Logic (using POM)
-        # Step 0: Click Account History link
-        parabank_page.click_account_history()
+        parabank_page = ParabankPage(page)
     
-        # Step 1 & 2 & 3: The navigation to the WSDL page was incorrect. Navigate back to home.
->       parabank_page.navigate_home()
+        parabank_page.navigate_to_about_us()
+>       parabank_page.navigate_to_home()
 
-projects/core_parabank/tests/test_main.py:93: 
+projects/core_parabank/tests/test_main.py:77: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_parabank/tests/test_main.py:35: in navigate_home
+projects/core_parabank/tests/test_main.py:39: in navigate_to_home
     self.home_link.click()
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
@@ -43,8 +41,8 @@ projects/core_parabank/tests/test_main.py:35: in navigate_home
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7f23b5fe9a50>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f23b4b6c4a0>
+self = <playwright._impl._connection.Connection object at 0x7f16cd7f61d0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f16cc3cfec0>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -63,14 +61,20 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+E           playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name="Home") resolved to 2 elements:
+E               1) <a href="index.htm">home</a> aka get_by_role("link", name="home", exact=True)
+E               2) <a href="index.htm">Home</a> aka get_by_role("link", name="Home", exact=True)
+E           
 E           Call log:
 E             - waiting for get_by_role("link", name="Home")
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
 =========================== short test summary info ============================
-FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name="Home") resolved to 2 elements:
+    1) <a href="index.htm">home</a> aka get_by_role("link", name="home", exact=True)
+    2) <a href="index.htm">Home</a> aka get_by_role("link", name="Home", exact=True)
+
 Call log:
   - waiting for get_by_role("link", name="Home")
-============================== 1 failed in 32.29s ==============================
+============================== 1 failed in 2.38s ===============================
 

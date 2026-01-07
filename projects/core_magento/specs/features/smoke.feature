@@ -1,10 +1,14 @@
-Feature: Website Accessibility
+Feature: Product Search and Details
   As a user
-  I want to access the Magento website
-  So that I can browse products and make purchases
+  I want to search for a product, filter the results, and view the product details
+  So that I can find the product I am looking for
 
   @smoke
-  Scenario: Verify website accessibility
-    Given I navigate to the Magento website
-    Then the website should be accessible
-    And an SSL error should not be present
+  Scenario: Search for a product and view details
+    Given I am on the homepage
+    When I search for "Watch"
+    Then I should see search results for "Watch"
+    When I filter the search results by category
+    Then I should see the filtered search results
+    When I click on a product
+    Then I should be able to view the product details

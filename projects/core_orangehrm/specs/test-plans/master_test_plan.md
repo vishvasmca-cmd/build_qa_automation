@@ -2,59 +2,74 @@
 
 ## Introduction
 
-This document outlines the test plan for the core_orangehrm project, focusing on verifying key functionalities of the OrangeHRM SaaS platform. The tests will cover login page elements, the 'Forgot your password?' link, and social media icons on the login page.
+This test plan outlines the testing strategy for the core_orangehrm application, focusing on verifying key functionalities and ensuring application stability. The application falls under the SaaS domain.
 
 ## Scope
 
 The testing will cover the following areas:
 
-*   Verification of login page elements (username, password fields, login button).
-*   Functionality of the 'Forgot your password?' link.
-*   Verification of social media icons on the login page.
+*   Login page elements verification
+*   'Forgot your password?' link functionality
+*   Social media icons visibility and functionality
 
 ## Test Strategy
 
-The testing will be divided into Smoke and Regression test suites.
+The testing will be divided into two main suites: Smoke and Regression.
 
-*   **Smoke Suite:**  A high-level suite to ensure the core functionality is working.
-*   **Regression Suite:** A more comprehensive suite to cover edge cases and ensure no regressions are introduced.
+*   **Smoke Suite:** A high-level suite to verify the core functionalities.
+*   **Regression Suite:** A comprehensive suite to ensure that new changes haven't introduced regressions.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite will adhere to the following 8-point checklist:
+The Smoke Suite will adhere to the following checklist:
 
-1.  **Critical Path Focus:** Tests will focus on the most critical paths (e.g., accessing the login page, password reset).
-2.  **Core Business Logic:** Verify the basic functionality of password reset.
-3.  **Positive Testing:** Primarily positive testing (e.g., successful navigation).
-4.  **No Negative Testing:** No negative testing in the smoke suite.
-5.  **Minimal Edge Cases:** Avoid complex edge cases.
-6.  **Fast Execution:** Tests should be quick to execute.
-7.  **Build Validation:** Used to validate new builds.
-8.  **Limited Scope:** Only cover essential functionalities.
+1.  **Critical Paths:** Focus on the most critical user flows (e.g., login).
+2.  **Core Business Logic:** Verify the primary business functions.
+3.  **Positive Testing:** Primarily focus on positive test cases.
+4.  **No Negative Testing:** Exclude negative test cases unless they are critical for security.
+5.  **Minimal Edge Cases:** Avoid complex edge cases in the smoke suite.
+6.  **Fast Execution:** Design tests for quick execution to provide rapid feedback.
+7.  **Build Validation:** Use the smoke suite to validate new builds.
+8.  **Essential Functionality:** Cover only the essential functionality required for basic operation.
 
 ## Test Suites
 
-### Smoke Suite
+### 1. Smoke Suite
 
-*   Verify the login page is accessible.
-*   Verify the 'Forgot your password?' link navigates to the password reset page.
-*   Verify the user can enter a username on the password reset page and submit the reset request.
-*   Verify navigation back to the login page.
+*   Verify login page elements are present.
+*   Verify 'Forgot your password?' link navigates to the password reset page.
+*   Verify social media icons are visible on the login page and navigate to the correct pages.
 
-### Regression Suite
+### 2. Regression Suite
 
-*   (To be expanded based on further analysis and feature development)
-
-## Test Environment
-
-The tests will be executed against the following environment:
-
-*   Browser: Chrome (latest version)
-*   Operating System: Windows 10/macOS
-*   URL: https://opensource-demo.orangehrmlive.com/
+*   Verify all login page elements, including labels, input fields, and buttons.
+*   Test the 'Forgot your password?' link with valid and invalid usernames.
+*   Verify the password reset process.
+*   Verify all social media icons navigate to the correct pages.
+*   Test login with valid and invalid credentials.
+*   Test the application's response to various error conditions.
 
 ## Test Deliverables
 
 *   Test Plan document
-*   Gherkin feature files
+*   BDD Feature files (Gherkin syntax)
 *   Test execution reports
+
+## Environment
+
+The tests will be executed on the following environment:
+
+*   Browser: Chrome
+*   Operating System: Windows/macOS
+*   Test Framework: Playwright
+
+## Entry Criteria
+
+*   The application is deployed and accessible in the test environment.
+*   Test data is available.
+
+## Exit Criteria
+
+*   All planned tests have been executed.
+*   All critical and high-priority defects have been resolved.
+*   Test execution report is generated and approved.

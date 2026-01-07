@@ -19,7 +19,7 @@
     },
     {
       "step": 1,
-      "thought": "The goal is to navigate to Products, search for 'Dress', add to cart, and go to checkout. The first step is already done based on history. The next step is to search for 'Dress'. I will use the search input field with id '19' to enter 'Dress'.",
+      "thought": "The goal is to 'Navigate to Products, search for 'Dress', add to cart, and go to checkout.' The first step, 'Navigate to Products', is already completed based on the history. The next step is to search for 'Dress'. I will use the search input field to enter 'Dress'.",
       "action": "fill",
       "page_name": "ProductsPage",
       "locator_used": "page.locator(\"#search_product\")",
@@ -34,7 +34,7 @@
     },
     {
       "step": 2,
-      "thought": "The goal is to navigate to Products, search for 'Dress', add to cart, and go to checkout. I have already navigated to the products page and searched for 'Dress'. The next step is to add a dress to the cart. I will click the first 'Add to cart' button I find.",
+      "thought": "The goal is to 'Navigate to Products, search for 'Dress', add to cart, and go to checkout.' I have already navigated to the Products page and searched for 'Dress'. The next step is to add a dress to the cart. I will click the first 'Add to cart' button I find.",
       "action": "click",
       "page_name": "ProductsPage",
       "locator_used": "page.get_by_role(\"link\", name=\"Add to cart\")",
@@ -49,61 +49,31 @@
     },
     {
       "step": 3,
-      "thought": "The goal is to navigate to Products, search for 'Dress', add to cart, and go to checkout. I have already navigated to the products page, searched for 'Dress', and added a product to the cart. The next step is to go to checkout, which usually involves clicking on the 'Cart' link. Element 7 is the cart link.",
+      "thought": "The goal is to navigate to Products, search for 'Dress', add to cart, and go to checkout. I have already navigated to the products page, searched for 'Dress', and added a product to the cart. Now I need to close the modal that appeared after adding to cart, and then go to checkout. I will click the 'Continue Shopping' button to close the modal.",
       "action": "click",
       "page_name": "ProductsPage",
-      "locator_used": "page.get_by_role(\"link\", name=\"Cart\")",
+      "locator_used": "page.get_by_role(\"button\", name=\"Continue Shopping\")",
       "value": null,
       "url": "https://automationexercise.com/products",
       "screenshot": "step_3_pre.png",
       "element_context": {
-        "tag": "a",
-        "text": "Cart",
+        "tag": "button",
+        "text": "Continue Shopping",
         "role": ""
       }
     },
     {
       "step": 4,
-      "thought": "The goal is to navigate to Products, search for 'Dress', add to cart, and go to checkout. The history shows that I have already navigated to the products page, searched for 'Dress', added an item to the cart, and clicked on the cart button. The next step is to proceed to checkout. Since I am on the cart page, I need to find the checkout button and click it.",
+      "thought": "The goal is to navigate to Products, search for 'Dress', add to cart, and go to checkout. I have already navigated to the products page, searched for 'Dress', added a product to the cart, and clicked 'Continue Shopping'. The next step is to add another dress to the cart. I will click the 'Add to cart' button again.",
       "action": "click",
-      "page_name": "CartPage",
-      "locator_used": "page.get_by_role(\"link\", name=\"View Cart\")",
+      "page_name": "ProductsPage",
+      "locator_used": "page.get_by_role(\"link\", name=\"Add to cart\")",
       "value": null,
-      "url": "https://automationexercise.com/view_cart",
+      "url": "https://automationexercise.com/products",
       "screenshot": "step_4_pre.png",
       "element_context": {
         "tag": "a",
-        "text": "View Cart",
-        "role": ""
-      }
-    },
-    {
-      "step": 5,
-      "thought": "The goal is to 'Navigate to Products, search for 'Dress', add to cart, and go to checkout.' The history shows that I have already navigated to the products page, searched for 'Dress', added a product to the cart, and navigated to the cart page. The current page is the shopping cart page. The next step is to click the 'Proceed To Checkout' button to go to the checkout page.",
-      "action": "click",
-      "page_name": "CartPage",
-      "locator_used": "page.get_by_role(\"link\", name=\"Proceed To Checkout\")",
-      "value": null,
-      "url": "https://automationexercise.com/view_cart",
-      "screenshot": "step_5_pre.png",
-      "element_context": {
-        "tag": "a",
-        "text": "Proceed To Checkout",
-        "role": ""
-      }
-    },
-    {
-      "step": 6,
-      "thought": "The goal is to 'Navigate to Products, search for 'Dress', add to cart, and go to checkout.' The history shows that I have already navigated to the products page, searched for 'Dress', added a product to the cart, navigated to the cart, and clicked 'Proceed to Checkout'. The current page is the cart page. The next step is to proceed to checkout, which I have already done. Now I need to fill out the checkout information form. Since I am already on the cart page and have clicked 'Proceed to Checkout', I should be on the checkout information form page. However, there is no information form on the current page. I will click 'Proceed To Checkout' again to see if it navigates to the checkout information form page.",
-      "action": "click",
-      "page_name": "CartPage",
-      "locator_used": "page.get_by_role(\"link\", name=\"Proceed To Checkout\")",
-      "value": null,
-      "url": "https://automationexercise.com/view_cart",
-      "screenshot": "step_6_pre.png",
-      "element_context": {
-        "tag": "a",
-        "text": "Proceed To Checkout",
+        "text": "Add to cart",
         "role": ""
       }
     }

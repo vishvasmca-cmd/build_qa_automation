@@ -15,52 +15,61 @@ class ParabankPage:
     def __init__(self, page):
         self.page = page
 
-    def goto(self):
-        self.page.goto("https://parabank.parasoft.com/parabank/index.htm")
-        self.page.wait_for_load_state("networkidle")
-
     @property
-    def account_history_link(self):
-        return self.page.get_by_role("link", name="Account History")
+    def about_us_link(self):
+        return self.page.get_by_role("link", name="About Us")
 
     @property
     def home_link(self):
         return self.page.get_by_role("link", name="Home")
 
     @property
-    def about_us_link(self):
-        return self.page.get_by_role("link", name="About Us")
+    def account_history_link(self):
+        return self.page.get_by_role("link", name="Account History")
 
-    def click_account_history(self):
-        self.account_history_link.click()
-
-    def navigate_home(self):
-        self.page.goto("https://parabank.parasoft.com/parabank/index.htm")
-        self.page.wait_for_load_state("networkidle")
-
-    def navigate_about_us(self):
+    def navigate_to_about_us(self):
         self.about_us_link.click()
 
+    def navigate_to_home(self):
+        # The error indicates that there are two 'Home' links.  We'll use the lowercase 'home' to be more specific.
+        self.page.get_by_role("link", name="home").click()
+
+    def navigate_to_account_history(self):
+        self.account_history_link.click()
+
+class ParabankAboutUsPage:
+    def __init__(self, page):
+        self.page = page
+
+    @property
+    def home_link(self):
+        return self.page.get_by_role("link", name="home")
+
+    def navigate_to_home(self):
+        self.home_link.click()
 
 class ParabankWsdlPage:
     def __init__(self, page):
         self.page = page
 
+class ParabankWebServiceDefinitionPage:
+    def __init__(self, page):
+        self.page = page
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-    parabank_page = ParabankPage(page)
-    parabank_wsdl_page = ParabankWsdlPage(page)
-    parabank_page.goto()
+    page.goto("https://parabank.parasoft.com/parabank/index.htm")
+    page.wait_for_load_state("networkidle")
 
     # 2. Logic (using POM)
-    # Step 0: Click Account History link
-    parabank_page.click_account_history()
+    parabank_page = ParabankPage(page)
 
-    # Step 1 & 2 & 3: The navigation to the WSDL page was incorrect. Navigate back to home.
-    parabank_page.navigate_home()
+    parabank_page.navigate_to_about_us()
+    parabank_page.navigate_to_home()
+    parabank_page.navigate_to_home()
+    parabank_page.navigate_to_account_history()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")
