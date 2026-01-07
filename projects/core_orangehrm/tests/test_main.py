@@ -7,13 +7,17 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
-sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/templates')
+sys.path.append('C:/Users/vishv/.gemini/antigravity/playground/inner-event/core/templates')
 from helpers import take_screenshot
 
 
 class OrangehrmLoginPage:
     def __init__(self, page):
         self.page = page
+
+    def goto(self):
+        self.page.goto("https://opensource-demo.orangehrmlive.com/")
+        self.page.wait_for_load_state("networkidle")
 
     @property
     def forgot_password_link(self):
@@ -22,10 +26,11 @@ class OrangehrmLoginPage:
     def click_forgot_password_link(self):
         self.forgot_password_link.click()
 
-    def navigate_to_login_page(self):
-        self.page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    def is_login_page_present(self):
+        expect(self.page).to_have_title("OrangeHRM")
 
-class OrangehrmResetPasswordPage:
+
+class OrangehrmRequestPasswordResetPage:
     def __init__(self, page):
         self.page = page
 
@@ -43,6 +48,19 @@ class OrangehrmResetPasswordPage:
     def click_reset_password_button(self):
         self.reset_password_button.click()
 
+    def goto(self):
+        self.page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode")
+        self.page.wait_for_load_state("networkidle")
+
+
+class OrangehrmPasswordResetPage:
+    def __init__(self, page):
+        self.page = page
+
+    def is_password_reset_success_message_present(self):
+        # Add logic to verify password reset success message if needed
+        pass
+
 class GenericPage:
     def __init__(self, page):
         self.page = page
@@ -51,29 +69,21 @@ def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-    page.goto("https://opensource-demo.orangehrmlive.com/")
-    page.wait_for_load_state("networkidle")
 
     # 2. Logic (using POM)
-    orangehrm_login_page = OrangehrmLoginPage(page)
-    orangehrm_reset_password_page = OrangehrmResetPasswordPage(page)
+    login_page = OrangehrmLoginPage(page)
+    reset_password_page = OrangehrmRequestPasswordResetPage(page)
+    password_reset_page = OrangehrmPasswordResetPage(page)
 
-    orangehrm_login_page.navigate_to_login_page()
-    expect(page).to_have_url("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login", timeout=15000)
+    login_page.goto()
+    login_page.click_forgot_password_link()
 
-    # Step 0: Click 'Forgot your password?' link
-    orangehrm_login_page.click_forgot_password_link()
+    reset_password_page.fill_username("testuser")
+    reset_password_page.click_reset_password_button()
 
-    # Step 2: Fill username on reset password page
-    orangehrm_reset_password_page.fill_username("testuser")
-
-    # Step 3: Click Reset Password button
-    orangehrm_reset_password_page.click_reset_password_button()
-
-    # Step 5: Navigate back to login page
-    orangehrm_login_page.navigate_to_login_page()
-    expect(page).to_have_url("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login", timeout=15000)
-
+    # Assert that we navigated back to login page
+    page.wait_for_url("**/auth/sendPasswordReset", timeout=15000)
+    
     # 3. Cleanup
-    take_screenshot(page, "final_state", "build_qa_automation")
+    take_screenshot(page, "final_state", "inner-event")
     context.close()

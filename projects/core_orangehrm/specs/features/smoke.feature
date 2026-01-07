@@ -1,15 +1,14 @@
 Feature: Login Page Verification and Password Reset
-  As a user, I want to verify the login page elements and the password reset functionality.
+
+  As a user
+  I want to access the login page and initiate the password reset process
+  So that I can verify the core functionality is working
 
   @smoke
-  Scenario: Verify access to the login page and navigation to password reset
+  Scenario: Verify Login Page and Initiate Password Reset
     Given I am on the OrangeHRM login page
-    When I click the "Forgot your password?" link
-    Then I should be navigated to the password reset page
-
-  @smoke
-  Scenario: Reset password request
-    Given I am on the OrangeHRM password reset page
-    When I enter a username
+    When I click on the "Forgot your password?" link
+    Then I should be redirected to the password reset page
+    When I fill the username field with "testuser"
     And I click the "Reset Password" button
-    Then I should be navigated back to the login page
+    Then I should see a message indicating that a reset password link has been sent

@@ -328,12 +328,29 @@ def _run_execution(project_root, config, config_hash, test_path, trace_path):
             break
         else:
             if attempt < max_retries - 1:
-                print(colored(f"⚠️ Attempt {attempt + 1} Failed. Triggering Self-Healing...", "yellow"))
+                print(colored(f"⚠️ Attempt {attempt + 1} Failed. Triggering MASTER AGENT Self-Correction...", "yellow"))
+                
+                # 1. IMMEDIATE LEARNING (The "Master Agent" Step)
+                try:
+                    sys.path.append(os.path.dirname(__file__))
+                    from feedback_agent import FeedbackAgent
+                    print(colored(f"🧠 Analyzing failure to update Knowledge Base...", "cyan"))
+                    feedback = FeedbackAgent()
+                    # We pass 'success=False' to force failure analysis. 
+                    # This updates knowledge/sites/{domain}/rules.md and failures.json
+                    feedback.analyze_run(config, current_log, success=False)
+                    print(colored(f"✅ Knowledge Updated. Re-generating code with new insights...", "green"))
+                except Exception as e:
+                    print(colored(f"⚠️ Feedback Loop Failed: {e}", "red"))
+
+                # 2. RE-GENERATION (Refiner now sees the new rules.md)
                 error_file = os.path.join(project_root, "outputs", "execution_error.log")
                 with open(error_file, "w", encoding="utf-8") as f: f.write(current_log)
                 
                 refiner_script = os.path.join(os.path.dirname(__file__), "refiner.py")
                 domain = config.get("domain", "general")
+                
+                # The Refiner will now read the updated rules.md and generate better code
                 subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", ""), error_file, domain])
             else:
                 print(colored(f"❌ Final Attempt {attempt + 1} Failed.", "red"))
@@ -419,22 +436,161 @@ def run_pipeline(config_path, headed=False):
         
     config_hash = _get_config_hash(config)
     project_root = os.path.dirname(config_path)
-    trace_path = config.get("paths", {}).get("trace", os.path.join(project_root, "outputs/trace.json"))
-    test_path = config.get("paths", {}).get("test", os.path.join(project_root, "tests/test_main.py"))
+    trace_path_initial = config.get("paths", {}).get("trace", os.path.join(project_root, "outputs/trace.json")) # Renamed to avoid conflict
+    test_path_initial = config.get("paths", {}).get("test", os.path.join(project_root, "tests/test_main.py")) # Renamed to avoid conflict
+    logger.log_event("Orchestrator", "pipeline_start", duration=0, success=True, metadata={"config": config})
+    
+    # === MASTER AGENT SUPERVISOR ===
+    
+    SERVER_REGISTRY = {
+        "Planner": "available",
+        "Explorer": "available",
+        "KnowledgeBase": "available",
+        "Coder": "available",
+        "Executor": "available",
+        "SecurityOfficer": "available"
+    }
+    
+    def _update_master_status(phase, status, details=None):
+        """
+        Writes real-time status to master_status.json for User visibility.
+        """
+        status_file = os.path.join(project_root, "outputs", "master_status.json")
+        try:
+            # Load existing
+            if os.path.exists(status_file):
+                with open(status_file, "r") as f:
+                    data = json.load(f)
+            else:
+                data = {
+                    "project": config["project_name"],
+                    "master_status": "ACTIVE", 
+                    "agents": SERVER_REGISTRY
+                }
+            
+            # Update specific agent
+            if phase in data["agents"]:
+                data["agents"][phase] = status
+            
+            # Add event log
+            if "events" not in data: data["events"] = []
+            import datetime
+            data["events"].append({
+                "timestamp": datetime.datetime.now().isoformat(),
+                "agent": phase,
+                "status": status,
+                "details": details or ""
+            })
+            
+            # Keep log short
+            if len(data["events"]) > 20: data["events"] = data["events"][-20:]
+            
+            with open(status_file, "w") as f:
+                json.dump(data, f, indent=2)
+                
+        except Exception as e:
+            print(f"⚠️ Failed to update Master Status: {e}")
 
-    # Execute Phases
-    if not _run_planning(project_root, config, config_hash, config_path): return
-    if not _run_exploration(project_root, config, config_hash, config_path, headed): return
-    _run_knowledge_update(project_root, config, config_hash, trace_path)
-    if not _run_code_generation(project_root, config, config_hash, trace_path, test_path): return
+    def _run_sub_agent(phase_name, func, *args, max_retries=3):
+        """
+        The 'Boss' wrapper. Executes a sub-agent with monitoring, error handling, and self-correction.
+        """
+        _update_master_status(phase_name, "assigned", "Task assigned to agent")
+        
+        for attempt in range(max_retries):
+            try:
+                # 1. Execute Sub-Agent
+                _update_master_status(phase_name, "working", f"Attempt {attempt+1}/{max_retries}")
+                print(colored(f"\n[Boss] 🕵️ Starting Agent: {phase_name} (Attempt {attempt+1}/{max_retries})...", "magenta"))
+                result = func(*args)
+                
+                # Handling return values (some return bool, others void)
+                success = True
+                if isinstance(result, bool): success = result
+                elif isinstance(result, tuple) and len(result) > 0: success = result[0]
+                
+                if success:
+                    print(colored(f"[Boss] ✅ Agent {phase_name} Succeeded.", "green"))
+                    _update_master_status(phase_name, "idle", "Task completed successfully")
+                    return result # Return the original output
+                else:
+                    raise Exception(f"Agent {phase_name} returned failure status.")
+
+            except Exception as e:
+                print(colored(f"[Boss] ⚠️ Agent {phase_name} Crashed/Failed: {e}", "red"))
+                _update_master_status(phase_name, "error", str(e))
+                
+                # 2. Trigger Feedback / Recovery
+                if attempt < max_retries - 1:
+                    print(colored(f"[Boss] 🧠 Consult Feedback Agent for {phase_name}...", "cyan"))
+                    _update_master_status(phase_name, "healing", "Consulting Feedback Agent")
+                    try:
+                        sys.path.append(os.path.dirname(__file__))
+                        from feedback_agent import FeedbackAgent
+                        fb = FeedbackAgent()
+                        if phase_name == "Coder":
+                            # Special case: The refiner failing usually means generation failed, 
+                            # we might want to analyze the error log if it exists.
+                            pass
+                        elif phase_name == "Executor":
+                             # Already handled inside _run_execution usually, but good to double check
+                             pass
+                        else:
+                             fb.analyze_generic_error(phase_name, str(e))
+                    except: pass
+                    time.sleep(2) # Breath before retry
+                else:
+                    print(colored(f"[Boss] ❌ Agent {phase_name} Failed permanently.", "red"))
+                    _update_master_status(phase_name, "dead", "Max retries exceeded")
+                    return result if 'result' in locals() else False
+
+        return False
+
+    # --- Phase Execution with Supervisor ---
+    
+    # 1. PLANNING
+    # _run_sub_agent("Planner", _run_planning, project_root, config, config_hash)
+    
+    # For now, we keep the original flow but we will migrate them one by one or wrap them here.
+    # To minimize diff size, we will wrap the calls below.
+
+    # [Step 0/7] Planning
+    if not _run_sub_agent("Planner", _run_planning, project_root, config, config_hash, config_path): return
+
+    # [Step 1/7] Exploration (Miner)
+    trace_path = os.path.join(project_root, "outputs", "trace.json") # This path is used by subsequent steps
+    if not _run_sub_agent("Explorer", _run_exploration, project_root, config, config_hash, config_path, headed): return
+
+    # [Step 2/7] Knowledge Update
+    _run_knowledge_update(project_root, config, config_hash, trace_path) # Safe to run without wrapper? unique logic
+
+    # [Step 3/7] Code Generation (Refiner)
+    test_path = config.get("paths", {}).get("test", os.path.join(project_root, "tests/test_main.py")) # Use original test_path for generation
+    gen_success = _run_sub_agent("Coder", _run_code_generation, project_root, config, config_hash, trace_path, test_path)
+    
+    if not gen_success:
+        print(colored("❌ Pipeline Halting: Code Generation Failed.", "red"))
+        return False
+
+    # [Step 4/7] Spec Synthesis
     _run_spec_synthesis(project_root, config, config_hash)
+
+    # [Step 5/7] Reporting
     _run_reporting(project_root, config, config_hash, trace_path)
     
+    # [Step 6/7] Execution
     success, execution_log = _run_execution(project_root, config, config_hash, test_path, trace_path)
     
+    # [Step 6.2] Validation
     _run_validation(project_root, config, success)
+
+    # [Step 6.5] Feedback
     _run_feedback(config_path, execution_log, success)
+
+    # [Step 7/7] Security Audit
     _run_security_audit(project_root, config, config_hash)
+
+    # [Step 8/7] Dashboard
     _run_dashboard(project_root, config_hash)
 
     if success:

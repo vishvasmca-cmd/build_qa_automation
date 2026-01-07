@@ -24,6 +24,12 @@ The planner is now "taught" via domain playbooks. It recognizes **E-commerce, Ba
 ### 🛡️ **Runtime Self-Healing v2**
 Native intercept detection in `BasePage`. If a click is intercepted (e.g., by a modal or overlay), the engine automatically attempts to clear the obstruction and retries the action.
 
+### 👑 **Master Agent Supervisor (New!)**
+A "Boss" agent that wraps the entire pipeline (Planning, Exploration, Coding, Execution) in a robust retry loop.
+- **Supervisor Logic**: Monitors sub-agents (`Planner`, `Explorer`, `Coder`) and intervenes if they crash.
+- **Real-Time Dashboard**: Writes status to `outputs/master_status.json` (assigned -> working -> healing -> idle).
+- **Self-Correction**: Consults `FeedbackAgent` to diagnose failures and auto-heals (e.g., updates `rules.md` on the fly).
+
 ### 📊 **CI Failure Log Aggregation**
 Consolidated tracking of distributed test runs. All failures across 100+ sites are merged into a single `knowledge/failures.json` for rapid post-mortem analysis.
 

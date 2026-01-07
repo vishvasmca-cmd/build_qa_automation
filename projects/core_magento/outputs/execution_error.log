@@ -1,45 +1,23 @@
-============================= test session starts ==============================
-platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
 cachedir: .pytest_cache
-metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'langsmith': '0.6.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
-rootdir: /home/runner/work/build_qa_automation/build_qa_automation
-plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
-collecting ... collected 1 item
+rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
+plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
+collecting ... collected 0 items / 1 error
 
-projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] FAILED
-
-=================================== FAILURES ===================================
-________________________ test_autonomous_flow[chromium] ________________________
-
-page = <Page url='https://magento.softwaretestingboard.com/'>
-
-    def test_autonomous_flow(page: Page):
-        # 1. Setup
-        generic_page = GenericPage(page)
-    
-        # 2. Logic
-        generic_page.goto("https://magento.softwaretestingboard.com/")
->       generic_page.assert_title("Home Page")
-
-projects/core_magento/tests/test_main.py:31: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-self = <test_main.GenericPage object at 0x7f5f928d4f90>, title = 'Home Page'
-
-    def assert_title(self, title: str):
->       expect(self.page).to_have_title(re.compile(title, re.IGNORECASE))
-E       AssertionError: Page title expected to be 're.compile('Home Page', re.IGNORECASE)'
-E       Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
-E       Call log:
-E         - Expect "to_have_title" with timeout 5000ms
-E           9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
-
-projects/core_magento/tests/test_main.py:22: AssertionError
-=========================== short test summary info ============================
-FAILED projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page title expected to be 're.compile('Home Page', re.IGNORECASE)'
-Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
-Call log:
-  - Expect "to_have_title" with timeout 5000ms
-    9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
-============================== 1 failed in 6.30s ===============================
+=================================== ERRORS ====================================
+__________ ERROR collecting projects/core_magento/tests/test_main.py __________
+ImportError while importing test module 'C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\core_magento\tests\test_main.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+projects\core_magento\tests\test_main.py:10: in <module>
+    from helpers import take_screenshot
+E   ModuleNotFoundError: No module named 'helpers'
+=========================== short test summary info ===========================
+ERROR projects/core_magento/tests/test_main.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+============================== 1 error in 0.46s ===============================
 

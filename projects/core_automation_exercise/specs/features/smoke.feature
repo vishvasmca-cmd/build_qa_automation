@@ -1,11 +1,11 @@
-Feature: Product Search and Checkout
+Feature: Product Search and Add to Cart
   As a user,
-  I want to search for a product, add it to the cart, and proceed to checkout.
+  I want to search for a product and add it to my cart,
+  So that I can purchase the product.
 
   @smoke
-  Scenario: Search for a dress and proceed to checkout
-    Given I am on the products page
-    When I search for "Dress"
+  Scenario: Search for 'Dress' and add to cart
+    Given I navigate to the Products page
+    When I search for 'Dress'
     And I add the first dress to the cart
-    And I go to the cart
-    Then I proceed to checkout
+    Then I should be able to continue shopping

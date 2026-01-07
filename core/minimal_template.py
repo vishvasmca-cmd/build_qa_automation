@@ -33,8 +33,19 @@ import re
 from playwright.sync_api import Page, expect, Browser
 import pytest
 import sys
-sys.path.append('C:/Users/vishv/.gemini/antigravity/playground/inner-event/core/templates')
-from helpers import wait_for_stability, take_screenshot
+import os
+
+# Define helpers directly to ensure self-containment
+def wait_for_stability(page):
+    page.wait_for_load_state("networkidle")
+    page.wait_for_load_state("domcontentloaded")
+
+def take_screenshot(page, name, project_name):
+    screenshot_dir = os.path.join(os.getcwd(), "projects", project_name, "outputs", "screenshots")
+    os.makedirs(screenshot_dir, exist_ok=True)
+    path = os.path.join(screenshot_dir, f"{name}.png")
+    page.screenshot(path=path)
+    print(f"[SCREENSHOT] Saved: {path}")
 
 def test_minimal_smoke(browser: Browser):
     """Minimal smoke test: Navigate + Screenshot + Basic Assertion"""

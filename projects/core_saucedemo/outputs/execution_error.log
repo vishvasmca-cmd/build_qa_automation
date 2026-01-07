@@ -1,59 +1,53 @@
-============================= test session starts ==============================
-platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
 cachedir: .pytest_cache
-metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'langsmith': '0.6.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
-rootdir: /home/runner/work/build_qa_automation/build_qa_automation
-plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
+rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
+plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
 collecting ... collected 1 item
 
 projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium] FAILED
 
-=================================== FAILURES ===================================
-________________________ test_autonomous_flow[chromium] ________________________
+================================== FAILURES ===================================
+_______________________ test_autonomous_flow[chromium] ________________________
 
-browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+page = <Page url='https://www.saucedemo.com/inventory.html'>
 
-    def test_autonomous_flow(browser: Browser):
+    def test_autonomous_flow(page: Page):
         # 1. Setup
-        context = browser.new_context(viewport={"width": 1920, "height": 1080})
-        page = context.new_page()
         page.goto("https://www.saucedemo.com/")
-        page.wait_for_load_state("networkidle")
+        wait_for_stability(page)
     
-        login_page = LoginPage(page)
-        inventory_page = SaucedemoInventoryPage(page)
-        inventory_list = InventoryList(page)
+        # 2. Logic (using POM)
+        home_page = HomePage(page)
+        inventory_page = InventoryPage(page)
         cart_page = CartPage(page)
         checkout_information_page = CheckoutInformationPage(page)
         checkout_overview_page = CheckoutOverviewPage(page)
         checkout_complete_page = CheckoutCompletePage(page)
     
-        # 2. Logic (using POM)
-        login_page.goto()
-        login_page.login("standard_user", "secret_sauce")
+        # Login
+        home_page.login("standard_user", "secret_sauce")
     
-        inventory_page.sort_by_price_low_to_high()
-        inventory_list.add_lowest_price_item_to_cart()
-    
->       cart_page.goto_checkout()
+        # Sort products by price low to high
+>       inventory_page.sort_products_by_price_low_to_high()
 
-projects/core_saucedemo/tests/test_main.py:106: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_saucedemo/tests/test_main.py:50: in goto_checkout
-    self.page.locator("[data-test='checkout']").click()
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
+projects\core_saucedemo\tests\test_main.py:148: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+projects\core_saucedemo\tests\test_main.py:45: in sort_products_by_price_low_to_high
+    self.product_sort_dropdown.select_option(label='Price (low to high)')
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:17636: in select_option
     self._sync(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
-    return await self._frame._click(self._selector, strict=True, **params)
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_locator.py:597: in select_option
+    return await self._frame.select_option(
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:781: in select_option
+    return await self._channel.send("selectOption", self._timeout, params)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:566: in _click
-    await self._channel.send("click", self._timeout, locals_to_params(locals()))
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:69: in send
     return await self._connection.wrap_api_call(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-self = <playwright._impl._connection.Connection object at 0x7fa4d595d250>
-cb = <function Channel.send.<locals>.<lambda> at 0x7fa4d46db880>
+self = <playwright._impl._connection.Connection object at 0x0000010A48312510>
+cb = <function Channel.send.<locals>.<lambda> at 0x0000010A47E37CE0>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -72,14 +66,12 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+E           playwright._impl._errors.TimeoutError: Locator.select_option: Timeout 30000ms exceeded.
 E           Call log:
-E             - waiting for locator("[data-test='checkout']")
+E             - waiting for get_by_role("select")
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
-=========================== short test summary info ============================
-FAILED projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
-Call log:
-  - waiting for locator("[data-test='checkout']")
-============================== 1 failed in 32.34s ==============================
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: TimeoutError
+=========================== short test summary info ===========================
+FAILED projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium]
+============================= 1 failed in 32.78s ==============================
 

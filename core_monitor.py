@@ -118,6 +118,8 @@ def run_core_monitor(sync_git=False, dry_run=False):
 
     # Run in Parallel
     print(f"\n🚀 Launching Core Monitoring for {len(config_paths)} sites...")
+    failures = []
+    
     try:
         sys.path.append(os.path.join(os.path.dirname(__file__), "core"))
         from batch_orchestrator import BatchOrchestrator
@@ -126,15 +128,24 @@ def run_core_monitor(sync_git=False, dry_run=False):
         orchestrator = BatchOrchestrator(concurrency_limit=5)
         asyncio.run(orchestrator.run_batch(config_paths, headed=False))
         
+        # Detect Failures
+        failures = [p for p, res in orchestrator.results.items() if res.get('status') != 'success']
+        
         # Aggregate dashboard
         print("\n📊 Aggregating Global Dashboard...")
         subprocess.run([sys.executable, "core/dashboard_aggregator.py"], check=False)
             
     except Exception as e:
         print(f"❌ Core Monitor Batch Failed: {e}")
+        # If the batch system itself crashed, we definitely failed
+        sys.exit(1)
     
     if sync_git:
         sync_to_github()
+
+    if failures:
+        print(f"\n❌ MONITOR FAILED: {len(failures)} projects failed: {', '.join(failures)}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     should_sync = "--sync-git" in sys.argv

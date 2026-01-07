@@ -7,75 +7,113 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
-sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/templates')
+sys.path.append('C:/Users/vishv/.gemini/antigravity/playground/inner-event/core/templates')
 from helpers import take_screenshot
 
 
-class LoginPage:
+class HomePage:
     def __init__(self, page):
         self.page = page
 
-    def goto(self):
-        self.page.goto("https://www.saucedemo.com/")
-        self.page.wait_for_load_state("networkidle")
+    @property
+    def username_field(self):
+        return self.page.locator("[data-test='username']")
+
+    @property
+    def password_field(self):
+        return self.page.locator("[data-test='password']")
+
+    @property
+    def login_button(self):
+        return self.page.locator("[data-test='login-button']")
 
     def login(self, username, password):
-        self.page.locator("[data-test='username']").fill(username)
-        self.page.locator("[data-test='password']").fill(password)
-        self.page.locator("[data-test='login-button']").click()
+        self.username_field.fill(username)
+        self.password_field.fill(password)
+        self.login_button.click()
         self.page.wait_for_load_state("networkidle")
 
-class SaucedemoInventoryPage:
+class InventoryPage:
     def __init__(self, page):
         self.page = page
 
-    def sort_by_price_low_to_high(self):
-        self.page.locator("[data-test='product-sort-container']").select_option(label="Price (low to high)")
+    @property
+    def product_sort_dropdown(self):
+        return self.page.locator("[data-test='product-sort-container']")
+
+    @property
+    def add_to_cart_bike_light_button(self):
+        return self.page.locator("[data-test='add-to-cart-sauce-labs-bike-light']")
+
+    def sort_products_by_price_low_to_high(self):
+        self.product_sort_dropdown.select_option(label='Price (low to high)')
         self.page.wait_for_load_state("networkidle")
 
-class InventoryList:
-    def __init__(self, page):
-        self.page = page
-
-    def add_lowest_price_item_to_cart(self):
-        # Assuming the lowest price item is the first one after sorting
-        self.page.locator(".inventory_item .inventory_item_name").first.hover()
-        self.page.locator("[data-test^='add-to-cart']").first.click()
+    def add_bike_light_to_cart(self):
+        self.add_to_cart_bike_light_button.click()
         self.page.wait_for_load_state("networkidle")
 
 class CartPage:
     def __init__(self, page):
         self.page = page
 
-    def goto_checkout(self):
-        self.page.locator("[data-test='checkout']").click()
+    @property
+    def checkout_button(self):
+        return self.page.locator("[data-test='checkout']")
+
+    def proceed_to_checkout(self):
+        self.checkout_button.click()
         self.page.wait_for_load_state("networkidle")
 
 class CheckoutInformationPage:
     def __init__(self, page):
         self.page = page
 
+    @property
+    def first_name_field(self):
+        return self.page.locator("[data-test='firstName']")
+
+    @property
+    def last_name_field(self):
+        return self.page.locator("[data-test='lastName']")
+
+    @property
+    def postal_code_field(self):
+        return self.page.locator("[data-test='postalCode']")
+
+    @property
+    def continue_button(self):
+        return self.page.locator("[data-test='continue']")
+
     def fill_checkout_information(self, first_name, last_name, postal_code):
-        self.page.locator("[data-test='firstName']").fill(first_name)
-        self.page.locator("[data-test='lastName']").fill(last_name)
-        self.page.locator("[data-test='postalCode']").fill(postal_code)
-        self.page.locator("[data-test='continue']").click()
+        self.first_name_field.fill(first_name)
+        self.last_name_field.fill(last_name)
+        self.postal_code_field.fill(postal_code)
+        self.continue_button.click()
         self.page.wait_for_load_state("networkidle")
 
 class CheckoutOverviewPage:
     def __init__(self, page):
         self.page = page
 
+    @property
+    def finish_button(self):
+        return self.page.locator("[data-test='finish']")
+
     def finish_checkout(self):
-        self.page.locator("[data-test='finish']").click()
+        self.finish_button.click()
         self.page.wait_for_load_state("networkidle")
 
 class CheckoutCompletePage:
     def __init__(self, page):
         self.page = page
 
-    def back_to_products(self):
-        self.page.locator("[data-test='back-to-products']").click()
+    @property
+    def back_to_products_button(self):
+        return self.page.locator("[data-test='back-to-products']")
+
+    def go_back_to_products(self):
+        self.back_to_products_button.click()
         self.page.wait_for_load_state("networkidle")
 
 def test_autonomous_flow(browser: Browser):
@@ -85,29 +123,39 @@ def test_autonomous_flow(browser: Browser):
     page.goto("https://www.saucedemo.com/")
     page.wait_for_load_state("networkidle")
 
-    login_page = LoginPage(page)
-    inventory_page = SaucedemoInventoryPage(page)
-    inventory_list = InventoryList(page)
+    # 2. Logic (using POM)
+    home_page = HomePage(page)
+    inventory_page = InventoryPage(page)
     cart_page = CartPage(page)
     checkout_information_page = CheckoutInformationPage(page)
     checkout_overview_page = CheckoutOverviewPage(page)
     checkout_complete_page = CheckoutCompletePage(page)
 
-    # 2. Logic (using POM)
-    login_page.goto()
-    login_page.login("standard_user", "secret_sauce")
+    # Login
+    home_page.login("standard_user", "secret_sauce")
 
-    inventory_page.sort_by_price_low_to_high()
-    inventory_list.add_lowest_price_item_to_cart()
+    # Sort products by price low to high
+    inventory_page.sort_products_by_price_low_to_high()
 
-    cart_page.goto_checkout()
+    # Add the bike light to the cart
+    inventory_page.add_bike_light_to_cart()
 
+    # Go to the cart
+    page.locator("[data-test='shopping-cart-link']").click()
+    page.wait_for_load_state("networkidle")
+
+    # Proceed to checkout
+    cart_page.proceed_to_checkout()
+
+    # Fill in checkout information
     checkout_information_page.fill_checkout_information("John", "Doe", "12345")
 
+    # Finish checkout
     checkout_overview_page.finish_checkout()
 
-    checkout_complete_page.back_to_products()
+    # Go back to products
+    checkout_complete_page.go_back_to_products()
 
     # 3. Cleanup
-    take_screenshot(page, "final_state", "build_qa_automation")
+    take_screenshot(page, "final_state", "inner-event")
     context.close()

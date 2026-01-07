@@ -205,6 +205,16 @@ class CodeRefiner:
                         site_knowledge = f"\n**PROVEN LOCATORS FOR {netloc} (USE THESE IF THEY MATCH THE GOAL)**:\n"
                         site_knowledge += json.dumps(proven_locs, indent=2)
              except: pass
+        
+        # Load Site specific rules
+        site_rules_path = os.path.join(os.path.dirname(__file__), "..", "knowledge", "sites", netloc, "rules.md")
+        if os.path.exists(site_rules_path):
+            try:
+                with open(site_rules_path, "r", encoding="utf-8") as f:
+                    rules_content = f.read()
+                    site_knowledge += f"\n\n**⚠️ MANDATORY SITE RULES FOR {netloc} (YOU MUST OBEY THESE)**:\n{rules_content}\n"
+            except Exception as e:
+                print(f"⚠️ Failed to load site rules: {e}")
 
         # Load Platform Strategy (Dispatcher)
         platform_rules = ""
@@ -299,10 +309,13 @@ class CodeRefiner:
         - ❌ **STABILITY WARNING**: NEVER use full URLs as accessibility names (e.g. `get_by_role("link", name="https://...")`). Use visible text or labels instead.
         - ❌ **STABILITY WARNING**: NEVER use explicit `scroll` or `PageDown` actions. Playwright actions auto-scroll to the element.
         - ❌ **STRICT MODE VIOLATION**: If a locator matches multiple elements (e.g., 'Add to cart' buttons), you **MUST** uses `.first` or `.nth(0)` to pick one.
+        - ❌ **AMBIGUOUS LINKS**: If a link like "About Us" or "Contact" appears in both Header and Footer, you MUST chain the locator to a unique parent container (e.g., `self.page.locator('header').get_by_role('link', name='About Us')`).
         - ❌ **SYNTAX ERROR**: NEVER use `.first()` as a method. It is a property. Use `locator.first.click()`.
         - ⚠️ **HOVER VISIBILITY**: If an element appears only on hover (e.g., 'Add to cart' on product cards), you MUST `hover()` the container first.
         - ⚠️ **NAVIGATION LOGIC**: Ensure you navigate to the destination (e.g., click Cart icon) BEFORE interacting with page-specific elements (e.g., Checkout button).
-        - ⚠️ **CLICK INTERCEPTION**: If Playwright reports "intercepts pointer events", use `.click(force=True)` ONLY if the element is known to be covered by a decorative overlay or sticky header.
+        - ⚠️ **CLICK INTERCEPTION by ADS/OVERLAYS**: 
+             - If an element is covered by an ad (e.g., Google Ads, `<section id="advertisement">`), you MUST uses `force=True` on the click/hover action: `.click(force=True)`.
+             - Alternatively, try to evaluate JavaScript to remove the overlay: `self.page.evaluate("document.querySelectorAll('.ad-container, #advertisement').forEach(el => el.remove())")` before interacting.
 
         **CRITICAL RULES**:
         1. **STANDARDS ONLY**: You MUST use pure Playwright API. DO NOT use custom helpers like `smart_action`.

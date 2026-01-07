@@ -27,12 +27,15 @@ class FeedbackAgent:
         self.llm = SafeLLM(model="gemini-2.0-flash", temperature=0.1)
         self.kb = KnowledgeBank()
 
-    def analyze_run(self, config_path, test_output_log, success):
+    def analyze_run(self, config_or_path, test_output_log, success):
         """
         Analyzes the result of a test run and reinforces memory.
         """
-        with open(config_path, "r") as f:
-            config = json.load(f)
+        if isinstance(config_or_path, dict):
+            config = config_or_path
+        else:
+            with open(config_or_path, "r") as f:
+                config = json.load(f)
             
         project = config["project_name"]
         url = config["target_url"]
@@ -89,10 +92,12 @@ A JSON object containing:
                 # We need a method in KnowledgeBank to explicitly kill a locator
                 self._penalize_locators(domain, analysis['bad_locators'])
             
-            # Action 2: Add Learned Rule to Domain Knowledge
+            # Action 2: Add Learned Rule to Site Knowledge (Preferred) or Domain Knowledge
             if analysis.get("new_rule"):
                 print(f"   📝 learning new rule: {analysis['new_rule']}")
-                self._add_domain_rule(config.get("domain", "general"), analysis['new_rule'])
+                # If the rule is specific to this site (which it usually is in this context), add it to rules.md
+                self._add_site_rule(domain, analysis['new_rule'])
+                # Optionally also add to domain if it seems generic, but let's stick to site-specific for safety first.
 
         except Exception as e:
             print(f"   ⚠️ Feedback analysis failed: {e}")
@@ -118,6 +123,24 @@ A JSON object containing:
                     with open(loc_file, "w") as f:
                         json.dump(data, f, indent=2)
             except: pass
+
+    def _add_site_rule(self, site_domain, rule):
+        """Appends a rule to the site's rules.md file."""
+        site_path = os.path.join(self.kb.root, "sites", site_domain)
+        rules_file = os.path.join(site_path, "rules.md")
+        
+        os.makedirs(site_path, exist_ok=True)
+        
+        # Format the rule as a bullet point if not already
+        if not rule.strip().startswith("-"):
+            rule = f"- {rule}"
+            
+        try:
+            with open(rules_file, "a", encoding="utf-8") as f:
+                f.write(f"\n{rule}\n")
+            print(f"   💾 Saved rule to {rules_file}")
+        except Exception as e:
+            print(f"   ⚠️ Failed to save rule: {e}")
 
     def log_failure(self, context, error_details):
         """
@@ -146,30 +169,36 @@ A JSON object containing:
         current_data.append(entry)
         
         try:
-           with open(failures_path, "w") as f:
-               json.dump(current_data, f, indent=2)
-           print(f"📝 Failure logged to {failures_path}")
+            with open(failures_path, "w") as f:
+                json.dump(current_data, f, indent=2)
+            print(f"📝 Failure logged to {failures_path}")
         except Exception as e:
-           print(f"⚠️ Failed to log failure: {e}")
+            print(f"⚠️ Failed to log failure: {e}")
 
-    def _add_domain_rule(self, domain, rule):
-        """Adds a high-level rule to the domain YAML."""
-        # Clean domain name
-        if isinstance(domain, dict): domain = "general"
+    def analyze_generic_error(self, agent_name, error_log):
+        """
+        Diagnoses non-testing errors (e.g., Planner crash, Explorer timeout).
+        Returns a suggested fix or strategy adjustment.
+        """
+        print(f"🧠 Feedback Agent: Diagnosing {agent_name} failure...")
+        system_prompt = f"""You are a System Architect diagnosing a crash in the {agent_name} component.
+        Analyze the error log and suggest a fix.
         
-        domain_file = os.path.join(self.kb.root, "domains", f"{domain}.yaml")
-        data = {}
-        if os.path.exists(domain_file):
-            try:
-                with open(domain_file, "r") as f:
-                    data = yaml.safe_load(f) or {}
-            except: data = {}
-            
-        rules = data.get("learned_rules", [])
-        if rule not in rules:
-            rules.append(rule)
-            data["learned_rules"] = rules
-            
-            with open(domain_file, "w") as f:
-                yaml.dump(data, f)
-
+        OUTPUT format using JSON:
+        {{
+            "root_cause": "Explanation",
+            "suggested_action": "Retry with X | Skip Step | Fatal"
+        }}
+        """
+        try:
+            resp = self.llm.invoke([
+                ("system", system_prompt),
+                ("human", f"ERROR LOG:\n{str(error_log)[:2000]}")
+            ])
+            clean = resp.content.replace("```json", "").replace("```", "").strip()
+            analysis = json.loads(clean)
+            print(f"   🔍 Diagnosis: {analysis['root_cause']}")
+            print(f"   💡 Suggestion: {analysis['suggested_action']}")
+            return analysis
+        except:
+            return None
