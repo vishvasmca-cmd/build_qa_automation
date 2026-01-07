@@ -6,7 +6,13 @@ rootdir: /home/runner/work/build_qa_automation/build_qa_automation
 plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
 collecting ... collected 1 item
 
-projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] FAILED
+projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] Navigation to Account History failed: Page URL expected to be 're.compile('.*/account.htm')'
+Actual value: https://parabank.parasoft.com/parabank/services/bank;jsessionid=89930142F7876CDC334249990F5FB014?_wadl&_type=xml 
+Call log:
+  - Expect "to_have_url" with timeout 15000ms
+    19 × unexpected value "https://parabank.parasoft.com/parabank/services/bank;jsessionid=89930142F7876CDC334249990F5FB014?_wadl&_type=xml"
+
+FAILED
 
 =================================== FAILURES ===================================
 ________________________ test_autonomous_flow[chromium] ________________________
@@ -17,67 +23,64 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
+        page.goto("https://parabank.parasoft.com/parabank/index.htm")
+        page.wait_for_load_state("networkidle")
     
         # 2. Logic (using POM)
         parabank_page = ParabankPage(page)
-        parabank_page.goto()
     
-        # Step 0: Click on About Us link
->       parabank_page.about_us_link.click()
-
-projects/core_parabank/tests/test_main.py:64: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
-    self._sync(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
-    return await self._frame._click(self._selector, strict=True, **params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:566: in _click
-    await self._channel.send("click", self._timeout, locals_to_params(locals()))
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
-    return await self._connection.wrap_api_call(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-self = <playwright._impl._connection.Connection object at 0x7f1c6c9f25d0>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f1c6c980c20>
-is_internal = False, title = None
-
-    async def wrap_api_call(
-        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
-    ) -> Any:
-        if self._api_zone.get():
-            return await cb()
-        task = asyncio.current_task(self._loop)
-        st: List[inspect.FrameInfo] = getattr(
-            task, "__pw_stack__", None
-        ) or inspect.stack(0)
-    
-        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
-        self._api_zone.set(parsed_st)
+        # Step 0: Click Account History and handle potential WADL redirect
         try:
-            return await cb()
-        except Exception as error:
->           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name="About Us") resolved to 2 elements:
-E               1) <a href="about.htm;jsessionid=FA923A337100C13DF4ADC81CDE2A46FC">About Us</a> aka locator("#headerPanel").get_by_role("link", name="About Us")
-E               2) <a href="about.htm;jsessionid=FA923A337100C13DF4ADC81CDE2A46FC">About Us</a> aka locator("#footerPanel").get_by_role("link", name="About Us")
-E           
+            parabank_page.navigate_to_account_history()
+            page.wait_for_load_state("networkidle")
+>           expect(page).to_have_url(re.compile(".*/account.htm"), timeout=15000)
+E           AssertionError: Page URL expected to be 're.compile('.*/account.htm')'
+E           Actual value: https://parabank.parasoft.com/parabank/services/bank;jsessionid=89930142F7876CDC334249990F5FB014?_wadl&_type=xml 
 E           Call log:
-E             - waiting for get_by_role("link", name="About Us")
+E             - Expect "to_have_url" with timeout 15000ms
+E               19 × unexpected value "https://parabank.parasoft.com/parabank/services/bank;jsessionid=89930142F7876CDC334249990F5FB014?_wadl&_type=xml"
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
-=============================== warnings summary ===============================
-projects/core_parabank/tests/test_main.py:79
-  /home/runner/work/build_qa_automation/build_qa_automation/projects/core_parabank/tests/test_main.py:79: DeprecationWarning: invalid escape sequence '\?'
-    expect(page).to_have_url(re.compile(".*/services/bank\?_wadl&_type=xml"))
+projects/core_parabank/tests/test_main.py:99: AssertionError
 
--- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+During handling of the above exception, another exception occurred:
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser: Browser):
+        # 1. Setup
+        context = browser.new_context(viewport={"width": 1920, "height": 1080})
+        page = context.new_page()
+        page.goto("https://parabank.parasoft.com/parabank/index.htm")
+        page.wait_for_load_state("networkidle")
+    
+        # 2. Logic (using POM)
+        parabank_page = ParabankPage(page)
+    
+        # Step 0: Click Account History and handle potential WADL redirect
+        try:
+            parabank_page.navigate_to_account_history()
+            page.wait_for_load_state("networkidle")
+            expect(page).to_have_url(re.compile(".*/account.htm"), timeout=15000)
+        except Exception as e:
+            print(f"Navigation to Account History failed: {e}")
+            # Retry navigation to Account History
+            page.goto("https://parabank.parasoft.com/parabank/index.htm")
+            page.wait_for_load_state("networkidle")
+            parabank_page.navigate_to_account_history()
+            page.wait_for_load_state("networkidle")
+>           expect(page).to_have_url(re.compile(".*/account.htm"), timeout=15000)
+E           AssertionError: Page URL expected to be 're.compile('.*/account.htm')'
+E           Actual value: https://parabank.parasoft.com/parabank/services/bank?_wadl&_type=xml 
+E           Call log:
+E             - Expect "to_have_url" with timeout 15000ms
+E               19 × unexpected value "https://parabank.parasoft.com/parabank/services/bank?_wadl&_type=xml"
+
+projects/core_parabank/tests/test_main.py:107: AssertionError
 =========================== short test summary info ============================
-FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name="About Us") resolved to 2 elements:
-    1) <a href="about.htm;jsessionid=FA923A337100C13DF4ADC81CDE2A46FC">About Us</a> aka locator("#headerPanel").get_by_role("link", name="About Us")
-    2) <a href="about.htm;jsessionid=FA923A337100C13DF4ADC81CDE2A46FC">About Us</a> aka locator("#footerPanel").get_by_role("link", name="About Us")
-
+FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page URL expected to be 're.compile('.*/account.htm')'
+Actual value: https://parabank.parasoft.com/parabank/services/bank?_wadl&_type=xml 
 Call log:
-  - waiting for get_by_role("link", name="About Us")
-========================= 1 failed, 1 warning in 1.74s =========================
+  - Expect "to_have_url" with timeout 15000ms
+    19 × unexpected value "https://parabank.parasoft.com/parabank/services/bank?_wadl&_type=xml"
+============================== 1 failed in 33.80s ==============================
 

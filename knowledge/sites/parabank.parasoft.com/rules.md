@@ -6,6 +6,16 @@
   - **PREFERRED**: `page.locator("#headerPanel").get_by_role("link", name="About Us")`
   - **ALTERNATIVE**: `page.get_by_role("link", name="About Us").first`
 
+- **HOME LINK**: "Home" link also appears multiple times. Use `exact=True` or header scope.
+  - **PREFERRED**: `page.get_by_role("link", name="Home", exact=True).first`
+
 ## Login
 - **LOGIN SUCCESS**: Successful login redirects to `/parabank/overview.htm`.
 - **LOGIN FAILURE**: Failure usually keeps you on `index.htm` or shows specific error text "The username and password could not be verified".
+
+## Account History & Server Stability
+- **WADL REDIRECT**: Clicking "Account History" sometimes redirects to a WADL/Service description page instead of `/account.htm`.
+  - **ACTION**: Verify URL contains `/account.htm` (or `/accountactivity.htm`). If it contains `_wadl` or ends in `.xml`, it is a server-side error.
+  - **RECOVERY**: Implement retry mechanism with page refresh if WADL page is encountered.
+
+- **URL VERIFICATION**: Ensure `expect(page).to_have_url()` regex is strictly formatted to avoid partial matches on wrong pages.

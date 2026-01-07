@@ -49,3 +49,33 @@
 - Before interacting with a search input, ensure it is visible and enabled.  Consider adding a short explicit wait if the element's appearance is dependent on other network requests.
 
 - When interacting with elements found using `.first()`, ensure the element is resolved before attempting actions like `.click()`.  Use `.first().locator('self')` to resolve the element.
+
+- When interacting with locators, ensure that the correct action method (e.g., `.click()`) is called on the locator object, and that the locator is correctly identifying the target element.
+
+- Before clicking 'View Cart', ensure the page is fully loaded and any potential overlays (e.g., promotional modals) are closed.
+
+- Before clicking 'View Cart', ensure any modals or overlays are closed to prevent element occlusion. Also, wait for the page to fully load and any dynamic content to render before attempting to interact with the cart link.
+
+- When targeting a specific product element, avoid using generic class names like `.productinfo`. Instead, use a more specific locator strategy that includes unique attributes or text content to ensure you target the intended element.
+
+- Before clicking 'Add to cart', ensure the product details are fully loaded and any overlaying elements (e.g., promotional pop-ups) are dismissed. Consider adding an explicit wait for product details to load.
+
+- Before clicking 'Add to cart', ensure the product details are fully loaded and visible. Implement a check for a loading spinner or a specific element indicating readiness.
+
+- When locating elements by visible text in Playwright, use the `:has-text()` selector or `filter()` method instead of passing `text` directly to the `locator()` method.
+
+- Before interacting with the search input field, ensure that the page has fully loaded and any overlays or modals that might obscure the element have been dismissed. Consider adding a short delay or explicit wait for a parent element to be visible before attempting to fill the search input.
+
+- When locating elements by visible text in Playwright, use the `filter()` method with the `has_text` option instead of passing `text` directly to the `locator()` method.
+
+- When locating elements by attribute in Playwright, use attribute selectors (e.g., `a[title='Add to cart']`) instead of passing attributes as keyword arguments to the `locator()` method.
+
+- Before clicking 'Add to cart', ensure the product details page is fully loaded and any overlaying elements (e.g., modals, spinners) are dismissed. Consider adding an explicit wait for a specific element on the product details page to confirm it's ready.
+
+- Before clicking 'Add to cart', ensure the product is fully loaded and visible on the page. Consider waiting for a specific element related to the product details to load before attempting to add it to the cart.
+
+- Before clicking 'Add to cart', ensure any overlaying elements (e.g., modals, banners) are dismissed or the button is fully visible and interactable. Consider adding a short delay or explicit wait for the element to be stable.
+
+- Before clicking 'Add to cart', ensure the product is fully loaded and visible on the page. Consider adding a short explicit wait or checking for a loading spinner to disappear.
+
+- Before clicking 'Add to cart', ensure the product details are fully loaded and any overlaying elements (e.g., loading spinners, modals) are dismissed. Consider adding an explicit wait for the product image to load as a proxy for full page load.

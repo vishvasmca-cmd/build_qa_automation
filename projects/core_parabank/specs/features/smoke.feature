@@ -1,14 +1,18 @@
 Feature: ParaBank Smoke Tests
-  As a user, I want to perform basic actions on the ParaBank website to ensure core functionalities are working.
 
   @smoke
-  Scenario: Verify successful navigation to the About Us page
-    Given I am on the ParaBank home page
-    When I click on the "About Us" link
-    Then I should be navigated to the "About Us" page
+  Scenario: Verify ParaBank Home Page and Navigation
+    Given User navigates to the ParaBank home page
+    Then The ParaBank home page should be displayed
 
   @smoke
-  Scenario: Verify navigation to Account History page
-    Given I am on the ParaBank home page
-    When I click on the "Account History" link
-    Then I should be navigated to the Account History page
+  Scenario: Check Account History Link
+    Given User is on the ParaBank home page
+    When User clicks on the Account History link
+    Then User should be redirected to the Account History page
+
+  @smoke
+  Scenario: Navigate to About Us Page
+    Given User is on the ParaBank home page
+    When User navigates to the About Us page
+    Then The About Us page should be displayed

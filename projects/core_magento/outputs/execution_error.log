@@ -1,23 +1,41 @@
-============================= test session starts =============================
-platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
 cachedir: .pytest_cache
-rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
-plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
-collecting ... collected 0 items / 1 error
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'langsmith': '0.6.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
+collecting ... collected 1 item
 
-=================================== ERRORS ====================================
-__________ ERROR collecting projects/core_magento/tests/test_main.py __________
-ImportError while importing test module 'C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\core_magento\tests\test_main.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\importlib\__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-projects\core_magento\tests\test_main.py:10: in <module>
-    from helpers import take_screenshot
-E   ModuleNotFoundError: No module named 'helpers'
-=========================== short test summary info ===========================
-ERROR projects/core_magento/tests/test_main.py
-!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
-============================== 1 error in 0.46s ===============================
+projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] FAILED
+
+=================================== FAILURES ===================================
+________________________ test_autonomous_flow[chromium] ________________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser: Browser):
+        # 1. Setup
+        context = browser.new_context(viewport={"width": 1920, "height": 1080}, ignore_https_errors=True)
+        page = context.new_page()
+        home_page = HomePage(page)
+    
+        # 1. Navigate to Home Page
+        home_page.navigate_to_home()
+    
+        # 2. Assertion (example, adjust as needed)
+>       expect(page).to_have_title(re.compile("Magento", re.IGNORECASE))
+E       AssertionError: Page title expected to be 're.compile('Magento', re.IGNORECASE)'
+E       Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
+E       Call log:
+E         - Expect "to_have_title" with timeout 5000ms
+E           9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
+
+projects/core_magento/tests/test_main.py:44: AssertionError
+=========================== short test summary info ============================
+FAILED projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page title expected to be 're.compile('Magento', re.IGNORECASE)'
+Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
+Call log:
+  - Expect "to_have_title" with timeout 5000ms
+    9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
+============================== 1 failed in 6.19s ===============================
 

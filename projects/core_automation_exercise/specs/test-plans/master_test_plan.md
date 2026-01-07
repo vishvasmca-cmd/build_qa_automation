@@ -6,58 +6,44 @@ This document outlines the test plan for the core_automation_exercise project, f
 
 ## Scope
 
-The testing will cover key functionalities such as product browsing, searching, adding items to the cart, and proceeding to checkout.
+The testing will cover key functionalities such as product browsing, searching, adding items to the cart, and proceeding to checkout. The tests will be executed against the automationexercise.com website.
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite will focus on verifying the core functionalities of the application. These tests are designed to be quick and efficient, providing a high level of confidence in the system's stability.
+The smoke suite will focus on verifying the core functionalities of the application. These tests are designed to be quick and efficient, providing a high level of confidence in the stability of the system.
 
 #### Smoke Suite Strategy
 
 The Smoke Suite Strategy for this project follows an 8-point checklist to ensure comprehensive coverage of critical functionalities:
 
-1.  **Critical Paths**: Tests cover essential user flows like navigating to products, searching, adding to cart, and proceeding to checkout.
-2.  **Core Business Logic**: Focuses on the primary operations of an e-commerce site.
-3.  **Positive Testing**: Only valid inputs and expected outcomes are tested.
-4.  **No Negative Testing**: Excludes tests with invalid inputs or error conditions.
-5.  **No Complex Edge Cases**: Avoids intricate scenarios or boundary conditions.
-6.  **Speed of Execution**: Tests are designed for quick execution to provide rapid feedback.
-7.  **Independence**: Each test operates independently, minimizing dependencies.
-8.  **High-Level Coverage**: Provides broad coverage of critical functionalities without deep dives.
+1.  **Critical Path Coverage**: Tests cover the most common and essential user flows (e.g., product search, add to cart, checkout).
+2.  **Core Business Logic**: Focuses on testing the primary business functions (e.g., adding products to cart, proceeding to checkout).
+3.  **Positive Testing**: Primarily uses valid and expected inputs to ensure the system functions correctly under normal conditions.
+4.  **No Negative Testing**: Excludes tests with invalid or unexpected inputs, unless critical for security.
+5.  **No Complex Edge Cases**: Avoids complex scenarios and boundary conditions to maintain simplicity and speed.
+6.  **Prioritized Scenarios**: Scenarios are prioritized based on their impact on business operations.
+7.  **Minimal Test Data**: Uses a small, representative set of test data to reduce setup and execution time.
+8.  **Fast Execution**: Designed to execute quickly, providing rapid feedback on build stability.
 
 ### Regression Suite
 
-The regression suite will include a more comprehensive set of tests, covering various scenarios, edge cases, and error handling. This suite ensures that new changes do not negatively impact existing functionalities.
+The regression suite will include a more comprehensive set of tests, covering various scenarios, edge cases, and negative test conditions. This suite ensures that new changes do not introduce defects into existing functionality.
 
 ## Test Modules
 
 ### Product Catalog
 
-*   **Smoke Tests**
-    *   Verify navigation to the products page.
-    *   Verify product search functionality.
-*   **Regression Tests**
-    *   Verify filtering and sorting of products.
-    *   Verify handling of non-existent search results.
+*   **Smoke**: Verify product search functionality.
+*   **Regression**: Filter products by category, sort products by price, search for non-existent products.
 
 ### Shopping Cart
 
-*   **Smoke Tests**
-    *   Verify adding items to the cart.
-    *   Verify viewing the cart summary.
-*   **Regression Tests**
-    *   Verify updating item quantities in the cart.
-    *   Verify removing items from the cart.
-    *   Verify handling of out-of-stock items.
+*   **Smoke**: Add item to cart.
+*   **Regression**: Update quantity in cart, remove item from cart, handle out-of-stock items.
 
-### Checkout & Payments
+### Checkout
 
-*   **Smoke Tests**
-    *   Verify proceeding to checkout.
-*   **Regression Tests**
-    *   Verify handling of different address formats.
-    *   Verify applying valid and invalid coupon codes.
-    *   Verify handling of payment declines.
-
+*   **Smoke**: Proceed to checkout.
+*   **Regression**: Handle different payment methods, apply coupon codes, validate address formats.
