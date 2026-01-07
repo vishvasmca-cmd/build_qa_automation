@@ -51,7 +51,6 @@ class HomePage:
 
 
 from playwright.sync_api import Browser, Page
-from core.utils import take_screenshot
 from pages.home_page import HomePage
 
 def test_autonomous_flow(browser: Browser):

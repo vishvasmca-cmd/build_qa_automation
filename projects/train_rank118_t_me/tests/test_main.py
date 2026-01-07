@@ -33,7 +33,6 @@ from playwright.sync_api import Browser, Page, expect
 import sys
 
 sys.path.append('.')
-from core.utils import take_screenshot
 from projects.train_rank118_t_me.pages.home_page import HomePage
 
 def test_autonomous_flow(browser: Browser):

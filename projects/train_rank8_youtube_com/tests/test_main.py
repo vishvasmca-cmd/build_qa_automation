@@ -50,7 +50,6 @@ class HomePage:
         return self.page.get_by_role("textbox", name="Search")
 
 from playwright.sync_api import Browser, expect
-from core.utils import take_screenshot
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup

@@ -290,6 +290,7 @@ class CodeRefiner:
         {{SITE_KNOWLEDGE}}
 
         **PROHIBITED PATTERNS (Anti-Hallucination)**:
+        - ❌ NEVER import `utils`, `core.utils` or `helpers`. `take_screenshot` is pre-imported.
         - ❌ **FATAL ERROR**: NEVER use `page.` inside a class method (except `__init__`). YOU MUST USE `self.page.`.
           - BAD: `page.locator(...)`
           - GOOD: `self.page.locator(...)`
@@ -297,10 +298,11 @@ class CodeRefiner:
         - ❌ NEVER use positional `.nth(0)` if a text match or ID is available in the trace element context.
         - ❌ **STABILITY WARNING**: NEVER use full URLs as accessibility names (e.g. `get_by_role("link", name="https://...")`). Use visible text or labels instead.
         - ❌ **STABILITY WARNING**: NEVER use explicit `scroll` or `PageDown` actions. Playwright actions auto-scroll to the element.
+        - ❌ **SYNTAX ERROR**: NEVER use `.first()` as a method. It is a property. Use `locator.first.click()`.
 
         **CRITICAL RULES**:
         1. **STANDARDS ONLY**: You MUST use pure Playwright API. DO NOT use custom helpers like `smart_action`.
-           - `take_screenshot(page, name, project_name)` is the only allowed helper.
+           - `take_screenshot(page, name, project_name)` is the only allowed helper. IT IS ALREADY IMPORTED. DO NOT IMPORT IT.
         2. **COMPLETENESS**: YOU MUST IMPLEMENT ALL STEPS AND GOALS mentioned in the user request. NEVER truncate or simplify the test logic just to satisfy a failure. Fix the bug, don't remove the feature.
         3. **DROPDOWNS (SELECT)**: NEVER attempt to `.click()` an `<option>` element. ALWAYS use `self.page.get_by_label(...).select_option(label="...")`.
         4. **SYNC ONLY**: You MUST use SYNC Python Playwright. **DO NOT USE `await` keyword.**
@@ -309,6 +311,7 @@ class CodeRefiner:
            - **NEVER** use `{{ key: value }}` JS objects. Always use `key=value`.
         4. **Actions**: Use regular Playwright methods: `.click()`, `.fill()`, `.select_option()`.
         5. **Stability**: Use `page.wait_for_load_state("networkidle")` or specific element waits if needed after interactions.
+        6. **TIMEOUTS**: Use generous timeouts (at least 15000ms) for navigations and critical waits to handle slow CI environments.
         6. **Visual Verification**: You are provided with screenshots of the elements. Use them to ensure your locators (roles/text) match what is visually present.
         
         **OUTPUT FORMAT**:

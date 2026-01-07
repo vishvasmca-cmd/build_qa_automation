@@ -23,12 +23,10 @@ from playwright.sync_api import Browser
 # Assuming utils.py is in the same directory or a parent directory
 # If it's in a subdirectory, adjust the import accordingly
 try:
-    from utils import take_screenshot
 except ImportError:
     import sys
     import os
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-    from core.utils import take_screenshot
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup

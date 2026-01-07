@@ -50,7 +50,6 @@ class GenericPage:
 from playwright.sync_api import Browser
 
 # Corrected import path
-from utils import take_screenshot
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup

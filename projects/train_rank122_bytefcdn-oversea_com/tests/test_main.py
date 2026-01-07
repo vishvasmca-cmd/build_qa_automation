@@ -29,7 +29,6 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(os.path.dirname(current_dir))
 sys.path.insert(0, project_root)
 
-from core.utils import take_screenshot
 from pages.home_page import HomePage
 
 def test_autonomous_flow(browser: Browser):

@@ -20,7 +20,6 @@ class GenericPage:
         self.page.wait_for_load_state("networkidle")
 
 from playwright.sync_api import Browser
-from core.utils import take_screenshot
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
