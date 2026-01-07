@@ -11,30 +11,6 @@ sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/
 from helpers import wait_for_stability, smart_action, take_screenshot
 
 
-class DzenPage:
-    def __init__(self, page):
-        self.page = page
-
-    @property
-    def login_button(self):
-        return self.page.get_by_role("button", name=re.compile("Log in", re.IGNORECASE))
-
-    @property
-    def sport_tab(self):
-        return self.page.get_by_text("Спорт", exact=True)
-
-    def scroll_to_login(self):
-        smart_action(self.page, self.login_button, "scroll")
-        wait_for_stability(self.page)
-
-    def scroll_to_sport(self):
-        smart_action(self.page, self.sport_tab, "scroll")
-        wait_for_stability(self.page)
-
-    def click_sport_tab(self):
-        smart_action(self.page, self.sport_tab, "click")
-        self.page.wait_for_url("**/sport", timeout=10000)
-        wait_for_stability(self.page)
 
 
 def test_autonomous_flow(browser: Browser):
@@ -45,7 +21,15 @@ def test_autonomous_flow(browser: Browser):
     wait_for_stability(page)
 
     # 2. Logic (using POM)
-    dzen_page = DzenPage(page)
-    dzen_page.scroll_to_login()
-    dzen_page.scroll_to_sport()
-    dzen_page.click_sport_tab()
+    smart_action(page, page.get_by_test_id("login-button"), "scroll")
+    wait_for_stability(page)
+
+    smart_action(page, page.get_by_test_id("tab-news-rubric-4"), "scroll")
+    wait_for_stability(page)
+
+    smart_action(page, page.get_by_test_id("sidebar-more-button"), "scroll")
+    wait_for_stability(page)
+
+    # 3. Cleanup
+    take_screenshot(page, "final_state", "build_qa_automation")
+    context.close()

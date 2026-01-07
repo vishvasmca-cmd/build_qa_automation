@@ -1,15 +1,9 @@
-Feature: Homepage Element Identification
+Feature: UI Element Identification
   As a user,
-  I want to be able to identify key elements on the homepage,
-  So that I can verify the website's structure.
+  I want to verify the presence of key UI elements
+  So that I can ensure the basic structure of the website is correct.
 
   @smoke
-  Scenario: Identify links on the homepage
-    Given I am on the "https://www.google.com" homepage
-    Then I should see the "About" link
-    And I should see the "Store" link
-
-  @smoke
-  Scenario: Identify buttons on the homepage
-    Given I am on the "https://www.google.com" homepage
-    Then I should see the "Sign in" button
+  Scenario: Identify buttons and links on the homepage
+    Given I navigate to "https://www.google.com"
+    Then I should be able to identify buttons and links on the page

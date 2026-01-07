@@ -1,59 +1,53 @@
-# Test Plan: Taboola Website
+# Test Plan for train_rank188_taboola_com
 
 ## Introduction
 
-This test plan outlines the testing strategy for the Taboola website (https://taboola.com). It covers both smoke and regression testing to ensure the quality and stability of the platform.
+This document outlines the test plan for the train_rank188_taboola_com project, focusing on testing core functionalities of the Taboola website (https://taboola.com). The plan includes both smoke and regression test suites to ensure the quality and stability of the application.
 
 ## Scope
 
-The testing will focus on verifying the core functionality of the website, including navigation, key elements, and critical user flows.
+The testing will cover the following areas:
 
-## Test Strategy
+*   Website navigation and basic UI elements.
+*   Identification of key buttons and links.
+*   Menu bar elements.
 
-We will employ a risk-based testing approach, prioritizing tests based on the criticality of the functionality and the likelihood of failure.  The test suites will be divided into Smoke and Regression tests.
+## Test Suites
 
-### Smoke Suite Strategy
+### Smoke Suite
 
-The smoke suite will focus on the most critical functionalities of the Taboola website. The following checklist will be applied when designing the smoke tests:
+The smoke suite will focus on verifying the most critical functionalities of the application. These tests are designed to be quick and efficient, providing a rapid assessment of the application's health.
 
-1.  **Critical Functionality:** Tests cover core business functions (e.g., website availability, key navigation elements).
-2.  **Happy Path:** Tests primarily focus on positive scenarios and successful outcomes.
-3.  **Minimal Data:** Use a small, representative set of test data.
-4.  **Fast Execution:** Tests should be quick to execute, providing rapid feedback.
-5.  **Build Acceptance:** Passing smoke tests is a prerequisite for build acceptance.
-6.  **Automated:** Smoke tests are automated for continuous integration.
-7.  **Stable Environment:** Smoke tests are executed in a stable, dedicated environment.
-8. **Limited Scope:** The scope is limited to essential features to ensure quick feedback.
+#### Smoke Suite Strategy
 
-### Regression Suite Strategy
+The following 8-point checklist has been applied to define the Smoke Suite for this project:
 
-The regression suite will provide a comprehensive test coverage of the Taboola website. This suite will include positive and negative scenarios, boundary value analysis, and tests for less frequently used features.
+1.  **Critical Path Coverage:** Tests cover essential user flows (e.g., finding key buttons and links).
+2.  **Core Functionality:** Focus on the primary functions of the website (navigation, UI element identification).
+3.  **Positive Testing:** Primarily positive scenarios are included (verifying elements are present).
+4.  **No Negative Testing:** Negative scenarios (e.g., invalid input) are excluded from the smoke suite.
+5.  **Minimal Data Variation:** Limited data variations are used to keep the tests simple.
+6.  **Independent Tests:** Tests are designed to be independent and can be run in any order.
+7.  **Fast Execution:** Tests are optimized for speed to provide quick feedback.
+8.  **High Priority:** Smoke tests are given the highest priority and are executed with every build.
+
+### Regression Suite
+
+The regression suite will provide comprehensive test coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite ensures that new changes do not introduce regressions into existing functionality.
 
 ## Test Environment
 
-*   **Browser:** Chrome (latest version)
-*   **Operating System:** Windows 10/11, macOS
-*   **Network:** Stable internet connection
+*   **Browsers:** Chrome, Firefox, Safari
+*   **Operating Systems:** Windows, macOS, Linux
+*   **Test Framework:** Playwright (based on trace data)
+
+## Test Data
+
+Test data will be used to simulate various user scenarios and ensure the application handles different types of input correctly.
 
 ## Test Deliverables
 
-*   Test Plan
+*   Test Plan Document
 *   Test Cases (Gherkin Feature Files)
 *   Test Execution Reports
 
-## Test вход
-
-*   Trace data
-*   Requirements documentation (if available)
-
-## Smoke Test Cases
-
-1.  Verify website is launched successfully.
-2.  Verify the presence of key buttons (e.g., 'Engagement', 'Get Started').
-3.  Verify the presence of key links (e.g., 'Advertisers', 'Publishers').
-
-## Regression Test Cases
-
-1.  Verify all buttons on the page are clickable and navigate to the correct destination.
-2.  Verify all links on the page are clickable and navigate to the correct destination.
-3.  Verify the functionality of the menu bar.

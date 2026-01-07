@@ -11,37 +11,31 @@ sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/
 from helpers import wait_for_stability, smart_action, take_screenshot
 
 
-class TaboolaHomePage:
+class HomePage:
     def __init__(self, page):
         self.page = page
 
-    @property
-    def engagement_button(self):
-        return self.page.get_by_role("button", name="Engagement")
+    def goto(self):
+        self.page.goto("https://www.taboola.com/")
 
     @property
-    def performance_marketing_platforms_link(self):
-        return self.page.get_by_role("link", name="Performance Marketing Platforms")
+    def get_started_button(self):
+        return self.page.get_by_role("link", name="Get Started")
 
-    def scroll_to_engagement(self):
-        smart_action(self.page, self.engagement_button, "scroll")
-        wait_for_stability(self.page)
-
-    def scroll_to_performance_marketing_platforms(self):
-        smart_action(self.page, self.performance_marketing_platforms_link, "scroll")
+    def scroll_to_get_started(self):
+        smart_action(self.page, self.get_started_button, "scroll")
         wait_for_stability(self.page)
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-    page.goto("https://www.taboola.com/")
+    home_page = HomePage(page)
+    home_page.goto()
     wait_for_stability(page)
 
     # 2. Logic (using POM)
-    taboola_home_page = TaboolaHomePage(page)
-    taboola_home_page.scroll_to_engagement()
-    taboola_home_page.scroll_to_performance_marketing_platforms()
+    home_page.scroll_to_get_started()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

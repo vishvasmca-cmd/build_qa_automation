@@ -1,14 +1,8 @@
-Feature: CNN Website Smoke Tests
-  As a user,
-  I want to ensure the CNN website is accessible
-  So that I can access news and information.
+Feature: CNN Website - Smoke Tests
 
-  @smoke
-  Scenario: Verify Website Accessibility
-    Given I navigate to "https://www.cnn.com/"
-    Then the page should load successfully
-
-  @smoke
-  Scenario: Verify Presence of Interactive Elements
-    Given I am on "https://www.cnn.com/"
-    Then I should see interactive elements like buttons, links, and menu bars
+  Scenario: Launch CNN Website and Identify Key Elements
+    @smoke
+    Given User navigates to the CNN homepage
+    Then User should be able to see the CNN homepage
+    And User should be able to identify multiple buttons and links
+    And User should be able to identify the menu bar

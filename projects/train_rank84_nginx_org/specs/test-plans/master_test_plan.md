@@ -1,52 +1,47 @@
 # Test Plan: train_rank84_nginx_org
 
-## Introduction
+## 1. Introduction
 
-This test plan outlines the testing strategy for the train_rank84_nginx_org project, focusing on verifying the core functionality of the Nginx website. The plan includes both smoke and regression testing strategies.
+This document outlines the test plan for the train_rank84_nginx_org project, focusing on testing the core functionality of the nginx.org website. The plan includes both smoke and regression test suites to ensure the quality and stability of the application.
 
-## Scope
+## 2. Test Scope
 
-The testing will cover the main functionalities of the Nginx website, including identifying key elements such as links and buttons.
+The testing will cover the following areas:
 
-## Test Strategy
+*   Website navigation and basic UI elements.
+*   Identification of links and menu bars.
 
-We will employ a two-pronged approach: Smoke Testing for critical path validation and Regression Testing for comprehensive coverage.
+## 3. Test Strategy
 
-### Smoke Suite Strategy
+The testing strategy includes two main suites: Smoke and Regression.
 
-The Smoke Suite will adhere to the following checklist:
+### 3.1. Smoke Suite Strategy
 
-1.  **Critical Paths:** Focus on the most essential user journeys.
-2.  **Core Business Logic:** Validate the primary functions of the website.
-3.  **Positive Testing:** Primarily focus on successful scenarios.
-4.  **No Negative Testing:** Exclude error handling and invalid inputs.
-5.  **Minimal Edge Cases:** Avoid complex or rare scenarios.
-6.  **Fast Execution:** Design tests for quick completion.
-7.  **Build Validation:** Use the suite to determine build stability.
-8.  **Limited Scope:** Cover only the most vital functionalities.
+The smoke suite will focus on verifying the core functionality of the nginx.org website. The following checklist is applied to determine the scope of the smoke tests:
 
-### Regression Suite Strategy
+1.  **Critical Paths:** Tests cover the most common user journeys.
+2.  **Core Business Logic:** Tests validate the primary functions of the website.
+3.  **Positive Testing:** Focus on successful scenarios.
+4.  **Limited Scope:** Only essential functionalities are included.
+5.  **Fast Execution:** Tests are designed to run quickly.
+6.  **Build Validation:** Used to determine if a build is stable enough for further testing.
+7.  **High Priority:** Addressed immediately if failures occur.
+8.  **Happy Path:** Tests follow the expected user flow without errors.
 
-The Regression Suite will provide comprehensive coverage, including:
+### 3.2. Regression Suite Strategy
 
-*   Alternative Flows
-*   Negative Scenarios
-*   Boundary Analysis
-*   Cross-Module Interactions
-*   Validation Messages
+The regression suite will provide a more comprehensive test coverage, including alternative flows, negative scenarios, and boundary conditions. This suite will ensure that new changes do not introduce regressions in existing functionality.
 
-## Test Suites
+## 4. Test Environment
 
-1.  **Smoke Suite:**
-    *   Objective: Verify the basic functionality of the Nginx website.
-    *   Focus: Identifying key elements (links, buttons).
-2.  **Regression Suite:**
-    *   Objective: Ensure that new changes haven't introduced regressions.
-    *   Focus: Comprehensive testing of all functionalities, including edge cases and error handling.
+The tests will be executed in a standard web browser environment (e.g., Chrome, Firefox) on a desktop machine.
 
-## Test Deliverables
+## 5. Test Deliverables
 
-*   Test Plan Document
-*   Gherkin Feature Files
-*   Test Execution Reports
+*   Test Plan document.
+*   Gherkin feature files for both Smoke and Regression suites.
+*   Test execution reports.
 
+## 6. Test Schedule
+
+The test execution will be performed as part of the CI/CD pipeline, with the Smoke suite running on every build and the Regression suite running on a nightly basis.

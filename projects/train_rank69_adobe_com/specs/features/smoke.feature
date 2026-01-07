@@ -1,11 +1,11 @@
-Feature: Adobe Website UI Element Identification
+Feature: Website Element Identification
   As a user,
-  I want to verify the presence of key UI elements on the Adobe website
-  So that I can ensure the website is loading correctly and the basic structure is in place.
+  I want to verify the presence of key elements on the Adobe website
+  So that I can ensure the website is functioning correctly.
 
   @smoke
-  Scenario: Verify Adobe website loads and key UI elements are present
+  Scenario: Launch website and identify elements
     Given I navigate to "https://adobe.com"
-    Then I should see at least 5 buttons
-    And I should see at least 2 links
-    And I should see at least 2 menu bars
+    Then I should be able to see "5" buttons
+    And I should be able to see "2" links
+    And I should be able to see "2" menu bars

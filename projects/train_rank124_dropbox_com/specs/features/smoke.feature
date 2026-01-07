@@ -1,10 +1,10 @@
-Feature: Dropbox Homepage UI Elements
-  As a user
-  I want to see the basic UI elements on the Dropbox homepage
-  So that I can navigate and use the website
+Feature: Dropbox Homepage - Element Presence
+  As a user,
+  I want to verify the presence of key elements on the Dropbox homepage
+  So that I can ensure the website is functioning correctly
 
   @smoke
-  Scenario: Verify the presence of key UI elements
+  Scenario: Verify the presence of buttons and links
     Given I am on the Dropbox homepage
     Then I should see at least 5 buttons
     And I should see at least 2 links

@@ -1,61 +1,55 @@
 # Test Plan: train_rank104_yandex_ru
 
-## 1. Introduction
+## Introduction
 
-This document outlines the test plan for the train_rank104_yandex_ru project, focusing on testing the Yandex.ru website. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
+This test plan outlines the testing strategy for the train_rank104_yandex_ru project, focusing on verifying the core functionality of the Yandex.ru website. The plan includes smoke and regression test suites to ensure the quality and stability of the application.
 
-## 2. Scope
+## Scope
 
-The testing will cover the core functionalities of the Yandex.ru website, including:
+The testing will cover the following areas:
 
-*   Identifying buttons and links on the homepage.
-*   Verifying the presence of menu bars.
+*   Identifying key UI elements (buttons, links, menu bars) on the Yandex.ru homepage.
 
-## 3. Test Strategy
+## Test Suites
 
-The testing strategy consists of two main suites: Smoke and Regression.
+### Smoke Suite
 
-### 3.1. Smoke Suite Strategy
+The smoke suite will focus on the critical path of identifying and locating key elements on the Yandex.ru homepage. This includes verifying the presence of buttons, links, and menu bars.
 
-The smoke suite will focus on verifying the basic functionality of the website. The following checklist will be applied:
+#### Smoke Suite Strategy
 
-1.  **Critical Path Coverage:** Tests cover the most important user flows (e.g., finding elements).
-2.  **Positive Testing:** Focus on successful scenarios.
-3.  **Fast Execution:** Tests should run quickly to provide rapid feedback.
-4.  **Build Validation:** Used to determine if a build is stable enough for further testing.
-5.  **Limited Scope:** Only essential functionality is tested.
-6.  **No Data Setup:** Avoid complex test data setup.
-7.  **Independence:** Tests should be independent of each other.
-8.  **Automated:** Designed for automated execution.
+The following 8-point checklist is applied to the Smoke Suite for this project:
 
-### 3.2. Regression Suite Strategy
+1.  **Critical Functionality:** Tests cover the most important features (identifying UI elements).
+2.  **Happy Path:** Focus on successful element identification without errors.
+3.  **Positive Testing:** Only valid scenarios are tested.
+4.  **Minimal Data:** No complex data sets are used.
+5.  **Fast Execution:** Tests are designed for quick execution.
+6.  **High Priority:** Failures indicate major issues.
+7.  **No Edge Cases:** Complex scenarios are excluded.
+8.  **Limited Scope:** Only core features are covered.
 
-The regression suite will provide a more comprehensive test coverage, including edge cases and negative scenarios. This suite will be executed after the smoke tests have passed.
+### Regression Suite
 
-## 4. Test Suites
+The regression suite will include a more comprehensive set of tests to ensure that new changes have not introduced any regressions. This will include:
 
-### 4.1. Smoke Suite
+*   Verifying the functionality of all identified buttons, links, and menu bars.
+*   Testing different scenarios for element identification.
 
-*   Verify the presence of at least 5 buttons on the homepage.
-*   Verify the presence of at least 2 links on the homepage.
-*   Verify the presence of at least 2 menu bars on the homepage.
+## Test Environment
 
-### 4.2. Regression Suite
+The tests will be executed in a standard web browser environment.
 
-*   (Not applicable for this trace, as the trace is very limited. A full regression suite would require more comprehensive trace data.)
-
-## 5. Test Environment
-
-*   Browsers: Chrome, Firefox, Edge
-*   Operating Systems: Windows, macOS, Linux
-
-## 6. Test Deliverables
+## Test Deliverables
 
 *   Test Plan document
-*   Test Automation Scripts (Gherkin feature files)
-*   Test Execution Reports
+*   Test Cases (Gherkin feature files)
+*   Test Results
 
-## 7. Entry and Exit Criteria
+## Test Execution
 
-*   Entry Criteria: Stable build deployed to the test environment.
-*   Exit Criteria: All planned tests have been executed, and the results have been analyzed.
+The tests will be executed by the QA team.
+
+## Test Reporting
+
+Test results will be reported to the development team.
