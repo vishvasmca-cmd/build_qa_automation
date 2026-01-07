@@ -77,9 +77,15 @@ learned_rules:
 - Before navigating to the 'Products' page, ensure any modals or overlays are closed
   to prevent them from obscuring the target link.  Consider using explicit waits for
   the absence of these obstructing elements.
-- When interacting with Playwright Locator objects, ensure to use methods like `.first().click()`
-  or `.nth(index).click()` to perform actions on the located element(s), rather than
-  attempting to call the Locator object itself.
+- When interacting with elements identified by Playwright Locators, always use methods
+  like `.click()`, `.fill()`, `.hover()`, etc., on the Locator object to perform actions
+  on the underlying element. Avoid directly calling the Locator object itself.
+- When clicking on a 'Test Cases' link, ensure the locator is specific enough to target
+  the intended element. Consider using exact match or specifying additional attributes
+  like class or ID to disambiguate between multiple links with similar names.
+- Before navigating to the 'Products' page, ensure that any overlaying elements, such
+  as modals or banners, are closed or dismissed to prevent them from obscuring the
+  target link and causing a timeout.
 workflow_rules:
 - Always search for a cart icon after adding an item.
 - If login fails, check for error-message-container.
