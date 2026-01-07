@@ -49,6 +49,12 @@ class KnowledgeBank:
                     good_locs = {p: [l for l in ls if l.get('stability', 0) > -2] for p, ls in all_locs.items()}
                     context.append(f"### Proven Locators (Self-Corrected):\n{json.dumps(good_locs, indent=2)}")
 
+            # Load Learned Behavioral Rules
+            rules_file = os.path.join(site_path, "rules.md")
+            if os.path.exists(rules_file):
+                with open(rules_file, "r", encoding="utf-8") as f:
+                    context.append(f"### Learned Behavioral Rules (CRITICAL - DO NOT IGNORE):\n{f.read()}")
+
         # 2. Domain Knowledge (Generic patterns for E-commerce, etc)
         # We try to infer domain or use project config
         # For now, let's just grab 'ecommerce' as a default if it exists

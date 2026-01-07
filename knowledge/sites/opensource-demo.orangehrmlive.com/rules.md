@@ -33,15 +33,13 @@
 
 - Before clicking 'Forgot your password', ensure no modal dialogs or overlays are present that might obscure the link. If a modal is present, dismiss it before proceeding.
 
-<<<<<<< Updated upstream
 - Before clicking the 'Forgot your password' link, ensure no modal dialogs or overlays are present that might obscure the element. If a modal is present, dismiss it before attempting to click the link.
 
 - When asserting URL patterns, ensure the pattern accurately reflects the expected URL structure, including any prefixes or suffixes. Prefer exact match when possible.
 
 - When asserting the current URL, prefer exact string matching or a more specific regex over glob patterns, especially when the expected substring is present in the actual URL.
-=======
+
 - Before filling the username field on the OrangeHRM login page, ensure the page is fully loaded and the username field is visible. Consider adding a wait_for_selector or wait_for_load_state before attempting to fill the field.
->>>>>>> Stashed changes
 
 - After submitting a password reset request, verify that the application redirects to a confirmation page or displays a success message before redirecting to the login page. Do not immediately expect a redirect to the login page.
 
