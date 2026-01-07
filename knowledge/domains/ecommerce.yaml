@@ -25,6 +25,18 @@ learned_rules:
   emojis, to prevent encoding errors in environments with limited character set support.
 - Before interacting with sort options, ensure the dropdown is fully expanded and
   the options are visible. Check the display attribute.
+- Before interacting with the product sorting dropdown, ensure that the dropdown is
+  fully loaded and that all options are present in the DOM. Implement a retry mechanism
+  with exponential backoff for cases where the dropdown options are not immediately
+  available.
+- When interacting with sort options, ensure the dropdown or list containing the options
+  is fully loaded and visible before attempting to click a specific option. Implement
+  a retry mechanism or increase the timeout if necessary.
+- When interacting with dropdown menus, ensure the dropdown is fully expanded and
+  visible before attempting to click on any option within it.
+- Ensure that the `core` module (containing templates and helper functions) is correctly
+  included in the Python path or project structure before running tests in the `projects/demo_complex`
+  directory.
 workflow_rules:
 - Always search for a cart icon after adding an item.
 - If login fails, check for error-message-container.

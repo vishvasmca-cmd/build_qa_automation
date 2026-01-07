@@ -15,9 +15,9 @@ class {{ page_name }}(BasePage):
         # Locators - defined once, reused everywhere
         {% for locator in locators %}
         {% if 'get_by_' in locator.selector or 'get(' in locator.selector %}
-        self.{{ locator.name }} = page.{{ locator.selector }}  # {{ locator.description }}
+        self.{{ locator.name }} = self.page.{{ locator.selector }}  # {{ locator.description }}
         {% else %}
-        self.{{ locator.name }} = page.locator("{{ locator.selector }}")  # {{ locator.description }}
+        self.{{ locator.name }} = self.page.locator("{{ locator.selector }}")  # {{ locator.description }}
         {% endif %}
         {% endfor %}
 
