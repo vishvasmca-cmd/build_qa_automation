@@ -6,16 +6,13 @@ rootdir: /home/runner/work/build_qa_automation/build_qa_automation
 plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
 collecting ... collected 1 item
 
-<<<<<<< Updated upstream
-projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] Error navigating to account history: Page URL expected to be 're.compile('.*/account(activity)?\\.htm')'
-Actual value: https://parabank.parasoft.com/parabank/services/bank;jsessionid=01658A5114939AF97AFC19170544631D?_wadl&_type=xml 
+projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] Navigation to Account History failed: Page URL expected to be 're.compile('.*/account.htm')'
+Actual value: https://parabank.parasoft.com/parabank/services/bank;jsessionid=8C2C848867AEBE6D742A17FCCF11DED9?_wadl&_type=xml 
 Call log:
   - Expect "to_have_url" with timeout 15000ms
-    19 × unexpected value "https://parabank.parasoft.com/parabank/services/bank;jsessionid=01658A5114939AF97AFC19170544631D?_wadl&_type=xml"
+    19 × unexpected value "https://parabank.parasoft.com/parabank/services/bank;jsessionid=8C2C848867AEBE6D742A17FCCF11DED9?_wadl&_type=xml"
 
-=======
-projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] Error navigating to account history: 'str' object is not callable
->>>>>>> Stashed changes
+Encountered WADL redirect. Navigating back to home.
 FAILED
 
 =================================== FAILURES ===================================
@@ -27,48 +24,31 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
-<<<<<<< Updated upstream
+        parabank_page = ParabankPage(page)
+        webservice_page = ParabankWebServiceDefinitionPage(page)
     
         # 2. Logic (using POM)
-        parabank_page = ParabankPage(page)
-    
         parabank_page.goto()
     
-        # Step 0: Click Account History link
+        # Attempt to navigate to account history and handle potential WADL redirect
         try:
             parabank_page.navigate_to_account_history()
-            expect(page).to_have_url(re.compile(r".*/account(activity)?\.htm"), timeout=15000)
+            expect(page).to_have_url(re.compile(".*/account.htm"), timeout=15000)
         except Exception as e:
-            print(f"Error navigating to account history: {e}")
-            page.reload()
->           parabank_page.navigate_to_account_history()
+            print(f"Navigation to Account History failed: {e}")
+            if "_wadl" in page.url or page.url.endswith(".xml"):
+                print("Encountered WADL redirect. Navigating back to home.")
+                parabank_page.goto()
+            else:
+                raise  # Re-raise the exception if it's not a WADL redirect
+    
+        # Navigate back to home page
+>       parabank_page.navigate_home()
 
-projects/core_parabank/tests/test_main.py:74: 
+projects/core_parabank/tests/test_main.py:76: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_parabank/tests/test_main.py:29: in navigate_to_account_history
-    self.account_history_link.click()
-=======
-        page.goto("https://parabank.parasoft.com/parabank/index.htm")
-        page.wait_for_load_state("networkidle")
-    
-        # 2. Logic (using POM)
-        parabank_page = ParabankPage(page)
-        parabank_page.goto()
-    
-        # Step 0: Click Account History link
-        try:
-            parabank_page.navigate_to_account_history()
-        except Exception as e:
-            print(f"Error navigating to account history: {e}")
-    
-        # Step 1, 2, 3: Navigate back to home page
->       parabank_page.navigate_to_home()
-
-projects/core_parabank/tests/test_main.py:93: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_parabank/tests/test_main.py:55: in navigate_to_home
+projects/core_parabank/tests/test_main.py:38: in navigate_home
     self.home_link.click()
->>>>>>> Stashed changes
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
@@ -80,13 +60,8 @@ projects/core_parabank/tests/test_main.py:55: in navigate_to_home
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-<<<<<<< Updated upstream
-self = <playwright._impl._connection.Connection object at 0x7fc6aa0df390>
-cb = <function Channel.send.<locals>.<lambda> at 0x7fc6a8ef7ce0>
-=======
-self = <playwright._impl._connection.Connection object at 0x7fdbea0e8dd0>
-cb = <function Channel.send.<locals>.<lambda> at 0x7fdbea074c20>
->>>>>>> Stashed changes
+self = <playwright._impl._connection.Connection object at 0x7f8f776dcb50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f8f776f5300>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -105,23 +80,20 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+E           playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name=re.compile(r"Home", re.IGNORECASE)) resolved to 2 elements:
+E               1) <a href="index.htm">home</a> aka get_by_role("link", name="home", exact=True)
+E               2) <a href="index.htm">Home</a> aka get_by_role("link", name="Home", exact=True)
+E           
 E           Call log:
-<<<<<<< Updated upstream
-E             - waiting for get_by_role("link", name="Account History")
-=======
-E             - waiting for get_by_role("link", name="Home", exact=True).first
->>>>>>> Stashed changes
+E             - waiting for get_by_role("link", name=re.compile(r"Home", re.IGNORECASE))
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
 =========================== short test summary info ============================
-FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name=re.compile(r"Home", re.IGNORECASE)) resolved to 2 elements:
+    1) <a href="index.htm">home</a> aka get_by_role("link", name="home", exact=True)
+    2) <a href="index.htm">Home</a> aka get_by_role("link", name="Home", exact=True)
+
 Call log:
-<<<<<<< Updated upstream
-  - waiting for get_by_role("link", name="Account History")
-============================== 1 failed in 47.17s ==============================
-=======
-  - waiting for get_by_role("link", name="Home", exact=True).first
-============================== 1 failed in 32.54s ==============================
->>>>>>> Stashed changes
+  - waiting for get_by_role("link", name=re.compile(r"Home", re.IGNORECASE))
+============================== 1 failed in 17.13s ==============================
 

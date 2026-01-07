@@ -11,85 +11,112 @@ sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/
 from helpers import take_screenshot
 
 
-class HomePage:
+class LoginPage:
     def __init__(self, page):
         self.page = page
-
-    @property
-    def username_field(self):
-        return self.page.locator("[data-test='username']")
-
-    @property
-    def password_field(self):
-        return self.page.locator("[data-test='password']")
-
-    @property
-    def login_button(self):
-        return self.page.locator("[data-test='login-button']")
 
     def goto(self):
         self.page.goto("https://www.saucedemo.com/")
         self.page.wait_for_load_state("networkidle")
 
     def login(self, username, password):
-        self.username_field.fill(username)
-        self.password_field.fill(password)
-        self.login_button.click()
+        self.page.locator("[data-test='username']").fill(username)
+        self.page.locator("[data-test='password']").fill(password)
+        self.page.locator("[data-test='login-button']").click()
         self.page.wait_for_load_state("networkidle")
 
 class InventoryPage:
     def __init__(self, page):
         self.page = page
 
-    @property
-    def product_sort_dropdown(self):
-        return self.page.locator("[data-test='product-sort-container']")
-
-    @property
-    def add_bike_light_to_cart_button(self):
-        return self.page.locator("[data-test='add-to-cart-sauce-labs-bike-light']")
-
     def sort_by_price_low_to_high(self):
-        self.product_sort_dropdown.select_option(label="Price (low to high)")
+        self.page.locator("[data-test='product-sort-container']").select_option("Price (low to high)")
         self.page.wait_for_load_state("networkidle")
 
-    def add_bike_light_to_cart(self):
-        self.add_bike_light_to_cart_button.click()
+    def add_item_to_cart(self, item_name):
+        self.page.locator(f"[data-test='add-to-cart-{item_name}']").click()
         self.page.wait_for_load_state("networkidle")
 
-class SwagLabsPage:
+    def go_to_cart(self):
+        self.page.locator("[data-test='shopping-cart-link']").click()
+        self.page.wait_for_load_state("networkidle")
+
+class CartPage:
     def __init__(self, page):
         self.page = page
 
-    @property
-    def login_button(self):
-        return self.page.locator("[data-test='login-button']")
-
-    def click_login(self):
-        self.login_button.click()
+    def checkout(self):
+        self.page.locator("[data-test='checkout']").click()
         self.page.wait_for_load_state("networkidle")
+
+class CheckoutInformationPage:
+    def __init__(self, page):
+        self.page = page
+
+    def fill_information(self, first_name, last_name, postal_code):
+        self.page.locator("[data-test='firstName']").fill(first_name)
+        self.page.locator("[data-test='lastName']").fill(last_name)
+        self.page.locator("[data-test='postalCode']").fill(postal_code)
+
+    def continue_checkout(self):
+        self.page.locator("[data-test='continue']").click()
+        self.page.wait_for_load_state("networkidle")
+
+class CheckoutOverviewPage:
+    def __init__(self, page):
+        self.page = page
+
+    def finish_checkout(self):
+        self.page.locator("[data-test='finish']").click()
+        self.page.wait_for_load_state("networkidle")
+
+class CheckoutCompletePage:
+    def __init__(self, page):
+        self.page = page
+
+    def back_to_products(self):
+        self.page.locator("[data-test='back-to-products']").click()
+
+import re
+from playwright.sync_api import Browser, expect
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-<<<<<<< Updated upstream
+
+    # 2. Logic (using POM)
     login_page = LoginPage(page)
     inventory_page = InventoryPage(page)
+    cart_page = CartPage(page)
+    checkout_information_page = CheckoutInformationPage(page)
+    checkout_overview_page = CheckoutOverviewPage(page)
+    checkout_complete_page = CheckoutCompletePage(page)
 
-    # 2. Logic (using POM)
     login_page.goto()
     login_page.login("standard_user", "secret_sauce")
-=======
-    home_page = HomePage(page)
-    inventory_page = SaucedemoInventoryPage(page)
+    expect(page).to_have_url(re.compile(".*/inventory.html"))
 
-    # 2. Logic (using POM)
-    home_page.goto()
-    home_page.login("standard_user", "secret_sauce")
->>>>>>> Stashed changes
     inventory_page.sort_by_price_low_to_high()
-    inventory_page.add_bike_light_to_cart()
+
+    # Add the Sauce Labs Bike Light to the cart
+    inventory_page.add_item_to_cart("sauce-labs-bike-light")
+
+    # Go to the cart
+    inventory_page.go_to_cart()
+
+    # Checkout
+    cart_page.checkout()
+
+    # Fill checkout information
+    checkout_information_page.fill_information("John", "Doe", "12345")
+    checkout_information_page.continue_checkout()
+
+    # Finish checkout
+    checkout_overview_page.finish_checkout()
+
+    # Back to products
+    checkout_complete_page.back_to_products()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

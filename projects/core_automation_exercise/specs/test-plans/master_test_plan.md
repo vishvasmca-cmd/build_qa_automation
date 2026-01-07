@@ -1,112 +1,77 @@
 # Test Plan: core_automation_exercise
 
-## Introduction
+## Overview
 
-This document outlines the test plan for the core_automation_exercise project, focusing on the e-commerce domain. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
+This test plan outlines the testing strategy for the core_automation_exercise project, an e-commerce platform. The plan includes smoke and regression test suites, focusing on critical functionalities such as product browsing, shopping cart management, and checkout processes.
 
 ## Scope
 
-<<<<<<< Updated upstream
-The testing will cover key functionalities such as product browsing, searching, adding to cart, and proceeding to checkout.
-=======
-The testing will cover key functionalities such as product browsing, searching, adding items to the cart, and proceeding to checkout.
->>>>>>> Stashed changes
+The testing will cover the following modules:
+
+*   Authentication (Login/Registration)
+*   Product Catalog (Browsing, Search)
+*   Shopping Cart (Add/Remove/Update Items)
+*   Checkout & Payments
 
 ## Test Suites
 
 ### Smoke Suite
 
-<<<<<<< Updated upstream
-The smoke suite will focus on critical path testing to ensure the core functionalities are working as expected.  If these tests fail, the build should be rejected.
+The smoke suite will focus on verifying the core functionalities of the application. These tests are designed to be executed quickly and efficiently to ensure the system is stable and ready for further testing.
 
 #### Smoke Suite Strategy
 
-The following 8-point checklist has been applied to define the Smoke Suite for this project:
+The following checklist was applied when designing the Smoke Suite:
 
-1.  **Critical Paths:** Tests cover the most important user flows (e.g., login, checkout).
-2.  **Core Business Logic:** Focus on primary revenue or operational flows.
-3.  **Positive Testing:** Primarily happy path scenarios are included.
-4.  **No Negative Testing:**  Error handling is generally excluded from smoke tests.
-5.  **No Complex Edge Cases:** Complex scenarios and boundary conditions are avoided.
-6.  **Fast Execution:** Tests are designed to run quickly to provide rapid feedback.
-7.  **Independent Tests:** Each test should be independent and not rely on others.
-8.  **Limited Scope:** The suite covers a minimal set of functionalities.
+1.  **Critical Paths:** Tests cover the most common and essential user flows.
+2.  **Core Business Logic:** Focus on testing the primary revenue-generating or operationally critical features.
+3.  **Positive Testing:** Primarily focuses on happy path scenarios with valid inputs.
+4.  **No Negative Testing:** Excludes tests with invalid inputs or error conditions (unless security-critical).
+5.  **Minimal Edge Cases:** Avoids complex or unusual scenarios.
+6.  **Independent Tests:** Each test should be independent and not rely on the state of previous tests.
+7.  **Fast Execution:** Tests should be designed for quick execution to provide rapid feedback.
+8.  **High Priority:** Any failures in the smoke suite should be treated as critical and addressed immediately.
 
 #### Smoke Test Cases
 
-*   **Product Search and Checkout:**
-    *   Navigate to the Products page.
-    *   Search for a product ('Dress').
-    *   Add the product to the cart.
-    *   Proceed to checkout.
+*   Navigate to Products page
+*   Search for a product ('Dress')
+*   Add a product to the cart
+*   View the cart
+*   Proceed to checkout
 
 ### Regression Suite
 
-The regression suite will include a more comprehensive set of tests to cover various scenarios, edge cases, and error handling. This suite ensures that new changes haven't introduced regressions in existing functionality.
+The regression suite will provide a more comprehensive test coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
 
 #### Regression Test Cases
 
-*   **Product Catalog:**
-    *   Filter products by price and category.
-    *   Sort products by price (low to high).
-    *   Search for a non-existent product.
-    *   Verify pagination.
-*   **Shopping Cart:**
-    *   Update quantity in cart.
-    *   Remove item from cart.
-    *   Add out-of-stock item and verify error message.
-    *   Verify cart persistence after page refresh.
-*   **Checkout & Payments:**
-    *   Checkout with different address formats.
-    *   Apply valid and invalid coupon codes.
-    *   Simulate payment decline.
-    *   Verify correct calculation of tax and shipping.
+*   Login with invalid credentials
+*   Search for a non-existent product
+*   Update quantity in cart
+*   Remove item from cart
+*   Apply invalid coupon code
+*   Checkout with invalid address format
 
 ## Test Environment
 
-*   Browser: Chrome, Firefox
-*   Operating System: Windows, macOS, Linux
-*   Test Data: Use a combination of valid and invalid test data.
+The tests will be executed on the following environment:
 
-## Test Execution
+*   Browser: Chrome (latest version)
+*   Operating System: Windows 10
+*   URL: https://automationexercise.com/
 
-*   Smoke tests will be executed after each build.
-*   Regression tests will be executed before each release.
+## Test Data
 
-=======
-The smoke suite will focus on verifying the core functionalities of the application. It will include tests for:
+Test data will be used to cover various scenarios, including valid and invalid inputs.
 
-1.  Navigating to the Products page
-2.  Searching for a product
-3.  Adding a product to the cart
-4.  Viewing the cart
-5.  Proceeding to checkout
+## Entry Criteria
 
-#### Smoke Suite Strategy
+*   The application build is deployed to the test environment.
+*   All necessary test data is prepared.
 
-The following 8-point checklist has been applied to define the Smoke Suite for this project:
+## Exit Criteria
 
-1.  **Critical Paths:** Tests cover the most common user flows (e.g., product search, add to cart, checkout).
-2.  **Core Business Logic:** Focus on testing the primary functions related to product discovery and purchase.
-3.  **Positive Testing:** Primarily uses valid inputs and expected outcomes.
-4.  **Limited Scope:** Only includes essential functionalities to ensure quick execution.
-5.  **Independence:** Tests are designed to be independent of each other.
-6.  **High Priority:** Any failure in the smoke suite indicates a critical issue.
-7.  **Fast Execution:** The suite is designed to run quickly to provide rapid feedback.
-8.  **Automated:** The suite is fully automated for continuous integration.
-
-### Regression Suite
-
-The regression suite will include more comprehensive tests, covering edge cases, alternative flows, and negative scenarios. This suite will ensure that new changes do not introduce defects into existing functionalities. (Details to be defined in future iterations).
-
-## Test Environment
-
-The tests will be executed against the application deployed in a staging environment.
-
-## Test Deliverables
-
-*   Test Plan Document
-*   Automated Test Scripts (Smoke and Regression Suites)
-*   Test Execution Reports
-*   Defect Reports
->>>>>>> Stashed changes
+*   All test cases in the smoke suite have passed.
+*   A defined percentage of test cases in the regression suite have passed (e.g., 95%).
+*   All critical and high severity defects have been resolved.

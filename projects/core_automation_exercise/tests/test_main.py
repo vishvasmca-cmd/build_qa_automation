@@ -12,32 +12,17 @@ from helpers import take_screenshot
 
 
 class ProductsPage:
-    def __init__(self, page: Page):
+    def __init__(self, page):
         self.page = page
 
-<<<<<<< Updated upstream
     @property
     def products_link(self):
         return self.page.get_by_role("link", name="\ue8f8 Products")
-=======
-    def navigate_to_products(self):
-        self.page.get_by_role("link", name=re.compile("Products", re.IGNORECASE)).click()
-        self.page.wait_for_url("**/products")
-        wait_for_stability(self.page)
->>>>>>> Stashed changes
-
-    def search_product(self, product_name: str):
-        self.page.get_by_label("Search Product").fill(product_name)
-        self.page.locator("#submit_search").click()
-        expect(self.page.locator(".product-overlay")).to_be_visible(timeout=5000)
-        wait_for_stability(self.page)
-
-<<<<<<< Updated upstream
-    @property
-    def submit_search_button(self):
-        return self.page.locator("#submit_search")
 
     @property
+    def search_product_input(self):
+        return self.page.locator("#search_product")
+
     def add_to_cart_button(self):
         return self.page.get_by_role("link", name="Add to cart")
 
@@ -51,61 +36,40 @@ class ProductsPage:
 
     def navigate_to_products(self):
         self.products_link.click()
-        self.page.wait_for_load_state("networkidle")
 
     def search_product(self, product_name):
         self.search_product_input.fill(product_name)
-        self.submit_search_button.click()
-        self.page.wait_for_load_state("networkidle")
-=======
-    def add_first_product_to_cart(self):
-        product_card = self.page.locator(".product-overlay").first
-        product_card.hover()
-        add_to_cart_button = product_card.locator("a", text=re.compile("Add to cart", re.IGNORECASE))
-        add_to_cart_button.click()
-        self.page.get_by_role("button", name=re.compile("Continue Shopping", re.IGNORECASE)).click()
-        wait_for_stability(self.page)
 
-    def view_cart(self):
-        self.page.get_by_role("link", name=re.compile("Cart", re.IGNORECASE)).click()
-        self.page.wait_for_url("**/view_cart")
-        wait_for_stability(self.page)
-
-
-class CartPage:
-    def __init__(self, page: Page):
-        self.page = page
-
-    def proceed_to_checkout(self):
-        self.page.get_by_role("link", name=re.compile("Proceed To Checkout", re.IGNORECASE)).click()
-        self.page.wait_for_url("**/checkout")
-        wait_for_stability(self.page)
->>>>>>> Stashed changes
-
-    def add_first_product_to_cart(self):
-        self.page.evaluate("document.querySelectorAll('#advertisement, .ad-container').forEach(el => el.remove())")
-        self.add_to_cart_button.first.click(force=True)
-        self.page.wait_for_load_state("networkidle")
+    def add_product_to_cart(self):
+        self.add_to_cart_button().first.click(force=True)
 
     def continue_shopping(self):
         self.continue_shopping_button.click()
-        self.page.wait_for_load_state("networkidle")
 
     def navigate_to_cart(self):
         self.cart_link.click()
-        self.page.wait_for_load_state("networkidle")
 
 class CartPage:
     def __init__(self, page):
         self.page = page
 
     @property
-    def proceed_to_checkout_button(self):
+    def proceed_to_checkout_link(self):
         return self.page.get_by_role("link", name="Proceed To Checkout")
 
     def proceed_to_checkout(self):
-        self.proceed_to_checkout_button.click()
-        self.page.wait_for_load_state("networkidle")
+        self.proceed_to_checkout_link.click()
+
+class LoginPage:
+    def __init__(self, page):
+        self.page = page
+
+    @property
+    def register_login_link(self):
+        return self.page.get_by_role("link", name="Register / Login")
+
+    def navigate_to_register_login(self):
+        self.register_login_link.click()
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
@@ -117,18 +81,20 @@ def test_autonomous_flow(browser: Browser):
     # 2. Logic (using POM)
     products_page = ProductsPage(page)
     cart_page = CartPage(page)
+    login_page = LoginPage(page)
 
     products_page.navigate_to_products()
     products_page.search_product("Dress")
-    products_page.add_first_product_to_cart()
-<<<<<<< Updated upstream
+    products_page.add_product_to_cart()
     products_page.continue_shopping()
     products_page.navigate_to_cart()
     cart_page.proceed_to_checkout()
-=======
-    products_page.view_cart()
->>>>>>> Stashed changes
-    cart_page.proceed_to_checkout()
+    login_page.navigate_to_register_login()
+    products_page.navigate_to_products()
+    products_page.search_product("Dress")
+    products_page.add_product_to_cart()
+    products_page.add_product_to_cart()
+    products_page.navigate_to_cart()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

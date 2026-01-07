@@ -1,28 +1,13 @@
-Feature: core_saucedemo Smoke Tests
-
-<<<<<<< Updated upstream
-  @smoke
-  Scenario: User Login and Sort Products by Price
-    Given User is on the Saucedemo login page
-    When User logs in with valid credentials
-    Then User should be redirected to the inventory page
-    When User sorts products by price (low to high)
-    Then Products should be sorted correctly
+Feature: Authentication and Product Sorting
+  As a user,
+  I want to log in, sort products by price,
+  So that I can easily find and purchase products.
 
   @smoke
-  Scenario: Add a product to the cart
-    Given User is on the inventory page
-    When User adds the cheapest product to the cart
-    Then The product should be added to the cart
-=======
-  Scenario: User Login, Sort Products, and Add to Cart
-    @smoke
-    Given User is on the login page
-    When User enters valid username "standard_user"
-    And User enters valid password "secret_sauce"
-    And User clicks on the login button
-    Then User should be logged in and redirected to the inventory page
-    When User sorts products by price (low to high)
-    And User adds the lowest price item to the cart
-    Then The item should be added to the cart
->>>>>>> Stashed changes
+  Scenario: Successful login and product sorting
+    Given I am on the login page
+    When I enter valid credentials
+      And I click the login button
+    Then I should be logged in successfully
+    When I sort products by price "Price (low to high)"
+    Then Products should be sorted by price low to high

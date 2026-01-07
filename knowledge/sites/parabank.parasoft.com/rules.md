@@ -43,3 +43,9 @@
 
 - When navigating to the ParaBank homepage, the 'Home' link may not be immediately available. Implement a retry mechanism or increase the timeout to accommodate potential delays.
 >>>>>>> Stashed changes
+
+- When using `get_by_role` with a regular expression for link names, especially with `re.IGNORECASE`, ensure the expression is specific enough to resolve to a single, unique element.  Consider using `exact=True` if the target link's capitalization is known and consistent, or refine the regex to be more precise.
+
+- When locating elements with text that might have inconsistent casing, prefer exact matches or use `first` or `last` to disambiguate if multiple matches are expected.  Alternatively, disable strict mode only when necessary and with caution.
+
+- When locating elements with text 'Home' (case-insensitive) on ParaBank, be aware that multiple elements may match. Use a more specific locator or consider using `first` or `last` to resolve ambiguity, or disable strict mode if appropriate.

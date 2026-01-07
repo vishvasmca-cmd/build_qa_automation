@@ -42,3 +42,9 @@
 =======
 - Before filling the username field on the OrangeHRM login page, ensure the page is fully loaded and the username field is visible. Consider adding a wait_for_selector or wait_for_load_state before attempting to fill the field.
 >>>>>>> Stashed changes
+
+- After submitting a password reset request, verify that the application redirects to a confirmation page or displays a success message before redirecting to the login page. Do not immediately expect a redirect to the login page.
+
+- After submitting a password reset request, always check for the success message on the same page before assuming a redirect or further action is needed.
+
+- After submitting a password reset request, explicitly wait for the 'Reset Password link sent successfully' message to appear before proceeding with assertions.  Consider using a longer timeout or a more robust locator strategy.

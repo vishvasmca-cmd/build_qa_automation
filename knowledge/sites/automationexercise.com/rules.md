@@ -99,3 +99,9 @@
 
 - Before interacting with the search input field, ensure the page is fully loaded and any overlays or animations that might obscure the element have completed. Consider adding a short delay or a wait-for-selector before attempting to fill the field.
 >>>>>>> Stashed changes
+
+- When locating elements by title attribute within a parent locator, use `locator('xpath=//a[@title="Add to cart"]')` instead of passing title directly to the locator method.
+
+- Before clicking 'Add to cart', ensure the product details are fully loaded and any overlaying elements (e.g., promotional modals, loading spinners) are dismissed. Consider adding explicit waits for relevant product details to load.
+
+- Before clicking 'Add to cart', ensure the product is fully loaded and visible on the page. Check for any overlaying elements (e.g., modals, banners) that might be blocking the button and handle them accordingly.
