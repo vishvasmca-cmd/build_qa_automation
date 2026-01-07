@@ -21,7 +21,7 @@ DOM_EXTRACTION_SCRIPT = """
         const style = window.getComputedStyle(el);
         const rect = el.getBoundingClientRect();
         
-        return rect.width > 2 && rect.height > 2 && 
+        return rect.width > 0 && rect.height > 0 && 
                style.display !== 'none' && 
                style.visibility !== 'hidden' && 
                style.opacity !== '0';

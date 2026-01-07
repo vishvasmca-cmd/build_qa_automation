@@ -118,6 +118,34 @@ class CodeReviewer:
                 return False, f"Detected hallucinated placeholder variable: {p}"
         return True, "OK"
 
+    def _validate_locator_stability(self, code):
+        """Checks for common locator 'smells' that indicate flakiness."""
+        errors = []
+        
+        # 1. URL as Name Error
+        if re.search(r'get_by_role\([\'"]link[\'"],\s*name=[\'"]http[s]?://', code):
+            errors.append("Brittle Locator: Using full URL as link name. Use visible text or label.")
+            
+        # 2. Overly Specific Class Selectors (Smell: More than 3 joined classes)
+        # e.g. .p-4.m-2.bg-red-500.hover:bg-red-600
+        class_chains = re.findall(r'locator\([\'"]\.([^\'"]+)\'\"\)', code)
+        for chain in class_chains:
+            if chain.count('.') >= 3:
+                errors.append(f"Brittle Locator: Overly specific class chain ('.{chain}'). Filter out utility classes.")
+        
+        # 3. Unchecked nth() usage (Smell: Using nth(0) when text is available)
+        if re.search(r'\.nth\(0\)', code) and not re.search(r'filter\(', code):
+             # Only flag if not already using a filter (which implies context)
+             pass # keeping it simple for now as per plan
+             
+        # 4. Explicit Scroll Warning
+        if re.search(r'\.press\([\'"]PageDown[\'"]\)', code):
+            errors.append("Unstable Pattern: Explicit scrolling detected. Rely on Playwright's auto-scroll.")
+
+        if errors:
+            return False, "\n".join(errors)
+        return True, "OK"
+
     def _validate_syntax(self, code):
         """Checks if code is valid Python using AST."""
         import ast
@@ -174,9 +202,20 @@ class CodeReviewer:
                             domain_rules += f"- {r}\n"
             except: pass
 
+        # Load Locator Golden Set Principles
+        golden_set_context = ""
+        md_golden_path = os.path.join(os.path.dirname(__file__), "..", "knowledge", "locators_golden_set.md")
+        if os.path.exists(md_golden_path):
+            try:
+                with open(md_golden_path, "r", encoding="utf-8") as f:
+                    golden_set_context = "\n**LOCATOR PRINCIPLES & GOLDEN PATTERNS (MUST ENFORCE)**:\n"
+                    golden_set_context += f.read() + "\n"
+            except: pass
+
         system_prompt = f'''You are a Principal Software Engineer in Test (SDET) with 15+ years of experience.
 Your job is to CODE REVIEW and AUTO-FIX the provided Playwright Python script.
 
+{golden_set_context}
 {anti_context}
 {domain_rules}
 
@@ -194,8 +233,9 @@ Your job is to CODE REVIEW and AUTO-FIX the provided Playwright Python script.
 7.  **Robust Locators**: Use `re.compile(..., re.IGNORECASE)` for text/role matches.
 8.  **Assertions**: Code MUST have assertions (`expect(...)`). 
 9.  **Standard API**: Prefer standard Playwright methods (`click()`, `fill()`) over custom helpers. Playwright has built-in auto-waiting.
-10. **Syntax Integrity**: Ensure triple-quoted strings (<code>"""</code>) are properly closed.
 11. **POM Scope**: Inside Page Object class methods, you MUST use `self.page` for all Playwright calls. NEVER use `page.` directly if not in the main test function.
+12. **Dropdowns/Selects**: NEVER attempt to `.click()` an `<option>` element. ALWAYS use `.select_option()` on the `<select>` element.
+13. **Completeness**: If the user's goal or trace includes sorting, checkout, or specific form fields, ENSURE the `test_autonomous_flow` calls ALL relevant POM methods. REJECT truncated tests.
 
 **OUTPUT FORMAT**:
 You must output a JSON object with this EXACT structure:
@@ -265,6 +305,11 @@ You must output a JSON object with this EXACT structure:
                     print(f"❌ Reviewer REJECTED code due to POM Scope: {reason}")
                     # If it's just a scope error, we could try to auto-fix it with LLM again or just reject
                     return False, f"Reviewer REJECTED code due to POM Scope: {reason}"
+
+                is_valid, reason = self._validate_locator_stability(result.get("final_code", code_content))
+                if not is_valid:
+                    print(f"❌ Reviewer REJECTED code due to Stability Smell: {reason}")
+                    return False, f"Reviewer REJECTED code due to Stability Smell: {reason}"
                     
                 print("✅ Code Approved (No major issues found).")
             

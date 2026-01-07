@@ -65,6 +65,16 @@ def try_parse_json(content):
     if not content:
         return None
         
+    # Handle AIMessage or other objects with .content
+    if hasattr(content, 'content'):
+        content = content.content
+        
+    if not isinstance(content, str):
+        try:
+            content = str(content)
+        except:
+            return None
+        
     # 1. Strip Markdown Blocks
     content = re.sub(r'```json\s*', '', content)
     content = re.sub(r'\s*```', '', content)

@@ -34,5 +34,17 @@
         "bad_example": "def smart_action(page, ...):\n    # implementation here",
         "reason": "Redefining pre-imported global helpers like 'smart_action' or 'wait_for_stability' causes conflicts and code bloat.",
         "fix": "NEVER define helper functions. They are already pre-imported in the template."
+    },
+    {
+        "failure_mode": "Brittle Link Name (URL as Name)",
+        "bad_example": "page.get_by_role('link', name='https://www.example.com/details')",
+        "reason": "URLs are unstable and likely to change or contain transient parameters.",
+        "fix": "Use the visible text or a unique accessibility label for the link name."
+    },
+    {
+        "failure_mode": "Unstable Generic Scroll",
+        "bad_example": "page.keyboard.press('PageDown')",
+        "reason": "Generic scrolling is unreliable and can cause layout shifts or trigger state loss.",
+        "fix": "Rely on Playwright's auto-scrolling actions or use locator.scroll_into_view_if_needed() for specific elements."
     }
 ]

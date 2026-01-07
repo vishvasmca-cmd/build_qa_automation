@@ -69,7 +69,8 @@ Your goal is to complete the user's workflow by deciding the single next best ac
 4. Validate: Did my LAST action work? Note: On SPAs, the URL might not change even if the content does.
 5. Multi-Goal Check: Look at the `goal`. Does it have multiple steps (e.g., '1. Home, 2. Price')? Check off completed steps based on history.
 6. **Login Check**: If I encounter a login page and NO credentials are in `test_data` AND NO credentials are in the `goal`, SKIP login entirely. Instead, explore publicly accessible areas. However, if credentials are provided in either `test_data` or the `goal` description, proceed with login.
-7. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal?
+7. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal? 
+8. **STEP TRACKING (CRITICAL)**: You MUST complete the workflow steps IN ORDER. If you land on a page that belongs to a LATER step (e.g., login page but you haven't added to cart yet), you MUST attempt to navigate BACK to the correct page for the EARLIEST unfulfilled step. DO NOT skip ahead just because you are on a convenient page.
 
 **OUTPUT SCHEMA (JSON only)**:
 {
@@ -123,11 +124,17 @@ class ExplorerAgent:
                 
                 try:
                     await page.goto(self.config["target_url"], wait_until="networkidle", timeout=60000)
+                    # --- NAVIGATION GUARD ---
+                    # If we landed on a vignette or a different page, force back to target
+                    if "#google_vignette" in page.url or ("/login" in page.url and "/login" not in self.config["target_url"]):
+                        print(colored("🛡️ Navigation Guard: Redirect detected. Re-forcing target URL...", "magenta"))
+                        await self._dismiss_overlays(page)
+                        await page.goto(self.config["target_url"], wait_until="networkidle")
                 except:
                     await page.wait_for_load_state("domcontentloaded")
 
                 step = 0
-                max_steps = 20
+                max_steps = 50 # Increased for complex 2026 workflows
                 
                 while step < max_steps:
                     print(colored(f"\n--- Step {step + 1} ---", "white", attrs=["bold"]))
@@ -145,8 +152,15 @@ class ExplorerAgent:
                     
                     # Check for duplicate states (infinite loop prevention)
                     if self.is_duplicate_state(page.url, mindmap):
-                        print(colored("⚠️ Duplicate state detected. Exiting to prevent infinite loop.", "yellow"))
-                        break
+                        print(colored("⚠️ Duplicate state detected. Attempting rescue...", "yellow"))
+                        await self._dismiss_overlays(page)
+                        await asyncio.sleep(2)
+                        # Re-mine after rescue
+                        mindmap = await analyze_page(page, page.url, self.workflow)
+                        if self.is_duplicate_state(page.url, mindmap):
+                            print(colored("❌ Rescue failed. Breaking loop.", "red"))
+                            break
+                        print(colored("🚑 Rescue successful! State changed.", "green"))
                     
                     # Check for stuck loops (circular navigation)
                     if self.detect_stuck_loop():
@@ -166,8 +180,23 @@ class ExplorerAgent:
                         metadata={"step": step, "url": page.url}
                     )
                     if not decision: 
-                        print(colored("❌ Failed to make a decision.", "red"))
+                        print(colored("❌ Failed to make a decision. Breaking loop.", "red"))
                         break
+                    
+                    # --- RESCUE MODE (MODAL BLINDNESS FIX) ---
+                    # If target_id is null OR not in elements, and we aren't done, try clearing overlays
+                    target_id = decision.get('target_id')
+                    is_done = decision.get('is_goal_achieved') or decision.get('action') == 'done'
+                    
+                    if not is_done and target_id is not None:
+                        target_exists = any(str(e['elementId']) == str(target_id) for e in mindmap['elements'])
+                        if not target_exists:
+                            print(colored("🚑 RESCUE MODE: Planner target not found. Clearing overlays and re-mining...", "magenta"))
+                            await self._dismiss_overlays(page)
+                            await asyncio.sleep(1.5) # Wait for modal settlement
+                            mindmap = await analyze_page(page, page.url, self.workflow)
+                            print(f"🔄 Re-mined {len(mindmap['elements'])} elements.")
+                    # ----------------------------------------
                     
                     print(colored(f"💭 Thought: {decision.get('thought')}", "cyan"))
                     
@@ -196,11 +225,15 @@ class ExplorerAgent:
                     )
                     
                     # 4. VALIDATE & LOG
+                    page_title = mindmap['summary'].get('title', 'Unknown')
+                    page_name = self._get_page_name(page.url, page_title)
+                    
                     self.history.append({
                         "step": step,
                         "action": decision['action'],
                         "target_text": next((e['text'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
                         "url": page.url,
+                        "page_name": page_name,
                         "outcome": action_result.get('outcome'),
                         "success": action_result.get('success'),
                     })
@@ -210,6 +243,7 @@ class ExplorerAgent:
                         "step": step,
                         "thought": decision['thought'],
                         "action": decision['action'],
+                        "page_name": page_name,
                         "locator_used": action_result.get('refined_locator') or action_result.get('locator'),
                         "value": decision.get('value'),
                         "url": page.url,
@@ -219,7 +253,6 @@ class ExplorerAgent:
                             "tag": next((e['tagName'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
                             "text": next((e['text'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
                             "role": next((e.get('role', '') for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
-                             # We can add more like class later if dom_driver sends it
                         }
                     })
                     self._save_trace()
@@ -249,8 +282,8 @@ class ExplorerAgent:
         context = {
             "goal": self.workflow,
             "page_context": mindmap['summary'],
-            "elements": [{"id": e['elementId'], "text": e['text'], "tag": e['tagName']} for e in mindmap['elements'][:100]],
-            "history": self.history[-10:], # Expanded history for navigation memory
+            "elements": [{"id": e['elementId'], "text": e['text'], "tag": e['tagName']} for e in mindmap['elements'][:500]],
+            "history": self.history[-20:], # Expanded history for long-tail workflows
             "test_data": self.test_data,
             "knowledge_bank": rag_context # INJECTED: Lessons learned from previous runs
         }
@@ -265,26 +298,94 @@ class ExplorerAgent:
             return None
     
     def is_duplicate_state(self, page_url, mindmap):
-        """Check if we've visited this exact page state before to prevent infinite loops."""
-        # Create fingerprint: URL + element count + page title
+        """
+        Check if we are stuck on the same state after an action.
+        Repeated visits to the same page (e.g. returning from a modal) are ALLOWED.
+        Consecutive identical states are only a problem if the action taken also produced no change.
+        """
         element_count = len(mindmap.get('elements', []))
         page_title = mindmap.get('summary', {}).get('title', '')
         
-        # For duplicate detection, we also consider the last action taken.
-        # If we take an action (like filling a form) and the page doesn't change, 
-        # we might need to take another action on the SAME page.
+        # Base fingerprint: URL + Structure
+        state_fingerprint = f"{page_url}:{element_count}:{page_title}"
+        
+        # Action fingerprint: What we just did
         last_action = self.history[-1]['action'] if self.history else 'none'
         last_target = self.history[-1].get('target_text', '') if self.history else 'none'
-        
-        fingerprint = f"{page_url}:{element_count}:{page_title}"
-        action_fingerprint = f"{fingerprint}:{last_action}:{last_target}"
-        
-        if action_fingerprint in self.visited_states:
-             return True
-        
-        self.visited_states.add(action_fingerprint)
+        last_value = str(self.history[-1].get('value', '')) if self.history else 'none'
+        action_fingerprint = f"{last_action}:{last_target}"
+
+        # Initialize tracking on first call
+        if not hasattr(self, 'last_action_fingerprint'):
+            self.last_state_fingerprint = None
+            self.last_action_fingerprint = None
+            self.consecutive_duplicate_count = 0
+
+        # It's a "bad" duplicate only if BOTH the state AND the action we took are the same as before,
+        # OR if we've taken 3+ different actions and the state hasn't changed at all (stuck)
+        if state_fingerprint == self.last_state_fingerprint:
+            if action_fingerprint == self.last_action_fingerprint:
+                # Slow repeats: allow up to 3 identical actions on identical states
+                # (Sometimes a page takes a moment to react or the LLM is slightly repetitive)
+                self.consecutive_duplicate_count += 1
+                if self.consecutive_duplicate_count >= 3:
+                    return True
+                return False
+            
+            self.consecutive_duplicate_count += 1
+            if self.consecutive_duplicate_count >= 10: # Allow up to 10 distinct actions on same page (e.g. form filling)
+                return True
+        else:
+            # Progress made! Reset counters.
+            self.last_state_fingerprint = state_fingerprint
+            self.last_action_fingerprint = action_fingerprint
+            self.consecutive_duplicate_count = 0
+            
         return False
     
+    def _get_page_name(self, url, title):
+        """
+        Heuristically determines a valid class name for the current page.
+        """
+        from urllib.parse import urlparse
+        path = urlparse(url).path.strip('/')
+        
+        # Priority 1: Known URL segments
+        if not path or path == 'index.php':
+            return "HomePage"
+        if 'login' in path: return "LoginPage"
+        if 'product' in path: return "ProductsPage"
+        if 'cart' in path: return "CartPage"
+        if 'checkout' in path: return "CheckoutPage"
+        if 'signup' in path: return "SignupPage"
+        if 'contact' in path: return "ContactPage"
+        
+        # Priority 2: Sanitize Title
+        if title:
+            # Remove special chars and capitalize
+            clean_title = re.sub(r'[^a-zA-Z0-9]', ' ', title).title().replace(' ', '')
+            if clean_title:
+                return f"{clean_title}Page"
+                
+        # Priority 3: Path segment
+        if path:
+            return f"{path.split('/')[-1].title()}Page"
+            
+        return "GenericPage"
+
+    async def _validate_locator(self, page, locator_str):
+        """
+        Checks if the locator is actually visible on the page before we try to use it.
+        """
+        if not locator_str: return False
+        
+        try:
+            # We use a short timeout for validation to keep explorer fast
+            is_visible = await page.locator(locator_str).is_visible(timeout=2000)
+            return is_visible
+        except:
+            return False
+
     def detect_stuck_loop(self):
         """Detect if Explorer is stuck in a repetitive pattern."""
         if len(self.history) < self.loop_detection_window:
@@ -329,6 +430,22 @@ class ExplorerAgent:
                         });
                     };
                     dismiss(document);
+                    
+                    // 3. Specific Google Vignette Handling
+                    const adFrame = document.querySelector('iframe[id*="google_ads_iframe"]');
+                    if (adFrame) {
+                        try {
+                            const innerDoc = adFrame.contentDocument || adFrame.contentWindow.document;
+                            const dismissBtn = innerDoc.querySelector('#dismiss-button') || innerDoc.querySelector('.dismiss-button');
+                            if (dismissBtn) dismissBtn.click();
+                        } catch (e) {}
+                        adFrame.remove();
+                    }
+                    
+                    // Clear vignette hash if present
+                    if (window.location.hash.includes('google_vignette')) {
+                        window.location.hash = '';
+                    }
                 }
             """)
             # 2. Escape Key (Removed: Too broad, closes legitimate modals)
@@ -362,6 +479,17 @@ class ExplorerAgent:
         # Instead, we will do it as a "healing" step inside _execute_with_retry if needed.
 
         locator_str = f"[data-agent-id='{target_id}']"
+        
+        # PRE-EXECUTION VALIDATION
+        is_valid = await self._validate_locator(page, locator_str)
+        if not is_valid:
+            print(colored(f"⚠️ Validation Failed: ID={target_id} not visible. Attempting overlay dismissal...", "yellow"))
+            await self._dismiss_overlays(page)
+            # Second check
+            is_valid = await self._validate_locator(page, locator_str)
+            if not is_valid:
+                return {"success": False, "outcome": "Locator validation failed (element not visible or blocked)"}
+
         refined_locator = await self._refine_locator(page, target_el) if target_el else locator_str
 
         async def perform():
@@ -369,6 +497,10 @@ class ExplorerAgent:
                 print(colored(f"🖱️ Clicking ID={target_id} ({target_el['text']})", "yellow"))
                 try:
                     await page.locator(locator_str).click(timeout=5000)
+                    # Add wait for potential modal triggers
+                    if "cart" in target_el.get('text', '').lower() or "add" in target_el.get('text', '').lower():
+                        print(colored("   ⌛ Waiting for potential modal/animation...", "grey"))
+                        await asyncio.sleep(1.5)
                 except:
                     print(colored("   👉 Locator failed. Using coordinate fallback.", "magenta"))
                     await page.mouse.click(target_el['center']['x'], target_el['center']['y'])
@@ -460,7 +592,11 @@ class ExplorerAgent:
                     // --- Tier 3: Structural/CSS (Hierarchy) ---
                     // Try to find a unique class combination
                     if (el.className && typeof el.className === 'string') {
-                        const classes = el.className.split(' ').filter(c => c.trim().length > 0 && !c.includes('hover') && !c.includes('active'));
+                        const unstablePrefixes = ['p-', 'm-', 'bg-', 'text-', 'hover:', 'active:', 'focus:', 'static', 'relative', 'absolute', 'flex', 'grid', 'items-', 'justify-'];
+                        const classes = el.className.split(' ').filter(c => {
+                            const trimmed = c.trim();
+                            return trimmed.length > 0 && !unstablePrefixes.some(p => trimmed.startsWith(p));
+                        });
                         if (classes.length > 0) {
                              return `page.locator(".${classes.join('.')}")`; 
                         }

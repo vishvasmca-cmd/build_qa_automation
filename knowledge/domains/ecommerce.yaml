@@ -37,6 +37,46 @@ learned_rules:
 - Ensure that the `core` module (containing templates and helper functions) is correctly
   included in the Python path or project structure before running tests in the `projects/demo_complex`
   directory.
+- Before interacting with the search input field, ensure the page has fully loaded
+  and any overlaying elements (e.g., modals, banners) that might obstruct the element
+  are dismissed. The page might have dynamic content that delays the rendering of
+  the search input.
+- Before interacting with the search input field (#search_product), ensure that any
+  overlaying elements (e.g., modals, banners, or loading screens) are dismissed or
+  have completed their animation/transition.
+- When filling the email field on the login/signup page, explicitly target the form
+  intended for login or signup to avoid ambiguity. Use `filter(has_text='Login')`
+  or `filter(has_text='Signup')` to disambiguate forms.
+- When navigating to the products page, anticipate potential delays in network activity.
+  Increase the default timeout or implement more robust checks for page readiness
+  beyond 'networkidle', such as verifying the presence of key elements.
+- When filling the email field on the login page, ensure the locator is specific to
+  the login form to avoid ambiguity with the signup form's email field. Prioritize
+  locators with explicit form association.
+- When filling email fields on the login/signup page, disambiguate between the login
+  and signup forms. Use specific locators targeting each form or filter by text content
+  (Login or Signup).
+- When filling email fields on pages with both Login and Signup forms, use more specific
+  locators to target the intended field.
+- When filling email fields on pages with both login and signup forms, ensure locators
+  are specific to the intended form (login or signup) to avoid ambiguity.
+- Before clicking 'Add to cart', ensure the element is visible and enabled. Implement
+  retry logic with short intervals if necessary.
+- Before interacting with the search input, ensure any modals or overlays are closed
+  or dismissed.  Implement a short wait and retry mechanism if the element is not
+  immediately available.
+- When interacting with elements found by `locator.first()`, ensure you're performing
+  an action on the element and not attempting to call the locator itself.
+- When navigating to or after submitting a form on automationexercise.com, increase
+  the default timeout or use a less strict load state like 'domcontentloaded' or 'load'
+  to avoid intermittent timeout issues.
+- When navigating to automationexercise.com, be aware of potential long-running background
+  network requests. If 'networkidle' is required, consider implementing a shorter
+  timeout or a more lenient load state check (e.g., 'domcontentloaded'). Alternatively,
+  investigate and resolve the source of the ongoing network requests.
+- Before navigating to the 'Products' page, ensure any modals or overlays are closed
+  to prevent them from obscuring the target link.  Consider using explicit waits for
+  the absence of these obstructing elements.
 workflow_rules:
 - Always search for a cart icon after adding an item.
 - If login fails, check for error-message-container.

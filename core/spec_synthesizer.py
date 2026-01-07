@@ -90,8 +90,9 @@ class SpecSynthesizer:
         print(f"📋 Creating Strategic Test Plan for {url}...")
         
         # Ensure parameters are strings to avoid NoneType errors
-        goal = goal or ""
-        testing_type = testing_type or "smoke"
+        url = str(url or "")
+        goal = str(goal or "")
+        testing_type = str(testing_type or "smoke")
         
         security_requirement = ""
         if goal and "security check" in goal.lower():

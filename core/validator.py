@@ -98,7 +98,7 @@ class BusinessValidator:
         
         # 4. Call LLM
         response = self.llm.invoke(messages)
-        result = try_parse_json(response)
+        result = try_parse_json(response.content if hasattr(response, 'content') else response)
         
         if not result:
             return {"status": "AMBIGUOUS", "reason": "Validator failed to parse response", "confidence": 0.0}

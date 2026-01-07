@@ -155,8 +155,20 @@ class CodeRefiner:
         # Load Golden Reference Patterns (File-Based)
         golden_dir = os.path.join(os.path.dirname(__file__), "golden_patterns")
         golden_context = ""
+        
+        # 1. Load Markdown Principles (Human-readable rules)
+        md_golden_path = os.path.join(os.path.dirname(__file__), "..", "knowledge", "locators_golden_set.md")
+        if os.path.exists(md_golden_path):
+            try:
+                with open(md_golden_path, "r", encoding="utf-8") as f:
+                    golden_context += "\n**LOCATOR PRINCIPLES & EXAMPLES (MUST FOLLOW)**:\n"
+                    golden_context += f.read() + "\n"
+            except Exception as e:
+                print(f"⚠️ Failed to load MD golden patterns: {e}")
+
+        # 2. Load Python Snippets (Executable patterns)
         if os.path.exists(golden_dir):
-            golden_context = "\n**STRICT REFERENCE PATTERNS (MUST FOLLOW THESE STRUCTURES)**:\n"
+            golden_context += "\n**STRICT REFERENCE SNIPPETS (IMPLEMENT THESE PATTERNS)**:\n"
             try:
                 for fname in os.listdir(golden_dir):
                     if fname.endswith(".py"):
@@ -164,7 +176,7 @@ class CodeRefiner:
                             code = f.read()
                             golden_context += f"\n--- Reference: {fname} ---\n```python\n{code}\n```\n"
             except Exception as e:
-                print(f"⚠️ Failed to load golden patterns: {e}")
+                print(f"⚠️ Failed to load Python golden patterns: {e}")
 
         # Load Domain Rules
         domain_rules = ""
@@ -239,20 +251,22 @@ class CodeRefiner:
           `page.locator('.notification').filter(has_text='Order #123').filter(has=page.locator('.status-active')).get_by_role('button', name='View')`
         - **Using .and_()**: Combine conditions: `page.get_by_role('button').and_(page.get_by_title('Subscribe'))`
         - **Contextual Anchoring**: Find a unique parent container first, then search within it.
+        - **Scoping (Header/Footer)**: ALWAYS chain locators for common links (e.g. `page.locator('footer').get_by_role('link', name='Home')`) to prevent strict mode violations and ensure intent.
+        - **LONG-TAIL COMPLETENESS (CRITICAL)**: If the trace contains 20+ steps, DO NOT TRUNCATE. Every login, product search, cart addition, and checkout step in the trace MUST be implemented in the POM and the final test logic.
 
         **MANDATORY: Page Object Model (POM) STRUCTURE**:
         You MUST generate a modular POM structure. This includes:
         1. **Page Object Classes**:
+           - **STRICT NAMING**: You must name your classes EXACTLY as specified in the `page_name` field of each step in the trace (e.g., if a step says `page_name: "ProductsPage"`, you MUST create or add to a class named `ProductsPage`).
            - An `__init__` taking `page` and setting `self.page = page`.
            - **Property Locators**: Use `@property` for locators to ensure they are always fresh. 
              - Example: `return self.page.get_by_role("button", name="Login")`
            - **CRITICAL: Scope Integrity**: Inside class methods, you MUST use `self.page`. NEVER use a global `page` variable.
              - ✅ `self.page.wait_for_url("**/login")`
              - ❌ `page.wait_for_url("**/login")`  <-- THIS CAUSES NameError
-           - **Action Methods**: Clean, reusable methods.
-             - **CRITICAL**: When calling `smart_action` from a class method, pass the LOCATOR OBJECT directly, NOT a string.
-             - ✅ `smart_action(self.page, self.username_field, "fill", value=username)`
-             - ❌ `smart_action(self.page, "self.username_field", ...)`
+           - **Action Methods**: Clean, reusable methods using standard Playwright actions.
+             - ✅ `self.page.get_by_label("Username").fill(username)`
+             - ✅ `self.page.get_by_role("button", name="Log in").click()`
 
         2. **Main Test Function**: A `test_autonomous_flow` function that follows the exact structure provided below.
            ```python
@@ -261,7 +275,7 @@ class CodeRefiner:
                context = browser.new_context(viewport={"width": 1920, "height": 1080})
                page = context.new_page()
                page.goto("{{TARGET_URL}}")
-               wait_for_stability(page)
+               page.wait_for_load_state("networkidle")
                
                # 2. Logic (using POM)
                # ...
@@ -280,20 +294,21 @@ class CodeRefiner:
           - BAD: `page.locator(...)`
           - GOOD: `self.page.locator(...)`
         - ❌ NEVER use placeholder variables like `locator_string`, `action_type`, or `value` unless they are explicitly assigned from the trace.
-        - ❌ NEVER redefine `smart_action`, `wait_for_stability`, or `take_screenshot`.
         - ❌ NEVER use positional `.nth(0)` if a text match or ID is available in the trace element context.
+        - ❌ **STABILITY WARNING**: NEVER use full URLs as accessibility names (e.g. `get_by_role("link", name="https://...")`). Use visible text or labels instead.
+        - ❌ **STABILITY WARNING**: NEVER use explicit `scroll` or `PageDown` actions. Playwright actions auto-scroll to the element.
 
         **CRITICAL RULES**:
-        1. **DO NOT REDEFINE HELPERS**: The following functions are ALREADY IMPORTED and available globally. **DO NOT** write code for them:
-           - `smart_action(page, locator, action_type, value=None)`
-           - `wait_for_stability(page)`
-           - `take_screenshot(page, name, project_name)`
-        2. **SYNC ONLY**: You MUST use SYNC Python Playwright. **DO NOT USE `await` keyword.**
+        1. **STANDARDS ONLY**: You MUST use pure Playwright API. DO NOT use custom helpers like `smart_action`.
+           - `take_screenshot(page, name, project_name)` is the only allowed helper.
+        2. **COMPLETENESS**: YOU MUST IMPLEMENT ALL STEPS AND GOALS mentioned in the user request. NEVER truncate or simplify the test logic just to satisfy a failure. Fix the bug, don't remove the feature.
+        3. **DROPDOWNS (SELECT)**: NEVER attempt to `.click()` an `<option>` element. ALWAYS use `self.page.get_by_label(...).select_option(label="...")`.
+        4. **SYNC ONLY**: You MUST use SYNC Python Playwright. **DO NOT USE `await` keyword.**
         3. **PYTHON KWARGS ONLY**: 
            - ✅ `page.get_by_role("link", name="Home")`
            - **NEVER** use `{{ key: value }}` JS objects. Always use `key=value`.
-        4. **Smart Actions (MANDATORY)**: Use `smart_action` for ALL interactions.
-        5. **Navigation Guards**: ALWAYS call `wait_for_stability(page)` after every `smart_action`.
+        4. **Actions**: Use regular Playwright methods: `.click()`, `.fill()`, `.select_option()`.
+        5. **Stability**: Use `page.wait_for_load_state("networkidle")` or specific element waits if needed after interactions.
         6. **Visual Verification**: You are provided with screenshots of the elements. Use them to ensure your locators (roles/text) match what is visually present.
         
         **OUTPUT FORMAT**:
@@ -425,7 +440,9 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     trace_summary = json.dumps([{
         "step": t['step'],
         "url": t.get('url'),
+        "page_name": t.get('page_name', 'GenericPage'),
         "action": t['action'],
+        "thought": t.get('thought'),
         "locator": t.get('locator_used') or t.get('locator'),
         "value": t.get('value'),
         "element_context": t.get('element_context'),
