@@ -22,19 +22,22 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
     
         # 2. Logic (using POM)
         products_page = ProductsPage(page)
-        cart_page = CartPage(page)
-    
         products_page.navigate_to_products()
-        expect(page).to_have_url("https://automationexercise.com/products")
-    
-        products_page.search_product("Dress")
-        expect(products_page.search_product_input).to_have_value("Dress")
-    
->       products_page.add_first_product_to_cart()
+<<<<<<< Updated upstream
+        products_page.search_for_product("Dress")
+>       products_page.add_product_to_cart()
 
-projects/core_automation_exercise/tests/test_main.py:98: 
+projects/core_automation_exercise/tests/test_main.py:86: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_automation_exercise/tests/test_main.py:54: in add_first_product_to_cart
+projects/core_automation_exercise/tests/test_main.py:50: in add_product_to_cart
+=======
+        products_page.search_product("Dress")
+>       products_page.add_product_to_cart()
+
+projects/core_automation_exercise/tests/test_main.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/core_automation_exercise/tests/test_main.py:52: in add_product_to_cart
+>>>>>>> Stashed changes
     self.add_to_cart_button.first.click(force=True)
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
@@ -47,8 +50,13 @@ projects/core_automation_exercise/tests/test_main.py:54: in add_first_product_to
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7f3c209e2250>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f3c20805800>
+<<<<<<< Updated upstream
+self = <playwright._impl._connection.Connection object at 0x7fef478cde50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fef46409440>
+=======
+self = <playwright._impl._connection.Connection object at 0x7f8956ee3910>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f8955a1afc0>
+>>>>>>> Stashed changes
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -76,5 +84,9 @@ E             - waiting for get_by_role("link", name="Add to cart").first
 FAILED projects/core_automation_exercise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 Call log:
   - waiting for get_by_role("link", name="Add to cart").first
-============================== 1 failed in 35.95s ==============================
+<<<<<<< Updated upstream
+============================== 1 failed in 38.04s ==============================
+=======
+============================== 1 failed in 35.23s ==============================
+>>>>>>> Stashed changes
 

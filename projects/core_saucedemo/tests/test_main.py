@@ -15,6 +15,10 @@ class HomePage:
     def __init__(self, page):
         self.page = page
 
+    def goto(self):
+        self.page.goto("https://www.saucedemo.com/")
+        self.page.wait_for_load_state("networkidle")
+
     @property
     def username_field(self):
         return self.page.locator("[data-test='username']")
@@ -27,14 +31,11 @@ class HomePage:
     def login_button(self):
         return self.page.locator("[data-test='login-button']")
 
-    def goto(self):
-        self.page.goto("https://www.saucedemo.com/")
-        self.page.wait_for_load_state("networkidle")
-
     def login(self, username, password):
         self.username_field.fill(username)
         self.password_field.fill(password)
         self.login_button.click()
+        self.page.wait_for_load_state("networkidle")
 
 class SaucedemoInventoryPage:
     def __init__(self, page):
@@ -45,16 +46,30 @@ class SaucedemoInventoryPage:
         return self.page.locator("[data-test='product-sort-container']")
 
     def sort_by_price_low_to_high(self):
-        self.product_sort_dropdown.select_option(label='Price (low to high)')
+        self.product_sort_dropdown.select_option(label="Price (low to high)")
+        self.page.wait_for_load_state("networkidle")
+
+class SwagLabsPage:
+    def __init__(self, page):
+        self.page = page
+
+    @property
+    def login_button(self):
+        return self.page.locator("[data-test='login-button']")
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
+
+    # 2. Logic (using POM)
     home_page = HomePage(page)
     inventory_page = SaucedemoInventoryPage(page)
 
-    # 2. Logic (using POM)
+<<<<<<< Updated upstream
+    # 2. Logic
+=======
+>>>>>>> Stashed changes
     home_page.goto()
     home_page.login("standard_user", "secret_sauce")
     inventory_page.sort_by_price_low_to_high()

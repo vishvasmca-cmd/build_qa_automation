@@ -64,3 +64,17 @@
 - When interacting with elements in the top navigation bar of OrangeHRM, implement a retry mechanism with exponential backoff to handle potential loading delays or intermittent visibility issues. Before clicking, explicitly wait for the element to be both visible and enabled.
 
 - When clicking on elements within the OrangeHRM header/navigation, implement a retry mechanism with exponential backoff, as network conditions or server-side processing might cause intermittent delays. Also, consider using more resilient locators based on text content or ARIA roles instead of brittle XPaths.
+
+<<<<<<< Updated upstream
+- When asserting the presence of text on a page in Playwright, use `expect(page.locator('body')).to_have_text('expected text')` or `expect(page.locator('selector')).to_have_text('expected text')` instead of `expect(page).to_have_text('expected text')`.
+
+- When asserting the success message after a password reset request, use a more specific locator to target the message element, avoiding the surrounding HTML structure.
+
+- When asserting the presence of specific text after an action that triggers a page update (like submitting a password reset request), target a more specific locator than the entire 'body' to avoid interference from surrounding HTML and whitespace. Also, trim the actual value before comparison.
+=======
+- Before clicking 'Forgot your password', ensure no modal dialogs or overlays are present that might obscure the link.  Also, verify the element is visible and enabled before attempting to click.
+
+- When interacting with elements in the header/navigation area of OrangeHRM, use more robust and less brittle locators than full XPaths. Prioritize `data-testid` or `data-automation-id` attributes if available. If not, use CSS selectors based on stable class names or IDs closer to the target element.
+
+- When interacting with elements in the top navigation bar of OrangeHRM, prioritize using more robust and less brittle locators than full XPaths. Consider using data-testid attributes or ARIA roles where available. Before clicking, ensure the element is both visible and stable (not undergoing animations or transitions).
+>>>>>>> Stashed changes

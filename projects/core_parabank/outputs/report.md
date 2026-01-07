@@ -1,3 +1,7 @@
 # Summary Report: Verify login page, check find transactions link, and navigate to about us.
 
-TOTAL STEPS: 4
+<<<<<<< Updated upstream
+TOTAL STEPS: 3
+=======
+TOTAL STEPS: 15
+>>>>>>> Stashed changes

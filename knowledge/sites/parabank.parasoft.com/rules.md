@@ -61,3 +61,7 @@
 - Before navigating to 'Account History', ensure the main content area is fully loaded and any overlaying elements (e.g., advertisements or loading spinners) are dismissed. Consider adding a short explicit wait for the main content to stabilize.
 
 - Before navigating to 'Account History', ensure the main content area is fully loaded and any overlaying elements (e.g., modals, banners) are dismissed. Consider adding an explicit wait for a key element in the main content area to be visible before attempting to click 'Account History'.
+
+- When navigating to 'Account History' on ParaBank, implement a retry mechanism with a maximum of 3 attempts.  If a WADL or XML redirect is detected during navigation, reload the page before retrying.  If navigation consistently fails after multiple retries, it indicates a potential server-side issue or a more persistent redirect problem.
+
+- Ensure the correct project structure and module paths are used when importing modules within the project. Verify that the `PYTHONPATH` environment variable is correctly configured if the module is not in the standard library or a site-packages directory.
