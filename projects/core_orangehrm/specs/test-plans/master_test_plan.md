@@ -2,40 +2,71 @@
 
 ## Introduction
 
-This test plan outlines the testing strategy for the core_orangehrm application, a SaaS platform. The plan includes smoke and regression testing strategies to ensure the quality and stability of the application.
+This document outlines the test plan for the core_orangehrm project, focusing on verifying key functionalities of the OrangeHRM application. The tests will cover critical aspects of the login page, including elements, the 'Forgot Your Password?' link, and social media icons.
 
 ## Scope
 
-The testing will cover the following areas:
+The scope of this test plan includes:
 
-*   Login page elements verification
-*   'Forgot your password?' link functionality
-*   Social media icons visibility
+*   Verification of login page elements (username, password fields, login button).
+*   Functionality of the 'Forgot Your Password?' link.
+*   Visibility and accessibility of social media icons on the login page.
 
-## Testing Strategy
+## Test Strategy
+
+The testing will be divided into Smoke and Regression test suites.
+
+*   **Smoke Suite:** A high-level suite to ensure the core functionalities are working as expected.
+*   **Regression Suite:** A more comprehensive suite to cover edge cases and ensure no regressions are introduced with new changes.
 
 ### Smoke Suite Strategy
 
-The smoke suite will focus on verifying the core functionality of the application. The following checklist will be applied:
+The Smoke Suite will adhere to the following checklist:
 
-1.  **Critical Path Coverage:** Tests cover the most common and important user flows.
-2.  **Positive Testing:** Focus on successful scenarios, not error handling.
-3.  **End-to-End Flow:** Tests cover the entire flow from start to finish.
-4.  **Data Integrity:** Verify that data is correctly created, read, updated, and deleted (CRUD).
-5.  **Minimal Complexity:** Tests are simple and easy to understand.
-6.  **Fast Execution:** Tests should run quickly to provide rapid feedback.
-7.  **Environment Stability:** Tests assume a stable and properly configured environment.
-8.  **Build Acceptance:** Passing smoke tests indicate a build is acceptable for further testing.
-
-### Regression Suite Strategy
-
-The regression suite will cover a broader range of scenarios, including edge cases and error handling. This suite will be executed after the smoke tests have passed.
+1.  **Critical Path Focus:** Tests will concentrate on the most critical paths (e.g., login).
+2.  **Core Business Logic:** Verify the primary business logic related to authentication.
+3.  **Positive Testing:** Primarily focus on positive test scenarios.
+4.  **Minimal Data Variation:** Use a limited set of test data for speed and efficiency.
+5.  **Independent Tests:** Each test should be independent and not rely on the state of others.
+6.  **Fast Execution:** Tests should be designed for quick execution to provide rapid feedback.
+7.  **Build Acceptance:** Successful completion of the Smoke Suite is a prerequisite for build acceptance.
+8.  **Automated Execution:** The Smoke Suite will be automated for continuous integration.
 
 ## Test Suites
 
-1.  Smoke Suite: Verifies the basic functionality of the login page, forgot password link, and social media icons.
-2.  Regression Suite: Includes more detailed tests for the login page, forgot password functionality, and social media icons, including negative scenarios and edge cases.
+### Smoke Suite
 
-## Test Cases
+The Smoke Suite will include the following test cases:
 
-Detailed test cases will be created for each test suite, covering the specific scenarios to be tested.
+*   Verify the presence of login page elements (username, password fields, login button).
+*   Verify the functionality of the 'Forgot Your Password?' link.
+*   Verify the visibility of social media icons on the login page.
+
+### Regression Suite
+
+The Regression Suite will include the following test cases:
+
+*   All Smoke test cases.
+*   Negative login scenarios (invalid username/password).
+*   Boundary testing for username and password fields.
+*   Cross-browser compatibility testing.
+*   Accessibility testing.
+
+## Test Environment
+
+The tests will be executed in the following environment:
+
+*   Browser: Chrome, Firefox, Safari
+*   Operating System: Windows, macOS, Linux
+*   Test Framework: Playwright
+
+## Test Deliverables
+
+The following deliverables will be produced as part of the testing process:
+
+*   Test Plan document
+*   Test Cases
+*   Test Scripts
+*   Test Results
+*   Defect Reports
+

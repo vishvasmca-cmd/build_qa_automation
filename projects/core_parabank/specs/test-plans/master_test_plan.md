@@ -1,39 +1,35 @@
 # Test Plan: core_parabank
 
-## Introduction
+## Overview
 
-This document outlines the test plan for the core_parabank application, focusing on verifying key functionalities within the banking domain. The plan includes both smoke and regression test suites to ensure application stability and quality.
+This test plan outlines the testing strategy for the core_parabank application, focusing on verifying key functionalities within the banking domain. The plan includes both smoke and regression test suites to ensure application stability and identify potential issues introduced by recent changes.
 
 ## Scope
 
-The testing will cover the following modules:
-
-*   Account Access
-*   Transfers & Payments
-*   Statements & History
+The testing scope encompasses account access, transfers & payments, and statements & history modules. The plan prioritizes critical paths and core business logic for smoke testing, while regression testing covers alternative flows, negative scenarios, and boundary conditions.
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite will focus on critical path testing to ensure the core functionalities of the application are working as expected. This suite will be executed for every build to quickly identify any major issues.
+The smoke suite verifies the most critical functionalities of the application. It is designed to be executed quickly and efficiently to ensure the application's core features are working as expected.
 
 #### Smoke Suite Strategy
 
-The following 8-point checklist is applied to define the smoke suite for this project:
+The following checklist is applied to define the smoke suite for this project:
 
-1.  **Critical Paths:** Tests cover the most essential user workflows (e.g., login).
-2.  **Core Business Logic:** Focus on primary revenue or operational flows.
-3.  **Positive Testing:** Primarily happy path scenarios are included.
-4.  **No Negative Testing:** Negative tests are excluded from the smoke suite.
-5.  **No Complex Edge Cases:** Complex or less common scenarios are not included.
-6.  **Fast Execution:** Tests are designed for quick execution to provide rapid feedback.
-7.  **Build Validation:** Failure of any smoke test indicates a critical issue, potentially rejecting the build.
-8.  **Limited Scope:** The suite is kept small and manageable, focusing on the most vital functions.
+1.  **Critical Paths:** Focus on the most essential user flows (e.g., login, viewing account summary).
+2.  **Core Business Logic:** Cover the primary revenue or operational flows.
+3.  **Positive Testing:** Primarily focus on happy path scenarios.
+4.  **No Negative Testing:** Exclude negative test cases unless they involve critical security concerns.
+5.  **No Complex Edge Cases:** Avoid complex or less common scenarios.
+6.  **Minimal Data Variation:** Use a limited set of test data.
+7.  **Fast Execution:** Design tests for quick execution to enable rapid feedback.
+8.  **Independence:** Ensure tests are independent and can be run in any order.
 
 ### Regression Suite
 
-The regression suite will provide comprehensive testing of the application, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite will be executed periodically to ensure that new changes have not introduced any regressions.
+The regression suite provides comprehensive test coverage to ensure that new changes have not introduced defects into existing functionality. It includes a wide range of scenarios, including alternative flows, negative scenarios, and boundary conditions.
 
 ## Test Modules
 

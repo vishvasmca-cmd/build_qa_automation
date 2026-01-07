@@ -12,3 +12,9 @@
 - If navigation to 'Account History' redirects to the WADL page, it indicates a potential server-side issue or temporary unavailability of the 'account.htm' resource. Implement a retry mechanism with a short delay and a maximum number of retries before failing the test. Consider logging the occurrence of WADL redirection for monitoring purposes.
 
 - If clicking 'Account History' redirects to the WADL page, it indicates a potential server-side issue or temporary unavailability of the account history service. Implement a more robust retry mechanism with exponential backoff and logging.
+
+- When targeting elements with common names like 'About Us', ensure locators are specific enough to target a single, unique element.  Consider using contextual locators (e.g., locating within a specific container like the header or footer) or more precise attributes.
+
+- When using `get_by_role` with the `name` option, especially for text-based elements like links, be mindful of potential case sensitivity issues. Prefer using `exact=False` and/or normalizing the text content if case-insensitive matching is desired.
+
+- When using expect(page).to_have_url() with a regular expression, ensure the regex is correctly formatted and escaped for Python and Playwright.

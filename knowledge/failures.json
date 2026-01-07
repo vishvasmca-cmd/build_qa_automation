@@ -106,5 +106,32 @@
       "phase": "execution"
     },
     "error": " parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nE           Call log:\nE             - waiting for get_by_role(\"link\", name=\"Add to cart\").first\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/core_automation_exercise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_role(\"link\", name=\"Add to cart\").first\n============================== 1 failed in 36.86s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-07T08:27:18.047145",
+    "context": {
+      "site": "https://parabank.parasoft.com/parabank/index.htm",
+      "project": "core_parabank",
+      "phase": "execution"
+    },
+    "error": "e\n    source_stat, co = _rewrite_test(fn, self.config)\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/_pytest/assertion/rewrite.py:357: in _rewrite_test\n    tree = ast.parse(source, filename=strfn)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/ast.py:50: in parse\n    return compile(source, filename, mode, flags,\nE     File \"/home/runner/work/build_qa_automation/build_qa_automation/projects/core_parabank/tests/test_main.py\", line 47\nE       expect(self.page).to_have_url(/.*account.htm/, timeout=15000)\nE                                     ^\nE   SyntaxError: invalid syntax\n=========================== short test summary info ============================\nERROR projects/core_parabank/tests/test_main.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n=============================== 1 error in 0.23s ===============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-07T08:27:30.076174",
+    "context": {
+      "site": "https://automationexercise.com/",
+      "project": "core_automation_exercise",
+      "phase": "execution"
+    },
+    "error": " _ _ _ _ \n\nself = <test_main.ProductsPage object at 0x7faf4e776f10>, product_name = 'Dress'\n\n    def add_product_to_cart(self, product_name: str):\n        # Locate the product card containing the specified product name\n        product_card = self.page.locator(\".product-overlay\", has_text=product_name)\n        # Within that card, find the 'Add to cart' button and click it\n>       add_to_cart_button = product_card.locator(\"a\", text=\"Add to cart\")\n                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       TypeError: Locator.locator() got an unexpected keyword argument 'text'\n\nprojects/core_automation_exercise/tests/test_main.py:42: TypeError\n=========================== short test summary info ============================\nFAILED projects/core_automation_exercise/tests/test_main.py::test_autonomous_flow[chromium] - TypeError: Locator.locator() got an unexpected keyword argument 'text'\n============================== 1 failed in 3.10s ===============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-07T08:30:35.246706",
+    "context": {
+      "site": "https://opensource-demo.orangehrmlive.com/",
+      "project": "core_orangehrm",
+      "phase": "execution"
+    },
+    "error": "s_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nE           Call log:\nE             - waiting for locator(\"//*[@id=\\\"app\\\"]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/a[1]\")\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"//*[@id=\\\"app\\\"]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/a[1]\")\n============================== 1 failed in 49.65s ==============================\n\n\n"
   }
 ]

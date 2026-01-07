@@ -1,56 +1,50 @@
 # Test Plan: core_saucedemo
 
-## Introduction
+## Overview
 
-This document outlines the test plan for the core_saucedemo e-commerce application. It details the testing scope, objectives, and strategies to ensure the quality and reliability of the software.
-
-## Test Objectives
-
-*   Verify core functionality of the application.
-*   Ensure a smooth user experience.
-*   Identify and resolve defects.
-
-## Scope of Testing
-
-The testing will cover the following modules:
-
-*   Authentication
-*   Product Catalog
-*   Shopping Cart
-*   Checkout & Payments
-
-## Test Strategy
-
-The testing strategy will include both smoke and regression testing.
-
-### Smoke Suite Strategy
-
-The smoke suite will focus on verifying the core functionality of the application. The following checklist will be applied:
-
-1.  **Critical Paths:** Tests cover essential user flows (e.g., login, adding to cart).
-2.  **Core Business Logic:** Focus on primary revenue/operation flows.
-3.  **Positive Testing:** Primarily happy path scenarios.
-4.  **No Negative Testing:** Unless critical security concerns exist.
-5.  **No Complex Edge Cases:** Avoid intricate scenarios in smoke tests.
-6.  **Fast Execution:** Smoke tests should run quickly to provide rapid feedback.
-7.  **Build Acceptance:** Failure of smoke tests indicates a critical issue, and the build should be rejected.
-8.  **Limited Scope:** Focus on breadth rather than depth.
-
-### Regression Suite Strategy
-
-The regression suite will cover a broader range of scenarios, including alternative flows, negative scenarios, and edge cases. This suite will ensure that new changes have not introduced regressions into existing functionality.
+This test plan outlines the testing strategy for the core_saucedemo e-commerce application. The plan includes smoke and regression test suites to ensure the quality and stability of the application.
 
 ## Test Suites
 
-The following test suites will be executed:
+### Smoke Suite
 
-*   Smoke Suite: A minimal set of tests to verify the system's most critical functions.
-*   Regression Suite: A comprehensive suite of tests to ensure that recent changes have not broken existing functionality.
+The smoke suite focuses on verifying the core functionality of the application. It includes tests for login, product sorting, adding items to the cart, and checkout.
 
-## Test Deliverables
+#### Smoke Suite Strategy
 
-*   Test Plan
-*   Test Cases
-*   Test Scripts
-*   Test Results
-*   Defect Reports
+The following checklist was applied when designing the smoke suite:
+
+1.  **Critical Paths:** Tests cover the most common user flows (e.g., login, checkout).
+2.  **Core Business Logic:** Tests validate essential business rules (e.g., product pricing).
+3.  **Positive Testing:** Focus on successful scenarios (e.g., valid login).
+4.  **Minimal Complexity:** Avoid complex edge cases or variations.
+5.  **Fast Execution:** Tests should be quick to execute for rapid feedback.
+6.  **Independent Tests:** Tests should be independent and not rely on each other.
+7.  **High Priority:** Smoke tests are the highest priority and must pass for a build to be considered stable.
+8.  **Automated:** All smoke tests should be automated.
+
+### Regression Suite
+
+The regression suite provides comprehensive coverage of the application's functionality. It includes tests for alternative flows, negative scenarios, boundary conditions, and cross-module interactions.
+
+## Test Modules
+
+### Authentication
+
+*   Smoke: User Login (Valid)
+*   Regression: Login with Invalid Password, Password Reset Flow
+
+### Product Catalog
+
+*   Smoke: View Product Details, Search for standard product
+*   Regression: Filter products by Price/Category, Search for non-existent product
+
+### Shopping Cart
+
+*   Smoke: Add Item to Cart, View Cart Summary
+*   Regression: Update Quantity in Cart, Remove Item from Cart
+
+### Checkout & Payments
+
+*   Smoke: Complete Purchase (Guest / Standard)
+*   Regression: Checkout with formatted Address, Apply Valid/Invalid Coupon Code

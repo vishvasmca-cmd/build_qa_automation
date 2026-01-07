@@ -61,3 +61,9 @@
 - Before clicking 'Add to cart', ensure the product details are fully loaded and any overlaying elements (e.g., promotional pop-ups) are dismissed. Consider adding an explicit wait for product details to load.
 
 - Before clicking 'Add to cart', ensure the product details are fully loaded and visible. Implement a check for a loading spinner or a specific element indicating readiness.
+
+- When locating elements by visible text in Playwright, use the `:has-text()` selector or `filter()` method instead of passing `text` directly to the `locator()` method.
+
+- Before interacting with the search input field, ensure that the page has fully loaded and any overlays or modals that might obscure the element have been dismissed. Consider adding a short delay or explicit wait for a parent element to be visible before attempting to fill the search input.
+
+- When locating elements by visible text in Playwright, use the `filter()` method with the `has_text` option instead of passing `text` directly to the `locator()` method.

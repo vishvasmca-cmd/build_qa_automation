@@ -15,13 +15,9 @@ class OrangehrmLoginPage:
     def __init__(self, page):
         self.page = page
 
-    def goto(self):
-        self.page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-        self.page.wait_for_load_state("networkidle")
-
     @property
     def forgot_password_link(self):
-        return self.page.get_by_text("Forgot your password?")
+        return self.page.get_by_text("Forgot Your Password?")
 
     def click_forgot_password_link(self):
         self.forgot_password_link.click()
@@ -49,7 +45,7 @@ class OrangehrmResetPasswordPage:
     def reset_password_button(self):
         return self.page.get_by_role("button", name="Reset Password")
 
-    def click_reset_password(self):
+    def click_reset_password_button(self):
         self.reset_password_button.click()
 
 
@@ -61,36 +57,55 @@ class PasswordResetConfirmationPage:
     def orangehrm_inc_link(self):
         return self.page.get_by_role("link", name="OrangeHRM, Inc")
 
-    def navigate_to_login_page(self):
+    def click_orangehrm_inc_link(self):
         self.orangehrm_inc_link.click()
 
+
+class LoginPage:
+    def __init__(self, page):
+        self.page = page
+
+    @property
+    def orangehrm_inc_link(self):
+        return self.page.locator("xpath=//*[@id=\"app\"]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/a[1]")
+
+    def click_orangehrm_inc_link(self):
+        self.orangehrm_inc_link.click()
+
+
+import re
+from playwright.sync_api import Browser, expect
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
+    page.goto("https://opensource-demo.orangehrmlive.com/")
+    page.wait_for_load_state("networkidle")
 
     # 2. Logic (using POM)
     login_page = OrangehrmLoginPage(page)
     reset_password_page = OrangehrmResetPasswordPage(page)
     password_reset_confirmation_page = PasswordResetConfirmationPage(page)
+    main_login_page = LoginPage(page)
 
-    login_page.goto()
+    # Step 0: Click 'Forgot Your Password?' link
     login_page.click_forgot_password_link()
+    page.wait_for_url(re.compile(".*/requestPasswordResetCode", re.IGNORECASE), timeout=15000)
 
-    reset_password_page.fill_username("Admin")
-    reset_password_page.click_reset_password()
+    # Step 2: Fill username on reset password page
+    reset_password_page.fill_username("testuser")
 
-    # The test was failing because of timeout when clicking the OrangeHRM, Inc link.
-    # The following loop retries the click a few times.
-    for i in range(3):
-        try:
-            password_reset_confirmation_page.navigate_to_login_page()
-            break  # If click succeeds, break the loop
-        except Exception as e:
-            print(f"Attempt {i+1} failed: {e}")
-            if i == 2:
-                raise  # If it fails all 3 times, raise the exception
+    # Step 3: Click 'Reset Password' button
+    reset_password_page.click_reset_password_button()
+    page.wait_for_load_state("networkidle")
+
+    # Step 5: Click OrangeHRM, Inc link on Password Reset Confirmation Page
+    password_reset_confirmation_page.click_orangehrm_inc_link()
+    page.wait_for_load_state("networkidle")
+
+    # Step 9, 10, 11: Click social media icon
+    main_login_page.click_orangehrm_inc_link()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

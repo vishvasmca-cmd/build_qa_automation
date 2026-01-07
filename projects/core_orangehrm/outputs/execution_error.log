@@ -17,24 +17,37 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
+        page.goto("https://opensource-demo.orangehrmlive.com/")
+        page.wait_for_load_state("networkidle")
     
         # 2. Logic (using POM)
         login_page = OrangehrmLoginPage(page)
         reset_password_page = OrangehrmResetPasswordPage(page)
         password_reset_confirmation_page = PasswordResetConfirmationPage(page)
+        main_login_page = LoginPage(page)
     
-        login_page.goto()
+        # Step 0: Click 'Forgot Your Password?' link
         login_page.click_forgot_password_link()
+        page.wait_for_url(re.compile(".*/requestPasswordResetCode", re.IGNORECASE), timeout=15000)
     
-        reset_password_page.fill_username("Admin")
-        reset_password_page.click_reset_password()
+        # Step 2: Fill username on reset password page
+        reset_password_page.fill_username("testuser")
     
->       password_reset_confirmation_page.navigate_to_login_page()
+        # Step 3: Click 'Reset Password' button
+        reset_password_page.click_reset_password_button()
+        page.wait_for_load_state("networkidle")
+    
+        # Step 5: Click OrangeHRM, Inc link on Password Reset Confirmation Page
+        password_reset_confirmation_page.click_orangehrm_inc_link()
+        page.wait_for_load_state("networkidle")
+    
+        # Step 9, 10, 11: Click social media icon
+>       main_login_page.click_orangehrm_inc_link()
 
-projects/core_orangehrm/tests/test_main.py:89: 
+projects/core_orangehrm/tests/test_main.py:108: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_orangehrm/tests/test_main.py:70: in navigate_to_login_page
-    self.page.get_by_role("link", name="OrangeHRM, Inc").click()
+projects/core_orangehrm/tests/test_main.py:73: in click_orangehrm_inc_link
+    self.orangehrm_inc_link.click()
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
@@ -46,8 +59,8 @@ projects/core_orangehrm/tests/test_main.py:70: in navigate_to_login_page
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7fbfa01939d0>
-cb = <function Channel.send.<locals>.<lambda> at 0x7fbfa00111c0>
+self = <playwright._impl._connection.Connection object at 0x7fd18feea150>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fd18ebe7b00>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -68,22 +81,12 @@ is_internal = False, title = None
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
 E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 E           Call log:
-E             - waiting for get_by_role("link", name="OrangeHRM, Inc")
-E               - locator resolved to <a target="_blank" href="http://www.orangehrm.com">OrangeHRM, Inc</a>
-E             - attempting click action
-E               - waiting for element to be visible, enabled and stable
-E               - element is visible, enabled and stable
-E               - scrolling into view if needed
+E             - waiting for locator("//*[@id=\"app\"]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/a[1]")
 
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
 =========================== short test summary info ============================
 FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 Call log:
-  - waiting for get_by_role("link", name="OrangeHRM, Inc")
-    - locator resolved to <a target="_blank" href="http://www.orangehrm.com">OrangeHRM, Inc</a>
-  - attempting click action
-    - waiting for element to be visible, enabled and stable
-    - element is visible, enabled and stable
-    - scrolling into view if needed
-============================== 1 failed in 34.07s ==============================
+  - waiting for locator("//*[@id=\"app\"]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/div[1]/a[1]")
+============================== 1 failed in 44.96s ==============================
 
