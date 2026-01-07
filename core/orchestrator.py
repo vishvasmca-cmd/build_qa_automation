@@ -441,6 +441,8 @@ def run_pipeline(config_path, headed=False):
         print(colored("\n✅ Pipeline COMPLETE!", "green", attrs=["bold"]))
     else:
         print(colored("\n⚠️ Pipeline ended with test failures.", "yellow"))
+    
+    return success
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

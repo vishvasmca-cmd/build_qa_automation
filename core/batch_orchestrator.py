@@ -85,10 +85,11 @@ def run_pipeline_wrapper(config_path, headed):
         sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
         from core.orchestrator import run_pipeline
         
-        run_pipeline(config_path, headed)
+        success = run_pipeline(config_path, headed)
         
         duration = time.time() - start_time
-        return {"status": "success", "duration": round(duration, 2)}
+        status = "success" if success else "failed"
+        return {"status": status, "duration": round(duration, 2)}
     except Exception as e:
         duration = time.time() - start_time
         return {"status": "failed", "error": str(e), "duration": round(duration, 2)}
