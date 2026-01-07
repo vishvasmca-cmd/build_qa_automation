@@ -18,18 +18,18 @@ The testing will cover the following modules:
 
 The smoke suite will focus on critical path testing to ensure the core functionalities of the application are working as expected. This suite will be executed for every build to quickly identify any major issues.
 
-#### Smoke Suite Strategy
+**Smoke Suite Strategy**
 
-The following checklist has been applied when designing the Smoke Suite for this project:
+The following checklist was applied when designing the smoke suite:
 
-1.  **Critical Paths Only**: Tests cover only the most essential workflows (e.g., login, basic transfer).  Complex scenarios are excluded.
-2.  **Positive Testing**:  Focus is on successful execution of core functions.  Negative tests (e.g., invalid input) are skipped.
-3.  **Minimal Data**:  Use a small, representative set of test data.
-4.  **Independent Tests**:  Tests are designed to be independent and can be run in any order.
-5.  **Fast Execution**:  Tests are optimized for speed to provide quick feedback.
-6.  **Automated**:  All smoke tests are automated for consistent and repeatable execution.
-7.  **Stable Locators**:  Use robust locators to minimize test failures due to UI changes.
-8.  **Environment Stability**:  Smoke tests are run in a stable and dedicated environment.
+1.  **Critical Paths:** Tests cover the most important user workflows (e.g., login).
+2.  **Core Business Logic:** Focus on primary revenue or operational flows.
+3.  **Positive Testing:** Primarily happy path scenarios.
+4.  **No Negative Testing:** Unless critical security concerns exist.
+5.  **No Complex Edge Cases:** Avoid intricate scenarios in smoke tests.
+6.  **Fast Execution:** Tests should run quickly to provide rapid feedback.
+7.  **Independence:** Tests should be independent of each other.
+8.  **Minimal Data Setup:** Reduce the need for extensive data setup.
 
 ### Regression Suite
 

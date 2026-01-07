@@ -73,3 +73,9 @@
 - Before clicking 'Add to cart', ensure the product details page is fully loaded and any overlaying elements (e.g., modals, spinners) are dismissed. Consider adding an explicit wait for a specific element on the product details page to confirm it's ready.
 
 - Before clicking 'Add to cart', ensure the product is fully loaded and visible on the page. Consider waiting for a specific element related to the product details to load before attempting to add it to the cart.
+
+- Before clicking 'Add to cart', ensure any overlaying elements (e.g., modals, banners) are dismissed or the button is fully visible and interactable. Consider adding a short delay or explicit wait for the element to be stable.
+
+- Before clicking 'Add to cart', ensure the product is fully loaded and visible on the page. Consider adding a short explicit wait or checking for a loading spinner to disappear.
+
+- Before clicking 'Add to cart', ensure the product details are fully loaded and any overlaying elements (e.g., loading spinners, modals) are dismissed. Consider adding an explicit wait for the product image to load as a proxy for full page load.

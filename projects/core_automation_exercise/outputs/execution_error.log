@@ -22,14 +22,22 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
     
         # 2. Logic (using POM)
         products_page = ProductsPage(page)
+        cart_page = CartPage(page)
+        login_page = LoginPage(page)
+    
+        # Navigate to Products page
         products_page.navigate_to_products()
+    
+        # Search for 'Dress'
         products_page.search_product("Dress")
+    
+        # Add a dress to the cart (first one)
 >       products_page.add_product_to_cart()
 
-projects/core_automation_exercise/tests/test_main.py:65: 
+projects/core_automation_exercise/tests/test_main.py:102: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_automation_exercise/tests/test_main.py:46: in add_product_to_cart
-    self.page.get_by_role("link", name="Add to cart").first.click(force=True)
+projects/core_automation_exercise/tests/test_main.py:47: in add_product_to_cart
+    self.add_to_cart_button(index).click()
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
@@ -41,8 +49,8 @@ projects/core_automation_exercise/tests/test_main.py:46: in add_product_to_cart
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7fcb2f3ddd10>
-cb = <function Channel.send.<locals>.<lambda> at 0x7fcb2df467a0>
+self = <playwright._impl._connection.Connection object at 0x7ff60abecb50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7ff60abbfc40>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -63,12 +71,12 @@ is_internal = False, title = None
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
 E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 E           Call log:
-E             - waiting for get_by_role("link", name="Add to cart").first
+E             - waiting for get_by_role("link", name=re.compile(r"Add to cart", re.IGNORECASE)).first
 
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
 =========================== short test summary info ============================
 FAILED projects/core_automation_exercise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 Call log:
-  - waiting for get_by_role("link", name="Add to cart").first
-============================== 1 failed in 37.21s ==============================
+  - waiting for get_by_role("link", name=re.compile(r"Add to cart", re.IGNORECASE)).first
+============================== 1 failed in 36.71s ==============================
 

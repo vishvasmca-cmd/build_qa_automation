@@ -6,42 +6,36 @@ rootdir: /home/runner/work/build_qa_automation/build_qa_automation
 plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
 collecting ... collected 1 item
 
-projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] Navigation successful.
-Navigation failed due to SSL or other error: Page title expected to be 're.compile('Magento', re.IGNORECASE)'
-Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
-Call log:
-  - Expect "to_have_title" with timeout 5000ms
-    9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
-
-FAILED
+projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] FAILED
 
 =================================== FAILURES ===================================
 ________________________ test_autonomous_flow[chromium] ________________________
 
-page = <Page url='https://magento.softwaretestingboard.com/'>
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
 
-    def test_autonomous_flow(page: Page):
+    def test_autonomous_flow(browser: Browser):
         # 1. Setup
+        context = browser.new_context(viewport={"width": 1920, "height": 1080}, ignore_https_errors=True)
+        page = context.new_page()
         home_page = HomePage(page)
-        url = "https://magento.softwaretestingboard.com/"
     
-        # 2. Logic (attempt to navigate, but handle SSL error)
-        try:
-            home_page.navigate(url)
-            print("Navigation successful.")
->           expect(page).to_have_title(re.compile("Magento", re.IGNORECASE))
-E           AssertionError: Page title expected to be 're.compile('Magento', re.IGNORECASE)'
-E           Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
-E           Call log:
-E             - Expect "to_have_title" with timeout 5000ms
-E               9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
+        # 1. Navigate to Home Page
+        home_page.navigate_to_home()
+    
+        # 2. Assertion (example, adjust as needed)
+>       expect(page).to_have_title(re.compile("Magento", re.IGNORECASE))
+E       AssertionError: Page title expected to be 're.compile('Magento', re.IGNORECASE)'
+E       Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
+E       Call log:
+E         - Expect "to_have_title" with timeout 5000ms
+E           9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
 
-projects/core_magento/tests/test_main.py:37: AssertionError
+projects/core_magento/tests/test_main.py:44: AssertionError
 =========================== short test summary info ============================
 FAILED projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page title expected to be 're.compile('Magento', re.IGNORECASE)'
 Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
 Call log:
   - Expect "to_have_title" with timeout 5000ms
     9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
-============================== 1 failed in 6.17s ===============================
+============================== 1 failed in 6.19s ===============================
 

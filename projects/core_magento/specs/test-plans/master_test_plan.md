@@ -2,54 +2,48 @@
 
 ## Introduction
 
-This test plan outlines the testing strategy for the core_magento e-commerce platform. It covers smoke and regression testing, focusing on key functionalities such as product search, filtering, and viewing product details.
+This document outlines the test plan for the core_magento e-commerce project. It details the testing scope, strategy, and specific test cases to be executed.
 
 ## Scope
 
-The scope of this test plan includes:
+The testing will focus on core functionalities of the e-commerce platform, including product search, filtering, and viewing product details. Given the trace data, the initial focus will be on smoke tests to ensure the basic functionality is working.
 
-*   Product Catalog
+## Test Strategy
 
-## Test Suites
+Two main test suites will be employed:
 
-This test plan defines two main test suites:
-
-*   Smoke Suite: A minimal set of tests to verify the core functionality.
-*   Regression Suite: A comprehensive suite to ensure existing functionality remains intact after changes.
+1.  **Smoke Suite:** A high-level suite to verify critical functionalities.
+2.  **Regression Suite:** A comprehensive suite to ensure existing functionalities are not broken by new changes.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite is designed to provide a quick and efficient way to assess the stability of the core_magento platform. The following checklist is applied:
+The Smoke Suite will adhere to the following checklist:
 
-1.  **Critical Paths:** Focus on the most critical user flows (e.g., product search and viewing product details).
-2.  **Core Business Logic:** Verify the primary functions related to product catalog.
-3.  **Positive Testing:** Primarily focus on positive scenarios (e.g., searching for existing products).
-4.  **No Negative Testing:** Exclude negative test cases (e.g., searching for non-existent products) in the smoke suite.
-5.  **Minimal Edge Cases:** Avoid complex edge cases.
-6.  **Fast Execution:** Tests should be quick to execute.
-7.  **Independent Tests:** Tests should be independent of each other.
-8.  **Automated:** All smoke tests should be automated.
+1.  **Critical Paths Only:** Focus solely on the most essential user flows (e.g., login, product search, checkout).
+2.  **Positive Testing:** Primarily use valid, expected inputs to confirm core functionality.
+3.  **Minimal Data Variation:** Limit the number of data variations to speed up execution.
+4.  **No Edge Cases:** Exclude boundary conditions, error handling, and less common scenarios.
+5.  **Fast Execution:** Design tests for quick execution to provide rapid feedback.
+6.  **Build Acceptance:** Passing the Smoke Suite is a prerequisite for build acceptance.
+7.  **Automated Execution:** Automate smoke tests for continuous integration.
+8. **Traceability:** Link smoke tests to specific user stories or requirements.
 
-### Regression Suite Strategy
+## Test Suites
 
-The Regression Suite is designed to ensure that new changes do not negatively impact existing functionality. It includes a broader range of test cases, including:
+### 1. Smoke Suite
 
-*   Alternative Flows
-*   Negative Scenarios
-*   Boundary Analysis
-*   Cross-Module Interactions
-*   Validation Messages
+*   Objective: Verify the core functionalities of the e-commerce platform are working as expected.
+*   Scope: Product search and viewing product details.
+*   Entry Criteria: A build deployed to the test environment.
+*   Exit Criteria: All smoke tests pass.
 
-## Test Modules
+### 2. Regression Suite
 
-### Product Catalog
+*   Objective: Ensure that new changes have not introduced regressions in existing functionalities.
+*   Scope: All functionalities of the e-commerce platform, including edge cases and negative scenarios.
+*   Entry Criteria: A build deployed to the test environment.
+*   Exit Criteria: All regression tests pass or all failures are known and accepted.
 
-*   **Smoke Tests:**
-    *   Verify that a user can search for a product.
-    *   Verify that a user can view product details.
-*   **Regression Tests:**
-    *   Verify that a user can filter products by category.
-    *   Verify that a user can sort products.
-    *   Verify that the system handles searches for non-existent products gracefully.
-    *   Verify pagination functionality.
+## Test Cases (Covered in Feature Files)
 
+Test cases are detailed in the feature files, following the BDD (Behavior-Driven Development) approach.

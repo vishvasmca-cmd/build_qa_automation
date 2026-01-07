@@ -18,3 +18,9 @@
 - When interacting with elements in the OrangeHRM header, especially navigation links, implement retry logic with exponential backoff to handle potential intermittent loading issues or animations that might delay element availability. Consider using more robust locators than full XPaths.
 
 - When navigating to the login page, implement a retry mechanism with exponential backoff to handle potential network or server delays. Also, verify the page content instead of relying solely on URL matching, as redirects might occur.
+
+- Before clicking 'Forgot your password?', ensure no overlays or modals are present that might obscure the element or prevent it from being interacted with. Check for dynamic content loading that might delay the appearance of the element.
+
+- Before clicking 'Forgot your password?', ensure no modal dialogs or overlays are present that might obscure the element. Also, consider adding a short wait or retry mechanism specifically for this element.
+
+- Before attempting to click 'Forgot your password?', ensure the element is both visible and enabled. Consider adding a short explicit wait with error handling.

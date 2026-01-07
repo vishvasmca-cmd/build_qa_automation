@@ -18,3 +18,9 @@
 - When using `get_by_role` with the `name` option, especially for text-based elements like links, be mindful of potential case sensitivity issues. Prefer using `exact=False` and/or normalizing the text content if case-insensitive matching is desired.
 
 - When using expect(page).to_have_url() with a regular expression, ensure the regex is correctly formatted and escaped for Python and Playwright.
+
+- After clicking 'Account History', verify that the URL contains '/account.htm' before proceeding. If the URL contains '/services/bank', retry the navigation or report a server-side issue.
+
+- When navigating to 'Account History' on ParaBank, anticipate a potential redirect to a WADL endpoint. Implement a conditional check: If the WADL endpoint is detected, refresh the page and retry navigating to 'Account History'.
+
+- When navigating to 'Account History' on ParaBank, anticipate a potential redirect to a WADL endpoint. Implement a conditional check for this redirect and handle it appropriately, either by retrying the navigation or by logging the event for further investigation.

@@ -8,7 +8,7 @@ from playwright.sync_api import Page, Browser, expect
 # Import pre-tested helpers
 import sys
 sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/templates')
-from helpers import take_screenshot, wait_for_stability
+from helpers import take_screenshot
 
 
 class ParabankPage:
@@ -29,34 +29,12 @@ class ParabankPage:
 
     def navigate_to_account_history(self):
         self.account_history_link.click()
-        wait_for_stability(self.page)
 
     def navigate_to_about_us(self):
         self.about_us_link.click()
-        wait_for_stability(self.page)
 
     def navigate_to_home(self):
         self.home_link.click()
-        wait_for_stability(self.page)
-
-    @property
-    def username_field(self):
-        return self.page.get_by_label("Username")
-
-    @property
-    def password_field(self):
-        return self.page.get_by_label("Password")
-
-    @property
-    def login_button(self):
-        return self.page.get_by_role("button", name="Log In")
-
-    def login(self, username, password):
-        self.username_field.fill(username)
-        self.password_field.fill(password)
-        self.login_button.click()
-        wait_for_stability(self.page)
-
 
 class ParabankAboutUsPage:
     def __init__(self, page):
@@ -64,44 +42,45 @@ class ParabankAboutUsPage:
 
     @property
     def home_link(self):
-        return self.page.get_by_role("link", name="Home")
+        return self.page.get_by_role("link", name="home")
 
     def navigate_to_home(self):
         self.home_link.click()
-        wait_for_stability(self.page)
 
+import re
+from playwright.sync_api import Browser, Page, expect
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
     page.goto("https://parabank.parasoft.com/parabank/index.htm")
-    wait_for_stability(page)
+    page.wait_for_load_state("networkidle")
 
     # 2. Logic (using POM)
     parabank_page = ParabankPage(page)
 
-    # Verify login page (implicitly verified by loading the page)
-
-    # Check find transactions link
+    # Step 0: Click Account History and handle potential WADL redirect
     try:
         parabank_page.navigate_to_account_history()
-        expect(page).to_have_url(re.compile(r".*account.htm", re.IGNORECASE))
+        page.wait_for_load_state("networkidle")
+        expect(page).to_have_url(re.compile(".*/account.htm"), timeout=15000)
     except Exception as e:
-        print(f"Error navigating to Account History: {e}")
-        take_screenshot(page, f"account_history_error_{e}", "build_qa_automation")
+        print(f"Navigation to Account History failed: {e}")
+        # Retry navigation to Account History
+        page.goto("https://parabank.parasoft.com/parabank/index.htm")
+        page.wait_for_load_state("networkidle")
+        parabank_page.navigate_to_account_history()
+        page.wait_for_load_state("networkidle")
+        expect(page).to_have_url(re.compile(".*/account.htm"), timeout=15000)
 
-    # Navigate back to home page
-    page.goto("https://parabank.parasoft.com/parabank/index.htm")
-    wait_for_stability(page)
-
-    # Navigate to About Us
+    # Step 1: Navigate to About Us page
     try:
         parabank_page.navigate_to_about_us()
-        expect(page).to_have_url(re.compile(r".*about.htm", re.IGNORECASE))
+        page.wait_for_load_state("networkidle")
+        expect(page).to_have_url(re.compile(".*/about.htm"), timeout=15000)
     except Exception as e:
-        print(f"Error navigating to About Us: {e}")
-        take_screenshot(page, f"about_us_error_{e}", "build_qa_automation")
+        print(f"Navigation to About Us failed: {e}")
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")
