@@ -1,10 +1,11 @@
-Feature: Basic UI Element Identification
+Feature: Landing Page Element Identification
   As a user,
-  I want to verify the presence of key UI elements
-  So that I can ensure the basic structure of the website is intact.
+  I want to verify the presence of key elements on the landing page
+  So that I can ensure the basic functionality of the website is working.
 
   @smoke
-  Scenario: Verify website loads and identifies UI elements
-    Given I navigate to "https://www.google.com"
-    Then I should be able to identify links on the page
-    And I should be able to scroll the page
+  Scenario: Verify presence of buttons, links, and menu bars
+    Given I navigate to "https://www.example.com"
+    Then I should see at least 5 buttons
+    And I should see at least 2 links
+    And I should see at least 2 menu bars

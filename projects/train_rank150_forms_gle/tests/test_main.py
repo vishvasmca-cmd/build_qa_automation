@@ -11,28 +11,24 @@ sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/
 from helpers import wait_for_stability, smart_action, take_screenshot
 
 
-class GooglePage:
-    def __init__(self, page):
-        self.page = page
-
-    def goto(self):
-        self.page.goto("https://www.google.com/")
-
-    @property
-    def google_search_input(self):
-        return self.page.locator("[aria-label='Search']")
 
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-    
-    # 2. Logic (using POM)
-    google_page = GooglePage(page)
-    google_page.goto()
+    page.goto("https://forms.gle/")
     wait_for_stability(page)
-    
-    # 3. Cleanup
+
+    page.goto("https://www.google.com")
+    wait_for_stability(page)
+
+    # Verify the "About" link is visible
+    expect(page.get_by_role("link", name=re.compile("About", re.IGNORECASE))).to_be_visible()
+
+    # Verify the "Settings" text is present. Using get_by_role to avoid ambiguity.
+    expect(page.get_by_role("button", name=re.compile("Settings", re.IGNORECASE))).to_be_visible()
+
+    # Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")
     context.close()

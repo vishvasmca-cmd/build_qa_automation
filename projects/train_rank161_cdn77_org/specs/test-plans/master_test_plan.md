@@ -2,50 +2,91 @@
 
 ## 1. Introduction
 
-This document outlines the test plan for the train_rank161_cdn77_org project, focusing on testing the CDN77 website. The plan includes smoke and regression test suites to ensure the quality and stability of the application.
+This document outlines the test plan for the train_rank161_cdn77_org project. The primary goal is to ensure the website functions as expected, focusing on identifying key interactive elements like buttons, links, and menu bars.
 
 ## 2. Scope
 
-The testing will cover the core functionalities of the CDN77 website, including identifying key elements like buttons, links, and menu bars.
+The testing will cover the following areas:
+
+*   Website navigation and initial page load.
+*   Identification of buttons, links, and menu bars on the homepage.
+*   Verification of the presence of specific elements (Login, Signup/GetStarted, Try for Free).
 
 ## 3. Test Strategy
 
-The testing strategy includes two main suites: Smoke and Regression.
+We will employ a two-pronged testing strategy:
+
+*   **Smoke Testing:** A quick, high-level test suite to verify the core functionality.
+*   **Regression Testing:** A more comprehensive suite to ensure existing functionality remains intact after changes.
 
 ### Smoke Suite Strategy
 
-The smoke suite will focus on verifying the most critical functionalities of the application. The following checklist is applied:
+The Smoke Suite will adhere to the following 8-point checklist:
 
-1.  **Critical Paths:** Verify the main navigation paths.
-2.  **Core Business Logic:** N/A (The trace focuses on element identification, not business logic).
-3.  **No Negative Testing:** Only positive scenarios are considered.
-4.  **No Complex Edge Cases:** Simple element identification.
-5.  **Positive Flows:** Focus on successful element identification.
-6.  **Essential Functionality:** Verify the presence of key elements.
-7.  **Build Acceptance:** Smoke tests determine if a build is deployable.
-8.  **Fast Execution:** Smoke tests should be quick to execute.
-
-### Regression Suite Strategy
-
-The regression suite will cover a broader range of scenarios, including alternative flows, negative scenarios, and edge cases. This suite will ensure that new changes do not break existing functionality.
+1.  **Critical Paths Only:** Focus on essential user journeys (e.g., website launch).
+2.  **Core Business Logic:** Verify the website loads successfully.
+3.  **Positive Testing:** Primarily focus on successful scenarios.
+4.  **No Negative Testing:** Exclude invalid inputs or error conditions.
+5.  **Minimal Edge Cases:** Avoid complex or unusual scenarios.
+6.  **Fast Execution:** Tests should run quickly to provide rapid feedback.
+7.  **Automated:** Tests should be automated for repeatability.
+8.  **Build Acceptance:** Passing smoke tests are required for build acceptance.
 
 ## 4. Test Suites
 
 ### 4.1. Smoke Suite
 
-The smoke suite will include tests to verify the presence of key elements on the CDN77 website.
+*   **Description:** Verifies the basic functionality of the website.
+*   **Focus:** Website launch and element identification.
+*   **Test Cases:**
+    *   Verify the website launches successfully.
+    *   Verify the presence of key buttons (Login, Signup/GetStarted, Try for Free).
+    *   Verify the presence of at least two links.
+    *   Verify the presence of at least two menu bars.
 
 ### 4.2. Regression Suite
 
-The regression suite will include more detailed tests, such as verifying the functionality of forms, links, and other interactive elements.
+*   **Description:** Ensures existing functionality remains intact after changes.
+*   **Focus:** Comprehensive testing of all website features.
+*   **Test Cases:** (To be defined based on further analysis and development)
+    *   Detailed testing of all buttons and links.
+    *   Testing of menu bar navigation.
+    *   Error handling and validation.
+    *   Cross-browser compatibility.
+    *   Responsive design testing.
 
 ## 5. Test Environment
 
-The tests will be executed in a standard web browser environment.
+*   Browsers: Chrome, Firefox, Safari, Edge
+*   Operating Systems: Windows, macOS, Linux
+*   Devices: Desktop, Mobile, Tablet
 
 ## 6. Test Deliverables
 
--   Test Plan
--   Test Cases (Gherkin Feature Files)
--   Test Execution Reports
+*   Test Plan document
+*   Test Cases (Gherkin feature files)
+*   Test Execution Reports
+*   Defect Reports
 
+## 7. Entry and Exit Criteria
+
+*   **Entry Criteria:**
+    *   Test environment is set up and configured.
+    *   Test data is available.
+    *   Test cases are prepared.
+*   **Exit Criteria:**
+    *   All planned tests have been executed.
+    *   All identified defects have been resolved or accepted.
+    *   Test results have been documented.
+
+## 8. Roles and Responsibilities
+
+*   **QA Architect:** Responsible for creating and maintaining the test plan.
+*   **Test Engineers:** Responsible for executing tests and reporting defects.
+*   **Developers:** Responsible for fixing defects.
+
+## 9. Tools
+
+*   Selenium WebDriver
+*   Cucumber
+*   Jira (for defect tracking)

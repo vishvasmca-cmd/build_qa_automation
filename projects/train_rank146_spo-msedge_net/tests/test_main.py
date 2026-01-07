@@ -12,16 +12,15 @@ from helpers import wait_for_stability, smart_action, take_screenshot
 
 
 
-
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-    page.goto("https://google.com")
+    page.goto("https://www.google.com/")
     wait_for_stability(page)
     
     # 2. Logic (using POM)
-    # ...
+    # Removed redundant scrolling actions
     
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

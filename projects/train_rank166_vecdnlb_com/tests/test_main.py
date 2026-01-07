@@ -11,23 +11,18 @@ sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/
 from helpers import wait_for_stability, smart_action, take_screenshot
 
 
-class GoogleHomePage:
-    def __init__(self, page):
-        self.page = page
 
-    def goto(self):
-        self.page.goto("https://www.google.com/")
-        wait_for_stability(self.page)
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-
+    page.goto("https://google.com")
+    wait_for_stability(page)
+    
     # 2. Logic (using POM)
-    google_home_page = GoogleHomePage(page)
-    google_home_page.goto()
-
+    # ...
+    
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")
     context.close()

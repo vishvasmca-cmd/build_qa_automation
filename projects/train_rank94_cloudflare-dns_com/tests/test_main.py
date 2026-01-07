@@ -17,13 +17,31 @@ class CloudflareDNSPage:
 
     def goto(self):
         self.page.goto("https://one.one.one.one/dns/")
+        wait_for_stability(self.page)
 
     @property
     def iphone_button(self):
         return self.page.get_by_role("button", name="iPhone")
 
+    @property
+    def dns_link(self):
+        return self.page.get_by_role("link", name="DNS")
+
+    @property
+    def share_button(self):
+        return self.page.locator(".button.share-button")
+
     def scroll_to_iphone_button(self):
         smart_action(self.page, self.iphone_button, "scroll")
+        wait_for_stability(self.page)
+
+    def scroll_to_dns_link(self):
+        smart_action(self.page, self.dns_link, "scroll")
+        wait_for_stability(self.page)
+
+    def scroll_to_share_button(self):
+        smart_action(self.page, self.share_button, "scroll", value="bottom")
+        wait_for_stability(self.page)
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
@@ -31,11 +49,11 @@ def test_autonomous_flow(browser: Browser):
     page = context.new_page()
     cloudflare_dns_page = CloudflareDNSPage(page)
     cloudflare_dns_page.goto()
-    wait_for_stability(page)
 
     # 2. Logic (using POM)
     cloudflare_dns_page.scroll_to_iphone_button()
-    wait_for_stability(page)
+    cloudflare_dns_page.scroll_to_dns_link()
+    cloudflare_dns_page.scroll_to_share_button()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

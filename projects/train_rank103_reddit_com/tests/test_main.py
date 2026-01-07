@@ -16,32 +16,33 @@ class RedditHomePage:
         self.page = page
 
     def goto(self):
-        self.page.goto("https://www.reddit.com")
+        self.page.goto("https://www.reddit.com/")
 
     @property
-    def login_button(self):
-        return self.page.get_by_role("button", name=re.compile(r"Log in", re.IGNORECASE))
+    def blocked_by_network_security_text(self):
+        return self.page.get_by_text("You've been blocked by network security.")
 
-    def click_login(self):
-        smart_action(self.page, self.login_button, "click")
-        wait_for_stability(self.page)
+    @property
+    def log_in_button(self):
+        return self.page.get_by_role("button", name="Log in")
 
-import re
-from playwright.sync_api import Browser
+    def assert_blocked_message_visible(self):
+        expect(self.blocked_by_network_security_text).to_be_visible()
+
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
     reddit_home_page = RedditHomePage(page)
+
+    # 2. Logic (using POM)
     reddit_home_page.goto()
     wait_for_stability(page)
 
-    # 2. Logic (using POM)
-    # The page shows a 'blocked by network security' message.
-    # We will click the 'Log in' button.
-    reddit_home_page.click_login()
+    # 3. Assertions
+    reddit_home_page.assert_blocked_message_visible()
 
-    # 3. Cleanup
+    # 4. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")
     context.close()

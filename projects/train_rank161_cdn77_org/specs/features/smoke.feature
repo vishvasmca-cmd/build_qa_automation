@@ -1,11 +1,12 @@
-Feature: CDN77 Website - Element Identification
+Feature: Website Launch and Element Identification
   As a user,
-  I want to verify the presence of key elements on the CDN77 website
-  So that I can ensure the website is functioning correctly
+  I want to verify the basic functionality of the website,
+  So that I can ensure the core features are working.
 
   @smoke
-  Scenario: Verify presence of buttons and links on CDN77 website
+  Scenario: Launch website and identify key elements
     Given I navigate to "https://cdn77.org"
-    Then I should be able to identify at least 5 buttons
-    And I should be able to identify at least 2 links
-    And I should be able to identify at least 2 menu bars
+    Then I should see the website loaded successfully
+    And I should see at least 5 buttons including "Login", "Signup", or "Try for Free"
+    And I should see at least 2 links
+    And I should see at least 2 menu bars

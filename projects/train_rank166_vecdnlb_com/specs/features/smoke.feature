@@ -1,9 +1,11 @@
-Feature: UI Element Identification
+Feature: Website Structure Verification
   As a user,
-  I want to verify the presence of key UI elements
-  So that I can ensure the basic structure of the website is correct.
+  I want to verify the basic structure of the website,
+  So that I can ensure core elements are present.
 
   @smoke
-  Scenario: Identify buttons and links on the homepage
-    Given I navigate to "https://www.google.com"
-    Then I should be able to identify buttons and links on the page
+  Scenario: Verify website loads and essential elements are present
+    Given I navigate to "https://vecdnlb.com"
+    Then I should see at least 5 buttons
+    And I should see at least 2 links
+    And I should see at least 2 menu bars

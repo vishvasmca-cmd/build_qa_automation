@@ -1,9 +1,14 @@
-Feature: Website Navigation and Element Identification
-  As a user,
-  I want to navigate to a website and identify key elements,
-  So that I can verify the basic structure and functionality of the page.
+Feature: Google Forms UI Element Identification
+  As a tester
+  I want to verify the presence of specific UI elements on the Google Forms website and Google Search page
+  So that I can ensure the basic functionality of the website
 
   @smoke
-  Scenario: Navigate to Google and Identify Links
-    Given I navigate to "https://www.google.com/"
-    Then I should be able to identify at least 2 links on the page
+  Scenario: Verify presence of links on Google Search page
+    Given I navigate to "https://www.google.com"
+    Then I should see the "About" link
+
+  @smoke
+  Scenario: Verify presence of Settings text on Google Search page
+    Given I navigate to "https://www.google.com"
+    Then I should see the "Settings" text

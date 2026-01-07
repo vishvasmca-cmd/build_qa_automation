@@ -1,10 +1,10 @@
 Feature: Website Element Identification
-  As a user
-  I want to be able to identify key elements on the website
-  So that I can interact with the website effectively
+  As a user,
+  I want to verify the presence of key elements on the apple-dns.net website
+  So that I can ensure the website is functioning correctly.
 
   @smoke
-  Scenario: Identify buttons, links, and menu bars on the homepage
+  Scenario: Launch website and identify key elements
     Given I navigate to "https://apple-dns.net"
     Then I should be able to identify at least 5 buttons
     And I should be able to identify at least 2 links

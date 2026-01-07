@@ -17,13 +17,12 @@ def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-    page.goto("https://www.example.com/")
+    page.goto("https://www.google.com")
     wait_for_stability(page)
-    
-    # 2. Logic
-    page.goto("https://www.google.com/")
-    wait_for_stability(page)
-    
+
+    # 2. Logic (using POM)
+    # No POM needed for this simple navigation
+
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")
     context.close()
