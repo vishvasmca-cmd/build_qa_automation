@@ -6,3 +6,7 @@
 - Before clicking 'Forgot your password?', ensure the element is visible and stable. Consider waiting for network activity to settle or for a specific element to load before attempting to click.
 
 - When clicking the 'OrangeHRM, Inc' link, implement a retry mechanism with a short delay between attempts, as the element might become momentarily unresponsive despite appearing stable.
+
+- Before attempting to click 'Forgot your password', ensure that any overlaying elements (e.g., modals, banners) are dismissed or that the element is fully visible and interactable. Consider adding a short explicit wait for the element to be visible and enabled.
+
+- If a link is visible, enabled and stable but click action times out, try to use JavaScript click or force click.

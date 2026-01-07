@@ -17,16 +17,17 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
-        page.goto("https://www.saucedemo.com/")
+        home_page = HomePage(page)
+        inventory_page = SaucedemoInventoryPage(page)
     
         # 2. Logic (using POM)
-        home_page = HomePage(page)
->       home_page.fill_username("standard_user")
+        home_page.goto()
+>       home_page.login("standard_user", "secret_sauce")
 
-projects/core_saucedemo/tests/test_main.py:65: 
+projects/core_saucedemo/tests/test_main.py:41: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_saucedemo/tests/test_main.py:27: in fill_username
-    self.username_field.fill(username)
+projects/core_saucedemo/tests/test_main.py:18: in login
+    self.page.get_by_test_id("username").fill(username)
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15989: in fill
     self._sync(
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:215: in fill
@@ -40,8 +41,8 @@ projects/core_saucedemo/tests/test_main.py:27: in fill_username
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7f0f50ee6110>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f0f50e77740>
+self = <playwright._impl._connection.Connection object at 0x7f4ac94e2e50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f4ac8ef6980>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -69,5 +70,5 @@ E             - waiting for get_by_test_id("username")
 FAILED projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
 Call log:
   - waiting for get_by_test_id("username")
-============================== 1 failed in 30.94s ==============================
+============================== 1 failed in 30.93s ==============================
 

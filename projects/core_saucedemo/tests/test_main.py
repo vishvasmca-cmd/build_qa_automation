@@ -15,58 +15,89 @@ class HomePage:
     def __init__(self, page):
         self.page = page
 
-    @property
-    def username_field(self):
-        return self.page.locator("[data-test='username']")
-
-    @property
-    def password_field(self):
-        return self.page.locator("[data-test='password']")
-
-    @property
-    def login_button(self):
-        return self.page.locator("[data-test='login-button']")
-
     def goto(self):
         self.page.goto("https://www.saucedemo.com/")
         self.page.wait_for_load_state("networkidle")
 
-    def fill_username(self, username):
-        self.username_field.fill(username)
-
-    def fill_password(self, password):
-        self.password_field.fill(password)
-
-    def click_login(self):
-        self.login_button.click()
-
+    def login(self, username, password):
+        self.page.locator("[data-test='username']").fill(username)
+        self.page.locator("[data-test='password']").fill(password)
+        self.page.locator("[data-test='login-button']").click()
+        self.page.wait_for_load_state("networkidle")
 
 class SaucedemoInventoryPage:
     def __init__(self, page):
         self.page = page
 
-    @property
-    def product_sort_dropdown(self):
-        return self.page.locator("[data-test='product-sort-container']")
-
     def sort_by_price_low_to_high(self):
-        self.product_sort_dropdown.select_option("Price (low to high)")
+        self.page.locator("[data-test='product-sort-container']").select_option(label="Price (low to high)")
+        self.page.wait_for_load_state("networkidle")
+
+    def add_lowest_price_item_to_cart(self):
+        # Assuming the bike light is the lowest price item after sorting
+        self.page.locator("[data-test='add-to-cart-sauce-labs-bike-light']").click()
+        self.page.wait_for_load_state("networkidle")
+
+    def go_to_cart(self):
+        self.page.locator("[data-test='shopping-cart-link']").click()
+        self.page.wait_for_load_state("networkidle")
+
+class CartPage:
+    def __init__(self, page):
+        self.page = page
+
+    def checkout(self):
+        self.page.locator("[data-test='checkout']").click()
+        self.page.wait_for_load_state("networkidle")
+
+class CheckoutInformationPage:
+    def __init__(self, page):
+        self.page = page
+
+    def fill_information(self, first_name, last_name, postal_code):
+        self.page.locator("[data-test='firstName']").fill(first_name)
+        self.page.locator("[data-test='lastName']").fill(last_name)
+        self.page.locator("[data-test='postalCode']").fill(postal_code)
+        self.page.locator("[data-test='continue']").click()
+        self.page.wait_for_load_state("networkidle")
+
+class CheckoutOverviewPage:
+    def __init__(self, page):
+        self.page = page
+
+    def finish(self):
+        self.page.locator("[data-test='finish']").click()
+        self.page.wait_for_load_state("networkidle")
+
+class CheckoutCompletePage:
+    def __init__(self, page):
+        self.page = page
+
+    def back_to_products(self):
+        self.page.locator("[data-test='back-to-products']").click()
+        self.page.wait_for_load_state("networkidle")
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-    page.goto("https://www.saucedemo.com/")
-    page.wait_for_load_state("networkidle")
+    home_page = HomePage(page)
+    inventory_page = SaucedemoInventoryPage(page)
+    cart_page = CartPage(page)
+    checkout_information_page = CheckoutInformationPage(page)
+    checkout_overview_page = CheckoutOverviewPage(page)
+    checkout_complete_page = CheckoutCompletePage(page)
 
     # 2. Logic (using POM)
-    home_page = HomePage(page)
-    home_page.fill_username("standard_user")
-    home_page.fill_password("secret_sauce")
-    home_page.click_login()
-
-    inventory_page = SaucedemoInventoryPage(page)
+    home_page.goto()
+    home_page.login("standard_user", "secret_sauce")
     inventory_page.sort_by_price_low_to_high()
+    inventory_page.add_lowest_price_item_to_cart()
+    inventory_page.go_to_cart()
+    cart_page.checkout()
+    checkout_information_page.fill_information("John", "Doe", "12345")
+    checkout_overview_page.finish()
+    checkout_complete_page.back_to_products()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

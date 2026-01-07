@@ -30,6 +30,9 @@ class OrangehrmLoginPage:
     def orangehrm_inc_link(self):
         return self.page.get_by_role("link", name="OrangeHRM, Inc")
 
+    def click_orangehrm_inc_link(self):
+        self.orangehrm_inc_link.click()
+
 
 class OrangehrmResetPasswordPage:
     def __init__(self, page):
@@ -46,7 +49,7 @@ class OrangehrmResetPasswordPage:
     def reset_password_button(self):
         return self.page.get_by_role("button", name="Reset Password")
 
-    def click_reset_password_button(self):
+    def click_reset_password(self):
         self.reset_password_button.click()
 
 
@@ -58,21 +61,8 @@ class PasswordResetConfirmationPage:
     def orangehrm_inc_link(self):
         return self.page.get_by_role("link", name="OrangeHRM, Inc")
 
-    def click_orangehrm_inc_link(self):
+    def navigate_to_login_page(self):
         self.orangehrm_inc_link.click()
-
-
-class OrangehrmPasswordResetPage:
-    def __init__(self, page):
-        self.page = page
-
-    @property
-    def username_input(self):
-        return self.page.locator("[name='username']")
-
-    @property
-    def reset_password_button(self):
-        return self.page.get_by_role("button", name="Reset Password")
 
 
 def test_autonomous_flow(browser: Browser):
@@ -89,12 +79,18 @@ def test_autonomous_flow(browser: Browser):
     login_page.click_forgot_password_link()
 
     reset_password_page.fill_username("Admin")
-    reset_password_page.click_reset_password_button()
+    reset_password_page.click_reset_password()
 
-    # Navigate back to login page after password reset request
-    password_reset_confirmation_page.click_orangehrm_inc_link()
-    password_reset_confirmation_page.click_orangehrm_inc_link()
-    password_reset_confirmation_page.click_orangehrm_inc_link()
+    # The test was failing because of timeout when clicking the OrangeHRM, Inc link.
+    # The following loop retries the click a few times.
+    for i in range(3):
+        try:
+            password_reset_confirmation_page.navigate_to_login_page()
+            break  # If click succeeds, break the loop
+        except Exception as e:
+            print(f"Attempt {i+1} failed: {e}")
+            if i == 2:
+                raise  # If it fails all 3 times, raise the exception
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

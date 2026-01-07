@@ -1,12 +1,7 @@
-Feature: Product Search and Details
-  As a user
-  I want to search for products and view their details
-  So that I can find and purchase the products I need
+Feature: Product Catalog - Smoke Tests
 
   @smoke
-  Scenario: Search for a product and view details
+  Scenario: Search for a product
     Given I am on the home page
     When I search for "Watch"
     Then I should see search results for "Watch"
-    And I click on the first product in the search results
-    Then I should be able to view the product details

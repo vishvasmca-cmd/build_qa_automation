@@ -24,12 +24,17 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         password_reset_confirmation_page = PasswordResetConfirmationPage(page)
     
         login_page.goto()
->       login_page.click_forgot_password_link()
+        login_page.click_forgot_password_link()
+    
+        reset_password_page.fill_username("Admin")
+        reset_password_page.click_reset_password()
+    
+>       password_reset_confirmation_page.navigate_to_login_page()
 
-projects/core_orangehrm/tests/test_main.py:69: 
+projects/core_orangehrm/tests/test_main.py:89: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_orangehrm/tests/test_main.py:23: in click_forgot_password_link
-    self.page.get_by_text("Forgot your password?").click()
+projects/core_orangehrm/tests/test_main.py:70: in navigate_to_login_page
+    self.page.get_by_role("link", name="OrangeHRM, Inc").click()
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
@@ -41,8 +46,8 @@ projects/core_orangehrm/tests/test_main.py:23: in click_forgot_password_link
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7ffa5d995950>
-cb = <function Channel.send.<locals>.<lambda> at 0x7ffa5a9e1300>
+self = <playwright._impl._connection.Connection object at 0x7fbfa01939d0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fbfa00111c0>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -63,12 +68,22 @@ is_internal = False, title = None
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
 E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 E           Call log:
-E             - waiting for get_by_text("Forgot your password?")
+E             - waiting for get_by_role("link", name="OrangeHRM, Inc")
+E               - locator resolved to <a target="_blank" href="http://www.orangehrm.com">OrangeHRM, Inc</a>
+E             - attempting click action
+E               - waiting for element to be visible, enabled and stable
+E               - element is visible, enabled and stable
+E               - scrolling into view if needed
 
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
 =========================== short test summary info ============================
 FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 Call log:
-  - waiting for get_by_text("Forgot your password?")
-============================== 1 failed in 32.76s ==============================
+  - waiting for get_by_role("link", name="OrangeHRM, Inc")
+    - locator resolved to <a target="_blank" href="http://www.orangehrm.com">OrangeHRM, Inc</a>
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+    - element is visible, enabled and stable
+    - scrolling into view if needed
+============================== 1 failed in 34.07s ==============================
 

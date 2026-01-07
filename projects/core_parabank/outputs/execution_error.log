@@ -18,35 +18,54 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
         parabank_page = ParabankPage(page)
-        parabank_wadl_page = ParabankWadlPage(page)
-    
-        # 2. Logic (using POM)
         parabank_page.goto()
     
+        # 2. Logic (using POM)
         # Step 0: Click Account History link
->       parabank_page.click_account_history()
+        parabank_page.click_account_history()
+        try:
+>           expect(page).to_have_url(re.compile(".*account.htm"), timeout=10000)
+E           AssertionError: Page URL expected to be 're.compile('.*account.htm')'
+E           Actual value: https://parabank.parasoft.com/parabank/services/bank;jsessionid=A10743EF5E1ECB02AF7B042CB48A4372?_wadl&_type=xml 
+E           Call log:
+E             - Expect "to_have_url" with timeout 10000ms
+E               14 × unexpected value "https://parabank.parasoft.com/parabank/services/bank;jsessionid=A10743EF5E1ECB02AF7B042CB48A4372?_wadl&_type=xml"
 
-projects/core_parabank/tests/test_main.py:69: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/core_parabank/tests/test_main.py:70: AssertionError
 
-self = <test_main.ParabankPage object at 0x7f05bc526990>
+During handling of the above exception, another exception occurred:
 
-    def click_account_history(self) -> None:
-        self.account_history_link.click()
-        wait_for_stability(self.page)
->       expect(self.page).to_have_url(re.compile(".*/accountactivity.htm", re.IGNORECASE))
-E       AssertionError: Page URL expected to be 're.compile('.*/accountactivity.htm', re.IGNORECASE)'
-E       Actual value: https://parabank.parasoft.com/parabank/services/bank;jsessionid=1825DB040278DA17832C5FDE763CC7DA?_wadl&_type=xml 
-E       Call log:
-E         - Expect "to_have_url" with timeout 5000ms
-E           9 × unexpected value "https://parabank.parasoft.com/parabank/services/bank;jsessionid=1825DB040278DA17832C5FDE763CC7DA?_wadl&_type=xml"
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
 
-projects/core_parabank/tests/test_main.py:35: AssertionError
+    def test_autonomous_flow(browser: Browser):
+        # 1. Setup
+        context = browser.new_context(viewport={"width": 1920, "height": 1080})
+        page = context.new_page()
+        parabank_page = ParabankPage(page)
+        parabank_page.goto()
+    
+        # 2. Logic (using POM)
+        # Step 0: Click Account History link
+        parabank_page.click_account_history()
+        try:
+            expect(page).to_have_url(re.compile(".*account.htm"), timeout=10000)
+        except AssertionError:
+            # If it redirects to the WADL page, navigate back to home and try again
+            page.goto("https://parabank.parasoft.com/parabank/index.htm")
+            parabank_page.click_account_history()
+>           expect(page).to_have_url(re.compile(".*account.htm"), timeout=10000)
+E           AssertionError: Page URL expected to be 're.compile('.*account.htm')'
+E           Actual value: https://parabank.parasoft.com/parabank/services/bank?_wadl&_type=xml 
+E           Call log:
+E             - Expect "to_have_url" with timeout 10000ms
+E               14 × unexpected value "https://parabank.parasoft.com/parabank/services/bank?_wadl&_type=xml"
+
+projects/core_parabank/tests/test_main.py:75: AssertionError
 =========================== short test summary info ============================
-FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page URL expected to be 're.compile('.*/accountactivity.htm', re.IGNORECASE)'
-Actual value: https://parabank.parasoft.com/parabank/services/bank;jsessionid=1825DB040278DA17832C5FDE763CC7DA?_wadl&_type=xml 
+FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page URL expected to be 're.compile('.*account.htm')'
+Actual value: https://parabank.parasoft.com/parabank/services/bank?_wadl&_type=xml 
 Call log:
-  - Expect "to_have_url" with timeout 5000ms
-    9 × unexpected value "https://parabank.parasoft.com/parabank/services/bank;jsessionid=1825DB040278DA17832C5FDE763CC7DA?_wadl&_type=xml"
-============================== 1 failed in 7.10s ===============================
+  - Expect "to_have_url" with timeout 10000ms
+    14 × unexpected value "https://parabank.parasoft.com/parabank/services/bank?_wadl&_type=xml"
+============================== 1 failed in 22.09s ==============================
 

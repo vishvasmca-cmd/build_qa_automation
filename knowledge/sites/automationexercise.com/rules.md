@@ -55,3 +55,9 @@
 - Before clicking 'View Cart', ensure the page is fully loaded and any potential overlays (e.g., promotional modals) are closed.
 
 - Before clicking 'View Cart', ensure any modals or overlays are closed to prevent element occlusion. Also, wait for the page to fully load and any dynamic content to render before attempting to interact with the cart link.
+
+- When targeting a specific product element, avoid using generic class names like `.productinfo`. Instead, use a more specific locator strategy that includes unique attributes or text content to ensure you target the intended element.
+
+- Before clicking 'Add to cart', ensure the product details are fully loaded and any overlaying elements (e.g., promotional pop-ups) are dismissed. Consider adding an explicit wait for product details to load.
+
+- Before clicking 'Add to cart', ensure the product details are fully loaded and visible. Implement a check for a loading spinner or a specific element indicating readiness.
