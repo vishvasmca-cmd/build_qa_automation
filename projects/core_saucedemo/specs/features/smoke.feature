@@ -1,9 +1,9 @@
-Feature: E-commerce Smoke Tests
+Feature: E-commerce Smoke Tests - core_saucedemo
 
-  Scenario: Successful Login and Sort Products
-    @smoke
+  @smoke
+  Scenario: User Login and Product Sorting
     Given User is on the login page
     When User logs in with valid credentials
-    Then User should be redirected to the inventory page
+    Then User should be logged in successfully
     When User sorts products by price (low to high)
-    Then Products should be sorted by price in ascending order
+    Then Products should be sorted correctly

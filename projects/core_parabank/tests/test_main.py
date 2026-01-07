@@ -7,7 +7,7 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
-sys.path.append('C:/Users/vishv/.gemini/antigravity/playground/inner-event/core/templates')
+sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/templates')
 from helpers import take_screenshot
 
 
@@ -15,19 +15,13 @@ class ParabankPage:
     def __init__(self, page):
         self.page = page
 
+    def goto(self):
+        self.page.goto("https://parabank.parasoft.com/parabank/index.htm")
+        self.page.wait_for_load_state("networkidle")
+
     @property
     def about_us_link(self):
-        return self.page.get_by_role("link", name="About Us")
-
-    def navigate_to_about_us(self):
-        self.about_us_link.click()
-
-    def navigate_to_account_history(self):
-        self.account_history_link.click()
-
-class ParabankAboutUsPage:
-    def __init__(self, page):
-        self.page = page
+        return self.page.locator("#headerPanel").get_by_role("link", name="About Us")
 
     @property
     def home_link(self):
@@ -37,15 +31,6 @@ class ParabankAboutUsPage:
     def account_history_link(self):
         return self.page.get_by_role("link", name="Account History")
 
-    def navigate_to_about_us(self):
-        self.about_us_link.click()
-
-    def navigate_to_home(self):
-        # The error indicates that there are two 'Home' links.  We'll use the lowercase 'home' to be more specific.
-        self.page.get_by_role("link", name="home").click()
-
-    def navigate_to_account_history(self):
-        self.account_history_link.click()
 
 class ParabankAboutUsPage:
     def __init__(self, page):
@@ -55,13 +40,6 @@ class ParabankAboutUsPage:
     def home_link(self):
         return self.page.get_by_role("link", name="home")
 
-    def navigate_to_home(self):
-        self.home_link.click()
-
-class ParabankWsdlPage:
-    def __init__(self, page):
-        self.page = page
-
 class ParabankWebServiceDefinitionPage:
     def __init__(self, page):
         self.page = page
@@ -70,17 +48,28 @@ def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-    page.goto("https://parabank.parasoft.com/parabank/index.htm")
-    page.wait_for_load_state("networkidle")
 
     # 2. Logic (using POM)
     parabank_page = ParabankPage(page)
+    parabank_page.goto()
 
-    parabank_page.navigate_to_about_us()
-    parabank_page.navigate_to_home()
-    parabank_page.navigate_to_home()
-    parabank_page.navigate_to_account_history()
+    # Step 0: Click on About Us link
+    parabank_page.about_us_link.click()
+    page.wait_for_load_state("networkidle")
+
+    # Step 1: Navigate to Home page
+    parabank_page = ParabankPage(page)
+    parabank_page.home_link.click()
+    page.wait_for_load_state("networkidle")
+
+    # Step 2: Click on Account History link
+    parabank_page = ParabankPage(page)
+    parabank_page.account_history_link.click()
+
+    # Step 3, 4, 5: Navigate back to Home page
+    page.goto("https://parabank.parasoft.com/parabank/index.htm")
+    page.wait_for_load_state("networkidle")
 
     # 3. Cleanup
-    take_screenshot(page, "final_state", "inner-event")
+    take_screenshot(page, "final_state", "build_qa_automation")
     context.close()

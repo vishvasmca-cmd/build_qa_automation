@@ -2,75 +2,49 @@
 
 ## Introduction
 
-This document outlines the test plan for the core_saucedemo e-commerce application. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
+This document outlines the test plan for the core_saucedemo e-commerce application. It details the scope, strategy, and approach for testing the application's core functionalities.
 
-## Scope
+## Test Scope
 
 The testing will cover the following modules:
 
-*   Authentication
-*   Product Catalog
-*   Shopping Cart
+*   Authentication (Login/Logout)
+*   Product Catalog (Sorting)
+*   Shopping Cart (Add to Cart)
 *   Checkout & Payments
+
+## Test Strategy
+
+The testing will be conducted using a combination of smoke and regression testing techniques. Smoke tests will focus on verifying the core functionalities, while regression tests will ensure that new changes do not negatively impact existing features.
+
+### Smoke Suite Strategy
+
+The smoke suite will adhere to the following 8-point checklist:
+
+1.  **Critical Paths:** Tests will cover the most critical user flows (e.g., login, add to cart).
+2.  **Core Business Logic:** Focus on testing the primary business logic (e.g., product sorting).
+3.  **Positive Testing:** Primarily focus on positive test scenarios (happy paths).
+4.  **No Negative Testing:** Negative tests will be excluded from the smoke suite.
+5.  **Minimal Edge Cases:** Complex edge cases will be excluded.
+6.  **Fast Execution:** Tests should be designed for quick execution to provide rapid feedback.
+7.  **Build Validation:** Smoke tests will be executed to validate each build.
+8.  **High Priority:** Any failures in the smoke suite will be treated as high priority and require immediate attention.
 
 ## Test Suites
 
-*   **Smoke Suite:**  Covers critical functionalities like login, product browsing, adding to cart. This is the first suite to be executed to validate the build.
-*   **Regression Suite:** A comprehensive suite that covers all functionalities, including edge cases, error handling, and alternative flows.
+The following test suites will be created:
 
-The smoke suite will focus on critical path testing to ensure the core functionality of the application is working as expected. These tests are designed to be executed quickly and efficiently to provide rapid feedback on the stability of the application.
-
-#### Smoke Suite Strategy
-
-The following 8-point checklist has been applied to define the Smoke Suite for this project:
-
-1.  **Critical Paths:** Tests cover the most important user flows (e.g., login, adding to cart).
-2.  **Core Business Logic:** Focus on primary revenue/operation flows.
-3.  **Positive Testing:** Primarily happy path scenarios.
-4.  **No Negative Testing:** Unless critical security concerns exist.
-5.  **No Complex Edge Cases:** Avoid intricate or unusual scenarios.
-6.  **Speed of Execution:** Tests should run quickly to provide fast feedback.
-7.  **Independence:** Tests should be independent and not rely on each other.
-8.  **High Stability:** Tests should be reliable and not prone to false failures.
-
-#### Smoke Test Cases
-
-*   User Login (Valid Credentials)
-*   Sort Products by Price (Low to High)
-
-### Regression Suite
-
-The regression suite will provide comprehensive testing of the application, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite will ensure that new changes have not introduced any regressions in existing functionality.
-
-#### Regression Test Cases
-
-*   Login with Invalid Password
-*   Password Reset Flow
-*   Search for non-existent product
-*   Filter products by Price/Category
-*   Add Item to Cart
-*   Update Quantity in Cart
-*   Remove Item from Cart
-*   Checkout with formatted Address
-*   Apply Valid/Invalid Coupon Code
-*   Payment Decline Simulation
-*   Calculate Tax/Shipping correctly
+*   Smoke Suite: A minimal set of tests to verify the core functionalities.
+*   Regression Suite: A comprehensive suite of tests to ensure that new changes do not break existing functionalities.
 
 ## Test Environment
 
-The tests will be executed in a stable test environment that mirrors the production environment as closely as possible.
+The tests will be executed in a stable test environment that closely resembles the production environment.
 
-## Test Data
+## Test Deliverables
 
-Appropriate test data will be used to cover various scenarios and edge cases.
-
-## Entry Criteria
-
-*   The application build is deployed to the test environment.
-*   Test data is prepared and available.
-
-## Exit Criteria
-
-*   All test cases in the smoke suite have passed.
-*   A defined percentage of test cases in the regression suite have passed.
-*   All critical and high-priority defects have been resolved.
+*   Test Plan Document
+*   Test Cases
+*   Test Scripts
+*   Test Results
+*   Defect Reports

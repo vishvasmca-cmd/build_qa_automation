@@ -7,41 +7,20 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
-sys.path.append('C:/Users/vishv/.gemini/antigravity/playground/inner-event/core/templates')
+sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/templates')
 from helpers import take_screenshot
 
 
-class HomePage:
-    def __init__(self, page):
+import re
+from playwright.sync_api import Page, expect
+
+class ProductsPage:
+    def __init__(self, page: Page) -> None:
         self.page = page
 
     @property
     def products_link(self):
-        return self.page.get_by_role("link", name=" Products")
-
-    @property
-    def subscribe_email_input(self):
-        return self.page.locator("#susbscribe_email")
-
-    def navigate_to_products(self):
-        self.products_link.click()
-
-    def fill_subscribe_email(self, email):
-        self.subscribe_email_input.fill(email)
-
-    def close_ad(self):
-        try:
-            # Attempt to close the ad if it exists
-            close_button = self.page.locator(".grippy-host").get_by_text("Close")
-            if close_button.is_visible():
-                close_button.click()
-        except Exception:
-            pass
-
-
-class ProductsPage:
-    def __init__(self, page):
-        self.page = page
+        return self.page.get_by_role("link", name="\ue8f8 Products")
 
     @property
     def search_product_input(self):
@@ -53,68 +32,53 @@ class ProductsPage:
 
     @property
     def add_to_cart_button(self):
-        return self.page.get_by_role("link", name="Add to cart").first
-
-    @property
-    def continue_shopping_button(self):
-        return self.page.get_by_role("button", name="Continue Shopping")
+        return self.page.get_by_role("link", name="Add to cart")
 
     @property
     def cart_link(self):
         return self.page.get_by_role("link", name="Cart")
 
-    def navigate_to_products(self):
+    def navigate_to_products(self) -> None:
         self.products_link.click()
         self.page.wait_for_load_state("networkidle")
 
-    def search_for_product(self, product_name):
+    def search_product(self, product_name: str) -> None:
         self.search_product_input.fill(product_name)
-        self.page.locator("#submit_search").click()
+        self.submit_search_button.click()
         self.page.wait_for_load_state("networkidle")
 
-    def add_product_to_cart(self, index):
-        # Hover over the product card to make the 'Add to cart' button visible
-        self.page.locator(".overlay-content").nth(index).hover()
-        self.add_to_cart_button.nth(index).click()
+    def add_first_product_to_cart(self) -> None:
+        # Handle potential advertisement overlays
+        self.page.evaluate("document.querySelectorAll('#advertisement, .ad-container').forEach(el => el.remove())")
+        # Use a more specific locator for the 'Add to cart' button within the first product
+        self.page.locator(".product-overlay a", has_text=re.compile("Add to cart", re.IGNORECASE)).first.click(force=True)
         self.page.wait_for_load_state("networkidle")
 
-    def continue_shopping(self):
-        self.continue_shopping_button.click()
-        self.page.wait_for_load_state("networkidle")
-
-    def navigate_to_cart(self):
+    def view_cart(self) -> None:
         self.cart_link.click()
-
-
-class CartPage:
-    def __init__(self, page):
-        self.page = page
-
-    @property
-    def proceed_to_checkout_button(self):
-        return self.page.get_by_role("link", name="Proceed To Checkout")
-
-    def proceed_to_checkout(self):
-        self.proceed_to_checkout_button.click()
         self.page.wait_for_load_state("networkidle")
+
+
+import re
+from playwright.sync_api import Browser, Page, expect
+
+def take_screenshot(page: Page, name: str, project_name: str) -> None:
+    page.screenshot(path=f"screenshots/{project_name}/{name}.png")
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
     page.goto("https://automationexercise.com/")
-    page.wait_for_load_state("domcontentloaded")
+    page.wait_for_load_state("networkidle")
 
     # 2. Logic (using POM)
     products_page = ProductsPage(page)
-
     products_page.navigate_to_products()
-    products_page.search_for_product("Dress")
-    products_page.add_product_to_cart(0)
-    products_page.continue_shopping()
-    products_page.add_product_to_cart(1)
-    products_page.continue_shopping()
+    products_page.search_product("Dress")
+    products_page.add_first_product_to_cart()
+    products_page.view_cart()
 
     # 3. Cleanup
-    take_screenshot(page, "final_state", "inner-event")
+    take_screenshot(page, "final_state", "build_qa_automation")
     context.close()

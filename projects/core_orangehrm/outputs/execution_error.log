@@ -1,59 +1,52 @@
-============================= test session starts =============================
-platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
 cachedir: .pytest_cache
-rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
-plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'langsmith': '0.6.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
 collecting ... collected 1 item
 
 projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] FAILED
 
-================================== FAILURES ===================================
-_______________________ test_autonomous_flow[chromium] ________________________
+=================================== FAILURES ===================================
+________________________ test_autonomous_flow[chromium] ________________________
 
-browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vishv\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe> version=143.0.7499.4>
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
 
     def test_autonomous_flow(browser: Browser):
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
-        page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-        page.wait_for_load_state("networkidle")
+        orangehrm_login_page = OrangehrmLoginPage(page)
+        orangehrm_password_reset_page = OrangehrmPasswordResetPage(page)
+        password_reset_confirmation_page = PasswordResetConfirmationPage(page)
     
         # 2. Logic (using POM)
-        login_page = OrangehrmLoginPage(page)
-        reset_password_page = OrangehrmResetPasswordPage(page)
-        password_reset_confirmation_page = PasswordResetConfirmationPage(page)
-        base_login_page = LoginPage(page)
+        orangehrm_login_page.goto()
+        orangehrm_login_page.click_forgot_password_link()
+        expect(page).to_have_url(re.compile(".*/requestPasswordResetCode$"))
     
-        # Step 0: Click 'Forgot your password?' link
-        login_page.click_forgot_password_link()
-    
-        # Step 1: Navigate back to login page
-        page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-    
-        # Step 2: Fill username on reset password page
-        reset_password_page.fill_username("Admin")
-    
-        # Step 3: Click Reset Password button
->       reset_password_page.click_reset_password_button()
+>       orangehrm_password_reset_page.fill_username("Admin")
 
-projects/core_orangehrm/tests/test_main.py:113: 
+projects/core_orangehrm/tests/test_main.py:91: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_orangehrm/tests/test_main.py:56: in click_reset_password_button
-    self.reset_password_button.click()
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
+projects/core_orangehrm/tests/test_main.py:54: in fill_username
+    self.username_input.fill(username)
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15989: in fill
     self._sync(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
-    return await self._frame._click(self._selector, strict=True, **params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:566: in _click
-    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:215: in fill
+    return await self._frame.fill(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:607: in fill
+    await self._fill(**locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:619: in _fill
+    await self._channel.send("fill", self._timeout, locals_to_params(locals()))
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
     return await self._connection.wrap_api_call(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7fe04fdf8110>
-cb = <function Channel.send.<locals>.<lambda> at 0x7fe04ead3c40>
+self = <playwright._impl._connection.Connection object at 0x7f55a70dfed0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f55a5dd7e20>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -72,14 +65,14 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
 E           Call log:
-E             - waiting for get_by_role("button", name="Reset Password")
+E             - waiting for get_by_label("Username")
 
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
 =========================== short test summary info ============================
-FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
 Call log:
-  - waiting for get_by_role("button", name="Reset Password")
-============================== 1 failed in 34.65s ==============================
+  - waiting for get_by_label("Username")
+============================== 1 failed in 33.79s ==============================
 

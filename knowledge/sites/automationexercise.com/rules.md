@@ -47,3 +47,5 @@
 - Before interacting with 'Add to cart' button, ensure that any modals or overlays (e.g., promotional popups) are closed to prevent obscuring the target element.
 
 - Before interacting with a search input, ensure it is visible and enabled.  Consider adding a short explicit wait if the element's appearance is dependent on other network requests.
+
+- When interacting with elements found using `.first()`, ensure the element is resolved before attempting actions like `.click()`.  Use `.first().locator('self')` to resolve the element.

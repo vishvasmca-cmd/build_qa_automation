@@ -1,175 +1,46 @@
-============================= test session starts =============================
-platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
 cachedir: .pytest_cache
-rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
-plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'langsmith': '0.6.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
 collecting ... collected 1 item
 
 projects/core_automation_exercise/tests/test_main.py::test_autonomous_flow[chromium] FAILED
 
-================================== FAILURES ===================================
-_______________________ test_autonomous_flow[chromium] ________________________
+=================================== FAILURES ===================================
+________________________ test_autonomous_flow[chromium] ________________________
 
-browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vishv\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe> version=143.0.7499.4>
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
 
     def test_autonomous_flow(browser: Browser):
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
         page.goto("https://automationexercise.com/")
-        page.wait_for_load_state("domcontentloaded")
+        page.wait_for_load_state("networkidle")
     
         # 2. Logic (using POM)
         products_page = ProductsPage(page)
-    
         products_page.navigate_to_products()
-        products_page.search_for_product("Dress")
->       products_page.add_product_to_cart(0)
+        products_page.search_product("Dress")
+>       products_page.add_first_product_to_cart()
 
-projects/core_automation_exercise/tests/test_main.py:89: 
+projects/core_automation_exercise/tests/test_main.py:56: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_automation_exercise/tests/test_main.py:53: in add_product_to_cart
-    self.page.locator(".overlay-content").nth(index).hover()
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:17041: in hover
-    self._sync(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:460: in hover
-    return await self._frame.hover(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:741: in hover
-    await self._channel.send("hover", self._timeout, locals_to_params(locals()))
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
-    return await self._connection.wrap_api_call(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-self = <playwright._impl._connection.Connection object at 0x7f1c729d3b90>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f1c7150ec00>
-is_internal = False, title = None
+self = <test_main.ProductsPage object at 0x7efe7759ab90>
 
-    async def wrap_api_call(
-        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
-    ) -> Any:
-        if self._api_zone.get():
-            return await cb()
-        task = asyncio.current_task(self._loop)
-        st: List[inspect.FrameInfo] = getattr(
-            task, "__pw_stack__", None
-        ) or inspect.stack(0)
-    
-        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
-        self._api_zone.set(parsed_st)
-        try:
-            return await cb()
-        except Exception as error:
->           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.hover: Timeout 30000ms exceeded.
-E           Call log:
-E             - waiting for locator(".overlay-content").first
-E               - locator resolved to <div class="overlay-content">…</div>
-E             - attempting hover action
-E               2 × waiting for element to be visible and stable
-E                 - element is visible and stable
-E                 - scrolling into view if needed
-E                 - done scrolling
-E                 - <div class="container">…</div> from <section id="advertisement">…</section> subtree intercepts pointer events
-E               - retrying hover action
-E               - waiting 20ms
-E               - waiting for element to be visible and stable
-E               - element is visible and stable
-E               - scrolling into view if needed
-E               - done scrolling
-E               - <div class="container">…</div> from <section id="advertisement">…</section> subtree intercepts pointer events
-E             2 × retrying hover action
-E                 - waiting 100ms
-E                 - waiting for element to be visible and stable
-E                 - element is visible and stable
-E                 - scrolling into view if needed
-E                 - done scrolling
-E                 - <div class="features_items">…</div> intercepts pointer events
-E             14 × retrying hover action
-E                  - waiting 500ms
-E                  - waiting for element to be visible and stable
-E                  - element is visible and stable
-E                  - scrolling into view if needed
-E                  - done scrolling
-E                  - <div class="container">…</div> from <section id="advertisement">…</section> subtree intercepts pointer events
-E                - retrying hover action
-E                  - waiting 500ms
-E                  - waiting for element to be visible and stable
-E                  - element is visible and stable
-E                  - scrolling into view if needed
-E                  - done scrolling
-E                  - <div class="container">…</div> from <section id="advertisement">…</section> subtree intercepts pointer events
-E                - retrying hover action
-E                  - waiting 500ms
-E                  - waiting for element to be visible and stable
-E                  - element is visible and stable
-E                  - scrolling into view if needed
-E                  - done scrolling
-E                  - <div class="features_items">…</div> intercepts pointer events
-E                - retrying hover action
-E                  - waiting 500ms
-E                  - waiting for element to be visible and stable
-E                  - element is visible and stable
-E                  - scrolling into view if needed
-E                  - done scrolling
-E                  - <div class="features_items">…</div> intercepts pointer events
-E             - retrying hover action
-E               - waiting 500ms
+    def add_first_product_to_cart(self):
+        # Handle potential advertisement overlays
+        self.page.evaluate("document.querySelectorAll('#advertisement, .ad-container').forEach(el => el.remove())")
+        # Use a more specific locator for the 'Add to cart' button within the first product
+>       self.page.locator(".product-overlay a", has_text=re.compile("Add to cart", re.IGNORECASE)).first().click()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: 'Locator' object is not callable
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
+projects/core_automation_exercise/tests/test_main.py:32: TypeError
 =========================== short test summary info ============================
-FAILED projects/core_automation_exercise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.hover: Timeout 30000ms exceeded.
-Call log:
-  - waiting for locator(".overlay-content").first
-    - locator resolved to <div class="overlay-content">…</div>
-  - attempting hover action
-    2 × waiting for element to be visible and stable
-      - element is visible and stable
-      - scrolling into view if needed
-      - done scrolling
-      - <div class="container">…</div> from <section id="advertisement">…</section> subtree intercepts pointer events
-    - retrying hover action
-    - waiting 20ms
-    - waiting for element to be visible and stable
-    - element is visible and stable
-    - scrolling into view if needed
-    - done scrolling
-    - <div class="container">…</div> from <section id="advertisement">…</section> subtree intercepts pointer events
-  2 × retrying hover action
-      - waiting 100ms
-      - waiting for element to be visible and stable
-      - element is visible and stable
-      - scrolling into view if needed
-      - done scrolling
-      - <div class="features_items">…</div> intercepts pointer events
-  14 × retrying hover action
-       - waiting 500ms
-       - waiting for element to be visible and stable
-       - element is visible and stable
-       - scrolling into view if needed
-       - done scrolling
-       - <div class="container">…</div> from <section id="advertisement">…</section> subtree intercepts pointer events
-     - retrying hover action
-       - waiting 500ms
-       - waiting for element to be visible and stable
-       - element is visible and stable
-       - scrolling into view if needed
-       - done scrolling
-       - <div class="container">…</div> from <section id="advertisement">…</section> subtree intercepts pointer events
-     - retrying hover action
-       - waiting 500ms
-       - waiting for element to be visible and stable
-       - element is visible and stable
-       - scrolling into view if needed
-       - done scrolling
-       - <div class="features_items">…</div> intercepts pointer events
-     - retrying hover action
-       - waiting 500ms
-       - waiting for element to be visible and stable
-       - element is visible and stable
-       - scrolling into view if needed
-       - done scrolling
-       - <div class="features_items">…</div> intercepts pointer events
-  - retrying hover action
-    - waiting 500ms
-============================== 1 failed in 35.63s ==============================
+FAILED projects/core_automation_exercise/tests/test_main.py::test_autonomous_flow[chromium] - TypeError: 'Locator' object is not callable
+============================== 1 failed in 7.55s ===============================
 

@@ -61,5 +61,14 @@
       "phase": "execution"
     },
     "error": "    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nE           Call log:\nE             - waiting for get_by_role(\"button\", name=\"Reset Password\")\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_role(\"button\", name=\"Reset Password\")\n============================== 1 failed in 39.26s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-07T05:18:55.499513",
+    "context": {
+      "site": "https://parabank.parasoft.com/parabank/index.htm",
+      "project": "core_parabank",
+      "phase": "execution"
+    },
+    "error": "  1) <a href=\"index.htm\">home</a> aka get_by_role(\"link\", name=\"home\", exact=True)\nE               2) <a href=\"index.htm\">Home</a> aka get_by_role(\"link\", name=\"Home\", exact=True)\nE           \nE           Call log:\nE             - waiting for get_by_role(\"link\", name=\"Home\")\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error\n=========================== short test summary info ============================\nFAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role(\"link\", name=\"Home\") resolved to 2 elements:\n    1) <a href=\"index.htm\">home</a> aka get_by_role(\"link\", name=\"home\", exact=True)\n    2) <a href=\"index.htm\">Home</a> aka get_by_role(\"link\", name=\"Home\", exact=True)\n\nCall log:\n  - waiting for get_by_role(\"link\", name=\"Home\")\n============================== 1 failed in 2.27s ===============================\n\n\n"
   }
 ]

@@ -1,47 +1,45 @@
-============================= test session starts =============================
-platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
 cachedir: .pytest_cache
-rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
-plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'langsmith': '0.6.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
 collecting ... collected 1 item
 
 projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] FAILED
 
-================================== FAILURES ===================================
-_______________________ test_autonomous_flow[chromium] ________________________
+=================================== FAILURES ===================================
+________________________ test_autonomous_flow[chromium] ________________________
 
-browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vishv\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe> version=143.0.7499.4>
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
 
     def test_autonomous_flow(browser: Browser):
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
-        page.goto("https://parabank.parasoft.com/parabank/index.htm")
-        page.wait_for_load_state("networkidle")
     
         # 2. Logic (using POM)
         parabank_page = ParabankPage(page)
+        parabank_page.goto()
     
-        parabank_page.navigate_to_about_us()
->       parabank_page.navigate_to_home()
+        # Step 0: Click on About Us link
+>       parabank_page.about_us_link.click()
 
-projects/core_parabank/tests/test_main.py:77: 
+projects/core_parabank/tests/test_main.py:64: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_parabank/tests/test_main.py:39: in navigate_to_home
-    self.home_link.click()
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:15637: in click
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_locator.py:162: in click
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
     return await self._frame._click(self._selector, strict=True, **params)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:566: in _click
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:566: in _click
     await self._channel.send("click", self._timeout, locals_to_params(locals()))
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
     return await self._connection.wrap_api_call(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7f16cd7f61d0>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f16cc3cfec0>
+self = <playwright._impl._connection.Connection object at 0x7f1c6c9f25d0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f1c6c980c20>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -60,20 +58,26 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name="Home") resolved to 2 elements:
-E               1) <a href="index.htm">home</a> aka get_by_role("link", name="home", exact=True)
-E               2) <a href="index.htm">Home</a> aka get_by_role("link", name="Home", exact=True)
+E           playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name="About Us") resolved to 2 elements:
+E               1) <a href="about.htm;jsessionid=FA923A337100C13DF4ADC81CDE2A46FC">About Us</a> aka locator("#headerPanel").get_by_role("link", name="About Us")
+E               2) <a href="about.htm;jsessionid=FA923A337100C13DF4ADC81CDE2A46FC">About Us</a> aka locator("#footerPanel").get_by_role("link", name="About Us")
 E           
 E           Call log:
-E             - waiting for get_by_role("link", name="Home")
+E             - waiting for get_by_role("link", name="About Us")
 
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+=============================== warnings summary ===============================
+projects/core_parabank/tests/test_main.py:79
+  /home/runner/work/build_qa_automation/build_qa_automation/projects/core_parabank/tests/test_main.py:79: DeprecationWarning: invalid escape sequence '\?'
+    expect(page).to_have_url(re.compile(".*/services/bank\?_wadl&_type=xml"))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 =========================== short test summary info ============================
-FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name="Home") resolved to 2 elements:
-    1) <a href="index.htm">home</a> aka get_by_role("link", name="home", exact=True)
-    2) <a href="index.htm">Home</a> aka get_by_role("link", name="Home", exact=True)
+FAILED projects/core_parabank/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: get_by_role("link", name="About Us") resolved to 2 elements:
+    1) <a href="about.htm;jsessionid=FA923A337100C13DF4ADC81CDE2A46FC">About Us</a> aka locator("#headerPanel").get_by_role("link", name="About Us")
+    2) <a href="about.htm;jsessionid=FA923A337100C13DF4ADC81CDE2A46FC">About Us</a> aka locator("#footerPanel").get_by_role("link", name="About Us")
 
 Call log:
-  - waiting for get_by_role("link", name="Home")
-============================== 1 failed in 2.38s ===============================
+  - waiting for get_by_role("link", name="About Us")
+========================= 1 failed, 1 warning in 1.74s =========================
 

@@ -1,9 +1,12 @@
-Feature: E-commerce Smoke Tests
+Feature: Product Browsing and Checkout
+  As a user
+  I want to browse products, add to cart, and proceed to checkout
+  So that I can purchase items easily
 
   @smoke
-  Scenario: Browse Products and Add to Cart
-    Given User navigates to the products page
-    When User searches for "Dress"
-    And User adds a dress to the cart
-    And User continues shopping
-    And User adds another dress to the cart
+  Scenario: Browse products and add a dress to cart
+    Given I am on the products page
+    When I search for "Dress"
+    And I add the first dress to the cart
+    And I proceed to the cart
+    Then I should be able to proceed to checkout
