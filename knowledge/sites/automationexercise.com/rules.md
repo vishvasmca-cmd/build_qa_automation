@@ -105,3 +105,9 @@
 - Before clicking 'Add to cart', ensure the product details are fully loaded and any overlaying elements (e.g., promotional modals, loading spinners) are dismissed. Consider adding explicit waits for relevant product details to load.
 
 - Before clicking 'Add to cart', ensure the product is fully loaded and visible on the page. Check for any overlaying elements (e.g., modals, banners) that might be blocking the button and handle them accordingly.
+
+- When navigating to '/products', implement a retry mechanism with exponential backoff to handle potential network latency or server-side delays. Also, check for modal dialogs or overlays that might prevent the navigation from completing.
+
+- Before clicking 'Add to cart', ensure the product details are fully loaded and any overlaying elements (e.g., promotional modals) are dismissed. Consider adding a short explicit wait for the element to become stable.
+
+- Before clicking 'Add to cart', ensure the product details are fully loaded and any loading indicators are dismissed. Consider adding an explicit wait for the product image or description to be visible.

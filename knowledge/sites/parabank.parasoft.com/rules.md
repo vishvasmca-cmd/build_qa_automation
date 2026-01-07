@@ -49,3 +49,9 @@
 - When locating elements with text that might have inconsistent casing, prefer exact matches or use `first` or `last` to disambiguate if multiple matches are expected.  Alternatively, disable strict mode only when necessary and with caution.
 
 - When locating elements with text 'Home' (case-insensitive) on ParaBank, be aware that multiple elements may match. Use a more specific locator or consider using `first` or `last` to resolve ambiguity, or disable strict mode if appropriate.
+
+- When navigating to account history, implement a retry mechanism with a short delay to handle potential intermittent server delays or network issues. Also, verify successful login before navigating.
+
+- Before navigating to 'Account History', ensure that all loading elements or overlays are fully dismissed. Consider adding an explicit wait for the page to fully load before interacting with elements.
+
+- Before clicking 'Account History', ensure the page is fully loaded and any overlays or animations are complete. Consider adding a short explicit wait for the element to be visible and stable.

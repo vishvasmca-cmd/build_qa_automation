@@ -1,23 +1,16 @@
-Feature: Login Page Functionality
-  As a user, I want to verify the login page elements and the 'Forgot your password?' link.
+Feature: Login Page and Password Reset
+  As a user
+  I want to be able to access the login page and reset my password if needed
+  So that I can access the application
 
   @smoke
-  Scenario: Verify elements and navigate to the password reset page
+  Scenario: Verify Login Page Elements and Forgot Password Link
     Given I am on the OrangeHRM login page
-    When I click the "Forgot your password?" link
+    Then I should see the login page elements
+    When I click on the "Forgot your password?" link
     Then I should be on the password reset page
-
-  @smoke
-  Scenario: Reset password flow
-    Given I am on the OrangeHRM password reset page
-    When I fill the username field with "Admin"
+    When I enter a valid username
     And I click the "Reset Password" button
-    Then I should be navigated back to the login page by clicking on the OrangeHRM, Inc link
-
-  @smoke
-  Scenario: Verify login page elements
-    Given I am on the OrangeHRM login page
-    Then I should see the username field
-    And I should see the password field
-    And I should see the login button
-    And I should see the "Forgot your password?" link
+    Then I should see a password reset confirmation message
+    When I click on the OrangeHRM, Inc link
+    Then I should be redirected to the login page

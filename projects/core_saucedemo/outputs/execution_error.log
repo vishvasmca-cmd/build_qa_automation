@@ -17,23 +17,51 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
+        page.goto("https://www.saucedemo.com/")
     
         # 2. Logic (using POM)
-        login_page = LoginPage(page)
-        inventory_page = InventoryPage(page)
+        home_page = HomePage(page)
+        swag_labs_login_page = SwagLabsLoginPage(page)
+        saucedemo_inventory_page = SaucedemoInventoryPage(page)
     
-        login_page.goto()
-        login_page.login("standard_user", "secret_sauce")
-        expect(page).to_have_url(re.compile(".*/inventory.html"))
-    
-        inventory_page.sort_by_price_low_to_high()
-        # Verify that the sorting has been applied (example: check the price of the first item)
->       first_item_price = page.locator(".inventory_item_price").first().inner_text()
-                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       TypeError: 'Locator' object is not callable
+        home_page.fill_username("standard_user")
+        home_page.fill_password("secret_sauce")
+        swag_labs_login_page.click_login()
+        saucedemo_inventory_page.sort_by_price_low_to_high()
+>       saucedemo_inventory_page.verify_products_sorted_by_price()
 
-projects/core_saucedemo/tests/test_main.py:62: TypeError
+projects/core_saucedemo/tests/test_main.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/core_saucedemo/tests/test_main.py:69: in verify_products_sorted_by_price
+    expect(is_sorted).to_be_true()
+    ^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright.sync_api.Expect object at 0x7f56be02db10>, actual = True
+message = None
+
+    def __call__(
+        self, actual: Union[Page, Locator, APIResponse], message: Optional[str] = None
+    ) -> Union[PageAssertions, LocatorAssertions, APIResponseAssertions]:
+        if isinstance(actual, Page):
+            return PageAssertions(
+                PageAssertionsImpl(actual._impl_obj, self._timeout, message=message)
+            )
+        elif isinstance(actual, Locator):
+            return LocatorAssertions(
+                LocatorAssertionsImpl(actual._impl_obj, self._timeout, message=message)
+            )
+        elif isinstance(actual, APIResponse):
+            return APIResponseAssertions(
+                APIResponseAssertionsImpl(
+                    actual._impl_obj, self._timeout, message=message
+                )
+            )
+>       raise ValueError(f"Unsupported type: {type(actual)}")
+E       ValueError: Unsupported type: <class 'bool'>
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/__init__.py:143: ValueError
 =========================== short test summary info ============================
-FAILED projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium] - TypeError: 'Locator' object is not callable
-============================== 1 failed in 1.78s ===============================
+FAILED projects/core_saucedemo/tests/test_main.py::test_autonomous_flow[chromium] - ValueError: Unsupported type: <class 'bool'>
+============================== 1 failed in 0.86s ===============================
 

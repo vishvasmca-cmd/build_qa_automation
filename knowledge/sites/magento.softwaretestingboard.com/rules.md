@@ -10,3 +10,5 @@
 - If the page title contains 'Invalid SSL certificate', the test should either be skipped or the SSL certificate issue should be resolved before proceeding.
 
 - Always import necessary modules (e.g., `re` for regular expressions) at the beginning of the test file to avoid `NameError` exceptions.
+
+- Always import necessary modules (e.g., `re` for regular expressions) at the beginning of the test file to avoid `NameError` exceptions.

@@ -2,45 +2,45 @@
 
 ## Introduction
 
-This test plan outlines the testing strategy for the core_magento e-commerce platform. The plan includes smoke and regression test suites, focusing on critical functionalities such as product search and navigation.
+This document outlines the test plan for the core_magento e-commerce platform. It details the testing scope, objectives, and strategies to ensure the quality and reliability of the application.
 
 ## Scope
 
-The testing will cover the following modules:
+The testing will cover key functionalities of the e-commerce platform, including product search, filtering, and product detail viewing. Due to SSL certificate issues encountered during the trace, the initial focus will be on verifying these functionalities after the SSL issue is resolved.
 
-*   Product Catalog
+## Objectives
+
+*   Verify the core functionalities of the e-commerce platform.
+*   Ensure a smooth user experience when searching and viewing products.
+*   Identify and address any critical defects that may impact the platform's usability.
+
+## Test Strategy
+
+The testing will be conducted using a combination of smoke and regression testing techniques. The smoke tests will focus on the critical path of searching, filtering, and viewing product details. Regression tests will be added as the application evolves and new features are implemented.
+
+### Smoke Suite Strategy
+
+The smoke suite will be designed based on the following criteria:
+
+1.  **Critical Functionality:** Tests will cover the most critical functionalities of the application (e.g., login, product search, checkout).
+2.  **Positive Scenarios:** Focus will be on positive or "happy path" scenarios.
+3.  **End-to-End Flows:** Tests will cover end-to-end flows to ensure that different parts of the system work together seamlessly.
+4.  **Minimal Data Set:** Tests will use a minimal data set to reduce execution time.
+5.  **Independent Tests:** Tests will be designed to be independent of each other.
+6.  **Fast Execution:** Tests should execute quickly to provide rapid feedback.
+7.  **Automated Execution:** Tests will be automated to ensure repeatability.
+8.  **High Priority:** Tests will be given the highest priority for execution.
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite will verify the core functionalities of the application. These tests are designed to be executed quickly and efficiently to ensure the application is stable.
+The smoke suite will include the following test cases:
 
-#### Smoke Suite Strategy
-
-The following checklist was applied when designing the smoke suite:
-
-1.  **Critical Paths:** Tests cover the most common user flows (e.g., product search).
-2.  **Core Business Logic:** Focus on the primary functions of the e-commerce platform.
-3.  **Positive Testing:** Primarily focuses on successful scenarios.
-4.  **No Edge Cases:** Avoid complex or unusual scenarios.
-5.  **Speed:** Tests should execute quickly to provide rapid feedback.
-6.  **Independence:** Tests should be independent of each other.
-7.  **Automation Feasibility:** Tests should be easily automated.
-8.  **Data Setup:** Minimal data setup required.
+*   Verify product search functionality.
+*   Verify product filtering by category.
+*   Verify product detail page display.
 
 ### Regression Suite
 
-The regression suite will provide a comprehensive test coverage of the application. These tests will cover alternative flows, negative scenarios, and boundary conditions.
-
-## Test Environment
-
-The tests will be executed on the following environment:
-
-*   URL: https://magento.softwaretestingboard.com/
-
-## Test Deliverables
-
-*   Test Plan
-*   BDD Feature Files
-*   Test Execution Reports
+(To be defined as the application evolves and new features are implemented)

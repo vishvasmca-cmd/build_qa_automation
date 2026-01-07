@@ -1,13 +1,15 @@
-Feature: Authentication and Product Sorting
+Feature: Smoke Tests for core_saucedemo
+
   As a user,
-  I want to log in, sort products by price,
-  So that I can easily find and purchase products.
+  I want to perform basic actions on the Saucedemo website
+  To ensure the core functionalities are working as expected.
 
   @smoke
-  Scenario: Successful login and product sorting
-    Given I am on the login page
-    When I enter valid credentials
-      And I click the login button
-    Then I should be logged in successfully
-    When I sort products by price "Price (low to high)"
-    Then Products should be sorted by price low to high
+  Scenario: Successful Login and Sort Products by Price
+    Given I am on the Saucedemo login page
+    When I enter valid username "standard_user"
+    And I enter valid password "secret_sauce"
+    And I click the login button
+    Then I should be logged in and redirected to the inventory page
+    When I sort the products by "Price (low to high)"
+    Then the products should be sorted by price from low to high

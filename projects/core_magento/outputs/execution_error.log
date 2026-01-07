@@ -11,20 +11,22 @@ projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] FAILED
 =================================== FAILURES ===================================
 ________________________ test_autonomous_flow[chromium] ________________________
 
-page = <Page url='https://magento.softwaretestingboard.com/'>
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
 
-    def test_autonomous_flow(page: Page):
+    def test_autonomous_flow(browser: Browser):
         # 1. Setup
+        context = browser.new_context(viewport={"width": 1920, "height": 1080}, ignore_https_errors=True)
+        page = context.new_page()
         page.goto("https://magento.softwaretestingboard.com/")
-        page.wait_for_load_state("networkidle")
+        page.wait_for_load_state("domcontentloaded")
     
-        # 2. Assertion
->       expect(page).to_have_title(re.compile(".*Magento.*", re.IGNORECASE))
+        # Assert that the page title is correct
+>       expect(page).to_have_title(re.compile("Magento", re.IGNORECASE))
                                    ^^
 E       NameError: name 're' is not defined
 
-projects/core_magento/tests/test_main.py:11: NameError
+projects/core_magento/tests/test_main.py:13: NameError
 =========================== short test summary info ============================
 FAILED projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] - NameError: name 're' is not defined
-============================== 1 failed in 1.34s ===============================
+============================== 1 failed in 0.51s ===============================
 

@@ -1,10 +1,11 @@
-Feature: Product Catalog
+Feature: Product Search and Details
   As a user
-  I want to search for products
-  So that I can find the items I need
+  I want to search for products and view their details
+  So that I can find and purchase the products I need
 
-  @smoke @broken
-  Scenario: Search for a product
+  @smoke
+  Scenario: Search for a product and view details
     Given I am on the home page
     When I search for "Watch"
-    Then I should see search results
+    And I filter by "Category"
+    Then I should see product details for the selected product

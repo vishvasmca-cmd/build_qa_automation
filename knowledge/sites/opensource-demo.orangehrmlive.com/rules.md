@@ -48,3 +48,9 @@
 - After submitting a password reset request, always check for the success message on the same page before assuming a redirect or further action is needed.
 
 - After submitting a password reset request, explicitly wait for the 'Reset Password link sent successfully' message to appear before proceeding with assertions.  Consider using a longer timeout or a more robust locator strategy.
+
+- When navigating to the login page, increase the timeout to accommodate potential server delays or network latency. Consider implementing a retry mechanism with exponential backoff.
+
+- When navigating to a new page, especially the login page, increase the timeout to accommodate potential server delays or network latency. Consider implementing a retry mechanism with exponential backoff.
+
+- When navigating to a new page, especially the login page, increase the timeout to accommodate potential server delays or network latency. Consider implementing a retry mechanism with exponential backoff.

@@ -2,8 +2,8 @@
   "run_id": "66f2f851-d127-47c8-ae27-8998e8bb06ec",
   "timestamp": 1767803057.677469,
   "summary": {
-    "total_duration": 1186.7825473270414,
-    "total_cost": 0.27500000000000013,
+    "total_duration": 1836.336553798675,
+    "total_cost": 0.5750000000000004,
     "status": "running"
   },
   "events": [
@@ -1872,6 +1872,1671 @@
       "action": "generate_code",
       "end_time": 1767803540.5893838,
       "duration": 17.5285,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Orchestrator",
+      "action": "pipeline_start",
+      "end_time": 1767810325.9759297,
+      "duration": 0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": {
+          "project_name": "core_automation_exercise",
+          "target_url": "https://automationexercise.com/",
+          "workflow_description": "Navigate to Products, search for 'Dress', add to cart, and go to checkout.",
+          "domain": "ecommerce",
+          "testing_type": "smoke",
+          "paths": {
+            "trace": "projects/core_automation_exercise/outputs/trace.json",
+            "test": "projects/core_automation_exercise/tests/test_main.py",
+            "report": "projects/core_automation_exercise/outputs/report.md"
+          },
+          "metadata": {
+            "created_at": "2026-01-07T18:25:25.516284",
+            "is_core": true
+          }
+        }
+      }
+    },
+    {
+      "agent": "Orchestrator",
+      "action": "pipeline_start",
+      "end_time": 1767810325.9793558,
+      "duration": 0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": {
+          "project_name": "core_saucedemo",
+          "target_url": "https://www.saucedemo.com/",
+          "workflow_description": "Login with standard_user, sort products by price, add low-cost item to cart, and finish checkout.",
+          "domain": "ecommerce",
+          "testing_type": "smoke",
+          "paths": {
+            "trace": "projects/core_saucedemo/outputs/trace.json",
+            "test": "projects/core_saucedemo/tests/test_main.py",
+            "report": "projects/core_saucedemo/outputs/report.md"
+          },
+          "metadata": {
+            "created_at": "2026-01-07T18:25:25.516441",
+            "is_core": true
+          }
+        }
+      }
+    },
+    {
+      "agent": "Orchestrator",
+      "action": "pipeline_start",
+      "end_time": 1767810325.9828527,
+      "duration": 0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": {
+          "project_name": "core_parabank",
+          "target_url": "https://parabank.parasoft.com/parabank/index.htm",
+          "workflow_description": "Verify login page, check find transactions link, and navigate to about us.",
+          "domain": "banking",
+          "testing_type": "smoke",
+          "paths": {
+            "trace": "projects/core_parabank/outputs/trace.json",
+            "test": "projects/core_parabank/tests/test_main.py",
+            "report": "projects/core_parabank/outputs/report.md"
+          },
+          "metadata": {
+            "created_at": "2026-01-07T18:25:25.516528",
+            "is_core": true
+          }
+        }
+      }
+    },
+    {
+      "agent": "SpecSynthesizer",
+      "action": "generate_master_plan",
+      "end_time": 1767810335.9289687,
+      "duration": 8.3456,
+      "success": true,
+      "cost": 0.002,
+      "metadata": {}
+    },
+    {
+      "agent": "Explorer",
+      "action": "init",
+      "end_time": 1767810337.0868511,
+      "duration": 0.0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": "projects/core_parabank/config.json"
+      }
+    },
+    {
+      "agent": "SpecSynthesizer",
+      "action": "generate_master_plan",
+      "end_time": 1767810338.3630755,
+      "duration": 10.8289,
+      "success": true,
+      "cost": 0.002,
+      "metadata": {}
+    },
+    {
+      "agent": "SpecSynthesizer",
+      "action": "generate_master_plan",
+      "end_time": 1767810338.7932239,
+      "duration": 11.2245,
+      "success": true,
+      "cost": 0.002,
+      "metadata": {}
+    },
+    {
+      "agent": "Explorer",
+      "action": "init",
+      "end_time": 1767810339.593128,
+      "duration": 0.0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": "projects/core_saucedemo/config.json"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "init",
+      "end_time": 1767810340.0851521,
+      "duration": 0.0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": "projects/core_automation_exercise/config.json"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810344.0381947,
+      "duration": 3.9035,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://parabank.parasoft.com/parabank/index.htm",
+        "elements": 36
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810344.2901564,
+      "duration": 2.9961,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://www.saucedemo.com/",
+        "elements": 3
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810345.4521415,
+      "duration": 1.3398,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "url": "https://parabank.parasoft.com/parabank/index.htm"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810345.5108337,
+      "duration": 1.1779,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "url": "https://www.saucedemo.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810345.5676622,
+      "duration": 0.0528,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "action": "fill",
+        "target": 1
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810345.6454358,
+      "duration": 0.1904,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "action": "click",
+        "target": 21
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810345.6947756,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.saucedemo.com/"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810345.8733912,
+      "duration": 3.144,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://automationexercise.com/",
+        "elements": 271
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810346.850648,
+      "duration": 1.1136,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 1,
+        "url": "https://www.saucedemo.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810346.8723323,
+      "duration": 0.0185,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 1,
+        "action": "fill",
+        "target": 2
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810346.9098167,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.saucedemo.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810347.2230697,
+      "duration": 1.2602,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "url": "https://automationexercise.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810347.4626257,
+      "duration": 0.2359,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "action": "click",
+        "target": 5
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810348.034492,
+      "duration": 1.0846,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "url": "https://www.saucedemo.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810348.096719,
+      "duration": 0.0582,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "action": "click",
+        "target": 3
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810348.6470327,
+      "duration": 2.8656,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://parabank.parasoft.com/parabank/services/bank;jsessionid=FDF585FD4C28720A36219E9630F50611?_wadl&_type=xml",
+        "elements": 124
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810350.126165,
+      "duration": 1.4213,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 1,
+        "url": "https://parabank.parasoft.com/parabank/services/bank;jsessionid=FDF585FD4C28720A36219E9630F50611?_wadl&_type=xml"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810350.1841793,
+      "duration": 0.0542,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 1,
+        "action": "click",
+        "target": 1
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810350.953469,
+      "duration": 3.2781,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://automationexercise.com/products",
+        "elements": 253
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810352.204136,
+      "duration": 4.0511,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://www.saucedemo.com/inventory.html",
+        "elements": 43
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810352.6742609,
+      "duration": 1.645,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 1,
+        "url": "https://automationexercise.com/products"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810352.712317,
+      "duration": 0.0347,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 1,
+        "action": "fill",
+        "target": 19
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810352.843234,
+      "duration": 2.6031,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://parabank.parasoft.com/parabank/services/bank;jsessionid=FDF585FD4C28720A36219E9630F50611?_wadl&_type=xml",
+        "elements": 1
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810352.8620315,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://automationexercise.com/products"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810353.4897437,
+      "duration": 1.216,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "url": "https://www.saucedemo.com/inventory.html"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810353.5203571,
+      "duration": 0.0272,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "action": "click",
+        "target": 10
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810354.3549848,
+      "duration": 1.4076,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "url": "https://automationexercise.com/products"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810354.4537983,
+      "duration": 1.5702,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "url": "https://parabank.parasoft.com/parabank/services/bank;jsessionid=FDF585FD4C28720A36219E9630F50611?_wadl&_type=xml"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810354.5082176,
+      "duration": 0.0504,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "action": "navigate",
+        "target": 1
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810355.8857036,
+      "duration": 1.5274,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "action": "click",
+        "target": 47
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810356.7486908,
+      "duration": 2.177,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://parabank.parasoft.com/index.htm",
+        "elements": 0
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810358.2255669,
+      "duration": 1.4444,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "url": "https://parabank.parasoft.com/index.htm"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810358.2441823,
+      "duration": 0.0152,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "action": "navigate",
+        "target": null
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810358.33749,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://parabank.parasoft.com/index.htm"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810359.2488608,
+      "duration": 5.6602,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://www.saucedemo.com/inventory.html",
+        "elements": 38
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810359.9181268,
+      "duration": 1.5347,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "url": "https://parabank.parasoft.com/index.htm"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810359.9280834,
+      "duration": 0.0066,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "action": "navigate",
+        "target": null
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810359.9767914,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://parabank.parasoft.com/index.htm"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "exploration_phase",
+      "end_time": 1767810360.260209,
+      "duration": 24.3278,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810360.6009045,
+      "duration": 1.2734,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "url": "https://www.saucedemo.com/inventory.html"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810360.6297486,
+      "duration": 0.0219,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "action": "click",
+        "target": 5
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810360.7042782,
+      "duration": 4.6922,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://automationexercise.com/products",
+        "elements": 258
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810360.7272887,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.saucedemo.com/inventory.html"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "exploration_phase",
+      "end_time": 1767810361.0911493,
+      "duration": 22.7244,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810362.5472302,
+      "duration": 1.7252,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "url": "https://automationexercise.com/products"
+      }
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810367.0321062,
+      "duration": 4.9005,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810367.5751908,
+      "duration": 5.0245,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "action": "click",
+        "target": 7
+      }
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810368.3262691,
+      "duration": 6.9288,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810372.3181875,
+      "duration": 4.5415,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://automationexercise.com/products",
+        "elements": 256
+      }
+    },
+    {
+      "agent": "Reviewer",
+      "action": "review_code",
+      "end_time": 1767810372.5640028,
+      "duration": 5.3088,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Generator",
+      "action": "full_gen_cycle",
+      "end_time": 1767810372.5677104,
+      "duration": 11.4713,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "loops": 1
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810373.6630878,
+      "duration": 1.2661,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "url": "https://automationexercise.com/products"
+      }
+    },
+    {
+      "agent": "Reviewer",
+      "action": "review_code",
+      "end_time": 1767810375.130075,
+      "duration": 6.5808,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Generator",
+      "action": "full_gen_cycle",
+      "end_time": 1767810375.1345408,
+      "duration": 14.8667,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "loops": 1
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810375.312641,
+      "duration": 1.6456,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "action": "click",
+        "target": 47
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810378.694832,
+      "duration": 3.2843,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://automationexercise.com/view_cart",
+        "elements": 29
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810380.1706321,
+      "duration": 1.4348,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 5,
+        "url": "https://automationexercise.com/view_cart"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810380.2140112,
+      "duration": 0.0397,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 5,
+        "action": "click",
+        "target": 20
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810384.3279169,
+      "duration": 3.9993,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://automationexercise.com/view_cart",
+        "elements": 32
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810386.3074713,
+      "duration": 1.9366,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 6,
+        "url": "https://automationexercise.com/view_cart"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810386.445838,
+      "duration": 0.1344,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 6,
+        "action": "click",
+        "target": 21
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810391.1661084,
+      "duration": 4.6249,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://automationexercise.com/login",
+        "elements": 27
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810392.863603,
+      "duration": 1.6477,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 7,
+        "url": "https://automationexercise.com/login"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810393.0622058,
+      "duration": 0.1937,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 7,
+        "action": "click",
+        "target": 5
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810393.2966688,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://automationexercise.com/products"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810395.1030943,
+      "duration": 1.6836,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 8,
+        "url": "https://automationexercise.com/products"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810396.6820555,
+      "duration": 1.575,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 8,
+        "action": "click",
+        "target": 47
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810396.9109678,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://automationexercise.com/products"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810398.6620984,
+      "duration": 1.6744,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 9,
+        "url": "https://automationexercise.com/products"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810403.6897802,
+      "duration": 5.0238,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 9,
+        "action": "click",
+        "target": 7
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810403.8572876,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://automationexercise.com/products"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "exploration_phase",
+      "end_time": 1767810404.1651168,
+      "duration": 65.3679,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810411.3403327,
+      "duration": 5.688,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810412.2853987,
+      "duration": 7.1045,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Executor",
+      "action": "execute_test",
+      "end_time": 1767810414.0417678,
+      "duration": 2.4988,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "attempt": 3
+      }
+    },
+    {
+      "agent": "Orchestrator",
+      "action": "pipeline_start",
+      "end_time": 1767810414.9852612,
+      "duration": 0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": {
+          "project_name": "core_magento",
+          "target_url": "https://magento.softwaretestingboard.com/",
+          "workflow_description": "Search for 'Watch', filter by category, and view product details.",
+          "domain": "ecommerce",
+          "testing_type": "smoke",
+          "paths": {
+            "trace": "projects/core_magento/outputs/trace.json",
+            "test": "projects/core_magento/tests/test_main.py",
+            "report": "projects/core_magento/outputs/report.md"
+          },
+          "metadata": {
+            "created_at": "2026-01-07T18:25:25.516626",
+            "is_core": true
+          }
+        }
+      }
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810425.391037,
+      "duration": 9.8595,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "SpecSynthesizer",
+      "action": "generate_master_plan",
+      "end_time": 1767810425.4717565,
+      "duration": 10.4771,
+      "success": true,
+      "cost": 0.002,
+      "metadata": {}
+    },
+    {
+      "agent": "Explorer",
+      "action": "init",
+      "end_time": 1767810426.6973052,
+      "duration": 0.0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": "projects/core_magento/config.json"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810430.9899433,
+      "duration": 3.2654,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://magento.softwaretestingboard.com/",
+        "elements": 8
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810432.5572941,
+      "duration": 1.528,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "url": "https://magento.softwaretestingboard.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "exploration_phase",
+      "end_time": 1767810432.7935889,
+      "duration": 7.3157,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810437.6846237,
+      "duration": 3.8682,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Reviewer",
+      "action": "review_code",
+      "end_time": 1767810441.7047355,
+      "duration": 3.7771,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Generator",
+      "action": "full_gen_cycle",
+      "end_time": 1767810441.7100344,
+      "duration": 8.9113,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "loops": 1
+      }
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810452.277476,
+      "duration": 29.4498,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810456.2812715,
+      "duration": 5.7283,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Reviewer",
+      "action": "review_code",
+      "end_time": 1767810460.383319,
+      "duration": 7.8613,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Generator",
+      "action": "full_gen_cycle",
+      "end_time": 1767810460.387578,
+      "duration": 38.5825,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "loops": 2
+      }
+    },
+    {
+      "agent": "Executor",
+      "action": "execute_test",
+      "end_time": 1767810462.6549296,
+      "duration": 6.1928,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "attempt": 2
+      }
+    },
+    {
+      "agent": "Orchestrator",
+      "action": "pipeline_start",
+      "end_time": 1767810463.7578807,
+      "duration": 0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": {
+          "project_name": "core_orangehrm",
+          "target_url": "https://opensource-demo.orangehrmlive.com/",
+          "workflow_description": "Verify login page elements, check forgot password link, and view social media icons.",
+          "domain": "saas",
+          "testing_type": "smoke",
+          "paths": {
+            "trace": "projects/core_orangehrm/outputs/trace.json",
+            "test": "projects/core_orangehrm/tests/test_main.py",
+            "report": "projects/core_orangehrm/outputs/report.md"
+          },
+          "metadata": {
+            "created_at": "2026-01-07T18:25:25.516716",
+            "is_core": true
+          }
+        }
+      }
+    },
+    {
+      "agent": "SpecSynthesizer",
+      "action": "generate_master_plan",
+      "end_time": 1767810471.467656,
+      "duration": 7.7004,
+      "success": true,
+      "cost": 0.002,
+      "metadata": {}
+    },
+    {
+      "agent": "Explorer",
+      "action": "init",
+      "end_time": 1767810472.6040502,
+      "duration": 0.0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": "projects/core_orangehrm/config.json"
+      }
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810500.0838823,
+      "duration": 8.5883,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810509.7249162,
+      "duration": 6.985,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810512.619685,
+      "duration": 4.9003,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
+        "elements": 21
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810513.983124,
+      "duration": 1.3163,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810516.9866128,
+      "duration": 2.9965,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "action": "click",
+        "target": 4
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810518.7479875,
+      "duration": 1.6658,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode",
+        "elements": 0
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810520.1669428,
+      "duration": 1.3915,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 1,
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810524.7449312,
+      "duration": 3.045,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode",
+        "elements": 4
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810524.749026,
+      "duration": 0.0,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 1,
+        "action": "click",
+        "target": 0
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810524.833659,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810526.3899975,
+      "duration": 1.5133,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810526.4301403,
+      "duration": 0.0355,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "action": "fill",
+        "target": 1
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810526.5164733,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810527.851396,
+      "duration": 1.2917,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810527.8950088,
+      "duration": 0.0386,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "action": "click",
+        "target": 3
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810533.3988426,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810535.3513088,
+      "duration": 1.9136,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810535.3731387,
+      "duration": 0.0175,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "action": "navigate",
+        "target": null
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810537.1184425,
+      "duration": 1.6689,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset",
+        "elements": 0
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810540.0454988,
+      "duration": 1.3519,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 5,
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810540.0618296,
+      "duration": 0.011,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 5,
+        "action": "navigate",
+        "target": null
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767810542.5408192,
+      "duration": 2.3911,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset",
+        "elements": 1
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810544.24959,
+      "duration": 1.6758,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 6,
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810544.2908268,
+      "duration": 0.0359,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 6,
+        "action": "click",
+        "target": 1
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810544.3800628,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810546.0850842,
+      "duration": 1.6611,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 7,
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810546.1271772,
+      "duration": 0.0349,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 7,
+        "action": "click",
+        "target": 1
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810546.2148974,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767810547.8866498,
+      "duration": 1.6256,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 8,
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1767810547.9285045,
+      "duration": 0.0367,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 8,
+        "action": "click",
+        "target": 1
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1767810548.0365217,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "exploration_phase",
+      "end_time": 1767810548.3528295,
+      "duration": 76.8783,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810563.3452554,
+      "duration": 13.9643,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Reviewer",
+      "action": "review_code",
+      "end_time": 1767810569.275751,
+      "duration": 5.7106,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Generator",
+      "action": "full_gen_cycle",
+      "end_time": 1767810569.2821944,
+      "duration": 20.9184,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "loops": 1
+      }
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810570.6906044,
+      "duration": 21.7194,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810613.4116971,
+      "duration": 7.8861,
+      "success": true,
+      "cost": 0.01,
+      "metadata": {}
+    },
+    {
+      "agent": "Refiner",
+      "action": "generate_code",
+      "end_time": 1767810653.4759316,
+      "duration": 6.978,
       "success": true,
       "cost": 0.01,
       "metadata": {}

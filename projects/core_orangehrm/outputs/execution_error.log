@@ -17,39 +17,58 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
+        page.goto("https://opensource-demo.orangehrmlive.com/")
+        page.wait_for_load_state("networkidle")
     
         # 2. Logic (using POM)
         login_page = OrangehrmLoginPage(page)
         reset_password_page = OrangehrmResetPasswordPage(page)
         password_reset_confirmation_page = PasswordResetConfirmationPage(page)
     
-        login_page.goto()
+        # Step 0: Click 'Forgot your password?' link
         login_page.click_forgot_password_link()
+        page.wait_for_url("**/requestPasswordResetCode", timeout=15000)
+        page.wait_for_load_state("networkidle")
     
-        expect(page).to_have_url(re.compile(".*/requestPasswordResetCode", re.IGNORECASE))
+        # Step 2: Fill username on reset password page
+        reset_password_page.fill_username("testuser")
     
-        reset_password_page.fill_username("Admin")
+        # Step 3: Click 'Reset Password' button
         reset_password_page.click_reset_password_button()
+        page.wait_for_url("**/sendPasswordReset", timeout=15000)
+        page.wait_for_load_state("networkidle")
     
-        # The page redirects to the same page after password reset request
-        # We should assert that the page contains a success message instead of redirecting to login page
->       expect(page.get_by_text("Reset Password link sent successfully")).to_be_visible()
-E       AssertionError: Locator expected to be visible
-E       Actual value: None
-E       Error: element(s) not found 
-E       Call log:
-E         - Expect "to_be_visible" with timeout 5000ms
-E         - waiting for get_by_text("Reset Password link sent successfully")
-E           - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestResetPassword" navigation to finish...
+        # Step 6, 7, 8: Click OrangeHRM, Inc link three times to return to login page
+        for _ in range(3):
+            password_reset_confirmation_page.click_orangehrm_inc_link()
+>           page.wait_for_url("**/login", timeout=15000)
 
-projects/core_orangehrm/tests/test_main.py:87: AssertionError
+projects/core_orangehrm/tests/test_main.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9193: in wait_for_url
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:580: in wait_for_url
+    return await self._main_frame.wait_for_url(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:263: in wait_for_url
+    async with self.expect_navigation(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_event_context_manager.py:33: in __aexit__
+    await self._future
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    async def continuation() -> Optional[Response]:
+>       event = await waiter.result()
+                ^^^^^^^^^^^^^^^^^^^^^
+E       playwright._impl._errors.TimeoutError: Timeout 15000ms exceeded.
+E       =========================== logs ===========================
+E       waiting for navigation to "**/login" until 'load'
+E       ============================================================
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:239: TimeoutError
 =========================== short test summary info ============================
-FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Locator expected to be visible
-Actual value: None
-Error: element(s) not found 
-Call log:
-  - Expect "to_be_visible" with timeout 5000ms
-  - waiting for get_by_text("Reset Password link sent successfully")
-    - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestResetPassword" navigation to finish...
-============================== 1 failed in 9.30s ===============================
+FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Timeout 15000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to "**/login" until 'load'
+============================================================
+============================== 1 failed in 28.78s ==============================
 
