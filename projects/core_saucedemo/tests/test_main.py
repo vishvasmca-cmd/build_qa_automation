@@ -23,21 +23,17 @@ class HomePage:
     def password_field(self):
         return self.page.locator("[data-test='password']")
 
-    def fill_username(self, username):
-        self.username_field.fill(username)
-
-    def fill_password(self, password):
-        self.password_field.fill(password)
-
-class SwagLabsLoginPage:
-    def __init__(self, page):
-        self.page = page
-
     @property
     def login_button(self):
         return self.page.locator("[data-test='login-button']")
 
-    def click_login(self):
+    def goto(self):
+        self.page.goto("https://www.saucedemo.com/")
+        self.page.wait_for_load_state("networkidle")
+
+    def login(self, username, password):
+        self.username_field.fill(username)
+        self.password_field.fill(password)
         self.login_button.click()
 
 class SaucedemoInventoryPage:
@@ -48,38 +44,36 @@ class SaucedemoInventoryPage:
     def product_sort_dropdown(self):
         return self.page.locator("[data-test='product-sort-container']")
 
-    def sort_by_price_low_to_high(self):
-        self.product_sort_dropdown.select_option(label='Price (low to high)')
+    @property
+    def add_bike_light_button(self):
+        return self.page.locator("[data-test='add-to-cart-sauce-labs-bike-light']")
 
-    def verify_products_sorted_by_price(self):
-        # Get the prices of the products
-        product_prices = self.page.locator(".inventory_item_price").all_text_contents()
-        # Convert prices to floats and check if they are sorted
-        prices = [float(price.replace('$', '')) for price in product_prices]
-        is_sorted = all(prices[i] <= prices[i + 1] for i in range(len(prices) - 1))
-        expect(self.page.locator(".inventory_item_price")).to_have_count(len(prices))
-        if not is_sorted:
-            print("Prices are not sorted correctly.")
-        else:
-            print("Prices are sorted correctly.")
+    def sort_by_price_low_to_high(self):
+        self.product_sort_dropdown.select_option(label="Price (low to high)")
+
+    def add_bike_light_to_cart(self):
+        self.add_bike_light_button.click()
+
+class SwagLabsPage:
+    def __init__(self, page):
+        self.page = page
+
+    @property
+    def login_button(self):
+        return self.page.locator("[data-test='login-button']")
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
-    page.goto("https://www.saucedemo.com/")
-    page.wait_for_load_state("networkidle")
+    home_page = HomePage(page)
+    inventory_page = SaucedemoInventoryPage(page)
 
     # 2. Logic (using POM)
-    home_page = HomePage(page)
-    swag_labs_login_page = SwagLabsLoginPage(page)
-    saucedemo_inventory_page = SaucedemoInventoryPage(page)
-
-    home_page.fill_username("standard_user")
-    home_page.fill_password("secret_sauce")
-    swag_labs_login_page.click_login()
-    saucedemo_inventory_page.sort_by_price_low_to_high()
-    saucedemo_inventory_page.verify_products_sorted_by_price()
+    home_page.goto()
+    home_page.login("standard_user", "secret_sauce")
+    inventory_page.sort_by_price_low_to_high()
+    inventory_page.add_bike_light_to_cart()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

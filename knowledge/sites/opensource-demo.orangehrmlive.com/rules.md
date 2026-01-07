@@ -54,3 +54,9 @@
 - When navigating to a new page, especially the login page, increase the timeout to accommodate potential server delays or network latency. Consider implementing a retry mechanism with exponential backoff.
 
 - When navigating to a new page, especially the login page, increase the timeout to accommodate potential server delays or network latency. Consider implementing a retry mechanism with exponential backoff.
+
+- Before attempting to fill the 'Username' field, explicitly wait for the form or relevant section to be fully loaded. Consider using a more robust locator strategy if labels are unreliable.
+
+- When navigating to the OrangeHRM login page, implement a retry mechanism with exponential backoff to handle potential delays in redirection. Also, check for common blocking elements like modals or banners before waiting for the URL.
+
+- When navigating to a new page, especially the login page, increase the timeout to accommodate potential server delays or network latency. Consider implementing a retry mechanism with exponential backoff.

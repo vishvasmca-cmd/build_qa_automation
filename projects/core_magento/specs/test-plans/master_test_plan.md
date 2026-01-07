@@ -2,45 +2,50 @@
 
 ## Introduction
 
-This document outlines the test plan for the core_magento e-commerce platform. It details the testing scope, objectives, and strategies to ensure the quality and reliability of the application.
+This test plan outlines the testing strategy for the core_magento e-commerce platform. It details the scope, objectives, and approach to ensure the quality and reliability of the software.
 
 ## Scope
 
-The testing will cover key functionalities of the e-commerce platform, including product search, filtering, and product detail viewing. Due to SSL certificate issues encountered during the trace, the initial focus will be on verifying these functionalities after the SSL issue is resolved.
+The testing will cover key functionalities of the e-commerce platform, including product search, filtering, and product detail viewing. Due to SSL issues encountered during trace analysis, the initial focus will be on verifying the availability and basic functionality once the SSL issue is resolved.
 
 ## Objectives
 
 *   Verify the core functionalities of the e-commerce platform.
-*   Ensure a smooth user experience when searching and viewing products.
-*   Identify and address any critical defects that may impact the platform's usability.
+*   Identify and report any defects or inconsistencies.
+*   Ensure a smooth and user-friendly experience for customers.
 
 ## Test Strategy
 
-The testing will be conducted using a combination of smoke and regression testing techniques. The smoke tests will focus on the critical path of searching, filtering, and viewing product details. Regression tests will be added as the application evolves and new features are implemented.
+The testing will be conducted using a combination of manual and automated testing techniques. The test suites will be divided into Smoke and Regression suites, as defined below.
 
 ### Smoke Suite Strategy
 
-The smoke suite will be designed based on the following criteria:
+The Smoke Suite will focus on critical path testing to ensure the core functionalities are working as expected. The following checklist will be applied:
 
-1.  **Critical Functionality:** Tests will cover the most critical functionalities of the application (e.g., login, product search, checkout).
-2.  **Positive Scenarios:** Focus will be on positive or "happy path" scenarios.
-3.  **End-to-End Flows:** Tests will cover end-to-end flows to ensure that different parts of the system work together seamlessly.
-4.  **Minimal Data Set:** Tests will use a minimal data set to reduce execution time.
-5.  **Independent Tests:** Tests will be designed to be independent of each other.
-6.  **Fast Execution:** Tests should execute quickly to provide rapid feedback.
-7.  **Automated Execution:** Tests will be automated to ensure repeatability.
-8.  **High Priority:** Tests will be given the highest priority for execution.
+1.  **Critical Path Coverage:** Tests cover the most common and essential user flows.
+2.  **Positive Testing:** Focus on valid inputs and expected outcomes.
+3.  **Minimal Data Set:** Use a small, representative set of test data.
+4.  **Fast Execution:** Tests should be quick to execute, providing rapid feedback.
+5.  **Build Verification:** Used to verify each new build before further testing.
+6.  **High Priority:** Any failures in the smoke suite are treated as critical.
+7.  **Automated Execution:** Smoke tests are automated for repeatability.
+8.  **Environment Stability:** Assumes a stable and properly configured test environment.
 
-## Test Suites
+### Regression Suite Strategy
 
-### Smoke Suite
+The Regression Suite will cover a broader range of scenarios, including alternative flows, negative testing, and edge cases. This suite will ensure that new changes have not introduced any regressions in existing functionality.
 
-The smoke suite will include the following test cases:
+## Test Modules
 
-*   Verify product search functionality.
-*   Verify product filtering by category.
-*   Verify product detail page display.
+*   Product Catalog
 
-### Regression Suite
+## Test Environment
 
-(To be defined as the application evolves and new features are implemented)
+The tests will be executed in a dedicated test environment that mirrors the production environment.
+
+## Test Deliverables
+
+*   Test Plan
+*   Test Cases (Gherkin Feature Files)
+*   Test Execution Reports
+*   Defect Reports

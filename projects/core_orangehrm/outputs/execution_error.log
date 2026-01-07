@@ -28,22 +28,24 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # Step 0: Click 'Forgot your password?' link
         login_page.click_forgot_password_link()
         page.wait_for_url("**/requestPasswordResetCode", timeout=15000)
-        page.wait_for_load_state("networkidle")
     
-        # Step 2: Fill username on reset password page
+        # Step 2: Fill username on the reset password page
         reset_password_page.fill_username("testuser")
     
-        # Step 3: Click 'Reset Password' button
+        # Step 3: Click Reset Password button
         reset_password_page.click_reset_password_button()
-        page.wait_for_url("**/sendPasswordReset", timeout=15000)
         page.wait_for_load_state("networkidle")
     
-        # Step 6, 7, 8: Click OrangeHRM, Inc link three times to return to login page
-        for _ in range(3):
+        # Step 5: Click OrangeHRM, Inc link on Password Reset Confirmation page
+        try:
             password_reset_confirmation_page.click_orangehrm_inc_link()
->           page.wait_for_url("**/login", timeout=15000)
+        except Exception as e:
+            print(f"Error clicking OrangeHRM link: {e}")
+    
+        # Step 6: Navigate to login page
+>       page.wait_for_url("**/login", timeout=15000)
 
-projects/core_orangehrm/tests/test_main.py:97: 
+projects/core_orangehrm/tests/test_main.py:121: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9193: in wait_for_url
     self._sync(
@@ -70,5 +72,5 @@ FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium
 =========================== logs ===========================
 waiting for navigation to "**/login" until 'load'
 ============================================================
-============================== 1 failed in 28.78s ==============================
+============================== 1 failed in 20.57s ==============================
 

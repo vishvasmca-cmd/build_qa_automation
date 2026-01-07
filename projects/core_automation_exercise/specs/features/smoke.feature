@@ -1,10 +1,12 @@
-Feature: E-commerce Smoke Tests
+Feature: Product Search and Checkout
+  As a user
+  I want to search for a product and proceed to checkout
+  So that I can purchase the product
 
   @smoke
-  Scenario: Browse Products, Search, Add to Cart, and Checkout
-    Given User navigates to the Products page
-    When User searches for "Dress"
-    And User adds the first displayed product to the cart
-    And User navigates to the cart
-    And User proceeds to checkout
-    Then User should be redirected to the login page
+  Scenario: Search for a product and proceed to checkout
+    Given I navigate to the Products page
+    When I search for "Dress"
+    And I add the first product to the cart
+    And I proceed to checkout
+    Then I should be on the checkout page

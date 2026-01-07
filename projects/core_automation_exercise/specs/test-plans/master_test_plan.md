@@ -1,62 +1,67 @@
 # Test Plan: core_automation_exercise
 
-## Introduction
+## Overview
 
-This document outlines the test plan for the core_automation_exercise project, focusing on the e-commerce domain. The plan includes both smoke and regression test suites to ensure the quality and stability of the application.
-
-## Scope
-
-The testing will cover key functionalities such as product browsing, searching, adding to cart, and proceeding to checkout. The tests will be executed against the https://automationexercise.com/ website.
+This test plan outlines the testing strategy for the core_automation_exercise project, an e-commerce platform. The plan includes smoke and regression test suites, focusing on critical functionalities such as product browsing, shopping cart management, and checkout processes.
 
 ## Test Suites
 
-### Smoke Suite
+### 1. Smoke Suite
 
-The smoke suite will focus on verifying the core functionalities of the application. These tests are designed to be quick and efficient, providing a high level of confidence in the stability of the system.
+The smoke suite verifies the core functionalities of the application. It is designed to be executed quickly to ensure the system's stability after deployment or code changes. If any of the smoke tests fail, the build should be rejected.
 
 #### Smoke Suite Strategy
 
-The smoke suite strategy for this project follows an 8-point checklist to ensure comprehensive coverage of critical functionalities:
+The following 8-point checklist was applied when designing the smoke suite:
 
-1.  **Critical Path Coverage**: Tests cover the most common and essential user flows (e.g., product search, add to cart, checkout).
-2.  **Core Functionality**: Focus on testing the primary functions of each module (e.g., product details, cart operations).
-3.  **Positive Testing**: Primarily uses valid and expected inputs to confirm correct behavior.
-4.  **No Negative Testing**: Excludes tests with invalid or malicious inputs in the smoke suite.
-5.  **Minimal Edge Cases**: Avoids complex or rare scenarios.
-6.  **Fast Execution**: Tests are designed for quick execution to provide rapid feedback.
-7.  **Independent Tests**: Each test operates independently without relying on the state of others.
-8.  **High Priority**: Any failures in the smoke suite are treated as critical and require immediate attention.
+1.  **Critical Paths:** Tests cover the most critical user flows (e.g., login, checkout).
+2.  **Core Business Logic:** Focuses on testing the primary revenue-generating or operationally essential flows.
+3.  **Positive Testing:** Primarily uses valid inputs and happy-path scenarios.
+4.  **No Negative Testing:** Excludes tests with invalid inputs or error conditions (unless critical security).
+5.  **No Complex Edge Cases:** Avoids intricate scenarios or boundary conditions.
+6.  **Fast Execution:** Designed for quick execution to provide rapid feedback.
+7.  **Independent Tests:** Each test should be independent and not rely on the state of others.
+8.  **Limited Scope:** Covers a minimal set of functionalities to ensure basic system health.
 
 #### Smoke Test Cases
 
-*   Navigate to Products page
-*   Search for a product ('Dress')
-*   Add a product to the cart
-*   View the cart
-*   Proceed to checkout
+*   **TC_SMOKE_001: Product Search and Checkout**
+    *   Objective: Verify that a user can successfully search for a product, add it to the cart, and proceed to the checkout page.
+    *   Steps:
+        1.  Navigate to the Products page.
+        2.  Search for a product (e.g., "Dress").
+        3.  Add the first displayed product to the cart.
+        4.  Proceed to checkout from the cart page.
 
-### Regression Suite
+### 2. Regression Suite
 
-The regression suite will include a more comprehensive set of tests to ensure that new changes have not introduced any regressions. This suite will cover a wider range of scenarios, including edge cases and negative tests.
+The regression suite is a comprehensive set of tests designed to ensure that new changes have not introduced defects into existing functionality. It covers a wide range of scenarios, including alternative flows, negative tests, and boundary conditions.
 
 #### Regression Test Cases
 
-*   Search for a non-existent product
-*   Attempt to add an out-of-stock item to the cart
-*   Verify cart persistence after refreshing the page
-*   Apply a valid and invalid coupon code during checkout
-*   Simulate a payment decline during checkout
+*   **TC_REG_001: Product Search - No Results**
+    *   Objective: Verify that the system handles searches with no results gracefully.
+    *   Steps:
+        1.  Navigate to the Products page.
+        2.  Search for a non-existent product.
+        3.  Verify that a "no results found" message is displayed.
+*   **TC_REG_002: Add to Cart - Multiple Items**
+    *   Objective: Verify that multiple items can be added to the cart.
+    *   Steps:
+        1.  Navigate to the Products page.
+        2.  Add multiple products to the cart.
+        3.  Verify that all added products are displayed in the cart.
+*   **TC_REG_003: Checkout with different address formats**
+    *   Objective: Verify that the checkout process works correctly with different address formats.
+    *   Steps:
+        1.  Add a product to the cart.
+        2.  Proceed to checkout.
+        3.  Enter an address with special characters.
+        4.  Verify that the order can be placed successfully.
 
 ## Test Environment
 
-*   **URL**: https://automationexercise.com/
-*   **Browsers**: Chrome, Firefox
-*   **Operating Systems**: Windows, macOS
+*   Browser: Chrome (latest version)
+*   Operating System: Windows 10
+*   URL: https://automationexercise.com/
 
-## Test Execution
-
-The tests will be executed using a CI/CD pipeline. The smoke tests will be executed on every commit, while the regression tests will be executed on a nightly basis.
-
-## Test Reporting
-
-Test results will be reported using a centralized test management system. The reports will include detailed information about each test case, including the status, execution time, and any errors encountered.

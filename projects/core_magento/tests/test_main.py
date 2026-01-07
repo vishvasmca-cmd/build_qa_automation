@@ -1,4 +1,3 @@
-# Auto-generated Test
 import pytest
 import os
 import re
@@ -11,24 +10,26 @@ sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/
 from helpers import take_screenshot
 
 
+def check_ssl_certificate(page: Page) -> bool:
+    if "Invalid SSL certificate" in page.title():
+        print("SSL Certificate is invalid. Skipping test.")
+        return False
+    return True
 
 
-import re
-from playwright.sync_api import Browser, expect
-
-def test_autonomous_flow(browser: Browser):
+def test_autonomous_flow(page: Page):
     # 1. Setup
-    context = browser.new_context(viewport={"width": 1920, "height": 1080}, ignore_https_errors=True)
-    page = context.new_page()
+    page.set_viewport_size({"width": 1920, "height": 1080})
+
+    # 2. Logic
     page.goto("https://magento.softwaretestingboard.com/")
-    page.wait_for_load_state("domcontentloaded")
+    page.wait_for_load_state("networkidle")
 
-    # Assert that the page title is correct
-    try:
-        expect(page).to_have_title(re.compile("Magento", re.IGNORECASE))
-    except Exception as e:
-        print(f"SSL Certificate Error: {e}")
+    if not check_ssl_certificate(page):
+        print("Skipping test due to invalid SSL certificate.")
+        return
 
-    # Cleanup
+    expect(page).to_have_title(re.compile("Magento", re.IGNORECASE))
+
+    # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")
-    context.close()

@@ -55,3 +55,9 @@
 - Before navigating to 'Account History', ensure that all loading elements or overlays are fully dismissed. Consider adding an explicit wait for the page to fully load before interacting with elements.
 
 - Before clicking 'Account History', ensure the page is fully loaded and any overlays or animations are complete. Consider adding a short explicit wait for the element to be visible and stable.
+
+- Before navigating to 'Account History', check for any pop-up messages or redirects that might interfere with the intended navigation flow. If a redirect to the web service definition page is detected, retry the navigation after a short delay.
+
+- Before navigating to 'Account History', ensure all page elements are fully loaded and any potential overlays or animations are complete. Consider adding a short explicit wait if necessary.
+
+- Before navigating to 'Account History', ensure the main content area is fully loaded and any overlaying elements (e.g., advertisements or loading spinners) are dismissed. Consider adding a short explicit wait for the main content to stabilize.
