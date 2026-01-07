@@ -1,39 +1,35 @@
 # Test Plan: core_parabank
 
-## Overview
+## Introduction
 
-This test plan outlines the testing strategy for the core_parabank application, focusing on verifying key functionalities within the banking domain. The plan includes both smoke and regression test suites to ensure application stability and quality.
+This document outlines the test plan for the core_parabank application, focusing on verifying key functionalities within the banking domain. The plan includes both smoke and regression test suites to ensure application stability and quality.
 
 ## Scope
 
-The testing will cover the following modules:
-
-*   Account Access
-*   Transfers & Payments
-*   Statements & History
+The testing will cover account access, transfers & payments, and statements & history modules. The focus will be on critical user workflows and potential edge cases.
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite will focus on critical path testing to ensure the core functionalities of the application are working as expected.  If any smoke tests fail, the build should be rejected.
+The smoke suite will verify the core functionalities of the application. These tests are designed to be executed quickly and should identify any major issues that would prevent further testing.
 
 **Smoke Suite Strategy**
 
 The following checklist was applied when designing the smoke suite for this project:
 
-1.  **Critical Paths:** Tests cover the most essential user workflows (e.g., login).
-2.  **Core Business Logic:** Focus on primary revenue or operational flows.
-3.  **Positive Testing:** Primarily happy path scenarios.
-4.  **No Negative Testing:** Avoid negative tests unless critical for security.
-5.  **No Complex Edge Cases:** Exclude intricate or less common scenarios.
-6.  **Fast Execution:** Tests should be quick to execute for rapid feedback.
-7.  **Independent Tests:** Tests should be independent and not rely on each other.
-8.  **Limited Scope:** Focus on a minimal set of functionalities.
+1.  **Critical Paths:** Tests cover the most common and essential user flows (e.g., login).
+2.  **Core Business Logic:** Focus on verifying the primary functions related to the banking domain.
+3.  **Positive Testing:** Primarily focuses on successful scenarios, with minimal negative testing.
+4.  **End-to-End Coverage:** Tests simulate real user interactions from start to finish for key workflows.
+5.  **Data Integrity:** Basic validation of data consistency throughout the tested flows.
+6.  **Environment Stability:** Checks for basic environment issues that might block testing.
+7.  **Performance Considerations:** No performance tests are included in the smoke suite.
+8.  **Security Considerations:** Basic security checks (e.g., login) are included.
 
 ### Regression Suite
 
-The regression suite will provide a comprehensive test coverage to ensure that new changes have not introduced any regressions in existing functionalities. This suite will include alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
+The regression suite will provide a more comprehensive test coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
 
 ## Test Modules
 
@@ -41,7 +37,6 @@ The regression suite will provide a comprehensive test coverage to ensure that n
 
 *   **Smoke Tests:**
     *   Customer Login
-    *   View Account Dashboard
 *   **Regression Tests:**
     *   Login with Biometrics/MFA
     *   Recover Forgotten Username/Password
@@ -51,7 +46,6 @@ The regression suite will provide a comprehensive test coverage to ensure that n
 
 *   **Smoke Tests:**
     *   Internal Fund Transfer (Checking to Savings)
-    *   Bill Payment (Standard)
 *   **Regression Tests:**
     *   Transfer exceeding balance (Insufficient Funds)
     *   Transfer exceeding daily limit

@@ -11,18 +11,22 @@ sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/
 from helpers import take_screenshot
 
 
+import re
+from playwright.sync_api import Page, expect
+
 class GenericPage:
-    def __init__(self, page):
+    def __init__(self, page: Page) -> None:
         self.page = page
 
-    def goto(self, url):
+    def goto(self, url: str) -> None:
         self.page.goto(url)
+        self.page.wait_for_load_state("networkidle")
 
-    def wait_for_load_state(self, state="networkidle"):
-        self.page.wait_for_load_state(state=state)
+    def assert_title(self, title: str) -> None:
+        expect(self.page).to_have_title(re.compile(title, re.IGNORECASE))
 
-    def take_screenshot(self, name, project_name):
-        self.page.screenshot(path=f"screenshots/{project_name}/{name}.png")
+
+from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
@@ -31,13 +35,7 @@ def test_autonomous_flow(browser: Browser):
     generic_page = GenericPage(page)
 
     # 2. Logic
-    try:
-        generic_page.goto("https://magento.softwaretestingboard.com/")
-        generic_page.wait_for_load_state("networkidle")
-        print("Successfully navigated to the home page.")
-    except Exception as e:
-        print(f"Failed to navigate to the home page due to SSL error: {e}")
+    generic_page.goto("https://magento.softwaretestingboard.com/")
 
     # 3. Cleanup
-    generic_page.take_screenshot("final_state", "build_qa_automation")
     context.close()
