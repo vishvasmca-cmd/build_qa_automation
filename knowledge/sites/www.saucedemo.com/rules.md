@@ -13,4 +13,8 @@
 
 - When verifying a condition using Playwright's `expect` function, ensure that you are passing a Playwright object (Page, Locator, APIResponse) to the `expect` function, not a boolean or other primitive data type. Use Locator.evaluate() to get the sorted values and then use expect(locator).to_have_values(expected_values)
 
+<<<<<<< Updated upstream
 - Before attempting to fill the username field, ensure the page is fully loaded and any overlays or modals are dismissed. Consider adding a short wait or an explicit check for the username field's visibility before attempting to fill it.
+=======
+- Before attempting to fill the username field, ensure the page is fully loaded and any overlaying elements (e.g., modals, spinners) are dismissed. Consider adding a short explicit wait for the username field to be visible before attempting to fill it.
+>>>>>>> Stashed changes

@@ -2,22 +2,85 @@
 
 ## Introduction
 
+<<<<<<< Updated upstream
 This document outlines the test plan for the core_automation_exercise project, focusing on the e-commerce domain. The plan includes both smoke and regression test suites to ensure the quality and stability of the application.
 
 ## Scope
 
 The testing will cover key functionalities such as product browsing, searching, adding to cart, and proceeding to checkout. The tests will be executed against the automationexercise.com website.
+=======
+This test plan outlines the testing strategy for the core_automation_exercise project, an e-commerce platform. The plan covers smoke and regression testing to ensure the quality and stability of the application.
+
+## Scope
+
+The testing will focus on the following modules:
+
+*   Authentication
+*   Product Catalog
+*   Shopping Cart
+*   Checkout & Payments
+
+## Test Strategy
+
+We will employ a two-tiered testing approach:
+
+1.  **Smoke Testing:** A quick, high-level test suite to verify the core functionality.
+2.  **Regression Testing:** A more comprehensive suite to ensure existing functionality remains intact after changes.
+
+### Smoke Suite Strategy
+
+The smoke suite will adhere to the following checklist:
+
+1.  **Critical Paths Only:** Focus on the most essential user flows.
+2.  **Positive Scenarios:** Primarily test happy path scenarios.
+3.  **No Negative Testing:** Avoid testing error conditions in smoke tests.
+4.  **Core Business Logic:** Cover the primary revenue-generating or operationally critical functions.
+5.  **Limited Data Variation:** Use a small, representative set of test data.
+6.  **Fast Execution:** Smoke tests should be quick to execute.
+7.  **Build Acceptance:** Failure of any smoke test indicates a critical issue and potential build rejection.
+8.  **Automated:** All smoke tests should be automated for rapid feedback.
+>>>>>>> Stashed changes
 
 ## Test Suites
 
 ### Smoke Suite
 
+<<<<<<< Updated upstream
 The smoke suite will focus on verifying the core functionalities of the application. These tests are designed to be quick and efficient, providing a high level of confidence in the stability of the system.
 
 #### Smoke Suite Strategy
+=======
+*   Verify user can navigate to the products page.
+*   Verify user can search for a product.
+*   Verify user can add a product to the cart.
+*   Verify user can continue shopping.
+
+### Regression Suite
+
+*   **Authentication:**
+    *   Login with invalid password.
+    *   Registration with existing email.
+    *   Password reset flow.
+*   **Product Catalog:**
+    *   Filter products by price/category.
+    *   Sort products (price low to high).
+    *   Search for a non-existent product.
+    *   Verify pagination.
+*   **Shopping Cart:**
+    *   Update quantity in cart.
+    *   Remove item from cart.
+    *   Add out-of-stock item (verify error message).
+    *   Cart persistence (refresh page).
+*   **Checkout & Payments:**
+    *   Checkout with formatted address.
+    *   Apply valid/invalid coupon code.
+    *   Simulate payment decline.
+    *   Calculate tax/shipping correctly.
+>>>>>>> Stashed changes
 
 The Smoke Suite Strategy for this project follows an 8-point checklist to ensure comprehensive coverage of critical functionalities:
 
+<<<<<<< Updated upstream
 1.  **Critical Paths**: Tests cover essential user flows like navigating to products, searching, adding to cart, and proceeding to checkout.
 2.  **Core Business Logic**: Focuses on verifying the primary revenue/operation flows within the e-commerce domain.
 3.  **Positive Testing**: Primarily focuses on happy path scenarios, ensuring the system functions correctly under normal conditions.
@@ -71,3 +134,9 @@ The regression suite will include a more comprehensive set of tests to ensure th
     *   Apply Valid/Invalid Coupon Code
     *   Payment Decline Simulation
     *   Calculate Tax/Shipping correctly
+=======
+*   Test Plan document
+*   Automated test scripts (Smoke and Regression suites)
+*   Test execution reports
+*   Defect reports
+>>>>>>> Stashed changes

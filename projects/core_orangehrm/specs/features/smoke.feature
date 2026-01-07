@@ -1,5 +1,6 @@
-Feature: Login Page Verification and Password Reset
+Feature: Login Page Verification
   As a user,
+<<<<<<< Updated upstream
   I want to verify the login page elements and the 'Forgot your password?' functionality
   So that I can ensure the basic functionality of the login page is working.
 
@@ -22,4 +23,21 @@ Feature: Login Page Verification and Password Reset
     When I scroll down to the bottom of the page
     Then I should see the social media icons
     And I click on the first social media icon
+=======
+  I want to verify the login page elements and functionality
+  So that I can ensure the core functionality is working as expected.
+
+  @smoke
+  Scenario: Verify Login Page Elements and Forgot Password Link
+    Given I am on the login page
+    Then I should see the login page elements
+    When I click on the "Forgot your password?" link
+    Then I should be redirected to the password reset page
+
+  @smoke
+  Scenario: Verify Social Media Icons on Login Page
+    Given I am on the login page
+    Then I should see the social media icons
+    When I click on the first social media icon
+>>>>>>> Stashed changes
     Then I should be redirected to the corresponding social media page

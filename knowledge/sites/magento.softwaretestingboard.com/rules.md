@@ -12,3 +12,9 @@
 - Always import necessary modules (e.g., `re` for regular expressions) at the beginning of the test file to avoid `NameError` exceptions.
 
 - Always import necessary modules (e.g., `re` for regular expressions) at the beginning of the test file to avoid `NameError` exceptions.
+
+- Always import necessary modules (e.g., `re` for regular expressions) at the beginning of the test file to avoid `NameError` exceptions during runtime.
+
+- Before proceeding with any tests, validate the SSL certificate of the target website. If the certificate is invalid, halt the test execution and report the issue.
+
+- Before proceeding with any tests, always validate the SSL certificate of the target website. If the certificate is invalid, halt the test execution and report the issue.

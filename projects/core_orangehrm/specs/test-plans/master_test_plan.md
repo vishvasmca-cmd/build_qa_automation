@@ -2,12 +2,17 @@
 
 ## Introduction
 
+<<<<<<< Updated upstream
 This document outlines the test plan for the core_orangehrm project, focusing on verifying key functionalities of the OrangeHRM application. The primary goal is to ensure the stability and reliability of the application through comprehensive testing.
+=======
+This test plan outlines the testing strategy for the core_orangehrm application, a SaaS platform. The plan includes smoke and regression testing strategies to ensure the quality and stability of the application.
+>>>>>>> Stashed changes
 
 ## Scope
 
 The testing will cover the following areas:
 
+<<<<<<< Updated upstream
 *   Login page elements verification
 *   'Forgot your password?' link functionality
 *   Social media icons visibility and redirection
@@ -37,9 +42,55 @@ The regression suite will cover a wider range of scenarios, including alternativ
 
 1.  Smoke Suite
 2.  Regression Suite
+=======
+*   Login page elements
+*   Forgot password functionality
+*   Social media icons on the login page
 
-## Test Cases
+## Testing Strategy
 
+### Smoke Suite Strategy
+
+The smoke suite will focus on verifying the core functionality of the application. The following checklist will be applied:
+
+1.  **Critical Paths:** Tests cover the most important user flows (e.g., login).
+2.  **Core Business Logic:** Tests validate the primary functions of the application.
+3.  **Positive Testing:** Focus on successful scenarios.
+4.  **Limited Scope:** Only essential functionalities are included.
+5.  **Fast Execution:** Tests are designed to run quickly.
+6.  **Build Verification:** Used to determine if a build is stable enough for further testing.
+7.  **High Priority:** Smoke tests are executed before any other tests.
+8.  **Stable Environment:** Smoke tests are run in a stable environment.
+
+### Regression Suite Strategy
+
+The regression suite will cover a broader range of functionalities, including alternative flows, negative scenarios, and boundary conditions. This suite aims to ensure that new changes have not introduced any regressions in existing functionalities.
+
+## Test Suites
+>>>>>>> Stashed changes
+
+1.  **Smoke Suite:**
+    *   Verify login page elements are present.
+    *   Verify the 'Forgot your password?' link is functional.
+    *   Verify social media icons are displayed on the login page.
+
+2.  **Regression Suite:**
+    *   Test login with valid and invalid credentials.
+    *   Test the password reset process with valid and invalid usernames.
+    *   Verify all social media icons navigate to the correct pages.
+    *   Test different scenarios for the 'Forgot your password?' functionality.
+
+## Test Environment
+
+The tests will be executed in a stable environment that mimics the production environment.
+
+## Test Deliverables
+
+*   Test Plan
+*   Test Cases (Gherkin feature files)
+*   Test Results
+
+<<<<<<< Updated upstream
 Test cases will be derived from the trace data and domain knowledge, covering both smoke and regression scenarios.
 
 ## Test Environment
@@ -83,3 +134,5 @@ You must generate a structured JSON object containing:
     *   **MANDATORY**: One file named `smoke.feature` containing the high-level smoke scenarios derived from the trace & domain.
     *   "filename": "smoke.feature"
     *   "content": Standard Gherkin syntax. Tag scenarios with `@smoke`.
+=======
+>>>>>>> Stashed changes
