@@ -87,7 +87,14 @@ class BusinessValidator:
         }}
         """
         
-        messages = [{"type": "text", "text": prompt}] + image_context
+        # 3. Construct Prompt (Use HumanMessage for Robustness)
+        from langchain_core.messages import HumanMessage
+        
+        content_parts = [{"type": "text", "text": prompt}]
+        if image_context:
+            content_parts.extend(image_context)
+            
+        messages = [HumanMessage(content=content_parts)]
         
         # 4. Call LLM
         response = self.llm.invoke(messages)

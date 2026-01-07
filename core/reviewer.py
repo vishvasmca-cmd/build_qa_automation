@@ -80,14 +80,28 @@ class CodeReviewer:
         """Checks if 'page' is used instead of 'self.page' inside class methods."""
         lines = code.split('\n')
         in_class = False
+        in_init = False
+
         for i, line in enumerate(lines):
             stripped = line.strip()
             if line.startswith('class '):
                 in_class = True
                 continue
+            
+            # Simple method detection (flaky but consistent with previous logic)
+            if in_class and stripped.startswith('def '):
+                if '__init__' in line:
+                    in_init = True
+                else:
+                    in_init = False
+            
+            # Skip scope check for __init__ methods where 'page' arg is valid
+            if in_init:
+                continue
+            
             if in_class and line.startswith('def ') and not stripped.startswith('def test_'):
-                # Top level def (not test) ends class? Not really in Python, but for our tests yes.
-                in_class = False
+                # Top level def (not test) ends class? Not really, but keeping legacy logic
+                pass 
             
             if in_class and re.search(r"\bpage\.(get_by|locator|wait_for|goto|click|fill|select)\(", line):
                 # Check if it's NOT self.page
@@ -179,7 +193,7 @@ Your job is to CODE REVIEW and AUTO-FIX the provided Playwright Python script.
 6.  **No Hardcoded Waits**: Remove `time.sleep()`. Use `expect(...).to_be_visible()` or `wait_for_load_state`.
 7.  **Robust Locators**: Use `re.compile(..., re.IGNORECASE)` for text/role matches.
 8.  **Assertions**: Code MUST have assertions (`expect(...)`). 
-9.  **Self-Healing**: Ensure critical actions use the `smart_action` helper.
+9.  **Standard API**: Prefer standard Playwright methods (`click()`, `fill()`) over custom helpers. Playwright has built-in auto-waiting.
 10. **Syntax Integrity**: Ensure triple-quoted strings (<code>"""</code>) are properly closed.
 11. **POM Scope**: Inside Page Object class methods, you MUST use `self.page` for all Playwright calls. NEVER use `page.` directly if not in the main test function.
 

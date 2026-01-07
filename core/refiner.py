@@ -152,17 +152,19 @@ class CodeRefiner:
     def generate_code(self, target_url, trace_summary, images=None, error_context=None, domain="general"):
         """Generates cleaner, hardened code from a JSON trace summary, with optional visual, error, and domain context."""
         
-        # Load Golden Examples
-        golden_path = os.path.join(os.path.dirname(__file__), "training/golden_examples.json")
+        # Load Golden Reference Patterns (File-Based)
+        golden_dir = os.path.join(os.path.dirname(__file__), "golden_patterns")
         golden_context = ""
-        if os.path.exists(golden_path):
+        if os.path.exists(golden_dir):
+            golden_context = "\n**STRICT REFERENCE PATTERNS (MUST FOLLOW THESE STRUCTURES)**:\n"
             try:
-                with open(golden_path, "r", encoding="utf-8") as f:
-                    examples = json.load(f)
-                    golden_context = "\n**FEW-SHOT REFERENCE EXAMPLES (FOLLOW THESE PATTERNS)**:\n"
-                    for ex in examples:
-                        golden_context += f"- Pattern: {ex['pattern_name']}\n  Description: {ex['description']}\n  Ideal Code Implementation:\n```python\n{ex['ideal_code']}\n```\n"
-            except: pass
+                for fname in os.listdir(golden_dir):
+                    if fname.endswith(".py"):
+                        with open(os.path.join(golden_dir, fname), "r", encoding="utf-8") as f:
+                            code = f.read()
+                            golden_context += f"\n--- Reference: {fname} ---\n```python\n{code}\n```\n"
+            except Exception as e:
+                print(f"⚠️ Failed to load golden patterns: {e}")
 
         # Load Domain Rules
         domain_rules = ""
@@ -274,7 +276,9 @@ class CodeRefiner:
         {{SITE_KNOWLEDGE}}
 
         **PROHIBITED PATTERNS (Anti-Hallucination)**:
-        - ❌ NEVER use `page` inside a class method without `self.`.
+        - ❌ **FATAL ERROR**: NEVER use `page.` inside a class method (except `__init__`). YOU MUST USE `self.page.`.
+          - BAD: `page.locator(...)`
+          - GOOD: `self.page.locator(...)`
         - ❌ NEVER use placeholder variables like `locator_string`, `action_type`, or `value` unless they are explicitly assigned from the trace.
         - ❌ NEVER redefine `smart_action`, `wait_for_stability`, or `take_screenshot`.
         - ❌ NEVER use positional `.nth(0)` if a text match or ID is available in the trace element context.
@@ -359,6 +363,13 @@ class CodeRefiner:
                      else:
                         return full_code # Return anyway on last try
             
+            # Additional: Undefined Variable Check
+            undefined_vars = find_undefined_variables(full_code)
+            if undefined_vars:
+                 if attempt < MAX_RETRIES:
+                    content.append({"type": "text", "text": f"\n\n**UNDEFINED VARIABLES DETECTED**:\n{undefined_vars}\n\nERROR: You used variables that are not defined. Define them or remove them."})
+                    continue
+
             # Additional: Pre-Review Linter
             is_logic_valid, logic_error = check_logical_errors(full_code)
             if not is_logic_valid:

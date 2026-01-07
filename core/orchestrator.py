@@ -4,7 +4,6 @@ import subprocess
 import os
 import time
 from termcolor import colored
-
 import hashlib
 
 # Force UTF-8 for console output on Windows
@@ -24,8 +23,6 @@ def get_checkpoint_path(project_root):
 
 def _get_config_hash(config):
     """Generates a stable hash of the configuration."""
-    # We only care about fields that affect logic (goal, URL). 
-    # Timestamps or ephemeral paths should be excluded if they change per run.
     subset = {
         "url": config.get("target_url"),
         "goal": config.get("workflow_description") or config.get("goal"),
@@ -70,15 +67,11 @@ def can_skip_phase(project_root, phase, current_config_hash=None, ttl_seconds=72
         
         if phase in checkpoints:
             cp = checkpoints[phase]
-            # Check TTL
             if time.time() - cp["timestamp"] > ttl_seconds:
                 return False
-                
-            # Check Config Hash (Robustness)
             if current_config_hash and cp.get("config_hash") != current_config_hash:
                 print(colored(f"🔄 Config changed. Invalidating checkpoint for {phase}.", "yellow"))
                 return False
-                
             return True
     except:
         return False
@@ -97,367 +90,273 @@ def _log_error(config, phase, error_msg):
     except Exception as e:
         print(colored(f"⚠️ Failed to log error: {e}", "yellow"))
 
-def run_pipeline(config_path, headed=False):
-    print(colored(f"🚀 Starting Autonomous Pipeline for {os.path.basename(os.path.dirname(config_path))}...", "green", attrs=["bold"]))
-    
-    with open(config_path, "r") as f:
-        config = json.load(f)
-        
-    # Calculate Config Hash for Checkpointing
-    config_hash = _get_config_hash(config)
-    
-    # Paths
-    project_root = os.path.dirname(config_path)
-    trace_path = config.get("paths", {}).get("trace", os.path.join(project_root, "outputs/trace.json"))
-    test_path = config.get("paths", {}).get("test", os.path.join(project_root, "tests/test_main.py"))
+# --- PHASES ---
 
-    # Phase 0: Pre-Run Test Planning (REAL WORLD FIRST)
+def _run_planning(project_root, config, config_hash, config_path):
     print(colored("\n[Step 0/7] 📋 Strategic Test Planning...", "cyan"))
     if can_skip_phase(project_root, "planning", config_hash):
         print(colored("⏩ Skipping Planning (Checkpoint found)", "grey"))
-    else:
-        for attempt in range(1, 4):
-            try:
-                sys.path.append(os.path.dirname(__file__))
-                from spec_synthesizer import SpecSynthesizer
-                domain = config.get("domain", "generic")
-                syn = SpecSynthesizer(project_root, domain)
-                plan = syn.generate_master_plan(
-                    url=config.get("target_url"),
-                    testing_type=config.get("testing_type", "regression"),
-                    goal=config.get("workflow_description")
-                )
-                if plan:
-                    config["master_plan"] = plan
-                    with open(config_path, "w") as f:
-                        json.dump(config, f, indent=2)
-                    save_checkpoint(project_root, "planning", config_hash)
-                    break 
-                else:
-                    raise Exception("Plan generation returned empty")
-            except Exception as e:
-                logger.log_failure("SpecSynthesizer", str(e), {"attempt": attempt, "config": config_path})
-                print(colored(f"⚠️ Pre-Planning Attempt {attempt} Failed: {e}", "yellow"))
-                if attempt == 3:
-                    _log_error(config, "planning", str(e))
-                    return # Stop pipeline if planning fails after 3 tries
+        return True
 
-    # Step 1: Explorer (Guided by the Plan)
-    print(colored("\n[Step 1/7] 🗺️  Exploring & Mining (Plan-Guided)...", "cyan"))
-    if can_skip_phase(project_root, "exploration", config_hash):
-        print(colored("⏩ Skipping Exploration (Checkpoint found)", "grey"))
-    else:
-        for attempt in range(1, 4):
-            start_time = time.time()
-            # We pass the config path to explorer
-            explorer_script = os.path.join(os.path.dirname(__file__), "explorer.py")
-            cmd = ["python", explorer_script, config_path]
-            if headed:
-                cmd.append("--headed")
-            
-            env = os.environ.copy()
-            env["PYTHONPATH"] = os.getcwd() # Ensure roots are visible
-            ret = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='ignore', env=env)
-            
-            if ret.returncode == 0:
-                duration = time.time() - start_time
-                logger.log_event("Explorer", "exploration_phase", duration, success=True)
-                save_checkpoint(project_root, "exploration", config_hash)
-                break
-            else:
-                error_context = {
-                    "attempt": attempt, 
-                    "stdout": (ret.stdout or "")[:200],
-                    "stderr": (ret.stderr or "")[:500]
-                }
-                logger.log_failure("Explorer", f"Exit code {ret.returncode}", error_context)
-                print(colored(f"⚠️ Exploration Attempt {attempt} Failed. Retrying...", "yellow"))
-                if attempt == 3:
-                    _log_error(config, "exploration", "Explorer failed after 3 attempts")
-                    return
-        if ret.returncode != 0:
-            # Fallback if all retries failed or if it was a fatal crash
-            print(colored("⚠️ Exploration Failed. Triggering Fallback: Generating Basic Test from User Goal...", "yellow"))
-            # FALLBACK: Create a dummy trace so Refiner can still generate valid code
-            fake_trace = {
-                "workflow": config.get("workflow_description"),
-                "trace": [
-                    {
-                        "step": 1,
-                        "url": config.get("target_url"),
-                        "action": "navigate", 
-                        "decision_reason": "Fallback: Navigating to target.",
-                        "locator_used": None,
-                        "success": True
-                    }
-                ]
-            }
-            os.makedirs(os.path.dirname(trace_path), exist_ok=True)
-            with open(trace_path, "w") as f:
-                json.dump(fake_trace, f, indent=2)
-            save_checkpoint(project_root, "exploration", config_hash)
-        
-        if not os.path.exists(trace_path):
-            print(colored("❌ No Trace File Found after Exploration!", "red"))
-            _log_error(config, "exploration", "No Trace File Generated")
-            return
-
-    # Step 2: Knowledge Update (RAG-Ready)
-    print(colored("\n[Step 2/7] Updating Knowledge Bank...", "cyan"))
-    if can_skip_phase(project_root, "knowledge_update", config_hash):
-        print(colored("⏩ Skipping Knowledge Update (Checkpoint found)", "grey"))
-    else:
+    for attempt in range(1, 4):
         try:
             sys.path.append(os.path.dirname(__file__))
-            from knowledge_bank import KnowledgeBank
-            kb = KnowledgeBank()
-            if os.path.exists(trace_path):
-                with open(trace_path, "r") as f:
-                    trace_data = json.load(f)
-                    
-                    # Report Cost
-                    cost = trace_data.get("metadata", {}).get("cost", {})
-                    if cost:
-                        # Input/Output tokens
-                        print(colored(f"AI Cost: {cost.get('input', 0)} In / {cost.get('output', 0)} Out Tokens", "yellow"))
-
-                    kb.update_from_run(trace_data["trace"], config)
-            save_checkpoint(project_root, "knowledge_update", config_hash)
-        except Exception as e:
-            print(colored(f"Knowledge Update Failed: {e}", "yellow"))
-
-    # Step 3: Generating Robust Code
-    # Step 3: Generating Robust Code & Logic Check (Unified Loop)
-    print(colored("\n[Step 3/7] Generating Robust Code & Logic Check...", "cyan"))
-    if can_skip_phase(project_root, "generation", config_hash) and can_skip_phase(project_root, "review", config_hash):
-        print(colored("⏩ Skipping Code Generation & Review (Checkpoints found)", "grey"))
-    else:
-        # Dynamic Context-Aware Hints
-        def get_dynamic_hint(review_msg, attempt_num):
-            """Generates specific technical guidance based on error keywords."""
-            msg_lower = review_msg.lower()
-            hints = []
-            
-            # 1. Scope/POM Issues
-            if "page." in msg_lower or "self.page" in msg_lower or "scope" in msg_lower:
-                 hints.append("🔐 **SCOPE ERROR**: Inside POM classes, you MUST use `self.page` (e.g., `self.page.click()`), NEVER `page.click()`.")
-            
-            # 2. Locator Issues
-            if "selector" in msg_lower or "locator" in msg_lower or "found" in msg_lower:
-                hints.append("📍 **LOCATOR ISSUE**: Follow the cascade: Proven > Role > Label > Text. If strict locators fail, use `re.compile(r'text', re.IGNORECASE)`.")
-            
-            # 3. Timeout/Stability
-            if "timeout" in msg_lower or "wait" in msg_lower:
-                hints.append("⏳ **STABILITY**: Ensure `wait_for_stability(self.page)` is called after navigation or form submission.")
-                
-            # 4. Attribute Errors
-            if "attribute" in msg_lower or "has no attribute" in msg_lower:
-                 hints.append("🐛 **ATTRIBUTE ERROR**: Check for undefined variables or incorrect method names. Ensure @property methods return objects.")
-
-            # Default/Progressive Hints if no specific match
-            if not hints:
-                if attempt_num == 2: hints.append("💡 HINT: Review the POM structure. Use properties for locators.")
-                if attempt_num == 3: hints.append("💡 HINT: Try simpler locators or fewer assertions.")
-                if attempt_num >= 4: hints.append("🔥 CRITICAL: Simplify the logic. Remove non-essential checks.")
-
-            return "\n".join(hints)
-
-        def format_enhanced_feedback(review_msg, attempt_num):
-            """Formats reviewer feedback with dynamic hints."""
-            dynamic_hints = get_dynamic_hint(review_msg, attempt_num)
-            
-            return f"""\n{'='*80}
-❌ CODE REJECTED BY QUALITY GATE (Attempt {attempt_num}/5)
-{'='*80}
-
-ISSUES FOUND:
-{review_msg}
-
-🛠️ SPECIFIC FIXES REQUIRED:
-1. Read the errors above.
-2. Locate the lines in your code.
-3. Apply these fixes:
-{dynamic_hints}
-
-EXAMPLE OF CORRECT POM PATTERN:
-```python
-class LoginPage:
-    def __init__(self, page):
-        self.page = page  # ✅ Store page reference
-    
-    @property
-    def username_field(self):
-        return self.page.get_by_label("Username")  # ✅ Use self.page
-```
-{'='*80}
-"""
-        
-        # Loop for Generation -> Review -> Regenerate
-        gen_success = False
-        error_context = None
-        
-        # Ensure reviewer is importable
-        sys.path.append(os.path.dirname(__file__))
-        from reviewer import CodeReviewer
-
-        for attempt in range(1, 6):  # Max 5 full loops (increased from 3 for better success rate)
-            print(colored(f"🔄 Generation Loop {attempt}/5...", "cyan"))
-            
-            # 1. Generate (or Regenerate)
-            start_time = time.time()
-            refiner_script = os.path.join(os.path.dirname(__file__), "refiner.py")
-            domain = config.get("domain", "general")
-            
-            # Write error context to temp file if exists from previous loop
-            error_file_arg = ""
-            if error_context:
-                error_file = os.path.join(project_root, "outputs", "gen_feedback.log")
-                with open(error_file, "w", encoding="utf-8") as f:
-                    f.write(error_context)
-                error_file_arg = error_file
-                print(colored(f"💡 Feeding Reviewer Feedback to Refiner: {error_context[:100]}...", "yellow"))
-
-            # Run Refiner
-            ret = subprocess.run(
-                ["python", refiner_script, trace_path, test_path, config.get("workflow_description", ""), error_file_arg, domain], 
-                capture_output=False
-            )
-            
-            if ret.returncode != 0:
-                print(colored(f"⚠️ Generation failed (Code {ret.returncode})", "yellow"))
-                # If generation script crashes, we retry loop without changing error context? 
-                # Or maybe user error? Let's treat as a fail to retry.
-                continue
-
-            # 2. Code Review & Logic Gate
-            try:
-                rev = CodeReviewer()
-                is_approved, review_msg = rev.review_and_fix(test_path, domain=domain)
-                
-                if is_approved:
-                    print(colored("✅ Code Approved by Quality Gate.", "green"))
-                    gen_success = True
-                    save_checkpoint(project_root, "generation", config_hash)
-                    save_checkpoint(project_root, "review", config_hash)
-                    
-                    # Log metrics
-                    duration = time.time() - start_time
-                    logger.log_event("Generator", "full_gen_cycle", duration, success=True, metadata={"loops": attempt})
-                    break
-                else:
-                    print(colored(f"❌ Quality Gate Rejected Code: {review_msg}", "red"))
-                    # Feed enhanced, structured feedback to Refiner in next loop
-                    error_context = format_enhanced_feedback(review_msg, attempt)
-                    
-            except Exception as e:
-                print(colored(f"⚠️ Review Process Crashed: {e}", "red"))
-                error_context = f"Reviewer Crashed processing your code: {e}"
-
-        if not gen_success:
-            # Phase 2: Fallback to minimal template if all attempts fail
-            print(colored("⚠️ All generation attempts exhausted. Creating minimal fallback test...", "yellow"))
-            try:
-                from minimal_template import generate_minimal_smoke_test
-                generate_minimal_smoke_test(config, test_path)
-                print(colored("✅ Minimal smoke test created as fallback", "green"))
-                gen_success = True  # Allow pipeline to continue
-                save_checkpoint(project_root, "generation", config_hash)
-            except Exception as e:
-                print(colored(f"❌ Fallback generation also failed: {e}", "red"))
-                _log_error(config, "generation", f"Failed to generate valid code after 5 refinement loops + fallback. Error: {e}")
-                return
-
-    # Step 4: Intelligent Spec Synthesis
-    print(colored("\n[Step 4/7] 🧠 Synthesizing Specs & Features...", "cyan"))
-    if can_skip_phase(project_root, "spec_synthesis", config_hash):
-        print(colored("⏩ Skipping Spec Synthesis (Checkpoint found)", "grey"))
-    else:
-        try:
             from spec_synthesizer import SpecSynthesizer
             domain = config.get("domain", "generic")
             syn = SpecSynthesizer(project_root, domain)
-            syn.generate_specs()
-            save_checkpoint(project_root, "spec_synthesis", config_hash)
+            plan = syn.generate_master_plan(
+                url=config.get("target_url"),
+                testing_type=config.get("testing_type", "regression"),
+                goal=config.get("workflow_description")
+            )
+            if plan:
+                config["master_plan"] = plan
+                with open(config_path, "w") as f:
+                    json.dump(config, f, indent=2)
+                save_checkpoint(project_root, "planning", config_hash)
+                return True
+            else:
+                raise Exception("Plan generation returned empty")
         except Exception as e:
-            print(colored(f"⚠️ Spec Synthesis Failed: {e}", "yellow"))
+            logger.log_failure("SpecSynthesizer", str(e), {"attempt": attempt, "config": config_path})
+            print(colored(f"⚠️ Pre-Planning Attempt {attempt} Failed: {e}", "yellow"))
+            if attempt == 3:
+                _log_error(config, "planning", str(e))
+                return False
+    return False
 
-    # Step 5: Final Report
-    print(colored("\n[Step 5/7] 📝 Creating Exploration Report...", "cyan"))
-    if can_skip_phase(project_root, "reporting", config_hash):
-         print(colored("⏩ Skipping Reporting (Checkpoint found)", "grey"))
-    else:
-        report_path = config.get("paths", {}).get("report", os.path.join(project_root, "outputs/report.md"))
-        reporter_script = os.path.join(os.path.dirname(__file__), "reporter.py")
-        ret = subprocess.run(["python", reporter_script, trace_path, report_path], capture_output=False)
-        save_checkpoint(project_root, "reporting", config_hash)
+def _run_exploration(project_root, config, config_hash, config_path, headed=False):
+    print(colored("\n[Step 1/7] 🗺️  Exploring & Mining (Plan-Guided)...", "cyan"))
+    trace_path = config.get("paths", {}).get("trace", os.path.join(project_root, "outputs/trace.json"))
+    
+    if can_skip_phase(project_root, "exploration", config_hash):
+        print(colored("⏩ Skipping Exploration (Checkpoint found)", "grey"))
+        return True
 
-    # Step 6: Execution (With Retry)
-    print(colored("\n[Step 6/7] 🧪 Executing Verified Test...", "cyan"))
-    if can_skip_phase(project_root, "execution", config_hash):
-        print(colored("⏩ Skipping Test Execution (Checkpoint found)", "grey"))
-        success = True # Assume success if checkpoint exists (checkpoints only saved on success)
-    else:
-        max_retries = 3
-        success = False
-        execution_log = ""
+    for attempt in range(1, 4):
+        start_time = time.time()
+        explorer_script = os.path.join(os.path.dirname(__file__), "explorer.py")
+        cmd = ["python", explorer_script, config_path]
+        if headed: cmd.append("--headed")
         
-        execution_log = ""
-        for attempt in range(max_retries):
-            print(f"Attempt {attempt + 1}/{max_retries}...")
-            start_time = time.time()
-            # Capture output for the Feedback Agent
-            # Using -s to capture all stdout/stderr, and -v for verbose
-            ret = subprocess.run(["pytest", test_path, "-v", "-s"], capture_output=True, text=True, encoding='utf-8', errors='replace')
-            current_log = (ret.stdout or "") + "\n" + (ret.stderr or "")
-            execution_log += f"--- Attempt {attempt + 1} ---\n{current_log}\n"
-            print(current_log) # Show to user as well
+        env = os.environ.copy()
+        env["PYTHONPATH"] = os.getcwd()
+        ret = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='ignore', env=env)
+        
+        if ret.returncode == 0:
+            duration = time.time() - start_time
+            logger.log_event("Explorer", "exploration_phase", duration, success=True)
+            save_checkpoint(project_root, "exploration", config_hash)
+            return True
+        else:
+            error_context = {"attempt": attempt, "stdout": (ret.stdout or "")[:200], "stderr": (ret.stderr or "")[:500]}
+            logger.log_failure("Explorer", f"Exit code {ret.returncode}", error_context)
+            print(colored(f"⚠️ Exploration Attempt {attempt} Failed. Retrying...", "yellow"))
+    
+    # Fallback
+    print(colored("⚠️ Exploration Failed. Triggering Fallback: Generating Basic Test from User Goal...", "yellow"))
+    fake_trace = {
+        "workflow": config.get("workflow_description"),
+        "trace": [{"step": 1, "url": config.get("target_url"), "action": "navigate", "decision_reason": "Fallback", "locator_used": None, "success": True}]
+    }
+    os.makedirs(os.path.dirname(trace_path), exist_ok=True)
+    with open(trace_path, "w") as f:
+        json.dump(fake_trace, f, indent=2)
+    save_checkpoint(project_root, "exploration", config_hash)
+    
+    if not os.path.exists(trace_path):
+        print(colored("❌ No Trace File Found after Exploration!", "red"))
+        _log_error(config, "exploration", "No Trace File Generated")
+        return False
+    return True
+
+def _run_knowledge_update(project_root, config, config_hash, trace_path):
+    print(colored("\n[Step 2/7] Updating Knowledge Bank...", "cyan"))
+    if can_skip_phase(project_root, "knowledge_update", config_hash):
+        print(colored("⏩ Skipping Knowledge Update (Checkpoint found)", "grey"))
+        return
+
+    try:
+        sys.path.append(os.path.dirname(__file__))
+        from knowledge_bank import KnowledgeBank
+        kb = KnowledgeBank()
+        if os.path.exists(trace_path):
+            with open(trace_path, "r") as f:
+                trace_data = json.load(f)
+                cost = trace_data.get("metadata", {}).get("cost", {})
+                if cost:
+                    print(colored(f"AI Cost: {cost.get('input', 0)} In / {cost.get('output', 0)} Out Tokens", "yellow"))
+                kb.update_from_run(trace_data["trace"], config)
+        save_checkpoint(project_root, "knowledge_update", config_hash)
+    except Exception as e:
+        print(colored(f"Knowledge Update Failed: {e}", "yellow"))
+
+def _run_code_generation(project_root, config, config_hash, trace_path, test_path):
+    print(colored("\n[Step 3/7] Generating Robust Code & Logic Check...", "cyan"))
+    if can_skip_phase(project_root, "generation", config_hash) and can_skip_phase(project_root, "review", config_hash):
+        print(colored("⏩ Skipping Code Generation & Review (Checkpoints found)", "grey"))
+        return True
+
+    # Helper for hints
+    def get_dynamic_hint(review_msg, attempt_num):
+        msg_lower = review_msg.lower()
+        hints = []
+        if "page." in msg_lower or "self.page" in msg_lower or "scope" in msg_lower:
+             hints.append("🔐 **SCOPE ERROR**: Inside POM classes, you MUST use `self.page`, NEVER `page`.")
+        if "selector" in msg_lower or "locator" in msg_lower:
+            hints.append("📍 **LOCATOR ISSUE**: Follow the cascade: Proven > Role > Label > Text.")
+        if not hints:
+            if attempt_num == 2: hints.append("💡 HINT: Review the POM structure.")
+            if attempt_num >= 4: hints.append("🔥 CRITICAL: Simplify the logic.")
+        return "\n".join(hints)
+
+    gen_success = False
+    error_context = None
+    sys.path.append(os.path.dirname(__file__))
+    from reviewer import CodeReviewer
+
+    for attempt in range(1, 6):
+        print(colored(f"🔄 Generation Loop {attempt}/5...", "cyan"))
+        start_time = time.time()
+        refiner_script = os.path.join(os.path.dirname(__file__), "refiner.py")
+        domain = config.get("domain", "general")
+        
+        error_file_arg = ""
+        if error_context:
+            error_file = os.path.join(project_root, "outputs", "gen_feedback.log")
+            with open(error_file, "w", encoding="utf-8") as f: f.write(str(error_context))
+            error_file_arg = error_file
+            print(colored(f"💡 Feeding Reviewer Feedback to Refiner: {str(error_context)[:100]}...", "yellow"))
+
+        ret = subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", ""), error_file_arg, domain], capture_output=False)
+        
+        if ret.returncode != 0:
+            print(colored(f"⚠️ Generation failed (Code {ret.returncode})", "yellow"))
+            continue
+
+        try:
+            rev = CodeReviewer()
+            is_approved, review_msg = rev.review_and_fix(test_path, domain=domain)
             
-            if ret.returncode == 0:
-                print(colored("\n✅ Test Execution SUCCESS!", "green", attrs=["bold"]))
-                success = True
+            if is_approved:
+                print(colored("✅ Code Approved by Quality Gate.", "green"))
+                gen_success = True
+                save_checkpoint(project_root, "generation", config_hash)
+                save_checkpoint(project_root, "review", config_hash)
                 duration = time.time() - start_time
-                logger.log_event("Executor", "execute_test", duration, success=True, metadata={"attempt": attempt + 1})
-                save_checkpoint(project_root, "execution", config_hash)
+                logger.log_event("Generator", "full_gen_cycle", duration, success=True, metadata={"loops": attempt})
                 break
             else:
-                if attempt < max_retries - 1:
-                    print(colored(f"⚠️ Attempt {attempt + 1} Failed. Triggering Self-Healing Regeneration...", "yellow"))
-                    # Save error to temp file
-                    error_file = os.path.join(project_root, "outputs", "execution_error.log")
-                    with open(error_file, "w", encoding="utf-8") as f:
-                        f.write(current_log)
-                    
-                    # Call Refiner with error context
-                    refiner_script = os.path.join(os.path.dirname(__file__), "refiner.py")
-                    print(colored("🧠 Regenerating code with error context...", "cyan"))
-                    domain = config.get("domain", "general")
-                    subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", ""), error_file, domain])
-                    
-                    # Optional: Re-run reviewer if needed
-                    from reviewer import CodeReviewer
-                    domain = config.get("domain", "general")
-                    CodeReviewer().review_and_fix(test_path, domain=domain)
-                else:
-                    print(colored(f"❌ Final Attempt {attempt + 1} Failed.", "red"))
-    
-        if not success:
-            print(colored("\n❌ All test attempts failed!", "red", attrs=["bold"]))
-            _log_error(config, "execution", execution_log[-1000:]) # Log tail of error for better visibility
+                print(colored(f"❌ Quality Gate Rejected Code: {review_msg}", "red"))
+                error_context = f"ISSUES:\n{review_msg}\nHINTS:\n{get_dynamic_hint(review_msg, attempt)}"
+        except Exception as e:
+            print(colored(f"⚠️ Review Process Crashed: {e}", "red"))
+            error_context = f"Reviewer Crashed: {e}"
 
-    # Step: Business Goal Validation (The Self-Critic)
+    if not gen_success:
+        print(colored("⚠️ All generation attempts exhausted. Creating minimal fallback...", "yellow"))
+        try:
+            from minimal_template import generate_minimal_smoke_test
+            generate_minimal_smoke_test(config, test_path)
+            print(colored("✅ Minimal smoke test created as fallback", "green"))
+            gen_success = True
+            save_checkpoint(project_root, "generation", config_hash)
+        except Exception as e:
+            print(colored(f"❌ Fallback generation also failed: {e}", "red"))
+            _log_error(config, "generation", f"Failed generation: {e}")
+            return False
+            
+    return True
+
+def _run_spec_synthesis(project_root, config, config_hash):
+    print(colored("\n[Step 4/7] 🧠 Synthesizing Specs & Features...", "cyan"))
+    if can_skip_phase(project_root, "spec_synthesis", config_hash):
+        print(colored("⏩ Skipping Spec Synthesis (Checkpoint found)", "grey"))
+        return
+
+    try:
+        from spec_synthesizer import SpecSynthesizer
+        domain = config.get("domain", "generic")
+        syn = SpecSynthesizer(project_root, domain)
+        syn.generate_specs()
+        save_checkpoint(project_root, "spec_synthesis", config_hash)
+    except Exception as e:
+        print(colored(f"⚠️ Spec Synthesis Failed: {e}", "yellow"))
+
+def _run_reporting(project_root, config, config_hash, trace_path):
+    print(colored("\n[Step 5/7] 📝 Creating Exploration Report...", "cyan"))
+    if can_skip_phase(project_root, "reporting", config_hash):
+        print(colored("⏩ Skipping Reporting (Checkpoint found)", "grey"))
+        return
+
+    report_path = config.get("paths", {}).get("report", os.path.join(project_root, "outputs/report.md"))
+    reporter_script = os.path.join(os.path.dirname(__file__), "reporter.py")
+    subprocess.run(["python", reporter_script, trace_path, report_path], capture_output=False)
+    save_checkpoint(project_root, "reporting", config_hash)
+
+def _run_execution(project_root, config, config_hash, test_path, trace_path):
+    print(colored("\n[Step 6/7] 🧪 Executing Verified Test...", "cyan"))
+    execution_log = ""
+    
+    if can_skip_phase(project_root, "execution", config_hash):
+        print(colored("⏩ Skipping Test Execution (Checkpoint found)", "grey"))
+        execution_log = "Execution skipped (Checkpoint found)."
+        return True, execution_log
+
+    max_retries = 3
+    success = False
+    
+    for attempt in range(max_retries):
+        print(f"Attempt {attempt + 1}/{max_retries}...")
+        start_time = time.time()
+        
+        # Prepare Environment with PYTHONPATH
+        env = os.environ.copy()
+        env["PYTHONPATH"] = os.getcwd() # Ensure 'core' is importable from root
+
+        ret = subprocess.run(["pytest", test_path, "-v", "-s"], capture_output=True, text=True, encoding='utf-8', errors='replace', env=env)
+        current_log = (ret.stdout or "") + "\n" + (ret.stderr or "")
+        execution_log += f"--- Attempt {attempt + 1} ---\n{current_log}\n"
+        print(current_log)
+        
+        if ret.returncode == 0:
+            print(colored("\n✅ Test Execution SUCCESS!", "green", attrs=["bold"]))
+            success = True
+            duration = time.time() - start_time
+            logger.log_event("Executor", "execute_test", duration, success=True, metadata={"attempt": attempt + 1})
+            save_checkpoint(project_root, "execution", config_hash)
+            break
+        else:
+            if attempt < max_retries - 1:
+                print(colored(f"⚠️ Attempt {attempt + 1} Failed. Triggering Self-Healing...", "yellow"))
+                error_file = os.path.join(project_root, "outputs", "execution_error.log")
+                with open(error_file, "w", encoding="utf-8") as f: f.write(current_log)
+                
+                refiner_script = os.path.join(os.path.dirname(__file__), "refiner.py")
+                domain = config.get("domain", "general")
+                subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", ""), error_file, domain])
+            else:
+                print(colored(f"❌ Final Attempt {attempt + 1} Failed.", "red"))
+
+    if not success:
+        print(colored("\n❌ All test attempts failed!", "red", attrs=["bold"]))
+        _log_error(config, "execution", execution_log[-1000:])
+        
+    return success, execution_log
+
+def _run_validation(project_root, config, success):
     if success:
         print(colored("\n[Step 6.2] 🕵️ Validating Business Goal Achievement...", "cyan"))
         try:
             from validator import BusinessValidator
             validator = BusinessValidator()
             
-            # Scan for newest screenshot
+            # Find newest screenshot
             screenshot_path = None
             screenshots_dir = os.path.join(project_root, "outputs", "screenshots")
             if os.path.exists(screenshots_dir):
                 files = [os.path.join(screenshots_dir, f) for f in os.listdir(screenshots_dir) if f.endswith(".png")]
-                if files:
-                    screenshot_path = max(files, key=os.path.getctime)
+                if files: screenshot_path = max(files, key=os.path.getctime)
             
             trace_path = os.path.join(project_root, "outputs/trace.json")
             goal = config.get("goal") or config.get("workflow_description", "Unknown Goal")
@@ -470,11 +369,10 @@ class LoginPage:
             else:
                 print(colored(f"✅ GOAL VERIFIED: {result.get('reason')}", "green"))
                 logger.log_event("Validator", "validate_goal", None, success=True, metadata=result)
-                
         except Exception as e:
             print(colored(f"⚠️ Validation Skipped: {e}", "yellow"))
 
-    # Step 6.5: Feedback & Self-Training
+def _run_feedback(config_path, execution_log, success):
     print(colored("\n[Step 6.5] 🧠 Feedback & Self-Training...", "cyan"))
     try:
         from feedback_agent import FeedbackAgent
@@ -483,7 +381,7 @@ class LoginPage:
     except Exception as e:
         print(colored(f"⚠️ Feedback Loop Failed: {e}", "yellow"))
 
-    # Step 7: Security Audit (Conditional)
+def _run_security_audit(project_root, config, config_hash):
     if "security check" in config.get("workflow_description", "").lower():
         print(colored("\n[Step 7/7] 🛡️  Running Security Audit...", "cyan"))
         if can_skip_phase(project_root, "security", config_hash):
@@ -499,21 +397,45 @@ class LoginPage:
     else:
         print(colored("\n[Step 7/7] 🛡️  Security Audit skipped (not requested).", "white"))
 
+def _run_dashboard(project_root, config_hash):
     try:
         dashboard_script = os.path.join(os.path.dirname(__file__), "dashboard_generator.py")
-        
-        # Source Metrics (Global)
         metrics_source = os.path.join("outputs", "metrics.json")
-        
-        # Target Dashboard (Project Specific)
         dashboard_target = os.path.join(project_root, "outputs", "dashboard.html")
-        
         ret = subprocess.run(["python", dashboard_script, metrics_source, dashboard_target], capture_output=False) 
         if ret.returncode == 0:
             print(colored(f"✅ Web Dashboard ready: {dashboard_target}", "green"))
     except Exception as e:
         print(colored(f"⚠️ Dashboard Generation Failed: {e}", "yellow"))
     save_checkpoint(project_root, "dashboard", config_hash)
+
+# --- WORKFLOW ---
+
+def run_pipeline(config_path, headed=False):
+    print(colored(f"🚀 Starting Autonomous Pipeline for {os.path.basename(os.path.dirname(config_path))}...", "green", attrs=["bold"]))
+    
+    with open(config_path, "r") as f:
+        config = json.load(f)
+        
+    config_hash = _get_config_hash(config)
+    project_root = os.path.dirname(config_path)
+    trace_path = config.get("paths", {}).get("trace", os.path.join(project_root, "outputs/trace.json"))
+    test_path = config.get("paths", {}).get("test", os.path.join(project_root, "tests/test_main.py"))
+
+    # Execute Phases
+    if not _run_planning(project_root, config, config_hash, config_path): return
+    if not _run_exploration(project_root, config, config_hash, config_path, headed): return
+    _run_knowledge_update(project_root, config, config_hash, trace_path)
+    if not _run_code_generation(project_root, config, config_hash, trace_path, test_path): return
+    _run_spec_synthesis(project_root, config, config_hash)
+    _run_reporting(project_root, config, config_hash, trace_path)
+    
+    success, execution_log = _run_execution(project_root, config, config_hash, test_path, trace_path)
+    
+    _run_validation(project_root, config, success)
+    _run_feedback(config_path, execution_log, success)
+    _run_security_audit(project_root, config, config_hash)
+    _run_dashboard(project_root, config_hash)
 
     if success:
         print(colored("\n✅ Pipeline COMPLETE!", "green", attrs=["bold"]))
