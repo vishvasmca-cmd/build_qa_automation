@@ -31,3 +31,9 @@
 - When navigating to account details, implement a retry mechanism with exponential backoff if the initial navigation times out. Also, verify the user is logged in before attempting to access account details.
 
 - When navigating to account history, check for common error messages or loading indicators on the page before waiting for the final URL. The ParaBank application is known to have intermittent performance issues.
+
+- After clicking 'Account History', check for a redirect to the API endpoint '/services/bank' and, if present, retry the click or report the error.
+
+- Before navigating to 'Account History', ensure all page elements are fully loaded and any potential overlays or animations are complete. Consider adding a short explicit wait if necessary.
+
+- Before navigating to 'Account History', ensure all page elements are fully loaded and any potential overlays or animations are complete. Consider adding a short delay or explicit wait condition.

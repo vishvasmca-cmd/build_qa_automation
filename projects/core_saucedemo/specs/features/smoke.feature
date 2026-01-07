@@ -1,13 +1,15 @@
-Feature: E-commerce Smoke Tests
+Feature: core_saucedemo Smoke Tests
 
-  Scenario: User Login with valid credentials @smoke
-    Given I am on the login page
-    When I fill the username field with "standard_user"
-    And I fill the password field with "secret_sauce"
-    And I click the login button
-    Then I should be logged in and redirected to the inventory page
+  @smoke
+  Scenario: User Login and Sort Products by Price
+    Given User is on the Saucedemo login page
+    When User logs in with valid credentials
+    Then User should be redirected to the inventory page
+    When User sorts products by price (low to high)
+    Then Products should be sorted correctly
 
-  Scenario: Sort products by price low to high @smoke
-    Given I am on the inventory page
-    When I click the sort dropdown
-    Then products should be sorted by price low to high
+  @smoke
+  Scenario: Add a product to the cart
+    Given User is on the inventory page
+    When User adds the cheapest product to the cart
+    Then The product should be added to the cart

@@ -1,84 +1,70 @@
 # Test Plan: core_automation_exercise
 
-## Domain: E-commerce
+## Introduction
 
-### Scope
+This document outlines the test plan for the core_automation_exercise project, focusing on the e-commerce domain. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
 
-This test plan covers the core functionality of the e-commerce platform, focusing on product browsing, searching, adding to cart, and initiating the checkout process.
+## Scope
 
-### Test Suites
+The testing will cover key functionalities such as product browsing, searching, adding to cart, and proceeding to checkout.
 
-This test plan defines two test suites:
+## Test Suites
 
-1.  Smoke Suite: A minimal set of tests to verify the most critical functions.
-2.  Regression Suite: A comprehensive suite to ensure that recent changes have not broken existing functionality.
+### Smoke Suite
 
-### Module: Product Catalog
+The smoke suite will focus on critical path testing to ensure the core functionalities are working as expected.  If these tests fail, the build should be rejected.
 
-#### Description
+#### Smoke Suite Strategy
 
-This module focuses on testing the product catalog functionality, including browsing, searching, and viewing product details.
+The following 8-point checklist has been applied to define the Smoke Suite for this project:
 
-#### Test Cases
+1.  **Critical Paths:** Tests cover the most important user flows (e.g., login, checkout).
+2.  **Core Business Logic:** Focus on primary revenue or operational flows.
+3.  **Positive Testing:** Primarily happy path scenarios are included.
+4.  **No Negative Testing:**  Error handling is generally excluded from smoke tests.
+5.  **No Complex Edge Cases:** Complex scenarios and boundary conditions are avoided.
+6.  **Fast Execution:** Tests are designed to run quickly to provide rapid feedback.
+7.  **Independent Tests:** Each test should be independent and not rely on others.
+8.  **Limited Scope:** The suite covers a minimal set of functionalities.
 
-##### Smoke Suite
+#### Smoke Test Cases
 
-*   TC\_PC\_001: Navigate to Products page
-*   TC\_PC\_002: Search for a product ('Dress')
+*   **Product Search and Checkout:**
+    *   Navigate to the Products page.
+    *   Search for a product ('Dress').
+    *   Add the product to the cart.
+    *   Proceed to checkout.
 
-##### Regression Suite
+### Regression Suite
 
-*   TC\_PC\_003: Filter products by category
-*   TC\_PC\_004: Sort products by price
-*   TC\_PC\_005: Search for a non-existent product
+The regression suite will include a more comprehensive set of tests to cover various scenarios, edge cases, and error handling. This suite ensures that new changes haven't introduced regressions in existing functionality.
 
-### Module: Shopping Cart
+#### Regression Test Cases
 
-#### Description
+*   **Product Catalog:**
+    *   Filter products by price and category.
+    *   Sort products by price (low to high).
+    *   Search for a non-existent product.
+    *   Verify pagination.
+*   **Shopping Cart:**
+    *   Update quantity in cart.
+    *   Remove item from cart.
+    *   Add out-of-stock item and verify error message.
+    *   Verify cart persistence after page refresh.
+*   **Checkout & Payments:**
+    *   Checkout with different address formats.
+    *   Apply valid and invalid coupon codes.
+    *   Simulate payment decline.
+    *   Verify correct calculation of tax and shipping.
 
-This module focuses on testing the shopping cart functionality, including adding items to the cart, viewing the cart summary, and updating quantities.
+## Test Environment
 
-#### Test Cases
+*   Browser: Chrome, Firefox
+*   Operating System: Windows, macOS, Linux
+*   Test Data: Use a combination of valid and invalid test data.
 
-##### Smoke Suite
+## Test Execution
 
-*   TC\_SC\_001: Add item to cart
+*   Smoke tests will be executed after each build.
+*   Regression tests will be executed before each release.
 
-##### Regression Suite
-
-*   TC\_SC\_002: Update quantity in cart
-*   TC\_SC\_003: Remove item from cart
-*   TC\_SC\_004: Add out-of-stock item (verify error)
-*   TC\_SC\_005: Cart persistence (refresh page)
-
-### Module: Checkout
-
-#### Description
-
-This module focuses on testing the checkout functionality, including entering shipping information, selecting a payment method, and completing the purchase.
-
-#### Test Cases
-
-##### Smoke Suite
-
-*   TC\_CO\_001: Initiate checkout process
-
-##### Regression Suite
-
-*   TC\_CO\_002: Checkout with formatted address
-*   TC\_CO\_003: Apply valid/invalid coupon code
-*   TC\_CO\_004: Payment decline simulation
-*   TC\_CO\_005: Calculate tax/shipping correctly
-
-## Smoke Suite Strategy
-
-The Smoke Suite is designed to provide a quick and efficient way to verify the core functionality of the application. The following checklist is applied to ensure the quality and effectiveness of the Smoke Suite:
-
-1.  **Critical Paths:** Tests cover the most critical user flows (e.g., login, product search, add to cart, checkout).
-2.  **Core Business Logic:** Tests validate the primary business logic (e.g., pricing, inventory management).
-3.  **Positive Testing:** Focus is on positive scenarios with valid inputs.
-4.  **Minimal Negative Testing:** Only critical security-related negative tests are included.
-5.  **No Complex Edge Cases:** Complex or less common scenarios are excluded.
-6.  **Fast Execution:** Tests are designed to execute quickly to provide rapid feedback.
-7.  **Independent Tests:** Tests are independent and do not rely on each other.
-8.  **High Stability:** Tests are stable and reliable, minimizing false failures.

@@ -17,59 +17,46 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
-        page.goto("https://opensource-demo.orangehrmlive.com/")
-        page.wait_for_load_state("networkidle")
     
         # 2. Logic (using POM)
         login_page = OrangehrmLoginPage(page)
         reset_password_page = OrangehrmResetPasswordPage(page)
         password_reset_confirmation_page = PasswordResetConfirmationPage(page)
     
->       login_page.click_forgot_password_link()
-
-projects/core_orangehrm/tests/test_main.py:80: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_orangehrm/tests/test_main.py:27: in click_forgot_password_link
-    self.forgot_password_link.click()
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
-    self._sync(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
-    return await self._frame._click(self._selector, strict=True, **params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:566: in _click
-    await self._channel.send("click", self._timeout, locals_to_params(locals()))
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
-    return await self._connection.wrap_api_call(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-self = <playwright._impl._connection.Connection object at 0x7f9c545e9c50>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f9c532d7b00>
-is_internal = False, title = None
-
-    async def wrap_api_call(
-        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
-    ) -> Any:
-        if self._api_zone.get():
-            return await cb()
-        task = asyncio.current_task(self._loop)
-        st: List[inspect.FrameInfo] = getattr(
-            task, "__pw_stack__", None
-        ) or inspect.stack(0)
+        login_page.goto()
+        login_page.click_forgot_password()
     
-        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
-        self._api_zone.set(parsed_st)
-        try:
-            return await cb()
-        except Exception as error:
->           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
-E           Call log:
-E             - waiting for get_by_role("link", name=re.compile(r"Forgot your password", re.IGNORECASE))
+        reset_password_page.assert_on_reset_password_page()
+        reset_password_page.fill_username("testuser")
+        reset_password_page.click_reset_password()
+    
+>       password_reset_confirmation_page.assert_on_confirmation_page()
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
+projects/core_orangehrm/tests/test_main.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_main.PasswordResetConfirmationPage object at 0x7f3afd893550>
+
+    def assert_on_confirmation_page(self) -> None:
+>       expect(self.page).to_have_url("**/auth/sendPasswordReset")
+E       AssertionError: Page URL expected to be '**/auth/sendPasswordReset'
+E       Actual value: https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset 
+E       Call log:
+E         - Expect "to_have_url" with timeout 5000ms
+E           2 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode"
+E           - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestResetPassword" navigation to finish...
+E           - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
+E           6 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
+
+projects/core_orangehrm/tests/test_main.py:74: AssertionError
 =========================== short test summary info ============================
-FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page URL expected to be '**/auth/sendPasswordReset'
+Actual value: https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset 
 Call log:
-  - waiting for get_by_role("link", name=re.compile(r"Forgot your password", re.IGNORECASE))
-============================== 1 failed in 32.40s ==============================
+  - Expect "to_have_url" with timeout 5000ms
+    2 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode"
+    - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestResetPassword" navigation to finish...
+    - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
+    6 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
+============================== 1 failed in 8.49s ===============================
 

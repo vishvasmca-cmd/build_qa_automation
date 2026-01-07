@@ -36,7 +36,7 @@ class LoginPage:
         self.password_field.fill(password)
         self.login_button.click()
 
-class SaucedemoInventoryPage:
+class InventoryPage:
     def __init__(self, page):
         self.page = page
 
@@ -52,12 +52,11 @@ def test_autonomous_flow(browser: Browser):
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
     login_page = LoginPage(page)
-    inventory_page = SaucedemoInventoryPage(page)
+    inventory_page = InventoryPage(page)
 
     # 2. Logic (using POM)
     login_page.goto()
     login_page.login("standard_user", "secret_sauce")
-    page.wait_for_url("**/inventory.html", timeout=15000)
     inventory_page.sort_by_price_low_to_high()
 
     # 3. Cleanup

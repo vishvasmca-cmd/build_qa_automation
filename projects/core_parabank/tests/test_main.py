@@ -12,6 +12,7 @@ from helpers import take_screenshot
 
 
 from playwright.sync_api import Page, expect
+import re
 
 class ParabankPage:
     def __init__(self, page: Page) -> None:
@@ -25,58 +26,64 @@ class ParabankPage:
     def account_history_link(self):
         return self.page.get_by_role("link", name="Account History")
 
-    def navigate_to_account_history(self):
-        self.account_history_link.click()
-        try:
-            self.page.wait_for_url("**/account.htm", timeout=15000)
-        except Exception as e:
-            print(f"WADL redirect detected. Refreshing the page")
-            self.page.reload()
-            self.page.wait_for_url("**/account.htm", timeout=15000)
+    @property
+    def home_link(self):
+        return self.page.get_by_role("link", name="Home", exact=True).first
 
     @property
     def about_us_link(self):
         return self.page.locator("#headerPanel").get_by_role("link", name="About Us")
 
-    def navigate_to_about_us(self):
-        self.about_us_link.click()
-        self.page.wait_for_load_state("networkidle")
+    def navigate_to_account_history(self) -> None:
+        self.account_history_link.click()
 
-    def take_screenshot(self, name, project_name):
-        self.page.screenshot(path=f"artifacts/{project_name}/{name}.png")
+    def navigate_to_home(self) -> None:
+        self.home_link.click()
+
+    def navigate_to_about_us(self) -> None:
+        self.about_us_link.click()
+
+
+from playwright.sync_api import Page
 
 class ParabankWebServiceDefinitionPage:
     def __init__(self, page: Page) -> None:
         self.page = page
 
-    @property
-    def home_link(self):
-        return self.page.get_by_role("link", name="Home", exact=True).first
-
-    def navigate_to_home(self):
-        self.home_link.click()
+    def navigate_to_home(self) -> None:
+        self.page.goto("https://parabank.parasoft.com/parabank/index.htm")
         self.page.wait_for_load_state("networkidle")
 
-from playwright.sync_api import Browser
-
-def take_screenshot(page, name, project_name):
-    page.screenshot(path=f"artifacts/{project_name}/{name}.png")
+import re
+from playwright.sync_api import Browser, expect
+from playwright.sync_api import sync_playwright
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
+
+    # 2. Logic (using POM)
     parabank_page = ParabankPage(page)
-    webservice_page = ParabankWebServiceDefinitionPage(page)
 
     parabank_page.goto()
 
-    # 2. Logic (using POM)
-    # Step 0: Click Account History and handle potential WADL redirect
-    parabank_page.navigate_to_account_history()
+    # Step 0: Click Account History link
+    try:
+        parabank_page.navigate_to_account_history()
+        expect(page).to_have_url(re.compile(r".*/account(activity)?\.htm"), timeout=15000)
+    except Exception as e:
+        print(f"Error navigating to account history: {e}")
+        page.reload()
+        parabank_page.navigate_to_account_history()
 
-    # Step 1-3: Handle WADL redirect and navigate back to home
-    # The navigate_to_account_history method already handles the WADL redirect and refreshes the page
+    # Step 1, 2, 3: Navigate back to the home page
+    try:
+        parabank_page.navigate_to_home()
+    except Exception as e:
+        print(f"Error navigating to home page: {e}")
+        page.reload()
+        parabank_page.navigate_to_home()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")

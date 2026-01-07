@@ -85,3 +85,9 @@
 - When navigating to '/products', implement a retry mechanism with exponential backoff to handle potential network latency or server delays. Also, check for modal dialogs or overlays that might prevent the page from loading correctly.
 
 - When navigating to '/products', implement a retry mechanism with exponential backoff to handle potential network latency or server delays. Also, check for any overlaying elements (e.g., modals, banners) that might prevent the page from loading correctly.
+
+- Before clicking 'Add to cart', ensure the product is fully loaded and visible on the page. Consider waiting for a specific element related to the product details to load before attempting to add it to the cart.
+
+- Before clicking 'Add to cart', ensure the element is visible and stable. Implement a retry mechanism with a short delay to handle potential loading delays or transient overlays.
+
+- Before clicking 'Add to cart', ensure the product is fully loaded and visible. Consider waiting for a specific product element to load before attempting to add it to the cart.

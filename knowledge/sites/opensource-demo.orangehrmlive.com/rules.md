@@ -32,3 +32,9 @@
 - When navigating to the password reset page, anticipate potential delays in resource loading. Increase the default timeout or implement a more robust loading check than 'networkidle', such as waiting for a specific element to be present.
 
 - Before clicking 'Forgot your password', ensure no modal dialogs or overlays are present that might obscure the link. If a modal is present, dismiss it before proceeding.
+
+- Before clicking the 'Forgot your password' link, ensure no modal dialogs or overlays are present that might obscure the element. If a modal is present, dismiss it before attempting to click the link.
+
+- When asserting URL patterns, ensure the pattern accurately reflects the expected URL structure, including any prefixes or suffixes. Prefer exact match when possible.
+
+- When asserting the current URL, prefer exact string matching or a more specific regex over glob patterns, especially when the expected substring is present in the actual URL.
