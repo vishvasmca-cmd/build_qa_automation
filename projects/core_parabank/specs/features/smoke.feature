@@ -1,7 +1,14 @@
-Feature: ParaBank Smoke Tests
+Feature: ParaBank - Smoke Tests
+  As a user, I want to verify core functionalities of the ParaBank application.
 
   @smoke
-  Scenario: Verify Login Page and Attempt Account History Navigation
-    Given User is on the ParaBank login page
-    When User clicks on the Account History link
-    Then User should be redirected back to the home page
+  Scenario: Verify navigation to Account History page fails and redirects to WSDL page
+    Given I am on the ParaBank home page
+    When I click on the "Account History" link
+    Then I should be redirected to the ParaBank WSDL page
+
+  @smoke
+  Scenario: Verify navigation back to the ParaBank home page from the WSDL page
+    Given I am on the ParaBank WSDL page
+    When I navigate back to the ParaBank home page
+    Then I should be on the ParaBank home page

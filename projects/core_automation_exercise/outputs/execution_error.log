@@ -18,23 +18,20 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
         page.goto("https://automationexercise.com/")
-        page.wait_for_load_state("domcontentloaded")
+        page.wait_for_load_state("networkidle")
     
         # 2. Logic (using POM)
-        home_page = HomePage(page)
         products_page = ProductsPage(page)
+        cart_page = CartPage(page)
     
-        # Navigate to Products page
-        home_page.navigate_to_products()
-    
-        # Search for 'Dress'
-        products_page.search_for_product("Dress")
-    
-        # Add the first dress to cart
->       products_page.add_to_cart_button("Dress").click()
+        products_page.navigate_to_products()
+        products_page.search_product("Dress")
+>       products_page.add_product_to_cart()
 
-projects/core_automation_exercise/tests/test_main.py:81: 
+projects/core_automation_exercise/tests/test_main.py:82: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/core_automation_exercise/tests/test_main.py:47: in add_product_to_cart
+    self.add_to_cart_button.first.click()
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
@@ -46,8 +43,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7f0b1f6dd750>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f0b1e211440>
+self = <playwright._impl._connection.Connection object at 0x7fb6fffdbf90>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fb6fff736a0>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -68,58 +65,12 @@ is_internal = False, title = None
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
 E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 E           Call log:
-E             - waiting for locator(".product-overlay").filter(has_text="Dress").locator("a").filter(has_text="Add to cart").first
-E               - locator resolved to <a data-product-id="3" class="btn btn-default add-to-cart">…</a>
-E             - attempting click action
-E               2 × waiting for element to be visible, enabled and stable
-E                 - element is visible, enabled and stable
-E                 - scrolling into view if needed
-E                 - done scrolling
-E                 - <h2 class="title text-center">Searched Products</h2> intercepts pointer events
-E               - retrying click action
-E               - waiting 20ms
-E               2 × waiting for element to be visible, enabled and stable
-E                 - element is visible, enabled and stable
-E                 - scrolling into view if needed
-E                 - done scrolling
-E                 - <h2 class="title text-center">Searched Products</h2> intercepts pointer events
-E               - retrying click action
-E                 - waiting 100ms
-E               57 × waiting for element to be visible, enabled and stable
-E                  - element is visible, enabled and stable
-E                  - scrolling into view if needed
-E                  - done scrolling
-E                  - <h2 class="title text-center">Searched Products</h2> intercepts pointer events
-E                - retrying click action
-E                  - waiting 500ms
+E             - waiting for get_by_role("link", name="Add to cart").first
 
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
 =========================== short test summary info ============================
 FAILED projects/core_automation_exercise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 Call log:
-  - waiting for locator(".product-overlay").filter(has_text="Dress").locator("a").filter(has_text="Add to cart").first
-    - locator resolved to <a data-product-id="3" class="btn btn-default add-to-cart">…</a>
-  - attempting click action
-    2 × waiting for element to be visible, enabled and stable
-      - element is visible, enabled and stable
-      - scrolling into view if needed
-      - done scrolling
-      - <h2 class="title text-center">Searched Products</h2> intercepts pointer events
-    - retrying click action
-    - waiting 20ms
-    2 × waiting for element to be visible, enabled and stable
-      - element is visible, enabled and stable
-      - scrolling into view if needed
-      - done scrolling
-      - <h2 class="title text-center">Searched Products</h2> intercepts pointer events
-    - retrying click action
-      - waiting 100ms
-    57 × waiting for element to be visible, enabled and stable
-       - element is visible, enabled and stable
-       - scrolling into view if needed
-       - done scrolling
-       - <h2 class="title text-center">Searched Products</h2> intercepts pointer events
-     - retrying click action
-       - waiting 500ms
-============================== 1 failed in 32.77s ==============================
+  - waiting for get_by_role("link", name="Add to cart").first
+============================== 1 failed in 33.88s ==============================
 

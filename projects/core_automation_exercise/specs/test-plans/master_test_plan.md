@@ -1,61 +1,77 @@
 # Test Plan: core_automation_exercise
 
-## Overview
+## Introduction
 
-This test plan outlines the testing strategy for the core_automation_exercise project, an e-commerce platform. The plan includes smoke and regression test suites to ensure the quality and stability of the application.
+This document outlines the test plan for the core_automation_exercise project, focusing on the e-commerce domain. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
+
+## Scope
+
+The testing will cover key functionalities such as product browsing, searching, adding items to the cart, and proceeding to checkout.
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite will focus on the critical path of navigating to products, searching for a product, adding it to the cart, and proceeding to the cart page. This suite will verify the core functionality of the e-commerce platform.
+The smoke suite will focus on verifying the core functionalities of the application. These tests are designed to be quick and efficient, providing a high level of confidence in the system's stability.
 
 #### Smoke Suite Strategy
 
-The following checklist is applied to define the Smoke Suite for this project:
+The following checklist was applied when designing the Smoke Suite:
 
-1.  **Critical Paths:** Tests cover the most essential user flows (e.g., product search, add to cart).
-2.  **Core Business Logic:** Focus on primary revenue-generating or operationally critical functions.
-3.  **Positive Testing:** Primarily uses valid inputs and expected outcomes.
-4.  **No Negative Testing:** Excludes tests with invalid data or error conditions (unless critical security).
-5.  **Limited Scope:** Contains a minimal set of tests for quick execution.
-6.  **Independence:** Tests are designed to be independent and can be run in any order.
-7.  **Speed:** Tests are optimized for fast execution to provide rapid feedback.
-8.  **Automation Priority:** High priority for automation to enable continuous integration.
+1.  **Critical Paths:** Tests cover the most critical user flows (e.g., login, checkout).
+2.  **Core Business Logic:** Focus on primary revenue/operation flows.
+3.  **Positive Testing:** Primarily happy path scenarios.
+4.  **No Negative Testing:** Unless critical security concerns exist.
+5.  **No Complex Edge Cases:** Avoid intricate scenarios.
+6.  **Speed:** Tests should execute quickly.
+7.  **Independence:** Tests should be independent of each other.
+8.  **High Priority:** Failures should be investigated immediately.
 
 ### Regression Suite
 
-The regression suite will include a broader range of tests, covering alternative flows, negative scenarios, and boundary conditions. This suite will ensure that new changes do not introduce regressions into existing functionality.
+The regression suite will provide comprehensive coverage of the application's functionalities, including alternative flows, negative scenarios, and boundary analysis. This suite ensures that new changes do not introduce regressions into existing features.
 
 ## Test Modules
 
-### Product Catalog
+### Authentication (Criticality: High)
 
 *   **Smoke:**
-    *   Verify that the user can navigate to the products page.
-    *   Verify that the user can search for a product.
+    *   User Login (Valid)
+    *   User Registration (Happy Path)
 *   **Regression:**
-    *   Verify that the user can filter products by category.
-    *   Verify that the user can sort products by price.
-    *   Verify that the user sees a 'no products found' message when searching for a non-existent product.
+    *   Login with Invalid Password
+    *   Login with Locked Account
+    *   Password Reset Flow
+    *   Registration with Existing Email
 
-### Shopping Cart
+### Product Catalog (Criticality: Medium)
 
 *   **Smoke:**
-    *   Verify that the user can add a product to the cart.
-    *   Verify that the user can view the cart summary.
+    *   View Product Details
+    *   Search for standard product
 *   **Regression:**
-    *   Verify that the user can update the quantity of a product in the cart.
-    *   Verify that the user can remove a product from the cart.
-    *   Verify that the user sees an error message when trying to add an out-of-stock item to the cart.
+    *   Filter products by Price/Category
+    *   Sort products (Price Low-High)
+    *   Search for non-existent product
+    *   Verify Pagination
 
-### Checkout
+### Shopping Cart (Criticality: High)
 
 *   **Smoke:**
-    *   Verify that the user can navigate to the cart page.
+    *   Add Item to Cart
+    *   View Cart Summary
+*   **Regression:**
+    *   Update Quantity in Cart
+    *   Remove Item from Cart
+    *   Add Out-of-Stock Item (Verify Error)
+    *   Cart Persistence (Refresh Page)
 
-## Test Data
+### Checkout & Payments (Criticality: Critical)
 
-*   Use valid product names for searching.
-*   Use valid quantities for adding products to the cart.
-
+*   **Smoke:**
+    *   Complete Purchase (Guest / Standard)
+*   **Regression:**
+    *   Checkout with formatted Address
+    *   Apply Valid/Invalid Coupon Code
+    *   Payment Decline Simulation
+    *   Calculate Tax/Shipping correctly

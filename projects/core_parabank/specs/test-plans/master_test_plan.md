@@ -2,61 +2,45 @@
 
 ## Introduction
 
-This document outlines the test plan for the core_parabank application, focusing on verifying key functionalities within the banking domain. The plan includes both smoke and regression test suites to ensure application stability and quality.
+This document outlines the test plan for the core_parabank application, focusing on verifying key functionalities related to account access and information retrieval. The plan includes both smoke and regression test suites to ensure application stability and quality.
 
 ## Scope
 
-The testing will cover account access, transfers & payments, and statements & history modules. The focus will be on critical user workflows and potential edge cases.
+The testing will cover the following areas:
+
+*   Account Access (Login)
+*   Navigation to key pages (Account History, About Us)
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite will verify the core functionalities of the application. These tests are designed to be executed quickly and should identify any major issues that would prevent further testing.
+The smoke suite will focus on verifying the core functionalities of the application. These tests are designed to be executed quickly and efficiently to ensure that the application is in a stable state.
 
-**Smoke Suite Strategy**
+#### Smoke Suite Strategy
 
-The following checklist was applied when designing the smoke suite for this project:
+The following 8-point checklist was applied when designing the smoke suite:
 
-1.  **Critical Paths:** Tests cover the most common and essential user flows (e.g., login).
-2.  **Core Business Logic:** Focus on verifying the primary functions related to the banking domain.
-3.  **Positive Testing:** Primarily focuses on successful scenarios, with minimal negative testing.
-4.  **End-to-End Coverage:** Tests simulate real user interactions from start to finish for key workflows.
-5.  **Data Integrity:** Basic validation of data consistency throughout the tested flows.
-6.  **Environment Stability:** Checks for basic environment issues that might block testing.
-7.  **Performance Considerations:** No performance tests are included in the smoke suite.
-8.  **Security Considerations:** Basic security checks (e.g., login) are included.
+1.  **Critical Paths:** The smoke tests cover the most critical user paths, such as accessing key pages.
+2.  **Core Business Logic:** The tests verify the basic functionality of the application.
+3.  **No Negative Testing:** The smoke tests focus on positive scenarios and do not include negative test cases.
+4.  **No Complex Edge Cases:** The tests avoid complex or edge-case scenarios.
+5.  **Speed:** The smoke tests are designed to be executed quickly.
+6.  **Stability:** The tests are reliable and should not fail due to environmental issues.
+7.  **Independence:** The tests are independent of each other and can be executed in any order.
+8.  **Automation:** The tests are automated to ensure repeatability.
 
 ### Regression Suite
 
-The regression suite will provide a more comprehensive test coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
+The regression suite will include a more comprehensive set of tests to ensure that new changes have not introduced any regressions. These tests will cover a wider range of scenarios, including edge cases and negative test cases.
 
-## Test Modules
+## Test Environment
 
-### Account Access (Criticality: Critical)
+The tests will be executed in a dedicated test environment that mirrors the production environment.
 
-*   **Smoke Tests:**
-    *   Customer Login
-*   **Regression Tests:**
-    *   Login with Biometrics/MFA
-    *   Recover Forgotten Username/Password
-    *   Session Timeout Handling
+## Test Deliverables
 
-### Transfers & Payments (Criticality: Critical)
+*   Test Plan Document
+*   Test Cases (Gherkin Feature Files)
+*   Test Execution Reports
 
-*   **Smoke Tests:**
-    *   Internal Fund Transfer (Checking to Savings)
-*   **Regression Tests:**
-    *   Transfer exceeding balance (Insufficient Funds)
-    *   Transfer exceeding daily limit
-    *   Schedule Future Date Transfer
-    *   Add New Payee/Beneficiary
-
-### Statements & History (Criticality: Medium)
-
-*   **Smoke Tests:**
-    *   View Recent Transactions
-*   **Regression Tests:**
-    *   Download Statement (PDF/CSV)
-    *   Search Transactions by Keyword
-    *   Filter Transactions by Amount Range

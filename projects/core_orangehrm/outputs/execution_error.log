@@ -17,38 +17,45 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
-        page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-        wait_for_stability(page)
+        page.goto("https://opensource-demo.orangehrmlive.com/")
+        page.wait_for_load_state("networkidle")
     
         # 2. Logic (using POM)
         orangehrm_login_page = OrangehrmLoginPage(page)
         orangehrm_reset_password_page = OrangehrmResetPasswordPage(page)
-        login_page = LoginPage(page)
     
+        orangehrm_login_page.navigate_to_login_page()
+        expect(page).to_have_url("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    
+        # Step 0: Click 'Forgot your password?' link
         orangehrm_login_page.click_forgot_password_link()
-        expect(page).to_have_url(re.compile(".*/requestPasswordResetCode"))
     
->       orangehrm_reset_password_page.fill_username("testuser")
+        # Step 2: Fill username on reset password page
+        orangehrm_reset_password_page.fill_username("testuser")
+    
+        # Step 3: Click Reset Password button
+        orangehrm_reset_password_page.click_reset_password_button()
+    
+        # Step 5: Navigate back to login page
+>       orangehrm_login_page.navigate_to_login_page()
 
-projects/core_orangehrm/tests/test_main.py:60: 
+projects/core_orangehrm/tests/test_main.py:87: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/core_orangehrm/tests/test_main.py:28: in fill_username
-    self.page.get_by_label(re.compile("Username", re.IGNORECASE)).fill(username)
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15989: in fill
+projects/core_orangehrm/tests/test_main.py:22: in navigate_to_login_page
+    self.page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9050: in goto
     self._sync(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:215: in fill
-    return await self._frame.fill(self._selector, strict=True, **params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:607: in fill
-    await self._fill(**locals_to_params(locals()))
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:619: in _fill
-    await self._channel.send("fill", self._timeout, locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:552: in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:153: in goto
+    await self._channel.send(
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7f40efee7c10>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f40eebf77e0>
+self = <playwright._impl._connection.Connection object at 0x7f050d0ede10>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f050bdebec0>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -67,14 +74,14 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+E           playwright._impl._errors.Error: Page.goto: net::ERR_ABORTED at https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
 E           Call log:
-E             - waiting for get_by_label(re.compile(r"Username", re.IGNORECASE))
+E             - navigating to "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login", waiting until "load"
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
 =========================== short test summary info ============================
-FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Page.goto: net::ERR_ABORTED at https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
 Call log:
-  - waiting for get_by_label(re.compile(r"Username", re.IGNORECASE))
-============================== 1 failed in 38.13s ==============================
+  - navigating to "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login", waiting until "load"
+============================== 1 failed in 4.55s ===============================
 
