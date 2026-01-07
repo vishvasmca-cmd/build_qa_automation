@@ -21,8 +21,8 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 2. Logic (using POM)
         login_page = OrangehrmLoginPage(page)
         reset_password_page = OrangehrmResetPasswordPage(page)
-        password_reset_confirmation_page = PasswordResetConfirmationPage(page)
     
+<<<<<<< Updated upstream
         login_page.goto()
         login_page.click_forgot_password()
     
@@ -31,6 +31,57 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         reset_password_page.click_reset_password()
     
 >       password_reset_confirmation_page.assert_on_confirmation_page()
+=======
+        login_page.navigate()
+    
+        # Step 0: Click 'Forgot your password?' link
+        login_page.click_forgot_password_link()
+        expect(page).to_have_url(re.compile(".*/requestPasswordResetCode", re.IGNORECASE))
+    
+        # Step 2: Fill username on the password reset page
+>       reset_password_page.fill_username("testuser")
+
+projects/core_orangehrm/tests/test_main.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/core_orangehrm/tests/test_main.py:50: in fill_username
+    self.username_input.fill(username)
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15989: in fill
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:215: in fill
+    return await self._frame.fill(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:607: in fill
+    await self._fill(**locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:619: in _fill
+    await self._channel.send("fill", self._timeout, locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7f7dc85db890>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f7dc8573740>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for get_by_label("Username")
+>>>>>>> Stashed changes
 
 projects/core_orangehrm/tests/test_main.py:95: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
@@ -50,6 +101,7 @@ E           6 × unexpected value "https://opensource-demo.orangehrmlive.com/web
 
 projects/core_orangehrm/tests/test_main.py:74: AssertionError
 =========================== short test summary info ============================
+<<<<<<< Updated upstream
 FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page URL expected to be '**/auth/sendPasswordReset'
 Actual value: https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset 
 Call log:
@@ -59,4 +111,10 @@ Call log:
     - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
     6 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset"
 ============================== 1 failed in 8.49s ===============================
+=======
+FAILED projects/core_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_label("Username")
+============================== 1 failed in 33.51s ==============================
+>>>>>>> Stashed changes
 

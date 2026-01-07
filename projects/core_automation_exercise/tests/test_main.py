@@ -12,17 +12,27 @@ from helpers import take_screenshot
 
 
 class ProductsPage:
-    def __init__(self, page):
+    def __init__(self, page: Page):
         self.page = page
 
+<<<<<<< Updated upstream
     @property
     def products_link(self):
         return self.page.get_by_role("link", name="\ue8f8 Products")
+=======
+    def navigate_to_products(self):
+        self.page.get_by_role("link", name=re.compile("Products", re.IGNORECASE)).click()
+        self.page.wait_for_url("**/products")
+        wait_for_stability(self.page)
+>>>>>>> Stashed changes
 
-    @property
-    def search_product_input(self):
-        return self.page.locator("#search_product")
+    def search_product(self, product_name: str):
+        self.page.get_by_label("Search Product").fill(product_name)
+        self.page.locator("#submit_search").click()
+        expect(self.page.locator(".product-overlay")).to_be_visible(timeout=5000)
+        wait_for_stability(self.page)
 
+<<<<<<< Updated upstream
     @property
     def submit_search_button(self):
         return self.page.locator("#submit_search")
@@ -47,6 +57,30 @@ class ProductsPage:
         self.search_product_input.fill(product_name)
         self.submit_search_button.click()
         self.page.wait_for_load_state("networkidle")
+=======
+    def add_first_product_to_cart(self):
+        product_card = self.page.locator(".product-overlay").first
+        product_card.hover()
+        add_to_cart_button = product_card.locator("a", text=re.compile("Add to cart", re.IGNORECASE))
+        add_to_cart_button.click()
+        self.page.get_by_role("button", name=re.compile("Continue Shopping", re.IGNORECASE)).click()
+        wait_for_stability(self.page)
+
+    def view_cart(self):
+        self.page.get_by_role("link", name=re.compile("Cart", re.IGNORECASE)).click()
+        self.page.wait_for_url("**/view_cart")
+        wait_for_stability(self.page)
+
+
+class CartPage:
+    def __init__(self, page: Page):
+        self.page = page
+
+    def proceed_to_checkout(self):
+        self.page.get_by_role("link", name=re.compile("Proceed To Checkout", re.IGNORECASE)).click()
+        self.page.wait_for_url("**/checkout")
+        wait_for_stability(self.page)
+>>>>>>> Stashed changes
 
     def add_first_product_to_cart(self):
         self.page.evaluate("document.querySelectorAll('#advertisement, .ad-container').forEach(el => el.remove())")
@@ -87,9 +121,13 @@ def test_autonomous_flow(browser: Browser):
     products_page.navigate_to_products()
     products_page.search_product("Dress")
     products_page.add_first_product_to_cart()
+<<<<<<< Updated upstream
     products_page.continue_shopping()
     products_page.navigate_to_cart()
     cart_page.proceed_to_checkout()
+=======
+    products_page.view_cart()
+>>>>>>> Stashed changes
     cart_page.proceed_to_checkout()
 
     # 3. Cleanup

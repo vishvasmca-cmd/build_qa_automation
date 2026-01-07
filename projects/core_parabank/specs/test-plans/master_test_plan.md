@@ -18,6 +18,7 @@ The smoke suite will focus on critical path testing to ensure the core functiona
 
 The following 8-point checklist was applied when designing the smoke suite for this project:
 
+<<<<<<< Updated upstream
 1.  **Critical Paths:** Tests cover the most essential user workflows (e.g., login).
 2.  **Core Business Logic:** Focuses on primary revenue or operational flows.
 3.  **Positive Testing:** Primarily happy path scenarios are included.
@@ -30,6 +31,20 @@ The following 8-point checklist was applied when designing the smoke suite for t
 ### Regression Suite
 
 The regression suite will provide a comprehensive test coverage to ensure that new changes have not introduced any regressions. It will include alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
+=======
+1.  **Critical Paths:** Tests cover the most important user workflows (e.g., login).
+2.  **Core Business Logic:** Focus on primary revenue or operational flows.
+3.  **Positive Testing:** Primarily happy path scenarios.
+4.  **No Negative Testing:** Unless critical security concerns exist.
+5.  **No Complex Edge Cases:** Avoid intricate scenarios in smoke tests.
+6.  **Fast Execution:** Tests should be quick to execute.
+7.  **Independent Tests:** Tests should not depend on each other.
+8.  **Limited Data Dependency:** Minimize reliance on specific test data.
+
+### Regression Suite
+
+The regression suite will provide comprehensive test coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite will be executed periodically to ensure existing functionalities are not broken by new changes.
+>>>>>>> Stashed changes
 
 ## Test Modules
 

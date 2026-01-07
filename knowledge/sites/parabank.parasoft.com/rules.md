@@ -32,8 +32,14 @@
 
 - When navigating to account history, check for common error messages or loading indicators on the page before waiting for the final URL. The ParaBank application is known to have intermittent performance issues.
 
+<<<<<<< Updated upstream
 - After clicking 'Account History', check for a redirect to the API endpoint '/services/bank' and, if present, retry the click or report the error.
 
 - Before navigating to 'Account History', ensure all page elements are fully loaded and any potential overlays or animations are complete. Consider adding a short explicit wait if necessary.
 
 - Before navigating to 'Account History', ensure all page elements are fully loaded and any potential overlays or animations are complete. Consider adding a short delay or explicit wait condition.
+=======
+- If navigation to Account History results in a redirect to '/services/bank', retry the navigation after a short delay, as this might be a transient server-side issue. Consider adding a conditional check for this redirect.
+
+- When navigating to the ParaBank homepage, the 'Home' link may not be immediately available. Implement a retry mechanism or increase the timeout to accommodate potential delays.
+>>>>>>> Stashed changes
