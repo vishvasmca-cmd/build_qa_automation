@@ -315,3 +315,7 @@
 - ⚠️ PROHIBITED: DON'T use locators that are ambiguous and can match multiple elements on the page without providing additional specificity.
 
 - ✅ PREFERRED: DO use more specific locators, such as role-based locators (e.g., `getByRole('button', { name: 'Login' })`) or locators that include attributes or unique identifiers, to target the intended element precisely.
+
+- ⚠️ PROHIBITED: DON'T use regular expression quantifiers (e.g., *, +, ?) in Playwright locators without ensuring there is a preceding element to apply the quantifier to.  Carefully validate the regex syntax.
+
+- ✅ PREFERRED: DO thoroughly validate regular expressions used in Playwright locators, especially when using quantifiers. Use online regex testers or debugging tools to confirm the regex matches the intended elements before incorporating it into the test.

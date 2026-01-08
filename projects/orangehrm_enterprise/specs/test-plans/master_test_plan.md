@@ -2,64 +2,55 @@
 
 ## Introduction
 
-This document outlines the test plan for the OrangeHRM Enterprise application. It covers the scope, objectives, and strategy for testing the core functionalities of the system.
+This test plan outlines the testing strategy for the OrangeHRM Enterprise application. It includes smoke and regression test suites designed to ensure the quality and stability of the application.
 
 ## Scope
 
-The testing will focus on the following modules:
-
-*   **Login:** Verifying user authentication.
-*   **PIM (Personnel Information Management):** Adding new employees.
-*   **Admin:** Creating system users.
-
-## Objectives
-
-*   Ensure the core functionalities of OrangeHRM are working as expected.
-*   Identify and report any defects or issues.
-*   Verify that the application meets the specified requirements.
-
-## Test Strategy
-
-The testing will be conducted using a combination of smoke and regression testing.
-
-### Smoke Suite Strategy
-
-The smoke suite will focus on the critical path of the application. The following checklist will be applied:
-
-1.  **Critical Path Coverage:** Tests cover the most important user flows.
-2.  **Positive Testing:** Focus on happy path scenarios.
-3.  **Minimal Data Set:** Use a small, representative set of data.
-4.  **Fast Execution:** Tests should run quickly to provide rapid feedback.
-5.  **Build Verification:** Used to determine if a build is stable enough for further testing.
-6.  **High Priority:** Any failures are treated as critical.
-7.  **Automated:** Designed for automated execution.
-8.  **Independent:** Tests should be independent of each other.
-
-### Regression Suite Strategy
-
-The regression suite will cover a broader range of functionalities and scenarios, including alternative flows, negative testing, and boundary analysis.
+The scope of this test plan covers the core functionalities of the OrangeHRM Enterprise application, including user login, employee management (PIM), and user administration.
 
 ## Test Suites
 
-1.  **Smoke Suite:**
-    *   Login
-    *   Add Employee
-    *   Create System User
+### Smoke Suite
 
-2.  **Regression Suite:** (To be defined in detail later)
-    *   Login with invalid credentials
-    *   Add Employee with missing fields
-    *   Edit Employee Information
-    *   Delete Employee
-    *   Search for Employee
-    *   Create System User with invalid data
-    *   Edit System User
-    *   Delete System User
+The smoke suite verifies the critical functionalities of the application. It is executed after each build to ensure that the core features are working as expected. If any of the smoke tests fail, the build is rejected.
+
+#### Smoke Suite Strategy
+
+The following 8-point checklist is applied to the Smoke Suite for this project:
+
+1.  **Critical Paths Only:** Focuses solely on the most essential workflows (Login, Add Employee, Create User).
+2.  **Positive Testing:** Primarily uses valid inputs and expected outcomes.
+3.  **No Edge Cases:** Avoids complex scenarios or boundary conditions.
+4.  **Fast Execution:** Designed for quick feedback on build stability.
+5.  **Independent Tests:** Each test should be able to run independently without dependencies.
+6.  **Clear Assertions:** Assertions should be straightforward and directly related to the core functionality.
+7.  **Limited Data:** Uses a minimal set of test data.
+8.  **Automated Execution:** Fully automated for continuous integration.
+
+#### Smoke Test Cases
+
+*   Verify user login
+*   Verify adding a new employee
+*   Verify creating a new system user
+
+### Regression Suite
+
+The regression suite is a comprehensive set of tests that covers all functionalities of the application. It is executed periodically to ensure that new changes have not introduced any regressions.
+
+#### Regression Test Cases
+
+*   Verify user login with invalid credentials
+*   Verify adding a new employee with missing information
+*   Verify editing an existing employee
+*   Verify deleting an existing employee
+*   Verify creating a new system user with invalid data
+*   Verify editing an existing system user
+*   Verify deleting an existing system user
 
 ## Test Environment
 
-*   Browser: Chrome (latest version)
-*   Operating System: Windows 10
+*   Browser: Chrome, Firefox, Edge
+*   Operating System: Windows, macOS, Linux
 *   Test Data: Sample data will be used for testing purposes.
 
 ## Test Deliverables
@@ -69,15 +60,3 @@ The regression suite will cover a broader range of functionalities and scenarios
 *   Test Scripts
 *   Test Results
 *   Defect Reports
-
-## Roles and Responsibilities
-
-*   QA Architect: Responsible for creating and maintaining the test plan.
-*   QA Engineers: Responsible for executing the tests and reporting defects.
-
-## Test Schedule
-
-*   Test Planning: \[Start Date] - \[End Date]
-*   Test Execution: \[Start Date] - \[End Date]
-*   Defect Reporting: Ongoing
-*   Regression Testing: After each build
