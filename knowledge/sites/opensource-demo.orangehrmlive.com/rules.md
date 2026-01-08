@@ -303,3 +303,7 @@
 - ⚠️ PROHIBITED: DON'T assume that elements are immediately available after navigation; always implement explicit waits for critical elements to appear.
 
 - ✅ PREFERRED: DO verify successful navigation by checking for a unique element on the target page before interacting with other elements.
+
+- ⚠️ PROHIBITED: DON'T use locators that are ambiguous and can match multiple elements on the page without providing additional specificity.
+
+- ✅ PREFERRED: DO use more specific locators, such as role-based locators (e.g., `get_by_role('button', name='Login')`) or locators that include unique attributes, to target the intended element.
