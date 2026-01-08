@@ -117,3 +117,7 @@
 - ⚠️ PROHIBITED: DON'T rely on default timeouts for critical input fields without verifying their presence and readiness. Implicit waits can lead to unpredictable delays.
 
 - ✅ PREFERRED: DO explicitly wait for input fields to be visible and enabled before attempting to fill them, using `locator.wait_for()` with a shorter, more reasonable timeout (e.g., 5-10 seconds) and a clear error message if the timeout is exceeded.
+
+- ⚠️ PROHIBITED: DON'T use unescaped periods in CSS selectors when targeting elements with IDs containing periods. Playwright will interpret the period as a class selector instead of a literal part of the ID.
+
+- ✅ PREFERRED: DO escape periods in CSS selectors with a backslash (`\`) when targeting elements with IDs containing periods (e.g., `#customer\.address\.zipCode` should be `#customer\.address\.zipCode`).

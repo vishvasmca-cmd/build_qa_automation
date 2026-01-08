@@ -19,7 +19,6 @@ class BasePage:
         self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
-
 class HomePage(BasePage):
     def __init__(self, page):
         super().__init__(page)
@@ -31,19 +30,10 @@ class HomePage(BasePage):
     def click_register_link(self):
         self.page.get_by_role("link", name="Register").click()
 
-    def enter_username(self, username):
-        self.page.locator("[name='username']").fill(username)
-
-    def enter_password(self, password):
-        self.page.locator("[name='password']").fill(password)
-
-    def click_login_button(self):
-        self.page.locator("input[value='Log In']").click()
-
-
 class RegisterPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
+        self.url = "https://parabank.parasoft.com/parabank/register.htm"
 
     def fill_first_name(self, first_name):
         self.page.locator("#customer\.firstName").fill(first_name)
@@ -81,20 +71,18 @@ class RegisterPage(BasePage):
     def click_register_button(self):
         self.page.locator("input[value='Register']").click()
 
-
 class AccountServicesPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
 
-    def click_open_new_account_link(self):
+    def click_open_new_account(self):
         self.page.get_by_role("link", name="Open New Account").click()
 
-    def click_transfer_funds_link(self):
+    def click_transfer_funds(self):
         self.page.get_by_role("link", name="Transfer Funds").click()
 
-    def click_request_loan_link(self):
+    def click_request_loan(self):
         self.page.get_by_role("link", name="Request Loan").click()
-
 
 class OpenAccountPage(BasePage):
     def __init__(self, page):
@@ -106,55 +94,48 @@ class OpenAccountPage(BasePage):
     def click_open_new_account_button(self):
         self.page.locator("input[value='Open New Account']").click()
 
-
 class TransferFundsPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
 
-    def enter_amount(self, amount):
+    def fill_amount(self, amount):
         self.page.locator("#amount").fill(amount)
 
-    def select_from_account(self, from_account):
-         self.page.locator("#fromAccountId").select_option(label=from_account)
+    def select_from_account(self, account_id):
+         self.page.locator("#fromAccountId").select_option(label=account_id)
 
-
-    def select_to_account(self, to_account):
-        self.page.locator("#toAccountId").select_option(label=to_account)
+    def select_to_account(self, account_id):
+        self.page.locator("#toAccountId").select_option(label=account_id)
 
     def click_transfer_button(self):
         self.page.locator("input[value='Transfer']").click()
-
 
 class RequestLoanPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
 
-    def enter_loan_amount(self, amount):
+    def fill_loan_amount(self, amount):
         self.page.locator("#amount").fill(amount)
 
-    def enter_down_payment(self, down_payment):
+    def fill_down_payment(self, down_payment):
         self.page.locator("#downPayment").fill(down_payment)
 
-    def select_from_account(self, from_account):
-        self.page.locator("#fromAccountId").select_option(label=from_account)
+    def select_from_account(self, account_id):
+        self.page.locator("#fromAccountId").select_option(label=account_id)
 
     def click_apply_now_button(self):
         self.page.locator("input[value='Apply Now']").click()
-
 
 class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
 
-    def enter_username(self, username):
+    def login(self, username, password):
         self.page.locator("[name='username']").fill(username)
-
-    def enter_password(self, password):
         self.page.locator("[name='password']").fill(password)
-
-    def click_login_button(self):
         self.page.locator("input[value='Log In']").click()
 
+from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
@@ -184,35 +165,27 @@ def test_autonomous_flow(browser: Browser):
     register_page.click_register_button()
 
     # Login
-    home_page.enter_username("testuser")
-    home_page.enter_password("password")
-    home_page.click_login_button()
+    login_page.login("testuser", "password")
 
     # Open Account
-    account_services_page.click_open_new_account_link()
+    account_services_page.click_open_new_account()
     open_account_page.select_account_type("CHECKING")
     open_account_page.click_open_new_account_button()
 
-    # Get new account id (this part would require parsing the success message).
-    # For now, we'll hardcode a placeholder account ID.
-    new_account_id = "12345"
+    # Get the new account ID from the success message.
+    new_account_id = page.locator("#newAccountId").inner_text()
+
 
     # Transfer Funds
-    account_services_page.click_transfer_funds_link()
-    transfer_funds_page.enter_amount("100")
-
-    # Need to get the real account list after the Open Account step.
-    transfer_funds_page.select_from_account(new_account_id) # Replace with actual account ID.
-
-    # Need to get another real account to transfer to
-    transfer_funds_page.select_to_account("12345")  # Replace with actual to account ID
+    account_services_page.click_transfer_funds()
+    transfer_funds_page.fill_amount("100")
+    transfer_funds_page.select_from_account(new_account_id)
+    transfer_funds_page.select_to_account("12345")  # Replace with a valid account
     transfer_funds_page.click_transfer_button()
 
     # Request Loan
-    account_services_page.click_request_loan_link()
-    request_loan_page.enter_loan_amount("1000")
-    request_loan_page.enter_down_payment("100")
-    request_loan_page.select_from_account(new_account_id) # Replace with actual account ID.
+    account_services_page.click_request_loan()
+    request_loan_page.fill_loan_amount("1000")
+    request_loan_page.fill_down_payment("100")
+    request_loan_page.select_from_account(new_account_id)
     request_loan_page.click_apply_now_button()
-
-    #TODO: Add assertions to validate success of all operations.
