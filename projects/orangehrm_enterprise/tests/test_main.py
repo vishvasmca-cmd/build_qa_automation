@@ -70,11 +70,7 @@ class AddEmployeePage(BasePage):
 class SystemUsersPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.admin_link_locator = "page.get_by_role(\"link\", name=\"Admin\")"
         self.add_button_locator = "page.get_by_role(\"button\", name=\"Add\")"
-
-    def navigate_to_admin(self):
-        self.page.locator(eval(self.admin_link_locator)).click()
 
     def click_add(self):
         self.page.locator(eval(self.add_button_locator)).click()
@@ -130,5 +126,5 @@ def test_autonomous_flow(browser: Browser):
     page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers")
     system_users_page.click_add()
     add_user_page.enter_employee_name("FirstNameTest LastNameTest")
-    page.locator("div[role='listbox'] >> text=FirstNameTest LastNameTest").click()
+    add_user_page.enter_employee_name("FirstNameTest LastNameTest")
     add_user_page.click_save()
