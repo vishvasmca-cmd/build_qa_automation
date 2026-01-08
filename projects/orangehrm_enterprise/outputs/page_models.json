@@ -59,53 +59,53 @@
       {
         "name": "assign_leave_quick_launch",
         "type": "link",
-        "primary_locator": "get_by_text('Assign Leave')",
+        "primary_locator": "get_by_role('link', name='Assign Leave')",
         "backup_locator": "locator('//div[text()=\"Assign Leave\"]')",
         "description": "Quick launch icon to assign leave to an employee."
       },
       {
         "name": "leave_list_quick_launch",
         "type": "link",
-        "primary_locator": "get_by_text('Leave List')",
+        "primary_locator": "get_by_role('link', name='Leave List')",
         "backup_locator": "locator('//div[text()=\"Leave List\"]')",
         "description": "Quick launch icon to view the leave list."
       },
       {
         "name": "timesheets_quick_launch",
         "type": "link",
-        "primary_locator": "get_by_text('Timesheets')",
+        "primary_locator": "get_by_role('link', name='Timesheets')",
         "backup_locator": "locator('//div[text()=\"Timesheets\"]')",
         "description": "Quick launch icon to access timesheets."
       },
       {
         "name": "apply_leave_quick_launch",
         "type": "link",
-        "primary_locator": "get_by_text('Apply Leave')",
+        "primary_locator": "get_by_role('link', name='Apply Leave')",
         "backup_locator": "locator('//div[text()=\"Apply Leave\"]')",
         "description": "Quick launch icon to apply for leave."
       },
       {
         "name": "my_leave_quick_launch",
         "type": "link",
-        "primary_locator": "get_by_text('My Leave')",
+        "primary_locator": "get_by_role('link', name='My Leave')",
         "backup_locator": "locator('//div[text()=\"My Leave\"]')",
         "description": "Quick launch icon to view my leave."
       },
       {
         "name": "my_timesheet_quick_launch",
         "type": "link",
-        "primary_locator": "get_by_text('My Timesheet')",
+        "primary_locator": "get_by_role('link', name='My Timesheet')",
         "backup_locator": "locator('//div[text()=\"My Timesheet\"]')",
         "description": "Quick launch icon to view my timesheet."
       }
     ],
     "assertions": [
       "expect(page).to_have_title('OrangeHRM')",
-      "expect(page.locator('//h6[text()=\"Dashboard\"]')).to_be_visible()",
-      "expect(page.locator('//p[text()=\"Time at Work\"]')).to_be_visible()",
-      "expect(page.locator('//p[text()=\"My Actions\"]')).to_be_visible()",
-      "expect(page.locator('//p[text()=\"Quick Launch\"]')).to_be_visible()",
-      "expect(page.locator('//p[text()=\"Buzz Latest Posts\"]')).to_be_visible()"
+      "expect(page.get_by_text('Dashboard')).to_be_visible()",
+      "expect(page.locator('//h6[text()=\"Time at Work\"]')).to_be_visible()",
+      "expect(page.locator('//h6[text()=\"Quick Launch\"]')).to_be_visible()",
+      "expect(page.locator('//h6[text()=\"My Actions\"]')).to_be_visible()",
+      "expect(page.locator('//h6[text()=\"Buzz Latest Posts\"]')).to_be_visible()"
     ]
   },
   "EmployeeListPage": {
@@ -262,39 +262,11 @@
         "description": "Button to add a new system user"
       },
       {
-        "name": "username_filter",
-        "type": "textbox",
-        "primary_locator": "locator('input[placeholder=\"Username\"]')",
-        "backup_locator": "locator('input[name=\"username\"]')",
-        "description": "Input field to filter users by username"
-      },
-      {
-        "name": "user_role_dropdown",
-        "type": "dropdown",
-        "primary_locator": "locator('div[class*=\"oxd-select-text--arrow\"]')",
-        "backup_locator": "locator('div[class*=\"oxd-select-text--after\"]')",
-        "description": "Dropdown to filter users by user role"
-      },
-      {
-        "name": "employee_name_filter",
-        "type": "textbox",
-        "primary_locator": "locator('input[placeholder=\"Type for hints...\"]')",
-        "backup_locator": "locator('input[name=\"employeeName\"]')",
-        "description": "Input field to filter users by employee name"
-      },
-      {
-        "name": "status_dropdown",
-        "type": "dropdown",
-        "primary_locator": "locator('div[class*=\"oxd-select-text--arrow\"]')",
-        "backup_locator": "locator('div[class*=\"oxd-select-text--after\"]')",
-        "description": "Dropdown to filter users by status"
-      },
-      {
         "name": "search_button",
         "type": "button",
         "primary_locator": "get_by_role('button', name='Search')",
         "backup_locator": "locator('button:has-text(\"Search\")')",
-        "description": "Button to initiate the user search"
+        "description": "Button to search system users"
       },
       {
         "name": "reset_button",
@@ -302,12 +274,40 @@
         "primary_locator": "get_by_role('button', name='Reset')",
         "backup_locator": "locator('button:has-text(\"Reset\")')",
         "description": "Button to reset the search filters"
+      },
+      {
+        "name": "username_input",
+        "type": "textbox",
+        "primary_locator": "locator('input[placeholder=\"Username\"]')",
+        "backup_locator": "locator('input[name=\"username\"]')",
+        "description": "Input field for username"
+      },
+      {
+        "name": "user_role_dropdown",
+        "type": "dropdown",
+        "primary_locator": "locator('div:has-text(\"User Role\")').locator('i.oxd-select-text--arrow')",
+        "backup_locator": "locator('div:has-text(\"-- Select --\")')",
+        "description": "Dropdown to select user role"
+      },
+      {
+        "name": "employee_name_input",
+        "type": "textbox",
+        "primary_locator": "locator('input[placeholder=\"Type for hints...\"]')",
+        "backup_locator": "locator('input[name=\"employee_name\"]')",
+        "description": "Input field for employee name"
+      },
+      {
+        "name": "status_dropdown",
+        "type": "dropdown",
+        "primary_locator": "locator('div:has-text(\"Status\")').locator('i.oxd-select-text--arrow')",
+        "backup_locator": "locator('div:has-text(\"-- Select --\")').nth(1)",
+        "description": "Dropdown to select status"
       }
     ],
     "assertions": [
       "expect(page).to_have_title('OrangeHRM')",
-      "expect(page.locator('h6', has_text='System Users')).to_be_visible()",
-      "expect(page.url()).to_contain('/admin/viewSystemUsers')"
+      "expect(page.locator('h6:has-text(\"System Users\")')).to_be_visible()",
+      "expect(page.locator('div:has-text(\"(10) Records Found\")')).to_be_visible()"
     ]
   },
   "SystemUsersPage": {
@@ -376,35 +376,35 @@
       {
         "name": "user_role_dropdown",
         "type": "dropdown",
-        "primary_locator": "get_by_role('combobox', name='User Role')",
-        "backup_locator": "locator('div[class*=\"oxd-grid-item\"]:nth-child(1) div[class*=\"oxd-select-wrapper\"]')",
+        "primary_locator": "get_by_label('User Role*')",
+        "backup_locator": "locator('//label[text()=\"User Role*\"]/following-sibling::div//div[@class=\"oxd-select-text-input\"]')",
         "description": "Dropdown to select the user role"
       },
       {
         "name": "employee_name_input",
-        "type": "textbox",
-        "primary_locator": "get_by_placeholder('Type for hints...')",
+        "type": "text_input",
+        "primary_locator": "get_by_label('Employee Name*')",
         "backup_locator": "locator('input[placeholder=\"Type for hints...\"]')",
         "description": "Input field to enter the employee name"
       },
       {
         "name": "status_dropdown",
         "type": "dropdown",
-        "primary_locator": "get_by_role('combobox', name='Status')",
-        "backup_locator": "locator('div[class*=\"oxd-grid-item\"]:nth-child(2) div[class*=\"oxd-select-wrapper\"]')",
+        "primary_locator": "get_by_label('Status*')",
+        "backup_locator": "locator('//label[text()=\"Status*\"]/following-sibling::div//div[@class=\"oxd-select-text-input\"]')",
         "description": "Dropdown to select the status of the user"
       },
       {
         "name": "password_input",
-        "type": "textbox",
-        "primary_locator": "get_by_label('Password')",
+        "type": "password_input",
+        "primary_locator": "get_by_label('Password*')",
         "backup_locator": "locator('input[type=\"password\"]').nth(0)",
         "description": "Input field to enter the password"
       },
       {
         "name": "confirm_password_input",
-        "type": "textbox",
-        "primary_locator": "get_by_label('Confirm Password')",
+        "type": "password_input",
+        "primary_locator": "get_by_label('Confirm Password*')",
         "backup_locator": "locator('input[type=\"password\"]').nth(1)",
         "description": "Input field to confirm the password"
       },
@@ -412,20 +412,20 @@
         "name": "save_button",
         "type": "button",
         "primary_locator": "get_by_role('button', name='Save')",
-        "backup_locator": "locator('button:has-text(\"Save\")')",
+        "backup_locator": "locator('button.oxd-button--secondary.oxd-button--success')",
         "description": "Button to save the new user"
       },
       {
         "name": "cancel_button",
         "type": "button",
         "primary_locator": "get_by_role('button', name='Cancel')",
-        "backup_locator": "locator('button:has-text(\"Cancel\")')",
-        "description": "Button to cancel the creation of a new user"
+        "backup_locator": "locator('button.oxd-button--label-warn')",
+        "description": "Button to cancel adding the new user"
       }
     ],
     "assertions": [
-      "expect(page).to_have_title('OrangeHRM')",
-      "expect(page.locator('h6:has-text(\"Add User\")')).to_be_visible()"
+      "expect(page.get_by_text('Add User')).to_be_visible()",
+      "expect(page).to_have_url(/admin/saveSystemUser)"
     ]
   },
   "UnknownPage": {
@@ -436,42 +436,42 @@
         "name": "user_role_dropdown",
         "type": "dropdown",
         "primary_locator": "get_by_text('-- Select --').first",
-        "backup_locator": "locator('div:has-text(\"User Role\") >> div >> div.oxd-select-text--after')",
+        "backup_locator": "locator('div').filter(has_text='User Role').locator('i')",
         "description": "Dropdown to select the user role"
       },
       {
         "name": "employee_name_input",
         "type": "text_field",
-        "primary_locator": "locator('input[placeholder=\"Type for hints...\"]')",
-        "backup_locator": "locator('div:has-text(\"Employee Name\") >> input')",
+        "primary_locator": "get_by_label('Employee Name*')",
+        "backup_locator": "locator('input[name=\"employeeName\"]')",
         "description": "Input field for employee name"
       },
       {
         "name": "status_dropdown",
         "type": "dropdown",
         "primary_locator": "get_by_text('-- Select --').nth(1)",
-        "backup_locator": "locator('div:has-text(\"Status\") >> div >> div.oxd-select-text--after')",
+        "backup_locator": "locator('div').filter(has_text='Status').locator('i')",
         "description": "Dropdown to select the status"
       },
       {
         "name": "username_input",
         "type": "text_field",
-        "primary_locator": "locator('input[name=\"username\"]')",
-        "backup_locator": "locator('div:has-text(\"Username\") >> input')",
+        "primary_locator": "get_by_label('Username*')",
+        "backup_locator": "locator('input[name=\"username\"]')",
         "description": "Input field for username"
       },
       {
         "name": "password_input",
-        "type": "text_field",
-        "primary_locator": "locator('input[name=\"password\"]')",
-        "backup_locator": "locator('div:has-text(\"Password\") >> input')",
+        "type": "password_field",
+        "primary_locator": "get_by_label('Password*')",
+        "backup_locator": "locator('input[name=\"password\"]')",
         "description": "Input field for password"
       },
       {
         "name": "confirm_password_input",
-        "type": "text_field",
-        "primary_locator": "locator('input[name=\"confirmPassword\"]')",
-        "backup_locator": "locator('div:has-text(\"Confirm Password\") >> input')",
+        "type": "password_field",
+        "primary_locator": "get_by_label('Confirm Password*')",
+        "backup_locator": "locator('input[name=\"confirmPassword\"]')",
         "description": "Input field to confirm password"
       },
       {
@@ -490,8 +490,8 @@
       }
     ],
     "assertions": [
-      "expect(page.get_by_role('heading', name='Add User')).to_be_visible()",
-      "expect(page).to_have_url(/admin/saveSystemUser)"
+      "expect(page).to_have_title('OrangeHRM')",
+      "expect(page.get_by_role('heading', name='Add User')).to_be_visible()"
     ]
   }
 }
