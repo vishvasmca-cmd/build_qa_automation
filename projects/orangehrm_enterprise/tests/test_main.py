@@ -97,6 +97,7 @@ class OrangehrmPage(BasePage):
 
 from playwright.sync_api import Browser
 
+
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
     login_page = LoginPage(page)
