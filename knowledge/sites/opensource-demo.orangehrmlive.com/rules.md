@@ -243,3 +243,7 @@
 - ⚠️ PROHIBITED: DON'T directly access internal attributes like `_selector` of Playwright Locator objects. Use the public API methods instead.
 
 - ✅ PREFERRED: DO use `page.locator('your_selector').first().wait_for()` or `page.locator('your_selector').wait_for()` to wait for an element to be present and visible before interacting with it.
+
+- ⚠️ PROHIBITED: DON'T assume that the project structure is correct without verifying the existence of necessary modules and their correct import paths.
+
+- ✅ PREFERRED: DO verify the project's directory structure and module import paths before running tests, especially after any changes to the project structure.
