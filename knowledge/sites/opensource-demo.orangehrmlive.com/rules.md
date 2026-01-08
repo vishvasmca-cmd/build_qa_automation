@@ -235,3 +235,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on `get_by_label` with a regular expression for critical input fields like Username, especially without confirming element visibility or presence.
 
 - ✅ PREFERRED: DO prioritize using more specific and stable locators, such as `input[name='username']` or `input#username`, and ALWAYS verify element visibility before interacting with it.
+
+- ⚠️ PROHIBITED: DON'T assume a successful login without explicitly verifying the presence of a dashboard element after navigation.
+
+- ✅ PREFERRED: DO implement explicit waits for key dashboard elements to appear after the expected navigation, ensuring the application has fully loaded before proceeding with subsequent actions.

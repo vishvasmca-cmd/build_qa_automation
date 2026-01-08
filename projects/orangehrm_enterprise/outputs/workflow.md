@@ -1,14 +1,8 @@
 # Workflow Summary: MISSION: 1. Login. 2. Navigate to PIM module and Add a new employee (FirstNameTest LastNameTest). 3. Click SAVE to finish onboarding. 4. Navigate to Admin module -> User Management -> Users. 5. Create a System User for the newly created employee. THE MISSION IS ONLY SUCCESSFUL IF ALL STEPS ARE COMPLETED.
 
 **Goal**: MISSION: 1. Login. 2. Navigate to PIM module and Add a new employee (FirstNameTest LastNameTest). 3. Click SAVE to finish onboarding. 4. Navigate to Admin module -> User Management -> Users. 5. Create a System User for the newly created employee. THE MISSION IS ONLY SUCCESSFUL IF ALL STEPS ARE COMPLETED.
-**Total Steps**: 13
-**Final URL**: https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveSystemUser
+**Total Steps**: 5
+**Final URL**: https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
 
 ## Journey Highlight
 - Visited **LoginPage**
-- Visited **OrangehrmLoginPage**
-- Visited **OrangehrmDashboardPage**
-- Visited **EmployeeListPage**
-- Visited **OrangehrmAddEmployeePage**
-- Visited **SystemUsersPage**
-- Visited **AddUserOrangehrmPage**

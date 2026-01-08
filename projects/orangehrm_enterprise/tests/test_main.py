@@ -7,7 +7,7 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
-sys.path.append('C:/Users/vishv/.gemini/antigravity/playground/inner-event/core/lib/templates')
+sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/lib/templates')
 from helpers import take_screenshot
 
 
@@ -19,102 +19,81 @@ class BasePage:
         self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
+    def take_screenshot(self, name, project_name):
+        take_screenshot(self.page, name, project_name)
 
 class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.username_field = self.page.locator("[name='username']")
-        self.password_field = self.page.locator("[name='password']")
-        self.login_button = self.page.get_by_role("button", name="Login")
+        self.page = page
+
+    def goto_login_page(self):
+        self.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
 
     def login(self, username, password):
-        self.username_field.fill(username)
-        self.password_field.fill(password)
-        self.login_button.click()
+        self.page.locator("[name='username']").fill(username)
+        self.page.locator("[name='password']").fill(password)
+        self.page.get_by_role("button", name="Login").click()
+        self.page.wait_for_url(re.compile("/web/index.php/dashboard.*", re.IGNORECASE), timeout=60000)
 
-
-class DashboardPage(BasePage):
+class PIMPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.pim_link = self.page.get_by_role("link", name="PIM")
+        self.page = page
 
     def navigate_to_pim(self):
-        self.pim_link.click()
-
-
-class EmployeeListPage(BasePage):
-    def __init__(self, page):
-        super().__init__(page)
-        self.add_button = self.page.get_by_role("button", name="Add")
-
-    def navigate_to_add_employee(self):
-        self.add_button.click()
-
-
-class AddEmployeePage(BasePage):
-    def __init__(self, page):
-        super().__init__(page)
-        self.first_name_field = self.page.locator("[name='firstName']")
-        self.last_name_field = self.page.locator("[name='lastName']")
-        self.save_button = self.page.get_by_role("button", name="Save")
+        self.page.locator("a[href*='/web/index.php/pim/viewPimModule']").click()
+        self.page.wait_for_url(re.compile("/web/index.php/pim/viewPimModule", re.IGNORECASE), timeout=60000)
 
     def add_employee(self, first_name, last_name):
-        self.first_name_field.fill(first_name)
-        self.last_name_field.fill(last_name)
-        self.save_button.click()
-
+        self.page.get_by_role("button", name="Add").click()
+        self.page.locator("[name='firstName']").fill(first_name)
+        self.page.locator("[name='lastName']").fill(last_name)
+        self.page.get_by_role("button", name="Save").click()
+        self.page.wait_for_load_state("networkidle")
 
 class AdminPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.admin_link = self.page.get_by_role("link", name="Admin")
+        self.page = page
 
     def navigate_to_admin(self):
-        self.admin_link.click()
+        self.page.locator("a[href*='/web/index.php/admin/viewAdminModule']").click()
+        self.page.wait_for_url(re.compile("/web/index.php/admin/viewAdminModule", re.IGNORECASE), timeout=60000)
 
+    def navigate_to_users(self):
+        self.navigate_to_admin()
+        self.page.locator("span.oxd-topbar-body-nav-tab-item").filter(has_text="User Management").click()
+        self.page.get_by_role("menuitem", name="Users").click()
+        self.page.wait_for_load_state("networkidle")
 
-class SystemUsersPage(BasePage):
-    def __init__(self, page):
-        super().__init__(page)
-        self.add_button = self.page.get_by_role("button", name="Add")
-
-    def navigate_to_add_user(self):
-        self.add_button.click()
-
-
-class AddUserPage(BasePage):
-    def __init__(self, page):
-        super().__init__(page)
-        self.save_button = self.page.get_by_role("button", name="Save")
-
-    def save_user(self):
-        self.save_button.click()
-
+    def add_user(self, employee_name, username, password):
+        self.page.get_by_role("button", name="Add").click()
+        self.page.get_by_text("User Role").locator("xpath=//following::div[@class='oxd-select-text-input'][1]").click()
+        self.page.get_by_role("option", name="Admin").click()
+        self.page.locator("input[placeholder='Type for hints...']").fill(employee_name)
+        self.page.locator("div[role='listbox'] span").click()
+        self.page.get_by_text("Status").locator("xpath=//following::div[@class='oxd-select-text-input'][1]").click()
+        self.page.get_by_role("option", name="Enabled").click()
+        self.page.locator("div:nth-child(1) > div > div:nth-child(2) > input").fill(username)
+        self.page.locator("div:nth-child(2) > div > div:nth-child(2) > input").fill(password)
+        self.page.locator("div:nth-child(3) > div > div:nth-child(2) > input").fill(password)
+        self.page.get_by_role("button", name="Save").click()
+        self.page.wait_for_load_state("networkidle")
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
     login_page = LoginPage(page)
-    dashboard_page = DashboardPage(page)
-    employee_list_page = EmployeeListPage(page)
-    add_employee_page = AddEmployeePage(page)
+    pim_page = PIMPage(page)
     admin_page = AdminPage(page)
-    system_users_page = SystemUsersPage(page)
-    add_user_page = AddUserPage(page)
 
-    # 1. Login
-    login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-    login_page.login("Admin", "admin123")
+    login_page.goto_login_page()
+    login_page.login("Admin", "orangehrm123")
 
-    # 2. Navigate to PIM
-    dashboard_page.navigate_to_pim()
+    pim_page.navigate_to_pim()
+    pim_page.add_employee("FirstNameTest", "LastNameTest")
 
-    # 3. Add Employee
-    employee_list_page.navigate_to_add_employee()
-    add_employee_page.add_employee("FirstNameTest", "LastNameTest")
+    admin_page.navigate_to_users()
+    admin_page.add_user("FirstNameTest LastNameTest", "TestUser", "TestPassword123!")
 
-    # 4. Navigate to Admin > User Management > Users
-    admin_page.navigate_to_admin()
-    system_users_page.navigate_to_add_user()
-
-    # 5. Save User
-    add_user_page.save_user()
+    login_page.take_screenshot("final_screenshot", "orangehrm_enterprise")
