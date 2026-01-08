@@ -6,7 +6,10 @@ rootdir: /home/runner/work/build_qa_automation/build_qa_automation
 plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
 collecting ... collected 1 item
 
-projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] FAILED
+projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] Test failed due to SSL certificate error: Invalid SSL certificate detected. Halting test execution.
+[SCREENSHOT] Saved: projects/build_qa_automation/outputs/screenshots/ssl_error.png
+[SCREENSHOT] Saved: projects/build_qa_automation/outputs/screenshots/final_state.png
+FAILED
 
 =================================== FAILURES ===================================
 ________________________ test_autonomous_flow[chromium] ________________________
@@ -17,48 +20,25 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         # 1. Setup
         context = browser.new_context(viewport={"width": 1920, "height": 1080})
         page = context.new_page()
-        page.goto("https://magento.softwaretestingboard.com/")
-        page.wait_for_load_state("networkidle")
+        generic_page = GenericPage(page)
     
-        # 2. Check SSL Certificate
         try:
->           expect(page).not_to_have_title(re.compile("Invalid SSL certificate", re.IGNORECASE))
-E           AssertionError: Page title expected not to be 're.compile('Invalid SSL certificate', re.IGNORECASE)'
-E           Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
-E           Call log:
-E             - Expect "to_have_title" with timeout 5000ms
-E               9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
+            # 2. Logic (Check SSL Certificate)
+            generic_page.goto("https://magento.softwaretestingboard.com/")
+>           generic_page.check_ssl_certificate()
 
-projects/core_magento/tests/test_main.py:30: AssertionError
+projects/core_magento/tests/test_main.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-During handling of the above exception, another exception occurred:
+self = <test_main.GenericPage object at 0x7f9a7a97edd0>
 
-browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+    def check_ssl_certificate(self):
+        if "Invalid SSL certificate" in self.page.title():
+>           raise Exception("Invalid SSL certificate detected. Halting test execution.")
+E           Exception: Invalid SSL certificate detected. Halting test execution.
 
-    def test_autonomous_flow(browser: Browser):
-        # 1. Setup
-        context = browser.new_context(viewport={"width": 1920, "height": 1080})
-        page = context.new_page()
-        page.goto("https://magento.softwaretestingboard.com/")
-        page.wait_for_load_state("networkidle")
-    
-        # 2. Check SSL Certificate
-        try:
-            expect(page).not_to_have_title(re.compile("Invalid SSL certificate", re.IGNORECASE))
-        except Exception as e:
->           pytest.fail(f"SSL Certificate is invalid: {e}")
-E           Failed: SSL Certificate is invalid: Page title expected not to be 're.compile('Invalid SSL certificate', re.IGNORECASE)'
-E           Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
-E           Call log:
-E             - Expect "to_have_title" with timeout 5000ms
-E               9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
-
-projects/core_magento/tests/test_main.py:32: Failed
+projects/core_magento/tests/test_main.py:23: Exception
 =========================== short test summary info ============================
-FAILED projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] - Failed: SSL Certificate is invalid: Page title expected not to be 're.compile('Invalid SSL certificate', re.IGNORECASE)'
-Actual value: softwaretestingboard.com | 526: Invalid SSL certificate 
-Call log:
-  - Expect "to_have_title" with timeout 5000ms
-    9 × unexpected value "softwaretestingboard.com | 526: Invalid SSL certificate"
-============================== 1 failed in 6.34s ===============================
+FAILED projects/core_magento/tests/test_main.py::test_autonomous_flow[chromium] - Exception: Invalid SSL certificate detected. Halting test execution.
+============================== 1 failed in 0.94s ===============================
 

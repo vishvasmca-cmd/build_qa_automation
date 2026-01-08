@@ -45,7 +45,11 @@ class ProductsPage:
         self.products_link.click()
         self.page.wait_for_load_state("networkidle")
 
+<<<<<<< HEAD
     def search_for_product(self, product_name):
+=======
+    def search_product(self, product_name):
+>>>>>>> 5d580a82a2dc055250f201b62abff64e1f6ff3c8
         self.search_product_input.fill(product_name)
         self.submit_search_button.click()
         self.page.wait_for_load_state("networkidle")
@@ -62,11 +66,14 @@ class ProductsPage:
         self.continue_shopping_button.click()
         self.page.wait_for_load_state("networkidle")
 
-    def view_cart(self):
+    def navigate_to_cart(self):
         self.cart_link.click()
         self.page.wait_for_load_state("networkidle")
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5d580a82a2dc055250f201b62abff64e1f6ff3c8
 class CartPage:
     def __init__(self, page):
         self.page = page
@@ -79,19 +86,27 @@ class CartPage:
         self.proceed_to_checkout_button.click()
         self.page.wait_for_load_state("networkidle")
 
+<<<<<<< HEAD
+=======
+class GenericPage:
+    def __init__(self, page):
+        self.page = page
+>>>>>>> 5d580a82a2dc055250f201b62abff64e1f6ff3c8
 
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
     page.goto("https://automationexercise.com/")
-    page.wait_for_load_state("domcontentloaded")
+    page.wait_for_load_state("networkidle")
 
     # 2. Logic (using POM)
     products_page = ProductsPage(page)
     cart_page = CartPage(page)
+    generic_page = GenericPage(page)
 
     products_page.navigate_to_products()
+<<<<<<< HEAD
     products_page.search_for_product("Dress")
     products_page.add_product_to_cart()
     products_page.continue_shopping()
@@ -103,6 +118,13 @@ def test_autonomous_flow(browser: Browser):
     # Actually, looking at the diff, it was just lines 99 and 100.
     # I'll keep one to be safe, or maybe it's "Click Proceed, then maybe click it again?"
     # I'll stick to one for now.
+=======
+    products_page.search_product("Dress")
+    products_page.add_product_to_cart()
+    products_page.continue_shopping()
+    products_page.navigate_to_cart()
+    cart_page.proceed_to_checkout()
+>>>>>>> 5d580a82a2dc055250f201b62abff64e1f6ff3c8
 
     # 3. Cleanup
     try:

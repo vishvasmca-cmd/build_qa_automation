@@ -13,14 +13,15 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../../../core/templates
 from helpers import take_screenshot
 
 
-class OrangehrmLoginPage:
+class GenericPage:
     def __init__(self, page):
         self.page = page
 
-    def goto(self):
-        self.page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    def navigate(self, url):
+        self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
+<<<<<<< HEAD
     @property
     def forgot_password_link(self):
         return self.page.get_by_text("Forgot your password?")
@@ -74,11 +75,14 @@ class PasswordResetConfirmationPage:
         self.orangehrm_inc_link.click()
 
 
+=======
+>>>>>>> 5d580a82a2dc055250f201b62abff64e1f6ff3c8
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
 
+<<<<<<< HEAD
     login_page = OrangehrmLoginPage(page)
     reset_password_page = OrangehrmResetPasswordPage(page)
     password_reset_confirmation_page = PasswordResetConfirmationPage(page)
@@ -112,3 +116,12 @@ def test_autonomous_flow(browser: Browser):
     except Exception:
         pass
     context.close()
+=======
+    # 2. Logic (using POM)
+    generic_page = GenericPage(page)
+    generic_page.navigate("https://opensource-demo.orangehrmlive.com/")
+
+    # 3. Cleanup
+    take_screenshot(page, "final_state", "build_qa_automation")
+    context.close()
+>>>>>>> 5d580a82a2dc055250f201b62abff64e1f6ff3c8
