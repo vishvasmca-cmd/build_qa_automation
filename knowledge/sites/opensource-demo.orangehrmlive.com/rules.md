@@ -259,3 +259,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on `get_by_label` with a regex for critical input fields without first verifying the label's presence and uniqueness on the page.
 
 - ✅ PREFERRED: DO implement explicit waits or assertions to ensure the target element is visible and interactable before attempting to fill it. Consider using `locator.wait_for()` with `state='visible'`.
+
+- ⚠️ PROHIBITED: DON'T use locators that are ambiguous and can match multiple elements on the page without specifying which element is intended.
+
+- ✅ PREFERRED: DO use more specific locators, such as role-based locators or locators that include attributes, to uniquely identify the target element.
