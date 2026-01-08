@@ -105,3 +105,7 @@
 - ⚠️ PROHIBITED: NEVER use a backslash to escape special characters within a CSS selector string unless it's genuinely needed for escaping special CSS characters (and the backslash is properly escaped itself).
 
 - ✅ PREFERRED: ALWAYS ensure special characters like periods (`.`) within CSS selectors are correctly handled. If a period is part of the ID or class name, it should be used directly without escaping, unless it conflicts with CSS syntax. If escaping is truly required, double-check the syntax and escape the backslash itself.
+
+- ⚠️ PROHIBITED: DON'T use escaped dots (`\.`) within CSS selectors when the intention is to match a literal dot in the element's ID or class. The escape character is unnecessary and leads to incorrect element targeting.
+
+- ✅ PREFERRED: DO ensure that dots (`.`) in CSS selectors are treated as literal characters by either removing the escape character or, if the dot is part of a class name, using class-based selectors (e.g., `.customer.address.street`). Verify your locators using browser developer tools before incorporating them into your tests.
