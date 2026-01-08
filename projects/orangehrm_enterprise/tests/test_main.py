@@ -25,79 +25,83 @@ class BasePage:
 class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        self.username_locator = "[name='username']"
+        self.password_locator = "[name='password']"
+        self.login_button_locator = self.page.get_by_role("button", name="Login")
 
-    def enter_username(self, username):
-        self.page.locator("[name='username']").fill(username)
-
-    def enter_password(self, password):
-        self.page.locator("[name='password']").fill(password)
-
-    def click_login(self):
-        self.page.get_by_role("button", name="Login").click()
+    def login(self, username, password):
+        self.page.locator(self.username_locator).fill(username)
+        self.page.locator(self.password_locator).fill(password)
+        self.login_button_locator.click()
+        self.page.wait_for_load_state("networkidle")
 
 class OrangehrmDashboardPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        self.pim_link_locator = self.page.get_by_role("link", name="PIM")
 
     def navigate_to_pim(self):
-        self.page.get_by_role("link", name="PIM").click()
+        self.pim_link_locator.click()
+        self.page.wait_for_load_state("networkidle")
 
 class EmployeeListOrangehrmPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        self.add_button_locator = self.page.get_by_role("button", name="Add")
 
-    def click_add_employee(self):
-        self.page.get_by_role("button", name="Add").click()
+    def navigate_to_add_employee(self):
+        self.add_button_locator.click()
+        self.page.wait_for_load_state("networkidle")
 
 class AddEmployeePage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        self.first_name_locator = "[name='firstName']"
+        self.last_name_locator = "[name='lastName']"
+        self.save_button_locator = self.page.get_by_role("button", name="Save")
 
-    def enter_first_name(self, first_name):
-        self.page.locator("[name='firstName']").fill(first_name)
-
-    def enter_last_name(self, last_name):
-        self.page.locator("[name='lastName']").fill(last_name)
-
-    def click_save(self):
-        self.page.get_by_role("button", name="Save").click()
+    def add_employee(self, first_name, last_name):
+        self.page.locator(self.first_name_locator).fill(first_name)
+        self.page.locator(self.last_name_locator).fill(last_name)
+        self.save_button_locator.click()
+        self.page.wait_for_load_state("networkidle")
 
 class AdminUserManagementPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        self.admin_link_locator = self.page.get_by_role("link", name="Admin")
+        self.add_button_locator = self.page.get_by_role("button", name="Add")
 
     def navigate_to_admin(self):
-        self.page.get_by_role("link", name="Admin").click()
+        self.admin_link_locator.click()
+        self.page.wait_for_load_state("networkidle")
 
-    def click_add_user(self):
-        self.page.get_by_role("button", name="Add").click()
+    def navigate_to_add_user(self):
+        self.add_button_locator.click()
+        self.page.wait_for_load_state("networkidle")
 
 class AddUserPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
-
-    # Add User page locators and methods will be added here later
-    pass
+        # Add locators and methods for the Add User page here if needed
+        pass
 
 class GenericPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        # Generic page class for actions without a specific page
+        pass
 
 from playwright.sync_api import Browser
+from projects.orangehrm_enterprise.pages.base_page import BasePage
 from projects.orangehrm_enterprise.pages.login_page import LoginPage
 from projects.orangehrm_enterprise.pages.orangehrm_dashboard_page import OrangehrmDashboardPage
 from projects.orangehrm_enterprise.pages.employee_list_orangehrm_page import EmployeeListOrangehrmPage
 from projects.orangehrm_enterprise.pages.add_employee_page import AddEmployeePage
 from projects.orangehrm_enterprise.pages.admin_user_management_page import AdminUserManagementPage
 from projects.orangehrm_enterprise.pages.add_user_page import AddUserPage
-from projects.orangehrm_enterprise.pages.base_page import BasePage
+from projects.orangehrm_enterprise.pages.generic_page import GenericPage
+
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
@@ -107,25 +111,23 @@ def test_autonomous_flow(browser: Browser):
     add_employee_page = AddEmployeePage(page)
     admin_user_management_page = AdminUserManagementPage(page)
     add_user_page = AddUserPage(page)
-    base_page = BasePage(page)
+    generic_page = GenericPage(page)
 
     # 1. Login
     login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-    login_page.enter_username("Admin")
-    login_page.enter_password("admin123")
-    login_page.click_login()
+    login_page.login("Admin", "admin123")
 
-    # 2. Navigate to PIM and Add Employee
+    # 2. Navigate to PIM -> Add Employee
     dashboard_page.navigate_to_pim()
-    employee_list_page.click_add_employee()
-    add_employee_page.enter_first_name("FirstNameTest")
-    add_employee_page.enter_last_name("LastNameTest")
-    add_employee_page.click_save()
+    employee_list_page.navigate_to_add_employee()
 
-    # 3. Navigate to Admin and Add User
+    # 3. Add Employee
+    add_employee_page.add_employee("FirstNameTest", "LastNameTest")
+
+    # 4. Navigate to Admin -> User Management -> Users -> Add
     admin_user_management_page.navigate_to_admin()
-    admin_user_management_page.click_add_user()
+    admin_user_management_page.navigate_to_add_user()
 
-    # No actions on AddUserPage based on the trace.
+    # The trace ends here.  If there were more steps, they would be added here.
 
     page.close()
