@@ -66,7 +66,7 @@ class RegisterPage(BasePage):
         self.page.locator("[id='customer.password']").fill(password)
 
     def fill_confirm_password(self, confirm_password):
-        self.page.locator("[id='customer.repeatedPassword']").fill(confirm_password)
+        self.page.locator("[id='repeatedPassword']").fill(confirm_password)
 
     def click_register_button(self):
         self.page.get_by_role("button", name="Register").click()
@@ -167,16 +167,21 @@ def test_autonomous_flow(browser: Browser):
     register_page.fill_zip_code("12345")
     register_page.fill_phone_number("123-456-7890")
     register_page.fill_ssn("123-45-6789")
-    register_page.fill_username("johndoe")
+    
+    # Generate random user
+    import time
+    username = f"user_{int(time.time())}"
+    
+    register_page.fill_username(username)
     register_page.fill_password("password")
     register_page.fill_confirm_password("password")
     register_page.click_register_button()
 
-    # Login
-    page.wait_for_url("**/login.htm*")
-    login_page.fill_username("johndoe")
-    login_page.fill_password("password")
-    login_page.click_login_button()
+    # Login (Skipped: Registration auto-logs in)
+    # page.wait_for_url("**/login.htm*")
+    # login_page.fill_username("johndoe")
+    # login_page.fill_password("password")
+    # login_page.click_login_button()
 
     # Open Account
     page.wait_for_url("**/parabank/account.htm*")

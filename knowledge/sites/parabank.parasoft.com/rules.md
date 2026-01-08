@@ -142,3 +142,39 @@
 - ⚠️ PROHIBITED: DON'T assume that the 'Confirm Password' field is immediately available and interactable upon page load. ALWAYS implement a check for element visibility and/or state before attempting to fill it.
 
 - ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` or `state='stable'` before attempting to interact with a locator. This will ensure that the element is both present and in a stable state to prevent timing issues.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Register' link click will immediately result in navigation; instead, verify the navigation event.
+
+- ✅ PREFERRED: DO implement explicit waits using `page.wait_for_load_state('networkidle')` OR `page.wait_for_function()` after clicking the 'Register' link to ensure the page has fully loaded before proceeding.
+
+- ⚠️ PROHIBITED: DON'T assume successful registration without explicitly verifying a success message or redirect to the expected URL.
+
+- ✅ PREFERRED: DO implement explicit checks for registration success, such as waiting for a specific success message element or verifying the presence of elements expected only on the logged-in homepage. Also, increase the timeout for page navigation.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `wait_for_url` after registration. Instead, verify successful registration (e.g., by checking for a confirmation message) before proceeding to login and expecting the URL change.
+
+- ✅ PREFERRED: DO implement explicit checks for success messages or UI elements after each critical step (e.g., registration, login) to confirm the action completed successfully before proceeding.
+
+- ⚠️ PROHIBITED: DON'T assume that all module dependencies are automatically resolvable without explicitly configuring the Python environment or project structure.
+
+- ✅ PREFERRED: DO ensure that all required modules (e.g., 'pages' in this case) are installed and that the Python environment is correctly configured to resolve module dependencies using appropriate import paths or package management.
+
+- ⚠️ PROHIBITED: DON'T assume that all necessary modules are available in the PYTHONPATH; ALWAYS verify the project structure and import statements.
+
+- ✅ PREFERRED: DO ensure the 'pages' directory (containing base_page.py) exists and is accessible from the test directory by either placing 'pages' within the same directory or including the parent directory in PYTHONPATH.
+
+- ⚠️ PROHIBITED: DON'T assume that project structure from previous runs is automatically preserved; ALWAYS verify the presence and correct relative paths of ALL required modules before execution, especially after project re-creation or environment changes.
+
+- ✅ PREFERRED: DO use explicit relative or absolute imports that correctly point to the required modules and verify the PYTHONPATH environment variable for non-standard module locations.
+
+- ⚠️ PROHIBITED: DON'T assume that the `pages` directory is automatically included in the Python path; ALWAYS explicitly verify the import paths in your test files.
+
+- ✅ PREFERRED: DO ensure that the `pages` directory (or any directory containing modules to be imported) is either in the same directory as the test file or is added to the Python path.
+
+- ⚠️ PROHIBITED: DON'T assume that all required modules are automatically accessible; ALWAYS verify module paths and project structure, especially when using relative imports.
+
+- ✅ PREFERRED: DO ensure that all necessary modules are correctly installed and that their paths are correctly configured so that the Python interpreter can find them.
+
+- ⚠️ PROHIBITED: DON'T assume that modules are accessible without explicitly verifying the PYTHONPATH or project structure.
+
+- ✅ PREFERRED: DO ensure that all required modules (e.g., 'pages') are within the Python path or use relative imports correctly to avoid ModuleNotFoundError.

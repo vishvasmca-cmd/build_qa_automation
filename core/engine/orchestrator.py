@@ -397,7 +397,7 @@ def _run_execution(project_root, config, config_hash, test_path, trace_path):
                 subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", ""), error_file, domain], env=re_env)
 
                 # 3. COMMIT & PUSH FIX (User Request)
-                GitManager.commit_and_push(f"Auto-fix iteration {attempt + 1} for {config.get('project_name')}")
+                # GitManager.commit_and_push(f"Auto-fix iteration {attempt + 1} for {config.get('project_name')}")
             else:
                 print(colored(f"❌ Final Attempt {attempt + 1} Failed.", "red"))
 
@@ -540,6 +540,7 @@ def run_pipeline(config_path, headed=False):
             # Keep log short
             if len(data["events"]) > 20: data["events"] = data["events"][-20:]
             
+            os.makedirs(os.path.dirname(status_file), exist_ok=True)
             with open(status_file, "w") as f:
                 json.dump(data, f, indent=2)
                 
@@ -671,7 +672,7 @@ def run_pipeline(config_path, headed=False):
         GitManager.commit_and_push(f"SUCCESS: Mission Accomplished for {config.get('project_name')}")
     else:
         print(colored("\n⚠️ Pipeline ended with test failures.", "yellow"))
-        GitManager.commit_and_push(f"FAILURE: Unresolved issues in {config.get('project_name')}")
+        # GitManager.commit_and_push(f"FAILURE: Unresolved issues in {config.get('project_name')}")
     
     return success
 

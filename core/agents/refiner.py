@@ -145,7 +145,7 @@ class CodeRefiner:
         load_dotenv()
         self.llm = SafeLLM(model="gemini-2.0-flash", temperature=0.0)
 
-    def generate_code(self, target_url, trace_summary, images=None, error_context=None, domain="general"):
+    def generate_code(self, target_url, trace_summary, images=None, error_context=None, domain="general", workflow_goal=""):
         """Generates cleaner, hardened code from a JSON trace summary, with optional visual, error, and domain context."""
         
         # Load Golden Reference Patterns (File-Based)
@@ -299,10 +299,14 @@ class CodeRefiner:
         **CRITICAL RULES**:
         1. **STANDARDS ONLY**: You MUST use pure Playwright API. DO NOT use custom helpers like `smart_action`.
            - `take_screenshot(page, name, project_name)` is the only allowed helper. IT IS ALREADY IMPORTED. DO NOT IMPORT IT.
-        2. **COMPLETENESS**: YOU MUST IMPLEMENT ALL STEPS AND GOALS mentioned in the user request. NEVER truncate or simplify the test logic just to satisfy a failure. Fix the bug, don't remove the feature.
-        3. **DROPDOWNS (SELECT)**: NEVER attempt to `.click()` an `<option>` element. ALWAYS use `self.page.get_by_label(...).select_option(label="...")`.
-        4. **SYNC ONLY**: You MUST use SYNC Python Playwright. **DO NOT USE `await` keyword.**
-        3. **PYTHON KWARGS ONLY**: 
+        2. **COMPLETENESS (NON-NEGOTIABLE)**: YOU MUST IMPLEMENT ALL STEPS AND GOALS mentioned in the `workflow_goal`. 
+           - If the goal is "Register, Login, Transfer, Loan", and you only write the Registration test, **YOU HAVE FAILED**.
+           - If the trace is incomplete, you MUST infer the missing logic or add `TODO` comments with `expect(True).to_be(False, "Not Implemented")` to signal incomplete work.
+           - **NEVER** truncate the test logic. It is better to have broken code than missing code.
+        3. **DOTS IN IDs**: If an element ID contains a dot (e.g., `customer.firstName`), **NEVER** use the `#` selector with escaping. **ALWAYS** use the attribute selector `[id='customer.firstName']` or `[name='customer.firstName']`.
+        4. **DROPDOWNS (SELECT)**: NEVER attempt to `.click()` an `<option>` element. ALWAYS use `self.page.get_by_label(...).select_option(label="...")`.
+        5. **SYNC ONLY**: You MUST use SYNC Python Playwright. **DO NOT USE `await` keyword.**
+        6. **PYTHON KWARGS ONLY**: 
            - ✅ `page.get_by_role("link", name="Home")`
            - **NEVER** use `{{ key: value }}` JS objects. Always use `key=value`.
         4. **Actions**: Use regular Playwright methods: `.click()`, `.fill()`, `.select_option()`.
@@ -322,19 +326,26 @@ class CodeRefiner:
           "test_logic": "def test_autonomous_flow(browser: Browser):\\n    # Setup, calls to POM actions, assertions, cleanup"
         }
 
+        **WORKFLOW GOAL (REQUIRED TO PASS)**:
+        {{WORKFLOW_GOAL}}
+
         **TRACE TO REFINE**:
         {{TRACE_SUMMARY}}
         """
         
         if error_context:
             prompt_template += f"\n\n**IMPORTANT: PREVIOUS EXECUTION FAILED**:\n{error_context}\nPlease analyze the error and fix it in your new generation."
+        
+        # Ensure goal is visible
+        goal_text = trace_summary if "Workflow:" in trace_summary else "Full Coverage"
+        
         prompt = prompt_template.replace("{{TARGET_URL}}", target_url)\
                                .replace("{{GOLDEN_CONTEXT}}", golden_context)\
                                .replace("{{TRACE_SUMMARY}}", trace_summary)\
+                               .replace("{{WORKFLOW_GOAL}}", workflow_goal if workflow_goal else "See Trace")\
                                .replace("{{PROJECT_NAME}}", os.path.basename(os.getcwd()))\
                                .replace("{{DOMAIN_RULES}}", domain_rules)\
                                .replace("{{SITE_KNOWLEDGE}}", site_knowledge)\
-                               .replace("{{FAILURE_KNOWLEDGE}}", failure_knowledge)\
                                .replace("{{FAILURE_KNOWLEDGE}}", failure_knowledge)\
                                .replace("{{POM_GUIDE}}", pom_guide_context)\
                                .replace("{{PLATFORM_RULES}}", platform_rules)
@@ -460,7 +471,7 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         "expectation": t.get('expected_outcome')
     } for t in trace], indent=2)
     
-    raw_code = refiner.generate_code(target_url, trace_summary, images=images_b64, error_context=error_context, domain=domain)
+    raw_code = refiner.generate_code(target_url, trace_summary, images=images_b64, error_context=error_context, domain=domain, workflow_goal=workflow_goal)
 
     if not raw_code:
         print("❌ Refiner failed to generate valid code.")
