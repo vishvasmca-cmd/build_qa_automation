@@ -311,3 +311,7 @@
 - ⚠️ PROHIBITED: DON'T assume that navigation is complete immediately after a click. ALWAYS wait for the target element to be visible or the expected URL to be reached before proceeding.
 
 - ✅ PREFERRED: DO use `page.wait_for_load_state('networkidle')` or `page.wait_for_url()` after navigation to ensure the page is fully loaded before interacting with elements.
+
+- ⚠️ PROHIBITED: DON'T use locators that are ambiguous and can match multiple elements on the page without providing additional specificity.
+
+- ✅ PREFERRED: DO use more specific locators, such as role-based locators (e.g., `getByRole('button', { name: 'Login' })`) or locators that include attributes or unique identifiers, to target the intended element precisely.
