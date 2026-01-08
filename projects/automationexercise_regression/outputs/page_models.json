@@ -1,0 +1,95 @@
+{
+  "HomePage": {
+    "description": "Home page for an automation exercise website. It serves as the entry point, providing information about the site's purpose and navigation to various sections.",
+    "url_pattern": "/",
+    "elements": [
+      {
+        "name": "signup_login_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Signup / Login')",
+        "backup_locator": "locator('a[href=\"/login\"]')",
+        "description": "Link to the signup or login page."
+      },
+      {
+        "name": "products_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Products')",
+        "backup_locator": "locator('a[href=\"/products\"]')",
+        "description": "Link to the products page"
+      },
+      {
+        "name": "test_cases_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Test Cases')",
+        "backup_locator": "locator('a[href=\"/test_cases\"]')",
+        "description": "Link to the test cases page"
+      },
+      {
+        "name": "api_testing_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='API Testing')",
+        "backup_locator": "locator('a[href=\"/api_list\"]')",
+        "description": "Link to the api testing page"
+      },
+      {
+        "name": "test_cases_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Test Cases')",
+        "backup_locator": "locator('a[href=\"/test_cases\"]')",
+        "description": "Button to the test cases page"
+      },
+      {
+        "name": "apis_list_for_practice_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='APIs list for practice')",
+        "backup_locator": "locator('a[href=\"/api_list\"]')",
+        "description": "Button to the apis list page"
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('Automation Exercise')",
+      "expect(page.locator('h2', has_text='Full-Fledged practice website for Automation Engineers')).to_be_visible()",
+      "expect(page.locator('img[alt=\"Automation Exercise\"]')).to_be_visible()",
+      "expect(page.url()).to_be('https://automationexercise.com/')"
+    ]
+  },
+  "ProductsPage": {
+    "description": "Displays a list of products with options to add them to the cart or view details",
+    "url_pattern": "/products",
+    "elements": [
+      {
+        "name": "product_category_women",
+        "type": "button",
+        "primary_locator": "get_by_text('WOMEN').locator('xpath=../button')",
+        "backup_locator": "locator('xpath=//div[@id='accordian']/div[1]/div[1]/h4/a/button')",
+        "description": "Button to expand Women category"
+      },
+      {
+        "name": "add_to_cart_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Add to cart')",
+        "backup_locator": "locator('.product-overlay > .overlay-content > .add-to-cart')",
+        "description": "Button to add a product to the cart"
+      },
+      {
+        "name": "view_product_link",
+        "type": "link",
+        "primary_locator": "get_by_text('+ View Product')",
+        "backup_locator": "locator('.choose > li > a')",
+        "description": "Link to view the detailed product page"
+      },
+      {
+        "name": "brand_polo",
+        "type": "link",
+        "primary_locator": "get_by_text('POLO')",
+        "backup_locator": "locator('a[href=\"/brand_products/Polo\"]')",
+        "description": "Link to filter by the POLO brand"
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('Automation Exercise - All Products')",
+      "expect(page.locator('.features_items').locator('.single-products').first()).to_be_visible()",
+      "expect(page.get_by_text('All Products')).to_be_visible()"
+    ]
+  }
+}

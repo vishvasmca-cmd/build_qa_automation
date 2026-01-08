@@ -1,0 +1,137 @@
+{
+  "ParabankPage": {
+    "description": "ParaBank Home page with customer login form",
+    "url_pattern": "/parabank/index.htm",
+    "elements": [
+      {
+        "name": "username_input",
+        "type": "textbox",
+        "primary_locator": "get_by_label('Username')",
+        "backup_locator": "locator('input[name=\"username\"]')",
+        "description": "Input field for username"
+      },
+      {
+        "name": "password_input",
+        "type": "textbox",
+        "primary_locator": "get_by_label('Password')",
+        "backup_locator": "locator('input[name=\"password\"]')",
+        "description": "Input field for password"
+      },
+      {
+        "name": "login_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Log In')",
+        "backup_locator": "locator('input[value=\"Log In\"]')",
+        "description": "Button to submit login form"
+      },
+      {
+        "name": "register_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Register')",
+        "backup_locator": "locator('a:has-text(\"Register\")')",
+        "description": "Link to registration page"
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('ParaBank')",
+      "expect(page.locator('//h2[text()=\"Customer Login\"]')).to_be_visible()",
+      "expect(page.locator('//h1[text()=\"Para Bank\"]').first()).to_be_visible()",
+      "expect(page.locator('//div[@id=\"topPanel\"]//p[text()=\"Welcome to ParaBank\"]')).to_be_visible()"
+    ]
+  },
+  "ParabankRegisterPage": {
+    "description": "Registration page for new customers of ParaBank",
+    "url_pattern": "/register.htm",
+    "elements": [
+      {
+        "name": "first_name_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('First Name:')",
+        "backup_locator": "locator('input[name=\"customer.firstName\"]')",
+        "description": "Input field for the user's first name"
+      },
+      {
+        "name": "last_name_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Last Name:')",
+        "backup_locator": "locator('input[name=\"customer.lastName\"]')",
+        "description": "Input field for the user's last name"
+      },
+      {
+        "name": "address_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Address:')",
+        "backup_locator": "locator('input[name=\"customer.address.street\"]')",
+        "description": "Input field for the user's address"
+      },
+      {
+        "name": "city_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('City:')",
+        "backup_locator": "locator('input[name=\"customer.address.city\"]')",
+        "description": "Input field for the user's city"
+      },
+      {
+        "name": "state_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('State:')",
+        "backup_locator": "locator('input[name=\"customer.address.state\"]')",
+        "description": "Input field for the user's state"
+      },
+      {
+        "name": "zip_code_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Zip Code:')",
+        "backup_locator": "locator('input[name=\"customer.address.zipCode\"]')",
+        "description": "Input field for the user's zip code"
+      },
+      {
+        "name": "phone_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Phone #:')",
+        "backup_locator": "locator('input[name=\"customer.phoneNumber\"]')",
+        "description": "Input field for the user's phone number"
+      },
+      {
+        "name": "ssn_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('SSN:')",
+        "backup_locator": "locator('input[name=\"customer.ssn\"]')",
+        "description": "Input field for the user's SSN"
+      },
+      {
+        "name": "username_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Username:')",
+        "backup_locator": "locator('input[name=\"customer.username\"]')",
+        "description": "Input field for the user's desired username"
+      },
+      {
+        "name": "password_input",
+        "type": "password",
+        "primary_locator": "get_by_label('Password:')",
+        "backup_locator": "locator('input[name=\"customer.password\"]')",
+        "description": "Input field for the user's desired password"
+      },
+      {
+        "name": "confirm_password_input",
+        "type": "password",
+        "primary_locator": "get_by_label('Confirm:')",
+        "backup_locator": "locator('input[name=\"repeatedPassword\"]')",
+        "description": "Input field to confirm the user's password"
+      },
+      {
+        "name": "register_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Register')",
+        "backup_locator": "locator('input[value=\"Register\"]')",
+        "description": "Button to submit the registration form"
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('ParaBank Registration')",
+      "expect(page.locator('h1:has-text(\"Signing up is easy!\")')).to_be_visible()",
+      "expect(page.url()).to_contain('/register.htm')"
+    ]
+  }
+}

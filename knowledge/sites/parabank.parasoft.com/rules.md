@@ -65,3 +65,15 @@
 - When navigating to 'Account History' on ParaBank, implement a retry mechanism with a maximum of 3 attempts.  If a WADL or XML redirect is detected during navigation, reload the page before retrying.  If navigation consistently fails after multiple retries, it indicates a potential server-side issue or a more persistent redirect problem.
 
 - Ensure the correct project structure and module paths are used when importing modules within the project. Verify that the `PYTHONPATH` environment variable is correctly configured if the module is not in the standard library or a site-packages directory.
+
+- ⚠️ PROHIBITED: DON'T assume that helper modules are automatically available; ALWAYS verify the module path is correct and the module exists.
+
+- ✅ PREFERRED: DO ensure that all dependencies, including helper modules, are installed and accessible within the test environment before running tests. Verify the correct relative or absolute path is used for importing modules.
+
+- ⚠️ PROHIBITED: DON'T assume that helper modules are automatically available; ALWAYS verify their presence and correct path within the project structure.
+
+- ✅ PREFERRED: DO ensure that all necessary modules, especially helper functions and custom libraries, are correctly placed within the project and that import paths are accurate before running tests.
+
+- ⚠️ PROHIBITED: DON'T assume that helper modules are available without explicitly checking their presence and import path.
+
+- ✅ PREFERRED: DO ensure all required modules and dependencies are correctly installed and the import paths are properly configured before running the tests.

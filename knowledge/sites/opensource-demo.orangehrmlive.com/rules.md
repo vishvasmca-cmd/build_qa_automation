@@ -65,20 +65,173 @@
 
 - When clicking on elements within the OrangeHRM header/navigation, implement a retry mechanism with exponential backoff, as network conditions or server-side processing might cause intermittent delays. Also, consider using more resilient locators based on text content or ARIA roles instead of brittle XPaths.
 
-<<<<<<< Updated upstream
 - When asserting the presence of text on a page in Playwright, use `expect(page.locator('body')).to_have_text('expected text')` or `expect(page.locator('selector')).to_have_text('expected text')` instead of `expect(page).to_have_text('expected text')`.
 
 - When asserting the success message after a password reset request, use a more specific locator to target the message element, avoiding the surrounding HTML structure.
 
 - When asserting the presence of specific text after an action that triggers a page update (like submitting a password reset request), target a more specific locator than the entire 'body' to avoid interference from surrounding HTML and whitespace. Also, trim the actual value before comparison.
-=======
-- Before clicking 'Forgot your password', ensure no modal dialogs or overlays are present that might obscure the link.  Also, verify the element is visible and enabled before attempting to click.
-
-- When interacting with elements in the header/navigation area of OrangeHRM, use more robust and less brittle locators than full XPaths. Prioritize `data-testid` or `data-automation-id` attributes if available. If not, use CSS selectors based on stable class names or IDs closer to the target element.
-
-- When interacting with elements in the top navigation bar of OrangeHRM, prioritize using more robust and less brittle locators than full XPaths. Consider using data-testid attributes or ARIA roles where available. Before clicking, ensure the element is both visible and stable (not undergoing animations or transitions).
->>>>>>> Stashed changes
 
 - Before attempting to fill the username field, ensure the page is fully loaded and the username field is visible and enabled. Consider adding a wait_for_selector or wait_for_load_state before filling the field.
 
+- ALWAYS avoid clicking the OrangeHRM logo (usually top left or brand logo), as it redirects to the external marketing website 'www.orangehrm.com', which is outside our test scope. Focus only on internal application navigation.
+
 - Ensure all modules and dependencies are correctly installed and that import paths are accurate before running tests. Verify the existence and location of the 'projects.core_orangehrm.utils' module.
+
+- ⚠️ PROHIBITED: DON'T assume a specific URL after login; instead, verify the presence of key elements on the target page (e.g., dashboard widgets or employee list table) to ensure successful login and navigation.
+
+- ✅ PREFERRED: DO verify the successful login by checking for the visibility of unique dashboard elements (e.g., a specific dashboard widget) or elements on the employee list page instead of relying solely on URL matching.
+
+- ⚠️ PROHIBITED: DON'T assume a successful login will always redirect to the employee list page.  ALWAYS verify the presence of key elements on the expected page after navigation.
+
+- ✅ PREFERRED: DO add a more robust check after login, such as verifying the visibility of specific elements on the employee list page, to confirm successful redirection and login flow before proceeding with the test.
+
+- ⚠️ PROHIBITED: DON'T assume that module paths are correct without verifying the project's directory structure and relative imports.
+
+- ✅ PREFERRED: ALWAYS double-check module import paths in test files to ensure they accurately reflect the project's file structure and that all necessary modules are installed and accessible.
+
+- ⚠️ PROHIBITED: DON'T assume that relative imports will work without verifying the Python environment's PYTHONPATH or project structure.
+
+- ✅ PREFERRED: DO ensure that the PYTHONPATH is correctly configured or that relative imports are properly handled within the project structure to resolve ModuleNotFoundError exceptions.
+
+- ⚠️ PROHIBITED: DON'T assume the correct project structure. ALWAYS verify that the paths to your modules are correct, considering the project's root directory.
+
+- ✅ PREFERRED: DO use relative imports or configure your Python environment (e.g., PYTHONPATH) to ensure that modules can be located correctly, and verify the path to your modules.
+
+- ⚠️ PROHIBITED: DON'T assume that the Python import paths are correctly configured; ALWAYS verify the project structure and relative paths when importing modules.
+
+- ✅ PREFERRED: DO explicitly define and check the PYTHONPATH environment variable to ensure that the necessary directories are included for module resolution.
+
+- ⚠️ PROHIBITED: DON'T directly pass a string representing the URL to Playwright's `expect` function for assertions. ALWAYS pass the Playwright Page object.
+
+- ✅ PREFERRED: DO use `expect(page).to_have_url` or `expect(page).to_have_url(containing=...)` to validate the page URL after navigation.
+
+- ⚠️ PROHIBITED: DON'T use regex literals (e.g., `/dashboard/`) directly within Playwright's `to_have_url` method. Use a string or a compiled regular expression object instead.
+
+- ✅ PREFERRED: DO use a string or a compiled regular expression object with the `to_have_url` method, e.g., `expect(page).to_have_url('dashboard')` or `expect(page).to_have_url(re.compile(r'dashboard'))`.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `get_by_label` with regex for critical input fields like 'Username', as subtle UI changes or internationalization differences can easily break the locator.
+
+- ✅ PREFERRED: DO use a more robust locator strategy, such as combining `get_by_placeholder` with `get_by_text` on a parent element or using a data attribute if available, to improve the stability and accuracy of finding the 'Username' field.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `get_by_label` for critical input fields without verifying its stability and considering potential UI changes or dynamic loading issues.
+
+- ✅ PREFERRED: DO implement retry mechanisms or explicit waits (e.g., `wait_for_selector`, `wait_for_function`) before attempting to interact with input fields, especially after page loads or navigation events.
+
+- ⚠️ PROHIBITED: DON'T assume the login page elements are immediately available. ALWAYS implement a retry or explicit wait strategy before interacting with login form elements.
+
+- ✅ PREFERRED: DO implement retry-ability or an explicit wait with error handling when interacting with input fields, especially on initial page loads. Use visibility checks or other element state verifications to ensure the element is ready for interaction.
+
+- ⚠️ PROHIBITED: DON'T assume the login form is immediately available after page load. ALWAYS wait for the presence of the 'Username' field or a similar key element of the login form before attempting to interact with it.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='attached'` or `state='visible'` for the login form's key elements (e.g., Username field) BEFORE attempting to fill them. This ensures the elements are fully loaded and ready for interaction.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `get_by_label` with regular expressions for critical input fields without verifying the element's visibility and readiness for input.
+
+- ✅ PREFERRED: DO implement explicit waits or assertions to ensure the target element is both visible and enabled before attempting to interact with it (e.g., `wait_for` or `expect`).
+
+- ⚠️ PROHIBITED: DON'T assume immediate redirection after clicking 'Save' on the Add Employee page; always verify the URL or page content to confirm successful navigation.
+
+- ✅ PREFERRED: DO implement explicit waits or assertions for the expected page content (e.g., a specific element on the employee list page) after saving an employee, rather than relying solely on URL matching.
+
+- ⚠️ PROHIBITED: DON'T assume a direct return to the Employee List page after saving a new employee. The application may redirect to the Employee Personal Details page instead.
+
+- ✅ PREFERRED: DO verify the navigation flow after saving a new employee. Use specific locators on the expected resulting page (Employee Personal Details or Employee List) to confirm successful navigation.
+
+- ⚠️ PROHIBITED: DON'T assume a direct return to the employee list page after saving a new employee. The application might redirect to the employee's personal details page.
+
+- ✅ PREFERRED: DO verify the successful creation of the employee by either checking for a success message on the personal details page or navigating back to the employee list and verifying the employee's presence.
+
+- ⚠️ PROHIBITED: DON'T rely on default timeouts when filling critical fields; explicit waits are necessary.
+
+- ✅ PREFERRED: DO implement a retry-mechanism or adjust timeout settings depending on the observed speed of the webpage loading.
+
+- ⚠️ PROHIBITED: DON'T assume the test file path is correct without verifying its existence in the file system or project structure.
+
+- ✅ PREFERRED: DO double-check the test file path specified in the test execution command or configuration to ensure it matches the actual location of the test file within the project.
+
+- ⚠️ PROHIBITED: DON'T rely solely on label-based locators for input fields without ensuring the element is visible and stable. Specifically, NEVER assume the 'Username' field is immediately available after page load.
+
+- ✅ PREFERRED: DO implement explicit waits (e.g., `page.wait_for_selector()`) or retry mechanisms with short intervals before attempting to interact with critical elements like login fields. ALWAYS verify the test file path before execution to prevent 'file not found' errors.
+
+- ⚠️ PROHIBITED: DON'T assume a successful login and immediate dashboard navigation. ALWAYS add explicit checks for successful login before proceeding with dashboard actions.
+
+- ✅ PREFERRED: DO verify the presence of a unique dashboard element after login, using a reasonable timeout (e.g., 10 seconds) before proceeding with further steps.
+
+- ⚠️ PROHIBITED: DON'T rely on exact URL matches for navigation assertions immediately after login; the trailing `/index` might or might not be present.
+
+- ✅ PREFERRED: DO use a more flexible URL matching strategy (e.g., `**/web/index.php/dashboard*`) or verify the presence of a specific element on the dashboard page to confirm successful login instead of exact url.
+
+- ⚠️ PROHIBITED: DON'T assume that the PYTHONPATH or project structure is correctly configured; ALWAYS verify module import paths before running tests, especially after project restructuring or environment changes.
+
+- ✅ PREFERRED: DO use absolute imports or relative imports with explicit `.` (e.g., `from .pages.dashboard_page import OrangehrmDashboardPage`) to ensure correct module resolution, especially within complex project structures.
+- ALWAYS use flexible URL matching (wildcards like `**/dashboard*` or regex `re.compile(r"dashboard")`) when asserting the dashboard page, as it may appear as `/dashboard` or `/dashboard/index`.
+
+- After clicking 'Save' on the Add Employee page, SUCCESS is defined by the appearance of the 'Personal Details' page or a success toast. Do NOT mark global goal as achieved until you move to the 'Admin' module if required by the mission.
+
+- ⚠️ PROHIBITED: DON'T use `page.get_by_locator()` assuming it's a valid Playwright API method. Always refer to the official Playwright documentation for the correct API usage.
+
+- ✅ PREFERRED: ALWAYS use `page.locator('<your locator>')` to create a locator object before performing actions like `fill()`, `click()`, etc.
+
+- ⚠️ PROHIBITED: DON'T assume the OrangeHRM application is immediately responsive. ALWAYS implement retry mechanisms or increase the default timeout for initial page loads, especially after deployments or during peak hours.
+
+- ✅ PREFERRED: DO implement a health check or status check against the target URL (https://opensource-demo.orangehrmlive.com/) BEFORE running tests to ensure the application is reachable and responsive.
+
+- ⚠️ PROHIBITED: DON'T assume the OrangeHRM login page will load within the default 30-second timeout, especially in environments with variable network conditions.
+
+- ✅ PREFERRED: DO implement a retry mechanism or increase the timeout for the page.goto() call when navigating to the OrangeHRM login page.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `get_by_label` without ensuring the element is visible and stable, especially for critical input fields like username/password during login.
+
+- ✅ PREFERRED: DO implement explicit waits with `locator.wait_for()` before interacting with elements, especially after page navigations or form submissions. Consider using `locator.is_visible()` as a condition.
+
+- ⚠️ PROHIBITED: DON'T assume the username field is immediately available. ALWAYS implement a retry or conditional wait before attempting to fill it.
+
+- ✅ PREFERRED: DO use `await expect(page.locator('locator')).to_be_visible()` to assert the visibility of the username input field before attempting to fill it.
+
+- ⚠️ PROHIBITED: DON'T assume the test file path is correct without verifying its existence in the file system before running the tests.
+
+- ✅ PREFERRED: DO ensure the test file path is correctly specified and that the test file exists in the file system before initiating test execution.
+
+- ⚠️ PROHIBITED: DON'T assume the test file path is correct without verifying its existence in the file system before running the tests.
+
+- ✅ PREFERRED: DO double-check the test file path and ensure it exists in the specified location before triggering the test execution.
+
+- ⚠️ PROHIBITED: DON'T assume the test file path is correct without verifying its existence in the file system or project structure.
+
+- ✅ PREFERRED: DO double-check and validate the test file path before running the pytest command. Ensure the file exists and the path is relative to the root directory where pytest is executed.
+
+- ⚠️ PROHIBITED: DON'T assume the test file path is correct without verifying its existence in the file system relative to the project root.
+
+- ✅ PREFERRED: ALWAYS double-check and confirm the test file path and ensure it is correctly specified in the pytest command or configuration.
+
+- ⚠️ PROHIBITED: DON'T rely solely on label-based locators for critical input fields like Username without verifying label accuracy and stability. Labels can be easily changed, leading to test failures.
+
+- ✅ PREFERRED: DO prioritize using a combination of locators for important elements, such as ID, data-testid, or a more specific CSS selector, along with the label, to increase resilience to UI changes. Verify the target field is visible before filling.
+
+- ⚠️ PROHIBITED: DON'T assume that the project's folder structure is correctly mirrored in the Python import statements; ALWAYS verify the relative paths.
+
+- ✅ PREFERRED: DO double-check the file paths and module names in import statements to ensure they accurately reflect the project's directory structure and file names.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import ...`) in test files unless the test suite is explicitly designed and executed as a Python package with a defined package structure.
+
+- ✅ PREFERRED: DO ensure that test files are organized within a well-defined package structure, or use absolute imports (e.g., `from projects.orangehrm_enterprise.base_page import BasePage`) when importing modules within the project.
+
+- ⚠️ PROHIBITED: DON'T assume all page objects are available in a test without explicitly importing or defining them.
+
+- ✅ PREFERRED: ALWAYS verify that all required page objects or modules are imported or defined before attempting to use them in a test.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `get_by_role` with a generic name like 'Add', as it can lead to ambiguity if multiple elements match that description. AVOID directly clicking without visibility check and appropriate waiting.
+
+- ✅ PREFERRED: DO prioritize using more specific and resilient locators, such as `data-testid` attributes, or combine role-based locators with other attributes or parent element constraints to pinpoint the target element. ALWAYS implement a visibility check before attempting to click.
+
+- ⚠️ PROHIBITED: DON'T rely on `filter(has_text)` alone when multiple elements with the same text content are present. Ensure locators are uniquely identifiable.
+
+- ✅ PREFERRED: DO use more specific attributes or chained locators to target the desired element when `filter(has_text)` is not unique. Leverage data attributes or unique class names if available.
+
+- ⚠️ PROHIBITED: DON'T rely on hovering to trigger navigation, especially in dynamic sidebars. Hovering is less reliable than direct clicks.
+
+- ✅ PREFERRED: DO use explicit `wait_for_selector` with increased timeout and visibility check BEFORE attempting to hover or click on elements within dynamic sections like side panels. ALWAYS consider using alternative navigation methods like `goto` if possible.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `get_by_label` with a regular expression for critical input fields like Username, especially without confirming element visibility or presence.
+
+- ✅ PREFERRED: DO prioritize using more specific and stable locators, such as `input[name='username']` or `input#username`, and ALWAYS verify element visibility before interacting with it.
