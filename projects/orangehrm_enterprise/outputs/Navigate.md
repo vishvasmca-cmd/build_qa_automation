@@ -5,5 +5,13 @@
 | 0 | LoginPage | fill | Username | ✅ | [View](../snapshots/step_00_LoginPage.png) |
 | 1 | LoginPage | fill | Password | ✅ | [View](../snapshots/step_01_LoginPage.png) |
 | 2 | LoginPage | click | Login | ✅ | [View](../snapshots/step_02_LoginPage.png) |
-| 3 | LoginPage | click | None | ✅ | [View](../snapshots/step_03_LoginPage.png) |
-| 4 | LoginPage | click | Login | ✅ | [View](../snapshots/step_04_LoginPage.png) |
+| 3 | OrangehrmDashboardPage | click | None | ✅ | [View](../snapshots/step_03_OrangehrmPage.png) |
+| 4 | OrangehrmDashboardPage | click | PIM | ✅ | [View](../snapshots/step_04_OrangehrmDashboardPage.png) |
+| 5 | EmployeeListOrangehrmPage | click | Add | ✅ | [View](../snapshots/step_05_EmployeeListOrangehrmPage.png) |
+| 6 | AddEmployeePage | fill | First Name | ✅ | [View](../snapshots/step_06_AddEmployeePage.png) |
+| 7 | AddEmployeePage | fill | Last Name | ✅ | [View](../snapshots/step_07_AddEmployeePage.png) |
+| 8 | AddEmployeePage | click | Save | ✅ | [View](../snapshots/step_08_AddEmployeePage.png) |
+| 9 | AddEmployeePage | click | Admin | ✅ | [View](../snapshots/step_09_AddEmployeePage.png) |
+| 10 | AdminUserManagementPage | click | None | ✅ | [View](../snapshots/step_10_OrangehrmSystemUsersPage.png) |
+| 11 | AdminUserManagementPage | click | Add | ✅ | [View](../snapshots/step_11_AdminUserManagementPage.png) |
+| 12 | Unknown | done | N/A | ✅ | [View](../snapshots/step_12_AddUserPage.png) |

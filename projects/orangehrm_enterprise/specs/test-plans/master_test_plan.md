@@ -2,77 +2,53 @@
 
 ## Introduction
 
-This test plan outlines the testing strategy for the OrangeHRM Enterprise application. The plan includes smoke and regression test suites designed to ensure the quality and stability of the application.
+This test plan outlines the testing strategy for the OrangeHRM Enterprise application. It defines the scope, objectives, and approach for both smoke and regression testing.
 
 ## Scope
 
-The scope of testing includes:
+The scope of testing includes the core functionalities of the OrangeHRM Enterprise application, focusing on user authentication, employee management (PIM), and user administration.
 
-*   Login functionality
-*   PIM (Personnel Information Management) module
-*   Adding new employees
-*   Admin module
-*   User Management
-*   Creating system users
+## Objectives
+
+*   Verify the critical functionalities of the application.
+*   Ensure that new changes do not negatively impact existing functionalities.
+*   Identify and report any defects or inconsistencies.
+
+## Test Strategy
+
+We will employ a risk-based testing approach, prioritizing critical functionalities and areas with a higher likelihood of defects. The testing will be divided into two main suites: Smoke and Regression.
+
+### Smoke Suite Strategy
+
+The smoke suite will focus on the 'happy path' scenarios to ensure the core functionalities are working as expected. The following 8-point checklist is applied to this project:
+
+1.  **Critical Functionality:** Tests cover essential features like login, adding employees, and creating users.
+2.  **Positive Testing:** Focus is on successful execution of core tasks.
+3.  **End-to-End Flow:** Tests cover the entire workflow from login to user creation.
+4.  **Data Integrity:** Verify that data is correctly saved and retrieved during the workflow.
+5.  **No Edge Cases:** Complex scenarios and boundary conditions are excluded.
+6.  **Minimal Data Variation:** Use a single set of standard test data.
+7.  **Fast Execution:** Tests are designed for quick execution to provide rapid feedback.
+8.  **Build Validation:** Smoke tests are executed to validate each new build.
+
+### Regression Suite Strategy
+
+The regression suite will provide a more comprehensive test coverage, including alternative flows, negative scenarios, and boundary conditions. This suite will be executed periodically to ensure the stability of the application.
 
 ## Test Suites
 
-### Smoke Suite
-
-The smoke suite verifies the core functionality of the application. It focuses on critical paths and ensures that the system is stable enough for further testing.
-
-#### Smoke Suite Strategy
-
-The following 8-point checklist has been applied to define the Smoke Suite for this project:
-
-1.  **Critical Paths Only:** Focuses solely on essential workflows (Login, Add Employee, Create User).
-2.  **Positive Testing:** Uses valid data and expected actions to confirm core functionality.
-3.  **No Edge Cases:** Excludes boundary conditions, error handling, or alternative flows.
-4.  **Fast Execution:** Designed for quick execution to provide rapid feedback on build stability.
-5.  **Independent Tests:** Each test can be run independently without dependencies on other tests.
-6.  **High Priority:** Any failure in the smoke suite indicates a critical issue and blocks further testing.
-7.  **Limited Data Variation:** Uses a minimal set of data to cover the primary scenarios.
-8.  **Automated Execution:** The smoke suite is designed for automated execution as part of the CI/CD pipeline.
-
-### Regression Suite
-
-The regression suite ensures that new changes have not introduced defects into existing functionality. It includes a broader range of tests, covering alternative flows, negative scenarios, and boundary conditions.
-
-## Test Cases
-
-Test cases will be written in Gherkin syntax and stored in feature files.
+1.  Smoke Suite
+2.  Regression Suite
 
 ## Test Environment
 
-The tests will be executed against the following environment:
-
-*   URL: https://opensource-demo.orangehrmlive.com/
 *   Browser: Chrome (latest version)
-*   Operating System: Windows 10
+*   Operating System: Windows 10/11, macOS
+*   Test Data: Standard test data will be used for smoke tests. More diverse data will be used for regression tests.
 
-## Test Data
+## Test Deliverables
 
-Test data will be created and managed to support the test cases. This includes user credentials, employee information, and other relevant data.
-
-## Entry Criteria
-
-*   The application build must be successfully deployed to the test environment.
-*   All necessary test data must be available.
-
-## Exit Criteria
-
-*   All test cases in the smoke suite must pass.
-*   A defined percentage of test cases in the regression suite must pass (e.g., 95%).
-*   All critical and high-priority defects must be resolved.
-
-## Roles and Responsibilities
-
-*   QA Architect: Responsible for creating and maintaining the test plan.
-*   QA Engineers: Responsible for writing and executing test cases.
-*   Developers: Responsible for fixing defects.
-
-## Tools
-
-*   Playwright: Test automation framework
-*   GitHub: Version control
-*   TestRail: Test case management
+*   Test Plan
+*   Test Cases (Gherkin Feature Files)
+*   Test Execution Reports
+*   Defect Reports

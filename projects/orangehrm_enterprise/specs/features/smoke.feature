@@ -1,11 +1,13 @@
-Feature: OrangeHRM Smoke Tests
+Feature: OrangeHRM Enterprise - Smoke Tests
 
-  Scenario: Login to OrangeHRM and Add Employee and Create User
+  Scenario: Create a new employee and system user
     @smoke
-    Given I am on the OrangeHRM login page
-    When I log in with valid credentials
-    Then I should be logged in successfully
-    When I navigate to the PIM module and add a new employee "FirstNameTest" "LastNameTest"
-    Then the new employee should be added successfully
-    When I navigate to the Admin module and create a system user for the new employee
-    Then the system user should be created successfully
+    Given User is on the OrangeHRM login page
+    When User logs in with valid credentials
+    And User navigates to the PIM module
+    And User adds a new employee with first name "FirstNameTest" and last name "LastNameTest"
+    And User saves the new employee
+    And User navigates to the Admin module
+    And User navigates to the User Management page
+    And User adds a new system user for the created employee
+    Then User should be able to see the new user created successfully

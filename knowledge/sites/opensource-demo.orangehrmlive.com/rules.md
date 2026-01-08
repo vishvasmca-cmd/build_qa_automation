@@ -239,3 +239,7 @@
 - ⚠️ PROHIBITED: DON'T assume a successful login without explicitly verifying the presence of a dashboard element after navigation.
 
 - ✅ PREFERRED: DO implement explicit waits for key dashboard elements to appear after the expected navigation, ensuring the application has fully loaded before proceeding with subsequent actions.
+
+- ⚠️ PROHIBITED: DON'T directly access internal attributes like `_selector` of Playwright Locator objects. Use the public API methods instead.
+
+- ✅ PREFERRED: DO use `page.locator('your_selector').first().wait_for()` or `page.locator('your_selector').wait_for()` to wait for an element to be present and visible before interacting with it.

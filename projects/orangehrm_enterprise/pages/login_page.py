@@ -11,12 +11,12 @@ class LoginPage:
     @property
     def username_field(self):
         """Input field for username"""
-        return self.page.get_by_role('textbox', name='Username').or_(self.page.locator('input[name="username"]'))
+        return self.page.get_by_placeholder('Username').or_(self.page.locator('input[name="username"]'))
 
     @property
     def password_field(self):
         """Input field for password"""
-        return self.page.get_by_role('textbox', name='Password').or_(self.page.locator('input[name="password"]'))
+        return self.page.get_by_placeholder('Password').or_(self.page.locator('input[name="password"]'))
 
     @property
     def login_button(self):
@@ -26,9 +26,10 @@ class LoginPage:
     @property
     def forgot_password_link(self):
         """Link to navigate to the forgot password page"""
-        return self.page.get_by_role('link', name='Forgot your password?').or_(self.page.locator('p.oxd-text.oxd-text--p.orangehrm-login-forgot-header'))
+        return self.page.get_by_text('Forgot your password?').or_(self.page.locator('p.oxd-text.oxd-text--p.orangehrm-login-forgot-header'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await expect(page).to_have_title('OrangeHRM')
-        await expect(page.get_by_role('heading', name='Login')).to_be_visible()
+        await expect(page.locator('div.orangehrm-login-branding')).to_be_visible()
+        await expect(page.locator('h5.oxd-text.oxd-text--h5.orangehrm-login-title')).to_have_text('Login')
