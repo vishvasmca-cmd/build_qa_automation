@@ -121,7 +121,7 @@ def test_autonomous_flow(browser: Browser):
     add_employee_page.click_save()
     add_employee_page.click_save()
 
-    # Navigate to Admin and add user
+    # Navigate to Admin and create system user
     orangehrm_page.navigate_to_admin()
     page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers")
     system_users_page.click_add()
