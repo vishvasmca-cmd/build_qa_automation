@@ -109,3 +109,7 @@
 - ⚠️ PROHIBITED: DON'T use escaped dots (`\.`) within CSS selectors when the intention is to match a literal dot in the element's ID or class. The escape character is unnecessary and leads to incorrect element targeting.
 
 - ✅ PREFERRED: DO ensure that dots (`.`) in CSS selectors are treated as literal characters by either removing the escape character or, if the dot is part of a class name, using class-based selectors (e.g., `.customer.address.street`). Verify your locators using browser developer tools before incorporating them into your tests.
+
+- ⚠️ PROHIBITED: DON'T use unescaped periods (`.`) in CSS selectors when the period is intended to be part of the element's ID or class name.  Playwright interprets `.` as a CSS class selector if not escaped.
+
+- ✅ PREFERRED: DO escape the period character (`.`) in CSS selectors with a backslash (`\.`) when the period is part of the ID or class name. This ensures Playwright treats the period literally.
