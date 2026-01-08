@@ -121,3 +121,7 @@
 - ⚠️ PROHIBITED: DON'T use unescaped periods in CSS selectors when targeting elements with IDs containing periods. Playwright will interpret the period as a class selector instead of a literal part of the ID.
 
 - ✅ PREFERRED: DO escape periods in CSS selectors with a backslash (`\`) when targeting elements with IDs containing periods (e.g., `#customer\.address\.zipCode` should be `#customer\.address\.zipCode`).
+
+- ⚠️ PROHIBITED: DON'T use a backslash (`\`) to escape periods (`.`) within CSS selectors when targeting element IDs.  This is unnecessary and leads to incorrect locator resolution.
+
+- ✅ PREFERRED: DO use the correct CSS selector syntax, ensuring that special characters like periods are properly escaped if truly needed (though unnecessary here).  Alternatively, consider using alternative locator strategies like data attributes for more robust element selection.
