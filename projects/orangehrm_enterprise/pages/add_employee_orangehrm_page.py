@@ -11,22 +11,27 @@ class AddEmployeeOrangehrmPage:
     @property
     def first_name_input(self):
         """Input field for the employee's first name"""
-        return self.page.get_by_label('First Name').or_(self.page.locator('input[name="firstName"]'))
+        return self.page.get_by_placeholder('First Name').or_(self.page.locator('input[name="firstName"]'))
 
     @property
     def middle_name_input(self):
         """Input field for the employee's middle name"""
-        return self.page.get_by_label('Middle Name').or_(self.page.locator('input[name="middleName"]'))
+        return self.page.get_by_placeholder('Middle Name').or_(self.page.locator('input[name="middleName"]'))
 
     @property
     def last_name_input(self):
         """Input field for the employee's last name"""
-        return self.page.get_by_label('Last Name').or_(self.page.locator('input[name="lastName"]'))
+        return self.page.get_by_placeholder('Last Name').or_(self.page.locator('input[name="lastName"]'))
 
     @property
     def employee_id_input(self):
         """Input field for the employee's ID"""
-        return self.page.get_by_label('Employee Id').or_(self.page.locator('input[name="employeeId"]'))
+        return self.page.get_by_label('Employee Id').or_(self.page.locator('input[class*="oxd-input oxd-input--active"][id]'))
+
+    @property
+    def create_login_details_toggle(self):
+        """Toggle to enable/disable creating login details for the employee"""
+        return self.page.get_by_role('switch').or_(self.page.locator('.oxd-switch-input'))
 
     @property
     def save_button(self):
@@ -39,9 +44,9 @@ class AddEmployeeOrangehrmPage:
         return self.page.get_by_role('button', name='Cancel').or_(self.page.locator('button:has-text("Cancel")'))
 
     @property
-    def add_photo_button(self):
-        """Button to upload employee photo"""
-        return self.page.locator('div.orangehrm-employee-image > div > input[type="file"]').or_(self.page.locator('div.orangehrm-employee-image > div > div'))
+    def add_profile_picture(self):
+        """Button to add profile picture"""
+        return self.page.locator('div.orangehrm-employee-image > div > input[type="file"]').or_(self.page.locator('div.orangehrm-employee-image > div > i'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""

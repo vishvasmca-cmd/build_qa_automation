@@ -323,3 +323,7 @@
 - ⚠️ PROHIBITED: DON'T embed Playwright locators (like `get_by_role`) directly within CSS selector strings. Use them as standalone locators.
 
 - ✅ PREFERRED: DO define Playwright locators separately and then use them in actions like `click()` or `fill()`.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `get_by_label` with regex for critical input fields without verifying its robustness across different page states and potential A/B tests.
+
+- ✅ PREFERRED: DO implement explicit waits or retries with more specific locators (e.g., `input[name='username']` or `input#username`) when filling critical form fields, especially after page loads or transitions.

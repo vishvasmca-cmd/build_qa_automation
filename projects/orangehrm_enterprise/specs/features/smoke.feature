@@ -1,25 +1,16 @@
 Feature: OrangeHRM Smoke Tests
+  As a QA Engineer
+  I want to perform smoke tests on OrangeHRM
+  So that I can ensure the core functionalities are working as expected
 
   @smoke
-  Scenario: User Login
-    Given User is on the OrangeHRM login page
-    When User enters valid username "Admin" and password "admin123"
-    And User clicks on the login button
-    Then User should be redirected to the Dashboard page
-
-  @smoke
-  Scenario: Add New Employee
-    Given User is logged in to OrangeHRM
-    When User navigates to the PIM module
-    And User clicks on the Add button
-    And User fills in the first name as "FirstNameTest" and last name as "LastNameTest"
-    And User clicks on the Save button
-    Then A new employee should be added successfully
-
-  @smoke
-  Scenario: Create System User
-    Given User is logged in to OrangeHRM
-    When User navigates to the Admin module
-    And User clicks on the User Management -> Users
-    And User clicks on the Add button
-    Then User should be able to create a new system user
+  Scenario: Login, Add Employee, and Create System User
+    Given I am on the OrangeHRM login page
+    When I log in with valid credentials
+    And I navigate to the PIM module
+    And I add a new employee with first name "FirstNameTest" and last name "LastNameTest"
+    And I save the employee information
+    And I navigate to the Admin module
+    And I navigate to the User Management page
+    And I add a system user for the new employee
+    Then the system user should be created successfully

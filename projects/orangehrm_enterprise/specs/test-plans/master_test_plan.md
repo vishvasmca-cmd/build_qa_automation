@@ -2,61 +2,62 @@
 
 ## Introduction
 
-This test plan outlines the testing strategy for the OrangeHRM Enterprise application. It includes smoke and regression test suites designed to ensure the quality and stability of the application.
+This test plan outlines the testing strategy for the OrangeHRM Enterprise application. It defines the scope, objectives, and approach for both smoke and regression testing.
 
 ## Scope
 
-The scope of this test plan covers the core functionalities of the OrangeHRM Enterprise application, including user login, employee management (PIM), and user administration.
+The testing will cover the core functionalities of the OrangeHRM Enterprise application, focusing on user management, employee information management (PIM), and system administration.
 
-## Test Suites
+## Objectives
 
-### Smoke Suite
+*   Verify the critical functionalities of the application.
+*   Ensure the stability and reliability of the system.
+*   Identify and report any defects or issues.
+*   Minimize risks associated with new releases or changes.
 
-The smoke suite verifies the critical functionalities of the application. It is executed after each build to ensure that the core features are working as expected. If any of the smoke tests fail, the build is rejected.
+## Test Strategy
 
-#### Smoke Suite Strategy
+We will employ a risk-based testing approach, prioritizing the most critical functionalities and areas of the application. The testing will be divided into two main categories: Smoke Testing and Regression Testing.
 
-The following 8-point checklist is applied to the Smoke Suite for this project:
+### Smoke Suite Strategy
 
-1.  **Critical Paths Only:** Focuses solely on the most essential workflows (Login, Add Employee, Create User).
-2.  **Positive Testing:** Primarily uses valid inputs and expected outcomes.
-3.  **No Edge Cases:** Avoids complex scenarios or boundary conditions.
-4.  **Fast Execution:** Designed for quick feedback on build stability.
-5.  **Independent Tests:** Each test should be able to run independently without dependencies.
-6.  **Clear Assertions:** Assertions should be straightforward and directly related to the core functionality.
-7.  **Limited Data:** Uses a minimal set of test data.
-8.  **Automated Execution:** Fully automated for continuous integration.
+The Smoke Suite is designed to provide a quick and efficient way to verify the core functionalities of the application after a new build or deployment. The following checklist is applied to this project:
 
-#### Smoke Test Cases
+1.  **Critical Path Coverage:** Tests cover the most common and essential user workflows.
+2.  **Positive Testing:** Focus on verifying expected behavior with valid inputs.
+3.  **End-to-End Flows:** Tests cover complete scenarios from start to finish.
+4.  **Data Integrity:** Verify that data is correctly stored and retrieved.
+5.  **Environment Stability:** Ensure the test environment is stable and reliable.
+6.  **Performance Baselines:** Establish initial performance benchmarks for key operations.
+7.  **Security Fundamentals:** Check basic security measures like login and authorization.
+8.  **Integration Points:** Verify communication between different modules.
 
-*   Verify user login
-*   Verify adding a new employee
-*   Verify creating a new system user
+### Regression Suite Strategy
 
-### Regression Suite
+The Regression Suite is a more comprehensive set of tests designed to ensure that new changes have not introduced any unintended side effects or broken existing functionalities. This suite will include:
 
-The regression suite is a comprehensive set of tests that covers all functionalities of the application. It is executed periodically to ensure that new changes have not introduced any regressions.
-
-#### Regression Test Cases
-
-*   Verify user login with invalid credentials
-*   Verify adding a new employee with missing information
-*   Verify editing an existing employee
-*   Verify deleting an existing employee
-*   Verify creating a new system user with invalid data
-*   Verify editing an existing system user
-*   Verify deleting an existing system user
+*   All Smoke Tests
+*   Boundary Value Analysis
+*   Equivalence Partitioning
+*   Error Handling
+*   Negative Testing
+*   Cross-Browser Compatibility
+*   Performance Testing
+*   Security Testing
 
 ## Test Environment
 
-*   Browser: Chrome, Firefox, Edge
-*   Operating System: Windows, macOS, Linux
-*   Test Data: Sample data will be used for testing purposes.
+The tests will be executed in a dedicated test environment that closely mirrors the production environment. This environment will include the necessary hardware, software, and data configurations.
 
 ## Test Deliverables
 
 *   Test Plan
 *   Test Cases
+*   Test Data
 *   Test Scripts
 *   Test Results
 *   Defect Reports
+
+## Test Schedule
+
+The testing will be conducted according to a predefined schedule, with specific milestones and deadlines for each phase of the testing process.
