@@ -9,43 +9,36 @@ class AddEmployeePage:
         self.page = page
 
     @property
-    def firstName(self):
-        """First name input field"""
+    def first_name_input(self):
+        """Input field for the employee's first name"""
         return self.page.get_by_placeholder('First Name').or_(self.page.locator('input[name="firstName"]'))
 
     @property
-    def middleName(self):
-        """Middle name input field"""
+    def middle_name_input(self):
+        """Input field for the employee's middle name"""
         return self.page.get_by_placeholder('Middle Name').or_(self.page.locator('input[name="middleName"]'))
 
     @property
-    def lastName(self):
-        """Last name input field"""
+    def last_name_input(self):
+        """Input field for the employee's last name"""
         return self.page.get_by_placeholder('Last Name').or_(self.page.locator('input[name="lastName"]'))
 
     @property
-    def employeeId(self):
-        """Employee ID input field"""
+    def employee_id_input(self):
+        """Input field for the employee's ID"""
         return self.page.locator('input[class*="oxd-input oxd-input--active"]').or_(self.page.locator('div:has-text("Employee Id") input'))
 
     @property
-    def saveButton(self):
-        """Save button to submit the form"""
+    def save_button(self):
+        """Button to save the new employee record"""
         return self.page.get_by_role('button', name='Save').or_(self.page.locator('button:has-text("Save")'))
 
     @property
-    def cancelButton(self):
-        """Cancel button to discard the form"""
+    def cancel_button(self):
+        """Button to cancel adding a new employee"""
         return self.page.get_by_role('button', name='Cancel').or_(self.page.locator('button:has-text("Cancel")'))
-
-    @property
-    def addProfilePicture(self):
-        """Button to upload profile picture"""
-        return self.page.locator('div.orangehrm-employee-image > div > input[type="file"]').or_(self.page.locator('div.orangehrm-employee-image > div > div'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await expect(page).to_have_title('OrangeHRM')
         await expect(page.get_by_role('heading', name='Add Employee')).to_be_visible()
-        await expect(page.locator('input[name="firstName"]')).to_be_visible()
-        await expect(page.locator('input[name="employeeId"]')).to_be_visible()
+        await expect(page).to_have_url(/pim/addEmployee)
