@@ -78,3 +78,7 @@
 
 - When interacting with elements in the top navigation bar of OrangeHRM, prioritize using more robust and less brittle locators than full XPaths. Consider using data-testid attributes or ARIA roles where available. Before clicking, ensure the element is both visible and stable (not undergoing animations or transitions).
 >>>>>>> Stashed changes
+
+- Before attempting to fill the username field, ensure the page is fully loaded and the username field is visible and enabled. Consider adding a wait_for_selector or wait_for_load_state before filling the field.
+
+- Ensure all modules and dependencies are correctly installed and that import paths are accurate before running tests. Verify the existence and location of the 'projects.core_orangehrm.utils' module.

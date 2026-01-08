@@ -18,3 +18,5 @@
 - Before proceeding with any tests, validate the SSL certificate of the target website. If the certificate is invalid, halt the test execution and report the issue.
 
 - Before proceeding with any tests, always validate the SSL certificate of the target website. If the certificate is invalid, halt the test execution and report the issue.
+
+- Before running tests, verify the SSL certificate of the target website. If the certificate is invalid, halt the test execution or use a different environment with a valid certificate.

@@ -129,3 +129,9 @@
 
 - Before clicking 'Add to cart', ensure the product details are fully loaded and any overlaying elements (e.g., promotional pop-ups) are dismissed. Consider adding a short explicit wait for the product details section to be visible.
 >>>>>>> Stashed changes
+
+- When interacting with Playwright Locators, ensure that methods like `click()` are called directly on the Locator object returned by `page.locator()` or similar methods, and not on the result of attempting to call the Locator itself.
+
+- Before clicking 'Add to cart', ensure the element is visible and interactable. Implement a retry mechanism with a short delay to handle potential loading delays or transient UI elements.
+
+- Before interacting with the search input field, ensure that the page has fully loaded and any overlays or animations that might obscure the element have completed. Consider adding a short delay or a more robust wait condition that checks for the visibility and stability of the element.

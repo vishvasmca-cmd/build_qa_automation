@@ -43,11 +43,7 @@ class ProductsPage:
         self.products_link.click()
         self.page.wait_for_load_state("networkidle")
 
-<<<<<<< Updated upstream
-    def search_for_product(self, product_name):
-=======
     def search_product(self, product_name):
->>>>>>> Stashed changes
         self.search_product_input.fill(product_name)
         self.submit_search_button.click()
         self.page.wait_for_load_state("networkidle")
@@ -60,11 +56,10 @@ class ProductsPage:
         self.continue_shopping_button.click()
         self.page.wait_for_load_state("networkidle")
 
-    def view_cart(self):
+    def navigate_to_cart(self):
         self.cart_link.click()
         self.page.wait_for_load_state("networkidle")
 
-<<<<<<< Updated upstream
 class CartPage:
     def __init__(self, page):
         self.page = page
@@ -77,33 +72,28 @@ class CartPage:
         self.proceed_to_checkout_button.click()
         self.page.wait_for_load_state("networkidle")
 
-=======
->>>>>>> Stashed changes
+class GenericPage:
+    def __init__(self, page):
+        self.page = page
+
 def test_autonomous_flow(browser: Browser):
     # 1. Setup
     context = browser.new_context(viewport={"width": 1920, "height": 1080})
     page = context.new_page()
     page.goto("https://automationexercise.com/")
-    page.wait_for_load_state("domcontentloaded")
+    page.wait_for_load_state("networkidle")
 
     # 2. Logic (using POM)
     products_page = ProductsPage(page)
-<<<<<<< Updated upstream
     cart_page = CartPage(page)
+    generic_page = GenericPage(page)
 
-    products_page.navigate_to_products()
-    products_page.search_for_product("Dress")
-    products_page.add_product_to_cart()
-    products_page.continue_shopping()
-    products_page.view_cart()
-    cart_page.proceed_to_checkout()
-    cart_page.proceed_to_checkout()
-=======
     products_page.navigate_to_products()
     products_page.search_product("Dress")
     products_page.add_product_to_cart()
     products_page.continue_shopping()
->>>>>>> Stashed changes
+    products_page.navigate_to_cart()
+    cart_page.proceed_to_checkout()
 
     # 3. Cleanup
     take_screenshot(page, "final_state", "build_qa_automation")
