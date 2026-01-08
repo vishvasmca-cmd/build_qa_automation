@@ -232,5 +232,14 @@
       "phase": "execution"
     },
     "error": "le(\"button\", name=\"Login\")\nE           \nE           Call log:\nE             - waiting for locator(\"text=Login\")\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error\n=========================== short test summary info ============================\nFAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: locator(\"text=Login\") resolved to 2 elements:\n    1) <h5 data-v-7b563373=\"\" data-v-0af708be=\"\" class=\"oxd-text oxd-text--h5 orangehrm-login-title\">Login</h5> aka get_by_role(\"heading\", name=\"Login\")\n    2) <button type=\"submit\" data-v-10d463b7=\"\" data-v-0af708be=\"\" class=\"oxd-button oxd-button--medium oxd-button--main orangehrm-login-button\">\u2026</button> aka get_by_role(\"button\", name=\"Login\")\n\nCall log:\n  - waiting for locator(\"text=Login\")\n============================== 1 failed in 4.43s ===============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-08T23:03:21.389533",
+    "context": {
+      "site": "https://opensource-demo.orangehrmlive.com/",
+      "project": "orangehrm_enterprise",
+      "phase": "execution"
+    },
+    "error": "   # Login\n        login_page.navigate(\"https://opensource-demo.orangehrmlive.com/web/index.php/auth/login\")\n        login_page.enter_username(\"Admin\")\n        login_page.enter_password(\"admin123\")\n>       login_page.click_login()\n\nprojects/orangehrm_enterprise/tests/test_main.py:114: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nprojects/orangehrm_enterprise/tests/test_main.py:36: in click_login\n    self.page.locator(eval(self.login_button_locator)).click()\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n>   ???\nE   NameError: name 'page' is not defined\n\n<string>:1: NameError\n=========================== short test summary info ============================\nFAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - NameError: name 'page' is not defined\n============================== 1 failed in 2.19s ===============================\n\n\n"
   }
 ]
