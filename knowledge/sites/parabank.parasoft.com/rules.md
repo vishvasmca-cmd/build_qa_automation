@@ -125,3 +125,7 @@
 - ⚠️ PROHIBITED: DON'T use a backslash (`\`) to escape periods (`.`) within CSS selectors when targeting element IDs.  This is unnecessary and leads to incorrect locator resolution.
 
 - ✅ PREFERRED: DO use the correct CSS selector syntax, ensuring that special characters like periods are properly escaped if truly needed (though unnecessary here).  Alternatively, consider using alternative locator strategies like data attributes for more robust element selection.
+
+- ⚠️ PROHIBITED: DON'T assume a successful navigation immediately after clicking a link. ALWAYS await for the URL or a specific element on the target page to ensure the navigation is complete.
+
+- ✅ PREFERRED: DO increase the default timeout or configure wait_for_url to wait longer if the application is known to be slow. ALSO, consider adding a retry mechanism to handle intermittent network issues.

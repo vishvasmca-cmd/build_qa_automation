@@ -2,70 +2,70 @@ from playwright.async_api import Page, expect
 
 class ParabankRegisterPage:
     """
-    Registration page for new customer accounts
-    URL Pattern: /register
+    Registration page for new customers to create an account on ParaBank
+    URL Pattern: /register.htm
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def first_name(self):
-        """Input field for the first name of the user"""
+    def first_name_input(self):
+        """Input field for the user's first name"""
         return self.page.get_by_label('First Name:').or_(self.page.locator('input[name="customer.firstName"]'))
 
     @property
-    def last_name(self):
-        """Input field for the last name of the user"""
+    def last_name_input(self):
+        """Input field for the user's last name"""
         return self.page.get_by_label('Last Name:').or_(self.page.locator('input[name="customer.lastName"]'))
 
     @property
-    def address(self):
-        """Input field for the address of the user"""
+    def address_input(self):
+        """Input field for the user's address"""
         return self.page.get_by_label('Address:').or_(self.page.locator('input[name="customer.address.street"]'))
 
     @property
-    def city(self):
-        """Input field for the city of the user"""
+    def city_input(self):
+        """Input field for the user's city"""
         return self.page.get_by_label('City:').or_(self.page.locator('input[name="customer.address.city"]'))
 
     @property
-    def state(self):
-        """Input field for the state of the user"""
+    def state_input(self):
+        """Input field for the user's state"""
         return self.page.get_by_label('State:').or_(self.page.locator('input[name="customer.address.state"]'))
 
     @property
-    def zip_code(self):
-        """Input field for the zip code of the user"""
+    def zip_code_input(self):
+        """Input field for the user's zip code"""
         return self.page.get_by_label('Zip Code:').or_(self.page.locator('input[name="customer.address.zipCode"]'))
 
     @property
-    def phone(self):
-        """Input field for the phone number of the user"""
+    def phone_input(self):
+        """Input field for the user's phone number"""
         return self.page.get_by_label('Phone #:').or_(self.page.locator('input[name="customer.phoneNumber"]'))
 
     @property
-    def ssn(self):
-        """Input field for the ssn of the user"""
+    def ssn_input(self):
+        """Input field for the user's SSN"""
         return self.page.get_by_label('SSN:').or_(self.page.locator('input[name="customer.ssn"]'))
 
     @property
-    def username(self):
-        """Input field for the username of the user"""
+    def username_input(self):
+        """Input field for the user's username"""
         return self.page.get_by_label('Username:').or_(self.page.locator('input[name="customer.username"]'))
 
     @property
-    def password(self):
-        """Input field for the password of the user"""
+    def password_input(self):
+        """Input field for the user's password"""
         return self.page.get_by_label('Password:').or_(self.page.locator('input[name="customer.password"]'))
 
     @property
-    def confirm(self):
-        """Input field to confirm the password of the user"""
+    def confirm_input(self):
+        """Input field for confirming the user's password"""
         return self.page.get_by_label('Confirm:').or_(self.page.locator('input[name="repeatedPassword"]'))
 
     @property
-    def register_btn(self):
-        """Submission button for registration"""
+    def register_button(self):
+        """Button to submit the registration form"""
         return self.page.get_by_role('button', name='Register').or_(self.page.locator('input[value="Register"]'))
 
     async def verify_loaded(self):
