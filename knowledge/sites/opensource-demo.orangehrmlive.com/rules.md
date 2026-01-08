@@ -415,3 +415,7 @@
 - ⚠️ PROHIBITED: DON'T use `eval()` with Playwright locators, especially when trying to inject the `page` object directly into the locator string. This creates scope issues and is unnecessary.
 
 - ✅ PREFERRED: DO define locators as static strings or use f-strings for dynamic parts, passing any required variables explicitly. Use Playwright's built-in locator methods for dynamic selection.
+
+- ⚠️ PROHIBITED: DON'T use `eval()` with Playwright locators, especially when the locator string contains references to page-specific objects. This creates scope issues and makes debugging difficult.
+
+- ✅ PREFERRED: DO define locators as static strings or use f-strings to dynamically construct them with variables available in the current scope.  Ensure locators are robust and avoid relying on fragile text-based selectors.
