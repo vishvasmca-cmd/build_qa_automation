@@ -1,0 +1,54 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
+plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
+collecting ... collected 1 item
+
+projects/cli_run_1767912650/tests/test_main.py::test_autonomous_flow[chromium] FAILED
+
+================================== FAILURES ===================================
+_______________________ test_autonomous_flow[chromium] ________________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vishv\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser: Browser):
+        page = browser.new_page()
+    
+        login_page = LoginPage(page)
+        registration_page = RegistrationPage(page)
+    
+        login_page.navigate(login_page.url)
+        expect(page).to_have_url(login_page.url)
+    
+        # Register
+>       login_page.navigate_to_registration()
+
+projects\cli_run_1767912650\tests\test_main.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+projects\cli_run_1767912650\tests\test_main.py:34: in navigate_to_registration
+    self.page.wait_for_url("**/register.htm")
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:9193: in wait_for_url
+    self._sync(
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_page.py:580: in wait_for_url
+    return await self._main_frame.wait_for_url(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:263: in wait_for_url
+    async with self.expect_navigation(
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_event_context_manager.py:33: in __aexit__
+    await self._future
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def continuation() -> Optional[Response]:
+>       event = await waiter.result()
+                ^^^^^^^^^^^^^^^^^^^^^
+E       playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.
+E       =========================== logs ===========================
+E       waiting for navigation to "**/register.htm" until 'load'
+E       ============================================================
+
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:239: TimeoutError
+=========================== short test summary info ===========================
+FAILED projects/cli_run_1767912650/tests/test_main.py::test_autonomous_flow[chromium]
+============================= 1 failed in 37.54s ==============================
+

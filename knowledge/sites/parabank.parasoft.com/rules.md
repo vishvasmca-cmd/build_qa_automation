@@ -77,3 +77,7 @@
 - ⚠️ PROHIBITED: DON'T assume that helper modules are available without explicitly checking their presence and import path.
 
 - ✅ PREFERRED: DO ensure all required modules and dependencies are correctly installed and the import paths are properly configured before running the tests.
+
+- ⚠️ PROHIBITED: DON'T assume the navigation to registration page is immediate; always account for potential delays in network response or server processing.
+
+- ✅ PREFERRED: DO use explicit waits with `page.locator('locator').click()` and `page.wait_for_url('**/register.htm')` to ensure the element is clickable and the page has loaded completely.
