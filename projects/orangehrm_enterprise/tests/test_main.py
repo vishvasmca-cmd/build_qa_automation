@@ -83,6 +83,7 @@ class AddUserPage(BasePage):
 
     def enter_employee_name(self, employee_name):
         self.page.locator(eval(self.employee_name_locator)).fill(employee_name)
+        self.page.locator(eval(self.employee_name_locator)).fill(employee_name)
 
     def click_save(self):
         self.page.locator(eval(self.save_button_locator)).click()
@@ -121,10 +122,9 @@ def test_autonomous_flow(browser: Browser):
     add_employee_page.click_save()
     add_employee_page.click_save()
 
-    # Navigate to Admin and create system user
+    # Navigate to Admin and add user
     orangehrm_page.navigate_to_admin()
     page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers")
     system_users_page.click_add()
-    add_user_page.enter_employee_name("FirstNameTest LastNameTest")
     add_user_page.enter_employee_name("FirstNameTest LastNameTest")
     add_user_page.click_save()
