@@ -96,6 +96,15 @@ class OrangehrmPage(BasePage):
         self.page.locator(eval(self.admin_link_locator)).click()
 
 from playwright.sync_api import Browser
+from projects.orangehrm_enterprise.pages.base_page import BasePage
+from projects.orangehrm_enterprise.pages.login_page import LoginPage
+from projects.orangehrm_enterprise.pages.dashboard_page import OrangehrmDashboardPage
+from projects.orangehrm_enterprise.pages.employee_list_page import EmployeeListPage
+from projects.orangehrm_enterprise.pages.add_employee_page import AddEmployeePage
+from projects.orangehrm_enterprise.pages.system_users_page import SystemUsersPage
+from projects.orangehrm_enterprise.pages.add_user_page import AddUserPage
+from projects.orangehrm_enterprise.pages.orangehrm_page import OrangehrmPage
+
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
@@ -121,7 +130,7 @@ def test_autonomous_flow(browser: Browser):
     add_employee_page.click_save()
     add_employee_page.click_save()
 
-    # Navigate to Admin and create system user
+    # Navigate to Admin and add user
     orangehrm_page.navigate_to_admin()
     page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers")
     system_users_page.click_add()
