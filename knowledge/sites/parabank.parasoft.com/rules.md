@@ -81,3 +81,7 @@
 - ⚠️ PROHIBITED: DON'T assume the navigation to registration page is immediate; always account for potential delays in network response or server processing.
 
 - ✅ PREFERRED: DO use explicit waits with `page.locator('locator').click()` and `page.wait_for_url('**/register.htm')` to ensure the element is clickable and the page has loaded completely.
+
+- ⚠️ PROHIBITED: DON'T assume that navigation is complete simply because 'load' or 'domcontentloaded' events have fired. Ensure all network activity has ceased when relying on page content loaded via asynchronous requests.
+
+- ✅ PREFERRED: DO explicitly wait for key elements to appear on the page after navigation, rather than relying solely on load state events. This provides a more robust indication of page readiness.
