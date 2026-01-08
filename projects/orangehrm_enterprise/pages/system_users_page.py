@@ -16,7 +16,7 @@ class SystemUsersPage:
     @property
     def user_role_dropdown(self):
         """Dropdown to select user role"""
-        return self.page.locator('div[class*="oxd-select-text--arrow"]').or_(self.page.locator('div[class*="oxd-select-text--arrow"]').first())
+        return self.page.locator('div[class*="oxd-select-text--arrow"]').or_(self.page.locator('div[class*="oxd-select-text--arrow"]'))
 
     @property
     def employee_name_input(self):
@@ -26,7 +26,7 @@ class SystemUsersPage:
     @property
     def status_dropdown(self):
         """Dropdown to select user status"""
-        return self.page.locator('div[class*="oxd-select-text--arrow"]').or_(self.page.locator('div[class*="oxd-select-text--arrow"]').nth(1))
+        return self.page.locator('div[class*="oxd-select-text--arrow"]').or_(self.page.locator('div[class*="oxd-select-text--arrow"]'))
 
     @property
     def reset_button(self):
@@ -41,7 +41,7 @@ class SystemUsersPage:
     @property
     def add_button(self):
         """Button to add a new user"""
-        return self.page.get_by_role('button', name='+ Add').or_(self.page.locator('button:has-text("+ Add")'))
+        return self.page.get_by_role('button', name='Add').or_(self.page.locator('button:has-text("Add")'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
