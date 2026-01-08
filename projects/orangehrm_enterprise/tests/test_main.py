@@ -11,15 +11,20 @@ sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/
 from helpers import take_screenshot
 
 
-class LoginPage:
+class BasePage:
     def __init__(self, page):
         self.page = page
-        self.username_locator = "[name='username']"
-        self.password_locator = "[name='password']"
-        self.login_button_locator = "page.get_by_role(\"button\", name=\"Login\")"
 
     def navigate(self, url):
         self.page.goto(url)
+        self.page.wait_for_load_state("networkidle")
+
+class LoginPage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+        self.username_locator = "[name='username']"
+        self.password_locator = "[name='password']"
+        self.login_button_locator = "page.get_by_role(\"button\", name=\"Login\")"
 
     def enter_username(self, username):
         self.page.locator(self.username_locator).fill(username)
@@ -30,28 +35,25 @@ class LoginPage:
     def click_login(self):
         self.page.locator(eval(self.login_button_locator)).click()
 
-
-class OrangehrmDashboardPage:
+class OrangehrmDashboardPage(BasePage):
     def __init__(self, page):
-        self.page = page
+        super().__init__(page)
         self.pim_link_locator = "page.get_by_role(\"link\", name=\"PIM\")"
 
     def navigate_to_pim(self):
         self.page.locator(eval(self.pim_link_locator)).click()
 
-
-class EmployeeListPage:
+class EmployeeListPage(BasePage):
     def __init__(self, page):
-        self.page = page
+        super().__init__(page)
         self.add_button_locator = "page.get_by_role(\"button\", name=\"Add\")"
 
     def click_add(self):
         self.page.locator(eval(self.add_button_locator)).click()
 
-
-class AddEmployeePage:
+class AddEmployeePage(BasePage):
     def __init__(self, page):
-        self.page = page
+        super().__init__(page)
         self.first_name_locator = "[name='firstName']"
         self.last_name_locator = "[name='lastName']"
         self.save_button_locator = "page.get_by_role(\"button\", name=\"Save\")"
@@ -65,42 +67,35 @@ class AddEmployeePage:
     def click_save(self):
         self.page.locator(eval(self.save_button_locator)).click()
 
-
-class SystemUsersPage:
+class SystemUsersPage(BasePage):
     def __init__(self, page):
-        self.page = page
+        super().__init__(page)
         self.add_button_locator = "page.get_by_role(\"button\", name=\"Add\")"
 
     def click_add(self):
         self.page.locator(eval(self.add_button_locator)).click()
 
-
-class AddUserPage:
+class AddUserPage(BasePage):
     def __init__(self, page):
-        self.page = page
+        super().__init__(page)
         self.employee_name_locator = "page.get_by_placeholder(\"Type for hints...\")"
         self.save_button_locator = "page.get_by_role(\"button\", name=\"Save\")"
 
     def enter_employee_name(self, employee_name):
-        self.page.locator(self.employee_name_locator).fill(employee_name)
+        self.page.locator(eval(self.employee_name_locator)).fill(employee_name)
 
     def click_save(self):
         self.page.locator(eval(self.save_button_locator)).click()
 
-    def select_employee_name(self, employee_name):
-        self.page.locator(self.employee_name_locator).fill(employee_name)
-        self.page.locator(self.employee_name_locator).press('Enter')
-
-
-
-class OrangehrmPage:
+class OrangehrmPage(BasePage):
     def __init__(self, page):
-        self.page = page
+        super().__init__(page)
         self.admin_link_locator = "page.get_by_role(\"link\", name=\"Admin\")"
 
     def navigate_to_admin(self):
         self.page.locator(eval(self.admin_link_locator)).click()
 
+from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
@@ -118,7 +113,7 @@ def test_autonomous_flow(browser: Browser):
     login_page.enter_password("admin123")
     login_page.click_login()
 
-    # Add Employee
+    # Navigate to PIM and add employee
     dashboard_page.navigate_to_pim()
     employee_list_page.click_add()
     add_employee_page.enter_first_name("FirstNameTest")
@@ -126,10 +121,10 @@ def test_autonomous_flow(browser: Browser):
     add_employee_page.click_save()
     add_employee_page.click_save()
 
-    # Create System User
+    # Navigate to Admin and add user
     orangehrm_page.navigate_to_admin()
     page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers")
     system_users_page.click_add()
     add_user_page.enter_employee_name("FirstNameTest LastNameTest")
-    add_user_page.select_employee_name("FirstNameTest LastNameTest")
+    page.locator("div[role='option'] > span").click()
     add_user_page.click_save()
