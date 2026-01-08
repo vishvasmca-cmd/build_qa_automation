@@ -331,3 +331,7 @@
 - ⚠️ PROHIBITED: DON'T pass the URL string directly to `expect(page.url).to_contain()`. The `expect` function requires a Playwright `Page` object.
 
 - ✅ PREFERRED: DO use `expect(page).to_have_url()` or `expect(page).to_have_url(containing=...)` to assert the URL after navigation.
+
+- ⚠️ PROHIBITED: DON'T assume the URL after login will always be exactly '**/dashboard'; the application might redirect to a more specific dashboard URL.
+
+- ✅ PREFERRED: DO use a more robust URL validation, such as checking if the URL *contains* '/dashboard' or using a regular expression to match the expected pattern.

@@ -21,44 +21,32 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         add_employee_page = AddEmployeePage(page)
         system_users_page = SystemUsersPage(page)
         add_user_page = AddUserPage(page)
+        orangehrm_page = OrangehrmPage(page)
     
         # Login
         login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
         login_page.enter_username("Admin")
         login_page.enter_password("admin123")
         login_page.click_login()
->       expect(page.url).to_contain("/web/index.php/dashboard")
-        ^^^^^^^^^^^^^^^^
+>       expect(page).to_have_url("**/dashboard")
+E       AssertionError: Page URL expected to be '**/dashboard'
+E       Actual value: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index 
+E       Call log:
+E         - Expect "to_have_url" with timeout 5000ms
+E           2 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+E           - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/validate" navigation to finish...
+E           - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
+E           4 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
 
-projects/orangehrm_enterprise/tests/test_main.py:128: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-self = <playwright.sync_api.Expect object at 0x7f7a883d8e50>
-actual = 'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'
-message = None
-
-    def __call__(
-        self, actual: Union[Page, Locator, APIResponse], message: Optional[str] = None
-    ) -> Union[PageAssertions, LocatorAssertions, APIResponseAssertions]:
-        if isinstance(actual, Page):
-            return PageAssertions(
-                PageAssertionsImpl(actual._impl_obj, self._timeout, message=message)
-            )
-        elif isinstance(actual, Locator):
-            return LocatorAssertions(
-                LocatorAssertionsImpl(actual._impl_obj, self._timeout, message=message)
-            )
-        elif isinstance(actual, APIResponse):
-            return APIResponseAssertions(
-                APIResponseAssertionsImpl(
-                    actual._impl_obj, self._timeout, message=message
-                )
-            )
->       raise ValueError(f"Unsupported type: {type(actual)}")
-E       ValueError: Unsupported type: <class 'str'>
-
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/__init__.py:143: ValueError
+projects/orangehrm_enterprise/tests/test_main.py:124: AssertionError
 =========================== short test summary info ============================
-FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - ValueError: Unsupported type: <class 'str'>
-============================== 1 failed in 2.19s ===============================
+FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page URL expected to be '**/dashboard'
+Actual value: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index 
+Call log:
+  - Expect "to_have_url" with timeout 5000ms
+    2 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+    - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/validate" navigation to finish...
+    - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
+    4 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
+============================== 1 failed in 8.55s ===============================
 

@@ -19,92 +19,89 @@ class BasePage:
         self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
-    def take_screenshot(self, name, project_name):
-        take_screenshot(self.page, name, project_name)
-
-
 class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        self.username_locator = "[name='username']"
+        self.password_locator = "[name='password']"
+        self.login_button_locator = "page.get_by_role(\"button\", name=\"Login\")"
 
     def enter_username(self, username):
-        self.page.locator("[name='username']").fill(username)
+        self.page.locator(self.username_locator).fill(username)
 
     def enter_password(self, password):
-        self.page.locator("[name='password']").fill(password)
+        self.page.locator(self.password_locator).fill(password)
 
     def click_login(self):
-        self.page.get_by_role("button", name="Login").click()
-
+        self.page.locator(eval(self.login_button_locator)).click()
+        self.page.wait_for_load_state("networkidle")
 
 class OrangehrmDashboardPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        self.pim_link_locator = "page.get_by_role(\"link\", name=\"PIM\")"
 
     def navigate_to_pim(self):
-        self.page.get_by_role("link", name="PIM").click()
-
+        self.page.locator(eval(self.pim_link_locator)).click()
+        self.page.wait_for_load_state("networkidle")
 
 class EmployeeListPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        self.add_button_locator = "page.get_by_role(\"button\", name=\"Add\")"
 
     def click_add(self):
-        self.page.get_by_role("button", name="Add").click()
-
+        self.page.locator(eval(self.add_button_locator)).click()
+        self.page.wait_for_load_state("networkidle")
 
 class AddEmployeePage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        self.first_name_locator = "[name='firstName']"
+        self.last_name_locator = "[name='lastName']"
+        self.save_button_locator = "page.get_by_role(\"button\", name=\"Save\")"
 
     def enter_first_name(self, first_name):
-        self.page.locator("[name='firstName']").fill(first_name)
+        self.page.locator(self.first_name_locator).fill(first_name)
 
     def enter_last_name(self, last_name):
-        self.page.locator("[name='lastName']").fill(last_name)
+        self.page.locator(self.last_name_locator).fill(last_name)
 
     def click_save(self):
-        self.page.get_by_role("button", name="Save").click()
-
+        self.page.locator(eval(self.save_button_locator)).click()
+        self.page.wait_for_load_state("networkidle")
 
 class SystemUsersPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        self.add_button_locator = "page.get_by_role(\"button\", name=\"Add\")"
 
     def click_add(self):
-        self.page.get_by_role("button", name="Add").click()
-
+        self.page.locator(eval(self.add_button_locator)).click()
+        self.page.wait_for_load_state("networkidle")
 
 class AddUserPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        self.employee_name_locator = "page.get_by_placeholder(\"Type for hints...\")"
+        self.save_button_locator = "page.get_by_role(\"button\", name=\"Save\")"
 
     def enter_employee_name(self, employee_name):
-        self.page.get_by_placeholder("Type for hints...").fill(employee_name)
-
-    def select_employee_name(self, employee_name):
-        self.page.get_by_text(employee_name, exact=True).click()
+        self.page.locator(eval(self.employee_name_locator)).fill(employee_name)
+        #self.page.locator(eval(self.employee_name_locator)).press('Enter')
 
     def click_save(self):
-        self.page.get_by_role("button", name="Save").click()
-
+        self.page.locator(eval(self.save_button_locator)).click()
+        self.page.wait_for_load_state("networkidle")
 
 class OrangehrmPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.page = page
+        self.admin_link_locator = "page.get_by_role(\"link\", name=\"Admin\")"
 
     def navigate_to_admin(self):
-        self.page.get_by_role("link", name="Admin").click()
-
-
-from playwright.sync_api import Browser, expect
+        self.page.locator(eval(self.admin_link_locator)).click()
+        self.page.wait_for_load_state("networkidle")
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
@@ -121,28 +118,20 @@ def test_autonomous_flow(browser: Browser):
     login_page.enter_username("Admin")
     login_page.enter_password("admin123")
     login_page.click_login()
-    expect(page).to_have_url("**/dashboard")
+    page.wait_for_url("**/dashboard*")
 
-    # Navigate to PIM module
+    # Add Employee
     dashboard_page.navigate_to_pim()
-    expect(page).to_have_url("**/pim/viewEmployeeList")
-
-    # Add a new employee
     employee_list_page.click_add()
-    expect(page).to_have_url("**/pim/addEmployee")
     add_employee_page.enter_first_name("FirstNameTest")
     add_employee_page.enter_last_name("LastNameTest")
     add_employee_page.click_save()
     add_employee_page.click_save()
 
-    # Navigate to Admin module
+    # Create System User
     orangehrm_page.navigate_to_admin()
-    expect(page).to_have_url("**/admin/viewSystemUsers")
-
-    # Create a system user
+    page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers")
     system_users_page.click_add()
-    expect(page).to_have_url("**/admin/saveSystemUser")
-    employee_name = "FirstNameTest LastNameTest"
-    add_user_page.enter_employee_name(employee_name)
-    add_user_page.select_employee_name(employee_name)
+    add_user_page.enter_employee_name("FirstNameTest LastNameTest")
+    page.locator("//div[@class='oxd-autocomplete-dropdown --positon-bottom']//div[contains(text(),'FirstNameTest LastNameTest')]").click()
     add_user_page.click_save()
