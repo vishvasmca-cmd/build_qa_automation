@@ -93,3 +93,7 @@
 - ⚠️ PROHIBITED: DON'T escape special characters like '.' in CSS selectors (IDs or classes) unless they are truly meant to be escaped. Instead, use the correct CSS selector syntax or alternative locator strategies.
 
 - ✅ PREFERRED: DO inspect the HTML source code carefully to determine the correct CSS selector or use alternative locator strategies like `data-testid` or `data-test-id` attributes when available, or use XPath if necessary.
+
+- ⚠️ PROHIBITED: DON'T escape special characters (periods) in CSS selectors unless you are certain they are part of the literal ID or class name. Inspect the HTML source to confirm the correct ID.
+
+- ✅ PREFERRED: ALWAYS use the correct CSS selector syntax for IDs (e.g., '#elementId') and ensure that special characters are handled correctly without unnecessary escaping. Prefer using exact text matches where possible to avoid issues with dynamic content.
