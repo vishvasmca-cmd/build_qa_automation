@@ -559,3 +559,7 @@
 - ⚠️ PROHIBITED: DON'T use `eval()` within locator strings to dynamically generate locators based on the `page` object or other runtime context. This creates fragile and difficult-to-debug tests.
 
 - ✅ PREFERRED: DO define locators as static strings or use string formatting with variables passed directly to the `locator()` method. This ensures that locators are predictable and independent of runtime evaluation.
+
+- ⚠️ PROHIBITED: DON'T assume that the project structure and import paths are correct without verifying them before running the tests.
+
+- ✅ PREFERRED: DO ensure that all necessary modules and packages are installed and that the import paths in the test files are accurate and reflect the project's directory structure.
