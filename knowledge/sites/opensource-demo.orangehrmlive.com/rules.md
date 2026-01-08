@@ -263,3 +263,7 @@
 - ⚠️ PROHIBITED: DON'T use locators that are ambiguous and can match multiple elements on the page without specifying which element is intended.
 
 - ✅ PREFERRED: DO use more specific locators, such as role-based locators or locators that include attributes, to uniquely identify the target element.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the test runner is explicitly configured to treat the test directory as a package.
+
+- ✅ PREFERRED: DO use absolute imports or configure the test runner (e.g., pytest) to recognize the test directory as a package by including an `__init__.py` file in the directory and any parent directories that should be considered part of the package.
