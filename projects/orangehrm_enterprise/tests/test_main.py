@@ -38,7 +38,7 @@ class LoginPage(BasePage):
 class OrangehrmDashboardPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.pim_link_locator = "page.get_by_role(\"link\", name=\"PIM\")"
+        self.pim_link_locator = 'page.get_by_role("link", name="PIM")'
 
     def navigate_to_pim(self):
         self.page.locator(eval(self.pim_link_locator)).click()
@@ -46,7 +46,7 @@ class OrangehrmDashboardPage(BasePage):
 class EmployeeListPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.add_button_locator = "page.get_by_role(\"button\", name=\"Add\")"
+        self.add_button_locator = 'page.get_by_role("button", name="Add")'
 
     def click_add(self):
         self.page.locator(eval(self.add_button_locator)).click()
@@ -56,7 +56,7 @@ class AddEmployeePage(BasePage):
         super().__init__(page)
         self.first_name_locator = "[name='firstName']"
         self.last_name_locator = "[name='lastName']"
-        self.save_button_locator = "page.get_by_role(\"button\", name=\"Save\")"
+        self.save_button_locator = 'page.get_by_role("button", name="Save")'
 
     def enter_first_name(self, first_name):
         self.page.locator(self.first_name_locator).fill(first_name)
@@ -70,7 +70,7 @@ class AddEmployeePage(BasePage):
 class SystemUsersPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.add_button_locator = "page.get_by_role(\"button\", name=\"Add\")"
+        self.add_button_locator = 'page.get_by_role("button", name="Add")'
 
     def click_add(self):
         self.page.locator(eval(self.add_button_locator)).click()
@@ -79,7 +79,7 @@ class AddUserPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
         self.employee_name_locator = "page.get_by_placeholder(\"Type for hints...\")"
-        self.save_button_locator = "page.get_by_role(\"button\", name=\"Save\")"
+        self.save_button_locator = 'page.get_by_role("button", name="Save")'
 
     def enter_employee_name(self, employee_name):
         self.page.locator(eval(self.employee_name_locator)).fill(employee_name)
@@ -90,7 +90,7 @@ class AddUserPage(BasePage):
 class OrangehrmPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.admin_link_locator = "page.get_by_role(\"link\", name=\"Admin\")"
+        self.admin_link_locator = 'page.get_by_role("link", name="Admin")'
 
     def navigate_to_admin(self):
         self.page.locator(eval(self.admin_link_locator)).click()

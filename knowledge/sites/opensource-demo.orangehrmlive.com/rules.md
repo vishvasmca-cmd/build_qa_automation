@@ -451,3 +451,7 @@
 - ⚠️ PROHIBITED: DON'T use `eval()` within locator strings, especially when referencing page-specific objects like `page`. This creates fragile and difficult-to-debug locators.
 
 - ✅ PREFERRED: DO define locators as static strings or use string formatting to inject variables if needed. Ensure all variables used in locator strings are properly scoped and defined.
+
+- ⚠️ PROHIBITED: DON'T use `eval()` within locator strings, especially when referencing page-specific objects like `page`. This creates scope issues and makes locators brittle and hard to maintain.
+
+- ✅ PREFERRED: DO define locators using static strings or f-strings that incorporate class attributes or configuration values. If dynamic behavior is needed, manipulate the locator string outside of the locator definition itself.
