@@ -339,3 +339,7 @@
 - ⚠️ PROHIBITED: DON'T use `eval()` with Playwright locators, especially when the locator string contains references to variables (like `page`) that are not available in the evaluation context. This leads to unpredictable and hard-to-debug errors.
 
 - ✅ PREFERRED: DO define locators as static strings or use f-strings to dynamically construct them, ensuring that all necessary variables are properly scoped and available when the locator is used. Prefer using Playwright's built-in locator methods for dynamic selection.
+
+- ⚠️ PROHIBITED: DON'T use `eval()` to construct locators, especially when they depend on variables defined outside the string. This makes debugging difficult and introduces security risks.
+
+- ✅ PREFERRED: DO use f-strings or other string formatting methods to dynamically construct locators, ensuring that variables are properly scoped and accessible.
