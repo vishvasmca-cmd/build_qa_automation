@@ -19,9 +19,6 @@ class BasePage:
         self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
-    def take_screenshot(self, name, project_name):
-        take_screenshot(self.page, name, project_name)
-
 
 class HomePage(BasePage):
     def __init__(self, page):
@@ -37,8 +34,8 @@ class HomePage(BasePage):
     def login(self, username, password):
         self.page.locator("[name='username']").fill(username)
         self.page.locator("[name='password']").fill(password)
-        self.page.get_by_role("button", name="Log In").click()
-
+        self.page.locator("input[value='Log In']").click()
+        self.page.wait_for_load_state("networkidle")
 
 class RegisterPage(BasePage):
     def __init__(self, page):
@@ -79,11 +76,11 @@ class RegisterPage(BasePage):
         self.page.locator("[id='customer.password']").fill(password)
 
     def fill_confirm_password(self, confirm_password):
-        self.page.locator("[id='repeatedPassword']").fill(confirm_password)
+        self.page.locator("[id='customer.repeatedPassword']").fill(confirm_password)
 
     def click_register_button(self):
-        self.page.get_by_role("button", name="Register").click()
-
+        self.page.locator("input[value='Register']").click()
+        self.page.wait_for_load_state("networkidle")
 
 class LoginPage(BasePage):
     def __init__(self, page):
@@ -96,13 +93,13 @@ class LoginPage(BasePage):
     def login(self, username, password):
         self.page.locator("[name='username']").fill(username)
         self.page.locator("[name='password']").fill(password)
-        self.page.get_by_role("button", name="Log In").click()
-
+        self.page.locator("input[value='Log In']").click()
+        self.page.wait_for_load_state("networkidle")
 
 class AccountServicesPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.url = "https://parabank.parasoft.com/parabank/account_services.htm"
+        self.url = "https://parabank.parasoft.com/parabank/account.htm"
 
     def navigate(self):
         super().navigate(self.url)
@@ -116,7 +113,6 @@ class AccountServicesPage(BasePage):
     def click_request_loan_link(self):
         self.page.get_by_role("link", name="Request Loan").click()
 
-
 class OpenNewAccountPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
@@ -129,8 +125,8 @@ class OpenNewAccountPage(BasePage):
         self.page.get_by_label("Type of Account:").select_option(label=account_type)
 
     def click_open_new_account_button(self):
-        self.page.get_by_role("button", name="Open New Account").click()
-
+        self.page.locator("input[value='Open New Account']").click()
+        self.page.wait_for_load_state("networkidle")
 
 class TransferFundsPage(BasePage):
     def __init__(self, page):
@@ -144,14 +140,14 @@ class TransferFundsPage(BasePage):
         self.page.locator("[id='amount']").fill(amount)
 
     def select_from_account(self, from_account):
-        self.page.locator("[id='fromAccountId']").select_option(label=from_account)
+         self.page.locator("[id='fromAccountId']").select_option(label=from_account)
 
     def select_to_account(self, to_account):
         self.page.locator("[id='toAccountId']").select_option(label=to_account)
 
     def click_transfer_button(self):
-        self.page.get_by_role("button", name="Transfer").click()
-
+        self.page.locator("input[value='Transfer']").click()
+        self.page.wait_for_load_state("networkidle")
 
 class RequestLoanPage(BasePage):
     def __init__(self, page):
@@ -171,8 +167,8 @@ class RequestLoanPage(BasePage):
         self.page.locator("[id='fromAccountId']").select_option(label=from_account)
 
     def click_apply_now_button(self):
-        self.page.get_by_role("button", name="Apply Now").click()
-
+        self.page.locator("input[value='Apply Now']").click()
+        self.page.wait_for_load_state("networkidle")
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
@@ -211,14 +207,20 @@ def test_autonomous_flow(browser: Browser):
     open_new_account_page.select_account_type("CHECKING")
     open_new_account_page.click_open_new_account_button()
 
-    # Get Account ID of the newly created account - placeholder for now
-    new_account_id = "12345"
+    # Get the new account ID for Transfer Funds
+    new_account_id = page.locator("#newAccountId").text_content()
 
     # Transfer Funds
     account_services_page.click_transfer_funds_link()
     transfer_funds_page.fill_amount("100")
+
+    # Select From Account
     transfer_funds_page.select_from_account(new_account_id)
+
+    # Select To Account (assuming there's another account to transfer to)
+    # This will likely need to be updated with a real account ID
     transfer_funds_page.select_to_account("12345")
+
     transfer_funds_page.click_transfer_button()
 
     # Request Loan

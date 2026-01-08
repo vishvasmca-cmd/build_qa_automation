@@ -133,3 +133,7 @@
 - ⚠️ PROHIBITED: DON'T assume that the username field is immediately available after the page loads. ALWAYS implement a mechanism (e.g., `wait_for_selector` or `wait_for_element_state`) to ensure it is present before attempting to interact with it.
 
 - ✅ PREFERRED: DO use `wait_for_selector('[name="username"]')` with an explicit timeout (e.g., 5000ms) BEFORE attempting to fill the username field. This ensures the element is present and interactable.
+
+- ⚠️ PROHIBITED: DON'T assume the username field is immediately available; ALWAYS implement a short wait or use `locator.wait_for()` with explicit visibility check before attempting to fill the field.
+
+- ✅ PREFERRED: DO use `locator.wait_for(state='visible', timeout=5000)` before attempting to interact with form elements. It guarantees the element exists and ready for user input.
