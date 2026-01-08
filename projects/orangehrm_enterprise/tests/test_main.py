@@ -24,7 +24,7 @@ class LoginPage(BasePage):
         super().__init__(page)
         self.username_locator = "[name='username']"
         self.password_locator = "[name='password']"
-        self.login_button_locator = "button[type='submit']"
+        self.login_button_locator = "text=Login"
 
     def login(self, username, password):
         self.page.locator(self.username_locator).fill(username)
@@ -42,7 +42,7 @@ class OrangehrmDashboardPage(BasePage):
 class EmployeeListPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.add_button_locator = "text=Add"
+        self.add_button_locator = "button:has-text('Add')"
 
     def navigate_to_add_employee(self):
         self.page.locator(self.add_button_locator).click()
@@ -56,8 +56,6 @@ class OrangehrmAddEmployeePage(BasePage):
     def add_employee(self, first_name, last_name):
         self.page.locator(self.first_name_locator).fill(first_name)
         self.page.locator(self.last_name_locator).fill(last_name)
-
-from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()

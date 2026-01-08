@@ -287,3 +287,7 @@
 - ⚠️ PROHIBITED: DON'T use locators that are not specific enough and can match multiple elements on the page. ALWAYS aim for unique and unambiguous locators.
 
 - ✅ PREFERRED: DO use more specific locators, such as role-based locators (e.g., `get_by_role('button', name='Login')`) or locators that include attributes to uniquely identify the target element.
+
+- ⚠️ PROHIBITED: DON'T use ambiguous locators like `text=Add` without ensuring they uniquely identify the target element.  Always validate locator uniqueness before performing actions.
+
+- ✅ PREFERRED: DO use more specific locators, such as role-based locators (e.g., `get_by_role`) or locators combined with `nth()` or `first()`/`last()` to target the intended element when multiple elements match the initial locator.

@@ -21,12 +21,14 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         add_employee_page = OrangehrmAddEmployeePage(page)
     
         login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
->       login_page.login("Admin", "admin123")
+        login_page.login("Admin", "admin123")
+        dashboard_page.navigate_to_pim()
+>       employee_list_page.navigate_to_add_employee()
 
-projects/orangehrm_enterprise/tests/test_main.py:70: 
+projects/orangehrm_enterprise/tests/test_main.py:72: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/orangehrm_enterprise/tests/test_main.py:32: in login
-    self.page.locator(self.login_button_locator).click()
+projects/orangehrm_enterprise/tests/test_main.py:48: in navigate_to_add_employee
+    self.page.locator(self.add_button_locator).click()
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
@@ -38,8 +40,8 @@ projects/orangehrm_enterprise/tests/test_main.py:32: in login
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7fb8d0f9b2d0>
-cb = <function Channel.send.<locals>.<lambda> at 0x7fb8cfcbed40>
+self = <playwright._impl._connection.Connection object at 0x7f8dc9693690>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f8dc966ed40>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -58,20 +60,20 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.Error: Locator.click: Error: strict mode violation: locator("text=Login") resolved to 2 elements:
-E               1) <h5 data-v-7b563373="" data-v-0af708be="" class="oxd-text oxd-text--h5 orangehrm-login-title">Login</h5> aka get_by_role("heading", name="Login")
-E               2) <button type="submit" data-v-10d463b7="" data-v-0af708be="" class="oxd-button oxd-button--medium oxd-button--main orangehrm-login-button">…</button> aka get_by_role("button", name="Login")
+E           playwright._impl._errors.Error: Locator.click: Error: strict mode violation: locator("text=Add") resolved to 2 elements:
+E               1) <a href="#" class="oxd-topbar-body-nav-tab-item">Add Employee</a> aka get_by_role("link", name="Add Employee")
+E               2) <button type="button" data-v-10d463b7="" data-v-7044e35a="" class="oxd-button oxd-button--medium oxd-button--secondary">…</button> aka get_by_role("button", name=" Add")
 E           
 E           Call log:
-E             - waiting for locator("text=Login")
+E             - waiting for locator("text=Add")
 
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
 =========================== short test summary info ============================
-FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: locator("text=Login") resolved to 2 elements:
-    1) <h5 data-v-7b563373="" data-v-0af708be="" class="oxd-text oxd-text--h5 orangehrm-login-title">Login</h5> aka get_by_role("heading", name="Login")
-    2) <button type="submit" data-v-10d463b7="" data-v-0af708be="" class="oxd-button oxd-button--medium oxd-button--main orangehrm-login-button">…</button> aka get_by_role("button", name="Login")
+FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: locator("text=Add") resolved to 2 elements:
+    1) <a href="#" class="oxd-topbar-body-nav-tab-item">Add Employee</a> aka get_by_role("link", name="Add Employee")
+    2) <button type="button" data-v-10d463b7="" data-v-7044e35a="" class="oxd-button oxd-button--medium oxd-button--secondary">…</button> aka get_by_role("button", name=" Add")
 
 Call log:
-  - waiting for locator("text=Login")
-============================== 1 failed in 2.26s ===============================
+  - waiting for locator("text=Add")
+============================== 1 failed in 6.73s ===============================
 
