@@ -24,7 +24,7 @@ class LoginPage(BasePage):
         super().__init__(page)
         self.username_locator = "[name='username']"
         self.password_locator = "[name='password']"
-        self.login_button_locator = "text=Login"
+        self.login_button_locator = "button[type='submit']"
 
     def login(self, username, password):
         self.page.locator(self.username_locator).fill(username)

@@ -283,3 +283,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on text-based locators without considering potential variations in text or the presence of multiple elements with the same text. DON'T assume elements are immediately clickable after page load; always account for potential delays in rendering or enabling.
 
 - ✅ PREFERRED: DO use more robust locators like role-based or ID-based locators whenever possible. DO implement explicit waits with error handling to ensure elements are both present and clickable before attempting to interact with them. DO consider using visual validation to confirm the element is rendered as expected.
+
+- ⚠️ PROHIBITED: DON'T use locators that are not specific enough and can match multiple elements on the page. ALWAYS aim for unique and unambiguous locators.
+
+- ✅ PREFERRED: DO use more specific locators, such as role-based locators (e.g., `get_by_role('button', name='Login')`) or locators that include attributes to uniquely identify the target element.
