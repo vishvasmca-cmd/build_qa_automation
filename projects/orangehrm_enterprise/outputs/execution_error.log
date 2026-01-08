@@ -27,26 +27,20 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
         login_page.enter_username("Admin")
         login_page.enter_password("admin123")
-        login_page.click_login()
->       expect(page).to_have_url("**/dashboard")
-E       AssertionError: Page URL expected to be '**/dashboard'
-E       Actual value: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index 
-E       Call log:
-E         - Expect "to_have_url" with timeout 5000ms
-E           2 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
-E           - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/validate" navigation to finish...
-E           - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
-E           4 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
+>       login_page.click_login()
 
-projects/orangehrm_enterprise/tests/test_main.py:124: AssertionError
+projects/orangehrm_enterprise/tests/test_main.py:120: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/orangehrm_enterprise/tests/test_main.py:36: in click_login
+    self.page.locator(eval(self.login_button_locator)).click()
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   NameError: name 'page' is not defined
+
+<string>:1: NameError
 =========================== short test summary info ============================
-FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page URL expected to be '**/dashboard'
-Actual value: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index 
-Call log:
-  - Expect "to_have_url" with timeout 5000ms
-    2 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
-    - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/validate" navigation to finish...
-    - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
-    4 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
-============================== 1 failed in 8.55s ===============================
+FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - NameError: name 'page' is not defined
+============================== 1 failed in 2.22s ===============================
 

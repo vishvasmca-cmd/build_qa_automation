@@ -335,3 +335,7 @@
 - ⚠️ PROHIBITED: DON'T assume the URL after login will always be exactly '**/dashboard'; the application might redirect to a more specific dashboard URL.
 
 - ✅ PREFERRED: DO use a more robust URL validation, such as checking if the URL *contains* '/dashboard' or using a regular expression to match the expected pattern.
+
+- ⚠️ PROHIBITED: DON'T use `eval()` with Playwright locators, especially when the locator string contains references to variables (like `page`) that are not available in the evaluation context. This leads to unpredictable and hard-to-debug errors.
+
+- ✅ PREFERRED: DO define locators as static strings or use f-strings to dynamically construct them, ensuring that all necessary variables are properly scoped and available when the locator is used. Prefer using Playwright's built-in locator methods for dynamic selection.
