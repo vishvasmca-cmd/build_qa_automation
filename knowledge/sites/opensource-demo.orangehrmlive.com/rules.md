@@ -455,3 +455,7 @@
 - ⚠️ PROHIBITED: DON'T use `eval()` within locator strings, especially when referencing page-specific objects like `page`. This creates scope issues and makes locators brittle and hard to maintain.
 
 - ✅ PREFERRED: DO define locators using static strings or f-strings that incorporate class attributes or configuration values. If dynamic behavior is needed, manipulate the locator string outside of the locator definition itself.
+
+- ⚠️ PROHIBITED: DON'T use `eval()` with Playwright locators, especially when trying to inject the `page` object into the locator string. This leads to scope issues and makes the locator brittle and hard to debug.
+
+- ✅ PREFERRED: DO define locators as static strings or use f-strings for dynamic parts, passing any necessary variables directly to the locator method (e.g., `page.locator(f'button:has-text("{button_text}")')`).
