@@ -1,0 +1,55 @@
+# Auto-generated POM Test
+import pytest
+import sys
+import os
+
+# Fix import path for 'pages'
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../core/templates')))
+
+import re
+from playwright.sync_api import Page, expect
+{% for page_import in page_imports %}
+from pages.{{ page_import.module }} import {{ page_import.class_name }}
+{% endfor %}
+
+
+@pytest.fixture(scope="function", autouse=True)
+def setup_and_teardown(page: Page):
+    """Setup: Navigate to base URL before each test"""
+    page.goto("{{ base_url }}")
+    yield
+    # Teardown: Add cleanup logic here if needed
+
+
+{% for test in tests %}
+def {{ test.name }}(page: Page):
+    """
+    {{ test.description }}
+    
+    Test Steps:
+    {% for step in test.steps_description %}
+    {{ loop.index }}. {{ step }}
+    {% endfor %}
+    """
+    # ==================== ARRANGE ====================
+    # Initialize page objects
+    {% for page_obj in test.page_objects %}
+    {{ page_obj.var_name }} = {{ page_obj.class_name }}(page)  # {{ page_obj.description }}
+    {% if page_obj.needs_goto %}
+    {{ page_obj.var_name }}.goto()
+    {% endif %}
+    {% endfor %}
+
+    # ==================== ACT ====================
+    # Execute workflow actions
+    {% for action in test.actions %}
+    {{ action.code }}  # {{ action.comment }}
+    {% endfor %}
+
+    # ==================== ASSERT ====================
+    # Verify expected outcomes
+    {% for assertion in test.assertions %}
+    {{ assertion.code }}  # {{ assertion.comment }}
+    {% endfor %}
+
+{% endfor %}

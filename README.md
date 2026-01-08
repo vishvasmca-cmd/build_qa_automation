@@ -1,382 +1,131 @@
-# 🤖 Antigravity - Autonomous Test Generation Framework
+# 🤖 Antigravity - Autonomous Agentic QA Framework
 
-## 🚀 **Single Command Entry Point**
+**Antigravity** is a next-generation autonomous testing framework that uses LLM-powered agents to plan, explore, mine, and generate self-healing E2E tests.
+
+---
+
+## 🚀 **Quick Start**
+
+### **1. Setup Environment**
+```bash
+pip install -r requirements.txt
+playwright install
+```
+
+### **2. Run an Autonomous Agent**
+The entry point is `trigger_agent.py`, which launches the orchestration pipeline.
 
 ```bash
-python run.py --project <name> --url <url> --goal <goal> --domain <auto|banking|ecommerce|saas|healthcare>
+# Run with a specific configuration file (HEADED mode by default)
+python trigger_agent.py projects/automationexercise_regression/config.json
+
+# Run in HEADLESS mode
+python trigger_agent.py projects/automationexercise_regression/config.json --headless
 ```
 
 ---
 
-## 🔥 **Recent Major Updates (January 2026)**
+## 🔥 **Key Features**
 
-### 🏛️ **Autonomous POM Architecture**
-The framework now supports full **Page Object Model (POM)** generation. It analyzes the trace and automatically creates:
-- `pages/{PageName}.py`: Encapsulated locators and semantic action methods.
-- `pages/base_page.py`: The self-healing engine.
-- `tests/e2e/test_main.py`: Clean, readable tests using Page Objects.
+### **1. Autonomous Exploration & Mining**
+The **Explorer Agent** (`core/agents/explorer.py`) navigates websites autonomously, discovering interactive elements (buttons, inputs, links) and mapping user flows.
+- **Batch Mining**: After exploration, the **Miner** (`core/agents/miner.py`) analyzes the collected snapshots to discover reusable "Page Models".
+- **Documentation**: Automatically generates `Navigate.md` (step-by-step path) and `workflow.md` (high-level summary).
 
-### 🧠 **Domain-Aware Test Strategist (RAG 2.0)**
-The planner is now "taught" via domain playbooks. It recognizes **E-commerce, Banking, and Healthcare** sites and automatically designs:
-- **Smoke Suites**: Critical "Must-Pass" happy paths.
-- **Regression Suites**: Deep edge cases and negative validations.
+### **2. Structure-First POM Generation**
+The framework enforces a strict **Page Object Model (POM)** architecture.
+- **Generator**: Uses `core/agents/refiner.py` to convert discovered Page Models into Python classes in `pages/`.
+- **Standardization**: Adheres to `docs/STANDARD_POM_GUIDE.md` for consistent coding style.
+- **Linear Tests**: Generates clean, linear `test_main.py` files that are easy to read and debug.
 
-### 🛡️ **Runtime Self-Healing v2**
-Native intercept detection in `BasePage`. If a click is intercepted (e.g., by a modal or overlay), the engine automatically attempts to clear the obstruction and retries the action.
+### **3. Self-Healing Knowledge Bank**
+- **RAG-Powered**: The **Knowledge Bank** (`core/knowledge/knowledge_bank.py`) remembers past failures and successful strategies.
+- **Feedback Loop**: If a test fails, the **Feedback Agent** (`core/agents/feedback_agent.py`) analyzes the error, updates `knowledge/failures.json`, and refines the agent's rules (`rules.md`) for future runs.
 
-### 👑 **Master Agent Supervisor (New!)**
-A "Boss" agent that wraps the entire pipeline (Planning, Exploration, Coding, Execution) in a robust retry loop.
-- **Supervisor Logic**: Monitors sub-agents (`Planner`, `Explorer`, `Coder`) and intervenes if they crash.
-- **Real-Time Dashboard**: Writes status to `outputs/master_status.json` (assigned -> working -> healing -> idle).
-- **Self-Correction**: Consults `FeedbackAgent` to diagnose failures and auto-heals (e.g., updates `rules.md` on the fly).
-
-### 📊 **CI Failure Log Aggregation**
-Consolidated tracking of distributed test runs. All failures across 100+ sites are merged into a single `knowledge/failures.json` for rapid post-mortem analysis.
-
----
-
-## 📋 **Quick Start Examples**
-
-### **Auto-Detect Domain & Generate Tests**
-```bash
-python run.py \
-  --project my_test \
-  --url "https://any-website.com" \
-  --goal "User registration" \
-  --domain auto
-```
-✅ Automatically detects domain  
-✅ Mines page elements  
-✅ Generates working Playwright tests  
-✅ Executes and validates  
-
-### **Generate Comprehensive Spec First**
-```bash
-python run.py \
-  --project banking_test \
-  --url "https://parabank.parasoft.com/parabank/" \
-  --goal "Fund transfer" \
-  --domain auto \
-  --generate-spec
-```
-✅ Auto-detects domain (Banking)  
-✅ Generates domain-specific test scenarios  
-✅ Creates spec files  
-✅ Runs autonomous exploration  
-
----
-
-## 🏗️ **Architecture Overview**
-
-```
-run.py (MAIN ENTRY POINT)
-  │
-  ├─► Domain Detection (if --domain auto)
-  │
-  ├─► Spec Generation (if --generate-spec)
-  │
-  └─► Orchestrator Pipeline
-      │
-      ├─► [Step 1] Predictive QA (RAG Context)
-      │   ├─ Query Knowledge Bank (knowledge_bank.py)
-      │   ├─ Check 'next_action_prediction.jsonl'
-      │   └─ Inject "Best Next Steps" into Prompt
-      │
-      ├─► [Step 2] Explorer (core/explorer.py)
-      │   ├─ AI-powered navigation
-      │   ├─ Fail-Fast on 404
-      │   └─ Outputs: trace.json
-      │
-      ├─► [Step 3] POM & Code Generation (core/pom_generator.py)
-      │   ├─ Trace → Page Objects & Locators
-      │   ├─ Automatic Locator Sanitization (Quotes/Apostrophes)
-      │   └─ Outputs: pages/*.py, tests/e2e/test_main.py
-      │
-      ├─► [Step 4] Test Execution (BasePage Engine)
-      │   ├─ pytest with BasePage inheritance
-      │   └─ Runtime Self-Healing (Intercept/Timeout Recovery)
-      │
-      ├─► [Step 5] Knowledge Aggregation (core/data_aggregator.py)
-      │   ├─ Parse trace.json
-      │   ├─ Create training datasets (*.jsonl)
-      │   └─ Update 'learned_patterns_v2.json'
-      │
-      ├─► [Step 6] Code Generation (core/refiner.py)
-      │   ├─ Trace → Playwright Monolith
-      │   └─ Outputs: tests/test_main.py
-      │
-      └─► [Step 7] Test Execution
-          ├─ pytest with retries
-          └─ Self-healing on failures
-```
+### **4. Robust Orchestration**
+The **Master Orchestrator** (`core/engine/orchestrator.py`) manages the entire lifecycle:
+1.  **Planning**: Strategy generation.
+2.  **Exploration**: Live site mapping.
+3.  **Mining**: Static analysis of snapshots.
+4.  **Framework Gen**: Creating POM files.
+5.  **Execution**: Running Pytest with self-correction.
+6.  **Reporting**: Generating HTML reports and dashboards.
 
 ---
 
 ## 📁 **Project Structure**
 
+The codebase is organized into logical layers:
+
+```text
 inner-event/
-├── run.py                          ⭐ SINGLE ENTRY POINT
-├── core/
-│   ├── orchestrator.py             # Pipeline controller
-│   ├── explorer.py                 # AI navigation agent
-│   ├── data_aggregator.py          # 🧠 Knowledge Aggregation
-│   ├── refiner.py                  # Test code generation
-│   ├── knowledge_bank.py           # RAG & Predictive Context
-│   └── ...
+├── trigger_agent.py                # 🚀 Entry Point
+├── core/                           # Framework Core
+│   ├── agents/                     # Autonomous Agents
+│   │   ├── explorer.py             # Navigation & Discovery
+│   │   ├── miner.py                # Batch DOM Analysis
+│   │   ├── refiner.py              # Code Generation
+│   │   ├── feedback_agent.py       # Failure Analysis
+│   │   └── ...
+│   ├── engine/                     # Orchestration Logic
+│   │   ├── orchestrator.py         # Main Pipeline Controller
+│   │   └── dispatcher.py           # Task Routing
+│   ├── knowledge/                  # RAG & Memory
+│   │   ├── knowledge_bank.py       # Vector/Rule Store
+│   │   └── knowledge_curator.py    # Data Management
+│   └── lib/                        # Shared Utilities
+│       ├── dom_driver.py           # Playwright Wrapper
+│       ├── llm_utils.py            # AI Model Interface
+│       └── metrics_logger.py       # Telemetry
 │
-├── knowledge/                      # Knowledge Bank (RAG)
-│   ├── learned_patterns_v2.json    # Stable Locators
-│   └── datasets/                   # Training Data
-│       └── next_action_prediction.jsonl
+├── projects/                       # User Projects
+│   └── {project_name}/
+│       ├── config.json             # Project Config
+│       ├── pages/                  # Generated Page Objects
+│       ├── tests/                  # Generated Tests
+│       └── outputs/                # Artifacts
+│           ├── test-results/       # Playwright Traces/Videos
+│           ├── snapshots/          # Exploration Screenshots
+│           └── report.html         # Final Report
 │
-└── projects/                       # Generated test projects
-    ├── {project_name}/
-    │   ├── config.json             # Project configuration
-    │   ├── outputs/
-    │   │   ├── trace.json          # Exploration log
-    │   │   ├── pom_structure.json  # Intermediate POM map
-    │   │   └── report.html         # Visual report
-    │   ├── pages/                  # 🏛️ GENERATED PAGE OBJECTS
-    │   │   ├── base_page.py        # Self-healing engine
-    │   │   └── product_page.py     # Encapsulated logic
-    │   ├── tests/
-    │   │   └── e2e/test_main.py    # 🚀 Readable POM-based Test
-    │   └── specs/
-    │       └── test-plans/         # Domain-aware strategy
-
----
-
-## 🎯 **Core Features**
-
-### **1. Automatic Domain Detection**
-```python
-# In run.py lines 12-75
-async def detect_and_generate_spec(url, project_name):
-    # Analyzes: Title, Navigation, Content
-    # Classifies: E-commerce, Banking, SaaS, ISP, Healthcare, etc.
-    # Returns: domain string
+└── docs/                           # Documentation
+    └── STANDARD_POM_GUIDE.md       # Coding Standards
 ```
-
-**Supported Domains**:
-- ✅ E-commerce (Products, Cart, Checkout)
-- ✅ Banking (Accounts, Transfers, Compliance)
-- ✅ SaaS (Dashboards, CRUD, Subscriptions)
-- ✅ ISP/Telecom (Bills, Service Plans, Support)
-- ✅ Healthcare (Patient Portals, HIPAA)
-- ✅ Education (LMS, Courses)
-- ✅ Government (Public Services)
-- ✅ Social Media (Feeds, Messaging)
-
-### **2. Intelligent Explorer** (`core/explorer.py`)
-
-**Key Capabilities**:
-- ✅ **Autonomous Navigation**: AI decides next action
-- ✅ **Fail-Fast Intelligence**: Detects 404s/DNS errors & aborts immediately
-- ✅ **Multi-Tab Handling**: Switches to new windows automatically
-- ✅ **Autonomous Registration**: Detects "no credentials" → finds Sign Up → registers
-- ✅ **Multi-Method Scrolling**: Keyboard + Mouse + JS for element discovery
-- ✅ **Test Data Extraction**: Finds credentials on page → persists to `test_data.json`
-- ✅ **Self-Healing**: Auto-repairs broken locators during execution
-
-**Production Site Support**:
-- 60s page load timeout
-- Lazy loading detection
-- Network idle optional (skips if timeout)
-
-### **3. Predictive QA (RAG)** (`core/knowledge_bank.py`)
-
-**How it works**:
-1.  **Ingest**: Reads `knowledge/datasets/next_action_prediction.jsonl`.
-2.  **Match**: Uses fuzzy logic + domain matching to find similar past goals.
-3.  **Predict**: Injects "Best Next Step" into the Agent's context.
-
-**Benefit**: Prevents the agent from repeating past mistakes (e.g., "Don't click X, click Y instead").
-
-### **4. Knowledge Aggregation** (`core/data_aggregator.py`)
-
-**Command**:
-```bash
-python core/data_aggregator.py
-```
-**Function**:
-- Scans all `projects/*/outputs/trace.json`.
-- Extracts successful action sequences.
-- Compiles them into training datasets for:
-    - Next Action Prediction
-    - Locator Prediction
-
-### **5. Code Generation** (`core/refiner.py`)
-
-**Philosophy**: **Autonomous Monolith**
-- We generate single-file, self-contained tests (`test_main.py`).
-- No complex Page Object Model (POM) dependencies.
-- **Why?** Easier for AI to read, debug, and self-heal a single file than a distributed class hierarchy.
-
-**Generated Test Includes**:
-```python
-def smart_action(page, locator, action, value):
-    # Self-healing wrapper
-    # Auto-retries with fallback selectors
-    
-def test_autonomous_flow(page):
-    # End-to-End User Flow
-```
-
-### **6. Comprehensive Reporting** (`core/reporter.py`)
-
-**Outputs**:
-- `report.html` - Beautiful HTML with screenshots
-- `report.md` - Markdown summary
-- `screenshots/` - Visual evidence of every step
 
 ---
 
 ## 🔧 **Configuration**
 
-### **Project Config** (`projects/{name}/config.json`)
+Each project is defined by a `config.json` file:
+
 ```json
 {
-  "project_name": "my_test",
-  "target_url": "https://example.com",
-  "workflow_description": "User registration",
+  "project_name": "automationexercise_regression",
+  "target_url": "https://automationexercise.com",
+  "workflow_description": "User registration and checkout flow",
   "domain": "ecommerce",
   "test_data": {
-    "username": "user@example.com",
-    "password":  "SecurePass123"
+    "username": "test@example.com",
+    "password": "Password123"
   },
-  "paths": {
-    "trace": "projects/my_test/outputs/trace.json",
-    "report": "projects/my_test/outputs/report.md",
-    "test": "projects/my_test/tests/test_main.py"
+  "browser_config": {
+    "viewport": { "width": 1280, "height": 720 },
+    "headless": false
   }
 }
 ```
 
-### **Environment Variables**
-```bash
-# .env file
-GOOGLE_API_KEY=your_gemini_api_key
-```
+---
+
+## 📊 **Reporting**
+
+After a run, check the project's output directory:
+
+- **HTML Report**: `projects/{name}/outputs/report.html`
+- **Playwright Trace**: `projects/{name}/outputs/test-results/` (Use `playwright show-trace`)
+- **Navigation Log**: `projects/{name}/outputs/Navigate.md`
 
 ---
 
-## 🚦 **Usage Patterns**
-
-### **Pattern 1: Quick Test Generation**
-```bash
-python run.py --project demo --url https://demo.site --goal "Login" --domain auto
-```
-**Use when**: Testing a new site quickly
-
-### **Pattern 2: Comprehensive Spec-Driven**
-```bash
-python run.py --project prod --url https://prod.site --goal "Checkout" --domain auto --generate-spec
-```
-**Use when**: Production testing, need detailed scenarios
-
-### **Pattern 3: Manual Domain**
-```bash
-python run.py --project bank --url https://bank.com --goal "Transfer" --domain banking
-```
-**Use when**: You know the domain, skip detection
-
----
-
-## 🐛 **Troubleshooting**
-
-### **Timeout Errors**
-**Issue**: `Timeout 30000ms exceeded`  
-**Fix**: Increased to 60s in `core/explorer.py` line 94, 104
-
-### **Login Failures**
-**Issue**: Agent skips login or uses wrong credentials  
-**Fix**: Update `projects/{name}/config.json` test_data section
-
-### **Missing Login Button Click**
-**Issue**: Fills username/password but doesn't submit  
-**Fix**: Check trace.json - may need to adjust decision prompt
-
-### **JS vs Python Locators**
-**Issue**: `getByRole` instead of `get_by_role`  
-**Fix**: Auto-converted in `core/explorer.py` lines 265-270
-
----
-
-## 📚 **Training & Knowledge**
-
-**Pre-trained Sites**:
-- ✅ www.saucedemo.com (E-commerce)
-- ✅ parabank.parasoft.com (Banking)
-- ✅ webdriveruniversity.com (Tutorial)
-- ✅ the-internet.herokuapp.com (Edge cases)
-
-**To add new knowledge**:
-```bash
-python run.py --project new_site --url https://new.site --goal "Main workflow" --domain auto
-# Knowledge auto-updates in knowledge/sites/
-```
-
----
-
-## 🎨 **Key Learnings Implemented**
-
-1. **Language Syntax War**: Auto-converts JS → Python Playwright
-2. **Multi-Tab Navigation**: Detects + switches to new windows
-3. **Form Field Intelligence**: Distinguishes inputs from submit buttons
-4. **Sequential Form Filling**: One field at a time, validates before submit
-5. **Autonomous Registration**: No hardcoded credentials needed
-6. **Error Resilience**: All code paths return consistent dicts
-7. **Multi-Method Scrolling**: 3 techniques for element discovery
-8. **Knowledge Evolution**: Locator stability + domain patterns
-
----
-
-## 🚀 **Next Steps**
-
-1. **Run first test**:
-   ```bash
-   python run.py --project first_test --url https://example.com --goal "Explore" --domain auto
-   ```
-
-2. **Check outputs**:
-   ```bash
-   explorer projects\first_test\outputs\report.html
-   ```
-
-3. **Run generated test**:
-   ```bash
-   pytest projects/first_test/tests/test_main.py
-   ```
-
-4. **Iterate**: Update config → re-run → refine
-
----
-
-## 🔮 **Future Roadmap**
-
-### **1. Offline Model Fine-Tuning**
-*   **Goal**: Create a specialized "QA-Agent-7B" model.
-*   **Method**: Use the `knowledge/datasets/next_action_prediction.jsonl` dataset (generated by the Data Aggregator) to fine-tune Llama 3 or Mistral.
-*   **Result**: An LLM that understands "Test Automation" natively, reducing token costs and increasing accuracy.
-
-### **2. Visual Grounding**
-*   **Goal**: Enable the agent to "see" the page layout.
-*   **Method**: Integrate Gemini Pro Vision or GPT-4o to analyze screenshots for layout issues (overlapping text, broken images) and visual locators.
-
-### **3. Parallel Sharding**
-*   **Goal**: Execute 100 tests in 5 minutes.
-*   **Method**: Use `pytest-xdist` to run the self-contained monolithic tests in parallel worker nodes.
-
----
-
-## 📖 **Further Reading**
-
-- `UNIVERSAL_SPEC_GUIDE.md` - Domain detection details
-- `BANKING_TESTS_README.md` - Banking-specific examples
-- `knowledge/domains/*.yaml` - Domain patterns
-
----
-
-**Built with**: Gemini 2.0 Flash, Playwright, Python  
-**Status**: Production-ready for web testing automation  
-**License**: MIT
+**Built with**: Gemini 2.0 Flash, Playwright, Python
+**Status**: Production-Ready

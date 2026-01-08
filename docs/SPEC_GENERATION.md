@@ -50,7 +50,7 @@ Feature: User Registration
 
 ## 🛠️ **Configuration**
 
-The synthesis happens automatically during `python run.py`.
+The synthesis happens automatically during `python trigger_agent.py`.
 
 **To Trigger Manually:**
 ```bash

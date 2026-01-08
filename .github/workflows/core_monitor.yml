@@ -1,19 +1,19 @@
-name: Core Monitoring & Stability Loop
+name: OrangeHRM Robust Self-Healing Loop
 
 on:
   push:
     branches: [ "main" ]
   schedule:
-    - cron: '0 */2 * * *'  # Run every 2 hours
+    - cron: '0 */6 * * *'  # Run every 6 hours
   workflow_dispatch:      # Allow manual trigger
 
 permissions:
   contents: write
 
 jobs:
-  core-monitor:
+  orangehrm-robust:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 180  # 3 hours for multiple retry attempts
 
     env:
       GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
@@ -34,6 +34,11 @@ jobs:
         pip install -r requirements.txt
         playwright install chromium
 
-    - name: Run Core Monitor
+    - name: Configure Git
       run: |
-        python core_monitor.py --sync-git
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "actions@github.com"
+
+    - name: Run Robust OrangeHRM Pipeline (Retry Until Success)
+      run: |
+        python trigger_agent.py projects/orangehrm_enterprise/config.json --robust
