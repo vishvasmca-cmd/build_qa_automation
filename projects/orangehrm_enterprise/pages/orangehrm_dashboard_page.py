@@ -2,64 +2,44 @@ from playwright.async_api import Page, expect
 
 class OrangehrmDashboardPage:
     """
-    Dashboard page for OrangeHRM
+    OrangeHRM Dashboard Page
     URL Pattern: /dashboard/index
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
+    def dashboard_header(self):
+        """The main header of the Dashboard page."""
+        return self.page.get_by_role('heading', name='Dashboard').or_(self.page.locator('div[class*="oxd-topbar-header"] > div > span'))
+
+    @property
     def time_at_work_card(self):
-        """Card displaying the employee's time at work information"""
-        return self.page.locator('div:has-text("Time at Work")').or_(self.page.locator('div[class*="orangehrm-attendance-card"]'))
+        """The 'Time at Work' card displaying attendance information."""
+        return self.page.locator('div[class*="orangehrm-attendance-card"]').or_(self.page.locator('div[class*="orangehrm-dashboard-widget-container"]:has-text("Time at Work")'))
 
     @property
     def my_actions_card(self):
-        """Card displaying the employee's pending actions"""
-        return self.page.locator('div:has-text("My Actions")').or_(self.page.locator('div[class*="orangehrm-todo-list"]'))
+        """The 'My Actions' card displaying pending tasks."""
+        return self.page.locator('div[class*="orangehrm-todo-list"]').or_(self.page.locator('div[class*="orangehrm-dashboard-widget-container"]:has-text("My Actions")'))
 
     @property
     def quick_launch_card(self):
-        """Card displaying quick launch options"""
-        return self.page.locator('div:has-text("Quick Launch")').or_(self.page.locator('div[class*="orangehrm-quick-launch"]'))
+        """The 'Quick Launch' card displaying shortcuts to common tasks."""
+        return self.page.locator('div[class*="orangehrm-quick-launch"]').or_(self.page.locator('div[class*="orangehrm-dashboard-widget-container"]:has-text("Quick Launch")'))
 
     @property
     def buzz_latest_posts_card(self):
-        """Card displaying the latest buzz posts"""
-        return self.page.locator('div:has-text("Buzz Latest Posts")').or_(self.page.locator('div[class*="orangehrm-buzz-news"]'))
+        """The 'Buzz Latest Posts' card displaying recent activity."""
+        return self.page.locator('div[class*="orangehrm-buzz-widget"]').or_(self.page.locator('div[class*="orangehrm-dashboard-widget-container"]:has-text("Buzz Latest Posts")'))
 
     @property
     def assign_leave_quick_launch(self):
-        """Quick launch option to assign leave"""
-        return self.page.get_by_text('Assign Leave').or_(self.page.locator('div[class*="orangehrm-quick-launch"] a:has-text("Assign Leave")'))
-
-    @property
-    def leave_list_quick_launch(self):
-        """Quick launch option to view leave list"""
-        return self.page.get_by_text('Leave List').or_(self.page.locator('div[class*="orangehrm-quick-launch"] a:has-text("Leave List")'))
-
-    @property
-    def timesheets_quick_launch(self):
-        """Quick launch option to view timesheets"""
-        return self.page.get_by_text('Timesheets').or_(self.page.locator('div[class*="orangehrm-quick-launch"] a:has-text("Timesheets")'))
-
-    @property
-    def apply_leave_quick_launch(self):
-        """Quick launch option to apply for leave"""
-        return self.page.get_by_text('Apply Leave').or_(self.page.locator('div[class*="orangehrm-quick-launch"] a:has-text("Apply Leave")'))
-
-    @property
-    def my_leave_quick_launch(self):
-        """Quick launch option to view my leave"""
-        return self.page.get_by_text('My Leave').or_(self.page.locator('div[class*="orangehrm-quick-launch"] a:has-text("My Leave")'))
-
-    @property
-    def my_timesheet_quick_launch(self):
-        """Quick launch option to view my timesheet"""
-        return self.page.get_by_text('My Timesheet').or_(self.page.locator('div[class*="orangehrm-quick-launch"] a:has-text("My Timesheet")'))
+        """Quick launch link to assign leave."""
+        return self.page.get_by_role('link', name='Assign Leave').or_(self.page.locator('div[class*="orangehrm-quick-launch-item"]:has-text("Assign Leave")'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await expect(page).to_have_url(/dashboard)
-        await expect(page.locator('h6.oxd-text--h6.oxd-main-menu-item--name:has-text("Dashboard")')).to_be_visible()
-        await expect(page.locator('div:has-text("Time at Work")')).to_be_visible()
+        await expect(page).to_have_title('OrangeHRM')
+        await expect(page.get_by_role('heading', name='Dashboard')).to_be_visible()
+        await expect(page.locator('div[class*="orangehrm-attendance-card"]')).to_be_visible()

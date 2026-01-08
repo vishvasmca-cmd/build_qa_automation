@@ -255,3 +255,7 @@
 - ⚠️ PROHIBITED: DON'T assume that the project structure and import paths are correct without verifying them, especially after code changes or when setting up a new environment.
 
 - ✅ PREFERRED: DO double-check the project's directory structure and import paths to ensure that all modules are accessible and correctly referenced in the test files.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `get_by_label` with a regex for critical input fields without first verifying the label's presence and uniqueness on the page.
+
+- ✅ PREFERRED: DO implement explicit waits or assertions to ensure the target element is visible and interactable before attempting to fill it. Consider using `locator.wait_for()` with `state='visible'`.

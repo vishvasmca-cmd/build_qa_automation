@@ -4,21 +4,70 @@ cachedir: .pytest_cache
 metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'langsmith': '0.6.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
 rootdir: /home/runner/work/build_qa_automation/build_qa_automation
 plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
-collecting ... collected 0 items / 1 error
+collecting ... collected 1 item
 
-==================================== ERRORS ====================================
-______ ERROR collecting projects/orangehrm_enterprise/tests/test_main.py _______
-ImportError while importing test module '/home/runner/work/build_qa_automation/build_qa_automation/projects/orangehrm_enterprise/tests/test_main.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/importlib/__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-projects/orangehrm_enterprise/tests/test_main.py:96: in <module>
-    from projects.orangehrm_enterprise.pages.base_page import BasePage
-E   ModuleNotFoundError: No module named 'projects.orangehrm_enterprise.pages.base_page'
+projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] FAILED
+
+=================================== FAILURES ===================================
+________________________ test_autonomous_flow[chromium] ________________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser: Browser):
+        page = browser.new_page()
+        login_page = LoginPage(page)
+        dashboard_page = OrangehrmDashboardPage(page)
+        employee_list_page = EmployeeListPage(page)
+        add_employee_page = OrangehrmAddEmployeePage(page)
+    
+        login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+>       login_page.login("Admin", "admin123")
+
+projects/orangehrm_enterprise/tests/test_main.py:69: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/orangehrm_enterprise/tests/test_main.py:30: in login
+    self.page.get_by_label(re.compile("Username", re.IGNORECASE)).fill(username)
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15989: in fill
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:215: in fill
+    return await self._frame.fill(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:607: in fill
+    await self._fill(**locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:619: in _fill
+    await self._channel.send("fill", self._timeout, locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7fa1b2107f50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fa1b21c6b60>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for get_by_label(re.compile(r"Username", re.IGNORECASE))
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
 =========================== short test summary info ============================
-ERROR projects/orangehrm_enterprise/tests/test_main.py
-!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
-=============================== 1 error in 0.12s ===============================
+FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_label(re.compile(r"Username", re.IGNORECASE))
+============================== 1 failed in 32.79s ==============================
 
