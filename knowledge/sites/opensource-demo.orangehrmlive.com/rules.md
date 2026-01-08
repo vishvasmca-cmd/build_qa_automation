@@ -563,3 +563,7 @@
 - ⚠️ PROHIBITED: DON'T assume that the project structure and import paths are correct without verifying them before running the tests.
 
 - ✅ PREFERRED: DO ensure that all necessary modules and packages are installed and that the import paths in the test files are accurate and reflect the project's directory structure.
+
+- ⚠️ PROHIBITED: DON'T assume that the project structure and import paths are correct without verifying them before running the tests.
+
+- ✅ PREFERRED: DO verify the project structure and import paths, especially after making changes to the file organization, to ensure that all modules can be correctly imported.
