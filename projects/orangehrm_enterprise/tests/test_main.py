@@ -97,6 +97,7 @@ class OrangehrmPage(BasePage):
 
 from playwright.sync_api import Browser
 
+
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
     login_page = LoginPage(page)
@@ -113,21 +114,17 @@ def test_autonomous_flow(browser: Browser):
     login_page.enter_password("admin123")
     login_page.click_login()
 
-    # Navigate to PIM module
+    # Navigate to PIM and add employee
     dashboard_page.navigate_to_pim()
-
-    # Add employee
     employee_list_page.click_add()
     add_employee_page.enter_first_name("FirstNameTest")
     add_employee_page.enter_last_name("LastNameTest")
     add_employee_page.click_save()
     add_employee_page.click_save()
 
-    # Navigate to Admin module
+    # Navigate to Admin and add user
     orangehrm_page.navigate_to_admin()
     page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers")
-
-    # Add user
     system_users_page.click_add()
     add_user_page.enter_employee_name("FirstNameTest LastNameTest")
     add_user_page.enter_employee_name("FirstNameTest LastNameTest")
