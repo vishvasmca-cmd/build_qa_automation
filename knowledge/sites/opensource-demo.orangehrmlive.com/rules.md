@@ -367,3 +367,7 @@
 - ⚠️ PROHIBITED: DON'T use `eval()` with unescaped variables from the test's scope within locator strings. This leads to `NameError` and makes the code difficult to debug.
 
 - ✅ PREFERRED: DO define locators as static strings or use f-strings to inject variables into the locator string before passing it to `page.locator()`.
+
+- ⚠️ PROHIBITED: DON'T use `eval()` with Playwright locators, especially when referencing page-specific objects within the locator string. This creates scope issues and makes debugging difficult.
+
+- ✅ PREFERRED: DO define locators as static strings or use f-strings to dynamically construct them using class attributes or constructor parameters, ensuring proper scope and avoiding `eval()`.
