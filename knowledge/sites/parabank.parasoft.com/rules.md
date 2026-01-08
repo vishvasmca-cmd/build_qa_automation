@@ -101,3 +101,7 @@
 - ⚠️ PROHIBITED: DON'T use a backslash to escape periods within a CSS ID selector. The period is already a literal character in this context. If the intention is to target elements with classes, ensure the correct syntax is used (e.g., `.customer.address.city` for elements with those classes).
 
 - ✅ PREFERRED: DO use the correct CSS selector syntax to target elements. If targeting by ID, a single '#' followed by the ID is sufficient. If targeting by multiple classes, use '.' to denote each class (e.g., `.class1.class2`). Always verify the target element's actual attributes in the browser's developer tools.
+
+- ⚠️ PROHIBITED: NEVER use a backslash to escape special characters within a CSS selector string unless it's genuinely needed for escaping special CSS characters (and the backslash is properly escaped itself).
+
+- ✅ PREFERRED: ALWAYS ensure special characters like periods (`.`) within CSS selectors are correctly handled. If a period is part of the ID or class name, it should be used directly without escaping, unless it conflicts with CSS syntax. If escaping is truly required, double-check the syntax and escape the backslash itself.
