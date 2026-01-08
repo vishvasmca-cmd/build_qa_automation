@@ -113,17 +113,21 @@ def test_autonomous_flow(browser: Browser):
     login_page.enter_password("admin123")
     login_page.click_login()
 
-    # Navigate to PIM and add employee
+    # Navigate to PIM module
     dashboard_page.navigate_to_pim()
+
+    # Add employee
     employee_list_page.click_add()
     add_employee_page.enter_first_name("FirstNameTest")
     add_employee_page.enter_last_name("LastNameTest")
     add_employee_page.click_save()
     add_employee_page.click_save()
 
-    # Navigate to Admin and add user
+    # Navigate to Admin module
     orangehrm_page.navigate_to_admin()
     page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers")
+
+    # Add user
     system_users_page.click_add()
     add_user_page.enter_employee_name("FirstNameTest LastNameTest")
     add_user_page.enter_employee_name("FirstNameTest LastNameTest")
