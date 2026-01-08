@@ -113,3 +113,7 @@
 - ⚠️ PROHIBITED: DON'T use unescaped periods (`.`) in CSS selectors when the period is intended to be part of the element's ID or class name.  Playwright interprets `.` as a CSS class selector if not escaped.
 
 - ✅ PREFERRED: DO escape the period character (`.`) in CSS selectors with a backslash (`\.`) when the period is part of the ID or class name. This ensures Playwright treats the period literally.
+
+- ⚠️ PROHIBITED: DON'T rely on default timeouts for critical input fields without verifying their presence and readiness. Implicit waits can lead to unpredictable delays.
+
+- ✅ PREFERRED: DO explicitly wait for input fields to be visible and enabled before attempting to fill them, using `locator.wait_for()` with a shorter, more reasonable timeout (e.g., 5-10 seconds) and a clear error message if the timeout is exceeded.
