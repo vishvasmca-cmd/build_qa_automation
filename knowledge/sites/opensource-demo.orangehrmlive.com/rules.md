@@ -251,3 +251,7 @@
 - ⚠️ PROHIBITED: DON'T use raw strings without quotes in `to_have_url` assertions. ALWAYS enclose the expected URL in single or double quotes.
 
 - ✅ PREFERRED: DO use quoted strings when asserting the URL with `to_have_url`. For example, `expect(page).to_have_url('/dashboard')`.
+
+- ⚠️ PROHIBITED: DON'T assume that the project structure and import paths are correct without verifying them, especially after code changes or when setting up a new environment.
+
+- ✅ PREFERRED: DO double-check the project's directory structure and import paths to ensure that all modules are accessible and correctly referenced in the test files.
