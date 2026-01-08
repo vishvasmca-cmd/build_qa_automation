@@ -327,3 +327,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on `get_by_label` with regex for critical input fields without verifying its robustness across different page states and potential A/B tests.
 
 - ✅ PREFERRED: DO implement explicit waits or retries with more specific locators (e.g., `input[name='username']` or `input#username`) when filling critical form fields, especially after page loads or transitions.
+
+- ⚠️ PROHIBITED: DON'T pass the URL string directly to `expect(page.url).to_contain()`. The `expect` function requires a Playwright `Page` object.
+
+- ✅ PREFERRED: DO use `expect(page).to_have_url()` or `expect(page).to_have_url(containing=...)` to assert the URL after navigation.

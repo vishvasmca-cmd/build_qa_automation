@@ -2,62 +2,93 @@
 
 ## Introduction
 
-This test plan outlines the testing strategy for the OrangeHRM Enterprise application. It defines the scope, objectives, and approach for both smoke and regression testing.
+This document outlines the test plan for the OrangeHRM Enterprise application. It covers the scope, objectives, and strategy for testing the core functionalities of the system.
 
 ## Scope
 
-The testing will cover the core functionalities of the OrangeHRM Enterprise application, focusing on user management, employee information management (PIM), and system administration.
+The testing will cover the following modules:
+
+*   Login
+*   PIM (Employee Management)
+*   Admin (User Management)
 
 ## Objectives
 
-*   Verify the critical functionalities of the application.
-*   Ensure the stability and reliability of the system.
+*   Verify the core functionalities of the OrangeHRM Enterprise application.
+*   Ensure the application meets the specified requirements.
 *   Identify and report any defects or issues.
-*   Minimize risks associated with new releases or changes.
 
 ## Test Strategy
 
-We will employ a risk-based testing approach, prioritizing the most critical functionalities and areas of the application. The testing will be divided into two main categories: Smoke Testing and Regression Testing.
+The testing will be conducted using a combination of manual and automated testing techniques. The following test suites will be executed:
+
+*   Smoke Suite: A minimal set of tests to verify the critical functionalities.
+*   Regression Suite: A comprehensive suite of tests to ensure that new changes do not break existing functionalities.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite is designed to provide a quick and efficient way to verify the core functionalities of the application after a new build or deployment. The following checklist is applied to this project:
+The Smoke Suite will focus on the following critical functionalities:
 
-1.  **Critical Path Coverage:** Tests cover the most common and essential user workflows.
-2.  **Positive Testing:** Focus on verifying expected behavior with valid inputs.
-3.  **End-to-End Flows:** Tests cover complete scenarios from start to finish.
-4.  **Data Integrity:** Verify that data is correctly stored and retrieved.
-5.  **Environment Stability:** Ensure the test environment is stable and reliable.
-6.  **Performance Baselines:** Establish initial performance benchmarks for key operations.
-7.  **Security Fundamentals:** Check basic security measures like login and authorization.
-8.  **Integration Points:** Verify communication between different modules.
+1.  **Login:** Verify that users can successfully log in to the system.
+2.  **Add Employee:** Verify that new employees can be added to the system.
+3.  **Create System User:** Verify that system users can be created for employees.
+4.  **Critical Paths:** Focus on the most important user workflows.
+5.  **Core Business Logic:** Validate the primary business rules.
+6.  **No Negative Testing:** Exclude negative scenarios unless critical for security.
+7.  **No Complex Edge Cases:** Avoid complex or unusual scenarios.
+8.  **Happy Path:** Focus on successful, error-free scenarios.
 
-### Regression Suite Strategy
+## Test Suites
 
-The Regression Suite is a more comprehensive set of tests designed to ensure that new changes have not introduced any unintended side effects or broken existing functionalities. This suite will include:
+### Smoke Suite
 
-*   All Smoke Tests
-*   Boundary Value Analysis
-*   Equivalence Partitioning
-*   Error Handling
-*   Negative Testing
-*   Cross-Browser Compatibility
-*   Performance Testing
-*   Security Testing
+The Smoke Suite will include the following test cases:
+
+*   Login with valid credentials
+*   Add a new employee
+*   Create a system user for the new employee
+
+### Regression Suite
+
+The Regression Suite will include a more comprehensive set of test cases, covering various scenarios and edge cases.
 
 ## Test Environment
 
-The tests will be executed in a dedicated test environment that closely mirrors the production environment. This environment will include the necessary hardware, software, and data configurations.
+The tests will be executed in the following environment:
+
+*   Browser: Chrome
+*   Operating System: Windows 10
 
 ## Test Deliverables
 
+The following deliverables will be produced during the testing process:
+
 *   Test Plan
 *   Test Cases
-*   Test Data
-*   Test Scripts
 *   Test Results
 *   Defect Reports
 
 ## Test Schedule
 
-The testing will be conducted according to a predefined schedule, with specific milestones and deadlines for each phase of the testing process.
+The testing will be conducted according to the following schedule:
+
+*   Smoke Testing: \[Start Date] - \[End Date]
+*   Regression Testing: \[Start Date] - \[End Date]
+
+## Resources
+
+The following resources will be required for the testing process:
+
+*   Test Environment
+*   Test Data
+*   Test Automation Tools
+
+## Entry Criteria
+
+*   Build deployed to test environment
+*   Test environment is stable
+
+## Exit Criteria
+
+*   All planned tests have been executed
+*   All critical defects have been resolved

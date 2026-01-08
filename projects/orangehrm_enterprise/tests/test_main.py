@@ -1,165 +1,148 @@
-# OrangeHRM Enterprise - Complex E2E Test
-# Mission: Login → Add Employee → Create System User for that Employee
+# Auto-generated Test
 import pytest
+import os
+import re
 import random
+from playwright.sync_api import Page, Browser, expect
+
+# Import pre-tested helpers
+import sys
+sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/lib/templates')
+from helpers import take_screenshot
+
+
+class BasePage:
+    def __init__(self, page):
+        self.page = page
+
+    def navigate(self, url):
+        self.page.goto(url)
+        self.page.wait_for_load_state("networkidle")
+
+    def take_screenshot(self, name, project_name):
+        take_screenshot(self.page, name, project_name)
+
+
+class LoginPage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+        self.page = page
+
+    def enter_username(self, username):
+        self.page.locator("[name='username']").fill(username)
+
+    def enter_password(self, password):
+        self.page.locator("[name='password']").fill(password)
+
+    def click_login(self):
+        self.page.get_by_role("button", name="Login").click()
+
+
+class OrangehrmDashboardPage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+        self.page = page
+
+    def navigate_to_pim(self):
+        self.page.get_by_role("link", name="PIM").click()
+
+
+class EmployeeListPage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+        self.page = page
+
+    def click_add(self):
+        self.page.get_by_role("button", name="Add").click()
+
+
+class AddEmployeePage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+        self.page = page
+
+    def enter_first_name(self, first_name):
+        self.page.locator("[name='firstName']").fill(first_name)
+
+    def enter_last_name(self, last_name):
+        self.page.locator("[name='lastName']").fill(last_name)
+
+    def click_save(self):
+        self.page.get_by_role("button", name="Save").click()
+
+
+class SystemUsersPage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+        self.page = page
+
+    def click_add(self):
+        self.page.get_by_role("button", name="Add").click()
+
+
+class AddUserPage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+        self.page = page
+
+    def enter_employee_name(self, employee_name):
+        self.page.get_by_placeholder("Type for hints...").fill(employee_name)
+
+    def select_employee_name(self, employee_name):
+        self.page.get_by_text(employee_name, exact=True).click()
+
+    def click_save(self):
+        self.page.get_by_role("button", name="Save").click()
+
+
+class OrangehrmPage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+        self.page = page
+
+    def navigate_to_admin(self):
+        self.page.get_by_role("link", name="Admin").click()
+
+
 from playwright.sync_api import Browser, expect
 
-
-def test_autonomous_flow(browser: Browser) -> None:
-    """
-    Complex E2E Test for OrangeHRM Enterprise
-    
-    Test Flow:
-    1. Login to OrangeHRM
-    2. Navigate to PIM module
-    3. Add new employee (FirstNameTest LastNameTest)
-    4. Navigate to Admin module
-    5. Create System User for the newly created employee
-    
-    Success Criteria: All steps must complete without errors
-    """
+def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
+    login_page = LoginPage(page)
+    dashboard_page = OrangehrmDashboardPage(page)
+    employee_list_page = EmployeeListPage(page)
+    add_employee_page = AddEmployeePage(page)
+    system_users_page = SystemUsersPage(page)
+    add_user_page = AddUserPage(page)
+    orangehrm_page = OrangehrmPage(page)
 
-    try:
-        # ========================================
-        # STEP 1: LOGIN
-        # ========================================
-        print("\n🔐 STEP 1: Logging into OrangeHRM...")
-        page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-        page.wait_for_load_state("networkidle")
-        
-        # Fill login credentials
-        page.locator("[name='username']").wait_for(state="visible", timeout=10000)
-        page.locator("[name='username']").fill("Admin")
-        page.locator("[name='password']").fill("admin123")
-        page.get_by_role("button", name="Login").click()
-        
-        # Verify successful login
-        page.wait_for_url("**/dashboard**", timeout=15000)
-        print("   ✅ Successfully logged in - Dashboard loaded")
+    # Login
+    login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    login_page.enter_username("Admin")
+    login_page.enter_password("admin123")
+    login_page.click_login()
+    expect(page).to_have_url("**/dashboard")
 
-        # ========================================
-        # STEP 2: NAVIGATE TO PIM MODULE
-        # ========================================
-        print("\n👥 STEP 2: Navigating to PIM module...")
-        page.get_by_role("link", name="PIM").click()
-        page.wait_for_load_state("networkidle")
-        page.wait_for_url("**/pim/viewEmployeeList**", timeout=10000)
-        print("   ✅ Navigated to PIM - Employee List")
+    # Navigate to PIM module
+    dashboard_page.navigate_to_pim()
+    expect(page).to_have_url("**/pim/viewEmployeeList")
 
-        # ========================================
-        # STEP 3: ADD NEW EMPLOYEE
-        # ========================================
-        print("\n➕ STEP 3: Adding new employee...")
-        
-        # Click Add button
-        page.get_by_role("button", name="Add").first.click()
-        page.wait_for_load_state("networkidle")
-        page.wait_for_url("**/pim/addEmployee**", timeout=10000)
-        print("   ✅ Add Employee page loaded")
+    # Add a new employee
+    employee_list_page.click_add()
+    expect(page).to_have_url("**/pim/addEmployee")
+    add_employee_page.enter_first_name("FirstNameTest")
+    add_employee_page.enter_last_name("LastNameTest")
+    add_employee_page.click_save()
+    add_employee_page.click_save()
 
-        # Fill employee details
-        print("   📝 Filling employee details (FirstNameTest LastNameTest)...")
-        page.locator("[name='firstName']").wait_for(state="visible", timeout=5000)
-        page.locator("[name='firstName']").fill("FirstNameTest")
-        page.locator("[name='lastName']").fill("LastNameTest")
-        
-        # Save employee
-        print("   💾 Saving employee...")
-        page.get_by_role("button", name="Save").click()
-        
-        # Wait for redirect to Personal Details page (this is the expected behavior)
-        page.wait_for_url("**/pim/viewPersonalDetails/**", timeout=15000)
-        print("   ✅ Employee created successfully - Redirected to Personal Details page")
+    # Navigate to Admin module
+    orangehrm_page.navigate_to_admin()
+    expect(page).to_have_url("**/admin/viewSystemUsers")
 
-        # ========================================
-        # STEP 4: NAVIGATE TO ADMIN MODULE
-        # ========================================
-        print("\n⚙️ STEP 4: Navigating to Admin module...")
-        page.get_by_role("link", name="Admin").click()
-        page.wait_for_load_state("networkidle")
-        page.wait_for_url("**/admin/viewSystemUsers**", timeout=15000)
-        print("   ✅ Navigated to Admin - System Users page")
-
-        # ========================================
-        # STEP 5: CREATE SYSTEM USER
-        # ========================================
-        print("\n👤 STEP 5: Creating system user for FirstNameTest LastNameTest...")
-        
-        # Click Add button to create new user
-        page.get_by_role("button", name="Add").click()
-        page.wait_for_load_state("networkidle")
-        page.wait_for_url("**/admin/saveSystemUser**", timeout=10000)
-        print("   ✅ Add User page loaded")
-        
-        # Fill user details
-        print("   📋 Filling user details...")
-        
-        # 1. Select User Role: Admin
-        print("      - Selecting User Role: Admin")
-        page.locator(".oxd-select-text").first.click()
-        page.wait_for_timeout(500)
-        page.get_by_role("option", name="Admin").click()
-        
-        # 2. Enter Employee Name (autocomplete field)
-        print("      - Entering Employee Name: FirstNameTest LastNameTest")
-        employee_name_input = page.locator("input[placeholder='Type for hints...']")
-        employee_name_input.fill("FirstNameTest")
-        page.wait_for_timeout(2000)  # Wait for autocomplete suggestions
-        
-        # Select from autocomplete dropdown
-        try:
-            page.get_by_text("FirstNameTest LastNameTest").first.click()
-            print("      - Employee selected from autocomplete")
-        except:
-            print("      - Warning: Autocomplete selection may have failed, continuing...")
-        
-        # 3. Select Status: Enabled
-        print("      - Selecting Status: Enabled")
-        page.locator(".oxd-select-text").nth(1).click()
-        page.wait_for_timeout(500)
-        page.get_by_role("option", name="Enabled").click()
-        
-        # 4. Enter Username (randomized to avoid conflicts)
-        username = f"testuser{random.randint(1000, 9999)}"
-        print(f"      - Entering Username: {username}")
-        page.locator("xpath=//label[text()='Username']/parent::div/following-sibling::div/input").fill(username)
-        
-        # 5. Enter Password (must meet complexity requirements)
-        password = "Admin123!@#"
-        print("      - Entering Password")
-        page.locator("xpath=//label[text()='Password']/parent::div/following-sibling::div/input").fill(password)
-        
-        # 6. Confirm Password
-        print("      - Confirming Password")
-        page.locator("xpath=//label[text()='Confirm Password']/parent::div/following-sibling::div/input").fill(password)
-        
-        # Save user
-        print("   💾 Saving system user...")
-        page.get_by_role("button", name="Save").click()
-        page.wait_for_load_state("networkidle")
-        
-        # Verify user creation success
-        page.wait_for_url("**/admin/viewSystemUsers**", timeout=15000)
-        print(f"   ✅ System user '{username}' created successfully!")
-
-        # ========================================
-        # MISSION ACCOMPLISHED!
-        # ========================================
-        print("\n" + "="*60)
-        print("🎉 MISSION ACCOMPLISHED - ALL STEPS COMPLETED!")
-        print("="*60)
-        print(f"✅ Employee Created: FirstNameTest LastNameTest")
-        print(f"✅ System User Created: {username}")
-        print(f"✅ User Role: Admin")
-        print(f"✅ Status: Enabled")
-        print("="*60 + "\n")
-        
-    except Exception as e:
-        print(f"\n❌ TEST FAILED: {str(e)}")
-        print(f"   Current URL: {page.url}")
-        raise
-    
-    finally:
-        # Keep browser open for a moment to show success
-        page.wait_for_timeout(2000)
+    # Create a system user
+    system_users_page.click_add()
+    expect(page).to_have_url("**/admin/saveSystemUser")
+    employee_name = "FirstNameTest LastNameTest"
+    add_user_page.enter_employee_name(employee_name)
+    add_user_page.select_employee_name(employee_name)
+    add_user_page.click_save()

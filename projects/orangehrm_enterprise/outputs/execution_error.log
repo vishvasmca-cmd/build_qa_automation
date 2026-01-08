@@ -13,65 +13,52 @@ ________________________ test_autonomous_flow[chromium] ________________________
 
 browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
 
-    def test_autonomous_flow(browser: Browser) -> None:
+    def test_autonomous_flow(browser: Browser):
         page = browser.new_page()
         login_page = LoginPage(page)
         dashboard_page = OrangehrmDashboardPage(page)
         employee_list_page = EmployeeListPage(page)
-        add_employee_page = AddEmployeeOrangehrmPage(page)
-        pim_personal_details_page = PimPersonalDetailsPage(page)
+        add_employee_page = AddEmployeePage(page)
         system_users_page = SystemUsersPage(page)
         add_user_page = AddUserPage(page)
     
-        # 1. Login
+        # Login
         login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
->       login_page.login("Admin", "admin123")
+        login_page.enter_username("Admin")
+        login_page.enter_password("admin123")
+        login_page.click_login()
+>       expect(page.url).to_contain("/web/index.php/dashboard")
+        ^^^^^^^^^^^^^^^^
 
-projects/orangehrm_enterprise/tests/test_main.py:136: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/orangehrm_enterprise/tests/test_main.py:41: in login
-    self.username_locator.fill(username)
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15989: in fill
-    self._sync(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:215: in fill
-    return await self._frame.fill(self._selector, strict=True, **params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:607: in fill
-    await self._fill(**locals_to_params(locals()))
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:619: in _fill
-    await self._channel.send("fill", self._timeout, locals_to_params(locals()))
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
-    return await self._connection.wrap_api_call(
+projects/orangehrm_enterprise/tests/test_main.py:128: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7fcd83e8c4d0>
-cb = <function Channel.send.<locals>.<lambda> at 0x7fcd83986480>
-is_internal = False, title = None
+self = <playwright.sync_api.Expect object at 0x7f7a883d8e50>
+actual = 'https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'
+message = None
 
-    async def wrap_api_call(
-        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
-    ) -> Any:
-        if self._api_zone.get():
-            return await cb()
-        task = asyncio.current_task(self._loop)
-        st: List[inspect.FrameInfo] = getattr(
-            task, "__pw_stack__", None
-        ) or inspect.stack(0)
-    
-        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
-        self._api_zone.set(parsed_st)
-        try:
-            return await cb()
-        except Exception as error:
->           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
-E           Call log:
-E             - waiting for get_by_label(re.compile(r"Username", re.IGNORECASE))
+    def __call__(
+        self, actual: Union[Page, Locator, APIResponse], message: Optional[str] = None
+    ) -> Union[PageAssertions, LocatorAssertions, APIResponseAssertions]:
+        if isinstance(actual, Page):
+            return PageAssertions(
+                PageAssertionsImpl(actual._impl_obj, self._timeout, message=message)
+            )
+        elif isinstance(actual, Locator):
+            return LocatorAssertions(
+                LocatorAssertionsImpl(actual._impl_obj, self._timeout, message=message)
+            )
+        elif isinstance(actual, APIResponse):
+            return APIResponseAssertions(
+                APIResponseAssertionsImpl(
+                    actual._impl_obj, self._timeout, message=message
+                )
+            )
+>       raise ValueError(f"Unsupported type: {type(actual)}")
+E       ValueError: Unsupported type: <class 'str'>
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/__init__.py:143: ValueError
 =========================== short test summary info ============================
-FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
-Call log:
-  - waiting for get_by_label(re.compile(r"Username", re.IGNORECASE))
-============================== 1 failed in 31.97s ==============================
+FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - ValueError: Unsupported type: <class 'str'>
+============================== 1 failed in 2.19s ===============================
 
