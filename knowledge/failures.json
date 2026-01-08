@@ -223,5 +223,14 @@
       "phase": "execution"
     },
     "error": "List[inspect.FrameInfo] = getattr(\n            task, \"__pw_stack__\", None\n        ) or inspect.stack(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Page.goto: Timeout 30000ms exceeded.\nE           Call log:\nE             - navigating to \"https://opensource-demo.orangehrmlive.com/web/index.php/auth/login\", waiting until \"load\"\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\playwright\\_impl\\_connection.py:559: TimeoutError\n=========================== short test summary info ===========================\nFAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium]\n============================= 1 failed in 40.96s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-08T06:36:12.057650",
+    "context": {
+      "site": "https://opensource-demo.orangehrmlive.com/",
+      "project": "orangehrm_enterprise",
+      "phase": "execution"
+    },
+    "error": "le(\"button\", name=\"Login\")\nE           \nE           Call log:\nE             - waiting for locator(\"text=Login\")\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error\n=========================== short test summary info ============================\nFAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: locator(\"text=Login\") resolved to 2 elements:\n    1) <h5 data-v-7b563373=\"\" data-v-0af708be=\"\" class=\"oxd-text oxd-text--h5 orangehrm-login-title\">Login</h5> aka get_by_role(\"heading\", name=\"Login\")\n    2) <button type=\"submit\" data-v-10d463b7=\"\" data-v-0af708be=\"\" class=\"oxd-button oxd-button--medium oxd-button--main orangehrm-login-button\">\u2026</button> aka get_by_role(\"button\", name=\"Login\")\n\nCall log:\n  - waiting for locator(\"text=Login\")\n============================== 1 failed in 4.43s ===============================\n\n\n"
   }
 ]
