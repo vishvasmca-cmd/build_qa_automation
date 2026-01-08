@@ -89,3 +89,7 @@
 - ⚠️ PROHIBITED: DON'T use a backslash to escape a literal '.' character in CSS ID selectors within playwright locators. The backslash is interpreted as an escape sequence, and the '.' is treated as a class selector instead of part of the ID.
 
 - ✅ PREFERRED: DO use the correct CSS selector syntax. If the element ID contains a literal '.', ensure it is properly represented in the locator string, or use alternative locator strategies like data-testid attributes if available and more robust.
+
+- ⚠️ PROHIBITED: DON'T escape special characters like '.' in CSS selectors (IDs or classes) unless they are truly meant to be escaped. Instead, use the correct CSS selector syntax or alternative locator strategies.
+
+- ✅ PREFERRED: DO inspect the HTML source code carefully to determine the correct CSS selector or use alternative locator strategies like `data-testid` or `data-test-id` attributes when available, or use XPath if necessary.

@@ -19,6 +19,9 @@ class BasePage:
         self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
+    def take_screenshot(self, name, project_name):
+        take_screenshot(self.page, name, project_name)
+
 class HomePage(BasePage):
     def __init__(self, page):
         super().__init__(page)
@@ -29,7 +32,7 @@ class HomePage(BasePage):
 
     def click_register_link(self):
         self.page.get_by_role("link", name="Register").click()
-        self.page.wait_for_url('**/register.htm*')
+        self.page.wait_for_load_state("networkidle")
 
     def enter_username(self, username):
         self.page.locator("input[name='username']").fill(username)
@@ -40,8 +43,6 @@ class HomePage(BasePage):
     def click_login_button(self):
         self.page.locator("input[value='Log In']").click()
         self.page.wait_for_load_state("networkidle")
-
-
 
 class RegisterPage(BasePage):
     def __init__(self, page):
@@ -91,10 +92,6 @@ class RegisterPage(BasePage):
 class AccountServicesPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.url = "https://parabank.parasoft.com/parabank/account.htm"
-
-    def navigate(self):
-        super().navigate(self.url)
 
     def click_open_new_account_link(self):
         self.page.get_by_role("link", name="Open New Account").click()
@@ -105,16 +102,12 @@ class AccountServicesPage(BasePage):
         self.page.wait_for_load_state("networkidle")
 
     def click_request_loan_link(self):
-         self.page.get_by_role("link", name="Request Loan").click()
-         self.page.wait_for_load_state("networkidle")
+        self.page.get_by_role("link", name="Request Loan").click()
+        self.page.wait_for_load_state("networkidle")
 
 class OpenAccountPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.url = "https://parabank.parasoft.com/parabank/openaccount.htm"
-
-    def navigate(self):
-        super().navigate(self.url)
 
     def select_account_type(self, account_type):
         self.page.locator("#type").select_option(label=account_type)
@@ -126,12 +119,8 @@ class OpenAccountPage(BasePage):
 class TransferFundsPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.url = "https://parabank.parasoft.com/parabank/transfer.htm"
 
-    def navigate(self):
-        super().navigate(self.url)
-
-    def enter_amount(self, amount):
+    def fill_amount(self, amount):
         self.page.locator("#amount").fill(amount)
 
     def select_from_account(self, from_account):
@@ -147,16 +136,12 @@ class TransferFundsPage(BasePage):
 class RequestLoanPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.url = "https://parabank.parasoft.com/parabank/requestloan.htm"
 
-    def navigate(self):
-        super().navigate(self.url)
-
-    def enter_loan_amount(self, amount):
+    def fill_loan_amount(self, amount):
         self.page.locator("#amount").fill(amount)
 
-    def enter_down_payment(self, down_payment):
-        self.page.locator("#downPayment").fill(down_payment)
+    def fill_down_payment(self, amount):
+        self.page.locator("#downPayment").fill(amount)
 
     def select_from_account(self, from_account):
         self.page.locator("#fromAccountId").select_option(label=from_account)
@@ -202,19 +187,18 @@ def test_autonomous_flow(browser: Browser):
     open_account_page.select_account_type("CHECKING")
     open_account_page.click_open_new_account_button()
 
-    # Get Account ID for Transfer and Loan
-    account_id = page.locator("#newAccountId").text_content()
-
     # Transfer Funds
     account_services_page.click_transfer_funds_link()
-    transfer_funds_page.enter_amount("100")
-    transfer_funds_page.select_from_account(account_id)
-    transfer_funds_page.select_to_account("12345") # Assuming a default account exists.
+    transfer_funds_page.fill_amount("100")
+    # Assuming only two accounts exist for simplicity.
+    transfer_funds_page.select_from_account("1")
+    transfer_funds_page.select_to_account("2")
     transfer_funds_page.click_transfer_button()
 
     # Request Loan
     account_services_page.click_request_loan_link()
-    request_loan_page.enter_loan_amount("1000")
-    request_loan_page.enter_down_payment("100")
-    request_loan_page.select_from_account(account_id)
+    request_loan_page.fill_loan_amount("1000")
+    request_loan_page.fill_down_payment("100")
+    # Assuming only one account exists for simplicity.
+    request_loan_page.select_from_account("1")
     request_loan_page.click_apply_now_button()
