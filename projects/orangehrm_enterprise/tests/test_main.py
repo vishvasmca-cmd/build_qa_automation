@@ -29,7 +29,7 @@ class LoginPage(BasePage):
     def login(self, username, password):
         self.page.locator(self.username_locator).fill(username)
         self.page.locator(self.password_locator).fill(password)
-        self.page.locator(self.login_button_locator).click()
+        self.page.locator(self.login_button_locator).first.click()
         self.page.wait_for_load_state("networkidle")
 
 class OrangehrmDashboardPage(BasePage):
@@ -55,12 +55,15 @@ class OrangehrmAddEmployeePage(BasePage):
         super().__init__(page)
         self.first_name_locator = "[name='firstName']"
         self.last_name_locator = "[name='lastName']"
+        self.save_button_locator = "text=Save"
 
     def add_employee(self, first_name, last_name):
         self.page.locator(self.first_name_locator).fill(first_name)
         self.page.locator(self.last_name_locator).fill(last_name)
+        self.page.locator(self.save_button_locator).click()
+        self.page.wait_for_load_state("networkidle")
 
-from playwright.sync_api import Browser, Page
+from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
@@ -71,11 +74,6 @@ def test_autonomous_flow(browser: Browser):
 
     login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
     login_page.login("Admin", "admin123")
-
     dashboard_page.navigate_to_pim()
     employee_list_page.navigate_to_add_employee()
-
     add_employee_page.add_employee("FirstNameTest", "LastNameTest")
-
-    take_screenshot(page, "add_employee", "orangehrm_enterprise")
-    page.close()
