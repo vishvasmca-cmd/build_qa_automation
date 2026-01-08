@@ -92,56 +92,56 @@
     ]
   },
   "EmployeeListPage": {
-    "description": "Employee List Page for managing employee information",
+    "description": "Employee List page to view and manage employee information",
     "url_pattern": "/pim/viewEmployeeList",
     "elements": [
       {
         "name": "employee_name_input",
         "type": "text_field",
         "primary_locator": "get_by_placeholder('Type for hints...')",
-        "backup_locator": "locator('input[placeholder=\"Type for hints...\"]:nth-of-type(1)')",
+        "backup_locator": "locator('input[placeholder=\"Type for hints...\"]:first')",
         "description": "Input field for Employee Name"
       },
       {
         "name": "employee_id_input",
         "type": "text_field",
-        "primary_locator": "locator('input[placeholder=\"Type for hints...\"]:nth-of-type(2)')",
-        "backup_locator": "locator('input[class*=\"oxd-input\"]').nth(2)",
+        "primary_locator": "locator('input[placeholder=\"Type for hints...\"]').nth(1)",
+        "backup_locator": "locator('input[placeholder=\"Type for hints...\"]').nth(1)",
         "description": "Input field for Employee ID"
       },
       {
         "name": "employment_status_dropdown",
         "type": "dropdown",
-        "primary_locator": "locator('div[class*=\"oxd-select-text\"]').nth(1)",
-        "backup_locator": "locator('div[class*=\"oxd-select-text\"]:has-text(\"-- Select --\")')",
+        "primary_locator": "locator('div[class*=\"oxd-select-text\"]').first",
+        "backup_locator": "locator('div[class*=\"oxd-select-text\"]').first",
         "description": "Dropdown for selecting Employment Status"
       },
       {
         "name": "include_dropdown",
         "type": "dropdown",
-        "primary_locator": "locator('div[class*=\"oxd-select-text\"]').nth(2)",
-        "backup_locator": "locator('div[class*=\"oxd-select-text\"]:has-text(\"Current Employees Only\")')",
-        "description": "Dropdown for selecting employee inclusion criteria"
+        "primary_locator": "locator('div[class*=\"oxd-select-text\"]').nth(1)",
+        "backup_locator": "locator('div[class*=\"oxd-select-text\"]').nth(1)",
+        "description": "Dropdown for selecting Include options"
       },
       {
         "name": "supervisor_name_input",
         "type": "text_field",
-        "primary_locator": "locator('input[placeholder=\"Type for hints...\"]:nth-of-type(3)')",
-        "backup_locator": "locator('input[class*=\"oxd-input\"]').nth(3)",
+        "primary_locator": "locator('input[placeholder=\"Type for hints...\"]').nth(2)",
+        "backup_locator": "locator('input[placeholder=\"Type for hints...\"]').nth(2)",
         "description": "Input field for Supervisor Name"
       },
       {
         "name": "job_title_dropdown",
         "type": "dropdown",
-        "primary_locator": "locator('div[class*=\"oxd-select-text\"]').nth(3)",
-        "backup_locator": "locator('div[class*=\"oxd-select-text\"]:has-text(\"-- Select --\")').nth(1)",
+        "primary_locator": "locator('div[class*=\"oxd-select-text\"]').nth(2)",
+        "backup_locator": "locator('div[class*=\"oxd-select-text\"]').nth(2)",
         "description": "Dropdown for selecting Job Title"
       },
       {
         "name": "sub_unit_dropdown",
         "type": "dropdown",
-        "primary_locator": "locator('div[class*=\"oxd-select-text\"]').nth(4)",
-        "backup_locator": "locator('div[class*=\"oxd-select-text\"]:has-text(\"-- Select --\")').nth(2)",
+        "primary_locator": "locator('div[class*=\"oxd-select-text\"]').nth(3)",
+        "backup_locator": "locator('div[class*=\"oxd-select-text\"]').nth(3)",
         "description": "Dropdown for selecting Sub Unit"
       },
       {
@@ -156,7 +156,7 @@
         "type": "button",
         "primary_locator": "get_by_role('button', name='Search')",
         "backup_locator": "locator('button:has-text(\"Search\")')",
-        "description": "Button to initiate the employee search"
+        "description": "Button to search employees"
       },
       {
         "name": "add_button",
@@ -168,8 +168,8 @@
     ],
     "assertions": [
       "expect(page).to_have_url(/pim/viewEmployeeList)",
-      "expect(page.locator('div[class*=\"oxd-topbar-header-breadcrumb\"]').get_by_text('Employee List')).to_be_visible()",
-      "expect(page.locator('div[class*=\"oxd-table-filter-header\"]').get_by_text('Employee Information')).to_be_visible()"
+      "expect(page.locator('h6:has-text(\"Employee Information\")')).to_be_visible()",
+      "expect(page.locator('li.oxd-main-menu-item a[href*=\"/pim/viewEmployeeList\"]')).to_have_class('oxd-main-menu-item--active')"
     ]
   },
   "EmployeeListOrangehrmPage": {
@@ -180,49 +180,49 @@
         "name": "Employee Name Input",
         "type": "textbox",
         "primary_locator": "get_by_placeholder('Type for hints...')",
-        "backup_locator": "locator('input[placeholder=\"Type for hints...\"]').first",
+        "backup_locator": "locator('input[placeholder=\"Type for hints...\"]')",
         "description": "Input field for Employee Name"
       },
       {
         "name": "Employee Id Input",
         "type": "textbox",
         "primary_locator": "locator('input[placeholder=\"Type for hints...\"]').nth(1)",
-        "backup_locator": "locator('div.oxd-input-group').nth(1) input",
+        "backup_locator": "locator('div.oxd-input-group:nth-child(2) input')",
         "description": "Input field for Employee ID"
       },
       {
         "name": "Employment Status Dropdown",
         "type": "dropdown",
-        "primary_locator": "locator('div.oxd-select-text--arrow')",
-        "backup_locator": "locator('div.oxd-input-group').nth(2) div.oxd-select-text",
+        "primary_locator": "get_by_text('-- Select --').nth(0)",
+        "backup_locator": "locator('div.oxd-input-group:nth-child(3) div.oxd-select-text')",
         "description": "Dropdown for selecting Employment Status"
       },
       {
         "name": "Include Dropdown",
         "type": "dropdown",
-        "primary_locator": "locator('div.oxd-select-text--arrow').nth(1)",
-        "backup_locator": "locator('div.oxd-input-group').nth(3) div.oxd-select-text",
-        "description": "Dropdown for selecting Include options"
+        "primary_locator": "get_by_text('Current Employees Only')",
+        "backup_locator": "locator('div.oxd-input-group:nth-child(4) div.oxd-select-text')",
+        "description": "Dropdown for selecting employee inclusion criteria"
       },
       {
         "name": "Supervisor Name Input",
         "type": "textbox",
         "primary_locator": "locator('input[placeholder=\"Type for hints...\"]').nth(2)",
-        "backup_locator": "locator('div.oxd-input-group').nth(4) input",
+        "backup_locator": "locator('div.oxd-input-group:nth-child(5) input')",
         "description": "Input field for Supervisor Name"
       },
       {
         "name": "Job Title Dropdown",
         "type": "dropdown",
-        "primary_locator": "locator('div.oxd-select-text--arrow').nth(2)",
-        "backup_locator": "locator('div.oxd-input-group').nth(5) div.oxd-select-text",
+        "primary_locator": "get_by_text('-- Select --').nth(1)",
+        "backup_locator": "locator('div.oxd-input-group:nth-child(6) div.oxd-select-text')",
         "description": "Dropdown for selecting Job Title"
       },
       {
         "name": "Sub Unit Dropdown",
         "type": "dropdown",
-        "primary_locator": "locator('div.oxd-select-text--arrow').nth(3)",
-        "backup_locator": "locator('div.oxd-input-group').nth(6) div.oxd-select-text",
+        "primary_locator": "get_by_text('-- Select --').nth(2)",
+        "backup_locator": "locator('div.oxd-input-group:nth-child(7) div.oxd-select-text')",
         "description": "Dropdown for selecting Sub Unit"
       },
       {

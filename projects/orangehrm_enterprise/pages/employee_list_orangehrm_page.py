@@ -11,37 +11,37 @@ class EmployeeListOrangehrmPage:
     @property
     def Employee Name Input(self):
         """Input field for Employee Name"""
-        return self.page.get_by_placeholder('Type for hints...').or_(self.page.locator('input[placeholder="Type for hints..."]').first)
+        return self.page.get_by_placeholder('Type for hints...').or_(self.page.locator('input[placeholder="Type for hints..."]'))
 
     @property
     def Employee Id Input(self):
         """Input field for Employee ID"""
-        return self.page.locator('input[placeholder="Type for hints..."]').nth(1).or_(self.page.locator('div.oxd-input-group').nth(1) input)
+        return self.page.locator('input[placeholder="Type for hints..."]').nth(1).or_(self.page.locator('div.oxd-input-group:nth-child(2) input'))
 
     @property
     def Employment Status Dropdown(self):
         """Dropdown for selecting Employment Status"""
-        return self.page.locator('div.oxd-select-text--arrow').or_(self.page.locator('div.oxd-input-group').nth(2) div.oxd-select-text)
+        return self.page.get_by_text('-- Select --').nth(0).or_(self.page.locator('div.oxd-input-group:nth-child(3) div.oxd-select-text'))
 
     @property
     def Include Dropdown(self):
-        """Dropdown for selecting Include options"""
-        return self.page.locator('div.oxd-select-text--arrow').nth(1).or_(self.page.locator('div.oxd-input-group').nth(3) div.oxd-select-text)
+        """Dropdown for selecting employee inclusion criteria"""
+        return self.page.get_by_text('Current Employees Only').or_(self.page.locator('div.oxd-input-group:nth-child(4) div.oxd-select-text'))
 
     @property
     def Supervisor Name Input(self):
         """Input field for Supervisor Name"""
-        return self.page.locator('input[placeholder="Type for hints..."]').nth(2).or_(self.page.locator('div.oxd-input-group').nth(4) input)
+        return self.page.locator('input[placeholder="Type for hints..."]').nth(2).or_(self.page.locator('div.oxd-input-group:nth-child(5) input'))
 
     @property
     def Job Title Dropdown(self):
         """Dropdown for selecting Job Title"""
-        return self.page.locator('div.oxd-select-text--arrow').nth(2).or_(self.page.locator('div.oxd-input-group').nth(5) div.oxd-select-text)
+        return self.page.get_by_text('-- Select --').nth(1).or_(self.page.locator('div.oxd-input-group:nth-child(6) div.oxd-select-text'))
 
     @property
     def Sub Unit Dropdown(self):
         """Dropdown for selecting Sub Unit"""
-        return self.page.locator('div.oxd-select-text--arrow').nth(3).or_(self.page.locator('div.oxd-input-group').nth(6) div.oxd-select-text)
+        return self.page.get_by_text('-- Select --').nth(2).or_(self.page.locator('div.oxd-input-group:nth-child(7) div.oxd-select-text'))
 
     @property
     def Reset Button(self):

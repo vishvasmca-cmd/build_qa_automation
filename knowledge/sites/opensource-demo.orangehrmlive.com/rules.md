@@ -295,3 +295,7 @@
 - ⚠️ PROHIBITED: DON'T use locators that are not specific enough and can match multiple elements on the page without explicitly targeting the desired element.
 
 - ✅ PREFERRED: DO use more specific locators, such as `getByRole('button', { name: 'Login' })` or `locator('button:has-text("Login")')`, to uniquely identify the intended element.
+
+- ⚠️ PROHIBITED: DON'T use locators that are ambiguous and can match multiple elements, especially when performing actions like clicking. ALWAYS ensure locators are specific enough to target a single, unique element.
+
+- ✅ PREFERRED: DO use more specific locators, such as role-based locators (e.g., `get_by_role('button', name='Login')`) or locators that include attributes (e.g., `locator('button.orangehrm-login-button', name='Login')`), to uniquely identify the target element.

@@ -2,7 +2,7 @@ from playwright.async_api import Page, expect
 
 class EmployeeListPage:
     """
-    Employee List Page for managing employee information
+    Employee List page to view and manage employee information
     URL Pattern: /pim/viewEmployeeList
     """
     def __init__(self, page: Page):
@@ -11,37 +11,37 @@ class EmployeeListPage:
     @property
     def employee_name_input(self):
         """Input field for Employee Name"""
-        return self.page.get_by_placeholder('Type for hints...').or_(self.page.locator('input[placeholder="Type for hints..."]:nth-of-type(1)'))
+        return self.page.get_by_placeholder('Type for hints...').or_(self.page.locator('input[placeholder="Type for hints..."]:first'))
 
     @property
     def employee_id_input(self):
         """Input field for Employee ID"""
-        return self.page.locator('input[placeholder="Type for hints..."]:nth-of-type(2)').or_(self.page.locator('input[class*="oxd-input"]').nth(2))
+        return self.page.locator('input[placeholder="Type for hints..."]').nth(1).or_(self.page.locator('input[placeholder="Type for hints..."]').nth(1))
 
     @property
     def employment_status_dropdown(self):
         """Dropdown for selecting Employment Status"""
-        return self.page.locator('div[class*="oxd-select-text"]').nth(1).or_(self.page.locator('div[class*="oxd-select-text"]:has-text("-- Select --")'))
+        return self.page.locator('div[class*="oxd-select-text"]').first.or_(self.page.locator('div[class*="oxd-select-text"]').first)
 
     @property
     def include_dropdown(self):
-        """Dropdown for selecting employee inclusion criteria"""
-        return self.page.locator('div[class*="oxd-select-text"]').nth(2).or_(self.page.locator('div[class*="oxd-select-text"]:has-text("Current Employees Only")'))
+        """Dropdown for selecting Include options"""
+        return self.page.locator('div[class*="oxd-select-text"]').nth(1).or_(self.page.locator('div[class*="oxd-select-text"]').nth(1))
 
     @property
     def supervisor_name_input(self):
         """Input field for Supervisor Name"""
-        return self.page.locator('input[placeholder="Type for hints..."]:nth-of-type(3)').or_(self.page.locator('input[class*="oxd-input"]').nth(3))
+        return self.page.locator('input[placeholder="Type for hints..."]').nth(2).or_(self.page.locator('input[placeholder="Type for hints..."]').nth(2))
 
     @property
     def job_title_dropdown(self):
         """Dropdown for selecting Job Title"""
-        return self.page.locator('div[class*="oxd-select-text"]').nth(3).or_(self.page.locator('div[class*="oxd-select-text"]:has-text("-- Select --")').nth(1))
+        return self.page.locator('div[class*="oxd-select-text"]').nth(2).or_(self.page.locator('div[class*="oxd-select-text"]').nth(2))
 
     @property
     def sub_unit_dropdown(self):
         """Dropdown for selecting Sub Unit"""
-        return self.page.locator('div[class*="oxd-select-text"]').nth(4).or_(self.page.locator('div[class*="oxd-select-text"]:has-text("-- Select --")').nth(2))
+        return self.page.locator('div[class*="oxd-select-text"]').nth(3).or_(self.page.locator('div[class*="oxd-select-text"]').nth(3))
 
     @property
     def reset_button(self):
@@ -50,7 +50,7 @@ class EmployeeListPage:
 
     @property
     def search_button(self):
-        """Button to initiate the employee search"""
+        """Button to search employees"""
         return self.page.get_by_role('button', name='Search').or_(self.page.locator('button:has-text("Search")'))
 
     @property
@@ -61,5 +61,5 @@ class EmployeeListPage:
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await expect(page).to_have_url(/pim/viewEmployeeList)
-        await expect(page.locator('div[class*="oxd-topbar-header-breadcrumb"]').get_by_text('Employee List')).to_be_visible()
-        await expect(page.locator('div[class*="oxd-table-filter-header"]').get_by_text('Employee Information')).to_be_visible()
+        await expect(page.locator('h6:has-text("Employee Information")')).to_be_visible()
+        await expect(page.locator('li.oxd-main-menu-item a[href*="/pim/viewEmployeeList"]')).to_have_class('oxd-main-menu-item--active')
