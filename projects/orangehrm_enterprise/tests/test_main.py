@@ -29,8 +29,7 @@ class LoginPage(BasePage):
     def login(self, username, password):
         self.page.locator(self.username_locator).fill(username)
         self.page.locator(self.password_locator).fill(password)
-        self.page.locator(self.login_button_locator).first.click()
-        self.page.wait_for_load_state("networkidle")
+        self.page.locator(self.login_button_locator).click()
 
 class OrangehrmDashboardPage(BasePage):
     def __init__(self, page):
@@ -39,7 +38,6 @@ class OrangehrmDashboardPage(BasePage):
 
     def navigate_to_pim(self):
         self.page.locator(self.pim_link_locator).click()
-        self.page.wait_for_load_state("networkidle")
 
 class EmployeeListPage(BasePage):
     def __init__(self, page):
@@ -48,20 +46,16 @@ class EmployeeListPage(BasePage):
 
     def navigate_to_add_employee(self):
         self.page.locator(self.add_button_locator).click()
-        self.page.wait_for_load_state("networkidle")
 
 class OrangehrmAddEmployeePage(BasePage):
     def __init__(self, page):
         super().__init__(page)
         self.first_name_locator = "[name='firstName']"
         self.last_name_locator = "[name='lastName']"
-        self.save_button_locator = "text=Save"
 
     def add_employee(self, first_name, last_name):
         self.page.locator(self.first_name_locator).fill(first_name)
         self.page.locator(self.last_name_locator).fill(last_name)
-        self.page.locator(self.save_button_locator).click()
-        self.page.wait_for_load_state("networkidle")
 
 from playwright.sync_api import Browser
 
