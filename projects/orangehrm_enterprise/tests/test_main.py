@@ -126,5 +126,5 @@ def test_autonomous_flow(browser: Browser):
     page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers")
     system_users_page.click_add()
     add_user_page.enter_employee_name("FirstNameTest LastNameTest")
-    page.locator("div[role='option'] > span").click()
+    add_user_page.enter_employee_name("FirstNameTest LastNameTest")
     add_user_page.click_save()
