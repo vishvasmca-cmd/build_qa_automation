@@ -271,3 +271,7 @@
 - ⚠️ PROHIBITED: DON'T assume that the project structure is correct without verifying the existence and accessibility of all necessary modules and packages.
 
 - ✅ PREFERRED: DO ensure that all modules and packages are correctly placed within the project directory and that Python's import paths are configured to include the project's root directory.
+
+- ⚠️ PROHIBITED: DON'T assume that the project structure and import paths are correct without verifying them, especially after code changes or when setting up a new environment.
+
+- ✅ PREFERRED: DO double-check the project's directory structure and import paths to ensure that all modules are accessible and correctly referenced in the test files.
