@@ -1,0 +1,97 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
+plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
+collecting ... collected 1 item
+
+projects/cli_run_1767913439/tests/test_main.py::test_autonomous_flow[chromium] FAILED
+
+================================== FAILURES ===================================
+_______________________ test_autonomous_flow[chromium] ________________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vishv\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser: Browser):
+        page = browser.new_page()
+        home_page = HomePage(page)
+        register_page = RegisterPage(page)
+        account_services_page = AccountServicesPage(page)
+        open_account_page = OpenAccountPage(page)
+        transfer_funds_page = TransferFundsPage(page)
+        request_loan_page = RequestLoanPage(page)
+    
+        # Register
+        home_page.navigate()
+>       home_page.click_register_link()
+
+projects\cli_run_1767913439\tests\test_main.py:178: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+projects\cli_run_1767913439\tests\test_main.py:39: in click_register_link
+    self.page.wait_for_url('**/register.htm')
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:9193: in wait_for_url
+    self._sync(
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_page.py:580: in wait_for_url
+    return await self._main_frame.wait_for_url(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:263: in wait_for_url
+    async with self.expect_navigation(
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_event_context_manager.py:33: in __aexit__
+    await self._future
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def continuation() -> Optional[Response]:
+>       event = await waiter.result()
+                ^^^^^^^^^^^^^^^^^^^^^
+E       playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.
+E       =========================== logs ===========================
+E       waiting for navigation to "**/register.htm" until 'load'
+E       ============================================================
+
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:239: TimeoutError
+============================== warnings summary ===============================
+projects\cli_run_1767913439\tests\test_main.py:59
+  C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\cli_run_1767913439\tests\test_main.py:59: DeprecationWarning: invalid escape sequence '\.'
+    self.page.locator('#customer\.firstName').fill(first_name)
+
+projects\cli_run_1767913439\tests\test_main.py:62
+  C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\cli_run_1767913439\tests\test_main.py:62: DeprecationWarning: invalid escape sequence '\.'
+    self.page.locator('#customer\.lastName').fill(last_name)
+
+projects\cli_run_1767913439\tests\test_main.py:65
+  C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\cli_run_1767913439\tests\test_main.py:65: DeprecationWarning: invalid escape sequence '\.'
+    self.page.locator('#customer\.address\.street').fill(address)
+
+projects\cli_run_1767913439\tests\test_main.py:68
+  C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\cli_run_1767913439\tests\test_main.py:68: DeprecationWarning: invalid escape sequence '\.'
+    self.page.locator('#customer\.address\.city').fill(city)
+
+projects\cli_run_1767913439\tests\test_main.py:71
+  C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\cli_run_1767913439\tests\test_main.py:71: DeprecationWarning: invalid escape sequence '\.'
+    self.page.locator('#customer\.address\.state').fill(state)
+
+projects\cli_run_1767913439\tests\test_main.py:74
+  C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\cli_run_1767913439\tests\test_main.py:74: DeprecationWarning: invalid escape sequence '\.'
+    self.page.locator('#customer\.address\.zipCode').fill(zip_code)
+
+projects\cli_run_1767913439\tests\test_main.py:77
+  C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\cli_run_1767913439\tests\test_main.py:77: DeprecationWarning: invalid escape sequence '\.'
+    self.page.locator('#customer\.phoneNumber').fill(phone_number)
+
+projects\cli_run_1767913439\tests\test_main.py:80
+  C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\cli_run_1767913439\tests\test_main.py:80: DeprecationWarning: invalid escape sequence '\.'
+    self.page.locator('#customer\.ssn').fill(ssn)
+
+projects\cli_run_1767913439\tests\test_main.py:83
+  C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\cli_run_1767913439\tests\test_main.py:83: DeprecationWarning: invalid escape sequence '\.'
+    self.page.locator('#customer\.username').fill(username)
+
+projects\cli_run_1767913439\tests\test_main.py:86
+  C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\cli_run_1767913439\tests\test_main.py:86: DeprecationWarning: invalid escape sequence '\.'
+    self.page.locator('#customer\.password').fill(password)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED projects/cli_run_1767913439/tests/test_main.py::test_autonomous_flow[chromium]
+======================= 1 failed, 10 warnings in 36.44s =======================
+

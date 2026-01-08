@@ -85,3 +85,7 @@
 - ⚠️ PROHIBITED: DON'T assume that navigation is complete simply because 'load' or 'domcontentloaded' events have fired. Ensure all network activity has ceased when relying on page content loaded via asynchronous requests.
 
 - ✅ PREFERRED: DO explicitly wait for key elements to appear on the page after navigation, rather than relying solely on load state events. This provides a more robust indication of page readiness.
+
+- ⚠️ PROHIBITED: DON'T use a backslash to escape a literal '.' character in CSS ID selectors within playwright locators. The backslash is interpreted as an escape sequence, and the '.' is treated as a class selector instead of part of the ID.
+
+- ✅ PREFERRED: DO use the correct CSS selector syntax. If the element ID contains a literal '.', ensure it is properly represented in the locator string, or use alternative locator strategies like data-testid attributes if available and more robust.
