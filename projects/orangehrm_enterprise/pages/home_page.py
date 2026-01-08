@@ -21,38 +21,38 @@ class HomePage:
     @property
     def assign_leave_quick_launch(self):
         """Quick launch icon to assign leave to an employee."""
-        return self.page.get_by_text('Assign Leave').or_(self.page.locator('//div[text()="Assign Leave"]'))
+        return self.page.get_by_role('link', name='Assign Leave').or_(self.page.locator('//div[text()="Assign Leave"]'))
 
     @property
     def leave_list_quick_launch(self):
         """Quick launch icon to view the leave list."""
-        return self.page.get_by_text('Leave List').or_(self.page.locator('//div[text()="Leave List"]'))
+        return self.page.get_by_role('link', name='Leave List').or_(self.page.locator('//div[text()="Leave List"]'))
 
     @property
     def timesheets_quick_launch(self):
         """Quick launch icon to access timesheets."""
-        return self.page.get_by_text('Timesheets').or_(self.page.locator('//div[text()="Timesheets"]'))
+        return self.page.get_by_role('link', name='Timesheets').or_(self.page.locator('//div[text()="Timesheets"]'))
 
     @property
     def apply_leave_quick_launch(self):
         """Quick launch icon to apply for leave."""
-        return self.page.get_by_text('Apply Leave').or_(self.page.locator('//div[text()="Apply Leave"]'))
+        return self.page.get_by_role('link', name='Apply Leave').or_(self.page.locator('//div[text()="Apply Leave"]'))
 
     @property
     def my_leave_quick_launch(self):
         """Quick launch icon to view my leave."""
-        return self.page.get_by_text('My Leave').or_(self.page.locator('//div[text()="My Leave"]'))
+        return self.page.get_by_role('link', name='My Leave').or_(self.page.locator('//div[text()="My Leave"]'))
 
     @property
     def my_timesheet_quick_launch(self):
         """Quick launch icon to view my timesheet."""
-        return self.page.get_by_text('My Timesheet').or_(self.page.locator('//div[text()="My Timesheet"]'))
+        return self.page.get_by_role('link', name='My Timesheet').or_(self.page.locator('//div[text()="My Timesheet"]'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await expect(page).to_have_title('OrangeHRM')
-        await expect(page.locator('//h6[text()="Dashboard"]')).to_be_visible()
-        await expect(page.locator('//p[text()="Time at Work"]')).to_be_visible()
-        await expect(page.locator('//p[text()="My Actions"]')).to_be_visible()
-        await expect(page.locator('//p[text()="Quick Launch"]')).to_be_visible()
-        await expect(page.locator('//p[text()="Buzz Latest Posts"]')).to_be_visible()
+        await expect(page.get_by_text('Dashboard')).to_be_visible()
+        await expect(page.locator('//h6[text()="Time at Work"]')).to_be_visible()
+        await expect(page.locator('//h6[text()="Quick Launch"]')).to_be_visible()
+        await expect(page.locator('//h6[text()="My Actions"]')).to_be_visible()
+        await expect(page.locator('//h6[text()="Buzz Latest Posts"]')).to_be_visible()

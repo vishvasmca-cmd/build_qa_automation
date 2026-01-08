@@ -2,64 +2,64 @@ from playwright.async_api import Page, expect
 
 class EmployeeListPage:
     """
-    Employee List Page
+    Employee List Page to view and manage employee information
     URL Pattern: /pim/addEmployee
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def Employee Name Input(self):
-        """Input field for employee name"""
+    def employee_name_input(self):
+        """Input field for Employee Name"""
         return self.page.get_by_placeholder('Type for hints...').or_(self.page.locator('input[placeholder="Type for hints..."]'))
 
     @property
-    def Employee ID Input(self):
-        """Input field for employee ID"""
-        return self.page.locator('input[placeholder="Type for hints..."]').nth(1).or_(self.page.locator('div:has-text("Employee Id") input'))
+    def employee_id_input(self):
+        """Input field for Employee ID"""
+        return self.page.locator('input[placeholder="Type for hints..."]').nth(1).or_(self.page.locator('input[class*="oxd-input"]').nth(3))
 
     @property
-    def Employment Status Dropdown(self):
-        """Dropdown for selecting employment status"""
-        return self.page.locator('div:has-text("Employment Status") div[class*="select-wrapper"]').or_(self.page.locator('div:has-text("Employment Status") .oxd-select-text'))
+    def employment_status_dropdown(self):
+        """Dropdown for selecting Employment Status"""
+        return self.page.locator('div[class*="oxd-select-text--arrow"]').or_(self.page.locator('div[class*="oxd-select-text--arrow"]').nth(0))
 
     @property
-    def Include Dropdown(self):
-        """Dropdown for selecting include options"""
-        return self.page.locator('div:has-text("Include") div[class*="select-wrapper"]').or_(self.page.locator('div:has-text("Include") .oxd-select-text'))
+    def include_dropdown(self):
+        """Dropdown for selecting Include options"""
+        return self.page.locator('div[class*="oxd-select-text--arrow"]').nth(1).or_(self.page.locator('div[class*="oxd-select-text--arrow"]'))
 
     @property
-    def Supervisor Name Input(self):
-        """Input field for supervisor name"""
-        return self.page.locator('input[placeholder="Type for hints..."]').nth(2).or_(self.page.locator('div:has-text("Supervisor Name") input'))
+    def supervisor_name_input(self):
+        """Input field for Supervisor Name"""
+        return self.page.locator('input[placeholder="Type for hints..."]').nth(2).or_(self.page.locator('input[class*="oxd-input"]').nth(5))
 
     @property
-    def Job Title Dropdown(self):
-        """Dropdown for selecting job title"""
-        return self.page.locator('div:has-text("Job Title") div[class*="select-wrapper"]').or_(self.page.locator('div:has-text("Job Title") .oxd-select-text'))
+    def job_title_dropdown(self):
+        """Dropdown for selecting Job Title"""
+        return self.page.locator('div[class*="oxd-select-text--arrow"]').nth(2).or_(self.page.locator('div[class*="oxd-select-text--arrow"]'))
 
     @property
-    def Sub Unit Dropdown(self):
-        """Dropdown for selecting sub unit"""
-        return self.page.locator('div:has-text("Sub Unit") div[class*="select-wrapper"]').or_(self.page.locator('div:has-text("Sub Unit") .oxd-select-text'))
+    def sub_unit_dropdown(self):
+        """Dropdown for selecting Sub Unit"""
+        return self.page.locator('div[class*="oxd-select-text--arrow"]').nth(3).or_(self.page.locator('div[class*="oxd-select-text--arrow"]'))
 
     @property
-    def Reset Button(self):
-        """Button to reset the search form"""
+    def reset_button(self):
+        """Button to reset the search filters"""
         return self.page.get_by_role('button', name='Reset').or_(self.page.locator('button:has-text("Reset")'))
 
     @property
-    def Search Button(self):
-        """Button to search for employees"""
+    def search_button(self):
+        """Button to search employees based on filters"""
         return self.page.get_by_role('button', name='Search').or_(self.page.locator('button:has-text("Search")'))
 
     @property
-    def Add Button(self):
+    def add_button(self):
         """Button to add a new employee"""
-        return self.page.get_by_role('button', name='Add').or_(self.page.locator('button:has-text(" Add ")'))
+        return self.page.get_by_role('button', name=' Add').or_(self.page.locator('button:has-text(" Add")'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await expect(page).to_have_title('OrangeHRM')
         await expect(page.locator('h6:has-text("Employee Information")')).to_be_visible()
-        await expect(page.locator('div:has-text("(102) Records Found")')).to_be_visible()
+        await expect(page.locator('//span[text()="PIM"]')).to_be_visible()

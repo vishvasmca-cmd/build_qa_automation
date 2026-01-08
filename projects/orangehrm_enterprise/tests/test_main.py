@@ -11,20 +11,15 @@ sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/
 from helpers import take_screenshot
 
 
-class BasePage:
+class LoginPage:
     def __init__(self, page):
         self.page = page
-
-    def navigate(self, url):
-        self.page.goto(url)
-        self.page.wait_for_load_state("networkidle")
-
-class LoginPage(BasePage):
-    def __init__(self, page):
-        super().__init__(page)
         self.username_locator = "[name='username']"
         self.password_locator = "[name='password']"
         self.login_button_locator = "page.get_by_role(\"button\", name=\"Login\")"
+
+    def navigate(self, url):
+        self.page.goto(url)
 
     def enter_username(self, username):
         self.page.locator(self.username_locator).fill(username)
@@ -35,25 +30,25 @@ class LoginPage(BasePage):
     def click_login(self):
         self.page.locator(eval(self.login_button_locator)).click()
 
-class OrangehrmDashboardPage(BasePage):
+class OrangehrmDashboardPage:
     def __init__(self, page):
-        super().__init__(page)
+        self.page = page
         self.pim_link_locator = "page.get_by_role(\"link\", name=\"PIM\")"
 
     def navigate_to_pim(self):
         self.page.locator(eval(self.pim_link_locator)).click()
 
-class EmployeeListPage(BasePage):
+class EmployeeListPage:
     def __init__(self, page):
-        super().__init__(page)
+        self.page = page
         self.add_button_locator = "page.get_by_role(\"button\", name=\"Add\")"
 
     def click_add(self):
         self.page.locator(eval(self.add_button_locator)).click()
 
-class AddEmployeePage(BasePage):
+class AddEmployeePage:
     def __init__(self, page):
-        super().__init__(page)
+        self.page = page
         self.first_name_locator = "[name='firstName']"
         self.last_name_locator = "[name='lastName']"
         self.save_button_locator = "page.get_by_role(\"button\", name=\"Save\")"
@@ -67,17 +62,17 @@ class AddEmployeePage(BasePage):
     def click_save(self):
         self.page.locator(eval(self.save_button_locator)).click()
 
-class SystemUsersPage(BasePage):
+class SystemUsersPage:
     def __init__(self, page):
-        super().__init__(page)
+        self.page = page
         self.add_button_locator = "page.get_by_role(\"button\", name=\"Add\")"
 
     def click_add(self):
         self.page.locator(eval(self.add_button_locator)).click()
 
-class AddUserPage(BasePage):
+class AddUserPage:
     def __init__(self, page):
-        super().__init__(page)
+        self.page = page
         self.employee_name_locator = "page.get_by_placeholder(\"Type for hints...\")"
         self.save_button_locator = "page.get_by_role(\"button\", name=\"Save\")"
 
@@ -87,13 +82,15 @@ class AddUserPage(BasePage):
     def click_save(self):
         self.page.locator(eval(self.save_button_locator)).click()
 
-class OrangehrmPage(BasePage):
+class OrangehrmPage:
     def __init__(self, page):
-        super().__init__(page)
+        self.page = page
         self.admin_link_locator = "page.get_by_role(\"link\", name=\"Admin\")"
 
     def navigate_to_admin(self):
         self.page.locator(eval(self.admin_link_locator)).click()
+
+from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
