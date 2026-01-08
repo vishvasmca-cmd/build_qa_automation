@@ -11,6 +11,7 @@
 
 ## Login
 - **LOGIN SUCCESS**: Successful login redirects to `/parabank/overview.htm`.
+- **REGISTRATION SIDE EFFECT**: After successful registration, the user is AUTOMATICALLY logged in. Do NOT attempt to login again immediately after registration. Verify login by checking for "Welcome [Username]" or the "Log Out" button.
 - **LOGIN FAILURE**: Failure usually keeps you on `index.htm` or shows specific error text "The username and password could not be verified".
 
 ## Account History & Server Stability
@@ -137,3 +138,7 @@
 - ⚠️ PROHIBITED: DON'T assume the username field is immediately available; ALWAYS implement a short wait or use `locator.wait_for()` with explicit visibility check before attempting to fill the field.
 
 - ✅ PREFERRED: DO use `locator.wait_for(state='visible', timeout=5000)` before attempting to interact with form elements. It guarantees the element exists and ready for user input.
+
+- ⚠️ PROHIBITED: DON'T assume that the 'Confirm Password' field is immediately available and interactable upon page load. ALWAYS implement a check for element visibility and/or state before attempting to fill it.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` or `state='stable'` before attempting to interact with a locator. This will ensure that the element is both present and in a stable state to prevent timing issues.
