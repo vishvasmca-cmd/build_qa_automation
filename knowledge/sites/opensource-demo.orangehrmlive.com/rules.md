@@ -319,3 +319,7 @@
 - ⚠️ PROHIBITED: DON'T use regular expression quantifiers (e.g., *, +, ?) in Playwright locators without ensuring there is a preceding element to apply the quantifier to.  Carefully validate the regex syntax.
 
 - ✅ PREFERRED: DO thoroughly validate regular expressions used in Playwright locators, especially when using quantifiers. Use online regex testers or debugging tools to confirm the regex matches the intended elements before incorporating it into the test.
+
+- ⚠️ PROHIBITED: DON'T embed Playwright locators (like `get_by_role`) directly within CSS selector strings. Use them as standalone locators.
+
+- ✅ PREFERRED: DO define Playwright locators separately and then use them in actions like `click()` or `fill()`.
