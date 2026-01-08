@@ -129,3 +129,7 @@
 - ⚠️ PROHIBITED: DON'T assume a successful navigation immediately after clicking a link. ALWAYS await for the URL or a specific element on the target page to ensure the navigation is complete.
 
 - ✅ PREFERRED: DO increase the default timeout or configure wait_for_url to wait longer if the application is known to be slow. ALSO, consider adding a retry mechanism to handle intermittent network issues.
+
+- ⚠️ PROHIBITED: DON'T assume that the username field is immediately available after the page loads. ALWAYS implement a mechanism (e.g., `wait_for_selector` or `wait_for_element_state`) to ensure it is present before attempting to interact with it.
+
+- ✅ PREFERRED: DO use `wait_for_selector('[name="username"]')` with an explicit timeout (e.g., 5000ms) BEFORE attempting to fill the username field. This ensures the element is present and interactable.
