@@ -97,3 +97,7 @@
 - ⚠️ PROHIBITED: DON'T escape special characters (periods) in CSS selectors unless you are certain they are part of the literal ID or class name. Inspect the HTML source to confirm the correct ID.
 
 - ✅ PREFERRED: ALWAYS use the correct CSS selector syntax for IDs (e.g., '#elementId') and ensure that special characters are handled correctly without unnecessary escaping. Prefer using exact text matches where possible to avoid issues with dynamic content.
+
+- ⚠️ PROHIBITED: DON'T use a backslash to escape periods within a CSS ID selector. The period is already a literal character in this context. If the intention is to target elements with classes, ensure the correct syntax is used (e.g., `.customer.address.city` for elements with those classes).
+
+- ✅ PREFERRED: DO use the correct CSS selector syntax to target elements. If targeting by ID, a single '#' followed by the ID is sufficient. If targeting by multiple classes, use '.' to denote each class (e.g., `.class1.class2`). Always verify the target element's actual attributes in the browser's developer tools.
