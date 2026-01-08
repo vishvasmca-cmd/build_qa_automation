@@ -267,3 +267,7 @@
 - ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the test runner is explicitly configured to treat the test directory as a package.
 
 - ✅ PREFERRED: DO use absolute imports or configure the test runner (e.g., pytest) to recognize the test directory as a package by including an `__init__.py` file in the directory and any parent directories that should be considered part of the package.
+
+- ⚠️ PROHIBITED: DON'T assume that the project structure is correct without verifying the existence and accessibility of all necessary modules and packages.
+
+- ✅ PREFERRED: DO ensure that all modules and packages are correctly placed within the project directory and that Python's import paths are configured to include the project's root directory.

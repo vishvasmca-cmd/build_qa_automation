@@ -19,6 +19,9 @@ class BasePage:
         self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
+    def take_screenshot(self, name, project_name):
+        take_screenshot(self.page, name, project_name)
+
 class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
@@ -58,13 +61,12 @@ class OrangehrmAddEmployeePage(BasePage):
         self.last_name_field.fill(last_name)
 
 from playwright.sync_api import Browser
-
-# Corrected relative import
 from projects.orangehrm_enterprise.pages.base_page import BasePage
 from projects.orangehrm_enterprise.pages.login_page import LoginPage
-from projects.orangehrm_enterprise.pages.dashboard_page import OrangehrmDashboardPage
+from projects.orangehrm_enterprise.pages.orangehrm_dashboard_page import OrangehrmDashboardPage
 from projects.orangehrm_enterprise.pages.employee_list_page import EmployeeListPage
-from projects.orangehrm_enterprise.pages.add_employee_page import OrangehrmAddEmployeePage
+from projects.orangehrm_enterprise.pages.orangehrm_add_employee_page import OrangehrmAddEmployeePage
+
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
@@ -73,23 +75,15 @@ def test_autonomous_flow(browser: Browser):
     employee_list_page = EmployeeListPage(page)
     add_employee_page = OrangehrmAddEmployeePage(page)
 
-    # 1. Login
     login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
     login_page.login("Admin", "admin123")
-    page.wait_for_url("**/dashboard")
 
-    # 2. Navigate to PIM
     dashboard_page.navigate_to_pim()
-    page.wait_for_url("**/viewEmployeeList")
+    page.wait_for_url("**/pim/viewEmployeeList*")
 
-    # 3. Navigate to Add Employee
     employee_list_page.navigate_to_add_employee()
-    page.wait_for_url("**/addEmployee")
+    page.wait_for_url("**/pim/addEmployee*")
 
-    # 4. Fill Employee Details
     add_employee_page.fill_employee_details("FirstNameTest", "LastNameTest")
-
-    # Take a screenshot
-    take_screenshot(page, "add_employee_form_filled", "orangehrm_enterprise")
 
     page.close()
