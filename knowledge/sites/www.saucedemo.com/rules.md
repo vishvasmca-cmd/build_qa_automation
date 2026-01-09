@@ -26,3 +26,7 @@
 - ⚠️ PROHIBITED: DON'T attempt to call a Playwright Locator object directly as a function. Use appropriate Playwright actions like `.click()` or `.fill()` on the Locator object.
 
 - ✅ PREFERRED: DO use Playwright's action methods (e.g., `.click()`, `.fill()`, `.hover()`) on Locator objects to interact with page elements.
+
+- ⚠️ PROHIBITED: DON'T assume elements are immediately available; always account for potential loading times or animations.
+
+- ✅ PREFERRED: DO use explicit waits or retries when interacting with elements that might not be immediately present in the DOM.
