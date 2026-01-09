@@ -1,0 +1,75 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1', 'langsmith': '0.6.2'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1, langsmith-0.6.2
+collecting ... collected 1 item
+
+projects/stress_verify_custom_expandtesting/tests/e2e/test_main.py::test_autonomous_flow[chromium] FAILED
+
+=================================== FAILURES ===================================
+________________________ test_autonomous_flow[chromium] ________________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser: Browser):
+        page = browser.new_page()
+        home_page = HomePage(page)
+        web_inputs_page = WebInputsPage(page)
+    
+>       home_page.navigate_to_home()
+
+projects/stress_verify_custom_expandtesting/tests/e2e/test_main.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/stress_verify_custom_expandtesting/tests/e2e/test_main.py:28: in navigate_to_home
+    self.navigate(self.url)
+projects/stress_verify_custom_expandtesting/tests/e2e/test_main.py:20: in navigate
+    self.page.wait_for_load_state("networkidle")
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9148: in wait_for_load_state
+    self._sync(self._impl_obj.wait_for_load_state(state=state, timeout=timeout))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:572: in wait_for_load_state
+    return await self._main_frame.wait_for_load_state(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:273: in wait_for_load_state
+    return await self._wait_for_load_state_impl(state, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Frame name= url='https://practice.expandtesting.com/'>
+state = 'networkidle', timeout = None
+
+    async def _wait_for_load_state_impl(
+        self, state: DocumentLoadState = None, timeout: float = None
+    ) -> None:
+        if not state:
+            state = "load"
+        if state not in ("load", "domcontentloaded", "networkidle", "commit"):
+            raise Error(
+                "state: expected one of (load|domcontentloaded|networkidle|commit)"
+            )
+        waiter = self._setup_navigation_waiter("wait_for_load_state", timeout)
+    
+        if state in self._load_states:
+            waiter.log(f'  not waiting, "{state}" event already fired')
+            # TODO: align with upstream
+            waiter._fulfill(None)
+        else:
+    
+            def handle_load_state_event(actual_state: str) -> bool:
+                waiter.log(f'"{actual_state}" event fired')
+                return actual_state == state
+    
+            waiter.wait_for_event(
+                self._event_emitter,
+                "loadstate",
+                handle_load_state_event,
+            )
+>       await waiter.result()
+E       playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:301: TimeoutError
+=========================== short test summary info ============================
+FAILED projects/stress_verify_custom_expandtesting/tests/e2e/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.
+============================== 1 failed in 31.60s ==============================
+
