@@ -1,94 +1,139 @@
 {
-  "ExpandtestingPracticePage": {
-    "description": "This page provides a practice website for automation testing, offering various elements and examples for testing different automation tools and techniques.",
+  "ExpandtestingPracticeWebsitePage": {
+    "description": "This page is an Automation Testing Practice Website for QA and Developers, providing resources and examples for various automation tools and techniques.",
     "url_pattern": "https://practice.expandtesting.com/inputs",
     "elements": [
       {
         "name": "Search Input",
         "type": "input",
-        "primary_locator": "role=textbox[name=\"Search an example...\"]",
-        "backup_locator": "css=input[placeholder=\"Search an example...\"]",
-        "description": "Input field to search for specific examples or elements on the page."
+        "primary_locator": "role=searchbox",
+        "backup_locator": "css=input[placeholder='Search an example...']",
+        "description": "Input field to search for examples or resources."
       },
       {
         "name": "Search Button",
         "type": "button",
-        "primary_locator": "role=button[name=\"Search\"]",
+        "primary_locator": "text=Search",
         "backup_locator": "css=button[class*='btn-primary']",
-        "description": "Button to initiate the search based on the input in the search field."
+        "description": "Button to initiate the search."
       },
       {
         "name": "Test Cases Button",
         "type": "button",
-        "primary_locator": "role=button[name=\"Test Cases\"]",
-        "backup_locator": "text=Test Cases",
-        "description": "Button to navigate to the test cases section."
+        "primary_locator": "text=Test Cases",
+        "backup_locator": "css=button[class*='btn-info']",
+        "description": "Button to navigate to Test Cases examples."
       },
       {
         "name": "API Testing Button",
         "type": "button",
-        "primary_locator": "role=button[name=\"API Testing\"]",
-        "backup_locator": "text=API Testing",
-        "description": "Button to navigate to the API testing section."
+        "primary_locator": "text=API Testing",
+        "backup_locator": "css=button[class*='btn-warning']",
+        "description": "Button to navigate to API Testing examples."
       },
       {
-        "name": "XPath / Css Button",
+        "name": "XPath / CSS Button",
         "type": "button",
-        "primary_locator": "role=button[name=\"Xpath / Css\"]",
-        "backup_locator": "text=Xpath / Css",
-        "description": "Button to navigate to the XPath/CSS section."
-      },
-      {
-        "name": "Buy us a coffee",
-        "type": "link",
-        "primary_locator": "text=Buy us a coffee",
-        "backup_locator": "css=a[href*='buymeacoffee']",
-        "description": "Link to support the platform."
+        "primary_locator": "text=Xpath / Css",
+        "backup_locator": "css=button[class*='btn-success']",
+        "description": "Button to navigate to XPath/CSS examples."
       }
     ],
     "assertions": [
-      "Page title contains 'Expandtesting Practice'",
-      "Page contains the header 'Automation Testing Practice WebSite for QA and Developers'",
+      "Page title contains 'ExpandTesting Practice'",
+      "Header text contains 'Automation Testing Practice WebSite for QA and Developers'",
       "Search input field is present",
       "Search button is present"
     ]
   },
-  "WebInputsPageForAutomationTestingPracticePage": {
-    "description": "This page is designed to practice and demonstrate web input functionalities for automation testing. It includes number and text input fields, along with buttons to display and clear the inputs.",
+  "WebInputsPagePage": {
+    "description": "This page is designed to demonstrate and practice handling various web input types. It allows users to interact with different input fields and provides a platform for testing automation scripts related to input handling.",
     "url_pattern": "https://practice.expandtesting.com/inputs",
     "elements": [
       {
-        "name": "Number Input",
-        "type": "text field",
-        "primary_locator": "role=textbox[name=\"Input: Number\"]",
-        "backup_locator": "css=input[type='number']",
-        "description": "Input field for entering numeric values."
+        "name": "Page Title",
+        "type": "text",
+        "primary_locator": "role=heading[name=\"Web inputs page for Automation Testing Practice\"]",
+        "backup_locator": "text=\"Web inputs page for Automation Testing Practice\"",
+        "description": "The main heading of the page."
       },
       {
-        "name": "Text Input",
-        "type": "text field",
-        "primary_locator": "role=textbox[name=\"Input: Text\"]",
-        "backup_locator": "css=input[type='text']",
-        "description": "Input field for entering text values."
+        "name": "Number Input Field",
+        "type": "input",
+        "primary_locator": "role=spinbutton[name=\"Input: Number\"]",
+        "backup_locator": "css=input[type='number']",
+        "description": "Input field for entering numbers."
       },
       {
         "name": "Display Inputs Button",
         "type": "button",
         "primary_locator": "role=button[name=\"Display Inputs\"]",
-        "backup_locator": "text=Display Inputs",
+        "backup_locator": "text=\"Display Inputs\"",
         "description": "Button to display the entered inputs."
       },
       {
         "name": "Clear Inputs Button",
         "type": "button",
         "primary_locator": "role=button[name=\"Clear Inputs\"]",
-        "backup_locator": "text=Clear Inputs",
+        "backup_locator": "text=\"Clear Inputs\"",
         "description": "Button to clear the entered inputs."
       }
     ],
     "assertions": [
-      "Page title contains 'Inputs'",
-      "Header text is 'Web inputs page for Automation Testing Practice'"
+      "Page title is 'Web inputs page for Automation Testing Practice'",
+      "URL contains '/inputs'",
+      "Number input field is present",
+      "Display Inputs button is present",
+      "Clear Inputs button is present"
+    ]
+  },
+  "WebInputsPageForAutomationTestingPracticePage": {
+    "description": "This page is designed to practice and demonstrate web input functionalities for automation testing.",
+    "url_pattern": "https://practice.expandtesting.com/inputs",
+    "elements": [
+      {
+        "name": "Input Number Field",
+        "type": "text field",
+        "primary_locator": "input[type='number']",
+        "backup_locator": "css=input[type='number']",
+        "description": "Text field for entering numeric input."
+      },
+      {
+        "name": "Input Text Field",
+        "type": "text field",
+        "primary_locator": "input[type='text']",
+        "backup_locator": "css=input[type='text']",
+        "description": "Text field for entering text input."
+      },
+      {
+        "name": "Display Inputs Button",
+        "type": "button",
+        "primary_locator": "text=Display Inputs",
+        "backup_locator": "css=button:has-text('Display Inputs')",
+        "description": "Button to display the entered inputs."
+      },
+      {
+        "name": "Clear Inputs Button",
+        "type": "button",
+        "primary_locator": "text=Clear Inputs",
+        "backup_locator": "css=button:has-text('Clear Inputs')",
+        "description": "Button to clear the entered inputs."
+      },
+      {
+        "name": "Web automation tools Link",
+        "type": "link",
+        "primary_locator": "text=Web automation tools",
+        "backup_locator": "css=a:has-text('Web automation tools')",
+        "description": "Link to Web automation tools."
+      }
+    ],
+    "assertions": [
+      "Page title is 'Web inputs page for Automation Testing Practice'",
+      "Header text is 'Web inputs page for Automation Testing Practice'",
+      "Input Number field is present",
+      "Input Text field is present",
+      "Display Inputs button is present",
+      "Clear Inputs button is present"
     ]
   }
 }

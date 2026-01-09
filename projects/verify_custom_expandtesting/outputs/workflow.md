@@ -5,5 +5,6 @@
 **Final URL**: https://practice.expandtesting.com/inputs
 
 ## Journey Highlight
-- Visited **ExpandtestingPracticePage**
+- Visited **ExpandtestingPracticeWebsitePage**
+- Visited **WebInputsPagePage**
 - Visited **WebInputsPageForAutomationTestingPracticePage**
