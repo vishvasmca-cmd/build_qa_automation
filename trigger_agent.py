@@ -46,6 +46,7 @@ if __name__ == "__main__":
     
     # Global Flags
     parser.add_argument("--headed", action="store_true", help="Watch the browser")
+    parser.add_argument("--headless", action="store_true", help="Run without browser UI (Default)")
     parser.add_argument("--robust", action="store_true", help="Run in continuous self-healing mode")
 
     args = parser.parse_args()
