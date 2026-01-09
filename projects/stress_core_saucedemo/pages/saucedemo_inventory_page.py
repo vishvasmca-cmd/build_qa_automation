@@ -9,52 +9,62 @@ class SaucedemoInventoryPage:
         self.page = page
 
     @property
-    def Product Name(self):
-        """The name of the product."""
-        return self.page.//div[@class='inventory_item_name'].or_(self.page..inventory_item_name)
+    def Product Sort Dropdown(self):
+        """Dropdown to sort products by name or price."""
+        return self.page.data-test='product_sort_container'.or_(self.page.css=select[data-test='product_sort_container'])
 
     @property
-    def Product Description(self):
-        """The description of the product."""
-        return self.page.//div[@class='inventory_item_desc'].or_(self.page..inventory_item_desc)
+    def Product Sort Option: Name (A to Z)(self):
+        """Option to sort products by name from A to Z."""
+        return self.page.text='Name (A to Z)'.or_(self.page.css=option[value='az'])
 
     @property
-    def Product Price(self):
-        """The price of the product."""
-        return self.page.//div[@class='inventory_item_price'].or_(self.page..inventory_item_price)
+    def Product Sort Option: Name (Z to A)(self):
+        """Option to sort products by name from Z to A."""
+        return self.page.text='Name (Z to A)'.or_(self.page.css=option[value='za'])
 
     @property
-    def Add to cart button(self):
-        """Button to add the product to the shopping cart."""
-        return self.page.//button[contains(@id, 'add-to-cart')].or_(self.page.button[class*='btn_inventory'])
+    def Product Sort Option: Price (low to high)(self):
+        """Option to sort products by price from low to high."""
+        return self.page.text='Price (low to high)'.or_(self.page.css=option[value='lohi'])
 
     @property
-    def Sorting Dropdown(self):
-        """Dropdown to sort the products by name or price."""
-        return self.page.[data-test='product_sort_container'].or_(self.page..product_sort_container)
+    def Product Sort Option: Price (high to low)(self):
+        """Option to sort products by price from high to low."""
+        return self.page.text='Price (high to low)'.or_(self.page.css=option[value='hilo'])
 
     @property
-    def Sorting Option: Name (A to Z)(self):
-        """Option to sort products by name (A to Z)."""
-        return self.page.//option[@value='az'].or_(self.page.option[value='az'])
+    def Sauce Labs Backpack Add to cart button(self):
+        """Button to add the Sauce Labs Backpack to the cart."""
+        return self.page.data-test='add-to-cart-sauce-labs-backpack'.or_(self.page.text='Add to cart')
 
     @property
-    def Sorting Option: Name (Z to A)(self):
-        """Option to sort products by name (Z to A)."""
-        return self.page.//option[@value='za'].or_(self.page.option[value='za'])
+    def Sauce Labs Bike Light Add to cart button(self):
+        """Button to add the Sauce Labs Bike Light to the cart."""
+        return self.page.data-test='add-to-cart-sauce-labs-bike-light'.or_(self.page.text='Add to cart')
 
     @property
-    def Sorting Option: Price (low to high)(self):
-        """Option to sort products by price (low to high)."""
-        return self.page.//option[@value='lohi'].or_(self.page.option[value='lohi'])
+    def Sauce Labs Bolt T-Shirt Add to cart button(self):
+        """Button to add the Sauce Labs Bolt T-Shirt to the cart."""
+        return self.page.data-test='add-to-cart-sauce-labs-bolt-t-shirt'.or_(self.page.text='Add to cart')
 
     @property
-    def Sorting Option: Price (high to low)(self):
-        """Option to sort products by price (high to low)."""
-        return self.page.//option[@value='hilo'].or_(self.page.option[value='hilo'])
+    def Sauce Labs Fleece Jacket Add to cart button(self):
+        """Button to add the Sauce Labs Fleece Jacket to the cart."""
+        return self.page.data-test='add-to-cart-sauce-labs-fleece-jacket'.or_(self.page.text='Add to cart')
+
+    @property
+    def Sauce Labs Onesie Add to cart button(self):
+        """Button to add the Sauce Labs Onesie to the cart."""
+        return self.page.data-test='add-to-cart-sauce-labs-onesie'.or_(self.page.text='Add to cart')
+
+    @property
+    def Test.allTheThings() T-Shirt (Red) Add to cart button(self):
+        """Button to add the Test.allTheThings() T-Shirt (Red) to the cart."""
+        return self.page.data-test='add-to-cart-test.allthethings()-t-shirt-(red)'.or_(self.page.text='Add to cart')
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await Page title is 'Swag Labs'
-        await Page contains the header 'Products'
-        await At least one product is displayed
+        await Page contains the 'Products' header
+        await Product list is displayed

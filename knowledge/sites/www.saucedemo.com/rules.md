@@ -34,3 +34,11 @@
 - ⚠️ PROHIBITED: DON'T assume a successful login solely based on immediate response; ALWAYS verify the navigation to the target page (e.g., /inventory.html) within a reasonable timeout.
 
 - ✅ PREFERRED: DO implement explicit waits for critical page elements to load after navigation, especially after login, to ensure the application is fully ready for subsequent actions.
+
+- ⚠️ PROHIBITED: DON'T assume the username field is immediately available; always implement a retry mechanism or explicit wait for its presence and interactability.
+
+- ✅ PREFERRED: DO use `page.locator('locator').first.fill('value')` to ensure you are interacting with the correct element, especially when multiple elements match the locator.
+
+- ⚠️ PROHIBITED: DON'T assume that elements are immediately available after page load; ALWAYS implement explicit waits for critical elements to become visible and interactable.
+
+- ✅ PREFERRED: DO use more resilient locators that are less prone to changes in the UI, such as ARIA labels or roles, when available. Prioritize unique attributes over chained locators.

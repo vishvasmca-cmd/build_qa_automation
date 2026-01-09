@@ -16,8 +16,11 @@ class BasePage:
         self.page = page
 
     def navigate(self, url):
-        self.page.goto(url)
+        self.page.goto(url, timeout=60000)
         self.page.wait_for_load_state("networkidle")
+
+    def take_screenshot(self, name, project_name):
+        take_screenshot(self.page, name, project_name)
 
 
 class LoginPage(BasePage):
@@ -36,31 +39,24 @@ class LoginPage(BasePage):
 class InventoryPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.sort_dropdown = self.page.locator("[data-test='product-sort-container']")
+        self.product_sort_dropdown = self.page.locator("[data-test='product-sort-container']")
 
     def sort_by_price_low_to_high(self):
-        self.sort_dropdown.select_option(label="Price (low to high)")
+        self.product_sort_dropdown.select_option(label='Price (low to high)')
         self.page.wait_for_load_state("networkidle")
 
     def add_lowest_price_item_to_cart(self):
-        # Find the add to cart button for the lowest price item
-        add_to_cart_button = self.page.locator(".inventory_item").first.locator("button:has-text('Add to cart')")
-        add_to_cart_button.click()
+        # Assuming the first item after sorting is the lowest price
+        self.page.locator(".inventory_item").first.locator("[data-test^='add-to-cart']").click()
         self.page.wait_for_load_state("networkidle")
 
-class CartPage(BasePage):
-    def __init__(self, page):
-        super().__init__(page)
-        # Define locators for cart page elements here
-        pass
-
 from playwright.sync_api import Browser
+
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
     login_page = LoginPage(page)
     inventory_page = InventoryPage(page)
-    cart_page = CartPage(page)
 
     # Navigate to the login page
     login_page.navigate("https://www.saucedemo.com/")
@@ -68,8 +64,12 @@ def test_autonomous_flow(browser: Browser):
     # Login with standard_user
     login_page.login("standard_user", "secret_sauce")
 
-    # Sort products by price (low to high)
+    # Sort products by price low to high
     inventory_page.sort_by_price_low_to_high()
 
     # Add the lowest price item to the cart
+    # Assuming the first item after sorting is the lowest price
     inventory_page.add_lowest_price_item_to_cart()
+
+    # TODO: Implement checkout flow
+    # expect(True).to_be(False, "Checkout flow not implemented")
