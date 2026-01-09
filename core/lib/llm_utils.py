@@ -1,3 +1,4 @@
+import asyncio
 import time
 import os
 import random
@@ -79,6 +80,39 @@ class SafeLLM:
         # Mock Langchain response object
         from types import SimpleNamespace
         return SimpleNamespace(content=resp.text)
+
+    async def ainvoke(self, messages):
+        # Free Tier Throttling: Async delay to keep event loop alive
+        await asyncio.sleep(10)
+
+        # Reuse the prompt construction logic (simplified duplication for safety)
+        if isinstance(messages, list):
+            prompt = ""
+            for msg in messages:
+                if isinstance(msg, tuple):
+                    prompt += f"{msg[0].upper()}: {msg[1]}\n"
+                elif hasattr(msg, "content"):
+                    prompt += f"{msg.content}\n"
+                elif isinstance(msg, dict):
+                     prompt += f"{msg.get('role', '').upper()}: {msg.get('content', '')}\n"
+                else:
+                    prompt += str(msg) + "\n"
+        else:
+            prompt = str(messages)
+
+        # Run the actual API call in a thread
+        def _call_api():
+            return self.internal_llm.invoke(prompt)
+        
+        try:
+            resp = await asyncio.to_thread(_call_api)
+            return resp
+        except Exception as e:
+             if "429" in str(e) or "ResourceExhausted" in str(e):
+                 print(colored(f"⚠️ 429 Rate Limit Hit (Async). Cooling down for 60s...", "yellow"))
+                 await asyncio.sleep(60)
+                 return await self.ainvoke(messages) # Simple retry
+             raise e
 
     @safe_llm_call()
     def batch(self, prompts):

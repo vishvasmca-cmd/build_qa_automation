@@ -329,7 +329,7 @@ class ExplorerAgent:
         prompt = f"Current Mindmap Context:\n{json.dumps(context, indent=2)}"
         
         try:
-            resp = llm.invoke([("system", SYSTEM_PROMPT_PLANNER), ("human", prompt)])
+            resp = await llm.ainvoke([("system", SYSTEM_PROMPT_PLANNER), ("human", prompt)])
             return try_parse_json(resp.content)
         except Exception as e:
             print(f"Error in decision: {e}")

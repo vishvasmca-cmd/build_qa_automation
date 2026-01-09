@@ -142,16 +142,37 @@ async def analyze_page(page: Page, url: str, user_goal=None):
     b64_img = base64.b64encode(screenshot_bytes).decode('utf-8')
     
     # 3. LLM Reconciliation
-    # Check Cache First
-    cache_key = hashlib.md5(f"{url}|{user_goal}|{len(elements)}".encode()).hexdigest()
+    # Check Cache First (File-Based Persistence)
+    cache_path = os.path.join(os.path.dirname(__file__), "..", "..", "outputs", "vision_cache.json")
+    
+    # Load Cache
+    if not hasattr(analyze_page, "cache"):
+        if os.path.exists(cache_path):
+            try:
+                with open(cache_path, "r") as f:
+                    analyze_page.cache = json.load(f)
+            except: 
+                analyze_page.cache = {}
+        else:
+            analyze_page.cache = {}
+
+    # Robust Cache Key: URL + Title + Round(ElementCount, -1) to handle minor DOM fluctations
+    # e.g. 104 elements -> 100, 106 -> 110. This prevents cache bust on dynamic ads.
+    ele_count_approx = round(len(elements) / 10) * 10
+    page_title = elements[0].get('text', '') if elements else "NoTitle" # Very rough proxy if title tag missing
+    
+    # Try to find title in elements
+    for e in elements[:10]:
+        if e['tagName'] == 'TITLE': 
+            page_title = e['text']
+            break
+            
+    cache_key = hashlib.md5(f"{url}|{user_goal}|{page_title}|{ele_count_approx}".encode()).hexdigest()
     current_time = __import__('time').time()
     
-    # Simple in-memory cache: {hash: {'analysis': dict, 'timestamp': float}}
-    if not hasattr(analyze_page, "cache"):
-        analyze_page.cache = {}
-        
     cached = analyze_page.cache.get(cache_key)
-    if cached and (current_time - cached['timestamp'] < 300): # 5 Minute TTL
+    # 24 Hour TTL for stability testing
+    if cached and (current_time - cached['timestamp'] < 86400):
         print(colored("⚡ Cache Hit! Skipping Vision Analysis.", "green"))
         
         # Log Cache Hit
@@ -186,14 +207,21 @@ async def analyze_page(page: Page, url: str, user_goal=None):
             ]
         )
         
-        resp = llm.invoke([message])
+        resp = await llm.ainvoke([message])
         analysis = try_parse_json(resp.content) or {}
         
-        # Save to cache
+        # Save to cache & Persist to Disk
         analyze_page.cache[cache_key] = {
             'analysis': analysis,
             'timestamp': current_time
         }
+        try:
+             # Atomic write prevention (simple)
+             os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+             with open(cache_path, "w") as f:
+                 json.dump(analyze_page.cache, f)
+        except Exception as e:
+            print(colored(f"⚠️ Cache Write Error: {e}", "yellow"))
         
         # Log LLM Call
         duration = time.time() - start_time
