@@ -599,3 +599,7 @@
 - ⚠️ PROHIBITED: DON'T use `eval()` to construct locators, especially when they rely on variables defined outside the string. This can lead to scope issues and make debugging difficult.
 
 - ✅ PREFERRED: DO pass the locator string directly to `page.locator()` without using `eval()`. If dynamic locators are needed, construct the string using f-strings or string formatting before passing it to `page.locator()`.
+
+- ⚠️ PROHIBITED: DON'T use `eval()` with locator strings that directly reference Playwright objects like `page`. Locator strings should be static or dynamically constructed using string formatting, not evaluated as code.
+
+- ✅ PREFERRED: ALWAYS construct locator strings using f-strings or other string formatting methods to inject variables. Ensure that the locator string itself is a valid CSS selector or XPath expression.
