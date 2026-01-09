@@ -294,14 +294,14 @@
         "name": "employee_id_input",
         "type": "textbox",
         "primary_locator": "get_by_label('Employee Id')",
-        "backup_locator": "locator('input[class*=\"oxd-input oxd-input--active\"][name=\"employeeId\"]')",
-        "description": "Input field for employee ID"
+        "backup_locator": "locator('input[class=\"oxd-input oxd-input--active\"]')",
+        "description": "Input field for employee's ID"
       },
       {
         "name": "create_login_details_toggle",
         "type": "toggle",
-        "primary_locator": "get_by_role('switch', name='Create Login Details')",
-        "backup_locator": "locator('.oxd-switch-input')",
+        "primary_locator": "locator('span.oxd-switch-input')",
+        "backup_locator": "locator('label:has-text(\"Create Login Details\")')",
         "description": "Toggle to enable/disable creating login details for the employee"
       },
       {
@@ -319,11 +319,11 @@
         "description": "Button to cancel adding the employee"
       },
       {
-        "name": "add_profile_picture",
-        "type": "button",
-        "primary_locator": "get_by_role('button')",
-        "backup_locator": "locator('.oxd-file-input')",
-        "description": "Button to upload profile picture"
+        "name": "profile_image_upload",
+        "type": "file_chooser",
+        "primary_locator": "locator('div.oxd-file-div input')",
+        "backup_locator": "locator('p:has-text(\"Accepts jpg, .png, .gif up to 1MB.\")')",
+        "description": "Area to upload the employee profile image"
       }
     ],
     "assertions": [
@@ -338,15 +338,15 @@
       {
         "name": "username_input",
         "type": "text_field",
-        "primary_locator": "get_by_placeholder('Username')",
+        "primary_locator": "get_by_label('Username')",
         "backup_locator": "locator('input[placeholder=\"Username\"]')",
         "description": "Input field for username"
       },
       {
         "name": "user_role_dropdown",
         "type": "dropdown",
-        "primary_locator": "get_by_text('-- Select --').nth(0)",
-        "backup_locator": "locator('div:has-text(\"-- Select --\")').nth(0)",
+        "primary_locator": "locator('div:has-text(\"User Role\")').locator('i.oxd-icon.bi-caret-down-fill')",
+        "backup_locator": "locator('div:has-text(\"User Role\")').locator('div.oxd-select-text--after')",
         "description": "Dropdown to select user role"
       },
       {
@@ -359,8 +359,8 @@
       {
         "name": "status_dropdown",
         "type": "dropdown",
-        "primary_locator": "get_by_text('-- Select --').nth(1)",
-        "backup_locator": "locator('div:has-text(\"-- Select --\")').nth(1)",
+        "primary_locator": "locator('div:has-text(\"Status\")').locator('i.oxd-icon.bi-caret-down-fill')",
+        "backup_locator": "locator('div:has-text(\"Status\")').locator('div.oxd-select-text--after')",
         "description": "Dropdown to select user status"
       },
       {
@@ -368,7 +368,7 @@
         "type": "button",
         "primary_locator": "get_by_role('button', name='Reset')",
         "backup_locator": "locator('button:has-text(\"Reset\")')",
-        "description": "Button to reset the form"
+        "description": "Button to reset the search form"
       },
       {
         "name": "search_button",
@@ -380,8 +380,8 @@
       {
         "name": "add_button",
         "type": "button",
-        "primary_locator": "get_by_role('button', name='+ Add')",
-        "backup_locator": "locator('button:has-text(\"+ Add\")')",
+        "primary_locator": "get_by_role('button', name='Add')",
+        "backup_locator": "locator('button:has-text(\"Add\")')",
         "description": "Button to add a new user"
       }
     ],
