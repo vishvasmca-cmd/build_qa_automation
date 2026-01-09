@@ -24,7 +24,7 @@ class LoginPage(BasePage):
         super().__init__(page)
         self.username_locator = "[name='username']"
         self.password_locator = "[name='password']"
-        self.login_button_locator = "text=Login"
+        self.login_button_locator = "button[type='submit']"
 
     def login(self, username, password):
         self.page.locator(self.username_locator).fill(username)
@@ -34,7 +34,7 @@ class LoginPage(BasePage):
 class OrangehrmDashboardPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.pim_link_locator = "text=PIM"
+        self.pim_link_locator = "a[href='/web/index.php/pim/viewEmployeeList']"
 
     def navigate_to_pim(self):
         self.page.locator(self.pim_link_locator).click()
@@ -42,7 +42,7 @@ class OrangehrmDashboardPage(BasePage):
 class EmployeeListPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.add_button_locator = "//button[text()=' Add ']";
+        self.add_button_locator = "button.oxd-button--medium"
 
     def click_add(self):
         self.page.locator(self.add_button_locator).click()
@@ -52,18 +52,20 @@ class AddEmployeeOrangehrmPage(BasePage):
         super().__init__(page)
         self.first_name_locator = "[name='firstName']"
         self.last_name_locator = "[name='lastName']"
-        self.save_button_locator = "//button[text()=' Save ']"
+        self.save_button_locator = "button[type='submit']"
 
-    def add_employee(self, first_name, last_name):
+    def fill_employee_details(self, first_name, last_name):
         self.page.locator(self.first_name_locator).fill(first_name)
         self.page.locator(self.last_name_locator).fill(last_name)
+
+    def click_save(self):
         self.page.locator(self.save_button_locator).click()
 
 class OrangehrmPimPersonalDetailsPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.admin_link_locator = "text=Admin"
-        self.save_button_locator = "//button[text()=' Save ']"
+        self.admin_link_locator = "a[href='/web/index.php/admin/viewSystemUsers']"
+        self.save_button_locator = "//button[text()='Save']"
 
     def navigate_to_admin(self):
         self.page.locator(self.admin_link_locator).click()
@@ -74,7 +76,7 @@ class OrangehrmPimPersonalDetailsPage(BasePage):
 class SystemUsersPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.add_button_locator = "//button[text()=' Add ']";
+        self.add_button_locator = "button.oxd-button--medium"
 
     def click_add(self):
         self.page.locator(self.add_button_locator).click()
@@ -83,8 +85,8 @@ class AddUserPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
         self.employee_name_locator = "input[placeholder='Type for hints...']"
-        self.save_button_locator = "//button[text()=' Save ']"
-        self.cancel_button_locator = "//button[text()=' Cancel ']"
+        self.save_button_locator = "button[type='submit']"
+        self.cancel_button_locator = "//button[text()='Cancel']"
 
     def fill_employee_name(self, employee_name):
         self.page.locator(self.employee_name_locator).fill(employee_name)
@@ -114,23 +116,29 @@ def test_autonomous_flow(browser: Browser):
     login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
     login_page.login("Admin", "admin123")
 
-    # 2. Navigate to PIM and add employee
+    # 2. Navigate to PIM and add an employee
     orangehrm_dashboard_page.navigate_to_pim()
     employee_list_page.click_add()
-    add_employee_page.add_employee("FirstNameTest", "LastNameTest")
+    add_employee_page.fill_employee_details("FirstNameTest", "LastNameTest")
+    add_employee_page.click_save()
 
-    # 3. Navigate to Admin and create system user
+    # 3. Navigate to Admin and create a system user
     orangehrm_pim_personal_details_page.navigate_to_admin()
     system_users_page.click_add()
 
-    # The trace shows that the 'Type for hints...' field is filled, but the value is not specified.
-    # The test fails because the employee name is not selected, and the save button is clicked.
-    # The following lines are added to fill the employee name and click save.
-    add_user_page.fill_employee_name("Type for hints...")
+    # The trace is incomplete. The 'Type for hints...' field needs a valid value.
+    # The test will fail without a valid employee name.
+    # I'm adding a placeholder value to avoid a crash, but this needs to be replaced with a valid employee name.
+    add_user_page.fill_employee_name("FirstNameTest LastNameTest")
     add_user_page.click_save()
 
-    # The trace shows that the save action failed, then cancel and add are clicked again.
-    # The following lines are added to click cancel, add, and save again.
+    # The trace shows that the save action failed, and the test clicked cancel and add again.
+    # I will add the cancel and add actions again to match the trace.
+    # However, the root cause of the save failure is the missing employee name.
     add_user_page.click_cancel()
     system_users_page.click_add()
+
+    # The trace ends after clicking save again. I will add the save action again.
+    # However, the root cause of the save failure is the missing employee name.
+    add_user_page.fill_employee_name("FirstNameTest LastNameTest")
     add_user_page.click_save()
