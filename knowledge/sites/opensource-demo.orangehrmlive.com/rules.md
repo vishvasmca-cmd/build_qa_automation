@@ -675,3 +675,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on `wait_for_url` with a simple wildcard pattern like `**/dashboard*` without verifying the full URL or specific elements on the target page after navigation.
 
 - ✅ PREFERRED: DO verify the full URL after navigation using `page.url` and/or check for the presence of specific elements on the target page to confirm successful navigation and page load.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `wait_for_url` with a simple wildcard pattern like `**/dashboard*` without verifying the full URL and page content after navigation, especially after login flows.
+
+- ✅ PREFERRED: DO use `page.locator('element_selector').wait_for()` in conjunction with `wait_for_url` to ensure that a specific element on the target page is loaded, confirming the navigation was successful and the page is fully rendered.
