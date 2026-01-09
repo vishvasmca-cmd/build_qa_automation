@@ -571,3 +571,7 @@
 - ⚠️ PROHIBITED: DON'T assume that the project structure and import paths are correct without verifying them, especially after code changes or when setting up a new environment.
 
 - ✅ PREFERRED: DO verify the project's directory structure and import paths to ensure that all modules are accessible before running tests.
+
+- ⚠️ PROHIBITED: DON'T assume a specific page URL immediately after login; the application might redirect to different pages based on user roles or application state.
+
+- ✅ PREFERRED: DO verify successful login by checking for elements unique to the expected page (e.g., the presence of the 'Add Employee' button on the employee list page) instead of relying solely on the URL.

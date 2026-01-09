@@ -1,24 +1,48 @@
 ============================= test session starts ==============================
 platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
 cachedir: .pytest_cache
-metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'langsmith': '0.6.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1', 'langsmith': '0.6.2'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
 rootdir: /home/runner/work/build_qa_automation/build_qa_automation
-plugins: html-4.1.1, langsmith-0.6.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1
-collecting ... collected 0 items / 1 error
+plugins: html-4.1.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1, langsmith-0.6.2
+collecting ... collected 1 item
 
-==================================== ERRORS ====================================
-______ ERROR collecting projects/orangehrm_enterprise/tests/test_main.py _______
-ImportError while importing test module '/home/runner/work/build_qa_automation/build_qa_automation/projects/orangehrm_enterprise/tests/test_main.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/importlib/__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-projects/orangehrm_enterprise/tests/test_main.py:93: in <module>
-    from projects.orangehrm_enterprise.pages.base_page import BasePage
-E   ModuleNotFoundError: No module named 'projects.orangehrm_enterprise.pages.base_page'
+projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] FAILED
+
+=================================== FAILURES ===================================
+________________________ test_autonomous_flow[chromium] ________________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser: Browser):
+        page = browser.new_page()
+        login_page = LoginPage(page)
+        dashboard_page = OrangehrmDashboardPage(page)
+        employee_list_page = EmployeeListPage(page)
+        add_employee_page = AddEmployeeOrangehrmPage(page)
+        system_users_page = SystemUsersPage(page)
+        add_user_page = AddUserPage(page)
+    
+        login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+        login_page.login("Admin", "admin123")
+>       expect(page).to_have_url("**/web/index.php/pim/viewEmployeeList")
+E       AssertionError: Page URL expected to be '**/web/index.php/pim/viewEmployeeList'
+E       Actual value: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index 
+E       Call log:
+E         - Expect "to_have_url" with timeout 5000ms
+E           2 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+E           - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/validate" navigation to finish...
+E           - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
+E           6 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
+
+projects/orangehrm_enterprise/tests/test_main.py:121: AssertionError
 =========================== short test summary info ============================
-ERROR projects/orangehrm_enterprise/tests/test_main.py
-!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
-=============================== 1 error in 0.12s ===============================
+FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page URL expected to be '**/web/index.php/pim/viewEmployeeList'
+Actual value: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index 
+Call log:
+  - Expect "to_have_url" with timeout 5000ms
+    2 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
+    - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/validate" navigation to finish...
+    - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
+    6 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
+============================== 1 failed in 7.81s ===============================
 

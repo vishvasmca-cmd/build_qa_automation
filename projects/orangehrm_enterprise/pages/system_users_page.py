@@ -11,12 +11,12 @@ class SystemUsersPage:
     @property
     def username_input(self):
         """Input field for username"""
-        return self.page.get_by_placeholder('Username').or_(self.page.locator('input[name="username"]'))
+        return self.page.get_by_placeholder('Username').or_(self.page.locator('input[placeholder="Username"]'))
 
     @property
     def user_role_dropdown(self):
         """Dropdown to select user role"""
-        return self.page.locator('div[class*="oxd-select-text--arrow"]').or_(self.page.locator('div[class*="oxd-select-text--arrow"]'))
+        return self.page.get_by_text('-- Select --').nth(0).or_(self.page.locator('div:has-text("-- Select --")').nth(0))
 
     @property
     def employee_name_input(self):
@@ -26,11 +26,11 @@ class SystemUsersPage:
     @property
     def status_dropdown(self):
         """Dropdown to select user status"""
-        return self.page.locator('div[class*="oxd-select-text--arrow"]').or_(self.page.locator('div[class*="oxd-select-text--arrow"]'))
+        return self.page.get_by_text('-- Select --').nth(1).or_(self.page.locator('div:has-text("-- Select --")').nth(1))
 
     @property
     def reset_button(self):
-        """Button to reset the search form"""
+        """Button to reset the form"""
         return self.page.get_by_role('button', name='Reset').or_(self.page.locator('button:has-text("Reset")'))
 
     @property
@@ -41,7 +41,7 @@ class SystemUsersPage:
     @property
     def add_button(self):
         """Button to add a new user"""
-        return self.page.get_by_role('button', name='Add').or_(self.page.locator('button:has-text("Add")'))
+        return self.page.get_by_role('button', name='+ Add').or_(self.page.locator('button:has-text("+ Add")'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""

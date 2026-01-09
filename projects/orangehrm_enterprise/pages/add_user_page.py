@@ -11,39 +11,44 @@ class AddUserPage:
     @property
     def user_role_dropdown(self):
         """Dropdown to select the user role"""
-        return self.page.get_by_role('combobox', name='User Role').or_(self.page.locator('div[class*="oxd-grid-item"]:nth-child(1) div[class*="oxd-select-wrapper"]'))
+        return self.page.get_by_text('-- Select --').first.or_(self.page.locator('div:has-text("User Role") >> div >> div.oxd-select-text'))
 
     @property
     def employee_name_input(self):
-        """Input field to enter the employee name"""
-        return self.page.get_by_placeholder('Type for hints...').or_(self.page.locator('input[placeholder="Type for hints..."]'))
+        """Input field for entering the employee name"""
+        return self.page.locator('input[placeholder="Type for hints..."]').or_(self.page.locator('div:has-text("Employee Name") >> input'))
 
     @property
     def status_dropdown(self):
         """Dropdown to select the status of the user"""
-        return self.page.get_by_role('combobox', name='Status').or_(self.page.locator('div[class*="oxd-grid-item"]:nth-child(2) div[class*="oxd-select-wrapper"]'))
+        return self.page.get_by_text('-- Select --').nth(1).or_(self.page.locator('div:has-text("Status") >> div >> div.oxd-select-text'))
+
+    @property
+    def username_input(self):
+        """Input field for entering the username"""
+        return self.page.locator('div:has-text("Username") >> input').or_(self.page.locator('input[name="username"]'))
 
     @property
     def password_input(self):
-        """Input field to enter the password"""
-        return self.page.get_by_label('Password').or_(self.page.locator('input[type="password"]').nth(0))
+        """Input field for entering the password"""
+        return self.page.locator('div:has-text("Password") >> input').or_(self.page.locator('input[name="password"]'))
 
     @property
     def confirm_password_input(self):
-        """Input field to confirm the password"""
-        return self.page.get_by_label('Confirm Password').or_(self.page.locator('input[type="password"]').nth(1))
+        """Input field for confirming the password"""
+        return self.page.locator('div:has-text("Confirm Password") >> input').or_(self.page.locator('input[name="confirmPassword"]'))
+
+    @property
+    def cancel_button(self):
+        """Button to cancel adding the user"""
+        return self.page.get_by_role('button', name='Cancel').or_(self.page.locator('button.oxd-button--text'))
 
     @property
     def save_button(self):
         """Button to save the new user"""
-        return self.page.get_by_role('button', name='Save').or_(self.page.locator('button:has-text("Save")'))
-
-    @property
-    def cancel_button(self):
-        """Button to cancel the creation of a new user"""
-        return self.page.get_by_role('button', name='Cancel').or_(self.page.locator('button:has-text("Cancel")'))
+        return self.page.get_by_role('button', name='Save').or_(self.page.locator('button.oxd-button--secondary'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await expect(page).to_have_title('OrangeHRM')
-        await expect(page.locator('h6:has-text("Add User")')).to_be_visible()
+        await expect(page.get_by_role('heading', name='Add User')).to_be_visible()
+        await expect(page).to_have_url(/admin/saveSystemUser)

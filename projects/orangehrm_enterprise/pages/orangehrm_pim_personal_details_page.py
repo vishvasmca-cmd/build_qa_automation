@@ -3,7 +3,7 @@ from playwright.async_api import Page, expect
 class OrangehrmPimPersonalDetailsPage:
     """
     PIM Personal Details Page
-    URL Pattern: /pim/viewPersonalDetails
+    URL Pattern: /pim/viewPersonalDetails/empNumber/*
     """
     def __init__(self, page: Page):
         self.page = page
@@ -24,6 +24,11 @@ class OrangehrmPimPersonalDetailsPage:
         return self.page.get_by_label('Last Name').or_(self.page.locator('input[name="lastName"]'))
 
     @property
+    def nickname_input(self):
+        """Nickname input field"""
+        return self.page.get_by_label('Nickname').or_(self.page.locator('input[name="nickName"]'))
+
+    @property
     def employeeId_input(self):
         """Employee ID input field"""
         return self.page.get_by_label('Employee Id').or_(self.page.locator('input[name="employeeId"]'))
@@ -31,19 +36,14 @@ class OrangehrmPimPersonalDetailsPage:
     @property
     def nationality_dropdown(self):
         """Nationality dropdown"""
-        return self.page.get_by_role('combobox', name='Nationality').or_(self.page.locator('div:has-text("Nationality") >> div >> div.oxd-select-text--after'))
+        return self.page.get_by_role('combobox', name='Nationality').or_(self.page.locator('div[class*="oxd-select-text--arrow"]'))
 
     @property
     def maritalStatus_dropdown(self):
         """Marital Status dropdown"""
-        return self.page.get_by_role('combobox', name='Marital Status').or_(self.page.locator('div:has-text("Marital Status") >> div >> div.oxd-select-text--after'))
-
-    @property
-    def save_button(self):
-        """Save button"""
-        return self.page.get_by_role('button', name='Save').or_(self.page.locator('button:has-text("Save")'))
+        return self.page.get_by_role('combobox', name='Marital Status').or_(self.page.locator('div[class*="oxd-select-text--arrow"]'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await expect(page).to_have_title('OrangeHRM')
-        await expect(page.locator('h6:has-text("Personal Details")')).to_be_visible()
+        await expect(page.locator('//h6[text()="Personal Details"]')).to_be_visible()

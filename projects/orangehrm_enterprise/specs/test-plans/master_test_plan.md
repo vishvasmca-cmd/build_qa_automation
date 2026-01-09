@@ -2,93 +2,70 @@
 
 ## Introduction
 
-This document outlines the test plan for the OrangeHRM Enterprise application. It covers the scope, objectives, and strategy for testing the core functionalities of the system.
+This test plan outlines the testing strategy for the OrangeHRM Enterprise application. The plan includes smoke and regression test suites to ensure the quality and stability of the application.
 
 ## Scope
 
-The testing will cover the following modules:
+The testing will cover the core functionalities of the OrangeHRM Enterprise application, including:
 
-*   Login
-*   PIM (Employee Management)
-*   Admin (User Management)
-
-## Objectives
-
-*   Verify the core functionalities of the OrangeHRM Enterprise application.
-*   Ensure the application meets the specified requirements.
-*   Identify and report any defects or issues.
-
-## Test Strategy
-
-The testing will be conducted using a combination of manual and automated testing techniques. The following test suites will be executed:
-
-*   Smoke Suite: A minimal set of tests to verify the critical functionalities.
-*   Regression Suite: A comprehensive suite of tests to ensure that new changes do not break existing functionalities.
-
-### Smoke Suite Strategy
-
-The Smoke Suite will focus on the following critical functionalities:
-
-1.  **Login:** Verify that users can successfully log in to the system.
-2.  **Add Employee:** Verify that new employees can be added to the system.
-3.  **Create System User:** Verify that system users can be created for employees.
-4.  **Critical Paths:** Focus on the most important user workflows.
-5.  **Core Business Logic:** Validate the primary business rules.
-6.  **No Negative Testing:** Exclude negative scenarios unless critical for security.
-7.  **No Complex Edge Cases:** Avoid complex or unusual scenarios.
-8.  **Happy Path:** Focus on successful, error-free scenarios.
+*   User Authentication (Login)
+*   Employee Management (PIM Module)
+*   User Management (Admin Module)
 
 ## Test Suites
 
 ### Smoke Suite
 
-The Smoke Suite will include the following test cases:
+The smoke suite will focus on verifying the critical functionalities of the application. The goal is to ensure that the core features are working as expected after each build.
 
-*   Login with valid credentials
-*   Add a new employee
-*   Create a system user for the new employee
+#### Smoke Suite Strategy
+
+The following 8-point checklist has been applied to define the Smoke Suite for this project:
+
+1.  **Critical Paths:** Tests cover essential workflows like login, adding an employee, and creating a system user.
+2.  **Core Business Logic:** Focuses on the primary operations of employee and user management.
+3.  **Positive Testing:** Primarily uses valid inputs and happy-path scenarios.
+4.  **No Negative Testing:** Excludes tests with invalid inputs or error conditions.
+5.  **No Complex Edge Cases:** Avoids intricate scenarios or boundary conditions.
+6.  **Fast Execution:** Tests are designed to be quick and efficient.
+7.  **Independent Tests:** Each test operates independently without relying on the state of others.
+8.  **Limited Scope:** Confined to the most vital functionalities of the application.
+
+#### Smoke Test Cases
+
+*   Verify user login functionality.
+*   Verify the ability to add a new employee in the PIM module.
+*   Verify the ability to create a new system user in the Admin module.
 
 ### Regression Suite
 
-The Regression Suite will include a more comprehensive set of test cases, covering various scenarios and edge cases.
+The regression suite will provide comprehensive test coverage to ensure that new changes have not introduced any regressions in existing functionalities. This suite will include a variety of test cases, including positive and negative scenarios, boundary value analysis, and cross-module interactions.
+
+#### Regression Test Cases
+
+*   Verify login with invalid credentials.
+*   Verify adding an employee with missing required fields.
+*   Verify creating a system user with invalid data.
+*   Verify editing and deleting an employee.
+*   Verify editing and deleting a system user.
+*   Verify different user roles and permissions.
 
 ## Test Environment
 
-The tests will be executed in the following environment:
+The tests will be executed on the following environment:
 
-*   Browser: Chrome
+*   Browser: Chrome (latest version)
 *   Operating System: Windows 10
+*   Test Framework: Playwright
 
-## Test Deliverables
+## Test Data
 
-The following deliverables will be produced during the testing process:
+Test data will be used to cover various scenarios and edge cases. This data will include valid and invalid user credentials, employee information, and system user details.
 
-*   Test Plan
-*   Test Cases
-*   Test Results
-*   Defect Reports
+## Test Execution
 
-## Test Schedule
+The tests will be executed automatically using Playwright. The test results will be analyzed to identify any defects or issues.
 
-The testing will be conducted according to the following schedule:
+## Defect Management
 
-*   Smoke Testing: \[Start Date] - \[End Date]
-*   Regression Testing: \[Start Date] - \[End Date]
-
-## Resources
-
-The following resources will be required for the testing process:
-
-*   Test Environment
-*   Test Data
-*   Test Automation Tools
-
-## Entry Criteria
-
-*   Build deployed to test environment
-*   Test environment is stable
-
-## Exit Criteria
-
-*   All planned tests have been executed
-*   All critical defects have been resolved
+Any defects identified during testing will be reported in a defect tracking system. The defects will be prioritized and assigned to the appropriate development team for resolution.
