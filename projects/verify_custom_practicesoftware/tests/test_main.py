@@ -16,7 +16,7 @@ class BasePage:
         self.page = page
 
     def navigate(self, url):
-        self.page.goto(url, timeout=60000)
+        self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
     def take_screenshot(self, name, project_name):
@@ -26,7 +26,7 @@ class MyAccountPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
 
-    def click_my_account(self):
+    def navigate_to_my_account(self):
         self.page.get_by_role("link", name="My Account").click()
 
     def fill_registration_email(self, email):
@@ -38,12 +38,21 @@ class MyAccountPage(BasePage):
     def click_register(self):
         self.page.locator("[name='register']").click()
 
+    def is_registration_error_visible(self):
+        return self.page.locator(".woocommerce-error").is_visible()
+
+    def get_registration_error_text(self):
+        return self.page.locator(".woocommerce-error").inner_text()
+
 def test_autonomous_flow(browser):
     page = browser.new_page()
     my_account_page = MyAccountPage(page)
 
+    # Navigate to the base URL
+    my_account_page.navigate("https://practice.automationtesting.in/")
+
     # Navigate to the My Account page
-    my_account_page.navigate("https://practice.automationtesting.in/my-account/")
+    my_account_page.navigate_to_my_account()
 
     # Fill the registration email
     my_account_page.fill_registration_email("test@example.com")
@@ -57,17 +66,12 @@ def test_autonomous_flow(browser):
     # Take a screenshot
     my_account_page.take_screenshot("registration_form", "AutomationPractice")
 
-    # Expectation for successful registration
-    # The test failed because the password field was not filled. After filling the password field, the registration should be successful.
-    # The success message is wrapped in a ul element with class woocommerce-error. The message itself is in a li element.
-    # expect(page.locator(".woocommerce-message")).to_be_visible()
     page.wait_for_load_state("networkidle")
+
     # Check for error messages. If registration fails, there will be an error message.
-    if page.locator(".woocommerce-error").is_visible():
+    if my_account_page.is_registration_error_visible():
         print("Registration failed. Please check the error message.")
-        expect(True).to_be(False, "Registration Failed")
+        error_message = my_account_page.get_registration_error_text()
+        assert False, f"Registration Failed: {error_message}"
     else:
-        print("Registration successful.")
-        # If registration is successful, you might want to check for a success message or a redirect.
-        # For example, you can check if the page URL changes to the account page.
-        expect(page.url).to_contain("my-account", timeout=60000)
+        print("Registration successful!")

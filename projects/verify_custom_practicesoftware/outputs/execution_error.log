@@ -6,7 +6,7 @@ plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
 collecting ... collected 1 item
 
 projects/verify_custom_practicesoftware/tests/test_main.py::test_autonomous_flow[chromium] [SCREENSHOT] Saved: C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\AutomationPractice\outputs\screenshots\registration_form.png
-Registration successful.
+Registration failed. Please check the error message.
 FAILED
 
 ================================== FAILURES ===================================
@@ -18,8 +18,11 @@ browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vish
         page = browser.new_page()
         my_account_page = MyAccountPage(page)
     
+        # Navigate to the base URL
+        my_account_page.navigate("https://practice.automationtesting.in/")
+    
         # Navigate to the My Account page
-        my_account_page.navigate("https://practice.automationtesting.in/my-account/")
+        my_account_page.navigate_to_my_account()
     
         # Fill the registration email
         my_account_page.fill_registration_email("test@example.com")
@@ -33,50 +36,18 @@ browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vish
         # Take a screenshot
         my_account_page.take_screenshot("registration_form", "AutomationPractice")
     
-        # Expectation for successful registration
-        # The test failed because the password field was not filled. After filling the password field, the registration should be successful.
-        # The success message is wrapped in a ul element with class woocommerce-error. The message itself is in a li element.
-        # expect(page.locator(".woocommerce-message")).to_be_visible()
         page.wait_for_load_state("networkidle")
+    
         # Check for error messages. If registration fails, there will be an error message.
-        if page.locator(".woocommerce-error").is_visible():
+        if my_account_page.is_registration_error_visible():
             print("Registration failed. Please check the error message.")
-            expect(True).to_be(False, "Registration Failed")
-        else:
-            print("Registration successful.")
-            # If registration is successful, you might want to check for a success message or a redirect.
-            # For example, you can check if the page URL changes to the account page.
->           expect(page.url).to_contain("my-account", timeout=60000)
-            ^^^^^^^^^^^^^^^^
+            error_message = my_account_page.get_registration_error_text()
+>           assert False, f"Registration Failed: {error_message}"
+E           AssertionError: Registration Failed: Error: An account is already registered with your email address. Please login.
+E           assert False
 
-projects\verify_custom_practicesoftware\tests\test_main.py:73: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-self = <playwright.sync_api.Expect object at 0x0000024D1C469D50>
-actual = 'https://practice.automationtesting.in/my-account/', message = None
-
-    def __call__(
-        self, actual: Union[Page, Locator, APIResponse], message: Optional[str] = None
-    ) -> Union[PageAssertions, LocatorAssertions, APIResponseAssertions]:
-        if isinstance(actual, Page):
-            return PageAssertions(
-                PageAssertionsImpl(actual._impl_obj, self._timeout, message=message)
-            )
-        elif isinstance(actual, Locator):
-            return LocatorAssertions(
-                LocatorAssertionsImpl(actual._impl_obj, self._timeout, message=message)
-            )
-        elif isinstance(actual, APIResponse):
-            return APIResponseAssertions(
-                APIResponseAssertionsImpl(
-                    actual._impl_obj, self._timeout, message=message
-                )
-            )
->       raise ValueError(f"Unsupported type: {type(actual)}")
-E       ValueError: Unsupported type: <class 'str'>
-
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\__init__.py:143: ValueError
+projects\verify_custom_practicesoftware\tests\test_main.py:75: AssertionError
 =========================== short test summary info ===========================
 FAILED projects/verify_custom_practicesoftware/tests/test_main.py::test_autonomous_flow[chromium]
-============================== 1 failed in 7.49s ==============================
+============================= 1 failed in 11.96s ==============================
 
