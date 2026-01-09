@@ -1,0 +1,128 @@
+{
+  "LoginFormPage": {
+    "description": "This page is a standard login form, allowing users to enter their username and password to gain access to the application.",
+    "url_pattern": "https://demo.applitools.com/app.html",
+    "elements": [
+      {
+        "name": "Username Input",
+        "type": "text field",
+        "primary_locator": "username",
+        "backup_locator": "input[placeholder='Enter your username']",
+        "description": "Input field for the user to enter their username."
+      },
+      {
+        "name": "Password Input",
+        "type": "text field",
+        "primary_locator": "password",
+        "backup_locator": "input[placeholder='Enter your password']",
+        "description": "Input field for the user to enter their password."
+      },
+      {
+        "name": "Sign In Button",
+        "type": "button",
+        "primary_locator": "log-in",
+        "backup_locator": "button[id='log-in']",
+        "description": "Button to submit the login form."
+      },
+      {
+        "name": "Remember Me Checkbox",
+        "type": "checkbox",
+        "primary_locator": "remember-me",
+        "backup_locator": "label[for='remember-me']",
+        "description": "Checkbox to remember the user's login details."
+      },
+      {
+        "name": "Login Form Title",
+        "type": "label",
+        "primary_locator": "Login Form",
+        "backup_locator": "h4",
+        "description": "Title of the login form"
+      }
+    ],
+    "assertions": [
+      "Page title is 'ACME demo app'",
+      "Login Form title is displayed",
+      "Username input field is present",
+      "Password input field is present",
+      "Sign In button is present",
+      "Remember Me checkbox is present"
+    ]
+  },
+  "UnknownPage": {
+    "description": "This page displays the user's financial overview, including balances, credit availability, due payments, and recent transactions.",
+    "url_pattern": "https://demo.applitools.com/app.html",
+    "elements": [
+      {
+        "name": "Add Account Button",
+        "type": "button",
+        "primary_locator": "data-test=\"add-account-button\"",
+        "backup_locator": "text=Add Account",
+        "description": "Button to add a new account."
+      },
+      {
+        "name": "Make Payment Button",
+        "type": "button",
+        "primary_locator": "data-test=\"make-payment-button\"",
+        "backup_locator": "text=Make Payment",
+        "description": "Button to make a payment."
+      },
+      {
+        "name": "View Statement Link",
+        "type": "link",
+        "primary_locator": "text=View Statement >",
+        "backup_locator": "css=a[href*='statement']",
+        "description": "Link to view the account statement."
+      },
+      {
+        "name": "Request Increase Link",
+        "type": "link",
+        "primary_locator": "text=Request Increase >",
+        "backup_locator": "css=a[href*='increase']",
+        "description": "Link to request a credit increase."
+      },
+      {
+        "name": "Pay Now Link",
+        "type": "link",
+        "primary_locator": "text=Pay Now >",
+        "backup_locator": "css=a[href*='pay']",
+        "description": "Link to pay the due amount."
+      },
+      {
+        "name": "Credit Cards Link",
+        "type": "link",
+        "primary_locator": "text=Credit cards",
+        "backup_locator": "css=li[id='credit-cards']",
+        "description": "Link to navigate to credit cards page."
+      },
+      {
+        "name": "Debit Cards Link",
+        "type": "link",
+        "primary_locator": "text=Debit cards",
+        "backup_locator": "css=li[id='debit-cards']",
+        "description": "Link to navigate to debit cards page."
+      },
+      {
+        "name": "Loans Link",
+        "type": "link",
+        "primary_locator": "text=Loans",
+        "backup_locator": "css=li[id='loans']",
+        "description": "Link to navigate to loans page."
+      },
+      {
+        "name": "Mortgages Link",
+        "type": "link",
+        "primary_locator": "text=Mortgages",
+        "backup_locator": "css=li[id='mortgages']",
+        "description": "Link to navigate to mortgages page."
+      }
+    ],
+    "assertions": [
+      "Page title is 'ACME Bank'",
+      "Header text is 'Financial Overview'",
+      "Total Balance is displayed",
+      "Credit Available is displayed",
+      "Due Today is displayed",
+      "Recent Transactions section is displayed"
+    ]
+  }
+}
