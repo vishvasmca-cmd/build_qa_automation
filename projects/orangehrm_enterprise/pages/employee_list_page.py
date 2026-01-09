@@ -2,64 +2,71 @@ from playwright.async_api import Page, expect
 
 class EmployeeListPage:
     """
-    Employee List Page in OrangeHRM
-    URL Pattern: /pim/viewEmployeeList
+    This is the Employee List page within the PIM module, where users can view, search, and manage employee records.
+    URL Pattern: https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
     def Employee Name Input(self):
-        """Input field for filtering by employee name"""
-        return self.page.get_by_placeholder('Type for hints...').or_(self.page.locator('input[placeholder="Type for hints..."]').first)
+        """Input field for filtering employees by name."""
+        return self.page.//label[text()='Employee Name']/following-sibling::input.or_(self.page.input[placeholder='Type for hints...'])
 
     @property
     def Employee Id Input(self):
-        """Input field for filtering by employee id"""
-        return self.page.locator('input[placeholder="Type for hints..."]').nth(1).or_(self.page.locator('Employee Id').locator('xpath=//following-sibling::input'))
+        """Input field for filtering employees by ID."""
+        return self.page.//label[text()='Employee Id']/following-sibling::input.or_(self.page.input[placeholder='Type for hints...'])
 
     @property
     def Employment Status Dropdown(self):
-        """Dropdown for filtering by employment status"""
-        return self.page.locator('div[class*="oxd-select-text--arrow"]').nth(0).or_(self.page.locator('Employment Status').locator('xpath=//following-sibling::div//div[@class="oxd-select-text-input"]'))
+        """Dropdown to filter employees by employment status."""
+        return self.page.//label[text()='Employment Status']/following-sibling::div//div[@class='oxd-select-text--after'].or_(self.page.div.oxd-select-text-input)
 
     @property
     def Include Dropdown(self):
-        """Dropdown for filtering by include"""
-        return self.page.locator('div[class*="oxd-select-text--arrow"]').nth(1).or_(self.page.locator('Include').locator('xpath=//following-sibling::div//div[@class="oxd-select-text-input"]'))
+        """Dropdown to filter employees by inclusion criteria (e.g., Current Employees Only)."""
+        return self.page.//label[text()='Include']/following-sibling::div//div[@class='oxd-select-text--after'].or_(self.page.div.oxd-select-text-input)
 
     @property
     def Supervisor Name Input(self):
-        """Input field for filtering by supervisor name"""
-        return self.page.locator('input[placeholder="Type for hints..."]').nth(2).or_(self.page.locator('Supervisor Name').locator('xpath=//following-sibling::input'))
+        """Input field for filtering employees by supervisor name."""
+        return self.page.//label[text()='Supervisor Name']/following-sibling::input.or_(self.page.input[placeholder='Type for hints...'])
 
     @property
     def Job Title Dropdown(self):
-        """Dropdown for filtering by job title"""
-        return self.page.locator('div[class*="oxd-select-text--arrow"]').nth(2).or_(self.page.locator('Job Title').locator('xpath=//following-sibling::div//div[@class="oxd-select-text-input"]'))
+        """Dropdown to filter employees by job title."""
+        return self.page.//label[text()='Job Title']/following-sibling::div//div[@class='oxd-select-text--after'].or_(self.page.div.oxd-select-text-input)
 
     @property
     def Sub Unit Dropdown(self):
-        """Dropdown for filtering by sub unit"""
-        return self.page.locator('div[class*="oxd-select-text--arrow"]').nth(3).or_(self.page.locator('Sub Unit').locator('xpath=//following-sibling::div//div[@class="oxd-select-text-input"]'))
+        """Dropdown to filter employees by sub unit."""
+        return self.page.//label[text()='Sub Unit']/following-sibling::div//div[@class='oxd-select-text--after'].or_(self.page.div.oxd-select-text-input)
 
     @property
     def Reset Button(self):
-        """Button to reset the filter form"""
-        return self.page.get_by_role('button', name='Reset').or_(self.page.locator('button:has-text("Reset")'))
+        """Button to reset the filter criteria."""
+        return self.page.//button[text()=' Reset '].or_(self.page.button:contains('Reset'))
 
     @property
     def Search Button(self):
-        """Button to submit the filter form"""
-        return self.page.get_by_role('button', name='Search').or_(self.page.locator('button:has-text("Search")'))
+        """Button to apply the filter criteria and search for employees."""
+        return self.page.//button[text()=' Search '].or_(self.page.button:contains('Search'))
 
     @property
     def Add Button(self):
-        """Button to add a new employee"""
-        return self.page.get_by_role('button', name=' Add').or_(self.page.locator('button:has-text(" Add")'))
+        """Button to navigate to the Add Employee page."""
+        return self.page.//button[contains(@class, 'oxd-button--success') and contains(text(), 'Add')].or_(self.page.button:contains('Add'))
+
+    @property
+    def Employee List Table(self):
+        """Table displaying the list of employees."""
+        return self.page.//div[@class='oxd-table-body'].or_(self.page.div.oxd-table-body)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await expect(page).to_have_url('https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList')
-        await expect(page.locator('h6', has_text='Employee Information')).to_be_visible()
-        await expect(page.locator('div[class="oxd-table-body"]')).to_be_visible()
+        await Page title is 'OrangeHRM'
+        await Header text is 'Employee Information'
+        await The 'Add' button is present
+        await The 'Search' button is present
+        await The employee list table is displayed

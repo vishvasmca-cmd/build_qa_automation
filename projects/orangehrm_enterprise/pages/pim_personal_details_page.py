@@ -2,79 +2,130 @@ from playwright.async_api import Page, expect
 
 class PimPersonalDetailsPage:
     """
-    PIM Personal Details Page
-    URL Pattern: /pim/viewPersonalDetails
+    This page allows users to view and modify the personal details of an employee.
+    URL Pattern: https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewPersonalDetails/empNumber/*
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def firstName(self):
-        """First Name input field"""
-        return self.page.get_by_label('First Name').or_(self.page.locator('input[name="firstName"]'))
+    def First Name(self):
+        """Input field for the employee's first name."""
+        return self.page.[name='firstName'].or_(self.page.input[placeholder='First Name'])
 
     @property
-    def middleName(self):
-        """Middle Name input field"""
-        return self.page.get_by_label('Middle Name').or_(self.page.locator('input[name="middleName"]'))
+    def Middle Name(self):
+        """Input field for the employee's middle name."""
+        return self.page.[name='middleName'].or_(self.page.input[placeholder='Middle Name'])
 
     @property
-    def lastName(self):
-        """Last Name input field"""
-        return self.page.get_by_label('Last Name').or_(self.page.locator('input[name="lastName"]'))
+    def Last Name(self):
+        """Input field for the employee's last name."""
+        return self.page.[name='lastName'].or_(self.page.input[placeholder='Last Name'])
 
     @property
-    def employeeId(self):
-        """Employee ID input field"""
-        return self.page.get_by_label('Employee Id').or_(self.page.locator('input[name="employeeId"]'))
+    def Employee Id(self):
+        """Input field for the employee's ID."""
+        return self.page.[name='employeeId'].or_(self.page.div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div > input)
 
     @property
-    def otherId(self):
-        """Other ID input field"""
-        return self.page.get_by_label('Other Id').or_(self.page.locator('input[name="otherId"]'))
+    def Other Id(self):
+        """Input field for the employee's other ID."""
+        return self.page.[name='otherId'].or_(self.page.div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div > input)
 
     @property
-    def driverLicenseNumber(self):
-        """Driver's License Number input field"""
-        return self.page.get_by_label('Driver's License Number').or_(self.page.locator('input[name="driverLicenseNo"]'))
+    def Driver's License Number(self):
+        """Input field for the employee's driver's license number."""
+        return self.page.[name='driverLicenseNo'].or_(self.page.div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > div > input)
 
     @property
-    def licenseExpiryDate(self):
-        """License Expiry Date input field"""
-        return self.page.get_by_label('License Expiry Date').or_(self.page.locator('input[name="licenseExpiryDate"]'))
+    def License Expiry Date(self):
+        """Input field for the employee's license expiry date."""
+        return self.page.[placeholder='yyyy-dd-mm'].or_(self.page.div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div > input)
 
     @property
-    def nationalityDropdown(self):
-        """Nationality dropdown"""
-        return self.page.get_by_role('combobox', name='Nationality').or_(self.page.locator('div[class*="oxd-select-text--arrow"]'))
+    def Nationality(self):
+        """Dropdown for selecting the employee's nationality."""
+        return self.page.div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div > div:nth-child(1) > div > div:nth-child(1).or_(self.page.div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > div > div:nth-child(1) > div > div:nth-child(1))
 
     @property
-    def maritalStatusDropdown(self):
-        """Marital Status dropdown"""
-        return self.page.get_by_role('combobox', name='Marital Status').or_(self.page.locator('div[class*="oxd-select-text--arrow"]'))
+    def Marital Status(self):
+        """Dropdown for selecting the employee's marital status."""
+        return self.page.div:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div > div:nth-child(1) > div > div:nth-child(1).or_(self.page.div:nth-child(4) > div:nth-child(2) > div:nth-child(1) > div > div:nth-child(1) > div > div:nth-child(1))
 
     @property
-    def dateOfBirth(self):
-        """Date of Birth input field"""
-        return self.page.get_by_label('Date of Birth').or_(self.page.locator('input[placeholder="yyyy-dd-mm"]'))
+    def Date of Birth(self):
+        """Input field for the employee's date of birth."""
+        return self.page.[placeholder='yyyy-dd-mm'].or_(self.page.div:nth-child(5) > div:nth-child(1) > div:nth-child(1) > div > input)
 
     @property
-    def genderMale(self):
-        """Gender Male radio button"""
-        return self.page.get_by_label('Male').or_(self.page.locator('input[value="1"]'))
+    def Male Gender(self):
+        """Radio button for selecting male gender."""
+        return self.page.[value='1'].or_(self.page.div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(1) > label)
 
     @property
-    def genderFemale(self):
-        """Gender Female radio button"""
-        return self.page.get_by_label('Female').or_(self.page.locator('input[value="2"]'))
+    def Female Gender(self):
+        """Radio button for selecting female gender."""
+        return self.page.[value='2'].or_(self.page.div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div > div > div:nth-child(2) > label)
 
     @property
-    def saveButton(self):
-        """Save button"""
-        return self.page.get_by_role('button', name='Save').or_(self.page.locator('button:has-text("Save")'))
+    def Save Button(self):
+        """Button to save the personal details."""
+        return self.page.button[type='submit'].or_(self.page.button:has-text('Save'))
+
+    @property
+    def Personal Details Tab(self):
+        """Link to the Personal Details tab."""
+        return self.page.text=Personal Details.or_(self.page.a:has-text('Personal Details'))
+
+    @property
+    def Contact Details Tab(self):
+        """Link to the Contact Details tab."""
+        return self.page.text=Contact Details.or_(self.page.a:has-text('Contact Details'))
+
+    @property
+    def Emergency Contacts Tab(self):
+        """Link to the Emergency Contacts tab."""
+        return self.page.text=Emergency Contacts.or_(self.page.a:has-text('Emergency Contacts'))
+
+    @property
+    def Dependents Tab(self):
+        """Link to the Dependents tab."""
+        return self.page.text=Dependents.or_(self.page.a:has-text('Dependents'))
+
+    @property
+    def Immigration Tab(self):
+        """Link to the Immigration tab."""
+        return self.page.text=Immigration.or_(self.page.a:has-text('Immigration'))
+
+    @property
+    def Job Tab(self):
+        """Link to the Job tab."""
+        return self.page.text=Job.or_(self.page.a:has-text('Job'))
+
+    @property
+    def Salary Tab(self):
+        """Link to the Salary tab."""
+        return self.page.text=Salary.or_(self.page.a:has-text('Salary'))
+
+    @property
+    def Report-to Tab(self):
+        """Link to the Report-to tab."""
+        return self.page.text=Report-to.or_(self.page.a:has-text('Report-to'))
+
+    @property
+    def Qualifications Tab(self):
+        """Link to the Qualifications tab."""
+        return self.page.text=Qualifications.or_(self.page.a:has-text('Qualifications'))
+
+    @property
+    def Memberships Tab(self):
+        """Link to the Memberships tab."""
+        return self.page.text=Memberships.or_(self.page.a:has-text('Memberships'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await expect(page).to_have_title('OrangeHRM')
-        await expect(page.locator('h6:has-text("Personal Details")')).to_be_visible()
-        await expect(page.locator('//label[text()="Employee Full Name"]')).to_be_visible()
+        await Assert that the page title contains 'OrangeHRM'
+        await Assert that the 'Personal Details' header is displayed
+        await Assert that the 'First Name' field is present
+        await Assert that the 'Save' button is present

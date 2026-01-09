@@ -715,3 +715,43 @@
 - ⚠️ PROHIBITED: DON'T assume elements are immediately available after page load; ALWAYS implement explicit waits for critical elements to be interactable.
 
 - ✅ PREFERRED: DO use more robust locators (e.g., role, ID, or data attributes) in addition to or instead of text-based locators, especially for elements that might have dynamic text or be subject to localization.
+
+- ⚠️ PROHIBITED: DON'T assume a successful login solely based on the absence of error messages; ALWAYS verify navigation to the expected dashboard URL.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for login attempts, especially in environments with potential network instability.
+
+- ⚠️ PROHIBITED: DON'T assume a successful login solely based on clicking the login button; ALWAYS verify navigation to the dashboard or a successful login indicator.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for login attempts, especially in environments with potential network instability or server delays.
+
+- ⚠️ PROHIBITED: DON'T assume successful login without explicitly verifying the presence of a dashboard element after navigation.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for login attempts, especially in environments with potential network instability or server-side delays.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `wait_for_url` with a wildcard without considering potential performance bottlenecks or network latency.
+
+- ✅ PREFERRED: DO implement explicit waits for key elements on the dashboard page to load after navigation, in addition to `wait_for_url`, to ensure the page is fully rendered before proceeding with further actions.
+
+- ⚠️ PROHIBITED: DON'T assume a successful login based solely on clicking the login button; ALWAYS verify navigation to the dashboard.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for login attempts, especially in environments with potential network instability.
+
+- ⚠️ PROHIBITED: DON'T assume successful login without explicitly verifying the presence of a key element on the dashboard page (e.g., a specific heading or button) in addition to URL verification.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for login attempts, especially in environments with potential network instability or slow server responses.
+
+- ⚠️ PROHIBITED: DON'T directly embed Playwright locator strings within other locator strings without proper escaping or concatenation.
+
+- ✅ PREFERRED: DO ensure that Playwright locators are constructed correctly, using proper syntax and escaping special characters when necessary. Consider using string formatting or concatenation to build complex locators.
+
+- ⚠️ PROHIBITED: DON'T assume elements are immediately available after navigation; always wait for them to be visible and enabled before interacting.
+
+- ✅ PREFERRED: DO use explicit waits with `locator.wait_for()` to ensure elements are visible and enabled before attempting to click them, especially after page transitions or data loading.
+
+- ⚠️ PROHIBITED: DON'T assume successful login based solely on clicking the login button; ALWAYS verify navigation to the dashboard URL.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for login attempts, especially in environments with potential network instability or server-side delays.
+
+- ⚠️ PROHIBITED: DON'T assume a successful login solely based on clicking the login button; ALWAYS verify the URL after login.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for login attempts to handle intermittent server slowness or network issues.
