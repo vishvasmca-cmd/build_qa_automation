@@ -9,33 +9,49 @@ class AddEmployeeOrangehrmPage:
         self.page = page
 
     @property
-    def Add Employee Header(self):
-        """The main header of the Add Employee page."""
-        return self.page.text=Add Employee.or_(self.page.css=.orangehrm-card-title)
-
-    @property
-    def First Name Input(self):
+    def First Name(self):
         """Input field for the employee's first name."""
-        return self.page.placeholder=First Name.or_(self.page.css=input[name='firstName'])
+        return self.page.[name='firstName'].or_(self.page.input[placeholder='First Name'])
 
     @property
-    def Middle Name Input(self):
+    def Middle Name(self):
         """Input field for the employee's middle name."""
-        return self.page.placeholder=Middle Name.or_(self.page.css=input[name='middleName'])
+        return self.page.[name='middleName'].or_(self.page.input[placeholder='Middle Name'])
 
     @property
-    def Last Name Input(self):
+    def Last Name(self):
         """Input field for the employee's last name."""
-        return self.page.placeholder=Last Name.or_(self.page.css=input[name='lastName'])
+        return self.page.[name='lastName'].or_(self.page.input[placeholder='Last Name'])
 
     @property
-    def Employee Id Input(self):
+    def Employee Id(self):
         """Input field for the employee's ID."""
-        return self.page.css=div.oxd-grid-item:nth-child(1) > div:nth-child(1) > div:nth-child(2) > input.or_(self.page.name=employeeId)
+        return self.page.[name='employeeId'].or_(self.page.div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > input)
+
+    @property
+    def Create Login Details Toggle(self):
+        """Toggle to enable or disable creating login details for the new employee."""
+        return self.page.oxd-switch-input.or_(self.page.span.oxd-switch-input)
+
+    @property
+    def Save Button(self):
+        """Button to save the new employee's information."""
+        return self.page.button:has-text('Save').or_(self.page.button.oxd-button--secondary)
+
+    @property
+    def Cancel Button(self):
+        """Button to cancel adding a new employee."""
+        return self.page.button:has-text('Cancel').or_(self.page.button.oxd-button--ghost)
+
+    @property
+    def Add Profile Picture(self):
+        """Button to upload a profile picture for the employee."""
+        return self.page.div.orangehrm-employee-image > div > input[type=file].or_(self.page.div.orangehrm-employee-image > div > input)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await Assert that the page title is 'OrangeHRM'
-        await Assert that the 'Add Employee' header is displayed
-        await Assert that the First Name input field is present
-        await Assert that the Last Name input field is present
+        await Assert that the header text is 'Add Employee'
+        await Assert that the 'First Name' field is present
+        await Assert that the 'Last Name' field is present
+        await Assert that the 'Save' button is present

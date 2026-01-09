@@ -835,3 +835,43 @@
 - ⚠️ PROHIBITED: DON'T assume the dashboard URL will always match the pattern '**/dashboard' after login. Be specific or use a more robust check for dashboard content.
 
 - ✅ PREFERRED: DO verify successful login by waiting for a specific element on the dashboard page to be present, rather than relying solely on URL matching.
+
+- ⚠️ PROHIBITED: DON'T assume a successful navigation solely based on initial URL change; ALWAYS verify the complete page load and expected content after navigation.
+
+- ✅ PREFERRED: DO use `page.wait_for_load_state()` after navigation to ensure all resources are loaded before proceeding with further actions.
+
+- ⚠️ PROHIBITED: DON'T use locators that are not specific enough and can match multiple elements on the page. ALWAYS aim for unique locators.
+
+- ✅ PREFERRED: DO use more specific locators, such as role-based locators (e.g., get_by_role('button', name='Login')) or CSS selectors that target the intended element more precisely. Consider using data attributes for more robust locators.
+
+- ⚠️ PROHIBITED: DON'T use locators that rely solely on text content when multiple elements with the same text exist on the page. This leads to ambiguity and strict mode violations.
+
+- ✅ PREFERRED: DO use more specific locators, such as those including unique attributes (e.g., `data-v-67d2aedf`), or refine the locator using `nth()` or `first()`/`last()` after confirming the correct element is targeted.
+
+- ⚠️ PROHIBITED: DON'T assume that elements are immediately available and clickable after a navigation event; always implement explicit waits.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` or `state='attached'` before attempting to interact with elements after navigation, especially when dealing with dynamically loaded content.
+
+- ⚠️ PROHIBITED: DON'T assume elements are immediately available after navigation; always wait for them to be visible and enabled before interacting with them.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with explicit `state='visible'` or `state='enabled'` before attempting to click or interact with elements after navigation, especially when dealing with dynamic content.
+
+- ⚠️ PROHIBITED: DON'T assume that navigation is complete and elements are immediately clickable after a page load; always wait for the target element to be visible and stable.
+
+- ✅ PREFERRED: DO use `locator.evaluate` to check if the element is present and visible before attempting to click it, or use `locator.wait_for()` with `state='visible'` option.
+
+- ⚠️ PROHIBITED: DON'T rely solely on URL matching for navigation validation; verify the page content as well.
+
+- ✅ PREFERRED: DO implement explicit checks for key elements on the target page after navigation to ensure the page has fully loaded and rendered.
+
+- ⚠️ PROHIBITED: DON'T rely solely on URL matching for navigation validation; verify the page content as well.
+
+- ✅ PREFERRED: DO use `page.locator('element_on_dashboard').wait_for()` in addition to URL matching to confirm successful navigation to the dashboard.
+
+- ⚠️ PROHIBITED: DON'T rely solely on URL matching for navigation validation; verify the page content as well.
+
+- ✅ PREFERRED: DO implement explicit waits for key elements on the target page to load after navigation, in addition to URL validation.
+
+- ⚠️ PROHIBITED: DON'T rely solely on URL matching with wildcards for navigation confirmation; ensure the page content is fully loaded and the expected elements are present before proceeding.
+
+- ✅ PREFERRED: DO use a combination of URL matching and element presence checks to confirm successful navigation and page load.
