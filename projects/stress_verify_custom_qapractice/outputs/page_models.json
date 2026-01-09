@@ -1,0 +1,160 @@
+{
+  "TestPagesPage": {
+    "description": "A collection of practice pages for software testing and automation.",
+    "url_pattern": "https://testpages.herokuapp.com/tags/javascript/",
+    "elements": [
+      {
+        "name": "pages_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Pages')",
+        "backup_locator": "locator('text=Pages')",
+        "description": "Link to the pages section."
+      },
+      {
+        "name": "apps_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Apps')",
+        "backup_locator": "locator('text=Apps')",
+        "description": "Link to the apps section."
+      },
+      {
+        "name": "challenges_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Challenges')",
+        "backup_locator": "locator('text=Challenges')",
+        "description": "Link to the challenges section."
+      },
+      {
+        "name": "reference_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Reference')",
+        "backup_locator": "locator('text=Reference')",
+        "description": "Link to the reference section."
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('Test Pages For Automation Testing')",
+      "expect(page.get_by_role('heading', name='Software Testing Practice Pages')).to_be_visible()"
+    ]
+  },
+  "TestPagesJavascriptTagsPage": {
+    "description": "Page displaying links to apps tagged with JavaScript.",
+    "url_pattern": "/tags/javascript/",
+    "elements": [
+      {
+        "name": "triangle_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Triangle')",
+        "backup_locator": "locator('a', has_text='Triangle')",
+        "description": "Link to the Triangle app."
+      },
+      {
+        "name": "7_char_val_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='7 Char Val')",
+        "backup_locator": "locator('a', has_text='7 Char Val')",
+        "description": "Link to the 7 Char Val app."
+      },
+      {
+        "name": "customer_login_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Customer Login | Basic Shopping Cart')",
+        "backup_locator": "locator('a', has_text='Customer Login | Basic Shopping Cart')",
+        "description": "Link to the Customer Login | Basic Shopping Cart app."
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('Test Page For JavaScript Tags')",
+      "expect(page.get_by_role('heading', name='Tag: JavaScript')).to_be_visible()"
+    ]
+  },
+  "TestPagesJavascriptTagPage": {
+    "description": "Page displaying links to different apps tagged with JavaScript",
+    "url_pattern": "/pages/basics/alerts-javascript/",
+    "elements": [
+      {
+        "name": "triangle_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Triangle')",
+        "backup_locator": "locator('a:has-text(\"Triangle\")')",
+        "description": "Link to the Triangle app"
+      },
+      {
+        "name": "7_char_val_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='7 Char Val')",
+        "backup_locator": "locator('a:has-text(\"7 Char Val\")')",
+        "description": "Link to the 7 Char Val app"
+      },
+      {
+        "name": "customer_login_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Customer Login | Basic Shopping Cart')",
+        "backup_locator": "locator('a:has-text(\"Customer Login | Basic Shopping Cart\")')",
+        "description": "Link to the Customer Login | Basic Shopping Cart app"
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('Test Page For Basic JavaScript Alerts')",
+      "expect(page.locator('h1:has-text(\"Tag: JavaScript\")')).to_be_visible()"
+    ]
+  },
+  "AlertsJavascriptPage": {
+    "description": "Page demonstrating JavaScript alerts, confirms, and prompts.",
+    "url_pattern": "https://testpages.herokuapp.com/pages/basics/alerts-javascript/",
+    "elements": [
+      {
+        "name": "show_alert_box_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Show alert box')",
+        "backup_locator": "locator('#alertexamples')",
+        "locator_strategy": "primary.or_(backup)",
+        "description": "Button to trigger a JavaScript alert."
+      },
+      {
+        "name": "show_confirm_box_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Show confirm box')",
+        "backup_locator": "locator('#confirmexample')",
+        "locator_strategy": "primary.or_(backup)",
+        "description": "Button to trigger a JavaScript confirm."
+      },
+      {
+        "name": "show_prompt_box_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Show prompt box')",
+        "backup_locator": "locator('#promptexample')",
+        "locator_strategy": "primary.or_(backup)",
+        "description": "Button to trigger a JavaScript prompt."
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('Alerts - JavaScript')",
+      "expect(page.get_by_role('heading', name='Alerts - JavaScript')).to_be_visible()"
+    ]
+  },
+  "UnknownPage": {
+    "description": "Page demonstrating JavaScript alerts, confirms, and prompts.",
+    "url_pattern": "/pages/basics/alerts-javascript/",
+    "elements": [
+      {
+        "name": "show_alert_box_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Show alert box')",
+        "backup_locator": "locator('input[value=\"Show alert box\"]')",
+        "description": "Button to trigger a JavaScript alert box."
+      },
+      {
+        "name": "show_confirm_box_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Show confirm box')",
+        "backup_locator": "locator('input[value=\"Show confirm box\"]')",
+        "description": "Button to trigger a JavaScript confirm box."
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('Alerts - JavaScript')",
+      "expect(page.get_by_role('heading', name='Alerts - JavaScript')).to_be_visible()"
+    ]
+  }
+}
