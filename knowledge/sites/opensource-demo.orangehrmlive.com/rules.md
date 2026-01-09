@@ -647,3 +647,7 @@
 - ⚠️ PROHIBITED: DON'T use locators that are not specific enough and can match multiple elements on the page. ALWAYS aim for unique and unambiguous locators.
 
 - ✅ PREFERRED: DO use more specific locators, such as role-based locators (e.g., `get_by_role('button', name='Login')`) or locators that include attributes to uniquely identify the target element. Consider using `nth()` or `first()` if multiple elements are expected but you want to target a specific one.
+
+- ⚠️ PROHIBITED: DON'T assume that elements are immediately available after navigation; always implement explicit waits for critical elements to appear and become interactable.
+
+- ✅ PREFERRED: DO use `locator.isVisible()` or `locator.isEnabled()` to confirm the element is ready before attempting to interact with it.
