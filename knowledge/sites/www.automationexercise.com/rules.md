@@ -50,3 +50,43 @@
 - ⚠️ PROHIBITED: DON'T assume the page is fully loaded and interactive immediately after navigation; always wait for a specific element or condition to ensure stability.
 
 - ✅ PREFERRED: DO implement explicit waits for critical elements or network activity to complete before interacting with the page, especially after navigation or significant UI changes.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' link is immediately available; always implement a retry mechanism or explicit wait with a more robust selector.
+
+- ✅ PREFERRED: DO use more specific and resilient locators, such as data attributes or a combination of attributes, to target the 'Add to cart' button. Also, DO check if the product is in stock before attempting to add it to the cart.
+
+- ⚠️ PROHIBITED: DON'T rely solely on the default timeout for page load, especially when dealing with external resources or potentially slow-loading content.
+
+- ✅ PREFERRED: DO implement explicit waits for critical elements or network requests to complete before proceeding with the test, or increase the default timeout if the application consistently takes longer to load.
+
+- ⚠️ PROHIBITED: DON'T rely solely on the default timeout for page load; especially when dealing with external resources or potentially slow-loading content.
+
+- ✅ PREFERRED: DO implement explicit waits for critical elements or network requests to complete before proceeding with interactions, or increase the default timeout if the application consistently takes longer to load.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' link is immediately available; account for potential loading delays or dynamic content.
+
+- ✅ PREFERRED: DO implement explicit waits or retries when interacting with elements that may not be immediately available, especially after page loads or dynamic content updates.
+
+- ⚠️ PROHIBITED: DON'T rely on the 'Add to cart' link appearing immediately; it may require a wait or a more specific selector.
+
+- ✅ PREFERRED: DO implement explicit waits or use more robust selectors (e.g., data-testid) to ensure the 'Add to cart' link is present and visible before attempting to click it.
+
+- ⚠️ PROHIBITED: DON'T rely solely on the default timeout for page load states, especially when dealing with websites known to have variable loading times or heavy resource usage.
+
+- ✅ PREFERRED: DO implement explicit waits or increase the default timeout for page load states when network conditions are unstable or the target website is known to be slow.
+
+- ⚠️ PROHIBITED: DON'T rely on the 'Add to cart' link appearing immediately; it might be delayed by animations or dynamic content loading.
+
+- ✅ PREFERRED: DO implement a retry mechanism or explicit wait with a more robust selector (e.g., using data attributes) to ensure the 'Add to cart' element is present and interactable before attempting to click it.
+
+- ⚠️ PROHIBITED: DON'T rely solely on the default timeout for page load, especially when dealing with external resources or potentially slow-loading content.
+
+- ✅ PREFERRED: DO implement explicit waits for critical elements or network requests to complete before proceeding with interactions, or increase the default timeout if the application consistently requires more time to load.
+
+- ⚠️ PROHIBITED: DON'T rely solely on the default timeout for page load; especially when dealing with external resources or potentially slow-loading content.
+
+- ✅ PREFERRED: DO implement explicit waits for critical elements or network requests to complete before proceeding with the test, or increase the default timeout if the application consistently takes longer to load.
+
+- ⚠️ PROHIBITED: DON'T rely solely on default timeout settings; ALWAYS explicitly set timeouts based on expected element load times and network conditions.
+
+- ✅ PREFERRED: DO verify the project's directory structure and import statements to ensure correct relative import resolution before running tests.

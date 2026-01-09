@@ -11,32 +11,51 @@ sys.path.append('C:/Users/vishv/.gemini/antigravity/playground/inner-event/core/
 from helpers import take_screenshot
 
 
+from playwright.sync_api import Page
+
 class BasePage:
-    def __init__(self, page):
+    def __init__(self, page: Page):
         self.page = page
 
-    def navigate(self, url):
+    def navigate(self, url: str):
         self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
-    def take_screenshot(self, name, project_name):
-        take_screenshot(self.page, name, project_name)
+    def get_header_link(self, link_text: str):
+        return self.page.locator('header').get_by_role('link', name=link_text)
+
+    def get_footer_link(self, link_text: str):
+        return self.page.locator('footer').get_by_role('link', name=link_text)
+
+
+from playwright.sync_api import Page
+from .base_page import BasePage
 
 class HomePage(BasePage):
-    def __init__(self, page):
+    def __init__(self, page: Page):
         super().__init__(page)
 
     def click_products_link(self):
-        self.page.get_by_role("link", name=" Products").click()
+        self.get_header_link("Products").click()
+
+
+from playwright.sync_api import Page
+from .base_page import BasePage
 
 class ProductsPage(BasePage):
-    def __init__(self, page):
+    def __init__(self, page: Page):
         super().__init__(page)
 
     def add_to_cart(self):
         self.page.get_by_role("link", name="Add to cart").first.click()
 
-def test_autonomous_flow(browser):
+
+from playwright.sync_api import Browser
+from projects.automationexercise_regression.pages.e2e.base_page import BasePage
+from projects.automationexercise_regression.pages.e2e.home_page import HomePage
+from projects.automationexercise_regression.pages.e2e.products_page import ProductsPage
+
+def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
     base_page = BasePage(page)
     home_page = HomePage(page)
@@ -46,5 +65,3 @@ def test_autonomous_flow(browser):
     home_page.click_products_link()
     products_page.add_to_cart()
     products_page.add_to_cart()
-
-    page.close()
