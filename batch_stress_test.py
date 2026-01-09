@@ -7,6 +7,15 @@ import random
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 
+# Import RAG and Git utilities
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from core.knowledge.rag_synthesizer import RAGSynthesizer
+try:
+    from core.utils.git_utils import GitManager
+except ImportError:
+    # Basic fallback if git_utils is moved/renamed
+    GitManager = None
+
 # Windows Unicode Fix
 try:
     if sys.stdout.encoding.lower() != 'utf-8':
@@ -109,7 +118,35 @@ def main():
         results.append(res)
         
         status = "✅ PASS" if res['success'] else "❌ FAIL"
+        status = "✅ PASS" if res['success'] else "❌ FAIL"
         print(f"Finished {p['name'] if 'name' in p else p.get('project', 'unknown')}: {status} ({res['duration']:.1f}s)")
+
+        # ---------------------------------------------------------
+        # POST-RUN AUTOMATION (RAG & GIT)
+        # ---------------------------------------------------------
+        try:
+            # 1. RAG Synthesis (Active Learning)
+            print("🧠 Running RAG Synthesis...")
+            synthesizer = RAGSynthesizer()
+            synthesizer.harvest_failures()
+            synthesizer.generate_knowledge_graph()
+            
+            # 2. Git Sync (Commit & Push)
+            if GitManager:
+                print("🔄 Syncing with Remote...")
+                git = GitManager(os.getcwd())
+                commit_msg = f"Auto-Learned: {p.get('name', 'unknown')} - {status}"
+                git.safe_commit_and_push(commit_msg)
+            else:
+                # Fallback CLI Git
+                subprocess.run(["git", "add", "."], check=False)
+                subprocess.run(["git", "commit", "-m", f"Auto-Learned: {p.get('name', 'unknown')} - {status}"], check=False)
+                subprocess.run(["git", "pull", "--rebase", "origin", "main"], check=False)
+                subprocess.run(["git", "push", "origin", "main"], check=False)
+                
+        except Exception as e:
+            print(f"⚠️ Post-run automation failed: {e}")
+        # ---------------------------------------------------------
 
     # Summary
     print("\n" + "="*50)
