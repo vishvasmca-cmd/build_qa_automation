@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def safe_llm_call(max_retries=3, initial_delay=1, backoff_factor=2):
+def safe_llm_call(max_retries=10, initial_delay=1, backoff_factor=2):
 # ... (decorator logic remains same, but we use it below)
     def decorator(func):
         @wraps(func)
@@ -23,8 +23,14 @@ def safe_llm_call(max_retries=3, initial_delay=1, backoff_factor=2):
                 except Exception as e:
                     last_exception = e
                     if attempt == max_retries: raise e
-                    time.sleep(delay)
-                    delay *= backoff_factor
+                    
+                    # Special handling for Rate Limits (429)
+                    if "429" in str(e) or "ResourceExhausted" in str(e):
+                        print(colored(f"⚠️ 429 Rate Limit Hit. Cooling down for 60s...", "yellow"))
+                        time.sleep(60)
+                    else:
+                        time.sleep(delay)
+                        delay *= backoff_factor
             return None
         return wrapper
     return decorator
@@ -34,7 +40,7 @@ class SafeLLM:
     Wrapper for google-generativeai that behaves like ChatGoogleGenerativeAI.
     Bypasses Langchain/Pydantic version conflicts in the current environment.
     """
-    def __init__(self, model="gemini-2.0-flash", temperature=0.1, **kwargs):
+    def __init__(self, model="gemini-flash-latest", temperature=0.1, **kwargs):
         api_key = os.environ.get("GOOGLE_API_KEY")
         if not api_key:
             raise ValueError("GOOGLE_API_KEY not found in environment")
@@ -45,6 +51,9 @@ class SafeLLM:
 
     @safe_llm_call()
     def invoke(self, messages):
+        # Free Tier Throttling: Aggressive 10s delay to stay under RPM limits
+        time.sleep(10)
+
         # Convert Langchain-style messages to direct SDK prompt
         if isinstance(messages, list):
             # Try to concatenate messages or use content

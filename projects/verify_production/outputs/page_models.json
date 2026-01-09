@@ -1,0 +1,168 @@
+{
+  "HomePage": {
+    "description": "Login page for Swag Labs customer access",
+    "url_pattern": "/",
+    "elements": [
+      {
+        "name": "username_field",
+        "type": "text_field",
+        "primary_locator": "get_by_test_id('username')",
+        "backup_locator": "locator('#user-name')",
+        "description": "Field to enter username"
+      },
+      {
+        "name": "password_field",
+        "type": "text_field",
+        "primary_locator": "get_by_test_id('password')",
+        "backup_locator": "locator('#password')",
+        "description": "Field to enter password"
+      },
+      {
+        "name": "login_button",
+        "type": "button",
+        "primary_locator": "get_by_test_id('login-button')",
+        "backup_locator": "locator('#login-button')",
+        "description": "Button to submit login credentials"
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('Swag Labs')",
+      "expect(page.locator('.login_logo')).to_be_visible()",
+      "expect(page.locator('.login_wrapper')).to_be_visible()"
+    ]
+  },
+  "SwagLabsPage": {
+    "description": "Inventory page displaying available products.",
+    "url_pattern": "/inventory.html",
+    "elements": [
+      {
+        "name": "product_name",
+        "type": "text",
+        "primary_locator": "get_by_role('link', name=re.compile(r'Sauce Labs.*', re.IGNORECASE))",
+        "backup_locator": "locator('.inventory_item_name')",
+        "description": "Name of the product"
+      },
+      {
+        "name": "add_to_cart_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name=re.compile(r'Add to cart', re.IGNORECASE))",
+        "backup_locator": "locator('[data-test^=\"add-to-cart-\"]')",
+        "description": "Button to add product to cart"
+      },
+      {
+        "name": "remove_from_cart_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name=re.compile(r'Remove', re.IGNORECASE))",
+        "backup_locator": "locator('[data-test^=\"remove-\"]')",
+        "description": "Button to remove product from cart"
+      },
+      {
+        "name": "shopping_cart_link",
+        "type": "link",
+        "primary_locator": "locator('#shopping_cart_container a')",
+        "backup_locator": "locator('.shopping_cart_link')",
+        "description": "Link to the shopping cart"
+      },
+      {
+        "name": "product_image",
+        "type": "image",
+        "primary_locator": "locator('.inventory_item_img img')",
+        "backup_locator": "locator('.inventory_item_img a')",
+        "description": "Image of the product"
+      },
+      {
+        "name": "burger_menu",
+        "type": "button",
+        "primary_locator": "locator('#react-burger-menu-btn')",
+        "backup_locator": "locator('#menu_button')",
+        "description": "Burger menu button"
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('Swag Labs')",
+      "expect(page.locator('.title')).to_have_text('Products')",
+      "expect(page.url).to_contain('/inventory.html')"
+    ]
+  },
+  "SauceLabsInventoryPage": {
+    "description": "Inventory page displaying a list of products available for purchase.",
+    "url_pattern": "/inventory",
+    "elements": [
+      {
+        "name": "product_label",
+        "type": "label",
+        "primary_locator": "get_by_text(\"Products\")",
+        "backup_locator": "locator(\".title\")",
+        "description": "Label indicating the page displays products."
+      },
+      {
+        "name": "product_item",
+        "type": "list_item",
+        "primary_locator": "locator(\".inventory_item\")",
+        "backup_locator": "locator(\".inventory_list > div\")",
+        "description": "Individual product item in the inventory list."
+      },
+      {
+        "name": "product_image",
+        "type": "image",
+        "primary_locator": "locator(\".inventory_item_img img\")",
+        "backup_locator": "locator(\".inventory_item_img a\")",
+        "description": "Image associated with a product."
+      },
+      {
+        "name": "product_name",
+        "type": "link",
+        "primary_locator": "locator(\".inventory_item_name\")",
+        "backup_locator": "locator(\".inventory_item_description a\")",
+        "description": "Name of the product, usually a link to the product details page."
+      },
+      {
+        "name": "product_description",
+        "type": "text",
+        "primary_locator": "locator(\".inventory_item_desc\")",
+        "backup_locator": "locator(\".inventory_item_description > div\")",
+        "description": "Description of the product."
+      },
+      {
+        "name": "product_price",
+        "type": "text",
+        "primary_locator": "locator(\".inventory_item_price\")",
+        "backup_locator": "locator(\".inventory_item_description > div.inventory_item_price\")",
+        "description": "Price of the product."
+      },
+      {
+        "name": "add_to_cart_button",
+        "type": "button",
+        "primary_locator": "locator(\"button:has-text('Add to cart')\")",
+        "backup_locator": "locator(\"button[id^='add-to-cart']\")",
+        "description": "Button to add the product to the shopping cart."
+      },
+      {
+        "name": "remove_button",
+        "type": "button",
+        "primary_locator": "locator(\"button:has-text('Remove')\")",
+        "backup_locator": "locator(\"button[id^='remove']\")",
+        "description": "Button to remove the product from the shopping cart."
+      },
+      {
+        "name": "shopping_cart_link",
+        "type": "link",
+        "primary_locator": "locator(\".shopping_cart_link\")",
+        "backup_locator": "locator(\"#shopping_cart_container a\")",
+        "description": "Link to navigate to the shopping cart page."
+      },
+      {
+        "name": "menu_button",
+        "type": "button",
+        "primary_locator": "locator(\"#react-burger-menu-btn\")",
+        "backup_locator": "locator(\"#menu_button\")",
+        "description": "Button to open the side menu."
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_url('https://www.saucedemo.com/inventory.html')",
+      "expect(page.get_by_text('Products')).to_be_visible()",
+      "expect(page.locator(\".inventory_item\")).to_have_count(6)"
+    ]
+  }
+}
