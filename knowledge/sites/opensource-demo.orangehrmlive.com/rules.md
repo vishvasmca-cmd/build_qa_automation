@@ -667,3 +667,7 @@
 - ⚠️ PROHIBITED: DON'T assume that navigation is complete and elements are immediately clickable after a page load. ALWAYS wait for the target element to be visible and stable before interacting with it.
 
 - ✅ PREFERRED: DO implement explicit waits using `locator.wait_for()` with `state='visible'` or `state='stable'` before attempting to click elements, especially after navigation events.
+
+- ⚠️ PROHIBITED: DON'T rely solely on URL matching for navigation confirmation; ALWAYS verify the presence of a unique element on the target page to ensure complete loading.
+
+- ✅ PREFERRED: DO use `page.locator('locator_for_unique_element').wait_for()` in conjunction with URL matching to confirm successful navigation and page load.
