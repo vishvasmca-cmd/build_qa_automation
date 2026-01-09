@@ -28,36 +28,18 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
 >       login_page.login("Admin", "admin123")
 
-projects/orangehrm_enterprise/tests/test_main.py:125: 
+projects/orangehrm_enterprise/tests/test_main.py:122: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/orangehrm_enterprise/tests/test_main.py:36: in login
-    self.page.wait_for_url("**/dashboard*", timeout=60000)
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9193: in wait_for_url
-    self._sync(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:580: in wait_for_url
-    return await self._main_frame.wait_for_url(**locals_to_params(locals()))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:263: in wait_for_url
-    async with self.expect_navigation(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_event_context_manager.py:33: in __aexit__
-    await self._future
+projects/orangehrm_enterprise/tests/test_main.py:27: in login
+    self.page.locator(eval(self.login_button_locator)).click()
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-    async def continuation() -> Optional[Response]:
->       event = await waiter.result()
-                ^^^^^^^^^^^^^^^^^^^^^
-E       playwright._impl._errors.TimeoutError: Timeout 60000ms exceeded.
-E       =========================== logs ===========================
-E       waiting for navigation to "**/dashboard*" until 'load'
-E         navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
-E       ============================================================
+>   ???
+E   NameError: name 'page' is not defined
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:239: TimeoutError
+<string>:1: NameError
 =========================== short test summary info ============================
-FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Timeout 60000ms exceeded.
-=========================== logs ===========================
-waiting for navigation to "**/dashboard*" until 'load'
-  navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
-============================================================
-========================= 1 failed in 62.89s (0:01:02) =========================
+FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - NameError: name 'page' is not defined
+============================== 1 failed in 4.30s ===============================
 

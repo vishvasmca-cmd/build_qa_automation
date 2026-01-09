@@ -683,3 +683,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on URL matching for navigation confirmation immediately after an action; the page might not be fully loaded, or the URL might change after the initial navigation.
 
 - ✅ PREFERRED: DO implement a more robust navigation check by combining URL matching with a check for a specific element on the target page to ensure the page is fully loaded and the navigation is complete.
+
+- ⚠️ PROHIBITED: DON'T use `eval()` within locator strings, especially when attempting to reference page-specific objects like `page` itself. This creates scope issues and makes locators brittle and hard to maintain.
+
+- ✅ PREFERRED: DO define locators as static strings or use string formatting to inject variables if needed. Pass the `page` object to methods that use the locators, ensuring the `page` object is always in scope.
