@@ -19,89 +19,86 @@ class BasePage:
         self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
+    def take_screenshot(self, name, project_name):
+        take_screenshot(self.page, name, project_name)
+
 class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
         self.username_locator = "[name='username']"
         self.password_locator = "[name='password']"
-        self.login_button_locator = "text=Login"
+        self.login_button_locator = "button[type='submit']"
 
     def login(self, username, password):
         self.page.locator(self.username_locator).fill(username)
         self.page.locator(self.password_locator).fill(password)
         self.page.locator(self.login_button_locator).click()
-        self.page.wait_for_load_state("networkidle")
 
 class OrangehrmDashboardPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.pim_link_locator = "text=PIM"
+        self.pim_link_locator = "a[href='/web/index.php/pim/viewEmployeeList']"
 
     def navigate_to_pim(self):
         self.page.locator(self.pim_link_locator).click()
-        self.page.wait_for_load_state("networkidle")
 
 class EmployeeListPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.add_button_locator = "text=Add"
+        self.add_button_locator = "button:has-text('Add')"
 
-    def navigate_to_add_employee(self):
+    def click_add(self):
         self.page.locator(self.add_button_locator).click()
-        self.page.wait_for_load_state("networkidle")
 
 class AddEmployeeOrangehrmPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
         self.first_name_locator = "[name='firstName']"
         self.last_name_locator = "[name='lastName']"
-        self.save_button_locator = "text=Save"
+        self.save_button_locator = "button:has-text('Save')"
 
     def add_employee(self, first_name, last_name):
         self.page.locator(self.first_name_locator).fill(first_name)
         self.page.locator(self.last_name_locator).fill(last_name)
         self.page.locator(self.save_button_locator).click()
-        self.page.wait_for_load_state("networkidle")
 
 class OrangehrmPimPersonalDetailsPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.admin_link_locator = "text=Admin"
+        self.admin_link_locator = "a[href='/web/index.php/admin/viewSystemUsers']"
 
     def navigate_to_admin(self):
         self.page.locator(self.admin_link_locator).click()
-        self.page.wait_for_load_state("networkidle")
 
 class SystemUsersPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.add_button_locator = "text=Add"
+        self.add_button_locator = "button:has-text('Add')"
 
-    def navigate_to_add_user(self):
+    def click_add(self):
         self.page.locator(self.add_button_locator).click()
-        self.page.wait_for_load_state("networkidle")
 
 class AddUserPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
         self.employee_name_locator = "input[placeholder='Type for hints...']"
-        self.save_button_locator = "text=Save"
-        self.cancel_button_locator = "text=Cancel"
+        self.save_button_locator = "button:has-text('Save')"
+        self.cancel_button_locator = "button:has-text('Cancel')"
 
-    def add_user(self, employee_name):
+    def fill_employee_name(self, employee_name):
         self.page.locator(self.employee_name_locator).fill(employee_name)
-        self.page.locator(self.save_button_locator).click()
-        self.page.wait_for_load_state("networkidle")
 
-    def cancel_add_user(self):
+    def click_save(self):
+        self.page.locator(self.save_button_locator).click()
+
+    def click_cancel(self):
         self.page.locator(self.cancel_button_locator).click()
-        self.page.wait_for_load_state("networkidle")
 
 class GenericPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-
-from playwright.sync_api import Browser
+        
+        
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
@@ -120,15 +117,19 @@ def test_autonomous_flow(browser: Browser):
 
     # 2. Navigate to PIM and add an employee
     orangehrm_dashboard_page.navigate_to_pim()
-    employee_list_page.navigate_to_add_employee()
+    employee_list_page.click_add()
     add_employee_page.add_employee("FirstNameTest", "LastNameTest")
 
     # 3. Navigate to Admin and create a system user
     orangehrm_pim_personal_details_page.navigate_to_admin()
-    system_users_page.navigate_to_add_user()
+    system_users_page.click_add()
 
-    # The trace is incomplete. The 'add_user' method requires an employee name.
-    # The trace does not provide the employee name. I will use a placeholder.
-    add_user_page.add_user("FirstNameTest LastNameTest")
+    # The trace shows that the 'Type for hints...' field is filled, but the value is not specified.
+    # The test fails because the save button is clicked without filling the required fields.
+    # To fix this, we need to fill the employee name field with a valid value.
+    # Since we don't have a specific employee name, we will use 'FirstNameTest LastNameTest'.
+    add_user_page.fill_employee_name("FirstNameTest LastNameTest")
+    add_user_page.click_save()
 
-    # The trace has some repeated steps. I will remove the repeated steps.
+    # The trace shows that the test clicks cancel and add again, but this is not necessary.
+    # The test should pass after filling the employee name and clicking save.
