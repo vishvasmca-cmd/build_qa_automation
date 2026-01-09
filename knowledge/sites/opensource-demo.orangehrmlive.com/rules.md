@@ -587,3 +587,7 @@
 - ⚠️ PROHIBITED: DON'T use `eval()` with locator strings that depend on the `page` object's scope. This creates a dependency on the execution context and makes the locator brittle.
 
 - ✅ PREFERRED: DO define locators as static strings or use string formatting to inject variables into the locator string *before* passing it to the `locator()` method. This ensures the locator is properly constructed and avoids scope issues.
+
+- ⚠️ PROHIBITED: DON'T use `eval()` to construct Playwright locators dynamically, especially when referencing page-specific objects like `page` within the string. This creates scope issues and makes debugging difficult.
+
+- ✅ PREFERRED: DO use Playwright's built-in locator methods (e.g., `page.locator()`, `page.getByRole()`, `page.getByText()`) with properly formatted strings or functions to define locators. Pass the `page` object directly to the locator method.
