@@ -21,28 +21,23 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         add_employee_page = AddEmployeeOrangehrmPage(page)
         system_users_page = SystemUsersPage(page)
         add_user_page = AddUserPage(page)
+        pim_personal_details_page = OrangehrmPimPersonalDetailsPage(page)
     
         login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-        login_page.login("Admin", "admin123")
->       expect(page).to_have_url("**/web/index.php/pim/viewEmployeeList")
-E       AssertionError: Page URL expected to be '**/web/index.php/pim/viewEmployeeList'
-E       Actual value: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index 
-E       Call log:
-E         - Expect "to_have_url" with timeout 5000ms
-E           2 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
-E           - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/validate" navigation to finish...
-E           - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
-E           6 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
+>       login_page.login("Admin", "admin123")
 
-projects/orangehrm_enterprise/tests/test_main.py:121: AssertionError
+projects/orangehrm_enterprise/tests/test_main.py:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/orangehrm_enterprise/tests/test_main.py:32: in login
+    self.page.locator(eval(self.login_button_locator)).click()
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   NameError: name 'page' is not defined
+
+<string>:1: NameError
 =========================== short test summary info ============================
-FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Page URL expected to be '**/web/index.php/pim/viewEmployeeList'
-Actual value: https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index 
-Call log:
-  - Expect "to_have_url" with timeout 5000ms
-    2 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
-    - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/validate" navigation to finish...
-    - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
-    6 × unexpected value "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
-============================== 1 failed in 7.81s ===============================
+FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - NameError: name 'page' is not defined
+============================== 1 failed in 2.62s ===============================
 

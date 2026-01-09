@@ -575,3 +575,7 @@
 - ⚠️ PROHIBITED: DON'T assume a specific page URL immediately after login; the application might redirect to different pages based on user roles or application state.
 
 - ✅ PREFERRED: DO verify successful login by checking for elements unique to the expected page (e.g., the presence of the 'Add Employee' button on the employee list page) instead of relying solely on the URL.
+
+- ⚠️ PROHIBITED: DON'T use `eval()` with Playwright locators that directly reference the `page` object within the locator string. The `page` object is only available within the test function's scope, not within the evaluated string.
+
+- ✅ PREFERRED: DO construct locators using f-strings or other string formatting methods to inject variables (like dynamic text or attributes) into the locator string *before* passing it to `page.locator()`. This ensures the locator string is fully formed before Playwright attempts to use it.
