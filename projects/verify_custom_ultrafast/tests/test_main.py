@@ -7,7 +7,7 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
-sys.path.append('C:/Users/vishv/.gemini/antigravity/playground/inner-event/core/lib/templates')
+sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/lib/templates')
 from helpers import take_screenshot
 
 
@@ -25,30 +25,32 @@ class BasePage:
 class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.username_field = self.page.locator("[data-test='username']")
-        self.password_field = self.page.locator("[data-test='password']")
-        self.signin_button = self.page.locator("#log-in")
+        self.username_field = self.page.locator("[id='username']")
+        self.password_field = self.page.locator("[id='password']")
+        self.sign_in_button = self.page.locator("#log-in")
 
     def login(self, username, password):
         self.username_field.fill(username)
         self.password_field.fill(password)
-        self.signin_button.click()
+        self.sign_in_button.click()
 
-class HomePage(BasePage):
+class FinancialOverviewPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.financial_overview_table = self.page.locator("#financial_overview_table")
+        self.financial_table = self.page.locator("#transactionsTable")
 
-    def is_financial_table_visible(self):
-        return self.financial_overview_table.is_visible()
+    def is_table_visible(self):
+        return self.financial_table.is_visible()
+
+from playwright.sync_api import Browser, Page, expect
+
 
 def test_autonomous_flow(browser: Browser):
-    page = browser.new_page()
+    page: Page = browser.new_page()
     login_page = LoginPage(page)
-    home_page = HomePage(page)
+    financial_overview_page = FinancialOverviewPage(page)
 
     login_page.navigate("https://demo.applitools.com/app.html")
-    login_page.login("test", "test")
+    login_page.login("username", "password")
 
-    # Verify that the financial table is visible after login
-    assert home_page.is_financial_table_visible(), "Financial table should be visible after login"
+    expect(financial_overview_page.financial_table).to_be_visible()

@@ -4,147 +4,148 @@
 **Date:** October 26, 2023
 **Prepared By:** Senior Test Manager
 
-This document outlines the master test strategy for the banking application located at `https://demo.applitools.com/`. It serves as a blueprint for the entire engineering team, guiding testing efforts and ensuring the delivery of a high-quality, reliable, and secure application.
+This document outlines the Master Test Strategy for the banking application located at `https://demo.applitools.com/`. It serves as a blueprint for all testing activities, ensuring comprehensive coverage and minimizing risks associated with software releases.
 
 ## 1. 🔍 RISK ASSESSMENT & PLANNING
 
 ### 1.1 Domain Analysis
 
-The application falls under the **Banking** domain, which is inherently critical due to its direct impact on users' financial well-being and the potential for significant financial loss in case of failure. Core functionalities include account access, fund transfers, statement generation, and user management.
+This application operates within the **Banking** domain. Key functionalities include account access, transfers, payments, and statement management.  Given the nature of financial transactions, data security, accuracy, and availability are paramount.
 
 ### 1.2 Risk Profile
 
-Failure of this application can lead to:
+Failure of this system can result in:
 
-*   **Financial Loss:** Incorrect transactions, unauthorized access, and data breaches can result in direct financial losses for both the bank and its customers.
-*   **Data Breach:** Compromised user data (account details, personal information) can lead to identity theft and regulatory penalties.
-*   **Reputational Damage:** Loss of customer trust due to security vulnerabilities or functional defects can severely damage the bank's reputation.
-*   **Regulatory Non-Compliance:** Failure to comply with financial regulations (e.g., GDPR, PCI DSS) can result in significant fines and legal repercussions.
+*   **Financial Loss:** Incorrect transactions, unauthorized access, or data breaches can lead to direct financial losses for both the bank and its customers.
+*   **Data Breach:** Compromised customer data (PII, financial information) can lead to legal and reputational damage.
+*   **Reputational Damage:** System outages, errors, or security vulnerabilities can erode customer trust and damage the bank's reputation.
+*   **Regulatory Non-Compliance:** Failure to meet regulatory requirements (e.g., GDPR, PCI DSS) can result in fines and legal action.
 
 ### 1.3 Testing Scope
 
 **In Scope:**
 
-*   All functionalities related to account access, fund transfers, statements & history, and user management.
+*   All functionalities related to Account Access, Transfers & Payments, and Statements & History, as defined in the Domain Playbook.
+*   User interface elements and their interactions.
+*   API endpoints used by the application.
 *   Security aspects, including authentication, authorization, and data protection.
-*   Cross-browser and cross-device compatibility.
-*   Performance and scalability under expected load.
-*   Accessibility compliance (WCAG).
-*   API testing for all backend services.
+*   Performance aspects, including page load times and transaction processing speed.
+*   Cross-browser compatibility (Chrome, Firefox, Safari, Edge).
+*   Responsiveness across different screen sizes (desktop, tablet, mobile).
 
 **Out of Scope:**
 
-*   Third-party integrations (initially, unless critical to core functionality).
-*   Detailed performance testing beyond basic load testing (will be addressed in a separate performance testing strategy).
-*   Penetration testing (will be conducted by a specialized security team).
+*   Third-party integrations (unless explicitly identified as critical).
+*   Infrastructure testing (server performance, network stability).
+*   Penetration testing (requires specialized security expertise - recommend a separate engagement).
+*   Load testing (requires a dedicated performance testing environment and strategy).
 
 ## 2. 🏗️ TESTING STRATEGY (The "How")
 
 ### 2.1 Smoke Suite (Sanity)
 
-The Smoke Suite will provide a rapid health check of the application after each build. It will focus on the most critical "happy path" scenarios.
+The Smoke Suite will be executed after each build to ensure the core functionality is operational.
 
-*   **Scope:**
-    *   Successful Login with valid credentials.
-    *   Loading of the Account Dashboard (verifying key elements are present).
-*   **Execution Frequency:** After each build deployment to any environment.
-*   **Pass/Fail Criteria:** If any test in the Smoke Suite fails, the build is rejected.
+*   **Purpose:** Verify the basic health of the application.
+*   **Frequency:** After each build deployment to the test environment.
+*   **Test Cases:**
+    *   Customer Login (Valid Credentials)
+    *   View Account Dashboard (Successful Load)
+*   **Pass/Fail Criteria:** If any Smoke Test fails, the build is rejected.
 
 ### 2.2 Regression Suite (Deep Dive)
 
-The Regression Suite will provide comprehensive testing of all functionalities, ensuring that new changes have not introduced regressions.
+The Regression Suite will provide comprehensive coverage of all functionalities.
 
-*   **Scope:**
+*   **Purpose:** Ensure that new changes have not introduced regressions and that existing functionality remains intact.
+*   **Frequency:** Before each release to production.
+*   **Test Areas:**
     *   **Account Access:**
-        *   Login with valid and invalid credentials.
-        *   Password reset functionality.
-        *   Session timeout handling.
-        *   Account lockout after multiple failed login attempts.
+        *   Login with Biometrics/MFA
+        *   Recover Forgotten Username/Password
+        *   Session Timeout Handling
+        *   Invalid Login Attempts (Account Lockout)
     *   **Transfers & Payments:**
-        *   Internal fund transfers (checking to savings, savings to checking).
-        *   Bill payments to existing and new payees.
-        *   Scheduled future-dated transfers.
-        *   Transfer exceeding balance (insufficient funds).
-        *   Transfer exceeding daily/weekly limits.
-        *   Cancellation of scheduled transfers.
+        *   Internal Fund Transfer (Checking to Savings)
+        *   Bill Payment (Standard)
+        *   Transfer exceeding balance (Insufficient Funds)
+        *   Transfer exceeding daily limit
+        *   Schedule Future Date Transfer
+        *   Add New Payee/Beneficiary
+        *   Cancel Scheduled Transfer
+        *   Payment to Invalid Account Number
     *   **Statements & History:**
-        *   Viewing recent transactions.
-        *   Downloading statements in PDF and CSV formats.
-        *   Searching transactions by keyword, date range, and amount range.
-        *   Filtering transactions by type (e.g., deposits, withdrawals).
+        *   View Recent Transactions
+        *   Download Statement (PDF/CSV)
+        *   Search Transactions by Keyword
+        *   Filter Transactions by Amount Range
+        *   Statement Generation for Different Time Periods
+*   **Testing Types:**
     *   **Negative Testing:**
-        *   Invalid input data (e.g., special characters in account numbers).
-        *   Boundary value testing (e.g., minimum and maximum transfer amounts).
-        *   Error handling for network failures and timeouts.
+        *   Invalid inputs (e.g., special characters in name fields, negative amounts).
+        *   Boundary values (e.g., minimum/maximum transfer amounts).
+        *   Timeouts (e.g., session expiration, API timeouts).
     *   **Edge Cases:**
-        *   Concurrency testing (multiple users accessing the same account simultaneously).
-        *   Handling of empty states (e.g., no transaction history).
-        *   Testing with large datasets (e.g., accounts with thousands of transactions).
+        *   Concurrency (multiple users accessing the same account simultaneously).
+        *   Network failures (simulating network outages during transactions).
+        *   Empty states (e.g., no transaction history).
     *   **Security:**
-        *   Basic OWASP Top 10 checks (input validation to prevent SQL injection and XSS attacks).
-        *   Authentication and authorization testing.
+        *   Basic OWASP Top 10 checks (input validation to prevent SQLi and XSS).
+        *   Password complexity requirements.
+        *   Secure session management.
         *   Data encryption in transit and at rest.
-*   **Execution Frequency:** After each build deployment to the QA environment, and before release to production.
 
 ### 2.3 Data Strategy
 
 *   **Test Data:** A combination of static and dynamically generated test data will be used.
-    *   **Static Data:** Pre-defined sets of user accounts, payment details, and transaction data will be used for core functionality testing.
-    *   **Dynamic Data:** Data will be dynamically generated for negative testing, boundary value testing, and edge cases.  This will be achieved through API calls or database seeding scripts.
-*   **Data Management:** Test data will be managed in a centralized repository (e.g., a dedicated test database) to ensure consistency and avoid data conflicts.
-*   **Data Masking:** Sensitive data (e.g., account numbers, social security numbers) will be masked or anonymized in non-production environments to protect user privacy.
+    *   **Static Data:** Pre-defined user accounts with varying balances and transaction histories.  This data will be used for core functionality testing.
+    *   **Dynamic Data:** Data generated during test execution (e.g., new payees, scheduled transfers). This will ensure uniqueness and avoid conflicts.
+*   **Data Management:**
+    *   A dedicated test data management strategy will be implemented to ensure data integrity and consistency.
+    *   Sensitive data (e.g., account numbers, passwords) will be masked or encrypted.
+    *   Test data will be refreshed periodically to prevent data staleness.
 
 ## 3. 🏛️ ARCHITECTURE GUIDANCE (For the Test Architect)
 
 ### 3.1 Framework Recommendation
 
-*   **Page Object Model (POM):**  A Page Object Model (POM) is strongly recommended. This will improve test maintainability and reduce code duplication. Each page of the application will be represented by a Page Object, which encapsulates the elements and actions that can be performed on that page.
-*   **Language:** [Choose language based on team expertise - e.g., Java, Python, JavaScript]
-*   **Test Framework:** [Choose framework based on team expertise - e.g., JUnit, pytest, Mocha]
-*   **Assertion Library:** [Choose library based on team expertise - e.g., AssertJ, Chai]
+*   **Page Object Model (POM):**  Implement a Page Object Model to represent each page or component of the application as a separate class. This will improve code maintainability and reusability.
+*   **Language:** Java or Python are recommended due to their extensive libraries and community support.
+*   **Test Framework:** JUnit or pytest.
+*   **Assertion Library:** AssertJ or Hamcrest.
+*   **Reporting:** Allure or ExtentReports.
 
 ### 3.2 Resilience Strategy
 
 *   **Flakiness Handling:**
-    *   **Polling Assertions:** Use polling assertions (e.g., `WebDriverWait` in Selenium) to wait for elements to become visible or for conditions to be met before proceeding with the test.
-    *   **Retry Mechanism:** Implement a retry mechanism for failed tests, especially for tests that interact with external services or databases.
-    *   **Self-Healing:** Explore self-healing techniques (e.g., using AI-powered tools) to automatically identify and fix broken locators.
-*   **Environment Stability:**
-    *   Ensure that the test environment is stable and consistent.
-    *   Use containerization (e.g., Docker) to create isolated test environments.
-    *   Automate the deployment and configuration of the test environment.
+    *   **Polling Assertions:** Use polling assertions (e.g., with `awaitility`) to wait for elements to become visible or for conditions to be met.
+    *   **Explicit Waits:** Implement explicit waits with appropriate timeouts to handle asynchronous operations.
+    *   **Retry Mechanisms:** Implement retry mechanisms for failed tests due to transient issues (e.g., network glitches).
+*   **Self-Healing:**
+    *   **Dynamic Locators:** Use dynamic locators that adapt to changes in the UI.
+    *   **Element Identification Strategies:** Prioritize robust element identification strategies (e.g., using IDs or data attributes instead of fragile XPath expressions).
 
 ## 4. ⚔️ EXECUTION & MINING INSTRUCTIONS (For the Senior QA)
 
 ### 4.1 Mining Targets
 
-The autonomous agent should prioritize exploring the following pages and flows:
+The autonomous agent should prioritize the following pages/flows for exploration:
 
-1.  **Login Page:** `https://demo.applitools.com/` - Focus on all input fields, error messages, and links.
-2.  **Account Summary Page:** (After successful login) - Focus on the financial table, account details, and navigation elements.
-3.  **Transfer Funds Page:** (If available) - Focus on input fields, payee selection, and confirmation process.
-4.  **Statements Page:** (If available) - Focus on date selection, download options, and transaction filtering.
+1.  **Login Page:** `https://demo.applitools.com/` - Focus on different login scenarios (valid/invalid credentials, MFA).
+2.  **Account Summary Page:** (Post-Login) - Explore the account dashboard, focusing on data accuracy and UI elements.
+3.  **Transfer Funds Page:** (Navigation from Account Summary) - Explore different transfer scenarios (internal/external, amounts, scheduling).
+4.  **Bill Payment Page:** (Navigation from Account Summary) - Explore bill payment functionality, including adding payees and scheduling payments.
+5.  **Transaction History Page:** (Navigation from Account Summary) - Explore transaction filtering and statement download options.
 
 ### 4.2 Verification Criteria
 
-*   **General:**
-    *   **HTTP Status Codes:** Verify that all requests return the expected HTTP status codes (e.g., 200 OK, 302 Redirect, 400 Bad Request, 500 Internal Server Error).
-    *   **Error Messages:** Verify that error messages are displayed correctly and are informative.
-    *   **UI Elements:** Verify that all UI elements are displayed correctly and are functional.
-*   **Specific:**
-    *   **Login Page:**
-        *   Successful login redirects to the Account Summary Page.
-        *   Invalid login displays an appropriate error message.
-    *   **Account Summary Page:**
-        *   The financial table is displayed correctly with accurate data.
-        *   Account details (e.g., account number, balance) are displayed correctly.
-    *   **Transfer Funds Page:**
-        *   Transfers are processed successfully and reflected in the account balance.
-        *   Error messages are displayed for invalid transfer amounts or insufficient funds.
-    *   **Statements Page:**
-        *   Statements can be downloaded successfully in the specified format.
-        *   Transaction filtering works correctly.
+*   **Success Definition:**
+    *   **HTTP Status Codes:** Verify that all requests return the expected HTTP status codes (e.g., 200 OK for successful requests, 400/500 for errors).
+    *   **UI Element Verification:** Verify that key UI elements are present and display the correct data.
+    *   **Text Verification:** Verify that specific text strings are visible on the page (e.g., "Welcome, [Username]", "Account Balance: [Amount]").
+    *   **Data Accuracy:** Verify that data displayed on the UI matches the expected values (e.g., account balances, transaction details).
+*   **Error Handling:**
+    *   Verify that appropriate error messages are displayed for invalid inputs or unexpected conditions.
+    *   Verify that the system handles errors gracefully and does not crash or expose sensitive information.
 
-**Success Definition:** All tests pass, and the application meets the defined quality criteria (functionality, security, performance, and usability).
-
-This Master Test Strategy will be reviewed and updated regularly to ensure its continued relevance and effectiveness.
+This Master Test Strategy will be reviewed and updated periodically to ensure its continued relevance and effectiveness.
