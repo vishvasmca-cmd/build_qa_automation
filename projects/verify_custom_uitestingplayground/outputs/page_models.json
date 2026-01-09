@@ -1,66 +1,101 @@
 {
   "UiTestAutomationPlaygroundPage": {
-    "description": "This page demonstrates the 'Dynamic ID' challenge in UI test automation, where element IDs change on each page load, requiring robust locator strategies.",
-    "url_pattern": "http://uitestingplayground.com/dynamicid",
+    "description": "The UI Test Automation Playground is a website designed to provide a platform for sharpening UI test automation skills. The home page presents various common automation challenges as individual scenarios.",
+    "url_pattern": "http://uitestingplayground.com/",
     "elements": [
+      {
+        "name": "Page Header",
+        "type": "text",
+        "primary_locator": "role=heading[name=\"UI Test Automation Playground\"]",
+        "backup_locator": "css=h1",
+        "description": "The main heading of the page."
+      },
       {
         "name": "Dynamic ID Link",
         "type": "link",
-        "primary_locator": "text=Dynamic ID",
-        "backup_locator": "css=a[href='/dynamicid']",
+        "primary_locator": "role=link[name=\"Dynamic ID\"]",
+        "backup_locator": "text=Dynamic ID",
         "description": "Link to the Dynamic ID challenge page."
       },
       {
-        "name": "Home Link",
+        "name": "Class Attribute Link",
         "type": "link",
-        "primary_locator": "text=Home",
-        "backup_locator": "css=a[href='/']",
-        "description": "Link to the home page."
+        "primary_locator": "role=link[name=\"Class Attribute\"]",
+        "backup_locator": "text=Class Attribute",
+        "description": "Link to the Class Attribute challenge page."
       },
       {
-        "name": "Resources Link",
+        "name": "Hidden Layers Link",
         "type": "link",
-        "primary_locator": "text=Resources",
-        "backup_locator": "css=a[href='/resources']",
-        "description": "Link to the resources page."
+        "primary_locator": "role=link[name=\"Hidden Layers\"]",
+        "backup_locator": "text=Hidden Layers",
+        "description": "Link to the Hidden Layers challenge page."
       },
       {
-        "name": "UI Test Automation Playground Header",
-        "type": "header",
-        "primary_locator": "text=UI Test Automation Playground",
-        "backup_locator": "css=h1",
-        "description": "Main header of the page."
+        "name": "Load Delay Link",
+        "type": "link",
+        "primary_locator": "role=link[name=\"Load Delay\"]",
+        "backup_locator": "text=Load Delay",
+        "description": "Link to the Load Delay challenge page."
+      },
+      {
+        "name": "AJAX Data Link",
+        "type": "link",
+        "primary_locator": "role=link[name=\"AJAX Data\"]",
+        "backup_locator": "text=AJAX Data",
+        "description": "Link to the AJAX Data challenge page."
+      },
+      {
+        "name": "Client Side Delay Link",
+        "type": "link",
+        "primary_locator": "role=link[name=\"Client Side Delay\"]",
+        "backup_locator": "text=Client Side Delay",
+        "description": "Link to the Client Side Delay challenge page."
+      },
+      {
+        "name": "Click Link",
+        "type": "link",
+        "primary_locator": "role=link[name=\"Click\"]",
+        "backup_locator": "text=Click",
+        "description": "Link to the Click challenge page."
+      },
+      {
+        "name": "Text Input Link",
+        "type": "link",
+        "primary_locator": "role=link[name=\"Text Input\"]",
+        "backup_locator": "text=Text Input",
+        "description": "Link to the Text Input challenge page."
       }
     ],
     "assertions": [
       "Page title is 'UI Test Automation Playground'",
-      "Main header text is 'UI Test Automation Playground'",
-      "The 'Dynamic ID' link is present on the page."
+      "Page header 'UI Test Automation Playground' is displayed",
+      "The Dynamic ID link is present",
+      "The Class Attribute link is present",
+      "The Hidden Layers link is present",
+      "The Load Delay link is present",
+      "The AJAX Data link is present",
+      "The Client Side Delay link is present",
+      "The Click link is present",
+      "The Text Input link is present"
     ]
   },
   "UnknownPage": {
-    "description": "This page demonstrates the challenge of using dynamic IDs in UI automation. It contains a button with a dynamically generated ID.",
+    "description": "This page demonstrates the challenge of using dynamic IDs in UI automation and provides a button with a dynamic ID for testing purposes.",
     "url_pattern": "http://uitestingplayground.com/dynamicid",
     "elements": [
       {
         "name": "Dynamic ID Button",
         "type": "button",
-        "primary_locator": "role=button[name='Button with Dynamic ID']",
-        "backup_locator": "css=a.btn.btn-primary",
-        "description": "Button with a dynamic ID. Clicking this button should trigger an action (though the action itself isn't specified on this page)."
-      },
-      {
-        "name": "Dynamic ID Header",
-        "type": "heading",
-        "primary_locator": "text=Dynamic ID",
-        "backup_locator": "css=h3",
-        "description": "The main header of the page."
+        "primary_locator": "role=button",
+        "backup_locator": "text=Button with Dynamic ID",
+        "description": "Button with a dynamically generated ID."
       }
     ],
     "assertions": [
-      "Page title is 'UI Testing Playground'",
-      "Page contains the 'Dynamic ID' header",
-      "Page contains a button with the text 'Button with Dynamic ID'"
+      "Page title is 'UITAP'",
+      "Page heading is 'Dynamic ID'",
+      "Button with Dynamic ID is visible"
     ]
   }
 }
