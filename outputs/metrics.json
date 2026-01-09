@@ -2,8 +2,8 @@
   "run_id": "59eb3a85-1e6c-4bc1-9908-b17bad20ee07",
   "timestamp": 1767830352.0568433,
   "summary": {
-    "total_duration": 5103.142749425901,
-    "total_cost": 1.9459999999999946,
+    "total_duration": 5137.968596097959,
+    "total_cost": 1.9529999999999945,
     "status": "running"
   },
   "events": [
@@ -11349,6 +11349,97 @@
       "success": true,
       "cost": 0.01,
       "metadata": {}
+    },
+    {
+      "agent": "Orchestrator",
+      "action": "pipeline_start",
+      "end_time": 1767929554.66753,
+      "duration": 0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": {
+          "project_name": "stress_train_rank60_x_com",
+          "target_url": "https://x.com",
+          "domain": "general_web",
+          "workflow_description": "Launch website, find Login, Signup/GetStarted, Try for Free etc any 5 buttons and 2 links, 2 menu bar with out clicking any one of them",
+          "depth_limit": 40,
+          "strategies": [
+            "interactive_exploration",
+            "long_flow"
+          ],
+          "paths": {
+            "trace": "C:\\\\Users\\\\vishv\\\\.gemini\\\\antigravity\\\\playground\\\\inner-event\\\\projects\\\\stress_train_rank60_x_com\\\\outputs\\\\trace.json",
+            "outputs": "C:\\\\Users\\\\vishv\\\\.gemini\\\\antigravity\\\\playground\\\\inner-event\\\\projects\\\\stress_train_rank60_x_com\\\\outputs",
+            "test": "C:\\\\Users\\\\vishv\\\\.gemini\\\\antigravity\\\\playground\\\\inner-event\\\\projects\\\\stress_train_rank60_x_com\\\\tests\\\\e2e\\\\test_main.py",
+            "report": "C:\\\\Users\\\\vishv\\\\.gemini\\\\antigravity\\\\playground\\\\inner-event\\\\projects\\\\stress_train_rank60_x_com\\\\outputs\\\\report.md"
+          }
+        }
+      }
+    },
+    {
+      "agent": "SpecSynthesizer",
+      "action": "generate_master_plan",
+      "end_time": 1767929570.5701146,
+      "duration": 9.426,
+      "success": true,
+      "cost": 0.002,
+      "metadata": {}
+    },
+    {
+      "agent": "Explorer",
+      "action": "init",
+      "end_time": 1767929578.0613136,
+      "duration": 0.0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": "C:\\Users\\vishv\\.gemini\\antigravity\\playground\\inner-event\\projects\\stress_train_rank60_x_com\\config.json"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "init",
+      "end_time": 1767929623.183629,
+      "duration": 0.0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": "C:\\Users\\vishv\\.gemini\\antigravity\\playground\\inner-event\\projects\\stress_train_rank60_x_com\\config.json"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_llm_call",
+      "end_time": 1767929632.9050379,
+      "duration": 5.0799,
+      "success": true,
+      "cost": 0.005,
+      "metadata": {
+        "url": "https://x.com/",
+        "elements": 0
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1767929634.641389,
+      "duration": 1.5958,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "url": "https://x.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "exploration_phase",
+      "end_time": 1767929635.2116995,
+      "duration": 18.7242,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
     }
   ],
   "failures": [
@@ -11679,6 +11770,16 @@
       "context": {
         "attempt": 3,
         "stdout": "Explorer: Starting Strategy 2026. Goal: MISSION: 1. Login. 2. Navigate to PIM module and Add a new employee (FirstNameTest LastNameTest). 3. Click SAVE to finish onboarding. 4. Navigate to Admin modul",
+        "stderr": "C:\\Users\\vishv\\.gemini\\antigravity\\playground\\inner-event\\core\\agents\\miner.py:44: UserWarning: Parameters {'response_mime_type'} should be specified explicitly. Instead they were passed in as part of `model_kwargs` parameter.\n  llm = SafeLLM(\nC:\\Users\\vishv\\.gemini\\antigravity\\playground\\inner-event\\core\\agents\\explorer.py:45: UserWarning: Parameters {'response_mime_type'} should be specified explicitly. Instead they were passed in as part of `model_kwargs` parameter.\n  llm = SafeLLM(\nTraceback"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "timestamp": 1767929616.4116526,
+      "error": "Exit code 1",
+      "context": {
+        "attempt": 1,
+        "stdout": "Explorer: Starting Strategy 2026. Goal: Launch website, find Login, Signup/GetStarted, Try for Free etc any 5 buttons and 2 links, 2 menu bar with out clicking any one of them\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
         "stderr": "C:\\Users\\vishv\\.gemini\\antigravity\\playground\\inner-event\\core\\agents\\miner.py:44: UserWarning: Parameters {'response_mime_type'} should be specified explicitly. Instead they were passed in as part of `model_kwargs` parameter.\n  llm = SafeLLM(\nC:\\Users\\vishv\\.gemini\\antigravity\\playground\\inner-event\\core\\agents\\explorer.py:45: UserWarning: Parameters {'response_mime_type'} should be specified explicitly. Instead they were passed in as part of `model_kwargs` parameter.\n  llm = SafeLLM(\nTraceback"
       }
     }

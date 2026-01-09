@@ -19,16 +19,13 @@ class BasePage:
 
     def navigate(self, url: str):
         self.page.goto(url)
+        self.page.wait_for_load_state("networkidle")
 
-    def take_screenshot(self, name: str, project_name: str):
-        self.page.screenshot(path=f"screenshots/{project_name}/{name}.png", full_page=True)
 
 from playwright.sync_api import Page
-from base.base_page import BasePage
-
+from .base_page import BasePage
 
 class XHomePage(BasePage):
-
     def __init__(self, page: Page):
         super().__init__(page)
         self.page = page
@@ -38,39 +35,45 @@ class XHomePage(BasePage):
 
     def get_links(self):
         return self.page.get_by_role("link")
-    
+
     def get_menu_bars(self):
-      # Assuming menu bars can be identified by a specific role or class
-      # This is an example, adjust the locator as needed based on the actual page structure
-      return self.page.locator('header').get_by_role('navigation')
+        # Assuming menu bars are identified by a specific role or class
+        # This needs to be adjusted based on the actual HTML structure of X.com
+        return self.page.locator('nav').locator('ul')
 
 
 from playwright.sync_api import Browser
 from pages.x_home_page import XHomePage
-from base.base_page import BasePage
+from pages.base_page import BasePage
+import pytest
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
     home_page = XHomePage(page)
-    base_page = BasePage(page)
 
-    base_page.navigate("https://x.com/")
-    page.wait_for_load_state("networkidle")
+    # Navigate to the X.com homepage
+    home_page.navigate("https://x.com/")
 
     # Find 5 buttons
-    buttons = home_page.get_buttons()
-    print(f"Found {buttons.count()} buttons.")
-    assert buttons.count() >= 5, "Not enough buttons found"
-    
+    buttons = home_page.get_buttons().all()
+    assert len(buttons) >= 5, f"Expected at least 5 buttons, but found {len(buttons)}"
+    print(f"Found {len(buttons)} buttons.")
+    for i in range(min(5, len(buttons))):
+        print(f"Button {i+1} text: {buttons[i].inner_text()}")
+
     # Find 2 links
-    links = home_page.get_links()
-    print(f"Found {links.count()} links.")
-    assert links.count() >= 2, "Not enough links found"
+    links = home_page.get_links().all()
+    assert len(links) >= 2, f"Expected at least 2 links, but found {len(links)}"
+    print(f"Found {len(links)} links.")
+    for i in range(min(2, len(links))):
+        print(f"Link {i+1} text: {links[i].inner_text()}")
 
     # Find 2 menu bars
-    menu_bars = home_page.get_menu_bars()
-    print(f"Found {menu_bars.count()} menu bars.")
-    assert menu_bars.count() >= 1, "Not enough menu bars found"
+    menu_bars = home_page.get_menu_bars().all()
+    assert len(menu_bars) >= 2, f"Expected at least 2 menu bars, but found {len(menu_bars)}"
 
-    base_page.take_screenshot("x_home_page", "x")
+    print(f"Found {len(menu_bars)} menu bars.")
+    for i in range(min(2, len(menu_bars))):
+        print(f"Menu bar {i+1} text: {menu_bars[i].inner_text()}")
+
     page.close()
