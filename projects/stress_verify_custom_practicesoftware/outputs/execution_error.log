@@ -1,0 +1,61 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1', 'langsmith': '0.6.2'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1, langsmith-0.6.2
+collecting ... collected 1 item
+
+projects/stress_verify_custom_practicesoftware/tests/e2e/test_main.py::test_autonomous_flow[chromium] FAILED
+
+=================================== FAILURES ===================================
+________________________ test_autonomous_flow[chromium] ________________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser: Browser):
+        page = browser.new_page()
+        home_page = HomePage(page)
+        my_account_page = MyAccountPage(page)
+    
+        # Navigate to the home page
+        home_page.navigate("https://practice.automationtesting.in/")
+    
+        # Go to My Account page
+        home_page.go_to_my_account()
+    
+        # Check if the register button is visible
+>       expect(my_account_page.is_register_button_visible()).to_be_visible()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+projects/stress_verify_custom_practicesoftware/tests/e2e/test_main.py:63: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright.sync_api.Expect object at 0x7fd1e278a150>, actual = True
+message = None
+
+    def __call__(
+        self, actual: Union[Page, Locator, APIResponse], message: Optional[str] = None
+    ) -> Union[PageAssertions, LocatorAssertions, APIResponseAssertions]:
+        if isinstance(actual, Page):
+            return PageAssertions(
+                PageAssertionsImpl(actual._impl_obj, self._timeout, message=message)
+            )
+        elif isinstance(actual, Locator):
+            return LocatorAssertions(
+                LocatorAssertionsImpl(actual._impl_obj, self._timeout, message=message)
+            )
+        elif isinstance(actual, APIResponse):
+            return APIResponseAssertions(
+                APIResponseAssertionsImpl(
+                    actual._impl_obj, self._timeout, message=message
+                )
+            )
+>       raise ValueError(f"Unsupported type: {type(actual)}")
+E       ValueError: Unsupported type: <class 'bool'>
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/__init__.py:143: ValueError
+=========================== short test summary info ============================
+FAILED projects/stress_verify_custom_practicesoftware/tests/e2e/test_main.py::test_autonomous_flow[chromium] - ValueError: Unsupported type: <class 'bool'>
+============================== 1 failed in 6.91s ===============================
+

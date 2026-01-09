@@ -1,0 +1,167 @@
+{
+  "AutomationPracticeSitePage": {
+    "description": "Home page for an e-commerce site selling Selenium books.",
+    "url_pattern": "/",
+    "elements": [
+      {
+        "name": "my_account_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='My Account')",
+        "backup_locator": "locator('a[href=\"https://practice.automationtesting.in/my-account/\"]')",
+        "description": "Link to the My Account page."
+      },
+      {
+        "name": "shop_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='Shop')",
+        "backup_locator": "locator('a[href=\"https://practice.automationtesting.in/shop/\"]')",
+        "description": "Link to the Shop page."
+      },
+      {
+        "name": "cart_link",
+        "type": "link",
+        "primary_locator": "get_by_role('link', name='0 Items - P0.00')",
+        "backup_locator": "locator('a[href*=\"cart\"]')",
+        "description": "Link to the shopping cart."
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('Automation Practice \u2013 Automation Practice')",
+      "expect(page.locator('text=Shop SELENIUM BOOKS')).to_be_visible()"
+    ]
+  },
+  "MyAccountPage": {
+    "description": "My Account page for login and registration",
+    "url_pattern": "/my-account/",
+    "elements": [
+      {
+        "name": "username_email_address_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Username or email address')",
+        "backup_locator": "locator('#username')",
+        "description": "Input field for username or email address"
+      },
+      {
+        "name": "password_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Password')",
+        "backup_locator": "locator('#password')",
+        "description": "Input field for password"
+      },
+      {
+        "name": "login_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Login')",
+        "backup_locator": "locator('input[name=\"login\"]')",
+        "description": "Button to submit the login form"
+      },
+      {
+        "name": "remember_me_checkbox",
+        "type": "checkbox",
+        "primary_locator": "get_by_label('Remember me')",
+        "backup_locator": "locator('#rememberme')",
+        "description": "Checkbox to remember the user"
+      },
+      {
+        "name": "lost_password_link",
+        "type": "link",
+        "primary_locator": "get_by_text('Lost your password?')",
+        "backup_locator": "locator('a[href*=\"lost-password\"]')",
+        "description": "Link to reset the password"
+      },
+      {
+        "name": "register_email_address_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Email address')",
+        "backup_locator": "locator('#reg_email')",
+        "description": "Input field for registration email address"
+      },
+      {
+        "name": "register_password_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Password', exact=True).nth(1)",
+        "backup_locator": "locator('#reg_password')",
+        "description": "Input field for registration password"
+      },
+      {
+        "name": "register_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Register')",
+        "backup_locator": "locator('input[name=\"register\"]')",
+        "description": "Button to submit the registration form"
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('My Account \u2013 Automation Practice')",
+      "expect(page.get_by_role('heading', name='Login').first()).to_be_visible()",
+      "expect(page.get_by_role('heading', name='Register').first()).to_be_visible()"
+    ]
+  },
+  "UnknownPage": {
+    "description": "My Account page for login and registration",
+    "url_pattern": "/my-account/",
+    "elements": [
+      {
+        "name": "username_email_address_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Username or email address')",
+        "backup_locator": "locator('#username')",
+        "description": "Input field for username or email address"
+      },
+      {
+        "name": "password_input_login",
+        "type": "password_field",
+        "primary_locator": "get_by_label('Password', exact=True)",
+        "backup_locator": "locator('#password')",
+        "description": "Input field for password in the login section"
+      },
+      {
+        "name": "login_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Login')",
+        "backup_locator": "locator('input[name=\"login\"]')",
+        "description": "Button to submit the login form"
+      },
+      {
+        "name": "remember_me_checkbox",
+        "type": "checkbox",
+        "primary_locator": "get_by_label('Remember me')",
+        "backup_locator": "locator('#rememberme')",
+        "description": "Checkbox to remember the user"
+      },
+      {
+        "name": "lost_your_password_link",
+        "type": "link",
+        "primary_locator": "get_by_text('Lost your password?')",
+        "backup_locator": "locator('a[href*=\"lost-password\"]')",
+        "description": "Link to reset password"
+      },
+      {
+        "name": "email_address_input_register",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Email address')",
+        "backup_locator": "locator('#reg_email')",
+        "description": "Input field for email address in the registration section"
+      },
+      {
+        "name": "password_input_register",
+        "type": "password_field",
+        "primary_locator": "get_by_label('Password', exact=True).nth(1)",
+        "backup_locator": "locator('#reg_password')",
+        "description": "Input field for password in the registration section"
+      },
+      {
+        "name": "register_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Register')",
+        "backup_locator": "locator('input[name=\"register\"]')",
+        "description": "Button to submit the registration form"
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('My Account \u2013 Automation Practice')",
+      "expect(page.get_by_role('heading', name='Login').first()).to_be_visible()",
+      "expect(page.get_by_role('heading', name='Register').first()).to_be_visible()"
+    ]
+  }
+}
