@@ -9,57 +9,42 @@ class EmployeeListPage:
         self.page = page
 
     @property
-    def Employee Name Input(self):
-        """Input field for Employee Name"""
-        return self.page.get_by_placeholder('Type for hints...').or_(self.page.locator('input[placeholder="Type for hints..."]').first)
+    def add_employee_button(self):
+        """Button to navigate to the Add Employee page"""
+        return self.page.get_by_role('button', name=' Add').or_(self.page.locator('button:has-text(" Add")'))
 
     @property
-    def Employee Id Input(self):
-        """Input field for Employee ID"""
-        return self.page.locator('input[placeholder="Type for hints..."]').nth(1).or_(self.page.locator('div.oxd-input-group').nth(1) input)
+    def employee_name_input(self):
+        """Input field for filtering employees by name"""
+        return self.page.locator('input[placeholder="Type for hints..."]').first.or_(self.page.locator('div:has-text("Employee Name") input'))
 
     @property
-    def Employment Status Dropdown(self):
-        """Dropdown for selecting Employment Status"""
-        return self.page.locator('div.oxd-select-text--after i').or_(self.page.locator('div.oxd-input-group').nth(2) div[class="oxd-select-text oxd-select-text--active"])
+    def employee_id_input(self):
+        """Input field for filtering employees by employee ID"""
+        return self.page.locator('input[placeholder="Type for hints..."]').nth(1).or_(self.page.locator('div:has-text("Employee Id") input'))
 
     @property
-    def Include Dropdown(self):
-        """Dropdown for selecting Include options"""
-        return self.page.locator('div.oxd-select-text--after i').nth(1).or_(self.page.locator('div.oxd-input-group').nth(3) div[class="oxd-select-text oxd-select-text--active"])
+    def employment_status_dropdown(self):
+        """Dropdown for filtering employees by employment status"""
+        return self.page.locator('div:has-text("Employment Status") div[class*="oxd-select-text"]').or_(self.page.locator('div:has-text("Employment Status") .oxd-select-text'))
 
     @property
-    def Supervisor Name Input(self):
-        """Input field for Supervisor Name"""
-        return self.page.locator('input[placeholder="Type for hints..."]').nth(2).or_(self.page.locator('div.oxd-input-group').nth(4) input)
+    def include_dropdown(self):
+        """Dropdown for filtering employees by inclusion criteria"""
+        return self.page.locator('div:has-text("Include") div[class*="oxd-select-text"]').or_(self.page.locator('div:has-text("Include") .oxd-select-text'))
 
     @property
-    def Job Title Dropdown(self):
-        """Dropdown for selecting Job Title"""
-        return self.page.locator('div.oxd-select-text--after i').nth(2).or_(self.page.locator('div.oxd-input-group').nth(5) div[class="oxd-select-text oxd-select-text--active"])
+    def search_button(self):
+        """Button to apply the filter criteria"""
+        return self.page.get_by_role('button', name='Search').or_(self.page.locator('button:has-text("Search")'))
 
     @property
-    def Sub Unit Dropdown(self):
-        """Dropdown for selecting Sub Unit"""
-        return self.page.locator('div.oxd-select-text--after i').nth(3).or_(self.page.locator('div.oxd-input-group').nth(6) div[class="oxd-select-text oxd-select-text--active"])
-
-    @property
-    def Reset Button(self):
-        """Button to reset the search filters"""
-        return self.page.get_by_role('button', name='Reset').or_(self.page.locator('button.oxd-button--ghost'))
-
-    @property
-    def Search Button(self):
-        """Button to initiate the employee search"""
-        return self.page.get_by_role('button', name='Search').or_(self.page.locator('button.oxd-button--secondary'))
-
-    @property
-    def Add Button(self):
-        """Button to add a new employee"""
-        return self.page.get_by_role('button', name='Add').or_(self.page.locator('button.oxd-button--success'))
+    def reset_button(self):
+        """Button to reset the filter criteria"""
+        return self.page.get_by_role('button', name='Reset').or_(self.page.locator('button:has-text("Reset")'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await expect(page).to_have_url(/pim/viewEmployeeList)
-        await expect(page.locator('div.orangehrm-header-container h6').first).to_have_text('Employee Information')
-        await expect(page.locator('div.orangehrm-paper-container span.oxd-text').first).to_contain_text('Records Found')
+        await expect(page).to_have_title('OrangeHRM')
+        await expect(page.locator('h6.oxd-text--h6').first).to_have_text('Employee Information')
+        await expect(page.locator('//div[@class="oxd-table-body"]/div').count()).toBeGreaterThan(0)

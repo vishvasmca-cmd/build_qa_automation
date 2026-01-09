@@ -651,3 +651,7 @@
 - ⚠️ PROHIBITED: DON'T assume that elements are immediately available after navigation; always implement explicit waits for critical elements to appear and become interactable.
 
 - ✅ PREFERRED: DO use `locator.isVisible()` or `locator.isEnabled()` to confirm the element is ready before attempting to interact with it.
+
+- ⚠️ PROHIBITED: DON'T assume that navigation to the dashboard guarantees that all elements are immediately available for interaction. ALWAYS wait for the specific element to be visible and stable before attempting to interact with it.
+
+- ✅ PREFERRED: DO use `locator.evaluate` to check if the element is attached to the DOM before attempting to interact with it. If not, wait for it to be attached.
