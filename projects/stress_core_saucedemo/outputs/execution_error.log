@@ -1,0 +1,49 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1', 'langsmith': '0.6.2'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1, langsmith-0.6.2
+collecting ... collected 1 item
+
+projects/stress_core_saucedemo/tests/e2e/test_main.py::test_autonomous_flow[chromium] FAILED
+
+=================================== FAILURES ===================================
+________________________ test_autonomous_flow[chromium] ________________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser: Browser):
+        page = browser.new_page()
+        login_page = LoginPage(page)
+        inventory_page = InventoryPage(page)
+        cart_page = CartPage(page)
+    
+        # Navigate to the login page
+        login_page.navigate("https://www.saucedemo.com/")
+    
+        # Login with standard_user
+        login_page.login("standard_user", "secret_sauce")
+    
+        # Sort products by price (low to high)
+        inventory_page.sort_by_price_low_to_high()
+    
+        # Add the lowest price item to the cart
+>       inventory_page.add_lowest_price_item_to_cart()
+
+projects/stress_core_saucedemo/tests/e2e/test_main.py:112: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_main.InventoryPage object at 0x7f41cbd7fd90>
+
+    def add_lowest_price_item_to_cart(self):
+        # Find the add to cart button for the lowest price item
+>       add_to_cart_button = self.page.locator(".inventory_item").first().locator("button:has-text('Add to cart')")
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: 'Locator' object is not callable
+
+projects/stress_core_saucedemo/tests/e2e/test_main.py:58: TypeError
+=========================== short test summary info ============================
+FAILED projects/stress_core_saucedemo/tests/e2e/test_main.py::test_autonomous_flow[chromium] - TypeError: 'Locator' object is not callable
+============================== 1 failed in 1.64s ===============================
+

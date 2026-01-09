@@ -22,3 +22,7 @@
 - ⚠️ PROHIBITED: DON'T pass the string result of `page.url` directly to `expect(page.url).to_contain()`. The `expect` function requires a Playwright object like `page` or `locator`.
 
 - ✅ PREFERRED: DO pass the Playwright `page` object to the `expect` function when asserting on the URL, and then use the `.to_contain()` method with the expected URL fragment. For example: `expect(page).to_have_url(expected_url)` or `expect(page).to_have_url(re.compile(expected_url_regex))`.
+
+- ⚠️ PROHIBITED: DON'T attempt to call a Playwright Locator object directly as a function. Use appropriate Playwright actions like `.click()` or `.fill()` on the Locator object.
+
+- ✅ PREFERRED: DO use Playwright's action methods (e.g., `.click()`, `.fill()`, `.hover()`) on Locator objects to interact with page elements.
