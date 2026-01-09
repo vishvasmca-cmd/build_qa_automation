@@ -11,7 +11,7 @@ from concurrent.futures import ThreadPoolExecutor
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from core.knowledge.rag_synthesizer import RAGSynthesizer
 try:
-    from core.utils.git_utils import GitManager
+    from core.lib.git_utils import GitManager
 except ImportError:
     # Basic fallback if git_utils is moved/renamed
     GitManager = None
