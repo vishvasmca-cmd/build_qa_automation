@@ -147,9 +147,8 @@ def main():
             # 2. Git Sync (Commit & Push)
             if GitManager:
                 print("🔄 Syncing with Remote...")
-                git = GitManager(os.getcwd())
                 commit_msg = f"Auto-Learned: {p.get('name', 'unknown')} - {status}"
-                git.safe_commit_and_push(commit_msg)
+                GitManager.commit_and_push(commit_msg)
             else:
                 # Fallback CLI Git
                 subprocess.run(["git", "add", "."], check=False)
