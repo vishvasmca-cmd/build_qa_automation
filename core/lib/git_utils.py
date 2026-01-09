@@ -4,14 +4,23 @@ from termcolor import colored
 
 class GitManager:
     @staticmethod
+    def _get_branch():
+        try:
+            res = subprocess.run(["git", "branch", "--show-current"], capture_output=True, text=True, check=True)
+            return res.stdout.strip() or "main"
+        except:
+            return "main"
+
+    @staticmethod
     def sync():
-        print(colored("🔄 Git: Fetching and Merging...", "cyan"))
+        branch = GitManager._get_branch()
+        print(colored(f"🔄 Git: Fetching and Rebasing on {branch}...", "cyan"))
         try:
             subprocess.run(["git", "fetch", "--all"], capture_output=True, check=True)
-            # Try to merge, but handle cases where there's no tracking branch or conflicts
-            ret = subprocess.run(["git", "merge", "origin/master"], capture_output=True, text=True)
+            # Use rebase for cleaner history and use -Xtheirs for metadata files like failures.json
+            ret = subprocess.run(["git", "pull", "--rebase", "origin", branch, "-Xtheirs"], capture_output=True, text=True)
             if ret.returncode != 0:
-                print(colored(f"⚠️ Git Merge Warning: {ret.stderr.strip()}", "yellow"))
+                print(colored(f"⚠️ Git Sync Warning: {ret.stderr.strip()}", "yellow"))
             else:
                 print(colored("✅ Git: Synced with remote.", "green"))
         except Exception as e:
@@ -33,7 +42,17 @@ class GitManager:
             subprocess.run(["git", "commit", "-m", message], capture_output=True, check=True)
             
             print(colored("📤 Git: Pushing to remote...", "cyan"))
-            subprocess.run(["git", "push"], capture_output=True, check=True)
-            print(colored("✅ Git: Changes pushed successfully.", "green"))
+            res = subprocess.run(["git", "push"], capture_output=True, text=True)
+            if res.returncode != 0:
+                # If push fails, try one sync and push again (re-sync might be needed)
+                if "behind" in res.stderr.lower() or "rejected" in res.stderr.lower():
+                    print(colored("🔄 Git: Behind remote. Attempting auto-sync...", "yellow"))
+                    GitManager.sync()
+                    subprocess.run(["git", "push"], capture_output=True, check=True)
+                    print(colored("✅ Git: Changes pushed successfully after sync.", "green"))
+                else:
+                    raise Exception(res.stderr.strip())
+            else:
+                print(colored("✅ Git: Changes pushed successfully.", "green"))
         except Exception as e:
             print(colored(f"⚠️ Git Push Failed: {e}", "yellow"))
