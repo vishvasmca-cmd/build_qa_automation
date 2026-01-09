@@ -30,3 +30,7 @@
 - ⚠️ PROHIBITED: DON'T assume elements are immediately available; always account for potential loading times or animations.
 
 - ✅ PREFERRED: DO use explicit waits or retries when interacting with elements that might not be immediately present in the DOM.
+
+- ⚠️ PROHIBITED: DON'T assume a successful login solely based on immediate response; ALWAYS verify the navigation to the target page (e.g., /inventory.html) within a reasonable timeout.
+
+- ✅ PREFERRED: DO implement explicit waits for critical page elements to load after navigation, especially after login, to ensure the application is fully ready for subsequent actions.
