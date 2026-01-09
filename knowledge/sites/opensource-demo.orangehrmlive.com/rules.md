@@ -755,3 +755,43 @@
 - ⚠️ PROHIBITED: DON'T assume a successful login solely based on clicking the login button; ALWAYS verify the URL after login.
 
 - ✅ PREFERRED: DO implement retry logic with exponential backoff for login attempts to handle intermittent server slowness or network issues.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `wait_for_url` immediately after login; the application might require additional time to fully render the dashboard.
+
+- ✅ PREFERRED: DO implement a more robust check for successful login, such as waiting for a specific element on the dashboard to be visible, in addition to `wait_for_url`.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `wait_for_url` immediately after login; the dashboard content might not be fully rendered even if the URL is correct.
+
+- ✅ PREFERRED: DO verify the presence of a unique dashboard element (e.g., a specific heading or button) after `wait_for_url` to ensure the page is fully loaded and the login was successful.
+
+- ⚠️ PROHIBITED: DON'T assume a successful login solely based on clicking the login button; ALWAYS verify navigation to the dashboard or a successful login indicator.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for login attempts, especially in environments with potential network instability.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `wait_for_url` with wildcard matching for critical navigation checks; it can be unreliable due to partial matches or incomplete page loads.
+
+- ✅ PREFERRED: DO combine `wait_for_url` with explicit element checks on the target page to ensure the expected content is fully loaded and visible after navigation.
+
+- ⚠️ PROHIBITED: DON'T assume a successful login solely based on clicking the login button; ALWAYS verify the URL after login to confirm navigation to the dashboard.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for login attempts, especially in environments with potential network instability or slow server responses.
+
+- ⚠️ PROHIBITED: DON'T assume that relative import paths will always resolve correctly without verifying the project's root directory and Python's module search path.
+
+- ✅ PREFERRED: DO ensure that all module import paths are correct and relative to the project's root directory. Verify the PYTHONPATH environment variable if necessary.
+
+- ⚠️ PROHIBITED: DON'T define methods without parentheses, even if they don't take arguments beyond 'self'.
+
+- ✅ PREFERRED: ALWAYS ensure that all method definitions include parentheses, e.g., `def username_input(self):`.
+
+- ⚠️ PROHIBITED: DON'T define methods without parentheses, even if they don't take arguments beyond `self`.
+
+- ✅ PREFERRED: ALWAYS ensure that all method definitions include parentheses, e.g., `def username_input(self):`.
+
+- ⚠️ PROHIBITED: DON'T define methods without parentheses, even if they don't take arguments beyond `self`.
+
+- ✅ PREFERRED: ALWAYS ensure that all method definitions include parentheses, e.g., `def username_input(self):`.
+
+- ⚠️ PROHIBITED: DON'T assume that the module paths are correct without verifying the file structure and naming conventions.
+
+- ✅ PREFERRED: DO double-check the file paths and module names in import statements to ensure they accurately reflect the project structure.
