@@ -63,7 +63,8 @@ class SafeLLM:
 
         resp = self.model.generate_content(
             prompt, 
-            generation_config={"temperature": self.temperature}
+            generation_config={"temperature": self.temperature},
+            request_options={"timeout": 120}
         )
         
         # Mock Langchain response object
