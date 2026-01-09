@@ -1,0 +1,60 @@
+{
+  "UnknownPage": {
+    "description": "This page appears to be a registration or signup page for a service or application.",
+    "url_pattern": "/register",
+    "elements": [
+      {
+        "name": "first_name_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('First Name')",
+        "backup_locator": "locator('#firstName')",
+        "description": "Input field for the user's first name."
+      },
+      {
+        "name": "last_name_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Last Name')",
+        "backup_locator": "locator('#lastName')",
+        "description": "Input field for the user's last name."
+      },
+      {
+        "name": "email_input",
+        "type": "text_field",
+        "primary_locator": "get_by_label('Email')",
+        "backup_locator": "locator('#email')",
+        "description": "Input field for the user's email address."
+      },
+      {
+        "name": "password_input",
+        "type": "password_field",
+        "primary_locator": "get_by_label('Password')",
+        "backup_locator": "locator('#password')",
+        "description": "Input field for the user's password."
+      },
+      {
+        "name": "confirm_password_input",
+        "type": "password_field",
+        "primary_locator": "get_by_label('Confirm Password')",
+        "backup_locator": "locator('#confirmPassword')",
+        "description": "Input field to confirm the user's password."
+      },
+      {
+        "name": "register_button",
+        "type": "button",
+        "primary_locator": "get_by_role('button', name='Register')",
+        "backup_locator": "locator('#registerButton')",
+        "description": "Button to submit the registration form."
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('Registration')",
+      "expect(page.get_by_role('heading', name='Create an Account')).to_be_visible()",
+      "expect(page.locator('#firstName')).to_be_visible()",
+      "expect(page.locator('#lastName')).to_be_visible()",
+      "expect(page.locator('#email')).to_be_visible()",
+      "expect(page.locator('#password')).to_be_visible()",
+      "expect(page.locator('#confirmPassword')).to_be_visible()",
+      "expect(page.locator('#registerButton')).to_be_visible()"
+    ]
+  }
+}
