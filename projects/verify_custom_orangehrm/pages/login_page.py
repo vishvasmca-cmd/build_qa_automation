@@ -2,7 +2,7 @@ from playwright.async_api import Page, expect
 
 class LoginPage:
     """
-    This is the login page for OrangeHRM. Users can enter their username and password to access the system.
+    This is the Login page for OrangeHRM. Users enter their credentials to access the system.
     URL Pattern: https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
     """
     def __init__(self, page: Page):

@@ -2,7 +2,7 @@ from playwright.async_api import Page, expect
 
 class UnknownPage:
     """
-    This is the Employee List page within the PIM module, where users can view, search, and manage employee information.
+    This page displays a list of employees and allows filtering and searching for specific employees. It is part of the PIM (Personnel Information Management) module.
     URL Pattern: https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList
     """
     def __init__(self, page: Page):
@@ -10,69 +10,56 @@ class UnknownPage:
 
     @property
     def Employee Name Input(self):
-        """Input field to search for employees by name."""
+        """Input field for filtering employees by name."""
         return self.page.//label[text()='Employee Name']/following-sibling::div/input.or_(self.page.input[placeholder='Type for hints...'])
 
     @property
     def Employee Id Input(self):
-        """Input field to search for employees by ID."""
+        """Input field for filtering employees by ID."""
         return self.page.//label[text()='Employee Id']/following-sibling::div/input.or_(self.page.input[placeholder='Type for hints...'])
 
     @property
     def Employment Status Dropdown(self):
-        """Dropdown to filter employees by employment status."""
-        return self.page.//label[text()='Employment Status']/following-sibling::div//div[@class='oxd-select-text--after'].or_(self.page.div.oxd-select-text--arrow)
+        """Dropdown for filtering employees by employment status."""
+        return self.page.//label[text()='Employment Status']/following-sibling::div//div[@class='oxd-select-text--after'].or_(self.page.div:nth-child(3) > div > div.oxd-select-text.oxd-select-text--active)
 
     @property
     def Include Dropdown(self):
-        """Dropdown to filter employees by inclusion criteria (e.g., Current Employees Only)."""
-        return self.page.//label[text()='Include']/following-sibling::div//div[@class='oxd-select-text--after'].or_(self.page.div.oxd-select-text--arrow)
+        """Dropdown for filtering employees by inclusion criteria (e.g., Current Employees Only)."""
+        return self.page.//label[text()='Include']/following-sibling::div//div[@class='oxd-select-text--after'].or_(self.page.div:nth-child(4) > div > div.oxd-select-text.oxd-select-text--active)
 
     @property
     def Supervisor Name Input(self):
-        """Input field to search for employees by supervisor name."""
+        """Input field for filtering employees by supervisor name."""
         return self.page.//label[text()='Supervisor Name']/following-sibling::div/input.or_(self.page.input[placeholder='Type for hints...'])
 
     @property
     def Job Title Dropdown(self):
-        """Dropdown to filter employees by job title."""
-        return self.page.//label[text()='Job Title']/following-sibling::div//div[@class='oxd-select-text--after'].or_(self.page.div.oxd-select-text--arrow)
+        """Dropdown for filtering employees by job title."""
+        return self.page.//label[text()='Job Title']/following-sibling::div//div[@class='oxd-select-text--after'].or_(self.page.div:nth-child(2) > div > div.oxd-select-text.oxd-select-text--active)
 
     @property
     def Sub Unit Dropdown(self):
-        """Dropdown to filter employees by sub unit."""
-        return self.page.//label[text()='Sub Unit']/following-sibling::div//div[@class='oxd-select-text--after'].or_(self.page.div.oxd-select-text--arrow)
+        """Dropdown for filtering employees by sub unit."""
+        return self.page.//label[text()='Sub Unit']/following-sibling::div//div[@class='oxd-select-text--after'].or_(self.page.div:nth-child(3) > div > div.oxd-select-text.oxd-select-text--active)
 
     @property
     def Reset Button(self):
-        """Button to reset the search filters."""
-        return self.page.//button[text()=' Reset '].or_(self.page.button.oxd-button--ghost)
+        """Button to reset the filter criteria."""
+        return self.page.//button[text()=' Reset '].or_(self.page.button:contains('Reset'))
 
     @property
     def Search Button(self):
-        """Button to initiate the employee search."""
-        return self.page.//button[text()=' Search '].or_(self.page.button.oxd-button--main)
+        """Button to apply the filter criteria and search for employees."""
+        return self.page.//button[text()=' Search '].or_(self.page.button:contains('Search'))
 
     @property
     def Add Button(self):
-        """Button to add a new employee."""
-        return self.page.//button[normalize-space()='+ Add'].or_(self.page.button.oxd-button--success)
-
-    @property
-    def Edit Button(self):
-        """Button to edit an employee."""
-        return self.page.//div[@class='oxd-table-body']/div/div/div[@class='oxd-table-cell oxd-padding-cell'][last()]/div/button[1].or_(self.page.button.oxd-icon-button)
-
-    @property
-    def Delete Button(self):
-        """Button to delete an employee."""
-        return self.page.//div[@class='oxd-table-body']/div/div/div[@class='oxd-table-cell oxd-padding-cell'][last()]/div/button[2].or_(self.page.button.oxd-icon-button)
+        """Button to navigate to the 'Add Employee' page."""
+        return self.page.//button[normalize-space()='Add'].or_(self.page.button:contains('Add'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Assert page title contains 'Employee List'
-        await Assert header text is 'Employee Information'
-        await Assert that the 'Add' button is displayed
-        await Assert that the 'Search' button is displayed
-        await Assert that the 'Reset' button is displayed
-        await Assert that the table of employees is displayed
+        await Page title is 'OrangeHRM'
+        await Header text is 'Employee Information'
+        await URL contains '/pim/viewEmployeeList'

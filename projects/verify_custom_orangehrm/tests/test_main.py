@@ -7,7 +7,7 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
-sys.path.append('C:/Users/vishv/.gemini/antigravity/playground/inner-event/core/lib/templates')
+sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/lib/templates')
 from helpers import take_screenshot
 
 
@@ -25,59 +25,47 @@ class BasePage:
 class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.username_input = self.page.locator("[name='username']")
-        self.password_input = self.page.locator("[name='password']")
-        self.login_button = self.page.get_by_role("button", name="Login")
+        self.page = page
 
     def enter_username(self, username):
-        self.username_input.fill(username)
+        self.page.locator("[name='username']").fill(username)
 
     def enter_password(self, password):
-        self.password_input.fill(password)
+        self.page.locator("[name='password']").fill(password)
 
     def click_login(self):
-        self.login_button.click()
+        self.page.get_by_role("button", name="Login").click()
 
 class OrangehrmDashboardPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.pim_link = self.page.get_by_role("link", name="PIM")
+        self.page = page
 
-    def navigate_to_pim(self):
-        self.pim_link.click()
+    def click_pim_module(self):
+        self.page.get_by_role("link", name="PIM").click()
 
 class GenericPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        # Define common elements or methods here if needed
+        self.page = page
 
-from playwright.sync_api import Browser
-from projects.verify_custom_orangehrm.pages.base_page import BasePage
-from projects.verify_custom_orangehrm.pages.login_page import LoginPage
-from projects.verify_custom_orangehrm.pages.orangehrm_dashboard_page import OrangehrmDashboardPage
-from projects.verify_custom_orangehrm.pages.generic_page import GenericPage
-
-
-def test_autonomous_flow(browser: Browser):
+def test_autonomous_flow(browser):
     page = browser.new_page()
     login_page = LoginPage(page)
     dashboard_page = OrangehrmDashboardPage(page)
     generic_page = GenericPage(page)
 
-    # Navigate to the login page
     login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-
-    # Enter username and password
     login_page.enter_username("Admin")
     login_page.enter_password("admin123")
-
-    # Click the login button
     login_page.click_login()
 
-    # Verify successful login and navigate to PIM module
-    dashboard_page.navigate_to_pim()
+    page.wait_for_url("**/dashboard")
 
-    # The goal is achieved, but you can add assertions here to verify the PIM page content if needed.
-    # For example, you can check for the presence of specific elements on the PIM page.
+    dashboard_page.click_pim_module()
+
+    page.wait_for_url("**/pim/viewEmployeeList")
+
+    generic_page.take_screenshot("pim_module", "verify_custom_orangehrm")
 
     page.close()

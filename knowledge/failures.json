@@ -1456,5 +1456,14 @@
       "phase": "execution"
     },
     "error": "       ) or inspect.stack(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.\nE           Call log:\nE             - waiting for locator(\"[id='username']\")\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/verify_custom_ultrafast/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[id='username']\")\n============================== 1 failed in 31.29s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-09T21:37:18.134314",
+    "context": {
+      "site": "https://opensource-demo.orangehrmlive.com/",
+      "project": "verify_custom_orangehrm",
+      "phase": "execution"
+    },
+    "error": "\nE       =========================== logs ===========================\nE       waiting for navigation to \"**/dashboard\" until 'load'\nE         navigated to \"https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index\"\nE       ============================================================\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:239: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/verify_custom_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"**/dashboard\" until 'load'\n  navigated to \"https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index\"\n============================================================\n============================== 1 failed in 32.40s ==============================\n\n\n"
   }
 ]

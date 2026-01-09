@@ -795,3 +795,43 @@
 - ⚠️ PROHIBITED: DON'T assume that the module paths are correct without verifying the file structure and naming conventions.
 
 - ✅ PREFERRED: DO double-check the file paths and module names in import statements to ensure they accurately reflect the project structure.
+
+- ⚠️ PROHIBITED: DON'T rely solely on URL matching with wildcards for navigation validation; ensure the page content is also verified.
+
+- ✅ PREFERRED: DO verify the presence of a unique element on the target page (e.g., a specific heading or button) after navigation to confirm the correct page has loaded and is fully rendered.
+
+- ⚠️ PROHIBITED: DON'T rely solely on wildcard URL matching for navigation if the application's routing is inconsistent or includes unexpected redirects.
+
+- ✅ PREFERRED: DO verify the exact URL after navigation, or use more robust selectors to confirm the target page's content has loaded correctly.
+
+- ⚠️ PROHIBITED: DON'T rely solely on URL matching for navigation validation; verify key elements on the target page are loaded.
+
+- ✅ PREFERRED: DO implement explicit waits for key elements on the target dashboard page to ensure the page is fully loaded before proceeding with subsequent actions.
+
+- ⚠️ PROHIBITED: DON'T embed Playwright's `get_by_role` or other Playwright locators directly within a CSS selector string. Use them as standalone locators.
+
+- ✅ PREFERRED: DO use Playwright's locator methods (e.g., `get_by_role`, `locator`) directly and chain them as needed. Avoid trying to represent them as CSS selectors.
+
+- ⚠️ PROHIBITED: DON'T rely solely on URL matching with wildcards for navigation verification; ensure the expected content is also present on the target page.
+
+- ✅ PREFERRED: DO verify both the URL and the presence of key elements on the target page after navigation to confirm successful loading and avoid false positives.
+
+- ⚠️ PROHIBITED: DON'T rely solely on URL matching for navigation confirmation; verify the presence of key elements on the target page.
+
+- ✅ PREFERRED: DO combine URL matching with element presence checks to ensure the page has fully loaded and rendered correctly after navigation.
+
+- ⚠️ PROHIBITED: DON'T define methods without parentheses, even if they don't take arguments (e.g., `def my_method():` instead of `def my_method:`).
+
+- ✅ PREFERRED: DO thoroughly review code for syntax errors before committing and running tests, especially after making changes to method definitions.
+
+- ⚠️ PROHIBITED: DON'T assume that the module paths are correct without verifying the project's directory structure and relative imports.
+
+- ✅ PREFERRED: DO double-check the project's directory structure and relative imports to ensure that all modules can be imported correctly.
+
+- ⚠️ PROHIBITED: DON'T define methods without parentheses, even if they don't take arguments (e.g., `def my_method():` instead of `def my_method:`).
+
+- ✅ PREFERRED: ALWAYS ensure that all method definitions include parentheses, even if they don't take any arguments. This is a fundamental Python syntax requirement.
+
+- ⚠️ PROHIBITED: DON'T assume the dashboard URL will always match the pattern '**/dashboard' after login. Be specific or use a more robust check for dashboard content.
+
+- ✅ PREFERRED: DO verify successful login by waiting for a specific element on the dashboard page to be present, rather than relying solely on URL matching.
