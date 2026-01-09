@@ -27,7 +27,7 @@ if sys.platform == "win32":
 
 # Import robust LLM wrapper
 # Import robust LLM wrapper
-from core.lib.llm_utils import SafeLLM
+from core.lib.llm_utils import SafeLLM, try_parse_json
 
 # Import Metrics Logger
 # Import Metrics Logger
@@ -113,19 +113,7 @@ async def extract_all_elements(page: Page):
 
     return all_elements
 
-def try_parse_json(content):
-    import re
-    content = re.sub(r'```json\s*', '', content)
-    content = re.sub(r'\s*```', '', content)
-    content = content.strip()
-    try:
-        return json.loads(content)
-    except json.JSONDecodeError:
-        match = re.search(r'(\{.*\})', content, re.DOTALL)
-        if match:
-            try: return json.loads(match.group(1))
-            except: pass
-    return None
+
 
 async def analyze_page(page: Page, url: str, user_goal=None):
     """
@@ -348,9 +336,27 @@ class BatchMiner:
             print(colored(f"      ⚠️ Screenshot not found: {screenshot_path}", "red"))
             return
 
-        # Prepare for LLM
+        # --- CACHING LOGIC (Avoid redundant modeling) ---
+        cache_path = os.path.join(os.path.dirname(__file__), "..", "..", "outputs", "model_cache.json")
+        if not hasattr(self, "cache"):
+            if os.path.exists(cache_path):
+                try:
+                    with open(cache_path, "r") as f: self.cache = json.load(f)
+                except: self.cache = {}
+            else: self.cache = {}
+
+        # Cache key: Page Name + Screenshot MD5
         with open(screenshot_path, "rb") as f:
-            b64_img = base64.b64encode(f.read()).decode('utf-8')
+            screenshot_bytes = f.read()
+            img_hash = hashlib.md5(screenshot_bytes).hexdigest()
+            b64_img = base64.b64encode(screenshot_bytes).decode('utf-8')
+            
+        cache_key = f"{page_name}_{img_hash}"
+        if cache_key in self.cache:
+            print(colored(f"      ⚡ Cache Hit for {page_name}! Skipping LLM modeling.", "green"))
+            self.page_models[page_name] = self.cache[cache_key]
+            return
+        # -----------------------------------------------
 
         # Prompt for Page Modeling
         prompt = f"""
@@ -366,20 +372,19 @@ class BatchMiner:
         
         **OUTPUT JSON SCHEMA**:
         {{
-            "description": "Login page for customer access",
-            "url_pattern": "/login",
+            "description": "...",
+            "url_pattern": "...",
             "elements": [
                 {{
-                    "name": "login_btn",
-                    "type": "button",
-                    "primary_locator": "get_by_role('button', name='Login')",
-                    "backup_locator": "locator('#login-button')",
-                    "description": "Main submission button"
+                    "name": "...",
+                    "type": "...",
+                    "primary_locator": "...",
+                    "backup_locator": "...",
+                    "description": "..."
                 }}
             ],
             "assertions": [
-                "expect(page).to_have_title('Login - Automation Exercise')",
-                "expect(page.get_by_role('heading', name='Login')).to_be_visible()"
+                "..."
             ]
         }}
         """
@@ -392,9 +397,14 @@ class BatchMiner:
         )
         
         try:
-            resp = llm.invoke([message])
+            resp = await llm.ainvoke([message])
             model = try_parse_json(resp.content)
             if model:
                 self.page_models[page_name] = model
+                # Update Cache
+                self.cache[cache_key] = model
+                with open(cache_path, "w") as f:
+                    json.dump(self.cache, f, indent=2)
+                    
         except Exception as e:
             print(colored(f"      ❌ Modeling failed: {e}", "red"))

@@ -41,78 +41,93 @@ class SafeLLM:
     Wrapper for google-generativeai that behaves like ChatGoogleGenerativeAI.
     Bypasses Langchain/Pydantic version conflicts in the current environment.
     """
-    def __init__(self, model="gemini-flash-latest", temperature=0.1, **kwargs):
+
+    def __init__(self, model="gemini-2.0-flash", temperature=0.1, **kwargs):
         api_key = os.environ.get("GOOGLE_API_KEY")
         if not api_key:
             raise ValueError("GOOGLE_API_KEY not found in environment")
         genai.configure(api_key=api_key)
         self.model_name = model
         self.temperature = temperature
+        
+        # Capture model_kwargs (like response_mime_type)
+        self.generation_config = {"temperature": temperature}
+        if "model_kwargs" in kwargs:
+            self.generation_config.update(kwargs["model_kwargs"])
+        elif "response_mime_type" in kwargs:
+             self.generation_config["response_mime_type"] = kwargs["response_mime_type"]
+
         self.model = genai.GenerativeModel(model)
 
     @safe_llm_call()
     def invoke(self, messages):
-        # Free Tier Throttling: Aggressive 10s delay to stay under RPM limits
-        time.sleep(10)
+        # --- MULTI-PROCESS RATE LIMITING (Free Tier) ---
+        # Coordinate across processes using a shared timestamp file
+        lock_path = os.path.join(os.path.dirname(__file__), "..", "..", "outputs", "llm_throttle.json")
+        os.makedirs(os.path.dirname(lock_path), exist_ok=True)
+
+        def get_wait():
+            try:
+                if os.path.exists(lock_path):
+                    with open(lock_path, "r") as f:
+                        last_call = json.load(f).get("last_call", 0)
+                    elapsed = time.time() - last_call
+                    return max(0, 5.0 - elapsed) # 12 RPM target
+            except: pass
+            return 0
+
+        # Dynamic Wait
+        wait_time = get_wait()
+        if wait_time > 0:
+            time.sleep(wait_time)
+
+        # Update Lock
+        try:
+            with open(lock_path, "w") as f:
+                json.dump({"last_call": time.time()}, f)
+        except: pass
+        # ---------------------------------------------
 
         # Convert Langchain-style messages to direct SDK prompt
+        prompt = []
         if isinstance(messages, list):
-            # Try to concatenate messages or use content
-            prompt = ""
             for msg in messages:
                 if isinstance(msg, tuple):
-                    prompt += f"{msg[0].upper()}: {msg[1]}\n"
+                    prompt.append(f"{msg[0].upper()}: {msg[1]}")
                 elif hasattr(msg, "content"):
-                    prompt += f"{msg.content}\n"
+                    # Check for image content (Miner Vision)
+                    if isinstance(msg.content, list):
+                        for part in msg.content:
+                            if isinstance(part, dict) and part.get('type') == 'image_url':
+                                # Handle base64 image
+                                b64_data = part['image_url']['url'].split(',')[-1]
+                                prompt.append({"mime_type": "image/jpeg", "data": b64_data})
+                            else:
+                                prompt.append(part.get('text', str(part)))
+                    else:
+                        prompt.append(msg.content)
                 elif isinstance(msg, dict):
-                     prompt += f"{msg.get('role', '').upper()}: {msg.get('content', '')}\n"
+                     prompt.append(msg.get('content', ''))
                 else:
-                    prompt += str(msg) + "\n"
+                    prompt.append(str(msg))
         else:
-            prompt = str(messages)
+            prompt = [str(messages)]
 
         resp = self.model.generate_content(
             prompt, 
-            generation_config={"temperature": self.temperature},
+            generation_config=self.generation_config,
             request_options={"timeout": 120}
         )
         
-        # Mock Langchain response object
         from types import SimpleNamespace
         return SimpleNamespace(content=resp.text)
 
     async def ainvoke(self, messages):
-        # Free Tier Throttling: Async delay to keep event loop alive
-        await asyncio.sleep(10)
-
-        # Reuse the prompt construction logic (simplified duplication for safety)
-        if isinstance(messages, list):
-            prompt = ""
-            for msg in messages:
-                if isinstance(msg, tuple):
-                    prompt += f"{msg[0].upper()}: {msg[1]}\n"
-                elif hasattr(msg, "content"):
-                    prompt += f"{msg.content}\n"
-                elif isinstance(msg, dict):
-                     prompt += f"{msg.get('role', '').upper()}: {msg.get('content', '')}\n"
-                else:
-                    prompt += str(msg) + "\n"
-        else:
-            prompt = str(messages)
-
-        # Run the actual API call in a thread
-        def _call_api():
-            return self.internal_llm.invoke(prompt)
-        
-        try:
-            resp = await asyncio.to_thread(_call_api)
-            return resp
-        except Exception as e:
-             if "429" in str(e) or "ResourceExhausted" in str(e):
-                 print(colored(f"⚠️ 429 Rate Limit Hit (Async). Cooling down for 60s...", "yellow"))
-                 await asyncio.sleep(60)
-                 return await self.ainvoke(messages) # Simple retry
-             raise e
+        """
+        Async wrapper for invoke. 
+        Runs the blocking invoke() in a separate thread to prevent event loop blocking.
+        """
+        return await asyncio.to_thread(self.invoke, messages)
 
     @safe_llm_call()
     def batch(self, prompts):
