@@ -1,0 +1,96 @@
+{
+  "RahulShettyAcademyPracticePagePage": {
+    "description": "This page is designed to provide a variety of interactive elements for practicing automation testing techniques.",
+    "url_pattern": "https://rahulshettyacademy.com/AutomationPractice/",
+    "elements": [
+      {
+        "name": "radio_button_1",
+        "type": "radio",
+        "primary_locator": "get_by_role('radio', name='Radio1')",
+        "backup_locator": "locator('input[value=\"radio1\"]')",
+        "description": "First radio button option"
+      },
+      {
+        "name": "suggestion_input",
+        "type": "text",
+        "primary_locator": "locator('#autocomplete')",
+        "backup_locator": "get_by_placeholder('Type to Select Countries')",
+        "description": "Input field for suggestion class example"
+      },
+      {
+        "name": "dropdown",
+        "type": "select",
+        "primary_locator": "locator('#dropdown-class-example')",
+        "backup_locator": "locator('select#dropdown-class-example')",
+        "description": "Dropdown select element"
+      },
+      {
+        "name": "checkbox_1",
+        "type": "checkbox",
+        "primary_locator": "get_by_role('checkbox', name='Option1')",
+        "backup_locator": "locator('#checkBoxOption1')",
+        "description": "First checkbox option"
+      },
+      {
+        "name": "open_window_button",
+        "type": "button",
+        "primary_locator": "locator('#openwindow')",
+        "backup_locator": "get_by_text('Open Window')",
+        "description": "Button to open a new window"
+      },
+      {
+        "name": "open_tab_button",
+        "type": "button",
+        "primary_locator": "locator('#opentab')",
+        "backup_locator": "get_by_text('Open Tab')",
+        "description": "Button to open a new tab"
+      },
+      {
+        "name": "name_input",
+        "type": "text",
+        "primary_locator": "locator('#name')",
+        "backup_locator": "get_by_placeholder('Enter Your Name')",
+        "description": "Input field for alert example"
+      },
+      {
+        "name": "alert_button",
+        "type": "button",
+        "primary_locator": "locator('#alertbtn')",
+        "backup_locator": "get_by_text('Alert')",
+        "description": "Button to trigger an alert"
+      },
+      {
+        "name": "confirm_button",
+        "type": "button",
+        "primary_locator": "locator('#confirmbtn')",
+        "backup_locator": "get_by_text('Confirm')",
+        "description": "Button to trigger a confirmation dialog"
+      },
+      {
+        "name": "hide_button",
+        "type": "button",
+        "primary_locator": "locator('#hide-textbox')",
+        "backup_locator": "get_by_text('Hide')",
+        "description": "Button to hide the displayed element"
+      },
+      {
+        "name": "show_button",
+        "type": "button",
+        "primary_locator": "locator('#show-textbox')",
+        "backup_locator": "get_by_text('Show')",
+        "description": "Button to show the hidden element"
+      },
+      {
+        "name": "hide_show_input",
+        "type": "text",
+        "primary_locator": "locator('#displayed-text')",
+        "backup_locator": "get_by_placeholder('Hide/Show Example')",
+        "description": "Input field for hide/show example"
+      }
+    ],
+    "assertions": [
+      "expect(page).to_have_title('Practice Page')",
+      "expect(page.locator('h1').with_text('Practice Page')).to_be_visible()"
+    ]
+  }
+}
