@@ -623,3 +623,7 @@
 - ⚠️ PROHIBITED: DON'T use locators that are ambiguous and can match multiple elements on the page without providing additional specificity.
 
 - ✅ PREFERRED: DO use more specific locators, such as role-based locators (e.g., `get_by_role('button', name='Login')`) or locators that include attributes or unique identifiers, to target the intended element.
+
+- ⚠️ PROHIBITED: DON'T use ambiguous CSS selectors like `button.oxd-button--medium` without additional specificity when targeting a single, unique button element. This can lead to strict mode violations and unpredictable test behavior.
+
+- ✅ PREFERRED: DO use more specific locators, such as `getByRole` with a precise name, or combine CSS selectors with `nth` or `first`/`last` to target the intended button uniquely. Prioritize `getByRole` with accurate names for better resilience to UI changes.
