@@ -45,3 +45,15 @@ class RAGRetriever:
             ])
             
         return results[:limit]
+
+    def format_for_prompt(self, nodes):
+        """
+        Formats retrieved nodes into a string for the prompt.
+        """
+        if not nodes:
+            return "No relevant past knowledge found."
+        
+        formatted = ""
+        for i, node in enumerate(nodes):
+            formatted += f"{i+1}. [{node.get('type', 'INFO')}] {node.get('content')}\n"
+        return formatted
