@@ -615,3 +615,7 @@
 - ⚠️ PROHIBITED: DON'T use line continuation characters (backslash) without ensuring correct syntax and spacing. Double-check for unintended characters immediately following the backslash.
 
 - ✅ PREFERRED: DO use proper code formatting and linting tools to identify syntax errors before running tests. Consider using a linter like flake8 or pylint.
+
+- ⚠️ PROHIBITED: DON'T rely solely on URL matching with wildcards ('*') for navigation validation, especially when the application's URL structure is dynamic or contains unexpected characters.
+
+- ✅ PREFERRED: DO use more robust navigation validation techniques, such as waiting for a specific element on the target page to be visible, or using exact URL matching when possible. Also, consider using `page.locator('selector').wait_for()` to ensure the page is fully loaded.
