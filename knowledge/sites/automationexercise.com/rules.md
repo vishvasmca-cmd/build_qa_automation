@@ -139,3 +139,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on `wait_for_url` with a fixed timeout, especially after actions that might trigger network delays or server-side processing. The timeout might be insufficient in some cases.
 
 - ✅ PREFERRED: DO implement a retry mechanism with incremental backoff for navigation-related assertions, or use `wait_for_load_state` to ensure the page is fully loaded before proceeding with further actions.
+
+- ⚠️ PROHIBITED: DON'T use locators that return multiple elements without specifying which element is expected (e.g., using .first(), .last(), or nth(index)).
+
+- ✅ PREFERRED: DO use more specific locators or filters to target the exact element you want to interact with, especially when dealing with lists or repeating elements.
