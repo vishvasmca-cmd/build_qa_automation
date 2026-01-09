@@ -607,3 +607,7 @@
 - ⚠️ PROHIBITED: DON'T use `eval()` on locator strings, especially if they contain variables like `page` that are not defined in the evaluation context. This leads to unpredictable and scope-dependent behavior.
 
 - ✅ PREFERRED: DO use Playwright's built-in locator methods (e.g., `page.locator()`, `page.getByRole()`, `page.getByText()`) with properly formatted strings or template literals to construct locators. Pass variables directly to the locator methods instead of relying on string evaluation.
+
+- ⚠️ PROHIBITED: DON'T include any characters (including spaces) after a line continuation character (backslash).
+
+- ✅ PREFERRED: ALWAYS validate Python code syntax with a linter (e.g., flake8, pylint) before committing changes to prevent syntax errors from halting test execution.
