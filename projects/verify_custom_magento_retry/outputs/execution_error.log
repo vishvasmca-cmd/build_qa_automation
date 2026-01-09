@@ -1,0 +1,103 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
+plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
+collecting ... collected 1 item
+
+projects/verify_custom_magento_retry/tests/test_main.py::test_autonomous_flow[chromium] SSL Certificate Error detected. Halting test.
+[SCREENSHOT] Saved: C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\verify_custom_magento_retry\outputs\screenshots\ssl_error.png
+An error occurred: SSL Certificate Error
+assert False
+[SCREENSHOT] Saved: C:\Users\vishv\.gemini\antigravity\playground\inner-event\projects\verify_custom_magento_retry\outputs\screenshots\error.png
+FAILED
+
+================================== FAILURES ===================================
+_______________________ test_autonomous_flow[chromium] ________________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vishv\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser):
+        page = browser.new_page()
+        base_page = BasePage(page)
+        home_page = HomePage(page)
+        product_listing_page = ProductListingPage(page)
+        shopping_cart_page = ShoppingCartPage(page)
+        checkout_page = CheckoutPage(page)
+    
+        try:
+            base_page.navigate("https://magento.softwaretestingboard.com/")
+>           base_page.check_for_ssl_error()
+
+projects\verify_custom_magento_retry\tests\test_main.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <test_main.BasePage object at 0x000001F8A9D04850>
+
+    def check_for_ssl_error(self):
+        if "Invalid SSL certificate" in self.page.content():
+            print("SSL Certificate Error detected. Halting test.")
+            take_screenshot(self.page, "ssl_error", "verify_custom_magento_retry")
+>           assert False, "SSL Certificate Error"
+E           AssertionError: SSL Certificate Error
+E           assert False
+
+projects\verify_custom_magento_retry\tests\test_main.py:25: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vishv\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser):
+        page = browser.new_page()
+        base_page = BasePage(page)
+        home_page = HomePage(page)
+        product_listing_page = ProductListingPage(page)
+        shopping_cart_page = ShoppingCartPage(page)
+        checkout_page = CheckoutPage(page)
+    
+        try:
+            base_page.navigate("https://magento.softwaretestingboard.com/")
+            base_page.check_for_ssl_error()
+    
+            # Search for a product
+            home_page.search_product("shirt")
+    
+            # Add the product to the cart
+            product_listing_page.add_product_to_cart("shirt")
+    
+            # Go to the shopping cart
+            page.locator(".showcart").click()
+            page.locator("text=View Cart").click()
+    
+            # Proceed to checkout
+            shopping_cart_page.proceed_to_checkout()
+    
+            # Fill in shipping address
+            checkout_page.fill_shipping_address("123 Main St", "New York", "10001", "US", "123-456-7890")
+    
+            # Select shipping method
+            checkout_page.select_shipping_method()
+    
+            # Proceed to payment
+            checkout_page.proceed_to_payment()
+    
+            # Place order
+            checkout_page.place_order()
+    
+            # Optionally, add an assertion to check for successful order placement
+            # Example: expect(page.locator('text=Thank you for your order.')).to_be_visible()
+    
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            take_screenshot(page, "error", "verify_custom_magento_retry")
+>           assert False, f"Test failed due to: {e}"
+E           AssertionError: Test failed due to: SSL Certificate Error
+E             assert False
+E           assert False
+
+projects\verify_custom_magento_retry\tests\test_main.py:123: AssertionError
+=========================== short test summary info ===========================
+FAILED projects/verify_custom_magento_retry/tests/test_main.py::test_autonomous_flow[chromium]
+============================== 1 failed in 1.52s ==============================
+
