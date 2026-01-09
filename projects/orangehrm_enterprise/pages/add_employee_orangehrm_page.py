@@ -25,13 +25,13 @@ class AddEmployeeOrangehrmPage:
 
     @property
     def employee_id_input(self):
-        """Input field for employee ID"""
-        return self.page.get_by_label('Employee Id').or_(self.page.locator('input[class*="oxd-input oxd-input--active"][name="employeeId"]'))
+        """Input field for employee's ID"""
+        return self.page.get_by_label('Employee Id').or_(self.page.locator('input[class="oxd-input oxd-input--active"]'))
 
     @property
     def create_login_details_toggle(self):
         """Toggle to enable/disable creating login details for the employee"""
-        return self.page.get_by_role('switch', name='Create Login Details').or_(self.page.locator('.oxd-switch-input'))
+        return self.page.locator('span.oxd-switch-input').or_(self.page.locator('label:has-text("Create Login Details")'))
 
     @property
     def save_button(self):
@@ -44,9 +44,9 @@ class AddEmployeeOrangehrmPage:
         return self.page.get_by_role('button', name='Cancel').or_(self.page.locator('button:has-text("Cancel")'))
 
     @property
-    def add_profile_picture(self):
-        """Button to upload profile picture"""
-        return self.page.get_by_role('button').or_(self.page.locator('.oxd-file-input'))
+    def profile_image_upload(self):
+        """Area to upload the employee profile image"""
+        return self.page.locator('div.oxd-file-div input').or_(self.page.locator('p:has-text("Accepts jpg, .png, .gif up to 1MB.")'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""

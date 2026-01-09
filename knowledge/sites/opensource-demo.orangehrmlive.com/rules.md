@@ -611,3 +611,7 @@
 - ⚠️ PROHIBITED: DON'T include any characters (including spaces) after a line continuation character (backslash).
 
 - ✅ PREFERRED: ALWAYS validate Python code syntax with a linter (e.g., flake8, pylint) before committing changes to prevent syntax errors from halting test execution.
+
+- ⚠️ PROHIBITED: DON'T use line continuation characters (backslash) without ensuring correct syntax and spacing. Double-check for unintended characters immediately following the backslash.
+
+- ✅ PREFERRED: DO use proper code formatting and linting tools to identify syntax errors before running tests. Consider using a linter like flake8 or pylint.
