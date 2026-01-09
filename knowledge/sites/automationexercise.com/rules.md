@@ -135,3 +135,7 @@
 - Before clicking 'Add to cart', ensure the element is visible and interactable. Implement a retry mechanism with a short delay to handle potential loading delays or transient UI elements.
 
 - Before interacting with the search input field, ensure that the page has fully loaded and any overlays or animations that might obscure the element have completed. Consider adding a short delay or a more robust wait condition that checks for the visibility and stability of the element.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `wait_for_url` with a fixed timeout, especially after actions that might trigger network delays or server-side processing. The timeout might be insufficient in some cases.
+
+- ✅ PREFERRED: DO implement a retry mechanism with incremental backoff for navigation-related assertions, or use `wait_for_load_state` to ensure the page is fully loaded before proceeding with further actions.
