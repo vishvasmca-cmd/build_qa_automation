@@ -19,12 +19,15 @@ class BasePage:
         self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
+    def take_screenshot(self, name, project_name):
+        take_screenshot(self.page, name, project_name)
+
 class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
         self.username_locator = "[name='username']"
         self.password_locator = "[name='password']"
-        self.login_button_locator = 'page.get_by_role("button", name="Login")'
+        self.login_button_locator = "page.get_by_role(\"button\", name=\"Login\")"
 
     def login(self, username, password):
         self.page.locator(self.username_locator).fill(username)
@@ -35,7 +38,7 @@ class LoginPage(BasePage):
 class OrangehrmDashboardPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.pim_link_locator = 'page.get_by_role("link", name="PIM")'
+        self.pim_link_locator = "page.get_by_role(\"link\", name=\"PIM\")"
 
     def navigate_to_pim(self):
         self.page.locator(eval(self.pim_link_locator)).click()
@@ -44,7 +47,7 @@ class OrangehrmDashboardPage(BasePage):
 class EmployeeListPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.add_button_locator = 'page.get_by_role("button", name="Add")'
+        self.add_button_locator = "page.get_by_role(\"button\", name=\"Add\")"
 
     def navigate_to_add_employee(self):
         self.page.locator(eval(self.add_button_locator)).click()
@@ -55,7 +58,7 @@ class AddEmployeeOrangehrmPage(BasePage):
         super().__init__(page)
         self.first_name_locator = "[name='firstName']"
         self.last_name_locator = "[name='lastName']"
-        self.save_button_locator = 'page.get_by_role("button", name="Save")'
+        self.save_button_locator = "page.get_by_role(\"button\", name=\"Save\")"
 
     def add_employee(self, first_name, last_name):
         self.page.locator(self.first_name_locator).fill(first_name)
@@ -66,21 +69,16 @@ class AddEmployeeOrangehrmPage(BasePage):
 class OrangehrmPimPersonalDetailsPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.admin_link_locator = 'page.get_by_role("link", name="Admin")'
-        self.save_button_locator = 'page.get_by_role("button", name="Save")'
+        self.admin_link_locator = "page.get_by_role(\"link\", name=\"Admin\")"
 
     def navigate_to_admin(self):
         self.page.locator(eval(self.admin_link_locator)).click()
         self.page.wait_for_load_state("networkidle")
 
-    def save_personal_details(self):
-        self.page.locator(eval(self.save_button_locator)).click()
-        self.page.wait_for_load_state("networkidle")
-
 class SystemUsersPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.add_button_locator = 'page.get_by_role("button", name="Add")'
+        self.add_button_locator = "page.get_by_role(\"button\", name=\"Add\")"
 
     def navigate_to_add_user(self):
         self.page.locator(eval(self.add_button_locator)).click()
@@ -89,9 +87,9 @@ class SystemUsersPage(BasePage):
 class AddUserPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.employee_name_locator = 'page.get_by_placeholder("Type for hints...")'
-        self.save_button_locator = 'page.get_by_role("button", name="Save")'
-        self.cancel_button_locator = 'page.get_by_role("button", name="Cancel")'
+        self.employee_name_locator = "page.get_by_placeholder(\"Type for hints...\")"
+        self.save_button_locator = "page.get_by_role(\"button\", name=\"Save\")"
+        self.cancel_button_locator = "page.get_by_role(\"button\", name=\"Cancel\")"
 
     def fill_employee_name(self, employee_name):
         self.page.locator(eval(self.employee_name_locator)).fill(employee_name)
@@ -100,7 +98,7 @@ class AddUserPage(BasePage):
         self.page.locator(eval(self.save_button_locator)).click()
         self.page.wait_for_load_state("networkidle")
 
-    def cancel_user(self):
+    def cancel_add_user(self):
         self.page.locator(eval(self.cancel_button_locator)).click()
         self.page.wait_for_load_state("networkidle")
 
@@ -124,14 +122,13 @@ def test_autonomous_flow(browser: Browser):
     pim_personal_details_page.navigate_to_admin()
     system_users_page.navigate_to_add_user()
 
-    # The trace doesn't provide the employee name to fill, so I'm leaving it blank.
-    # You'll need to add the logic to select the employee from the dropdown.
-    # add_user_page.fill_employee_name("Employee Name")
-
-    # The trace shows multiple attempts to save the user.  I'm including the save and cancel actions.
-    # You'll need to add the logic to fill the other required fields on the Add User page.
+    # The trace doesn't provide the employee name to fill, so I'm adding a placeholder
+    add_user_page.fill_employee_name("Type for hints...")
     add_user_page.save_user()
-    add_user_page.cancel_user()
 
+    # The trace shows that the save action failed, so we cancel and try again
+    add_user_page.cancel_add_user()
     system_users_page.navigate_to_add_user()
+    # The trace doesn't provide the employee name to fill, so I'm adding a placeholder
+    add_user_page.fill_employee_name("Type for hints...")
     add_user_page.save_user()
