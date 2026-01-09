@@ -26,15 +26,12 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
     
         # 1. Login
         login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-        login_page.login("Admin", "admin123")
-    
-        # 2. Navigate to PIM and add an employee
->       orangehrm_dashboard_page.navigate_to_pim()
+>       login_page.login("Admin", "admin123")
 
-projects/orangehrm_enterprise/tests/test_main.py:120: 
+projects/orangehrm_enterprise/tests/test_main.py:117: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/orangehrm_enterprise/tests/test_main.py:40: in navigate_to_pim
-    self.page.locator(self.pim_link_locator).click()
+projects/orangehrm_enterprise/tests/test_main.py:32: in login
+    self.page.locator(self.login_button_locator).click()
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:162: in click
@@ -46,8 +43,8 @@ projects/orangehrm_enterprise/tests/test_main.py:40: in navigate_to_pim
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7f318102d810>
-cb = <function Channel.send.<locals>.<lambda> at 0x7f317fe03f60>
+self = <playwright._impl._connection.Connection object at 0x7f46daf16750>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f46daedafc0>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -66,18 +63,20 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+E           playwright._impl._errors.Error: Locator.click: Error: strict mode violation: locator("text=Login") resolved to 2 elements:
+E               1) <h5 data-v-7b563373="" data-v-0af708be="" class="oxd-text oxd-text--h5 orangehrm-login-title">Login</h5> aka get_by_role("heading", name="Login")
+E               2) <button type="submit" data-v-10d463b7="" data-v-0af708be="" class="oxd-button oxd-button--medium oxd-button--main orangehrm-login-button">…</button> aka get_by_role("button", name="Login")
+E           
 E           Call log:
-E             - waiting for locator("a[href='/web/index.php/pim/viewEmployeeList']")
-E               - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/validate" navigation to finish...
-E               - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
+E             - waiting for locator("text=Login")
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
 =========================== short test summary info ============================
-FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+FAILED projects/orangehrm_enterprise/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.click: Error: strict mode violation: locator("text=Login") resolved to 2 elements:
+    1) <h5 data-v-7b563373="" data-v-0af708be="" class="oxd-text oxd-text--h5 orangehrm-login-title">Login</h5> aka get_by_role("heading", name="Login")
+    2) <button type="submit" data-v-10d463b7="" data-v-0af708be="" class="oxd-button oxd-button--medium oxd-button--main orangehrm-login-button">…</button> aka get_by_role("button", name="Login")
+
 Call log:
-  - waiting for locator("a[href='/web/index.php/pim/viewEmployeeList']")
-    - waiting for" https://opensource-demo.orangehrmlive.com/web/index.php/auth/validate" navigation to finish...
-    - navigated to "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index"
-============================== 1 failed in 33.80s ==============================
+  - waiting for locator("text=Login")
+============================== 1 failed in 2.91s ===============================
 
