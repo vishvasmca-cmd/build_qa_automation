@@ -353,6 +353,7 @@ def _run_execution(project_root, config, config_hash, test_path, trace_path):
         env["PYTHONPATH"] = os.getcwd() # Ensure 'core' is importable from root
 
         # Define output directory for test results
+        # Define output directory for test results
         output_dir = os.path.join(project_root, "outputs", "test-results")
         ret = subprocess.run(["pytest", test_path, "-v", "-s", f"--output={output_dir}"], capture_output=True, text=True, encoding='utf-8', errors='replace', env=env)
         current_log = (ret.stdout or "") + "\n" + (ret.stderr or "")

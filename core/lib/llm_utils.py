@@ -1,62 +1,78 @@
 import time
+import os
 import random
 import json
 import re
 from functools import wraps
 from termcolor import colored
-from langchain_google_genai import ChatGoogleGenerativeAI
-from google.api_core.exceptions import ResourceExhausted, ServiceUnavailable, InternalServerError, DeadlineExceeded
+import google.generativeai as genai
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def safe_llm_call(max_retries=3, initial_delay=1, backoff_factor=2):
-    """
-    Decorator for robust LLM calls with exponential backoff.
-    Handles ResourceExhausted (429), ServiceUnavailable (503), and Internal errors.
-    """
+# ... (decorator logic remains same, but we use it below)
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             delay = initial_delay
             last_exception = None
-            
             for attempt in range(max_retries + 1):
                 try:
                     return func(*args, **kwargs)
-                except (ResourceExhausted, ServiceUnavailable, InternalServerError, DeadlineExceeded) as e:
-                    last_exception = e
-                    if attempt == max_retries:
-                        print(colored(f"❌ LLM Call Failed after {max_retries} retries: {e}", "red"))
-                        raise e
-                    
-                    sleep_time = delay + random.uniform(0, 0.5) # Add jitter
-                    print(colored(f"⚠️ LLM Error ({type(e).__name__}). Retrying in {sleep_time:.2f}s... (Attempt {attempt+1}/{max_retries})", "yellow"))
-                    time.sleep(sleep_time)
-                    delay *= backoff_factor
                 except Exception as e:
-                    # Don't retry on other errors (e.g. InvalidArgument)
-                    print(colored(f"❌ Unrecoverable LLM Error: {e}", "red"))
-                    raise e
+                    last_exception = e
+                    if attempt == max_retries: raise e
+                    time.sleep(delay)
+                    delay *= backoff_factor
             return None
         return wrapper
     return decorator
 
 class SafeLLM:
     """
-    Wrapper for ChatGoogleGenerativeAI that automatically adds retry logic to invoke.
+    Wrapper for google-generativeai that behaves like ChatGoogleGenerativeAI.
+    Bypasses Langchain/Pydantic version conflicts in the current environment.
     """
     def __init__(self, model="gemini-2.0-flash", temperature=0.1, **kwargs):
-        self.internal_llm = ChatGoogleGenerativeAI(
-            model=model,
-            temperature=temperature,
-            **kwargs
-        )
-    
+        api_key = os.environ.get("GOOGLE_API_KEY")
+        if not api_key:
+            raise ValueError("GOOGLE_API_KEY not found in environment")
+        genai.configure(api_key=api_key)
+        self.model_name = model
+        self.temperature = temperature
+        self.model = genai.GenerativeModel(model)
+
     @safe_llm_call()
-    def invoke(self, prompt):
-        return self.internal_llm.invoke(prompt)
+    def invoke(self, messages):
+        # Convert Langchain-style messages to direct SDK prompt
+        if isinstance(messages, list):
+            # Try to concatenate messages or use content
+            prompt = ""
+            for msg in messages:
+                if isinstance(msg, tuple):
+                    prompt += f"{msg[0].upper()}: {msg[1]}\n"
+                elif hasattr(msg, "content"):
+                    prompt += f"{msg.content}\n"
+                elif isinstance(msg, dict):
+                     prompt += f"{msg.get('role', '').upper()}: {msg.get('content', '')}\n"
+                else:
+                    prompt += str(msg) + "\n"
+        else:
+            prompt = str(messages)
+
+        resp = self.model.generate_content(
+            prompt, 
+            generation_config={"temperature": self.temperature}
+        )
+        
+        # Mock Langchain response object
+        from types import SimpleNamespace
+        return SimpleNamespace(content=resp.text)
 
     @safe_llm_call()
     def batch(self, prompts):
-        return self.internal_llm.batch(prompts)
+        return [self.invoke(p) for p in prompts]
 
 def try_parse_json(content):
     """

@@ -230,6 +230,23 @@ class CodeRefiner:
         except Exception as e:
             pass # Dispatcher is optional
 
+        # Load RAG Knowledge (Global AKG)
+        rag_context = ""
+        try:
+             # Lazy import to avoid circular dependencies
+             try: from core.knowledge.rag_retriever import RAGRetriever
+             except ImportError: from knowledge.rag_retriever import RAGRetriever
+             
+             retriever = RAGRetriever()
+             # Fetch procedural nodes and domain-specific coding patterns
+             nodes = retriever.retrieve(url=target_url, domain=domain, limit=5)
+             if nodes:
+                 rag_context = "\n**GLOBAL AUTOMATION KNOWLEDGE (RAG)**:\n"
+                 for n in nodes:
+                     rag_context += f"- [{n.get('node_type', 'general').upper()}]: {n.get('lesson')}\n"
+        except Exception as e:
+            print(f"⚠️ Failed to load RAG context: {e}")
+
         # Load Failure RAG (Herd Immunity)
         failure_knowledge = load_historical_failures(target_url)
 
@@ -242,6 +259,8 @@ class CodeRefiner:
         {{GOLDEN_CONTEXT}}
 
         {{PLATFORM_RULES}}
+        
+        {{RAG_CONTEXT}}
 
         {{FAILURE_KNOWLEDGE}}
         
@@ -348,6 +367,7 @@ class CodeRefiner:
                                .replace("{{SITE_KNOWLEDGE}}", site_knowledge)\
                                .replace("{{FAILURE_KNOWLEDGE}}", failure_knowledge)\
                                .replace("{{POM_GUIDE}}", pom_guide_context)\
+                               .replace("{{RAG_CONTEXT}}", rag_context)\
                                .replace("{{PLATFORM_RULES}}", platform_rules)
 
         # Prepare Multimodal Message
@@ -471,7 +491,7 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         "expectation": t.get('expected_outcome')
     } for t in trace], indent=2)
     
-    raw_code = refiner.generate_code(target_url, trace_summary, images=images_b64, error_context=error_context, domain=domain, workflow_goal=workflow_goal)
+    raw_code = refiner.generate_code(target_url, trace_summary, images=images_b64[-5:], error_context=error_context, domain=domain, workflow_goal=workflow_goal)
 
     if not raw_code:
         print("❌ Refiner failed to generate valid code.")

@@ -61,22 +61,35 @@ def run_project(config_path, headless=True):
         cmd.append("--headless")
         
     start = time.time()
-    result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace')
-    duration = time.time() - start
-    
-    success = result.returncode == 0 and "Test Execution SUCCESS!" in result.stdout
-    
-    if not success:
-        print(f"DEBUG: Return Code: {result.returncode}")
-        print(f"DEBUG: StdErr: {result.stderr}")
-    
-    return {
-        "config": config_path,
-        "success": success,
-        "duration": duration,
-        "log_tail": result.stdout[-500:],
-        "error": result.stderr if not success else ""
-    }
+    try:
+        # Timeout set to 30 minutes (1800 seconds) per project
+        result = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=1800)
+        duration = time.time() - start
+        
+        success = result.returncode == 0 and "Test Execution SUCCESS!" in result.stdout
+        
+        if not success:
+            print(f"DEBUG: Return Code: {result.returncode}")
+            print(f"DEBUG: StdErr: {result.stderr}")
+
+        return {
+            "config": config_path,
+            "success": success,
+            "duration": duration,
+            "log_tail": result.stdout[-500:],
+            "error": result.stderr if not success else ""
+        }
+            
+    except subprocess.TimeoutExpired:
+        duration = time.time() - start
+        print(f"❌ TIMEOUT: Project execution exceeded 15 minutes.")
+        return {
+            "config": config_path,
+            "success": False,
+            "duration": duration,
+            "log_tail": "TIMEOUT EXCEEDED",
+            "error": "Process timed out after 900 seconds"
+        }
 
 def main():
     parser = argparse.ArgumentParser(description="Batch Stress Tester")

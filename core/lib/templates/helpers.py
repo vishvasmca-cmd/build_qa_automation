@@ -4,14 +4,14 @@ These are validated once and reused across all tests.
 """
 import os
 import sys
-from playwright.sync_api import Page
+from playwright.sync_api import Page, Locator
 
 # Force UTF-8 for console output on Windows
 if sys.platform == "win32":
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 
-def wait_for_stability(page):
+def wait_for_stability(page: Page):
     """Ensures page is stable before interaction"""
     try:
         page.wait_for_load_state('domcontentloaded', timeout=5000)
@@ -30,7 +30,7 @@ def wait_for_stability(page):
     }""")
 
 
-def smart_action(page, primary_locator, action_type, value=None):
+def smart_action(page: Page, primary_locator, action_type: str, value=None):
     """Robust, Self-Healing Action Wrapper"""
     wait_for_stability(page)
     loc = None
@@ -62,6 +62,8 @@ def smart_action(page, primary_locator, action_type, value=None):
                 l.fill(str(value), timeout=10000)
             elif action_type == 'select':
                 l.select_option(str(value), timeout=10000)
+            elif action_type == 'hover':
+                l.hover(timeout=10000)
             return True
 
         try:
@@ -148,11 +150,15 @@ def smart_action(page, primary_locator, action_type, value=None):
         print(f"❌ Final failure for action '{action_type}' on '{primary_locator}'")
         raise e
 
-def take_screenshot(page, name, project_name):
+def take_screenshot(page: Page, name: str, project_name: str):
     """Consistent screenshot utility"""
-    path = os.path.join(f'projects/{project_name}/outputs/screenshots', f'{name}.png')
-    os.makedirs(os.path.dirname(path), exist_ok=True)
     try:
+        path = os.path.join(f'projects/{project_name}/outputs/screenshots', f'{name}.png')
+        if not os.path.isabs(path):
+            path = os.path.abspath(path)
+            
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        
         page.screenshot(path=path)
         # Using ASCII-safe print to avoid Windows encoding issues
         print(f'[SCREENSHOT] Saved: {path}')

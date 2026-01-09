@@ -20,8 +20,10 @@ llm = SafeLLM(model="gemini-2.0-flash", temperature=0.2)
 
 try:
     from .strategy_loader import FrameworkStrategyLoader
+    from .rag_retriever import RAGRetriever
 except (ImportError, ValueError):
     from strategy_loader import FrameworkStrategyLoader
+    from rag_retriever import RAGRetriever
 
 SYSTEM_PROMPT_PLANNER = """You are a QA Architect Expert.
 Your goal is to analyze a recorded user journey (trace) and the detected domain, then generate a comprehensive Test Plan and BDD Feature Files.
@@ -79,6 +81,7 @@ class SpecSynthesizer:
         self.features_dir = os.path.join(self.specs_dir, "features")
         self.plans_dir = os.path.join(self.specs_dir, "test-plans")
         self.strategy_loader = FrameworkStrategyLoader()
+        self.rag_retriever = RAGRetriever()
 
     def generate_master_plan(self, url, testing_type, goal):
         """Phase 1: Generate Plan BEFORE mining starts."""
@@ -105,12 +108,19 @@ class SpecSynthesizer:
         # 2. Load Strategy Context
         strategy_context = self.strategy_loader.load_strategy(self.domain)
 
+        # 3. Retrieve RAG Knowledge
+        rag_nodes = self.rag_retriever.retrieve(url=url, domain=self.domain)
+        rag_knowledge = self.rag_retriever.format_for_prompt(rag_nodes)
+
         prompt_instructions = f"""You are a Senior Test Manager (10+ Years Experience).
 Your goal is to define a "Master Test Strategy" for a critical business application BEFORE any automation starts.
 This document will serve as the blueprint for the entire engineering team (Senior QAs, Test Architects, SDETs).
 
 **STRATEGIC KNOWLEDGE BANK**:
 {strategy_context}
+
+**HISTORIC LEARNED PATTERNS (RAG)**:
+{rag_knowledge}
 
 **YOUR MANDATE**:
 Analyze the request and generate a strategic plan covering these four pillars:
@@ -204,8 +214,14 @@ Output a professional, executive-level Markdown report suitable for stakeholders
         
         try:
             # Inject Strategy Context into Planner Prompt
+            # Retrieve RAG Knowledge
+            url = trace_data[0].get('url', '') if trace_data else ""
+            rag_nodes = self.rag_retriever.retrieve(url=url, domain=self.domain)
+            rag_knowledge = self.rag_retriever.format_for_prompt(rag_nodes)
+            
             strategy_context = self.strategy_loader.load_strategy(self.domain)
             system_prompt = SYSTEM_PROMPT_PLANNER.replace("{strategy_context}", strategy_context)
+            system_prompt += f"\n\n{rag_knowledge}"
 
             resp = llm.invoke([
                 ("system", system_prompt),

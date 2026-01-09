@@ -770,7 +770,7 @@ class ExplorerAgent:
         print(colored(f"📝 Generated {workflow_path}", "cyan"))
 
     def _save_all_elements(self, url, step, elements):
-        """Passive Collection: Save all discovered elements for future reference"""
+        """Passive Collection: Save all discovered elements for future reference with rotation logic."""
         path = self.config.get("paths", {}).get("outputs", "outputs")
         file_path = os.path.join(path, "discovered_elements.json")
         
@@ -783,6 +783,13 @@ class ExplorerAgent:
         key = f"{url}::step_{step}"
         data[key] = elements
         
+        # ROTATION LOGIC: Keep only last 50 steps to prevent massive file growth
+        if len(data) > 50:
+             # Keep the latest 50 keys
+             sorted_keys = sorted(data.keys())[-50:] 
+             data = {k: data[k] for k in sorted_keys}
+             print(colored(f"🔄 Rotated discovered_elements.json (Trimmed to 50 entries)", "yellow"))
+
         with open(file_path, "w") as f:
             json.dump(data, f, indent=2)
         print(colored(f"💾 Passive Collection: {len(elements)} elements saved.", "blue"))
