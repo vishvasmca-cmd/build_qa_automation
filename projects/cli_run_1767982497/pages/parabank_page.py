@@ -2,33 +2,39 @@ from playwright.async_api import Page, expect
 
 class ParabankPage:
     """
-    Login page for customer access
-    URL Pattern: /login
+    This page is the ParaBank homepage, providing access to customer login, services, and information.
+    URL Pattern: https://parabank.parasoft.com/parabank/index.htm
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def username_field(self):
-        """Input field for username"""
-        return self.page.get_by_label('Username').or_(self.page.locator('input[name="username"]'))
+    def Username Input(self):
+        """Input field for entering the username."""
+        return self.page.//input[@name='username'].or_(self.page.css=input[name='username'])
 
     @property
-    def password_field(self):
-        """Input field for password"""
-        return self.page.get_by_label('Password').or_(self.page.locator('input[name="password"]'))
+    def Password Input(self):
+        """Input field for entering the password."""
+        return self.page.//input[@name='password'].or_(self.page.css=input[name='password'])
 
     @property
-    def login_button(self):
-        """Main submission button"""
-        return self.page.get_by_role('button', name='LOG IN').or_(self.page.locator('input[value="Log In"]'))
+    def Log In Button(self):
+        """Button to submit the login form."""
+        return self.page.//input[@value='Log In'].or_(self.page.css=input[value='Log In'])
 
     @property
-    def register_link(self):
-        """Link to registration page"""
-        return self.page.get_by_role('link', name='Register').or_(self.page.locator('a[href="register.htm"]'))
+    def Register Link(self):
+        """Link to navigate to the registration page."""
+        return self.page.//a[contains(text(),'Register')].or_(self.page.text=Register)
+
+    @property
+    def Forgot login info? Link(self):
+        """Link to navigate to the forgot login info page."""
+        return self.page.//a[contains(text(),'Forgot login info?')].or_(self.page.text=Forgot login info?)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await expect(page).to_have_title('ParaBank')
-        await expect(page.locator('//h2[text()="Customer Login"]')).to_be_visible()
+        await Title contains 'ParaBank'
+        await Page contains the text 'Customer Login'
+        await Page contains the text 'Welcome to ParaBank'

@@ -137,3 +137,11 @@ When executing the full "Register to Transfer" flow, you must follow this sequen
 - ⚠️ PROHIBITED: DON'T assume that dropdown options are immediately available; always wait for the dropdown to be fully populated and interactable before attempting to select an option.
 
 - ✅ PREFERRED: DO use `locator.wait_for()` with `state='attached'` or `state='visible'` before interacting with dropdown elements to ensure they are fully loaded and ready for interaction.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `wait_for_url` without verifying the element that triggers the navigation is actually clickable and functional.
+
+- ✅ PREFERRED: DO implement explicit waits for key elements on the page to load before attempting navigation, ensuring the target page is reachable.
+
+- ⚠️ PROHIBITED: DON'T use generic CSS selectors like ".button" without ensuring they uniquely identify the target element. Avoid ambiguous locators that can match multiple elements.
+
+- ✅ PREFERRED: DO use more specific locators, such as `get_by_role` with a name or `nth` to target a specific element when multiple elements match a general selector. Prioritize using text-based locators or ARIA roles for better resilience.

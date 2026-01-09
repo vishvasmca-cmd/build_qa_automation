@@ -2,73 +2,74 @@ from playwright.async_api import Page, expect
 
 class ParabankRegisterPage:
     """
-    Registration page for new customer accounts
-    URL Pattern: /register.htm
+    This page is used for new users to register for an account with ParaBank.
+    URL Pattern: https://parabank.parasoft.com/parabank/register.htm*
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def firstName(self):
-        """First name input field"""
-        return self.page.get_by_label('First Name:').or_(self.page.locator('input[name="customer.firstName"]'))
+    def First Name(self):
+        """Input field for the user's first name."""
+        return self.page.id=customer.firstName.or_(self.page.css=[name='customer.firstName'])
 
     @property
-    def lastName(self):
-        """Last name input field"""
-        return self.page.get_by_label('Last Name:').or_(self.page.locator('input[name="customer.lastName"]'))
+    def Last Name(self):
+        """Input field for the user's last name."""
+        return self.page.id=customer.lastName.or_(self.page.css=[name='customer.lastName'])
 
     @property
-    def address(self):
-        """Address input field"""
-        return self.page.get_by_label('Address:').or_(self.page.locator('input[name="customer.address.street"]'))
+    def Address(self):
+        """Input field for the user's address."""
+        return self.page.id=customer.address.street.or_(self.page.css=[name='customer.address.street'])
 
     @property
-    def city(self):
-        """City input field"""
-        return self.page.get_by_label('City:').or_(self.page.locator('input[name="customer.address.city"]'))
+    def City(self):
+        """Input field for the user's city."""
+        return self.page.id=customer.address.city.or_(self.page.css=[name='customer.address.city'])
 
     @property
-    def state(self):
-        """State input field"""
-        return self.page.get_by_label('State:').or_(self.page.locator('input[name="customer.address.state"]'))
+    def State(self):
+        """Input field for the user's state."""
+        return self.page.id=customer.address.state.or_(self.page.css=[name='customer.address.state'])
 
     @property
-    def zipCode(self):
-        """Zip code input field"""
-        return self.page.get_by_label('Zip Code:').or_(self.page.locator('input[name="customer.address.zipCode"]'))
+    def Zip Code(self):
+        """Input field for the user's zip code."""
+        return self.page.id=customer.address.zipCode.or_(self.page.css=[name='customer.address.zipCode'])
 
     @property
-    def phone(self):
-        """Phone number input field"""
-        return self.page.get_by_label('Phone #:').or_(self.page.locator('input[name="customer.phoneNumber"]'))
+    def Phone Number(self):
+        """Input field for the user's phone number."""
+        return self.page.id=customer.phoneNumber.or_(self.page.css=[name='customer.phoneNumber'])
 
     @property
-    def ssn(self):
-        """Social Security Number input field"""
-        return self.page.get_by_label('SSN:').or_(self.page.locator('input[name="customer.ssn"]'))
+    def SSN(self):
+        """Input field for the user's social security number."""
+        return self.page.id=customer.ssn.or_(self.page.css=[name='customer.ssn'])
 
     @property
-    def username(self):
-        """Username input field"""
-        return self.page.get_by_label('Username:').or_(self.page.locator('input[name="customer.username"]'))
+    def Username(self):
+        """Input field for the user's desired username."""
+        return self.page.id=customer.username.or_(self.page.css=[name='customer.username'])
 
     @property
-    def password(self):
-        """Password input field"""
-        return self.page.get_by_label('Password:').or_(self.page.locator('input[name="customer.password"]'))
+    def Password(self):
+        """Input field for the user's desired password."""
+        return self.page.id=customer.password.or_(self.page.css=[name='customer.password'])
 
     @property
-    def confirm(self):
-        """Confirm password input field"""
-        return self.page.get_by_label('Confirm:').or_(self.page.locator('input[name="repeatedPassword"]'))
+    def Confirm Password(self):
+        """Input field to confirm the user's desired password."""
+        return self.page.id=repeatedPassword.or_(self.page.css=[name='repeatedPassword'])
 
     @property
-    def register_button(self):
-        """Register button"""
-        return self.page.get_by_role('button', name='Register').or_(self.page.locator('input[value="Register"]'))
+    def Register Button(self):
+        """Button to submit the registration form."""
+        return self.page.css=[value='Register'].or_(self.page.xpath=//input[@value='Register'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await expect(page).to_have_title('ParaBank Registration')
-        await expect(page.locator('h1:has-text("Signing up is easy!")')).to_be_visible()
+        await Page title is 'ParaBank | Register'
+        await Header text contains 'Signing up is easy!'
+        await The 'First Name' input field is present
