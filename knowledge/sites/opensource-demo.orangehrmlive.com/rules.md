@@ -595,3 +595,7 @@
 - ⚠️ PROHIBITED: DON'T use `eval()` on locator strings, especially when they contain variables that are not defined within the scope of the evaluation. This leads to unpredictable errors and makes debugging difficult.
 
 - ✅ PREFERRED: DO use f-strings or `.format()` to dynamically construct locator strings, ensuring that variables are properly interpolated and accessible within the string.
+
+- ⚠️ PROHIBITED: DON'T use `eval()` to construct locators, especially when they rely on variables defined outside the string. This can lead to scope issues and make debugging difficult.
+
+- ✅ PREFERRED: DO pass the locator string directly to `page.locator()` without using `eval()`. If dynamic locators are needed, construct the string using f-strings or string formatting before passing it to `page.locator()`.
