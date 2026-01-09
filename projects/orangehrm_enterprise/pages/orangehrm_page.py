@@ -2,66 +2,85 @@ from playwright.async_api import Page, expect
 
 class OrangehrmPage:
     """
-    This is the Dashboard page of the OrangeHRM application, providing a summary of key information and quick actions.
+    The main dashboard page of the OrangeHRM application, providing an overview of key information and quick access to various modules.
     URL Pattern: /dashboard/index
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def Dashboard_Header(self):
-        """The main header of the Dashboard page."""
-        return self.page.get_by_text('Dashboard').or_(self.page.locator('h6.oxd-text--h6'))
+    def admin_menu_item(self):
+        """Link to navigate to the Admin module."""
+        return self.page.get_by_role('link', name='Admin').or_(self.page.locator('//span[text()="Admin"]'))
 
     @property
-    def Time_at_Work_Card(self):
-        """Card displaying the employee's time at work information."""
-        return self.page.get_by_text('Time at Work').or_(self.page.locator('div.orangehrm-attendance-card'))
+    def pim_menu_item(self):
+        """Link to navigate to the PIM (Personnel Information Management) module."""
+        return self.page.get_by_role('link', name='PIM').or_(self.page.locator('//span[text()="PIM"]'))
 
     @property
-    def Quick_Launch_Card(self):
-        """Card containing quick action buttons."""
-        return self.page.get_by_text('Quick Launch').or_(self.page.locator('div.orangehrm-quick-launch'))
+    def leave_menu_item(self):
+        """Link to navigate to the Leave module."""
+        return self.page.get_by_role('link', name='Leave').or_(self.page.locator('//span[text()="Leave"]'))
 
     @property
-    def My_Actions_Card(self):
-        """Card displaying pending actions for the user."""
-        return self.page.get_by_text('My Actions').or_(self.page.locator('div.orangehrm-todo-list'))
+    def time_menu_item(self):
+        """Link to navigate to the Time module."""
+        return self.page.get_by_role('link', name='Time').or_(self.page.locator('//span[text()="Time"]'))
 
     @property
-    def Assign_Leave_Button(self):
-        """Button to navigate to the Assign Leave page."""
-        return self.page.get_by_text('Assign Leave').or_(self.page.locator('div.orangehrm-quick-launch-card:nth-child(1) > div > button'))
+    def recruitment_menu_item(self):
+        """Link to navigate to the Recruitment module."""
+        return self.page.get_by_role('link', name='Recruitment').or_(self.page.locator('//span[text()="Recruitment"]'))
 
     @property
-    def Leave_List_Button(self):
-        """Button to navigate to the Leave List page."""
-        return self.page.get_by_text('Leave List').or_(self.page.locator('div.orangehrm-quick-launch-card:nth-child(2) > div > button'))
+    def my_info_menu_item(self):
+        """Link to navigate to the My Info module."""
+        return self.page.get_by_role('link', name='My Info').or_(self.page.locator('//span[text()="My Info"]'))
 
     @property
-    def Timesheets_Button(self):
-        """Button to navigate to the Timesheets page."""
-        return self.page.get_by_text('Timesheets').or_(self.page.locator('div.orangehrm-quick-launch-card:nth-child(3) > div > button'))
+    def performance_menu_item(self):
+        """Link to navigate to the Performance module."""
+        return self.page.get_by_role('link', name='Performance').or_(self.page.locator('//span[text()="Performance"]'))
 
     @property
-    def Apply_Leave_Button(self):
-        """Button to navigate to the Apply Leave page."""
-        return self.page.get_by_text('Apply Leave').or_(self.page.locator('div.orangehrm-quick-launch-card:nth-child(4) > div > button'))
+    def dashboard_menu_item(self):
+        """Link to navigate to the Dashboard module."""
+        return self.page.get_by_role('link', name='Dashboard').or_(self.page.locator('//span[text()="Dashboard"]'))
 
     @property
-    def My_Leave_Button(self):
-        """Button to navigate to the My Leave page."""
-        return self.page.get_by_text('My Leave').or_(self.page.locator('div.orangehrm-quick-launch-card:nth-child(5) > div > button'))
+    def directory_menu_item(self):
+        """Link to navigate to the Directory module."""
+        return self.page.get_by_role('link', name='Directory').or_(self.page.locator('//span[text()="Directory"]'))
 
     @property
-    def My_Timesheet_Button(self):
-        """Button to navigate to the My Timesheet page."""
-        return self.page.get_by_text('My Timesheet').or_(self.page.locator('div.orangehrm-quick-launch-card:nth-child(6) > div > button'))
+    def maintenance_menu_item(self):
+        """Link to navigate to the Maintenance module."""
+        return self.page.get_by_role('link', name='Maintenance').or_(self.page.locator('//span[text()="Maintenance"]'))
+
+    @property
+    def claim_menu_item(self):
+        """Link to navigate to the Claim module."""
+        return self.page.get_by_role('link', name='Claim').or_(self.page.locator('//span[text()="Claim"]'))
+
+    @property
+    def buzz_menu_item(self):
+        """Link to navigate to the Buzz module."""
+        return self.page.get_by_role('link', name='Buzz').or_(self.page.locator('//span[text()="Buzz"]'))
+
+    @property
+    def upgrade_button(self):
+        """Button to upgrade the OrangeHRM instance."""
+        return self.page.get_by_role('button', name='Upgrade').or_(self.page.locator('text=Upgrade'))
+
+    @property
+    def user_profile_dropdown(self):
+        """Dropdown button to access user profile options."""
+        return self.page.get_by_role('button', name='John Doe').or_(self.page.locator('.oxd-userdropdown-name'))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await expect(page).to_have_title('OrangeHRM')
-        await expect(page.locator('h6.oxd-text--h6.oxd-main-menu-item--name')).to_have_text('Dashboard')
-        await expect(page.locator('div.orangehrm-attendance-card')).to_be_visible()
-        await expect(page.locator('div.orangehrm-quick-launch')).to_be_visible()
-        await expect(page.locator('div.orangehrm-todo-list')).to_be_visible()
+        await expect(page.locator('//h6[text()="Dashboard"]')).to_be_visible()
+        await expect(page.locator('//p[text()="Time at Work"]')).to_be_visible()
+        await expect(page.locator('//p[text()="My Actions"]')).to_be_visible()

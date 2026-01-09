@@ -9,15 +9,9 @@
 | 4 | OrangehrmDashboardPage | click | PIM | ✅ | [View](../snapshots/step_04_OrangehrmDashboardPage.png) |
 | 5 | EmployeeListPage | click | None | ✅ | [View](../snapshots/step_05_EmployeeListPage.png) |
 | 6 | EmployeeListPage | click | Add | ✅ | [View](../snapshots/step_06_EmployeeListPage.png) |
-| 7 | AddEmployeeOrangehrmPage | fill | First Name | ✅ | [View](../snapshots/step_07_AddEmployeeOrangehrmPage.png) |
-| 8 | AddEmployeeOrangehrmPage | fill | Last Name | ✅ | [View](../snapshots/step_08_AddEmployeeOrangehrmPage.png) |
-| 9 | AddEmployeeOrangehrmPage | click | Save | ✅ | [View](../snapshots/step_09_AddEmployeeOrangehrmPage.png) |
-| 10 | AddEmployeeOrangehrmPage | click | Save | ✅ | [View](../snapshots/step_10_AddEmployeeOrangehrmPage.png) |
-| 11 | OrangehrmPimPersonalDetailsPage | click | Admin | ✅ | [View](../snapshots/step_11_OrangehrmPimPersonalDetailsPage.png) |
-| 12 | SystemUsersPage | click | Add | ✅ | [View](../snapshots/step_12_SystemUsersPage.png) |
-| 13 | AddUserPage | fill | Type for hints... | ✅ | [View](../snapshots/step_13_AddUserPage.png) |
-| 14 | AddUserPage | click | Save | ✅ | [View](../snapshots/step_14_AddUserPage.png) |
-| 15 | AddUserPage | click | Cancel | ✅ | [View](../snapshots/step_15_AddUserPage.png) |
-| 16 | SystemUsersPage | click | Add | ✅ | [View](../snapshots/step_16_SystemUsersPage.png) |
-| 17 | AddUserPage | click | Save | ✅ | [View](../snapshots/step_17_AddUserPage.png) |
-| 18 | Unknown | done | N/A | ✅ | [View](../snapshots/step_18_AddUserPage.png) |
+| 7 | AddEmployeePage | fill | First Name | ✅ | [View](../snapshots/step_07_AddEmployeePage.png) |
+| 8 | AddEmployeePage | fill | Last Name | ✅ | [View](../snapshots/step_08_AddEmployeePage.png) |
+| 9 | AddEmployeePage | click | Save | ✅ | [View](../snapshots/step_09_AddEmployeePage.png) |
+| 10 | AddEmployeePage | click | Admin | ✅ | [View](../snapshots/step_10_AddEmployeePage.png) |
+| 11 | SystemUsersPage | click | Add | ✅ | [View](../snapshots/step_11_SystemUsersPage.png) |
+| 12 | Unknown | done | N/A | ✅ | [View](../snapshots/step_12_AddUserPage.png) |

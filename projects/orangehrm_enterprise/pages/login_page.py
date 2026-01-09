@@ -31,5 +31,5 @@ class LoginPage:
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await expect(page).to_have_title('OrangeHRM')
-        await expect(page.get_by_role('heading', name='Login')).to_be_visible()
-        await expect(page.locator('img[alt="orangehrm-logo"]')).to_be_visible()
+        await expect(page.locator('div.orangehrm-login-branding')).to_be_visible()
+        await expect(page.locator('h5.oxd-text.oxd-text--h5.orangehrm-login-title')).to_have_text('Login')

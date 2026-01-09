@@ -703,3 +703,15 @@
 - ⚠️ PROHIBITED: DON'T use `eval()` within locator strings to dynamically construct locators based on the `page` object. This creates scope issues and makes locators difficult to maintain and debug.
 
 - ✅ PREFERRED: DO construct locators using string formatting or concatenation outside of the locator definition, passing the necessary variables as arguments to the locator method. This ensures proper scope and readability.
+
+- ⚠️ PROHIBITED: DON'T assume a successful navigation based solely on a click event; ALWAYS verify the final URL after a navigation action.
+
+- ✅ PREFERRED: DO implement explicit waits for specific elements on the target page (PIM module) to load, rather than relying solely on `wait_for_url`.
+
+- ⚠️ PROHIBITED: DON'T embed Playwright locator calls directly within CSS selector strings. Use separate locator calls and chain them using Playwright's methods.
+
+- ✅ PREFERRED: DO define locators separately and then use Playwright's methods (e.g., `locator.click()`, `locator.fill()`) to interact with the elements identified by those locators.
+
+- ⚠️ PROHIBITED: DON'T assume elements are immediately available after page load; ALWAYS implement explicit waits for critical elements to be interactable.
+
+- ✅ PREFERRED: DO use more robust locators (e.g., role, ID, or data attributes) in addition to or instead of text-based locators, especially for elements that might have dynamic text or be subject to localization.
