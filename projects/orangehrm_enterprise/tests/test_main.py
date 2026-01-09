@@ -24,7 +24,7 @@ class LoginPage(BasePage):
         super().__init__(page)
         self.username_locator = "[name='username']"
         self.password_locator = "[name='password']"
-        self.login_button_locator = "button[type='submit']"
+        self.login_button_locator = "text=Login"
 
     def login(self, username, password):
         self.page.locator(self.username_locator).fill(username)
@@ -35,7 +35,7 @@ class LoginPage(BasePage):
 class OrangehrmDashboardPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.pim_link_locator = "a[href='/web/index.php/pim/viewEmployeeList']"
+        self.pim_link_locator = "text=PIM"
 
     def navigate_to_pim(self):
         self.page.locator(self.pim_link_locator).click()
@@ -44,9 +44,9 @@ class OrangehrmDashboardPage(BasePage):
 class EmployeeListPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.add_button_locator = "button:has-text('Add')"
+        self.add_button_locator = "text=Add"
 
-    def click_add_button(self):
+    def navigate_to_add_employee(self):
         self.page.locator(self.add_button_locator).click()
         self.page.wait_for_load_state("networkidle")
 
@@ -55,20 +55,18 @@ class AddEmployeeOrangehrmPage(BasePage):
         super().__init__(page)
         self.first_name_locator = "[name='firstName']"
         self.last_name_locator = "[name='lastName']"
-        self.save_button_locator = "button:has-text('Save')"
+        self.save_button_locator = "text=Save"
 
-    def fill_employee_details(self, first_name, last_name):
+    def add_employee(self, first_name, last_name):
         self.page.locator(self.first_name_locator).fill(first_name)
         self.page.locator(self.last_name_locator).fill(last_name)
-
-    def click_save_button(self):
         self.page.locator(self.save_button_locator).click()
         self.page.wait_for_load_state("networkidle")
 
 class OrangehrmPimPersonalDetailsPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.admin_link_locator = "a[href='/web/index.php/admin/viewSystemUsers']"
+        self.admin_link_locator = "text=Admin"
 
     def navigate_to_admin(self):
         self.page.locator(self.admin_link_locator).click()
@@ -77,33 +75,33 @@ class OrangehrmPimPersonalDetailsPage(BasePage):
 class SystemUsersPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.add_button_locator = "button:has-text('Add')"
+        self.add_button_locator = "text=Add"
 
-    def click_add_button(self):
+    def navigate_to_add_user(self):
         self.page.locator(self.add_button_locator).click()
         self.page.wait_for_load_state("networkidle")
 
 class AddUserPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.employee_name_locator = "input[placeholder='Type for hints...']"
-        self.save_button_locator = "button:has-text('Save')"
-        self.cancel_button_locator = "button:has-text('Cancel')"
+        self.employee_name_locator = "[placeholder='Type for hints...']"
+        self.save_button_locator = "text=Save"
+        self.cancel_button_locator = "text=Cancel"
 
-    def fill_employee_name(self, employee_name):
+    def add_user(self, employee_name):
         self.page.locator(self.employee_name_locator).fill(employee_name)
-
-    def click_save_button(self):
         self.page.locator(self.save_button_locator).click()
         self.page.wait_for_load_state("networkidle")
 
-    def click_cancel_button(self):
+    def cancel_add_user(self):
         self.page.locator(self.cancel_button_locator).click()
         self.page.wait_for_load_state("networkidle")
 
 class GenericPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
+
+from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
@@ -122,31 +120,23 @@ def test_autonomous_flow(browser: Browser):
 
     # 2. Navigate to PIM and add an employee
     orangehrm_dashboard_page.navigate_to_pim()
-    employee_list_page.click_add_button()
-    add_employee_page.fill_employee_details("FirstNameTest", "LastNameTest")
-    add_employee_page.click_save_button()
+    employee_list_page.navigate_to_add_employee()
+    add_employee_page.add_employee("FirstNameTest", "LastNameTest")
 
     # 3. Navigate to Admin and create a system user
     orangehrm_pim_personal_details_page.navigate_to_admin()
-    system_users_page.click_add_button()
+    system_users_page.navigate_to_add_user()
 
-    # The trace shows that the 'Type for hints...' field is filled, but the value is not specified.
-    # The test fails because the employee name is required to create a system user.
-    # The following line is commented out because it is not possible to fill the employee name without knowing the exact name.
-    # add_user_page.fill_employee_name("Type for hints...")
+    # The trace is incomplete. The 'add_user' method requires an employee name.
+    # Since the trace does not provide the employee name, I will use a placeholder.
+    # In a real scenario, you would need to select the employee from a dropdown or list.
+    add_user_page.add_user("FirstNameTest LastNameTest")
 
-    # The trace shows that the 'Save' button is clicked multiple times, but the action fails.
-    # The test fails because the employee name is required to create a system user.
-    # The following line is commented out because it is not possible to save the user without filling the employee name.
-    # add_user_page.click_save_button()
+    # The trace shows that the 'Save' button was clicked twice, and then 'Cancel' was clicked.
+    # I will add the 'Cancel' button click here.
+    add_user_page.cancel_add_user()
 
-    # The trace shows that the 'Cancel' button is clicked, and then the 'Add' button is clicked again.
-    # The test fails because the employee name is required to create a system user.
-    # The following lines are commented out because it is not possible to create the user without filling the employee name.
-    # add_user_page.click_cancel_button()
-    # system_users_page.click_add_button()
-
-    # The trace shows that the 'Save' button is clicked again, but the action fails.
-    # The test fails because the employee name is required to create a system user.
-    # The following line is commented out because it is not possible to save the user without filling the employee name.
-    # add_user_page.click_save_button()
+    # The trace then shows that the 'Add' button was clicked again, and then 'Save' was clicked again.
+    # I will add those actions here.
+    system_users_page.navigate_to_add_user()
+    add_user_page.add_user("FirstNameTest LastNameTest")

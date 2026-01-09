@@ -655,3 +655,7 @@
 - ⚠️ PROHIBITED: DON'T assume that navigation to the dashboard guarantees that all elements are immediately available for interaction. ALWAYS wait for the specific element to be visible and stable before attempting to interact with it.
 
 - ✅ PREFERRED: DO use `locator.evaluate` to check if the element is attached to the DOM before attempting to interact with it. If not, wait for it to be attached.
+
+- ⚠️ PROHIBITED: DON'T assume that elements are immediately available after navigation; ALWAYS implement explicit waits for critical elements to appear.
+
+- ✅ PREFERRED: DO verify the target element's presence and attributes (e.g., href value) using browser developer tools before incorporating it into a test.
