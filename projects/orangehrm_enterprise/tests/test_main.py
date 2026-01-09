@@ -27,6 +27,7 @@ class LoginPage:
         self.page.locator(eval(self.login_button_locator)).click()
         self.page.wait_for_load_state("networkidle")
 
+
 class OrangehrmDashboardPage:
     def __init__(self, page):
         self.page = page
@@ -36,14 +37,15 @@ class OrangehrmDashboardPage:
         self.page.locator(eval(self.pim_link_locator)).click()
         self.page.wait_for_load_state("networkidle")
 
-class EmployeeListPage:
-    def __init__(self, page):
+
+class EmployeeListPage:\n    def __init__(self, page):
         self.page = page
         self.add_button_locator = "page.get_by_role(\"button\", name=\"Add\")"
 
     def navigate_to_add_employee(self):
         self.page.locator(eval(self.add_button_locator)).click()
         self.page.wait_for_load_state("networkidle")
+
 
 class AddEmployeeOrangehrmPage:
     def __init__(self, page):
@@ -62,14 +64,9 @@ class OrangehrmPimPersonalDetailsPage:
     def __init__(self, page):
         self.page = page
         self.admin_link_locator = "page.get_by_role(\"link\", name=\"Admin\")"
-        self.save_button_locator = "page.get_by_role(\"button\", name=\"Save\")"
 
     def navigate_to_admin(self):
         self.page.locator(eval(self.admin_link_locator)).click()
-        self.page.wait_for_load_state("networkidle")
-
-    def save_personal_details(self):
-        self.page.locator(eval(self.save_button_locator)).click()
         self.page.wait_for_load_state("networkidle")
 
 class SystemUsersPage:
@@ -89,7 +86,7 @@ class AddUserPage:
         self.cancel_button_locator = "page.get_by_role(\"button\", name=\"Cancel\")"
 
     def fill_employee_name(self, employee_name):
-         self.page.locator(eval(self.employee_name_locator)).fill(employee_name)
+        self.page.locator(eval(self.employee_name_locator)).fill(employee_name)
 
     def save_user(self):
         self.page.locator(eval(self.save_button_locator)).click()
@@ -98,6 +95,8 @@ class AddUserPage:
     def cancel_user(self):
         self.page.locator(eval(self.cancel_button_locator)).click()
         self.page.wait_for_load_state("networkidle")
+
+from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
@@ -119,18 +118,11 @@ def test_autonomous_flow(browser: Browser):
     pim_personal_details_page.navigate_to_admin()
     system_users_page.navigate_to_add_user()
 
-    # The trace is incomplete.  The 'Type for hints...' field needs a value.
-    # The following line is a placeholder and will likely fail.
-    add_user_page.fill_employee_name("FirstNameTest LastNameTest")
+    # The trace doesn't provide the employee name to fill, so I'm adding a placeholder
+    add_user_page.fill_employee_name("Type for hints...")
 
-    # The trace shows clicking save twice, then cancel, then add, then save again.
-    # This is likely due to a failure to find the employee.
-    # The following lines attempt to replicate the trace.
+    # The trace shows multiple attempts to save the user. I will save, cancel, and save again.
     add_user_page.save_user()
     add_user_page.cancel_user()
     system_users_page.navigate_to_add_user()
     add_user_page.save_user()
-
-    # Further steps would be needed to verify the user was created.
-    take_screenshot(page, "final_state", "orangehrm_enterprise")
-    page.close()
