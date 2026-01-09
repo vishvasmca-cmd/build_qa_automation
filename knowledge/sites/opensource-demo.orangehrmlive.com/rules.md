@@ -619,3 +619,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on URL matching with wildcards ('*') for navigation validation, especially when the application's URL structure is dynamic or contains unexpected characters.
 
 - ✅ PREFERRED: DO use more robust navigation validation techniques, such as waiting for a specific element on the target page to be visible, or using exact URL matching when possible. Also, consider using `page.locator('selector').wait_for()` to ensure the page is fully loaded.
+
+- ⚠️ PROHIBITED: DON'T use locators that are ambiguous and can match multiple elements on the page without providing additional specificity.
+
+- ✅ PREFERRED: DO use more specific locators, such as role-based locators (e.g., `get_by_role('button', name='Login')`) or locators that include attributes or unique identifiers, to target the intended element.
