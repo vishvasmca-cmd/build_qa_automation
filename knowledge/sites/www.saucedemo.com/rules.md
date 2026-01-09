@@ -18,3 +18,7 @@
 =======
 - Before attempting to fill the username field, ensure the page is fully loaded and any overlaying elements (e.g., modals, spinners) are dismissed. Consider adding a short explicit wait for the username field to be visible before attempting to fill it.
 >>>>>>> Stashed changes
+
+- ⚠️ PROHIBITED: DON'T pass the string result of `page.url` directly to `expect(page.url).to_contain()`. The `expect` function requires a Playwright object like `page` or `locator`.
+
+- ✅ PREFERRED: DO pass the Playwright `page` object to the `expect` function when asserting on the URL, and then use the `.to_contain()` method with the expected URL fragment. For example: `expect(page).to_have_url(expected_url)` or `expect(page).to_have_url(re.compile(expected_url_regex))`.
