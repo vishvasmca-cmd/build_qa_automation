@@ -2,34 +2,44 @@ from playwright.async_api import Page, expect
 
 class ProductsPage:
     """
-    Displays a list of products with options to add them to the cart or view details
-    URL Pattern: /products
+    This page displays a list of products available on the Automation Exercise website. Users can search for products, filter by category and brand, and view product details.
+    URL Pattern: https://www.automationexercise.com/products
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def product_category_women(self):
-        """Button to expand Women category"""
-        return self.page.get_by_text('WOMEN').locator('xpath=../button').or_(self.page.locator('xpath=//div[@id='accordian']/div[1]/div[1]/h4/a/button'))
+    def Search Product Input(self):
+        """Input field to search for products."""
+        return self.page.//input[@id='search_product'].or_(self.page.input[name='search'])
 
     @property
-    def add_to_cart_button(self):
-        """Button to add a product to the cart"""
-        return self.page.get_by_role('button', name='Add to cart').or_(self.page.locator('.product-overlay > .overlay-content > .add-to-cart'))
+    def Search Product Button(self):
+        """Button to submit the product search."""
+        return self.page.//button[@id='submit_search'].or_(self.page.button[type='button'])
 
     @property
-    def view_product_link(self):
-        """Link to view the detailed product page"""
-        return self.page.get_by_text('+ View Product').or_(self.page.locator('.choose > li > a'))
+    def Category Women(self):
+        """Link to filter products by Women category."""
+        return self.page.//a[text()='Women'].or_(self.page.#accordian > div:nth-child(1) > div.panel-heading > h4 > a)
 
     @property
-    def brand_polo(self):
-        """Link to filter by the POLO brand"""
-        return self.page.get_by_text('POLO').or_(self.page.locator('a[href="/brand_products/Polo"]'))
+    def Category Men(self):
+        """Link to filter products by Men category."""
+        return self.page.//a[text()='Men'].or_(self.page.#accordian > div:nth-child(2) > div.panel-heading > h4 > a)
+
+    @property
+    def Category Kids(self):
+        """Link to filter products by Kids category."""
+        return self.page.//a[text()='Kids'].or_(self.page.#accordian > div:nth-child(3) > div.panel-heading > h4 > a)
+
+    @property
+    def Products Link(self):
+        """Link to the products page in the header."""
+        return self.page.//a[text()=' Products'].or_(self.page.li:nth-child(2) > a)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await expect(page).to_have_title('Automation Exercise - All Products')
-        await expect(page.locator('.features_items').locator('.single-products').first()).to_be_visible()
-        await expect(page.get_by_text('All Products')).to_be_visible()
+        await Verify page title contains 'Automation Exercise - All Products'
+        await Verify 'ALL PRODUCTS' header is visible
+        await Verify at least one product is displayed

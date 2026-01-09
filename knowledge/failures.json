@@ -1330,5 +1330,14 @@
       "phase": "execution"
     },
     "error": " projects/manual_test/tests/test_main.py ___________\nImportError while importing test module 'C:\\Users\\vishv\\.gemini\\antigravity\\playground\\inner-event\\projects\\manual_test\\tests\\test_main.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\importlib\\__init__.py:126: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nprojects\\manual_test\\tests\\test_main.py:36: in <module>\n    from projects.manual_test.pages.base.base_page import BasePage, ExamplePage\nE   ModuleNotFoundError: No module named 'projects.manual_test.pages.base'\n=========================== short test summary info ===========================\nERROR projects/manual_test/tests/test_main.py\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n============================== 1 error in 0.29s ===============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-09T12:59:46.373699",
+    "context": {
+      "site": "https://www.automationexercise.com/",
+      "project": "automationexercise_regression",
+      "phase": "execution"
+    },
+    "error": "self._load_states:\n            waiter.log(f'  not waiting, \"{state}\" event already fired')\n            # TODO: align with upstream\n            waiter._fulfill(None)\n        else:\n    \n            def handle_load_state_event(actual_state: str) -> bool:\n                waiter.log(f'\"{actual_state}\" event fired')\n                return actual_state == state\n    \n            waiter.wait_for_event(\n                self._event_emitter,\n                \"loadstate\",\n                handle_load_state_event,\n            )\n>       await waiter.result()\nE       playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\playwright\\_impl\\_frame.py:301: TimeoutError\n=========================== short test summary info ===========================\nFAILED projects/automationexercise_regression/tests/e2e/test_main.py::test_autonomous_flow[chromium]\n============================= 1 failed in 33.30s ==============================\n\n\n"
   }
 ]

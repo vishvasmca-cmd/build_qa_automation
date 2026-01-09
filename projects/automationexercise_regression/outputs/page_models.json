@@ -1,95 +1,129 @@
 {
   "HomePage": {
-    "description": "Home page for an automation exercise website. It serves as the entry point, providing information about the site's purpose and navigation to various sections.",
-    "url_pattern": "/",
+    "description": "The Home Page of the Automation Exercise website serves as the landing page, providing an overview of the site's purpose and key features. It aims to attract QA engineers looking for automation practice and API testing resources.",
+    "url_pattern": "https://www.automationexercise.com/",
     "elements": [
       {
-        "name": "signup_login_link",
+        "name": "Home Link",
         "type": "link",
-        "primary_locator": "get_by_role('link', name='Signup / Login')",
-        "backup_locator": "locator('a[href=\"/login\"]')",
-        "description": "Link to the signup or login page."
+        "primary_locator": "role=link[name=\"Home\"]",
+        "backup_locator": "text=Home",
+        "description": "Link to navigate back to the home page."
       },
       {
-        "name": "products_link",
+        "name": "Products Link",
         "type": "link",
-        "primary_locator": "get_by_role('link', name='Products')",
-        "backup_locator": "locator('a[href=\"/products\"]')",
-        "description": "Link to the products page"
+        "primary_locator": "role=link[name=\"Products\"]",
+        "backup_locator": "text=Products",
+        "description": "Link to navigate to the products page."
       },
       {
-        "name": "test_cases_link",
+        "name": "Cart Link",
         "type": "link",
-        "primary_locator": "get_by_role('link', name='Test Cases')",
-        "backup_locator": "locator('a[href=\"/test_cases\"]')",
-        "description": "Link to the test cases page"
+        "primary_locator": "role=link[name=\"Cart\"]",
+        "backup_locator": "text=Cart",
+        "description": "Link to navigate to the shopping cart page."
       },
       {
-        "name": "api_testing_link",
+        "name": "Signup / Login Link",
         "type": "link",
-        "primary_locator": "get_by_role('link', name='API Testing')",
-        "backup_locator": "locator('a[href=\"/api_list\"]')",
-        "description": "Link to the api testing page"
+        "primary_locator": "role=link[name=\"Signup / Login\"]",
+        "backup_locator": "text=Signup / Login",
+        "description": "Link to navigate to the signup or login page."
       },
       {
-        "name": "test_cases_button",
+        "name": "Test Cases Link",
+        "type": "link",
+        "primary_locator": "role=link[name=\"Test Cases\"]",
+        "backup_locator": "text=Test Cases",
+        "description": "Link to navigate to the test cases page."
+      },
+      {
+        "name": "API Testing Link",
+        "type": "link",
+        "primary_locator": "role=link[name=\"API Testing\"]",
+        "backup_locator": "text=API Testing",
+        "description": "Link to navigate to the API testing page."
+      },
+      {
+        "name": "Contact Us Link",
+        "type": "link",
+        "primary_locator": "role=link[name=\"Contact us\"]",
+        "backup_locator": "text=Contact us",
+        "description": "Link to navigate to the contact us page."
+      },
+      {
+        "name": "Test Cases Button",
         "type": "button",
-        "primary_locator": "get_by_role('button', name='Test Cases')",
-        "backup_locator": "locator('a[href=\"/test_cases\"]')",
-        "description": "Button to the test cases page"
+        "primary_locator": "role=button[name=\"Test Cases\"]",
+        "backup_locator": "text=Test Cases",
+        "description": "Button to navigate to the test cases page."
       },
       {
-        "name": "apis_list_for_practice_button",
+        "name": "APIs list for practice Button",
         "type": "button",
-        "primary_locator": "get_by_role('button', name='APIs list for practice')",
-        "backup_locator": "locator('a[href=\"/api_list\"]')",
-        "description": "Button to the apis list page"
+        "primary_locator": "role=button[name=\"APIs list for practice\"]",
+        "backup_locator": "text=APIs list for practice",
+        "description": "Button to navigate to the APIs list page."
       }
     ],
     "assertions": [
-      "expect(page).to_have_title('Automation Exercise')",
-      "expect(page.locator('h2', has_text='Full-Fledged practice website for Automation Engineers')).to_be_visible()",
-      "expect(page.locator('img[alt=\"Automation Exercise\"]')).to_be_visible()",
-      "expect(page.url()).to_be('https://automationexercise.com/')"
+      "Page title is 'Automation Exercise'",
+      "Header text contains 'AutomationExercise'",
+      "The main description includes 'Full-Fledged practice website for Automation Engineers'"
     ]
   },
   "ProductsPage": {
-    "description": "Displays a list of products with options to add them to the cart or view details",
-    "url_pattern": "/products",
+    "description": "This page displays a list of products available on the Automation Exercise website. Users can search for products, filter by category and brand, and view product details.",
+    "url_pattern": "https://www.automationexercise.com/products",
     "elements": [
       {
-        "name": "product_category_women",
+        "name": "Search Product Input",
+        "type": "input",
+        "primary_locator": "//input[@id='search_product']",
+        "backup_locator": "input[name='search']",
+        "description": "Input field to search for products."
+      },
+      {
+        "name": "Search Product Button",
         "type": "button",
-        "primary_locator": "get_by_text('WOMEN').locator('xpath=../button')",
-        "backup_locator": "locator('xpath=//div[@id='accordian']/div[1]/div[1]/h4/a/button')",
-        "description": "Button to expand Women category"
+        "primary_locator": "//button[@id='submit_search']",
+        "backup_locator": "button[type='button']",
+        "description": "Button to submit the product search."
       },
       {
-        "name": "add_to_cart_button",
-        "type": "button",
-        "primary_locator": "get_by_role('button', name='Add to cart')",
-        "backup_locator": "locator('.product-overlay > .overlay-content > .add-to-cart')",
-        "description": "Button to add a product to the cart"
-      },
-      {
-        "name": "view_product_link",
+        "name": "Category Women",
         "type": "link",
-        "primary_locator": "get_by_text('+ View Product')",
-        "backup_locator": "locator('.choose > li > a')",
-        "description": "Link to view the detailed product page"
+        "primary_locator": "//a[text()='Women']",
+        "backup_locator": "#accordian > div:nth-child(1) > div.panel-heading > h4 > a",
+        "description": "Link to filter products by Women category."
       },
       {
-        "name": "brand_polo",
+        "name": "Category Men",
         "type": "link",
-        "primary_locator": "get_by_text('POLO')",
-        "backup_locator": "locator('a[href=\"/brand_products/Polo\"]')",
-        "description": "Link to filter by the POLO brand"
+        "primary_locator": "//a[text()='Men']",
+        "backup_locator": "#accordian > div:nth-child(2) > div.panel-heading > h4 > a",
+        "description": "Link to filter products by Men category."
+      },
+      {
+        "name": "Category Kids",
+        "type": "link",
+        "primary_locator": "//a[text()='Kids']",
+        "backup_locator": "#accordian > div:nth-child(3) > div.panel-heading > h4 > a",
+        "description": "Link to filter products by Kids category."
+      },
+      {
+        "name": "Products Link",
+        "type": "link",
+        "primary_locator": "//a[text()=' Products']",
+        "backup_locator": "li:nth-child(2) > a",
+        "description": "Link to the products page in the header."
       }
     ],
     "assertions": [
-      "expect(page).to_have_title('Automation Exercise - All Products')",
-      "expect(page.locator('.features_items').locator('.single-products').first()).to_be_visible()",
-      "expect(page.get_by_text('All Products')).to_be_visible()"
+      "Verify page title contains 'Automation Exercise - All Products'",
+      "Verify 'ALL PRODUCTS' header is visible",
+      "Verify at least one product is displayed"
     ]
   }
 }

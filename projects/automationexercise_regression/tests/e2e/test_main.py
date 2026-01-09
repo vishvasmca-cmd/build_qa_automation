@@ -27,17 +27,14 @@ class HomePage(BasePage):
         super().__init__(page)
 
     def click_products_link(self):
-        self.page.get_by_role("link", name="\ue8f8 Products").click()
+        self.page.get_by_role("link", name=" Products").click()
 
 class ProductsPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
 
-    def add_first_product_to_cart(self):
+    def add_to_cart(self):
         self.page.get_by_role("link", name="Add to cart").first.click()
-
-    def add_second_product_to_cart(self):
-        self.page.get_by_role("link", name="Add to cart").nth(1).click()
 
 def test_autonomous_flow(browser):
     page = browser.new_page()
@@ -47,7 +44,7 @@ def test_autonomous_flow(browser):
 
     base_page.navigate("https://www.automationexercise.com/")
     home_page.click_products_link()
-    products_page.add_first_product_to_cart()
-    products_page.add_second_product_to_cart()
+    products_page.add_to_cart()
+    products_page.add_to_cart()
 
     page.close()
