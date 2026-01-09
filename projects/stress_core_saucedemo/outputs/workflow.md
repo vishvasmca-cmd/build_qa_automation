@@ -6,5 +6,5 @@
 
 ## Journey Highlight
 - Visited **HomePage**
-- Visited **SwagLabsPage**
+- Visited **SwagLabsLoginPage**
 - Visited **SaucedemoInventoryPage**

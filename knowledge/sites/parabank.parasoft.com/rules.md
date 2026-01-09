@@ -97,3 +97,43 @@ When executing the full "Register to Transfer" flow, you must follow this sequen
 - ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the test suite is explicitly structured as a package with a proper `__init__.py` file in the parent directory.
 
 - ✅ PREFERRED: DO ensure that test files are either part of a properly structured package or use absolute imports to reference modules within the project.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `wait_for_url` immediately after clicking a link; the navigation might be delayed due to network conditions or client-side processing.
+
+- ✅ PREFERRED: DO verify the element that triggers the navigation is actually visible and enabled before clicking it. Also, consider adding a small delay before `wait_for_url` to allow for initial processing.
+
+- ⚠️ PROHIBITED: DON'T assume the username field is immediately available and interactable upon page load. ALWAYS implement a wait strategy.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='attached'` or `state='visible'` before attempting to interact with the username field to ensure it's fully loaded and ready.
+
+- ⚠️ PROHIBITED: DON'T assume that the username field is immediately available upon page load; always implement a wait strategy.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` or `state='attached'` before attempting to fill the username field to ensure it's ready for interaction.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the test suite is explicitly structured as a Python package and executed as such.
+
+- ✅ PREFERRED: DO ensure that test files either use absolute imports or are executed as part of a properly structured Python package when using relative imports.
+
+- ⚠️ PROHIBITED: DON'T assume the username field is immediately available; the page might be loading or have dynamic content.
+
+- ✅ PREFERRED: DO use `locator('[name='username']').wait_for()` before attempting to fill the username field to ensure it's present and visible.
+
+- ⚠️ PROHIBITED: DON'T assume dropdown options are immediately available; always implement a wait strategy before interacting with dropdowns.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='attached'` or `state='visible'` before attempting to select an option from a dropdown, especially when the dropdown is dynamically populated.
+
+- ⚠️ PROHIBITED: DON'T assume dropdown options are immediately available; ALWAYS wait for the dropdown to be populated before attempting to select an option.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='attached'` or `state='visible'` before interacting with dropdowns, especially after page loads or dynamic content updates.
+
+- ⚠️ PROHIBITED: DON'T assume that dropdown elements are immediately available and interactive upon page load. ALWAYS implement explicit waits.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='attached'` or `state='visible'` before interacting with dropdown elements to ensure they are fully loaded and ready for interaction.
+
+- ⚠️ PROHIBITED: DON'T assume dropdowns are immediately available; ALWAYS check their state before interacting.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='attached'` or `state='visible'` before interacting with dropdowns, especially after page loads or navigations.
+
+- ⚠️ PROHIBITED: DON'T assume that dropdown options are immediately available; always wait for the dropdown to be fully populated and interactable before attempting to select an option.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='attached'` or `state='visible'` before interacting with dropdown elements to ensure they are fully loaded and ready for interaction.

@@ -1,0 +1,90 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
+plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
+collecting ... collected 1 item
+
+projects/cli_run_1767982497/tests/test_main.py::test_autonomous_flow[chromium] FAILED
+
+================================== FAILURES ===================================
+_______________________ test_autonomous_flow[chromium] ________________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vishv\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe> version=143.0.7499.4>
+
+    def test_autonomous_flow(browser: Browser):
+        page = browser.new_page()
+        login_page = LoginPage(page)
+        registration_page = RegistrationPage(page)
+        account_services_page = AccountServicesPage(page)
+        home_page = HomePage(page)
+    
+        # Register a new user
+        login_page.navigate_to_login_page()
+        login_page.click_register_link()
+        registration_page.fill_registration_form(
+            first_name="John",
+            last_name="Doe",
+            address="123 Main St",
+            city="Anytown",
+            state="CA",
+            zip_code="12345",
+            phone="555-555-5555",
+            ssn="123-45-6789",
+            username="john.doe123",
+            password="password",
+            confirm_password="password",
+        )
+        registration_page.click_register_button()
+    
+        # Login
+        home_page.login(username="john.doe123", password="password")
+    
+        # Open New Savings Account
+        account_services_page.open_new_account()
+>       account_services_page.select_account_type(account_type="Savings")
+
+projects\cli_run_1767982497\tests\test_main.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+projects\cli_run_1767982497\tests\test_main.py:79: in select_account_type
+    self.page.get_by_label("Type of Account:").select_option(label=account_type)
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:17636: in select_option
+    self._sync(
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_locator.py:597: in select_option
+    return await self._frame.select_option(
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:781: in select_option
+    return await self._channel.send("selectOption", self._timeout, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <playwright._impl._connection.Connection object at 0x00000238CBC33D10>
+cb = <function Channel.send.<locals>.<lambda> at 0x00000238CD8FF100>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.select_option: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for get_by_label("Type of Account:")
+
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: TimeoutError
+=========================== short test summary info ===========================
+FAILED projects/cli_run_1767982497/tests/test_main.py::test_autonomous_flow[chromium]
+============================= 1 failed in 34.00s ==============================
+

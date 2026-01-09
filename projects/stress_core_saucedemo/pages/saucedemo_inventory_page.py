@@ -2,49 +2,59 @@ from playwright.async_api import Page, expect
 
 class SaucedemoInventoryPage:
     """
-    Inventory page displaying available products
-    URL Pattern: /inventory.html
+    The inventory page displays a list of available products with their names, descriptions, prices, and 'Add to cart' buttons. It also includes a sorting dropdown to change the order of the products.
+    URL Pattern: https://www.saucedemo.com/inventory.html
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def product_sort_dropdown(self):
-        """Dropdown to sort products"""
-        return self.page.get_by_role('button', name='Name (A to Z)').or_(self.page.locator('[data-test="product_sort_container"]'))
+    def Product Name(self):
+        """The name of the product."""
+        return self.page.//div[@class='inventory_item_name'].or_(self.page..inventory_item_name)
 
     @property
-    def add_to_cart_backpack(self):
-        """Add to cart button for the Sauce Labs Backpack"""
-        return self.page.get_by_role('button', name='Add to cart', exact=True).nth(0).or_(self.page.locator('#add-to-cart-sauce-labs-backpack'))
+    def Product Description(self):
+        """The description of the product."""
+        return self.page.//div[@class='inventory_item_desc'].or_(self.page..inventory_item_desc)
 
     @property
-    def add_to_cart_bike_light(self):
-        """Add to cart button for the Sauce Labs Bike Light"""
-        return self.page.get_by_role('button', name='Add to cart', exact=True).nth(1).or_(self.page.locator('#add-to-cart-sauce-labs-bike-light'))
+    def Product Price(self):
+        """The price of the product."""
+        return self.page.//div[@class='inventory_item_price'].or_(self.page..inventory_item_price)
 
     @property
-    def add_to_cart_bolt_tshirt(self):
-        """Add to cart button for the Sauce Labs Bolt T-Shirt"""
-        return self.page.get_by_role('button', name='Add to cart', exact=True).nth(2).or_(self.page.locator('#add-to-cart-sauce-labs-bolt-t-shirt'))
+    def Add to cart button(self):
+        """Button to add the product to the shopping cart."""
+        return self.page.//button[contains(@id, 'add-to-cart')].or_(self.page.button[class*='btn_inventory'])
 
     @property
-    def add_to_cart_fleece_jacket(self):
-        """Add to cart button for the Sauce Labs Fleece Jacket"""
-        return self.page.get_by_role('button', name='Add to cart', exact=True).nth(3).or_(self.page.locator('#add-to-cart-sauce-labs-fleece-jacket'))
+    def Sorting Dropdown(self):
+        """Dropdown to sort the products by name or price."""
+        return self.page.[data-test='product_sort_container'].or_(self.page..product_sort_container)
 
     @property
-    def add_to_cart_onesie(self):
-        """Add to cart button for the Sauce Labs Onesie"""
-        return self.page.get_by_role('button', name='Add to cart', exact=True).nth(4).or_(self.page.locator('#add-to-cart-sauce-labs-onesie'))
+    def Sorting Option: Name (A to Z)(self):
+        """Option to sort products by name (A to Z)."""
+        return self.page.//option[@value='az'].or_(self.page.option[value='az'])
 
     @property
-    def add_to_cart_red_tshirt(self):
-        """Add to cart button for the Test.allTheThings() T-Shirt (Red)"""
-        return self.page.get_by_role('button', name='Add to cart', exact=True).nth(5).or_(self.page.locator('#add-to-cart-test.allthethings()-t-shirt-(red)'))
+    def Sorting Option: Name (Z to A)(self):
+        """Option to sort products by name (Z to A)."""
+        return self.page.//option[@value='za'].or_(self.page.option[value='za'])
+
+    @property
+    def Sorting Option: Price (low to high)(self):
+        """Option to sort products by price (low to high)."""
+        return self.page.//option[@value='lohi'].or_(self.page.option[value='lohi'])
+
+    @property
+    def Sorting Option: Price (high to low)(self):
+        """Option to sort products by price (high to low)."""
+        return self.page.//option[@value='hilo'].or_(self.page.option[value='hilo'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await expect(page).to_have_title('Swag Labs')
-        await expect(page.locator('.title')).to_have_text('Products')
-        await expect(page.locator('.inventory_item')).to_have_count(6)
+        await Page title is 'Swag Labs'
+        await Page contains the header 'Products'
+        await At least one product is displayed

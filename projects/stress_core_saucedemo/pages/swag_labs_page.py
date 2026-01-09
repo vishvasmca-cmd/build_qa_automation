@@ -2,28 +2,40 @@ from playwright.async_api import Page, expect
 
 class SwagLabsPage:
     """
-    Login page for customer access
-    URL Pattern: /login
+    This is the login page for Swag Labs, where users can enter their credentials to access the inventory.
+    URL Pattern: https://www.saucedemo.com/
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def username_field(self):
-        """Username input field"""
-        return self.page.get_by_text('standard_user').or_(self.page.locator('input[placeholder="Username"]'))
+    def Username Input(self):
+        """Input field for the username."""
+        return self.page.id=user-name.or_(self.page.css=input[placeholder='Username'])
 
     @property
-    def password_field(self):
-        """Password input field"""
-        return self.page.get_by_text('secret_sauce').or_(self.page.locator('input[placeholder="Password"]'))
+    def Password Input(self):
+        """Input field for the password."""
+        return self.page.id=password.or_(self.page.css=input[placeholder='Password'])
 
     @property
-    def login_button(self):
-        """Main submission button"""
-        return self.page.get_by_role('button', name='Login').or_(self.page.locator('#login-button'))
+    def Login Button(self):
+        """Button to submit the login form."""
+        return self.page.id=login-button.or_(self.page.css=input[value='Login'])
+
+    @property
+    def Accepted usernames are:(self):
+        """Text indicating accepted usernames"""
+        return self.page.text=Accepted usernames are:.or_(self.page.css=div.login_credentials_wrap > div.login_credentials)
+
+    @property
+    def Password for all users:(self):
+        """Text indicating password for all users"""
+        return self.page.text=Password for all users:.or_(self.page.css=div.login_password)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await expect(page).to_have_title('Swag Labs')
-        await expect(page.get_by_role('button', name='Login')).to_be_visible()
+        await Page title is 'Swag Labs'
+        await Login button is present
+        await Username input field is present
+        await Password input field is present
