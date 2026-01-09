@@ -1,116 +1,35 @@
 {
   "UnknownPage": {
-    "description": "This page appears to be a registration or signup page for a service or application.",
-    "url_pattern": "/register",
+    "description": "This page is a placeholder or example domain page, indicating that the domain is reserved for documentation purposes.",
+    "url_pattern": "https://example.com/",
     "elements": [
       {
-        "name": "first_name_input",
-        "type": "text_field",
-        "primary_locator": "get_by_role('textbox', name='First name')",
-        "backup_locator": "locator('#firstName')",
-        "description": "Input field for the user's first name."
+        "name": "Main Heading",
+        "type": "heading",
+        "primary_locator": "role=heading[name=\"Example Domain\"]",
+        "backup_locator": "css=h1",
+        "description": "The main heading of the page."
       },
       {
-        "name": "last_name_input",
-        "type": "text_field",
-        "primary_locator": "get_by_role('textbox', name='Last name')",
-        "backup_locator": "locator('#lastName')",
-        "description": "Input field for the user's last name."
+        "name": "Domain Description",
+        "type": "text",
+        "primary_locator": "text=\"This domain is for use in documentation examples without needing permission. Avoid use in operations.\"",
+        "backup_locator": "css=body > div > p",
+        "description": "The description of the example domain."
       },
       {
-        "name": "email_input",
-        "type": "text_field",
-        "primary_locator": "get_by_role('textbox', name='Email')",
-        "backup_locator": "locator('#userEmail')",
-        "description": "Input field for the user's email address."
-      },
-      {
-        "name": "mobile_input",
-        "type": "text_field",
-        "primary_locator": "get_by_role('textbox', name='Mobile')",
-        "backup_locator": "locator('#userNumber')",
-        "description": "Input field for the user's mobile number."
-      },
-      {
-        "name": "date_of_birth_input",
-        "type": "text_field",
-        "primary_locator": "locator('#dateOfBirthInput')",
-        "backup_locator": "locator('#dateOfBirth')",
-        "description": "Input field for the user's date of birth."
-      },
-      {
-        "name": "gender_radio_button_male",
-        "type": "radio",
-        "primary_locator": "get_by_role('radio', name='Male')",
-        "backup_locator": "locator('#gender-radio-1')",
-        "description": "Radio button for selecting Male gender."
-      },
-      {
-        "name": "gender_radio_button_female",
-        "type": "radio",
-        "primary_locator": "get_by_role('radio', name='Female')",
-        "backup_locator": "locator('#gender-radio-2')",
-        "description": "Radio button for selecting Female gender."
-      },
-      {
-        "name": "hobbies_checkbox_sports",
-        "type": "checkbox",
-        "primary_locator": "get_by_role('checkbox', name='Sports')",
-        "backup_locator": "locator('#hobbies-checkbox-1')",
-        "description": "Checkbox for selecting Sports as a hobby."
-      },
-      {
-        "name": "hobbies_checkbox_reading",
-        "type": "checkbox",
-        "primary_locator": "get_by_role('checkbox', name='Reading')",
-        "backup_locator": "locator('#hobbies-checkbox-2')",
-        "description": "Checkbox for selecting Reading as a hobby."
-      },
-      {
-        "name": "hobbies_checkbox_music",
-        "type": "checkbox",
-        "primary_locator": "get_by_role('checkbox', name='Music')",
-        "backup_locator": "locator('#hobbies-checkbox-3')",
-        "description": "Checkbox for selecting Music as a hobby."
-      },
-      {
-        "name": "current_address_textarea",
-        "type": "text_area",
-        "primary_locator": "locator('#currentAddress')",
-        "backup_locator": "get_by_placeholder('Current Address')",
-        "description": "Text area for entering the user's current address."
-      },
-      {
-        "name": "select_state",
-        "type": "dropdown",
-        "primary_locator": "locator('#state')",
-        "backup_locator": "locator('#react-select-3-input')",
-        "description": "Dropdown for selecting the user's state."
-      },
-      {
-        "name": "select_city",
-        "type": "dropdown",
-        "primary_locator": "locator('#city')",
-        "backup_locator": "locator('#react-select-4-input')",
-        "description": "Dropdown for selecting the user's city."
-      },
-      {
-        "name": "submit_button",
-        "type": "button",
-        "primary_locator": "get_by_role('button', name='Submit')",
-        "backup_locator": "locator('#submit')",
-        "description": "Button to submit the registration form."
+        "name": "Learn More Link",
+        "type": "link",
+        "primary_locator": "role=link[name=\"Learn more\"]",
+        "backup_locator": "text=\"Learn more\"",
+        "description": "Link to learn more about example domains."
       }
     ],
     "assertions": [
-      "expect(page).to_have_title('ToolsQA')",
-      "expect(page.get_by_text('Student Registration Form')).to_be_visible()",
-      "expect(page.locator('#firstName')).to_be_visible()",
-      "expect(page.locator('#lastName')).to_be_visible()",
-      "expect(page.locator('#userEmail')).to_be_visible()",
-      "expect(page.locator('#userNumber')).to_be_visible()",
-      "expect(page.locator('#currentAddress')).to_be_visible()",
-      "expect(page.locator('#submit')).to_be_visible()"
+      "Page title contains 'Example Domain'",
+      "Main heading 'Example Domain' is displayed",
+      "Description text is present",
+      "Learn More link is present"
     ]
   }
 }

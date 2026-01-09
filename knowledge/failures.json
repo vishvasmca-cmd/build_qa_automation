@@ -1321,5 +1321,14 @@
       "phase": "execution"
     },
     "error": "sk = asyncio.current_task(self._loop)\n        st: List[inspect.FrameInfo] = getattr(\n            task, \"__pw_stack__\", None\n        ) or inspect.stack(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.select_option: Timeout 30000ms exceeded.\nE           Call log:\nE             - waiting for get_by_label(\"Type of Account:\")\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\playwright\\_impl\\_connection.py:559: TimeoutError\n=========================== short test summary info ===========================\nFAILED projects/cli_run_1767982497/tests/test_main.py::test_autonomous_flow[chromium]\n============================= 1 failed in 34.29s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-09T12:52:41.565386",
+    "context": {
+      "site": "https://example.com",
+      "project": "manual_test",
+      "phase": "execution"
+    },
+    "error": " projects/manual_test/tests/test_main.py ___________\nImportError while importing test module 'C:\\Users\\vishv\\.gemini\\antigravity\\playground\\inner-event\\projects\\manual_test\\tests\\test_main.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\importlib\\__init__.py:126: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nprojects\\manual_test\\tests\\test_main.py:36: in <module>\n    from projects.manual_test.pages.base.base_page import BasePage, ExamplePage\nE   ModuleNotFoundError: No module named 'projects.manual_test.pages.base'\n=========================== short test summary info ===========================\nERROR projects/manual_test/tests/test_main.py\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n============================== 1 error in 0.29s ===============================\n\n\n"
   }
 ]
