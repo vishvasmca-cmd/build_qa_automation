@@ -1854,5 +1854,900 @@
       "Login button is present",
       "Register button is present"
     ]
+  },
+  "SwagLabsLoginPage_ddbc4eb4eee1da98a75ea809022a961e": {
+    "description": "This is the login page for Swag Labs, where users can enter their credentials to access the inventory page.",
+    "url_pattern": "https://www.saucedemo.com/",
+    "elements": [
+      {
+        "name": "Username Input",
+        "type": "text field",
+        "primary_locator": "role=textbox[name=\"Username\"]",
+        "backup_locator": "css=input[id=\"user-name\"]",
+        "description": "Input field for the username."
+      },
+      {
+        "name": "Password Input",
+        "type": "text field",
+        "primary_locator": "role=textbox[name=\"Password\"]",
+        "backup_locator": "css=input[id=\"password\"]",
+        "description": "Input field for the password."
+      },
+      {
+        "name": "Login Button",
+        "type": "button",
+        "primary_locator": "role=button[name=\"Login\"]",
+        "backup_locator": "css=input[id=\"login-button\"]",
+        "description": "Button to submit the login form."
+      }
+    ],
+    "assertions": [
+      "Page title is 'Swag Labs'",
+      "Login button is present",
+      "Username input field is present",
+      "Password input field is present"
+    ]
+  },
+  "SaucedemoInventoryPage_f1367bf822b8f656558bb19e883307a0": {
+    "description": "This page displays the inventory of products available for purchase on the Saucedemo website.",
+    "url_pattern": "https://www.saucedemo.com/inventory.html",
+    "elements": [
+      {
+        "name": "Product Name",
+        "type": "link",
+        "primary_locator": "//div[@class='inventory_item_label']/a/div[@class='inventory_item_name ']",
+        "backup_locator": ".inventory_item_name",
+        "description": "The name of the product, which is a link to the product details page."
+      },
+      {
+        "name": "Product Description",
+        "type": "text",
+        "primary_locator": "//div[@class='inventory_item_label']/div[@class='inventory_item_desc']",
+        "backup_locator": ".inventory_item_desc",
+        "description": "The description of the product."
+      },
+      {
+        "name": "Product Price",
+        "type": "text",
+        "primary_locator": "//div[@class='inventory_item_price']",
+        "backup_locator": ".inventory_item_price",
+        "description": "The price of the product."
+      },
+      {
+        "name": "Add to Cart Button",
+        "type": "button",
+        "primary_locator": "//button[contains(@id, 'add-to-cart')]",
+        "backup_locator": "button[class='btn btn_primary btn_small btn_inventory']",
+        "description": "Button to add the product to the shopping cart."
+      },
+      {
+        "name": "Remove Button",
+        "type": "button",
+        "primary_locator": "//button[contains(@id, 'remove')]",
+        "backup_locator": "button[class='btn btn_secondary btn_small btn_inventory']",
+        "description": "Button to remove the product from the shopping cart."
+      },
+      {
+        "name": "Products Header",
+        "type": "text",
+        "primary_locator": "//span[text()='Products']",
+        "backup_locator": ".title",
+        "description": "The header text indicating the page displays products."
+      },
+      {
+        "name": "Filter/Sort Dropdown",
+        "type": "dropdown",
+        "primary_locator": "//select[@class='product_sort_container']",
+        "backup_locator": ".product_sort_container",
+        "description": "Dropdown to filter or sort the products."
+      },
+      {
+        "name": "Shopping Cart Link",
+        "type": "link",
+        "primary_locator": "//a[@class='shopping_cart_link']",
+        "backup_locator": ".shopping_cart_link",
+        "description": "Link to the shopping cart page."
+      }
+    ],
+    "assertions": [
+      "Page title is 'Swag Labs'",
+      "The 'Products' header is displayed",
+      "At least one product is displayed on the page",
+      "The 'Add to Cart' button is displayed for each product",
+      "The filter/sort dropdown is displayed"
+    ]
+  },
+  "LoginFormPage_c10c7d0063e84103d08bcb63de6e340b": {
+    "description": "This page is a standard login form, allowing users to enter their username and password to gain access to the application.",
+    "url_pattern": "https://demo.applitools.com/app.html",
+    "elements": [
+      {
+        "name": "Username Input",
+        "type": "text field",
+        "primary_locator": "username",
+        "backup_locator": "input[placeholder='Enter your username']",
+        "description": "Input field for the user to enter their username."
+      },
+      {
+        "name": "Password Input",
+        "type": "text field",
+        "primary_locator": "password",
+        "backup_locator": "input[placeholder='Enter your password']",
+        "description": "Input field for the user to enter their password."
+      },
+      {
+        "name": "Sign In Button",
+        "type": "button",
+        "primary_locator": "log-in",
+        "backup_locator": "button[id='log-in']",
+        "description": "Button to submit the login form."
+      },
+      {
+        "name": "Remember Me Checkbox",
+        "type": "checkbox",
+        "primary_locator": "remember-me",
+        "backup_locator": "label[for='remember-me']",
+        "description": "Checkbox to remember the user's login details."
+      },
+      {
+        "name": "Login Form Title",
+        "type": "label",
+        "primary_locator": "Login Form",
+        "backup_locator": "h4",
+        "description": "Title of the login form"
+      }
+    ],
+    "assertions": [
+      "Page title is 'ACME demo app'",
+      "Login Form title is displayed",
+      "Username input field is present",
+      "Password input field is present",
+      "Sign In button is present",
+      "Remember Me checkbox is present"
+    ]
+  },
+  "UnknownPage_99b8c4f3224df582f5a3311173a2282d": {
+    "description": "This page displays the user's financial overview, including balances, credit availability, due payments, and recent transactions.",
+    "url_pattern": "https://demo.applitools.com/app.html",
+    "elements": [
+      {
+        "name": "Add Account Button",
+        "type": "button",
+        "primary_locator": "data-test=\"add-account-button\"",
+        "backup_locator": "text=Add Account",
+        "description": "Button to add a new account."
+      },
+      {
+        "name": "Make Payment Button",
+        "type": "button",
+        "primary_locator": "data-test=\"make-payment-button\"",
+        "backup_locator": "text=Make Payment",
+        "description": "Button to make a payment."
+      },
+      {
+        "name": "View Statement Link",
+        "type": "link",
+        "primary_locator": "text=View Statement >",
+        "backup_locator": "css=a[href*='statement']",
+        "description": "Link to view the account statement."
+      },
+      {
+        "name": "Request Increase Link",
+        "type": "link",
+        "primary_locator": "text=Request Increase >",
+        "backup_locator": "css=a[href*='increase']",
+        "description": "Link to request a credit increase."
+      },
+      {
+        "name": "Pay Now Link",
+        "type": "link",
+        "primary_locator": "text=Pay Now >",
+        "backup_locator": "css=a[href*='pay']",
+        "description": "Link to pay the due amount."
+      },
+      {
+        "name": "Credit Cards Link",
+        "type": "link",
+        "primary_locator": "text=Credit cards",
+        "backup_locator": "css=li[id='credit-cards']",
+        "description": "Link to navigate to credit cards page."
+      },
+      {
+        "name": "Debit Cards Link",
+        "type": "link",
+        "primary_locator": "text=Debit cards",
+        "backup_locator": "css=li[id='debit-cards']",
+        "description": "Link to navigate to debit cards page."
+      },
+      {
+        "name": "Loans Link",
+        "type": "link",
+        "primary_locator": "text=Loans",
+        "backup_locator": "css=li[id='loans']",
+        "description": "Link to navigate to loans page."
+      },
+      {
+        "name": "Mortgages Link",
+        "type": "link",
+        "primary_locator": "text=Mortgages",
+        "backup_locator": "css=li[id='mortgages']",
+        "description": "Link to navigate to mortgages page."
+      }
+    ],
+    "assertions": [
+      "Page title is 'ACME Bank'",
+      "Header text is 'Financial Overview'",
+      "Total Balance is displayed",
+      "Credit Available is displayed",
+      "Due Today is displayed",
+      "Recent Transactions section is displayed"
+    ]
+  },
+  "PhptravelsDemoPage_6985e346542df541b64e86ac98c6d579": {
+    "description": "This is the demo page for PHPTravels, showcasing their travel booking software and allowing users to request an instant demo.",
+    "url_pattern": "https://phptravels.com/demo",
+    "elements": [
+      {
+        "name": "First Name Input",
+        "type": "text field",
+        "primary_locator": "input[name='first_name']",
+        "backup_locator": "input[placeholder='Enter first name']",
+        "description": "Input field for the user's first name."
+      },
+      {
+        "name": "Last Name Input",
+        "type": "text field",
+        "primary_locator": "input[name='last_name']",
+        "backup_locator": "input[placeholder='Enter last name']",
+        "description": "Input field for the user's last name."
+      },
+      {
+        "name": "Business Name Input",
+        "type": "text field",
+        "primary_locator": "input[name='business_name']",
+        "backup_locator": "input[placeholder='Enter business name']",
+        "description": "Input field for the user's business name."
+      },
+      {
+        "name": "WhatsApp Number Input",
+        "type": "text field",
+        "primary_locator": "input[name='phone']",
+        "backup_locator": "input[placeholder='Enter WhatsApp number']",
+        "description": "Input field for the user's WhatsApp number."
+      },
+      {
+        "name": "Country Select",
+        "type": "dropdown",
+        "primary_locator": "select[name='country']",
+        "backup_locator": "div[class='select2-container']",
+        "description": "Dropdown for selecting the user's country."
+      },
+      {
+        "name": "\"Get Started\" Button",
+        "type": "button",
+        "primary_locator": "a:has-text('Get Started')",
+        "backup_locator": "a[class*='btn-primary']",
+        "description": "Button to navigate to the registration page."
+      },
+      {
+        "name": "\"Login\" Button",
+        "type": "button",
+        "primary_locator": "a:has-text('Login')",
+        "backup_locator": "a[class*='btn-secondary']",
+        "description": "Button to navigate to the login page."
+      }
+    ],
+    "assertions": [
+      "Page title contains 'PHPTRAVELS Demo'",
+      "Header text contains 'Demo Travel Software'",
+      "Form with label 'Request Instant Demo' is visible"
+    ]
+  },
+  "LetcodeTestAutomationPracticePage_6c5934c9a0d53c6ea1d329198e3a1611": {
+    "description": "This page serves as a practice ground for test automation, providing various UI elements and scenarios to interact with.",
+    "url_pattern": "https://letcode.in/edit",
+    "elements": [
+      {
+        "name": "POM Card",
+        "type": "link",
+        "primary_locator": "text=Page Object Model",
+        "backup_locator": "css=div:nth-child(1) > div > div > a",
+        "description": "Link to the Page Object Model practice page."
+      },
+      {
+        "name": "Input Card",
+        "type": "link",
+        "primary_locator": "text=Edit",
+        "backup_locator": "css=div:nth-child(2) > div > div > a",
+        "description": "Link to the Input practice page."
+      },
+      {
+        "name": "Button Card",
+        "type": "link",
+        "primary_locator": "text=Click",
+        "backup_locator": "css=div:nth-child(3) > div > div > a",
+        "description": "Link to the Button practice page."
+      },
+      {
+        "name": "Select Card",
+        "type": "link",
+        "primary_locator": "text=Drop-Down",
+        "backup_locator": "css=div:nth-child(4) > div > div > a",
+        "description": "Link to the Select practice page."
+      },
+      {
+        "name": "Alert Card",
+        "type": "link",
+        "primary_locator": "text=Dialog",
+        "backup_locator": "css=div:nth-child(5) > div > div > a",
+        "description": "Link to the Alert practice page."
+      },
+      {
+        "name": "Frame Card",
+        "type": "link",
+        "primary_locator": "text=Inner HTML",
+        "backup_locator": "css=div:nth-child(6) > div > div > a",
+        "description": "Link to the Frame practice page."
+      },
+      {
+        "name": "Radio Card",
+        "type": "link",
+        "primary_locator": "text=Toggle",
+        "backup_locator": "css=div:nth-child(7) > div > div > a",
+        "description": "Link to the Radio practice page."
+      },
+      {
+        "name": "Window Card",
+        "type": "link",
+        "primary_locator": "text=Tabs",
+        "backup_locator": "css=div:nth-child(8) > div > div > a",
+        "description": "Link to the Window practice page."
+      }
+    ],
+    "assertions": [
+      "Page title contains 'LetCode - Testing Hub'",
+      "Header text is 'Ready to be a Pro Engineer?'"
+    ]
+  },
+  "LetcodeInputPage_5c699b15d6c218086a1181aad2de48b8": {
+    "description": "This page provides various input fields to practice different input-related scenarios and learn about sendKeys(), Keyboard TAB, getAttribute(), clear(), and isEnabled() methods.",
+    "url_pattern": "https://letcode.in/edit",
+    "elements": [
+      {
+        "name": "Enter your full Name Input",
+        "type": "text field",
+        "primary_locator": "role=textbox[name=\"Enter your full Name\"]",
+        "backup_locator": "css=input[placeholder='Enter your full Name']",
+        "description": "Input field to enter the full name."
+      },
+      {
+        "name": "Append a text and press keyboard tab Input",
+        "type": "text field",
+        "primary_locator": "role=textbox[name=\"Append a text and press keyboard tab\"]",
+        "backup_locator": "css=input[placeholder='Append a text and press keyboard tab']",
+        "description": "Input field to append text and press tab."
+      },
+      {
+        "name": "What is inside the text box Input",
+        "type": "text field",
+        "primary_locator": "role=textbox[name=\"What is inside the text box\"]",
+        "backup_locator": "css=input[placeholder='What is inside the text box']",
+        "description": "Input field to check what is inside the text box."
+      },
+      {
+        "name": "Clear the text Input",
+        "type": "text field",
+        "primary_locator": "role=textbox[name=\"Clear the text\"]",
+        "backup_locator": "css=input[placeholder='Clear the text']",
+        "description": "Input field to clear the text."
+      },
+      {
+        "name": "Confirm edit field is disabled Input",
+        "type": "text field",
+        "primary_locator": "role=textbox[name=\"Confirm edit field is disabled\"]",
+        "backup_locator": "css=input[placeholder='Confirm edit field is disabled']",
+        "description": "Input field that is disabled."
+      },
+      {
+        "name": "Confirm text is readonly Input",
+        "type": "text field",
+        "primary_locator": "role=textbox[name=\"Confirm text is readonly\"]",
+        "backup_locator": "css=input[placeholder='Confirm text is readonly']",
+        "description": "Input field that is readonly."
+      },
+      {
+        "name": "Watch tutorial Button",
+        "type": "button",
+        "primary_locator": "text=Watch tutorial",
+        "backup_locator": "css=button:has-text('Watch tutorial')",
+        "description": "Button to watch the tutorial."
+      }
+    ],
+    "assertions": [
+      "Page title is 'LetCode - Testing Hub'",
+      "Page heading is 'Input'"
+    ]
+  },
+  "UnknownPage_04fc3f0abf9d1d6afad35b8ec4859e2b": {
+    "description": "This page indicates an issue with the website's SSL certificate.",
+    "url_pattern": "https://magento.softwaretestingboard.com/",
+    "elements": [
+      {
+        "name": "Invalid SSL certificate Header",
+        "type": "text",
+        "primary_locator": "text=Invalid SSL certificate",
+        "backup_locator": "h1",
+        "description": "The main header indicating the SSL certificate issue."
+      },
+      {
+        "name": "Error Code",
+        "type": "text",
+        "primary_locator": "text=Error code 526",
+        "backup_locator": "Error code 526",
+        "description": "Error code associated with the SSL issue."
+      },
+      {
+        "name": "Cloudflare Link",
+        "type": "link",
+        "primary_locator": "text=cloudflare.com",
+        "backup_locator": "a[href='cloudflare.com']",
+        "description": "Link to Cloudflare for more information."
+      },
+      {
+        "name": "Browser Status",
+        "type": "text",
+        "primary_locator": "text=Browser Working",
+        "backup_locator": "text=Browser Working",
+        "description": "Indicates the browser is working correctly."
+      },
+      {
+        "name": "Cloudflare Status",
+        "type": "text",
+        "primary_locator": "text=Cloudflare Working",
+        "backup_locator": "text=Cloudflare Working",
+        "description": "Indicates Cloudflare is working correctly."
+      },
+      {
+        "name": "Host Error",
+        "type": "text",
+        "primary_locator": "text=Host Error",
+        "backup_locator": "text=Host Error",
+        "description": "Indicates an error with the host."
+      },
+      {
+        "name": "What happened?",
+        "type": "text",
+        "primary_locator": "text=What happened?",
+        "backup_locator": "text=What happened?",
+        "description": "Section header explaining the SSL issue."
+      },
+      {
+        "name": "What can I do?",
+        "type": "text",
+        "primary_locator": "text=What can I do?",
+        "backup_locator": "text=What can I do?",
+        "description": "Section header providing possible solutions."
+      }
+    ],
+    "assertions": [
+      "Page title contains 'Invalid SSL certificate'",
+      "Header 'Invalid SSL certificate' is displayed",
+      "Text 'Error code 526' is displayed",
+      "Text 'The origin web server does not have a valid SSL certificate.' is displayed"
+    ]
+  },
+  "LoginPage_d902eb987bcf23a8b66b91cb989b82bb": {
+    "description": "This page is the Login page for the DemoQA website, allowing users to log in to the Book Store application.",
+    "url_pattern": "https://demoqa.com/login",
+    "elements": [
+      {
+        "name": "Username Input",
+        "type": "text field",
+        "primary_locator": "//label[text()='UserName :']/following-sibling::input",
+        "backup_locator": "input#userName",
+        "description": "Input field for entering the username."
+      },
+      {
+        "name": "Password Input",
+        "type": "text field",
+        "primary_locator": "//label[text()='Password :']/following-sibling::input",
+        "backup_locator": "input#password",
+        "description": "Input field for entering the password."
+      },
+      {
+        "name": "Login Button",
+        "type": "button",
+        "primary_locator": "button#login",
+        "backup_locator": "//button[@id='login']",
+        "description": "Button to submit the login form."
+      }
+    ],
+    "assertions": [
+      "Page title is 'DEMOQA'",
+      "Page contains the 'Login' heading",
+      "Page contains the 'UserName' label",
+      "Page contains the 'Password' label",
+      "Page contains the 'Login' button"
+    ]
+  },
+  "DemoqaLoginPage_1ded857a9ee067272315b25a49a3fda5": {
+    "description": "This page is the login page for the DemoQA bookstore application, where users can enter their credentials to access their accounts.",
+    "url_pattern": "https://demoqa.com/login",
+    "elements": [
+      {
+        "name": "Username Input",
+        "type": "text field",
+        "primary_locator": "//label[text()='UserName :']/following-sibling::input",
+        "backup_locator": "#userName",
+        "description": "Input field for entering the username."
+      },
+      {
+        "name": "Password Input",
+        "type": "text field",
+        "primary_locator": "//label[text()='Password :']/following-sibling::input",
+        "backup_locator": "#password",
+        "description": "Input field for entering the password."
+      },
+      {
+        "name": "Login Button",
+        "type": "button",
+        "primary_locator": "#login",
+        "backup_locator": "//button[@id='login']",
+        "description": "Button to submit the login form."
+      },
+      {
+        "name": "New User Button",
+        "type": "button",
+        "primary_locator": "//button[text()='New User']",
+        "backup_locator": "//button[@id='newUser']",
+        "description": "Button to navigate to the registration page for new users."
+      },
+      {
+        "name": "Invalid username or password message",
+        "type": "text",
+        "primary_locator": "#name",
+        "backup_locator": "//p[@id='name']",
+        "description": "Error message displayed when login fails."
+      }
+    ],
+    "assertions": [
+      "Page title is 'DEMOQA'",
+      "The header text 'Login' is displayed.",
+      "The 'Username' input field is present.",
+      "The 'Password' input field is present.",
+      "The 'Login' button is present.",
+      "The 'New User' button is present."
+    ]
+  },
+  "ToolsqaBookStorePage_ac99f184e0f7d0e4eec42673923c2be9": {
+    "description": "This page displays a list of books and allows users to search for books. It also provides links to other sections of the website.",
+    "url_pattern": "https://demoqa.com/books",
+    "elements": [
+      {
+        "name": "Search Box",
+        "type": "input",
+        "primary_locator": "//input[@id='searchBox']",
+        "backup_locator": "input#searchBox",
+        "description": "Input field to search for books."
+      },
+      {
+        "name": "Search Button",
+        "type": "button",
+        "primary_locator": "//button[@id='basic-addon2']",
+        "backup_locator": "button.input-group-text",
+        "description": "Button to initiate the book search."
+      },
+      {
+        "name": "Login Button",
+        "type": "button",
+        "primary_locator": "//button[@id='login']",
+        "backup_locator": "button#login",
+        "description": "Button to navigate to the login page."
+      },
+      {
+        "name": "Book Title Link",
+        "type": "link",
+        "primary_locator": "//a[contains(@href,'/book?book=')]",
+        "backup_locator": "a[href*='/book?book=']",
+        "description": "Link to the book details page."
+      },
+      {
+        "name": "Book Store Application Menu",
+        "type": "button",
+        "primary_locator": "//div[@class='element-group'][6]//div[@class='header-wrapper']",
+        "backup_locator": "div.element-group:nth-child(6) div.header-wrapper",
+        "description": "Menu item to access the Book Store Application section."
+      },
+      {
+        "name": "Login Menu",
+        "type": "button",
+        "primary_locator": "//li[@id='item-0']//span[@class='text' and text()='Login']",
+        "backup_locator": "li#item-0 span.text",
+        "description": "Menu item to navigate to the Login page."
+      }
+    ],
+    "assertions": [
+      "Page title is 'DEMOQA'",
+      "Search box is present",
+      "Login button is present",
+      "At least one book title is displayed"
+    ]
+  },
+  "UnknownPage_464c1fb1e8d3ab38ece5b73f04d3fec0": {
+    "description": "This page displays advertisement content at the bottom of the page.",
+    "url_pattern": "https://demoqa.com/books?book=9781449325862",
+    "elements": [
+      {
+        "name": "Advertisement 1",
+        "type": "link",
+        "primary_locator": "//div[contains(text(),'The Old Method')]",
+        "backup_locator": "css=div:nth-child(1) > a > img",
+        "description": "First advertisement link"
+      },
+      {
+        "name": "Advertisement 2",
+        "type": "link",
+        "primary_locator": "//div[contains(text(),'8 Things That Make Any Man Crave')]",
+        "backup_locator": "css=div:nth-child(3) > a > img",
+        "description": "Third advertisement link"
+      }
+    ],
+    "assertions": [
+      "Verify that the advertisement section is displayed",
+      "Verify that the advertisement links are clickable"
+    ]
+  },
+  "UiTestAutomationPlaygroundPage_d64a8e8499d1d86ed95cd72e79cc4a82": {
+    "description": "This page demonstrates the 'Dynamic ID' challenge in UI test automation, where element IDs change on each page load, requiring robust locator strategies.",
+    "url_pattern": "http://uitestingplayground.com/dynamicid",
+    "elements": [
+      {
+        "name": "Dynamic ID Link",
+        "type": "link",
+        "primary_locator": "text=Dynamic ID",
+        "backup_locator": "css=a[href='/dynamicid']",
+        "description": "Link to the Dynamic ID challenge page."
+      },
+      {
+        "name": "Home Link",
+        "type": "link",
+        "primary_locator": "text=Home",
+        "backup_locator": "css=a[href='/']",
+        "description": "Link to the home page."
+      },
+      {
+        "name": "Resources Link",
+        "type": "link",
+        "primary_locator": "text=Resources",
+        "backup_locator": "css=a[href='/resources']",
+        "description": "Link to the resources page."
+      },
+      {
+        "name": "UI Test Automation Playground Header",
+        "type": "header",
+        "primary_locator": "text=UI Test Automation Playground",
+        "backup_locator": "css=h1",
+        "description": "Main header of the page."
+      }
+    ],
+    "assertions": [
+      "Page title is 'UI Test Automation Playground'",
+      "Main header text is 'UI Test Automation Playground'",
+      "The 'Dynamic ID' link is present on the page."
+    ]
+  },
+  "UnknownPage_5b8913ce93d21988463b5c92015ba60a": {
+    "description": "This page demonstrates the challenge of using dynamic IDs in UI automation. It contains a button with a dynamically generated ID.",
+    "url_pattern": "http://uitestingplayground.com/dynamicid",
+    "elements": [
+      {
+        "name": "Dynamic ID Button",
+        "type": "button",
+        "primary_locator": "role=button[name='Button with Dynamic ID']",
+        "backup_locator": "css=a.btn.btn-primary",
+        "description": "Button with a dynamic ID. Clicking this button should trigger an action (though the action itself isn't specified on this page)."
+      },
+      {
+        "name": "Dynamic ID Header",
+        "type": "heading",
+        "primary_locator": "text=Dynamic ID",
+        "backup_locator": "css=h3",
+        "description": "The main header of the page."
+      }
+    ],
+    "assertions": [
+      "Page title is 'UI Testing Playground'",
+      "Page contains the 'Dynamic ID' header",
+      "Page contains a button with the text 'Button with Dynamic ID'"
+    ]
+  },
+  "OrangehrmDashboardPage_2640bd7155b74deff6bcfa06e8a4f032": {
+    "description": "The Dashboard page of OrangeHRM provides a summary view of key information and quick actions for the logged-in user.",
+    "url_pattern": "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index",
+    "elements": [
+      {
+        "name": "Dashboard Menu Item",
+        "type": "link",
+        "primary_locator": "role=menuitem[name='Dashboard']",
+        "backup_locator": "text=Dashboard",
+        "description": "Link to navigate to the Dashboard page."
+      },
+      {
+        "name": "Time at Work",
+        "type": "section",
+        "primary_locator": "text=Time at Work",
+        "backup_locator": "css=.oxd-grid-item:nth-child(1)",
+        "description": "Section displaying the user's time at work information."
+      },
+      {
+        "name": "My Actions",
+        "type": "section",
+        "primary_locator": "text=My Actions",
+        "backup_locator": "css=.oxd-grid-item:nth-child(2)",
+        "description": "Section displaying the user's pending actions."
+      },
+      {
+        "name": "Buzz Latest Posts",
+        "type": "section",
+        "primary_locator": "text=Buzz Latest Posts",
+        "backup_locator": "css=.oxd-grid-item:nth-child(3)",
+        "description": "Section displaying the latest posts from the Buzz module."
+      },
+      {
+        "name": "Quick Launch",
+        "type": "section",
+        "primary_locator": "text=Quick Launch",
+        "backup_locator": "css=.oxd-grid-item:nth-child(4)",
+        "description": "Section displaying quick launch icons."
+      },
+      {
+        "name": "Assign Leave Quick Launch",
+        "type": "link",
+        "primary_locator": "text=Assign Leave",
+        "backup_locator": "css=.orangehrm-quick-launch-card:nth-child(1)",
+        "description": "Quick launch icon to assign leave."
+      },
+      {
+        "name": "Leave List Quick Launch",
+        "type": "link",
+        "primary_locator": "text=Leave List",
+        "backup_locator": "css=.orangehrm-quick-launch-card:nth-child(2)",
+        "description": "Quick launch icon to view leave list."
+      },
+      {
+        "name": "Timesheets Quick Launch",
+        "type": "link",
+        "primary_locator": "text=Timesheets",
+        "backup_locator": "css=.orangehrm-quick-launch-card:nth-child(3)",
+        "description": "Quick launch icon to access timesheets."
+      },
+      {
+        "name": "Apply Leave Quick Launch",
+        "type": "link",
+        "primary_locator": "text=Apply Leave",
+        "backup_locator": "css=.orangehrm-quick-launch-card:nth-child(4)",
+        "description": "Quick launch icon to apply for leave."
+      },
+      {
+        "name": "My Leave Quick Launch",
+        "type": "link",
+        "primary_locator": "text=My Leave",
+        "backup_locator": "css=.orangehrm-quick-launch-card:nth-child(5)",
+        "description": "Quick launch icon to view my leave."
+      },
+      {
+        "name": "My Timesheet Quick Launch",
+        "type": "link",
+        "primary_locator": "text=My Timesheet",
+        "backup_locator": "css=.orangehrm-quick-launch-card:nth-child(6)",
+        "description": "Quick launch icon to view my timesheet."
+      }
+    ],
+    "assertions": [
+      "Page title contains 'OrangeHRM'",
+      "Header text is 'Dashboard'",
+      "Presence of 'Time at Work' section",
+      "Presence of 'My Actions' section",
+      "Presence of 'Quick Launch' section",
+      "Presence of 'Buzz Latest Posts' section"
+    ]
+  },
+  "UnknownPage_1ba2d033d81d0d971c4cb642004f2bbd": {
+    "description": "This is the Employee List page within the PIM module, where users can view, search, and manage employee information.",
+    "url_pattern": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList",
+    "elements": [
+      {
+        "name": "Employee Name Input",
+        "type": "text field",
+        "primary_locator": "//label[text()='Employee Name']/following-sibling::div/input",
+        "backup_locator": "input[placeholder='Type for hints...']",
+        "description": "Input field to search for employees by name."
+      },
+      {
+        "name": "Employee Id Input",
+        "type": "text field",
+        "primary_locator": "//label[text()='Employee Id']/following-sibling::div/input",
+        "backup_locator": "input[placeholder='Type for hints...']",
+        "description": "Input field to search for employees by ID."
+      },
+      {
+        "name": "Employment Status Dropdown",
+        "type": "dropdown",
+        "primary_locator": "//label[text()='Employment Status']/following-sibling::div//div[@class='oxd-select-text--after']",
+        "backup_locator": "div.oxd-select-text--arrow",
+        "description": "Dropdown to filter employees by employment status."
+      },
+      {
+        "name": "Include Dropdown",
+        "type": "dropdown",
+        "primary_locator": "//label[text()='Include']/following-sibling::div//div[@class='oxd-select-text--after']",
+        "backup_locator": "div.oxd-select-text--arrow",
+        "description": "Dropdown to filter employees by inclusion criteria (e.g., Current Employees Only)."
+      },
+      {
+        "name": "Supervisor Name Input",
+        "type": "text field",
+        "primary_locator": "//label[text()='Supervisor Name']/following-sibling::div/input",
+        "backup_locator": "input[placeholder='Type for hints...']",
+        "description": "Input field to search for employees by supervisor name."
+      },
+      {
+        "name": "Job Title Dropdown",
+        "type": "dropdown",
+        "primary_locator": "//label[text()='Job Title']/following-sibling::div//div[@class='oxd-select-text--after']",
+        "backup_locator": "div.oxd-select-text--arrow",
+        "description": "Dropdown to filter employees by job title."
+      },
+      {
+        "name": "Sub Unit Dropdown",
+        "type": "dropdown",
+        "primary_locator": "//label[text()='Sub Unit']/following-sibling::div//div[@class='oxd-select-text--after']",
+        "backup_locator": "div.oxd-select-text--arrow",
+        "description": "Dropdown to filter employees by sub unit."
+      },
+      {
+        "name": "Reset Button",
+        "type": "button",
+        "primary_locator": "//button[text()=' Reset ']",
+        "backup_locator": "button.oxd-button--ghost",
+        "description": "Button to reset the search filters."
+      },
+      {
+        "name": "Search Button",
+        "type": "button",
+        "primary_locator": "//button[text()=' Search ']",
+        "backup_locator": "button.oxd-button--main",
+        "description": "Button to initiate the employee search."
+      },
+      {
+        "name": "Add Button",
+        "type": "button",
+        "primary_locator": "//button[normalize-space()='+ Add']",
+        "backup_locator": "button.oxd-button--success",
+        "description": "Button to add a new employee."
+      },
+      {
+        "name": "Edit Button",
+        "type": "button",
+        "primary_locator": "//div[@class='oxd-table-body']/div/div/div[@class='oxd-table-cell oxd-padding-cell'][last()]/div/button[1]",
+        "backup_locator": "button.oxd-icon-button",
+        "description": "Button to edit an employee."
+      },
+      {
+        "name": "Delete Button",
+        "type": "button",
+        "primary_locator": "//div[@class='oxd-table-body']/div/div/div[@class='oxd-table-cell oxd-padding-cell'][last()]/div/button[2]",
+        "backup_locator": "button.oxd-icon-button",
+        "description": "Button to delete an employee."
+      }
+    ],
+    "assertions": [
+      "Assert page title contains 'Employee List'",
+      "Assert header text is 'Employee Information'",
+      "Assert that the 'Add' button is displayed",
+      "Assert that the 'Search' button is displayed",
+      "Assert that the 'Reset' button is displayed",
+      "Assert that the table of employees is displayed"
+    ]
   }
 }
