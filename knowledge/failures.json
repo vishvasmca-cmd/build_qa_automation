@@ -1402,5 +1402,14 @@
       "phase": "execution"
     },
     "error": " task = asyncio.current_task(self._loop)\n        st: List[inspect.FrameInfo] = getattr(\n            task, \"__pw_stack__\", None\n        ) or inspect.stack(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.\nE           Call log:\nE             - waiting for locator(\"[data-test='username']\")\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\playwright\\_impl\\_connection.py:559: TimeoutError\n=========================== short test summary info ===========================\nFAILED projects/verify_custom_ultrafast/tests/test_main.py::test_autonomous_flow[chromium]\n============================= 1 failed in 32.29s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-09T14:26:01.479445",
+    "context": {
+      "site": "https://phptravels.com/demo/",
+      "project": "verify_custom_phptravels",
+      "phase": "execution"
+    },
+    "error": "_role(\"link\", name=\"Demo\") resolved to 2 elements:\nE               1) <a href=\"https://phptravels.com/demo\" class=\"text-muted-foreground hover:text-foreground transition-colors\">Demo</a> aka get_by_role(\"navigation\").get_by_role(\"link\", name=\"Demo\")\nE               2) <a href=\"https://phptravels.com/demo/\" class=\"text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1\">\u21b5                  Demo                          \u2026</a> aka get_by_role(\"contentinfo\").get_by_role(\"link\", name=\"Demo\")\nE           \nE           Call log:\nE             - waiting for get_by_role(\"link\", name=\"Demo\")\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\playwright\\_impl\\_connection.py:559: Error\n=========================== short test summary info ===========================\nFAILED projects/verify_custom_phptravels/tests/test_main.py::test_autonomous_flow[chromium]\n============================== 1 failed in 3.10s ==============================\n\n\n"
   }
 ]
