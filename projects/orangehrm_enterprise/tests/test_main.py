@@ -109,6 +109,7 @@ class AddUserPage(BasePage):
 class GenericPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
+        pass
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
@@ -125,12 +126,12 @@ def test_autonomous_flow(browser: Browser):
     login_page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
     login_page.login("Admin", "admin123")
 
-    # 2. Navigate to PIM and add an employee
+    # 2. Navigate to PIM and add employee
     orangehrm_dashboard_page.navigate_to_pim()
     employee_list_page.navigate_to_add_employee()
     add_employee_page.add_employee("FirstNameTest", "LastNameTest")
 
-    # 3. Navigate to Admin and create a system user
+    # 3. Navigate to Admin and create system user
     orangehrm_pim_personal_details_page.navigate_to_admin()
     system_users_page.navigate_to_add_user()
 

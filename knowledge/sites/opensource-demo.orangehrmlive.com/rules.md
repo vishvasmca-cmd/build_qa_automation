@@ -671,3 +671,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on URL matching for navigation confirmation; ALWAYS verify the presence of a unique element on the target page to ensure complete loading.
 
 - ✅ PREFERRED: DO use `page.locator('locator_for_unique_element').wait_for()` in conjunction with URL matching to confirm successful navigation and page load.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `wait_for_url` with a simple wildcard pattern like `**/dashboard*` without verifying the full URL or specific elements on the target page after navigation.
+
+- ✅ PREFERRED: DO verify the full URL after navigation using `page.url` and/or check for the presence of specific elements on the target page to confirm successful navigation and page load.
