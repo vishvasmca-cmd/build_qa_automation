@@ -6,5 +6,5 @@
 
 ## Journey Highlight
 - Visited **ExpandtestingPracticeWebsitePage**
-- Visited **WebInputsPagePage**
 - Visited **WebInputsPageForAutomationTestingPracticePage**
+- Visited **WebInputsPagePage**

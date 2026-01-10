@@ -1726,5 +1726,14 @@
       "phase": "execution"
     },
     "error": "ack__\", None\n        ) or inspect.stack(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nE           Call log:\nE             - waiting for locator(\"#log-in\")\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/verify_custom_ultrafast/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#log-in\")\n============================== 1 failed in 31.33s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-10T03:54:56.914540",
+    "context": {
+      "site": "https://practice.expandtesting.com/",
+      "project": "verify_custom_expandtesting",
+      "phase": "execution"
+    },
+    "error": "erify_custom_expandtesting/tests/test_main.py ___\nImportError while importing test module '/home/runner/work/build_qa_automation/build_qa_automation/projects/verify_custom_expandtesting/tests/test_main.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/importlib/__init__.py:126: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nprojects/verify_custom_expandtesting/tests/test_main.py:42: in <module>\n    from .base_page import BasePage\nE   ImportError: attempted relative import with no known parent package\n=========================== short test summary info ============================\nERROR projects/verify_custom_expandtesting/tests/test_main.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n=============================== 1 error in 0.13s ===============================\n\n\n"
   }
 ]

@@ -42,3 +42,43 @@
 - ⚠️ PROHIBITED: DON'T assume that the project structure and import paths are correct without verifying them before running the tests.
 
 - ✅ PREFERRED: DO ensure that all necessary modules and packages are installed and that the import paths in the test files are accurate and reflect the actual project structure.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the test suite is explicitly structured as a package with a proper `__init__.py` file in each directory.
+
+- ✅ PREFERRED: DO use absolute imports (e.g., `from projects.verify_custom_expandtesting.base_page import BasePage`) or configure the Python path to correctly resolve relative imports when running tests.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the package structure is explicitly initialized and the test runner is configured to handle them correctly.
+
+- ✅ PREFERRED: DO use absolute imports (e.g., `from projects.verify_custom_expandtesting.base_page import BasePage`) or configure the test runner to correctly interpret relative imports by adding an `__init__.py` file to the directory and ensuring it's treated as a package.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the package structure is explicitly initialized and the test runner is configured to handle them correctly.
+
+- ✅ PREFERRED: DO use absolute imports (e.g., `from projects.verify_custom_expandtesting.base_page import BasePage`) or configure the test runner to correctly resolve relative imports by adding an `__init__.py` file to the directory and ensuring it's treated as a package.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the package structure is explicitly initialized and the test runner is configured to handle them correctly.
+
+- ✅ PREFERRED: DO use absolute imports or explicitly configure the Python path to ensure modules can be found when running tests, especially when dealing with package structures.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the package structure is explicitly initialized and the test runner is configured to handle them correctly.
+
+- ✅ PREFERRED: DO use absolute imports (e.g., `from projects.verify_custom_expandtesting.base_page import BasePage`) or configure the test runner to correctly interpret relative imports when dealing with package-internal modules.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the package structure is explicitly initialized and the test runner is configured to handle them correctly.
+
+- ✅ PREFERRED: DO use absolute imports or explicitly define the package structure (e.g., by adding an `__init__.py` file in each directory) to ensure modules can be imported correctly during test execution.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the package structure is explicitly initialized and the test runner is configured to handle them correctly.
+
+- ✅ PREFERRED: DO use absolute imports (e.g., `from projects.verify_custom_expandtesting.base_page import BasePage`) or configure the test runner to correctly interpret relative imports within the project structure.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the test runner is explicitly configured to handle the package structure correctly. Prefer absolute imports or explicit package initialization.
+
+- ✅ PREFERRED: DO ensure that test files are either in a recognized package or use absolute imports to access modules in other directories. Consider adding an `__init__.py` file to the `projects/verify_custom_expandtesting/tests` directory to explicitly define it as a package.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the test suite is explicitly structured and run as a Python package.
+
+- ✅ PREFERRED: DO ensure that test files can be imported correctly, either by structuring the project as a package or by using absolute imports or adjusting the Python path.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module import X`) in test files unless the test suite is explicitly structured as a package with a proper `__init__.py`.
+
+- ✅ PREFERRED: DO ensure that test files are either part of a properly structured package or use absolute imports to reference modules within the project.

@@ -5,27 +5,55 @@ import re
 import random
 from playwright.sync_api import Page, Browser, expect
 
+# Import pre-tested helpers
+import sys
+# Dynamic path discovery: Find root of 'inner-event' and append core path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Navigate up to project root (e.g., projects/name/tests/ -> inner-event)
+# We assume tests are usually in projects/<name>/tests/ or projects/<name>/tests/e2e
+root_dir = current_dir
+for _ in range(10): # Max depth search
+    if os.path.exists(os.path.join(root_dir, 'core')):
+        break
+    parent = os.path.dirname(root_dir)
+    if parent == root_dir: break
+    root_dir = parent
 
-async def wait_for_stability(page: Page, timeout: float = 1000):
-    await page.wait_for_timeout(timeout)
+sys.path.append(os.path.join(root_dir, 'core', 'lib', 'templates'))
+try:
+    from helpers import take_screenshot
+except ImportError:
+    # Fallback for different structures
+    sys.path.append(os.path.abspath(os.path.join(current_dir, '../../../../core/lib/templates')))
+    from helpers import take_screenshot
 
-class HomePage:
-    def __init__(self, page: Page):
+
+class BasePage:
+    def __init__(self, page):
         self.page = page
-        self.url = "https://practice.expandtesting.com/"
 
-    def navigate(self):
-        self.page.goto(self.url)
-        self.page.wait_for_load_state()
+    def navigate(self, url):
+        self.page.goto(url)
+        self.page.wait_for_load_state("networkidle")
 
-    def navigate_to_web_inputs(self):
-        self.page.get_by_role("link", name=re.compile("Web inputs", re.IGNORECASE)).click()
-        self.page.wait_for_url("**/inputs")
-        self.page.wait_for_load_state()
+    def take_screenshot(self, name, project_name):
+        take_screenshot(self.page, name, project_name)
 
-class WebInputsPage:
-    def __init__(self, page: Page):
-        self.page = page
+from .base_page import BasePage
+
+class ExpandtestingPracticeWebsitePage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+
+    def navigate_to_inputs(self):
+        self.page.get_by_role("link", name="Web inputs").click()
+        self.page.wait_for_load_state("networkidle")
+
+from .base_page import BasePage
+
+class WebInputsPage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
 
     def fill_number_input(self, number):
         self.page.locator("#input-number").fill(number)
@@ -36,25 +64,22 @@ class WebInputsPage:
     def fill_password_input(self, password):
         self.page.locator("#input-password").fill(password)
 
-    async def assert_input_values(self, number, text, password):
-        await expect(self.page.locator("#input-number")).to_have_value(number)
-        await expect(self.page.locator("#input-text")).to_have_value(text)
-        await expect(self.page.locator("#input-password")).to_have_value(password)
+from playwright.sync_api import Browser
+from projects.verify_custom_expandtesting.pages.expandtesting_practice_website_page import ExpandtestingPracticeWebsitePage
+from projects.verify_custom_expandtesting.pages.web_inputs_page import WebInputsPage
 
-
-@pytest.mark.skip(reason="Skipping to avoid running in CI")
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
-    home_page = HomePage(page)
+    expandtesting_page = ExpandtestingPracticeWebsitePage(page)
     web_inputs_page = WebInputsPage(page)
 
-    home_page.navigate()
-    home_page.navigate_to_web_inputs()
+    expandtesting_page.navigate("https://practice.expandtesting.com/")
+    expandtesting_page.navigate_to_inputs()
 
     web_inputs_page.fill_number_input("123")
-    web_inputs_page.fill_text_input("Some Text")
+    web_inputs_page.fill_text_input("test")
     web_inputs_page.fill_password_input("password123")
 
-    page.screenshot(path=f"screenshot.png")
+    expandtesting_page.take_screenshot("web_inputs_filled", "verify_custom_expandtesting")
 
     page.close()
