@@ -4,105 +4,130 @@
 **Date:** October 26, 2023
 **Prepared By:** Senior Test Manager
 
-This document outlines the master test strategy for AutomationExercise.com, an e-commerce platform. It serves as a blueprint for the entire engineering team, guiding test automation efforts and ensuring comprehensive test coverage.
+This document outlines the master test strategy for AutomationExercise.com, an e-commerce platform. It provides a comprehensive plan for ensuring the quality and reliability of the application through a robust testing approach, focusing on regression testing and laying the foundation for future autonomous exploration.
 
-### 1. 🔍 RISK ASSESSMENT & PLANNING
+## 1. 🔍 RISK ASSESSMENT & PLANNING
 
-*   **Domain Analysis:** AutomationExercise.com is an e-commerce platform. The most critical areas are those directly impacting revenue generation and customer experience, such as product browsing, adding to cart, and checkout.
-*   **Risk Profile:** System failures can lead to:
-    *   **Financial Loss:** Lost sales due to checkout errors or inability to add items to cart.
-    *   **Reputational Damage:** Negative customer reviews and loss of trust due to website malfunctions.
-    *   **Data Security Breaches:** Potential compromise of customer data (payment information, personal details) if security vulnerabilities exist.
-*   **Testing Scope:**
-    *   **In Scope:**
-        *   All functionalities related to user registration, login, product browsing, adding to cart, checkout, payment processing, and order management.
-        *   Cross-browser compatibility (Chrome, Firefox, Safari, Edge - latest two versions).
-        *   Responsiveness across different screen sizes (desktop, tablet, mobile).
-        *   Basic security checks (input validation, protection against common web vulnerabilities).
-    *   **Out of Scope:**
-        *   Performance testing (load, stress, endurance).  (Separate initiative)
-        *   Advanced security penetration testing. (Separate initiative)
-        *   Integration with third-party services beyond basic payment gateway functionality.
-        *   Accessibility testing (WCAG compliance). (Separate initiative)
-        *   Detailed API testing (focus on UI-driven testing initially).
+### 1.1 Domain Analysis
 
-### 2. 🏗️ TESTING STRATEGY (The "How")
+AutomationExercise.com operates within the e-commerce domain. Key business functionalities include:
 
-*   **Smoke Suite (Sanity):**
-    *   **Goal:** Verify the core functionality of the application after each build deployment.
-    *   **Test Cases:**
-        1.  Navigate to the homepage and verify the page loads successfully.
-        2.  Register a new user account (happy path).
-        3.  Log in with the newly created user account.
-        4.  Search for a product.
-        5.  Add a product to the cart.
-        6.  Proceed to checkout as a registered user.
-        7.  Complete a purchase using a test payment method (e.g., a pre-configured test credit card).
-    *   **Execution Frequency:** After each build deployment to any environment.
-*   **Regression Suite (Deep Dive):**
-    *   **Goal:** Ensure that new changes haven't introduced regressions and that existing functionality remains intact.
-    *   **Test Categories:**
-        *   **Functional Testing:**
-            *   **Positive Testing:** Valid inputs and expected outcomes for all features.
-            *   **Negative Testing:** Invalid inputs, boundary values, and error handling. Examples:
-                *   Invalid email format during registration.
-                *   Password reset with an invalid email address.
-                *   Adding more items to the cart than available in stock.
-                *   Applying an expired or invalid coupon code.
-            *   **Edge Cases:**
-                *   Concurrency: Multiple users adding the same item to the cart simultaneously.
-                *   Network failures: Simulate network interruptions during checkout.
-                *   Empty states: Verify handling of empty cart, empty search results, etc.
-        *   **Security Testing:**
-            *   Basic OWASP Top 10 checks:
-                *   Input validation to prevent SQL injection and cross-site scripting (XSS).
-                *   Ensure sensitive data (passwords, credit card details) are properly encrypted.
-        *   **UI/UX Testing:**
-            *   Cross-browser compatibility: Verify consistent rendering and functionality across different browsers.
-            *   Responsiveness: Ensure the website adapts correctly to different screen sizes.
-            *   Validation Messages: Verify all validation messages are displayed correctly.
-    *   **Execution Frequency:** At least once per sprint, and before each major release.
-*   **Data Strategy:**
-    *   **Test Data:** A combination of static and dynamically generated test data will be used.
-        *   **Static Data:** Pre-defined user accounts, product catalogs, and payment methods for smoke tests and basic regression scenarios.  Stored in a secure, version-controlled repository.
-        *   **Dynamic Data:** Dynamically generated data for negative testing and edge cases (e.g., random email addresses, coupon codes, quantities).  Generated using data generation libraries.
-    *   **Data Management:** Implement a data cleanup strategy to avoid data pollution in test environments.
+*   **Product Catalog:** Displaying and managing products.
+*   **User Authentication:** Securely managing user accounts.
+*   **Shopping Cart:** Enabling users to add and manage items for purchase.
+*   **Checkout & Payments:** Processing orders and payments securely.
+*   **Order Management:** Tracking and managing orders.
 
-### 3. 🏛️ ARCHITECTURE GUIDANCE (For the Test Architect)
+The **Checkout & Payments** module is considered **P0 (Critical)** due to its direct impact on revenue generation. Failure in this area will result in immediate financial loss. **Authentication** and **Shopping Cart** are also considered **High** criticality.
 
-*   **Framework Recommendation:**
-    *   **Page Object Model (POM):** Implement a POM structure to improve test maintainability and reduce code duplication. Each page of the application should have a corresponding page object that encapsulates the elements and actions on that page.
-    *   **Language:** [Choose a language - e.g., Java, Python, JavaScript] based on team expertise and project requirements.
-    *   **Test Framework:** [Choose a framework - e.g., Selenium WebDriver, Cypress, Playwright] based on the application's technology stack and testing needs.
-*   **Resilience Strategy:**
-    *   **Flakiness Handling:**
-        *   **Polling Assertions:** Use polling assertions with appropriate timeouts to handle asynchronous operations and ensure elements are fully loaded before interacting with them.
-        *   **Explicit Waits:** Implement explicit waits to wait for specific conditions to be met before proceeding with the test.
-        *   **Retry Mechanisms:** Implement retry mechanisms for failed test steps due to transient issues (e.g., network glitches).
-    *   **Self-Healing:**
-        *   Implement mechanisms to automatically locate elements based on multiple locators (e.g., ID, XPath, CSS selector) to handle changes in the UI.
-        *   Use relative locators to find elements based on their proximity to other elements.
+### 1.2 Risk Profile
 
-### 4. ⚔️ EXECUTION & MINING INSTRUCTIONS (For the Senior QA)
+Failure of AutomationExercise.com can lead to:
 
-*   **Mining Targets (Initial Exploration):**
-    1.  **Homepage:** Verify the layout, navigation, and key elements (e.g., banners, featured products) are displayed correctly.
-    2.  **Product Listing Page:** Explore different product categories, filters, and sorting options.
-    3.  **Product Details Page:** Verify product information, images, and add-to-cart functionality.
-    4.  **Shopping Cart Page:** Verify cart summary, quantity updates, and checkout button.
-    5.  **Checkout Page:** Explore different shipping and payment options.
-    6.  **Registration/Login Pages:** Test the registration and login flows.
-*   **Verification Criteria:**
-    *   **Success:**
-        *   HTTP 200 status code for all page requests.
-        *   Expected elements are visible on the page (e.g., product name, price, image).
-        *   Validation messages are displayed correctly for invalid inputs.
-        *   Successful completion of key actions (e.g., adding to cart, completing a purchase).
-    *   **Failure:**
-        *   HTTP error codes (e.g., 404, 500).
-        *   Unexpected errors or exceptions.
-        *   Incorrect data or calculations.
-        *   Broken links or images.
-        *   Security vulnerabilities.
+*   **Financial Loss:** Inability to process orders, lost sales, and potential chargebacks.
+*   **Reputational Damage:** Negative customer reviews, loss of trust, and brand erosion.
+*   **Data Breach:** Compromised user data (e.g., credit card information, personal details) leading to legal and financial repercussions.
+*   **Operational Disruption:** Inability to fulfill orders, impacting customer satisfaction and logistics.
 
-This Master Test Strategy will be reviewed and updated periodically to ensure it remains aligned with the evolving needs of the AutomationExercise.com platform.
+### 1.3 Testing Scope
+
+**In Scope:**
+
+*   All modules listed in the Domain Analysis (Product Catalog, User Authentication, Shopping Cart, Checkout & Payments, Order Management).
+*   Functional testing of all features within these modules.
+*   Regression testing to ensure existing functionality remains intact after changes.
+*   Negative testing to validate error handling and system resilience.
+*   Security testing for basic vulnerabilities (OWASP Top 10).
+*   Cross-browser compatibility testing (Chrome, Firefox, Safari, Edge).
+*   Performance testing (load times, responsiveness).
+
+**Out of Scope:**
+
+*   Mobile app testing (unless explicitly stated).
+*   Detailed performance testing (e.g., stress testing, endurance testing) - to be considered in a separate phase.
+*   Accessibility testing (WCAG compliance) - to be considered in a separate phase.
+*   Localization testing (unless explicitly stated).
+
+## 2. 🏗️ TESTING STRATEGY
+
+### 2.1 Smoke Suite (Sanity)
+
+The Smoke Suite will serve as the initial "Health Check" for each build. It will be executed after each deployment to ensure the core functionality is operational.
+
+*   **Login:** Verify successful login with valid credentials.
+*   **Homepage Load:** Verify the homepage loads correctly and key elements (e.g., navigation menu, featured products) are displayed.
+*   **Product View:** Verify a product detail page loads correctly.
+*   **Add to Cart:** Verify a product can be added to the cart.
+*   **Checkout (Guest):** Verify a guest user can complete a purchase with a valid payment method.
+
+### 2.2 Regression Suite (Deep Dive)
+
+The Regression Suite will provide comprehensive coverage of the application's functionality.
+
+*   **Negative Testing:**
+    *   Invalid login attempts (incorrect password, locked account).
+    *   Invalid coupon codes.
+    *   Submitting forms with missing or invalid data.
+    *   Attempting to add out-of-stock items to the cart.
+*   **Edge Cases:**
+    *   Concurrency: Multiple users adding the same item to the cart simultaneously.
+    *   Network failures: Simulating network interruptions during checkout.
+    *   Empty states: Handling empty cart, no search results, etc.
+    *   Large datasets: Testing with a large number of products or users.
+*   **Security:**
+    *   Basic OWASP Top 10 checks: Input validation to prevent SQL injection and XSS attacks.
+    *   Password complexity requirements.
+    *   Secure handling of sensitive data (e.g., credit card information).
+*   **Module Specific Regression Examples:**
+    *   **Authentication:** Password reset flow, registration with existing email, account locking.
+    *   **Product Catalog:** Filtering and sorting products, searching for non-existent products, pagination.
+    *   **Shopping Cart:** Updating quantity in cart, removing items, cart persistence, handling out-of-stock items.
+    *   **Checkout & Payments:** Checkout with different address formats, applying valid/invalid coupon codes, simulating payment declines, verifying tax and shipping calculations.
+
+### 2.3 Data Strategy
+
+*   **Test Data:** A combination of static and dynamically generated test data will be used.
+    *   **Static Data:** Predefined user accounts, product catalogs, and payment methods for consistent testing.
+    *   **Dynamic Data:** Generated data for scenarios requiring unique values (e.g., email addresses, order numbers).  Faker libraries will be used for generating realistic data.
+*   **Data Management:** Test data will be stored in a centralized repository (e.g., CSV files, database) for easy access and maintenance.
+*   **Data Security:** Sensitive data (e.g., credit card information) will be masked or encrypted to protect user privacy.
+
+## 3. 🏛️ ARCHITECTURE GUIDANCE (For the Test Architect)
+
+### 3.1 Framework Recommendation
+
+*   **Page Object Model (POM):** Implement a Page Object Model to improve code maintainability and reusability. Each page of the application will be represented as a separate class, encapsulating its elements and actions.
+*   **Language:** Python with pytest framework.
+*   **Selenium WebDriver:** For browser automation.
+
+### 3.2 Resilience Strategy
+
+*   **Polling Assertions:** Use polling assertions (e.g., WebDriverWait in Selenium) to handle asynchronous operations and ensure elements are fully loaded before interacting with them.
+*   **Explicit Waits:** Avoid implicit waits and use explicit waits to wait for specific conditions to be met.
+*   **Self-Healing:** Implement basic self-healing mechanisms to automatically recover from common issues (e.g., element not found, stale element reference). This could involve retrying actions or refreshing the page.
+*   **Retry Mechanism:** Implement a retry mechanism for failed tests due to transient issues (e.g., network glitches).
+
+## 4. ⚔️ EXECUTION & MINING INSTRUCTIONS (For the Senior QA)
+
+### 4.1 Mining Targets
+
+The autonomous agent should prioritize exploring the following pages and flows:
+
+1.  **Homepage:** Verify layout, navigation, and featured products.
+2.  **Product Listing Page:** Explore product categories, filters, and sorting options.
+3.  **Product Detail Page:** Verify product information, images, and add-to-cart functionality.
+4.  **Shopping Cart:** Verify cart contents, quantity updates, and checkout button.
+5.  **Login/Registration Pages:** Explore login and registration forms, error messages, and password reset flow.
+6.  **Checkout Page:** Verify address form, shipping options, payment methods, and order confirmation.
+
+### 4.2 Verification Criteria
+
+Success will be defined by the following criteria:
+
+*   **HTTP Status Code:** Verify that all pages return an HTTP 200 (OK) status code.
+*   **Element Visibility:** Verify that key elements are visible on each page (e.g., product name, price, add-to-cart button, login form).
+*   **Text Verification:** Verify that specific text is present on each page (e.g., "Welcome" message after login, "Your Cart is Empty" message when the cart is empty).
+*   **Functional Verification:** Verify that core functionalities are working as expected (e.g., adding items to the cart, completing a purchase).
+*   **Error Handling:** Verify that appropriate error messages are displayed for invalid inputs or unexpected conditions.
+
+This Master Test Strategy will be reviewed and updated regularly to ensure it remains aligned with the evolving needs of the application and the business.

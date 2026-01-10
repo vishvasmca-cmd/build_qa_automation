@@ -90,3 +90,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on default timeout settings; ALWAYS explicitly set timeouts based on expected element load times and network conditions.
 
 - ✅ PREFERRED: DO verify the project's directory structure and import statements to ensure correct relative import resolution before running tests.
+
+- ⚠️ PROHIBITED: DON'T directly click 'Add to Cart' buttons without ensuring that any potential modal overlays are fully loaded and dismissed or that the button is not obscured.
+
+- ✅ PREFERRED: DO implement a retry mechanism with a short delay and a check for modal presence before attempting to click 'Add to Cart' buttons. Consider explicitly dismissing the modal or waiting for it to disappear before clicking.
