@@ -21,11 +21,12 @@ class LoginPagePage:
     @property
     def Login Button(self):
         """Button to submit the login form."""
-        return self.page.css=button[type='submit'].or_(self.page.id=login)
+        return self.page.css=button[type='submit'].or_(self.page.xpath=//button[@class='radius'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Page contains the 'Login Page' header.
-        await Username input field is present.
-        await Password input field is present.
-        await Login button is present.
+        await Page title is 'The Internet'
+        await Page heading is 'Login Page'
+        await Username input field is present
+        await Password input field is present
+        await Login button is present
