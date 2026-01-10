@@ -13,17 +13,16 @@ ________________________ test_autonomous_flow[chromium] ________________________
 
 browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
 
-    def test_autonomous_flow(browser: Browser):
+    def test_autonomous_flow(browser):
         page = browser.new_page()
         home_page = HomePage(page)
-        cart_page = CartPage(page)
     
-        home_page.navigate("https://bstackdemo.com/")
+        home_page.navigate_to_home()
 >       home_page.add_first_product_to_cart()
 
-projects/verify_custom_bstackdemo/tests/test_main.py:48: 
+projects/verify_custom_bstackdemo/tests/test_main.py:64: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/verify_custom_bstackdemo/tests/test_main.py:30: in add_first_product_to_cart
+projects/verify_custom_bstackdemo/tests/test_main.py:27: in add_first_product_to_cart
     self.page.get_by_role("button", name="Add to cart").first.click()
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15637: in click
     self._sync(
@@ -36,8 +35,8 @@ projects/verify_custom_bstackdemo/tests/test_main.py:30: in add_first_product_to
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7fb76d8a6c90>
-cb = <function Channel.send.<locals>.<lambda> at 0x7fb76d872ca0>
+self = <playwright._impl._connection.Connection object at 0x7f501951a090>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f50194d7740>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -65,5 +64,5 @@ E             - waiting for get_by_role("button", name="Add to cart").first
 FAILED projects/verify_custom_bstackdemo/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
 Call log:
   - waiting for get_by_role("button", name="Add to cart").first
-============================== 1 failed in 32.94s ==============================
+============================== 1 failed in 32.89s ==============================
 
