@@ -7,8 +7,25 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
-sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/lib/templates')
-from helpers import take_screenshot
+# Dynamic path discovery: Find root of 'inner-event' and append core path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Navigate up to project root (e.g., projects/name/tests/ -> inner-event)
+# We assume tests are usually in projects/<name>/tests/ or projects/<name>/tests/e2e
+root_dir = current_dir
+for _ in range(10): # Max depth search
+    if os.path.exists(os.path.join(root_dir, 'core')):
+        break
+    parent = os.path.dirname(root_dir)
+    if parent == root_dir: break
+    root_dir = parent
+
+sys.path.append(os.path.join(root_dir, 'core', 'lib', 'templates'))
+try:
+    from helpers import take_screenshot
+except ImportError:
+    # Fallback for different structures
+    sys.path.append(os.path.abspath(os.path.join(current_dir, '../../../../core/lib/templates')))
+    from helpers import take_screenshot
 
 
 class BasePage:
@@ -17,42 +34,34 @@ class BasePage:
 
     def navigate(self, url):
         self.page.goto(url)
-        self.page.wait_for_load_state("networkidle")
 
-class LoginPage:
+
+class LoginPage(BasePage):
     def __init__(self, page):
-        self.page = page
-        self.username_field = self.page.get_by_test_id("username")
-        self.password_field = self.page.get_by_test_id("password")
-        self.login_button = self.page.get_by_test_id("login-button")
+        super().__init__(page)
+        self.username_field = self.page.locator("[data-test='username']")
+        self.password_field = self.page.locator("[data-test='password']")
+        self.login_button = self.page.locator("[data-test='login-button']")
 
     def login(self, username, password):
         self.username_field.fill(username)
         self.password_field.fill(password)
         self.login_button.click()
-        self.page.wait_for_load_state("networkidle")
 
-class InventoryPage:
+
+class InventoryPage(BasePage):
     def __init__(self, page):
-        self.page = page
+        super().__init__(page)
 
-    def verify_products(self):
-        # This is a placeholder.  Add actual verification logic here.
-        # For example, check that the product list is visible.
-        assert self.page.locator(".inventory_container").is_visible()
 
+from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
-    base_page = BasePage(page)
     login_page = LoginPage(page)
     inventory_page = InventoryPage(page)
 
-    # Navigate to the login page
-    base_page.navigate("https://www.saucedemo.com/")
-
-    # Login as standard_user
+    login_page.navigate("https://www.saucedemo.com/")
     login_page.login("standard_user", "secret_sauce")
-
-    # Verify products
-    inventory_page.verify_products()
+    page.wait_for_url("**/inventory.html", timeout=60000)
+    take_screenshot(page, 'login_success', 'saucedemo')

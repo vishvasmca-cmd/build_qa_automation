@@ -10,37 +10,36 @@ class UnknownPage:
 
     @property
     def Product Name(self):
-        """Name of the product."""
-        return self.page.text=Sauce Labs Backpack.or_(self.page.css=.inventory_item_name)
+        """The name of the product."""
+        return self.page.[class*='inventory_item_name'].or_(self.page.div.inventory_item_label a div)
 
     @property
     def Product Description(self):
-        """Description of the product."""
-        return self.page.text=carry.allTheThings() with the sleek.or_(self.page.css=.inventory_item_desc)
+        """The description of the product."""
+        return self.page.[class*='inventory_item_desc'].or_(self.page.div.inventory_item_label div.inventory_item_desc)
 
     @property
     def Product Price(self):
-        """Price of the product."""
-        return self.page.text=$29.99.or_(self.page.css=.inventory_item_price)
+        """The price of the product."""
+        return self.page.[class*='inventory_item_price'].or_(self.page.div.inventory_item_label div.inventory_item_price)
 
     @property
-    def Add to cart(self):
-        """Button to add the product to the cart."""
-        return self.page.text=Add to cart.or_(self.page.css=.btn_primary)
+    def Add to cart button(self):
+        """Button to add the product to the shopping cart."""
+        return self.page.[class*='btn_inventory'].or_(self.page.button[id^='add-to-cart'])
 
     @property
     def Products Header(self):
-        """The 'Products' header at the top of the page."""
-        return self.page.text=Products.or_(self.page.css=.title)
+        """The header text of the page."""
+        return self.page.text=Products.or_(self.page.div.header_secondary_container span.title)
 
     @property
-    def Filter Button(self):
-        """Button to filter the products."""
-        return self.page.css=[data-test='product_sort_container'].or_(self.page.text=Name (A to Z))
+    def Filter Products(self):
+        """Dropdown to filter products by name or price."""
+        return self.page.[data-test='product_sort_container'].or_(self.page.span.select_container select.product_sort_container)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await Page title is 'Swag Labs'
-        await The 'Products' header is displayed
-        await At least one product is displayed with its name, description, and price
-        await The 'Add to cart' button is displayed for each product
+        await Page contains a header with the text 'Products'
+        await Each product has a name, description, price, and 'Add to cart' button

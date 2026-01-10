@@ -11,27 +11,27 @@ class SwagLabsLoginPage:
     @property
     def Username Input(self):
         """Input field for the username."""
-        return self.page.[data-test='username'].or_(self.page.input#user-name)
+        return self.page.[data-test="username"].or_(self.page.input#user-name)
 
     @property
     def Password Input(self):
         """Input field for the password."""
-        return self.page.[data-test='password'].or_(self.page.input#password)
+        return self.page.[data-test="password"].or_(self.page.input#password)
 
     @property
     def Login Button(self):
         """Button to submit the login form."""
-        return self.page.[data-test='login-button'].or_(self.page.input#login-button)
+        return self.page.[data-test="login-button"].or_(self.page.input#login-button)
 
     @property
     def Accepted usernames(self):
         """Text displaying accepted usernames"""
-        return self.page.//div[contains(text(),'Accepted usernames are:')].or_(self.page.div:nth-child(3))
+        return self.page.text=Accepted usernames are:.or_(self.page.div.login_credentials_wrap > div.login_credentials)
 
     @property
     def Password for all users(self):
         """Text displaying password for all users"""
-        return self.page.//div[contains(text(),'Password for all users:')].or_(self.page.div:nth-child(4))
+        return self.page.text=Password for all users:.or_(self.page.div.login_password)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""

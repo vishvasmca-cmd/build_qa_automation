@@ -10,18 +10,28 @@ class HomePage:
 
     @property
     def Username Input(self):
-        """Input field for the username."""
+        """Input field for username."""
         return self.page.[data-test='username'].or_(self.page.input[id='user-name'])
 
     @property
     def Password Input(self):
-        """Input field for the password."""
+        """Input field for password."""
         return self.page.[data-test='password'].or_(self.page.input[id='password'])
 
     @property
     def Login Button(self):
-        """Button to submit the login form."""
+        """Button to submit login credentials."""
         return self.page.[data-test='login-button'].or_(self.page.input[id='login-button'])
+
+    @property
+    def Accepted usernames(self):
+        """Text containing accepted usernames"""
+        return self.page.//div[contains(text(),'Accepted usernames are:')].or_(self.page.div:nth-child(3))
+
+    @property
+    def Password for all users(self):
+        """Text containing password for all users"""
+        return self.page.//div[contains(text(),'Password for all users:')].or_(self.page.div:nth-child(4))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
