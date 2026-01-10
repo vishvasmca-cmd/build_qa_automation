@@ -1,7 +1,7 @@
 # Workflow Summary: Type in country, select valid option, and alert handle
 
 **Goal**: Type in country, select valid option, and alert handle
-**Total Steps**: 3
+**Total Steps**: 5
 **Final URL**: https://rahulshettyacademy.com/AutomationPractice/
 
 ## Journey Highlight
