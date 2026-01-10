@@ -1,3 +1,3 @@
 # Summary Report: Verify login and logout
 
-TOTAL STEPS: 10
+TOTAL STEPS: 6

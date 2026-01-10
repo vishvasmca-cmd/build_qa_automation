@@ -24,14 +24,14 @@ class SwagLabsPage:
         return self.page.id=login-button.or_(self.page.css=input[value='Login'])
 
     @property
-    def Accepted usernames are:(self):
-        """Text indicating accepted usernames"""
-        return self.page.text=Accepted usernames are:.or_(self.page.css=div.login_credentials_wrap > div.login_credentials)
+    def Accepted usernames(self):
+        """Text indicating the accepted usernames."""
+        return self.page.text=Accepted usernames are:.or_(self.page.css=.login_credentials_wrap > div:nth-child(1))
 
     @property
-    def Password for all users:(self):
-        """Text indicating password for all users"""
-        return self.page.text=Password for all users:.or_(self.page.css=div.login_password)
+    def Password for all users(self):
+        """Text indicating the password for all users."""
+        return self.page.text=Password for all users:.or_(self.page.css=.login_password)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
@@ -39,3 +39,5 @@ class SwagLabsPage:
         await Login button is present
         await Username input field is present
         await Password input field is present
+        await Accepted usernames text is present
+        await Password for all users text is present

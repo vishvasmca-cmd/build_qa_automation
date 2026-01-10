@@ -2,55 +2,41 @@ from playwright.async_api import Page, expect
 
 class UnknownPage:
     """
-    This is the inventory page of the SauceDemo application, displaying a list of available products.
-    URL Pattern: https://www.saucedemo.com/inventory.html
+    This is the login page for the Swag Labs application, where users can enter their credentials to access the application's features.
+    URL Pattern: https://www.saucedemo.com/
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def Product Name(self):
-        """The name of the product."""
-        return self.page.//div[@class='inventory_item_label']/a/div[@class='inventory_item_name'].or_(self.page..inventory_item_name)
+    def Username Input(self):
+        """Input field for the username."""
+        return self.page.id=user-name.or_(self.page.css=input[placeholder='Username'])
 
     @property
-    def Product Description(self):
-        """The description of the product."""
-        return self.page.//div[@class='inventory_item_label']/div[@class='inventory_item_desc'].or_(self.page..inventory_item_desc)
+    def Password Input(self):
+        """Input field for the password."""
+        return self.page.id=password.or_(self.page.css=input[placeholder='Password'])
 
     @property
-    def Product Price(self):
-        """The price of the product."""
-        return self.page.//div[@class='inventory_item_price'].or_(self.page..inventory_item_price)
+    def Login Button(self):
+        """Button to submit the login form."""
+        return self.page.id=login-button.or_(self.page.css=input[value='Login'])
 
     @property
-    def Add to Cart Button(self):
-        """Button to add the product to the shopping cart."""
-        return self.page.//button[contains(text(),'Add to cart')].or_(self.page.button:contains('Add to cart'))
+    def Accepted usernames(self):
+        """Text displaying accepted usernames"""
+        return self.page.text=Accepted usernames are:.or_(self.page.css=.login_credentials)
 
     @property
-    def Filter Button(self):
-        """Button to filter the products."""
-        return self.page.[data-test='product_sort_container'].or_(self.page..product_sort_container)
-
-    @property
-    def Shopping Cart Link(self):
-        """Link to the shopping cart."""
-        return self.page.id:shopping_cart_container.or_(self.page..shopping_cart_link)
-
-    @property
-    def Burger Menu(self):
-        """Button to open the burger menu."""
-        return self.page.id:react-burger-menu-btn.or_(self.page.#react-burger-menu-btn)
-
-    @property
-    def Logout(self):
-        """Link to logout."""
-        return self.page.id:logout_sidebar_link.or_(self.page.#logout_sidebar_link)
+    def Password for all users(self):
+        """Text displaying password for all users"""
+        return self.page.text=Password for all users:.or_(self.page.css=.password)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await Page title is 'Swag Labs'
-        await Verify that at least one product is displayed
-        await Verify the 'Add to cart' button is present for each product
-        await Verify the shopping cart icon is displayed
+        await Login button is present and enabled
+        await Username and password input fields are present
+        await The text 'Accepted usernames are:' is displayed
+        await The text 'Password for all users:' is displayed

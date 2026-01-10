@@ -1,49 +1,69 @@
 {
   "HomePage": {
-    "description": "This is the login page for the Swag Labs e-commerce website. Users can enter their username and password to access the product catalog.",
+    "description": "This is the inventory page of the Swag Labs demo application, displaying a list of available products.",
     "url_pattern": "https://www.saucedemo.com/",
     "elements": [
       {
-        "name": "Username Input",
-        "type": "text field",
-        "primary_locator": "[data-test='username']",
-        "backup_locator": "input#user-name",
-        "description": "Input field for the username."
+        "name": "Product Sort Dropdown",
+        "type": "dropdown",
+        "primary_locator": "[data-test='product_sort_container']",
+        "backup_locator": "css=.product_sort_container",
+        "description": "Dropdown to sort the products by different criteria (e.g., name, price)."
       },
       {
-        "name": "Password Input",
-        "type": "text field",
-        "primary_locator": "[data-test='password']",
-        "backup_locator": "input#password",
-        "description": "Input field for the password."
-      },
-      {
-        "name": "Login Button",
+        "name": "Add to cart button for Sauce Labs Backpack",
         "type": "button",
-        "primary_locator": "[data-test='login-button']",
-        "backup_locator": "input#login-button",
-        "description": "Button to submit the login form."
+        "primary_locator": "[data-test='add-to-cart-sauce-labs-backpack']",
+        "backup_locator": "text='Add to cart'",
+        "description": "Button to add the Sauce Labs Backpack to the shopping cart."
       },
       {
-        "name": "Accepted usernames are:",
-        "type": "text",
-        "primary_locator": "text=Accepted usernames are:",
-        "backup_locator": "div.login_credentials_wrap > div > div.login_credentials",
-        "description": "Text displaying accepted usernames"
+        "name": "Add to cart button for Sauce Labs Bike Light",
+        "type": "button",
+        "primary_locator": "[data-test='add-to-cart-sauce-labs-bike-light']",
+        "backup_locator": "text='Add to cart'",
+        "description": "Button to add the Sauce Labs Bike Light to the shopping cart."
       },
       {
-        "name": "Password for all users:",
-        "type": "text",
-        "primary_locator": "text=Password for all users:",
-        "backup_locator": "div.login_password",
-        "description": "Text displaying password for all users"
+        "name": "Add to cart button for Sauce Labs Bolt T-Shirt",
+        "type": "button",
+        "primary_locator": "[data-test='add-to-cart-sauce-labs-bolt-t-shirt']",
+        "backup_locator": "text='Add to cart'",
+        "description": "Button to add the Sauce Labs Bolt T-Shirt to the shopping cart."
+      },
+      {
+        "name": "Add to cart button for Sauce Labs Fleece Jacket",
+        "type": "button",
+        "primary_locator": "[data-test='add-to-cart-sauce-labs-fleece-jacket']",
+        "backup_locator": "text='Add to cart'",
+        "description": "Button to add the Sauce Labs Fleece Jacket to the shopping cart."
+      },
+      {
+        "name": "Add to cart button for Sauce Labs Onesie",
+        "type": "button",
+        "primary_locator": "[data-test='add-to-cart-sauce-labs-onesie']",
+        "backup_locator": "text='Add to cart'",
+        "description": "Button to add the Sauce Labs Onesie to the shopping cart."
+      },
+      {
+        "name": "Add to cart button for Test.allTheThings() T-Shirt (Red)",
+        "type": "button",
+        "primary_locator": "[data-test='add-to-cart-test.allthethings()-t-shirt-(red)']",
+        "backup_locator": "text='Add to cart'",
+        "description": "Button to add the Test.allTheThings() T-Shirt (Red) to the shopping cart."
+      },
+      {
+        "name": "Shopping Cart Icon",
+        "type": "link",
+        "primary_locator": "css=.shopping_cart_link",
+        "backup_locator": "role=img[alt='Open Menu']",
+        "description": "Link to navigate to the shopping cart page."
       }
     ],
     "assertions": [
       "Page title is 'Swag Labs'",
-      "Login button is present",
-      "Username input field is present",
-      "Password input field is present"
+      "Product sort dropdown is displayed",
+      "At least one product item is displayed"
     ]
   },
   "SwagLabsPage": {
@@ -72,25 +92,27 @@
         "description": "Button to submit the login form."
       },
       {
-        "name": "Accepted usernames are:",
+        "name": "Accepted usernames",
         "type": "text",
         "primary_locator": "text=Accepted usernames are:",
-        "backup_locator": "css=div.login_credentials_wrap > div.login_credentials",
-        "description": "Text indicating accepted usernames"
+        "backup_locator": "css=.login_credentials_wrap > div:nth-child(1)",
+        "description": "Text indicating the accepted usernames."
       },
       {
-        "name": "Password for all users:",
+        "name": "Password for all users",
         "type": "text",
         "primary_locator": "text=Password for all users:",
-        "backup_locator": "css=div.login_password",
-        "description": "Text indicating password for all users"
+        "backup_locator": "css=.login_password",
+        "description": "Text indicating the password for all users."
       }
     ],
     "assertions": [
       "Page title is 'Swag Labs'",
       "Login button is present",
       "Username input field is present",
-      "Password input field is present"
+      "Password input field is present",
+      "Accepted usernames text is present",
+      "Password for all users text is present"
     ]
   },
   "SaucedemoInventoryPage": {
@@ -99,120 +121,106 @@
     "elements": [
       {
         "name": "Product Name",
-        "type": "link",
-        "primary_locator": "[class*='inventory_item_name']",
-        "backup_locator": "CSS:.inventory_item_label a div",
-        "description": "The name of the product, which is also a link to the product details page."
-      },
-      {
-        "name": "Product Description",
         "type": "text",
-        "primary_locator": "[class*='inventory_item_desc']",
-        "backup_locator": "CSS:.inventory_item_label div.inventory_item_desc",
-        "description": "The description of the product."
-      },
-      {
-        "name": "Product Price",
-        "type": "text",
-        "primary_locator": "[class*='inventory_item_price']",
-        "backup_locator": "CSS:.inventory_item_pricebar div.inventory_item_price",
-        "description": "The price of the product."
-      },
-      {
-        "name": "Add to Cart Button",
-        "type": "button",
-        "primary_locator": "[class*='btn_inventory']",
-        "backup_locator": "Text:Add to cart",
-        "description": "Button to add the product to the shopping cart."
-      },
-      {
-        "name": "Products Header",
-        "type": "text",
-        "primary_locator": "Text:Products",
-        "backup_locator": "CSS:.title",
-        "description": "The header text indicating the page displays products."
-      },
-      {
-        "name": "Filter/Sort Dropdown",
-        "type": "dropdown",
-        "primary_locator": "[data-test='product_sort_container']",
-        "backup_locator": "CSS:.product_sort_container",
-        "description": "Dropdown to filter or sort the products."
-      }
-    ],
-    "assertions": [
-      "Page title is 'Swag Labs'",
-      "Page URL is '/inventory.html'",
-      "At least one product is displayed",
-      "The 'Products' header is visible"
-    ]
-  },
-  "UnknownPage": {
-    "description": "This is the inventory page of the SauceDemo application, displaying a list of available products.",
-    "url_pattern": "https://www.saucedemo.com/inventory.html",
-    "elements": [
-      {
-        "name": "Product Name",
-        "type": "text",
-        "primary_locator": "//div[@class='inventory_item_label']/a/div[@class='inventory_item_name']",
+        "primary_locator": "[data-test*='title']",
         "backup_locator": ".inventory_item_name",
         "description": "The name of the product."
       },
       {
         "name": "Product Description",
         "type": "text",
-        "primary_locator": "//div[@class='inventory_item_label']/div[@class='inventory_item_desc']",
-        "backup_locator": ".inventory_item_desc",
+        "primary_locator": ".inventory_item_desc",
+        "backup_locator": ".inventory_item_label > div:nth-child(2)",
         "description": "The description of the product."
       },
       {
         "name": "Product Price",
         "type": "text",
-        "primary_locator": "//div[@class='inventory_item_price']",
-        "backup_locator": ".inventory_item_price",
+        "primary_locator": ".inventory_item_price",
+        "backup_locator": ".inventory_item_label > div.inventory_item_price",
         "description": "The price of the product."
       },
       {
         "name": "Add to Cart Button",
         "type": "button",
-        "primary_locator": "//button[contains(text(),'Add to cart')]",
+        "primary_locator": "[data-test^='add-to-cart']",
         "backup_locator": "button:contains('Add to cart')",
         "description": "Button to add the product to the shopping cart."
       },
       {
-        "name": "Filter Button",
-        "type": "button",
+        "name": "Product Image",
+        "type": "image",
+        "primary_locator": ".inventory_item_img img",
+        "backup_locator": ".inventory_item_img a > img",
+        "description": "Image of the product."
+      },
+      {
+        "name": "Products Header",
+        "type": "text",
+        "primary_locator": "Products",
+        "backup_locator": "div.header_secondary_container > span",
+        "description": "The 'Products' header text."
+      },
+      {
+        "name": "Filter Products",
+        "type": "dropdown",
         "primary_locator": "[data-test='product_sort_container']",
-        "backup_locator": ".product_sort_container",
-        "description": "Button to filter the products."
-      },
-      {
-        "name": "Shopping Cart Link",
-        "type": "link",
-        "primary_locator": "id:shopping_cart_container",
-        "backup_locator": ".shopping_cart_link",
-        "description": "Link to the shopping cart."
-      },
-      {
-        "name": "Burger Menu",
-        "type": "button",
-        "primary_locator": "id:react-burger-menu-btn",
-        "backup_locator": "#react-burger-menu-btn",
-        "description": "Button to open the burger menu."
-      },
-      {
-        "name": "Logout",
-        "type": "link",
-        "primary_locator": "id:logout_sidebar_link",
-        "backup_locator": "#logout_sidebar_link",
-        "description": "Link to logout."
+        "backup_locator": "span.select_container",
+        "description": "Dropdown to filter products by name or price."
       }
     ],
     "assertions": [
       "Page title is 'Swag Labs'",
-      "Verify that at least one product is displayed",
-      "Verify the 'Add to cart' button is present for each product",
-      "Verify the shopping cart icon is displayed"
+      "The 'Products' header is displayed",
+      "At least one product is displayed with a name, description, price, and 'Add to cart' button"
+    ]
+  },
+  "UnknownPage": {
+    "description": "This is the login page for the Swag Labs application, where users can enter their credentials to access the application's features.",
+    "url_pattern": "https://www.saucedemo.com/",
+    "elements": [
+      {
+        "name": "Username Input",
+        "type": "text field",
+        "primary_locator": "id=user-name",
+        "backup_locator": "css=input[placeholder='Username']",
+        "description": "Input field for the username."
+      },
+      {
+        "name": "Password Input",
+        "type": "text field",
+        "primary_locator": "id=password",
+        "backup_locator": "css=input[placeholder='Password']",
+        "description": "Input field for the password."
+      },
+      {
+        "name": "Login Button",
+        "type": "button",
+        "primary_locator": "id=login-button",
+        "backup_locator": "css=input[value='Login']",
+        "description": "Button to submit the login form."
+      },
+      {
+        "name": "Accepted usernames",
+        "type": "text",
+        "primary_locator": "text=Accepted usernames are:",
+        "backup_locator": "css=.login_credentials",
+        "description": "Text displaying accepted usernames"
+      },
+      {
+        "name": "Password for all users",
+        "type": "text",
+        "primary_locator": "text=Password for all users:",
+        "backup_locator": "css=.password",
+        "description": "Text displaying password for all users"
+      }
+    ],
+    "assertions": [
+      "Page title is 'Swag Labs'",
+      "Login button is present and enabled",
+      "Username and password input fields are present",
+      "The text 'Accepted usernames are:' is displayed",
+      "The text 'Password for all users:' is displayed"
     ]
   }
 }

@@ -2,40 +2,54 @@ from playwright.async_api import Page, expect
 
 class HomePage:
     """
-    This is the login page for the Swag Labs e-commerce website. Users can enter their username and password to access the product catalog.
+    This is the inventory page of the Swag Labs demo application, displaying a list of available products.
     URL Pattern: https://www.saucedemo.com/
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def Username Input(self):
-        """Input field for the username."""
-        return self.page.[data-test='username'].or_(self.page.input#user-name)
+    def Product Sort Dropdown(self):
+        """Dropdown to sort the products by different criteria (e.g., name, price)."""
+        return self.page.[data-test='product_sort_container'].or_(self.page.css=.product_sort_container)
 
     @property
-    def Password Input(self):
-        """Input field for the password."""
-        return self.page.[data-test='password'].or_(self.page.input#password)
+    def Add to cart button for Sauce Labs Backpack(self):
+        """Button to add the Sauce Labs Backpack to the shopping cart."""
+        return self.page.[data-test='add-to-cart-sauce-labs-backpack'].or_(self.page.text='Add to cart')
 
     @property
-    def Login Button(self):
-        """Button to submit the login form."""
-        return self.page.[data-test='login-button'].or_(self.page.input#login-button)
+    def Add to cart button for Sauce Labs Bike Light(self):
+        """Button to add the Sauce Labs Bike Light to the shopping cart."""
+        return self.page.[data-test='add-to-cart-sauce-labs-bike-light'].or_(self.page.text='Add to cart')
 
     @property
-    def Accepted usernames are:(self):
-        """Text displaying accepted usernames"""
-        return self.page.text=Accepted usernames are:.or_(self.page.div.login_credentials_wrap > div > div.login_credentials)
+    def Add to cart button for Sauce Labs Bolt T-Shirt(self):
+        """Button to add the Sauce Labs Bolt T-Shirt to the shopping cart."""
+        return self.page.[data-test='add-to-cart-sauce-labs-bolt-t-shirt'].or_(self.page.text='Add to cart')
 
     @property
-    def Password for all users:(self):
-        """Text displaying password for all users"""
-        return self.page.text=Password for all users:.or_(self.page.div.login_password)
+    def Add to cart button for Sauce Labs Fleece Jacket(self):
+        """Button to add the Sauce Labs Fleece Jacket to the shopping cart."""
+        return self.page.[data-test='add-to-cart-sauce-labs-fleece-jacket'].or_(self.page.text='Add to cart')
+
+    @property
+    def Add to cart button for Sauce Labs Onesie(self):
+        """Button to add the Sauce Labs Onesie to the shopping cart."""
+        return self.page.[data-test='add-to-cart-sauce-labs-onesie'].or_(self.page.text='Add to cart')
+
+    @property
+    def Add to cart button for Test.allTheThings() T-Shirt (Red)(self):
+        """Button to add the Test.allTheThings() T-Shirt (Red) to the shopping cart."""
+        return self.page.[data-test='add-to-cart-test.allthethings()-t-shirt-(red)'].or_(self.page.text='Add to cart')
+
+    @property
+    def Shopping Cart Icon(self):
+        """Link to navigate to the shopping cart page."""
+        return self.page.css=.shopping_cart_link.or_(self.page.role=img[alt='Open Menu'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await Page title is 'Swag Labs'
-        await Login button is present
-        await Username input field is present
-        await Password input field is present
+        await Product sort dropdown is displayed
+        await At least one product item is displayed
