@@ -54,3 +54,7 @@
 - ⚠️ PROHIBITED: DON'T run asynchronous tests without installing and configuring a suitable pytest plugin (e.g., pytest-asyncio).
 
 - ✅ PREFERRED: DO ensure that the pytest environment is properly configured with the necessary plugins to support the type of tests being executed (synchronous vs. asynchronous).
+
+- ⚠️ PROHIBITED: DON'T assume that elements with test IDs are immediately available after page load; always implement a reasonable wait or retry mechanism.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with a shorter, more appropriate timeout before interacting with elements, especially after navigation or dynamic content updates.
