@@ -10,40 +10,37 @@ This document outlines the master test strategy for the SauceDemo application (h
 
 ### 1.1 Domain Analysis
 
-SauceDemo is a demonstration e-commerce application. While not a real-world revenue-generating system, it simulates critical e-commerce functionalities. The most critical areas, from a testing perspective, are:
-
-*   **Login/Authentication:** Secure access to the application.
-*   **Product Catalog:** Display and filtering of products.
-*   **Shopping Cart:** Adding, removing, and modifying items.
-*   **Checkout Process:** Entering shipping information, payment details, and order confirmation.
+SauceDemo is a demonstration e-commerce application. While not a real-world business, it simulates typical e-commerce functionalities. The most critical functionality, for demonstration purposes, is the ability to successfully log in, view products, and add them to the cart.
 
 ### 1.2 Risk Profile
 
-Failure of the SauceDemo application, while not directly impacting revenue, can lead to:
+Failure of the SauceDemo application, while not causing direct financial loss, can lead to:
 
-*   **Loss of Confidence:** If the application is used for training or demonstration purposes, failures can erode confidence in the underlying technology or processes.
-*   **Misleading Results:** Inaccurate or unreliable behavior can lead to incorrect conclusions during testing or experimentation.
-*   **Delayed Learning:** Bugs and defects can hinder the learning process for new users or engineers.
-
-Therefore, a robust testing strategy is crucial to ensure the application's reliability and accuracy.
+*   **Loss of Trust:** If the application is used for demonstrations or training, failures can erode confidence in the underlying technology or processes.
+*   **Reputational Damage:** Public failures can negatively impact the perception of the software or the organization using it.
+*   **Delayed Demonstrations/Training:** Bugs can disrupt planned demonstrations or training sessions, leading to wasted time and resources.
 
 ### 1.3 Testing Scope
 
 **In Scope:**
 
-*   All functionalities related to user login, product browsing, adding items to the cart, checkout process, and order confirmation.
-*   Positive and negative test scenarios for all input fields and user interactions.
-*   Cross-browser compatibility testing (Chrome, Firefox, Safari, Edge).
-*   Basic security testing (input validation, XSS prevention).
-*   Performance testing (page load times, response times).
-*   Accessibility testing (WCAG compliance).
+*   All functionalities accessible through the user interface (UI).
+*   Login and authentication processes.
+*   Product catalog browsing and filtering.
+*   Adding products to the cart.
+*   Checkout process (simulated).
+*   Error handling and validation messages.
+*   Basic security checks (input validation).
+*   Cross-browser compatibility (Chrome, Firefox, Safari, Edge - latest versions).
+*   Responsive design (desktop and mobile).
 
 **Out of Scope:**
 
-*   Detailed performance testing under heavy load.
-*   Advanced security penetration testing.
-*   Integration with external systems (e.g., payment gateways).
-*   Mobile application testing (if applicable).
+*   Performance testing (load, stress, endurance).
+*   API testing (unless explicitly required for UI functionality).
+*   Database testing (direct database access).
+*   Detailed security penetration testing.
+*   Accessibility testing (WCAG compliance).
 *   Localization testing.
 
 ## 2. 🏗️ TESTING STRATEGY (The "How")
@@ -53,10 +50,10 @@ Therefore, a robust testing strategy is crucial to ensure the application's reli
 The Smoke Suite will be executed after each build to ensure the core functionality is operational.
 
 *   **Test Cases:**
-    *   Verify successful login with a valid `standard_user` account.
-    *   Verify the product catalog page loads successfully and displays products.
+    *   Verify successful login with `standard_user` credentials.
+    *   Verify the product catalog page loads successfully after login.
 *   **Execution Frequency:** After each build deployment.
-*   **Pass/Fail Criteria:** All test cases must pass for the build to be considered stable.
+*   **Pass/Fail Criteria:** All smoke tests must pass for the build to be considered stable.
 
 ### 2.2 Regression Suite (Deep Dive)
 
@@ -64,36 +61,30 @@ The Regression Suite will provide comprehensive coverage of the application's fu
 
 *   **Negative Testing:**
     *   Invalid login attempts (incorrect username/password).
-    *   Invalid input in shipping/billing address fields (e.g., special characters, exceeding maximum length).
-    *   Attempting to add out-of-stock items to the cart.
-    *   Submitting the checkout form with missing required fields.
+    *   Attempting to add out-of-stock items to the cart (if applicable).
+    *   Invalid input in checkout forms (e.g., missing required fields, invalid postal code).
 *   **Edge Cases:**
     *   Adding a large number of items to the cart.
-    *   Simultaneous access by multiple users (concurrency).
-    *   Simulating network failures during checkout.
-    *   Handling empty states (e.g., empty cart, no search results).
+    *   Simultaneous user logins (concurrency).
+    *   Simulating network failures during checkout (e.g., slow connection).
+    *   Empty cart scenarios.
 *   **Security:**
-    *   Basic input validation to prevent XSS attacks.
-    *   Checking for SQL injection vulnerabilities in input fields.
+    *   Basic input validation to prevent XSS and SQL injection vulnerabilities (e.g., special characters in login fields, product search).
 *   **Data Strategy:**
-    *   **Static Test Data:** Use a set of predefined usernames, passwords, product names, and addresses for basic testing.
-    *   **Dynamic Test Data Generation:** Generate random data for input fields to cover a wider range of scenarios.  Consider using libraries like Faker.js or similar.
-    *   **Data Management:** Store test data in a centralized location (e.g., JSON files, database) for easy access and maintenance.
+    *   **Static Test Data:** Use predefined usernames and passwords (e.g., `standard_user`, `locked_out_user`, `problem_user`, `performance_glitch_user`).
+    *   **Dynamic Test Data:** Generate random data for checkout forms (e.g., first name, last name, postal code).  This can be achieved using libraries like Faker.
 
 ## 3. 🏛️ ARCHITECTURE GUIDANCE (For the Test Architect)
 
 ### 3.1 Framework Recommendation
 
-*   **Page Object Model (POM):** Implement a Page Object Model to represent each page of the application as a separate class. This promotes code reusability, maintainability, and readability.
-*   **Language:**  Recommend using a popular language like JavaScript (with frameworks like Playwright, Cypress, or Selenium WebDriver) or Python (with Selenium WebDriver).
-*   **Assertion Library:** Use a robust assertion library like Chai (JavaScript) or Pytest (Python) for verifying expected results.
+*   **Page Object Model (POM):** Implement a Page Object Model to improve test maintainability and reduce code duplication. Each page of the application should have a corresponding Page Object class that encapsulates the elements and actions on that page.
 
 ### 3.2 Resilience Strategy
 
-*   **Polling Assertions:** Implement polling assertions to handle asynchronous operations and ensure elements are fully loaded before interacting with them.
-*   **Explicit Waits:** Use explicit waits to wait for specific conditions to be met (e.g., element to be visible, clickable) before proceeding with the test.
-*   **Self-Healing:** Implement basic self-healing mechanisms to automatically recover from common issues, such as element locators changing.  This could involve using multiple locators for the same element and trying them in sequence.
-*   **Retry Mechanism:** Implement a retry mechanism for failed tests, especially for flaky tests caused by network issues or environment instability.
+*   **Polling Assertions:** Use polling assertions (e.g., WebDriverWait in Selenium) to handle asynchronous operations and ensure elements are fully loaded before interacting with them.
+*   **Self-Healing:** Implement basic self-healing mechanisms to automatically recover from common test failures (e.g., retrying failed assertions, re-locating elements).
+*   **Explicit Waits:** Avoid implicit waits and use explicit waits to ensure elements are loaded before interacting with them. This reduces flakiness caused by timing issues.
 
 ## 4. ⚔️ EXECUTION & MINING INSTRUCTIONS (For the Senior QA)
 
@@ -101,20 +92,14 @@ The Regression Suite will provide comprehensive coverage of the application's fu
 
 The autonomous agent should prioritize exploring the following pages and flows:
 
-1.  **Login Page:** `https://www.saucedemo.com/` - Focus on different login credentials (valid, invalid, locked out).
-2.  **Product Catalog Page:** `https://www.saucedemo.com/inventory.html` - Explore product filtering, sorting, and individual product details.
-3.  **Shopping Cart:** `https://www.saucedemo.com/cart.html` - Test adding, removing, and modifying items.
-4.  **Checkout Pages:**
-    *   `https://www.saucedemo.com/checkout-step-one.html` - Input shipping information.
-    *   `https://www.saucedemo.com/checkout-step-two.html` - Review order details.
-    *   `https://www.saucedemo.com/checkout-complete.html` - Order confirmation.
+1.  **Login Page:**  Focus on different login scenarios (valid, invalid, locked-out user).
+2.  **Product Catalog Page:** Explore product filtering, sorting, and individual product details.
+3.  **Cart Page:**  Test adding, removing, and modifying items in the cart.
+4.  **Checkout Flow:**  Test the entire checkout process, including filling out forms and submitting the order.
 
 ### 4.2 Verification Criteria
 
-*   **Successful Page Load:** Verify that each page loads successfully with an HTTP 200 status code.
-*   **Element Visibility:** Ensure that key elements on each page are visible and interactable (e.g., login button, product images, add to cart button).
-*   **Text Verification:** Verify that specific text elements are displayed correctly (e.g., "Welcome" message after login, product names, order confirmation message).
-*   **Functional Verification:** Ensure that core functionalities are working as expected (e.g., adding items to the cart, submitting the checkout form).
-*   **Error Handling:** Verify that appropriate error messages are displayed for invalid input or unexpected conditions.
-
-This Master Test Strategy provides a comprehensive framework for testing the SauceDemo application. By following these guidelines, the engineering team can ensure the application's reliability, accuracy, and overall quality.
+*   **Successful Login:** HTTP 200 status code AND "Products" text visible on the product catalog page.
+*   **Product Added to Cart:** HTTP 200 status code AND the cart icon displays the correct number of items.
+*   **Checkout Success:** HTTP 200 status code AND "Thank you for your order!" text visible on the confirmation page.
+*   **Error Messages:** Verify that appropriate error messages are displayed for invalid inputs (e.g., invalid login credentials, missing required fields).

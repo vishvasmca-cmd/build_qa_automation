@@ -2,49 +2,45 @@ from playwright.async_api import Page, expect
 
 class UnknownPage:
     """
-    This is the inventory page of the Swag Labs demo website, displaying a list of available products.
+    This page displays a list of available products with their names, descriptions, prices, and 'Add to cart' buttons.
     URL Pattern: https://www.saucedemo.com/inventory.html
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def Product Sort Dropdown(self):
-        """Dropdown to sort the products by name or price."""
-        return self.page.data-test="product_sort_container".or_(self.page.#header_container > div.header_secondary_container > div.right_component > span > select)
+    def Product Name(self):
+        """Name of the product."""
+        return self.page.text=Sauce Labs Backpack.or_(self.page.css=.inventory_item_name)
 
     @property
-    def Add to cart button for Sauce Labs Backpack(self):
-        """Button to add the Sauce Labs Backpack to the shopping cart."""
-        return self.page.data-test="add-to-cart-sauce-labs-backpack".or_(self.page.div.inventory_item:nth-child(1) > div:nth-child(2) > div:nth-child(2) > button)
+    def Product Description(self):
+        """Description of the product."""
+        return self.page.text=carry.allTheThings() with the sleek.or_(self.page.css=.inventory_item_desc)
 
     @property
-    def Add to cart button for Sauce Labs Bike Light(self):
-        """Button to add the Sauce Labs Bike Light to the shopping cart."""
-        return self.page.data-test="add-to-cart-sauce-labs-bike-light".or_(self.page.div.inventory_item:nth-child(2) > div:nth-child(2) > div:nth-child(2) > button)
+    def Product Price(self):
+        """Price of the product."""
+        return self.page.text=$29.99.or_(self.page.css=.inventory_item_price)
 
     @property
-    def Add to cart button for Sauce Labs Bolt T-Shirt(self):
-        """Button to add the Sauce Labs Bolt T-Shirt to the shopping cart."""
-        return self.page.data-test="add-to-cart-sauce-labs-bolt-t-shirt".or_(self.page.div.inventory_item:nth-child(3) > div:nth-child(2) > div:nth-child(2) > button)
+    def Add to cart(self):
+        """Button to add the product to the cart."""
+        return self.page.text=Add to cart.or_(self.page.css=.btn_primary)
 
     @property
-    def Add to cart button for Sauce Labs Fleece Jacket(self):
-        """Button to add the Sauce Labs Fleece Jacket to the shopping cart."""
-        return self.page.data-test="add-to-cart-sauce-labs-fleece-jacket".or_(self.page.div.inventory_item:nth-child(4) > div:nth-child(2) > div:nth-child(2) > button)
+    def Products Header(self):
+        """The 'Products' header at the top of the page."""
+        return self.page.text=Products.or_(self.page.css=.title)
 
     @property
-    def Add to cart button for Sauce Labs Onesie(self):
-        """Button to add the Sauce Labs Onesie to the shopping cart."""
-        return self.page.data-test="add-to-cart-sauce-labs-onesie".or_(self.page.div.inventory_item:nth-child(5) > div:nth-child(2) > div:nth-child(2) > button)
-
-    @property
-    def Add to cart button for Test.allTheThings() T-Shirt (Red)(self):
-        """Button to add the Test.allTheThings() T-Shirt (Red) to the shopping cart."""
-        return self.page.data-test="add-to-cart-test.allthethings()-t-shirt-(red)".or_(self.page.div.inventory_item:nth-child(6) > div:nth-child(2) > div:nth-child(2) > button)
+    def Filter Button(self):
+        """Button to filter the products."""
+        return self.page.css=[data-test='product_sort_container'].or_(self.page.text=Name (A to Z))
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await Page title is 'Swag Labs'
-        await Page contains the 'Products' header
-        await At least one product item is displayed
+        await The 'Products' header is displayed
+        await At least one product is displayed with its name, description, and price
+        await The 'Add to cart' button is displayed for each product

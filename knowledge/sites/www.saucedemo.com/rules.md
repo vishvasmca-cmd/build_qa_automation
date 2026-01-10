@@ -62,3 +62,7 @@
 - ⚠️ PROHIBITED: DON'T use ambiguous locators that can resolve to multiple elements without specifying which element is intended.
 
 - ✅ PREFERRED: DO use more specific locators, such as data-test attributes or unique class names, to target the intended element precisely.
+
+- ⚠️ PROHIBITED: DON'T call Playwright Locator objects directly as functions. Use the appropriate `expect` methods (e.g., `to_be_visible()`, `to_have_text()`) on the Locator object.
+
+- ✅ PREFERRED: DO use the `expect` function from Playwright to assert conditions on Locator objects. For example, `expect(page.locator('.inventory_item').first()).to_be_visible()`.
