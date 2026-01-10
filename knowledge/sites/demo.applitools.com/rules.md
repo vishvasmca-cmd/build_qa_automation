@@ -78,3 +78,43 @@
 - ⚠️ PROHIBITED: DON'T assume that the username field is immediately available; always implement a wait strategy.
 
 - ✅ PREFERRED: DO use `locator.wait_for()` with a reasonable timeout before attempting to fill the username field, or use `locator.is_visible()` to check if the element is visible before interacting with it.
+
+- ⚠️ PROHIBITED: DON'T rely solely on role-based locators with regular expressions for critical elements like 'Sign in' buttons without verifying their reliability across different environments and states.
+
+- ✅ PREFERRED: DO implement explicit waits with error handling for critical elements like 'Sign in' buttons, especially when using role-based locators or regular expressions, and consider adding visual validation to confirm the element's presence and state.
+
+- ⚠️ PROHIBITED: DON'T assume that the login button is immediately available after page load. Always implement a wait strategy.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` or `state='stable'` before attempting to click on critical elements like the login button, especially after navigation or content updates.
+
+- ⚠️ PROHIBITED: DON'T assume that elements are immediately available after page load; ALWAYS implement explicit waits for critical elements like login buttons.
+
+- ✅ PREFERRED: DO use `locator.evaluate` to check if the element is visible and enabled before attempting to click it, especially after a page load or navigation.
+
+- ⚠️ PROHIBITED: DON'T assume the '#log-in' button is immediately available after page load; always implement a wait strategy.
+
+- ✅ PREFERRED: DO implement an explicit wait for the '#log-in' button to be visible and enabled before attempting to click it. Consider using `locator.wait_for()` with `state='visible'` and `state='enabled'` options.
+
+- ⚠️ PROHIBITED: DON'T assume the '#log-in' button is immediately available after page load. It might be rendered dynamically or blocked by an overlay.
+
+- ✅ PREFERRED: DO implement explicit waits with `locator.wait_for()` before interacting with critical elements like the '#log-in' button, ensuring they are visible and enabled.
+
+- ⚠️ PROHIBITED: DON'T assume the '#log-in' button is immediately available; always implement a retry mechanism or explicit wait with error handling.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff or a longer explicit wait (e.g., 60 seconds) for the '#log-in' button to handle potential loading delays or intermittent issues.
+
+- ⚠️ PROHIBITED: DON'T assume the '#log-in' button is immediately available; always implement a wait strategy.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` or `state='enabled'` before attempting to click the '#log-in' button to ensure it's ready for interaction.
+
+- ⚠️ PROHIBITED: DON'T assume the '#log-in' button is immediately available after page load; it might be dynamically loaded or require a specific state to be clickable.
+
+- ✅ PREFERRED: DO implement explicit waits with `locator.wait_for()` before attempting to click '#log-in' to ensure it's visible, enabled, and stable.
+
+- ⚠️ PROHIBITED: DON'T assume the '#log-in' button is immediately available after page load; it might be hidden or disabled.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` or `state='enabled'` before attempting to click the '#log-in' button to ensure it's ready for interaction.
+
+- ⚠️ PROHIBITED: DON'T assume the '#log-in' button is immediately available; always implement a check for its presence and interactability before attempting to click it.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` and `state='enabled'` options before clicking the '#log-in' button to ensure it's ready for interaction.
