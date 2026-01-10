@@ -19,51 +19,40 @@ class BasePage:
         self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
-
-class LoginPage(BasePage):
+class LoginPage:
     def __init__(self, page):
-        super().__init__(page)
-        self.username_field = self.page.locator("[data-test='username']")
-        self.password_field = self.page.locator("[data-test='password']")
-        self.login_button = self.page.locator("[data-test='login-button']")
+        self.page = page
+        self.username_field = self.page.get_by_test_id("username")
+        self.password_field = self.page.get_by_test_id("password")
+        self.login_button = self.page.get_by_test_id("login-button")
 
-    def enter_username(self, username):
+    def login(self, username, password):
         self.username_field.fill(username)
-
-    def enter_password(self, password):
         self.password_field.fill(password)
-
-    def click_login_button(self):
         self.login_button.click()
+        self.page.wait_for_load_state("networkidle")
 
-
-from playwright.sync_api import expect
-
-class InventoryPage(BasePage):
+class InventoryPage:
     def __init__(self, page):
-        super().__init__(page)
-        self.inventory_item = self.page.locator(".inventory_item")
+        self.page = page
 
-    def verify_products_displayed(self):
-        expect(self.inventory_item.first).to_be_visible()
+    def verify_products(self):
+        # This is a placeholder.  Add actual verification logic here.
+        # For example, check that the product list is visible.
+        assert self.page.locator(".inventory_container").is_visible()
 
-
-from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
+    base_page = BasePage(page)
     login_page = LoginPage(page)
     inventory_page = InventoryPage(page)
 
     # Navigate to the login page
-    login_page.navigate("https://www.saucedemo.com/")
+    base_page.navigate("https://www.saucedemo.com/")
 
-    # Enter username and password
-    login_page.enter_username("standard_user")
-    login_page.enter_password("secret_sauce")
+    # Login as standard_user
+    login_page.login("standard_user", "secret_sauce")
 
-    # Click the login button
-    login_page.click_login_button()
-
-    # Verify products are displayed
-    inventory_page.verify_products_displayed()
+    # Verify products
+    inventory_page.verify_products()

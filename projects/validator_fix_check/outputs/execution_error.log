@@ -15,34 +15,61 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
 
     def test_autonomous_flow(browser: Browser):
         page = browser.new_page()
+        base_page = BasePage(page)
         login_page = LoginPage(page)
         inventory_page = InventoryPage(page)
     
         # Navigate to the login page
-        login_page.navigate("https://www.saucedemo.com/")
+        base_page.navigate("https://www.saucedemo.com/")
     
-        # Enter username and password
-        login_page.enter_username("standard_user")
-        login_page.enter_password("secret_sauce")
-    
-        # Click the login button
-        login_page.click_login_button()
-    
-        # Verify products are displayed
->       inventory_page.verify_products_displayed()
+        # Login as standard_user
+>       login_page.login("standard_user", "secret_sauce")
 
-projects/validator_fix_check/tests/test_main.py:70: 
+projects/validator_fix_check/tests/test_main.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/validator_fix_check/tests/test_main.py:30: in login
+    self.username_field.fill(username)
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:15989: in fill
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:215: in fill
+    return await self._frame.fill(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:607: in fill
+    await self._fill(**locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:619: in _fill
+    await self._channel.send("fill", self._timeout, locals_to_params(locals()))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <test_main.InventoryPage object at 0x7fe15ecab1d0>
+self = <playwright._impl._connection.Connection object at 0x7f7532826e50>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f75314c2e80>
+is_internal = False, title = None
 
-    def verify_products_displayed(self):
->       expect(self.page.locator(".inventory_item").first()).to_be_visible()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-E       TypeError: 'Locator' object is not callable
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for get_by_test_id("username")
 
-projects/validator_fix_check/tests/test_main.py:49: TypeError
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
 =========================== short test summary info ============================
-FAILED projects/validator_fix_check/tests/test_main.py::test_autonomous_flow[chromium] - TypeError: 'Locator' object is not callable
-============================== 1 failed in 3.45s ===============================
+FAILED projects/validator_fix_check/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_test_id("username")
+============================== 1 failed in 31.77s ==============================
 

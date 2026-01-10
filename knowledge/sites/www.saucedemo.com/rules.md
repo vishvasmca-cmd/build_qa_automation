@@ -102,3 +102,39 @@
 - ⚠️ PROHIBITED: DON'T assume that `super().__init(page)` will automatically work without verifying the parent class's `__init__` method signature and existence.
 
 - ✅ PREFERRED: DO explicitly define the parent class's `__init__` method call within the child class's `__init__` method, ensuring the correct arguments are passed.
+
+- ⚠️ PROHIBITED: DON'T assume that elements are immediately available after page load; always account for potential delays in rendering or loading.
+
+- ✅ PREFERRED: DO use explicit waits with `locator.wait_for()` or `locator.is_visible()` before interacting with elements, especially after navigation or significant page changes.
+
+- ⚠️ PROHIBITED: DON'T assume that elements with test IDs are immediately available after page load; always implement a short wait or use `wait_for` to ensure the element is present and interactable.
+
+- ✅ PREFERRED: DO use `wait_for` with explicit visibility or enabled checks before interacting with elements, especially after page navigations or dynamic content updates.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `test_id` locators without ensuring their uniqueness and presence in the DOM before interacting with them.
+
+- ✅ PREFERRED: DO implement explicit waits or retries when interacting with elements located by `test_id`, especially after page loads or dynamic content updates.
+
+- ⚠️ PROHIBITED: DON'T assume elements are immediately available; always account for potential loading times or animations.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with explicit state checks (e.g., `visible`, `attached`) before interacting with elements, especially after page loads or transitions.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `test_id` locators without ensuring the element is visible and stable before interacting with it. Avoid hardcoded timeouts without proper error handling.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for critical element interactions, especially when dealing with potentially slow-loading elements. ALWAYS verify element visibility and stability before attempting to fill or click.
+
+- ⚠️ PROHIBITED: DON'T assume elements are immediately available; always implement explicit waits or retries for critical elements like login fields.
+
+- ✅ PREFERRED: DO use `page.locator('locator').first().fill()` to ensure you are targeting the correct element, especially when dealing with potentially ambiguous locators or dynamic content. Also, DO use `expect(locator).to_be_visible()` before attempting to interact with the element.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `test_id` locators without ensuring the element is visible and stable before interacting with it, especially after page loads or transitions.
+
+- ✅ PREFERRED: DO implement explicit waits or assertions to confirm the presence and stability of elements before attempting to interact with them, especially when using `test_id` locators.
+
+- ⚠️ PROHIBITED: DON'T assume elements are immediately available after page load; always implement explicit waits or assertions to confirm their presence before interacting with them.
+
+- ✅ PREFERRED: DO use `page.locator('locator').wait_for()` with a reasonable timeout before attempting to interact with elements, especially after page navigations or dynamic content updates.
+
+- ⚠️ PROHIBITED: DON'T assume that elements with test IDs are immediately available; account for potential loading times or dynamic rendering.
+
+- ✅ PREFERRED: DO implement explicit waits or retries when interacting with elements identified by test IDs, especially after page loads or transitions.
