@@ -50,3 +50,7 @@
 - ⚠️ PROHIBITED: DON'T use ambiguous locators that can resolve to multiple elements without specifying which element is intended.
 
 - ✅ PREFERRED: DO use more specific locators, such as data-test attributes or chained locators, to uniquely identify the target element.
+
+- ⚠️ PROHIBITED: DON'T run asynchronous tests without installing and configuring a suitable pytest plugin (e.g., pytest-asyncio).
+
+- ✅ PREFERRED: DO ensure that the pytest environment is properly configured with the necessary plugins to support the type of tests being executed (synchronous vs. asynchronous).
