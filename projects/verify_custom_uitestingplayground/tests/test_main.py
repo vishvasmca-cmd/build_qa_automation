@@ -17,7 +17,7 @@ class BasePage:
 
     def navigate(self, url):
         self.page.goto(url)
-        self.page.wait_for_load_state()
+        self.page.wait_for_load_state("networkidle")
 
     def take_screenshot(self, name, project_name):
         take_screenshot(self.page, name, project_name)
@@ -26,10 +26,10 @@ class BasePage:
 class UiTestAutomationPlaygroundPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        # Removed redundant URL definition here
+        self.dynamic_id_link = self.page.get_by_role("link", name=re.compile("Dynamic ID", re.IGNORECASE))
 
     def navigate_to_dynamic_id(self):
-        self.page.get_by_role("link", name=re.compile("Dynamic ID", re.IGNORECASE)).click()
+        self.dynamic_id_link.click()
         self.page.wait_for_url("**/dynamicid")
         self.page.wait_for_load_state()
 
@@ -37,26 +37,31 @@ class UiTestAutomationPlaygroundPage(BasePage):
 class DynamicIdPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        # Removed redundant URL definition here
+        self.button_with_dynamic_id = self.page.get_by_role("button", name=re.compile("Button with Dynamic ID", re.IGNORECASE))
 
-    def click_dynamic_id_button(self):
-        self.page.get_by_role("button", name=re.compile("Button with Dynamic ID", re.IGNORECASE)).click()
+    def click_button_with_dynamic_id(self):
+        self.button_with_dynamic_id.click()
 
 
 from playwright.sync_api import Browser
 
-
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
+    base_url = "http://uitestingplayground.com/"
+
+    # Initialize pages
     base_page = BasePage(page)
-    ui_playground_page = UiTestAutomationPlaygroundPage(page)
+    home_page = UiTestAutomationPlaygroundPage(page)
     dynamic_id_page = DynamicIdPage(page)
 
-    ui_playground_page.navigate("http://uitestingplayground.com/")
-    ui_playground_page.navigate_to_dynamic_id()
-    dynamic_id_page.click_dynamic_id_button()
+    # Navigate to the home page
+    base_page.navigate(base_url)
 
-    # Assertion to verify the button click
-    expect(page.get_by_role("button", name=re.compile("Button with Dynamic ID", re.IGNORECASE))).to_be_visible()
+    # Navigate to the Dynamic ID page
+    home_page.navigate_to_dynamic_id()
 
-    base_page.take_screenshot("dynamic_id_button_clicked", "uitestingplayground")
+    # Click the button with the dynamic ID
+    dynamic_id_page.click_button_with_dynamic_id()
+
+    # Assertion to verify the button was clicked
+    expect(dynamic_id_page.button_with_dynamic_id).to_be_visible()
