@@ -14,38 +14,35 @@ ________________________ test_autonomous_flow[chromium] ________________________
 browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
 
     def test_autonomous_flow(browser: Browser):
-        # Initialize context
         page = browser.new_page()
-    
-        # Instantiate pages
         login_page = LoginPage(page)
+        inventory_page = InventoryPage(page)
     
-        # Navigate to login page
         login_page.navigate("https://www.saucedemo.com/")
-    
-        # Perform login
         login_page.enter_username("standard_user")
         login_page.enter_password("secret_sauce")
         login_page.click_login()
-        page.wait_for_url("https://www.saucedemo.com/inventory.html")
     
-        # Assert successful login (example assertion - adjust as needed)
->       page.locator("#inventory_container").wait_for(timeout=60000)
+>       assert inventory_page.is_inventory_displayed(), "Login failed"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-projects\verify_custom_swagstore\tests\test_main.py:74: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:18080: in wait_for
-    self._sync(self._impl_obj.wait_for(timeout=timeout, state=state))
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_locator.py:710: in wait_for
-    await self._frame.wait_for_selector(
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:369: in wait_for_selector
-    await self._channel.send(
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+projects/verify_custom_swagstore/tests/test_main.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/verify_custom_swagstore/tests/test_main.py:44: in is_inventory_displayed
+    return self.inventory_container.is_visible()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:17303: in is_visible
+    self._sync(self._impl_obj.is_visible(timeout=timeout))
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_locator.py:531: in is_visible
+    return await self._frame.is_visible(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:408: in is_visible
+    return await self._channel.send(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
     return await self._connection.wrap_api_call(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x0000025BAFA17590>
-cb = <function Channel.send.<locals>.<lambda> at 0x0000025BAFA3AF20>
+self = <playwright._impl._connection.Connection object at 0x7f1c224aeed0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f1c2119b4c0>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -64,15 +61,20 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.Error: Locator.wait_for: Error: strict mode violation: locator("#inventory_container") resolved to 2 elements:
-E               1) <div id="inventory_container">�</div> aka locator("#inventory_container").first
-E               2) <div id="inventory_container" class="inventory_container" data-test="inventory-container">�</div> aka locator("[data-test=\"inventory-container\"]")
+E           playwright._impl._errors.Error: Locator.is_visible: Error: strict mode violation: locator("#inventory_container") resolved to 2 elements:
+E               1) <div id="inventory_container">…</div> aka locator("#inventory_container").first
+E               2) <div id="inventory_container" class="inventory_container" data-test="inventory-container">…</div> aka locator("[data-test=\"inventory-container\"]")
 E           
 E           Call log:
-E             - waiting for locator("#inventory_container") to be visible
+E               - checking visibility of locator("#inventory_container")
 
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: Error
-=========================== short test summary info ===========================
-FAILED projects/verify_custom_swagstore/tests/test_main.py::test_autonomous_flow[chromium]
-============================== 1 failed in 3.92s ==============================
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+=========================== short test summary info ============================
+FAILED projects/verify_custom_swagstore/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Locator.is_visible: Error: strict mode violation: locator("#inventory_container") resolved to 2 elements:
+    1) <div id="inventory_container">…</div> aka locator("#inventory_container").first
+    2) <div id="inventory_container" class="inventory_container" data-test="inventory-container">…</div> aka locator("[data-test=\"inventory-container\"]")
+
+Call log:
+    - checking visibility of locator("#inventory_container")
+============================== 1 failed in 1.58s ===============================
 

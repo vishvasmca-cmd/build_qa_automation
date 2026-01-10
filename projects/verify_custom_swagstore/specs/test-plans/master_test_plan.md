@@ -2,96 +2,102 @@
 
 **Document Version:** 1.0
 **Date:** October 26, 2023
-**Prepared By:** Senior Test Manager
+**Prepared by:** Senior Test Manager
 
-This document outlines the master test strategy for the SauceDemo e-commerce application (https://www.saucedemo.com/v1/). It serves as a blueprint for all testing activities, ensuring comprehensive coverage and a high-quality user experience.
+This document outlines the master test strategy for the SauceDemo e-commerce application (https://www.saucedemo.com/v1/). It serves as a blueprint for the entire engineering team, guiding testing efforts and ensuring high-quality releases.
 
 ## 1. 🔍 RISK ASSESSMENT & PLANNING
 
 ### 1.1 Domain Analysis
-SauceDemo is an e-commerce application. The core business functionalities revolve around product browsing, adding items to the cart, and completing the checkout process.  The most critical areas are:
 
-*   **Product Catalog:** Displaying products accurately and efficiently.
-*   **Shopping Cart:** Managing items added by the user.
-*   **Checkout Process:** Securely processing orders and payments (simulated in this demo).
-*   **Login/Authentication:** Securely authenticating users.
+SauceDemo is a demonstration e-commerce application. While not a real-world production system, it simulates core e-commerce functionalities.  The most critical business functions, in order of priority, are:
+
+*   **P0: Login/Authentication:**  Users must be able to securely log in to access the application.
+*   **P1: Product Catalog Browsing:** Users must be able to view and filter products.
+*   **P1: Add to Cart:** Users must be able to add products to their shopping cart.
+*   **P1: Checkout Process:** Users must be able to complete the checkout process, including providing shipping information and payment details (simulated).
+*   **P2: Inventory Management (Simulated):** The application should accurately reflect available inventory.
 
 ### 1.2 Risk Profile
-Failure of the SauceDemo application can lead to:
 
-*   **Financial Loss:** Inability to process orders, resulting in lost revenue.
-*   **Reputational Damage:** Poor user experience leading to customer dissatisfaction and negative reviews.
-*   **Data Security Breach:** Compromised user data (usernames, passwords, potentially payment information if it were a real system).
-*   **Loss of Trust:** Eroded confidence in the application's reliability.
+Failure of the SauceDemo application, while not resulting in direct financial loss, can lead to:
+
+*   **Loss of Trust:**  Unreliable functionality can damage the perception of the application's quality.
+*   **Incorrect Data Handling:**  Errors in data processing (e.g., incorrect pricing, shipping calculations) can lead to user frustration.
+*   **Security Vulnerabilities:**  Exploitable vulnerabilities (e.g., XSS, SQL injection) could compromise user data (simulated in this demo).
 
 ### 1.3 Testing Scope
 
 **In Scope:**
 
-*   **All core functionalities:** Login, Product Browsing, Adding to Cart, Checkout, Order Confirmation.
-*   **User Interface (UI) elements:** Ensuring correct display and functionality across different browsers and devices.
-*   **Data validation:** Ensuring data integrity throughout the application.
-*   **Error handling:** Graceful handling of errors and informative error messages.
-*   **Security:** Basic security checks to prevent common vulnerabilities.
-*   **Accessibility:** Basic accessibility checks to ensure usability for users with disabilities.
+*   All core functionalities listed in the Domain Analysis (Login, Product Browsing, Add to Cart, Checkout).
+*   Positive and negative test scenarios for all user input fields.
+*   Cross-browser compatibility testing (Chrome, Firefox, Safari, Edge - latest versions).
+*   Basic security testing (OWASP Top 10 basics).
+*   Performance testing (page load times, response times for key actions).
+*   Accessibility testing (basic checks for WCAG compliance).
 
 **Out of Scope:**
 
-*   **Performance Testing:** Load testing, stress testing, and performance optimization are not included in this initial strategy.
-*   **Advanced Security Testing:** Penetration testing and in-depth security audits are out of scope for this initial phase.
-*   **Third-Party Integrations:** Testing integrations with external services (e.g., payment gateways) is out of scope, as this is a demo application.
+*   Mobile application testing (unless specifically requested).
+*   Advanced performance testing (e.g., load testing, stress testing).
+*   Comprehensive security penetration testing.
+*   Integration with external systems (as this is a demo application).
+*   Detailed accessibility compliance beyond basic checks.
 
 ## 2. 🏗️ TESTING STRATEGY (The "How")
 
 ### 2.1 Smoke Suite (Sanity)
 
-The Smoke Suite will be executed after each build to ensure the application's basic functionality is working.
+The Smoke Suite will be executed after each build to ensure the core functionality is operational.
 
-*   **Frequency:** Executed after every build deployment.
-*   **Goal:** Verify core functionality is operational.
 *   **Test Cases:**
-    *   Verify successful login with valid credentials (standard_user/secret_sauce).
-    *   Verify the product catalog page loads successfully, displaying product names and prices.
-    *   Verify adding a single item to the cart.
-    *   Verify the cart page loads with the added item.
-*   **Execution Frequency:** After each build deployment.
-*   **Pass/Fail Criteria:** All test cases must pass for the build to be considered stable.
+    *   Verify successful login with a valid user (e.g., `standard_user`).
+    *   Verify successful loading of the product catalog page after login.
+    *   Verify a product can be added to the cart.
+    *   Verify the cart page loads successfully.
 
 ### 2.2 Regression Suite (Deep Dive)
 
-The Regression Suite will be executed to ensure that new changes have not introduced any regressions.
+The Regression Suite will provide comprehensive coverage of the application's functionality.
 
 *   **Negative Testing:**
-    *   Invalid Login Attempts: Test with incorrect usernames and passwords.
-    *   Invalid Input in Checkout: Test with missing or invalid information in the checkout form.
-    *   Out-of-Stock Scenarios: Attempt to add more items to the cart than available in stock (if applicable).
+    *   **Login:** Invalid username, invalid password, empty fields, SQL injection attempts in username/password fields.
+    *   **Checkout:** Invalid shipping information (e.g., empty fields, incorrect zip code format), invalid credit card details (format validation).
+    *   **Add to Cart:** Attempting to add out-of-stock items.
 *   **Edge Cases:**
-    *   Concurrency: Simulate multiple users accessing the application simultaneously (if possible).
-    *   Network Failures: Simulate network interruptions during critical operations (e.g., checkout).
-    *   Empty States: Verify the application handles empty states gracefully (e.g., empty cart).
+    *   **Concurrency:** Multiple users adding the same item to the cart simultaneously.
+    *   **Network Failures:** Simulate network interruptions during checkout.
+    *   **Empty States:** Handling empty cart, empty product catalog (if applicable).
+    *   **Boundary Analysis:** Testing minimum and maximum quantities for product purchases.
 *   **Security:**
-    *   Input Validation: Check for basic SQL injection and Cross-Site Scripting (XSS) vulnerabilities by injecting malicious code into input fields.
-*   **Functional Testing:**
-    *   Verify product details page displays correctly.
-    *   Verify the ability to remove items from the cart.
-    *   Verify the checkout process completes successfully.
-    *   Verify order confirmation page displays correctly.
-*   **Data Strategy:**
-    *   **Test Data:** A combination of static and dynamic test data will be used.
-        *   **Static Data:** User credentials (standard_user/secret_sauce) will be stored in a configuration file.
-        *   **Dynamic Data:** Product names, quantities, and other relevant data will be dynamically generated or retrieved from the application.
+    *   **OWASP Top 10 Basics:**
+        *   Input validation to prevent XSS and SQL injection attacks.
+        *   Ensure sensitive data (e.g., passwords) are not stored in plain text.
+        *   Verify proper session management.
+*   **Cross-Module Interactions:**
+    *   Verify that changes to the cart (adding/removing items) are reflected in the header cart summary.
+    *   Verify that inventory updates are reflected in the product catalog.
+*   **Validation Messages:**
+    *   Verify that appropriate error messages are displayed for invalid input (e.g., "Username is required", "Invalid zip code").
+
+### 2.3 Data Strategy
+
+*   **Test Data:** A combination of static and dynamic test data will be used.
+    *   **Static Data:**  A set of pre-defined user accounts (e.g., `standard_user`, `locked_out_user`, `problem_user`, `performance_glitch_user`) will be used for login testing.  Product data can be considered relatively static for the purpose of this demo.
+    *   **Dynamic Data:**  Shipping information (names, addresses, zip codes) will be dynamically generated to ensure a variety of test cases.  Credit card numbers (for format validation only) can also be dynamically generated.
 
 ## 3. 🏛️ ARCHITECTURE GUIDANCE (For the Test Architect)
 
 ### 3.1 Framework Recommendation
 
-*   **Page Object Model (POM):** Implement a Page Object Model to improve code maintainability and reusability. Each page of the application should have a corresponding Page Object class that encapsulates the page's elements and actions.
+*   **Page Object Model (POM):**  Implement a Page Object Model to represent each page of the application as a class. This will improve code maintainability and reusability.  Each page object should encapsulate the elements and actions specific to that page.
 
 ### 3.2 Resilience Strategy
 
-*   **Polling Assertions:** Use polling assertions to handle asynchronous operations and ensure that elements are fully loaded before interacting with them.
-*   **Self-Healing:** Implement a self-healing mechanism to automatically recover from common test failures, such as element not found exceptions.  This could involve retrying the action or re-locating the element.
-*   **Explicit Waits:** Use explicit waits to wait for specific conditions to be met before proceeding with the test. This will help to avoid flaky tests caused by timing issues.
+*   **Polling Assertions:**  Use polling assertions (e.g., using `WebDriverWait` in Selenium) to handle asynchronous operations and ensure that elements are fully loaded before interacting with them.
+*   **Self-Healing:**  Implement basic self-healing mechanisms to automatically recover from common issues, such as element locators changing slightly.  This could involve using multiple locators for the same element and automatically switching to a working locator if one fails.
+*   **Retry Mechanism:** Implement a retry mechanism for flaky tests. If a test fails, retry it a few times before marking it as a failure.
 
 ## 4. ⚔️ EXECUTION & MINING INSTRUCTIONS (For the Senior QA)
 
@@ -99,25 +105,24 @@ The Regression Suite will be executed to ensure that new changes have not introd
 
 The autonomous agent should prioritize exploring the following pages and flows:
 
-1.  **Login Page:**  `https://www.saucedemo.com/v1/index.html` - Focus on different login attempts (valid/invalid).
-2.  **Product Catalog Page:** `https://www.saucedemo.com/v1/inventory.html` - Explore product details, add items to cart.
-3.  **Shopping Cart Page:** `https://www.saucedemo.com/v1/cart.html` - Explore item removal, proceed to checkout.
-4.  **Checkout Information Page:** `https://www.saucedemo.com/v1/checkout-step-one.html` - Input different valid/invalid data.
-5.  **Checkout Overview Page:** `https://www.saucedemo.com/v1/checkout-step-two.html` - Review order details, proceed to finish.
-6.  **Checkout Complete Page:** `https://www.saucedemo.com/v1/checkout-complete.html` - Verify order confirmation.
+1.  **Login Page:**  Focus on testing different login scenarios (valid/invalid credentials, locked-out user, etc.).
+2.  **Product Catalog Page:**  Explore different product categories, sorting options, and filtering options.
+3.  **Product Detail Page:**  Test adding products to the cart from the product detail page.
+4.  **Cart Page:**  Test updating quantities, removing items, and proceeding to checkout.
+5.  **Checkout Pages (Information, Overview, Completion):**  Test different shipping information scenarios and payment options (simulated).
 
 ### 4.2 Verification Criteria
 
 *   **Success:**
     *   HTTP 200 status code for all page requests.
-    *   Relevant text is visible on each page (e.g., "Welcome" message after login, product names and prices on the product catalog page, order confirmation message on the checkout complete page).
-    *   Elements are interactable (e.g., buttons are clickable, input fields are editable).
-    *   Data is displayed correctly (e.g., product prices, quantities, order totals).
+    *   Relevant text and elements are visible on each page (e.g., "Welcome" message after login, product names and prices on the product catalog page).
+    *   Form submissions are successful and redirect to the expected page.
+    *   Error messages are displayed correctly for invalid input.
 *   **Failure:**
-    *   HTTP errors (e.g., 404, 500).
-    *   Unexpected errors or exceptions.
-    *   Incorrect data display.
-    *   Broken links or images.
-    *   Security vulnerabilities.
+    *   HTTP error codes (e.g., 404, 500).
+    *   Missing elements or incorrect text on pages.
+    *   Form submission errors.
+    *   Unexpected redirects.
+    *   Security vulnerabilities (e.g., XSS, SQL injection).
 
-This Master Test Strategy will be reviewed and updated regularly to ensure it remains aligned with the evolving needs of the SauceDemo application.
+This Master Test Strategy provides a comprehensive framework for testing the SauceDemo e-commerce application.  It will be reviewed and updated regularly to ensure it remains aligned with the evolving needs of the project.

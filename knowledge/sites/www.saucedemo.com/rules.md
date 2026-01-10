@@ -58,3 +58,7 @@
 - ⚠️ PROHIBITED: DON'T assume that elements with test IDs are immediately available after page load; always implement a reasonable wait or retry mechanism.
 
 - ✅ PREFERRED: DO use `locator.wait_for()` with a shorter, more appropriate timeout before interacting with elements, especially after navigation or dynamic content updates.
+
+- ⚠️ PROHIBITED: DON'T use ambiguous locators that can resolve to multiple elements without specifying which element is intended.
+
+- ✅ PREFERRED: DO use more specific locators, such as data-test attributes or unique class names, to target the intended element precisely.
