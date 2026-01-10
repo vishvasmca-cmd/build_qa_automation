@@ -16,24 +16,26 @@ class BasePage:
         self.page = page
 
     def navigate(self, url):
-        self.page.goto(url, timeout=60000)
-        self.page.wait_for_load_state("networkidle")
+        self.page.goto(url)
 
     def click_demo_link(self):
-        self.page.get_by_role("link", name="Demo").click()
+        self.page.get_by_role("link", name="Demo").first.click()
+
+class HomePage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
 
     def click_hotels_link(self):
-        self.page.get_by_role("link", name="Hotels").first.click()
+        self.page.get_by_role("link", name="Hotels").click()
 
+    def enter_destination(self, destination):
+        self.page.locator("[aria-label='Going to']").fill(destination)
 
-class HomePage:
-    def __init__(self, page):
-        self.page = page
+    def select_destination(self, destination):
+        self.page.locator("#select2-drop .select2-result-label").first.click()
 
-    def search_destination(self, destination):
-        self.page.locator("[aria-label='Search destination']").fill(destination)
-        self.page.get_by_text(destination).first.click()
-
+    def click_search_button(self):
+        self.page.get_by_role("button", name="Search").click()
 
 def test_autonomous_flow(browser):
     page = browser.new_page()
@@ -42,6 +44,12 @@ def test_autonomous_flow(browser):
 
     base_page.navigate("https://phptravels.com/demo/")
     base_page.click_demo_link()
-    base_page.navigate("https://phptravels.com/")
-    base_page.click_hotels_link()
-    home_page.search_destination("Dubai")
+    page.wait_for_load_state("networkidle")
+
+    home_page.click_hotels_link()
+    home_page.enter_destination("Dubai")
+    home_page.select_destination("Dubai")
+    home_page.click_search_button()
+    page.wait_for_load_state("networkidle")
+
+    take_screenshot(page, "hotel_search_results", "verify_custom_phptravels")

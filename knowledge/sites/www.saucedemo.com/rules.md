@@ -42,3 +42,7 @@
 - ⚠️ PROHIBITED: DON'T assume that elements are immediately available after page load; ALWAYS implement explicit waits for critical elements to become visible and interactable.
 
 - ✅ PREFERRED: DO use more resilient locators that are less prone to changes in the UI, such as ARIA labels or roles, when available. Prioritize unique attributes over chained locators.
+
+- ⚠️ PROHIBITED: DON'T assume that elements with test IDs are immediately available; always account for potential loading delays or animations.
+
+- ✅ PREFERRED: DO implement explicit waits or retries when interacting with elements identified by test IDs, especially after page loads or transitions.

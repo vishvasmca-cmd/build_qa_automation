@@ -38,3 +38,19 @@
 - ⚠️ PROHIBITED: DON'T use `get_by_role` with overly broad criteria (like just 'link' and 'Demo') without ensuring uniqueness or scoping to a specific container.
 
 - ✅ PREFERRED: DO use more specific locators, such as chaining locators to target elements within a specific section (e.g., navigation bar or footer) or using attributes to distinguish between elements with the same role and name.
+
+- ⚠️ PROHIBITED: DON'T use `get_by_role` without sufficient context when multiple elements with the same role and name exist on the page.
+
+- ✅ PREFERRED: DO use more specific locators, such as chaining locators or using `nth()` to target the desired element when multiple elements match the initial locator.
+
+- ⚠️ PROHIBITED: DON'T use `get_by_role` with ambiguous names without additional filtering (e.g., `.first`, `.last`, or `nth(index)`).
+
+- ✅ PREFERRED: DO use more specific locators, such as `getByRole` combined with `filter` or `locator.nth()` to target the intended element when multiple elements match the initial locator.
+
+- ⚠️ PROHIBITED: DON'T use `get_by_role` without sufficient context when multiple elements with the same role and name exist on the page.
+
+- ✅ PREFERRED: DO use more specific locators, such as chaining locators or using `nth()` to target the desired element when multiple elements match the initial locator.
+
+- ⚠️ PROHIBITED: DON'T assume that navigation links are immediately available after page load; always implement a waiting mechanism.
+
+- ✅ PREFERRED: DO use explicit waits with `locator.wait_for()` to ensure elements are visible and enabled before attempting to interact with them.
