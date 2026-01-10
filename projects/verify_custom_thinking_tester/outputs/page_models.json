@@ -1,21 +1,21 @@
 {
   "ContactListAppPage": {
-    "description": "This is the Login page for the Contact List App. It allows existing users to log in with their email and password, and provides a link for new users to sign up.",
-    "url_pattern": "https://thinking-tester-contact-list.herokuapp.com/",
+    "description": "This page is the login page for the Contact List App. It allows existing users to log in with their email and password, and provides a link for new users to sign up.",
+    "url_pattern": "https://thinking-tester-contact-list.herokuapp.com/login",
     "elements": [
       {
         "name": "Email Input",
         "type": "text field",
         "primary_locator": "role=textbox[name=\"email\"]",
         "backup_locator": "css=input[id=\"email\"]",
-        "description": "Input field for entering the user's email address."
+        "description": "Input field for the user's email address."
       },
       {
         "name": "Password Input",
         "type": "text field",
         "primary_locator": "role=textbox[name=\"password\"]",
         "backup_locator": "css=input[id=\"password\"]",
-        "description": "Input field for entering the user's password."
+        "description": "Input field for the user's password."
       },
       {
         "name": "Submit Button",
@@ -27,7 +27,7 @@
       {
         "name": "Sign Up Link",
         "type": "link",
-        "primary_locator": "role=button[name=\"Sign up\"]",
+        "primary_locator": "role=link[name=\"Sign up\"]",
         "backup_locator": "text=Sign up",
         "description": "Link to navigate to the sign-up page for new users."
       }
@@ -42,57 +42,56 @@
     ]
   },
   "AddUserPage": {
-    "description": "This page allows a user to create a new contact by providing their details such as name, email, and password.",
+    "description": "This page allows a user to create a new account by providing their first name, last name, email, and password.",
     "url_pattern": "https://thinking-tester-contact-list.herokuapp.com/addUser",
     "elements": [
       {
         "name": "First Name Input",
         "type": "text field",
-        "primary_locator": "role=textbox[name=\"firstName\"]",
-        "backup_locator": "css=input[id=\"firstName\"]",
+        "primary_locator": "id=firstName",
+        "backup_locator": "css=input[id='firstName']",
         "description": "Input field for the user's first name."
       },
       {
         "name": "Last Name Input",
         "type": "text field",
-        "primary_locator": "role=textbox[name=\"lastName\"]",
-        "backup_locator": "css=input[id=\"lastName\"]",
+        "primary_locator": "id=lastName",
+        "backup_locator": "css=input[id='lastName']",
         "description": "Input field for the user's last name."
       },
       {
         "name": "Email Input",
         "type": "text field",
-        "primary_locator": "role=textbox[name=\"email\"]",
-        "backup_locator": "css=input[id=\"email\"]",
+        "primary_locator": "id=email",
+        "backup_locator": "css=input[id='email']",
         "description": "Input field for the user's email address."
       },
       {
         "name": "Password Input",
         "type": "password field",
-        "primary_locator": "role=textbox[name=\"password\"]",
-        "backup_locator": "css=input[id=\"password\"]",
+        "primary_locator": "id=password",
+        "backup_locator": "css=input[id='password']",
         "description": "Input field for the user's password."
       },
       {
         "name": "Submit Button",
         "type": "button",
-        "primary_locator": "role=button[name=\"Submit\"]",
-        "backup_locator": "text=Submit",
+        "primary_locator": "id=submit",
+        "backup_locator": "css=button[id='submit']",
         "description": "Button to submit the new user form."
       },
       {
         "name": "Cancel Button",
         "type": "button",
-        "primary_locator": "role=button[name=\"Cancel\"]",
-        "backup_locator": "text=Cancel",
+        "primary_locator": "id=cancel",
+        "backup_locator": "css=button[id='cancel']",
         "description": "Button to cancel the new user creation and navigate back."
       }
     ],
     "assertions": [
       "Page title is 'Add User'",
-      "Header text 'Add User' is present",
-      "All input fields (First Name, Last Name, Email, Password) are visible",
-      "Submit and Cancel buttons are visible"
+      "Header text is 'Add User'",
+      "The 'Sign up to begin adding your contacts!' text is present"
     ]
   }
 }

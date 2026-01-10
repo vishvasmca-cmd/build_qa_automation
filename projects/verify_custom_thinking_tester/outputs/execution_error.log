@@ -1,49 +1,24 @@
-============================= test session starts =============================
-platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
 cachedir: .pytest_cache
-rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
-plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
-collecting ... collected 1 item
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1', 'langsmith': '0.6.2'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1, langsmith-0.6.2
+collecting ... collected 0 items / 1 error
 
-projects/verify_custom_thinking_tester/tests/test_main.py::test_autonomous_flow FAILED
-
-================================== FAILURES ===================================
-____________________________ test_autonomous_flow _____________________________
-
-browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vishv\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe> version=143.0.7499.4>
-
-    def test_autonomous_flow(browser):
-        page = browser.new_page()
-        login_page = LoginPage(page)
-        add_user_page = AddUserPage(page)
-    
-        login_page.navigate()
-        login_page.click_signup()
->       page.wait_for_url("**/signup")
-
-projects\verify_custom_thinking_tester\tests\test_main.py:79: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:9193: in wait_for_url
-    self._sync(
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_page.py:580: in wait_for_url
-    return await self._main_frame.wait_for_url(**locals_to_params(locals()))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:263: in wait_for_url
-    async with self.expect_navigation(
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_event_context_manager.py:33: in __aexit__
-    await self._future
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-    async def continuation() -> Optional[Response]:
->       event = await waiter.result()
-                ^^^^^^^^^^^^^^^^^^^^^
-E       playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.
-E       =========================== logs ===========================
-E       waiting for navigation to "**/signup" until 'load'
-E       ============================================================
-
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:239: TimeoutError
-=========================== short test summary info ===========================
-FAILED projects/verify_custom_thinking_tester/tests/test_main.py::test_autonomous_flow
-============================= 1 failed in 32.31s ==============================
+==================================== ERRORS ====================================
+__ ERROR collecting projects/verify_custom_thinking_tester/tests/test_main.py __
+ImportError while importing test module '/home/runner/work/build_qa_automation/build_qa_automation/projects/verify_custom_thinking_tester/tests/test_main.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+projects/verify_custom_thinking_tester/tests/test_main.py:22: in <module>
+    from projects.verify_custom_thinking_tester.pages.base_page import BasePage
+E   ModuleNotFoundError: No module named 'projects.verify_custom_thinking_tester.pages.base_page'
+=========================== short test summary info ============================
+ERROR projects/verify_custom_thinking_tester/tests/test_main.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+=============================== 1 error in 0.13s ===============================
 
