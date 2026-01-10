@@ -33,78 +33,38 @@
       "Login button is present"
     ]
   },
-  "LoginPagePage": {
-    "description": "This is the login page for the-internet.herokuapp.com/secure. It allows users to enter their username and password to log in.",
-    "url_pattern": "https://the-internet.herokuapp.com/secure",
+  "UnknownPage": {
+    "description": "This is the login page where users can enter their username and password to access the secure area.",
+    "url_pattern": "https://the-internet.herokuapp.com/login",
     "elements": [
       {
         "name": "Username Input",
-        "type": "input",
-        "primary_locator": "//label[text()='Username']/following-sibling::input",
-        "backup_locator": "input[id='username']",
+        "type": "text field",
+        "primary_locator": "id=username",
+        "backup_locator": "css=input[name='username']",
         "description": "Input field for the username."
       },
       {
         "name": "Password Input",
-        "type": "input",
-        "primary_locator": "//label[text()='Password']/following-sibling::input",
-        "backup_locator": "input[id='password']",
+        "type": "text field",
+        "primary_locator": "id=password",
+        "backup_locator": "css=input[name='password']",
         "description": "Input field for the password."
       },
       {
         "name": "Login Button",
         "type": "button",
-        "primary_locator": "button[type='submit']",
-        "backup_locator": "button[class='radius']",
+        "primary_locator": "css=button[type='submit']",
+        "backup_locator": "text=Login",
         "description": "Button to submit the login form."
       }
     ],
     "assertions": [
-      "Page contains the title 'The Internet'",
-      "Page contains the header 'Login Page'",
-      "Username input field is present",
-      "Password input field is present",
+      "Page title is 'The Internet'",
+      "Header text is 'Login Page'",
+      "Username field is present",
+      "Password field is present",
       "Login button is present"
-    ]
-  },
-  "UnknownPage": {
-    "description": "This is the secure area page, displayed after successful login. It allows the user to logout.",
-    "url_pattern": "https://the-internet.herokuapp.com/secure",
-    "elements": [
-      {
-        "name": "Logout Button",
-        "type": "button",
-        "primary_locator": "role=button[name=\"Logout\"]",
-        "backup_locator": "css=a.button",
-        "description": "Button to log out of the secure area."
-      },
-      {
-        "name": "Success Message",
-        "type": "text",
-        "primary_locator": "css=#flash",
-        "backup_locator": "text=You logged into a secure area!",
-        "description": "Confirmation message displayed after successful login."
-      },
-      {
-        "name": "Page Title",
-        "type": "heading",
-        "primary_locator": "css=h2",
-        "backup_locator": "text=Secure Area",
-        "description": "The title of the secure area page."
-      },
-      {
-        "name": "Page Description",
-        "type": "text",
-        "primary_locator": "css=#content > h4",
-        "backup_locator": "text=Welcome to the Secure Area.",
-        "description": "Description of the secure area page."
-      }
-    ],
-    "assertions": [
-      "Page title is 'Secure Area'",
-      "Success message is displayed: 'You logged into a secure area!'",
-      "Logout button is present",
-      "Page description is displayed: 'Welcome to the Secure Area. When you are done click logout below.'"
     ]
   }
 }

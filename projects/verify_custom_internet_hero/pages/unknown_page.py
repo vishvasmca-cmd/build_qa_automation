@@ -2,35 +2,31 @@ from playwright.async_api import Page, expect
 
 class UnknownPage:
     """
-    This is the secure area page, displayed after successful login. It allows the user to logout.
-    URL Pattern: https://the-internet.herokuapp.com/secure
+    This is the login page where users can enter their username and password to access the secure area.
+    URL Pattern: https://the-internet.herokuapp.com/login
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def Logout Button(self):
-        """Button to log out of the secure area."""
-        return self.page.role=button[name="Logout"].or_(self.page.css=a.button)
+    def Username Input(self):
+        """Input field for the username."""
+        return self.page.id=username.or_(self.page.css=input[name='username'])
 
     @property
-    def Success Message(self):
-        """Confirmation message displayed after successful login."""
-        return self.page.css=#flash.or_(self.page.text=You logged into a secure area!)
+    def Password Input(self):
+        """Input field for the password."""
+        return self.page.id=password.or_(self.page.css=input[name='password'])
 
     @property
-    def Page Title(self):
-        """The title of the secure area page."""
-        return self.page.css=h2.or_(self.page.text=Secure Area)
-
-    @property
-    def Page Description(self):
-        """Description of the secure area page."""
-        return self.page.css=#content > h4.or_(self.page.text=Welcome to the Secure Area.)
+    def Login Button(self):
+        """Button to submit the login form."""
+        return self.page.css=button[type='submit'].or_(self.page.text=Login)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Page title is 'Secure Area'
-        await Success message is displayed: 'You logged into a secure area!'
-        await Logout button is present
-        await Page description is displayed: 'Welcome to the Secure Area. When you are done click logout below.'
+        await Page title is 'The Internet'
+        await Header text is 'Login Page'
+        await Username field is present
+        await Password field is present
+        await Login button is present
