@@ -98,3 +98,7 @@
 - ⚠️ PROHIBITED: DON'T assume that relative import paths will always resolve correctly without verifying the project's root directory and PYTHONPATH.
 
 - ✅ PREFERRED: DO ensure that all module import paths are correct and relative to the project's root directory. Verify the PYTHONPATH environment variable is correctly set if needed.
+
+- ⚠️ PROHIBITED: DON'T assume that `super().__init(page)` will automatically work without verifying the parent class's `__init__` method signature and existence.
+
+- ✅ PREFERRED: DO explicitly define the parent class's `__init__` method call within the child class's `__init__` method, ensuring the correct arguments are passed.

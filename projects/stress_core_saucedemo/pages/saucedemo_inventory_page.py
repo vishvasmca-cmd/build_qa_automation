@@ -9,62 +9,42 @@ class SaucedemoInventoryPage:
         self.page = page
 
     @property
-    def Product Sort Dropdown(self):
-        """Dropdown to sort products by name or price."""
-        return self.page.data-test='product_sort_container'.or_(self.page.css=select[data-test='product_sort_container'])
+    def Products Header(self):
+        """The header text displaying 'Products'."""
+        return self.page.text=Products.or_(self.page.css=.title)
 
     @property
-    def Product Sort Option: Name (A to Z)(self):
-        """Option to sort products by name from A to Z."""
-        return self.page.text='Name (A to Z)'.or_(self.page.css=option[value='az'])
+    def Product Name(self):
+        """Name of the product."""
+        return self.page.css=.inventory_item_name.or_(self.page.css=.inventory_item_description > a > div)
 
     @property
-    def Product Sort Option: Name (Z to A)(self):
-        """Option to sort products by name from Z to A."""
-        return self.page.text='Name (Z to A)'.or_(self.page.css=option[value='za'])
+    def Product Description(self):
+        """Description of the product."""
+        return self.page.css=.inventory_item_desc.or_(self.page.css=.inventory_item_description > div)
 
     @property
-    def Product Sort Option: Price (low to high)(self):
-        """Option to sort products by price from low to high."""
-        return self.page.text='Price (low to high)'.or_(self.page.css=option[value='lohi'])
+    def Product Price(self):
+        """Price of the product."""
+        return self.page.css=.inventory_item_price.or_(self.page.css=.inventory_item_description > div.inventory_item_price)
 
     @property
-    def Product Sort Option: Price (high to low)(self):
-        """Option to sort products by price from high to low."""
-        return self.page.text='Price (high to low)'.or_(self.page.css=option[value='hilo'])
+    def Add to Cart Button(self):
+        """Button to add the product to the cart."""
+        return self.page.text=Add to cart.or_(self.page.css=.btn_inventory)
 
     @property
-    def Sauce Labs Backpack Add to cart button(self):
-        """Button to add the Sauce Labs Backpack to the cart."""
-        return self.page.data-test='add-to-cart-sauce-labs-backpack'.or_(self.page.text='Add to cart')
+    def Sorting Dropdown(self):
+        """Dropdown to sort the products."""
+        return self.page.css=[data-test='product_sort_container'].or_(self.page.css=.product_sort_container)
 
     @property
-    def Sauce Labs Bike Light Add to cart button(self):
-        """Button to add the Sauce Labs Bike Light to the cart."""
-        return self.page.data-test='add-to-cart-sauce-labs-bike-light'.or_(self.page.text='Add to cart')
-
-    @property
-    def Sauce Labs Bolt T-Shirt Add to cart button(self):
-        """Button to add the Sauce Labs Bolt T-Shirt to the cart."""
-        return self.page.data-test='add-to-cart-sauce-labs-bolt-t-shirt'.or_(self.page.text='Add to cart')
-
-    @property
-    def Sauce Labs Fleece Jacket Add to cart button(self):
-        """Button to add the Sauce Labs Fleece Jacket to the cart."""
-        return self.page.data-test='add-to-cart-sauce-labs-fleece-jacket'.or_(self.page.text='Add to cart')
-
-    @property
-    def Sauce Labs Onesie Add to cart button(self):
-        """Button to add the Sauce Labs Onesie to the cart."""
-        return self.page.data-test='add-to-cart-sauce-labs-onesie'.or_(self.page.text='Add to cart')
-
-    @property
-    def Test.allTheThings() T-Shirt (Red) Add to cart button(self):
-        """Button to add the Test.allTheThings() T-Shirt (Red) to the cart."""
-        return self.page.data-test='add-to-cart-test.allthethings()-t-shirt-(red)'.or_(self.page.text='Add to cart')
+    def Sorting Option(self):
+        """Sorting option to sort the products."""
+        return self.page.text=Name (A to Z).or_(self.page.css=option[value='az'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await Page title is 'Swag Labs'
-        await Page contains the 'Products' header
-        await Product list is displayed
+        await Header text 'Products' is displayed
+        await At least one product is displayed

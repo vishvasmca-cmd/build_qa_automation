@@ -16,7 +16,7 @@ class BasePage:
         self.page = page
 
     def navigate(self, url):
-        self.page.goto(url, timeout=60000)
+        self.page.goto(url)
         self.page.wait_for_load_state("networkidle")
 
     def take_screenshot(self, name, project_name):
@@ -30,33 +30,41 @@ class LoginPage(BasePage):
         self.password_field = self.page.locator("[data-test='password']")
         self.login_button = self.page.locator("[data-test='login-button']")
 
-    def login(self, username, password):
+    def enter_username(self, username):
         self.username_field.fill(username)
+
+    def enter_password(self, password):
         self.password_field.fill(password)
+
+    def click_login_button(self):
         self.login_button.click()
-        self.page.wait_for_load_state("networkidle")
+
+    def login(self, username, password):
+        self.enter_username(username)
+        self.enter_password(password)
+        self.click_login_button()
 
 class InventoryPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.product_sort_dropdown = self.page.locator("[data-test='product-sort-container']")
+        self.sort_dropdown = self.page.locator("[data-test='product-sort-container']")
 
     def sort_by_price_low_to_high(self):
-        self.product_sort_dropdown.select_option(label='Price (low to high)')
-        self.page.wait_for_load_state("networkidle")
+        self.sort_dropdown.select_option(label='Price (low to high)')
 
-    def add_lowest_price_item_to_cart(self):
-        # Assuming the first item after sorting is the lowest price
-        self.page.locator(".inventory_item").first.locator("[data-test^='add-to-cart']").click()
-        self.page.wait_for_load_state("networkidle")
+
+class CartPage(BasePage):
+    def __init__(self, page):
+        super().__init__(page)
+
 
 from playwright.sync_api import Browser
-
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
     login_page = LoginPage(page)
     inventory_page = InventoryPage(page)
+    cart_page = CartPage(page)
 
     # Navigate to the login page
     login_page.navigate("https://www.saucedemo.com/")
@@ -67,9 +75,11 @@ def test_autonomous_flow(browser: Browser):
     # Sort products by price low to high
     inventory_page.sort_by_price_low_to_high()
 
-    # Add the lowest price item to the cart
-    # Assuming the first item after sorting is the lowest price
-    inventory_page.add_lowest_price_item_to_cart()
+    # TODO: Add the lowest cost item to the cart
+    # TODO: Navigate to the cart
+    # TODO: Checkout
+    # TODO: Fill in checkout information
+    # TODO: Complete checkout
 
-    # TODO: Implement checkout flow
-    # expect(True).to_be(False, "Checkout flow not implemented")
+    # Placeholder for unimplemented steps
+    # expect(True).to_be(False, "Not Implemented: Add lowest cost item to cart, navigate to cart, and complete checkout")

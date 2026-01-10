@@ -8,35 +8,21 @@
         "type": "text field",
         "primary_locator": "[data-test='username']",
         "backup_locator": "input[id='user-name']",
-        "description": "Input field for username."
+        "description": "Input field for the username."
       },
       {
         "name": "Password Input",
         "type": "text field",
         "primary_locator": "[data-test='password']",
         "backup_locator": "input[id='password']",
-        "description": "Input field for password."
+        "description": "Input field for the password."
       },
       {
         "name": "Login Button",
         "type": "button",
         "primary_locator": "[data-test='login-button']",
         "backup_locator": "input[id='login-button']",
-        "description": "Button to submit login credentials."
-      },
-      {
-        "name": "Accepted usernames",
-        "type": "text",
-        "primary_locator": "//div[contains(text(),'Accepted usernames are:')]",
-        "backup_locator": "div:nth-child(3)",
-        "description": "Text containing accepted usernames"
-      },
-      {
-        "name": "Password for all users",
-        "type": "text",
-        "primary_locator": "//div[contains(text(),'Password for all users:')]",
-        "backup_locator": "div:nth-child(4)",
-        "description": "Text containing password for all users"
+        "description": "Button to submit the login form."
       }
     ],
     "assertions": [
@@ -53,36 +39,36 @@
       {
         "name": "Username Input",
         "type": "text field",
-        "primary_locator": "[data-test=\"username\"]",
+        "primary_locator": "[data-test='username']",
         "backup_locator": "input#user-name",
         "description": "Input field for the username."
       },
       {
         "name": "Password Input",
         "type": "text field",
-        "primary_locator": "[data-test=\"password\"]",
+        "primary_locator": "[data-test='password']",
         "backup_locator": "input#password",
         "description": "Input field for the password."
       },
       {
         "name": "Login Button",
         "type": "button",
-        "primary_locator": "[data-test=\"login-button\"]",
+        "primary_locator": "[data-test='login-button']",
         "backup_locator": "input#login-button",
         "description": "Button to submit the login form."
       },
       {
         "name": "Accepted usernames",
         "type": "text",
-        "primary_locator": "text=Accepted usernames are:",
-        "backup_locator": "div.login_credentials_wrap > div.login_credentials",
+        "primary_locator": "//div[contains(text(),'Accepted usernames are:')]",
+        "backup_locator": "div:nth-child(3)",
         "description": "Text displaying accepted usernames"
       },
       {
         "name": "Password for all users",
         "type": "text",
-        "primary_locator": "text=Password for all users:",
-        "backup_locator": "div.login_password",
+        "primary_locator": "//div[contains(text(),'Password for all users:')]",
+        "backup_locator": "div:nth-child(4)",
         "description": "Text displaying password for all users"
       }
     ],
@@ -98,87 +84,59 @@
     "url_pattern": "https://www.saucedemo.com/inventory.html",
     "elements": [
       {
-        "name": "Product Sort Dropdown",
+        "name": "Products Header",
+        "type": "text",
+        "primary_locator": "text=Products",
+        "backup_locator": "css=.title",
+        "description": "The header text displaying 'Products'."
+      },
+      {
+        "name": "Product Name",
+        "type": "text",
+        "primary_locator": "css=.inventory_item_name",
+        "backup_locator": "css=.inventory_item_description > a > div",
+        "description": "Name of the product."
+      },
+      {
+        "name": "Product Description",
+        "type": "text",
+        "primary_locator": "css=.inventory_item_desc",
+        "backup_locator": "css=.inventory_item_description > div",
+        "description": "Description of the product."
+      },
+      {
+        "name": "Product Price",
+        "type": "text",
+        "primary_locator": "css=.inventory_item_price",
+        "backup_locator": "css=.inventory_item_description > div.inventory_item_price",
+        "description": "Price of the product."
+      },
+      {
+        "name": "Add to Cart Button",
+        "type": "button",
+        "primary_locator": "text=Add to cart",
+        "backup_locator": "css=.btn_inventory",
+        "description": "Button to add the product to the cart."
+      },
+      {
+        "name": "Sorting Dropdown",
         "type": "dropdown",
-        "primary_locator": "data-test='product_sort_container'",
-        "backup_locator": "css=select[data-test='product_sort_container']",
-        "description": "Dropdown to sort products by name or price."
+        "primary_locator": "css=[data-test='product_sort_container']",
+        "backup_locator": "css=.product_sort_container",
+        "description": "Dropdown to sort the products."
       },
       {
-        "name": "Product Sort Option: Name (A to Z)",
+        "name": "Sorting Option",
         "type": "option",
-        "primary_locator": "text='Name (A to Z)'",
+        "primary_locator": "text=Name (A to Z)",
         "backup_locator": "css=option[value='az']",
-        "description": "Option to sort products by name from A to Z."
-      },
-      {
-        "name": "Product Sort Option: Name (Z to A)",
-        "type": "option",
-        "primary_locator": "text='Name (Z to A)'",
-        "backup_locator": "css=option[value='za']",
-        "description": "Option to sort products by name from Z to A."
-      },
-      {
-        "name": "Product Sort Option: Price (low to high)",
-        "type": "option",
-        "primary_locator": "text='Price (low to high)'",
-        "backup_locator": "css=option[value='lohi']",
-        "description": "Option to sort products by price from low to high."
-      },
-      {
-        "name": "Product Sort Option: Price (high to low)",
-        "type": "option",
-        "primary_locator": "text='Price (high to low)'",
-        "backup_locator": "css=option[value='hilo']",
-        "description": "Option to sort products by price from high to low."
-      },
-      {
-        "name": "Sauce Labs Backpack Add to cart button",
-        "type": "button",
-        "primary_locator": "data-test='add-to-cart-sauce-labs-backpack'",
-        "backup_locator": "text='Add to cart'",
-        "description": "Button to add the Sauce Labs Backpack to the cart."
-      },
-      {
-        "name": "Sauce Labs Bike Light Add to cart button",
-        "type": "button",
-        "primary_locator": "data-test='add-to-cart-sauce-labs-bike-light'",
-        "backup_locator": "text='Add to cart'",
-        "description": "Button to add the Sauce Labs Bike Light to the cart."
-      },
-      {
-        "name": "Sauce Labs Bolt T-Shirt Add to cart button",
-        "type": "button",
-        "primary_locator": "data-test='add-to-cart-sauce-labs-bolt-t-shirt'",
-        "backup_locator": "text='Add to cart'",
-        "description": "Button to add the Sauce Labs Bolt T-Shirt to the cart."
-      },
-      {
-        "name": "Sauce Labs Fleece Jacket Add to cart button",
-        "type": "button",
-        "primary_locator": "data-test='add-to-cart-sauce-labs-fleece-jacket'",
-        "backup_locator": "text='Add to cart'",
-        "description": "Button to add the Sauce Labs Fleece Jacket to the cart."
-      },
-      {
-        "name": "Sauce Labs Onesie Add to cart button",
-        "type": "button",
-        "primary_locator": "data-test='add-to-cart-sauce-labs-onesie'",
-        "backup_locator": "text='Add to cart'",
-        "description": "Button to add the Sauce Labs Onesie to the cart."
-      },
-      {
-        "name": "Test.allTheThings() T-Shirt (Red) Add to cart button",
-        "type": "button",
-        "primary_locator": "data-test='add-to-cart-test.allthethings()-t-shirt-(red)'",
-        "backup_locator": "text='Add to cart'",
-        "description": "Button to add the Test.allTheThings() T-Shirt (Red) to the cart."
+        "description": "Sorting option to sort the products."
       }
     ],
     "assertions": [
       "Page title is 'Swag Labs'",
-      "Page contains the 'Products' header",
-      "Product list is displayed"
+      "Header text 'Products' is displayed",
+      "At least one product is displayed"
     ]
   }
 }
