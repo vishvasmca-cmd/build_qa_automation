@@ -7,43 +7,47 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
-sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/lib/templates')
-from helpers import take_screenshot
+# Dynamic path discovery: Find root of 'inner-event' and append core path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Navigate up to project root (e.g., projects/name/tests/ -> inner-event)
+# We assume tests are usually in projects/<name>/tests/ or projects/<name>/tests/e2e
+root_dir = current_dir
+for _ in range(10):  # Max depth search
+    if os.path.exists(os.path.join(root_dir, 'core')):
+        break
+    parent = os.path.dirname(root_dir)
+    if parent == root_dir: break
+    root_dir = parent
 
+sys.path.append(os.path.join(root_dir, 'core', 'lib', 'templates'))
 
-from playwright.sync_api import Page
 
 class BasePage:
     def __init__(self, page: Page):
         self.page = page
 
-    def navigate(self, url: str):
+    def navigate(self, url):
         self.page.goto(url)
+        self.page.wait_for_load_state("networkidle")
 
-    def get_title(self) -> str:
-        return self.page.title()
-
-
-from playwright.sync_api import Page
-from base_page import BasePage
 
 class ExamplePage(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
 
-    def verify_page_content(self):
-        # Verify some text is visible on the page.  Using a generic selector for example.com
-        self.page.get_by_text('Example Domain').first.wait_for()
-        assert self.page.locator('body').inner_text() != ''
+    def verify_text_visible(self, text):
+        expect(self.page.get_by_text(re.compile(text, re.IGNORECASE))).to_be_visible()
 
-
-from playwright.sync_api import sync_playwright, Browser
-from pages.base_page import BasePage
-from pages.example_page import ExamplePage
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
+    base_page = BasePage(page)
     example_page = ExamplePage(page)
-    example_page.navigate("https://example.com")
-    example_page.verify_page_content()
+
+    # Step 1: Navigate to https://example.com
+    base_page.navigate("https://example.com")
+
+    # Step 2: Verify page loads and text is visible
+    example_page.verify_text_visible("Example Domain")
+
     page.close()
