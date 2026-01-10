@@ -2,35 +2,35 @@ from playwright.async_api import Page, expect
 
 class UnknownPage:
     """
-    This is the secure area page, accessible after successful login. It allows the user to logout.
+    This is the secure area page, displayed after successful login. It allows the user to logout.
     URL Pattern: https://the-internet.herokuapp.com/secure
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def Success Message(self):
-        """The success message displayed after successful login."""
-        return self.page.text="You logged into a secure area!".or_(self.page.css=.flash.success)
-
-    @property
-    def Secure Area Header(self):
-        """The main header of the secure area page."""
-        return self.page.text="Secure Area".or_(self.page.css=h2)
-
-    @property
     def Logout Button(self):
-        """The logout button to return to the login page."""
-        return self.page.text="Logout".or_(self.page.css=.button.secondary)
+        """Button to log out of the secure area."""
+        return self.page.role=button[name="Logout"].or_(self.page.css=a.button)
 
     @property
-    def Powered by Elemental Selenium(self):
-        """Link to Elemental Selenium website."""
-        return self.page.text="Powered by Elemental Selenium".or_(self.page.css=div.example > p:nth-child(3) > a)
+    def Success Message(self):
+        """Confirmation message displayed after successful login."""
+        return self.page.css=#flash.or_(self.page.text=You logged into a secure area!)
+
+    @property
+    def Page Title(self):
+        """The title of the secure area page."""
+        return self.page.css=h2.or_(self.page.text=Secure Area)
+
+    @property
+    def Page Description(self):
+        """Description of the secure area page."""
+        return self.page.css=#content > h4.or_(self.page.text=Welcome to the Secure Area.)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Page title is 'The Internet'
-        await Header text is 'Secure Area'
+        await Page title is 'Secure Area'
+        await Success message is displayed: 'You logged into a secure area!'
         await Logout button is present
-        await Success message is displayed
+        await Page description is displayed: 'Welcome to the Secure Area. When you are done click logout below.'

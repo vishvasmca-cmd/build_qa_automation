@@ -7,25 +7,8 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
-# Dynamic path discovery: Find root of 'inner-event' and append core path
-current_dir = os.path.dirname(os.path.abspath(__file__))
-# Navigate up to project root (e.g., projects/name/tests/ -> inner-event)
-# We assume tests are usually in projects/<name>/tests/ or projects/<name>/tests/e2e
-root_dir = current_dir
-for _ in range(10): # Max depth search
-    if os.path.exists(os.path.join(root_dir, 'core')):
-        break
-    parent = os.path.dirname(root_dir)
-    if parent == root_dir: break
-    root_dir = parent
-
-sys.path.append(os.path.join(root_dir, 'core', 'lib', 'templates'))
-try:
-    from helpers import take_screenshot
-except ImportError:
-    # Fallback for different structures
-    sys.path.append(os.path.abspath(os.path.join(current_dir, '../../../../core/lib/templates')))
-    from helpers import take_screenshot
+sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/lib/templates')
+from helpers import take_screenshot
 
 
 class BasePage:
@@ -33,7 +16,7 @@ class BasePage:
         self.page = page
 
     def navigate(self, url):
-        self.page.goto(url)
+        self.page.goto(url, timeout=60000)
         self.page.wait_for_load_state("networkidle")
 
     def take_screenshot(self, name, project_name):
@@ -42,43 +25,38 @@ class BasePage:
 class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.url = "https://the-internet.herokuapp.com/login"
+        self.username_field = self.page.locator("#username")
+        self.password_field = self.page.locator("#password")
+        self.login_button = self.page.get_by_role("button", name="Login")
 
-    def enter_username(self, username):
-        self.page.locator("#username").fill(username)
+    def navigate(self):
+        super().navigate("https://the-internet.herokuapp.com/login")
 
-    def enter_password(self, password):
-        self.page.locator("#password").fill(password)
-
-    def click_login(self):
-        self.page.get_by_role("button", name="Login").click()
+    def login(self, username, password):
+        self.username_field.fill(username)
+        self.password_field.fill(password)
+        self.login_button.click()
 
 class SecurePage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.url = "https://the-internet.herokuapp.com/secure"
 
-    def is_login_successful(self):
-        # Add assertion logic here if needed, e.g., check for a success message
-        pass
+    def is_secure_area_displayed(self):
+        return self.page.url == "https://the-internet.herokuapp.com/secure"
 
 from playwright.sync_api import Browser
+from projects.heroku_login_check.pages.base_page import BasePage
+from projects.heroku_login_check.pages.login_page import LoginPage
+from projects.heroku_login_check.pages.secure_page import SecurePage
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
     login_page = LoginPage(page)
     secure_page = SecurePage(page)
 
-    login_page.navigate(login_page.url)
-    login_page.enter_username("tomsmith")
-    login_page.enter_password("SuperSecretPassword!")
-    login_page.click_login()
+    login_page.navigate()
+    login_page.login("tomsmith", "SuperSecretPassword!")
 
-    page.wait_for_url("**/secure", timeout=60000)
-
-    # Optionally, add an assertion to verify successful login
-    # Example: expect(page.locator(".flash")).to_be_visible()
-
-    secure_page.take_screenshot("login_success", "heroku_login_check")
+    assert secure_page.is_secure_area_displayed()
 
     page.close()
