@@ -1,39 +1,6 @@
 {
   "HomePage": {
-    "description": "This is the login page for the Swag Labs demo application.",
-    "url_pattern": "https://www.saucedemo.com/",
-    "elements": [
-      {
-        "name": "Username Input",
-        "type": "text field",
-        "primary_locator": "[data-test='username']",
-        "backup_locator": "input[id='user-name']",
-        "description": "Input field for the username."
-      },
-      {
-        "name": "Password Input",
-        "type": "text field",
-        "primary_locator": "[data-test='password']",
-        "backup_locator": "input[id='password']",
-        "description": "Input field for the password."
-      },
-      {
-        "name": "Login Button",
-        "type": "button",
-        "primary_locator": "[data-test='login-button']",
-        "backup_locator": "input[id='login-button']",
-        "description": "Button to submit the login form."
-      }
-    ],
-    "assertions": [
-      "Page title is 'Swag Labs'",
-      "Login button is present",
-      "Username input field is present",
-      "Password input field is present"
-    ]
-  },
-  "UnknownPage": {
-    "description": "This is the login page for the Swag Labs demo application. Users can enter their username and password to access the inventory page.",
+    "description": "This is the login page for the Swag Labs e-commerce website. Users can enter their username and password to access the product catalog.",
     "url_pattern": "https://www.saucedemo.com/",
     "elements": [
       {
@@ -58,18 +25,65 @@
         "description": "Button to submit the login form."
       },
       {
-        "name": "Accepted usernames",
+        "name": "Accepted usernames are:",
         "type": "text",
         "primary_locator": "text=Accepted usernames are:",
-        "backup_locator": "div:has-text('Accepted usernames are:')",
-        "description": "Text indicating the accepted usernames"
+        "backup_locator": "div.login_credentials_wrap > div > div.login_credentials",
+        "description": "Text displaying accepted usernames"
+      },
+      {
+        "name": "Password for all users:",
+        "type": "text",
+        "primary_locator": "text=Password for all users:",
+        "backup_locator": "div.login_password",
+        "description": "Text displaying password for all users"
+      }
+    ],
+    "assertions": [
+      "Page title is 'Swag Labs'",
+      "Login button is present",
+      "Username input field is present",
+      "Password input field is present"
+    ]
+  },
+  "UnknownPage": {
+    "description": "This is the login page for the Swag Labs application. It allows users to enter their username and password to access the application's features.",
+    "url_pattern": "https://www.saucedemo.com/",
+    "elements": [
+      {
+        "name": "Username Input",
+        "type": "text field",
+        "primary_locator": "//input[@id='user-name']",
+        "backup_locator": "css=#user-name",
+        "description": "Input field for the username."
+      },
+      {
+        "name": "Password Input",
+        "type": "text field",
+        "primary_locator": "//input[@id='password']",
+        "backup_locator": "css=#password",
+        "description": "Input field for the password."
+      },
+      {
+        "name": "Login Button",
+        "type": "button",
+        "primary_locator": "//input[@id='login-button']",
+        "backup_locator": "css=#login-button",
+        "description": "Button to submit the login form."
+      },
+      {
+        "name": "Accepted usernames",
+        "type": "text",
+        "primary_locator": "//div[text()='Accepted usernames are:']",
+        "backup_locator": "text=Accepted usernames are:",
+        "description": "Text displaying accepted usernames"
       },
       {
         "name": "Password for all users",
         "type": "text",
-        "primary_locator": "text=Password for all users:",
-        "backup_locator": "div:has-text('Password for all users:')",
-        "description": "Text indicating the password for all users"
+        "primary_locator": "//div[text()='Password for all users:']",
+        "backup_locator": "text=Password for all users:",
+        "description": "Text displaying password for all users"
       }
     ],
     "assertions": [
