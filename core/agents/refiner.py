@@ -298,7 +298,8 @@ class CodeRefiner:
         {{SITE_KNOWLEDGE}}
 
         **PROHIBITED PATTERNS (Anti-Hallucination)**:
-        - ❌ NEVER import `utils`, `core.utils` or `helpers`. `take_screenshot` is pre-imported.
+        - ❌ NEVER import `utils`, `core.utils` or `helpers`. `take_screenshot` is pre-imported via dynamic sys.path initialization.
+        - ❌ **ABSOLUTE PATHS**: NEVER use absolute local paths (e.g., C:\\Users\\... or /home/runner/...) in code. Use relative logic or rely on the established environment.
         - ❌ **FATAL ERROR**: NEVER use `page.` inside a class method (except `__init__`). YOU MUST USE `self.page.`.
           - BAD: `page.locator(...)`
           - GOOD: `self.page.locator(...)`

@@ -37,15 +37,22 @@ class BusinessValidator:
             try:
                 with open(trace_path, 'r', encoding='utf-8') as f:
                     data = json.load(f)
-                    if isinstance(data, list) and data:
+                    trace_list = []
+                    if isinstance(data, list):
+                        trace_list = data
+                    elif isinstance(data, dict):
+                        trace_list = data.get('trace', [])
+                    
+                    if trace_list:
                         # Summarize last 5 steps
                         steps = []
-                        for i, step in enumerate(data[-5:]):
+                        for i, step in enumerate(trace_list[-5:]):
                             action = step.get('action', 'unknown')
-                            selector = step.get('selector', '')
-                            steps.append(f"Step {len(data)-5+i}: {action} on {selector}")
+                            # Handle both 'selector' (Legacy) and 'locator_used' (Explorer)
+                            target = step.get('selector') or step.get('locator_used') or step.get('element_context', {}).get('text') or ''
+                            steps.append(f"Step {len(trace_list)-5+i}: {action} on {target}")
                         trace_summary = "\n".join(steps)
-                        last_url = data[-1].get('url', 'Unknown')
+                        last_url = trace_list[-1].get('url', 'Unknown')
             except Exception as e:
                 trace_summary = f"Error reading trace: {e}"
 

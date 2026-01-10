@@ -92,11 +92,12 @@ class MetricsLogger:
             self.data = self._load_locked()
             if not self.data: self._reset_run_internal()
             
+            duration_val = duration if duration is not None else 0.0
             event = {
                 "agent": agent,
                 "action": action,
                 "end_time": time.time(),
-                "duration": round(duration, 4),
+                "duration": round(duration_val, 4),
                 "success": success,
                 "cost": cost,
                 "metadata": metadata or {}
@@ -104,7 +105,7 @@ class MetricsLogger:
             self.data.setdefault("events", []).append(event)
             self.data.setdefault("summary", {"total_duration": 0, "total_cost": 0, "status": "running"})
             self.data["summary"]["total_cost"] += cost
-            self.data["summary"]["total_duration"] += duration
+            self.data["summary"]["total_duration"] += duration_val
             self._save_locked()
 
     def log_failure(self, agent, error, context=None):

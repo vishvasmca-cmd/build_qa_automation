@@ -17,8 +17,9 @@ class GitManager:
         print(colored(f"🔄 Git: Fetching and Rebasing on {branch}...", "cyan"))
         try:
             subprocess.run(["git", "fetch", "--all"], capture_output=True, check=True)
-            # Use rebase for cleaner history and use -Xtheirs for metadata files like failures.json
-            ret = subprocess.run(["git", "pull", "--rebase", "origin", branch, "-Xtheirs"], capture_output=True, text=True)
+            # Use rebase + autostash for cleaner history even with local changes
+            # -Xtheirs prioritizes our artifacts like failures.json if there are conflicts
+            ret = subprocess.run(["git", "pull", "--rebase", "--autostash", "origin", branch, "-Xtheirs"], capture_output=True, text=True)
             if ret.returncode != 0:
                 print(colored(f"⚠️ Git Sync Warning: {ret.stderr.strip()}", "yellow"))
             else:
@@ -30,8 +31,8 @@ class GitManager:
     def commit_and_push(message):
         print(colored(f"🚀 Git: Committing changes - {message}", "cyan"))
         try:
-            # Add knowledge and projects - the core areas of change
-            subprocess.run(["git", "add", "knowledge/", "projects/"], capture_output=True)
+            # Stage core artifacts, projects, and new package initializers
+            subprocess.run(["git", "add", "knowledge/", "projects/", "outputs/", "__init__.py"], capture_output=True)
             
             # Check if there are changes to commit
             status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)

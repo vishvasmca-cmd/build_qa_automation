@@ -6,6 +6,7 @@ import time
 import random
 import glob
 import json
+from termcolor import colored
 from core.lib.git_utils import GitManager
 
 def find_projects(projects_dir="projects"):

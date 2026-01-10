@@ -429,10 +429,10 @@ def _run_validation(project_root, config, success):
             
             if result.get("status") == "FAIL":
                 print(colored(f"⚠️ TEST PASSED BUT GOAL FAILED: {result.get('reason')}", "red", attrs=["bold"]))
-                logger.log_event("Validator", "validate_goal", None, success=False, metadata=result)
+                logger.log_event("Validator", "validate_goal", 0.0, success=False, metadata=result)
             else:
                 print(colored(f"✅ GOAL VERIFIED: {result.get('reason')}", "green"))
-                logger.log_event("Validator", "validate_goal", None, success=True, metadata=result)
+                logger.log_event("Validator", "validate_goal", 0.0, success=True, metadata=result)
         except Exception as e:
             print(colored(f"⚠️ Validation Skipped: {e}", "yellow"))
 

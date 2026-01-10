@@ -3039,5 +3039,65 @@
       "Logout button is present",
       "Page description is displayed: 'Welcome to the Secure Area. When you are done click logout below.'"
     ]
+  },
+  "UnknownPage_f1367bf822b8f656558bb19e883307a0": {
+    "description": "This page displays a list of available products with their descriptions, prices, and 'Add to cart' or 'Remove' buttons.",
+    "url_pattern": "https://www.saucedemo.com/inventory.html",
+    "elements": [
+      {
+        "name": "Product Name",
+        "type": "link",
+        "primary_locator": "//div[@class='inventory_item_label']/a/div[@class='inventory_item_name']",
+        "backup_locator": ".inventory_item_name",
+        "description": "The name of the product."
+      },
+      {
+        "name": "Product Description",
+        "type": "text",
+        "primary_locator": "//div[@class='inventory_item_label']/div[@class='inventory_item_desc']",
+        "backup_locator": ".inventory_item_desc",
+        "description": "The description of the product."
+      },
+      {
+        "name": "Product Price",
+        "type": "text",
+        "primary_locator": "//div[@class='inventory_item_label']/div[@class='inventory_item_price']",
+        "backup_locator": ".inventory_item_price",
+        "description": "The price of the product."
+      },
+      {
+        "name": "Add to cart Button",
+        "type": "button",
+        "primary_locator": "//button[contains(@id, 'add-to-cart')]",
+        "backup_locator": "button:contains('Add to cart')",
+        "description": "Button to add the product to the shopping cart."
+      },
+      {
+        "name": "Remove Button",
+        "type": "button",
+        "primary_locator": "//button[contains(@id, 'remove')]",
+        "backup_locator": "button:contains('Remove')",
+        "description": "Button to remove the product from the shopping cart."
+      },
+      {
+        "name": "Products Header",
+        "type": "text",
+        "primary_locator": "//span[@class='title']",
+        "backup_locator": ".title",
+        "description": "The header text of the products page."
+      },
+      {
+        "name": "Filter Button",
+        "type": "button",
+        "primary_locator": "//span[@class='select_container']",
+        "backup_locator": ".product_sort_container",
+        "description": "Button to filter the products."
+      }
+    ],
+    "assertions": [
+      "Page title is 'Swag Labs'",
+      "Page contains the 'Products' header",
+      "At least one product is displayed"
+    ]
   }
 }

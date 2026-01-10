@@ -28,13 +28,12 @@ class TestTemplateEngine:
             template = Template(f.read())
         
         # Render with data
-        helpers_path = os.path.abspath(self.template_dir).replace("\\", "/")
-        
+        # Use relative pathing logic for robustness
+        # We calculate the relative path from the project's test directory back to the core templates
         rendered = template.render(
             project_name=project_name,
             target_url=target_url,
-            test_steps=test_steps,
-            helpers_path=helpers_path
+            test_steps=test_steps
         )
         
         return rendered

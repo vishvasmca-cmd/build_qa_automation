@@ -4,7 +4,17 @@ import sys
 import os
 
 # Fix import path for 'pages'
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../core/templates')))
+current_dir = os.path.dirname(os.path.abspath(__file__))
+root_dir = current_dir
+for _ in range(10):
+    if os.path.exists(os.path.join(root_dir, 'core')):
+        break
+    parent = os.path.dirname(root_dir)
+    if parent == root_dir: break
+    root_dir = parent
+
+sys.path.append(root_dir)
+sys.path.append(os.path.join(root_dir, 'core', 'lib', 'templates'))
 
 import re
 from playwright.sync_api import Page, expect
