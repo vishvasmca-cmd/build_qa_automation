@@ -46,3 +46,7 @@
 - ⚠️ PROHIBITED: DON'T assume that elements with test IDs are immediately available; always account for potential loading delays or animations.
 
 - ✅ PREFERRED: DO implement explicit waits or retries when interacting with elements identified by test IDs, especially after page loads or transitions.
+
+- ⚠️ PROHIBITED: DON'T use ambiguous locators like '#inventory_container' without ensuring uniqueness or targeting the specific intended element.
+
+- ✅ PREFERRED: DO use more specific locators, such as data-test attributes (e.g., '[data-test="inventory-container"]'), or combine locators to target the desired element uniquely.

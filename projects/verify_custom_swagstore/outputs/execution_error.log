@@ -1,16 +1,17 @@
-============================= test session starts =============================
-platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
 cachedir: .pytest_cache
-rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
-plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1', 'langsmith': '0.6.2'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1, langsmith-0.6.2
 collecting ... collected 1 item
 
 projects/verify_custom_swagstore/tests/test_main.py::test_autonomous_flow[chromium] FAILED
 
-================================== FAILURES ===================================
-_______________________ test_autonomous_flow[chromium] ________________________
+=================================== FAILURES ===================================
+________________________ test_autonomous_flow[chromium] ________________________
 
-browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vishv\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe> version=143.0.7499.4>
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
 
     def test_autonomous_flow(browser: Browser):
         page = browser.new_page()
@@ -18,51 +19,29 @@ browser = <Browser type=<BrowserType name=chromium executable_path=C:\Users\vish
         inventory_page = InventoryPage(page)
     
         login_page.navigate("https://www.saucedemo.com/")
->       login_page.login("standard_user", "secret_sauce")
-
-projects\verify_custom_swagstore\tests\test_main.py:44: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-projects\verify_custom_swagstore\tests\test_main.py:24: in login
-    self.username_field.fill(username)
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:15989: in fill
-    self._sync(
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_locator.py:215: in fill
-    return await self._frame.fill(self._selector, strict=True, **params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:607: in fill
-    await self._fill(**locals_to_params(locals()))
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:619: in _fill
-    await self._channel.send("fill", self._timeout, locals_to_params(locals()))
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:69: in send
-    return await self._connection.wrap_api_call(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-self = <playwright._impl._connection.Connection object at 0x000001D173DF9250>
-cb = <function Channel.send.<locals>.<lambda> at 0x000001D174150F40>
-is_internal = False, title = None
-
-    async def wrap_api_call(
-        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
-    ) -> Any:
-        if self._api_zone.get():
-            return await cb()
-        task = asyncio.current_task(self._loop)
-        st: List[inspect.FrameInfo] = getattr(
-            task, "__pw_stack__", None
-        ) or inspect.stack(0)
+        login_page.login("standard_user", "secret_sauce")
     
-        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
-        self._api_zone.set(parsed_st)
-        try:
-            return await cb()
-        except Exception as error:
->           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
-E           Call log:
-E             - waiting for get_by_test_id("username")
+>       expect(inventory_page.inventory_container).to_be_visible()
+E       AssertionError: Locator expected to be visible
+E       Actual value: None
+E       Error: strict mode violation: locator("#inventory_container") resolved to 2 elements:
+E           1) <div id="inventory_container">…</div> aka locator("#inventory_container").first
+E           2) <div id="inventory_container" class="inventory_container" data-test="inventory-container">…</div> aka locator("[data-test=\"inventory-container\"]")
+E        
+E       Call log:
+E         - Expect "to_be_visible" with timeout 5000ms
+E         - waiting for locator("#inventory_container")
 
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: TimeoutError
-=========================== short test summary info ===========================
-FAILED projects/verify_custom_swagstore/tests/test_main.py::test_autonomous_flow[chromium]
-============================= 1 failed in 32.73s ==============================
+projects/verify_custom_swagstore/tests/test_main.py:52: AssertionError
+=========================== short test summary info ============================
+FAILED projects/verify_custom_swagstore/tests/test_main.py::test_autonomous_flow[chromium] - AssertionError: Locator expected to be visible
+Actual value: None
+Error: strict mode violation: locator("#inventory_container") resolved to 2 elements:
+    1) <div id="inventory_container">…</div> aka locator("#inventory_container").first
+    2) <div id="inventory_container" class="inventory_container" data-test="inventory-container">…</div> aka locator("[data-test=\"inventory-container\"]")
+ 
+Call log:
+  - Expect "to_be_visible" with timeout 5000ms
+  - waiting for locator("#inventory_container")
+============================== 1 failed in 1.38s ===============================
 
