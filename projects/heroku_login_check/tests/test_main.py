@@ -7,8 +7,25 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
-sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/lib/templates')
-from helpers import take_screenshot
+# Dynamic path discovery: Find root of 'inner-event' and append core path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Navigate up to project root (e.g., projects/name/tests/ -> inner-event)
+# We assume tests are usually in projects/<name>/tests/ or projects/<name>/tests/e2e
+root_dir = current_dir
+for _ in range(10):  # Max depth search
+    if os.path.exists(os.path.join(root_dir, 'core')):
+        break
+    parent = os.path.dirname(root_dir)
+    if parent == root_dir: break
+    root_dir = parent
+
+sys.path.append(os.path.join(root_dir, 'core', 'lib', 'templates'))
+try:
+    from helpers import take_screenshot
+except ImportError:
+    # Fallback for different structures
+    sys.path.append(os.path.abspath(os.path.join(current_dir, '../../../../core/lib/templates')))
+    from helpers import take_screenshot
 
 
 from playwright.sync_api import Page
@@ -16,26 +33,33 @@ from playwright.sync_api import Page
 class LoginPage:
     def __init__(self, page: Page):
         self.page = page
-        self.username_field = self.page.locator("#username")
-        self.password_field = self.page.locator("#password")
-        self.login_button = self.page.get_by_role("button", name="Login")
+        self.username_field = self.page.get_by_label(re.compile("Username", re.IGNORECASE))
+        self.password_field = self.page.get_by_label(re.compile("Password", re.IGNORECASE))
+        self.login_button = self.page.get_by_role("button", name=re.compile("Login", re.IGNORECASE))
 
-    def go_to_login_page(self):
-        self.page.goto("https://the-internet.herokuapp.com/login")
-
-    def login(self, username, password):
+    def enter_username(self, username):
         self.username_field.fill(username)
+
+    def enter_password(self, password):
         self.password_field.fill(password)
+
+    def click_login(self):
+        self.page.wait_for_load_state()
         self.login_button.click()
 
+    def wait_for_stability(self):
+        self.page.wait_for_load_state()
 
-from playwright.sync_api import sync_playwright, Browser
+from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
     login_page = LoginPage(page)
-    login_page.go_to_login_page()
-    login_page.login("tomsmith", "SuperSecretPassword!")
-    page.wait_for_url("**/secure", timeout=60000)
-    # take_screenshot(page, "login_success", "the-internet") # Removed as per instructions
+    page.goto("https://the-internet.herokuapp.com/login")
+    login_page.enter_username("tomsmith")
+    login_page.enter_password("SuperSecretPassword!")
+    login_page.click_login()
+    page.wait_for_url("**/secure*", timeout=60000)
+    login_page.wait_for_stability()
+    expect(page.get_by_text(re.compile("You logged into a secure area!", re.IGNORECASE))).to_be_visible()
     page.close()
