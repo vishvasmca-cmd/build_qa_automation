@@ -78,3 +78,43 @@
 - ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately available after a page transition. NEVER click it without explicitly waiting for it to be visible and enabled.
 
 - ✅ PREFERRED: DO use explicit waits with error handling to ensure the 'Add to cart' button is both visible and enabled before attempting to click it. ALWAYS check for overlay elements that might be blocking the button.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately clickable after page load. It might be covered by an overlay or require some elements to load first.
+
+- ✅ PREFERRED: DO implement explicit waits or use Playwright's auto-waiting features to ensure the 'Add to cart' button is visible and enabled before attempting to click it.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately clickable after page load. It might be covered by a loading overlay or require some JavaScript to execute.
+
+- ✅ PREFERRED: DO implement explicit waits or retries when interacting with the 'Add to cart' button to ensure it's visible and enabled before attempting to click it.
+
+- ⚠️ PROHIBITED: DON'T rely on default Playwright timeouts for critical UI elements; ALWAYS explicitly wait for expected states (e.g., visibility, enabled) before interacting.
+
+- ✅ PREFERRED: DO implement explicit waits with reasonable timeouts and error handling to ensure elements are ready for interaction before attempting to click or otherwise interact with them.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately available after page load; always implement a waiting mechanism.
+
+- ✅ PREFERRED: DO use explicit waits with `locator.wait_for()` or `locator.is_visible()` before attempting to interact with dynamic elements like the 'Add to cart' button.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately clickable after a page load or product selection. Always implement a check for its visibility and/or enabled state before attempting to click.
+
+- ✅ PREFERRED: DO implement explicit waits with error handling for critical elements like the 'Add to cart' button, especially after actions that might cause a delay in their appearance or availability. Consider using `locator.wait_for()` with specific state options (e.g., `visible`, `enabled`).
+
+- ⚠️ PROHIBITED: DON'T rely on the 'Add to cart' button being immediately available after a page load or product selection. There might be loading delays or animations that prevent interaction.
+
+- ✅ PREFERRED: DO implement explicit waits or assertions to ensure the 'Add to cart' button is visible and enabled before attempting to click it. Consider using `locator.wait_for()` with `state='visible'` and `state='enabled'`.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately clickable after page load. Account for potential delays due to animations, overlays, or dynamic content loading.
+
+- ✅ PREFERRED: DO implement explicit waits or retry mechanisms when interacting with elements like 'Add to cart' buttons, especially after page transitions or dynamic content updates. Consider using `locator.wait_for()` with a `state='visible'` or `state='enabled'` option.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately available after a page load or product selection. NEVER click it without explicitly waiting for its visibility and stability.
+
+- ✅ PREFERRED: DO implement explicit waits with error handling for the 'Add to cart' button to ensure it is visible and interactable before attempting to click. ALWAYS use `locator.wait_for()` with `state='visible'` and `timeout` parameter before clicking.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately clickable after page load. ALWAYS implement a retry mechanism or explicit wait condition.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` or `state='enabled'` before attempting to click the 'Add to cart' button to ensure it's ready for interaction.
+
+- ⚠️ PROHIBITED: DON'T rely solely on role-based locators like `get_by_role` for critical elements like 'Add to cart' without additional specificity or checks for visibility and stability.
+
+- ✅ PREFERRED: DO implement explicit waits and visibility checks before interacting with elements, especially those that might be dynamically loaded or subject to UI animations. Consider using `locator.wait_for()` with `state='visible'` before clicking.

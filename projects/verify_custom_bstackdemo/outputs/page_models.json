@@ -1,68 +1,12 @@
 {
   "HomePage": {
-    "description": "The home page of the BrowserStack demo website, showcasing available products and allowing users to add them to the cart.",
+    "description": "The home page of the BrowserStack demo application, showcasing available products.",
     "url_pattern": "https://bstackdemo.com/",
     "elements": [
       {
-        "name": "Apple Filter",
-        "type": "button",
-        "primary_locator": "data-testid=Apple",
-        "backup_locator": "text=Apple",
-        "description": "Filter products by Apple vendor."
-      },
-      {
-        "name": "Samsung Filter",
-        "type": "button",
-        "primary_locator": "data-testid=Samsung",
-        "backup_locator": "text=Samsung",
-        "description": "Filter products by Samsung vendor."
-      },
-      {
-        "name": "Google Filter",
-        "type": "button",
-        "primary_locator": "data-testid=Google",
-        "backup_locator": "text=Google",
-        "description": "Filter products by Google vendor."
-      },
-      {
-        "name": "OnePlus Filter",
-        "type": "button",
-        "primary_locator": "data-testid=OnePlus",
-        "backup_locator": "text=OnePlus",
-        "description": "Filter products by OnePlus vendor."
-      },
-      {
-        "name": "Add to cart button for iPhone 12",
-        "type": "button",
-        "primary_locator": "data-testid=Add to cart",
-        "backup_locator": "//div[contains(text(),'iPhone 12')]/following-sibling::button",
-        "description": "Button to add the iPhone 12 to the shopping cart."
-      },
-      {
-        "name": "Add to cart button for iPhone 12 Mini",
-        "type": "button",
-        "primary_locator": "data-testid=Add to cart",
-        "backup_locator": "//div[contains(text(),'iPhone 12 Mini')]/following-sibling::button",
-        "description": "Button to add the iPhone 12 Mini to the shopping cart."
-      },
-      {
-        "name": "Bag Icon",
-        "type": "button",
-        "primary_locator": "data-testid=Bag",
-        "backup_locator": "css=svg[aria-label='Bag']",
-        "description": "Icon to open the shopping cart."
-      },
-      {
-        "name": "Checkout Button",
-        "type": "button",
-        "primary_locator": "data-testid=Checkout",
-        "backup_locator": "text=CHECKOUT",
-        "description": "Button to navigate to the checkout page."
-      },
-      {
         "name": "Search Input",
         "type": "input",
-        "primary_locator": "id=search",
+        "primary_locator": "role=searchbox",
         "backup_locator": "css=input[type='text']",
         "description": "Input field for searching products."
       },
@@ -70,55 +14,78 @@
         "name": "Search Button",
         "type": "button",
         "primary_locator": "text=Search",
-        "backup_locator": "css=button[aria-label='Search']",
-        "description": "Button to initiate the search."
+        "backup_locator": "css=#search > span",
+        "description": "Button to trigger the search."
       },
       {
         "name": "Sign In Link",
         "type": "link",
         "primary_locator": "text=Sign In",
-        "backup_locator": "css=a[href='/signin']",
-        "description": "Link to navigate to the sign-in page."
+        "backup_locator": "css=#signin",
+        "description": "Link to the sign-in page."
+      },
+      {
+        "name": "Apple Filter",
+        "type": "button",
+        "primary_locator": "text=Apple",
+        "backup_locator": "css=#apple",
+        "description": "Filter button to show Apple products."
+      },
+      {
+        "name": "Samsung Filter",
+        "type": "button",
+        "primary_locator": "text=Samsung",
+        "backup_locator": "css=#samsung",
+        "description": "Filter button to show Samsung products."
+      },
+      {
+        "name": "Google Filter",
+        "type": "button",
+        "primary_locator": "text=Google",
+        "backup_locator": "css=#google",
+        "description": "Filter button to show Google products."
+      },
+      {
+        "name": "OnePlus Filter",
+        "type": "button",
+        "primary_locator": "text=OnePlus",
+        "backup_locator": "css=#oneplus",
+        "description": "Filter button to show OnePlus products."
+      },
+      {
+        "name": "Add to cart button for iPhone 12",
+        "type": "button",
+        "primary_locator": "text=Add to cart",
+        "backup_locator": "css=div:nth-child(1) > div > div.shelf-item__buy-btn > div",
+        "description": "Button to add the iPhone 12 to the cart."
+      },
+      {
+        "name": "Add to cart button for iPhone 12 Mini",
+        "type": "button",
+        "primary_locator": "text=Add to cart",
+        "backup_locator": "css=div:nth-child(2) > div > div.shelf-item__buy-btn > div",
+        "description": "Button to add the iPhone 12 Mini to the cart."
+      },
+      {
+        "name": "Bag Icon",
+        "type": "button",
+        "primary_locator": "text=Bag",
+        "backup_locator": "css=#__next > div > div > div.MuiBox-root.css-10ifv83 > div.MuiBox-root.css-k008qs > div.float-cart__content > div.float-cart__header > span",
+        "description": "Button to open the shopping cart."
+      },
+      {
+        "name": "Checkout Button",
+        "type": "button",
+        "primary_locator": "text=CHECKOUT",
+        "backup_locator": "css=#__next > div > div > div.MuiBox-root.css-10ifv83 > div.MuiBox-root.css-k008qs > div.float-cart__content > div.float-cart__footer > button",
+        "description": "Button to proceed to checkout."
       }
     ],
     "assertions": [
       "Page title contains 'BrowserStack Demo'",
-      "Page contains the text 'Shop smarter with our mobile e-commerce platform!'",
+      "Page contains the header 'Shop smarter with our mobile e-commerce platform!'",
       "At least one product is displayed on the page",
       "The 'Bag' icon is visible"
-    ]
-  },
-  "StackdemoPage": {
-    "description": "This page is the sign-in page for the BrowserStack demo application. It allows users to select a username and password from dropdown menus and log in.",
-    "url_pattern": "https://bstackdemo.com/signin?checkout=true",
-    "elements": [
-      {
-        "name": "Username Dropdown",
-        "type": "dropdown",
-        "primary_locator": "id=username",
-        "backup_locator": "css=select[name='username']",
-        "description": "Dropdown menu to select a username."
-      },
-      {
-        "name": "Password Dropdown",
-        "type": "dropdown",
-        "primary_locator": "id=password",
-        "backup_locator": "css=select[name='password']",
-        "description": "Dropdown menu to select a password."
-      },
-      {
-        "name": "Log In Button",
-        "type": "button",
-        "primary_locator": "id=login-btn",
-        "backup_locator": "css=#login-btn",
-        "description": "Button to submit the login form."
-      }
-    ],
-    "assertions": [
-      "Page title contains 'BrowserStack Demo'",
-      "The 'Select Username' dropdown is present",
-      "The 'Select Password' dropdown is present",
-      "The 'Log In' button is present"
     ]
   },
   "BrowserstackDemoLoginPage": {

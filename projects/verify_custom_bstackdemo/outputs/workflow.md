@@ -6,5 +6,4 @@
 
 ## Journey Highlight
 - Visited **HomePage**
-- Visited **StackdemoPage**
 - Visited **BrowserstackDemoLoginPage**
