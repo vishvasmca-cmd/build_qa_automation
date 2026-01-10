@@ -2,54 +2,44 @@ from playwright.async_api import Page, expect
 
 class HomePage:
     """
-    This is the inventory page of the Swag Labs demo application, displaying a list of available products.
+    This is the home page of the Swag Labs e-commerce website, displaying a list of available products.
     URL Pattern: https://www.saucedemo.com/
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def Product Sort Dropdown(self):
-        """Dropdown to sort the products by different criteria (e.g., name, price)."""
-        return self.page.[data-test='product_sort_container'].or_(self.page.css=.product_sort_container)
+    def Product Name(self):
+        """The name of the product."""
+        return self.page.//div[@class='inventory_item_label']/a/div[@class='inventory_item_name'].or_(self.page..inventory_item_name)
 
     @property
-    def Add to cart button for Sauce Labs Backpack(self):
-        """Button to add the Sauce Labs Backpack to the shopping cart."""
-        return self.page.[data-test='add-to-cart-sauce-labs-backpack'].or_(self.page.text='Add to cart')
+    def Product Description(self):
+        """The description of the product."""
+        return self.page.//div[@class='inventory_item_label']/div[@class='inventory_item_desc'].or_(self.page..inventory_item_desc)
 
     @property
-    def Add to cart button for Sauce Labs Bike Light(self):
-        """Button to add the Sauce Labs Bike Light to the shopping cart."""
-        return self.page.[data-test='add-to-cart-sauce-labs-bike-light'].or_(self.page.text='Add to cart')
+    def Product Price(self):
+        """The price of the product."""
+        return self.page.//div[@class='inventory_item_label']/div[@class='inventory_item_price'].or_(self.page..inventory_item_price)
 
     @property
-    def Add to cart button for Sauce Labs Bolt T-Shirt(self):
-        """Button to add the Sauce Labs Bolt T-Shirt to the shopping cart."""
-        return self.page.[data-test='add-to-cart-sauce-labs-bolt-t-shirt'].or_(self.page.text='Add to cart')
-
-    @property
-    def Add to cart button for Sauce Labs Fleece Jacket(self):
-        """Button to add the Sauce Labs Fleece Jacket to the shopping cart."""
-        return self.page.[data-test='add-to-cart-sauce-labs-fleece-jacket'].or_(self.page.text='Add to cart')
-
-    @property
-    def Add to cart button for Sauce Labs Onesie(self):
-        """Button to add the Sauce Labs Onesie to the shopping cart."""
-        return self.page.[data-test='add-to-cart-sauce-labs-onesie'].or_(self.page.text='Add to cart')
-
-    @property
-    def Add to cart button for Test.allTheThings() T-Shirt (Red)(self):
-        """Button to add the Test.allTheThings() T-Shirt (Red) to the shopping cart."""
-        return self.page.[data-test='add-to-cart-test.allthethings()-t-shirt-(red)'].or_(self.page.text='Add to cart')
+    def Add to Cart Button(self):
+        """Button to add the product to the shopping cart."""
+        return self.page.//button[contains(text(),'Add to cart')].or_(self.page.button:contains('Add to cart'))
 
     @property
     def Shopping Cart Icon(self):
-        """Link to navigate to the shopping cart page."""
-        return self.page.css=.shopping_cart_link.or_(self.page.role=img[alt='Open Menu'])
+        """Link to the shopping cart page."""
+        return self.page.[data-icon='shopping-cart'].or_(self.page..shopping_cart_link)
+
+    @property
+    def Product Sort Container(self):
+        """Dropdown to sort the products."""
+        return self.page.[data-test='product_sort_container'].or_(self.page..product_sort_container)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await Page title is 'Swag Labs'
-        await Product sort dropdown is displayed
-        await At least one product item is displayed
+        await At least one product is displayed
+        await The 'Add to cart' button is visible for each product
