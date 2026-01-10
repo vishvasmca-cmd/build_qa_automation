@@ -1,5 +1,6 @@
 import os
 import sys
+print("DEBUG: batch_runner.py starting main execution...", flush=True)
 import argparse
 import subprocess
 import time
