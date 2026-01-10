@@ -5,14 +5,14 @@
     "elements": [
       {
         "name": "Username Input",
-        "type": "input",
+        "type": "text field",
         "primary_locator": "id=username",
         "backup_locator": "css=input[name='username']",
         "description": "Input field for the username."
       },
       {
         "name": "Password Input",
-        "type": "input",
+        "type": "text field",
         "primary_locator": "id=password",
         "backup_locator": "css=input[name='password']",
         "description": "Input field for the password."
@@ -34,34 +34,34 @@
     ]
   },
   "LoginPagePage": {
-    "description": "This is the login page for the-internet.herokuapp.com/secure. It allows users to enter their username and password to access the secure area.",
+    "description": "This is the login page for the-internet.herokuapp.com/secure. It allows users to enter their username and password to log in.",
     "url_pattern": "https://the-internet.herokuapp.com/secure",
     "elements": [
       {
         "name": "Username Input",
-        "type": "text field",
-        "primary_locator": "id=username",
-        "backup_locator": "css=input[name='username']",
+        "type": "input",
+        "primary_locator": "//label[text()='Username']/following-sibling::input",
+        "backup_locator": "input[id='username']",
         "description": "Input field for the username."
       },
       {
         "name": "Password Input",
-        "type": "text field",
-        "primary_locator": "id=password",
-        "backup_locator": "css=input[name='password']",
+        "type": "input",
+        "primary_locator": "//label[text()='Password']/following-sibling::input",
+        "backup_locator": "input[id='password']",
         "description": "Input field for the password."
       },
       {
         "name": "Login Button",
         "type": "button",
-        "primary_locator": "css=button[type='submit']",
-        "backup_locator": "xpath=//button[@class='radius']",
+        "primary_locator": "button[type='submit']",
+        "backup_locator": "button[class='radius']",
         "description": "Button to submit the login form."
       }
     ],
     "assertions": [
-      "Page title is 'The Internet'",
-      "Page heading is 'Login Page'",
+      "Page contains the title 'The Internet'",
+      "Page contains the header 'Login Page'",
       "Username input field is present",
       "Password input field is present",
       "Login button is present"
