@@ -78,3 +78,43 @@
 - ⚠️ PROHIBITED: DON'T assume that the module paths are correct without verifying the project's directory structure and import statements.
 
 - ✅ PREFERRED: DO double-check the project's directory structure and import paths to ensure that all modules are accessible before running the tests.
+
+- ⚠️ PROHIBITED: DON'T assume that all required modules are available in the execution environment; ALWAYS verify dependencies and import paths.
+
+- ✅ PREFERRED: DO ensure that all necessary modules and dependencies are installed and that import paths are correctly configured before running tests.
+
+- ⚠️ PROHIBITED: DON'T assume that all required modules are available in the PYTHONPATH; ALWAYS verify module availability before running tests.
+
+- ✅ PREFERRED: DO ensure that all necessary modules, like 'base_page', are correctly placed within the project structure and that the PYTHONPATH is configured to include the module's location.
+
+- ⚠️ PROHIBITED: DON'T assume that all required modules are available in the PYTHONPATH; ALWAYS verify module availability before running tests.
+
+- ✅ PREFERRED: DO ensure that all necessary modules, like 'base_page', are correctly placed within the project structure and that the PYTHONPATH is configured to include the project's root directory.
+
+- ⚠️ PROHIBITED: DON'T assume that all required modules are available in the PYTHONPATH; ALWAYS verify module availability before running tests.
+
+- ✅ PREFERRED: DO ensure that all necessary modules, like 'base_page', are correctly placed within the project structure and that the PYTHONPATH is configured to include the module's location.
+
+- ⚠️ PROHIBITED: DON'T assume that all required modules are available in the PYTHONPATH; ALWAYS verify the import paths and module availability before running tests.
+
+- ✅ PREFERRED: DO ensure that all necessary modules, like 'base_page', are correctly placed within the project structure and that the PYTHONPATH is configured to include the relevant directories.
+
+- ⚠️ PROHIBITED: DON'T assume that all dependencies are available in the execution environment without explicitly verifying their presence and correct path configuration.
+
+- ✅ PREFERRED: DO ensure that all required modules and dependencies are installed and accessible in the Python environment before running the tests. Verify the PYTHONPATH and relative/absolute import paths.
+
+- ⚠️ PROHIBITED: DON'T assume that all dependencies are automatically available; ALWAYS verify the Python environment and project structure before running tests.
+
+- ✅ PREFERRED: DO ensure that all required modules are installed and that the Python environment is correctly configured with the appropriate PYTHONPATH or virtual environment settings.
+
+- ⚠️ PROHIBITED: DON'T assume that all required modules are available in the execution environment; ALWAYS verify dependencies and import paths.
+
+- ✅ PREFERRED: DO ensure that all necessary modules are installed and that the PYTHONPATH is correctly configured before running tests.
+
+- ⚠️ PROHIBITED: DON'T assume that all dependencies are available in the test environment; ALWAYS verify the presence and correct path of all required modules before running tests.
+
+- ✅ PREFERRED: DO use a robust dependency management system (e.g., `pip install -r requirements.txt`) to ensure all required modules are installed before running tests. DO also use absolute imports or configure PYTHONPATH to avoid relative path issues.
+
+- ⚠️ PROHIBITED: DON'T assume that all required modules are accessible without explicitly verifying the Python import path configuration.
+
+- ✅ PREFERRED: DO ensure that all dependent modules are correctly placed within the project structure and that the Python import path is configured to include the location of these modules.
