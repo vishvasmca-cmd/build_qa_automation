@@ -1,7 +1,14 @@
 # Auto-generated Test
 import pytest
+import os
 import re
+import random
 from playwright.sync_api import Page, Browser, expect
+
+# Import pre-tested helpers
+import sys
+sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/lib/templates')
+from helpers import take_screenshot
 
 
 class BasePage:
@@ -30,20 +37,20 @@ class LoginPage(BasePage):
         self.username_field.fill(username)
         self.password_field.fill(password)
         self.login_button.click()
-        self.page.wait_for_url("**/secure")
+
+
+class SecurePage(BasePage):
+    def __init__(self, page: Page):
+        super().__init__(page)
 
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
     login_page = LoginPage(page)
 
-    # Navigate to the login page
     login_page.navigate_to_login_page()
-
-    # Log in with the specified username and password
     login_page.login("tomsmith", "SuperSecretPassword!")
 
-    # Assertion to check for successful login
-    expect(page.locator("#content > div > a")).to_be_visible()
-
-    page.close()
+    page.wait_for_url("**/secure")
+    expect(page.locator("#flash")).to_be_visible()
+    take_screenshot(page, "login_success", "the-internet")

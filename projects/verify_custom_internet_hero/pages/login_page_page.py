@@ -2,7 +2,7 @@ from playwright.async_api import Page, expect
 
 class LoginPagePage:
     """
-    This is the login page for the-internet.herokuapp.com/secure. It allows users to enter their username and password to access the secure area.
+    This is the login page for the-internet.herokuapp.com/secure. It allows users to enter their username and password to log in.
     URL Pattern: https://the-internet.herokuapp.com/secure
     """
     def __init__(self, page: Page):
@@ -11,22 +11,22 @@ class LoginPagePage:
     @property
     def Username Input(self):
         """Input field for the username."""
-        return self.page.id=username.or_(self.page.css=input[name='username'])
+        return self.page.//label[text()='Username']/following-sibling::input.or_(self.page.input[id='username'])
 
     @property
     def Password Input(self):
         """Input field for the password."""
-        return self.page.id=password.or_(self.page.css=input[name='password'])
+        return self.page.//label[text()='Password']/following-sibling::input.or_(self.page.input[id='password'])
 
     @property
     def Login Button(self):
         """Button to submit the login form."""
-        return self.page.css=button[type='submit'].or_(self.page.css=#login button)
+        return self.page.button[type='submit'].or_(self.page.button[class='radius'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Page title is 'The Internet'
-        await Page heading is 'Login Page'
+        await Page contains the title 'The Internet'
+        await Page contains the header 'Login Page'
         await Username input field is present
         await Password input field is present
         await Login button is present
