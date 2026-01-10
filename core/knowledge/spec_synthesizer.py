@@ -215,7 +215,14 @@ Output a professional, executive-level Markdown report suitable for stakeholders
         try:
             # Inject Strategy Context into Planner Prompt
             # Retrieve RAG Knowledge
-            url = trace_data[0].get('url', '') if trace_data else ""
+            url = ""
+            if isinstance(trace_data, dict) and "trace" in trace_data:
+                trace_list = trace_data["trace"]
+                if trace_list and len(trace_list) > 0:
+                    url = trace_list[0].get("url", "")
+            elif isinstance(trace_data, list) and len(trace_data) > 0:
+                url = trace_data[0].get("url", "")
+            
             rag_nodes = self.rag_retriever.retrieve(url=url, domain=self.domain)
             rag_knowledge = self.rag_retriever.format_for_prompt(rag_nodes)
             
@@ -231,6 +238,8 @@ Output a professional, executive-level Markdown report suitable for stakeholders
             # Clean and parse JSON
             return try_parse_json(resp.content)
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             print(f"❌ Error during LLM synthesis: {e}")
             return None
 
