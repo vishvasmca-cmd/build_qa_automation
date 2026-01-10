@@ -4,123 +4,86 @@
 **Date:** October 26, 2023
 **Prepared By:** Senior Test Manager
 
-This document outlines the master test strategy for the Rahul Shetty Academy Automation Practice website (https://rahulshettyacademy.com/AutomationPractice/). It serves as a blueprint for all testing activities, ensuring comprehensive coverage and high-quality delivery.
+This document outlines the master test strategy for the Rahul Shetty Academy Automation Practice website (https://rahulshettyacademy.com/AutomationPractice/). It serves as a blueprint for the entire engineering team, guiding testing efforts and ensuring comprehensive coverage.
 
-## 1. 🔍 RISK ASSESSMENT & PLANNING
+### 1. 🔍 RISK ASSESSMENT & PLANNING
 
-### 1.1 Domain Analysis
+*   **Domain Analysis:** The application is a general web application providing a platform for practicing automation skills. While not directly tied to revenue generation, defects can impact user experience and learning.
+*   **Risk Profile:**
+    *   **Low:** Financial loss is minimal.
+    *   **Medium:** Data breach risk is low, assuming no sensitive user data is collected.
+    *   **Medium:** Loss of user trust due to broken functionality can impact the platform's reputation.
+*   **Testing Scope:**
+    *   **In Scope:**
+        *   All functionalities available on the website, including form submissions, UI interactions, alert handling, table data validation, and iframe interactions.
+        *   Cross-browser compatibility (Chrome, Firefox, Edge).
+        *   Responsiveness across different screen sizes (desktop, tablet, mobile).
+        *   Accessibility (basic checks).
+    *   **Out of Scope:**
+        *   Performance testing (load, stress, endurance).
+        *   Advanced security testing (penetration testing).
+        *   Database testing (direct database queries).
 
-The application under test is a general web application providing a platform for practicing automation skills. While not a critical business application in terms of direct revenue generation, its reliability is crucial for user learning and engagement. Failure to function correctly can lead to a negative user experience and hinder the learning process.
+### 2. 🏗️ TESTING STRATEGY (The "How")
 
-### 1.2 Risk Profile
+*   **Smoke Suite (Sanity):**
+    *   **Purpose:** Verify the basic health of the application after deployment.
+    *   **Test Cases:**
+        1.  Verify the main page loads successfully (HTTP 200).
+        2.  Verify the presence of key UI elements (e.g., header, footer, input fields).
+        3.  Verify the "Practice" section loads without errors.
+*   **Regression Suite (Deep Dive):**
+    *   **Purpose:** Ensure that new changes haven't introduced regressions and that existing functionality remains intact.
+    *   **Focus Areas:**
+        *   **Negative Testing:**
+            *   Invalid input in form fields (e.g., special characters in name, invalid email format).
+            *   Submitting forms with missing required fields.
+            *   Attempting actions without proper authorization (if applicable).
+        *   **Edge Cases:**
+            *   Handling of long text strings in input fields.
+            *   Testing with different character encodings.
+            *   Simulating network latency or failures during form submissions.
+            *   Testing with JavaScript disabled.
+        *   **Security:**
+            *   Basic input validation to prevent XSS attacks (e.g., try injecting `<script>` tags into input fields).
+            *   Check for SQL injection vulnerabilities (if the application interacts with a database).
+        *   **Specific Test Cases (Based on User Goal: "Type in country, select valid option, and alert handle"):**
+            1.  **Valid Country Selection:** Type a valid country (e.g., "India"), select it from the dropdown, and verify that the alert message contains the selected country.
+            2.  **Invalid Country Input:** Type an invalid country (e.g., "XYZ"), verify that no suggestions appear, and attempt to submit the form. Verify appropriate error handling (e.g., no alert appears, or an error message is displayed).
+            3.  **Partial Country Input:** Type a partial country name (e.g., "Ind"), select a suggestion, and verify the alert message.
+            4.  **Empty Country Input:** Leave the country field empty and attempt to submit the form. Verify appropriate error handling.
+            5.  **Alert Handling - Accept:** Verify that clicking "OK" on the alert dismisses it and allows further interaction with the page.
+            6.  **Alert Handling - Dismiss (if applicable):** If the alert has a "Cancel" button, verify that clicking it dismisses the alert.
+        *   **Data Strategy:**
+            *   **Static Data:** Use a combination of static and dynamic test data.
+            *   **Dynamic Generation:** For fields like names and email addresses, consider using dynamic data generation libraries (e.g., Faker) to create realistic and unique test data.
+            *   **Data Storage:** Store test data in a structured format (e.g., CSV, JSON) for easy maintenance and reuse.
 
-*   **Financial Loss:** Minimal direct financial loss.
-*   **Reputational Damage:** Potential for negative reviews and loss of user trust if the application is unreliable or buggy.
-*   **Data Breach:** Low risk, but basic security checks are still necessary to prevent vulnerabilities.
-*   **User Frustration:** High risk if core functionalities are broken, leading to user frustration and abandonment.
+### 3. 🏛️ ARCHITECTURE GUIDANCE (For the Test Architect)
 
-### 1.3 Testing Scope
+*   **Framework Recommendation:**
+    *   **Page Object Model (POM):** Implement a Page Object Model to represent each page of the application as a class. This promotes code reusability, maintainability, and readability.
+    *   **Language:** Choose a suitable programming language (e.g., Java, Python, JavaScript) based on team expertise and project requirements.
+    *   **Testing Framework:** Select a robust testing framework (e.g., Selenium WebDriver, Cypress, Playwright) that provides the necessary tools for browser automation, assertion handling, and reporting.
+*   **Resilience Strategy:**
+    *   **Polling Assertions:** Use polling assertions (e.g., WebDriverWait in Selenium) to wait for elements to become visible or interactable, reducing flakiness due to timing issues.
+    *   **Retry Mechanisms:** Implement retry mechanisms for flaky tests, allowing them to be re-executed a certain number of times before failing.
+    *   **Self-Healing:** Explore self-healing techniques (e.g., using AI-powered element locators) to automatically adapt to UI changes and reduce test maintenance effort.
+    *   **Explicit Waits:** Use explicit waits instead of implicit waits to ensure that elements are fully loaded before interacting with them.
 
-**In Scope:**
+### 4. ⚔️ EXECUTION & MINING INSTRUCTIONS (For the Senior QA)
 
-*   All functionalities available on the website, including:
-    *   Input fields and associated validations.
-    *   Dropdown menus and selection options.
-    *   Alert handling.
-    *   Table interactions.
-    *   Radio button and checkbox functionalities.
-    *   Iframe handling.
-    *   Window handling.
-    *   Basic UI elements and their responsiveness.
-*   Cross-browser compatibility (Chrome, Firefox, Edge).
-*   Basic security checks (OWASP Top 10).
-*   Performance testing (page load times).
-*   Accessibility testing (basic checks).
+*   **Mining Targets:**
+    1.  **Homepage:** Verify the basic layout and functionality of the homepage.
+    2.  **Practice Section:** Focus on the "Practice" section, including the input fields, dropdowns, checkboxes, radio buttons, and alert handling.
+    3.  **Table Example:** Explore the table data and verify that it is displayed correctly.
+    4.  **Iframe Example:** Test the interaction with the iframe.
+*   **Verification Criteria:**
+    *   **HTTP Status Codes:** Verify that all requests return the expected HTTP status codes (e.g., 200 OK for successful requests).
+    *   **UI Element Visibility:** Ensure that all UI elements are displayed correctly and are interactable.
+    *   **Data Validation:** Verify that data is displayed correctly and that form submissions are processed as expected.
+    *   **Alert Handling:** Verify that alerts are displayed correctly and that the correct actions are performed when the user interacts with them.
+    *   **Error Messages:** Verify that appropriate error messages are displayed when invalid input is provided.
+    *   **Console Logs:** Check the browser console for any JavaScript errors or warnings.
 
-**Out of Scope:**
-
-*   In-depth performance testing (load, stress, endurance).
-*   Advanced security penetration testing.
-*   Mobile device testing (unless explicitly requested).
-*   API testing (unless APIs are directly exposed and critical).
-*   Detailed accessibility compliance (WCAG).
-
-## 2. 🏗️ TESTING STRATEGY (The "How")
-
-### 2.1 Smoke Suite (Sanity)
-
-The smoke suite will verify the core functionality of the website.
-
-*   **Test Cases:**
-    1.  Verify the website homepage loads successfully (HTTP 200).
-    2.  Verify the "Practice" page loads successfully.
-    3.  Verify the input field for country allows text input.
-    4.  Verify the dropdown list appears after typing in the input field.
-
-### 2.2 Regression Suite (Deep Dive)
-
-The regression suite will provide comprehensive coverage of all functionalities.
-
-*   **Negative Testing:**
-    *   Invalid input in the country field (e.g., special characters, numbers).
-    *   Attempting to select an option from the dropdown without typing anything.
-    *   Submitting forms with missing required fields.
-    *   Entering excessively long text in input fields.
-*   **Edge Cases:**
-    *   Rapidly typing and deleting text in the country field.
-    *   Simultaneous user interactions (if applicable).
-    *   Network latency and simulated connection drops.
-    *   Testing with different browser settings (e.g., disabled JavaScript).
-*   **Security:**
-    *   Basic input sanitization checks to prevent XSS attacks in the country field.
-    *   SQL injection prevention (if the application interacts with a database).
-*   **Specific Test Cases based on User Goal ("Type in country, select valid option, and alert handle"):**
-    1.  Type a valid country name (e.g., "United States") and select the correct option from the dropdown. Verify no errors occur.
-    2.  Type a valid country name, select the correct option, and trigger an alert (if applicable on the page). Verify the alert is displayed correctly and can be handled.
-    3.  Type a partial country name (e.g., "United") and select an option. Verify the selection is handled correctly.
-    4.  Type an invalid country name and verify no options are displayed in the dropdown.
-    5.  Type a valid country name, select an option, and then clear the input field. Verify the selection is cleared.
-    6.  Verify the alert message is correct and informative.
-*   **Data Strategy:**
-    *   **Static Data:** Use a predefined set of valid and invalid country names.
-    *   **Dynamic Data:** Consider using a data provider to generate variations of input data for more comprehensive testing.
-
-## 3. 🏛️ ARCHITECTURE GUIDANCE (For the Test Architect)
-
-### 3.1 Framework Recommendation
-
-*   **Page Object Model (POM):** Implement a POM structure to improve test maintainability and reduce code duplication. Each page on the website should have a corresponding Page Object class that encapsulates the elements and actions specific to that page.
-
-### 3.2 Resilience Strategy
-
-*   **Polling Assertions:** Use polling assertions to handle asynchronous operations and dynamic content updates. This will prevent false failures due to timing issues.
-*   **Explicit Waits:** Implement explicit waits to ensure that elements are fully loaded and interactable before attempting to interact with them.
-*   **Self-Healing:** Explore self-healing techniques to automatically recover from minor changes in the UI. This can involve using relative locators or AI-powered element identification.
-*   **Retry Mechanism:** Implement a retry mechanism for flaky tests. This will allow tests to automatically retry a few times before failing, reducing the impact of transient issues.
-
-## 4. ⚔️ EXECUTION & MINING INSTRUCTIONS (For the Senior QA)
-
-### 4.1 Mining Targets
-
-The autonomous agent should prioritize exploring the following pages and flows:
-
-1.  **Homepage:** Verify basic elements and navigation.
-2.  **Practice Page:** Focus on the input field for country, dropdown list, and alert handling.
-3.  **All other interactive elements:** Radio buttons, checkboxes, tables, iframes, and window handling.
-
-### 4.2 Verification Criteria
-
-*   **Success:**
-    *   HTTP 200 status code for all page requests.
-    *   Expected text and elements are visible on the page.
-    *   Form submissions are successful and redirect to the expected page.
-    *   Alerts are displayed correctly with the expected messages.
-    *   No JavaScript errors are present in the browser console.
-*   **Failure:**
-    *   HTTP errors (4xx, 5xx).
-    *   Unexpected exceptions or errors.
-    *   Incorrect data displayed on the page.
-    *   Broken links or images.
-    *   Security vulnerabilities detected.
-
-This Master Test Strategy provides a comprehensive framework for testing the Rahul Shetty Academy Automation Practice website. By following these guidelines, the engineering team can ensure the delivery of a high-quality, reliable, and user-friendly application.
+This Master Test Strategy provides a comprehensive framework for testing the Rahul Shetty Academy Automation Practice website. By following these guidelines, the engineering team can ensure that the application is thoroughly tested and meets the required quality standards.

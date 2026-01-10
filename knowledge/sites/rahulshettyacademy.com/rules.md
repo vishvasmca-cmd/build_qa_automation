@@ -86,3 +86,39 @@
 - ⚠️ PROHIBITED: DON'T use relative imports within test files unless the test suite is explicitly structured as a package and executed from the package root.
 
 - ✅ PREFERRED: DO ensure that test files either use absolute imports or that the test execution environment correctly sets up the package context for relative imports to resolve correctly.
+
+- ⚠️ PROHIBITED: DON'T rely solely on text-based locators for dynamic content; they are prone to changes and can lead to timeouts.
+
+- ✅ PREFERRED: DO prioritize using more robust locators like ID, data attributes, or ARIA labels whenever available. If text is the only option, ensure the element is visible and interactable before attempting to click.
+
+- ⚠️ PROHIBITED: DON'T assume that the directory structure is correct without verifying the existence of all necessary files and `__init__.py` files in each directory.
+
+- ✅ PREFERRED: DO double-check the file paths in import statements and ensure that all necessary modules and packages are installed and accessible in the Python environment.
+
+- ⚠️ PROHIBITED: DON'T assume that relative imports will work without verifying the project's root directory is correctly set for pytest.
+
+- ✅ PREFERRED: DO ensure that all module import paths are correct and that the project's root directory is correctly configured for pytest to resolve imports.
+
+- ⚠️ PROHIBITED: DON'T assume that relative imports will work without verifying the correct project structure and PYTHONPATH.
+
+- ✅ PREFERRED: DO ensure that all module import paths are correct and that the necessary modules are installed and accessible in the Python environment.
+
+- ⚠️ PROHIBITED: DON'T assume that the module paths are correct without verifying the file structure and import statements.
+
+- ✅ PREFERRED: DO double-check the project's directory structure and ensure that all import statements correctly reflect the location of the modules.
+
+- ⚠️ PROHIBITED: DON'T assume that relative imports will work without verifying the correct project structure and PYTHONPATH configuration.
+
+- ✅ PREFERRED: DO ensure that all module import paths are correct and that the project's directory structure is set up to support those paths. Verify PYTHONPATH if necessary.
+
+- ⚠️ PROHIBITED: DON'T assume that relative imports will always work correctly in all execution environments; ALWAYS verify the import paths.
+
+- ✅ PREFERRED: DO use absolute imports or explicitly define the PYTHONPATH to ensure modules can be located correctly, especially in CI/CD environments.
+
+- ⚠️ PROHIBITED: DON'T assume that relative imports will work without verifying the correct project structure and PYTHONPATH.
+
+- ✅ PREFERRED: DO ensure that all module import paths are correct and that the necessary modules are installed and accessible within the project's environment.
+
+- ⚠️ PROHIBITED: DON'T assume that relative imports will work without verifying the project's root directory is correctly configured for pytest.
+
+- ✅ PREFERRED: DO ensure that all module import paths are correct and relative to the project's root directory, and that the project's root directory is correctly configured for pytest.

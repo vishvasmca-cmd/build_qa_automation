@@ -2,7 +2,7 @@ from playwright.async_api import Page, expect
 
 class RahulShettyAcademyPracticePagePage:
     """
-    This page is designed to provide a variety of interactive elements for practicing UI automation techniques.
+    This page is designed to provide a variety of interactive elements for practicing UI automation techniques. It includes examples of radio buttons, suggestion classes, dropdowns, checkboxes, window/tab handling, alerts, tables, and element display manipulation.
     URL Pattern: https://rahulshettyacademy.com/AutomationPractice/
     """
     def __init__(self, page: Page):
@@ -11,7 +11,7 @@ class RahulShettyAcademyPracticePagePage:
     @property
     def Radio Button 1(self):
         """First radio button option."""
-        return self.page.id('radio1').or_(self.page.css('input[value="radio1"]'))
+        return self.page.id('radio-btn-example').or_(self.page.css('input[value="radio1"]'))
 
     @property
     def Suggestion Class Input(self):
@@ -19,8 +19,8 @@ class RahulShettyAcademyPracticePagePage:
         return self.page.id('autocomplete').or_(self.page.css('#autocomplete'))
 
     @property
-    def Dropdown Select(self):
-        """Dropdown for selecting an option."""
+    def Dropdown(self):
+        """Dropdown select element."""
         return self.page.id('dropdown-class-example').or_(self.page.css('#dropdown-class-example'))
 
     @property
@@ -39,29 +39,29 @@ class RahulShettyAcademyPracticePagePage:
         return self.page.id('opentab').or_(self.page.text='Open Tab')
 
     @property
-    def Name Input for Alert(self):
-        """Input field for entering a name to trigger an alert."""
+    def Alert Input(self):
+        """Input field for the alert example."""
         return self.page.id('name').or_(self.page.css('#name'))
 
     @property
     def Alert Button(self):
         """Button to trigger an alert."""
-        return self.page.id('alertbtn').or_(self.page.value='Alert')
+        return self.page.id('alertbtn').or_(self.page.text='Alert')
 
     @property
     def Confirm Button(self):
         """Button to trigger a confirmation dialog."""
-        return self.page.id('confirmbtn').or_(self.page.value='Confirm')
+        return self.page.id('confirmbtn').or_(self.page.text='Confirm')
 
     @property
     def Hide Button(self):
         """Button to hide the associated textbox."""
-        return self.page.id('hide-textbox').or_(self.page.value='Hide')
+        return self.page.id('hide-textbox').or_(self.page.text='Hide')
 
     @property
     def Show Button(self):
         """Button to show the associated textbox."""
-        return self.page.id('show-textbox').or_(self.page.value='Show')
+        return self.page.id('show-textbox').or_(self.page.text='Show')
 
     @property
     def Hide/Show Example Textbox(self):
@@ -70,5 +70,14 @@ class RahulShettyAcademyPracticePagePage:
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await assert title == 'Practice Page'
-        await assert text('Practice Page').exists
+        await Page title is 'Practice Page'
+        await Page heading contains 'Practice Page'
+        await Presence of 'Radio Button Example' section
+        await Presence of 'Suggestion Class Example' section
+        await Presence of 'Dropdown Example' section
+        await Presence of 'Checkbox Example' section
+        await Presence of 'Switch Window Example' section
+        await Presence of 'Switch Tab Example' section
+        await Presence of 'Switch To Alert Example' section
+        await Presence of 'Web Table Example' section
+        await Presence of 'Element Displayed Example' section
