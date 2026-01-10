@@ -6,7 +6,7 @@ import json
 import re
 from functools import wraps
 from termcolor import colored
-import google.generativeai as genai
+from google import genai
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -46,18 +46,17 @@ class SafeLLM:
         api_key = os.environ.get("GOOGLE_API_KEY")
         if not api_key:
             raise ValueError("GOOGLE_API_KEY not found in environment")
-        genai.configure(api_key=api_key)
+        
+        self.client = genai.Client(api_key=api_key)
         self.model_name = model
         self.temperature = temperature
         
         # Capture model_kwargs (like response_mime_type)
-        self.generation_config = {"temperature": temperature}
+        self.config = {"temperature": temperature}
         if "model_kwargs" in kwargs:
-            self.generation_config.update(kwargs["model_kwargs"])
+            self.config.update(kwargs["model_kwargs"])
         elif "response_mime_type" in kwargs:
-             self.generation_config["response_mime_type"] = kwargs["response_mime_type"]
-
-        self.model = genai.GenerativeModel(model)
+             self.config["response_mime_type"] = kwargs["response_mime_type"]
 
     @safe_llm_call()
     def invoke(self, messages):
@@ -89,34 +88,36 @@ class SafeLLM:
         # ---------------------------------------------
 
         # Convert Langchain-style messages to direct SDK prompt
-        prompt = []
+        contents = []
         if isinstance(messages, list):
             for msg in messages:
+                parts = []
                 if isinstance(msg, tuple):
-                    prompt.append(f"{msg[0].upper()}: {msg[1]}")
+                    parts.append(f"{msg[0].upper()}: {msg[1]}")
                 elif hasattr(msg, "content"):
-                    # Check for image content (Miner Vision)
                     if isinstance(msg.content, list):
                         for part in msg.content:
                             if isinstance(part, dict) and part.get('type') == 'image_url':
-                                # Handle base64 image
                                 b64_data = part['image_url']['url'].split(',')[-1]
-                                prompt.append({"mime_type": "image/jpeg", "data": b64_data})
+                                parts.append({"inline_data": {"mime_type": "image/jpeg", "data": b64_data}})
                             else:
-                                prompt.append(part.get('text', str(part)))
+                                parts.append(part.get('text', str(part)))
                     else:
-                        prompt.append(msg.content)
+                        parts.append(msg.content)
                 elif isinstance(msg, dict):
-                     prompt.append(msg.get('content', ''))
+                    parts.append(msg.get('content', ''))
                 else:
-                    prompt.append(str(msg))
+                    parts.append(str(msg))
+                
+                # In google-genai, we can pass a list of strings/dicts directly as content parts
+                contents.extend(parts)
         else:
-            prompt = [str(messages)]
+            contents = [str(messages)]
 
-        resp = self.model.generate_content(
-            prompt, 
-            generation_config=self.generation_config,
-            request_options={"timeout": 120}
+        resp = self.client.models.generate_content(
+            model=self.model_name,
+            contents=contents,
+            config=self.config
         )
         
         from types import SimpleNamespace
