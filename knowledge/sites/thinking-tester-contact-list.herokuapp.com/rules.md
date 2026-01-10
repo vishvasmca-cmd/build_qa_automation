@@ -42,3 +42,7 @@
 - ⚠️ PROHIBITED: DON'T assume that the project structure and import paths are correct without verifying them before each test run, especially after changes to the codebase.
 
 - ✅ PREFERRED: DO verify the project's directory structure and module import paths to ensure that all necessary modules can be imported correctly before running tests.
+
+- ⚠️ PROHIBITED: DON'T use `get_by_text` with a broad regular expression when multiple elements on the page contain similar text. This can lead to unintended clicks and test failures.
+
+- ✅ PREFERRED: DO use more specific locators, such as `get_by_role('button', name='Sign up')` or `locator('#signup')`, to target the intended element precisely.

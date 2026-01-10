@@ -7,8 +7,25 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
-sys.path.append('/home/runner/work/build_qa_automation/build_qa_automation/core/lib/templates')
-from helpers import take_screenshot
+# Dynamic path discovery: Find root of 'inner-event' and append core path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Navigate up to project root (e.g., projects/name/tests/ -> inner-event)
+# We assume tests are usually in projects/<name>/tests/ or projects/<name>/tests/e2e
+root_dir = current_dir
+for _ in range(10): # Max depth search
+    if os.path.exists(os.path.join(root_dir, 'core')):
+        break
+    parent = os.path.dirname(root_dir)
+    if parent == root_dir: break
+    root_dir = parent
+
+sys.path.append(os.path.join(root_dir, 'core', 'lib', 'templates'))
+try:
+    from helpers import take_screenshot
+except ImportError:
+    # Fallback for different structures
+    sys.path.append(os.path.abspath(os.path.join(current_dir, '../../../../core/lib/templates')))
+    from helpers import take_screenshot
 
 
 class BasePage:
@@ -16,64 +33,41 @@ class BasePage:
         self.page = page
 
     def navigate(self, url):
-        self.page.goto(url)
-        self.page.wait_for_load_state('networkidle')
+        self.page.goto(url, timeout=60000)
+        self.page.wait_for_load_state("networkidle")
 
-from projects.verify_custom_thinking_tester.pages.base_page import BasePage
-
-class LoginPage(BasePage):
+class ContactListAppPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.url = 'https://thinking-tester-contact-list.herokuapp.com/'
+        self.signup_button = self.page.locator("#signup")
 
-    def navigate_to_login(self):
-        self.navigate(self.url)
-
-    def click_signup_button(self):
-        self.page.locator("#signup").click()
-
-from projects.verify_custom_thinking_tester.pages.base_page import BasePage
+    def go_to_signup(self):
+        self.signup_button.click()
 
 class AddUserPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
-        self.url = 'https://thinking-tester-contact-list.herokuapp.com/addUser'
-
-    def navigate_to_add_user(self):
-        self.navigate(self.url)
+        self.first_name_field = self.page.locator("#firstName")
+        self.last_name_field = self.page.locator("#lastName")
+        self.email_field = self.page.locator("#email")
 
     def fill_first_name(self, first_name):
-        self.page.locator("#firstName").fill(first_name)
+        self.first_name_field.fill(first_name)
 
     def fill_last_name(self, last_name):
-        self.page.locator("#lastName").fill(last_name)
+        self.last_name_field.fill(last_name)
 
     def fill_email(self, email):
-        self.page.locator("#email").fill(email)
-
-    def fill_password(self, password):
-        self.page.locator("#password").fill(password)
-
-    def click_submit_button(self):
-        self.page.locator("[type='submit']").click()
-
-from playwright.sync_api import Browser
-from projects.verify_custom_thinking_tester.pages.login_page import LoginPage
-from projects.verify_custom_thinking_tester.pages.add_user_page import AddUserPage
+        self.email_field.fill(email)
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
-    login_page = LoginPage(page)
+    contact_list_app_page = ContactListAppPage(page)
     add_user_page = AddUserPage(page)
 
-    login_page.navigate_to_login()
-    login_page.click_signup_button()
+    contact_list_app_page.navigate("https://thinking-tester-contact-list.herokuapp.com/")
+    contact_list_app_page.go_to_signup()
 
     add_user_page.fill_first_name("test")
-    add_user_page.fill_last_name("Test")
+    add_user_page.fill_last_name("Doe")
     add_user_page.fill_email("test@example.com")
-    # TODO: Add password field and submit button click
-    # add_user_page.fill_password("password")
-    # add_user_page.click_submit_button()
-
-    page.close()

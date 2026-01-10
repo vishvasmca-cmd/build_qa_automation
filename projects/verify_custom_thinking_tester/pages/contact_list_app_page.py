@@ -21,7 +21,7 @@ class ContactListAppPage:
     @property
     def Submit Button(self):
         """Button to submit the login form."""
-        return self.page.role=button[name="Submit"].or_(self.page.css=button[id="submit"])
+        return self.page.role=button[name="Submit"].or_(self.page.css=button[type="submit"])
 
     @property
     def Sign Up Link(self):
