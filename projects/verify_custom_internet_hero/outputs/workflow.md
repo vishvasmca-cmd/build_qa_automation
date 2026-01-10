@@ -1,9 +1,8 @@
 # Workflow Summary: Click Form Authentication and Login with tomsmith/SuperSecretPassword!
 
 **Goal**: Click Form Authentication and Login with tomsmith/SuperSecretPassword!
-**Total Steps**: 5
-**Final URL**: https://the-internet.herokuapp.com/secure
+**Total Steps**: 4
+**Final URL**: https://the-internet.herokuapp.com/login
 
 ## Journey Highlight
 - Visited **LoginPage**
-- Visited **LoginPagePage**

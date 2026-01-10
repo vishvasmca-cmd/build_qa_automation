@@ -21,7 +21,7 @@ class LoginPage:
     @property
     def Login Button(self):
         """Button to submit the login form."""
-        return self.page.css=button[type='submit'].or_(self.page.xpath=//button[@type='submit'])
+        return self.page.css=button[type='submit'].or_(self.page.id=login)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""

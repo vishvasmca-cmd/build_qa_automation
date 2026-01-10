@@ -21,41 +21,7 @@
         "name": "Login Button",
         "type": "button",
         "primary_locator": "css=button[type='submit']",
-        "backup_locator": "xpath=//button[@type='submit']",
-        "description": "Button to submit the login form."
-      }
-    ],
-    "assertions": [
-      "Page title is 'The Internet'",
-      "Page heading is 'Login Page'",
-      "Username input field is present",
-      "Password input field is present",
-      "Login button is present"
-    ]
-  },
-  "LoginPagePage": {
-    "description": "This is the Login Page for the-internet.herokuapp.com/secure. It allows users to enter their username and password to access the secure area.",
-    "url_pattern": "https://the-internet.herokuapp.com/secure",
-    "elements": [
-      {
-        "name": "Username Input",
-        "type": "text field",
-        "primary_locator": "//label[text()='Username']/following-sibling::input",
-        "backup_locator": "input#username",
-        "description": "Input field for the username."
-      },
-      {
-        "name": "Password Input",
-        "type": "text field",
-        "primary_locator": "//label[text()='Password']/following-sibling::input",
-        "backup_locator": "input#password",
-        "description": "Input field for the password."
-      },
-      {
-        "name": "Login Button",
-        "type": "button",
-        "primary_locator": "//button[@class='radius']",
-        "backup_locator": "button[type='submit']",
+        "backup_locator": "id=login",
         "description": "Button to submit the login form."
       }
     ],
@@ -68,43 +34,37 @@
     ]
   },
   "UnknownPage": {
-    "description": "This is the secure area page, accessible after successful login. It allows the user to logout.",
-    "url_pattern": "https://the-internet.herokuapp.com/secure",
+    "description": "This is the login page where users can enter their username and password to access the secure area.",
+    "url_pattern": "https://the-internet.herokuapp.com/login",
     "elements": [
       {
-        "name": "Success Message",
-        "type": "text",
-        "primary_locator": "text=\"You logged into a secure area!\"",
-        "backup_locator": "css=.flash.success",
-        "description": "The success message displayed after successful login."
+        "name": "Username Input",
+        "type": "text field",
+        "primary_locator": "id=username",
+        "backup_locator": "css=input[name='username']",
+        "description": "Input field for the username."
       },
       {
-        "name": "Secure Area Header",
-        "type": "header",
-        "primary_locator": "text=\"Secure Area\"",
-        "backup_locator": "css=h2",
-        "description": "The main header of the secure area page."
+        "name": "Password Input",
+        "type": "text field",
+        "primary_locator": "id=password",
+        "backup_locator": "css=input[name='password']",
+        "description": "Input field for the password."
       },
       {
-        "name": "Logout Button",
+        "name": "Login Button",
         "type": "button",
-        "primary_locator": "text=\"Logout\"",
-        "backup_locator": "css=.button.secondary",
-        "description": "The logout button to return to the login page."
-      },
-      {
-        "name": "Powered by Elemental Selenium",
-        "type": "link",
-        "primary_locator": "text=\"Powered by Elemental Selenium\"",
-        "backup_locator": "css=div.example > p:nth-child(3) > a",
-        "description": "Link to Elemental Selenium website."
+        "primary_locator": "css=button[type='submit']",
+        "backup_locator": "text=Login",
+        "description": "Button to submit the login form."
       }
     ],
     "assertions": [
       "Page title is 'The Internet'",
-      "Header text is 'Secure Area'",
-      "Logout button is present",
-      "Success message is displayed"
+      "Page heading is 'Login Page'",
+      "Username input field is present",
+      "Password input field is present",
+      "Login button is present"
     ]
   }
 }

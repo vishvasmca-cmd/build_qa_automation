@@ -2,35 +2,31 @@ from playwright.async_api import Page, expect
 
 class UnknownPage:
     """
-    This is the secure area page, accessible after successful login. It allows the user to logout.
-    URL Pattern: https://the-internet.herokuapp.com/secure
+    This is the login page where users can enter their username and password to access the secure area.
+    URL Pattern: https://the-internet.herokuapp.com/login
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def Success Message(self):
-        """The success message displayed after successful login."""
-        return self.page.text="You logged into a secure area!".or_(self.page.css=.flash.success)
+    def Username Input(self):
+        """Input field for the username."""
+        return self.page.id=username.or_(self.page.css=input[name='username'])
 
     @property
-    def Secure Area Header(self):
-        """The main header of the secure area page."""
-        return self.page.text="Secure Area".or_(self.page.css=h2)
+    def Password Input(self):
+        """Input field for the password."""
+        return self.page.id=password.or_(self.page.css=input[name='password'])
 
     @property
-    def Logout Button(self):
-        """The logout button to return to the login page."""
-        return self.page.text="Logout".or_(self.page.css=.button.secondary)
-
-    @property
-    def Powered by Elemental Selenium(self):
-        """Link to Elemental Selenium website."""
-        return self.page.text="Powered by Elemental Selenium".or_(self.page.css=div.example > p:nth-child(3) > a)
+    def Login Button(self):
+        """Button to submit the login form."""
+        return self.page.css=button[type='submit'].or_(self.page.text=Login)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await Page title is 'The Internet'
-        await Header text is 'Secure Area'
-        await Logout button is present
-        await Success message is displayed
+        await Page heading is 'Login Page'
+        await Username input field is present
+        await Password input field is present
+        await Login button is present
