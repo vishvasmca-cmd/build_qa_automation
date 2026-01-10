@@ -145,3 +145,7 @@ When executing the full "Register to Transfer" flow, you must follow this sequen
 - ⚠️ PROHIBITED: DON'T use generic CSS selectors like ".button" without ensuring they uniquely identify the target element. Avoid ambiguous locators that can match multiple elements.
 
 - ✅ PREFERRED: DO use more specific locators, such as `get_by_role` with a name or `nth` to target a specific element when multiple elements match a general selector. Prioritize using text-based locators or ARIA roles for better resilience.
+
+- ⚠️ PROHIBITED: DON'T assume the registration page will load within 30 seconds; investigate potential delays or navigation issues.
+
+- ✅ PREFERRED: DO verify that the element triggering the navigation to the registration page is actually clicked and that there are no unexpected redirects or errors occurring before the navigation.

@@ -1,0 +1,143 @@
+{
+  "ParabankPage": {
+    "description": "This is the ParaBank Home page, which allows users to log in, register, and access information about the bank's services.",
+    "url_pattern": "https://parabank.parasoft.com/parabank/index.htm*",
+    "elements": [
+      {
+        "name": "Username",
+        "type": "text field",
+        "primary_locator": "id=username",
+        "backup_locator": "css=[name='username']",
+        "description": "Input field for the user's username."
+      },
+      {
+        "name": "Password",
+        "type": "text field",
+        "primary_locator": "id=password",
+        "backup_locator": "css=[name='password']",
+        "description": "Input field for the user's password."
+      },
+      {
+        "name": "Log In",
+        "type": "button",
+        "primary_locator": "css=[value='Log In']",
+        "backup_locator": "xpath=//input[@value='Log In']",
+        "description": "Button to submit the login form."
+      },
+      {
+        "name": "Register",
+        "type": "link",
+        "primary_locator": "linkText=Register",
+        "backup_locator": "css=[href='register.htm']",
+        "description": "Link to navigate to the registration page."
+      },
+      {
+        "name": "Forgot login info?",
+        "type": "link",
+        "primary_locator": "linkText=Forgot login info?",
+        "backup_locator": "css=[href*='lookupcustomer']",
+        "description": "Link to navigate to the password recovery page."
+      }
+    ],
+    "assertions": [
+      "Page title contains 'ParaBank'",
+      "Presence of 'Customer Login' heading",
+      "Presence of 'Welcome to ParaBank' banner"
+    ]
+  },
+  "ParabankRegisterPage": {
+    "description": "This page allows new users to register for an account with ParaBank.",
+    "url_pattern": "https://parabank.parasoft.com/parabank/register.htm*",
+    "elements": [
+      {
+        "name": "First Name",
+        "type": "text field",
+        "primary_locator": "id=customer.firstName",
+        "backup_locator": "css=input[name='customer.firstName']",
+        "description": "Input field for the user's first name."
+      },
+      {
+        "name": "Last Name",
+        "type": "text field",
+        "primary_locator": "id=customer.lastName",
+        "backup_locator": "css=input[name='customer.lastName']",
+        "description": "Input field for the user's last name."
+      },
+      {
+        "name": "Address",
+        "type": "text field",
+        "primary_locator": "id=customer.address.street",
+        "backup_locator": "css=input[name='customer.address.street']",
+        "description": "Input field for the user's street address."
+      },
+      {
+        "name": "City",
+        "type": "text field",
+        "primary_locator": "id=customer.address.city",
+        "backup_locator": "css=input[name='customer.address.city']",
+        "description": "Input field for the user's city."
+      },
+      {
+        "name": "State",
+        "type": "text field",
+        "primary_locator": "id=customer.address.state",
+        "backup_locator": "css=input[name='customer.address.state']",
+        "description": "Input field for the user's state."
+      },
+      {
+        "name": "Zip Code",
+        "type": "text field",
+        "primary_locator": "id=customer.address.zipCode",
+        "backup_locator": "css=input[name='customer.address.zipCode']",
+        "description": "Input field for the user's zip code."
+      },
+      {
+        "name": "Phone",
+        "type": "text field",
+        "primary_locator": "id=customer.phoneNumber",
+        "backup_locator": "css=input[name='customer.phoneNumber']",
+        "description": "Input field for the user's phone number."
+      },
+      {
+        "name": "SSN",
+        "type": "text field",
+        "primary_locator": "id=customer.ssn",
+        "backup_locator": "css=input[name='customer.ssn']",
+        "description": "Input field for the user's social security number."
+      },
+      {
+        "name": "Username",
+        "type": "text field",
+        "primary_locator": "id=customer.username",
+        "backup_locator": "css=input[name='customer.username']",
+        "description": "Input field for the user's desired username."
+      },
+      {
+        "name": "Password",
+        "type": "password field",
+        "primary_locator": "id=customer.password",
+        "backup_locator": "css=input[name='customer.password']",
+        "description": "Input field for the user's desired password."
+      },
+      {
+        "name": "Confirm",
+        "type": "password field",
+        "primary_locator": "id=repeatedPassword",
+        "backup_locator": "css=input[name='repeatedPassword']",
+        "description": "Input field to confirm the user's password."
+      },
+      {
+        "name": "Register Button",
+        "type": "button",
+        "primary_locator": "css=input[value='Register']",
+        "backup_locator": "value=Register",
+        "description": "Button to submit the registration form."
+      }
+    ],
+    "assertions": [
+      "Page title is 'ParaBank | Register'",
+      "Header text 'Signing up is easy!' is present",
+      "The registration form is displayed"
+    ]
+  }
+}
