@@ -18,21 +18,31 @@ browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/
         login_page = LoginPage(page)
         inventory_page = InventoryPage(page)
     
+        # Navigate to the login page
         login_page.navigate("https://www.saucedemo.com/")
-        wait_for_stability(page)
+    
+        # Enter username and password
         login_page.enter_username("standard_user")
         login_page.enter_password("secret_sauce")
-        login_page.click_login()
-        page.wait_for_url("**/inventory.html")
-        wait_for_stability(page)
     
-        # Verify successful login by checking for an inventory item
->       expect(page.locator(".inventory_item").first()).to_be_visible()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        # Click the login button
+        login_page.click_login_button()
+    
+        # Verify products are displayed
+>       inventory_page.verify_products_displayed()
+
+projects/validator_fix_check/tests/test_main.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_main.InventoryPage object at 0x7fe15ecab1d0>
+
+    def verify_products_displayed(self):
+>       expect(self.page.locator(".inventory_item").first()).to_be_visible()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 E       TypeError: 'Locator' object is not callable
 
-projects/validator_fix_check/tests/test_main.py:64: TypeError
+projects/validator_fix_check/tests/test_main.py:49: TypeError
 =========================== short test summary info ============================
 FAILED projects/validator_fix_check/tests/test_main.py::test_autonomous_flow[chromium] - TypeError: 'Locator' object is not callable
-============================== 1 failed in 3.35s ===============================
+============================== 1 failed in 3.45s ===============================
 

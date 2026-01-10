@@ -17,18 +17,11 @@ class BasePage:
 
     def navigate(self, url):
         self.page.goto(url)
-
-    def take_screenshot(self, name):
-        self.page.screenshot(path=f"screenshots/{name}.png")
-
-    def wait_for_stability(self, timeout=500):
-        self.page.wait_for_timeout(timeout)
-
-from playwright.sync_api import Page
+        self.page.wait_for_load_state("networkidle")
 
 
 class LoginPage(BasePage):
-    def __init__(self, page: Page):
+    def __init__(self, page):
         super().__init__(page)
         self.username_field = self.page.locator("[data-test='username']")
         self.password_field = self.page.locator("[data-test='password']")
@@ -40,33 +33,37 @@ class LoginPage(BasePage):
     def enter_password(self, password):
         self.password_field.fill(password)
 
-    def click_login(self):
+    def click_login_button(self):
         self.login_button.click()
 
-from playwright.sync_api import Page
 
+from playwright.sync_api import expect
 
 class InventoryPage(BasePage):
-    def __init__(self, page: Page):
+    def __init__(self, page):
         super().__init__(page)
         self.inventory_item = self.page.locator(".inventory_item")
 
-    def is_inventory_item_visible(self):
-        return self.inventory_item.first.is_visible()
+    def verify_products_displayed(self):
+        expect(self.inventory_item.first).to_be_visible()
 
-from playwright.sync_api import Browser, expect
 
+from playwright.sync_api import Browser
 
 def test_autonomous_flow(browser: Browser):
     page = browser.new_page()
     login_page = LoginPage(page)
     inventory_page = InventoryPage(page)
 
+    # Navigate to the login page
     login_page.navigate("https://www.saucedemo.com/")
+
+    # Enter username and password
     login_page.enter_username("standard_user")
     login_page.enter_password("secret_sauce")
-    login_page.click_login()
-    page.wait_for_url("**/inventory.html*")
 
-    # Verify successful login by checking for an inventory item
-    expect(inventory_page.inventory_item.first).to_be_visible()
+    # Click the login button
+    login_page.click_login_button()
+
+    # Verify products are displayed
+    inventory_page.verify_products_displayed()

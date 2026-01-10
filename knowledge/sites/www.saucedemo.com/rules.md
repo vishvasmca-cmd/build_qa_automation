@@ -66,3 +66,7 @@
 - ⚠️ PROHIBITED: DON'T call Playwright Locator objects directly as functions. Use the appropriate `expect` methods (e.g., `to_be_visible()`, `to_have_text()`) on the Locator object.
 
 - ✅ PREFERRED: DO use the `expect` function from Playwright to assert conditions on Locator objects. For example, `expect(page.locator('.inventory_item').first()).to_be_visible()`.
+
+- ⚠️ PROHIBITED: DON'T pass a raw Locator object directly to the `expect` function without chaining it with an assertion method.
+
+- ✅ PREFERRED: ALWAYS chain a Locator object with an assertion method (e.g., `.to_be_visible()`, `.to_have_count()`) when using `expect` for assertions.
