@@ -138,3 +138,19 @@
 - ⚠️ PROHIBITED: DON'T assume that elements with test IDs are immediately available; account for potential loading times or dynamic rendering.
 
 - ✅ PREFERRED: DO implement explicit waits or retries when interacting with elements identified by test IDs, especially after page loads or transitions.
+
+- ⚠️ PROHIBITED: DON'T assume that custom modules are automatically discoverable; ALWAYS verify the Python path and module structure.
+
+- ✅ PREFERRED: DO ensure that all custom modules (e.g., page objects) are correctly placed within the project structure and that the Python path is configured to include the directory containing these modules.
+
+- ⚠️ PROHIBITED: DON'T assume that all required modules are accessible without explicitly verifying the Python import path and project structure.
+
+- ✅ PREFERRED: DO ensure that all necessary modules are correctly placed within the project directory and that the Python import path is configured to include the project's root directory or any relevant subdirectories.
+
+- ⚠️ PROHIBITED: DON'T assume that all required modules are accessible without explicitly verifying the Python import paths and project structure.
+
+- ✅ PREFERRED: DO ensure that all necessary modules are located in a directory that is included in the Python path or use relative imports to correctly reference them.
+
+- ⚠️ PROHIBITED: DON'T assume that all required modules are accessible without explicitly verifying the Python import paths and project structure.
+
+- ✅ PREFERRED: DO ensure that all necessary modules are correctly placed within the project directory and that the Python import paths are configured to locate them.

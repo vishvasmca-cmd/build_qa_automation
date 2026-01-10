@@ -3099,5 +3099,101 @@
       "Page contains the 'Products' header",
       "At least one product is displayed"
     ]
+  },
+  "HomePage_e582fbe25dfe419967b2d2bb2adad261": {
+    "description": "This is the login page for the Swag Labs demo application.",
+    "url_pattern": "https://www.saucedemo.com/",
+    "elements": [
+      {
+        "name": "Username Input",
+        "type": "text field",
+        "primary_locator": "[data-test='username']",
+        "backup_locator": "input[id='user-name']",
+        "description": "Input field for username."
+      },
+      {
+        "name": "Password Input",
+        "type": "text field",
+        "primary_locator": "[data-test='password']",
+        "backup_locator": "input[id='password']",
+        "description": "Input field for password."
+      },
+      {
+        "name": "Login Button",
+        "type": "button",
+        "primary_locator": "[data-test='login-button']",
+        "backup_locator": "input[id='login-button']",
+        "description": "Button to submit login credentials."
+      },
+      {
+        "name": "Accepted usernames",
+        "type": "text",
+        "primary_locator": "//div[contains(text(),'Accepted usernames are:')]",
+        "backup_locator": "div:nth-child(3)",
+        "description": "Text containing accepted usernames"
+      },
+      {
+        "name": "Password for all users",
+        "type": "text",
+        "primary_locator": "//div[contains(text(),'Password for all users:')]",
+        "backup_locator": "div:nth-child(4)",
+        "description": "Text containing password for all users"
+      }
+    ],
+    "assertions": [
+      "Page title is 'Swag Labs'",
+      "Login button is present",
+      "Username input field is present",
+      "Password input field is present"
+    ]
+  },
+  "UnknownPage_315fa0a6951d415d767c0289c8b8b618": {
+    "description": "This is the login page for Swag Labs, where users can enter their username and password to access the application.",
+    "url_pattern": "https://www.saucedemo.com/",
+    "elements": [
+      {
+        "name": "Username Input",
+        "type": "text field",
+        "primary_locator": "//input[@id='user-name']",
+        "backup_locator": "css=input#user-name",
+        "description": "Input field for the username."
+      },
+      {
+        "name": "Password Input",
+        "type": "text field",
+        "primary_locator": "//input[@id='password']",
+        "backup_locator": "css=input#password",
+        "description": "Input field for the password."
+      },
+      {
+        "name": "Login Button",
+        "type": "button",
+        "primary_locator": "//input[@id='login-button']",
+        "backup_locator": "css=input#login-button",
+        "description": "Button to submit the login form."
+      },
+      {
+        "name": "Accepted usernames",
+        "type": "text",
+        "primary_locator": "//div[@id='login_credentials']",
+        "backup_locator": "text=Accepted usernames are:",
+        "description": "Text displaying accepted usernames."
+      },
+      {
+        "name": "Password for all users",
+        "type": "text",
+        "primary_locator": "//div[@class='login_password']",
+        "backup_locator": "text=Password for all users:",
+        "description": "Text displaying the password for all users."
+      }
+    ],
+    "assertions": [
+      "Page title is 'Swag Labs'",
+      "Login button is present",
+      "Username input field is present",
+      "Password input field is present",
+      "The text 'Accepted usernames are:' is present",
+      "The text 'Password for all users:' is present"
+    ]
   }
 }
