@@ -70,3 +70,31 @@
 - ⚠️ PROHIBITED: DON'T pass a raw Locator object directly to the `expect` function without chaining it with an assertion method.
 
 - ✅ PREFERRED: ALWAYS chain a Locator object with an assertion method (e.g., `.to_be_visible()`, `.to_have_count()`) when using `expect` for assertions.
+
+- ⚠️ PROHIBITED: DON'T pass a string directly to `expect(page.url).to_contain()`. Always use a Locator object when asserting on page URLs or other dynamic content.
+
+- ✅ PREFERRED: DO use `expect(page).to_have_url()` or `expect(page.locator('locator')).to_have_text()` when asserting on page URLs or dynamic content.
+
+- ⚠️ PROHIBITED: DON'T use `expect(True).to_be(True)` for assertions. Playwright's `expect` function requires a Playwright object (Page, Locator, APIResponse) to operate on.
+
+- ✅ PREFERRED: DO use Playwright's `expect` function with a Locator object to assert on the state or properties of elements on the page (e.g., `expect(page.locator('#checkout_complete')).to_be_visible()`).
+
+- ⚠️ PROHIBITED: DON'T use wildcard characters in `to_have_url` assertions unless the URL is genuinely dynamic and the wildcard is intended to match a variable part of the URL. Prefer exact matches when possible.
+
+- ✅ PREFERRED: DO use exact URL matches in `to_have_url` assertions whenever the expected URL is static and known. If a portion of the URL is dynamic, use regular expressions or string manipulation to create a more robust assertion.
+
+- ⚠️ PROHIBITED: DON'T assume the checkout process will always require a distinct 'checkout-step-one.html' page; the flow might sometimes skip it.
+
+- ✅ PREFERRED: DO verify the presence of key elements on 'checkout-step-two.html' (e.g., order summary) instead of relying solely on URL matching for 'checkout-step-one.html'.
+
+- ⚠️ PROHIBITED: DON'T assume the page will pause on 'checkout-step-one.html'; the transition to 'checkout-step-two.html' might be too fast to reliably assert.
+
+- ✅ PREFERRED: DO verify the presence of elements specific to 'checkout-step-one.html' *before* asserting the URL, to ensure the page has fully loaded and rendered.
+
+- ⚠️ PROHIBITED: DON'T assume the application will always navigate sequentially through checkout steps; verify each step independently.
+
+- ✅ PREFERRED: DO implement explicit waits or assertions after filling checkout information to ensure the application has fully processed the data and navigated to the expected 'checkout-step-one.html' page before proceeding.
+
+- ⚠️ PROHIBITED: DON'T assume that relative import paths will always resolve correctly without verifying the project's root directory and PYTHONPATH.
+
+- ✅ PREFERRED: DO ensure that all module import paths are correct and relative to the project's root directory. Verify the PYTHONPATH environment variable is correctly set if needed.
