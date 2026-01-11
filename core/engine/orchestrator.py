@@ -96,36 +96,68 @@ def _log_error(config, phase, error_msg):
 # --- PHASES ---
 
 def _run_planning(project_root, config, config_hash, config_path):
-    print(colored("\n[Step 0/7] 📋 Strategic Test Planning...", "cyan"))
+    print(colored("\n[Step 0/7] 📋 Validating Target URL...", "cyan"))
     if can_skip_phase(project_root, "planning", config_hash):
-        print(colored("⏩ Skipping Planning (Checkpoint found)", "grey"))
+        print(colored("⏩ Skipping URL Validation (Checkpoint found)", "grey"))
         return True
 
-    for attempt in range(1, 4):
-        try:
-            from core.knowledge.spec_synthesizer import SpecSynthesizer
-            domain = config.get("domain", "generic")
-            syn = SpecSynthesizer(project_root, domain)
-            plan = syn.generate_master_plan(
-                url=config.get("target_url"),
-                testing_type=config.get("testing_type", "regression"),
-                goal=config.get("workflow_description")
+    target_url = config.get("target_url")
+    if not target_url:
+        print(colored("❌ No target URL provided", "red"))
+        return False
+    
+    # Quick validation: Check if website exists using Playwright
+    try:
+        from playwright.sync_api import sync_playwright
+        print(f"🌐 Checking if {target_url} is accessible...")
+        
+        with sync_playwright() as p:
+            browser = p.chromium.launch(
+                headless=True,
+                args=[
+                    "--disable-blink-features=AutomationControlled",
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-infobars"
+                ]
             )
-            if plan:
-                config["master_plan"] = plan
-                with open(config_path, "w") as f:
-                    json.dump(config, f, indent=2)
-                save_checkpoint(project_root, "planning", config_hash)
-                return True
-            else:
-                raise Exception("Plan generation returned empty")
-        except Exception as e:
-            logger.log_failure("SpecSynthesizer", str(e), {"attempt": attempt, "config": config_path})
-            print(colored(f"⚠️ Pre-Planning Attempt {attempt} Failed: {e}", "yellow"))
-            if attempt == 3:
-                _log_error(config, "planning", str(e))
+            context = browser.new_context(
+                viewport={"width": 1280, "height": 800},
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                ignore_https_errors=True,
+                locale="en-US",
+                extra_http_headers={
+                    "Accept-Language": "en-US,en;q=0.9",
+                    "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-ch-ua-platform": '"Windows"',
+                }
+            )
+            context.add_init_script("""
+                Object.defineProperty(navigator, 'webdriver', {get: () => undefined});
+                window.chrome = {runtime: {}};
+            """)
+            page = context.new_page()
+            try:
+                response = page.goto(target_url, timeout=30000, wait_until="domcontentloaded")
+                if response and response.ok:
+                    print(colored(f"✅ Website is accessible (HTTP {response.status})", "green"))
+                    browser.close()
+                    save_checkpoint(project_root, "planning", config_hash)
+                    return True
+                else:
+                    status = response.status if response else "No Response"
+                    print(colored(f"❌ Website returned HTTP {status}", "red"))
+                    browser.close()
+                    return False
+            except Exception as nav_error:
+                print(colored(f"❌ Cannot access website: {nav_error}", "red"))
+                browser.close()
                 return False
-    return False
+    except Exception as e:
+        logger.log_failure("URLValidator", str(e), {"url": target_url})
+        print(colored(f"❌ URL Validation Failed: {e}", "red"))
+        return False
 
 def _run_exploration(project_root, config, config_hash, config_path, headed=False):
     print(colored("\n[Step 1/7] 🗺️  Exploring & Mining (Plan-Guided)...", "cyan"))
@@ -144,7 +176,8 @@ def _run_exploration(project_root, config, config_hash, config_path, headed=Fals
         
         env = os.environ.copy()
         env["PYTHONPATH"] = os.getcwd()
-        ret = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='ignore', env=env)
+        # Enable real-time output by removing capture_output=True and letting it inherit stdout/stderr
+        ret = subprocess.run(cmd, capture_output=False, text=True, encoding='utf-8', errors='ignore', env=env)
         
         if ret.returncode == 0:
             duration = time.time() - start_time
@@ -153,11 +186,8 @@ def _run_exploration(project_root, config, config_hash, config_path, headed=Fals
             return True
         else:
             print(colored(f"⚠️ Exploration Attempt {attempt} Failed (Code {ret.returncode}).", "yellow"))
-            print(colored("--- STDOUT ---", "grey"))
-            print(ret.stdout)
-            print(colored("--- STDERR ---", "grey"))
-            print(ret.stderr)
-            error_context = {"attempt": attempt, "stdout": (ret.stdout or "")[:200], "stderr": (ret.stderr or "")[:500]}
+            # Output is now directly on console, so we can't reprint it from memory
+            error_context = {"attempt": attempt, "stdout": "See console", "stderr": "See console"}
             logger.log_failure("Explorer", f"Exit code {ret.returncode}", error_context)
     
     # NO FALLBACK - Let it fail properly so robust mode can retry

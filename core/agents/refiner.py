@@ -332,7 +332,7 @@ class CodeRefiner:
         4. **Actions**: Use regular Playwright methods: `.click()`, `.fill()`, `.select_option()`.
         5. **Stability**: Use `page.wait_for_load_state("networkidle")` or specific element waits if needed after interactions.
         6. **TIMEOUTS & URL STABILITY**: Use generous timeouts (at least 60000ms) for navigations. When using `wait_for_url` or `to_have_url`, ALWAYS use a wildcard `*` at the end or a regex to handle trailing slashes or `/index` suffixes (e.g. use `**/dashboard*` instead of `**/dashboard`).
-        7. **Visual Verification**: You are provided with screenshots of the elements. Use them to ensure your locators (roles/text) match what is visually present.
+        7. **Reliability**: Use the trace's element context (text, roles, labels) to build robust locators.
         
         **OUTPUT FORMAT**:
         You must output a JSON object with this EXACT structure:
@@ -371,21 +371,20 @@ class CodeRefiner:
                                .replace("{{RAG_CONTEXT}}", rag_context)\
                                .replace("{{PLATFORM_RULES}}", platform_rules)
 
-        # Prepare Multimodal Message
+        # Prepare Text-Only Message
         content = [{"type": "text", "text": prompt}]
-        if images:
-            for img_b64 in images:
-                content.append({
-                    "type": "image_url",
-                    "image_url": {"url": f"data:image/png;base64,{img_b64}"}
-                })
         
         # Layer 4: Retry Loop with Validation
         MAX_RETRIES = 2
         
         for attempt in range(MAX_RETRIES + 1):
             messages = [HumanMessage(content=content)]
-            resp = self.llm.invoke(messages)
+            
+            try:
+                resp = self.llm.invoke(messages)
+            except Exception as e:
+                # No vision fallback needed as we are text-only
+                raise e
             
             result = try_parse_json(resp.content)
             if not result:
@@ -461,24 +460,9 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     start_time = __import__('time').time()
     refiner = CodeRefiner()
     
-    # Load Images for Multimodal Context
+    # NOTE: Images are disabled during code generation to save tokens and avoid 400 errors.
+    # Structural trace data is sufficient for refinement.
     images_b64 = []
-    trace_dir = os.path.dirname(trace_path)
-    for step in trace:
-        img_name = step.get("screenshot")
-        if img_name:
-            # 1. Try generic output dir (Legacy)
-            img_path = os.path.join(trace_dir, img_name)
-            
-            # 2. Try Standard Snapshots dir (New)
-            if not os.path.exists(img_path):
-                 img_path = os.path.join(trace_dir, "..", "snapshots", img_name)
-            
-            if os.path.exists(img_path):
-                try:
-                    with open(img_path, "rb") as image_file:
-                        images_b64.append(base64.b64encode(image_file.read()).decode('utf-8'))
-                except: pass
     
     trace_summary = json.dumps([{
         "step": t['step'],
@@ -492,7 +476,7 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         "expectation": t.get('expected_outcome')
     } for t in trace], indent=2)
     
-    raw_code = refiner.generate_code(target_url, trace_summary, images=images_b64[-5:], error_context=error_context, domain=domain, workflow_goal=workflow_goal)
+    raw_code = refiner.generate_code(target_url, trace_summary, images=[], error_context=error_context, domain=domain, workflow_goal=workflow_goal)
 
     if not raw_code:
         print("❌ Refiner failed to generate valid code.")
@@ -510,15 +494,49 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         test_steps=clean_steps
     )
     
+    # --- Step 4: Quality Gate (Reviewer) ---
+    # Review the code BEFORE writing to catch structural issues
+    try:
+        from core.agents.reviewer import CodeReviewer
+        import tempfile
+        
+        # Write to temp file for review
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False, encoding='utf-8') as temp_file:
+            temp_path = temp_file.name
+            temp_file.write(final_code)
+        
+        reviewer = CodeReviewer()
+        is_approved, review_msg = reviewer.review_and_fix(temp_path, domain=domain)
+        
+        # Read back the potentially fixed code
+        with open(temp_path, 'r', encoding='utf-8') as f:
+            final_code = f.read()
+        
+        # Clean up temp file
+        os.unlink(temp_path)
+        
+        if not is_approved:
+            print(colored(f"❌ Code Review Failed: {review_msg}", "red"))
+            print(colored("🔄 Refiner will regenerate on next attempt...", "yellow"))
+            return None  # Signal failure to trigger regeneration
+            
+    except Exception as e:
+        print(colored(f"⚠️ Automated Review Failed: {e}", "yellow"))
+        # Continue anyway if reviewer crashes
+    
+    # Only write if review passed
     output_dir = os.path.dirname(output_path)
     if output_dir and not os.path.exists(output_dir): os.makedirs(output_dir, exist_ok=True)
 
     with open(output_path, "w", encoding='utf-8') as f:
         f.write(final_code)
-    print(f"✅ Self-Healing Code Generated: {output_path}")
+    
+    print(f"✅ Self-Healing Code Generated & Reviewed: {output_path}")
     
     duration = __import__('time').time() - start_time
     logger.log_event("Refiner", "generate_code", duration, cost=0.01)
+    
+    return True  # Signal success
 
 if __name__ == "__main__":
     import sys
@@ -533,7 +551,12 @@ if __name__ == "__main__":
         with open(e_path, "r", encoding="utf-8", errors="ignore") as f:
             err_ctx = f.read()
             
-    generate_code_from_trace(t_path, o_path, goal, error_context=err_ctx, domain=dom)
+    result = generate_code_from_trace(t_path, o_path, goal, error_context=err_ctx, domain=dom)
+    
+    # Exit with appropriate code for Orchestrator
+    if result is None or result is False:
+        sys.exit(1)  # Signal failure - Orchestrator will retry
+    sys.exit(0)  # Success
 
 
 class FrameworkGenerator:
@@ -565,6 +588,10 @@ class FrameworkGenerator:
         with open(os.path.join(self.pages_dir, "__init__.py"), "w") as f: pass
         
         for page_name, model in models.items():
+            # Skip generic/unknown page names
+            if page_name.lower() in ['unknown', 'unknownpage', 'genericpage', 'page']:
+                print(colored(f"   ⏭️ Skipping generic page: {page_name}", "grey"))
+                continue
             self._generate_page_file(page_name, model)
             
         # 2. Generate Test File
@@ -701,3 +728,4 @@ class FrameworkGenerator:
         import re
         s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
         return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+

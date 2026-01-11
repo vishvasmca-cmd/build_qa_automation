@@ -195,7 +195,17 @@ async def analyze_page(page: Page, url: str, user_goal=None):
             ]
         )
         
-        resp = await llm.ainvoke([message])
+        try:
+            resp = await llm.ainvoke([message])
+        except Exception as e:
+            if "INVALID_ARGUMENT" in str(e) or "image" in str(e).lower():
+                 print(colored("⚠️ Vision failed (Invalid Image). Retrying with Text-Only...", "yellow"))
+                 # Fallback: Text Only
+                 message_text = HumanMessage(content=f"{SYSTEM_PROMPT_ANALYST}\n\n{prompt}\n\n[IMAGE UPLOAD FAILED - RELY ON JSON LIST]")
+                 resp = await llm.ainvoke([message_text])
+            else:
+                 raise e
+
         analysis = try_parse_json(resp.content) or {}
         
         # Save to cache & Persist to Disk

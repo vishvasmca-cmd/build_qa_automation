@@ -128,23 +128,62 @@ class ExplorerAgent:
             async with async_playwright() as p:
                 browser = await p.chromium.launch(
                     headless=not self.headed,
-                    args=["--disable-http2"]
+                    args=[
+                        "--disable-blink-features=AutomationControlled",
+                        "--no-sandbox",
+                        "--disable-setuid-sandbox",
+                        "--disable-infobars"
+                    ]
                 )
-                context = await browser.new_context(viewport={"width": 1280, "height": 800})
+                
+                # Enhanced stealth configuration for headless mode
+                context = await browser.new_context(
+                    viewport={"width": 1280, "height": 800},
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                    ignore_https_errors=True,
+                    bypass_csp=True,
+                    locale="en-US",
+                    timezone_id="America/New_York",
+                    permissions=["geolocation", "notifications"],
+                    # Add realistic browser features
+                    extra_http_headers={
+                        "Accept-Language": "en-US,en;q=0.9",
+                        "Accept-Encoding": "gzip, deflate, br",
+                        "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+                        "sec-ch-ua-mobile": "?0",
+                        "sec-ch-ua-platform": '"Windows"',
+                    }
+                )
+                
+                # Override navigator properties to hide automation
+                await context.add_init_script("""
+                    Object.defineProperty(navigator, 'webdriver', {get: () => undefined});
+                    Object.defineProperty(navigator, 'plugins', {get: () => [1, 2, 3, 4, 5]});
+                    Object.defineProperty(navigator, 'languages', {get: () => ['en-US', 'en']});
+                    window.chrome = {runtime: {}};
+                """)
                 page = await context.new_page()
+                page.set_default_timeout(60000) # Standard timeout
                 
                 try:
-                    await page.goto(self.config["target_url"], wait_until="networkidle", timeout=60000)
-                    # --- NAVIGATION GUARD ---
-                    # If we landed on a vignette or a different page, force back to target
-                    if "#google_vignette" in page.url or ("/login" in page.url and "/login" not in self.config["target_url"]):
-                        print(colored("🛡️ Navigation Guard: Redirect detected. Re-forcing target URL...", "magenta"))
-                        await self._dismiss_overlays(page)
-                        await page.goto(self.config["target_url"], wait_until="networkidle")
-                except:
-                    await page.wait_for_load_state("domcontentloaded")
+                    print(colored(f"🌐 Initial Navigation: {self.config['target_url']}", "cyan"))
+                    await page.goto(self.config["target_url"], wait_until="domcontentloaded", timeout=90000)
+                except Exception as e:
+                    print(colored(f"⚠️ Initial load warning: {e}. Proceeding with current state.", "yellow"))
+                    try: await page.wait_for_load_state("domcontentloaded", timeout=30000)
+                    except: pass
+                
+                # --- NAVIGATION GUARD ---
+                # If we landed on a vignette or a different page, force back to target
+                if "#google_vignette" in page.url or ("/login" in page.url and "/login" not in self.config["target_url"]):
+                    print(colored("🛡️ Navigation Guard: Redirect detected. Re-forcing target URL...", "magenta"))
+                    await self._dismiss_overlays(page)
+                    try: await page.goto(self.config["target_url"], wait_until="domcontentloaded", timeout=90000)
+                    except: pass
+                
                 step = 0
-                max_steps = 50 # Increased for complex 2026 workflows
+                max_steps = 50 
+                lock_retries = 0
                 
                 # Define target domain for lock
                 target_url = self.config.get("target_url")
@@ -152,12 +191,27 @@ class ExplorerAgent:
                 
                 while step < max_steps:
                     # --- DOMAIN LOCK ---
-                    current_domain = urlparse(page.url).netloc
-                    if current_domain and target_domain and current_domain != target_domain:
-                        print(colored(f"🚫 Domain Lock Triggered! {current_domain} is outside {target_domain}. Returning...", "red"))
-                        await page.goto(self.config.get("target_url"), wait_until="load")
-                        await asyncio.sleep(2)
+                    current_url = page.url
+                    current_domain = urlparse(current_url).netloc
+                    
+                    # Special check for error pages or blank pages
+                    is_error_page = "chromewebdata" in current_url or current_url == "about:blank"
+                    
+                    if is_error_page or (current_domain and target_domain and current_domain != target_domain):
+                        lock_retries += 1
+                        if lock_retries > 5:
+                            print(colored("❌ Domain Lock: Too many failures. Breaking.", "red"))
+                            break
+                            
+                        reason = "Error Page" if is_error_page else f"External Domain ({current_domain})"
+                        print(colored(f"🚫 Domain Lock Triggered! {reason}. Returning to {target_domain} (Attempt {lock_retries}/5)...", "red"))
+                        try:
+                            await page.goto(self.config.get("target_url"), wait_until="commit", timeout=90000)
+                            await asyncio.sleep(5) # Let redirects settle
+                        except: pass
                         continue
+                    
+                    lock_retries = 0 # Reset on success
                     # ------------------
                     print(colored("\n" + "─"*40, "blue"), flush=True)
                     print(colored(f"🚀 [STEP {step + 1}] PROCESSING...", "blue", attrs=["bold"]), flush=True)

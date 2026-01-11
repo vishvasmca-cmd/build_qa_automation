@@ -24,7 +24,7 @@ jobs:
         playwright install chromium
     - name: Run Dyson Menu Test
       run: |
-        python trigger_agent.py --url "https://www.saucedemo.com/" --goal "Login with standard_user and secret_sauce" --name "saucedemo_ci" --domain "general" --headless
+        python trigger_agent.py --url "https://www.dyson.in/" --goal "1. Handle Popup: If 'Subscribe to Dyson' appears, close it. 2. Menu Check: Click on each link in the main top menu (Deals, Vacuum & wet cleaners, Hair care, Air purifier, Headphones, Lighting, Support). 3. Verification: Ensure each page loads successfully." --name "dyson_menu_test_ci" --domain "e_commerce" --headless
     - name: Commit Generated Projects
       if: always()
       run: |
@@ -33,6 +33,4 @@ jobs:
         git add projects/
         git commit -m "Capture Dyson CI generated tests [CI-Gen]" || echo "No changes to commit"
         git pull origin main --rebase
-        git push origin main --rebase
-        git push origin main --rebase
         git push origin main

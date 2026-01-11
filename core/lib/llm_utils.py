@@ -30,6 +30,9 @@ def safe_llm_call(max_retries=10, initial_delay=1, backoff_factor=2):
                     if "429" in str(e) or "ResourceExhausted" in str(e):
                         print(colored(f"⚠️ 429 Rate Limit Hit. Cooling down for 60s...", "yellow"))
                         time.sleep(60)
+                    elif "INVALID_ARGUMENT" in str(e) or "image" in str(e).lower():
+                        # Don't retry invalid requests (like bad images), fail fast so fallback kicks in
+                        raise e
                     else:
                         time.sleep(delay)
                         delay *= backoff_factor
@@ -98,9 +101,34 @@ class SafeLLM:
                 elif hasattr(msg, "content"):
                     if isinstance(msg.content, list):
                         for part in msg.content:
+                            print(f"[DEBUG] Part Type: {part.get('type') if isinstance(part, dict) else 'non-dict'}")
                             if isinstance(part, dict) and part.get('type') == 'image_url':
-                                b64_data = part['image_url']['url'].split(',')[-1]
-                                parts.append({"inline_data": {"mime_type": "image/jpeg", "data": b64_data}})
+                                url = part['image_url']['url']
+                                mime_type = "image/png" # Default
+                                b64_data = url
+                                
+                                # Handle data URI prefix: data:image/jpeg;base64,....
+                                if url.startswith('data:'):
+                                    header, b64_data = url.split(',', 1)
+                                    # Extract mime_type from header
+                                    match = re.search(r'data:(.*?);base64', header)
+                                    if match:
+                                        mime_type = match.group(1)
+                                
+                                # Sanitize Base64: Remove newlines and whitespace
+                                b64_data = "".join(b64_data.split())
+                                print(f"[DEBUG] Image Detected: {mime_type}, Data Length: {len(b64_data)} characters")
+                                
+                                # CRITICAL: SDK expects raw BYTES for inline_data.data, not a b64 string.
+                                # If we pass a string, it might double-encode or fail.
+                                import base64 as b64_lib
+                                try:
+                                    img_bytes = b64_lib.b64decode(b64_data)
+                                    print(f"[DEBUG] Decoded to {len(img_bytes)} bytes")
+                                    parts.append({"inline_data": {"mime_type": mime_type, "data": img_bytes}})
+                                except Exception as e:
+                                    print(f"[DEBUG] Base64 Decode Error: {e}")
+                                    parts.append(url) # Fallback to raw string if it wasn't actually b64
                             else:
                                 parts.append(part.get('text', str(part)))
                     else:
@@ -115,14 +143,19 @@ class SafeLLM:
         else:
             contents = [str(messages)]
 
-        resp = self.client.models.generate_content(
-            model=self.model_name,
-            contents=contents,
-            config=self.config
-        )
-        
-        from types import SimpleNamespace
-        return SimpleNamespace(content=resp.text)
+        print(f"[DEBUG] Sending request to {self.model_name}. Content length: {len(str(contents))}")
+        try:
+            resp = self.client.models.generate_content(
+                model=self.model_name,
+                contents=contents,
+                config=self.config
+            )
+            print(f"[DEBUG] Received response from {self.model_name}. Length: {len(resp.text) if resp.text else 0}")
+            from types import SimpleNamespace
+            return SimpleNamespace(content=resp.text)
+        except Exception as e:
+            print(f"[DEBUG] LLM Error: {e}")
+            raise e
 
     async def ainvoke(self, messages):
         """

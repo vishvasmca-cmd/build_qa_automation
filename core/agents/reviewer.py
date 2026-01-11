@@ -142,6 +142,57 @@ class CodeReviewer:
             return False, "\n".join(errors)
         return True, "OK"
 
+    def _validate_pom_structure(self, code, file_path):
+        """Checks if POM classes are incorrectly embedded in test files."""
+        # Test files should NOT contain Page Object class definitions
+        if "test_" in os.path.basename(file_path):
+            if re.search(r"^class \w+Page\(.*\):", code, re.MULTILINE):
+                return False, "POM Structure Violation: Page Object classes (e.g., HomePage, LoginPage) must be in separate files in the pages/ directory, NOT embedded in test files."
+        return True, "OK"
+    
+    def _validate_method_calls(self, code):
+        """Checks for calls to undefined methods."""
+        # Common pattern: calling self.method_name() when method doesn't exist
+        import ast
+        try:
+            tree = ast.parse(code)
+            class_methods = {}
+            
+            # First pass: collect all defined methods per class
+            for node in ast.walk(tree):
+                if isinstance(node, ast.ClassDef):
+                    class_methods[node.name] = {n.name for n in node.body if isinstance(n, ast.FunctionDef)}
+            
+            # Second pass: check for undefined method calls
+            for node in ast.walk(tree):
+                if isinstance(node, ast.Call):
+                    if isinstance(node.func, ast.Attribute):
+                        if isinstance(node.func.value, ast.Name) and node.func.value.id == 'self':
+                            method_name = node.func.attr
+                            # Find which class we're in
+                            for cls_name, methods in class_methods.items():
+                                if method_name not in methods and method_name not in ['page', 'goto', 'click', 'fill', 'wait_for_load_state', 'wait_for_url', 'get_by_role', 'get_by_text', 'locator']:
+                                    # Check if it's a common mistake
+                                    if method_name == 'wait_for_stability' and 'wait_for_stability' not in methods:
+                                        return False, f"Undefined Method: {cls_name}.{method_name}() is called but not defined. Did you mean to use self.page.wait_for_load_state('networkidle')?"
+            return True, "OK"
+        except:
+            return True, "OK"  # Skip validation if AST parsing fails
+    
+    def _validate_imports(self, code, file_path):
+        """Checks for invalid imports (e.g., importing from pages/ when classes are defined inline)."""
+        # If code has "from pages.X import Y" but also defines class Y inline, that's wrong
+        import_pattern = r"from pages\.(\w+) import (\w+)"
+        class_pattern = r"^class (\w+)\("
+        
+        imports = re.findall(import_pattern, code)
+        classes = re.findall(class_pattern, code, re.MULTILINE)
+        
+        for module, cls in imports:
+            if cls in classes:
+                return False, f"Import Error: Code tries to import '{cls}' from pages.{module}, but '{cls}' is defined inline in the same file. Remove the inline definition or remove the import."
+        return True, "OK"
+
     def _validate_syntax(self, code):
         """Checks if code is valid Python using AST."""
         import ast
@@ -285,29 +336,52 @@ You must output a JSON object with this EXACT structure:
                     print("⚠️ 'final_code' was empty or invalid. Skipping write.")
                     return False, "Reviewer 'final_code' was empty or invalid."
             else:
-                # Post-LLM Analysis Syntax & Hallucination Check
-                is_valid, reason = self._validate_syntax(result.get("final_code", code_content))
+                # Post-LLM Analysis: Run ALL validation checks
+                final_code = result.get("final_code", code_content)
+                
+                # 1. Syntax Check
+                is_valid, reason = self._validate_syntax(final_code)
                 if not is_valid:
                      print(f"❌ Reviewer REJECTED code due to syntax: {reason}")
                      return False, f"Reviewer REJECTED code due to syntax: {reason}"
+                
+                # 2. POM Structure Check (NEW)
+                is_valid, reason = self._validate_pom_structure(final_code, file_path)
+                if not is_valid:
+                    print(f"❌ Reviewer REJECTED code due to POM Structure: {reason}")
+                    return False, f"Reviewer REJECTED code due to POM Structure: {reason}"
+                
+                # 3. Method Calls Check (NEW)
+                is_valid, reason = self._validate_method_calls(final_code)
+                if not is_valid:
+                    print(f"❌ Reviewer REJECTED code due to Undefined Method: {reason}")
+                    return False, f"Reviewer REJECTED code due to Undefined Method: {reason}"
+                
+                # 4. Imports Check (NEW)
+                is_valid, reason = self._validate_imports(final_code, file_path)
+                if not is_valid:
+                    print(f"❌ Reviewer REJECTED code due to Import Error: {reason}")
+                    return False, f"Reviewer REJECTED code due to Import Error: {reason}"
                      
-                is_valid, reason = self._validate_hallucinations(result.get("final_code", code_content))
+                # 5. Hallucination Check
+                is_valid, reason = self._validate_hallucinations(final_code)
                 if not is_valid:
                     print(f"❌ Reviewer REJECTED code due to hallucinations: {reason}")
                     return False, f"Reviewer REJECTED code due to hallucinations: {reason}"
                 
-                is_valid, reason = self._validate_pom_scope(result.get("final_code", code_content))
+                # 6. POM Scope Check
+                is_valid, reason = self._validate_pom_scope(final_code)
                 if not is_valid:
                     print(f"❌ Reviewer REJECTED code due to POM Scope: {reason}")
-                    # If it's just a scope error, we could try to auto-fix it with LLM again or just reject
                     return False, f"Reviewer REJECTED code due to POM Scope: {reason}"
 
-                is_valid, reason = self._validate_locator_stability(result.get("final_code", code_content))
+                # 7. Locator Stability Check
+                is_valid, reason = self._validate_locator_stability(final_code)
                 if not is_valid:
                     print(f"❌ Reviewer REJECTED code due to Stability Smell: {reason}")
                     return False, f"Reviewer REJECTED code due to Stability Smell: {reason}"
                     
-                print("✅ Code Approved (No major issues found).")
+                print("✅ Code Approved (All validation checks passed).")
             
             duration = __import__('time').time() - start_time
             logger.log_event("Reviewer", "review_code", duration, cost=0.01)
