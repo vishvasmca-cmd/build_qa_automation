@@ -283,6 +283,7 @@ Your job is to CODE REVIEW and AUTO-FIX the provided Playwright Python script.
 11. **POM Scope**: Inside Page Object class methods, you MUST use `self.page` for all Playwright calls. NEVER use `page.` directly if not in the main test function.
 12. **Dropdowns/Selects**: NEVER attempt to `.click()` an `<option>` element. ALWAYS use `.select_option()` on the `<select>` element.
 13. **Completeness**: If the user's goal or trace includes sorting, checkout, or specific form fields, ENSURE the `test_autonomous_flow` calls ALL relevant POM methods. REJECT truncated tests.
+14. **IMPORT INTEGRITY**: Verify that imports like `from pages.login_page import LoginPage` are valid. If the file structure implies they might fail, SUGGEST adding `sys.path.append(os.getcwd())` boilerplates to the top of the file.
 
 **OUTPUT FORMAT**:
 You must output a JSON object with this EXACT structure:

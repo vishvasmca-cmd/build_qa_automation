@@ -1,48 +1,44 @@
-============================= test session starts ==============================
-platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
 cachedir: .pytest_cache
-metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1', 'langsmith': '0.6.2'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
-rootdir: /home/runner/work/build_qa_automation/build_qa_automation
-plugins: html-4.1.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1, langsmith-0.6.2
+rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
+plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
 collecting ... collected 1 item
 
-projects/dyson_e2e_ci/tests/test_main.py::test_autonomous_flow[chromium] Navigation to https://www.dyson.in/ failed: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
-Call log:
-  - navigating to "https://www.dyson.in/", waiting until "load"
+projects/dyson_e2e_ci/tests/test_main.py::test_autonomous_flow[chromium] FAILED
 
-FAILED
+================================== FAILURES ===================================
+_______________________ test_autonomous_flow[chromium] ________________________
 
-=================================== FAILURES ===================================
-________________________ test_autonomous_flow[chromium] ________________________
+page = <Page url='about:blank'>
 
-browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
-
-    def test_autonomous_flow(browser: Browser):
-        page = browser.new_page()
+    def test_autonomous_flow(page):
+        import sys, os
+        sys.path.append(os.getcwd())
+    
         base_page = BasePage(page)
         home_page = HomePage(page)
-        products_page = ProductsPage(page)
+        product_page = ProductPage(page)
     
-        # 1. Handle Popup
 >       base_page.navigate("https://www.dyson.in/")
 
-projects/dyson_e2e_ci/tests/test_main.py:101: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-projects/dyson_e2e_ci/tests/test_main.py:39: in navigate
+projects\dyson_e2e_ci\tests\test_main.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+projects\dyson_e2e_ci\tests\test_main.py:36: in navigate
     self.page.goto(url, timeout=60000)
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9050: in goto
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:9050: in goto
     self._sync(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:552: in goto
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_page.py:552: in goto
     return await self._main_frame.goto(**locals_to_params(locals()))
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:153: in goto
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:153: in goto
     await self._channel.send(
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:69: in send
     return await self._connection.wrap_api_call(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-self = <playwright._impl._connection.Connection object at 0x7fcace1c2390>
-cb = <function Channel.send.<locals>.<lambda> at 0x7fcace19e0c0>
+self = <playwright._impl._connection.Connection object at 0x000001DB62E45D10>
+cb = <function Channel.send.<locals>.<lambda> at 0x000001DB630DB4C0>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -65,10 +61,8 @@ E           playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_E
 E           Call log:
 E             - navigating to "https://www.dyson.in/", waiting until "load"
 
-/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
-=========================== short test summary info ============================
-FAILED projects/dyson_e2e_ci/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
-Call log:
-  - navigating to "https://www.dyson.in/", waiting until "load"
-============================== 1 failed in 0.73s ===============================
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: Error
+=========================== short test summary info ===========================
+FAILED projects/dyson_e2e_ci/tests/test_main.py::test_autonomous_flow[chromium]
+============================== 1 failed in 1.59s ==============================
 

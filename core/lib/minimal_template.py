@@ -43,7 +43,7 @@ def wait_for_stability(page):
 def take_screenshot(page, name, project_name):
     screenshot_dir = os.path.join(os.getcwd(), "projects", project_name, "outputs", "screenshots")
     os.makedirs(screenshot_dir, exist_ok=True)
-    path = os.path.join(screenshot_dir, f"{name}.png")
+    path = os.path.join(screenshot_dir, f"{{name}}.png")
     page.screenshot(path=path)
     print(f"[SCREENSHOT] Saved: {path}")
 

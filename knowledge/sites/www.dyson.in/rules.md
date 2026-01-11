@@ -134,3 +134,55 @@
 - ⚠️ PROHIBITED: DON'T assume that the module paths are correct without verifying the project structure and import statements.
 
 - ✅ PREFERRED: DO ensure that all necessary modules and packages are installed and that the Python import paths are correctly configured before running tests.
+
+- ⚠️ PROHIBITED: DON'T assume that the project's internal module structure is correctly configured without verifying the Python import paths.
+
+- ✅ PREFERRED: DO ensure that all modules and packages within the project are correctly structured and that the Python import paths are properly configured to allow for seamless module imports.
+
+- ⚠️ PROHIBITED: DON'T assume that relative paths will resolve correctly in all execution environments; ALWAYS verify the module structure and import paths.
+
+- ✅ PREFERRED: DO use absolute imports or explicitly define the PYTHONPATH to ensure modules can be located correctly, especially in CI/CD environments.
+
+- ⚠️ PROHIBITED: DON'T assume that the Python import paths are automatically configured correctly; ALWAYS verify the module structure and import statements.
+
+- ✅ PREFERRED: DO ensure that all necessary modules and packages are installed and that the Python import paths are correctly configured before running tests.
+
+- ⚠️ PROHIBITED: DON'T assume that project directory structures are automatically correct; ALWAYS verify the existence and importability of modules before running tests.
+
+- ✅ PREFERRED: DO ensure that all necessary modules and files are present in the correct directory structure and that import paths are accurate before running tests.
+
+- ⚠️ PROHIBITED: DON'T assume that relative imports will work without verifying the correct Python path configuration.
+
+- ✅ PREFERRED: DO ensure that all module dependencies are correctly installed and that the Python path is configured to resolve project modules.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always available and correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page load.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial page load. Also, consider adding a check for network connectivity before attempting navigation.
+
+- ⚠️ PROHIBITED: DON'T assume the target website fully supports HTTP/2 without proper error handling and fallback mechanisms in place.
+
+- ✅ PREFERRED: DO implement robust error handling for network-related issues, including HTTP/2 protocol errors, and consider retrying the navigation with a different protocol version or a different browser context.
+
+- ⚠️ PROHIBITED: DON'T assume a successful page load without explicitly checking the response status code after navigation.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for page navigation, especially when encountering network-related errors.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is fully compatible with HTTP/2 without proper error handling and fallback mechanisms.
+
+- ✅ PREFERRED: DO implement robust error handling for network-related errors, especially HTTP/2 protocol errors, and consider retrying the navigation with a different protocol version or a different browser context.
+
+- ⚠️ PROHIBITED: DON'T assume a successful page load without explicitly checking the response status or handling potential network errors.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, especially for initial page loads, to handle transient network issues or server-side hiccups.
+
+- ⚠️ PROHIBITED: DON'T assume that HTTP/2 protocol is stable. Implement retry logic with fallback to HTTP/1.1 if HTTP/2 fails during initial page load.
+
+- ✅ PREFERRED: DO implement robust error handling and retry mechanisms for page navigation, especially when dealing with external websites that might have intermittent network or server issues.
+
+- ⚠️ PROHIBITED: DON'T directly use 'placeholder=' as a locator engine without ensuring it's correctly interpreted by Playwright and the target element actually uses a simple placeholder attribute. Consider alternative attribute selectors or role-based selectors.
+
+- ✅ PREFERRED: DO prioritize using more robust and specific locators like 'aria-label', 'id', or 'data-testid' attributes when available. If a placeholder is the only option, verify its exact value and consider using a CSS selector that targets the placeholder attribute (e.g., `input[placeholder='Search products and parts']`).
+
+- ⚠️ PROHIBITED: DON'T assume that the target website fully supports HTTP/2 without proper error handling and fallback mechanisms in place.
+
+- ✅ PREFERRED: DO implement robust error handling around `page.goto()` calls, including catching network errors and potentially retrying with a different protocol (e.g., HTTP/1.1) or a different Playwright configuration.

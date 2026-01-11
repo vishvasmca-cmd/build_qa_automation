@@ -333,7 +333,15 @@ class CodeRefiner:
         5. **Stability**: Use `page.wait_for_load_state("networkidle")` or specific element waits if needed after interactions.
         6. **TIMEOUTS & URL STABILITY**: Use generous timeouts (at least 60000ms) for navigations. When using `wait_for_url` or `to_have_url`, ALWAYS use a wildcard `*` at the end or a regex to handle trailing slashes or `/index` suffixes (e.g. use `**/dashboard*` instead of `**/dashboard`).
         7. **Reliability**: Use the trace's element context (text, roles, labels) to build robust locators.
-        
+        8. **SELF-CONTAINED ROBUSTNESS**:
+           - **NO PAGE IMPORTS**: You are generating a standalone script. You MUST define all Page Object classes INLINE in the output JSON. **DO NOT** write `from pages... import...` lines.
+           - **PATH SETUP**: Start the `test_logic` with:
+             ```python
+             import sys, os
+             sys.path.append(os.getcwd())
+             ```
+           - **HELPERS**: `from helpers import take_screenshot` is allowed (with try/except fallback).
+
         **OUTPUT FORMAT**:
         You must output a JSON object with this EXACT structure:
         {
@@ -343,7 +351,7 @@ class CodeRefiner:
               "code": "class LoginPage:\\n    def __init__(self, page):... (full class code here)"
             }
           ],
-          "test_logic": "def test_autonomous_flow(browser: Browser):\\n    # Setup, calls to POM actions, assertions, cleanup"
+          "test_logic": "def test_autonomous_flow(page: Page):\\n    # Setup, calls to POM actions, assertions, cleanup"
         }
 
         **WORKFLOW GOAL (REQUIRED TO PASS)**:
@@ -516,9 +524,13 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         os.unlink(temp_path)
         
         if not is_approved:
-            print(colored(f"❌ Code Review Failed: {review_msg}", "red"))
-            print(colored("🔄 Refiner will regenerate on next attempt...", "yellow"))
-            return None  # Signal failure to trigger regeneration
+            # Soft-fail if Reviewer just broke on format (Truncation/JSON error)
+            if "invalid format" in review_msg or "Review Agent Crashed" in review_msg:
+                 print(colored(f"⚠️ Code Review Format Error: {review_msg}. Proceeding with best-effort code.", "yellow"))
+            else:
+                 print(colored(f"❌ Code Review Failed: {review_msg}", "red"))
+                 print(colored("🔄 Refiner will regenerate on next attempt...", "yellow"))
+                 return None  # Signal failure to trigger regeneration
             
     except Exception as e:
         print(colored(f"⚠️ Automated Review Failed: {e}", "yellow"))
