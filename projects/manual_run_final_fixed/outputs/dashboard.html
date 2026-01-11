@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agent Performance Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background: #f4f6f8; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .row { display: flex; gap: 20px; }
+        .col { flex: 1; }
+        h1 { color: #2c3e50; }
+        h2 { color: #34495e; font-size: 1.2rem; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; }
+        .status-success { color: green; font-weight: bold; }
+        .status-failed { color: red; font-weight: bold; }
+        .metric-value { font-size: 2rem; font-weight: bold; color: #2980b9; }
+        .metric-label { color: #7f8c8d; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Agent Performance Dashboard</h1>
+        
+        <!-- Key Metrics -->
+        <div class="row">
+            <div class="card col">
+                <div class="metric-value" id="runStatus">-</div>
+                <div class="metric-label">Overall Result</div>
+            </div>
+            <div class="card col">
+                <div class="metric-value" id="totalDuration">0s</div>
+                <div class="metric-label">Total Duration</div>
+            </div>
+            <div class="card col">
+                <div class="metric-value" id="totalCost">$0.00</div>
+                <div class="metric-label">Estimated Cost</div>
+            </div>
+            <div class="card col">
+                <div class="metric-value" id="agentCount">0</div>
+                <div class="metric-label">Active Agents</div>
+            </div>
+        </div>
+
+        <!-- Charts Row 1: Time & Activity -->
+        <div class="row">
+            <div class="card col">
+                <h2>Time per Agent (Seconds)</h2>
+                <canvas id="timeChart"></canvas>
+            </div>
+            <div class="card col">
+                <h2>Activity Distribution</h2>
+                <canvas id="costChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Charts Row 2: Failure Analytics -->
+        <div class="row" id="failureAnalyticsRow" style="display:none;">
+            <div class="card col">
+                <h2 style="color:#e74c3c">Failures per Agent</h2>
+                <canvas id="failureChart"></canvas>
+            </div>
+            <div class="card col">
+                <h2 style="color:#e67e22">Failure Root Causes</h2>
+                <ul id="rootCausesList" style="list-style-type: none; padding: 0;"></ul>
+            </div>
+        </div>
+
+        <!-- Logs -->
+        <div class="card">
+            <h2>Execution Log</h2>
+            <table id="logTable">
+                <thead><tr><th>Agent</th><th>Action</th><th>Duration</th><th>Cost</th><th>Status</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- Failures Section (Visible if any) -->
+        <div id="failureCard" class="card" style="display:none; border-left: 5px solid red;">
+            <h2 style="color:red">⚠️ Failure Detailed Report</h2>
+            <table id="failureTable">
+                <thead><tr><th>Agent</th><th>Error</th><th>Context</th><th>Status of Fix</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const data = {"run_id": "5d8c9239-b7b5-48e7-aaf1-a5cc2a47ff7f", "timestamp": 1768018177.5815017, "summary": {"total_duration": 307.4508646564484, "total_cost": 0.043000000000000003, "status": "running"}, "events": [{"agent": "Orchestrator", "action": "pipeline_start", "end_time": 1768018177.5815017, "duration": 0, "success": true, "cost": 0.0, "metadata": {"config": {"project_name": "verify_custom_swagstore", "target_url": "https://www.saucedemo.com/v1/", "workflow_description": "Login with standard_user/secret_sauce", "domain": "e_commerce", "paths": {"test": "projects/verify_custom_swagstore/tests/test_main.py", "report": "projects/verify_custom_swagstore/outputs/report.md"}, "master_plan": "# Master Test Strategy: SauceDemo E-commerce Application\n\n**Document Version:** 1.0\n**Date:** October 26, 2023\n**Prepared By:** Senior Test Manager\n\nThis document outlines the master test strategy for the SauceDemo e-commerce application (https://www.saucedemo.com/v1/). It serves as a blueprint for all testing activities, ensuring comprehensive coverage and minimizing risks associated with software releases.\n\n## 1. \ud83d\udd0d RISK ASSESSMENT & PLANNING\n\n### 1.1 Domain Analysis\n\nSauceDemo is an e-commerce application. The core business functionalities revolve around:\n\n*   **Product Catalog:** Browsing and filtering products.\n*   **Shopping Cart:** Adding, removing, and modifying items.\n*   **Checkout Process:** Entering shipping information, selecting payment methods, and confirming orders.\n*   **User Authentication:** Login and logout functionality.\n\nGiven the e-commerce nature, the **Checkout Process** is considered **P0 (Priority 0)**, as failure in this area directly impacts revenue. User Authentication is also critical (P1).\n\n### 1.2 Risk Profile\n\nFailure of the SauceDemo application can lead to:\n\n*   **Financial Loss:** Inability to process orders, leading to lost revenue.\n*   **Customer Dissatisfaction:** Frustration due to application errors, leading to negative reviews and churn.\n*   **Reputational Damage:** Loss of trust in the brand due to unreliable service.\n*   **Data Security Breach:** Compromised user data (e.g., login credentials, payment information).\n\n### 1.3 Testing Scope\n\n**In Scope:**\n\n*   All functionalities related to product browsing, shopping cart management, user authentication, and the checkout process.\n*   Positive and negative test scenarios.\n*   Edge cases and boundary conditions.\n*   Cross-browser compatibility (Chrome, Firefox, Safari, Edge - latest versions).\n*   Basic security testing (OWASP Top 10).\n*   Performance testing (load times for key pages).\n*   Accessibility testing (basic checks for WCAG compliance).\n\n**Out of Scope:**\n\n*   Detailed performance testing (e.g., stress testing, endurance testing).\n*   Advanced security testing (e.g., penetration testing).\n*   Mobile application testing (if applicable, and not part of this project).\n*   API testing (unless explicitly required).\n*   Localization testing.\n\n## 2. \ud83c\udfd7\ufe0f TESTING STRATEGY\n\n### 2.1 Smoke Suite (Sanity)\n\nThe Smoke Suite will be executed after each build to ensure the core functionality is operational.\n\n*   **Test Cases:**\n    *   Verify successful login with valid credentials (standard\\_user/secret\\_sauce).\n    *   Verify that the product catalog page loads successfully.\n    *   Verify that a product can be added to the cart.\n    *   Verify that the cart page loads successfully.\n*   **Execution Frequency:** After each build deployment.\n*   **Pass/Fail Criteria:** All test cases must pass for the build to be considered stable.\n\n### 2.2 Regression Suite (Deep Dive)\n\nThe Regression Suite will provide comprehensive coverage of all in-scope functionalities.\n\n*   **Negative Testing:**\n    *   Invalid login attempts (incorrect username/password).\n    *   Attempting to add out-of-stock items to the cart.\n    *   Submitting the checkout form with missing or invalid data.\n    *   Entering invalid characters in search fields.\n*   **Edge Cases:**\n    *   Adding a large number of items to the cart.\n    *   Simultaneous access by multiple users (concurrency).\n    *   Handling network timeouts during checkout.\n    *   Empty cart scenarios.\n    *   Testing with extremely long product names or descriptions.\n*   **Security Testing (OWASP Top 10 Basics):**\n    *   Input validation to prevent SQL injection and cross-site scripting (XSS) attacks.\n    *   Checking for insecure direct object references.\n    *   Verifying proper authentication and authorization mechanisms.\n*   **Cross-Module Interactions:**\n    *   Verify that changes to the cart (add/remove items) are reflected in the header.\n    *   Verify that product details displayed on the product page match the details in the cart.\n*   **Validation Messages:**\n    *   Verify that appropriate error messages are displayed for invalid input (e.g., \"Username is required\").\n    *   Verify that success messages are displayed after successful actions (e.g., \"Order placed successfully\").\n\n### 2.3 Data Strategy\n\n*   **Test Data:** A combination of static and dynamically generated test data will be used.\n    *   **Static Data:**  A set of pre-defined user accounts (including standard\\_user), product information, and shipping addresses will be maintained.\n    *   **Dynamic Data:**  For scenarios requiring unique data (e.g., order IDs, email addresses), data will be generated programmatically.  Faker libraries are recommended.\n*   **Data Management:** Test data will be stored in a centralized location (e.g., CSV files, database) and managed using version control.\n\n## 3. \ud83c\udfdb\ufe0f ARCHITECTURE GUIDANCE\n\n### 3.1 Framework Recommendation\n\n*   **Page Object Model (POM):**  Implement a Page Object Model to improve code maintainability and reduce duplication. Each page of the application should be represented as a separate class, encapsulating the elements and actions specific to that page.\n\n### 3.2 Resilience Strategy\n\n*   **Flakiness Handling:**\n    *   **Polling Assertions:** Use polling assertions (e.g., WebDriverWait in Selenium) to wait for elements to become visible or conditions to be met before proceeding with the test. This helps to avoid false failures due to timing issues.\n    *   **Retry Mechanisms:** Implement retry mechanisms for flaky tests. If a test fails, it should be retried a certain number of times before being marked as a failure.\n    *   **Self-Healing:** Explore self-healing techniques to automatically recover from minor changes in the application's UI.  This could involve using more robust element locators (e.g., XPath with text-based identification) or dynamically adjusting element locators based on the current state of the application.\n\n## 4. \u2694\ufe0f EXECUTION & MINING INSTRUCTIONS\n\n### 4.1 Mining Targets\n\nThe autonomous agent should prioritize exploring the following pages and flows:\n\n1.  **Login Page:**  https://www.saucedemo.com/v1/\n2.  **Product Catalog Page:**  (Accessed after successful login)\n3.  **Product Detail Page:** (Accessed by clicking on a product)\n4.  **Shopping Cart Page:** (Accessed via the cart icon)\n5.  **Checkout Pages:** (Accessed from the shopping cart)\n    *   Checkout: Your Information\n    *   Checkout: Overview\n    *   Checkout: Complete!\n\n### 4.2 Verification Criteria\n\n*   **Success:**\n    *   HTTP 200 status code for all page requests.\n    *   Expected text or elements are visible on the page (e.g., \"Welcome\" message after login, product names on the product catalog page).\n    *   Form submissions are successful (e.g., order confirmation page is displayed after checkout).\n*   **Failure:**\n    *   HTTP error codes (e.g., 404, 500).\n    *   Unexpected errors or exceptions.\n    *   Missing or incorrect elements on the page.\n    *   Form submissions fail with error messages.\n\nThis Master Test Strategy will be reviewed and updated periodically to ensure it remains aligned with the evolving needs of the SauceDemo application.\n"}}}, {"agent": "SpecSynthesizer", "action": "generate_master_plan", "end_time": 1768018191.8939133, "duration": 13.0188, "success": true, "cost": 0.002, "metadata": {}}, {"agent": "Explorer", "action": "init", "end_time": 1768018194.0980518, "duration": 0.0, "success": true, "cost": 0.0, "metadata": {"config": "C:\\Users\\vishv\\.gemini\\antigravity\\playground\\inner-event\\projects\\verify_custom_swagstore\\config.json"}}, {"agent": "Miner", "action": "analyze_page_cache_hit", "end_time": 1768018220.9477413, "duration": 0.001, "success": true, "cost": 0.0, "metadata": {"url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "make_decision", "end_time": 1768018223.2329428, "duration": 2.0831, "success": true, "cost": 0.0, "metadata": {"step": 0, "url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "execute_action", "end_time": 1768018223.4217522, "duration": 0.1785, "success": true, "cost": 0.0, "metadata": {"step": 0, "action": "fill", "target": 1, "locator": "[data-agent-id='1']"}}, {"agent": "Miner", "action": "analyze_page_cache_hit", "end_time": 1768018224.2264333, "duration": 0.001, "success": true, "cost": 0.0, "metadata": {"url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "make_decision", "end_time": 1768018228.2830186, "duration": 3.9651, "success": true, "cost": 0.0, "metadata": {"step": 1, "url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "execute_action", "end_time": 1768018228.3635812, "duration": 0.0525, "success": true, "cost": 0.0, "metadata": {"step": 1, "action": "fill", "target": 2, "locator": "[data-agent-id='2']"}}, {"agent": "Miner", "action": "analyze_page_cache_hit", "end_time": 1768018229.1785257, "duration": 0.001, "success": true, "cost": 0.0, "metadata": {"url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "make_decision", "end_time": 1768018233.519306, "duration": 4.2487, "success": true, "cost": 0.0, "metadata": {"step": 2, "url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "exploration_phase", "end_time": 1768018234.171894, "duration": 42.1971, "success": true, "cost": 0.0, "metadata": {}}, {"agent": "Orchestrator", "action": "pipeline_start", "end_time": 1768019140.369701, "duration": 0, "success": true, "cost": 0.0, "metadata": {"config": {"project_name": "api_test_project", "target_url": "https://example.com", "workflow_description": "Smoke test", "domain": "general", "paths": {"test": "projects/api_test_project/tests/test_main.py", "report": "projects/api_test_project/outputs/report.md"}}}}, {"agent": "SpecSynthesizer", "action": "generate_master_plan", "end_time": 1768019152.5276837, "duration": 10.4902, "success": true, "cost": 0.002, "metadata": {}}, {"agent": "Explorer", "action": "init", "end_time": 1768019155.6311734, "duration": 0.0, "success": true, "cost": 0.0, "metadata": {"config": "C:\\Users\\vishv\\.gemini\\antigravity\\playground\\inner-event\\projects\\api_test_project\\config.json"}}, {"agent": "Orchestrator", "action": "pipeline_start", "end_time": 1768108882.2159076, "duration": 0, "success": true, "cost": 0.0, "metadata": {"config": {"project_name": "dyson_small_model_v1", "target_url": "https://www.dyson.in/", "workflow_description": "1. Handle Popup: If 'Subscribe to Dyson' appears, close it. 2. Menu Check: Click on each link in the main top menu. 3. Verification: Ensure each page loads successfully.", "domain": "e_commerce", "paths": {"test": "projects/dyson_small_model_v1/tests/test_main.py", "report": "projects/dyson_small_model_v1/outputs/report.md"}}}}, {"agent": "Explorer", "action": "init", "end_time": 1768108883.3709793, "duration": 0.0, "success": true, "cost": 0.0, "metadata": {"config": "projects\\dyson_small_model_v1\\config.json"}}, {"agent": "Orchestrator", "action": "pipeline_start", "end_time": 1768108932.7702901, "duration": 0, "success": true, "cost": 0.0, "metadata": {"config": {"project_name": "sauce_simple_check", "target_url": "https://www.saucedemo.com/", "workflow_description": "Verify login page loads and check for username field", "domain": "e_commerce", "paths": {"test": "projects/sauce_simple_check/tests/test_main.py", "report": "projects/sauce_simple_check/outputs/report.md"}}}}, {"agent": "SpecSynthesizer", "action": "generate_master_plan", "end_time": 1768108945.712022, "duration": 11.9802, "success": true, "cost": 0.002, "metadata": {}}, {"agent": "Explorer", "action": "init", "end_time": 1768108946.9579754, "duration": 0.0, "success": true, "cost": 0.0, "metadata": {"config": "projects\\sauce_simple_check\\config.json"}}, {"agent": "Explorer", "action": "make_decision", "end_time": 1768109071.8192484, "duration": 2.1707, "success": true, "cost": 0.0, "metadata": {"step": 0, "url": "https://www.saucedemo.com/"}}, {"agent": "Orchestrator", "action": "pipeline_start", "end_time": 1768109295.34149, "duration": 0, "success": true, "cost": 0.0, "metadata": {"config": {"project_name": "manual_run_saucedemo", "target_url": "https://www.saucedemo.com/", "workflow_description": "Login with standard_user and secret_sauce", "domain": "general", "paths": {"test": "projects/manual_run_saucedemo/tests/test_main.py", "report": "projects/manual_run_saucedemo/outputs/report.md"}}}}, {"agent": "SpecSynthesizer", "action": "generate_master_plan", "end_time": 1768109309.6692553, "duration": 13.154, "success": true, "cost": 0.002, "metadata": {}}, {"agent": "Explorer", "action": "init", "end_time": 1768109311.0021236, "duration": 0.0, "success": true, "cost": 0.0, "metadata": {"config": "projects\\manual_run_saucedemo\\config.json"}}, {"agent": "Explorer", "action": "make_decision", "end_time": 1768109438.508411, "duration": 2.0103, "success": true, "cost": 0.0, "metadata": {"step": 0, "url": "https://www.saucedemo.com/"}}, {"agent": "Orchestrator", "action": "pipeline_start", "end_time": 1768110295.299482, "duration": 0, "success": true, "cost": 0.0, "metadata": {"config": {"project_name": "manual_run_debug", "target_url": "https://www.saucedemo.com/", "workflow_description": "Login with standard_user and secret_sauce", "domain": "general", "paths": {"test": "projects/manual_run_debug/tests/test_main.py", "report": "projects/manual_run_debug/outputs/report.md"}}}}, {"agent": "SpecSynthesizer", "action": "generate_master_plan", "end_time": 1768110307.8175619, "duration": 11.436, "success": true, "cost": 0.002, "metadata": {}}, {"agent": "Explorer", "action": "init", "end_time": 1768110309.496557, "duration": 0.0, "success": true, "cost": 0.0, "metadata": {"config": "projects\\manual_run_debug\\config.json"}}, {"agent": "Orchestrator", "action": "pipeline_start", "end_time": 1768110455.9428923, "duration": 0, "success": true, "cost": 0.0, "metadata": {"config": {"project_name": "manual_run_debug_2", "target_url": "https://www.saucedemo.com/", "workflow_description": "Login with standard_user and secret_sauce", "domain": "general", "paths": {"test": "projects/manual_run_debug_2/tests/test_main.py", "report": "projects/manual_run_debug_2/outputs/report.md"}}}}, {"agent": "SpecSynthesizer", "action": "generate_master_plan", "end_time": 1768110472.467495, "duration": 15.1353, "success": true, "cost": 0.002, "metadata": {}}, {"agent": "Explorer", "action": "init", "end_time": 1768110476.8257935, "duration": 0.0, "success": true, "cost": 0.0, "metadata": {"config": "projects\\manual_run_debug_2\\config.json"}}, {"agent": "Orchestrator", "action": "pipeline_start", "end_time": 1768110575.6460767, "duration": 0, "success": true, "cost": 0.0, "metadata": {"config": {"project_name": "manual_run_debug_fix", "target_url": "https://www.saucedemo.com/", "workflow_description": "Login with standard_user and secret_sauce", "domain": "general", "paths": {"test": "projects/manual_run_debug_fix/tests/test_main.py", "report": "projects/manual_run_debug_fix/outputs/report.md"}}}}, {"agent": "SpecSynthesizer", "action": "generate_master_plan", "end_time": 1768110587.6896484, "duration": 10.5264, "success": true, "cost": 0.002, "metadata": {}}, {"agent": "Explorer", "action": "init", "end_time": 1768110589.2993777, "duration": 0.0, "success": true, "cost": 0.0, "metadata": {"config": "projects\\manual_run_debug_fix\\config.json"}}, {"agent": "Orchestrator", "action": "pipeline_start", "end_time": 1768110707.3484187, "duration": 0, "success": true, "cost": 0.0, "metadata": {"config": {"project_name": "manual_run_final", "target_url": "https://www.saucedemo.com/", "workflow_description": "Login with standard_user and secret_sauce", "domain": "general", "paths": {"test": "projects/manual_run_final/tests/test_main.py", "report": "projects/manual_run_final/outputs/report.md"}}}}, {"agent": "SpecSynthesizer", "action": "generate_master_plan", "end_time": 1768110721.620126, "duration": 13.2372, "success": true, "cost": 0.002, "metadata": {}}, {"agent": "Explorer", "action": "init", "end_time": 1768110723.096841, "duration": 0.0, "success": true, "cost": 0.0, "metadata": {"config": "projects\\manual_run_final\\config.json"}}, {"agent": "Miner", "action": "analyze_page_llm_call", "end_time": 1768110733.6459835, "duration": 8.1929, "success": true, "cost": 0.005, "metadata": {"url": "https://www.saucedemo.com/", "elements": 3}}, {"agent": "Explorer", "action": "make_decision", "end_time": 1768110738.3627894, "duration": 4.491, "success": true, "cost": 0.0, "metadata": {"step": 0, "url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "execute_action", "end_time": 1768110738.5562713, "duration": 0.1707, "success": true, "cost": 0.0, "metadata": {"step": 0, "action": "fill", "target": 1, "locator": "[data-agent-id='1']"}}, {"agent": "Miner", "action": "analyze_page_cache_hit", "end_time": 1768110739.4147346, "duration": 0.001, "success": true, "cost": 0.0, "metadata": {"url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "make_decision", "end_time": 1768110742.3674865, "duration": 2.863, "success": true, "cost": 0.0, "metadata": {"step": 1, "url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "execute_action", "end_time": 1768110742.442868, "duration": 0.0486, "success": true, "cost": 0.0, "metadata": {"step": 1, "action": "fill", "target": 2, "locator": "[data-agent-id='2']"}}, {"agent": "Miner", "action": "analyze_page_cache_hit", "end_time": 1768110743.0917473, "duration": 0.001, "success": true, "cost": 0.0, "metadata": {"url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "make_decision", "end_time": 1768110748.128521, "duration": 4.9335, "success": true, "cost": 0.0, "metadata": {"step": 2, "url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "exploration_phase", "end_time": 1768110748.505231, "duration": 26.7796, "success": true, "cost": 0.0, "metadata": {}}, {"agent": "Orchestrator", "action": "pipeline_start", "end_time": 1768110816.0086796, "duration": 0, "success": true, "cost": 0.0, "metadata": {"config": {"project_name": "manual_run_final_fixed", "target_url": "https://www.saucedemo.com/", "workflow_description": "Login with standard_user and secret_sauce", "domain": "general", "paths": {"test": "projects/manual_run_final_fixed/tests/test_main.py", "report": "projects/manual_run_final_fixed/outputs/report.md"}}}}, {"agent": "SpecSynthesizer", "action": "generate_master_plan", "end_time": 1768110832.1587825, "duration": 12.7455, "success": true, "cost": 0.002, "metadata": {}}, {"agent": "Explorer", "action": "init", "end_time": 1768110833.7773762, "duration": 0.0, "success": true, "cost": 0.0, "metadata": {"config": "projects\\manual_run_final_fixed\\config.json"}}, {"agent": "Miner", "action": "analyze_page_cache_hit", "end_time": 1768110836.6222854, "duration": 0.001, "success": true, "cost": 0.0, "metadata": {"url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "make_decision", "end_time": 1768110838.9175322, "duration": 2.1071, "success": true, "cost": 0.0, "metadata": {"step": 0, "url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "execute_action", "end_time": 1768110839.0661137, "duration": 0.1164, "success": true, "cost": 0.0, "metadata": {"step": 0, "action": "fill", "target": 1, "locator": "[data-agent-id='1']"}}, {"agent": "Miner", "action": "analyze_page_cache_hit", "end_time": 1768110839.8586328, "duration": 0.001, "success": true, "cost": 0.0, "metadata": {"url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "make_decision", "end_time": 1768110844.5787072, "duration": 4.6064, "success": true, "cost": 0.0, "metadata": {"step": 1, "url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "execute_action", "end_time": 1768110844.660736, "duration": 0.051, "success": true, "cost": 0.0, "metadata": {"step": 1, "action": "fill", "target": 2, "locator": "[data-agent-id='2']"}}, {"agent": "Miner", "action": "analyze_page_cache_hit", "end_time": 1768110845.3222892, "duration": 0.001, "success": true, "cost": 0.0, "metadata": {"url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "make_decision", "end_time": 1768110848.6353834, "duration": 3.2169, "success": true, "cost": 0.0, "metadata": {"step": 2, "url": "https://www.saucedemo.com/"}}, {"agent": "Explorer", "action": "exploration_phase", "end_time": 1768110849.003323, "duration": 16.7145, "success": true, "cost": 0.0, "metadata": {}}, {"agent": "Refiner", "action": "generate_code", "end_time": 1768110873.857284, "duration": 20.4637, "success": true, "cost": 0.01, "metadata": {}}, {"agent": "Reviewer", "action": "review_code", "end_time": 1768110880.9673245, "duration": 6.8754, "success": true, "cost": 0.01, "metadata": {}}, {"agent": "Generator", "action": "full_gen_cycle", "end_time": 1768110881.0159373, "duration": 31.6175, "success": true, "cost": 0.0, "metadata": {"loops": 1}}, {"agent": "Executor", "action": "execute_test", "end_time": 1768110892.6276886, "duration": 5.5651, "success": true, "cost": 0.0, "metadata": {"attempt": 1}}, {"agent": "Validator", "action": "validate_goal", "end_time": 1768110894.2839494, "duration": 0.0, "success": true, "cost": 0.0, "metadata": {"status": "AMBIGUOUS", "reason": "The actions show the username and password fields were filled, but there's no indication that the login button was clicked or that the login was successful. The final URL is the base URL, which could be the login page. Without seeing the page after the actions, it's impossible to determine if the login was successful.", "confidence": 0.5}}], "failures": []}; // Injected Python Data
+
+        // 1. Populate Metrics
+        document.getElementById('totalDuration').innerText = data.summary.total_duration.toFixed(2) + "s";
+        document.getElementById('totalCost').innerText = "$" + data.summary.total_cost.toFixed(4);
+        
+        // 1.5 Determine Status from Executor or Failures
+        const statusEl = document.getElementById('runStatus');
+        const executorEvent = data.events.find(e => e.agent === "Executor");
+        const hasFailures = data.failures.length > 0;
+
+        if (executorEvent && executorEvent.success) {
+            statusEl.innerText = "✅ PASSED";
+            statusEl.className = "metric-value status-success";
+        } else if (hasFailures || (executorEvent && !executorEvent.success)) {
+            statusEl.innerText = "❌ FAILED";
+            statusEl.className = "metric-value status-failed";
+        } else {
+            statusEl.innerText = "IN PROGRESS";
+            statusEl.style.color = "#f39c12";
+        }
+        
+        // 2. Process Chart Data
+        const agentStats = {};
+        const failureStats = {};
+        
+        data.events.forEach(e => {
+            if (!agentStats[e.agent]) agentStats[e.agent] = { duration: 0, count: 0 };
+            agentStats[e.agent].duration += e.duration;
+            agentStats[e.agent].count += 1;
+        });
+
+        data.failures.forEach(f => {
+            if (!failureStats[f.agent]) failureStats[f.agent] = 0;
+            failureStats[f.agent] += 1;
+        });
+
+        const labels = Object.keys(agentStats);
+        const durations = labels.map(l => agentStats[l].duration);
+        const counts = labels.map(l => agentStats[l].count);
+        
+        const failureLabels = Object.keys(failureStats);
+        const failureCounts = failureLabels.map(l => failureStats[l]);
+
+        document.getElementById('agentCount').innerText = labels.length;
+
+        // 3. Render Charts
+        new Chart(document.getElementById('timeChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Total Duration (s)',
+                    data: durations,
+                    backgroundColor: '#3498db'
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('costChart'), {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: counts,
+                    backgroundColor: ['#e74c3c', '#2ecc71', '#f1c40f', '#9b59b6', '#34495e']
+                }]
+            }
+        });
+
+        if (hasFailures) {
+            document.getElementById('failureAnalyticsRow').style.display = 'flex';
+            new Chart(document.getElementById('failureChart'), {
+                type: 'bar',
+                data: {
+                    labels: failureLabels,
+                    datasets: [{
+                        label: 'Failure Count',
+                        data: failureCounts,
+                        backgroundColor: '#e74c3c'
+                    }]
+                }
+            });
+
+            // Populate Root Causes
+            const rcList = document.getElementById('rootCausesList');
+            const uniqueCauses = [...new Set(data.failures.map(f => f.error))];
+            uniqueCauses.slice(0, 5).forEach(cause => {
+                const li = document.createElement('li');
+                li.style.marginBottom = '10px';
+                li.innerHTML = `<span style="color:#e74c3c; font-weight:bold;">•</span> ${cause.substring(0, 100)}${cause.length > 100 ? '...' : ''}`;
+                rcList.appendChild(li);
+            });
+        }
+
+        // 4. Populate Tables
+        const tbody = document.querySelector('#logTable tbody');
+        data.events.forEach(e => {
+            const row = `<tr>
+                <td>${e.agent}</td>
+                <td>${e.action}</td>
+                <td>${e.duration.toFixed(2)}s</td>
+                <td>$${e.cost}</td>
+                <td class="${e.success ? 'status-success' : 'status-failed'}">${e.success ? 'OK' : 'FAIL'}</td>
+            </tr>`;
+            tbody.innerHTML += row;
+        });
+
+        if (hasFailures) {
+            document.getElementById('failureCard').style.display = 'block';
+            const fbody = document.querySelector('#failureTable tbody');
+            data.failures.forEach(f => {
+                // Improved Fix Status Logic
+                let fixStatus = '<span style="color:#e74c3c">Failed</span>';
+                
+                // Check if any subsequent event from SAME agent was successful
+                const subsequentSuccess = data.events.some(e => 
+                    e.agent === f.agent && 
+                    e.end_time > f.timestamp && 
+                    e.success === true
+                );
+
+                if (subsequentSuccess) {
+                    fixStatus = '<span style="color:green; font-weight:bold;">Fixed (Retry)</span>';
+                } else if (executorEvent && executorEvent.success) {
+                    fixStatus = '<span style="color:green; font-weight:bold;">Self-Healed</span>';
+                } else {
+                    fixStatus = '<span style="color:#f39c12">Pending / Fatal</span>';
+                }
+
+                const row = `<tr>
+                    <td>${f.agent}</td>
+                    <td style="color:red">${f.error}</td>
+                    <td>${JSON.stringify(f.context)}</td>
+                    <td>${fixStatus}</td>
+                </tr>`;
+                fbody.innerHTML += row;
+            });
+        }
+    </script>
+</body>
+</html>
