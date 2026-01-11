@@ -78,3 +78,15 @@
 - ⚠️ PROHIBITED: DON'T use relative imports in test files unless the tests are explicitly run as part of a package.
 
 - ✅ PREFERRED: DO ensure that test files are part of a properly structured Python package or use absolute imports to reference modules.
+
+- ⚠️ PROHIBITED: DON'T assume the target website fully supports HTTP/2 without proper error handling and fallback mechanisms in place.
+
+- ✅ PREFERRED: DO implement robust error handling around `page.goto()` calls, specifically catching network-related exceptions like `net::ERR_HTTP2_PROTOCOL_ERROR` and implementing retry logic or fallback to HTTP/1.1 if possible.
+
+- ⚠️ PROHIBITED: DON'T assume that relative import paths will work correctly in all environments; ALWAYS verify the project's PYTHONPATH and directory structure.
+
+- ✅ PREFERRED: DO use absolute import paths or configure the PYTHONPATH environment variable to ensure modules can be located correctly, especially in CI/CD environments.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is stable; implement robust error handling and retry mechanisms for initial page load.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for critical navigation steps. Also, consider adding a check for network connectivity before attempting navigation.

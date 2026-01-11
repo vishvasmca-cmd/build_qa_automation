@@ -1,0 +1,398 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1', 'langsmith': '0.6.2'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1, langsmith-0.6.2
+collecting ... collected 7 items
+
+projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Deals] FAILED
+projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Vacuum & wet cleaners] FAILED
+projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Hair care] FAILED
+projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Air purifier] FAILED
+projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Headphones] FAILED
+projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Lighting] FAILED
+projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Support] FAILED
+
+=================================== FAILURES ===================================
+_____________________ test_autonomous_flow[chromium-Deals] _____________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+menu_item = 'Deals'
+
+    @pytest.mark.parametrize("menu_item", ["Deals", "Vacuum & wet cleaners", "Hair care", "Air purifier", "Headphones", "Lighting", "Support"])
+    def test_autonomous_flow(browser: Browser, menu_item: str):
+        page = browser.new_page()
+        home_page = HomePage(page)
+>       home_page.navigate()
+
+projects/dyson_menu_test_ci/tests/test_main.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/dyson_menu_test_ci/tests/test_main.py:42: in navigate
+    self.page.goto("https://www.dyson.in/")
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9050: in goto
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:552: in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:153: in goto
+    await self._channel.send(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7fd073b8b750>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fd073ba1940>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+E           Call log:
+E             - navigating to "https://www.dyson.in/", waiting until "load"
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+_____________ test_autonomous_flow[chromium-Vacuum & wet cleaners] _____________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+menu_item = 'Vacuum & wet cleaners'
+
+    @pytest.mark.parametrize("menu_item", ["Deals", "Vacuum & wet cleaners", "Hair care", "Air purifier", "Headphones", "Lighting", "Support"])
+    def test_autonomous_flow(browser: Browser, menu_item: str):
+        page = browser.new_page()
+        home_page = HomePage(page)
+>       home_page.navigate()
+
+projects/dyson_menu_test_ci/tests/test_main.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/dyson_menu_test_ci/tests/test_main.py:42: in navigate
+    self.page.goto("https://www.dyson.in/")
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9050: in goto
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:552: in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:153: in goto
+    await self._channel.send(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7fd073b8b750>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fd072914680>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+E           Call log:
+E             - navigating to "https://www.dyson.in/", waiting until "load"
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+___________________ test_autonomous_flow[chromium-Hair care] ___________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+menu_item = 'Hair care'
+
+    @pytest.mark.parametrize("menu_item", ["Deals", "Vacuum & wet cleaners", "Hair care", "Air purifier", "Headphones", "Lighting", "Support"])
+    def test_autonomous_flow(browser: Browser, menu_item: str):
+        page = browser.new_page()
+        home_page = HomePage(page)
+>       home_page.navigate()
+
+projects/dyson_menu_test_ci/tests/test_main.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/dyson_menu_test_ci/tests/test_main.py:42: in navigate
+    self.page.goto("https://www.dyson.in/")
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9050: in goto
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:552: in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:153: in goto
+    await self._channel.send(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7fd073b8b750>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fd072914720>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+E           Call log:
+E             - navigating to "https://www.dyson.in/", waiting until "load"
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+_________________ test_autonomous_flow[chromium-Air purifier] __________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+menu_item = 'Air purifier'
+
+    @pytest.mark.parametrize("menu_item", ["Deals", "Vacuum & wet cleaners", "Hair care", "Air purifier", "Headphones", "Lighting", "Support"])
+    def test_autonomous_flow(browser: Browser, menu_item: str):
+        page = browser.new_page()
+        home_page = HomePage(page)
+>       home_page.navigate()
+
+projects/dyson_menu_test_ci/tests/test_main.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/dyson_menu_test_ci/tests/test_main.py:42: in navigate
+    self.page.goto("https://www.dyson.in/")
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9050: in goto
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:552: in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:153: in goto
+    await self._channel.send(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7fd073b8b750>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fd072937560>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+E           Call log:
+E             - navigating to "https://www.dyson.in/", waiting until "load"
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+__________________ test_autonomous_flow[chromium-Headphones] ___________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+menu_item = 'Headphones'
+
+    @pytest.mark.parametrize("menu_item", ["Deals", "Vacuum & wet cleaners", "Hair care", "Air purifier", "Headphones", "Lighting", "Support"])
+    def test_autonomous_flow(browser: Browser, menu_item: str):
+        page = browser.new_page()
+        home_page = HomePage(page)
+>       home_page.navigate()
+
+projects/dyson_menu_test_ci/tests/test_main.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/dyson_menu_test_ci/tests/test_main.py:42: in navigate
+    self.page.goto("https://www.dyson.in/")
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9050: in goto
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:552: in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:153: in goto
+    await self._channel.send(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7fd073b8b750>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fd07293ea20>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+E           Call log:
+E             - navigating to "https://www.dyson.in/", waiting until "load"
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+___________________ test_autonomous_flow[chromium-Lighting] ____________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+menu_item = 'Lighting'
+
+    @pytest.mark.parametrize("menu_item", ["Deals", "Vacuum & wet cleaners", "Hair care", "Air purifier", "Headphones", "Lighting", "Support"])
+    def test_autonomous_flow(browser: Browser, menu_item: str):
+        page = browser.new_page()
+        home_page = HomePage(page)
+>       home_page.navigate()
+
+projects/dyson_menu_test_ci/tests/test_main.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/dyson_menu_test_ci/tests/test_main.py:42: in navigate
+    self.page.goto("https://www.dyson.in/")
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9050: in goto
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:552: in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:153: in goto
+    await self._channel.send(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7fd073b8b750>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fd07291e200>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+E           Call log:
+E             - navigating to "https://www.dyson.in/", waiting until "load"
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+____________________ test_autonomous_flow[chromium-Support] ____________________
+
+browser = <Browser type=<BrowserType name=chromium executable_path=/home/runner/.cache/ms-playwright/chromium-1200/chrome-linux64/chrome> version=143.0.7499.4>
+menu_item = 'Support'
+
+    @pytest.mark.parametrize("menu_item", ["Deals", "Vacuum & wet cleaners", "Hair care", "Air purifier", "Headphones", "Lighting", "Support"])
+    def test_autonomous_flow(browser: Browser, menu_item: str):
+        page = browser.new_page()
+        home_page = HomePage(page)
+>       home_page.navigate()
+
+projects/dyson_menu_test_ci/tests/test_main.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+projects/dyson_menu_test_ci/tests/test_main.py:42: in navigate
+    self.page.goto("https://www.dyson.in/")
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9050: in goto
+    self._sync(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:552: in goto
+    return await self._main_frame.goto(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:153: in goto
+    await self._channel.send(
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl._connection.Connection object at 0x7fd073b8b750>
+cb = <function Channel.send.<locals>.<lambda> at 0x7fd072961620>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+E           Call log:
+E             - navigating to "https://www.dyson.in/", waiting until "load"
+
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+=========================== short test summary info ============================
+FAILED projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Deals] - playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+Call log:
+  - navigating to "https://www.dyson.in/", waiting until "load"
+FAILED projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Vacuum & wet cleaners] - playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+Call log:
+  - navigating to "https://www.dyson.in/", waiting until "load"
+FAILED projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Hair care] - playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+Call log:
+  - navigating to "https://www.dyson.in/", waiting until "load"
+FAILED projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Air purifier] - playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+Call log:
+  - navigating to "https://www.dyson.in/", waiting until "load"
+FAILED projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Headphones] - playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+Call log:
+  - navigating to "https://www.dyson.in/", waiting until "load"
+FAILED projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Lighting] - playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+Call log:
+  - navigating to "https://www.dyson.in/", waiting until "load"
+FAILED projects/dyson_menu_test_ci/tests/test_main.py::test_autonomous_flow[chromium-Support] - playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+Call log:
+  - navigating to "https://www.dyson.in/", waiting until "load"
+============================== 7 failed in 2.01s ===============================
+
