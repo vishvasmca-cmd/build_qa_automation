@@ -416,6 +416,7 @@ def _run_execution(project_root, config, config_hash, test_path, trace_path):
 
                 # 2. RE-GENERATION (Refiner now sees the new rules.md)
                 error_file = os.path.join(project_root, "outputs", "execution_error.log")
+                os.makedirs(os.path.dirname(error_file), exist_ok=True)
                 with open(error_file, "w", encoding="utf-8") as f: f.write(current_log)
                 
                 # Adjusted path: core/engine/orchestrator.py -> core/agents/refiner.py
