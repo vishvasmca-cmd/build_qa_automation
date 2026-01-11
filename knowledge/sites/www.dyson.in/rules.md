@@ -90,3 +90,7 @@
 - ⚠️ PROHIBITED: DON'T assume the target website is stable; implement robust error handling and retry mechanisms for initial page load.
 
 - ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for critical navigation steps. Also, consider adding a check for network connectivity before attempting navigation.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module`) without verifying the correct package structure and execution context, especially in CI/CD environments.
+
+- ✅ PREFERRED: DO use absolute imports or explicitly define the package structure in your test files to ensure modules can be located correctly during test execution.
