@@ -24,7 +24,7 @@ jobs:
         playwright install chromium
     - name: Run Dyson Menu Test
       run: |
-        python trigger_agent.py --url "https://www.dyson.in/" --goal "1. Handle Popup: If 'Subscribe to Dyson' appears, close it. 2. Menu Check: Click on each link in the main top menu (Deals, Vacuum & wet cleaners, Hair care, Air purifier, Headphones, Lighting, Support). 3. Verification: Ensure each page loads successfully." --name "dyson_menu_test_ci" --domain "e_commerce" --headless
+        python trigger_agent.py --url "https://www.dyson.in/" --goal "1. Handle Popup: If 'Subscribe to Dyson' appears, close it. 2. Menu Check: Click on each link in the main top menu (Deals, Vacuum & wet cleaners, Hair care, Air purifier, Headphones, Lighting, Support). 3. Verification: Ensure each page loads successfully, verify the H1 header matches the category, and assert that at least one product or 'Shop Now' button is visible." --name "dyson_menu_test_ci" --domain "e_commerce" --headless
     - name: Commit Generated Projects
       if: always()
       run: |
