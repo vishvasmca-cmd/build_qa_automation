@@ -162,3 +162,7 @@
 - ⚠️ PROHIBITED: DON'T assume elements are immediately available after page load; always use explicit waits or assertions to confirm their presence and readiness for interaction.
 
 - ✅ PREFERRED: DO use `page.locator('locator').first.fill()` when dealing with potentially ambiguous locators or elements within a list to ensure you're targeting the correct element.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `test_id` locators without verifying their uniqueness and stability across different environments and builds.
+
+- ✅ PREFERRED: DO implement explicit waits or retries when interacting with elements that might take time to load or become available, especially when using `test_id` locators.
