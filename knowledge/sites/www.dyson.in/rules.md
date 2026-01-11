@@ -94,3 +94,43 @@
 - ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module`) without verifying the correct package structure and execution context, especially in CI/CD environments.
 
 - ✅ PREFERRED: DO use absolute imports or explicitly define the package structure in your test files to ensure modules can be located correctly during test execution.
+
+- ⚠️ PROHIBITED: DON'T use the `await` keyword outside of a function defined with `async def`.
+
+- ✅ PREFERRED: DO ensure that any function using `await` is properly defined as an asynchronous function using `async def`.
+
+- ⚠️ PROHIBITED: DON'T assume the website is always reachable and stable; implement robust error handling for page load failures.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for initial page load, especially for external websites.
+
+- ⚠️ PROHIBITED: DON'T use relative imports without verifying the correct package structure and PYTHONPATH configuration.
+
+- ✅ PREFERRED: DO ensure that all module dependencies are correctly specified and accessible within the project's import paths. Use absolute imports or configure relative import paths correctly.
+
+- ⚠️ PROHIBITED: DON'T use relative imports (e.g., `from .module`) when the test execution environment doesn't correctly resolve the relative path. This is especially true in CI environments.
+
+- ✅ PREFERRED: DO use absolute imports or configure the PYTHONPATH environment variable to ensure that Python can find the necessary modules, especially when running tests in CI/CD pipelines.
+
+- ⚠️ PROHIBITED: DON'T use relative imports without verifying the correct package structure and execution context.
+
+- ✅ PREFERRED: DO ensure that module paths in import statements are accurate and reflect the project's directory structure. Consider using absolute imports or adjusting the PYTHONPATH if necessary.
+
+- ⚠️ PROHIBITED: DON'T use relative imports without verifying the correct package structure and ensuring the Python interpreter can resolve the module path.
+
+- ✅ PREFERRED: DO explicitly define the module path or adjust the PYTHONPATH environment variable to ensure Python can locate the required modules.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable and stable; implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial navigation, to handle transient network or server issues.
+
+- ⚠️ PROHIBITED: DON'T assume the website will always load correctly on the first attempt; HTTP/2 errors can be intermittent.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for page navigation, especially for the initial `page.goto()` call.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable without proper error handling and retry mechanisms.
+
+- ✅ PREFERRED: DO implement robust error handling and retry logic when navigating to a page, especially for critical navigation steps.
+
+- ⚠️ PROHIBITED: DON'T assume that the module paths are correct without verifying the project structure and import statements.
+
+- ✅ PREFERRED: DO ensure that all necessary modules and packages are installed and that the Python import paths are correctly configured before running tests.
