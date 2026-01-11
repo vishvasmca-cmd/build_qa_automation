@@ -380,7 +380,8 @@ def _run_execution(project_root, config, config_hash, test_path, trace_path):
         
         # Prepare Environment with PYTHONPATH
         env = os.environ.copy()
-        env["PYTHONPATH"] = os.getcwd() # Ensure 'core' is importable from root
+        # Add project_root to path so 'from pages import ...' works
+        env["PYTHONPATH"] = project_root + os.pathsep + os.getcwd()
 
         # Define output directory for test results
         # Define output directory for test results
