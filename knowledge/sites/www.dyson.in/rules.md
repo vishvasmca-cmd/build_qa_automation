@@ -186,3 +186,43 @@
 - ⚠️ PROHIBITED: DON'T assume that the target website fully supports HTTP/2 without proper error handling and fallback mechanisms in place.
 
 - ✅ PREFERRED: DO implement robust error handling around `page.goto()` calls, including catching network errors and potentially retrying with a different protocol (e.g., HTTP/1.1) or a different Playwright configuration.
+
+- ⚠️ PROHIBITED: DON'T use `await` outside of an `async def` function.
+
+- ✅ PREFERRED: ALWAYS define test functions that use `await` as `async def test_...`.
+
+- ⚠️ PROHIBITED: DON'T use `await` outside of a function defined with `async def`.
+
+- ✅ PREFERRED: DO ensure that any function using `await` is properly defined as an `async` function.
+
+- ⚠️ PROHIBITED: DON'T assume the website will always load correctly on the first attempt; implement retry mechanisms for page navigation.
+
+- ✅ PREFERRED: DO implement error handling and retry logic around `page.goto()` calls to gracefully handle network errors or server issues.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable or correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial page loads. Also, consider adding a check for network connectivity before attempting navigation.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable and correctly configured for HTTP/2. Implement robust error handling for page load failures.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for initial page load, especially when dealing with external websites. Also, consider adding a check for basic network connectivity before attempting to navigate.
+
+- ⚠️ PROHIBITED: DON'T rely solely on text-based locators like `:has-text()` for critical elements like 'Add to cart' buttons, as text content can be easily changed or localized, leading to test failures.
+
+- ✅ PREFERRED: DO prioritize more robust locators, such as `data-testid`, `data-qa`, or unique CSS classes, to identify critical elements like 'Add to cart' buttons. If text is necessary, combine it with other attributes for increased accuracy.
+
+- ⚠️ PROHIBITED: DON'T assume the website is always reachable and stable; implement retry mechanisms and error handling for network-related issues.
+
+- ✅ PREFERRED: DO implement robust error handling and retry mechanisms for page navigation, especially for external websites. Consider using try-except blocks with exponential backoff for retries.
+
+- ⚠️ PROHIBITED: DON'T assume the website will always successfully load on the first `page.goto()` attempt, especially when using HTTP/2.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls to handle transient network or server-side issues.
+
+- ⚠️ PROHIBITED: DON'T assume the search input field is immediately available; always implement a retry mechanism or explicit wait for its presence and visibility.
+
+- ✅ PREFERRED: DO use `page.locator('input[placeholder="Search products and parts"]')` with an explicit wait for visibility before attempting to fill the search field.
+
+- ⚠️ PROHIBITED: DON'T assume the search input field is immediately available; always implement a wait strategy.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` or `state='attached'` before attempting to fill the search input field.

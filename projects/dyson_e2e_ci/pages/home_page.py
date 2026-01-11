@@ -2,7 +2,7 @@ from playwright.async_api import Page, expect
 
 class HomePage:
     """
-    The Dyson India homepage showcasing products and promotions.
+    This is the homepage for Dyson India. The primary purpose is to showcase Dyson products and provide navigation to different product categories and information.
     URL Pattern: https://www.dyson.in/
     """
     def __init__(self, page: Page):
@@ -10,63 +10,53 @@ class HomePage:
 
     @property
     def dyson_logo(self):
-        """Dyson logo that navigates to the homepage."""
-        return self.page.//a[@aria-label='Homepage'].or_(self.page.css=svg[class*='DysonLogo'])
+        """Link to the Dyson homepage."""
+        return self.page.//a[@aria-label='Dyson'].or_(self.page.a[href='/'])
 
     @property
     def search_products_and_parts(self):
-        """Search input field to find products and parts."""
-        return self.page.css=input[placeholder='Search products and parts'].or_(self.page.//input[@placeholder='Search products and parts'])
+        """Search input field for products and parts."""
+        return self.page.xpath=//input[@placeholder='Search products and parts'].or_(self.page.css=input[placeholder='Search products and parts'])
 
     @property
-    def shop_now_button(self):
-        """Button to navigate to the product page."""
-        return self.page.//a[contains(text(),'Shop now')].or_(self.page.css=a[class*='Button'][href*='/products/'])
+    def shop_now(self):
+        """Button to shop for the featured product."""
+        return self.page.text=Shop now.or_(self.page.css=a[aria-label='Shop now'])
 
     @property
-    def deals_link(self):
-        """Link to the deals page."""
-        return self.page.//a[text()='Deals'].or_(self.page.css=a[href*='/deals'])
+    def vacuum_wet_cleaners(self):
+        """Link to the vacuum cleaners category."""
+        return self.page.text=Vacuum & wet cleaners.or_(self.page.css=a[href='/vacuum-cleaners'])
 
     @property
-    def vacuum_wet_cleaners_link(self):
-        """Link to the vacuum cleaners page."""
-        return self.page.//a[text()='Vacuum & wet cleaners'].or_(self.page.css=a[href*='/vacuums'])
+    def air_purifier(self):
+        """Link to the air purifier category."""
+        return self.page.text=Air purifier.or_(self.page.css=a[href='/air-treatment'])
 
     @property
-    def air_purifier_link(self):
-        """Link to the air purifier page."""
-        return self.page.//a[text()='Air purifier'].or_(self.page.css=a[href*='/air-treatment'])
+    def headphones(self):
+        """Link to the headphones category."""
+        return self.page.text=Headphones.or_(self.page.css=a[href='/headphones'])
 
     @property
-    def headphones_link(self):
-        """Link to the headphones page."""
-        return self.page.//a[text()='Headphones'].or_(self.page.css=a[href*='/headphones'])
+    def lighting(self):
+        """Link to the lighting category."""
+        return self.page.text=Lighting.or_(self.page.css=a[href='/lighting'])
 
     @property
-    def lighting_link(self):
-        """Link to the lighting page."""
-        return self.page.//a[text()='Lighting'].or_(self.page.css=a[href*='/lighting'])
-
-    @property
-    def support_link(self):
+    def support(self):
         """Link to the support page."""
-        return self.page.//a[text()='Support'].or_(self.page.css=a[href*='/support'])
+        return self.page.text=Support.or_(self.page.css=a[href='/support'])
 
     @property
-    def best_sellers_link(self):
+    def best_sellers(self):
         """Link to the best sellers page."""
-        return self.page.//a[text()='Best sellers'].or_(self.page.css=a[href*='/best-sellers'])
-
-    @property
-    def cart_icon(self):
-        """Icon to navigate to the shopping cart."""
-        return self.page.css=a[aria-label='Basket'].or_(self.page.//a[@aria-label='Basket'])
+        return self.page.text=Best sellers.or_(self.page.css=a[href='/best-sellers'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await Page title contains 'Dyson'
-        await Dyson logo is visible
-        await Search input field is present
-        await At least one product category link is visible (e.g., 'Vacuum & wet cleaners')
+        await The Dyson logo is visible
+        await The search input field is present
         await The 'Shop now' button is visible
+        await The 'Vacuum & wet cleaners' link is present
