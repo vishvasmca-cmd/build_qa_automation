@@ -126,7 +126,10 @@ class ExplorerAgent:
         
         try:
             async with async_playwright() as p:
-                browser = await p.chromium.launch(headless=not self.headed)
+                browser = await p.chromium.launch(
+                    headless=not self.headed,
+                    args=["--disable-http2"]
+                )
                 context = await browser.new_context(viewport={"width": 1280, "height": 800})
                 page = await context.new_page()
                 
@@ -160,8 +163,21 @@ class ExplorerAgent:
                     print(colored(f"🚀 [STEP {step + 1}] PROCESSING...", "blue", attrs=["bold"]), flush=True)
                     print(colored("─"*40, "blue"), flush=True)
                     
-                    # 1. ANALYZE (Miner)
-                    mindmap = await analyze_page(page, page.url, self.workflow)
+                    # 1. ANALYZE (Miner) with Timeout Protection
+                    try:
+                        mindmap = await asyncio.wait_for(
+                            analyze_page(page, page.url, self.workflow),
+                            timeout=120
+                        )
+                    except asyncio.TimeoutError:
+                        print(colored("⚠️ Vision analysis timed out. Falling back to simple extraction.", "yellow"))
+                        # Basic fallback: dummy mindmap with just title and empty elements
+                        # (Miner already has internal fallbacks, but this keeps explorer moving)
+                        mindmap = {
+                            "summary": {"title": await page.title(), "mission_status": "Vision timed out."},
+                            "elements": [],
+                            "blocking_elements": []
+                        }
                     
                     # Save screenshot for trace
                     page_title = mindmap['summary'].get('title', 'Unknown')
