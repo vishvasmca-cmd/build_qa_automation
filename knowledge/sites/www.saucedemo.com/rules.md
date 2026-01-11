@@ -154,3 +154,11 @@
 - ⚠️ PROHIBITED: DON'T assume that all required modules are accessible without explicitly verifying the Python import paths and project structure.
 
 - ✅ PREFERRED: DO ensure that all necessary modules are correctly placed within the project directory and that the Python import paths are configured to locate them.
+
+- ⚠️ PROHIBITED: DON'T assume elements are immediately available; always account for potential loading times or animations.
+
+- ✅ PREFERRED: DO use explicit waits or retries when interacting with elements that might not be immediately present in the DOM.
+
+- ⚠️ PROHIBITED: DON'T assume elements are immediately available after page load; always use explicit waits or assertions to confirm their presence and readiness for interaction.
+
+- ✅ PREFERRED: DO use `page.locator('locator').first.fill()` when dealing with potentially ambiguous locators or elements within a list to ensure you're targeting the correct element.
