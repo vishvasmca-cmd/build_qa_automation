@@ -12,31 +12,31 @@ class HomePage:
         self.page.goto("https://www.dyson.in/")
 
     def click_deals_link(self):
-        self.page.get_by_role("link", name=re.compile("Deals", re.IGNORECASE)).click()
+        self.page.get_by_role("link", name=re.compile("Deals", re.IGNORECASE)).first.click()
         self.page.wait_for_url("**/deals/**")
 
     def click_vacuum_wet_cleaners_link(self):
-        self.page.get_by_role("link", name=re.compile("Vacuum & wet cleaners", re.IGNORECASE)).click()
+        self.page.get_by_role("link", name=re.compile("Vacuum & wet cleaners", re.IGNORECASE)).first.click()
         self.page.wait_for_url("**/vacuum-wet-cleaners/**")
 
     def click_hair_care_link(self):
-        self.page.get_by_role("link", name=re.compile("Hair care", re.IGNORECASE)).click()
+        self.page.get_by_role("link", name=re.compile("Hair care", re.IGNORECASE)).first.click()
         self.page.wait_for_url("**/hair-care/**")
 
     def click_air_purifier_link(self):
-        self.page.get_by_role("link", name=re.compile("Air purifier", re.IGNORECASE)).click()
+        self.page.get_by_role("link", name=re.compile("Air purifier", re.IGNORECASE)).first.click()
         self.page.wait_for_url("**/air-treatment/**")
 
     def click_headphones_link(self):
-        self.page.get_by_role("link", name=re.compile("Headphones", re.IGNORECASE)).click()
+        self.page.get_by_role("link", name=re.compile("Headphones", re.IGNORECASE)).first.click()
         self.page.wait_for_url("**/headphones/**")
 
     def click_lighting_link(self):
-        self.page.get_by_role("link", name=re.compile("Lighting", re.IGNORECASE)).click()
+        self.page.get_by_role("link", name=re.compile("Lighting", re.IGNORECASE)).first.click()
         self.page.wait_for_url("**/lighting/**")
 
     def click_support_link(self):
-        self.page.get_by_role("link", name=re.compile("Support", re.IGNORECASE)).click()
+        self.page.get_by_role("link", name=re.compile("Support", re.IGNORECASE)).first.click()
         self.page.wait_for_url("**/support/**")
 
 def take_screenshot(page: Page, filename: str, folder: str = 'screenshots'):
@@ -45,8 +45,8 @@ def take_screenshot(page: Page, filename: str, folder: str = 'screenshots'):
     page.screenshot(path=f"{folder}/{filename}.png")
 
 @pytest.mark.skipif(not os.environ.get("TAKE_SCREENSHOTS"), reason="Screenshots are disabled")
-def test_autonomous_flow(browser: Browser):
-    page = browser.new_page()
+def test_autonomous_flow(page: Page):
+    # page = browser.new_page()  <-- Removed, use fixture
     home_page = HomePage(page)
 
     home_page.navigate()

@@ -596,7 +596,83 @@ class FrameworkGenerator:
             
         # 2. Generate Test File
         self._generate_test_file()
+        
+        # 3. Generate Conftest (Stealth Mode)
+        self._generate_conftest()
+
+        # 4. Ensure Init Files
+        self._ensure_init_files()
+        
         return True
+
+    def _ensure_init_files(self):
+        """Creates __init__.py in all necessary directories to ensure module execution."""
+        dirs = [
+            self.project_root,
+            self.pages_dir,
+            os.path.join(self.project_root, "tests"),
+            self.tests_dir
+        ]
+        for d in dirs:
+            os.makedirs(d, exist_ok=True)
+            init_path = os.path.join(d, "__init__.py")
+            if not os.path.exists(init_path):
+                with open(init_path, "w") as f: f.write("")
+
+    def _generate_conftest(self):
+        """Generates conftest.py with stealth fixtures."""
+        code = '''import pytest
+from playwright.sync_api import BrowserContext
+
+@pytest.fixture(scope="session")
+def browser_type_launch_args(browser_type_launch_args):
+    return {
+        **browser_type_launch_args,
+        "args": [
+            "--disable-blink-features=AutomationControlled",
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-infobars"
+        ]
+    }
+
+@pytest.fixture(scope="function")
+def context(context: BrowserContext):
+    # Enhanced stealth for headless mode
+    context.add_init_script("""
+        Object.defineProperty(navigator, 'webdriver', {get: () => undefined});
+        window.chrome = {runtime: {}};
+    """)
+    # Set stealth headers
+    context.set_extra_http_headers({
+        "Accept-Language": "en-US,en;q=0.9",
+        "Accept-Encoding": "gzip, deflate, br",
+        "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+    })
+    yield context
+'''
+        # Write to tests/conftest.py
+        conftest_path = os.path.join(self.project_root, "tests", "conftest.py")
+        os.makedirs(os.path.dirname(conftest_path), exist_ok=True)
+        with open(conftest_path, "w", encoding="utf-8") as f:
+            f.write(code)
+        print(colored("   ✅ Generated conftest.py (Stealth Mode)", "green"))
+
+    def _sanitize_method_name(self, name):
+        """Ensures method names are valid Python identifiers."""
+        # Strip whitespace first and replace spaces/invalid chars with underscore
+        clean = re.sub(r'[^a-zA-Z0-9_]', '_', name.strip().lower())
+        # Collapse multiple underscores
+        clean = re.sub(r'_+', '_', clean)
+        # Remove leading numbers
+        if clean and clean[0].isdigit():
+            clean = "_" + clean
+        # Ensure it's not empty
+        if not clean:
+            clean = "element_action"
+        return clean
 
     def _generate_page_file(self, page_name, model):
         filename = self._to_snake_case(page_name) + ".py"
@@ -626,8 +702,11 @@ class FrameworkGenerator:
             backup = el.get('backup_locator')
             desc = el.get('description', '')
             
+            # Sanitize property name
+            safe_name = self._sanitize_method_name(name)
+            
             code.append("    @property")
-            code.append(f"    def {name}(self):")
+            code.append(f"    def {safe_name}(self):")
             code.append(f"        \"\"\"{desc}\"\"\"")
             if backup:
                 # Use .or_() logic
