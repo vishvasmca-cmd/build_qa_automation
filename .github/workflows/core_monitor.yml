@@ -1,10 +1,8 @@
-name: Core Monitor - Random Stress Test
+name: Core Monitor - Dyson E2E
 on:
   push:
     branches: [ "main" ]
-  schedule:
-    - cron: '0 */4 * * *'  # Run every 4 hours
-  workflow_dispatch:      # Allow manual trigger
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -12,7 +10,7 @@ permissions:
 jobs:
   core-stress-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 240  # 4 hours
+    timeout-minutes: 60
 
     env:
       GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
@@ -38,6 +36,14 @@ jobs:
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "actions@github.com"
 
-    - name: Run Random Batch Stress Test
+    - name: Run Dyson Menu Test
       run: |
-        python batch_runner.py --limit 10
+        python trigger_agent.py --url "https://www.dyson.in/" --goal "1. Handle Popup: If 'Subscribe to Dyson' appears, close it. 2. Menu Check: Click on each link in the main top menu (Deals, Vacuum & wet cleaners, Hair care, Air purifier, Headphones, Lighting, Support). 3. Verification: Ensure each page loads successfully." --name "dyson_menu_test_ci" --domain "e_commerce" --headless
+
+    - name: Commit Generated Project
+      if: always()
+      run: |
+        git pull origin main --rebase
+        git add projects/dyson_menu_test_ci
+        git commit -m "Add generated project: dyson_menu_test_ci [CI-Gen]" || echo "No changes to commit"
+        git push origin main
