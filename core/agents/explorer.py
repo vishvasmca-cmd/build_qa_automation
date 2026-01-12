@@ -113,7 +113,7 @@ class ExplorerAgent:
         
         # State deduplication and loop detection
         self.visited_states = set()  # Track unique page states
-        self.loop_detection_window = 3  # Check last N steps for patterns
+        self.loop_detection_window = 5  # Check last N steps for patterns
         
         # Phase 1 Enhancements: Project-Specific Artifacts
         self.project_root = os.path.dirname(config_path)
@@ -340,6 +340,7 @@ class ExplorerAgent:
                         "step": step,
                         "action": decision['action'],
                         "target_text": next((e['text'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
+                        "target_id": decision.get('target_id'),
                         "url": page.url,
                         "page_name": page_name,
                         "outcome": action_result.get('outcome'),
@@ -500,9 +501,9 @@ class ExplorerAgent:
         if len(self.history) < self.loop_detection_window:
             return False
         
-        # Get last N actions with URLs
         recent_steps = self.history[-self.loop_detection_window:]
-        action_signatures = [f"{h['action']}:{h['url']}" for h in recent_steps]
+        # Include target text AND target_id to distinguish different actions on the same page
+        action_signatures = [f"{h['action']}:{h.get('target_text', '')}:{h.get('target_id')}:{h['url']}" for h in recent_steps]
         
         # Pattern 1: All identical actions = stuck
         if len(set(action_signatures)) == 1:
@@ -847,8 +848,8 @@ class ExplorerAgent:
 
     def _save_all_elements(self, url, step, elements):
         """Passive Collection: Save all discovered elements for future reference with rotation logic."""
-        path = self.config.get("paths", {}).get("outputs", "outputs")
-        file_path = os.path.join(path, "discovered_elements.json")
+        # Use the same output directory as other artifacts
+        file_path = os.path.join(self.output_dir, "discovered_elements.json")
         
         data = {}
         if os.path.exists(file_path):
@@ -859,16 +860,14 @@ class ExplorerAgent:
         key = f"{url}::step_{step}"
         data[key] = elements
         
-        # ROTATION LOGIC: Keep only last 50 steps to prevent massive file growth
+        # ROTATION LOGIC
         if len(data) > 50:
-             # Keep the latest 50 keys
              sorted_keys = sorted(data.keys())[-50:] 
              data = {k: data[k] for k in sorted_keys}
-             print(colored(f"🔄 Rotated discovered_elements.json (Trimmed to 50 entries)", "yellow"))
 
         with open(file_path, "w") as f:
             json.dump(data, f, indent=2)
-        print(colored(f"💾 Passive Collection: {len(elements)} elements saved.", "blue"))
+        print(colored(f"💾 Passive Collection: {len(elements)} elements saved to {file_path}", "blue"))
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
