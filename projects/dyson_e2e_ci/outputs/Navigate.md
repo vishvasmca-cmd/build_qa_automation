@@ -6,16 +6,11 @@
 | 1 | HomePage | click | X | ✅ | [View](../snapshots/step_01_HomePage.png) |
 | 2 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_02_HomePage.png) |
 | 3 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_03_HomePage.png) |
-| 4 | DysonIndiaOfficialWebsitePage | click | Save ₹16,000 Dyson V8 Absolute | ✅ | [View](../snapshots/step_04_HomePage.png) |
-| 5 | ProductsPage | click | Add to Cart | ✅ | [View](../snapshots/step_05_DysonV8AbsoluteVacuumPage.png) |
+| 4 | DysonIndiaOfficialWebsitePage | click | Save ₹18,000 Dyson OnTrac™ (CN | ✅ | [View](../snapshots/step_04_HomePage.png) |
+| 5 | ProductsPage | click | Add to cart | ✅ | [View](../snapshots/step_05_DysonOntracHeadphonesPage.png) |
 | 6 | ProductsPage | click | Continue to basket | ✅ | [View](../snapshots/step_06_ProductsPage.png) |
 | 7 | HomePage | click | None | ✅ | [View](../snapshots/step_07_HomePage.png) |
 | 8 | HomePage | click | Your basket has 1 items in it | ✅ | [View](../snapshots/step_08_HomePage.png) |
-| 9 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_09_HomePage.png) |
-| 10 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_10_HomePage.png) |
-| 11 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_11_HomePage.png) |
-| 12 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_12_HomePage.png) |
-| 13 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_13_HomePage.png) |
-| 14 | HomePage | click | Your basket has 1 items in it | ✅ | [View](../snapshots/step_14_HomePage.png) |
-| 15 | HomePage | click | Your basket has 1 items in it | ✅ | [View](../snapshots/step_15_HomePage.png) |
-| 16 | HomePage | click | Search | ✅ | [View](../snapshots/step_16_HomePage.png) |
+| 9 | CartPage | click | Your basket has 1 items in it | ✅ | [View](../snapshots/step_09_HomePage.png) |
+| 10 | CheckoutPage | click | Continue to checkout | ✅ | [View](../snapshots/step_10_CartPage.png) |
+| 11 | Unknown | done | N/A | ✅ | [View](../snapshots/step_11_CheckoutPage.png) |

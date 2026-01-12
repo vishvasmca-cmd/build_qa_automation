@@ -9,9 +9,8 @@ Feature: Product Search and Checkout
     When I close the subscription popup
     And I search for "Dyson V15 Detect"
     And I click on the first product result
-    Then I should see the "Add to Cart" button
-    When I click on the "Add to Cart" button
-    And I click on "Continue to basket" button
-    And I click on the cart icon
-    And I click the checkout button
+    Then I should see the "Add to cart" button
+    When I click the "Add to cart" button
+    And I click the "Continue to basket" button
+    And I click the "Continue to checkout" button
     Then I should be on the checkout page

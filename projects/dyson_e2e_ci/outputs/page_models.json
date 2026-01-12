@@ -1,191 +1,348 @@
 {
   "HomePage": {
-    "description": "This is the search overlay on the Dyson India homepage. The primary purpose is to allow users to search for products and information on the Dyson website.",
+    "description": "Dyson India Homepage Analysis",
     "url_pattern": "https://www.dyson.in/",
     "elements": [
       {
-        "name": "Search Input",
-        "type": "input",
-        "primary_locator": "//input[@type='search']",
-        "backup_locator": "input[placeholder='']",
-        "description": "Input field for entering search queries."
-      },
-      {
-        "name": "Search Button",
-        "type": "button",
-        "primary_locator": "//button[@type='submit']",
-        "backup_locator": "button[aria-label='Submit search']",
-        "description": "Button to submit the search query."
-      },
-      {
-        "name": "Close Search Overlay",
-        "type": "button",
-        "primary_locator": "button[aria-label='Close search']",
-        "backup_locator": "button[class*='Close']",
-        "description": "Button to close the search overlay."
-      },
-      {
-        "name": "Dyson Airstrait\u2122 straightener",
-        "type": "link",
-        "primary_locator": "//a[text()='Dyson Airstrait\u2122 straightener']",
-        "backup_locator": "a[href*='airstrait']",
-        "description": "Link to Dyson Airstrait straightener product page."
-      },
-      {
-        "name": "*NEW* Dyson Airwrap i.d.\u2122",
-        "type": "link",
-        "primary_locator": "//a[text()='*NEW* Dyson Airwrap i.d.\u2122']",
-        "backup_locator": "a[href*='airwrap-multi-styler']",
-        "description": "Link to Dyson Airwrap i.d. product page."
-      },
-      {
-        "name": "Dyson V8 Absolute Vacuum",
-        "type": "link",
-        "primary_locator": "//a[text()='Dyson V8 Absolute Vacuum']",
-        "backup_locator": "a[href*='v8-absolute']",
-        "description": "Link to Dyson V8 Absolute Vacuum product page."
-      },
-      {
-        "name": "Dyson Vacuum Cleaners",
-        "type": "link",
-        "primary_locator": "//a[text()='Dyson Vacuum Cleaners']",
-        "backup_locator": "a[href*='vacuum-cleaners']",
-        "description": "Link to Dyson Vacuum Cleaners product page."
-      },
-      {
-        "name": "Dyson Air Purifiers",
-        "type": "link",
-        "primary_locator": "//a[text()='Dyson Air Purifiers']",
-        "backup_locator": "a[href*='air-purifiers']",
-        "description": "Link to Dyson Air Purifiers product page."
-      },
-      {
-        "name": "Dyson Deals",
-        "type": "link",
-        "primary_locator": "//a[text()='Dyson Deals']",
-        "backup_locator": "a[href*='deals']",
-        "description": "Link to Dyson Deals product page."
-      }
-    ],
-    "assertions": [
-      "Page title contains 'Dyson'",
-      "Search input field is present",
-      "The text 'Most searched for' is visible",
-      "The Dyson logo is visible"
-    ]
-  },
-  "DysonIndiaOfficialWebsitePage": {
-    "description": "This page is the homepage of Dyson India, showcasing their products and promotions.",
-    "url_pattern": "https://www.dyson.in/*",
-    "elements": [
-      {
-        "name": "Dyson Logo",
-        "type": "image",
-        "primary_locator": "role=link[name='Homepage']",
-        "backup_locator": "css=svg[aria-label='Dyson']",
-        "description": "Dyson logo in the top left corner, navigates to the homepage."
-      },
-      {
         "name": "Search Products and Parts",
-        "type": "search_box",
-        "primary_locator": "role=searchbox[name='Search products and parts']",
+        "type": "input",
+        "primary_locator": "aria/Search products and parts",
         "backup_locator": "css=input[placeholder='Search products and parts']",
-        "description": "Search input field to search for products and parts."
+        "description": "Search input field to find products and parts."
       },
       {
-        "name": "Shop Now Button",
-        "type": "button",
-        "primary_locator": "text=Shop now",
-        "backup_locator": "css=a[href='/en-IN/purifiers/compact/hush-jet']",
-        "description": "Button to navigate to the product page."
+        "name": "Deals Link",
+        "type": "link",
+        "primary_locator": "text/Deals",
+        "backup_locator": "css=a[href*='/deals']",
+        "description": "Link to the deals page."
       },
       {
         "name": "Vacuum & wet cleaners Link",
         "type": "link",
-        "primary_locator": "text='Vacuum & wet cleaners'",
-        "backup_locator": "css=a[href='/vacuum-cleaners']",
-        "description": "Link to the vacuum cleaners category page."
+        "primary_locator": "text/Vacuum & wet cleaners",
+        "backup_locator": "css=a[href*='/vacuum-cleaners']",
+        "description": "Link to the vacuum cleaners page."
+      },
+      {
+        "name": "Hair care Link",
+        "type": "link",
+        "primary_locator": "text/Hair care",
+        "backup_locator": "css=a[href*='/hair-care']",
+        "description": "Link to the hair care products page."
       },
       {
         "name": "Air purifier Link",
         "type": "link",
-        "primary_locator": "text='Air purifier'",
-        "backup_locator": "css=a[href='/air-purifiers']",
-        "description": "Link to the air purifier category page."
+        "primary_locator": "text/Air purifier",
+        "backup_locator": "css=a[href*='/air-purifiers']",
+        "description": "Link to the air purifiers page."
       },
       {
         "name": "Headphones Link",
         "type": "link",
-        "primary_locator": "text='Headphones'",
-        "backup_locator": "css=a[href='/headphones']",
-        "description": "Link to the headphones category page."
+        "primary_locator": "text/Headphones",
+        "backup_locator": "css=a[href*='/headphones']",
+        "description": "Link to the headphones page."
       },
       {
         "name": "Lighting Link",
         "type": "link",
-        "primary_locator": "text='Lighting'",
-        "backup_locator": "css=a[href='/lighting']",
-        "description": "Link to the lighting category page."
+        "primary_locator": "text/Lighting",
+        "backup_locator": "css=a[href*='/lighting']",
+        "description": "Link to the lighting page."
       },
       {
         "name": "Support Link",
         "type": "link",
-        "primary_locator": "text='Support'",
-        "backup_locator": "css=a[href='/support']",
+        "primary_locator": "text/Support",
+        "backup_locator": "css=a[href*='/support']",
         "description": "Link to the support page."
       },
       {
         "name": "Best sellers Link",
         "type": "link",
-        "primary_locator": "text='Best sellers'",
-        "backup_locator": "css=a[href='/best-sellers']",
+        "primary_locator": "text/Best sellers",
+        "backup_locator": "css=a[href*='/best-sellers']",
         "description": "Link to the best sellers page."
+      },
+      {
+        "name": "Email Address Input",
+        "type": "input",
+        "primary_locator": "aria/Email Address *",
+        "backup_locator": "css=input[type='email']",
+        "description": "Input field for email address in the subscription popup."
+      },
+      {
+        "name": "Claim offer Button",
+        "type": "button",
+        "primary_locator": "text/Claim offer",
+        "backup_locator": "css=button[type='submit']",
+        "description": "Button to claim the offer in the subscription popup."
+      },
+      {
+        "name": "Subscription Popup Close Button",
+        "type": "button",
+        "primary_locator": "aria/Close",
+        "backup_locator": "css=button[aria-label='Close']",
+        "description": "Button to close the subscription popup."
+      },
+      {
+        "name": "Exclusive Offer Banner Close Button",
+        "type": "button",
+        "primary_locator": "aria/Close",
+        "backup_locator": "css=div[data-testid='exclusive-offer-banner'] button[aria-label='Close']",
+        "description": "Button to close the exclusive offer banner at the bottom of the page."
+      }
+    ],
+    "assertions": [
+      "Page title contains 'Dyson'",
+      "Logo is visible",
+      "Search input field is present",
+      "Subscription popup is displayed",
+      "Exclusive offer banner is displayed"
+    ]
+  },
+  "DysonIndiaOfficialWebsitePage": {
+    "description": "This is the homepage of Dyson India's official website. The primary purpose is to showcase Dyson products and provide navigation to different product categories and information.",
+    "url_pattern": "https://www.dyson.in/",
+    "elements": [
+      {
+        "name": "Search Products and Parts",
+        "type": "search box",
+        "primary_locator": "role=searchbox",
+        "backup_locator": "css=input[placeholder='Search products and parts']",
+        "description": "Search input field to find specific products or parts."
+      },
+      {
+        "name": "Shop Now Button",
+        "type": "button",
+        "primary_locator": "text=Shop now",
+        "backup_locator": "css=.button.button--green",
+        "description": "Button to navigate to the product details page."
+      },
+      {
+        "name": "Vacuum & Wet Cleaners Link",
+        "type": "link",
+        "primary_locator": "text=Vacuum & wet cleaners",
+        "backup_locator": "css=a[href*='/vacuum-cleaners']",
+        "description": "Link to the vacuum cleaners product category page."
+      },
+      {
+        "name": "Headphones Link",
+        "type": "link",
+        "primary_locator": "text=Headphones",
+        "backup_locator": "css=a[href*='/headphones']",
+        "description": "Link to the headphones product category page."
+      },
+      {
+        "name": "Dyson Logo",
+        "type": "image",
+        "primary_locator": "css=svg[aria-label='Dyson']",
+        "backup_locator": "alt=Dyson",
+        "description": "Dyson logo that usually navigates to the homepage."
+      }
+    ],
+    "assertions": [
+      "Page title contains 'Dyson India Official Website'",
+      "Header text 'Compact. Powerful. Yet quiet.' is visible",
+      "The 'Shop now' button is visible",
+      "The Dyson logo is visible"
+    ]
+  },
+  "ProductsPage": {
+    "description": "This page allows the user to select items to add to their Dyson OnTrac bundle.",
+    "url_pattern": "https://www.dyson.in/checkout/cart/configure/id/109287037/product_id/57385/variant/%5B%5D/action/add/",
+    "elements": [
+      {
+        "name": "OnTrac ear cushions (Khaki)",
+        "type": "product",
+        "primary_locator": "text=\"OnTrac\u2122 ear cushions (Khaki)\"",
+        "backup_locator": "css=div:nth-child(1) > div > div.product-name",
+        "description": "The OnTrac ear cushions product."
+      },
+      {
+        "name": "OnTrac outer caps (CNC Copper)",
+        "type": "product",
+        "primary_locator": "text=\"OnTrac\u2122 outer caps (CNC Copper)\"",
+        "backup_locator": "css=div:nth-child(2) > div > div.product-name",
+        "description": "The OnTrac outer caps product."
+      },
+      {
+        "name": "Continue to basket (top)",
+        "type": "button",
+        "primary_locator": "text=\"Continue to basket\"",
+        "backup_locator": "css=.cart-page-header > div > a",
+        "description": "Button to continue to the basket from the top of the page."
+      },
+      {
+        "name": "Continue to basket (bottom)",
+        "type": "button",
+        "primary_locator": "text=\"Continue to basket\"",
+        "backup_locator": "css=.cart-page-summary > div > a",
+        "description": "Button to continue to the basket from the bottom of the page."
+      }
+    ],
+    "assertions": [
+      "Page title contains 'Dyson'",
+      "Header text is 'Select your items'",
+      "Total price is displayed"
+    ]
+  },
+  "CartPage": {
+    "description": "This is the homepage of Dyson India. The primary purpose is to showcase products and promotions.",
+    "url_pattern": "https://www.dyson.in/",
+    "elements": [
+      {
+        "name": "Search Products and Parts",
+        "type": "search_box",
+        "primary_locator": "role=searchbox",
+        "backup_locator": "css=input[placeholder='Search products and parts']",
+        "description": "Search input field to find products and parts."
+      },
+      {
+        "name": "Cart Icon",
+        "type": "link",
+        "primary_locator": "role=link[name='Basket']",
+        "backup_locator": "css=a[aria-label='Basket']",
+        "description": "Link to the shopping cart page."
+      },
+      {
+        "name": "Shop Now",
+        "type": "button",
+        "primary_locator": "text=Shop now",
+        "backup_locator": "css=a[aria-label='Shop now']",
+        "description": "Button to navigate to the product page."
+      },
+      {
+        "name": "Close Promotion",
+        "type": "button",
+        "primary_locator": "aria-label=Close",
+        "backup_locator": "css=button[aria-label='Close']",
+        "description": "Button to close the promotion banner."
       }
     ],
     "assertions": [
       "Page title contains 'Dyson'",
       "Page contains the text 'Compact. Powerful. Yet quiet.'",
-      "Page contains the text 'Dyson.in exclusive: 24 months no cost EMI'"
+      "Page contains the element 'Search products and parts'"
     ]
   },
-  "ProductsPage": {
-    "description": "This page allows the user to select additional items to bundle with the Dyson V8 Absolute vacuum cleaner. It displays available items and allows the user to add them to their basket.",
-    "url_pattern": "https://www.dyson.in/checkout/cart/configure/id/109288945/product_id/37342/variant/%5B%5D/action/add/",
+  "CheckoutPage": {
+    "description": "This page represents the checkout page of the Dyson India website, where users can review their basket and proceed to payment.",
+    "url_pattern": "https://www.dyson.in/checkout/",
     "elements": [
       {
-        "name": "Pet Grooming Kit",
-        "type": "checkbox",
-        "primary_locator": "text=Pet grooming kit",
-        "backup_locator": "css=div:nth-child(1) > div > div > div.product-name",
-        "description": "The Pet Grooming Kit option to add to the bundle."
+        "name": "Continue Shopping Link",
+        "type": "link",
+        "primary_locator": "text=Continue Shopping",
+        "backup_locator": "css=a[href='/']",
+        "description": "Link to navigate back to the product listing or homepage."
       },
       {
-        "name": "Detail Cleaning Kit",
-        "type": "checkbox",
-        "primary_locator": "text=Detail cleaning kit",
-        "backup_locator": "css=div:nth-child(2) > div > div > div.product-name",
-        "description": "The Detail Cleaning Kit option to add to the bundle."
-      },
-      {
-        "name": "Continue to basket (bottom)",
+        "name": "Product Quantity Increment Button",
         "type": "button",
-        "primary_locator": "text=Continue to basket",
-        "backup_locator": "css=.product-summary > div.actions > button",
-        "description": "Button to proceed to the basket with selected items."
+        "primary_locator": "text=+",
+        "backup_locator": "css=button[aria-label='quantity-increment']",
+        "description": "Button to increase the quantity of a product in the basket."
       },
       {
-        "name": "Continue to basket (top)",
+        "name": "Product Quantity Decrement Button",
         "type": "button",
-        "primary_locator": "text=Continue to basket",
-        "backup_locator": "css=.cart-summary > div > button",
-        "description": "Button to proceed to the basket with selected items."
+        "primary_locator": "text=-",
+        "backup_locator": "css=button[aria-label='quantity-decrement']",
+        "description": "Button to decrease the quantity of a product in the basket."
+      },
+      {
+        "name": "Continue to checkout Button",
+        "type": "button",
+        "primary_locator": "text=Continue to checkout \u2192",
+        "backup_locator": "css=button.checkout-module--checkoutButton--2j34H",
+        "description": "Button to proceed to the next step of the checkout process."
+      },
+      {
+        "name": "Promotional Code Accordion",
+        "type": "button",
+        "primary_locator": "text=Have you got a promotional code?",
+        "backup_locator": "css=button.checkout-module--accordionHeader--1_345",
+        "description": "Accordion to enter a promotional code."
+      },
+      {
+        "name": "Remove Item from Basket",
+        "type": "button",
+        "primary_locator": "text=Delete",
+        "backup_locator": "css=button[aria-label='Remove item']",
+        "description": "Button to remove an item from the basket."
       }
     ],
     "assertions": [
-      "Page title contains 'Configure your product'",
-      "Page contains the text 'Select your items'",
-      "The 'Continue to basket' button is present",
-      "The price displayed matches the expected price for the base product"
+      "Page title contains 'Checkout'",
+      "Header text 'Your basket' is visible",
+      "Order Total is displayed",
+      "Continue to checkout button is visible"
+    ]
+  },
+  "UnknownPage": {
+    "description": "This page is the first step of the checkout process, where the user enters their personal details such as email, phone number, first name, last name, and GST number.",
+    "url_pattern": "https://www.dyson.in/checkout/",
+    "elements": [
+      {
+        "name": "Email Address Input",
+        "type": "input",
+        "primary_locator": "input[name='dwfrm_billing_billingAddress_email']",
+        "backup_locator": "input[placeholder='Email Address']",
+        "description": "Input field for entering the user's email address."
+      },
+      {
+        "name": "Phone Number Input",
+        "type": "input",
+        "primary_locator": "input[name='dwfrm_billing_billingAddress_phone']",
+        "backup_locator": "input[placeholder='Phone Number']",
+        "description": "Input field for entering the user's phone number."
+      },
+      {
+        "name": "First Name Input",
+        "type": "input",
+        "primary_locator": "input[name='dwfrm_billing_billingAddress_firstName']",
+        "backup_locator": "input[placeholder='First Name (or Company name for business orders)']",
+        "description": "Input field for entering the user's first name."
+      },
+      {
+        "name": "Last Name Input",
+        "type": "input",
+        "primary_locator": "input[name='dwfrm_billing_billingAddress_lastName']",
+        "backup_locator": "input[placeholder='Last Name (or Company name for business orders)']",
+        "description": "Input field for entering the user's last name."
+      },
+      {
+        "name": "GST Number Input",
+        "type": "input",
+        "primary_locator": "input[name='dwfrm_billing_billingAddress_gst']",
+        "backup_locator": "input[placeholder='GST Number']",
+        "description": "Input field for entering the user's GST number."
+      },
+      {
+        "name": "Receive Information Checkbox",
+        "type": "checkbox",
+        "primary_locator": "input[type='checkbox']",
+        "backup_locator": "I'd like to receive information on how to get the best out of my machine, updates and offers from Dyson.",
+        "description": "Checkbox to subscribe to receive information from Dyson."
+      },
+      {
+        "name": "Edit Order Button",
+        "type": "button",
+        "primary_locator": "button:contains('Edit Order')",
+        "backup_locator": "Edit Order",
+        "description": "Button to edit the order details."
+      }
+    ],
+    "assertions": [
+      "Page title contains 'Checkout'",
+      "Header text contains 'Your details'",
+      "Presence of 'Email Address' input field",
+      "Presence of 'Phone Number' input field",
+      "Presence of 'First Name' input field",
+      "Presence of 'Last Name' input field"
     ]
   }
 }

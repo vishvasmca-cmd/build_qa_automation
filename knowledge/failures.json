@@ -1924,5 +1924,14 @@
       "phase": "execution"
     },
     "error": "ems: Meet Claude, Platform, Solutions, Prici\n>       home_page.claude_link.click()\n        ^^^^^^^^^^^^^^^^^^^^^\n\nprojects\\anthropic_menu_test_v2\\tests\\test_main.py:46: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <anthropic_menu_test_v2.tests.test_main.HomePage object at 0x000001FC43AD8E90>\n\n    @property\n    def claude_link(self):\n        \"\"\"The goal is to check the menu bar items: Meet Claude, Platform, Solutions, Pricing, and Learn. I wil\"\"\"\n>       return self.page.get_by_role(\"link\", name=\"Claude\").first()\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       TypeError: 'Locator' object is not callable\n\nprojects\\anthropic_menu_test_v2\\tests\\test_main.py:22: TypeError\n=========================== short test summary info ===========================\nFAILED projects/anthropic_menu_test_v2/tests/test_main.py::test_autonomous_flow[chromium]\n============================== 1 failed in 2.06s ==============================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-12T18:29:55.941249",
+    "context": {
+      "site": "https://www.dyson.in/",
+      "project": "dyson_e2e_ci",
+      "phase": "execution"
+    },
+    "error": "_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/\nE           Call log:\nE             - navigating to \"https://www.dyson.in/\", waiting until \"load\"\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error\n=========================== short test summary info ============================\nFAILED projects/dyson_e2e_ci/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/\nCall log:\n  - navigating to \"https://www.dyson.in/\", waiting until \"load\"\n============================== 1 failed in 0.75s ===============================\n\n\n"
   }
 ]

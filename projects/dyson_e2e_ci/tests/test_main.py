@@ -18,38 +18,33 @@ class HomePage:
 
     @property
     def close_button(self):
-        """The goal is to close the 'Subscribe' popup, search for 'Dyson V15 Detect', verify the 'Add to Cart' """
-        return self.page.get_by_role("button", name="Close").first()
+        """The goal is to handle the popup, search for 'Dyson V15 Detect', verify the 'Add to Cart' button, pro"""
+        return self.page.get_by_role("button", name="Close").first
 
     @property
     def x_span(self):
         """The goal is to close the 'Subscribe' popup. The previous attempt to close the popup failed. I will u"""
-        return self.page.get_by_text("X").first()
+        return self.page.get_by_text("X").first
 
     @property
     def search_products_and_parts_input(self):
-        """The goal is to complete the user's workflow. The first step is to handle the popup. The previous act"""
+        """The goal is to close the 'Subscribe' popup. The previous action successfully closed a popup using th"""
         return self.page.get_by_placeholder("Search products and parts")
 
     @property
     def search_products_and_parts_button(self):
-        """The goal is to search for 'Dyson V15 Detect'. I have already closed the popup and filled the search """
+        """The goal is to search for 'Dyson V15 Detect'. I have already filled the search bar in the previous s"""
         return self.page.get_by_label("Search products and parts")
 
     @property
     def click_element(self):
-        """The goal is to reach the checkout page. The history shows that I have already added an item to the c"""
+        """The goal is to reach the checkout page. The current page is the cart page. The next step is to click"""
         return self.page.locator("body")
 
     @property
     def your_basket_has_1_items_in_it_link(self):
-        """The goal is to reach the checkout page. The last action was to click 'Continue to basket'. Now I nee"""
+        """The goal is to reach the checkout page. The last action resulted in a chrome error, so I need to nav"""
         return self.page.get_by_label("Your basket has 1 items in it")
-
-    @property
-    def search_button(self):
-        """The goal is to reach the checkout page. The history shows that I have already added an item to the c"""
-        return self.page.get_by_role("button", name="Search").first()
 
 
 class DysonIndiaOfficialWebsitePage:
@@ -58,9 +53,9 @@ class DysonIndiaOfficialWebsitePage:
         self.page = page
 
     @property
-    def save_16_000_dyson_v8_absolute__link(self):
-        """I have already closed the popup and searched for 'Dyson V15 Detect'. Now I need to click the first p"""
-        return self.page.get_by_role("link", name="Save ₹16,000 Dyson V8 Absolute vacuum cleaner   4.4 stars ou").first()
+    def save_18_000_dyson_ontrac_cnc_c_link(self):
+        """The goal is to search for 'Dyson V15 Detect' and click the first product result. I have already fill"""
+        return self.page.get_by_role("link", name="Save ₹18,000 Dyson OnTrac™ (CNC Copper)   4.6 stars out of 5").first
 
 
 class ProductsPage:
@@ -70,13 +65,46 @@ class ProductsPage:
 
     @property
     def add_to_cart_link(self):
-        """I am currently on the product detail page for 'Dyson V8 Absolute Vacuum'. The goal is to verify the """
-        return self.page.get_by_role("link", name="Add to Cart").first()
+        """The goal is to add the current product (Dyson OnTrac headphones) to the cart, verify the cart drawer"""
+        return self.page.get_by_role("link", name="Add to cart").first
 
     @property
     def continue_to_basket_button(self):
-        """The goal is to reach the checkout page. The last action added an item to the cart. Now, I need to cl"""
-        return self.page.get_by_role("button", name="Continue to basket").first()
+        """The goal is to verify the cart drawer opens and then click 'Checkout'. The previous action was addin"""
+        return self.page.get_by_role("button", name="Continue to basket").first
+
+
+class CartPage:
+    """Auto-generated Page Object for CartPage"""
+    def __init__(self, page: Page):
+        self.page = page
+
+    @property
+    def your_basket_has_1_items_in_it_link(self):
+        """The goal is to reach the checkout page. The previous steps involved adding an item to the cart and v"""
+        return self.page.get_by_label("Your basket has 1 items in it")
+
+
+class CheckoutPage:
+    """Auto-generated Page Object for CheckoutPage"""
+    def __init__(self, page: Page):
+        self.page = page
+
+    @property
+    def continue_to_checkout_button(self):
+        """The goal is to reach the checkout page. The current page is the cart page. The next step is to click"""
+        return self.page.get_by_role("button", name="Continue to checkout").first
+
+
+class UnknownPage:
+    """Auto-generated Page Object for UnknownPage"""
+    def __init__(self, page: Page):
+        self.page = page
+
+    @property
+    def done_element(self):
+        """The goal is to complete the checkout process and reach the checkout page. The history shows that we """
+        return self.page.locator("body")
 
 
 def test_autonomous_flow(page: Page):
@@ -89,55 +117,43 @@ def test_autonomous_flow(page: Page):
     home_page = HomePage(page)
     dyson_india_official_website_page = DysonIndiaOfficialWebsitePage(page)
     products_page = ProductsPage(page)
+    cart_page = CartPage(page)
+    checkout_page = CheckoutPage(page)
+    unknown_page = UnknownPage(page)
 
     # Execute test steps
-    # Step 0: The goal is to close the 'Subscribe' popup, search for 'Dyson V15 Detect', verif
+    # Step 0: The goal is to handle the popup, search for 'Dyson V15 Detect', verify the 'Add 
     home_page.close_button.click()
 
     # Step 1: The goal is to close the 'Subscribe' popup. The previous attempt to close the po
     home_page.x_span.click()
 
-    # Step 2: The goal is to complete the user's workflow. The first step is to handle the pop
+    # Step 2: The goal is to close the 'Subscribe' popup. The previous action successfully clo
     home_page.search_products_and_parts_input.fill("Dyson V15 Detect")
 
-    # Step 3: The goal is to search for 'Dyson V15 Detect'. I have already closed the popup an
+    # Step 3: The goal is to search for 'Dyson V15 Detect'. I have already filled the search b
     home_page.search_products_and_parts_button.click()
 
-    # Step 4: I have already closed the popup and searched for 'Dyson V15 Detect'. Now I need 
-    dyson_india_official_website_page.save_16_000_dyson_v8_absolute__link.click()
+    # Step 4: The goal is to search for 'Dyson V15 Detect' and click the first product result.
+    dyson_india_official_website_page.save_18_000_dyson_ontrac_cnc_c_link.click()
 
-    # Step 5: I am currently on the product detail page for 'Dyson V8 Absolute Vacuum'. The go
+    # Step 5: The goal is to add the current product (Dyson OnTrac headphones) to the cart, ve
     products_page.add_to_cart_link.click()
 
-    # Step 6: The goal is to reach the checkout page. The last action added an item to the car
+    # Step 6: The goal is to verify the cart drawer opens and then click 'Checkout'. The previ
     products_page.continue_to_basket_button.click()
 
-    # Step 7: The goal is to reach the checkout page. The history shows that I have already ad
+    # Step 7: The goal is to reach the checkout page. The current page is the cart page. The n
     home_page.click_element.click()
 
-    # Step 8: The goal is to reach the checkout page. The last action was to click 'Continue t
+    # Step 8: The goal is to reach the checkout page. The last action resulted in a chrome err
     home_page.your_basket_has_1_items_in_it_link.click()
 
-    # Step 9: The goal is to reach the checkout page. The last action was clicking 'Your baske
-    home_page.search_products_and_parts_button.click()
+    # Step 9: The goal is to reach the checkout page. The previous steps involved adding an it
+    cart_page.your_basket_has_1_items_in_it_link.click()
 
-    # Step 10: The goal is to reach the checkout page. The last action was to click the 'Search
-    home_page.search_products_and_parts_input.fill("Dyson V15 Detect")
+    # Step 10: The goal is to reach the checkout page. The current page is the cart page. The n
+    checkout_page.continue_to_checkout_button.click()
 
-    # Step 11: The goal is to reach the checkout page. The previous steps involved adding an it
-    home_page.search_products_and_parts_button.click()
-
-    # Step 12: The goal is to reach the checkout page. The previous steps involved adding an it
-    home_page.search_products_and_parts_input.click()
-
-    # Step 13: The goal is to reach the checkout page. The previous steps involved searching fo
-    home_page.search_products_and_parts_input.fill("Dyson V15 Detect")
-
-    # Step 14: The goal is to reach the checkout page. The previous steps involved searching fo
-    home_page.your_basket_has_1_items_in_it_link.click()
-
-    # Step 15: The goal is to reach the checkout page. The history shows that I have already ad
-    home_page.your_basket_has_1_items_in_it_link.click()
-
-    # Step 16: The goal is to reach the checkout page. The history shows that I have already ad
-    home_page.search_button.click()
+    # Step 11: The goal is to complete the checkout process and reach the checkout page. The hi
+    unknown_page.done_element.done()
