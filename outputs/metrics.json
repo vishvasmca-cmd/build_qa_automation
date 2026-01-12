@@ -2,7 +2,7 @@
   "run_id": "f100e88e-8f60-4bf7-a4b1-b1f37f4aba33",
   "timestamp": 1768248179.981571,
   "summary": {
-    "total_duration": 953.5689094657891,
+    "total_duration": 1029.4351085128776,
     "total_cost": 0.045,
     "status": "running"
   },
@@ -2183,6 +2183,325 @@
       "metadata": {
         "status": "FAIL",
         "reason": "The user added items to the cart but did not complete the purchase flow. The final URL is the inventory page, not a checkout or confirmation page. Therefore, the goal of completing a full purchase flow was not achieved.",
+        "confidence": 1.0
+      }
+    },
+    {
+      "agent": "Orchestrator",
+      "action": "pipeline_start",
+      "end_time": 1768251863.4193938,
+      "duration": 0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": {
+          "project_name": "verify_complex_saucedemo",
+          "target_url": "https://www.saucedemo.com/",
+          "workflow_description": "1. Login: standard_user / secret_sauce. 2. Action: Add three items (Backpack, Bike Light, Bolt T-Shirt) to the cart. 3. Checkout: Go to the cart, click 'Checkout', fill in 'First', 'Last', and '11111' zip code. 4. Finalize: Click 'Continue' and then 'Finish'. 5. Verify: Assert that 'Thank you for your order!' is displayed.",
+          "domain": "e_commerce",
+          "goal": "Complete a full purchase flow on SauceDemo",
+          "paths": {
+            "trace": "projects/verify_complex_saucedemo/outputs/trace.json",
+            "test": "projects/verify_complex_saucedemo/tests/test_main.py",
+            "report": "projects/verify_complex_saucedemo/outputs/report.md"
+          }
+        }
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "init",
+      "end_time": 1768251867.8106792,
+      "duration": 0.0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": "projects/verify_complex_saucedemo/config.json"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768251871.4274085,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.saucedemo.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768251874.4858825,
+      "duration": 2.749,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "url": "https://www.saucedemo.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768251874.633214,
+      "duration": 0.0999,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "action": "fill",
+        "target": 1,
+        "locator": "[data-agent-id='1']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768251874.754571,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.saucedemo.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768251879.713087,
+      "duration": 4.7479,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 1,
+        "url": "https://www.saucedemo.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768251879.8421543,
+      "duration": 0.0415,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 1,
+        "action": "fill",
+        "target": 2,
+        "locator": "[data-agent-id='2']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768251880.0361838,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.saucedemo.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768251883.6835074,
+      "duration": 3.4965,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "url": "https://www.saucedemo.com/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768251884.6198766,
+      "duration": 0.8977,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "action": "click",
+        "target": 3,
+        "locator": "[data-agent-id='3']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768251884.964088,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.saucedemo.com/inventory.html"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768251889.1496713,
+      "duration": 3.8992,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "url": "https://www.saucedemo.com/inventory.html"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768251890.9172044,
+      "duration": 1.655,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "action": "click",
+        "target": 15,
+        "locator": "[data-agent-id='15']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768251891.0618904,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.saucedemo.com/inventory.html"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768251893.875385,
+      "duration": 2.6391,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "url": "https://www.saucedemo.com/inventory.html"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768251895.4855266,
+      "duration": 1.5773,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "action": "click",
+        "target": 15,
+        "locator": "[data-agent-id='15']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768251895.6138456,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.saucedemo.com/inventory.html"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768251899.2120686,
+      "duration": 3.4274,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 5,
+        "url": "https://www.saucedemo.com/inventory.html"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768251900.8084936,
+      "duration": 1.5563,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 5,
+        "action": "click",
+        "target": 20,
+        "locator": "[data-agent-id='20']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768251900.942257,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.saucedemo.com/inventory.html"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "exploration_phase",
+      "end_time": 1768251901.899137,
+      "duration": 36.2265,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
+    },
+    {
+      "agent": "DeterministicGenerator",
+      "action": "generate_code",
+      "end_time": 1768251921.4865353,
+      "duration": 0.1375,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
+    },
+    {
+      "agent": "Generator",
+      "action": "full_gen_cycle",
+      "end_time": 1768251922.8300564,
+      "duration": 7.9601,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "loops": 1
+      }
+    },
+    {
+      "agent": "Executor",
+      "action": "execute_test",
+      "end_time": 1768251990.9581754,
+      "duration": 4.7483,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "attempt": 2
+      }
+    },
+    {
+      "agent": "Validator",
+      "action": "validate_goal",
+      "end_time": 1768251992.4361854,
+      "duration": 0.0,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "status": "FAIL",
+        "reason": "The user added items to the cart but did not complete the purchase flow. The final URL is the inventory page, not a checkout or confirmation page.",
         "confidence": 1.0
       }
     }

@@ -23,7 +23,7 @@ class HomePage:
 
     @property
     def password_input(self):
-        """The goal is to log in with the username 'standard_user'. The previous action was to fill the usernam"""
+        """The goal is to log in with the username 'standard_user' and password 'secret_sauce'. The previous ac"""
         return self.page.locator("[data-test='password']")
 
 
@@ -34,7 +34,7 @@ class SwagLabsPage:
 
     @property
     def click_input(self):
-        """I have already filled the username and password fields. Now I need to click the login button to proc"""
+        """I have filled the username and password fields. Now I need to click the login button to proceed to t"""
         return self.page.locator("[data-test='login-button']")
 
 
@@ -64,14 +64,17 @@ def test_autonomous_flow(page: Page):
     # Step 0: The goal starts with logging in. I am on the login page, so I need to fill in th
     home_page.username_input.fill("standard_user")
 
-    # Step 1: The goal is to log in with the username 'standard_user'. The previous action was
+    # Step 1: The goal is to log in with the username 'standard_user' and password 'secret_sau
     home_page.password_input.fill("secret_sauce")
 
-    # Step 2: I have already filled the username and password fields. Now I need to click the 
+    # Step 2: I have filled the username and password fields. Now I need to click the login bu
     swag_labs_page.click_input.click()
 
     # Step 3: The goal is to add three items to the cart. The first item to add is 'Backpack'.
     saucedemo_inventory_page.add_to_cart_button.click()
 
     # Step 4: The goal is to add three items to the cart. The first item (Backpack) has alread
+    saucedemo_inventory_page.add_to_cart_button.click()
+
+    # Step 5: The goal is to add three items to the cart. I have already added two items (Back
     saucedemo_inventory_page.add_to_cart_button.click()

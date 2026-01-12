@@ -7,3 +7,4 @@
 | 2 | SwagLabsPage | click | page.locator("[data-test='logi | ✅ | [View](../snapshots/step_02_HomePage.png) |
 | 3 | SaucedemoInventoryPage | click | Add to cart | ✅ | [View](../snapshots/step_03_SaucedemoInventoryPage.png) |
 | 4 | SaucedemoInventoryPage | click | Add to cart | ✅ | [View](../snapshots/step_04_SaucedemoInventoryPage.png) |
+| 5 | SaucedemoInventoryPage | click | Add to cart | ✅ | [View](../snapshots/step_05_SaucedemoInventoryPage.png) |

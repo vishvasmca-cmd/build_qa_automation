@@ -703,5 +703,122 @@
       "The 'Add to cart' button is visible for products not in the cart",
       "The 'Remove' button is visible for products already in the cart"
     ]
+  },
+  "SwagLabsPage_eac6962be8de904605e4a94fce4d34c5": {
+    "description": "This is the login page for Swag Labs, where users can enter their credentials to access the inventory.",
+    "url_pattern": "https://www.saucedemo.com/",
+    "elements": [
+      {
+        "name": "Username Input",
+        "type": "text field",
+        "primary_locator": "id=user-name",
+        "backup_locator": "css=input[placeholder='Username']",
+        "description": "Input field for the username."
+      },
+      {
+        "name": "Password Input",
+        "type": "text field",
+        "primary_locator": "id=password",
+        "backup_locator": "css=input[placeholder='Password']",
+        "description": "Input field for the password."
+      },
+      {
+        "name": "Login Button",
+        "type": "button",
+        "primary_locator": "id=login-button",
+        "backup_locator": "css=input[value='Login']",
+        "description": "Button to submit the login form."
+      },
+      {
+        "name": "Accepted usernames",
+        "type": "text",
+        "primary_locator": "xpath=//div[text()='Accepted usernames are:']",
+        "backup_locator": "text=Accepted usernames are:",
+        "description": "Text indicating the accepted usernames."
+      },
+      {
+        "name": "Password for all users",
+        "type": "text",
+        "primary_locator": "xpath=//div[text()='Password for all users:']",
+        "backup_locator": "text=Password for all users:",
+        "description": "Text indicating the password for all users."
+      }
+    ],
+    "assertions": [
+      "Page title is 'Swag Labs'",
+      "Login button is present",
+      "Username input field is present",
+      "Password input field is present",
+      "Accepted usernames text is present",
+      "Password for all users text is present"
+    ]
+  },
+  "SaucedemoInventoryPage_5f25f2c9221725d633989d48bf3026f9": {
+    "description": "The inventory page displays a list of available products with their descriptions, prices, and 'Add to cart' or 'Remove' buttons.",
+    "url_pattern": "https://www.saucedemo.com/inventory.html",
+    "elements": [
+      {
+        "name": "Product Name",
+        "type": "text",
+        "primary_locator": "//div[@class='inventory_item_label']/a/div[@class='inventory_item_name']",
+        "backup_locator": ".inventory_item_name",
+        "description": "The name of the product."
+      },
+      {
+        "name": "Product Description",
+        "type": "text",
+        "primary_locator": "//div[@class='inventory_item_label']/div[@class='inventory_item_desc']",
+        "backup_locator": ".inventory_item_desc",
+        "description": "The description of the product."
+      },
+      {
+        "name": "Product Price",
+        "type": "text",
+        "primary_locator": "//div[@class='inventory_item_label']/div[@class='inventory_item_price']",
+        "backup_locator": ".inventory_item_price",
+        "description": "The price of the product."
+      },
+      {
+        "name": "Add to Cart Button",
+        "type": "button",
+        "primary_locator": "//button[contains(@id, 'add-to-cart')]",
+        "backup_locator": "button[class='btn btn_primary btn_small btn_inventory']",
+        "description": "Button to add the product to the shopping cart."
+      },
+      {
+        "name": "Remove Button",
+        "type": "button",
+        "primary_locator": "//button[contains(@id, 'remove')]",
+        "backup_locator": "button[class='btn btn_secondary btn_small btn_inventory']",
+        "description": "Button to remove the product from the shopping cart."
+      },
+      {
+        "name": "Products Header",
+        "type": "text",
+        "primary_locator": "//span[@class='title']",
+        "backup_locator": ".title",
+        "description": "The header text of the inventory page."
+      },
+      {
+        "name": "Filter Dropdown",
+        "type": "dropdown",
+        "primary_locator": "[data-test='product_sort_container']",
+        "backup_locator": ".product_sort_container",
+        "description": "Dropdown to filter products by name or price."
+      },
+      {
+        "name": "Shopping Cart Link",
+        "type": "link",
+        "primary_locator": "shopping_cart_container",
+        "backup_locator": "a.shopping_cart_link",
+        "description": "Link to the shopping cart page."
+      }
+    ],
+    "assertions": [
+      "Verify the page title is 'Swag Labs'",
+      "Verify the 'Products' header is displayed",
+      "Verify that at least one product is displayed with its name, description, and price",
+      "Verify that 'Add to cart' or 'Remove' buttons are displayed for each product"
+    ]
   }
 }
