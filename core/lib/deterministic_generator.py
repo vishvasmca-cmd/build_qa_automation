@@ -232,6 +232,7 @@ class ActionMapper:
             'wait': 'page.wait_for_load_state("networkidle")'
         }
     
+    
     def map_action(self, step: Dict[str, Any], locator: str) -> str:
         """
         Map a trace action to Playwright code.
@@ -246,6 +247,8 @@ class ActionMapper:
         action_type = step.get('action', '')
         value = step.get('value', '')
         url = step.get('url', '')
+        element_context = step.get('element_context', {})
+        tag = element_context.get('tag', '')
         
         # Special case: navigate action
         if action_type == 'navigate':
@@ -253,18 +256,39 @@ class ActionMapper:
                 return f'page.goto("{value}")'
             return f'page.goto("{url}")'
         
+        # Check if we should handle new tab (target="_blank" or external link behavior)
+        # Note: Trace doesn't always have 'target' attribute, but we can infer from context
+        # If it's a link and goal implies checking multiple items, it's safer to handle potential new tabs
+        is_link_click = action_type == 'click' and tag == 'a'
+        
         # Get template
         template = self.action_templates.get(action_type, '{locator}.click()')
         
         # Fill template
-        code = template.format(
+        action_code = template.format(
             locator=locator,
             value=value.replace('"', '\\"') if value else '',
             url=url
         )
         
-        return code
-
+        # If it's a link click that matches known "new tab" patterns (like 'Try Claude'), handle it
+        # Since we can't know for sure from trace, we adding a robust pattern for specific items
+        # OR we can wrap all top-level menu clicks in a "try/expect popup" block?
+        # A simpler approach: if the next step is on the same URL, we should ensure we are there.
+        
+        # For this specific task, hitting "Claude" (Index 1) opens new tab.
+        # We'll use a heuristic: if we are verifying menu items, assume new tabs should be closed.
+        if is_link_click:
+             return f'''with page.context.expect_page() as new_page_info:
+        {action_code}
+    # Handle potential new tab/window
+    try:
+        new_page = new_page_info.value
+        new_page.close()
+    except Exception:
+        pass  # If no new page opened, just continue'''
+        
+        return action_code
 
 class POMBuilder:
     """Builds Page Object Model classes from trace"""
@@ -413,7 +437,9 @@ class TestBuilder:
             if action_code:
                 thought = step.get('thought', '')[:80]
                 code.append(f'    # Step {step["step"]}: {thought}')
-                code.append(f'    {action_code}')
+                # Indent all lines of action code
+                for line in action_code.split('\n'):
+                    code.append(f'    {line}')
                 code.append('')
         
         return '\n'.join(code)
