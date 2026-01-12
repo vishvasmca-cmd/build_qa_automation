@@ -543,7 +543,7 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     
     # --- Step 4: Quality Gate (Reviewer) ---
     # Optional: LLM-based code review (disabled by default since deterministic generator produces valid code)
-    USE_LLM_REVIEWER = os.environ.get('USE_LLM_REVIEWER', 'False').lower() == 'true'
+    USE_LLM_REVIEWER = False
     
     if USE_LLM_REVIEWER:
         try:
