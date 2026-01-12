@@ -540,39 +540,48 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         duration = __import__('time').time() - start_time
         logger.log_event("LLMRefiner", "generate_code", duration, cost=0.01)
     
+    
     # --- Step 4: Quality Gate (Reviewer) ---
-    # Review the code BEFORE writing to catch structural issues
-    try:
-        from core.agents.reviewer import CodeReviewer
-        import tempfile
-        
-        # Write to temp file for review
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False, encoding='utf-8') as temp_file:
-            temp_path = temp_file.name
-            temp_file.write(final_code)
-        
-        reviewer = CodeReviewer()
-        is_approved, review_msg = reviewer.review_and_fix(temp_path, domain=domain)
-        
-        # Read back the potentially fixed code
-        with open(temp_path, 'r', encoding='utf-8') as f:
-            final_code = f.read()
-        
-        # Clean up temp file
-        os.unlink(temp_path)
-        
-        if not is_approved:
-            # Soft-fail if Reviewer just broke on format (Truncation/JSON error)
-            if "invalid format" in review_msg or "Review Agent Crashed" in review_msg:
-                 print(colored(f"⚠️ Code Review Format Error: {review_msg}. Proceeding with best-effort code.", "yellow"))
-            else:
-                 print(colored(f"❌ Code Review Failed: {review_msg}", "red"))
-                 print(colored("🔄 Refiner will regenerate on next attempt...", "yellow"))
-                 return None  # Signal failure to trigger regeneration
+    # Optional: LLM-based code review (disabled by default since deterministic generator produces valid code)
+    USE_LLM_REVIEWER = os.environ.get('USE_LLM_REVIEWER', 'False').lower() == 'true'
+    
+    if USE_LLM_REVIEWER:
+        try:
+            from core.agents.reviewer import CodeReviewer
+            import tempfile
             
-    except Exception as e:
-        print(colored(f"⚠️ Automated Review Failed: {e}", "yellow"))
-        # Continue anyway if reviewer crashes
+            print(colored("🕵️  Running LLM Code Reviewer...", "cyan"))
+            
+            # Write to temp file for review
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False, encoding='utf-8') as temp_file:
+                temp_path = temp_file.name
+                temp_file.write(final_code)
+            
+            reviewer = CodeReviewer()
+            is_approved, review_msg = reviewer.review_and_fix(temp_path, domain=domain)
+            
+            # Read back the potentially fixed code
+            with open(temp_path, 'r', encoding='utf-8') as f:
+                final_code = f.read()
+            
+            # Clean up temp file
+            os.unlink(temp_path)
+            
+            if not is_approved:
+                # Soft-fail if Reviewer just broke on format (Truncation/JSON error)
+                if "invalid format" in review_msg or "Review Agent Crashed" in review_msg:
+                     print(colored(f"⚠️ Code Review Format Error: {review_msg}. Proceeding with best-effort code.", "yellow"))
+                else:
+                     print(colored(f"❌ Code Review Failed: {review_msg}", "red"))
+                     print(colored("🔄 Refiner will regenerate on next attempt...", "yellow"))
+                     return None  # Signal failure to trigger regeneration
+                
+        except Exception as e:
+            print(colored(f"⚠️ Automated Review Failed: {e}", "yellow"))
+            # Continue anyway if reviewer crashes
+    else:
+        print(colored("✅ Skipping LLM Code Reviewer (static validators only)", "green"))
+    
     
     # Only write if review passed
     output_dir = os.path.dirname(output_path)
