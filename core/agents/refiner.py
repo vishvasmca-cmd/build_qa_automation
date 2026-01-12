@@ -577,7 +577,7 @@ class FrameworkGenerator:
     Builds strict Page Objects from Miner blueprints and Linear Tests from Explorer traces.
     """
     def __init__(self, project_root):
-        self.project_root = project_path = project_root
+        self.project_root = project_root
         self.output_dir = os.path.join(project_root, "outputs")
         self.pages_dir = os.path.join(project_root, "pages")
         self.tests_dir = os.path.join(project_root, "tests", "e2e")
