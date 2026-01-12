@@ -39,25 +39,44 @@ class LocatorTranslator:
         Returns:
             Playwright locator string
         """
-        # If trace already has a good locator, use it
+        # If trace already has a good locator, use it (with disambiguation)
         locator_used = step.get('locator_used', '')
         if locator_used and self._is_good_locator(locator_used):
-            return self._clean_locator(locator_used)
+            return self._add_disambiguation(self._clean_locator(locator_used), step)
         
         # Otherwise, build best locator from element_context
         element_context = step.get('element_context', {})
         tag = element_context.get('tag', '')
         text = element_context.get('text', '')
         role = element_context.get('role', '')
+        href = element_context.get('href', '')
+        data_attrs = {k: v for k, v in element_context.items() if k.startswith('data-')}
         
-        # Priority 1: Role-based (best)
+        # Priority 0: Unique data attributes (best for disambiguation)
+        if data_attrs:
+            for attr, value in data_attrs.items():
+                if attr in ['data-testid', 'data-test', 'data-test-id']:
+                    return f'page.get_by_test_id("{value}")'
+                # Use other data attributes via CSS selector
+                if value and len(value) < 50:
+                    return f'page.locator("[{attr}=\\"{value}\\"]")'
+        
+        # Priority 1: Role-based with exact match for disambiguation
         if role and text:
-            return f'page.get_by_role("{role}", name="{self._escape_text(text)}")'
+            base_locator = f'page.get_by_role("{role}", name="{self._escape_text(text)}", exact=True)'
+            # For links, add href filter for disambiguation
+            if role == 'link' and href:
+                return f'{base_locator}.filter(has=page.locator(\'[href="{href}"]\'))'
+            return self._add_disambiguation(base_locator, step)
         
         # Infer role from tag if not provided
         inferred_role = self._infer_role(tag, text)
         if inferred_role and text:
-            return f'page.get_by_role("{inferred_role}", name="{self._escape_text(text)}")'
+            base_locator = f'page.get_by_role("{inferred_role}", name="{self._escape_text(text)}")'
+            # Add href filter for links
+            if inferred_role == 'link' and href:
+                return f'{base_locator}.filter(has=page.locator(\'[href="{href}"]\'))'
+            return self._add_disambiguation(base_locator, step)
         
         # Priority 2: Label (for inputs)
         if tag == 'input' and 'label' in element_context:
@@ -69,27 +88,69 @@ class LocatorTranslator:
         
         # Check if trace locator has placeholder
         if locator_used and 'get_by_placeholder' in locator_used:
-            return self._clean_locator(locator_used)
+            return self._add_disambiguation(self._clean_locator(locator_used), step)
         
-        # Priority 4: Text content
+        # Priority 4: Text content with exact match
         if text:
             # For buttons and links, use exact text
             if tag in ['button', 'a', 'span'] and len(text) < 50:
-                return f'page.get_by_text("{self._escape_text(text)}")'
+                base_locator = f'page.get_by_text("{self._escape_text(text)}", exact=True)'
+                # For links, add href filter
+                if tag == 'a' and href:
+                    return f'{base_locator}.filter(has=page.locator(\'[href="{href}"]\'))'
+                return self._add_disambiguation(base_locator, step)
         
         # Priority 5: Test ID
         if 'data-testid' in element_context:
             return f'page.get_by_test_id("{element_context["data-testid"]}")'
         
-        # Priority 6: CSS fallback
+        # Priority 6: CSS fallback with attributes
         if locator_used:
-            return self._convert_to_css_fallback(locator_used, tag, text)
+            return self._add_disambiguation(self._convert_to_css_fallback(locator_used, tag, text), step)
         
-        # Last resort: generic locator by tag and text
+        # Last resort: generic locator by tag and text with .first()
         if tag and text:
-            return f'page.locator("{tag}").filter(has_text="{self._escape_text(text)}")'
+            return f'page.locator("{tag}").filter(has_text="{self._escape_text(text)}").first()'
         
         return 'page.locator("body")'  # Fallback
+    
+    def _add_disambiguation(self, locator: str, step: Dict[str, Any]) -> str:
+        """
+        Add disambiguation to locator to handle multiple matches.
+        Adds .first() for ambiguous selectors to prevent strict mode violations.
+        
+        Args:
+            locator: Base Playwright locator
+            step: Trace step with context
+            
+        Returns:
+            Locator with disambiguation
+        """
+        # Don't add .first() if locator is already specific
+        specific_patterns = [
+            'get_by_test_id',
+            'get_by_placeholder',
+            'get_by_label',
+            '.filter(has=',  # Already filtered
+            '.first()',       # Already has .first()
+            '.nth(',          # Already has .nth()
+            'exact=True'      # Exact match might be specific enough
+        ]
+        
+        if any(pattern in locator for pattern in specific_patterns):
+            return locator
+        
+        # For role/text-based locators that might match multiple elements
+        ambiguous_patterns = [
+            'get_by_role',
+            'get_by_text'
+        ]
+        
+        if any(pattern in locator for pattern in ambiguous_patterns):
+            # Add .first() to prevent strict mode violations
+            return f'{locator}.first()'
+        
+        return locator
     
     def _is_good_locator(self, locator: str) -> bool:
         """Check if locator already follows best practices"""
