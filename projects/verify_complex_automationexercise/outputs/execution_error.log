@@ -1,0 +1,95 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
+plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
+collecting ... collected 1 item
+
+projects/verify_complex_automationexercise/tests/test_main.py::test_autonomous_flow[chromium] FAILED
+
+================================== FAILURES ===================================
+_______________________ test_autonomous_flow[chromium] ________________________
+
+page = <Page url='https://automationexercise.com/products?search=Blue%20Cotton'>
+
+    def test_autonomous_flow(page: Page):
+        """
+        Workflow: 1. Navigation: Click 'Products' (handle potential full-screen ads). 2. Search: Search for 'Blue Cotton' and click 'View Product' on the first result. 3. Action: Add to cart. 4. Verify: Go to 'View Cart' and ensure the product is listed.
+        """
+        # Navigate to target URL
+        page.goto("https://automationexercise.com/")
+    
+        products_page = ProductsPage(page)
+        cart_page = CartPage(page)
+        unknown_page = UnknownPage(page)
+    
+        # Execute test steps
+        # Step 0: The goal is to navigate to the 'Products' page. The current page is the login sc
+        try:
+            with page.context.expect_page(timeout=3000) as new_page_info:
+                products_page.products_link.click()
+            new_page = new_page_info.value
+            new_page.close()
+        except Exception:
+            pass
+    
+        # Step 1: The goal is to navigate to the 'Products' page. The history shows that this step
+        products_page.search_product_input.fill("Blue Cotton")
+    
+        # Step 2: I am on the Products page and have already clicked the 'Products' button and fil
+        products_page.click_button.click()
+    
+        # Step 3: The goal is to add the product to the cart. I am currently on the search results
+        try:
+            with page.context.expect_page(timeout=3000) as new_page_info:
+                products_page.view_product_link.click()
+            new_page = new_page_info.value
+            new_page.close()
+        except Exception:
+            pass
+    
+        # Step 4: The goal is to add the product to the cart. I am currently on the product detail
+>       products_page.add_to_cart_button.click()
+
+projects\verify_complex_automationexercise\tests\test_main.py:104: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:15637: in click
+    self._sync(
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_locator.py:162: in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:566: in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <playwright._impl._connection.Connection object at 0x00000285E4574A50>
+cb = <function Channel.send.<locals>.<lambda> at 0x00000285E497F920>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+E           Call log:
+E             - waiting for get_by_role("button", name="Add to cart", exact=True).first
+
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: TimeoutError
+=========================== short test summary info ===========================
+FAILED projects/verify_complex_automationexercise/tests/test_main.py::test_autonomous_flow[chromium]
+======================== 1 failed in 332.58s (0:05:32) ========================
+

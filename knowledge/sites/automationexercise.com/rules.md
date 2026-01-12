@@ -143,3 +143,43 @@
 - ⚠️ PROHIBITED: DON'T use locators that return multiple elements without specifying which element is expected (e.g., using .first(), .last(), or nth(index)).
 
 - ✅ PREFERRED: DO use more specific locators or filters to target the exact element you want to interact with, especially when dealing with lists or repeating elements.
+
+- ⚠️ PROHIBITED: DON'T assume that the search input field is immediately available and interactable upon page load. ALWAYS wait for the element to be visible and stable before attempting to interact with it.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` or `state='stable'` before attempting to fill the search input field. This ensures the element is fully loaded and ready for interaction.
+
+- ⚠️ PROHIBITED: DON'T assume the `#search_product` input field is immediately available; always wait for it to be visible and enabled before attempting to fill it.
+
+- ✅ PREFERRED: DO implement a `wait_for` condition with `state='visible'` or `state='enabled'` before interacting with the `#search_product` input field.
+
+- ⚠️ PROHIBITED: DON'T assume an element is immediately available for interaction after page load; always use explicit waits or assertions to ensure its presence and readiness.
+
+- ✅ PREFERRED: DO implement explicit waits with `locator.wait_for()` before attempting to interact with elements, especially after navigation or dynamic content updates.
+
+- ⚠️ PROHIBITED: DON'T use `wait_for_selector` on a Playwright Locator object. It's not a valid method.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with appropriate state options (e.g., `visible`, `hidden`, `attached`, `detached`) to ensure the element is in the expected state before interacting with it.
+
+- ⚠️ PROHIBITED: DON'T assume that elements are immediately available after a page load or navigation; always account for potential delays in element rendering.
+
+- ✅ PREFERRED: DO implement explicit waits or retry mechanisms when interacting with dynamically loaded elements, especially when dealing with 'Add to cart' buttons or similar interactive components.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately available after a page transition; always implement a short wait or retry mechanism.
+
+- ✅ PREFERRED: DO use `locator.is_visible()` or `locator.wait_for()` before attempting to click critical elements like 'Add to cart', especially after page loads or dynamic content updates.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately available; always implement a retry mechanism or explicit wait for its visibility and stability before attempting to click.
+
+- ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` and `state='stable'` before clicking critical elements like 'Add to cart' to ensure they are fully loaded and interactable.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately available; always account for potential loading delays or overlays.
+
+- ✅ PREFERRED: DO implement explicit waits or retry mechanisms when interacting with elements that might be subject to dynamic loading or visibility changes, especially 'Add to cart' buttons.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately available after a page load or transition. It may be hidden or require a specific state to be visible.
+
+- ✅ PREFERRED: DO implement explicit waits or retries when interacting with elements like 'Add to cart' buttons, especially after page loads or transitions. Consider checking for the button's presence and visibility before attempting to click.
+
+- ⚠️ PROHIBITED: DON'T assume the 'Add to cart' button is immediately available after a page load or product selection. It might be hidden behind an overlay or require a brief loading period.
+
+- ✅ PREFERRED: DO implement explicit waits or retry mechanisms before interacting with the 'Add to cart' button to ensure it is fully loaded and interactable. Consider using `locator.wait_for()` with a reasonable timeout and state check (e.g., `visible`, `enabled`).

@@ -110,8 +110,8 @@ def check_logical_errors(code_string):
 def load_historical_failures(target_url):
     """Failure RAG: Loads past failures for this site to prevent repetition (Herd Immunity)."""
     try:
-        # Resolve path relative to this file
-        fail_path = os.path.join(os.path.dirname(__file__), "..", "knowledge", "failures.json")
+        # Resolve path relative to project root
+        fail_path = os.path.join(os.getcwd(), "knowledge", "failures.json")
         if not os.path.exists(fail_path): return ""
         
         with open(fail_path, "r", encoding="utf-8") as f:
@@ -153,7 +153,7 @@ class CodeRefiner:
         golden_context = ""
         
         # 1. Load Markdown Principles (Human-readable rules)
-        md_golden_path = os.path.join(os.path.dirname(__file__), "..", "knowledge", "locators_golden_set.md")
+        md_golden_path = os.path.join(os.getcwd(), "knowledge", "locators_golden_set.md")
         if os.path.exists(md_golden_path):
             try:
                 with open(md_golden_path, "r", encoding="utf-8") as f:
@@ -176,7 +176,7 @@ class CodeRefiner:
 
         # Load Domain Rules
         domain_rules = ""
-        domain_path = os.path.join(os.path.dirname(__file__), "..", "knowledge", "domains", f"{domain}.yaml")
+        domain_path = os.path.join(os.getcwd(), "knowledge", "domains", f"{domain}.yaml")
         if os.path.exists(domain_path):
             try:
                 with open(domain_path, "r", encoding="utf-8") as f:
@@ -192,7 +192,7 @@ class CodeRefiner:
         site_knowledge = ""
         from urllib.parse import urlparse
         netloc = urlparse(target_url).netloc
-        site_locators_path = os.path.join(os.path.dirname(__file__), "..", "knowledge", "sites", netloc, "locators.json")
+        site_locators_path = os.path.join(os.getcwd(), "knowledge", "sites", netloc, "locators.json")
         if os.path.exists(site_locators_path):
              try:
                 with open(site_locators_path, "r", encoding="utf-8") as f:
@@ -203,7 +203,7 @@ class CodeRefiner:
              except: pass
         
         # Load Site specific rules
-        site_rules_path = os.path.join(os.path.dirname(__file__), "..", "knowledge", "sites", netloc, "rules.md")
+        site_rules_path = os.path.join(os.getcwd(), "knowledge", "sites", netloc, "rules.md")
         if os.path.exists(site_rules_path):
             try:
                 with open(site_rules_path, "r", encoding="utf-8") as f:

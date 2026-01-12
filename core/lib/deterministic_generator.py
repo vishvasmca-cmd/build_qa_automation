@@ -196,13 +196,11 @@ class LocatorTranslator:
     
     def _escape_text(self, text: str) -> str:
         """Escape special characters in text"""
-        # Remove extra whitespace
+        # Escape backslashes first, then quotes
+        text = text.replace('\\', '\\\\').replace('"', '\\"')
+        # Normalize whitespace
         text = ' '.join(text.split())
-        # Handle Unicode characters that might cause issues
-        text = text.encode('ascii', 'replace').decode('ascii')
-        # Escape quotes
-        text = text.replace('"', '\\"')
-        # Truncate if too long
+        # Truncate if too long (optional, but keep it for stability)
         if len(text) > 100:
             text = text[:97] + '...'
         return text

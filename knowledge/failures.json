@@ -2151,6 +2151,7 @@
     "error": "(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Page.goto: Timeout 60000ms exceeded.\nE           Call log:\nE             - navigating to \"https://www.dyson.in/\", waiting until \"load\"\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/dyson_e2e_ci/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Page.goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.dyson.in/\", waiting until \"load\"\n========================= 1 failed in 60.64s (0:01:00) =========================\n\n\n"
   },
   {
+<<<<<<< Updated upstream
     "timestamp": "2026-01-12T20:18:26.579080",
     "context": {
       "site": "https://www.dyson.in/",
@@ -2158,5 +2159,14 @@
       "phase": "execution"
     },
     "error": "(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Page.goto: Timeout 60000ms exceeded.\nE           Call log:\nE             - navigating to \"https://www.dyson.in/\", waiting until \"load\"\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/dyson_e2e_ci/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Page.goto: Timeout 60000ms exceeded.\nCall log:\n  - navigating to \"https://www.dyson.in/\", waiting until \"load\"\n========================= 1 failed in 60.63s (0:01:00) =========================\n\n\n"
+=======
+    "timestamp": "2026-01-12T14:32:23.740038",
+    "context": {
+      "site": "https://automationexercise.com/",
+      "project": "verify_complex_automationexercise",
+      "phase": "execution"
+    },
+    "error": "op)\n        st: List[inspect.FrameInfo] = getattr(\n            task, \"__pw_stack__\", None\n        ) or inspect.stack(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nE           Call log:\nE             - waiting for get_by_role(\"button\", name=\"Add to cart\", exact=True).first\n\n..\\..\\..\\..\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\playwright\\_impl\\_connection.py:559: TimeoutError\n=========================== short test summary info ===========================\nFAILED projects/verify_complex_automationexercise/tests/test_main.py::test_autonomous_flow[chromium]\n======================== 1 failed in 67.34s (0:01:07) =========================\n\n\n"
+>>>>>>> Stashed changes
   }
 ]
