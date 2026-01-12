@@ -6,14 +6,5 @@
 | 1 | HomePage | click | X | ✅ | [View](../snapshots/step_01_HomePage.png) |
 | 2 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_02_HomePage.png) |
 | 3 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_03_HomePage.png) |
-| 4 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_04_HomePage.png) |
+| 4 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_04_HomePage.png) |
 | 5 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_05_HomePage.png) |
-| 6 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_06_HomePage.png) |
-| 7 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_07_HomePage.png) |
-| 8 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_08_HomePage.png) |
-| 9 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_09_HomePage.png) |
-| 10 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_10_HomePage.png) |
-| 11 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_11_HomePage.png) |
-| 12 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_12_HomePage.png) |
-| 13 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_13_HomePage.png) |
-| 14 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_14_HomePage.png) |

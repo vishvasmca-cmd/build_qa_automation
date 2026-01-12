@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The tests will cover core e-commerce functionalities, ensuring a smooth user experience.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The plan includes both smoke and regression test suites to ensure the quality and stability of the application.
 
 ## Scope
 
@@ -16,54 +16,35 @@ The testing will cover the following areas:
 
 ## Test Suites
 
-This test plan includes two main test suites: Smoke and Regression.
+### Smoke Suite
 
-### Smoke Suite Strategy
+The smoke suite will focus on verifying the core functionality of the Dyson India website. These tests are designed to be executed quickly and efficiently to ensure that the application is in a stable state.
 
-The Smoke Suite is designed to quickly verify the stability and core functionality of the application. The following checklist is applied:
+#### Smoke Suite Strategy
 
-1.  **Critical Paths Only:** Focuses on the most essential user journeys (e.g., search, add to cart, checkout).
-2.  **Positive Testing:** Primarily uses valid inputs and expected data.
-3.  **Minimal Data Variation:** Uses a small, representative set of test data.
-4.  **Independent Tests:** Each test should be able to run independently without relying on the state of others.
-5.  **Fast Execution:** Tests should be designed for quick execution to provide rapid feedback.
-6.  **Automated:** All smoke tests are automated for continuous integration.
-7.  **Build Acceptance:** Passing smoke tests are a prerequisite for build acceptance.
-8.  **Limited Scope:** Excludes edge cases, error handling, and less common scenarios.
+The following 8-point checklist has been applied to define the smoke suite for this project:
+
+1.  **Critical Paths:** The smoke suite includes the most critical user paths, such as searching for a product, adding it to the cart, and proceeding to checkout.
+2.  **Core Business Logic:** The tests cover the core business logic related to product search and the checkout process.
+3.  **Positive Testing:** The smoke tests primarily focus on positive scenarios, ensuring that the happy path flows work as expected.
+4.  **No Negative Testing:** Negative testing is excluded from the smoke suite to maintain its focus on core functionality.
+5.  **No Complex Edge Cases:** Complex edge cases are not included in the smoke suite.
+6.  **Speed of Execution:** The smoke tests are designed to be executed quickly to provide rapid feedback on the application's stability.
+7.  **Minimal Data Requirements:** The smoke tests use a minimal set of data to reduce setup and execution time.
+8.  **Independence:** Smoke tests are designed to be independent of each other to minimize dependencies and improve reliability.
 
 ### Regression Suite
 
-The Regression Suite is a comprehensive set of tests designed to ensure that new changes haven't introduced defects into existing functionality. This suite includes:
-
-*   All Smoke Tests
-*   Tests covering alternative flows (e.g., different payment methods).
-*   Negative tests (e.g., invalid input, out-of-stock items).
-*   Boundary value analysis.
-*   Cross-module interactions.
-*   Validation message verification.
+The regression suite will provide comprehensive test coverage to ensure that new changes do not introduce regressions into existing functionality. This suite will include a wider range of scenarios, including alternative flows, negative tests, and boundary conditions.
 
 ## Test Cases
 
-Test cases will be written in Gherkin syntax and stored in feature files.
+Test cases will be written in Gherkin syntax and stored in feature files. Each test case will include a clear description of the scenario, preconditions, steps, and expected results.
 
 ## Test Environment
 
-*   Browser: Chrome (latest version)
-*   Operating System: Windows 10/11, macOS
-*   Test Framework: Playwright
+The tests will be executed in a dedicated test environment that closely mirrors the production environment. This will help to ensure that the test results are accurate and reliable.
 
-## Test Data
+## Test Execution
 
-Test data will be managed in a separate file and will include:
-
-*   Search queries
-*   Product information
-*   User credentials
-*   Payment information
-
-## Metrics
-
-*   Test pass/fail rate
-*   Defect density
-*   Test execution time
-
+The tests will be executed automatically as part of the continuous integration (CI) pipeline. This will provide rapid feedback on the quality of the application and help to identify and resolve issues early in the development cycle.

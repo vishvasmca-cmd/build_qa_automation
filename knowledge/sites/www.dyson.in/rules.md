@@ -226,3 +226,43 @@
 - ⚠️ PROHIBITED: DON'T assume the search input field is immediately available; always implement a wait strategy.
 
 - ✅ PREFERRED: DO use `locator.wait_for()` with `state='visible'` or `state='attached'` before attempting to fill the search input field.
+
+- ⚠️ PROHIBITED: DON'T assume the website will always successfully load on the first `page.goto()` attempt without implementing retry mechanisms or handling potential network errors.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for critical pages, and handle potential `net::ERR_HTTP2_PROTOCOL_ERROR` exceptions.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable or correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial page loads. Also, consider adding a timeout to the `page.goto()` call to prevent indefinite hanging.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable or correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page load.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial page load. Also, consider adding a check for network connectivity before attempting to navigate.
+
+- ⚠️ PROHIBITED: DON'T assume the search bar is immediately available; it might be hidden behind a loading screen or animation.
+
+- ✅ PREFERRED: DO implement a retry mechanism or increase the timeout for critical elements like the search bar, especially on the homepage.
+
+- ⚠️ PROHIBITED: DON'T assume a website will always successfully load on the first `goto()` call, especially when using HTTP/2. Network errors are possible.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls to handle transient network errors like `ERR_HTTP2_PROTOCOL_ERROR`.
+
+- ⚠️ PROHIBITED: DON'T assume the website will always successfully load on the first `goto()` call, especially when using HTTP/2.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for page navigation, especially for HTTP/2 enabled sites, to handle transient network or server issues.
+
+- ⚠️ PROHIBITED: DON'T assume a website is reachable without implementing robust error handling and retry mechanisms for initial page load, especially when using HTTP/2.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, and consider adding a timeout to prevent indefinite waiting. Also, log the error details for further investigation.
+
+- ⚠️ PROHIBITED: DON'T assume the target website (dyson.in) will always reliably support HTTP/2. Be prepared to handle potential protocol negotiation failures.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls, especially when dealing with external websites. Consider adding a mechanism to switch to HTTP/1.1 if HTTP/2 consistently fails.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always available and correctly configured for HTTP/2. Implement retry mechanisms and error handling for network-related exceptions during page navigation.
+
+- ✅ PREFERRED: DO implement robust error handling and retry mechanisms for page navigation, especially when dealing with external websites. Consider adding checks for network connectivity and server availability before attempting to navigate.
+
+- ⚠️ PROHIBITED: DON'T assume a website is always reachable or that HTTP/2 will always function correctly; implement robust error handling for navigation failures.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for `page.goto()` calls, especially for critical navigation steps. Also, consider adding a timeout to the `goto` call.
