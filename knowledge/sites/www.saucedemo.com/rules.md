@@ -178,3 +178,15 @@
 - ⚠️ PROHIBITED: DON'T assume the console encoding supports all Unicode characters. Be mindful of the target environment's encoding when printing to the console.
 
 - ✅ PREFERRED: DO encode strings to a compatible encoding (e.g., 'utf-8') before printing, or use a different method for indicating success that doesn't rely on Unicode characters.
+
+- ⚠️ PROHIBITED: DON'T assume the default console encoding supports all Unicode characters; be mindful of encoding when printing to the console, especially in automated tests.
+
+- ✅ PREFERRED: DO configure the console or output stream to use UTF-8 encoding to support a wider range of characters, or remove/replace unsupported characters before printing.
+
+- ⚠️ PROHIBITED: DON'T rely on default encodings; ALWAYS explicitly specify UTF-8 encoding when printing Unicode characters to the console or writing to files.
+
+- ✅ PREFERRED: DO configure your Python environment to use UTF-8 encoding by default, or explicitly encode Unicode strings to UTF-8 before printing them.
+
+- ⚠️ PROHIBITED: DON'T assume the default encoding supports all Unicode characters when printing to the console. Be mindful of the environment's encoding settings.
+
+- ✅ PREFERRED: DO explicitly specify UTF-8 encoding when printing Unicode characters to the console, or avoid using non-ASCII characters in console output if encoding is uncertain.
