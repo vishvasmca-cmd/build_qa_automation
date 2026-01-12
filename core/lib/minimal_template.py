@@ -45,7 +45,7 @@ def take_screenshot(page, name, project_name):
     os.makedirs(screenshot_dir, exist_ok=True)
     path = os.path.join(screenshot_dir, f"{{name}}.png")
     page.screenshot(path=path)
-    print(f"[SCREENSHOT] Saved: {path}")
+    print(f"[SCREENSHOT] Saved: {{path}}")
 
 def test_minimal_smoke(browser: Browser):
     """Minimal smoke test: Navigate + Screenshot + Basic Assertion"""
@@ -66,7 +66,7 @@ def test_minimal_smoke(browser: Browser):
     assert "{target_url}" in current_url or page_title, \\
         f"Page failed to load. Current URL: {{current_url}}, Title: {{page_title}}"
     
-    print(f"[Minimal Test] ✅ Page loaded: {{page_title or current_url}}")
+    print(f"[Minimal Test] Page loaded: {{page_title or current_url}}")
     
     # 4. Take screenshot for visual validation
     take_screenshot(page, "smoke_test_final", "{project_name}")
@@ -74,7 +74,7 @@ def test_minimal_smoke(browser: Browser):
     # 5. Cleanup
     context.close()
     
-    print("✅ Minimal smoke test PASSED: Site is accessible")
+    print("Minimal smoke test PASSED: Site is accessible")
 '''
     
     # Write to output

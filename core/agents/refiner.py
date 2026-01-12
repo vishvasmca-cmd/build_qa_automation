@@ -443,6 +443,55 @@ class CodeRefiner:
         
         return None
 
+    def fix_code(self, code, error_log, domain="general"):
+        """Generates a targeted fix for a runtime error without regenerating from scratch."""
+        
+        prompt = f"""
+        You are an expert Playwright Test Engineer.
+        The following Playwright test code has FAILED with a runtime error.
+        
+        **YOUR TASK**:
+        Analyze the code and the error log, then produce a FIXED version of the code.
+        
+        **RULES**:
+        1. Fix ONLY the specific error mentioned in the log.
+        2. Do NOT rewrite the entire structure unless necessary.
+        3. Maintain the existing Page Object Model (POM) structure.
+        4. If `Strict Mode Violation` (multiple elements): Use `.first` or a more specific locator (text/role).
+        5. If `TimeoutError` (element not found): Check if the element needs a `wait_for_timeout` or if it's inside an iframe/shadow DOM.
+        6. If `Click intercepted`: Use `.click(force=True)`.
+        
+        **INPUT CODE**:
+        ```python
+        {code}
+        ```
+        
+        **ERROR LOG**:
+        {error_log}
+        
+        **OUTPUT FORMAT**:
+        Return ONLY the full corrected Python code. Do not include markdown backticks or explanations.
+        """
+        
+        messages = [HumanMessage(content=prompt)]
+        
+        try:
+            resp = self.llm.invoke(messages)
+            # minimal cleanup
+            fixed_code = resp.content.replace("```python", "").replace("```", "").strip()
+            
+            # Syntax Check
+            is_valid, error = validate_python_syntax(fixed_code)
+            if not is_valid:
+                print(colored(f"⚠️ Generated fix has syntax errors: {error}", "yellow"))
+                # Fallback: Return original if fix is broken (conservative)
+                return None
+                
+            return fixed_code
+        except Exception as e:
+            print(colored(f"⚠️ Fix generation failed: {e}", "red"))
+            return None
+
 def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test_generated_from_trace.py", workflow_goal="", error_context=None, domain="general"):
     # Feature flag: Use deterministic generator by default
     USE_DETERMINISTIC_GENERATOR = os.environ.get('USE_DETERMINISTIC_GENERATOR', 'True').lower() == 'true'
@@ -596,6 +645,32 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
 
 if __name__ == "__main__":
     import sys
+    # Parse --fix mode
+    if "--fix" in sys.argv:
+        # python core/agents/refiner.py <code_path> <error_log_path> --fix <domain>
+        code_path = sys.argv[1]
+        error_path = sys.argv[2] 
+        domain = sys.argv[4] if len(sys.argv) > 4 else "general"
+        
+        try:
+            with open(code_path, "r", encoding="utf-8") as f: code = f.read()
+            with open(error_path, "r", encoding="utf-8") as f: error_log = f.read()
+            
+            refiner = CodeRefiner()
+            print(colored(f"🚑 Running Emergency Fix on {os.path.basename(code_path)}...", "magenta"))
+            fixed_code = refiner.fix_code(code, error_log, domain)
+            
+            if fixed_code:
+                with open(code_path, "w", encoding="utf-8") as f: f.write(fixed_code)
+                print(colored("✅ Applied Hot-Fix to test file.", "green"))
+                sys.exit(0)
+            else:
+                print(colored("❌ Failed to generate valid fix.", "red"))
+                sys.exit(1)
+        except Exception as e:
+            print(colored(f"❌ Fix execution failed: {e}", "red"))
+            sys.exit(1)
+
     t_path = sys.argv[1] if len(sys.argv) > 1 else "explorer_trace.json"
     o_path = sys.argv[2] if len(sys.argv) > 2 else "test_generated_from_trace.py"
     goal = sys.argv[3] if len(sys.argv) > 3 else ""
@@ -688,7 +763,8 @@ def browser_type_launch_args(browser_type_launch_args):
             "--disable-blink-features=AutomationControlled",
             "--no-sandbox",
             "--disable-setuid-sandbox",
-            "--disable-infobars"
+            "--disable-infobars",
+            "--disable-http2"
         ]
     }
 

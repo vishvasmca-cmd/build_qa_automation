@@ -400,20 +400,33 @@ def _run_execution(project_root, config, config_hash, test_path, trace_path):
                 except Exception as e:
                     print(colored(f"⚠️ Feedback Loop Failed: {e}", "red"))
 
-                # 2. RE-GENERATION (Refiner now sees the new rules.md)
-                error_file = os.path.join(project_root, "outputs", "execution_error.log")
-                os.makedirs(os.path.dirname(error_file), exist_ok=True)
-                with open(error_file, "w", encoding="utf-8") as f: f.write(current_log)
-                
+                # 2. SELF-CORRECTION STRATEGY (Alternating Patch vs Rebuild)
                 # Adjusted path: core/engine/orchestrator.py -> core/agents/refiner.py
                 refiner_script = os.path.join(os.path.dirname(os.path.dirname(__file__)), "agents", "refiner.py")
                 domain = config.get("domain", "general")
-                
-                # Prepare Environment for Refiner
+                error_file = os.path.join(project_root, "outputs", "execution_error.log")
+                os.makedirs(os.path.dirname(error_file), exist_ok=True)
+                with open(error_file, "w", encoding="utf-8") as f: f.write(current_log)
+
                 re_env = os.environ.copy()
                 re_env["PYTHONPATH"] = os.getcwd()
-                # The Refiner will now read the updated rules.md and generate better code
-                subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", ""), error_file, domain], env=re_env)
+
+                # Strategy: Odd attempts = Patch (Fast), Even attempts = Rebuild (Deep)
+                # We are technically at the END of attempt X, preparing for attempt X+1.
+                # So if attempt (0-indexed) is 0 (first run failed), we prep for Attempt 2.
+                
+                is_patch_attempt = (attempt % 2 == 0) # 0->Patch, 1->Rebuild, 2->Patch...
+                
+                if is_patch_attempt:
+                    print(colored(f"🚑 REPAIR MODE: Attempting to patch existing code...", "magenta"))
+                    # CMD: python refiner.py <test_path> <error_log> --fix <domain>
+                    cmd = ["python", refiner_script, test_path, error_file, "--fix", domain]
+                else:
+                    print(colored(f"☢️ NUCLEAR OPTION: Regenerating test from trace...", "magenta"))
+                    # CMD: python refiner.py <trace> <test> <goal> <error> <domain>
+                    cmd = ["python", refiner_script, trace_path, test_path, config.get("workflow_description", ""), error_file, domain]
+                
+                subprocess.run(cmd, env=re_env)
 
                 # 3. COMMIT & PUSH FIX (User Request)
                 # GitManager.commit_and_push(f"Auto-fix iteration {attempt + 1} for {config.get('project_name')}")
@@ -630,7 +643,7 @@ def run_pipeline(config_path, headed=False):
     # To minimize diff size, we will wrap the calls below.
 
     # [Step 0/7] Planning
-    if not _run_sub_agent("Planner", _run_planning, project_root, config, config_hash, config_path): return
+    if not _run_sub_agent("Planner", _run_planning, project_root, config, config_hash, config_path, max_retries=1): return
 
     # [Step 1/7] Exploration (Miner)
     trace_path = os.path.join(project_root, "outputs", "trace.json")
@@ -654,7 +667,9 @@ def run_pipeline(config_path, headed=False):
     # 6. Framework Generation
     print(colored("\n🏗️  PHASE: POM FRAMEWORK GENERATION", "blue", attrs=["bold"]))
     if not _run_framework_generation(project_root, config, config_hash):
-        return
+        print(colored("⚠️ Framework Generation skipped/failed. Proceeding to Refiner fallback...", "yellow"))
+        # Do not return, let Refiner try to generate standalone execution code
+        pass
 
     # [Step 3/7] Code Generation (Refiner)
     print(colored("\n📝 PHASE: TEST SCRIPT REFINEMENT", "white", attrs=["bold"]))
