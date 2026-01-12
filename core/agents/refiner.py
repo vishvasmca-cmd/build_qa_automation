@@ -444,6 +444,9 @@ class CodeRefiner:
         return None
 
 def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test_generated_from_trace.py", workflow_goal="", error_context=None, domain="general"):
+    # Feature flag: Use deterministic generator by default
+    USE_DETERMINISTIC_GENERATOR = os.environ.get('USE_DETERMINISTIC_GENERATOR', 'True').lower() == 'true'
+    
     if not os.path.exists(trace_path):
         print(f"❌ No trace found at {trace_path}")
         return
@@ -466,41 +469,76 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
         ]
 
     start_time = __import__('time').time()
-    refiner = CodeRefiner()
+    final_code = None
     
-    # NOTE: Images are disabled during code generation to save tokens and avoid 400 errors.
-    # Structural trace data is sufficient for refinement.
-    images_b64 = []
+    # Try deterministic generator first
+    if USE_DETERMINISTIC_GENERATOR:
+        try:
+            print(colored("🔧 Using Deterministic Code Generator (Playwright codegen approach)...", "cyan"))
+            from core.lib.deterministic_generator import DeterministicCodeGenerator
+            
+            generator = DeterministicCodeGenerator()
+            final_code = generator.generate_from_trace(trace_path)
+            
+            # Validate the generated code
+            is_valid, syntax_error = validate_python_syntax(final_code)
+            if not is_valid:
+                print(colored(f"⚠️ Deterministic generator produced invalid syntax: {syntax_error}", "yellow"))
+                print(colored("🔄 Falling back to LLM-based generator...", "yellow"))
+                final_code = None  # Trigger fallback
+            else:
+                print(colored("✅ Deterministic generator succeeded!", "green"))
+                # Log success
+                duration = __import__('time').time() - start_time
+                logger.log_event("DeterministicGenerator", "generate_code", duration, cost=0.0)
+                
+        except Exception as e:
+            print(colored(f"⚠️ Deterministic generator failed: {e}", "yellow"))
+            print(colored("🔄 Falling back to LLM-based generator...", "yellow"))
+            final_code = None  # Trigger fallback
     
-    trace_summary = json.dumps([{
-        "step": t['step'],
-        "url": t.get('url'),
-        "page_name": t.get('page_name', 'GenericPage'),
-        "action": t['action'],
-        "thought": t.get('thought'),
-        "locator": t.get('locator_used') or t.get('locator'),
-        "value": t.get('value'),
-        "element_context": t.get('element_context'),
-        "expectation": t.get('expected_outcome')
-    } for t in trace], indent=2)
-    
-    raw_code = refiner.generate_code(target_url, trace_summary, images=[], error_context=error_context, domain=domain, workflow_goal=workflow_goal)
+    # Fallback to LLM-based generator if deterministic failed or disabled
+    if final_code is None:
+        print(colored("🤖 Using LLM-based Code Generator (Gemini 2.0 Flash)...", "cyan"))
+        refiner = CodeRefiner()
+        
+        # NOTE: Images are disabled during code generation to save tokens and avoid 400 errors.
+        # Structural trace data is sufficient for refinement.
+        images_b64 = []
+        
+        trace_summary = json.dumps([{
+            "step": t['step'],
+            "url": t.get('url'),
+            "page_name": t.get('page_name', 'GenericPage'),
+            "action": t['action'],
+            "thought": t.get('thought'),
+            "locator": t.get('locator_used') or t.get('locator'),
+            "value": t.get('value'),
+            "element_context": t.get('element_context'),
+            "expectation": t.get('expected_outcome')
+        } for t in trace], indent=2)
+        
+        raw_code = refiner.generate_code(target_url, trace_summary, images=[], error_context=error_context, domain=domain, workflow_goal=workflow_goal)
 
-    if not raw_code:
-        print("❌ Refiner failed to generate valid code.")
-        return False
+        if not raw_code:
+            print("❌ Refiner failed to generate valid code.")
+            return False
 
-    clean_steps = raw_code
+        clean_steps = raw_code
 
-    project_name = os.path.basename(os.path.dirname(os.path.dirname(trace_path)))
-    
-    from core.lib.template_engine import TestTemplateEngine
-    engine = TestTemplateEngine()
-    final_code = engine.generate_test(
-        project_name=project_name,
-        target_url=target_url,
-        test_steps=clean_steps
-    )
+        project_name = os.path.basename(os.path.dirname(os.path.dirname(trace_path)))
+        
+        from core.lib.template_engine import TestTemplateEngine
+        engine = TestTemplateEngine()
+        final_code = engine.generate_test(
+            project_name=project_name,
+            target_url=target_url,
+            test_steps=clean_steps
+        )
+        
+        # Log LLM usage
+        duration = __import__('time').time() - start_time
+        logger.log_event("LLMRefiner", "generate_code", duration, cost=0.01)
     
     # --- Step 4: Quality Gate (Reviewer) ---
     # Review the code BEFORE writing to catch structural issues
@@ -543,10 +581,7 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     with open(output_path, "w", encoding='utf-8') as f:
         f.write(final_code)
     
-    print(f"✅ Self-Healing Code Generated & Reviewed: {output_path}")
-    
-    duration = __import__('time').time() - start_time
-    logger.log_event("Refiner", "generate_code", duration, cost=0.01)
+    print(f"✅ Code Generated & Reviewed: {output_path}")
     
     return True  # Signal success
 
