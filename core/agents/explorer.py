@@ -165,6 +165,9 @@ class ExplorerAgent:
                 page = await context.new_page()
                 page.set_default_timeout(60000) # Standard timeout
                 
+                # Handle JS Alerts/Dialogs automatically
+                page.on("dialog", lambda dialog: asyncio.create_task(dialog.accept()))
+                
                 try:
                     print(colored(f"🌐 Initial Navigation: {self.config['target_url']}", "cyan"))
                     await page.goto(self.config["target_url"], wait_until="domcontentloaded", timeout=90000)
@@ -777,7 +780,11 @@ class ExplorerAgent:
         # Ensure trace path is absolute and directory exists
         path_from_config = self.config.get("paths", {}).get("trace")
         if path_from_config:
-            trace_path = os.path.join(self.project_root, path_from_config)
+            # If the path is already relative to the root (starts with 'projects/'), use it directly
+            if path_from_config.startswith("projects/") or path_from_config.startswith("projects\\"):
+                trace_path = path_from_config
+            else:
+                trace_path = os.path.join(self.project_root, path_from_config)
         else:
             trace_path = os.path.join(self.output_dir, "trace.json")
             

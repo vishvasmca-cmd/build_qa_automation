@@ -1,0 +1,295 @@
+{
+  "HomePage": {
+    "description": "The home page of the Demoblaze online store, showcasing featured products and categories.",
+    "url_pattern": "https://www.demoblaze.com/#",
+    "elements": [
+      {
+        "name": "Product Store Title",
+        "type": "text",
+        "primary_locator": "xpath=//a[@class='navbar-brand']",
+        "backup_locator": "css=.navbar-brand",
+        "description": "The title of the store."
+      },
+      {
+        "name": "Home Link",
+        "type": "link",
+        "primary_locator": "link=Home",
+        "backup_locator": "css=a[href='index.html']",
+        "description": "Link to the home page."
+      },
+      {
+        "name": "Contact Link",
+        "type": "link",
+        "primary_locator": "link=Contact",
+        "backup_locator": "css=a[data-target='#exampleModal']",
+        "description": "Link to the contact page."
+      },
+      {
+        "name": "About us Link",
+        "type": "link",
+        "primary_locator": "link=About us",
+        "backup_locator": "css=a[data-target='#videoModal']",
+        "description": "Link to the about us page."
+      },
+      {
+        "name": "Cart Link",
+        "type": "link",
+        "primary_locator": "id=cartur",
+        "backup_locator": "link=Cart",
+        "description": "Link to the shopping cart."
+      },
+      {
+        "name": "Log in Link",
+        "type": "link",
+        "primary_locator": "id=login2",
+        "backup_locator": "link=Log in",
+        "description": "Link to the login page."
+      },
+      {
+        "name": "Sign up Link",
+        "type": "link",
+        "primary_locator": "id=signin2",
+        "backup_locator": "link=Sign up",
+        "description": "Link to the sign up page."
+      },
+      {
+        "name": "Phones Category",
+        "type": "link",
+        "primary_locator": "link=Phones",
+        "backup_locator": "css=#itemc[href='prod.html?idp_=1']",
+        "description": "Link to the phones category."
+      },
+      {
+        "name": "Laptops Category",
+        "type": "link",
+        "primary_locator": "link=Laptops",
+        "backup_locator": "css=#itemc[href='prod.html?idp_=2']",
+        "description": "Link to the laptops category."
+      },
+      {
+        "name": "Monitors Category",
+        "type": "link",
+        "primary_locator": "link=Monitors",
+        "backup_locator": "css=#itemc[href='prod.html?idp_=3']",
+        "description": "Link to the monitors category."
+      },
+      {
+        "name": "Next Product",
+        "type": "button",
+        "primary_locator": "xpath=//a[contains(@class, 'carousel-control-next')]",
+        "backup_locator": "css=.carousel-control-next",
+        "description": "Button to navigate to the next product in the carousel."
+      },
+      {
+        "name": "Previous Product",
+        "type": "button",
+        "primary_locator": "xpath=//a[contains(@class, 'carousel-control-prev')]",
+        "backup_locator": "css=.carousel-control-prev",
+        "description": "Button to navigate to the previous product in the carousel."
+      }
+    ],
+    "assertions": [
+      "Verify the page title contains 'STORE'",
+      "Verify the 'Product Store' title is visible",
+      "Verify the 'Home' link is visible",
+      "Verify at least one product is displayed"
+    ]
+  },
+  "DemoblazePage": {
+    "description": "This page displays the details of a specific product on the Demoblaze e-commerce site.",
+    "url_pattern": "https://www.demoblaze.com/prod.html?idp_=",
+    "elements": [
+      {
+        "name": "Product Title",
+        "type": "text",
+        "primary_locator": "//h2[@class='name']",
+        "backup_locator": "h2.name",
+        "description": "The title of the product being displayed."
+      },
+      {
+        "name": "Product Price",
+        "type": "text",
+        "primary_locator": "//h3[@class='price-container']",
+        "backup_locator": "h3.price-container",
+        "description": "The price of the product."
+      },
+      {
+        "name": "Product Description",
+        "type": "text",
+        "primary_locator": "//div[@id='more-information']",
+        "backup_locator": "#more-information",
+        "description": "Detailed description of the product."
+      },
+      {
+        "name": "Add to cart button",
+        "type": "button",
+        "primary_locator": "//a[contains(text(),'Add to cart')]",
+        "backup_locator": "a.btn.btn-success.btn-lg",
+        "description": "Button to add the product to the shopping cart."
+      },
+      {
+        "name": "Product Image",
+        "type": "image",
+        "primary_locator": "//img[@class='d-block img-fluid']",
+        "backup_locator": "img.d-block.img-fluid",
+        "description": "Main image of the product."
+      },
+      {
+        "name": "Categories - Phones",
+        "type": "link",
+        "primary_locator": "//a[contains(text(),'Phones')]",
+        "backup_locator": "#itemc",
+        "description": "Link to navigate to the phones category."
+      },
+      {
+        "name": "Categories - Laptops",
+        "type": "link",
+        "primary_locator": "//a[contains(text(),'Laptops')]",
+        "backup_locator": "#itemc",
+        "description": "Link to navigate to the laptops category."
+      },
+      {
+        "name": "Categories - Monitors",
+        "type": "link",
+        "primary_locator": "//a[contains(text(),'Monitors')]",
+        "backup_locator": "#itemc",
+        "description": "Link to navigate to the monitors category."
+      }
+    ],
+    "assertions": [
+      "Verify that the product title is displayed.",
+      "Verify that the product price is displayed.",
+      "Verify that the product description is displayed.",
+      "Verify that the 'Add to cart' button is present.",
+      "Verify that the product image is displayed."
+    ]
+  },
+  "ProductDetailsSonyVaioI5Page": {
+    "description": "This page displays the details of a specific product, in this case, the Sony Vaio i5 laptop. It includes the product name, price, description, and an 'Add to cart' button.",
+    "url_pattern": "https://www.demoblaze.com/prod.html?idp_=8#",
+    "elements": [
+      {
+        "name": "Product Name",
+        "type": "text",
+        "primary_locator": "//h2[text()='Sony vaio i5']",
+        "backup_locator": "css=h2",
+        "description": "The name of the product."
+      },
+      {
+        "name": "Product Price",
+        "type": "text",
+        "primary_locator": "//h3[text()='$790 ']",
+        "backup_locator": "css=.price-container",
+        "description": "The price of the product."
+      },
+      {
+        "name": "Product Description",
+        "type": "text",
+        "primary_locator": "//div[@id='more-information']",
+        "backup_locator": "css=#more-information",
+        "description": "The description of the product."
+      },
+      {
+        "name": "Add to cart",
+        "type": "button",
+        "primary_locator": "//a[text()='Add to cart']",
+        "backup_locator": "css=.btn.btn-success.btn-lg",
+        "description": "Button to add the product to the shopping cart."
+      }
+    ],
+    "assertions": [
+      "Verify the page title contains 'PRODUCT STORE'",
+      "Verify the product name is 'Sony vaio i5'",
+      "Verify the 'Add to cart' button is present"
+    ]
+  },
+  "CartPage": {
+    "description": "This page displays the user's cart and allows them to place an order by filling out the 'Place Order' form.",
+    "url_pattern": "https://www.demoblaze.com/cart.html",
+    "elements": [
+      {
+        "name": "Place Order Button",
+        "type": "button",
+        "primary_locator": "//button[text()='Place Order']",
+        "backup_locator": "css=button.btn.btn-success",
+        "description": "Button to open the 'Place Order' form."
+      },
+      {
+        "name": "Place Order Modal",
+        "type": "dialog",
+        "primary_locator": "//div[@class='modal fade show']",
+        "backup_locator": "css=div.modal.fade.show",
+        "description": "The 'Place Order' dialog/modal."
+      },
+      {
+        "name": "Place Order Modal Title",
+        "type": "text",
+        "primary_locator": "//div[@id='orderModalLabel']",
+        "backup_locator": "css=#orderModalLabel",
+        "description": "Title of the 'Place Order' modal."
+      },
+      {
+        "name": "Name Input",
+        "type": "input",
+        "primary_locator": "//input[@id='name']",
+        "backup_locator": "css=#name",
+        "description": "Input field for the user's name."
+      },
+      {
+        "name": "Country Input",
+        "type": "input",
+        "primary_locator": "//input[@id='country']",
+        "backup_locator": "css=#country",
+        "description": "Input field for the user's country."
+      },
+      {
+        "name": "City Input",
+        "type": "input",
+        "primary_locator": "//input[@id='city']",
+        "backup_locator": "css=#city",
+        "description": "Input field for the user's city."
+      },
+      {
+        "name": "Credit Card Input",
+        "type": "input",
+        "primary_locator": "//input[@id='card']",
+        "backup_locator": "css=#card",
+        "description": "Input field for the user's credit card number."
+      },
+      {
+        "name": "Month Input",
+        "type": "input",
+        "primary_locator": "//input[@id='month']",
+        "backup_locator": "css=#month",
+        "description": "Input field for the credit card expiration month."
+      },
+      {
+        "name": "Year Input",
+        "type": "input",
+        "primary_locator": "//input[@id='year']",
+        "backup_locator": "css=#year",
+        "description": "Input field for the credit card expiration year."
+      },
+      {
+        "name": "Purchase Button",
+        "type": "button",
+        "primary_locator": "//button[text()='Purchase']",
+        "backup_locator": "css=button.btn.btn-primary",
+        "description": "Button to submit the order."
+      },
+      {
+        "name": "Close Button",
+        "type": "button",
+        "primary_locator": "//button[@aria-label='Close']",
+        "backup_locator": "css=button.close",
+        "description": "Button to close the 'Place Order' modal."
+      }
+    ],
+    "assertions": [
+      "Page title is 'STORE'",
+      "URL is 'https://www.demoblaze.com/cart.html'",
+      "'Place Order' button is visible",
+      "Total amount is displayed"
+    ]
+  }
+}

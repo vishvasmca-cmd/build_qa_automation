@@ -480,17 +480,20 @@ class TestBuilder:
             # Check for new tab handling (same as ActionMapper)
             tag = step.get('element_context', {}).get('tag', '')
             if tag == 'a':
-                 return f'''with page.context.expect_page() as new_page_info:
-    {click_code}
-    # Handle potential new tab/window
-    try:
-        new_page = new_page_info.value
-        new_page.close()
-    except Exception:
-        pass'''
+                 return f'''try:
+    with page.context.expect_page(timeout=3000) as new_page_info:
+        {click_code}
+    new_page = new_page_info.value
+    new_page.close()
+except Exception:
+    pass'''
             return click_code
         elif action == 'select':
             return f'{var_name}.{locator_name}.select_option("{value}")'
+        elif action == 'scroll':
+            return 'page.keyboard.press("PageDown")'
+        elif action == 'done':
+            return '# Goal Achieved'
         
         return f'{var_name}.{locator_name}.{action}()'
     

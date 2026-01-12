@@ -149,3 +149,19 @@ When executing the full "Register to Transfer" flow, you must follow this sequen
 - ⚠️ PROHIBITED: DON'T assume the registration page will load within 30 seconds; investigate potential delays or navigation issues.
 
 - ✅ PREFERRED: DO verify that the element triggering the navigation to the registration page is actually clicked and that there are no unexpected redirects or errors occurring before the navigation.
+
+- ⚠️ PROHIBITED: DON'T assume a new page will load immediately after a click; ALWAYS use `page.wait_for_load_state()` or `page.context.expect_page()` with appropriate timeout handling.
+
+- ✅ PREFERRED: DO use `page.context.expect_page()` to reliably wait for new pages to open, and ensure the element clicked is actually clickable and not obscured or disabled.
+
+- ⚠️ PROHIBITED: DON'T use generic locators like '.button' without ensuring they uniquely identify the target element. Avoid relying on implicit element ordering.
+
+- ✅ PREFERRED: DO use more specific locators, such as `get_by_role` with appropriate name or `nth` to target the desired element when multiple elements match a general locator.
+
+- ⚠️ PROHIBITED: DON'T assume a new page will load immediately after a click; ALWAYS use `page.wait_for_load_state()` or `page.context.expect_page()` with appropriate timeout handling.
+
+- ✅ PREFERRED: DO use `page.context.expect_page()` with a reasonable timeout and error handling to ensure the new page loads correctly after an action that should trigger navigation.
+
+- ⚠️ PROHIBITED: DON'T use generic class-based locators like '.button' without ensuring they uniquely identify the target element.
+
+- ✅ PREFERRED: DO use more specific locators, such as role-based locators (e.g., `get_by_role`) or text-based locators (e.g., `get_by_text`), to target elements accurately.
