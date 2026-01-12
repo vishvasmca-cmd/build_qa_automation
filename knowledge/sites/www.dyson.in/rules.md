@@ -546,3 +546,7 @@
 - ⚠️ PROHIBITED: DON'T assume the website will always successfully load on the first `goto` attempt without handling potential network or protocol errors.
 
 - ✅ PREFERRED: DO implement retry logic with exponential backoff for page navigation, especially for external websites, to handle transient network or protocol errors.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable and stable; implement robust error handling and retry mechanisms for navigation.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for external websites, to handle transient network or server issues.

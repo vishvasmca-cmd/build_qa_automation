@@ -7,4 +7,4 @@
 | 2 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_02_HomePage.png) |
 | 3 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_03_HomePage.png) |
 | 4 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_04_HomePage.png) |
-| 5 | HomePage | click | Close | ✅ | [View](../snapshots/step_05_HomePage.png) |
+| 5 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_05_HomePage.png) |
