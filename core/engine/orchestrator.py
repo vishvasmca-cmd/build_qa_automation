@@ -260,26 +260,40 @@ def _run_code_generation(project_root, config, config_hash, trace_path, test_pat
             print(colored(f"⚠️ Generation failed (Code {ret.returncode})", "yellow"))
             continue
 
-        try:
-            rev = CodeReviewer()
-            is_approved, review_msg = rev.review_and_fix(test_path, domain=domain)
-            
-            if is_approved:
-                print(colored("✅ Code Approved by Quality Gate.", "green"))
-                gen_success = True
-                save_checkpoint(project_root, "generation", config_hash)
-                save_checkpoint(project_root, "review", config_hash)
-                duration = time.time() - start_time
-                logger.log_event("Generator", "full_gen_cycle", duration, success=True, metadata={"loops": attempt})
-                break
-            else:
-                print(colored(f"❌ Quality Gate Rejected Code: {review_msg}", "red"))
+        if ret.returncode != 0:
+            print(colored(f"⚠️ Generation failed (Code {ret.returncode})", "yellow"))
+            continue
 
+        # Optional: LLM-based code review (disabled by default)
+        USE_LLM_REVIEWER = os.environ.get('USE_LLM_REVIEWER', 'False').lower() == 'true'
 
-                error_context = f"ISSUES:\n{review_msg}\nHINTS:\n{get_dynamic_hint(review_msg, attempt)}"
-        except Exception as e:
-            print(colored(f"⚠️ Review Process Crashed: {e}", "red"))
-            error_context = f"Reviewer Crashed: {e}"
+        if USE_LLM_REVIEWER:
+            try:
+                rev = CodeReviewer()
+                is_approved, review_msg = rev.review_and_fix(test_path, domain=domain)
+                
+                if is_approved:
+                    print(colored("✅ Code Approved by Quality Gate.", "green"))
+                    gen_success = True
+                    save_checkpoint(project_root, "generation", config_hash)
+                    save_checkpoint(project_root, "review", config_hash)
+                    duration = time.time() - start_time
+                    logger.log_event("Generator", "full_gen_cycle", duration, success=True, metadata={"loops": attempt})
+                    break
+                else:
+                    print(colored(f"❌ Quality Gate Rejected Code: {review_msg}", "red"))
+                    error_context = f"ISSUES:\n{review_msg}\nHINTS:\n{get_dynamic_hint(review_msg, attempt)}"
+            except Exception as e:
+                print(colored(f"⚠️ Review Process Crashed: {e}", "red"))
+                error_context = f"Reviewer Crashed: {e}"
+        else:
+             print(colored("⏩ Skipping Quality Gate (LLM Reviewer Disabled).", "grey"))
+             gen_success = True
+             save_checkpoint(project_root, "generation", config_hash)
+             save_checkpoint(project_root, "review", config_hash)
+             duration = time.time() - start_time
+             logger.log_event("Generator", "full_gen_cycle", duration, success=True, metadata={"loops": attempt})
+             break
 
     if not gen_success:
         print(colored("⚠️ All generation attempts exhausted. Creating minimal fallback...", "yellow"))
