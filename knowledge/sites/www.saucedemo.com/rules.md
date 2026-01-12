@@ -190,3 +190,7 @@
 - ⚠️ PROHIBITED: DON'T assume the default encoding supports all Unicode characters when printing to the console. Be mindful of the environment's encoding settings.
 
 - ✅ PREFERRED: DO explicitly specify UTF-8 encoding when printing Unicode characters to the console, or avoid using non-ASCII characters in console output if encoding is uncertain.
+
+- ⚠️ PROHIBITED: DON'T rely on printing Unicode characters to the console for test status reporting, especially in environments with potentially limited character encoding support.
+
+- ✅ PREFERRED: DO use standard Python logging with UTF-8 encoding configured or alternative reporting mechanisms (e.g., pytest's built-in reporting) to ensure consistent character encoding across different environments.
