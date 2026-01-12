@@ -875,3 +875,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on URL matching with wildcards for navigation confirmation; ensure the page content is fully loaded and the expected elements are present before proceeding.
 
 - ✅ PREFERRED: DO use a combination of URL matching and element presence checks to confirm successful navigation and page load.
+
+- ⚠️ PROHIBITED: DON'T use the `fill` action on button elements or any element that is not an input, textarea, select, or contenteditable element.
+
+- ✅ PREFERRED: DO ensure that the element targeted by the `fill` action is an appropriate input field (e.g., <input>, <textarea>, <select>) before attempting to fill it with text. Verify the element's type and attributes.

@@ -24,7 +24,11 @@ class LoginPage:
     @property
     def password_input(self):
         """The goal is to log in with username 'Admin' and password 'admin123'. The previous action was to fill"""
-        return self.page.locator("input").filter(has_text="Password")
+        return self.page.locator("input[name='password']")
+
+    @property
+    def username_input(self):
+        return self.page.locator("input[name='username']")
 
 
 def test_autonomous_flow(page: Page):
@@ -38,7 +42,7 @@ def test_autonomous_flow(page: Page):
 
     # Execute test steps
     # Step 0: The goal is to log in with username 'Admin' and password 'admin123'. The page co
-    login_page.login_button.fill("Admin")
+    login_page.username_input.fill("Admin")
 
     # Step 1: The goal is to log in with username 'Admin' and password 'admin123'. The previou
     login_page.password_input.fill("admin123")
@@ -47,7 +51,7 @@ def test_autonomous_flow(page: Page):
     login_page.login_button.click()
 
     # Step 3: The goal is to log in using the provided credentials. The previous steps filled 
-    login_page.login_button.click()
+    #login_page.login_button.click()
 
     # Step 4: The goal is to log in. The page is the login page. The history shows that I have
-    login_page.login_button.click()
+    #login_page.login_button.click()

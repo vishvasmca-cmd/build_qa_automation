@@ -1,0 +1,75 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
+plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
+collecting ... collected 1 item
+
+projects/verify_complex_orangehrm/tests/test_main.py::test_autonomous_flow[chromium] FAILED
+
+================================== FAILURES ===================================
+_______________________ test_autonomous_flow[chromium] ________________________
+
+page = <Page url='https://opensource-demo.orangehrmlive.com/web/index.php/auth/login'>
+
+    def test_autonomous_flow(page: Page):
+        """
+        Workflow: 1. Login: Enter Admin / admin123 and click Login. 2. PIM: Click 'PIM' menu. 3. Action: Click 'Add Employee', enter First Name 'Resilience' and Last Name 'Agent', then click 'Save'. 4. Verify: Ensure the Personal Details page for the new employee is shown.
+        """
+        # Navigate to target URL
+        page.goto("https://opensource-demo.orangehrmlive.com/")
+    
+        login_page = LoginPage(page)
+    
+        # Execute test steps
+        # Step 0: The goal is to log in with username 'Admin' and password 'admin123'. The page co
+>       login_page.login_button.fill("Admin")
+
+projects\verify_complex_orangehrm\tests\test_main.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:15989: in fill
+    self._sync(
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_locator.py:215: in fill
+    return await self._frame.fill(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:607: in fill
+    await self._fill(**locals_to_params(locals()))
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:619: in _fill
+    await self._channel.send("fill", self._timeout, locals_to_params(locals()))
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+    return await self._connection.wrap_api_call(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <playwright._impl._connection.Connection object at 0x000002083D6DBA50>
+cb = <function Channel.send.<locals>.<lambda> at 0x000002083DA654E0>
+is_internal = False, title = None
+
+    async def wrap_api_call(
+        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None
+    ) -> Any:
+        if self._api_zone.get():
+            return await cb()
+        task = asyncio.current_task(self._loop)
+        st: List[inspect.FrameInfo] = getattr(
+            task, "__pw_stack__", None
+        ) or inspect.stack(0)
+    
+        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)
+        self._api_zone.set(parsed_st)
+        try:
+            return await cb()
+        except Exception as error:
+>           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E           playwright._impl._errors.Error: Locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]
+E           Call log:
+E             - waiting for get_by_role("button", name="Login", exact=True).first
+E               - locator resolved to <button type="submit" data-v-10d463b7="" data-v-0af708be="" class="oxd-button oxd-button--medium oxd-button--main orangehrm-login-button">�</button>
+E               - fill("Admin")
+E             - attempting fill action
+E               - waiting for element to be visible, enabled and editable
+
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: Error
+=========================== short test summary info ===========================
+FAILED projects/verify_complex_orangehrm/tests/test_main.py::test_autonomous_flow[chromium]
+============================== 1 failed in 8.65s ==============================
+
