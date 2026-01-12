@@ -166,3 +166,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on `test_id` locators without verifying their uniqueness and stability across different environments and builds.
 
 - ✅ PREFERRED: DO implement explicit waits or retries when interacting with elements that might take time to load or become available, especially when using `test_id` locators.
+
+- ⚠️ PROHIBITED: DON'T mix different locator strategies (e.g., role and data-test attribute) within the same `smartLocator` configuration without proper understanding of the framework's syntax.
+
+- ✅ PREFERRED: DO ensure that the syntax for defining locator properties within `smartLocator` (or similar custom locator functions) adheres strictly to the framework's expected format. Review documentation and examples carefully.

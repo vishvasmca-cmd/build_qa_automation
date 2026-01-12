@@ -266,3 +266,43 @@
 - ⚠️ PROHIBITED: DON'T assume a website is always reachable or that HTTP/2 will always function correctly; implement robust error handling for navigation failures.
 
 - ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for `page.goto()` calls, especially for critical navigation steps. Also, consider adding a timeout to the `goto` call.
+
+- ⚠️ PROHIBITED: DON'T rely on a single character 'X' as a text locator, as it's likely too generic and prone to unexpected matches or instability.
+
+- ✅ PREFERRED: DO use more specific and robust locators, such as a combination of text and role, or a unique CSS selector, to target the intended element.
+
+- ⚠️ PROHIBITED: DON'T assume the website is always available and stable; implement retry mechanisms for initial page load.
+
+- ✅ PREFERRED: DO implement error handling and retry logic for page navigation, especially for the initial `goto` call.
+
+- ⚠️ PROHIBITED: DON'T assume that HTTP/2 protocol errors are transient; investigate potential server-side or network configuration issues.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for initial page load, and consider adding a check for basic network connectivity before attempting navigation.
+
+- ⚠️ PROHIBITED: DON'T assume the website will always successfully load on the first `goto()` call, especially when using HTTP/2.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for `goto()` calls to handle transient network or server-side issues.
+
+- ⚠️ PROHIBITED: DON'T define a method with duplicate argument names, especially 'self' in class methods.
+
+- ✅ PREFERRED: ALWAYS carefully review method signatures for correct syntax and argument lists before committing code.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable and stable; implement robust error handling for network-related exceptions.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for `page.goto()` calls, especially for critical navigation steps.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable and stable; implement robust error handling for network-related issues.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for initial page load, especially when dealing with external websites.
+
+- ⚠️ PROHIBITED: DON'T assume that the target website fully supports HTTP/2 without proper error handling and retries.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls, especially when dealing with HTTP/2 connections. Consider adding a timeout to the `page.goto()` call.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable or correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial navigation. Also, consider adding a timeout to the `page.goto()` call to prevent indefinite hanging.
+
+- ⚠️ PROHIBITED: DON'T assume the target website (dyson.in) will always reliably support HTTP/2. Implement retry logic with fallback to HTTP/1.1 if possible.
+
+- ✅ PREFERRED: DO implement robust error handling and retry mechanisms for initial page load, especially when dealing with external websites that might have intermittent issues.

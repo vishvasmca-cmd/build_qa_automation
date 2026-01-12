@@ -1,11 +1,11 @@
-Feature: Login and Verify Product Price
+Feature: Login and Product Price Verification
   As a user, I want to log in and verify the first product price is visible.
 
   @smoke
-  Scenario: Successful login and product price verification
+  Scenario: Successful login and price verification
     Given I am on the Saucedemo login page
-    When I enter username "standard_user"
-    And I enter password "secret_sauce"
+    When I enter "standard_user" as the username
+    And I enter "secret_sauce" as the password
     And I click the login button
-    Then I should be logged in and see the inventory page
-    And I should see the price of the first product
+    Then I should be logged in and see the product inventory
+    And the price of the first product should be visible

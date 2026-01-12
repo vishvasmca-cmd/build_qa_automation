@@ -6,5 +6,10 @@
 | 1 | HomePage | click | X | ✅ | [View](../snapshots/step_01_HomePage.png) |
 | 2 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_02_HomePage.png) |
 | 3 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_03_HomePage.png) |
-| 4 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_04_HomePage.png) |
-| 5 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_05_HomePage.png) |
+| 4 | DysonIndiaPage | click | Save ₹11,000 Dyson Airstrait™  | ✅ | [View](../snapshots/step_04_HomePage.png) |
+| 5 | ProductsPage | click | Add to cart | ✅ | [View](../snapshots/step_05_DysonAirstraitStraightenerPage.png) |
+| 6 | ProductsPage | navigate | None | ✅ | [View](../snapshots/step_06_ProductsPage.png) |
+| 7 | ProductsPage | click | None | ✅ | [View](../snapshots/step_07_ProductsPage.png) |
+| 8 | ProductsPage | navigate | None | ✅ | [View](../snapshots/step_08_ProductsPage.png) |
+| 9 | ProductsPage | navigate | None | ✅ | [View](../snapshots/step_09_ProductsPage.png) |
+| 10 | ProductsPage | navigate | None | ✅ | [View](../snapshots/step_10_ProductsPage.png) |
