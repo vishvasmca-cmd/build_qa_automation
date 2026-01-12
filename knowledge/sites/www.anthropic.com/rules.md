@@ -130,3 +130,7 @@
 - ⚠️ PROHIBITED: DON'T rely solely on default Playwright click behavior when elements are potentially obscured or unstable; ALWAYS implement explicit waiting or alternative targeting strategies.
 
 - ✅ PREFERRED: DO use `locator.hover()` before `locator.click()` to ensure the target element is fully visible and interactive, or use `locator.force_click()` if interception is unavoidable and the element is guaranteed to eventually be clickable.
+
+- ⚠️ PROHIBITED: DON'T rely solely on default Playwright click behavior when elements are potentially obscured or unstable. A simple click may not work.
+
+- ✅ PREFERRED: DO implement explicit waiting and retry mechanisms with targeted locator refinement to ensure the target element is truly clickable and not intercepted before attempting the click action.

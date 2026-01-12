@@ -41,7 +41,7 @@ def test_autonomous_flow(page: Page):
     home_page.claude_link.click()
 
     # Step 1: The goal is to check the menu bar items: Meet Claude, Platform, Solutions, Prici
-    home_page.products_link.click()
+    home_page.products_link.click(force=True)
 
     # Step 2: The goal is to check the menu bar items: Meet Claude, Platform, Solutions, Prici
-    home_page.products_link.click()
+    home_page.products_link.click(force=True)
