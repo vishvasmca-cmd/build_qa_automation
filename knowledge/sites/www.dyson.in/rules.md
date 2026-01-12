@@ -750,3 +750,23 @@
 - ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during peak hours or when testing from different geographical locations.
 
 - ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, and consider increasing the default timeout or using a conditional timeout based on network conditions.
+
+- ✅ PREFERRED: DO implement retry mechanisms or increase the default timeout for page navigation when dealing with potentially slow-loading websites or unreliable network conditions. Consider using environment variables to configure timeouts.
+
+- ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during CI/CD or when testing from different geographical locations.
+
+- ✅ PREFERRED: DO explicitly set a longer timeout for page navigation when the network is unstable or the website is known to be slow.
+
+- ⚠️ PROHIBITED: DON'T assume the website will always load within the default timeout; network conditions can be unpredictable.
+
+- ✅ PREFERRED: DO implement retry mechanisms or increase the default timeout for page navigation, especially for external websites.
+
+- ⚠️ PROHIBITED: DON'T rely on the default timeout for page navigation; it's often insufficient for complex or resource-heavy pages.
+
+- ✅ PREFERRED: DO explicitly set a longer timeout for page navigation using `page.goto(url, timeout=120000)` or higher, especially for initial page loads.
+
+- ⚠️ PROHIBITED: DON'T rely on the default 30-second timeout for page navigation when the target website is known to be slow or unreliable.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for page navigation, especially for websites with known performance issues. Also, ALWAYS check network connectivity before running tests.
+
+- ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during CI runs or when testing on different network conditions.

@@ -2,49 +2,56 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The tests will be automated using Playwright and follow a Behavior-Driven Development (BDD) approach.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The goal is to ensure the website's core functionalities are working as expected and that recent changes haven't introduced regressions.
 
 ## Scope
 
-The scope of this test plan includes:
+The testing will cover the following areas:
 
-*   Smoke tests to verify core functionality.
-*   Regression tests to ensure existing functionality remains intact after changes.
+*   Homepage
+*   Product Listing Page (PLP)
+*   Product Details Page (PDP)
+*   Cart
+*   Checkout
 
 ## Test Suites
 
-### Smoke Suite
+This test plan includes two main test suites: Smoke and Regression.
 
-The smoke suite will cover the most critical user flows to ensure the basic functionality of the Dyson India website is working as expected. These tests are designed to be executed quickly and efficiently to provide rapid feedback on the stability of the application.
+### Smoke Suite Strategy
 
-**Smoke Suite Strategy**
+The Smoke Suite is designed to quickly verify the most critical functionalities of the Dyson India website. It focuses on happy path scenarios and core business logic.
 
-The following checklist has been applied to define the Smoke Suite for this project:
+**8-Point Checklist for Smoke Suite:**
 
-1.  **Critical Paths:** Does the test cover a primary user journey (e.g., login, checkout)? YES (Checkout flow)
-2.  **Core Business Logic:** Does the test exercise essential business rules or calculations? YES (Add to cart, checkout)
-3.  **Positive Flow:** Does the test primarily follow a happy path without negative inputs? YES
-4.  **Data Dependency:** Does the test minimize reliance on specific test data? YES (Uses a specific product but could be generalized)
-5.  **External Systems:** Does the test avoid or mock external system dependencies? YES (Assumes payment gateway works)
-6.  **Execution Time:** Is the test relatively quick to execute? YES
-7.  **Setup/Teardown:** Is the test setup and teardown minimal and efficient? YES
-8.  **Failure Impact:** Would a failure of this test indicate a major system outage? YES
+1.  **Critical Paths Only:** Focuses solely on essential user journeys (e.g., product search, add to cart, checkout).
+2.  **Happy Path Focus:**  Tests only positive scenarios without negative inputs or edge cases.
+3.  **Core Functionality:** Verifies the primary functions of each page/module involved in the critical paths.
+4.  **Minimal Data Variation:** Uses a single, representative data set for each scenario.
+5.  **No External Dependencies (if possible):** Avoids tests that rely on external services that might be unstable.
+6.  **Fast Execution:**  Designed to run quickly so that feedback is almost immediate.
+7.  **Automated:** Fully automated for continuous integration.
+8.  **Build Breaker:**  Failures in the smoke suite will result in the rejection of the build.
 
 ### Regression Suite
 
-The regression suite will cover a broader range of scenarios, including alternative flows, negative scenarios, and edge cases. These tests will ensure that new changes do not introduce regressions and that the application remains stable and reliable.
+The Regression Suite is a comprehensive set of tests designed to ensure that new changes haven't broken existing functionality. It covers a wider range of scenarios, including alternative flows, negative cases, and edge cases.
 
 ## Test Cases
 
-Test cases will be defined using Gherkin syntax in feature files. Each feature file will represent a specific functionality or module of the application.
+Test cases will be written in Gherkin syntax and stored in feature files. Each feature file will represent a specific area of the website.
 
 ## Test Environment
 
-*   Browser: Chromium, Firefox, WebKit
-*   Operating System: Windows, macOS, Linux
+*   Browser: Chrome (latest version)
+*   Operating System: Windows 10/macOS
 *   Test Framework: Playwright
-*   Programming Language: JavaScript/TypeScript
+*   Test Runner: Jest
 
-## Test Execution
+## Test Data
 
-Tests will be executed automatically as part of the CI/CD pipeline. Test results will be reported and tracked to ensure timely identification and resolution of issues.
+Test data will be stored in separate files and used to parameterize the tests. This will allow for easy modification and maintenance of the test data.
+
+## Reporting
+
+Test results will be reported using the Jest reporter. The reports will include information about the number of tests run, the number of tests passed, and the number of tests failed.

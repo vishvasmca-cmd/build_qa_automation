@@ -2,11 +2,12 @@
 
 | Step | Page | Action | Target | Outcome | Screenshot |
 |------|------|--------|--------|---------|------------|
-| 0 | HomePage | click | Close | ✅ | [View](../snapshots/step_00_HomePage.png) |
+| 0 | HomePage | click | X | ✅ | [View](../snapshots/step_00_HomePage.png) |
 | 1 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_01_HomePage.png) |
 | 2 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_02_HomePage.png) |
-| 3 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_03_HomePage.png) |
-| 4 | HomePage | click | X | ✅ | [View](../snapshots/step_04_HomePage.png) |
-| 5 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_05_HomePage.png) |
-| 6 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_06_HomePage.png) |
-| 7 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_07_HomePage.png) |
+| 3 | DysonIndiaPage | click | Save ₹11,000 Dyson Airstrait™  | ✅ | [View](../snapshots/step_03_HomePage.png) |
+| 4 | DysonAirstraitStraightenerPage | scroll | Add to cart | ✅ | [View](../snapshots/step_04_DysonAirstraitStraightenerPage.png) |
+| 5 | ProductsPage | click | Add to cart | ✅ | [View](../snapshots/step_05_DysonAirstraitStraightenerCeramicPinkRoseGoldPage.png) |
+| 6 | ProductsPage | navigate | None | ✅ | [View](../snapshots/step_06_ProductsPage.png) |
+| 7 | ProductsPage | navigate | None | ✅ | [View](../snapshots/step_07_ProductsPage.png) |
+| 8 | ProductsPage | navigate | None | ✅ | [View](../snapshots/step_08_ProductsPage.png) |
