@@ -1,78 +1,183 @@
 {
   "HomePage": {
-    "description": "This is the homepage for Dyson India. The primary purpose is to showcase Dyson products and provide navigation to different product categories and information.",
+    "description": "This is the search overlay on the Dyson India homepage. The primary purpose is to allow users to search for products and information on the Dyson website.",
     "url_pattern": "https://www.dyson.in/",
     "elements": [
       {
-        "name": "Dyson Logo",
-        "type": "image",
-        "primary_locator": "//a[@aria-label='Dyson']",
-        "backup_locator": "css=a.header__logo-link",
-        "description": "Dyson logo in the header, navigates to the homepage."
+        "name": "Search Input",
+        "type": "input",
+        "primary_locator": "//input[@type='search']",
+        "backup_locator": "input[placeholder='']",
+        "description": "Input field for entering search queries."
       },
       {
-        "name": "Search Products and Parts",
-        "type": "search_box",
-        "primary_locator": "css=button[aria-label='Open search']",
-        "backup_locator": "text=Search products and parts",
-        "description": "Search input field to search for products and parts."
-      },
-      {
-        "name": "Shop Now Button",
+        "name": "Search Button",
         "type": "button",
-        "primary_locator": "text=Shop now",
-        "backup_locator": "css=.button.button--primary",
-        "description": "Button to navigate to the product page of the featured product."
+        "primary_locator": "//button[@type='submit']",
+        "backup_locator": "button[aria-label='Submit search']",
+        "description": "Button to submit the search query."
       },
       {
-        "name": "Vacuum & wet cleaners Link",
-        "type": "link",
-        "primary_locator": "text=Vacuum & wet cleaners",
-        "backup_locator": "css=a[href*='/vacuum-cleaners']",
-        "description": "Link to the vacuum cleaners product category page."
+        "name": "Close Search Overlay",
+        "type": "button",
+        "primary_locator": "button[aria-label='Close search']",
+        "backup_locator": "button[class*='Close']",
+        "description": "Button to close the search overlay."
       },
       {
-        "name": "Air purifier Link",
+        "name": "Dyson Airstrait\u2122 straightener",
         "type": "link",
-        "primary_locator": "text=Air purifier",
-        "backup_locator": "css=a[href*='/air-purifiers']",
-        "description": "Link to the air purifier product category page."
+        "primary_locator": "//a[text()='Dyson Airstrait\u2122 straightener']",
+        "backup_locator": "a[href*='airstrait']",
+        "description": "Link to Dyson Airstrait straightener product page."
       },
       {
-        "name": "Headphones Link",
+        "name": "*NEW* Dyson Airwrap i.d.\u2122",
         "type": "link",
-        "primary_locator": "text=Headphones",
-        "backup_locator": "css=a[href*='/headphones']",
-        "description": "Link to the headphones product category page."
+        "primary_locator": "//a[text()='*NEW* Dyson Airwrap i.d.\u2122']",
+        "backup_locator": "a[href*='airwrap-multi-styler']",
+        "description": "Link to Dyson Airwrap i.d. product page."
       },
       {
-        "name": "Lighting Link",
+        "name": "Dyson V8 Absolute Vacuum",
         "type": "link",
-        "primary_locator": "text=Lighting",
-        "backup_locator": "css=a[href*='/lighting']",
-        "description": "Link to the lighting product category page."
+        "primary_locator": "//a[text()='Dyson V8 Absolute Vacuum']",
+        "backup_locator": "a[href*='v8-absolute']",
+        "description": "Link to Dyson V8 Absolute Vacuum product page."
       },
       {
-        "name": "Support Link",
+        "name": "Dyson Vacuum Cleaners",
         "type": "link",
-        "primary_locator": "text=Support",
-        "backup_locator": "css=a[href*='/support']",
-        "description": "Link to the support page."
+        "primary_locator": "//a[text()='Dyson Vacuum Cleaners']",
+        "backup_locator": "a[href*='vacuum-cleaners']",
+        "description": "Link to Dyson Vacuum Cleaners product page."
       },
       {
-        "name": "Best sellers Link",
+        "name": "Dyson Air Purifiers",
         "type": "link",
-        "primary_locator": "text=Best sellers",
-        "backup_locator": "css=a[href*='/best-sellers']",
-        "description": "Link to the best sellers page."
+        "primary_locator": "//a[text()='Dyson Air Purifiers']",
+        "backup_locator": "a[href*='air-purifiers']",
+        "description": "Link to Dyson Air Purifiers product page."
+      },
+      {
+        "name": "Dyson Deals",
+        "type": "link",
+        "primary_locator": "//a[text()='Dyson Deals']",
+        "backup_locator": "a[href*='deals']",
+        "description": "Link to Dyson Deals product page."
       }
     ],
     "assertions": [
       "Page title contains 'Dyson'",
-      "Header contains 'Discover Dyson'",
-      "The 'Shop now' button is visible",
-      "The 'Search products and parts' search box is visible",
+      "Search input field is present",
+      "The text 'Most searched for' is visible",
       "The Dyson logo is visible"
+    ]
+  },
+  "DysonIndiaPage": {
+    "description": "This is the homepage of Dyson India, showcasing their products and promotions.",
+    "url_pattern": "https://www.dyson.in/",
+    "elements": [
+      {
+        "name": "Search Products and Parts",
+        "type": "search_box",
+        "primary_locator": "css=input[placeholder='Search products and parts']",
+        "backup_locator": "text=Search products and parts",
+        "description": "Search input box to find specific products or parts."
+      },
+      {
+        "name": "Shop Now",
+        "type": "button",
+        "primary_locator": "text=Shop now",
+        "backup_locator": "css=a[href='/air-treatment/purifiers/hushjet']",
+        "description": "Button to navigate to the Hushjet purifier product page."
+      },
+      {
+        "name": "Vacuum & wet cleaners",
+        "type": "link",
+        "primary_locator": "text=Vacuum & wet cleaners",
+        "backup_locator": "css=a[href='/vacuum-cleaners']",
+        "description": "Link to the vacuum cleaners category page."
+      },
+      {
+        "name": "Air purifier",
+        "type": "link",
+        "primary_locator": "text=Air purifier",
+        "backup_locator": "css=a[href='/air-treatment']",
+        "description": "Link to the air purifier category page."
+      },
+      {
+        "name": "Headphones",
+        "type": "link",
+        "primary_locator": "text=Headphones",
+        "backup_locator": "css=a[href='/headphones']",
+        "description": "Link to the headphones category page."
+      },
+      {
+        "name": "Lighting",
+        "type": "link",
+        "primary_locator": "text=Lighting",
+        "backup_locator": "css=a[href='/lighting']",
+        "description": "Link to the lighting category page."
+      },
+      {
+        "name": "Support",
+        "type": "link",
+        "primary_locator": "text=Support",
+        "backup_locator": "css=a[href='/support']",
+        "description": "Link to the support page."
+      },
+      {
+        "name": "Best sellers",
+        "type": "link",
+        "primary_locator": "text=Best sellers",
+        "backup_locator": "css=a[href='/best-sellers']",
+        "description": "Link to the best sellers page."
+      }
+    ],
+    "assertions": [
+      "Title contains 'Dyson'",
+      "Page contains the text 'Compact. Powerful. Yet quiet.'",
+      "Page contains the text 'Dyson.in exclusive: 24 months no cost EMI'"
+    ]
+  },
+  "ProductsPage": {
+    "description": "This page allows the user to select items to add to their Dyson OnTrac bundle.",
+    "url_pattern": "https://www.dyson.in/checkout/cart/configure/id/109287037/product_id/57385/variant/%5B%5D/action/add/",
+    "elements": [
+      {
+        "name": "OnTrac ear cushions (Khaki)",
+        "type": "product",
+        "primary_locator": "text=\"OnTrac\u2122 ear cushions (Khaki)\"",
+        "backup_locator": "css=div:nth-child(1) > div > div.product-name",
+        "description": "The OnTrac ear cushions product."
+      },
+      {
+        "name": "OnTrac outer caps (CNC Copper)",
+        "type": "product",
+        "primary_locator": "text=\"OnTrac\u2122 outer caps (CNC Copper)\"",
+        "backup_locator": "css=div:nth-child(2) > div > div.product-name",
+        "description": "The OnTrac outer caps product."
+      },
+      {
+        "name": "Continue to basket (top)",
+        "type": "button",
+        "primary_locator": "text=\"Continue to basket\"",
+        "backup_locator": "css=.cart-page-header > div > a",
+        "description": "Button to continue to the basket from the top of the page."
+      },
+      {
+        "name": "Continue to basket (bottom)",
+        "type": "button",
+        "primary_locator": "text=\"Continue to basket\"",
+        "backup_locator": "css=.cart-page-summary > div > a",
+        "description": "Button to continue to the basket from the bottom of the page."
+      }
+    ],
+    "assertions": [
+      "Page title contains 'Dyson'",
+      "Header text is 'Select your items'",
+      "Total price is displayed"
     ]
   }
 }

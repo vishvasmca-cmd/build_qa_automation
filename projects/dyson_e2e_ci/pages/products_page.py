@@ -2,42 +2,34 @@ from playwright.async_api import Page, expect
 
 class ProductsPage:
     """
-    This page indicates an 'Access Denied' error when trying to add a product to the cart. The user does not have permission to access the specified URL.
-    URL Pattern: http://www.dyson.in/checkout/cart/add/uenc/aHR0cHM6Ly93d3cuZHlzb24uaW4vYWlyd3JhcC1vcmlnaW4tbmlja2VsLWNvcHBlcg%7e%7e/product/71588/
+    This page allows the user to select items to add to their Dyson OnTrac bundle.
+    URL Pattern: https://www.dyson.in/checkout/cart/configure/id/109287037/product_id/57385/variant/%5B%5D/action/add/
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def access_denied_header(self):
-        """The main header indicating access is denied."""
-        return self.page.role=heading[name="Access Denied"].or_(self.page.text="Access Denied")
+    def ontrac_ear_cushions_khaki_(self):
+        """The OnTrac ear cushions product."""
+        return self.page.text="OnTrac™ ear cushions (Khaki)".or_(self.page.css=div:nth-child(1) > div > div.product-name)
 
     @property
-    def error_description(self):
-        """The description explaining the reason for the error."""
-        return self.page.text="You don't have permission to access".or_(self.page.text="You don't have permission to access")
+    def ontrac_outer_caps_cnc_copper_(self):
+        """The OnTrac outer caps product."""
+        return self.page.text="OnTrac™ outer caps (CNC Copper)".or_(self.page.css=div:nth-child(2) > div > div.product-name)
 
     @property
-    def error_url(self):
-        """The URL that the user is trying to access."""
-        return self.page.text="http://www.dyson.in/checkout/cart/add/uenc/aHR0cHM6Ly93d3cuZHlzb24uaW4vYWlyd3JhcC1vcmlnaW4tbmlja2VsLWNvcHBlcg%7e%7e/product/71588/".or_(self.page.text="http://www.dyson.in/checkout/cart/add/uenc/aHR0cHM6Ly93d3cuZHlzb24uaW4vYWlyd3JhcC1vcmlnaW4tbmlja2VsLWNvcHBlcg%7e%7e/product/71588/")
+    def continue_to_basket_top_(self):
+        """Button to continue to the basket from the top of the page."""
+        return self.page.text="Continue to basket".or_(self.page.css=.cart-page-header > div > a)
 
     @property
-    def reference_number(self):
-        """The reference number for the error."""
-        return self.page.text="Reference #18.253b2f17.1768195387.39aa67d6".or_(self.page.text="Reference #18.253b2f17.1768195387.39aa67d6")
-
-    @property
-    def edgesuite_url(self):
-        """The URL for the edgesuite error page."""
-        return self.page.text="https://errors.edgesuite.net/18.253b2f17.1768195387.39aa67d6".or_(self.page.text="https://errors.edgesuite.net/18.253b2f17.1768195387.39aa67d6")
+    def continue_to_basket_bottom_(self):
+        """Button to continue to the basket from the bottom of the page."""
+        return self.page.text="Continue to basket".or_(self.page.css=.cart-page-summary > div > a)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Page title contains 'Access Denied'
-        await Verify that the 'Access Denied' header is displayed
-        await Verify that the error description is displayed
-        await Verify that the error URL is displayed
-        await Verify that the reference number is displayed
-        await Verify that the edgesuite URL is displayed
+        await Page title contains 'Dyson'
+        await Header text is 'Select your items'
+        await Total price is displayed
