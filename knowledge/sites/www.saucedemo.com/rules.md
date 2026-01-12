@@ -166,3 +166,15 @@
 - ⚠️ PROHIBITED: DON'T rely solely on `test_id` locators without verifying their uniqueness and stability across different environments and builds.
 
 - ✅ PREFERRED: DO implement explicit waits or retries when interacting with elements that might take time to load or become available, especially when using `test_id` locators.
+
+- ⚠️ PROHIBITED: DON'T assume the default console encoding supports all Unicode characters; be mindful of encoding issues when printing to the console, especially in automated tests.
+
+- ✅ PREFERRED: DO configure the output stream (e.g., console) to use UTF-8 encoding or a more comprehensive encoding that supports a wider range of characters, or remove/replace the problematic Unicode characters.
+
+- ⚠️ PROHIBITED: DON'T rely on printing Unicode characters (like emojis) to the console without explicitly setting the encoding to UTF-8 or handling potential encoding errors.
+
+- ✅ PREFERRED: DO ensure that the console output encoding is set to UTF-8 or handle UnicodeEncodeErrors gracefully when printing potentially problematic characters.
+
+- ⚠️ PROHIBITED: DON'T assume the console encoding supports all Unicode characters. Be mindful of the target environment's encoding when printing to the console.
+
+- ✅ PREFERRED: DO encode strings to a compatible encoding (e.g., 'utf-8') before printing, or use a different method for indicating success that doesn't rely on Unicode characters.
