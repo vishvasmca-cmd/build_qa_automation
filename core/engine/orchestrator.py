@@ -19,7 +19,6 @@ except ImportError:
     from metrics_logger import logger
 
 from core.lib.git_utils import GitManager
-from core.agents.refiner import FrameworkGenerator, CodeRefiner
 
 CHECKPOINT_FILE = ".checkpoint.json"
 
@@ -217,56 +216,85 @@ def _run_knowledge_update(project_root, config, config_hash, trace_path):
         print(colored(f"Knowledge Update Failed: {e}", "yellow"))
 
 def _run_code_generation(project_root, config, config_hash, trace_path, test_path):
-    print(colored("\n[Step 3/7] 🏭 Generating Node.js POM & Workflow Specs...", "cyan"))
-    if can_skip_phase(project_root, "generation", config_hash):
-        print(colored("⏩ Skipping Code Generation (Checkpoint found)", "grey"))
+    print(colored("\n[Step 3/7] Generating Robust Code & Logic Check...", "cyan"))
+    if can_skip_phase(project_root, "generation", config_hash) and can_skip_phase(project_root, "review", config_hash):
+        print(colored("⏩ Skipping Code Generation & Review (Checkpoints found)", "grey"))
         return True
 
-    try:
-        # 1. Generate Deterministic POMs
-        fg = FrameworkGenerator(project_root)
-        if not fg.generate():
-            return False
-            
-        # 2. Refine Workflow Logic (Smart Mode)
-        print(colored("   🧠 Refining workflow logic with LLM...", "cyan"))
-        
-        # Gather POM Context
-        pom_context = ""
-        pages_dir = os.path.join(project_root, "pages")
-        if os.path.exists(pages_dir):
-            for fname in os.listdir(pages_dir):
-                if fname.endswith(".ts") and fname != "BasePage.ts":
-                    with open(os.path.join(pages_dir, fname), "r") as f:
-                        pom_context += f"\n--- {fname} ---\n{f.read()}\n"
+    # Helper for hints
+    def get_dynamic_hint(review_msg, attempt_num):
+        msg_lower = review_msg.lower()
+        hints = []
+        if "page." in msg_lower or "self.page" in msg_lower or "scope" in msg_lower:
+             hints.append("🔐 **SCOPE ERROR**: Inside POM classes, you MUST use `self.page`, NEVER `page`.")
+        if "selector" in msg_lower or "locator" in msg_lower:
+            hints.append("📍 **LOCATOR ISSUE**: Follow the cascade: Proven > Role > Label > Text.")
+        if not hints:
+            if attempt_num == 2: hints.append("💡 HINT: Review the POM structure.")
+            if attempt_num >= 4: hints.append("🔥 CRITICAL: Simplify the logic.")
+        return "\n".join(hints)
 
-        refiner = CodeRefiner()
-        workflow_goal = config.get("workflow_description", "")
+    gen_success = False
+    error_context = None
+    from core.agents.reviewer import CodeReviewer
+
+    for attempt in range(1, 6):
+        print(colored(f"🔄 Generation Loop {attempt}/5...", "cyan"))
+        start_time = time.time()
+        # Adjusted path: core/engine/orchestrator.py -> core/agents/refiner.py
+        refiner_script = os.path.join(os.path.dirname(os.path.dirname(__file__)), "agents", "refiner.py")
         domain = config.get("domain", "general")
-        target_url = config.get("target_url", "")
         
-        with open(trace_path, "r") as f:
-            trace_data = json.load(f)
-            trace_summary = json.dumps(trace_data.get("trace", []), indent=2)
+        error_file_arg = ""
+        if error_context:
+            error_file = os.path.join(project_root, "outputs", "gen_feedback.log")
+            with open(error_file, "w", encoding="utf-8") as f: f.write(str(error_context))
+            error_file_arg = error_file
+            print(colored(f"💡 Feeding Reviewer Feedback to Refiner: {str(error_context)[:100]}...", "yellow"))
+
+        env = os.environ.copy()
+        env["PYTHONPATH"] = os.getcwd()
+        ret = subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", ""), error_file_arg, domain], capture_output=False, env=env)
+        
+        if ret.returncode != 0:
+            print(colored(f"⚠️ Generation failed (Code {ret.returncode})", "yellow"))
+            continue
+
+        try:
+            rev = CodeReviewer()
+            is_approved, review_msg = rev.review_and_fix(test_path, domain=domain)
             
-        typescript_code = refiner.generate_code(target_url, trace_summary, pom_context=pom_context, domain=domain, workflow_goal=workflow_goal)
-        
-        if typescript_code:
-            # Output path is tests/e2e/workflow.spec.ts (hardcoded in fg for now, but we can sync)
-            test_file = os.path.join(project_root, "tests", "e2e", "workflow.spec.ts")
-            os.makedirs(os.path.dirname(test_file), exist_ok=True)
-            with open(test_file, "w", encoding="utf-8") as f:
-                f.write(typescript_code)
-            print(colored(f"   ✅ Refined workflow.spec.ts created", "green"))
+            if is_approved:
+                print(colored("✅ Code Approved by Quality Gate.", "green"))
+                gen_success = True
+                save_checkpoint(project_root, "generation", config_hash)
+                save_checkpoint(project_root, "review", config_hash)
+                duration = time.time() - start_time
+                logger.log_event("Generator", "full_gen_cycle", duration, success=True, metadata={"loops": attempt})
+                break
+            else:
+                print(colored(f"❌ Quality Gate Rejected Code: {review_msg}", "red"))
+
+
+                error_context = f"ISSUES:\n{review_msg}\nHINTS:\n{get_dynamic_hint(review_msg, attempt)}"
+        except Exception as e:
+            print(colored(f"⚠️ Review Process Crashed: {e}", "red"))
+            error_context = f"Reviewer Crashed: {e}"
+
+    if not gen_success:
+        print(colored("⚠️ All generation attempts exhausted. Creating minimal fallback...", "yellow"))
+        try:
+            from core.lib.minimal_template import generate_minimal_smoke_test
+            generate_minimal_smoke_test(config, test_path)
+            print(colored("✅ Minimal smoke test created as fallback", "green"))
+            gen_success = True
             save_checkpoint(project_root, "generation", config_hash)
-            return True
-        else:
-            print(colored("   ❌ LLM failed to refine logic.", "red"))
+        except Exception as e:
+            print(colored(f"❌ Fallback generation also failed: {e}", "red"))
+            _log_error(config, "generation", f"Failed generation: {e}")
             return False
             
-    except Exception as e:
-        print(colored(f"   ❌ Code Generation Failed: {e}", "red"))
-        return False
+    return True
 
 def _run_batch_mining(project_root, config, config_hash):
     """Phase 2: Run Batch Miner to discover page models."""
@@ -335,37 +363,82 @@ def _run_reporting(project_root, config, config_hash, trace_path):
     save_checkpoint(project_root, "reporting", config_hash)
 
 def _run_execution(project_root, config, config_hash, test_path, trace_path):
-    print(colored("\n[Step 6/7] 🧪 Executing Node.js Playwright Test...", "cyan"))
+    print(colored("\n[Step 6/7] 🧪 Executing Verified Test...", "cyan"))
+    execution_log = ""
     
     if can_skip_phase(project_root, "execution", config_hash):
         print(colored("⏩ Skipping Test Execution (Checkpoint found)", "grey"))
-        return True, "Execution skipped (Checkpoint found)."
+        execution_log = "Execution skipped (Checkpoint found)."
+        return True, execution_log
 
-    # Use npx playwright test
-    print(colored(f"   🚀 Running: npx playwright test", "cyan"))
+    max_retries = 10
+    success = False
     
-    # Ensure dependencies are installed (one-time logic)
-    if not os.path.exists(os.path.join(project_root, "node_modules")):
-        print(colored("   📦 Dependencies missing. Running npm install...", "yellow"))
-        subprocess.run(["npm", "install"], cwd=project_root, shell=True)
-
-    start_time = time.time()
-    ret = subprocess.run(["npx", "playwright", "test"], cwd=project_root, capture_output=True, text=True, encoding='utf-8', errors='replace', shell=True)
-    
-    current_log = (ret.stdout or "") + "\n" + (ret.stderr or "")
-    print(current_log)
-    
-    success = (ret.returncode == 0)
-    if success:
-        print(colored("\n✅ Node.js Test Execution SUCCESS!", "green", attrs=["bold"]))
-        save_checkpoint(project_root, "execution", config_hash)
-    else:
-        print(colored(f"\n❌ Execution Failed (Code {ret.returncode})", "red"))
+    for attempt in range(max_retries):
+        print(f"Attempt {attempt + 1}/{max_retries}...")
+        start_time = time.time()
         
-    duration = time.time() - start_time
-    logger.log_event("Executor", "execute_node_test", duration, success=success)
-    
-    return success, current_log
+        # Prepare Environment with PYTHONPATH
+        env = os.environ.copy()
+        # Add project_root to path so 'from pages import ...' works
+        env["PYTHONPATH"] = project_root + os.pathsep + os.getcwd()
+
+        # Define output directory for test results
+        # Define output directory for test results
+        output_dir = os.path.join(project_root, "outputs", "test-results")
+        ret = subprocess.run(["pytest", test_path, "-v", "-s", f"--output={output_dir}"], capture_output=True, text=True, encoding='utf-8', errors='replace', env=env)
+        current_log = (ret.stdout or "") + "\n" + (ret.stderr or "")
+        execution_log += f"--- Attempt {attempt + 1} ---\n{current_log}\n"
+        print(current_log)
+        
+        if ret.returncode == 0:
+            print(colored("\n✅ Test Execution SUCCESS!", "green", attrs=["bold"]))
+            success = True
+            duration = time.time() - start_time
+            logger.log_event("Executor", "execute_test", duration, success=True, metadata={"attempt": attempt + 1})
+            save_checkpoint(project_root, "execution", config_hash)
+            break
+        else:
+            if attempt < max_retries - 1:
+                print(colored(f"⚠️ Attempt {attempt + 1} Failed. Triggering MASTER AGENT Self-Correction...", "yellow"))
+                
+                # 1. IMMEDIATE LEARNING (The "Master Agent" Step)
+                try:
+                    from core.agents.feedback_agent import FeedbackAgent
+                    print(colored(f"🧠 Analyzing failure to update Knowledge Base...", "cyan"))
+                    feedback = FeedbackAgent()
+                    # We pass 'success=False' to force failure analysis. 
+                    # This updates knowledge/sites/{domain}/rules.md and failures.json
+                    feedback.analyze_run(config, current_log, success=False)
+                    print(colored(f"✅ Knowledge Updated. Re-generating code with new insights...", "green"))
+                except Exception as e:
+                    print(colored(f"⚠️ Feedback Loop Failed: {e}", "red"))
+
+                # 2. RE-GENERATION (Refiner now sees the new rules.md)
+                error_file = os.path.join(project_root, "outputs", "execution_error.log")
+                os.makedirs(os.path.dirname(error_file), exist_ok=True)
+                with open(error_file, "w", encoding="utf-8") as f: f.write(current_log)
+                
+                # Adjusted path: core/engine/orchestrator.py -> core/agents/refiner.py
+                refiner_script = os.path.join(os.path.dirname(os.path.dirname(__file__)), "agents", "refiner.py")
+                domain = config.get("domain", "general")
+                
+                # Prepare Environment for Refiner
+                re_env = os.environ.copy()
+                re_env["PYTHONPATH"] = os.getcwd()
+                # The Refiner will now read the updated rules.md and generate better code
+                subprocess.run(["python", refiner_script, trace_path, test_path, config.get("workflow_description", ""), error_file, domain], env=re_env)
+
+                # 3. COMMIT & PUSH FIX (User Request)
+                # GitManager.commit_and_push(f"Auto-fix iteration {attempt + 1} for {config.get('project_name')}")
+            else:
+                print(colored(f"❌ Final Attempt {attempt + 1} Failed.", "red"))
+
+    if not success:
+        print(colored("\n❌ All test attempts failed!", "red", attrs=["bold"]))
+        _log_error(config, "execution", execution_log[-1000:])
+        
+    return success, execution_log
 
 def _run_validation(project_root, config, success):
     if success:

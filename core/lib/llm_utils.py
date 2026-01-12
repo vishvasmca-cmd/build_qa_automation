@@ -143,16 +143,12 @@ class SafeLLM:
         else:
             contents = [str(messages)]
 
-        # Sanitize config for new SDK
-        safe_config = self.config.copy()
-        if "timeout" in safe_config: del safe_config["timeout"]
-        
         print(f"[DEBUG] Sending request to {self.model_name}. Content length: {len(str(contents))}")
         try:
             resp = self.client.models.generate_content(
                 model=self.model_name,
                 contents=contents,
-                config=safe_config
+                config=self.config
             )
             print(f"[DEBUG] Received response from {self.model_name}. Length: {len(resp.text) if resp.text else 0}")
             from types import SimpleNamespace
