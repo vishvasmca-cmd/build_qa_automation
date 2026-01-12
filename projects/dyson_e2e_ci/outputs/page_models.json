@@ -5,74 +5,90 @@
     "elements": [
       {
         "name": "Dyson Logo",
-        "type": "image",
-        "primary_locator": "role=link[name='Homepage']",
-        "backup_locator": "css=svg[aria-label='Dyson']",
-        "description": "Dyson logo in the top left corner, navigates to the homepage."
+        "type": "link",
+        "primary_locator": "//a[@aria-label='Homepage']",
+        "backup_locator": "css=svg[class*='DysonLogo']",
+        "description": "Link to the homepage."
       },
       {
         "name": "Search Products and Parts",
-        "type": "search_box",
-        "primary_locator": "role=searchbox[name='Search products and parts']",
-        "backup_locator": "css=input[placeholder='Search products and parts']",
-        "description": "Search input field to search for products and parts."
+        "type": "button",
+        "primary_locator": "css=button[aria-label='Search products and parts']",
+        "backup_locator": "text=Search products and parts",
+        "description": "Button to open the search functionality."
       },
       {
-        "name": "Shop Now Button",
-        "type": "button",
-        "primary_locator": "role=link[name='Shop now']",
-        "backup_locator": "text=Shop now",
-        "description": "Button to navigate to the product page of the featured product."
+        "name": "Deals",
+        "type": "link",
+        "primary_locator": "text=Deals",
+        "backup_locator": "css=a[href*='/deals']",
+        "description": "Link to the deals page."
       },
       {
         "name": "Vacuum & wet cleaners",
         "type": "link",
-        "primary_locator": "role=link[name='Vacuum & wet cleaners']",
-        "backup_locator": "text='Vacuum & wet cleaners'",
-        "description": "Link to the vacuum and wet cleaners product category."
+        "primary_locator": "text=Vacuum & wet cleaners",
+        "backup_locator": "css=a[href*='/vacuum-cleaners']",
+        "description": "Link to the vacuum cleaners page."
+      },
+      {
+        "name": "Hair care",
+        "type": "link",
+        "primary_locator": "text=Hair care",
+        "backup_locator": "css=a[href*='/hair-care']",
+        "description": "Link to the hair care products page."
       },
       {
         "name": "Air purifier",
         "type": "link",
-        "primary_locator": "role=link[name='Air purifier']",
-        "backup_locator": "text='Air purifier'",
-        "description": "Link to the air purifier product category."
+        "primary_locator": "text=Air purifier",
+        "backup_locator": "css=a[href*='/air-purifiers']",
+        "description": "Link to the air purifier products page."
       },
       {
         "name": "Headphones",
         "type": "link",
-        "primary_locator": "role=link[name='Headphones']",
-        "backup_locator": "text='Headphones'",
-        "description": "Link to the headphones product category."
+        "primary_locator": "text=Headphones",
+        "backup_locator": "css=a[href*='/headphones']",
+        "description": "Link to the headphones products page."
       },
       {
         "name": "Lighting",
         "type": "link",
-        "primary_locator": "role=link[name='Lighting']",
-        "backup_locator": "text='Lighting'",
-        "description": "Link to the lighting product category."
+        "primary_locator": "text=Lighting",
+        "backup_locator": "css=a[href*='/lighting']",
+        "description": "Link to the lighting products page."
       },
       {
         "name": "Support",
         "type": "link",
-        "primary_locator": "role=link[name='Support']",
-        "backup_locator": "text='Support'",
+        "primary_locator": "text=Support",
+        "backup_locator": "css=a[href*='/support']",
         "description": "Link to the support page."
       },
       {
         "name": "Best sellers",
         "type": "link",
-        "primary_locator": "role=link[name='Best sellers']",
-        "backup_locator": "text='Best sellers'",
+        "primary_locator": "text=Best sellers",
+        "backup_locator": "css=a[href*='/best-sellers']",
         "description": "Link to the best sellers page."
+      },
+      {
+        "name": "Shop now",
+        "type": "button",
+        "primary_locator": "text=Shop now",
+        "backup_locator": "css=a[class*='Button']",
+        "description": "Button to shop the featured product."
       }
     ],
     "assertions": [
-      "Verify the page title contains 'Dyson India'",
-      "Verify the Dyson logo is visible",
-      "Verify the 'Search products and parts' search box is present",
-      "Verify the 'Shop now' button is visible",
-      "Verify the 'Dyson.in exclusive: 24 months no cost EMI' text is visible"
+      "Title contains 'Dyson India'",
+      "Page contains the Dyson logo",
+      "Page contains the 'Search products and parts' button",
+      "Page contains the 'Deals' link",
+      "Page contains the 'Vacuum & wet cleaners' link",
+      "Page contains the 'Hair care' link",
+      "Page contains the 'Air purifier' link"
     ]
   }
 }
