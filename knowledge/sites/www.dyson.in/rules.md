@@ -306,3 +306,43 @@
 - ⚠️ PROHIBITED: DON'T assume the target website (dyson.in) will always reliably support HTTP/2. Implement retry logic with fallback to HTTP/1.1 if possible.
 
 - ✅ PREFERRED: DO implement robust error handling and retry mechanisms for initial page load, especially when dealing with external websites that might have intermittent issues.
+
+- ⚠️ PROHIBITED: DON'T assume that all required modules are accessible without explicitly verifying the Python import paths and project structure.
+
+- ✅ PREFERRED: DO ensure that all necessary modules, like 'base_page', are correctly placed within the project directory and that Python's import paths are configured to locate them.
+
+- ⚠️ PROHIBITED: DON'T assume that the test environment has the correct PYTHONPATH or that all necessary modules are accessible without explicit path configuration.
+
+- ✅ PREFERRED: DO ensure that all required modules, especially custom modules like 'base_page', are accessible by correctly configuring the PYTHONPATH or using relative imports within the project structure.
+
+- ⚠️ PROHIBITED: DON'T assume that the test environment has the correct PYTHONPATH configured; ALWAYS explicitly manage import paths within the test script or configuration.
+
+- ✅ PREFERRED: DO ensure that all necessary modules and files are accessible by correctly configuring the PYTHONPATH or using relative imports within the project structure.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable or correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial navigation. Also, consider adding a check for network connectivity before attempting navigation.
+
+- ⚠️ PROHIBITED: DON'T assume relative imports will work without verifying the correct package structure and ensuring `__init__.py` files are present in relevant directories to define packages.
+
+- ✅ PREFERRED: DO explicitly define the correct import path for modules within the project, considering the project's root directory and package structure. Use absolute imports where appropriate to avoid ambiguity.
+
+- ⚠️ PROHIBITED: DON'T assume that relative imports will work without verifying the correct project structure and PYTHONPATH.
+
+- ✅ PREFERRED: DO ensure that all modules and packages are correctly placed within the project directory and that the PYTHONPATH is configured to include the project's root directory.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always available and fully functional; implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for critical entry points to the application under test. Also, add a timeout to the `page.goto()` call.
+
+- ⚠️ PROHIBITED: DON'T assume a successful page load without explicit checks for expected elements or status codes after `page.goto()`, especially for sites known to have intermittent HTTP/2 issues.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls, especially when encountering `net::ERR_HTTP2_PROTOCOL_ERROR`, and include a check for the page's HTTP status code.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable or correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial navigation. Also, consider adding a check for network connectivity before attempting navigation.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always available and correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial page loads. Also, consider adding a check for the HTTP status code after navigation to ensure the page loaded successfully.
