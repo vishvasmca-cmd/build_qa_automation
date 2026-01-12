@@ -426,3 +426,43 @@
 - ⚠️ PROHIBITED: DON'T assume a website will always successfully load on the first `page.goto()` attempt, especially when using HTTP/2.
 
 - ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls to handle transient network errors or server-side issues.
+
+- ⚠️ PROHIBITED: DON'T assume the website is always reachable and stable; implement retry mechanisms and error handling for network-related issues.
+
+- ✅ PREFERRED: DO implement robust error handling and retry mechanisms for page navigation, especially for external websites, to handle transient network errors or server issues.
+
+- ⚠️ PROHIBITED: DON'T assume a website is fully compatible with HTTP/2 without proper error handling for protocol negotiation failures.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls, especially when dealing with external websites, to handle transient network or server-side HTTP/2 issues.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is fully compatible with HTTP/2 without proper error handling and fallback mechanisms in place.
+
+- ✅ PREFERRED: DO implement robust error handling for page navigation, including retries with different network configurations or browser settings if HTTP/2 errors are encountered.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable or correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial navigation. Also, consider adding a check for network connectivity before attempting navigation.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable and stable; implement robust error handling for navigation failures.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for initial page load, especially when dealing with external websites.
+
+- ⚠️ PROHIBITED: DON'T assume the website is always reachable and stable; implement retry mechanisms and error handling for network-related issues.
+
+- ✅ PREFERRED: DO implement robust error handling and retry mechanisms for page navigation, especially for external websites, to handle transient network errors or server-side issues.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable and stable; implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for critical entry points to the application.
+
+- ⚠️ PROHIBITED: DON'T assume the website is fully compatible with HTTP/2 without proper error handling and fallback mechanisms.
+
+- ✅ PREFERRED: DO implement robust error handling for page navigation, including retries with different network configurations or browser settings if HTTP/2 errors are encountered.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable and stable; implement robust error handling and retry mechanisms for network-related errors.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for critical navigation steps. Also, add a timeout to the `page.goto()` call.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable and stable; implement robust error handling for navigation failures.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for `page.goto()` calls, especially for critical navigation steps.
