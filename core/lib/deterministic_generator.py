@@ -108,16 +108,16 @@ class LocatorTranslator:
         if locator_used:
             return self._add_disambiguation(self._convert_to_css_fallback(locator_used, tag, text), step)
         
-        # Last resort: generic locator by tag and text with .first()
+        # Last resort: generic locator by tag and text with .first
         if tag and text:
-            return f'page.locator("{tag}").filter(has_text="{self._escape_text(text)}").first()'
+            return f'page.locator("{tag}").filter(has_text="{self._escape_text(text)}").first'
         
         return 'page.locator("body")'  # Fallback
     
     def _add_disambiguation(self, locator: str, step: Dict[str, Any]) -> str:
         """
         Add disambiguation to locator to handle multiple matches.
-        Adds .first() for ambiguous selectors to prevent strict mode violations.
+        Adds .first for ambiguous selectors to prevent strict mode violations.
         
         Args:
             locator: Base Playwright locator
@@ -126,13 +126,13 @@ class LocatorTranslator:
         Returns:
             Locator with disambiguation
         """
-        # Don't add .first() if locator is already specific
+        # Don't add .first if locator is already specific
         specific_patterns = [
             'get_by_test_id',
             'get_by_placeholder',
             'get_by_label',
             '.filter(has=',  # Already filtered
-            '.first()',       # Already has .first()
+            '.first',        # Already has .first
             '.nth(',          # Already has .nth()
             'exact=True'      # Exact match might be specific enough
         ]
@@ -147,8 +147,8 @@ class LocatorTranslator:
         ]
         
         if any(pattern in locator for pattern in ambiguous_patterns):
-            # Add .first() to prevent strict mode violations
-            return f'{locator}.first()'
+            # Add .first to prevent strict mode violations
+            return f'{locator}.first'
         
         return locator
     
