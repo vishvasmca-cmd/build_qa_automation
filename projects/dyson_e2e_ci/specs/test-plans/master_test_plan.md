@@ -2,53 +2,47 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The tests will be executed using Playwright and follow a Behavior-Driven Development (BDD) approach with Gherkin syntax.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website.
 
 ## Scope
 
-The scope of this test plan includes:
-
-*   Smoke testing of core functionality (search, add to cart, checkout).
-*   Regression testing to ensure existing functionality remains intact after changes.
-
-## Test Environment
-
-*   Browser: Chromium, Firefox, and WebKit
-*   Operating System: Windows, macOS, and Linux
-*   Test Framework: Playwright
-*   BDD Framework: Cucumber
+The testing will cover core e-commerce functionalities, including product search, adding to cart, and proceeding to checkout. The tests will be executed against the production environment (https://www.dyson.in/).
 
 ## Test Suites
 
-### Smoke Suite
+This test plan includes two main test suites: Smoke and Regression.
 
-The smoke suite will focus on verifying the most critical paths of the application. If any of these tests fail, the build should be rejected.
+### Smoke Suite Strategy
 
-#### Smoke Suite Strategy
+The Smoke Suite is designed to provide a quick sanity check of the core functionalities. The following checklist has been applied to define the scope of the Smoke Suite:
 
-The following 8-point checklist is applied to define the Smoke Suite:
-
-1.  **Critical Paths:** Tests cover essential user journeys like searching for a product, adding it to the cart, and proceeding to checkout.
-2.  **Core Business Logic:** Focuses on testing the primary revenue-generating flow (product purchase).
-3.  **No Negative Testing:** Only positive scenarios are considered (e.g., successful search, valid product addition).
-4.  **No Complex Edge Cases:** Avoids testing unusual or rare scenarios.
-5.  **Fast Execution:** Tests are designed to run quickly to provide rapid feedback.
-6.  **Minimal Dependencies:** Reduces reliance on external systems or data.
-7.  **High Stability:** Tests are reliable and unlikely to fail due to environmental factors.
-8. **Limited Scope:** Only the bare minimum functionality required for a functional build is tested.
+1.  **Critical Paths:** Includes essential user flows like product search and checkout initiation.
+2.  **Core Business Logic:** Focuses on the primary e-commerce functions.
+3.  **Positive Testing:** Primarily focuses on happy path scenarios.
+4.  **No Negative Testing:** Excludes negative scenarios unless critical for security.
+5.  **No Complex Edge Cases:** Avoids complex or less common scenarios.
+6.  **Limited Scope:** Keeps the number of test cases minimal for fast execution.
+7.  **Independent Tests:** Each test should be independent and not rely on the state of others.
+8.  **High Priority:** Failures in the smoke suite will block the release.
 
 ### Regression Suite
 
-The regression suite will provide comprehensive coverage of the application's functionality, including alternative flows, negative scenarios, and edge cases.
+The Regression Suite will provide comprehensive coverage of all functionalities, including edge cases and negative scenarios. This suite will be executed less frequently than the Smoke Suite.
 
 ## Test Cases
 
-Test cases will be written in Gherkin syntax and stored in feature files. Each feature file will represent a specific feature or functionality of the application.
+Test cases will be written in Gherkin syntax and organized into feature files.
+
+## Test Environment
+
+*   **URL:** https://www.dyson.in/
+*   **Browser:** Chrome (latest version)
+*   **Operating System:** Windows 10/11, macOS
+
+## Test Data
+
+Test data will include valid product names (e.g., Dyson V15 Detect) and user credentials (if applicable).
 
 ## Test Execution
 
-Tests will be executed automatically as part of the CI/CD pipeline. Test results will be reported and analyzed to identify any defects or regressions.
-
-## Test Reporting
-
-Test results will be reported in a clear and concise manner, including the number of tests executed, the number of tests passed, and the number of tests failed. Detailed logs and screenshots will be provided for failed tests to aid in debugging.
+The tests will be executed using a CI/CD pipeline. Test results will be automatically reported.

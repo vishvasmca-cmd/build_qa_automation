@@ -550,3 +550,43 @@
 - ⚠️ PROHIBITED: DON'T assume the target website is always reachable and stable; implement robust error handling and retry mechanisms for navigation.
 
 - ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for external websites, to handle transient network or server issues.
+
+- ⚠️ PROHIBITED: DON'T assume the website is always reachable and stable; implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with a backoff strategy for `page.goto()` calls, especially for critical pages like the homepage. Also, add a timeout to the page.goto() call.
+
+- ⚠️ PROHIBITED: DON'T assume the website is always reachable and stable; implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial page loads, to handle transient network or server issues.
+
+- ⚠️ PROHIBITED: DON'T assume the website will always successfully load on the first `goto` attempt, especially when using HTTP/2.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for page navigation, especially when encountering `net::ERR_HTTP2_PROTOCOL_ERROR` or similar network-related errors.
+
+- ⚠️ PROHIBITED: DON'T assume the website is always reachable or that HTTP/2 will always function correctly; implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial navigation. Also, consider adding a timeout to the `page.goto()` call to prevent indefinite hanging.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable or correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page load.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial navigation. Also, consider adding a timeout to the `page.goto()` call to prevent indefinite hanging.
+
+- ⚠️ PROHIBITED: DON'T assume a website's HTTP/2 configuration is always stable; implement retry mechanisms for page navigation.
+
+- ✅ PREFERRED: DO implement robust error handling for network-related errors during page navigation, including retries with exponential backoff.
+
+- ⚠️ PROHIBITED: DON'T assume the website is always reachable and stable; implement robust error handling for network-related issues during page navigation.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for initial page load failures, especially when dealing with external websites.
+
+- ⚠️ PROHIBITED: DON'T assume the website is always reachable or correctly configured for HTTP/2. Implement robust error handling for page navigation failures.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for initial page load, especially when dealing with external websites. Also, DO add a check for the HTTP status code after navigation to ensure the page loaded successfully.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable and stable; implement robust error handling and retry mechanisms for initial page load.
+
+- ✅ PREFERRED: DO implement a retry mechanism with a backoff strategy for `page.goto()` calls, especially for critical pages like the homepage. Also, add a timeout to the page.goto() call.
+
+- ⚠️ PROHIBITED: DON'T assume the target website (dyson.in) will always reliably support HTTP/2. Implement robust error handling for protocol errors during initial page load.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for initial page load, especially when encountering `net::ERR_HTTP2_PROTOCOL_ERROR`. Consider adding a mechanism to switch to HTTP/1.1 if HTTP/2 consistently fails.
