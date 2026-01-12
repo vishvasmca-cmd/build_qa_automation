@@ -31,7 +31,7 @@ from core.lib.llm_utils import SafeLLM, try_parse_json
 
 # Import agents
 # Import agents
-from core.agents.miner import analyze_page
+from core.agents.miner import analyze_page, extract_all_elements
 from core.knowledge.knowledge_bank import KnowledgeBank
 
 # Import Metrics Logger
@@ -224,14 +224,23 @@ class ExplorerAgent:
                             timeout=120
                         )
                     except asyncio.TimeoutError:
-                        print(colored("⚠️ Vision analysis timed out. Falling back to simple extraction.", "yellow"))
-                        # Basic fallback: dummy mindmap with just title and empty elements
-                        # (Miner already has internal fallbacks, but this keeps explorer moving)
-                        mindmap = {
-                            "summary": {"title": await page.title(), "mission_status": "Vision timed out."},
-                            "elements": [],
-                            "blocking_elements": []
-                        }
+                        print(colored("⚠️ Vision analysis timed out. Falling back to raw DOM extraction.", "yellow"))
+                        try:
+                            # Emergency Raw Extraction
+                            raw_elements = await extract_all_elements(page)
+                            mindmap = {
+                                "summary": {"title": await page.title(), "mission_status": "Vision timed out - Raw Mode"},
+                                "elements": raw_elements,
+                                "blocking_elements": []
+                            }
+                            print(colored(f"   🚑 Recovered {len(raw_elements)} raw elements.", "green"))
+                        except Exception as e:
+                            print(colored(f"   ❌ Raw extraction also failed: {e}", "red"))
+                            mindmap = {
+                                "summary": {"title": "Error", "mission_status": "Fatal Error"},
+                                "elements": [],
+                                "blocking_elements": []
+                            }
                     
                     # Save screenshot for trace
                     page_title = mindmap['summary'].get('title', 'Unknown')

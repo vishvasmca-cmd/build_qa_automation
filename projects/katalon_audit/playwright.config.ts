@@ -8,16 +8,14 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'https://katalon.com/',
     trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-    video: 'on-first-retry',
     viewport: { width: 1280, height: 800 },
+    ignoreHTTPSErrors: true,
   },
   projects: [
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-    },
+    }
   ],
 });

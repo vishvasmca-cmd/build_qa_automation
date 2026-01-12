@@ -1,84 +1,23 @@
 {
-  "HomePage": {
-    "description": "The Katalon homepage aims to introduce users to the Katalon platform and its various testing solutions, encouraging them to explore the products and download the studio.",
-    "url_pattern": "https://katalon.com/",
-    "elements": [
-      {
-        "name": "Katalon Logo",
-        "type": "link",
-        "primary_locator": "//a[@aria-label='Katalon']",
-        "backup_locator": "css=a[aria-label='Katalon']",
-        "description": "Link to return to the homepage."
-      },
-      {
-        "name": "Products Menu",
-        "type": "button",
-        "primary_locator": "//button[contains(text(),'Products')]",
-        "backup_locator": "css=button:contains('Products')",
-        "description": "Dropdown menu for Katalon products."
-      },
-      {
-        "name": "Solutions Menu",
-        "type": "button",
-        "primary_locator": "//button[contains(text(),'Solutions')]",
-        "backup_locator": "css=button:contains('Solutions')",
-        "description": "Dropdown menu for Katalon solutions."
-      },
-      {
-        "name": "Katalon Pricing",
-        "type": "link",
-        "primary_locator": "//a[contains(text(),'Katalon Pricing')]",
-        "backup_locator": "css=a:contains('Katalon Pricing')",
-        "description": "Link to the Katalon pricing page."
-      },
-      {
-        "name": "Resources Menu",
-        "type": "button",
-        "primary_locator": "//button[contains(text(),'Resources')]",
-        "backup_locator": "css=button:contains('Resources')",
-        "description": "Dropdown menu for Katalon resources."
-      },
-      {
-        "name": "View Demo Button",
-        "type": "link",
-        "primary_locator": "//a[contains(text(),'View Demo')]",
-        "backup_locator": "css=a:contains('View Demo')",
-        "description": "Button to view a demo of Katalon."
-      },
-      {
-        "name": "Download Studio Button",
-        "type": "link",
-        "primary_locator": "//a[contains(text(),'Download Studio')]",
-        "backup_locator": "css=a:contains('Download Studio')",
-        "description": "Button to download Katalon Studio."
-      },
-      {
-        "name": "Learn More Button",
-        "type": "link",
-        "primary_locator": "//a[contains(text(),'Learn more')]",
-        "backup_locator": "css=a:contains('Learn more')",
-        "description": "Button to learn more about Katalon Studio."
-      },
-      {
-        "name": "Integrations Button",
-        "type": "link",
-        "primary_locator": "//a[contains(text(),'Integrations')]",
-        "backup_locator": "css=a:contains('Integrations')",
-        "description": "Button to explore Katalon Studio integrations."
-      },
-      {
-        "name": "Accept All Cookies",
-        "type": "button",
-        "primary_locator": "//button[contains(text(),'Accept All Cookies')]",
-        "backup_locator": "css=button:contains('Accept All Cookies')",
-        "description": "Button to accept all cookies."
-      }
-    ],
-    "assertions": [
-      "Verify page title contains 'Katalon'",
-      "Verify the presence of the 'Katalon Studio' header",
-      "Verify the presence of the 'Download Studio' button",
-      "Verify the presence of the 'Learn more' button"
-    ]
-  }
+    "HomePage": {
+        "description": "The Katalon homepage aims to introduce users to the Katalon platform.",
+        "url_pattern": "https://katalon.com/",
+        "elements": [
+            {
+                "name": "products_menu",
+                "primary_locator": "getByRole('button', { name: 'Products' })",
+                "backup_locator": "getByText('Products')",
+                "description": "Dropdown menu for Katalon products."
+            },
+            {
+                "name": "solutions_menu",
+                "primary_locator": "getByRole('button', { name: 'Solutions' })",
+                "backup_locator": "getByText('Solutions')",
+                "description": "Dropdown menu for Katalon solutions."
+            }
+        ],
+        "assertions": [
+            "expect(this.page).toHaveTitle(/.*Katalon.*/i)"
+        ]
+    }
 }
