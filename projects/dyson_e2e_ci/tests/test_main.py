@@ -7,6 +7,7 @@ from playwright.sync_api import Page, Browser, expect
 
 # Import pre-tested helpers
 import sys
+sys.path.append(os.getcwd())
 # Dynamic path discovery: Find root of 'inner-event' and append core path
 current_dir = os.path.dirname(os.path.abspath(__file__))
 # Navigate up to project root (e.g., projects/name/tests/ -> inner-event)
@@ -28,57 +29,76 @@ except ImportError:
     from helpers import take_screenshot
 
 
+async def wait_for_stability(page, timeout=2000):
+    last_content = await page.content()
+    while True:
+        await page.wait_for_timeout(500)
+        current_content = await page.content()
+        if current_content == last_content:
+            break
+        last_content = current_content
+
 class BasePage:
     def __init__(self, page):
         self.page = page
 
-    def navigate(self, url, timeout=60000):
+    def navigate(self, url):
+        self.page.goto(url, timeout=60000)
+        self.page.wait_for_load_state()
+
+    def close_popup(self):
         try:
-            self.page.goto(url, timeout=timeout)
-            self.page.wait_for_load_state("networkidle")
+            self.page.locator('button[aria-label="Close"]', has_text=re.compile("close", re.IGNORECASE)).click()
         except Exception as e:
-            print(f"Navigation to {url} failed: {e}")
-            project_name = os.getenv("PROJECT_NAME")
-            take_screenshot(self.page, "navigation_error", project_name)
-            raise
+            print(f"Popup not found or could not be closed: {e}")
 
-    def close_popup(self, popup_text):
-        try:
-            self.page.get_by_text(popup_text).click()
-        except Exception as e:
-            print(f"Popup closing failed: {e}")
-
-    def wait_for_url(self, url, timeout=60000):
-        self.page.wait_for_url(url, timeout=timeout)
-
-    async def wait_for_stability(self, timeout=3000):
-        await self.page.wait_for_timeout(timeout)
-
+    def search_product(self, product_name):
+        self.page.get_by_placeholder(re.compile("Search products and parts", re.IGNORECASE)).fill(product_name)
+        self.page.locator("button[type='submit']").click()
+        self.page.wait_for_timeout(500)
+        # self.page.wait_for_load_state()
 
 class HomePage:
     def __init__(self, page):
         self.page = page
 
-    def search_product(self, product_name):
-        self.page.get_by_placeholder(re.compile("Search products and parts", re.IGNORECASE)).fill(product_name)
-        self.page.get_by_role("button", name=re.compile("Search products and parts", re.IGNORECASE)).click()
-
-    def click_first_search_result(self, product_name):
-        self.page.get_by_role("link", name=re.compile(product_name, re.IGNORECASE)).first().click()
+    def click_first_search_result(self):
+        # Assuming the first search result is a link or button with the product name
+        # This locator might need adjustment based on the actual HTML structure
+        self.page.locator("div[class*='ProductGrid'] a").first().click()
 
 
-class ProductPage:
+class ProductDetailPage:
     def __init__(self, page):
         self.page = page
 
     def add_to_cart(self):
-        self.page.get_by_role("link", name=re.compile("Add to cart", re.IGNORECASE)).click()
-
-    def go_to_checkout(self):
-        self.page.get_by_role("link", name=re.compile("Checkout", re.IGNORECASE)).click()
+        self.page.get_by_role("button", name=re.compile("Add to cart", re.IGNORECASE)).click()
 
     def verify_add_to_cart_button_visible(self):
-        expect(self.page.get_by_role("link", name=re.compile("Add to cart", re.IGNORECASE))).to_be_visible()
+        expect(self.page.get_by_role("button", name=re.compile("Add to cart", re.IGNORECASE))).to_be_visible()
+
+class CartPage:
+    def __init__(self, page):
+        self.page = page
+
+    def checkout(self):
+        self.page.get_by_role("link", name=re.compile("Checkout", re.IGNORECASE)).click()
+        # self.page.wait_for_load_state()
+
+    def verify_cart_drawer_opens(self):
+        # Assuming there's a specific element that indicates the cart drawer is open
+        # This locator needs to be adjusted based on the actual HTML structure
+        expect(self.page.locator(".cart-drawer")).to_be_visible()
+
+class CheckoutPage:
+    def __init__(self, page):
+        self.page = page
+
+    def verify_checkout_page(self):
+        # Assuming there's a specific element that indicates the checkout page is open
+        # This locator needs to be adjusted based on the actual HTML structure
+        expect(self.page.url).to_contain("/checkout")
 
 
 def test_autonomous_flow(page):
@@ -86,42 +106,48 @@ def test_autonomous_flow(page):
     sys.path.append(os.getcwd())
     try:
         from helpers import take_screenshot
-    except Exception:
+    except ImportError:
         def take_screenshot(page, name, project_name):
-            page.screenshot(path=f"{name}.png")
+            print(f"Screenshot skipped: {name}")
+            pass
 
-    project_name = os.getenv("PROJECT_NAME")
+    project_name = os.getenv('PROJECT_NAME', 'Dyson')
 
     base_page = BasePage(page)
     home_page = HomePage(page)
-    product_page = ProductPage(page)
+    product_detail_page = ProductDetailPage(page)
+    cart_page = CartPage(page)
+    checkout_page = CheckoutPage(page)
 
-    # 1. Handle Popup
+    # 1. Navigate to the Dyson India website
     base_page.navigate("https://www.dyson.in/")
-    base_page.close_popup("X")
+    take_screenshot(page, "home_page", project_name)
 
-    # 2. Search
-    home_page.search_product("Dyson V15 Detect")
-    page.wait_for_url("**/search*", timeout=60000)
-    # Assuming the first search result contains the product name
-    home_page.click_first_search_result("New Launch Dyson Airwrap\u2122 Origin multi-styler and dryer (Nic")
-    page.wait_for_url("**/dyson-airwrap-multi-styler-origin-nickel-copper*", timeout=60000)
+    # 2. Handle the popup
+    base_page.close_popup()
 
-    # 3. PDP Verification
-    product_page.verify_add_to_cart_button_visible()
+    # 3. Search for 'Dyson V15 Detect'
+    base_page.search_product("Dyson V15 Detect")
+    take_screenshot(page, "search_results", project_name)
 
-    # 4. Cart Flow
-    product_page.add_to_cart()
-    page.wait_for_url("**/cart*", timeout=60000)
+    # 4. Click the first product result
+    home_page.click_first_search_result()
+    page.wait_for_url("**/en-IN/products/**")
+    take_screenshot(page, "product_detail_page", project_name)
 
-    # 5. Verification
-    # Attempt to navigate to the cart page directly
-    try:
-        base_page.navigate("https://www.dyson.in/cart")
-    except Exception as e:
-        print(f"Navigation to cart failed: {e}")
-        # If navigation to cart fails, try clicking the checkout button
-        product_page.go_to_checkout()
-        page.wait_for_url("**/checkout*", timeout=60000)
+    # 5. PDP Verification: Verify 'Add to Cart' button is visible
+    product_detail_page.verify_add_to_cart_button_visible()
 
-    base_page.wait_for_url("**/checkout*", timeout=60000)
+    # 6. Cart Flow: Click 'Add to Cart'
+    product_detail_page.add_to_cart()
+    take_screenshot(page, "add_to_cart", project_name)
+
+    # 7. Verify cart drawer opens
+    cart_page.verify_cart_drawer_opens()
+
+    # 8. Click 'Checkout'
+    cart_page.checkout()
+    page.wait_for_url("**/checkout/**")
+
+    # 9. Verification: Ensure we reach the Checkout page
+    checkout_page.verify_checkout_page()

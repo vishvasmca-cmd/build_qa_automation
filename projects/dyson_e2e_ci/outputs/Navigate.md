@@ -6,11 +6,5 @@
 | 1 | HomePage | click | X | ✅ | [View](../snapshots/step_01_HomePage.png) |
 | 2 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_02_HomePage.png) |
 | 3 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_03_HomePage.png) |
-| 4 | DysonIndiaOfficialWebsitePage | click | New Launch Dyson Airwrap™ Orig | ✅ | [View](../snapshots/step_04_HomePage.png) |
-| 5 | ProductsPage | click | Add to cart | ✅ | [View](../snapshots/step_05_DysonAirwrapMultiStylerOriginInNickelCopperDysonInPage.png) |
-| 6 | ProductsPage | navigate | None | ✅ | [View](../snapshots/step_06_ProductsPage.png) |
-| 7 | ProductsPage | navigate | None | ✅ | [View](../snapshots/step_07_ProductsPage.png) |
-| 8 | ProductsPage | click | None | ✅ | [View](../snapshots/step_08_ProductsPage.png) |
-| 9 | ProductsPage | navigate | None | ✅ | [View](../snapshots/step_09_ProductsPage.png) |
-| 10 | ProductsPage | navigate | None | ✅ | [View](../snapshots/step_10_ProductsPage.png) |
-| 11 | ProductsPage | navigate | None | ✅ | [View](../snapshots/step_11_ProductsPage.png) |
+| 4 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_04_HomePage.png) |
+| 5 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_05_HomePage.png) |

@@ -2,102 +2,51 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The tests will ensure the core functionality of the website is working as expected, with a focus on the happy path scenarios for smoke tests and a broader range of scenarios for regression tests.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The goal is to ensure the website functions correctly and provides a seamless user experience.
 
 ## Scope
 
-The scope of this test plan includes:
+The testing will cover core functionalities such as:
 
-*   **Smoke Tests:** Verify critical path functionality, such as searching for a product, adding it to the cart, and proceeding to checkout.
-*   **Regression Tests:** Cover a wider range of scenarios, including alternative flows, negative scenarios, and boundary conditions.
+*   Handling popups
+*   Searching for products
+*   Navigating to the Product Detail Page (PDP)
+*   Adding products to the cart
+*   Initiating the checkout process
 
 ## Test Suites
 
-### Smoke Suite
+This test plan includes two main test suites: Smoke and Regression.
 
-The smoke suite will focus on the most critical functionalities of the Dyson website. The primary goal is to quickly verify the stability of the application after deployment or code changes.
+### Smoke Suite Strategy
 
-#### Smoke Suite Strategy
+The Smoke Suite is designed to quickly verify the stability and core functionality of the Dyson India website. The following 8-point checklist is applied:
 
-The following 8-point checklist has been applied to define the Smoke Suite for this project:
-
-1.  **Critical Paths:** Tests cover essential user journeys like product search and checkout.
-2.  **Core Business Logic:** Focuses on testing the primary revenue-generating flows.
-3.  **Positive Testing:** Primarily includes happy path scenarios.
-4.  **No Negative Testing:** Excludes negative scenarios unless critical for security.
-5.  **No Complex Edge Cases:** Avoids complex or less common scenarios.
-6.  **Fast Execution:** Tests are designed to execute quickly.
-7.  **Independent Tests:** Each test should be independent and not rely on the state of others.
-8.  **High Priority:** Failures in smoke tests indicate critical issues.
-
-#### Smoke Test Cases
-
-1.  **Search and Add to Cart:**
-    *   Verify that a user can search for a product (e.g., Dyson V15 Detect).
-    *   Verify that the user can add the product to the cart.
-    *   Verify that the cart drawer opens after adding the product.
-    *   Verify that the user can navigate to the checkout page.
+1.  **Critical Path Focus:** Tests cover essential user flows like product search and checkout initiation.
+2.  **Positive Testing:** Scenarios primarily focus on successful outcomes (e.g., product added to cart successfully).
+3.  **Minimal Data Variation:** Limited data sets are used, focusing on typical user inputs.
+4.  **Independent Tests:** Tests are designed to be independent and can be run in any order.
+5.  **Fast Execution:** Tests are optimized for speed to provide quick feedback.
+6.  **High Priority:** Any failures in the smoke suite will block the release.
+7.  **Automated Execution:** The smoke suite is fully automated and integrated into the CI/CD pipeline.
+8.  **Environment Stability:** Smoke tests are run in a stable environment.
 
 ### Regression Suite
 
-The regression suite will cover a broader range of scenarios to ensure that new changes have not introduced any regressions in existing functionality.
+The Regression Suite aims to ensure that new changes haven't introduced any regressions in existing functionality. This suite will include more comprehensive test cases, covering edge cases, negative scenarios, and alternative flows.
 
-#### Regression Test Cases
+## Test Cases
 
-1.  **Search Functionality:**
-    *   Search with valid and invalid keywords.
-    *   Verify search suggestions.
-    *   Verify search results page.
-2.  **Product Details Page (PDP):**
-    *   Verify product information (name, price, description).
-    *   Verify product images.
-    *   Verify 'Add to Cart' button functionality.
-    *   Verify product reviews.
-3.  **Cart Functionality:**
-    *   Verify adding products to the cart.
-    *   Verify updating product quantities in the cart.
-    *   Verify removing products from the cart.
-    *   Verify cart total calculation.
-    *   Verify applying discount codes.
-4.  **Checkout Functionality:**
-    *   Verify entering shipping information.
-    *   Verify selecting a shipping method.
-    *   Verify entering billing information.
-    *   Verify payment processing.
-    *   Verify order confirmation page.
-5.  **Account Management:**
-    *   Verify user registration.
-    *   Verify user login and logout.
-    *   Verify updating user profile information.
-    *   Verify password reset.
+Test cases will be written in Gherkin syntax and stored in feature files. The following feature files will be created:
+
+*   `smoke.feature`: Contains smoke test scenarios.
 
 ## Test Environment
 
-*   **Browsers:** Chrome, Firefox, Safari
-*   **Operating Systems:** Windows, macOS, Linux
-*   **Devices:** Desktop, Mobile, Tablet
-
-## Test Data
-
-*   Use a combination of valid and invalid data for testing.
-*   Create test accounts with different roles and permissions.
-*   Use different payment methods for testing the checkout process.
+*   Browser: Chrome (latest version)
+*   Operating System: Windows/macOS/Linux
+*   Test Framework: Playwright
 
 ## Test Execution
 
-*   Execute smoke tests after each build.
-*   Execute regression tests on a regular basis (e.g., nightly or weekly).
-*   Use a test management tool to track test results and defects.
-
-## Defect Management
-
-*   Report defects in a bug tracking system (e.g., Jira).
-*   Provide detailed information about the defect, including steps to reproduce, expected results, and actual results.
-*   Assign defects to the appropriate developers for resolution.
-
-## Metrics
-
-*   **Test Coverage:** Percentage of code covered by tests.
-*   **Test Pass Rate:** Percentage of tests that pass.
-*   **Defect Density:** Number of defects per line of code.
-*   **Defect Resolution Time:** Time taken to resolve defects.
+Tests will be executed automatically as part of the CI/CD pipeline. Test results will be reported in a clear and concise manner.

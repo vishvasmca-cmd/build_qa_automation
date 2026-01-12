@@ -1,12 +1,16 @@
-Feature: Dyson E-commerce Smoke Tests
+Feature: Product Search and Checkout Initiation
+  As a user
+  I want to search for a product and initiate the checkout process
+  So that I can purchase the product
 
-  Scenario: Search for a product and add it to the cart
-    Given User is on the Dyson India homepage
-    When User closes the subscription popup
-    And User searches for "Dyson V15 Detect"
-    And User clicks on the first product result
-    Then User should see the "Add to cart" button
-    When User clicks the "Add to cart" button
-    Then The cart drawer should open
-    And User clicks on the "Checkout" button
-    Then User should be redirected to the checkout page
+  @smoke
+  Scenario: Search for Dyson V15 Detect and initiate checkout
+    Given I am on the Dyson India homepage
+    When I close the subscription popup
+    And I search for "Dyson V15 Detect"
+    And I click on the first product result
+    Then I should see the "Add to Cart" button
+    When I click on the "Add to Cart" button
+    Then the cart drawer should open
+    When I click on the "Checkout" button
+    Then I should be redirected to the checkout page

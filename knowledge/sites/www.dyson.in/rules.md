@@ -346,3 +346,43 @@
 - ⚠️ PROHIBITED: DON'T assume the target website is always available and correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page loads.
 
 - ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial page loads. Also, consider adding a check for the HTTP status code after navigation to ensure the page loaded successfully.
+
+- ⚠️ PROHIBITED: DON'T assume that the target website fully supports HTTP/2 without proper error handling and fallback mechanisms in place.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for `page.goto()` calls, especially when dealing with HTTP/2 connections. Consider adding a fallback to HTTP/1.1 if HTTP/2 consistently fails.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable or correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial page loads. Consider adding a timeout to the `page.goto()` call to prevent indefinite hanging.
+
+- ⚠️ PROHIBITED: DON'T assume the target website's HTTP/2 configuration is stable; implement retry logic with fallback to HTTP/1.1 if possible.
+
+- ✅ PREFERRED: DO implement robust error handling for network-related exceptions during page navigation, including retries and logging of detailed error information.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable or correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial page loads. Also, consider adding a check for network connectivity before attempting navigation.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable or correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial page loads. Also, consider adding a check for network connectivity before attempting navigation.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable or correctly configured for HTTP/2. Implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial navigation. Also, consider adding a check for network connectivity before attempting to navigate.
+
+- ⚠️ PROHIBITED: DON'T assume the target website fully supports HTTP/2 without proper error handling and retries.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for page navigation, especially when dealing with HTTP/2 errors. Also, consider adding a check for network connectivity before navigation.
+
+- ⚠️ PROHIBITED: DON'T assume that the target website (dyson.in) will always reliably support HTTP/2. Be prepared to handle potential protocol negotiation failures.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls, especially when dealing with external websites. Consider adding a mechanism to switch to HTTP/1.1 if HTTP/2 consistently fails.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable and stable; implement robust error handling and retry mechanisms for initial page loads.
+
+- ✅ PREFERRED: DO implement a retry mechanism with a backoff strategy for `page.goto()` calls, especially for critical pages like the homepage. Also, add a timeout to the page.goto() call.
+
+- ⚠️ PROHIBITED: DON'T assume a successful page load without explicitly checking for a key element or status code after navigation, especially when dealing with HTTP/2.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for page navigation, especially for HTTP/2 enabled sites, to handle transient network or server-side issues.
