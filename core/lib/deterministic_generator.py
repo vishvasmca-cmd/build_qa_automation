@@ -469,6 +469,10 @@ class TestBuilder:
         if not locator_name:
             return ''
         
+        # Guard against body fallback for interactive actions
+        if 'page.locator("body")' in str(pom_classes[page_name]['locators'].get(locator_name, {}).get('selector', '')) and action in ['fill', 'click', 'select']:
+            return ''
+        
         # Map action
         value = step.get('value', '')
         if action == 'fill':

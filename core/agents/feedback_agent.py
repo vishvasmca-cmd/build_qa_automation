@@ -125,20 +125,37 @@ A JSON object containing:
             except: pass
 
     def _add_site_rule(self, site_domain, rule):
-        """Appends a rule to the site's rules.md file."""
+        """Appends a unique rule to the site's rules.md file."""
         site_path = os.path.join(self.kb.root, "sites", site_domain)
         rules_file = os.path.join(site_path, "rules.md")
         
         os.makedirs(site_path, exist_ok=True)
         
         # Format the rule as a bullet point if not already
-        if not rule.strip().startswith("-"):
+        rule = rule.strip()
+        if not rule.startswith("-"):
             rule = f"- {rule}"
             
+        # Ignore extremely generic rules that clutter the KB
+        generic_keywords = ["import path", "python path", "parentheses", "syntax error", "import error", "directory structure", "eval()", "module not found"]
+        if any(kw in rule.lower() for kw in generic_keywords):
+            print(f"   🧹 Filtering out generic programming rule: {rule}")
+            return
+
         try:
+            # Check for duplicates
+            existing_rules = []
+            if os.path.exists(rules_file):
+                with open(rules_file, "r", encoding="utf-8") as f:
+                    existing_rules = [line.strip() for line in f if line.strip()]
+            
+            if rule in existing_rules:
+                print(f"   ♻️ Rule already exists, skipping duplicate.")
+                return
+
             with open(rules_file, "a", encoding="utf-8") as f:
                 f.write(f"\n{rule}\n")
-            print(f"   💾 Saved rule to {rules_file}")
+            print(f"   💾 Saved unique rule to {rules_file}")
         except Exception as e:
             print(f"   ⚠️ Failed to save rule: {e}")
 

@@ -347,30 +347,29 @@ class ExplorerAgent:
                     })
                     
                     # Update trace for Refiner
-                    self.trace.append({
-                        "step": step,
-                        "thought": decision['thought'],
-                        "action": decision['action'],
-                        "page_name": page_name,
-                        "locator_used": action_result.get('refined_locator') or action_result.get('locator'),
-                        "value": decision.get('value'),
-                        "url": page.url,
-                        "screenshot": img_name,
-                        # Capturing rich context for composite locators
-                        "element_context":  {
-                            "tag": next((e['tagName'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
-                            "text": next((e['text'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
-                            "role": next((e.get('role', '') for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
-                        }
-                    })
-                    self._save_trace()
-                    
-                    # Passive Collection: Save ALL elements
+                    if action_result.get('success') or decision['action'] in ['navigate', 'done']:
+                        self.trace.append({
+                            "step": step,
+                            "thought": decision['thought'],
+                            "action": decision['action'],
+                            "page_name": page_name,
+                            "locator_used": action_result.get('refined_locator') or action_result.get('locator'),
+                            "value": decision.get('value'),
+                            "url": page.url,
+                            "screenshot": img_name,
+                            "element_context":  {
+                                "tag": next((e['tagName'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
+                                "text": next((e['text'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
+                                "role": next((e.get('role', '') for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
+                            }
+                        })
+                        self._save_trace()
+                        step += 1
+                    else:
+                        print(colored(f"⚠️ Action failed. Retrying in next step...", "yellow"))
+
+                    # Passive Collection: Save ALL elements (always, for future RAG)
                     self._save_all_elements(page.url, step, mindmap['elements'])
-                    
-                    step += 1
-                    if not action_result.get('success'):
-                        print(colored(f"⚠️ Action failed. Retrying...", "yellow"))
 
                 # Save Trace & Documentation
                 self._save_trace()

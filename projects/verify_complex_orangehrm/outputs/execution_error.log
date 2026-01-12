@@ -22,10 +22,10 @@ page = <Page url='https://opensource-demo.orangehrmlive.com/web/index.php/auth/l
         login_page = LoginPage(page)
     
         # Execute test steps
-        # Step 0: The goal is to log in with username 'Admin' and password 'admin123'. The page co
->       login_page.fill_element.fill("Admin")
+        # Step 0: The goal starts with logging in. The current page is the login page. The previou
+>       login_page.username_input.fill("Admin")
 
-projects\verify_complex_orangehrm\tests\test_main.py:46: 
+projects\verify_complex_orangehrm\tests\test_main.py:41: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 ..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:15989: in fill
     self._sync(
@@ -40,8 +40,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-self = <playwright._impl._connection.Connection object at 0x0000021A401CBB90>
-cb = <function Channel.send.<locals>.<lambda> at 0x0000021A4048D800>
+self = <playwright._impl._connection.Connection object at 0x00000159D427BCD0>
+cb = <function Channel.send.<locals>.<lambda> at 0x00000159D4549620>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -60,16 +60,12 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.Error: Locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]
+E           playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
 E           Call log:
-E             - waiting for locator("body")
-E               - locator resolved to <body>�</body>
-E               - fill("Admin")
-E             - attempting fill action
-E               - waiting for element to be visible, enabled and editable
+E             - waiting for locator("input").filter(has_text="Username")
 
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: Error
+..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: TimeoutError
 =========================== short test summary info ===========================
 FAILED projects/verify_complex_orangehrm/tests/test_main.py::test_autonomous_flow[chromium]
-============================== 1 failed in 5.95s ==============================
+============================= 1 failed in 36.53s ==============================
 

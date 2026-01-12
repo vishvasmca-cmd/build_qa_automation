@@ -2,6 +2,5 @@
 
 | Step | Page | Action | Target | Outcome | Screenshot |
 |------|------|--------|--------|---------|------------|
-| 0 | LoginPage | fill | None | ✅ | [View](../snapshots/step_00_LoginPage.png) |
-| 1 | LoginPage | fill | Username | ✅ | [View](../snapshots/step_01_LoginPage.png) |
-| 2 | LoginPage | fill | Password | ✅ | [View](../snapshots/step_02_LoginPage.png) |
+| 0 | LoginPage | fill | Username | ✅ | [View](../snapshots/step_00_LoginPage.png) |
+| 1 | LoginPage | fill | Password | ✅ | [View](../snapshots/step_01_LoginPage.png) |
