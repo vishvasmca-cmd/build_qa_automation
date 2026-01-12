@@ -9,8 +9,7 @@ def browser_type_launch_args(browser_type_launch_args):
             "--disable-blink-features=AutomationControlled",
             "--no-sandbox",
             "--disable-setuid-sandbox",
-            "--disable-infobars",
-            "--disable-http2"
+            "--disable-infobars"
         ]
     }
 

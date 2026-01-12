@@ -2,68 +2,39 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E-commerce website, focusing on end-to-end testing. The goal is to ensure the core functionalities of the website are working as expected.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The plan includes smoke and regression test suites to ensure the quality and stability of the application.
 
 ## Scope
 
-The testing will cover critical user flows, including:
+The testing will cover key functionalities such as:
 
-*   Searching for a product
-*   Adding a product to the cart
-*   Navigating to the checkout page
+*   Homepage interactions (popup handling, search).
+*   Product search and navigation.
+*   Add to cart and checkout processes.
 
 ## Test Suites
 
-This test plan includes two main test suites:
+### Smoke Suite
 
-*   Smoke Suite: A minimal set of tests to verify the system's most critical functions.
-*   Regression Suite: A comprehensive suite of tests to ensure that recent changes have not broken existing functionality.
+The smoke suite will focus on verifying the core functionality of the application. It will be executed after each build to ensure that the critical paths are working as expected. If any of the smoke tests fail, the build will be rejected.
 
-### Smoke Suite Strategy
+#### Smoke Suite Strategy
 
-The Smoke Suite will adhere to the following checklist:
+The following 8-point checklist has been applied to define the smoke suite for this project:
 
-1.  **Critical Paths:** Tests will focus on the most critical paths, such as product search, adding to cart, and checkout initiation.
-2.  **Core Business Logic:** Tests will cover the core business logic related to product selection and cart management.
-3.  **Positive Testing:** Primarily positive testing will be conducted, focusing on successful scenarios.
-4.  **No Negative Testing:** Negative testing will be excluded from the smoke suite.
-5.  **No Complex Edge Cases:** Complex edge cases will be excluded from the smoke suite.
-6.  **Minimal Data Variation:** Data variation will be kept to a minimum, focusing on standard product and user data.
-7.  **Fast Execution:** Tests will be designed for fast execution to provide quick feedback on build stability.
-8.  **Independent Tests:** Tests will be independent of each other to avoid cascading failures.
+1.  **Critical Paths:** Tests cover essential user journeys like searching for a product and initiating the checkout process.
+2.  **Core Business Logic:** Focuses on the primary revenue flow (product discovery and add to cart).
+3.  **No Negative Testing:** Only positive scenarios are included in the smoke suite.
+4.  **No Complex Edge Cases:** Simple, straightforward scenarios are prioritized.
+5.  **Minimal Test Set:** The suite contains only the most vital tests to provide quick feedback.
+6.  **Build Validation:** Failure of any smoke test indicates a critical issue and leads to build rejection.
+7.  **High Frequency Execution:** Smoke tests are run after every build or deployment.
+8.  **Automated Execution:** The smoke suite is fully automated for rapid and reliable execution.
 
-### Regression Suite Strategy
+### Regression Suite
 
-The Regression Suite will include:
-
-*   Alternative Flows
-*   Negative Scenarios
-*   Boundary Analysis
-*   Cross-Module Interactions
-*   Validation Messages
+The regression suite will provide comprehensive test coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite will be executed periodically to ensure that new changes have not introduced any regressions.
 
 ## Test Cases
 
-Test cases will be written in Gherkin syntax and stored in feature files.
-
-## Test Environment
-
-Tests will be executed on the following environment:
-
-*   Browser: Chrome
-*   Operating System: \[Specify OS]
-*   Test Framework: \[Specify Framework]
-
-## Test Data
-
-Test data will be used to simulate different user scenarios and product variations.
-
-## Metrics
-
-The following metrics will be tracked:
-
-*   Number of tests executed
-*   Number of tests passed
-*   Number of tests failed
-*   Test execution time
-
+Test cases will be written in Gherkin syntax and stored in feature files. Each test case will have a clear description, preconditions, steps, and expected results.
