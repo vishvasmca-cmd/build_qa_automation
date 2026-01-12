@@ -41,8 +41,13 @@ class LocatorTranslator:
         """
         # If trace already has a good locator, use it (with disambiguation)
         locator_used = step.get('locator_used', '')
-        if locator_used and self._is_good_locator(locator_used):
-            return self._add_disambiguation(self._clean_locator(locator_used), step)
+        # Try to build from element_context first (Deterministic)
+        element_context = step.get('element_context', {})
+        if element_context and (element_context.get('text') or element_context.get('role') or element_context.get('fragment')):
+             pass # Fall through to context-based generation
+        elif locator_used and self._is_good_locator(locator_used):
+             # Fallback to trace locator if context is missing
+             return self._add_disambiguation(self._clean_locator(locator_used), step)
         
         # Otherwise, build best locator from element_context
         element_context = step.get('element_context', {})
@@ -72,7 +77,7 @@ class LocatorTranslator:
         # Infer role from tag if not provided
         inferred_role = self._infer_role(tag, text)
         if inferred_role and text:
-            base_locator = f'page.get_by_role("{inferred_role}", name="{self._escape_text(text)}")'
+            base_locator = f'page.get_by_role("{inferred_role}", name="{self._escape_text(text)}", exact=True)'
             # Add href filter for links
             if inferred_role == 'link' and href:
                 return f'{base_locator}.filter(has=page.locator(\'[href="{href}"]\'))'
@@ -134,7 +139,6 @@ class LocatorTranslator:
             '.filter(has=',  # Already filtered
             '.first',        # Already has .first
             '.nth(',          # Already has .nth()
-            'exact=True'      # Exact match might be specific enough
         ]
         
         if any(pattern in locator for pattern in specific_patterns):
@@ -472,7 +476,19 @@ class TestBuilder:
         if action == 'fill':
             return f'{var_name}.{locator_name}.fill("{value}")'
         elif action == 'click':
-            return f'{var_name}.{locator_name}.click()'
+            click_code = f'{var_name}.{locator_name}.click()'
+            # Check for new tab handling (same as ActionMapper)
+            tag = step.get('element_context', {}).get('tag', '')
+            if tag == 'a':
+                 return f'''with page.context.expect_page() as new_page_info:
+    {click_code}
+    # Handle potential new tab/window
+    try:
+        new_page = new_page_info.value
+        new_page.close()
+    except Exception:
+        pass'''
+            return click_code
         elif action == 'select':
             return f'{var_name}.{locator_name}.select_option("{value}")'
         
