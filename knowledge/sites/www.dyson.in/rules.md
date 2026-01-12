@@ -670,3 +670,43 @@
 - ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during peak hours or when testing on potentially unstable networks.
 
 - ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, and consider increasing the default timeout or using environment-specific timeouts.
+
+- ⚠️ PROHIBITED: DON'T assume the website will load within the default 30-second timeout, especially during peak hours or when testing from regions with potentially slower network connections.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, and consider increasing the default timeout or using environment-specific timeouts based on network conditions.
+
+- ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during peak hours or when testing from regions with potentially slower network connections.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, and consider increasing the default timeout or using a custom timeout specifically for the 'goto' function.
+
+- ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during peak hours or when testing on slower networks.
+
+- ✅ PREFERRED: DO implement retry mechanisms or increase the timeout for page navigation when dealing with potentially slow-loading websites.
+
+- ⚠️ PROHIBITED: DON'T assume a website will load within the default timeout period, especially during CI/CD runs or when testing on potentially slower networks.
+
+- ✅ PREFERRED: DO implement retry mechanisms or increase the default timeout for page navigation when dealing with potentially slow-loading websites or unreliable network conditions.
+
+- ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during peak hours or when testing on slower networks.
+
+- ✅ PREFERRED: DO implement retry mechanisms with increased timeout periods for page navigation, and consider using network mocking to simulate different network conditions.
+
+- ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during peak hours or when testing from different geographical locations.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, and consider increasing the default timeout or using a custom timeout based on network conditions.
+
+- ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during peak hours or when testing on slower networks.
+
+- ✅ PREFERRED: DO implement retry mechanisms or increase the default timeout for page navigation to handle potential network or server delays.
+
+- ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during peak hours or when testing on slower networks.
+
+- ✅ PREFERRED: DO implement retry mechanisms or increase the timeout for page navigation when dealing with potentially slow-loading websites.
+
+- ⚠️ PROHIBITED: DON'T assume a website will load within the default timeout period, especially during peak hours or when testing on a network with variable latency.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, and consider increasing the default timeout or using environment-specific timeouts for potentially slow-loading pages.
+
+- ⚠️ PROHIBITED: DON'T rely solely on the default timeout for page navigation; it's insufficient for potentially slow-loading websites.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation to handle intermittent network issues or slow server responses.
