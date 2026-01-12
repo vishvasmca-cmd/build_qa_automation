@@ -879,3 +879,7 @@
 - ⚠️ PROHIBITED: DON'T use the `fill` action on button elements or any element that is not an input, textarea, select, or contenteditable element.
 
 - ✅ PREFERRED: DO ensure that the element targeted by the `fill` action is an appropriate input field (e.g., <input>, <textarea>, <select>) before attempting to fill it with text. Verify the element's type and attributes.
+
+- ⚠️ PROHIBITED: DON'T use the `fill` method on elements that are not input fields, textareas, select elements, or elements with the `contenteditable` attribute.
+
+- ✅ PREFERRED: DO use specific locators that target the actual input fields when using the `fill` method. Inspect the HTML to identify the correct input field's ID, name, or other unique attribute.

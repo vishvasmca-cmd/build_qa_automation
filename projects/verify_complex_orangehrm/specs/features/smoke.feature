@@ -1,12 +1,18 @@
-Feature: OrangeHRM - Employee Management
+Feature: OrangeHRM - Smoke Tests
 
-  @smoke
-  Scenario: Login and Add New Employee
+  Scenario: User Login
+    @smoke
     Given I am on the OrangeHRM login page
-    When I log in with username "Admin" and password "admin123"
+    When I enter username "Admin"
+    And I enter password "admin123"
     Then I should be logged in successfully
-    When I navigate to the PIM module
-    And I click on 'Add Employee'
-    And I enter First Name 'Resilience' and Last Name 'Agent'
+
+  Scenario: Add Employee
+    @smoke
+    Given I am logged in as an administrator
+    When I navigate to the 'PIM' section
+    And I click 'Add Employee'
+    And I enter First Name 'Resilience'
+    And I enter Last Name 'Agent'
     And I click 'Save'
     Then I should see the Personal Details page for the new employee
