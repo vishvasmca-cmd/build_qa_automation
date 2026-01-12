@@ -1,7 +1,7 @@
 # Workflow Summary: 1. Handle Popup: Close 'Subscribe' popup. 2. Search: Search for 'Dyson V15 Detect' and click the first product result. 3. PDP Verification: Verify 'Add to Cart' button is visible. 4. Cart Flow: Click 'Add to Cart', verify cart drawer opens, and click 'Checkout'. 5. Verification: Ensure we reach the Checkout page.
 
 **Goal**: 1. Handle Popup: Close 'Subscribe' popup. 2. Search: Search for 'Dyson V15 Detect' and click the first product result. 3. PDP Verification: Verify 'Add to Cart' button is visible. 4. Cart Flow: Click 'Add to Cart', verify cart drawer opens, and click 'Checkout'. 5. Verification: Ensure we reach the Checkout page.
-**Total Steps**: 3
+**Total Steps**: 6
 **Final URL**: https://www.dyson.in/
 
 ## Journey Highlight

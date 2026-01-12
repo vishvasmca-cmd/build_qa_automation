@@ -2,73 +2,66 @@ from playwright.async_api import Page, expect
 
 class HomePage:
     """
-    This is the homepage for Dyson India. The primary purpose is to showcase Dyson products and provide navigation to different product categories and information.
+    The Dyson India homepage is designed to showcase Dyson products, promote deals, and provide navigation to different product categories and support resources.
     URL Pattern: https://www.dyson.in/
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def dyson_logo(self):
-        """Link to the homepage."""
-        return self.page.//a[@aria-label='Homepage'].or_(self.page.css=svg[class*='DysonLogo'])
-
-    @property
     def search_products_and_parts(self):
-        """Button to open the search functionality."""
-        return self.page.css=button[aria-label='Search products and parts'].or_(self.page.text=Search products and parts)
+        """Search input field to find specific products or parts."""
+        return self.page.role=searchbox.or_(self.page.css=input[placeholder='Search products and parts'])
 
     @property
-    def deals(self):
+    def shop_now_button(self):
+        """Button to navigate to the product page of the featured product."""
+        return self.page.text=Shop now.or_(self.page.css=.button.button--green)
+
+    @property
+    def deals_link(self):
         """Link to the deals page."""
-        return self.page.text=Deals.or_(self.page.css=a[href*='/deals'])
+        return self.page.text=Deals.or_(self.page.css=a[href='/deals'])
 
     @property
-    def vacuum_wet_cleaners(self):
+    def vacuum_wet_cleaners_link(self):
         """Link to the vacuum cleaners page."""
-        return self.page.text=Vacuum & wet cleaners.or_(self.page.css=a[href*='/vacuum-cleaners'])
+        return self.page.text=Vacuum & wet cleaners.or_(self.page.css=a[href='/vacuum-cleaners'])
 
     @property
-    def hair_care(self):
+    def hair_care_link(self):
         """Link to the hair care products page."""
-        return self.page.text=Hair care.or_(self.page.css=a[href*='/hair-care'])
+        return self.page.text=Hair care.or_(self.page.css=a[href='/hair-care'])
 
     @property
-    def air_purifier(self):
+    def air_purifier_link(self):
         """Link to the air purifier products page."""
-        return self.page.text=Air purifier.or_(self.page.css=a[href*='/air-purifiers'])
+        return self.page.text=Air purifier.or_(self.page.css=a[href='/air-treatment'])
 
     @property
-    def headphones(self):
+    def headphones_link(self):
         """Link to the headphones products page."""
-        return self.page.text=Headphones.or_(self.page.css=a[href*='/headphones'])
+        return self.page.text=Headphones.or_(self.page.css=a[href='/headphones'])
 
     @property
-    def lighting(self):
+    def lighting_link(self):
         """Link to the lighting products page."""
-        return self.page.text=Lighting.or_(self.page.css=a[href*='/lighting'])
+        return self.page.text=Lighting.or_(self.page.css=a[href='/lighting'])
 
     @property
-    def support(self):
+    def support_link(self):
         """Link to the support page."""
-        return self.page.text=Support.or_(self.page.css=a[href*='/support'])
+        return self.page.text=Support.or_(self.page.css=a[href='/support'])
 
     @property
-    def best_sellers(self):
+    def best_sellers_link(self):
         """Link to the best sellers page."""
-        return self.page.text=Best sellers.or_(self.page.css=a[href*='/best-sellers'])
-
-    @property
-    def shop_now(self):
-        """Button to shop the featured product."""
-        return self.page.text=Shop now.or_(self.page.css=a[class*='Button'])
+        return self.page.text=Best sellers.or_(self.page.css=a[href='/best-sellers'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Title contains 'Dyson India'
-        await Page contains the Dyson logo
-        await Page contains the 'Search products and parts' button
-        await Page contains the 'Deals' link
-        await Page contains the 'Vacuum & wet cleaners' link
-        await Page contains the 'Hair care' link
-        await Page contains the 'Air purifier' link
+        await Verify the page title contains 'Dyson India'
+        await Verify the presence of the Dyson logo
+        await Verify the presence of the 'Search products and parts' search box
+        await Verify the presence of the 'Shop now' button
+        await Verify the presence of the 'Dyson.in exclusive: 24 months no cost EMI' banner
