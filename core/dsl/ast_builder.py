@@ -84,7 +84,7 @@ class ASTBuilder:
         return []
 
     def _create_goto(self, url: str) -> ast.Expr:
-        """page.goto('url')"""
+        """page.goto('url', timeout=60000, wait_until='domcontentloaded')"""
         return ast.Expr(
             value=ast.Call(
                 func=ast.Attribute(
@@ -93,7 +93,10 @@ class ASTBuilder:
                     ctx=ast.Load()
                 ),
                 args=[ast.Constant(value=url)],
-                keywords=[]
+                keywords=[
+                    ast.keyword(arg='timeout', value=ast.Constant(value=60000)),
+                    ast.keyword(arg='wait_until', value=ast.Constant(value='commit'))
+                ]
             )
         )
 

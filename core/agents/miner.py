@@ -181,10 +181,9 @@ async def analyze_page(page: Page, url: str, user_goal=None):
                 "tag": e['tagName'], 
                 "text": e['text'], 
                 "type": e['type'], 
-                "enabled": not e.get('is_disabled', False),
                 "center": e['center']
             } 
-            for e in elements[:100]
+            for e in elements[:100] if not e.get('is_disabled', False)
         ]
     
         prompt = f"""

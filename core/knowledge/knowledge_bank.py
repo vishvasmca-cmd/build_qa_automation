@@ -44,10 +44,15 @@ class KnowledgeBank:
             loc_file = os.path.join(site_path, "locators.json")
             if os.path.exists(loc_file):
                 with open(loc_file, "r") as f:
-                    all_locs = json.load(f)
-                    # Filter out bad locators (stability <= -2 implies repeated failure)
-                    good_locs = {p: [l for l in ls if l.get('stability', 0) > -2] for p, ls in all_locs.items()}
-                    context.append(f"### Proven Locators (Self-Corrected):\n{json.dumps(good_locs, indent=2)}")
+                    try:
+                        all_locs = json.load(f)
+                        # Filter out bad locators (stability <= -2 implies repeated failure)
+                        good_locs = {p: [l for l in ls if l.get('stability', 0) > -2] for p, ls in all_locs.items()}
+                        context.append(f"### Proven Locators (Self-Corrected):\n{json.dumps(good_locs, indent=2)}")
+                    except json.JSONDecodeError as e:
+                        print(f"⚠️ Warning: Corrupted Knowledge File {loc_file}: {e}")
+                    except Exception as e:
+                        print(f"⚠️ Warning: Failed to load Knowledge File {loc_file}: {e}")
 
             # Load Learned Behavioral Rules
             rules_file = os.path.join(site_path, "rules.md")
