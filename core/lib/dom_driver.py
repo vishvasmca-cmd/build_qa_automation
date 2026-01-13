@@ -98,8 +98,10 @@ DOM_EXTRACTION_SCRIPT = """
                             href: node.getAttribute('href') || "",
                             placeholder: node.getAttribute('placeholder') || "",
                             title: node.getAttribute('title') || "",
-                            src: node.getAttribute('src') || ""
+                            src: node.getAttribute('src') || "",
+                            disabled: node.disabled || node.getAttribute('aria-disabled') === 'true'
                         },
+                        is_disabled: node.disabled || node.getAttribute('aria-disabled') === 'true',
                         center: { 
                             x: Math.round(rect.left + rect.width / 2), 
                             y: Math.round(rect.top + rect.height / 2) 

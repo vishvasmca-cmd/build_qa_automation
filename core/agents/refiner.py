@@ -908,7 +908,7 @@ def context(context: BrowserContext):
 
         code = imports + ["", "@pytest.mark.asyncio", "async def test_workflow(page: Page):"]
         code.append(f"    # Workflow: {trace_data.get('workflow', 'Auto-generated')}")
-        code.append(f"    await page.goto('{trace_data.get('target_url')}')")
+        code.append(f"    await page.goto('{trace_data.get('target_url')}', wait_until='domcontentloaded')")
         
         # Instantiate Pages
         for p in used_pages:

@@ -3,20 +3,4 @@
 | Step | Page | Action | Target | Outcome | Screenshot |
 |------|------|--------|--------|---------|------------|
 | 0 | HomePage | click | X | ✅ | [View](../snapshots/step_00_HomePage.png) |
-| 1 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_01_HomePage.png) |
-| 2 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_02_HomePage.png) |
-| 3 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_03_HomePage.png) |
-| 4 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_04_HomePage.png) |
-| 5 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_05_HomePage.png) |
-| 6 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_06_HomePage.png) |
-| 7 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_07_HomePage.png) |
-| 8 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_08_HomePage.png) |
-| 9 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_09_HomePage.png) |
-| 10 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_10_HomePage.png) |
-| 11 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_11_HomePage.png) |
-| 12 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_12_HomePage.png) |
-| 13 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_13_HomePage.png) |
-| 14 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_14_HomePage.png) |
-| 15 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_15_HomePage.png) |
-| 16 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_16_HomePage.png) |
-| 17 | HomePage | fill | Search products and parts | ✅ | [View](../snapshots/step_17_HomePage.png) |
+| 1 | HomePage | click | page.locator("#btn-close-stick | ✅ | [View](../snapshots/step_01_HomePage.png) |

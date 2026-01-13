@@ -67,8 +67,9 @@ Your goal is to complete the user's workflow by deciding the single next best ac
 4. Validate: Did my LAST action work? Note: On SPAs, the URL might not change even if the content does.
 5. Multi-Goal Check: Look at the `goal`. Does it have multiple steps (e.g., '1. Home, 2. Price')? Check off completed steps based on history.
 6. **Login Check**: If I encounter a login page and NO credentials are in `test_data` AND NO credentials are in the `goal`, SKIP login entirely. Instead, explore publicly accessible areas. However, if credentials are provided in either `test_data` or the `goal` description, proceed with login.
-7. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal? 
-8. **STEP TRACKING (CRITICAL)**: You MUST complete the workflow steps IN ORDER. If you land on a page that belongs to a LATER step (e.g., login page but you haven't added to cart yet), you MUST attempt to navigate BACK to the correct page for the EARLIEST unfulfilled step. DO NOT skip ahead just because you are on a convenient page.
+7. **Validation Check**: Check the `enabled` field in the element list. YOU MUST NOT 'click' or 'fill' an element if `enabled` is false.
+8. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal? 
+9. **STEP TRACKING (CRITICAL)**: You MUST complete the workflow steps IN ORDER. If you land on a page that belongs to a LATER step (e.g., login page but you haven't added to cart yet), you MUST attempt to navigate BACK to the correct page for the EARLIEST unfulfilled step. DO NOT skip ahead just because you are on a convenient page.
 
 **OUTPUT SCHEMA (JSON only)**:
 {
@@ -584,6 +585,11 @@ class ExplorerAgent:
 
         if not target_el and action in ['click', 'fill']:
             return {"success": False, "outcome": "Target element ID not found in current DOM"}
+            
+        # Hard Guard: Prevent interaction with disabled elements
+        if target_el and target_el.get('is_disabled'):
+            print(colored(f"🛡️ Guard: Blocked interaction with disabled element {target_id}", "red"))
+            return {"success": False, "outcome": f"Element {target_id} is disabled. You cannot interact with it."}
 
         # We no longer dismiss overlays UNCONDITIONALLY before every action.
         # Instead, we will do it as a "healing" step inside _execute_with_retry if needed.

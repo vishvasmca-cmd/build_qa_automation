@@ -771,6 +771,7 @@
 
 - ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during CI runs or when testing on different network conditions.
 
+<<<<<<< Updated upstream
 - ✅ PREFERRED: DO implement retry mechanisms with increased timeout values or use network mocking to simulate different network conditions and ensure resilience to slow loading times.
 
 - ✅ PREFERRED: DO implement retry mechanisms with increased timeouts or use network mocking to simulate different network conditions and ensure the application handles slow loading times gracefully.
@@ -788,3 +789,48 @@
 - ⚠️ PROHIBITED: DON'T rely on the default timeout for page navigation; it's often insufficient for complex websites or unreliable network conditions.
 
 - ✅ PREFERRED: DO implement explicit waits for critical elements to load after navigation to ensure the page is fully interactive before proceeding with the test.
+=======
+- ⚠️ PROHIBITED: DON'T rely on the default timeout for page load; it may be insufficient for complex or resource-heavy pages.
+
+- ✅ PREFERRED: DO implement explicit waits or increase the default timeout for page navigation when dealing with potentially slow-loading pages or unreliable network conditions.
+>>>>>>> Stashed changes
+
+- ⚠️ PROHIBITED: DON'T commit code with merge conflict markers (e.g., `<<<<<<< Updated upstream`, `=======`, `>>>>>>> branch_name`) still present in the files.
+
+- ✅ PREFERRED: ALWAYS thoroughly review and resolve all merge conflicts before committing code to the repository. Use a diff tool to ensure all changes are intentional and syntactically correct.
+
+- ⚠️ PROHIBITED: DON'T assume the test file path is correct without verifying its existence in the execution environment.
+
+- ✅ PREFERRED: DO verify the test file path and ensure the test file exists in the specified location before running the test suite.
+
+- ✅ PREFERRED: DO verify the test file path and ensure it exists in the execution environment before running the tests.
+
+- ⚠️ PROHIBITED: DON'T rely solely on the default timeout for page navigation; it may be insufficient for websites with slow loading times or unreliable network conditions.
+
+- ✅ PREFERRED: DO implement explicit waits or increase the default timeout for page navigation when testing websites known to have slow loading times or when network conditions are unstable.
+
+- ✅ PREFERRED: DO verify the test file path and ensure the file exists in the specified location before running the test suite.
+
+- ✅ PREFERRED: DO verify the test file path and ensure it is accessible from the test execution environment before running the tests.
+
+- ✅ PREFERRED: DO implement retry mechanisms with increased timeouts or use network mocking to simulate different network conditions.
+
+- ⚠️ PROHIBITED: DON'T assume a website will load within the default timeout period, especially during CI/CD pipelines or when testing on potentially slower networks.
+
+- ⚠️ PROHIBITED: DON'T assume a website will load within the default timeout period; always consider network conditions and server response times.
+
+- ✅ PREFERRED: DO implement retry mechanisms or increase the timeout for page navigation when dealing with potentially slow-loading websites or unreliable network connections.
+
+- ⚠️ PROHIBITED: DON'T rely solely on the default timeout for page navigation; it's often insufficient for complex or resource-heavy pages.
+
+- ✅ PREFERRED: DO implement explicit waits for critical elements to load after navigation to ensure the page is fully interactive before proceeding with further actions.
+
+- ⚠️ PROHIBITED: DON'T assume a website will load within the default timeout; ALWAYS configure the timeout based on historical performance data and network conditions.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, especially for external websites, to handle transient network issues.
+
+- ⚠️ PROHIBITED: DON'T assume that the target website (dyson.in) will always correctly handle HTTP/2 protocol negotiation; implement robust error handling and fallback mechanisms.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls, especially when dealing with external websites, and consider adding a timeout to prevent indefinite hanging.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for `page.goto()` calls, especially when dealing with external websites, to handle transient network or server-side HTTP/2 issues.

@@ -176,7 +176,14 @@ async def analyze_page(page: Page, url: str, user_goal=None):
         start_time = time.time()
         # Filter list to top 100 for token efficiency
         element_summary = [
-            {"id": e['elementId'], "tag": e['tagName'], "text": e['text'], "type": e['type'], "center": e['center']} 
+            {
+                "id": e['elementId'], 
+                "tag": e['tagName'], 
+                "text": e['text'], 
+                "type": e['type'], 
+                "enabled": not e.get('is_disabled', False),
+                "center": e['center']
+            } 
             for e in elements[:100]
         ]
     
