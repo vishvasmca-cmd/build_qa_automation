@@ -834,3 +834,17 @@
 - ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls, especially when dealing with external websites, and consider adding a timeout to prevent indefinite hanging.
 
 - ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for `page.goto()` calls, especially when dealing with external websites, to handle transient network or server-side HTTP/2 issues.
+
+- ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during CI runs or when network conditions might be unstable.
+
+- ⚠️ PROHIBITED: DON'T assume a website will load within the default timeout period, especially during peak hours or when testing on slower networks.
+
+- ⚠️ PROHIBITED: DON'T rely solely on the default 30-second timeout for page navigation; it's insufficient for potentially slow-loading pages.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for page navigation, especially for external websites, to handle intermittent network issues or slow server responses.
+
+- ⚠️ PROHIBITED: DON'T assume a website will load within the default timeout, especially during peak hours or when testing on slower networks.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, and consider increasing the default timeout or using a custom timeout based on the expected page load time.
+
+- ✅ PREFERRED: DO implement retry mechanisms with increased timeouts or conditional waits for critical page elements to appear before proceeding with the test, especially for initial page loads.

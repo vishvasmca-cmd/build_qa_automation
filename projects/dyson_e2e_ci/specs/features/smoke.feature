@@ -1,9 +1,9 @@
-Feature: Smoke Test - Product Search and Checkout
+Feature: Smoke Tests - Dyson E-commerce
 
   @smoke
-  Scenario: Search for a product and navigate to checkout
+  Scenario: Search, Add to Cart, and Checkout
     Given I am on the Dyson India homepage
-    When I handle the 'Subscribe' popup
+    When I close the 'Subscribe' popup
     And I search for 'Dyson V15 Detect'
     And I click the first product result
     Then I should see the 'Add to Cart' button

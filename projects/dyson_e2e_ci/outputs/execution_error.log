@@ -1,35 +1,36 @@
-============================= test session starts =============================
-platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\vishv\AppData\Local\Programs\Python\Python311\python.exe
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.14/x64/bin/python
 cachedir: .pytest_cache
-rootdir: C:\Users\vishv\.gemini\antigravity\playground\inner-event
-plugins: anyio-4.12.0, langsmith-0.5.2, base-url-2.1.0, playwright-0.7.2
+metadata: {'Python': '3.11.14', 'Platform': 'Linux-6.11.0-1018-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'html': '4.1.1', 'base-url': '2.1.0', 'playwright': '0.7.2', 'anyio': '4.12.1', 'metadata': '3.1.1', 'langsmith': '0.6.2'}, 'CI': 'true', 'JAVA_HOME': '/usr/lib/jvm/temurin-17-jdk-amd64', 'Base URL': ''}
+rootdir: /home/runner/work/build_qa_automation/build_qa_automation
+plugins: html-4.1.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1, langsmith-0.6.2
 collecting ... collected 1 item
 
 projects/dyson_e2e_ci/tests/test_main.py::test_generated_task[chromium] FAILED
 
-================================== FAILURES ===================================
-________________________ test_generated_task[chromium] ________________________
+=================================== FAILURES ===================================
+________________________ test_generated_task[chromium] _________________________
 
 page = <Page url='about:blank'>
 
     def test_generated_task(page: Page):
->       page.goto('https://www.dyson.in/', timeout=60000, wait_until='commit')
+>       page.goto('https://www.dyson.in/')
 
-projects\dyson_e2e_ci\tests\test_main.py:5: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\sync_api\_generated.py:9050: in goto
+projects/dyson_e2e_ci/tests/test_main.py:5: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9050: in goto
     self._sync(
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_page.py:552: in goto
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_page.py:552: in goto
     return await self._main_frame.goto(**locals_to_params(locals()))
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_frame.py:153: in goto
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_frame.py:153: in goto
     await self._channel.send(
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:69: in send
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:69: in send
     return await self._connection.wrap_api_call(
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x00000207FBCA0C90>
-cb = <function Channel.send.<locals>.<lambda> at 0x00000207FBC5AB60>
+self = <playwright._impl._connection.Connection object at 0x7f063cba3710>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f063b9e6fc0>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -48,12 +49,14 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+E           playwright._impl._errors.TimeoutError: Page.goto: Timeout 30000ms exceeded.
 E           Call log:
-E             - navigating to "https://www.dyson.in/", waiting until "commit"
+E             - navigating to "https://www.dyson.in/", waiting until "load"
 
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: Error
-=========================== short test summary info ===========================
-FAILED projects/dyson_e2e_ci/tests/test_main.py::test_generated_task[chromium]
-============================== 1 failed in 2.13s ==============================
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
+=========================== short test summary info ============================
+FAILED projects/dyson_e2e_ci/tests/test_main.py::test_generated_task[chromium] - playwright._impl._errors.TimeoutError: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.dyson.in/", waiting until "load"
+============================== 1 failed in 30.65s ==============================
 
