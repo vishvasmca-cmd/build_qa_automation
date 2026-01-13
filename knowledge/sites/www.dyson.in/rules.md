@@ -860,3 +860,5 @@
 - ⚠️ PROHIBITED: DON'T assume the website is fully functional without checking the HTTP response status after navigation.
 
 - ✅ PREFERRED: DO implement error handling and retry mechanisms for page navigation, especially for HTTP/2 related errors.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, especially for initial page load.

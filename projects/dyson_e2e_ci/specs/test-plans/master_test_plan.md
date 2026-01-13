@@ -2,12 +2,13 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The plan includes both smoke and regression test suites to ensure the quality and stability of the application.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The plan includes smoke and regression test suites to ensure the quality and stability of the application.
 
-## Test Scope
+## Scope
 
-The primary focus of the tests is to validate the core functionalities of the Dyson India e-commerce platform, including:
+The testing will cover key functionalities such as:
 
+*   Handling popups
 *   Searching for products
 *   Adding products to the cart
 *   Navigating to the checkout page
@@ -16,45 +17,31 @@ The primary focus of the tests is to validate the core functionalities of the Dy
 
 ### Smoke Suite
 
-The smoke suite is designed to quickly verify the critical functionalities of the application. It includes happy path scenarios and aims to identify major issues early in the development cycle.
+The smoke suite will focus on the core functionalities to ensure the basic health of the application. It will cover happy path scenarios only.
 
 #### Smoke Suite Strategy
 
-The following 8-point checklist has been applied to define the smoke suite for this project:
+The following 8-point checklist has been applied to define the Smoke Suite for this project:
 
-1.  **Critical Paths:** The smoke suite covers the most critical user flows, such as product search, add to cart, and checkout initiation.
-2.  **Core Business Logic:** The tests validate the core business logic related to product availability and cart management.
-3.  **No Negative Testing:** The smoke suite focuses on positive scenarios and does not include negative tests.
-4.  **No Complex Edge Cases:** The tests avoid complex edge cases and focus on the most common user interactions.
-5.  **Fast Execution:** The smoke tests are designed to execute quickly to provide rapid feedback.
-6.  **Independent Tests:** Each smoke test is independent and can be executed in any order.
-7.  **Minimal Dependencies:** The tests have minimal dependencies on external systems or data.
-8.  **Clear Assertions:** The tests include clear assertions to verify the expected outcomes.
+1.  **Critical Paths:** Tests cover essential user journeys like product search and checkout initiation.
+2.  **Core Business Logic:** Focuses on testing the primary flow of adding a product to the cart and proceeding to checkout.
+3.  **Positive Testing:** Only positive scenarios are considered (e.g., valid search, successful add to cart).
+4.  **No Negative Testing:** Negative scenarios like invalid search terms are excluded from the smoke suite.
+5.  **No Complex Edge Cases:** Complex scenarios or boundary conditions are not included.
+6.  **Fast Execution:** Tests are designed to execute quickly to provide rapid feedback.
+7.  **Independent Tests:** Each test is independent and can be run in isolation.
+8.  **Minimal Data Setup:** Data setup is kept to a minimum to reduce test complexity.
 
 ### Regression Suite
 
-The regression suite is a comprehensive set of tests that covers a wide range of scenarios, including alternative flows, negative tests, and edge cases. It ensures that new changes do not introduce regressions in existing functionalities.
+The regression suite will provide a comprehensive test coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
 
 ## Test Environment
 
-*   **Browser:** Chrome (latest version)
-*   **Operating System:** Windows 10/11, macOS
-*   **Test Framework:** Playwright
+*   Browser: Chrome (latest version)
+*   Operating System: Windows 10/macOS
+*   Test Framework: Playwright
 
-## Test Data
+## Test Cases
 
-Test data will be used to simulate various user scenarios and product configurations. This includes:
-
-*   Valid and invalid search queries
-*   Different product types and quantities
-
-## Test Execution
-
-Tests will be executed automatically as part of the CI/CD pipeline. Results will be reported to a central dashboard for analysis and tracking.
-
-## Test Deliverables
-
-*   Test Plan document
-*   Test scripts (Playwright)
-*   Test results reports
-
+Test cases will be written in Gherkin syntax and stored in feature files.
