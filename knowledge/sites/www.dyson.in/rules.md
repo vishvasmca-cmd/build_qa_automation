@@ -856,3 +856,7 @@
 - ✅ PREFERRED: DO verify the test file path and ensure the test file exists in the execution environment before running the tests.
 
 - ✅ PREFERRED: DO verify the test file path and ensure it is accessible in the test execution environment before running the tests.
+
+- ⚠️ PROHIBITED: DON'T assume the website is fully functional without checking the HTTP response status after navigation.
+
+- ✅ PREFERRED: DO implement error handling and retry mechanisms for page navigation, especially for HTTP/2 related errors.

@@ -1,91 +1,76 @@
 {
   "HomePage": {
-    "description": "This is the homepage for Dyson India. The primary purpose is to showcase Dyson products, particularly the 'hushjet Purifier Compact', and provide navigation to different product categories and support resources.",
+    "description": "The Dyson India homepage showcasing products and promotions.",
     "url_pattern": "https://www.dyson.in/",
     "elements": [
       {
         "name": "Dyson Logo",
         "type": "image",
         "primary_locator": "//a[@aria-label='Homepage']",
-        "backup_locator": "img[alt='Dyson']",
-        "description": "Dyson logo that navigates to the homepage."
+        "backup_locator": "css=svg[class*='DysonLogo']",
+        "description": "Dyson logo in the top left corner."
       },
       {
         "name": "Search Products and Parts",
-        "type": "search_box",
-        "primary_locator": "role=searchbox",
-        "backup_locator": "css=input[placeholder='Search products and parts']",
-        "description": "Search input field to find specific products or parts."
+        "type": "search box",
+        "primary_locator": "css=input[placeholder='Search products and parts']",
+        "backup_locator": "css=div[class*='search']",
+        "description": "Search input box to find products and parts."
       },
       {
-        "name": "Shop Now Button",
+        "name": "Shop Now",
         "type": "button",
         "primary_locator": "text=Shop now",
-        "backup_locator": "css=a[href='/en-IN/purifiers/compact']",
-        "description": "Button to navigate to the product page for the featured purifier."
+        "backup_locator": "css=a[class*='Button']",
+        "description": "Button to navigate to the product page."
       },
       {
-        "name": "Deals Link",
-        "type": "link",
-        "primary_locator": "text=Deals",
-        "backup_locator": "css=a[href='/en-IN/offers']",
-        "description": "Link to the deals page."
-      },
-      {
-        "name": "Vacuum & wet cleaners Link",
+        "name": "Vacuum & wet cleaners",
         "type": "link",
         "primary_locator": "text=Vacuum & wet cleaners",
-        "backup_locator": "css=a[href='/en-IN/vacuum-cleaners']",
-        "description": "Link to the vacuum cleaners page."
+        "backup_locator": "css=a[href='/vacuum-cleaners']",
+        "description": "Link to the vacuum cleaners category."
       },
       {
-        "name": "Air purifier Link",
+        "name": "Air purifier",
         "type": "link",
         "primary_locator": "text=Air purifier",
-        "backup_locator": "css=a[href='/en-IN/air-treatment']",
-        "description": "Link to the air purifier page."
+        "backup_locator": "css=a[href='/air-treatment']",
+        "description": "Link to the air purifier category."
       },
       {
-        "name": "Headphones Link",
+        "name": "Headphones",
         "type": "link",
         "primary_locator": "text=Headphones",
-        "backup_locator": "css=a[href='/en-IN/headphones']",
-        "description": "Link to the headphones page."
+        "backup_locator": "css=a[href='/headphones']",
+        "description": "Link to the headphones category."
       },
       {
-        "name": "Lighting Link",
+        "name": "Lighting",
         "type": "link",
         "primary_locator": "text=Lighting",
-        "backup_locator": "css=a[href='/en-IN/lighting']",
-        "description": "Link to the lighting page."
+        "backup_locator": "css=a[href='/lighting']",
+        "description": "Link to the lighting category."
       },
       {
-        "name": "Support Link",
+        "name": "Support",
         "type": "link",
         "primary_locator": "text=Support",
-        "backup_locator": "css=a[href='/en-IN/support']",
+        "backup_locator": "css=a[href='/support']",
         "description": "Link to the support page."
       },
       {
-        "name": "Best sellers Link",
+        "name": "Best sellers",
         "type": "link",
         "primary_locator": "text=Best sellers",
-        "backup_locator": "css=a[href='/en-IN/best-sellers']",
+        "backup_locator": "css=a[href='/best-sellers']",
         "description": "Link to the best sellers page."
-      },
-      {
-        "name": "Close Promotion Modal",
-        "type": "button",
-        "primary_locator": "text=X",
-        "backup_locator": "css=button[aria-label='Close']",
-        "description": "Button to close the promotion modal."
       }
     ],
     "assertions": [
-      "Page title contains 'Dyson'",
-      "The 'hushjet Purifier Compact' section is displayed",
-      "The 'Search products and parts' search box is present",
-      "The 'Shop now' button is present"
+      "Title contains 'Dyson'",
+      "Page contains the text 'Compact. Powerful. Yet quiet.'",
+      "Page contains the text 'Dyson.in exclusive: 24 months no cost EMI'"
     ]
   }
 }

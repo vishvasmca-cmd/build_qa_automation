@@ -14,7 +14,7 @@ ________________________ test_generated_task[chromium] _________________________
 page = <Page url='about:blank'>
 
     def test_generated_task(page: Page):
->       page.goto('https://www.dyson.in/')
+>       page.goto('https://www.dyson.in/', timeout=60000, wait_until='commit')
 
 projects/dyson_e2e_ci/tests/test_main.py:5: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
@@ -29,8 +29,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x0000029E32FF9010>
-cb = <function Channel.send.<locals>.<lambda> at 0x0000029E332CAB60>
+self = <playwright._impl._connection.Connection object at 0x7f97653564d0>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f97657a1760>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -49,12 +49,14 @@ is_internal = False, title = None
             return await cb()
         except Exception as error:
 >           raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E           playwright._impl._errors.TimeoutError: Page.goto: Timeout 30000ms exceeded.
+E           playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
 E           Call log:
-E             - navigating to "https://www.dyson.in/", waiting until "load"
+E             - navigating to "https://www.dyson.in/", waiting until "commit"
 
-..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\playwright\_impl\_connection.py:559: Error
-=========================== short test summary info ===========================
-FAILED projects/dyson_e2e_ci/tests/test_main.py::test_generated_task[chromium]
-============================== 1 failed in 2.39s ==============================
+/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: Error
+=========================== short test summary info ============================
+FAILED projects/dyson_e2e_ci/tests/test_main.py::test_generated_task[chromium] - playwright._impl._errors.Error: Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://www.dyson.in/
+Call log:
+  - navigating to "https://www.dyson.in/", waiting until "commit"
+============================== 1 failed in 0.69s ===============================
 
