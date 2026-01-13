@@ -2,11 +2,3 @@
 
 | Step | Page | Action | Target | Outcome | Screenshot |
 |------|------|--------|--------|---------|------------|
-| 0 | HomePage | click | X | ✅ | [View](../snapshots/step_00_HomePage.png) |
-| 1 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_01_HomePage.png) |
-| 2 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_02_HomePage.png) |
-| 3 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_03_HomePage.png) |
-| 4 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_04_HomePage.png) |
-| 5 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_05_HomePage.png) |
-| 6 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_06_HomePage.png) |
-| 7 | HomePage | click | Search products and parts | ✅ | [View](../snapshots/step_07_HomePage.png) |

@@ -2,7 +2,7 @@
   "run_id": "4f316b17-25b7-44af-8661-52dfc5dbd039",
   "timestamp": 1768270123.1282651,
   "summary": {
-    "total_duration": 4462.419356477737,
+    "total_duration": 5683.717367210388,
     "total_cost": 0.015,
     "status": "running"
   },
@@ -6093,6 +6093,159 @@
         "status": "FAIL",
         "reason": "The agent only clicked on the search bar multiple times. It did not search for the product, add it to the cart, or reach the checkout page. The final URL is the homepage, indicating the test failed to progress beyond the initial steps.",
         "confidence": 1.0
+      }
+    },
+    {
+      "agent": "Orchestrator",
+      "action": "pipeline_start",
+      "end_time": 1768338472.961712,
+      "duration": 0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": {
+          "project_name": "dyson_e2e_ci",
+          "target_url": "https://www.dyson.in/",
+          "workflow_description": "1. Handle Popup: Close 'Subscribe' popup. 2. Search: Search for 'Dyson V15 Detect' and click the first product result. 3. PDP Verification: Verify 'Add to Cart' button is visible. 4. Cart Flow: Click 'Add to Cart', verify cart drawer opens, and click 'Checkout'. 5. Verification: Ensure we reach the Checkout page.",
+          "domain": "e_commerce",
+          "paths": {
+            "test": "projects/dyson_e2e_ci/tests/test_main.py",
+            "report": "projects/dyson_e2e_ci/outputs/report.md"
+          }
+        }
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "init",
+      "end_time": 1768338477.414137,
+      "duration": 0.0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": "projects/dyson_e2e_ci/config.json"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768338479.070099,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768338481.6037757,
+      "duration": 2.0967,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768338481.6470187,
+      "duration": 0.0344,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "action": "click",
+        "target": 33,
+        "locator": null
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768338481.81227,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768339087.4816444,
+      "duration": 605.5397,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "exploration_phase",
+      "end_time": 1768339087.7300634,
+      "duration": 611.3613,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
+    },
+    {
+      "agent": "DeterministicGenerator",
+      "action": "generate_code",
+      "end_time": 1768339089.3130436,
+      "duration": 0.0115,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
+    },
+    {
+      "agent": "Generator",
+      "action": "full_gen_cycle",
+      "end_time": 1768339089.5334628,
+      "duration": 0.9985,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "loops": 1
+      }
+    },
+    {
+      "agent": "DeterministicGenerator",
+      "action": "generate_code",
+      "end_time": 1768339116.8306901,
+      "duration": 0.0071,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
+    },
+    {
+      "agent": "Executor",
+      "action": "execute_test",
+      "end_time": 1768339125.6917107,
+      "duration": 1.2468,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "attempt": 4
+      }
+    },
+    {
+      "agent": "Validator",
+      "action": "validate_goal",
+      "end_time": 1768339129.4639318,
+      "duration": 0.0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "status": "AMBIGUOUS",
+        "reason": "Without knowing the last URL or having any trace of recent actions, it's impossible to determine if the agent successfully navigated through the website, added the product to the cart, and reached the checkout page. The absence of information makes it impossible to validate the goal.",
+        "confidence": 0.01
       }
     }
   ],

@@ -862,3 +862,9 @@
 - ✅ PREFERRED: DO implement error handling and retry mechanisms for page navigation, especially for HTTP/2 related errors.
 
 - ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, especially for initial page load.
+
+- ✅ PREFERRED: DO implement robust error handling for page navigation, including retries with exponential backoff and logging of detailed network information.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for critical pages like the homepage. Also, add a timeout to the `page.goto()` call.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for page navigation, especially when encountering network-related errors like `ERR_HTTP2_PROTOCOL_ERROR`.
