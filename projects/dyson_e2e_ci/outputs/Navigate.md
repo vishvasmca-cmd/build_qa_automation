@@ -3,3 +3,5 @@
 | Step | Page | Action | Target | Outcome | Screenshot |
 |------|------|--------|--------|---------|------------|
 | 0 | HomePage | click | X | ✅ | [View](../snapshots/step_00_HomePage.png) |
+| 1 | HomePage | click | Close | ✅ | [View](../snapshots/step_01_HomePage.png) |
+| 2 | HomePage | click | page.locator("#btn-close-stick | ✅ | [View](../snapshots/step_02_HomePage.png) |

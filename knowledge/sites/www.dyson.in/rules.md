@@ -835,16 +835,24 @@
 
 - ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for `page.goto()` calls, especially when dealing with external websites, to handle transient network or server-side HTTP/2 issues.
 
-- ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during CI runs or when network conditions might be unstable.
+- ⚠️ PROHIBITED: DON'T assume a website will load within the default timeout period; always consider network conditions and server load.
 
-- ⚠️ PROHIBITED: DON'T assume a website will load within the default timeout period, especially during peak hours or when testing on slower networks.
+- ✅ PREFERRED: DO implement retry mechanisms or increase the timeout for page navigation in environments with unreliable network connectivity.
 
-- ⚠️ PROHIBITED: DON'T rely solely on the default 30-second timeout for page navigation; it's insufficient for potentially slow-loading pages.
+- ⚠️ PROHIBITED: DON'T rely solely on the default timeout for page navigation; it might be insufficient for certain environments or pages.
 
-- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for page navigation, especially for external websites, to handle intermittent network issues or slow server responses.
+- ✅ PREFERRED: DO implement retry mechanisms or conditional waits based on page load indicators (e.g., specific element visibility) to handle slow-loading pages gracefully.
 
-- ⚠️ PROHIBITED: DON'T assume a website will load within the default timeout, especially during peak hours or when testing on slower networks.
+- ⚠️ PROHIBITED: DON'T rely on default timeout settings for page navigation; ALWAYS explicitly set a longer timeout if the target website is known to be slow or unreliable.
 
-- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, and consider increasing the default timeout or using a custom timeout based on the expected page load time.
+- ✅ PREFERRED: DO implement retry mechanisms for page navigation, especially for critical pages, to handle transient network issues or server unavailability.
 
-- ✅ PREFERRED: DO implement retry mechanisms with increased timeouts or conditional waits for critical page elements to appear before proceeding with the test, especially for initial page loads.
+- ⚠️ PROHIBITED: DON'T rely on default timeout settings for page navigation; explicitly set a longer timeout if the website is known to be slow or unreliable.
+
+- ✅ PREFERRED: DO implement retry mechanisms or conditional waits for page load events, especially when dealing with external websites that might have variable response times.
+
+- ✅ PREFERRED: DO implement retry mechanisms or increase the timeout for page navigation when encountering TimeoutErrors, and ensure proper network conditions for testing.
+
+- ✅ PREFERRED: DO verify the test file path and ensure the test file exists in the execution environment before running the tests.
+
+- ✅ PREFERRED: DO verify the test file path and ensure it is accessible in the test execution environment before running the tests.
