@@ -1,0 +1,31 @@
+test_name: orangehrm_employee_e2e
+base_url: https://opensource-demo.orangehrmlive.com/
+
+steps:
+  - action: login
+    username: Admin
+    password: admin123
+    expect_redirect: /dashboard
+
+  - action: navigate
+    url: https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList
+
+  - action: click
+    locator: "button:has-text('Add')"
+    wait_for: visible
+
+  - action: fill
+    locator: "[name='firstName']"
+    value: Resilience
+
+  - action: fill
+    locator: "[name='lastName']"
+    value: Agent
+
+  - action: click
+    locator: "button[type='submit']"
+    wait_for: stable
+
+  - action: assert
+    type: url_contains
+    value: viewPersonalDetails

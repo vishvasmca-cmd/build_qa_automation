@@ -31,7 +31,7 @@ class LoginPage:
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await Page title contains 'OrangeHRM'
-        await Login form is displayed
+        await Login header is visible
         await Username input field is present
         await Password input field is present
         await Login button is present

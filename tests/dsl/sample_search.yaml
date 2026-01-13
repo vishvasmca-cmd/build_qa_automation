@@ -1,0 +1,18 @@
+test_name: duckduckgo_search
+base_url: https://duckduckgo.com
+
+steps:
+  - action: navigate
+    url: https://duckduckgo.com
+
+  - action: fill
+    locator: search
+    value: Antigravity Python DSL
+
+  - action: click
+    locator: submit
+    wait_for: visible
+
+  - action: assert
+    type: title_contains
+    value: Antigravity

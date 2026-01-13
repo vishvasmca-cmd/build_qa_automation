@@ -1,45 +1,81 @@
-# Test Plan: verify_complex_orangehrm
+# Test Plan: OrangeHRM Employee Management
 
 ## Introduction
 
-This document outlines the test plan for the verify_complex_orangehrm project. The project focuses on testing the core functionalities of the OrangeHRM application, specifically the login and employee creation processes.
+This test plan outlines the testing strategy for the OrangeHRM employee management functionality, focusing on adding a new employee. The plan includes smoke and regression test suites to ensure the application's stability and functionality.
 
 ## Scope
 
-The testing will cover the following areas:
+The scope of this test plan covers the following functionality:
 
-*   Login functionality
-*   Employee creation functionality
-*   Verification of employee details
+*   Login to OrangeHRM
+*   Navigating to the PIM (Personnel Information Management) module.
+*   Adding a new employee with first name and last name.
+*   Verifying the successful creation of the employee and navigation to the employee's personal details page.
 
-## Test Suites
+## Test Strategy
 
-This test plan includes two main test suites:
+The testing strategy consists of two main suites: Smoke and Regression.
 
-1.  Smoke Suite: A minimal set of tests to verify the core functionalities.
-2.  Regression Suite: A comprehensive suite to ensure that new changes do not break existing functionalities.
+*   **Smoke Suite:**  A quick set of tests to verify the core functionality is working after a build or deployment.
+*   **Regression Suite:** A more comprehensive set of tests to ensure that new changes haven't introduced any regressions in existing functionality.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite is designed to provide a quick and efficient way to verify the stability of the application. The following checklist has been applied to define the scope of the Smoke Suite:
+The Smoke Suite is designed to provide a rapid assessment of the application's health. The following checklist is applied:
 
-1.  **Critical Paths:** The suite covers the most critical paths, such as login and employee creation.
-2.  **Core Business Logic:** The suite focuses on the core business logic related to employee management.
-3.  **Positive Testing:** The suite primarily includes positive testing scenarios.
-4.  **No Negative Testing:** Negative testing is excluded from the smoke suite.
-5.  **No Complex Edge Cases:** Complex edge cases are not included in the smoke suite.
-6.  **Fast Execution:** The tests are designed to execute quickly.
-7.  **High Priority:** Smoke tests are given the highest priority.
-8.  **Build Validation:** Failure of any smoke test will result in build rejection.
+1.  **Critical Path Coverage:**  Covers the most essential user flow (login, add employee).
+2.  **Positive Testing:** Focuses on successful scenarios (e.g., valid credentials, valid data).
+3.  **Minimal Data Variation:** Uses a single set of test data for simplicity.
+4.  **No Error Handling:**  Does not explicitly test error conditions.
+5.  **Fast Execution:**  Designed to run quickly to provide immediate feedback.
+6.  **Build Acceptance:**  Passing smoke tests are a prerequisite for build acceptance.
+7.  **Automated Execution:**  Smoke tests are automated for continuous integration.
+8.  **Limited Scope:**  Focuses solely on core functionality, excluding edge cases.
 
-## Test Cases
+## Test Suites
 
-Detailed test cases for each test suite will be documented separately.
+### 1. Smoke Suite
 
-## Test Environment
+*   **Description:**  Verifies the basic functionality of logging in and adding a new employee.
+*   **Focus:**  Critical path, positive testing.
+*   **Test Cases:**
+    *   Successful login with valid credentials.
+    *   Adding a new employee with valid first name and last name.
+    *   Verifying navigation to the employee's personal details page after creation.
 
-The tests will be executed in a dedicated test environment that mirrors the production environment.
+### 2. Regression Suite
+
+*   **Description:**  Ensures that new changes haven't broken existing functionality related to employee management.
+*   **Focus:**  Alternative flows, negative scenarios, boundary analysis, cross-module interactions, and validation messages.
+*   **Test Cases:**
+    *   Invalid login attempts with incorrect credentials.
+    *   Attempting to add an employee with missing first name.
+    *   Attempting to add an employee with missing last name.
+    *   Verifying error messages for invalid input.
+    *   Checking data persistence after adding an employee.
+    *   Verifying the display of the new employee in the employee list.
 
 ## Test Data
 
-Test data will be created and managed to ensure the validity and reliability of the tests.
+*   Valid Username: Admin
+*   Valid Password: admin123
+*   First Name: Resilience
+*   Last Name: Agent
+
+## Test Environment
+
+*   Browser: Chrome (latest version)
+*   Operating System: Windows 10
+*   Environment:  https://opensource-demo.orangehrmlive.com/
+
+## Entry Criteria
+
+*   The application build is deployed to the test environment.
+*   Test data is prepared.
+
+## Exit Criteria
+
+*   All planned test cases have been executed.
+*   All critical and high-priority defects have been resolved.
+*   Test results are documented.

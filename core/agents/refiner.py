@@ -523,11 +523,23 @@ def generate_code_from_trace(trace_path="explorer_trace.json", output_path="test
     # Try deterministic generator first
     if USE_DETERMINISTIC_GENERATOR:
         try:
-            print(colored("🔧 Using Deterministic Code Generator (Playwright codegen approach)...", "cyan"))
-            from core.lib.deterministic_generator import DeterministicCodeGenerator
+            print(colored("🔧 Using DSL-based Code Generator...", "cyan"))
+            from core.lib.dsl_generator import DSLGenerator
+            from core.dsl.ast_builder import ASTBuilder
+            import ast
             
-            generator = DeterministicCodeGenerator()
-            final_code = generator.generate_from_trace(trace_path)
+            # Load trace
+            with open(trace_path, 'r', encoding='utf-8') as f:
+                trace_data = json.load(f)
+                
+            # 1. Generate DSL
+            dsl_gen = DSLGenerator()
+            dsl_model = dsl_gen.generate_dsl(trace_data, test_name="generated_task")
+            
+            # 2. Compile to Python via AST
+            builder = ASTBuilder()
+            module = builder.build_module(dsl_model)
+            final_code = ast.unparse(module)
             
             # Validate the generated code
             is_valid, syntax_error = validate_python_syntax(final_code)

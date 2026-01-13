@@ -1,0 +1,30 @@
+test_name: complex_form_fill
+base_url: https://practicesoftwaretesting.com/#/contact
+
+steps:
+  - action: fill
+    locator: "[data-test='first-name']"
+    value: Jane
+  
+  - action: fill
+    locator: "[data-test='last-name']"
+    value: Smith
+
+  - action: fill
+    locator: "[data-test='email']"
+    value: jane.smith@example.com
+  
+  - action: select
+    locator: "[data-test='subject']"
+    value: Warranty
+
+  - action: fill
+    locator: "[data-test='message']"
+    value: My product is broken. Please help.
+
+  - action: click
+    locator: "[data-test='contact-submit']"
+  
+  - action: assert
+    type: text_visible
+    value: Thanks for your message

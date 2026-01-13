@@ -1,0 +1,5 @@
+- ✅ PREFERRED: When the 'Add to cart' modal appears, wait for the 'View Cart' or 'Continue Shopping' buttons to be visible before clicking them.
+- ⚠️ PROHIBITED: NEVER click the 'Add to cart' button and immediately try to interact with the next element without allowing the success modal to stabilize.
+- ✅ PREFERRED: Use `page.locator(".overlay-content .add-to-cart").first` for the product 'Add to cart' button as it's more stable than the one on the main card.
+- ✅ PREFERRED: DO use `locator.wait_for()` with a reasonable timeout before attempting to click the 'Add to cart' button, ensuring it's visible and enabled.
+- ✅ PREFERRED: DO implement explicit waits or retry mechanisms when interacting with elements that might not be immediately available, especially after navigation or dynamic content updates.
