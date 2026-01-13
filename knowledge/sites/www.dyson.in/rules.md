@@ -770,3 +770,21 @@
 - ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for page navigation, especially for websites with known performance issues. Also, ALWAYS check network connectivity before running tests.
 
 - ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during CI runs or when testing on different network conditions.
+
+- ✅ PREFERRED: DO implement retry mechanisms with increased timeout values or use network mocking to simulate different network conditions and ensure resilience to slow loading times.
+
+- ✅ PREFERRED: DO implement retry mechanisms with increased timeouts or use network mocking to simulate different network conditions and ensure the application handles slow loading times gracefully.
+
+- ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during peak hours or when testing on environments with potentially slower network connections.
+
+- ✅ PREFERRED: DO implement retry mechanisms with increased timeout values or use a health check endpoint to verify the website's availability before running the full test suite.
+
+- ⚠️ PROHIBITED: DON'T assume a website will load within the default timeout period, especially during CI runs or when testing on different network conditions.
+
+- ⚠️ PROHIBITED: DON'T rely solely on the default 30-second timeout for page navigation, especially for websites known to have occasional performance issues.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, and consider increasing the default timeout or using waitUntil: 'domcontentloaded' if the 'load' event is consistently slow.
+
+- ⚠️ PROHIBITED: DON'T rely on the default timeout for page navigation; it's often insufficient for complex websites or unreliable network conditions.
+
+- ✅ PREFERRED: DO implement explicit waits for critical elements to load after navigation to ensure the page is fully interactive before proceeding with the test.

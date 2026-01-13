@@ -6,21 +6,17 @@ rootdir: /home/runner/work/build_qa_automation/build_qa_automation
 plugins: html-4.1.1, base-url-2.1.0, playwright-0.7.2, anyio-4.12.1, metadata-3.1.1, langsmith-0.6.2
 collecting ... collected 1 item
 
-projects/dyson_e2e_ci/tests/test_main.py::test_autonomous_flow[chromium] FAILED
+projects/dyson_e2e_ci/tests/test_main.py::test_generated_task[chromium] FAILED
 
 =================================== FAILURES ===================================
-________________________ test_autonomous_flow[chromium] ________________________
+________________________ test_generated_task[chromium] _________________________
 
 page = <Page url='about:blank'>
 
-    def test_autonomous_flow(page: Page):
-        """
-        Workflow: 1. Handle Popup: Close 'Subscribe' popup. 2. Search: Search for 'Dyson V15 Detect' and click the first product result. 3. PDP Verification: Verify 'Add to Cart' button is visible. 4. Cart Flow: Click 'Add to Cart', verify cart drawer opens, and click 'Checkout'. 5. Verification: Ensure we reach the Checkout page.
-        """
-        # Navigate to target URL
->       page.goto("https://www.dyson.in/")
+    def test_generated_task(page: Page):
+>       page.goto('https://www.dyson.in/')
 
-projects/dyson_e2e_ci/tests/test_main.py:73: 
+projects/dyson_e2e_ci/tests/test_main.py:5: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/sync_api/_generated.py:9050: in goto
     self._sync(
@@ -33,8 +29,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
     return await self._connection.wrap_api_call(
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <playwright._impl._connection.Connection object at 0x7fbddca02590>
-cb = <function Channel.send.<locals>.<lambda> at 0x7fbddb701b20>
+self = <playwright._impl._connection.Connection object at 0x7f2fffe2aa10>
+cb = <function Channel.send.<locals>.<lambda> at 0x7f2ffec71580>
 is_internal = False, title = None
 
     async def wrap_api_call(
@@ -59,8 +55,8 @@ E             - navigating to "https://www.dyson.in/", waiting until "load"
 
 /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError
 =========================== short test summary info ============================
-FAILED projects/dyson_e2e_ci/tests/test_main.py::test_autonomous_flow[chromium] - playwright._impl._errors.TimeoutError: Page.goto: Timeout 30000ms exceeded.
+FAILED projects/dyson_e2e_ci/tests/test_main.py::test_generated_task[chromium] - playwright._impl._errors.TimeoutError: Page.goto: Timeout 30000ms exceeded.
 Call log:
   - navigating to "https://www.dyson.in/", waiting until "load"
-============================== 1 failed in 30.65s ==============================
+============================== 1 failed in 30.63s ==============================
 
