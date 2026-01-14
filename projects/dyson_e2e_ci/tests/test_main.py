@@ -12,3 +12,7 @@ def test_generated_task(page: Page):
     page.get_by_role('button', name='Search products and parts', exact=True).first.click()
     page.get_by_role('button', name='Search products and parts', exact=True).first.click()
     page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    page.get_by_role('button', name='Search products and parts', exact=True).first.click()

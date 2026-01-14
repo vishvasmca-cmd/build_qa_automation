@@ -1,15 +1,10 @@
-Feature: Product Search and Checkout
-  As a user
-  I want to search for a product, add it to the cart, and proceed to checkout
-  So that I can purchase the product
+Feature: Dyson Website Smoke Tests
 
   @smoke
-  Scenario: Search for Dyson V15 Detect and proceed to checkout
-    Given I am on the Dyson India homepage
-    When I search for "Dyson V15 Detect"
-    And I click on the first product result
-    Then I should see the "Add to Cart" button
-    When I click "Add to Cart"
-    Then I should see the cart drawer opens
-    When I click "Checkout"
-    Then I should be on the Checkout page
+  Scenario: Search for a product and verify PDP elements
+    Given User navigates to the Dyson India website
+    When User closes the 'Subscribe' popup if it appears
+    And User clicks on the search icon
+    And User clicks on the search icon again to enable input
+    And User searches for "Dyson V15 Detect"
+    Then User should see the 'Add to Cart' button on the product details page

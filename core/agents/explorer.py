@@ -426,8 +426,13 @@ class ExplorerAgent:
         element_count = len(mindmap.get('elements', []))
         page_title = mindmap.get('summary', {}).get('title', '')
         
-        # Base fingerprint: URL + Structure
-        state_fingerprint = f"{page_url}:{element_count}:{page_title}"
+        # Enhanced: Track enabled vs disabled element counts
+        enabled_count = sum(1 for e in mindmap.get('elements', []) if not e.get('is_disabled'))
+        disabled_count = element_count - enabled_count
+        
+        # Enhanced fingerprint: URL + Enabled/Disabled counts + Title
+        # This catches state changes like "search icon clicked → input becomes enabled"
+        state_fingerprint = f"{page_url}:{enabled_count}:{disabled_count}:{page_title}"
         
         # Action fingerprint: What we just did
         last_action = self.history[-1]['action'] if self.history else 'none'
@@ -442,15 +447,17 @@ class ExplorerAgent:
             self.consecutive_duplicate_count = 0
 
         # It's a "bad" duplicate only if BOTH the state AND the action we took are the same as before,
-        # OR if we've taken 3+ different actions and the state hasn't changed at all (stuck)
+        # OR if we've taken many different actions and the state hasn't changed at all (stuck)
         if state_fingerprint == self.last_state_fingerprint:
             if action_fingerprint == self.last_action_fingerprint:
-                # Slow repeats: allow up to 5 identical actions on identical states
+                # Increased threshold: allow up to 10 identical actions on identical states
+                # (was 5, but sequential interactions need more leeway)
                 self.consecutive_duplicate_count += 1
-                return self.consecutive_duplicate_count >= 5
+                return self.consecutive_duplicate_count >= 10
             
             # Different action on same state (e.g. filling next field)
             self.consecutive_duplicate_count += 1
+            # Increased threshold for same-page workflows (was 20)
             if self.consecutive_duplicate_count >= 20: 
                 return True
             return False

@@ -900,3 +900,7 @@
 - ⚠️ PROHIBITED: DON'T assume that the target website (dyson.in) will always correctly handle HTTP/2 protocol negotiation; implement retry mechanisms or fallback strategies.
 
 - ✅ PREFERRED: DO implement retry logic with exponential backoff for page navigation, especially when encountering network-related errors like `net::ERR_HTTP2_PROTOCOL_ERROR`.
+
+- ⚠️ PROHIBITED: DON'T assume a website is reachable without proper error handling for network-related exceptions during `page.goto()` calls.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for `page.goto()` calls, especially when dealing with external websites, to handle transient network errors.
