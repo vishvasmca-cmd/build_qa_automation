@@ -374,11 +374,13 @@ class ExplorerAgent:
                         print(colored(f"⚠️ Duplicate state detected (count: {self.consecutive_duplicate_count})", "yellow"))
                         
                         # LEVEL 1: Overlay Dismissal (Standard)
-                        await self._dismiss_overlays(page)
-                        await asyncio.sleep(2)
+                        if self.consecutive_duplicate_count >= 2:
+                            print(colored("   🛡️ Attempting overlay dismissal...", "magenta"))
+                            await self._dismiss_overlays(page)
+                            await asyncio.sleep(2)
                         
-                        # LEVEL 2: Page Refresh (Aggressive)
-                        if self.consecutive_duplicate_count >= 13: # Give it a few tries with overlay dismissal
+                        # LEVEL 2: Page Refresh (Aggressive) - Triggered much earlier per user request
+                        if self.consecutive_duplicate_count >= 5: 
                              print(colored("🔄 STUCK LOOP PERSISTS: Refreshing page...", "magenta", attrs=["bold"]))
                              try:
                                 await page.reload(wait_until="domcontentloaded", timeout=60000)
@@ -387,7 +389,7 @@ class ExplorerAgent:
                                 print(colored(f"   ⚠️ Refresh failed: {e}", "yellow"))
 
                         # LEVEL 3: Hard Navigation (Nuclear)
-                        if self.consecutive_duplicate_count >= 16:
+                        if self.consecutive_duplicate_count >= 8:
                              print(colored("☢️ CRITICAL STUCK: Hard navigation to target URL...", "red", attrs=["bold"]))
                              try:
                                 await page.goto(self.config["target_url"], wait_until="domcontentloaded", timeout=60000)
@@ -396,7 +398,7 @@ class ExplorerAgent:
                         
                         # Re-mine after rescue
                         mindmap = await analyze_page(page, page.url, self.workflow)
-                        if self.is_duplicate_state(page.url, mindmap) and self.consecutive_duplicate_count >= 20:
+                        if self.is_duplicate_state(page.url, mindmap) and self.consecutive_duplicate_count >= 12:
                             print(colored(f"❌ Rescue failed: Duplicate limit reached ({self.consecutive_duplicate_count}). Breaking loop.", "red"), flush=True)
                             break
                         print(colored("🚑 Rescue successful! State changed.", "green"))
@@ -661,15 +663,24 @@ class ExplorerAgent:
         rag_context = self.kb.get_rag_context(page_url, self.workflow)
         self.last_rag_context = rag_context # Store for logging in main loop
         
+        # Determine if we are in a loop to warn the Planner
+        loop_warning = None
+        if hasattr(self, 'consecutive_duplicate_count') and self.consecutive_duplicate_count > 1:
+            loop_warning = f"⚠️ SYSTEM WARNING: You have been on this EXACT page state for {self.consecutive_duplicate_count} steps. Your previous actions are NOT changing the page. Do NOT repeat the same click. Try a different element or a different approach (e.g. scroll or wait)."
+
         context = {
             "goal": self.workflow,
             "page_context": mindmap['summary'],
             "elements": [{"id": e['elementId'], "text": e['text'], "tag": e['tagName'], "disabled": e.get('is_disabled', False)} for e in mindmap['elements'][:500]],
-            "history": self.history[-20:], # Expanded history for long-tail workflows
+            "history": self.history[-20:], # Expanded history
             "test_data": self.test_data,
-            "knowledge_bank": rag_context, # INJECTED: Lessons learned from previous runs
-            "last_action_error": self.last_error # INJECTED: Immediate feedback from last attempt
+            "knowledge_bank": rag_context,
+            "last_action_error": self.last_error,
+            "loop_warning": loop_warning # NEW: Critical feedback to break loops
         }
+        
+        # If we are hitting 429s, we should explicitly try to reduce the prompt size here if needed
+        # but the main fix is preventing the loop in the first place.
         
         prompt = f"Current Mindmap Context:\n{json.dumps(context, indent=2)}"
         
@@ -713,15 +724,14 @@ class ExplorerAgent:
         # OR if we've taken many different actions and the state hasn't changed at all (stuck)
         if state_fingerprint == self.last_state_fingerprint:
             if action_fingerprint == self.last_action_fingerprint:
-                # Increased threshold: allow up to 10 identical actions on identical states
-                # (was 5, but sequential interactions need more leeway)
+                # Same action on same state - very likely stuck.
                 self.consecutive_duplicate_count += 1
-                return self.consecutive_duplicate_count >= 10
+                return self.consecutive_duplicate_count >= 4
             
             # Different action on same state (e.g. filling next field)
             self.consecutive_duplicate_count += 1
-            # Increased threshold for same-page workflows (was 20)
-            if self.consecutive_duplicate_count >= 20: 
+            # Lowered threshold to trigger rescue faster (was 20)
+            if self.consecutive_duplicate_count >= 8: 
                 return True
             return False
         else:
