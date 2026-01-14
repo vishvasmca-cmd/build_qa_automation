@@ -917,3 +917,7 @@
 - ⚠️ PROHIBITED: DON'T assume that HTTP/2 protocol is stable; implement retry logic with fallback to HTTP/1.1 if HTTP/2 fails during initial page load.
 
 - ✅ PREFERRED: DO implement robust error handling for network-related errors during page navigation, including retries and logging of detailed error information.
+
+- ⚠️ PROHIBITED: DON'T assume that the target website's HTTP/2 configuration is always stable and compatible with Playwright's default settings.
+
+- ✅ PREFERRED: DO implement robust error handling and retry mechanisms for initial page navigation, especially when dealing with HTTP/2.

@@ -260,9 +260,54 @@ class ExplorerAgent:
                     print(colored(f"🔍 URL: {page.url}", "grey"), flush=True)
                     
                     # Check for duplicate states (infinite loop prevention)
-                    if self.is_duplicate_state(page.url, mindmap):
-                        print(colored(f"⚠️ Duplicate state detected (Count: {self.consecutive_duplicate_count}). Attempting rescue...", "yellow"))
-                        print(f"   Fingerprint: {self.last_state_fingerprint}")
+                    is_dup_state = self.is_duplicate_state(page.url, mindmap)
+                    
+                    # Trigger Self-Learning on recurrent duplicates (Check counter directly)
+                    if self.consecutive_duplicate_count == 5:
+                         current_step_meta = self._get_current_step_metadata(mindmap, page.url)
+                         if current_step_meta and current_step_meta['self_learning_enabled']:
+                             step_num = current_step_meta['step_num']
+                             if step_num not in self.step_learnings: self.step_learnings[step_num] = []
+                             
+                             print(colored(f"🧠 DUP STATE DETECTED: Triggering Self-Learning for Step {step_num}", "magenta", attrs=["bold"]))
+                             
+                             # Analyze failure
+                             analysis = await self._analyze_failure_with_llm(
+                                 current_step_meta,
+                                 self.history[-5:],
+                                 mindmap,
+                                 self.step_learnings[step_num]
+                             )
+                             
+                             self.step_learnings[step_num].append({
+                                 "attempt": len(self.step_learnings[step_num]) + 1,
+                                 "diagnosis": "Stuck in Duplicate State: " + analysis.get('diagnosis', 'State not changing'),
+                                 "suggestion": analysis.get('suggestion'),
+                                 "timestamp": time.time()
+                             })
+                             
+                             # Enhanced Decision
+                             await asyncio.sleep(2)
+                             mindmap = await analyze_page(page, page.url, self.workflow)
+                             enhanced_decision = await self._make_decision_with_learning(
+                                 mindmap, page.url, current_step_meta, self.step_learnings[step_num]
+                             )
+                             
+                             if enhanced_decision:
+                                 print(colored(f"🚑 Breaking duplicate state with enhanced decision: {enhanced_decision['action']}", "green"))
+                                 action_result = await self._execute_action(page, enhanced_decision, mindmap['elements'])
+                                 self.history.append({
+                                     "step": step,
+                                     "thought": enhanced_decision['thought'] + " [Dup Break]",
+                                     "action": enhanced_decision['action'],
+                                     "target_text": enhanced_decision.get('target_id'),
+                                     "success": action_result.get('success')
+                                     
+                                 })
+                                 step += 1
+                                 continue
+
+                    if is_dup_state:
                         await self._dismiss_overlays(page)
                         await asyncio.sleep(2)
                         # Re-mine after rescue
@@ -273,8 +318,54 @@ class ExplorerAgent:
                         print(colored("🚑 Rescue successful! State changed.", "green"))
                     
                     # Check for stuck loops (circular navigation)
+                    # Check for stuck loops (circular navigation)
                     if self.detect_stuck_loop():
-                        print(colored("⚠️ Stuck in repetitive pattern. Breaking out.", "yellow"))
+                        print(colored("⚠️ Stuck in repetitive pattern.", "yellow"))
+                        
+                        # Try Self-Learning Reuse
+                        current_step_meta = self._get_current_step_metadata(mindmap, page.url)
+                        if current_step_meta and current_step_meta['self_learning_enabled']:
+                            step_num = current_step_meta['step_num']
+                            if step_num not in self.step_learnings: self.step_learnings[step_num] = []
+                            
+                            if len(self.step_learnings[step_num]) < 5:
+                                print(colored(f"🧠 LOOP DETECTED: Triggering Self-Learning for Step {step_num}", "magenta", attrs=["bold"]))
+                                
+                                # Analyze failure (Loop is a failure)
+                                analysis = await self._analyze_failure_with_llm(
+                                    current_step_meta,
+                                    self.history[-10:],
+                                    mindmap,
+                                    self.step_learnings[step_num]
+                                )
+                                
+                                self.step_learnings[step_num].append({
+                                    "attempt": len(self.step_learnings[step_num]) + 1,
+                                    "diagnosis": "Stuck in Loop: " + analysis.get('diagnosis', 'Repetitive Actions'),
+                                    "suggestion": analysis.get('suggestion'),
+                                    "timestamp": time.time()
+                                })
+                                
+                                # Enhanced Decision
+                                enhanced_decision = await self._make_decision_with_learning(
+                                    mindmap, page.url, current_step_meta, self.step_learnings[step_num]
+                                )
+                                
+                                if enhanced_decision:
+                                    print(colored(f"🚑 Breaking loop with enhanced decision: {enhanced_decision['action']}", "green"))
+                                    # Execute immediately
+                                    action_result = await self._execute_action(page, enhanced_decision, mindmap['elements'])
+                                    self.history.append({
+                                        "step": step,
+                                        "thought": enhanced_decision['thought'] + " [Loop Break]",
+                                        "action": enhanced_decision['action'],
+                                        "target_text": enhanced_decision.get('target_id'),
+                                        "success": action_result.get('success')
+                                    })
+                                    step += 1
+                                    continue
+                        
+                        print(colored("❌ Loop break failed or limit reached. Exiting.", "red"))
                         break
                     
                     # 2. PLAN (Decider)
@@ -558,6 +649,25 @@ class ExplorerAgent:
             
         return False
     
+    def detect_stuck_loop(self):
+        """
+        Detects if the agent is performing the exact same action sequence repeatedly.
+        """
+        if len(self.history) < self.loop_detection_window * 2:
+            return False
+            
+        # Get last N actions
+        recent = [f"{h['action']}:{h.get('target_text','')}[:10]" for h in self.history[-self.loop_detection_window:]]
+        previous = [f"{h['action']}:{h.get('target_text','')}[:10]" for h in self.history[-self.loop_detection_window*2:-self.loop_detection_window]]
+        
+        # If the sequence of last N actions identifies with the previous N actions
+        if recent == previous:
+            # Allow some repetition if we are in a self-learning loop (check if diagnosisfound)
+            if any("Self-Learning" in str(h.get('thought', '')) for h in self.history[-self.loop_detection_window:]):
+                return False
+            return True
+        return False
+
     def _get_page_name(self, url, title):
         """
         Heuristically determines a valid class name for the current page.
@@ -600,25 +710,6 @@ class ExplorerAgent:
         except:
             return False
 
-    def detect_stuck_loop(self):
-        """Detect if Explorer is stuck in a repetitive pattern."""
-        if len(self.history) < self.loop_detection_window:
-            return False
-        
-        recent_steps = self.history[-self.loop_detection_window:]
-        # Include target text AND target_id to distinguish different actions on the same page
-        action_signatures = [f"{h['action']}:{h.get('target_text', '')}:{h.get('target_id')}:{h['url']}" for h in recent_steps]
-        
-        # Pattern 1: All identical actions = stuck
-        if len(set(action_signatures)) == 1:
-            print(colored("🔁 Detected stuck loop: identical actions", "yellow"))
-            return True
-        
-        # Pattern 2: Circular A->B->A pattern
-        if len(action_signatures) >= 3:
-            if action_signatures[0] == action_signatures[2]:
-                print(colored("🔁 Detected circular navigation pattern", "yellow"))
-        return False
 
     async def _dismiss_overlays(self, page):
         """Aggressively dismisses modals, overlays, cookie banners, popups, and consent dialogs, including shadow DOMs."""
