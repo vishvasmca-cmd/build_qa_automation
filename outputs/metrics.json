@@ -2,7 +2,7 @@
   "run_id": "4f316b17-25b7-44af-8661-52dfc5dbd039",
   "timestamp": 1768270123.1282651,
   "summary": {
-    "total_duration": 7030.510479530359,
+    "total_duration": 7198.895766927747,
     "total_cost": 0.030000000000000002,
     "status": "running"
   },
@@ -11308,6 +11308,730 @@
       "metadata": {
         "status": "FAIL",
         "reason": "The final URL is the homepage (https://www.dyson.in/). The recent actions show the agent clicked the 'X' button (presumably to close the popup) and then clicked the search bar. However, the goal requires searching for 'Dyson V15 Detect', clicking the first product, adding it to the cart, and reaching the checkout page. Since the final URL is the homepage, the agent failed to complete the search, product selection, add to cart, and checkout steps.",
+        "confidence": 1.0
+      }
+    },
+    {
+      "agent": "Orchestrator",
+      "action": "pipeline_start",
+      "end_time": 1768357632.7672539,
+      "duration": 0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": {
+          "project_name": "dyson_e2e_ci",
+          "target_url": "https://www.dyson.in/",
+          "workflow_description": "1. Handle Popup: Close 'Subscribe' popup. 2. Search: Search for 'Dyson V15 Detect' and click the first product result. 3. PDP Verification: Verify 'Add to Cart' button is visible. 4. Cart Flow: Click 'Add to Cart', verify cart drawer opens, and click 'Checkout'. 5. Verification: Ensure we reach the Checkout page.",
+          "domain": "e_commerce",
+          "paths": {
+            "test": "projects/dyson_e2e_ci/tests/test_main.py",
+            "report": "projects/dyson_e2e_ci/outputs/report.md"
+          }
+        }
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "init",
+      "end_time": 1768357636.6794639,
+      "duration": 0.0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": "projects/dyson_e2e_ci/config.json"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357638.1412926,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357640.3658583,
+      "duration": 1.955,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357640.4156487,
+      "duration": 0.0352,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "action": "click",
+        "target": 33,
+        "locator": null
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357640.8761215,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357644.6456664,
+      "duration": 3.6196,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357644.8456533,
+      "duration": 0.181,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 0,
+        "action": "click",
+        "target": 5,
+        "locator": "[data-agent-id='5']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357645.1467466,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357649.750769,
+      "duration": 4.4293,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 1,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357649.8619585,
+      "duration": 0.0949,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 1,
+        "action": "click",
+        "target": 20,
+        "locator": "[data-agent-id='20']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357650.0746894,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357654.7699077,
+      "duration": 4.5527,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357654.7848003,
+      "duration": 0.0,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "action": "fill",
+        "target": 19,
+        "locator": null
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357655.0418067,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357659.6581233,
+      "duration": 4.4693,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357659.672172,
+      "duration": 0.0,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "action": "fill",
+        "target": 19,
+        "locator": null
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357659.8590472,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357664.5656128,
+      "duration": 4.5162,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357664.6852806,
+      "duration": 0.0943,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 2,
+        "action": "click",
+        "target": 20,
+        "locator": "[data-agent-id='20']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357664.9919696,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357669.6656797,
+      "duration": 4.4498,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357669.684003,
+      "duration": 0.0,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "action": "fill",
+        "target": 19,
+        "locator": null
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357669.9589999,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357674.6232457,
+      "duration": 4.5406,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357674.7327454,
+      "duration": 0.0929,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 3,
+        "action": "click",
+        "target": 20,
+        "locator": "[data-agent-id='20']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357674.9258494,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357679.691891,
+      "duration": 4.6539,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357679.7068596,
+      "duration": 0.0,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "action": "fill",
+        "target": 19,
+        "locator": null
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357679.974745,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357688.4031892,
+      "duration": 8.2611,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357688.5253415,
+      "duration": 0.1068,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 4,
+        "action": "click",
+        "target": 20,
+        "locator": "[data-agent-id='20']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357688.7568884,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357696.5926826,
+      "duration": 7.6856,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 5,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357696.7005992,
+      "duration": 0.0914,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 5,
+        "action": "click",
+        "target": 20,
+        "locator": "[data-agent-id='20']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357696.9731836,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357698.4546,
+      "duration": 1.3651,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 6,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357698.4705052,
+      "duration": 0.0,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "step": 6,
+        "action": "fill",
+        "target": 19,
+        "locator": null
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357698.7095995,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357703.5058813,
+      "duration": 4.6331,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 6,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357703.6207833,
+      "duration": 0.097,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 6,
+        "action": "click",
+        "target": 20,
+        "locator": "[data-agent-id='20']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357703.9058533,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357708.3109982,
+      "duration": 4.2703,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 7,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357708.4232228,
+      "duration": 0.0967,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 7,
+        "action": "click",
+        "target": 20,
+        "locator": "[data-agent-id='20']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357708.6404812,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357713.3287818,
+      "duration": 4.4684,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 8,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357713.4343095,
+      "duration": 0.0852,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 8,
+        "action": "click",
+        "target": 20,
+        "locator": "[data-agent-id='20']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357713.7389467,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357718.3053377,
+      "duration": 4.4416,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 9,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357718.4155848,
+      "duration": 0.0949,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 9,
+        "action": "click",
+        "target": 20,
+        "locator": "[data-agent-id='20']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357718.6716447,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "make_decision",
+      "end_time": 1768357723.2001233,
+      "duration": 4.4138,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 10,
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "execute_action",
+      "end_time": 1768357723.2986774,
+      "duration": 0.0821,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "step": 10,
+        "action": "click",
+        "target": 20,
+        "locator": "[data-agent-id='20']"
+      }
+    },
+    {
+      "agent": "Miner",
+      "action": "analyze_page_cache_hit",
+      "end_time": 1768357723.6055238,
+      "duration": 0.001,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "url": "https://www.dyson.in/"
+      }
+    },
+    {
+      "agent": "Explorer",
+      "action": "exploration_phase",
+      "end_time": 1768357723.9537668,
+      "duration": 88.376,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
+    },
+    {
+      "agent": "DeterministicGenerator",
+      "action": "generate_code",
+      "end_time": 1768357733.7624528,
+      "duration": 0.0139,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {}
+    },
+    {
+      "agent": "Generator",
+      "action": "full_gen_cycle",
+      "end_time": 1768357733.9097242,
+      "duration": 0.9699,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "loops": 1
+      }
+    },
+    {
+      "agent": "Executor",
+      "action": "execute_test",
+      "end_time": 1768357749.5882423,
+      "duration": 1.1295,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "attempt": 2
+      }
+    },
+    {
+      "agent": "Validator",
+      "action": "validate_goal",
+      "end_time": 1768357752.0213585,
+      "duration": 0.0,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "status": "FAIL",
+        "reason": "The final URL is the homepage (https://www.dyson.in/). The recent actions show the agent repeatedly clicking on the search bar. This indicates the agent got stuck trying to search for the product and never reached the checkout page. Therefore, the goal was not achieved.",
         "confidence": 1.0
       }
     }

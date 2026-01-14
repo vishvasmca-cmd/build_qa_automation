@@ -2,7 +2,7 @@ from playwright.async_api import Page, expect
 
 class HomePage:
     """
-    The Dyson India homepage showcasing products and promotions.
+    This is the homepage for Dyson India. The primary purpose is to showcase Dyson products and provide navigation to different product categories and information.
     URL Pattern: https://www.dyson.in/
     """
     def __init__(self, page: Page):
@@ -10,63 +10,56 @@ class HomePage:
 
     @property
     def dyson_logo(self):
-        """Dyson logo that navigates to the homepage."""
-        return self.page.//a[@aria-label='Homepage'].or_(self.page.img[alt='Dyson'])
+        """Link to the homepage."""
+        return self.page.//a[@aria-label='Homepage'].or_(self.page.css=a[aria-label='Homepage'])
 
     @property
     def search_products_and_parts(self):
-        """Search input field to find products and parts."""
-        return self.page.input[placeholder='Search products and parts'].or_(self.page.input#search-input)
+        """Button to open the search functionality."""
+        return self.page.xpath=//button[@aria-label='Search products and parts'].or_(self.page.css=button[aria-label='Search products and parts'])
 
     @property
-    def shop_now_button(self):
+    def shop_now(self):
         """Button to navigate to the product page."""
-        return self.page.//a[text()='Shop now'].or_(self.page.a[href='/en-IN/purifiers/compact'])
+        return self.page.xpath=//a[contains(text(),'Shop now')].or_(self.page.text=Shop now)
 
     @property
-    def deals_link(self):
+    def deals(self):
         """Link to the deals page."""
-        return self.page.//a[text()='Deals'].or_(self.page.a[href='/en-IN/offers'])
+        return self.page.text=Deals.or_(self.page.css=a[href='/deals'])
 
     @property
-    def vacuum_wet_cleaners_link(self):
+    def vacuum_wet_cleaners(self):
         """Link to the vacuum cleaners page."""
-        return self.page.//a[text()='Vacuum & wet cleaners'].or_(self.page.a[href='/en-IN/vacuum-cleaners'])
+        return self.page.text=Vacuum & wet cleaners.or_(self.page.css=a[href='/vacuum-cleaners'])
 
     @property
-    def hair_care_link(self):
-        """Link to the hair care page."""
-        return self.page.//a[text()='Hair care'].or_(self.page.a[href='/en-IN/hair-care'])
+    def air_purifier(self):
+        """Link to the air purifiers page."""
+        return self.page.text=Air purifier.or_(self.page.css=a[href='/air-purifiers'])
 
     @property
-    def air_purifier_link(self):
-        """Link to the air purifier page."""
-        return self.page.//a[text()='Air purifier'].or_(self.page.a[href='/en-IN/air-treatment'])
-
-    @property
-    def headphones_link(self):
+    def headphones(self):
         """Link to the headphones page."""
-        return self.page.//a[text()='Headphones'].or_(self.page.a[href='/en-IN/headphones'])
+        return self.page.text=Headphones.or_(self.page.css=a[href='/headphones'])
 
     @property
-    def lighting_link(self):
+    def lighting(self):
         """Link to the lighting page."""
-        return self.page.//a[text()='Lighting'].or_(self.page.a[href='/en-IN/lighting'])
+        return self.page.text=Lighting.or_(self.page.css=a[href='/lighting'])
 
     @property
-    def support_link(self):
+    def support(self):
         """Link to the support page."""
-        return self.page.//a[text()='Support'].or_(self.page.a[href='/en-IN/support'])
+        return self.page.text=Support.or_(self.page.css=a[href='/support'])
 
     @property
-    def best_sellers_link(self):
+    def best_sellers(self):
         """Link to the best sellers page."""
-        return self.page.//a[text()='Best sellers'].or_(self.page.a[href='/en-IN/best-sellers'])
+        return self.page.text=Best sellers.or_(self.page.css=a[href='/best-sellers'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Page title contains 'Dyson'
-        await The Dyson logo is visible
-        await The search input field is present
-        await The 'Shop now' button is visible
-        await The 'Dyson.in exclusive: 24 months no cost EMI' text is visible
+        await Title: Dyson India | Official Website
+        await Header: Compact. Powerful. Yet quiet.
+        await Element 'Shop Now' is visible

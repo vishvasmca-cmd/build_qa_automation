@@ -893,3 +893,5 @@
 - ⚠️ PROHIBITED: DON'T assume a website fully supports HTTP/2 without proper error handling and fallback mechanisms in your Playwright tests.
 
 - ✅ PREFERRED: DO implement robust error handling for network-related errors like `net::ERR_HTTP2_PROTOCOL_ERROR` when navigating to a page, including retries or alternative navigation strategies.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for critical pages like the homepage.
