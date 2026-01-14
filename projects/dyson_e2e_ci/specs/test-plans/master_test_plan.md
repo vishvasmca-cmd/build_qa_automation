@@ -2,83 +2,54 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The tests will be automated and integrated into a Continuous Integration (CI) pipeline to ensure the quality and stability of the application.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The plan includes both smoke and regression test suites to ensure the quality and stability of the application.
 
 ## Scope
 
-The scope of this test plan includes:
+The scope of this test plan covers the core functionality of the Dyson India website, including:
 
-*   Smoke tests to verify core functionality.
-*   Regression tests to ensure existing functionality remains intact after changes.
-
-## Test Strategy
-
-We will employ a two-pronged testing strategy:
-
-1.  **Smoke Testing:** A quick and efficient way to validate the most critical functionalities of the application.
-2.  **Regression Testing:** A more comprehensive approach to ensure that new changes do not negatively impact existing features.
-
-### Smoke Suite Strategy
-
-The following checklist has been applied to define the Smoke Suite for this project:
-
-1.  **Critical Paths:** Focus on the most essential user journeys (e.g., search, add to cart, checkout).
-2.  **Core Business Logic:** Verify the fundamental business rules are functioning correctly.
-3.  **Positive Testing:** Primarily focus on successful scenarios.
-4.  **Minimal Data Variation:** Use a limited set of representative data.
-5.  **Fast Execution:** Design tests for quick execution to provide rapid feedback.
-6.  **Independent Tests:** Ensure tests can be run independently without dependencies.
-7.  **High Priority:** Address any failures immediately.
-8.  **Automated Execution:** Automate the smoke tests for continuous integration.
+*   Homepage interactions (popup handling)
+*   Product search and navigation
+*   Product Detail Page (PDP) verification
+*   Add to Cart functionality
+*   Checkout process
 
 ## Test Suites
 
-1.  **Smoke Suite:**
-    *   Purpose: To ensure the core functionality of the application is working as expected.
-    *   Frequency: Run on every build.
-    *   Environment: Staging environment.
-    *   Data: Representative data set.
+### Smoke Suite
 
-2.  **Regression Suite:**
-    *   Purpose: To ensure that new changes do not break existing functionality.
-    *   Frequency: Run nightly or on demand.
-    *   Environment: Staging environment.
-    *   Data: Comprehensive data set, including edge cases and negative scenarios.
+The smoke suite is a minimal set of tests designed to verify the most critical functions of the system. These tests are executed frequently to ensure that the core functionality is working as expected. If any of these tests fail, the build is considered unstable and should be rejected.
+
+#### Smoke Suite Strategy
+
+The following 8-point checklist has been applied to define the Smoke Suite for this project:
+
+1.  **Critical Paths:** Tests cover essential user flows like product search, adding to cart, and initiating checkout.
+2.  **Core Business Logic:** Focuses on verifying the core e-commerce functionality (search, product display, cart operations).
+3.  **Positive Testing:** Primarily focuses on happy path scenarios (e.g., successful search, adding product to cart).
+4.  **No Negative Testing:** Excludes negative scenarios (e.g., invalid search terms) in the smoke suite.
+5.  **No Complex Edge Cases:** Avoids complex scenarios or boundary conditions.
+6.  **Fast Execution:** Tests are designed to execute quickly to provide rapid feedback.
+7.  **Independent Tests:** Tests are independent of each other to minimize dependencies and ensure reliable results.
+8.  **Stable Locators:** Uses stable locators to avoid test failures due to UI changes.
+
+### Regression Suite
+
+The regression suite is a comprehensive set of tests designed to ensure that new changes have not introduced any regressions in existing functionality. This suite covers a wider range of scenarios, including alternative flows, negative scenarios, and boundary conditions.
 
 ## Test Environment
 
 *   Browser: Chrome (latest version)
 *   Operating System: Windows 10/11, macOS
 *   Test Framework: Playwright
-*   CI/CD: GitHub Actions
+*   Test Data: Use a combination of static and dynamic test data.
 
-## Test Data
+## Test Execution
 
-Test data will be managed within the test framework and will include:
+*   Smoke tests will be executed on every build.
+*   Regression tests will be executed on a nightly basis or before major releases.
 
-*   Valid search terms (e.g., Dyson V15 Detect).
-*   Valid user credentials (for future login scenarios).
+## Test Reporting
 
-## Test Deliverables
-
-*   Automated test scripts (Playwright).
-*   Test execution reports.
-*   Defect tracking in Jira (if applicable).
-
-## Roles and Responsibilities
-
-*   QA Architect: Responsible for defining the test strategy and test plan.
-*   QA Engineers: Responsible for writing and executing automated tests.
-*   Developers: Responsible for fixing defects.
-
-## Entry Criteria
-
-*   Build deployed to the staging environment.
-*   Test environment configured.
-*   Test data available.
-
-## Exit Criteria
-
-*   All smoke tests pass.
-*   Regression tests pass with an acceptable defect rate.
-*   Test execution reports generated.
+*   Test results will be reported using Playwright's built-in reporting capabilities.
+*   Failed tests will be investigated and fixed promptly.

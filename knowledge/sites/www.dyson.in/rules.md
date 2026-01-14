@@ -1,4 +1,12 @@
 
+- ⚠️ PROHIBITED: DON'T assume the search input is unique or immediately visible.
+
+- ✅ PREFERRED: DO use `.first` when locating the search input `page.get_by_placeholder("Search products and parts")` to avoid Strict Mode violations, as there are multiple hidden instances.
+
+- ✅ PREFERRED: DO click the search icon (`button[aria-label="Search"]` or `[data-testid="header-search-icon"]`) if the search input is not visible.
+
+- ✅ PREFERRED: DO use `page.locator("button[aria-label='Close'], button.close, .modal-close").first` to close any overlay/popup.
+
 - ⚠️ PROHIBITED: DON'T assume a website fully supports HTTP/2 without proper error handling and fallback mechanisms in place.
 
 - ✅ PREFERRED: DO implement robust error handling around `page.goto()` calls, including catching network errors and potentially retrying with a different protocol (if feasible) or a different browser.
@@ -771,7 +779,6 @@
 
 - ⚠️ PROHIBITED: DON'T assume the website will load within the default timeout period, especially during CI runs or when testing on different network conditions.
 
-<<<<<<< Updated upstream
 - ✅ PREFERRED: DO implement retry mechanisms with increased timeout values or use network mocking to simulate different network conditions and ensure resilience to slow loading times.
 
 - ✅ PREFERRED: DO implement retry mechanisms with increased timeouts or use network mocking to simulate different network conditions and ensure the application handles slow loading times gracefully.
@@ -789,12 +796,10 @@
 - ⚠️ PROHIBITED: DON'T rely on the default timeout for page navigation; it's often insufficient for complex websites or unreliable network conditions.
 
 - ✅ PREFERRED: DO implement explicit waits for critical elements to load after navigation to ensure the page is fully interactive before proceeding with the test.
-=======
+
 - ⚠️ PROHIBITED: DON'T rely on the default timeout for page load; it may be insufficient for complex or resource-heavy pages.
 
 - ✅ PREFERRED: DO implement explicit waits or increase the default timeout for page navigation when dealing with potentially slow-loading pages or unreliable network conditions.
->>>>>>> Stashed changes
-
 - ⚠️ PROHIBITED: DON'T commit code with merge conflict markers (e.g., `<<<<<<< Updated upstream`, `=======`, `>>>>>>> branch_name`) still present in the files.
 
 - ✅ PREFERRED: ALWAYS thoroughly review and resolve all merge conflicts before committing code to the repository. Use a diff tool to ensure all changes are intentional and syntactically correct.
@@ -868,3 +873,5 @@
 - ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for critical pages like the homepage. Also, add a timeout to the `page.goto()` call.
 
 - ✅ PREFERRED: DO implement retry logic with exponential backoff for page navigation, especially when encountering network-related errors like `ERR_HTTP2_PROTOCOL_ERROR`.
+
+- ✅ PREFERRED: DO implement robust error handling for network requests, including retries with exponential backoff and fallback to HTTP/1.1 if HTTP/2 fails.

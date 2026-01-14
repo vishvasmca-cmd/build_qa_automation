@@ -2,3 +2,4 @@
 
 | Step | Page | Action | Target | Outcome | Screenshot |
 |------|------|--------|--------|---------|------------|
+| 0 | HomePage | click | X | ✅ | [View](../snapshots/step_00_HomePage.png) |
