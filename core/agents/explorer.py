@@ -38,6 +38,9 @@ from core.knowledge.knowledge_bank import KnowledgeBank
 # Import Metrics Logger
 from core.lib.metrics_logger import logger
 
+# Import Robust Action Handler
+from core.lib.robust_handler import get_handler as get_robust_handler
+
 load_dotenv()
 
 # Initialize 2026-ready LLM
@@ -121,6 +124,11 @@ class ExplorerAgent:
         self.snapshot_dir = os.path.join(self.project_root, "snapshots")
         os.makedirs(self.snapshot_dir, exist_ok=True)
         self.last_error = None  # Track the last action failure
+        
+        # Initialize Robust Action Handler
+        self.robust_handler = get_robust_handler()
+        self.robust_handler.set_domain(self.config.get("target_url", ""))
+        self.robust_handler.reset()  # Fresh start for this session
         
         # Self-Learning & Optional Steps Enhancement
         self.parsed_goal = self._parse_goal_with_metadata(self.workflow)
@@ -363,8 +371,29 @@ class ExplorerAgent:
                                  continue
 
                     if is_dup_state:
+                        print(colored(f"⚠️ Duplicate state detected (count: {self.consecutive_duplicate_count})", "yellow"))
+                        
+                        # LEVEL 1: Overlay Dismissal (Standard)
                         await self._dismiss_overlays(page)
                         await asyncio.sleep(2)
+                        
+                        # LEVEL 2: Page Refresh (Aggressive)
+                        if self.consecutive_duplicate_count >= 13: # Give it a few tries with overlay dismissal
+                             print(colored("🔄 STUCK LOOP PERSISTS: Refreshing page...", "magenta", attrs=["bold"]))
+                             try:
+                                await page.reload(wait_until="domcontentloaded", timeout=60000)
+                                await asyncio.sleep(3)
+                             except Exception as e:
+                                print(colored(f"   ⚠️ Refresh failed: {e}", "yellow"))
+
+                        # LEVEL 3: Hard Navigation (Nuclear)
+                        if self.consecutive_duplicate_count >= 16:
+                             print(colored("☢️ CRITICAL STUCK: Hard navigation to target URL...", "red", attrs=["bold"]))
+                             try:
+                                await page.goto(self.config["target_url"], wait_until="domcontentloaded", timeout=60000)
+                                await asyncio.sleep(3)
+                             except: pass
+                        
                         # Re-mine after rescue
                         mindmap = await analyze_page(page, page.url, self.workflow)
                         if self.is_duplicate_state(page.url, mindmap) and self.consecutive_duplicate_count >= 20:
@@ -889,56 +918,12 @@ class ExplorerAgent:
                     
                     await page.locator(locator_str).click(timeout=15000)
                     
-                    # 🔍 SMART SEARCH HANDLER: Complete search in one atomic action
+                    # 🔍 SEARCH ICON HANDLER: Wait for popover to open, let Planner fill naturally
                     target_text_lower = target_el.get('text', '').lower()
                     if 'search' in target_text_lower and ('product' in target_text_lower or 'part' in target_text_lower):
-                        print(colored("   🔍 Smart Search Handler: Detected search icon click. Completing search...", "cyan"))
-                        await asyncio.sleep(3)  # Wait for search panel animation (increased)
-                        
-                        # Find and fill the search input - use multiple strategies
-                        search_input_selectors = [
-                            "input[aria-label='Search']",
-                            "input[type='search']", 
-                            "input[placeholder*='search' i]",
-                            "input[placeholder*='Search']",
-                            "input[name*='search' i]",
-                            ".header__search input",
-                            "[class*='search-input'] input",
-                            "[class*='search'] input:visible"
-                        ]
-                        
-                        search_filled = False
-                        search_query = self.test_data.get('search_query', 'Dyson V15 Detect')
-                        print(colored(f"   🔍 Searching for: '{search_query}'", "cyan"))
-                        
-                        for selector in search_input_selectors:
-                            try:
-                                print(colored(f"   🔍 Trying: {selector}", "grey"))
-                                input_el = page.locator(selector).first
-                                if await input_el.is_visible(timeout=2000):
-                                    # Human-like interaction: hover -> click -> wait -> type
-                                    print(colored(f"   ✅ Found visible input with: {selector}", "green"))
-                                    await input_el.hover()
-                                    await asyncio.sleep(0.5)
-                                    await input_el.click()
-                                    await asyncio.sleep(0.5)
-                                    
-                                    # Use keyboard typing for better compatibility
-                                    await page.keyboard.type(search_query, delay=50)
-                                    print(colored(f"   ✅ Typed search query: '{search_query}'", "green"))
-                                    
-                                    await asyncio.sleep(0.5)
-                                    await page.keyboard.press("Enter")
-                                    print(colored("   ✅ Submitted search query", "green"))
-                                    await asyncio.sleep(3)  # Wait for results page
-                                    search_filled = True
-                                    break
-                            except Exception as e:
-                                print(colored(f"   ⚠️ Selector failed: {e}", "grey"))
-                                continue
-                        
-                        if not search_filled:
-                            print(colored("   ⚠️ Smart Search: Could not find visible search input", "yellow"))
+                        print(colored("   🔍 Search icon clicked. Waiting for search popover...", "cyan"))
+                        await asyncio.sleep(2)  # Wait for search panel to open
+                        # Let the Planner handle filling the input in the next step
                     
                     # Add wait for potential modal triggers
                     elif "cart" in target_text_lower or "add" in target_text_lower:
@@ -1011,6 +996,14 @@ class ExplorerAgent:
             self.last_error = f"Action '{action}' on ID {target_id} failed: {result.get('outcome')}"
         else:
             self.last_error = None # Reset on success
+        
+        # Record action for sequence learning
+        self.robust_handler.record_action(
+            action=action,
+            target_id=str(target_id),
+            target_text=target_el.get('text', '')[:50] if target_el else '',
+            success=result.get("success", False)
+        )
             
         return result
 
@@ -1132,6 +1125,12 @@ class ExplorerAgent:
                 "trace": self.trace
             }, f, indent=2)
         print(colored(f"💾 Trace saved to {trace_path}", "green"))
+        
+        # Save successful action sequence for future replay
+        if len(self.trace) > 0:
+            # Create flow name from workflow
+            flow_name = self.workflow[:50].replace(" ", "_").replace(":", "").lower()
+            self.robust_handler.save_successful_flow(flow_name)
 
     def _generate_documentation(self):
         """Generates human-readable Navigate.md and workflow.md"""
