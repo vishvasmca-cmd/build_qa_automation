@@ -6,51 +6,48 @@ This document outlines the test plan for the Dyson E2E CI project, focusing on e
 
 ## Test Scope
 
-The tests will cover key functionalities such as:
+The primary focus is on testing the core functionality of the Dyson India website, including:
 
-*   Navigating the homepage
-*   Searching for products
-*   Adding products to the cart
-*   Initiating the checkout process
+*   Handling popups
+*   Product search
+*   Product detail page (PDP) verification
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite will focus on verifying the core functionality of the application. These tests are designed to be quick and efficient, providing a high level of confidence in the stability of the system.
+The smoke suite will cover the most critical paths to ensure the basic functionality of the application is working as expected. This suite will be executed after each build to quickly identify any major issues.
 
 #### Smoke Suite Strategy
 
 The following 8-point checklist has been applied to define the smoke suite for this project:
 
-1.  **Critical Paths:** Tests cover essential user flows like product search and checkout initiation.
-2.  **Core Business Logic:** Focuses on testing the primary functions related to product discovery and purchase.
-3.  **Positive Testing:** Only happy path scenarios are included in the smoke suite.
-4.  **No Negative Testing:** Negative scenarios are excluded from the smoke suite.
-5.  **No Complex Edge Cases:** Complex or less common scenarios are not included.
-6.  **Speed and Efficiency:** Tests are designed to be executed quickly.
-7.  **Build Validation:** Failure of any smoke test indicates a critical issue and may reject the build.
-8.  **Limited Scope:** The suite covers a minimal set of functionalities.
+1.  **Critical Paths:** Tests cover essential user flows like searching for a product.
+2.  **Core Business Logic:** Focuses on core e-commerce functions.
+3.  **No Negative Testing:** Only positive scenarios are included.
+4.  **No Complex Edge Cases:** Simple, straightforward flows are prioritized.
+5.  **Fast Execution:** Tests are designed to run quickly.
+6.  **High Stability:** Tests are reliable and unlikely to fail due to environment issues.
+7.  **Independent Tests:** Tests do not depend on each other.
+8.  **Clear Pass/Fail Criteria:** Results are easy to interpret.
 
 ### Regression Suite
 
-The regression suite will provide comprehensive coverage of the application, including alternative flows, negative scenarios, and edge cases. These tests will ensure that new changes have not introduced any regressions.
+The regression suite will provide comprehensive coverage of the application's functionality, including alternative flows, negative scenarios, and edge cases. This suite will be executed periodically to ensure that new changes have not introduced any regressions.
 
 ## Test Environment
 
-*   **Browser:** Chrome (latest version)
-*   **Operating System:** Windows 10
-*   **Test Framework:** Playwright
+*   Browser: Chrome (latest version)
+*   Operating System: Windows 10/11, macOS
+*   Test Framework: Playwright
 
 ## Test Data
 
-Test data will be used to simulate various user scenarios and ensure that the application behaves as expected. This data will include:
-
-*   Valid search queries (e.g., Dyson V15 Detect)
+Test data will be used to simulate various user scenarios and ensure the application handles different types of input correctly. This may include valid and invalid search terms.
 
 ## Test Deliverables
 
 *   Test Plan Document
-*   Test Automation Scripts (Playwright)
-*   Test Execution Reports
-
+*   Test Scripts (Playwright)
+*   Test Results
+*   Defect Reports

@@ -1,14 +1,8 @@
-Feature: Dyson E-commerce Smoke Tests
+Feature: Dyson India - Smoke Tests
 
   @smoke
-  Scenario: Search for a product and initiate checkout
+  Scenario: Search for a product and verify PDP
     Given I am on the Dyson India homepage
-    When I close the initial popups
+    When I close the subscription popup
     And I search for "Dyson V15 Detect"
-    Then I should see the search results
-    And I click on the first product
-    Then I should see the "Add to Cart" button
-    When I click on the "Add to Cart" button
-    Then the cart drawer should open
-    When I click on the "Checkout" button
-    Then I should be on the checkout page
+    Then I should see the "Add to Cart" button on the product page

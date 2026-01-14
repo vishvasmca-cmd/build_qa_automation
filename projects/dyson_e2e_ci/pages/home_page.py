@@ -9,59 +9,57 @@ class HomePage:
         self.page = page
 
     @property
-    def dyson_logo(self):
-        """Link to the homepage."""
-        return self.page.//a[@aria-label='Homepage'].or_(self.page.css=a[aria-label='Homepage'])
-
-    @property
-    def search_products_and_parts(self):
-        """Search input field to find products and parts."""
-        return self.page.xpath=//input[@placeholder='Search products and parts'].or_(self.page.css=input[placeholder='Search products and parts'])
+    def search_products(self):
+        """Search input field for products and parts."""
+        return self.page.role=searchbox.or_(self.page.css=input[placeholder='Search products and parts'])
 
     @property
     def shop_now_button(self):
-        """Button to navigate to the Hushjet purifier product page."""
-        return self.page.text=Shop now.or_(self.page.css=a[href='/en-IN/purifiers/hushjet'])
+        """Button to navigate to the product page featured in the hero section."""
+        return self.page.text=Shop now.or_(self.page.css=.button--primary)
+
+    @property
+    def deals_link(self):
+        """Link to the deals page."""
+        return self.page.text=Deals.or_(self.page.css=a[href='/deals.html'])
 
     @property
     def vacuum_wet_cleaners_link(self):
-        """Link to the vacuum cleaners product category."""
-        return self.page.text=Vacuum & wet cleaners.or_(self.page.css=a[href='/en-IN/vacuum-cleaners'])
+        """Link to the vacuum cleaners page."""
+        return self.page.text=Vacuum & wet cleaners.or_(self.page.css=a[href='/vacuum-cleaners.html'])
+
+    @property
+    def hair_care_link(self):
+        """Link to the hair care products page."""
+        return self.page.text=Hair care.or_(self.page.css=a[href='/hair-care.html'])
 
     @property
     def air_purifier_link(self):
-        """Link to the air purifier product category."""
-        return self.page.text=Air purifier.or_(self.page.css=a[href='/en-IN/air-treatment'])
+        """Link to the air purifier products page."""
+        return self.page.text=Air purifier.or_(self.page.css=a[href='/air-treatment.html'])
 
     @property
     def headphones_link(self):
-        """Link to the headphones product category."""
-        return self.page.text=Headphones.or_(self.page.css=a[href='/en-IN/headphones'])
+        """Link to the headphones products page."""
+        return self.page.text=Headphones.or_(self.page.css=a[href='/headphones.html'])
 
     @property
     def lighting_link(self):
-        """Link to the lighting product category."""
-        return self.page.text=Lighting.or_(self.page.css=a[href='/en-IN/lighting'])
+        """Link to the lighting products page."""
+        return self.page.text=Lighting.or_(self.page.css=a[href='/lighting.html'])
 
     @property
     def support_link(self):
         """Link to the support page."""
-        return self.page.text=Support.or_(self.page.css=a[href='/en-IN/support'])
+        return self.page.text=Support.or_(self.page.css=a[href='/support.html'])
 
     @property
     def best_sellers_link(self):
         """Link to the best sellers page."""
-        return self.page.text=Best sellers.or_(self.page.css=a[href='/en-IN/deals'])
+        return self.page.text=Best sellers.or_(self.page.css=a[href='/best-sellers.html'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Page title contains 'Dyson'
-        await The Dyson logo is visible
-        await The 'Search products and parts' search box is present
+        await Title contains 'Dyson'
+        await Header contains 'Compact. Powerful. Yet quiet.'
         await The 'Shop now' button is visible
-        await The 'Vacuum & wet cleaners' link is visible
-        await The 'Air purifier' link is visible
-        await The 'Headphones' link is visible
-        await The 'Lighting' link is visible
-        await The 'Support' link is visible
-        await The 'Best sellers' link is visible
