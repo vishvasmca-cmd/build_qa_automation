@@ -1,11 +1,8 @@
 
-- ⚠️ PROHIBITED: DON'T assume the search input is unique or immediately visible.
-
-- ✅ PREFERRED: DO use `.first` when locating the search input `page.get_by_placeholder("Search products and parts")` to avoid Strict Mode violations, as there are multiple hidden instances.
-
-- ✅ PREFERRED: DO click the search icon (`button[aria-label="Search"]` or `[data-testid="header-search-icon"]`) if the search input is not visible.
-
+- ⚠️ PROHIBITED: DON'T try to fill the search input `[input] Search products and parts` directly. It is initially disabled/hidden.
+- ✅ PREFERRED: DO CLICK the search icon `button[aria-label='Search']` or `.search-icon` FIRST to expand the search bar. ONLY THEN fill the input.
 - ✅ PREFERRED: DO use `page.locator("button[aria-label='Close'], button.close, .modal-close").first` to close any overlay/popup.
+
 
 - ⚠️ PROHIBITED: DON'T assume a website fully supports HTTP/2 without proper error handling and fallback mechanisms in place.
 
