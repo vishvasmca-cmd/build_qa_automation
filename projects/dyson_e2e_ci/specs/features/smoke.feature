@@ -1,16 +1,18 @@
-Feature: Product Search and Checkout Flow
+Feature: Product Search and Add to Cart
   As a user
-  I want to be able to search for a product, add it to the cart, and proceed to checkout
-  So that I can purchase the desired product
+  I want to search for a product and add it to the cart
+  So that I can purchase it
 
   @smoke
-  Scenario: Search for a product and proceed to checkout
-    Given I am on the Dyson India website
-    When I close the 'Subscribe' popup
+  Scenario: Search for Dyson V15 Detect and Add to Cart
+    Given I am on the Dyson India homepage
+    When I close the subscription popup
     And I search for "Dyson V15 Detect"
-    And I click on the first product result
-    Then I should see the 'Add to Cart' button
-    When I click 'Add to Cart'
+    Then I should see the search results
+    When I click on the first product result
+    Then I should see the product details page
+    And the "Add to Cart" button should be visible
+    When I click on the "Add to Cart" button
     Then the cart drawer should open
-    When I click 'Checkout'
-    Then I should be on the checkout page
+    And I click on "Checkout"
+    Then I should be redirected to the checkout page

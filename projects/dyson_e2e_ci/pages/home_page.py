@@ -10,32 +10,37 @@ class HomePage:
 
     @property
     def search_products_and_parts(self):
-        """Search input field to find specific products or parts."""
+        """Search input field to find products and parts."""
         return self.page.role=searchbox.or_(self.page.css=input[placeholder='Search products and parts'])
 
     @property
-    def shop_now(self):
-        """Button to navigate to the product page for the featured air purifier."""
+    def shop_now_button(self):
+        """Button to navigate to the product page of the featured purifier."""
         return self.page.text=Shop now.or_(self.page.css=a[href='/en-IN/purifiers/compact'])
 
     @property
     def vacuum_wet_cleaners(self):
-        """Link to the vacuum cleaners product category."""
+        """Link to the vacuum cleaners category page."""
         return self.page.text=Vacuum & wet cleaners.or_(self.page.css=a[href='/en-IN/vacuum-cleaners'])
 
     @property
+    def hair_care(self):
+        """Link to the hair care category page."""
+        return self.page.text=Hair care.or_(self.page.css=a[href='/en-IN/hair-care'])
+
+    @property
     def air_purifier(self):
-        """Link to the air purifier product category."""
+        """Link to the air purifier category page."""
         return self.page.text=Air purifier.or_(self.page.css=a[href='/en-IN/air-treatment'])
 
     @property
     def headphones(self):
-        """Link to the headphones product category."""
+        """Link to the headphones category page."""
         return self.page.text=Headphones.or_(self.page.css=a[href='/en-IN/headphones'])
 
     @property
     def lighting(self):
-        """Link to the lighting product category."""
+        """Link to the lighting category page."""
         return self.page.text=Lighting.or_(self.page.css=a[href='/en-IN/lighting'])
 
     @property
@@ -48,33 +53,8 @@ class HomePage:
         """Link to the best sellers page."""
         return self.page.text=Best sellers.or_(self.page.css=a[href='/en-IN/best-sellers'])
 
-    @property
-    def discover_dyson(self):
-        """Link to the Discover Dyson page."""
-        return self.page.text=Discover Dyson.or_(self.page.css=a[href='/en-IN/dyson-technology'])
-
-    @property
-    def for_business(self):
-        """Link to the For business page."""
-        return self.page.text=For business.or_(self.page.css=a[href='/en-IN/for-business'])
-
-    @property
-    def store_finder(self):
-        """Link to the Store finder page."""
-        return self.page.text=Store finder.or_(self.page.css=a[href='/en-IN/store-finder'])
-
-    @property
-    def register_machine(self):
-        """Link to the Register machine page."""
-        return self.page.text=Register machine.or_(self.page.css=a[href='/en-IN/support/your-dyson/registration'])
-
-    @property
-    def contact_us(self):
-        """Link to the Contact us page."""
-        return self.page.text=Contact us.or_(self.page.css=a[href='/en-IN/support/contact-us'])
-
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Title contains 'Dyson'
+        await Title contains 'Dyson India'
         await Page contains the text 'Compact. Powerful. Yet quiet.'
         await Page contains the text 'Dyson.in exclusive: 24 months no cost EMI'
