@@ -9350,6 +9350,39 @@
         "reason": "The last URL is the homepage (https://www.dyson.in/). The recent actions show the agent clicked the 'X' button (presumably to close the popup) and then clicked the search bar. However, the goal requires searching for 'Dyson V15 Detect', clicking the first product, adding it to the cart, and reaching the checkout page. The provided information indicates that the agent only closed the popup and clicked the search bar, failing to complete the rest of the steps. Therefore, the goal was not achieved.",
         "confidence": 1.0
       }
+    },
+    {
+      "agent": "Orchestrator",
+      "action": "pipeline_start",
+      "end_time": 1768356373.637271,
+      "duration": 0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": {
+          "project_name": "dyson_e2e_ci",
+          "target_url": "https://www.dyson.in/",
+          "workflow_description": "1. Handle Popup: Close 'Subscribe' popup. 2. Search: Search for 'Dyson V15 Detect' and click the first product result. 3. PDP Verification: Verify 'Add to Cart' button is visible. 4. Cart Flow: Click 'Add to Cart', verify cart drawer opens, and click 'Checkout'. 5. Verification: Ensure we reach the Checkout page.",
+          "domain": "e_commerce",
+          "paths": {
+            "test": "projects/dyson_e2e_ci/tests/test_main.py",
+            "report": "projects/dyson_e2e_ci/outputs/report.md"
+          }
+        }
+      }
+    },
+    {
+      "agent": "Validator",
+      "action": "validate_goal",
+      "end_time": 1768356378.1119752,
+      "duration": 0.0,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "status": "FAIL",
+        "reason": "The last URL is the homepage (https://www.dyson.in/). The recent actions show the agent closed a popup and clicked on the search bar. This indicates the agent did not complete the search, click on a product, add it to the cart, and reach the checkout page. Therefore, the goal was not achieved.",
+        "confidence": 1.0
+      }
     }
   ],
   "failures": [
