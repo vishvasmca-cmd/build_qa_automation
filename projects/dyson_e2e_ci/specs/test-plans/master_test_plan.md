@@ -2,68 +2,49 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The plan includes both smoke and regression test suites to ensure the quality and stability of the application.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The tests will cover core functionalities such as product search, adding to cart, and proceeding to checkout.
 
-## Test Scope
+## Scope
 
-The tests will cover the following areas:
+The scope of this test plan includes:
 
-*   Homepage
-*   Product Search
-*   Product Detail Page (PDP)
-*   Shopping Cart
-*   Checkout Process
+*   Smoke testing of essential functionalities.
+*   Regression testing to ensure existing functionalities are not broken by new changes.
 
 ## Test Suites
 
-### Smoke Suite
+This test plan defines two main test suites:
 
-The smoke suite will focus on verifying the core functionality of the application. These tests are designed to be executed quickly and should identify any major issues that would prevent further testing.
+1.  Smoke Suite
+2.  Regression Suite
 
-#### Smoke Suite Strategy
+### Smoke Suite Strategy
 
-The following 8-point checklist has been applied to define the Smoke Suite for this project:
+The Smoke Suite is designed to verify the most critical functionalities of the Dyson India website. The following checklist is applied to define the scope of the Smoke Suite:
 
-1.  **Critical Paths:** Tests cover essential user journeys like searching for a product and adding it to the cart.
-2.  **Core Business Logic:** Focuses on testing the primary flow of adding a product to the cart and navigating to checkout.
-3.  **Positive Testing:** Only positive scenarios are considered (e.g., successful product search, adding to cart).
-4.  **No Negative Testing:** Negative scenarios like invalid search queries are excluded.
-5.  **No Complex Edge Cases:** Complex scenarios like applying discounts or using gift cards are not included.
-6.  **Speed of Execution:** Tests are designed to be fast and efficient.
-7.  **Independence:** Tests are independent and can be run in any order.
-8.  **Environment Stability:** Assumes a stable test environment.
+1.  **Critical Paths:** Covers essential user flows like product search, adding to cart, and checkout.
+2.  **Core Business Logic:** Focuses on primary revenue-generating flows.
+3.  **No Negative Testing:** Excludes negative scenarios unless they involve critical security aspects.
+4.  **No Complex Edge Cases:** Avoids complex or less common scenarios.
+5.  **Positive Flows:** Primarily focuses on successful, positive flows.
+6.  **Minimal Data Variation:** Uses a limited set of test data.
+7.  **Fast Execution:** Designed to execute quickly to provide rapid feedback.
+8.  **Build Validation:** Used to validate new builds and deployments.
 
 ### Regression Suite
 
-The regression suite will provide a more comprehensive test coverage, including alternative flows, negative scenarios, and edge cases. These tests will ensure that new changes have not introduced any regressions in existing functionality.
+The Regression Suite is a comprehensive set of tests designed to ensure that new changes have not introduced regressions in existing functionalities. This suite covers a wide range of scenarios, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
 
-## Test Cases (Examples)
+## Test Cases
 
-**Smoke Suite:**
-
-*   Verify that a user can search for a product and view the search results.
-*   Verify that a user can add a product to the cart from the PDP.
-*   Verify that a user can navigate to the checkout page from the cart.
-
-**Regression Suite:**
-
-*   Verify that a user can search for a product using different keywords.
-*   Verify that the cart updates correctly when adding or removing products.
-*   Verify that the checkout process handles different payment methods.
-*   Verify error messages are displayed correctly for invalid input.
+Test cases will be written in Gherkin syntax and stored in feature files. Each feature file will contain scenarios that cover specific functionalities.
 
 ## Test Environment
 
-The tests will be executed on the following environment:
-
 *   Browser: Chrome (latest version)
-*   Operating System: Windows 10
-*   URL: [https://www.dyson.in/](https://www.dyson.in/)
+*   Operating System: Windows 10/11, macOS
+*   Test Framework: Playwright
 
 ## Test Execution
 
-The tests will be executed using a CI/CD pipeline. The smoke suite will be executed on every commit, while the regression suite will be executed on a nightly basis.
-
-## Test Reporting
-
-Test results will be reported using a test management tool. The reports will include the number of tests executed, the number of tests passed, and the number of tests failed.
+Tests will be executed automatically as part of the CI/CD pipeline. Test results will be reported in a clear and concise manner.
