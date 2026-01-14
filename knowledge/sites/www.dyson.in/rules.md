@@ -906,3 +906,5 @@
 - ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for `page.goto()` calls, especially when dealing with external websites, to handle transient network errors.
 
 - ✅ PREFERRED: DO implement robust error handling for network-related exceptions, especially when using `page.goto()`, and consider retrying with a different protocol version or browser context if HTTP/2 errors are encountered.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial page loads. Also, consider adding a check for basic network connectivity before attempting to navigate.

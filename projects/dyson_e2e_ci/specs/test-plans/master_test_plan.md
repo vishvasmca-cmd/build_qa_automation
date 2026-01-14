@@ -2,52 +2,77 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The plan includes smoke and regression test suites to ensure the quality and stability of the application.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The tests will be automated using Playwright and follow a Behavior-Driven Development (BDD) approach.
 
-## Test Scope
+## Scope
 
-The primary focus is on testing the core functionality of the Dyson India website, including:
+The scope of this test plan includes:
 
-*   Handling popups
-*   Product search
-*   Product detail page (PDP) verification
+*   Smoke tests to verify core functionality.
+*   Regression tests to ensure existing functionality remains intact after changes.
+
+## Test Strategy
+
+The testing strategy is divided into two main suites: Smoke and Regression.
+
+### Smoke Suite Strategy
+
+The Smoke Suite will focus on the most critical paths to ensure the basic functionality of the Dyson India website is working as expected. The following checklist is applied to determine the scope of the smoke tests:
+
+1.  **Critical Path Coverage:** Does this test cover a primary user journey (e.g., purchase, login)?
+2.  **Core Business Logic:** Does this test exercise essential business rules or calculations?
+3.  **Deployment Validation:** Can this test quickly confirm a successful deployment?
+4.  **High Failure Risk:** Does this functionality have a history of frequent failures?
+5.  **Customer Impact:** Would a failure in this area significantly impact the user experience?
+6.  **Data Integrity:** Does this test verify the correct creation, modification, or deletion of data?
+7.  **Security Vulnerability:** Does this test address a potential security risk?
+8.  **Third-Party Integration:** Does this test validate a critical integration with an external system?
+
+### Regression Suite Strategy
+
+The Regression Suite will provide comprehensive coverage of the Dyson India website, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. This suite will ensure that new changes do not introduce regressions into existing functionality.
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite will cover the most critical paths to ensure the basic functionality of the application is working as expected. This suite will be executed after each build to quickly identify any major issues.
-
-#### Smoke Suite Strategy
-
-The following 8-point checklist has been applied to define the smoke suite for this project:
-
-1.  **Critical Paths:** Tests cover essential user flows like searching for a product.
-2.  **Core Business Logic:** Focuses on core e-commerce functions.
-3.  **No Negative Testing:** Only positive scenarios are included.
-4.  **No Complex Edge Cases:** Simple, straightforward flows are prioritized.
-5.  **Fast Execution:** Tests are designed to run quickly.
-6.  **High Stability:** Tests are reliable and unlikely to fail due to environment issues.
-7.  **Independent Tests:** Tests do not depend on each other.
-8.  **Clear Pass/Fail Criteria:** Results are easy to interpret.
+*   **Description:** A minimal set of tests to verify the core functionality of the Dyson India website.
+*   **Goal:** To quickly identify critical issues and ensure the website is in a usable state.
+*   **Scope:**
+    *   Handle Popup *   Search for a product *   Add product to cart *   Navigate to checkout page
 
 ### Regression Suite
 
-The regression suite will provide comprehensive coverage of the application's functionality, including alternative flows, negative scenarios, and edge cases. This suite will be executed periodically to ensure that new changes have not introduced any regressions.
+*   **Description:** A comprehensive suite of tests to ensure that recent changes have not broken existing functionality.
+*   **Goal:** To provide a high level of confidence in the stability and reliability of the Dyson India website.
+*   **Scope:**
+    *   All Smoke tests, plus:
+    *   Alternative payment methods
+    *   Invalid login attempts
+    *   Out-of-stock scenarios
+    *   Boundary testing of quantities
+    *   Validation of error messages
 
 ## Test Environment
 
-*   Browser: Chrome (latest version)
-*   Operating System: Windows 10/11, macOS
-*   Test Framework: Playwright
+*   **Browser:** Chrome (latest version)
+*   **Operating System:** Windows 10/11, macOS
+*   **Test Framework:** Playwright
+*   **Programming Language:** JavaScript
 
 ## Test Data
 
-Test data will be used to simulate various user scenarios and ensure the application handles different types of input correctly. This may include valid and invalid search terms.
+Test data will be used to simulate various user scenarios and ensure the application handles different types of input correctly. This includes:
+
+*   Valid and invalid login credentials
+*   Product search queries
+*   Payment information
+*   Shipping addresses
 
 ## Test Deliverables
 
-*   Test Plan Document
-*   Test Scripts (Playwright)
-*   Test Results
-*   Defect Reports
+*   Test Plan
+*   BDD Feature Files
+*   Automated Test Scripts
+*   Test Execution Reports
+

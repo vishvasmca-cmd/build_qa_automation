@@ -7,6 +7,15 @@ def test_generated_task(page: Page):
     except Exception as e:
         print(f"Navigation failed: {e}")
         return
+
     page.get_by_text('X', exact=True).first.click()
-    page.get_by_text('X').first.click()
+    page.get_by_role('img', name='Dyson', exact=True).first.click()
+    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
     page.get_by_role('button', name='Search products and parts', exact=True).first.click()
