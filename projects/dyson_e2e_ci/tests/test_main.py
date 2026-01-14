@@ -7,14 +7,10 @@ def test_generated_task(page: Page):
     except Exception as e:
         print(f"Navigation failed: {e}")
         return
-    page.locator("[data-agent-id='33']").click()
+    page.get_by_text('X', exact=True).first.click()
     page.get_by_role('button', name='Search products and parts', exact=True).first.click()
-    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
-    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
-    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
-    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
-    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
-    page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    page.locator("[name='q']").fill('Dyson V15 Detect')
+    page.get_by_role('button', name='Search').first.click()
     page.get_by_role('button', name='Search products and parts', exact=True).first.click()
     page.get_by_role('button', name='Search products and parts', exact=True).first.click()
     page.get_by_role('button', name='Search products and parts', exact=True).first.click()

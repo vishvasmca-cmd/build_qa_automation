@@ -2,87 +2,76 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user workflows on the Dyson India website. The primary goal is to ensure the core functionality of the e-commerce platform remains stable and reliable with each new deployment.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The tests will be automated using Playwright and follow Behavior-Driven Development (BDD) principles.
 
 ## Scope
 
-The testing will cover essential user journeys, including:
+The scope of this test plan includes:
 
-*   Handling popups
-*   Searching for products
-*   Adding products to the cart
-*   Navigating to the checkout page
-
-## Test Suites
-
-This test plan defines two main test suites: Smoke and Regression.
-
-### Smoke Suite Strategy
-
-The Smoke Suite is designed to provide a quick and efficient way to verify the stability of the core functionalities. The following checklist has been applied to define the Smoke Suite for this project:
-
-1.  **Critical Paths:** Tests cover the most critical user paths (e.g., search, add to cart, checkout).
-2.  **Core Business Logic:** Focuses on testing the primary revenue-generating flows.
-3.  **Positive Testing:** Primarily focuses on happy path scenarios.
-4.  **No Negative Testing:** Excludes negative test cases unless they involve critical security concerns.
-5.  **No Complex Edge Cases:** Avoids complex or less common scenarios.
-6.  **Minimal Test Set:** Aims for a small, manageable set of tests.
-7.  **Fast Execution:** Tests should execute quickly to provide rapid feedback.
-8.  **Build Acceptance:** Failure of any smoke test indicates a critical issue and should reject the build.
-
-### Regression Suite
-
-The Regression Suite is a comprehensive set of tests designed to ensure that new changes haven't introduced defects into existing functionality. This suite will include:
-
-*   Alternative flows
-*   Negative scenarios
-*   Boundary analysis
-*   Cross-module interactions
-*   Validation messages
+*   Smoke tests to verify core functionality.
+*   Regression tests to ensure existing functionality remains intact after changes.
 
 ## Test Environment
 
-*   **Browser:** Chrome (latest version)
-*   **Operating System:** Windows 10/11, macOS
-*   **Test Framework:** Playwright
+*   Browser: Chromium (latest version)
+*   Operating System: Windows/macOS/Linux (cross-platform)
+*   Test Framework: Playwright
+*   Language: JavaScript/TypeScript
+
+## Test Suites
+
+### Smoke Suite
+
+The smoke suite will cover the most critical user flows to ensure the basic functionality of the Dyson India website is working as expected. This includes:
+
+*   Homepage load and basic element presence.
+*   Product search and navigation to the product details page (PDP).
+*   Adding a product to the cart and proceeding to checkout.
+
+#### Smoke Suite Strategy
+
+The following 8-point checklist has been applied to define the Smoke Suite for this project:
+
+1.  **Critical Paths:** The smoke tests cover the core user journey of searching for a product and adding it to the cart.
+2.  **Core Business Logic:** The ability to search and add items to the cart is fundamental to an e-commerce site.
+3.  **Positive Testing:** The smoke tests focus on the happy path, assuming valid inputs and successful operations.
+4.  **No Negative Testing:** Negative scenarios like invalid search queries are excluded from the smoke suite.
+5.  **No Complex Edge Cases:** The smoke tests do not cover edge cases like out-of-stock items or promotional discounts.
+6.  **Fast Execution:** The smoke tests are designed to be quick and efficient, providing rapid feedback on build stability.
+7.  **Independent Tests:** Each smoke test is independent and can be run in isolation.
+8.  **Limited Scope:** The smoke suite is limited to the essential functionalities required for a basic e-commerce transaction.
+
+### Regression Suite
+
+The regression suite will cover a broader range of scenarios, including alternative flows, negative tests, and edge cases. This will ensure that new changes do not introduce regressions in existing functionality. This includes:
+
+*   Alternative search methods (e.g., using different keywords, filters).
+*   Handling out-of-stock items.
+*   Validating error messages for invalid inputs.
+*   Testing different payment methods (if applicable).
+*   Verifying cross-module interactions (e.g., cart updates reflected in the header).
 
 ## Test Cases
 
-Test cases will be written in Gherkin syntax and organized into feature files.
+Test cases will be written in Gherkin syntax and stored in feature files. Each test case will have a clear description, preconditions, steps, and expected results.
 
-## Smoke Suite Test Cases
+## Test Execution
 
-*   Verify the ability to close the initial subscription popup.
-*   Verify the ability to search for a product ('Dyson V15 Detect').
-*   Verify the ability to add the searched product to the cart.
-*   Verify the ability to navigate to the checkout page from the cart.
-
-## Regression Suite Test Cases (Examples)
-
-*   Verify search functionality with different search terms.
-*   Verify error handling when adding out-of-stock items to the cart.
-*   Verify the cart updates correctly when changing quantities.
-*   Verify the display of appropriate validation messages during checkout (e.g., missing address).
-
-## Test Data
-
-Test data will be created and managed to support both smoke and regression testing. This includes:
-
-*   Valid and invalid search terms
-*   Product inventory data
-*   Valid and invalid user credentials
-*   Payment information
+Tests will be executed automatically as part of the CI/CD pipeline. Test results will be reported in a clear and concise manner, including pass/fail status, execution time, and error messages (if any).
 
 ## Metrics
 
-*   Number of tests executed
-*   Number of tests passed
-*   Number of tests failed
-*   Test execution time
-*   Defect density
+The following metrics will be tracked to monitor the effectiveness of the testing process:
+
+*   Number of tests executed.
+*   Number of tests passed.
+*   Number of tests failed.
+*   Test execution time.
+*   Defect density.
 
 ## Tools
 
-*   Playwright: For test automation
-*   GitHub: For version control
-*   CI/CD pipeline: For automated test execution
+*   Playwright: For test automation.
+*   GitHub: For version control and collaboration.
+*   CI/CD Pipeline (e.g., Jenkins, GitHub Actions): For automated test execution.
+

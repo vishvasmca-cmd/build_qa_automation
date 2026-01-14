@@ -2,70 +2,70 @@ from playwright.async_api import Page, expect
 
 class HomePage:
     """
-    The Dyson India homepage is designed to showcase Dyson products, provide information about deals and offers, and facilitate navigation to different product categories and support resources.
+    This is the search overlay on the Dyson India homepage. It allows users to search for products and provides suggestions based on popular searches.
     URL Pattern: https://www.dyson.in/
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def search_products_and_parts(self):
-        """Search input field to find specific products or parts."""
-        return self.page.role=searchbox.or_(self.page.css=input[placeholder='Search products and parts'])
+    def search_input(self):
+        """Input field for entering search queries."""
+        return self.page.//input[@type='search'].or_(self.page.input[placeholder='dyson.in'])
 
     @property
-    def shop_now_button(self):
-        """Button to navigate to the product page for the featured air purifier."""
-        return self.page.text=Shop now.or_(self.page.css=a[href*='/air-purifiers/dyson-purifier-compact'])
+    def search_button(self):
+        """Button to submit the search query."""
+        return self.page.css=svg[aria-label='Search'].or_(self.page.css=button[aria-label='Submit search'])
 
     @property
-    def deals_link(self):
-        """Link to the deals page."""
-        return self.page.text=Deals.or_(self.page.css=a[href='/deals'])
+    def close_search_overlay(self):
+        """Button to close the search overlay."""
+        return self.page.css=button[aria-label='Close search'].or_(self.page.text=X)
 
     @property
-    def vacuum_and_wet_cleaners_link(self):
-        """Link to the vacuum cleaners page."""
-        return self.page.text=Vacuum & wet cleaners.or_(self.page.css=a[href='/vacuum-cleaners'])
+    def dyson_airstrait_straightener(self):
+        """Link to Dyson Airstrait straightener product page."""
+        return self.page.text=Dyson Airstrait™ straightener.or_(self.page.css=a[href*='airstrait'])
 
     @property
-    def air_purifier_link(self):
-        """Link to the air purifiers page."""
-        return self.page.text=Air purifier.or_(self.page.css=a[href='/air-purifiers'])
+    def _new_dyson_airwrap_i_d_(self):
+        """Link to Dyson Airwrap i.d. product page."""
+        return self.page.text=*NEW* Dyson Airwrap i.d.™.or_(self.page.css=a[href*='airwrap-multi-styler'])
 
     @property
-    def headphones_link(self):
-        """Link to the headphones page."""
-        return self.page.text=Headphones.or_(self.page.css=a[href='/headphones'])
+    def dyson_v8_absolute_vacuum(self):
+        """Link to Dyson V8 Absolute Vacuum product page."""
+        return self.page.text=Dyson V8 Absolute Vacuum.or_(self.page.css=a[href*='dyson-v8-absolute'])
 
     @property
-    def lighting_link(self):
-        """Link to the lighting page."""
-        return self.page.text=Lighting.or_(self.page.css=a[href='/lighting'])
+    def dyson_vacuum_cleaners(self):
+        """Link to Dyson Vacuum Cleaners product page."""
+        return self.page.text=Dyson Vacuum Cleaners.or_(self.page.css=a[href*='vacuum-cleaners'])
 
     @property
-    def support_link(self):
-        """Link to the support page."""
-        return self.page.text=Support.or_(self.page.css=a[href='/support'])
+    def dyson_air_purifiers(self):
+        """Link to Dyson Air Purifiers product page."""
+        return self.page.text=Dyson Air Purifiers.or_(self.page.css=a[href*='air-purifiers'])
 
     @property
-    def best_sellers_link(self):
-        """Link to the best sellers page."""
-        return self.page.text=Best sellers.or_(self.page.css=a[href='/best-sellers'])
+    def dyson_deals(self):
+        """Link to Dyson Deals product page."""
+        return self.page.text=Dyson Deals.or_(self.page.css=a[href*='deals'])
 
     @property
-    def cart_icon(self):
-        """Link to the shopping cart."""
-        return self.page.css=a[aria-label='Basket'].or_(self.page.css=a[href='/cart'])
+    def dyson_airwrap_accessories(self):
+        """Link to Dyson Airwrap accessories product page."""
+        return self.page.text=Dyson Airwrap™ accessories.or_(self.page.css=a[href*='airwrap-accessories'])
 
     @property
-    def close_promotion_modal(self):
-        """Button to close the promotion modal."""
-        return self.page.css=button[aria-label='Close'].or_(self.page.text=Close)
+    def product_registration(self):
+        """Link to Product Registration page."""
+        return self.page.text=Product Registration.or_(self.page.css=a[href*='product-registration'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Page title contains 'Dyson'
-        await Header text contains 'Compact. Powerful. Yet quiet.'
-        await The Dyson logo is visible
-        await The 'Search products and parts' search box is present
+        await Verify that the page title contains 'Dyson India'
+        await Verify that the search input field is present
+        await Verify that the 'Most searched for' section is displayed
+        await Verify that the Dyson logo is visible

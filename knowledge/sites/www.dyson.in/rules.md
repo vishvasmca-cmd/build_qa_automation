@@ -957,3 +957,5 @@
 - ⚠️ PROHIBITED: DON'T assume a website will always successfully load on the first attempt; network errors and server issues can occur.
 
 - ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for critical navigation actions like `page.goto()` to handle transient network or server errors.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for initial page load, specifically targeting `net::ERR_HTTP2_PROTOCOL_ERROR`.
