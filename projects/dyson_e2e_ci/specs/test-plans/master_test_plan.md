@@ -4,54 +4,60 @@
 
 This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The plan includes both smoke and regression test suites to ensure the quality and stability of the application.
 
-## Scope
+## Test Scope
 
 The testing will cover key functionalities such as:
 
 *   Handling popups
 *   Product search
-*   Product Detail Page (PDP) verification
-*   Add to Cart functionality
+*   Product detail page (PDP) verification
+*   Add to cart functionality
 *   Checkout process
 
 ## Test Suites
 
 ### Smoke Suite
 
-The smoke suite will focus on verifying the core functionality of the application. It will include tests that cover the happy path scenarios for the most critical user flows.
+The smoke suite will focus on verifying the core functionality of the application. These tests are designed to be executed quickly and efficiently to ensure that the main features are working as expected.
 
 #### Smoke Suite Strategy
 
-The following 8-point checklist has been applied to define the Smoke Suite for this project:
+The following 8-point checklist has been applied to define the smoke suite for this project:
 
-1.  **Critical Paths:** Tests cover essential user journeys like product search, adding to cart, and initiating checkout.
-2.  **Core Business Logic:** Focuses on verifying the basic functionality of adding items to the cart and proceeding to checkout.
-3.  **Positive Testing:** Only positive scenarios are considered (e.g., successful search, adding to cart with sufficient stock).
-4.  **No Negative Testing:** Negative scenarios like invalid search queries or insufficient stock are excluded from the smoke suite.
-5.  **No Complex Edge Cases:** Complex scenarios like applying discounts or using gift cards are not included.
-6.  **Fast Execution:** Tests are designed to be quick and efficient, providing rapid feedback on build stability.
-7.  **Independent Tests:** Each test is independent and can be run in isolation without dependencies on other tests.
-8.  **Limited Data Variation:** Only a single set of data is used for each test to minimize execution time.
+1.  **Critical Paths:** Tests cover essential user flows like product search, adding to cart, and initiating checkout.
+2.  **Core Business Logic:** Focuses on verifying the basic functionality of adding a product to the cart and proceeding to checkout.
+3.  **Positive Testing:** Primarily includes positive test scenarios, ensuring that the happy path flows work correctly.
+4.  **No Negative Testing:** Negative scenarios (e.g., invalid input) are excluded from the smoke suite.
+5.  **No Complex Edge Cases:** Complex scenarios and edge cases are reserved for the regression suite.
+6.  **Fast Execution:** Tests are designed to execute quickly to provide rapid feedback on the application's health.
+7.  **Independent Tests:** Each test is independent and does not rely on the state of other tests.
+8.  **Minimal Data Setup:** Tests require minimal data setup to reduce complexity and execution time.
 
 ### Regression Suite
 
-The regression suite will provide a more comprehensive test coverage, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
+The regression suite will include a more comprehensive set of tests to ensure that new changes have not introduced any regressions. This suite will cover alternative flows, negative scenarios, boundary analysis, and cross-module interactions.
 
 ## Test Environment
 
 *   **Browser:** Chrome (latest version)
 *   **Operating System:** Windows 10/11, macOS
 *   **Test Framework:** Playwright
-*   **Test Runner:** Jest
+*   **Test Language:** JavaScript
 
 ## Test Data
 
-Test data will be used to simulate various user scenarios and ensure the application functions correctly under different conditions.
+Test data will be used to simulate various user scenarios and ensure that the application behaves as expected. This will include:
+
+*   Valid search queries (e.g., "Dyson V15 Detect")
+*   Valid product selections
 
 ## Test Deliverables
 
 *   Test Plan Document
-*   Test Cases (Gherkin Feature Files)
+*   Test Scripts (Playwright)
 *   Test Results
 *   Defect Reports
 
+## Test Execution
+
+The tests will be executed automatically as part of the CI/CD pipeline. The results will be monitored to identify any failures and ensure that they are addressed promptly.
