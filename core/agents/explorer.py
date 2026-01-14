@@ -679,13 +679,13 @@ class ExplorerAgent:
 
         # TOKEN OPTIMIZATION: Truncate element text and filter out junk
         formatted_elements = []
-        for e in mindmap['elements'][:500]:
+        for e in mindmap['elements'][:300]: # Reduced from 500
             text = (e.get('text') or '').strip()
-            if len(text) > 100:
-                text = text[:97] + "..."
+            if len(text) > 60: # Reduced from 100
+                text = text[:57] + "..."
             
-            # Skip elements that are purely decorative or empty unless they are inputs/buttons
-            if not text and e['tagName'] not in ['button', 'input', 'select', 'a', 'textarea']:
+            # Skip elements that are purely decorative or empty unless they are inputs/buttons/links
+            if not text and e['tagName'] not in ['button', 'input', 'select', 'a', 'area', 'textarea']:
                 continue
                 
             formatted_elements.append({
@@ -696,11 +696,16 @@ class ExplorerAgent:
                 "disabled": e.get('is_disabled', False)
             })
 
+        # Truncate RAG context if it's too large
+        str_rag = str(rag_context)
+        if len(str_rag) > 5000:
+            rag_context = str_rag[:5000] + "... [TRUNCATED]"
+
         context = {
             "goal": self.workflow,
             "page_context": mindmap['summary'],
             "elements": formatted_elements,
-            "history": self.history[-15:], # Slightly shorter history to save tokens
+            "history": self.history[-10:], # Reduced from 15
             "test_data": self.test_data,
             "knowledge_bank": rag_context,
             "last_action_error": self.last_error,
