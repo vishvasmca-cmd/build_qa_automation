@@ -885,3 +885,7 @@
 - ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls, especially for initial page loads, to handle transient network or server-side HTTP/2 issues.
 
 - ✅ PREFERRED: DO implement robust error handling for page navigation, including retries with different protocol configurations or fallback to HTTP/1.1 if HTTP/2 fails.
+
+- ⚠️ PROHIBITED: DON'T assume the target website is always reachable and correctly configured for HTTP/2. Implement robust error handling for page navigation failures.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for initial page load, especially when dealing with external websites. Also, consider adding a check for network connectivity before attempting to navigate.
