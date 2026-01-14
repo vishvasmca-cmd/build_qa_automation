@@ -126,6 +126,14 @@ class ExplorerAgent:
         self.parsed_goal = self._parse_goal_with_metadata(self.workflow)
         self.step_learnings = {}  # Store learnings per step number
         self.skipped_steps = []  # Track which optional steps were skipped
+        
+        # Extract search query from goal if present
+        import re
+        search_match = re.search(r"[Ss]earch[^'\"]*['\"]([^'\"]+)['\"]", self.workflow)
+        if search_match:
+            self.test_data['search_query'] = search_match.group(1)
+            print(colored(f"🔍 Extracted search query: '{self.test_data['search_query']}'", "cyan"))
+        
         print(colored(f"📋 Parsed {len(self.parsed_goal)} goal steps", "cyan"))
         for step in self.parsed_goal:
             flags = []
@@ -133,6 +141,7 @@ class ExplorerAgent:
             if step['self_learning_enabled']: flags.append("Self-Learning")
             flag_str = f" [{', '.join(flags)}]" if flags else ""
             print(colored(f"  Step {step['step_num']}: {step['description'][:60]}{flag_str}", "grey"))
+
         
     async def run(self):
         print(colored(f"Explorer: Starting Strategy 2026. Goal: {self.workflow}", "blue", attrs=["bold"]))
@@ -145,13 +154,16 @@ class ExplorerAgent:
                         "--disable-blink-features=AutomationControlled",
                         "--no-sandbox",
                         "--disable-setuid-sandbox",
-                        "--disable-infobars"
+                        "--disable-infobars",
+                        "--start-maximized"
                     ]
                 )
                 
                 # Enhanced stealth configuration for headless mode
+                # Use no_viewport for maximized window, or large viewport
                 context = await browser.new_context(
-                    viewport={"width": 1280, "height": 800},
+                    no_viewport=True if self.headed else False,
+                    viewport=None if self.headed else {"width": 1920, "height": 1080},
                     user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
                     ignore_https_errors=True,
                     bypass_csp=True,
@@ -180,6 +192,49 @@ class ExplorerAgent:
                 
                 # Handle JS Alerts/Dialogs automatically
                 page.on("dialog", lambda dialog: asyncio.create_task(dialog.accept()))
+                
+                # 🎯 VISUAL CURSOR: Add a visible cursor indicator for headed mode
+                if self.headed:
+                    await page.add_init_script("""
+                        window.showAgentCursor = (x, y, action = 'click') => {
+                            // Remove existing cursor
+                            const existing = document.getElementById('agent-cursor');
+                            if (existing) existing.remove();
+                            
+                            // Create cursor element
+                            const cursor = document.createElement('div');
+                            cursor.id = 'agent-cursor';
+                            cursor.style.cssText = `
+                                position: fixed;
+                                left: ${x - 15}px;
+                                top: ${y - 15}px;
+                                width: 30px;
+                                height: 30px;
+                                border: 3px solid #FF4444;
+                                border-radius: 50%;
+                                background: rgba(255, 68, 68, 0.3);
+                                pointer-events: none;
+                                z-index: 999999;
+                                transition: all 0.3s ease;
+                                animation: pulse 0.5s ease-out;
+                            `;
+                            
+                            // Add pulse animation
+                            const style = document.createElement('style');
+                            style.textContent = `
+                                @keyframes pulse {
+                                    0% { transform: scale(1); opacity: 1; }
+                                    50% { transform: scale(1.5); opacity: 0.7; }
+                                    100% { transform: scale(1); opacity: 1; }
+                                }
+                            `;
+                            document.head.appendChild(style);
+                            document.body.appendChild(cursor);
+                            
+                            // Remove after animation
+                            setTimeout(() => cursor.remove(), 1000);
+                        };
+                    """)
                 
                 try:
                     print(colored(f"🌐 Initial Navigation: {self.config['target_url']}", "cyan"))
@@ -823,9 +878,70 @@ class ExplorerAgent:
             if action == 'click':
                 print(colored(f"🖱️ Clicking ID={target_id} ({target_el['text']})", "yellow"))
                 try:
+                    # 🎯 Show visual cursor before clicking (headed mode only)
+                    if self.headed and target_el.get('center'):
+                        cx, cy = target_el['center'].get('x'), target_el['center'].get('y')
+                        if cx and cy:
+                            try:
+                                await page.evaluate(f"window.showAgentCursor && window.showAgentCursor({cx}, {cy}, 'click')")
+                                await asyncio.sleep(0.3)  # Brief pause to see cursor
+                            except: pass
+                    
                     await page.locator(locator_str).click(timeout=15000)
+                    
+                    # 🔍 SMART SEARCH HANDLER: Complete search in one atomic action
+                    target_text_lower = target_el.get('text', '').lower()
+                    if 'search' in target_text_lower and ('product' in target_text_lower or 'part' in target_text_lower):
+                        print(colored("   🔍 Smart Search Handler: Detected search icon click. Completing search...", "cyan"))
+                        await asyncio.sleep(3)  # Wait for search panel animation (increased)
+                        
+                        # Find and fill the search input - use multiple strategies
+                        search_input_selectors = [
+                            "input[aria-label='Search']",
+                            "input[type='search']", 
+                            "input[placeholder*='search' i]",
+                            "input[placeholder*='Search']",
+                            "input[name*='search' i]",
+                            ".header__search input",
+                            "[class*='search-input'] input",
+                            "[class*='search'] input:visible"
+                        ]
+                        
+                        search_filled = False
+                        search_query = self.test_data.get('search_query', 'Dyson V15 Detect')
+                        print(colored(f"   🔍 Searching for: '{search_query}'", "cyan"))
+                        
+                        for selector in search_input_selectors:
+                            try:
+                                print(colored(f"   🔍 Trying: {selector}", "grey"))
+                                input_el = page.locator(selector).first
+                                if await input_el.is_visible(timeout=2000):
+                                    # Human-like interaction: hover -> click -> wait -> type
+                                    print(colored(f"   ✅ Found visible input with: {selector}", "green"))
+                                    await input_el.hover()
+                                    await asyncio.sleep(0.5)
+                                    await input_el.click()
+                                    await asyncio.sleep(0.5)
+                                    
+                                    # Use keyboard typing for better compatibility
+                                    await page.keyboard.type(search_query, delay=50)
+                                    print(colored(f"   ✅ Typed search query: '{search_query}'", "green"))
+                                    
+                                    await asyncio.sleep(0.5)
+                                    await page.keyboard.press("Enter")
+                                    print(colored("   ✅ Submitted search query", "green"))
+                                    await asyncio.sleep(3)  # Wait for results page
+                                    search_filled = True
+                                    break
+                            except Exception as e:
+                                print(colored(f"   ⚠️ Selector failed: {e}", "grey"))
+                                continue
+                        
+                        if not search_filled:
+                            print(colored("   ⚠️ Smart Search: Could not find visible search input", "yellow"))
+                    
                     # Add wait for potential modal triggers
-                    if "cart" in target_el.get('text', '').lower() or "add" in target_el.get('text', '').lower():
+                    elif "cart" in target_text_lower or "add" in target_text_lower:
                         print(colored("   ⌛ Waiting for potential modal/animation...", "grey"))
                         await asyncio.sleep(1.5)
                 except Exception as e:

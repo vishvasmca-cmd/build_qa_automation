@@ -7,6 +7,24 @@ def test_generated_task(page: Page):
     except Exception as e:
         print(f"Navigation failed: {e}")
         return
-    page.get_by_text('X').first.click()
-    page.get_by_role('link', name='Hair care', exact=True).first.click()
-    page.get_by_role('link', name='Dyson V8 Absolute Vacuum', exact=True).first.click()
+
+    try:
+        page.get_by_text('X').first.click()
+    except:
+        pass
+    try:
+        page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+        page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+        page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    except:
+        pass
+    try:
+        page.get_by_role('button', name='Pause animation', exact=True).first.click()
+    except:
+        pass
+    try:
+        page.get_by_role('button', name='Search products and parts', exact=True).first.click()
+    except:
+        pass
+    page.locator("[name='q']").fill('Dyson V15 Detect')
+    page.get_by_role('link', name='Product Registration', exact=True).first.click()

@@ -927,3 +927,5 @@
 - ⚠️ PROHIBITED: DON'T assume the website is always reachable and correctly configured for HTTP/2. Implement robust error handling for page navigation failures.
 
 - ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for initial page load, especially when dealing with external websites. Also, DO add a check for network connectivity before attempting to navigate.
+
+- ⚠️ PROHIBITED: DON'T assume that HTTP/2 protocol errors are client-side issues; investigate server-side configurations and network stability first.
