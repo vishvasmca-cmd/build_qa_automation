@@ -933,3 +933,7 @@
 - ✅ PREFERRED: DO implement robust error handling for network-related issues, including HTTP/2 protocol errors, and consider adding retry mechanisms or falling back to HTTP/1.1 if HTTP/2 fails.
 
 - ✅ PREFERRED: DO implement robust error handling for page navigation, including catching network errors and potentially retrying with a different protocol or after a delay.
+
+- ⚠️ PROHIBITED: DON'T assume that the website will always successfully load on the first attempt without handling potential network or protocol errors.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, especially for critical pages like the homepage, to handle transient network or protocol errors.
