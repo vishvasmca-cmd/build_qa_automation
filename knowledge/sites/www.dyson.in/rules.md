@@ -1,6 +1,7 @@
 
 - ⚠️ PROHIBITED: DON'T try to fill the search input `[input] Search products and parts` directly. It is initially disabled/hidden.
-- ✅ PREFERRED: DO CLICK the search icon `button[aria-label='Search']` or `.search-icon` FIRST to expand the search bar. ONLY THEN fill the input.
+- ✅ PREFERRED: DO CLICK the search icon `button[aria-label="Search products and parts"]` (class `header__search__input-open`) FIRST.
+- ✅ PREFERRED: DO WAIT for the input `input[placeholder="dyson.in"][type="search"]` to appear.
 - ✅ PREFERRED: DO use `page.locator("button[aria-label='Close'], button.close, .modal-close").first` to close any overlay/popup.
 
 
