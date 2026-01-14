@@ -661,26 +661,42 @@ class ExplorerAgent:
     async def _make_decision(self, mindmap, page_url):
         # Retrieve RAG context from Knowledge Bank
         rag_context = self.kb.get_rag_context(page_url, self.workflow)
-        self.last_rag_context = rag_context # Store for logging in main loop
+        self.last_rag_context = rag_context
         
         # Determine if we are in a loop to warn the Planner
         loop_warning = None
         if hasattr(self, 'consecutive_duplicate_count') and self.consecutive_duplicate_count > 1:
-            loop_warning = f"⚠️ SYSTEM WARNING: You have been on this EXACT page state for {self.consecutive_duplicate_count} steps. Your previous actions are NOT changing the page. Do NOT repeat the same click. Try a different element or a different approach (e.g. scroll or wait)."
+            loop_warning = f"⚠️ CRITICAL LOOP WARNING: You have been on this EXACT page state for {self.consecutive_duplicate_count} steps. Your last action '{self.history[-1]['action']}' on target '{self.history[-1].get('target_text')}' CHANGED NOTHING. Do NOT repeat this. Try a different element, scroll, or assume the goal might be partially blocked. If you just clicked a search icon and the input is still 'disabled', try clicking it again OR look for a hidden input that might have appeared."
+
+        # TOKEN OPTIMIZATION: Truncate element text and filter out junk
+        formatted_elements = []
+        for e in mindmap['elements'][:500]:
+            text = (e.get('text') or '').strip()
+            if len(text) > 100:
+                text = text[:97] + "..."
+            
+            # Skip elements that are purely decorative or empty unless they are inputs/buttons
+            if not text and e['tagName'] not in ['button', 'input', 'select', 'a', 'textarea']:
+                continue
+                
+            formatted_elements.append({
+                "id": e['elementId'],
+                "text": text,
+                "tag": e['tagName'],
+                "role": e.get('role', ''),
+                "disabled": e.get('is_disabled', False)
+            })
 
         context = {
             "goal": self.workflow,
             "page_context": mindmap['summary'],
-            "elements": [{"id": e['elementId'], "text": e['text'], "tag": e['tagName'], "disabled": e.get('is_disabled', False)} for e in mindmap['elements'][:500]],
-            "history": self.history[-20:], # Expanded history
+            "elements": formatted_elements,
+            "history": self.history[-15:], # Slightly shorter history to save tokens
             "test_data": self.test_data,
             "knowledge_bank": rag_context,
             "last_action_error": self.last_error,
-            "loop_warning": loop_warning # NEW: Critical feedback to break loops
+            "loop_warning": loop_warning 
         }
-        
-        # If we are hitting 429s, we should explicitly try to reduce the prompt size here if needed
-        # but the main fix is preventing the loop in the first place.
         
         prompt = f"Current Mindmap Context:\n{json.dumps(context, indent=2)}"
         
@@ -815,9 +831,19 @@ class ExplorerAgent:
                         const selectors = '[class*="overlay"], [class*="modal"], [id*="cookie"], [class*="banner"], [role="dialog"], [aria-modal="true"], [class*="popup"], [class*="consent"], #hs-eu-cookie-confirmation';
                         const overlays = root.querySelectorAll(selectors);
                         overlays.forEach(el => {
+                            // PROTECTED ELEMENTS: Don't nuke search bars, main nav, or anything that looks like core UI
+                            const text = el.innerText.toLowerCase();
+                            const isProtected = text.includes('search') || 
+                                              text.includes('menu') || 
+                                              el.querySelector('input') || 
+                                              el.id.toLowerCase().includes('search') ||
+                                              el.className.toLowerCase().includes('search-container');
+                                              
+                            if (isProtected) return;
+
                             const style = window.getComputedStyle(el);
                             if (style.position === 'fixed' || style.position === 'absolute') {
-                                if (parseInt(style.zIndex) > 100 || el.innerText.toLowerCase().includes('cookie') || el.innerText.toLowerCase().includes('accept')) {
+                                if (parseInt(style.zIndex) > 100 || text.includes('cookie') || text.includes('accept')) {
                                     el.remove();
                                 }
                             }
