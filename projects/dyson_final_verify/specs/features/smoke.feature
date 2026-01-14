@@ -1,13 +1,11 @@
-Feature: Dyson India - Smoke Tests
+Feature: Search Functionality
+  As a user
+  I want to be able to search for products
+  So that I can find the products I am interested in
 
   @smoke
-  Scenario: Search for Dyson V15 Detect and verify 'Add to Cart' button
-    Given User navigates to the Dyson India homepage
-    When User closes the initial popup
-    And User clicks on the search icon
-    Then User should see the search input field
-    #And User enters "Dyson V15 Detect" in the search input
-    #And User presses Enter
-    #Then User should see search results for "Dyson V15 Detect"
-    #And User clicks on the "Dyson V15 Detect" product
-    #Then User should see the "Add to Cart" button on the product page
+  Scenario: Search for 'Dyson V15 Detect' and verify 'Add to Cart' button
+    Given I am on the Dyson India homepage
+    When I click on the search icon
+    Then I should be able to search for "Dyson V15 Detect"
+    And I should see the 'Add to Cart' button

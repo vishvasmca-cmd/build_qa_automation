@@ -931,3 +931,5 @@
 - ⚠️ PROHIBITED: DON'T assume that HTTP/2 protocol errors are client-side issues; investigate server-side configurations and network stability first.
 
 - ✅ PREFERRED: DO implement robust error handling for network-related issues, including HTTP/2 protocol errors, and consider adding retry mechanisms or falling back to HTTP/1.1 if HTTP/2 fails.
+
+- ✅ PREFERRED: DO implement robust error handling for page navigation, including catching network errors and potentially retrying with a different protocol or after a delay.
