@@ -1,16 +1,16 @@
-Feature: Product Search and Add to Cart
+Feature: Product Search and Checkout
   As a user
-  I want to search for a product and add it to the cart
-  So that I can purchase it
+  I want to be able to search for a product, add it to the cart, and proceed to checkout
 
   @smoke
-  Scenario: Search for Dyson V15 Detect and add to cart
+  Scenario: Search for a product and navigate to checkout
     Given I am on the Dyson India homepage
-    When I close the subscription popup
+    When I close the subscription popup if it appears
     And I search for "Dyson V15 Detect"
-    And I click the first product result
+    And I click the search button
+    And I click on the first product result
     Then I should see the "Add to Cart" button
     When I click the "Add to Cart" button
     Then the cart drawer should open
-    And I click the "Checkout" button
+    When I click the "Checkout" button
     Then I should be on the checkout page

@@ -959,3 +959,37 @@
 - ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for critical navigation actions like `page.goto()` to handle transient network or server errors.
 
 - ✅ PREFERRED: DO implement retry logic with exponential backoff for initial page load, specifically targeting `net::ERR_HTTP2_PROTOCOL_ERROR`.
+
+- ⚠️ PROHIBITED: DON'T assume that HTTP/2 will always work flawlessly; implement robust error handling and retry mechanisms for page navigation.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially when dealing with external websites that might have intermittent HTTP/2 issues.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `get_by_text` with ambiguous text like 'X' for critical click actions; it's prone to instability and unexpected matches.
+
+- ✅ PREFERRED: DO prioritize more specific and resilient locators (e.g., using `data-testid`, `aria-label`, or a combination of attributes) to target elements, especially for interactive elements like buttons or links.
+
+- ✅ PREFERRED: DO implement robust error handling for page navigation, including retries with different protocol settings or alternative navigation strategies.
+
+- ⚠️ PROHIBITED: DON'T rely on a single `get_by_text` locator without considering potential ambiguity or dynamic content changes. A single 'X' can appear in multiple places.
+
+- ✅ PREFERRED: DO use more specific and resilient locators, combining text matching with role, ARIA attributes, or hierarchical context to target the desired element accurately. Consider using `getByRole` or `getByLabel` when appropriate.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls, especially when dealing with HTTP/2 connections. Consider adding a timeout to the `goto` call.
+
+- ⚠️ PROHIBITED: DON'T rely on `get_by_text()` alone for critical elements; it's prone to false positives if the text is common or dynamically generated. Also, NEVER assume an element is immediately clickable after page load; always account for potential delays.
+
+- ✅ PREFERRED: DO use more specific and resilient locators (e.g., IDs, data attributes, or a combination of attributes) to target elements. DO implement explicit waits with `locator.wait_for()` to ensure elements are visible and enabled before attempting to interact with them.
+
+- ⚠️ PROHIBITED: DON'T assume a website is fully compatible with HTTP/2 without proper error handling and retries in the test script.
+
+- ⚠️ PROHIBITED: DON'T rely on a single `get_by_text()` locator without sufficient context or retry mechanisms, especially for elements that might be dynamically loaded or subject to A/B testing.
+
+- ✅ PREFERRED: DO use more specific and resilient locators (e.g., combining `get_by_text()` with role or ARIA attributes) and implement retry logic with exponential backoff for elements that may not be immediately available.
+
+- ⚠️ PROHIBITED: DON'T assume that the target website (dyson.in) will always correctly negotiate HTTP/2. Implement retry logic with a fallback to HTTP/1.1 if HTTP/2 fails.
+
+- ✅ PREFERRED: DO implement robust error handling and retry mechanisms for page navigation, especially when dealing with potential network or protocol-related issues. Consider using try-except blocks with exponential backoff for retries.
+
+- ⚠️ PROHIBITED: DON'T rely solely on `get_by_text` without considering potential ambiguity or dynamic content changes. A single character match like 'X' is highly prone to false positives.
+
+- ✅ PREFERRED: DO use more specific and resilient locators, combining text matching with other attributes like `role`, `id`, or `class` to uniquely identify the target element. Consider using `nth()` or `filter()` to narrow down the selection if multiple elements match the initial criteria.

@@ -97,5 +97,14 @@
       "phase": "exploration"
     },
     "error": "Explorer failed after all retries"
+  },
+  {
+    "timestamp": "2026-01-14T19:10:54.739708",
+    "context": {
+      "site": "https://www.dyson.in/",
+      "project": "dyson_e2e_ci",
+      "phase": "execution"
+    },
+    "error": "w_stack__\", None\n        ) or inspect.stack(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nE           Call log:\nE             - waiting for get_by_text(\"X\").first\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/dyson_e2e_ci/tests/test_main.py::test_generated_task[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_text(\"X\").first\n============================== 1 failed in 30.72s ==============================\n\n\n"
   }
 ]
