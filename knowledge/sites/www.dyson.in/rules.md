@@ -921,3 +921,5 @@
 - ⚠️ PROHIBITED: DON'T assume that the target website's HTTP/2 configuration is always stable and compatible with Playwright's default settings.
 
 - ✅ PREFERRED: DO implement robust error handling and retry mechanisms for initial page navigation, especially when dealing with HTTP/2.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for `page.goto()` calls, especially when dealing with external websites, to handle transient network or server errors.
