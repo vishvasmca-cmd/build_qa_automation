@@ -4,67 +4,72 @@
 
 This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The tests will cover core functionalities such as product search, adding to cart, and proceeding to checkout.
 
-## Test Scope
+## Scope
 
-The testing will cover the following areas:
+The scope of this test plan includes:
 
-*   Homepage
-*   Product Listing Page (PLP)
-*   Product Detail Page (PDP)
-*   Cart
-*   Checkout
-
-## Test Suites
-
-This test plan includes two main test suites: Smoke and Regression.
-
-### Smoke Suite Strategy
-
-The Smoke Suite is designed to verify the core functionality of the Dyson India website. It focuses on the happy path scenarios and critical business flows. The following checklist is applied to this project's Smoke Suite:
-
-1.  **Critical Path Coverage:** Tests cover essential user journeys like product search and checkout.
-2.  **Core Functionality:** Focuses on testing the primary functions of the application.
-3.  **Positive Testing:** Primarily includes positive test cases, ensuring the system works as expected under normal conditions.
-4.  **Minimal Complexity:** Scenarios are kept simple and straightforward.
-5.  **Fast Execution:** Tests are designed to execute quickly to provide rapid feedback.
-6.  **Build Validation:** Failure of any smoke test indicates a critical issue, potentially rejecting the build.
-7.  **Limited Data Variation:** Uses a small, representative set of test data.
-8.  **No Edge Cases:** Excludes complex edge cases or error handling scenarios.
-
-### Regression Suite
-
-The Regression Suite is a comprehensive set of tests designed to ensure that new changes have not introduced any regressions in existing functionality. This suite covers a wider range of scenarios, including alternative flows, negative test cases, and boundary conditions.
-
-## Test Cases
-
-Test cases will be written in Gherkin syntax and stored in feature files. Each feature file will contain scenarios that cover a specific area of the application.
+*   Smoke testing of critical path: Searching for a product, adding it to the cart, and navigating to the checkout page.
+*   Regression testing to ensure existing functionalities are not broken due to recent changes (future).
 
 ## Test Environment
 
-*   Browser: Chromium
-*   Operating System: Windows/macOS/Linux (cross-platform)
+*   Browser: Chrome (latest version)
+*   Operating System: Windows/macOS (latest versions)
 *   Test Framework: Playwright
+*   Test Data: Using valid product names and checkout information.
 
-## Test Data
+## Test Suites
 
-Test data will be used to simulate different user inputs and scenarios. This data will include:
+### Smoke Suite Strategy
 
-*   Valid and invalid search queries
-*   Product names and SKUs
-*   Shipping addresses
-*   Payment information
+The Smoke Suite is designed to verify the core functionality of the Dyson India website. The following checklist is applied:
+
+1.  **Critical Paths Only:** Focuses on the most essential user flows (search, add to cart, checkout).
+2.  **Positive Testing:** Primarily uses valid inputs and scenarios.
+3.  **Minimal Data:** Uses a small, representative set of test data.
+4.  **Fast Execution:** Designed to run quickly to provide rapid feedback.
+5.  **Build Validation:** Failure indicates a critical issue that blocks the build.
+6.  **No Edge Cases:** Excludes complex or unusual scenarios.
+7.  **Core Business Logic:** Validates the primary revenue-generating flows.
+8.  **Limited Scope:** Covers only the most vital functionalities.
+
+### Regression Suite
+
+The Regression Suite will cover a broader range of scenarios, including alternative flows, negative testing, and edge cases (future).
+
+## Test Cases
+
+### Smoke Suite
+
+1.  **Search and Add to Cart:**
+    *   Objective: Verify the ability to search for a product, add it to the cart, and proceed to checkout.
+    *   Steps:
+        1.  Open the Dyson India website.
+        2.  Close the 'Subscribe' popup (if present).
+        3.  Search for "Dyson V15 Detect".
+        4.  Click on the first product result.
+        5.  Verify the 'Add to Cart' button is visible.
+        6.  Click 'Add to Cart'.
+        7.  Verify the cart drawer opens.
+        8.  Click 'Checkout'.
+        9.  Verify that the checkout page is reached.
+
+### Regression Suite (Future)
+
+*   To be defined in future iterations.
 
 ## Test Deliverables
 
-Tests will be executed automatically as part of the CI/CD pipeline. The test results will be reported in a clear and concise manner.
+*   Test Plan Document
+*   Test Scripts (Playwright)
+*   Test Results Report
 
-## Metrics
+## Roles and Responsibilities
 
-The following metrics will be used to track the progress and effectiveness of the testing efforts:
+*   QA Architect: Responsible for creating and maintaining the test plan, designing test suites, and providing guidance on test automation.
+*   QA Engineer: Responsible for writing and executing test scripts, analyzing test results, and reporting defects.
 
-*   Number of tests executed
-*   Number of tests passed
-*   Number of tests failed
-*   Test execution time
-*   Defect density
+## Test Schedule
 
+*   Smoke tests will be executed with each build.
+*   Regression tests will be executed on a regular basis (e.g., weekly or after major releases).

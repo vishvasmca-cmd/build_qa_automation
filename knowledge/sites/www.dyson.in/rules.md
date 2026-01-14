@@ -874,3 +874,7 @@
 - ✅ PREFERRED: DO implement robust error handling for network requests, including retries with exponential backoff and fallback to HTTP/1.1 if HTTP/2 fails.
 
 - ✅ PREFERRED: DO implement a check for network connectivity and website availability before attempting to navigate to the target URL.
+
+- ⚠️ PROHIBITED: DON'T assume a website is fully compatible with HTTP/2 without proper error handling and retry mechanisms in place.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for `Page.goto()` calls, especially when dealing with external websites, to handle transient network or protocol errors.
