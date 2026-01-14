@@ -883,3 +883,5 @@
 - ⚠️ PROHIBITED: DON'T assume a website is fully compatible with HTTP/2; be prepared to handle protocol errors gracefully.
 
 - ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls, especially for initial page loads, to handle transient network or server-side HTTP/2 issues.
+
+- ✅ PREFERRED: DO implement robust error handling for page navigation, including retries with different protocol configurations or fallback to HTTP/1.1 if HTTP/2 fails.

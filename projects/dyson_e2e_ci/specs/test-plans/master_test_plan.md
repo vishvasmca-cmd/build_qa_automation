@@ -2,57 +2,52 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The goal is to ensure the website functions correctly and provides a seamless user experience.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The tests will be executed to ensure the stability and functionality of the website after code changes.
 
 ## Test Scope
 
-The testing will cover core functionalities such as:
+The test scope includes:
 
-*   Handling popups
-*   Searching for products
-*   Product Detail Page (PDP) verification
-*   Add to Cart functionality
-*   Checkout process
+*   **Smoke Tests:**  Verify core functionalities like searching for a product, adding it to the cart, and proceeding to checkout.
+*   **Regression Tests:** Cover a broader range of scenarios, including alternative flows, negative testing, and boundary conditions.
 
 ## Test Strategy
 
-The test strategy will consist of two main suites: Smoke and Regression.
-
 ### Smoke Suite Strategy
 
-The Smoke Suite will focus on verifying the most critical functionalities of the website. The following checklist is applied:
+The smoke test suite will focus on the most critical path: searching for a specific product (Dyson V15 Detect), adding it to the cart, and navigating to the checkout page. The following checklist is applied:
 
-1.  **Critical Path Coverage:** Tests cover essential user journeys (e.g., product search, add to cart, checkout).
-2.  **Core Business Logic:** Focus on testing the primary revenue-generating flows.
-3.  **Positive Testing:** Primarily focuses on happy path scenarios.
-4.  **Minimal Negative Testing:** Only critical security-related negative tests are included.
-5.  **No Complex Edge Cases:** Avoid complex or less common scenarios.
-6.  **Fast Execution:** Tests are designed to execute quickly to provide rapid feedback.
-7.  **Build Validation:** Failure of any smoke test indicates a critical issue and may reject the build.
-8.  **Limited Scope:** Only the most vital functionalities are included.
+1.  **Critical Path Coverage:** Covers the core user journey of product search, add-to-cart, and checkout initiation.
+2.  **Positive Testing:** Focuses on successful execution of the flow with valid inputs.
+3.  **No Negative Testing:**  Excludes invalid inputs or error conditions in this phase.
+4.  **Minimal Data Variation:** Uses a single, representative product for testing.
+5.  **Environment Stability:**  Assumes a stable test environment.
+6.  **Fast Execution:** Designed for quick execution to provide rapid feedback.
+7.  **Build Validation:**  Failure indicates a critical issue, potentially blocking the build.
+8.  **Automated Execution:**  Automated execution as part of the CI/CD pipeline.
 
 ### Regression Suite Strategy
 
-The Regression Suite will provide comprehensive coverage of the website's functionalities, including alternative flows, negative scenarios, and edge cases. This suite will ensure that new changes do not introduce regressions in existing functionalities.
+The regression test suite will expand upon the smoke tests to cover a wider range of scenarios and edge cases. This includes:
 
-## Test Suites
-
-1.  **Smoke Suite:**
-    *   Objective: Verify critical functionalities are working after deployment.
-    *   Scope: As defined in the Smoke Suite Strategy.
-2.  **Regression Suite:**
-    *   Objective: Ensure that new changes have not broken existing functionalities.
-    *   Scope: Comprehensive coverage of all functionalities, including edge cases and negative scenarios.
+*   Alternative search methods (e.g., using different keywords).
+*   Testing different product types.
+*   Validating error messages.
+*   Checking boundary conditions (e.g., maximum quantity in cart).
 
 ## Test Environment
 
-*   Browser: Chrome (latest version)
-*   Operating System: Windows 10/11, macOS
-*   Test Data: Use a combination of valid and invalid test data to ensure proper validation and error handling.
+*   **Browser:** Chrome (latest version)
+*   **Operating System:**  Windows 10/11, macOS
+*   **Test Framework:** Playwright
 
 ## Test Deliverables
 
-*   Test Plan Document
-*   Test Automation Scripts (Playwright)
-*   Test Execution Reports
-*   Defect Reports
+*   Test scripts (Playwright).
+*   Test execution reports.
+*   Defect reports.
+
+## Test Schedule
+
+*   Smoke tests will be executed with every build.
+*   Regression tests will be executed on a nightly basis or as needed.

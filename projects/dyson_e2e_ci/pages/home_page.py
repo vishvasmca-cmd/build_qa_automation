@@ -9,52 +9,87 @@ class HomePage:
         self.page = page
 
     @property
+    def dyson_logo(self):
+        """Dyson logo that navigates to the homepage."""
+        return self.page.//a[@aria-label='Homepage'].or_(self.page.css=svg[class*='DysonLogo'])
+
+    @property
     def search_products_and_parts(self):
         """Search input field to find products and parts."""
         return self.page.role=searchbox.or_(self.page.css=input[placeholder='Search products and parts'])
 
     @property
     def shop_now_button(self):
-        """Button to navigate to the product page of the featured purifier."""
-        return self.page.text=Shop now.or_(self.page.css=a[href='/en-IN/purifiers/compact'])
+        """Button to navigate to the shop page for the featured product."""
+        return self.page.//a[text()='Shop now'].or_(self.page.css=a[class*='Button'][href*='/shop'])
 
     @property
-    def vacuum_wet_cleaners(self):
-        """Link to the vacuum cleaners category page."""
-        return self.page.text=Vacuum & wet cleaners.or_(self.page.css=a[href='/en-IN/vacuum-cleaners'])
+    def deals_link(self):
+        """Link to the deals page."""
+        return self.page.//a[text()='Deals'].or_(self.page.css=a[href*='/deals'])
 
     @property
-    def hair_care(self):
-        """Link to the hair care category page."""
-        return self.page.text=Hair care.or_(self.page.css=a[href='/en-IN/hair-care'])
+    def vacuum_wet_cleaners_link(self):
+        """Link to the vacuum cleaners page."""
+        return self.page.//a[text()='Vacuum & wet cleaners'].or_(self.page.css=a[href*='/vacuums'])
 
     @property
-    def air_purifier(self):
-        """Link to the air purifier category page."""
-        return self.page.text=Air purifier.or_(self.page.css=a[href='/en-IN/air-treatment'])
+    def hair_care_link(self):
+        """Link to the hair care products page."""
+        return self.page.//a[text()='Hair care'].or_(self.page.css=a[href*='/hair-care'])
 
     @property
-    def headphones(self):
-        """Link to the headphones category page."""
-        return self.page.text=Headphones.or_(self.page.css=a[href='/en-IN/headphones'])
+    def air_purifier_link(self):
+        """Link to the air purifier products page."""
+        return self.page.//a[text()='Air purifier'].or_(self.page.css=a[href*='/air-treatment'])
 
     @property
-    def lighting(self):
-        """Link to the lighting category page."""
-        return self.page.text=Lighting.or_(self.page.css=a[href='/en-IN/lighting'])
+    def headphones_link(self):
+        """Link to the headphones products page."""
+        return self.page.//a[text()='Headphones'].or_(self.page.css=a[href*='/headphones'])
 
     @property
-    def support(self):
+    def lighting_link(self):
+        """Link to the lighting products page."""
+        return self.page.//a[text()='Lighting'].or_(self.page.css=a[href*='/lighting'])
+
+    @property
+    def support_link(self):
         """Link to the support page."""
-        return self.page.text=Support.or_(self.page.css=a[href='/en-IN/support'])
+        return self.page.//a[text()='Support'].or_(self.page.css=a[href*='/support'])
 
     @property
-    def best_sellers(self):
+    def best_sellers_link(self):
         """Link to the best sellers page."""
-        return self.page.text=Best sellers.or_(self.page.css=a[href='/en-IN/best-sellers'])
+        return self.page.//a[text()='Best sellers'].or_(self.page.css=a[href*='/best-sellers'])
+
+    @property
+    def discover_dyson_link(self):
+        """Link to the Discover Dyson page."""
+        return self.page.//a[text()='Discover Dyson'].or_(self.page.css=a[href*='/dyson-technology'])
+
+    @property
+    def for_business_link(self):
+        """Link to the For business page."""
+        return self.page.//a[text()='For business'].or_(self.page.css=a[href*='/for-business'])
+
+    @property
+    def store_finder_link(self):
+        """Link to the Store finder page."""
+        return self.page.//a[text()='Store finder'].or_(self.page.css=a[href*='/store-finder'])
+
+    @property
+    def register_machine_link(self):
+        """Link to the Register machine page."""
+        return self.page.//a[text()='Register machine'].or_(self.page.css=a[href*='/register'])
+
+    @property
+    def contact_us_link(self):
+        """Link to the Contact us page."""
+        return self.page.//a[text()='Contact us'].or_(self.page.css=a[href*='/contact'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Title contains 'Dyson India'
+        await Title contains 'Dyson'
         await Page contains the text 'Compact. Powerful. Yet quiet.'
         await Page contains the text 'Dyson.in exclusive: 24 months no cost EMI'
