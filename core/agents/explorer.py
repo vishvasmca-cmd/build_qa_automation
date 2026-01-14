@@ -494,11 +494,14 @@ class ExplorerAgent:
                     thought = decision.get('thought', '')
                     print(colored(f"🧠 MISSION STATUS: {thought}", "cyan"), flush=True)
                     
-                    if decision.get('is_goal_achieved') or decision.get('action') == 'done':
-                        # Log final state before exiting
+                    # --- GOAL COMPLETION CHECK ---
+                    # Only exit immediately if action is 'done'. 
+                    # If 'is_goal_achieved' is true but there is an active action (click/fill),
+                    # we execute the action FIRST before breaking the loop.
+                    if decision.get('action') == 'done':
                         self.trace.append({
                             "step": step,
-                            "thought": decision.get('thought', 'Goal already achieved.'),
+                            "thought": thought or 'Goal already achieved.',
                             "action": "done",
                             "url": page.url,
                             "screenshot": img_name,
@@ -563,6 +566,12 @@ class ExplorerAgent:
                             }
                         })
                         self._save_trace()
+                        
+                        # NEW: Check if this action completed the goal
+                        if decision.get('is_goal_achieved'):
+                             print(colored("🎯 MISSION ACCOMPLISHED: Final action executed. Goal Achieved!", "green", attrs=["bold"]), flush=True)
+                             break
+                             
                         step += 1
                     else:
                         # Determine current goal step
