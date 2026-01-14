@@ -929,3 +929,5 @@
 - ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for initial page load, especially when dealing with external websites. Also, DO add a check for network connectivity before attempting to navigate.
 
 - ⚠️ PROHIBITED: DON'T assume that HTTP/2 protocol errors are client-side issues; investigate server-side configurations and network stability first.
+
+- ✅ PREFERRED: DO implement robust error handling for network-related issues, including HTTP/2 protocol errors, and consider adding retry mechanisms or falling back to HTTP/1.1 if HTTP/2 fails.
