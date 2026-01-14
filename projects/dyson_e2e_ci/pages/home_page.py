@@ -2,7 +2,7 @@ from playwright.async_api import Page, expect
 
 class HomePage:
     """
-    This is the homepage for Dyson India. The primary purpose is to showcase Dyson products and provide navigation to different product categories and information.
+    This is the homepage for Dyson India. The primary purpose is to showcase Dyson products, promote deals, and provide navigation to different product categories and support resources.
     URL Pattern: https://www.dyson.in/
     """
     def __init__(self, page: Page):
@@ -10,74 +10,61 @@ class HomePage:
 
     @property
     def dyson_logo(self):
-        """Dyson logo that navigates to the homepage."""
-        return self.page.css=a[aria-label='Homepage'].or_(self.page.text=dyson)
+        """Link to return to the homepage."""
+        return self.page.//a[@aria-label='Homepage'].or_(self.page.css=a[aria-label='Homepage'])
 
     @property
     def search_products_and_parts(self):
-        """Search input field to find specific products or parts."""
-        return self.page.css=input[placeholder='Search products and parts'].or_(self.page.text=Search products and parts)
+        """Search input box to find products and parts."""
+        return self.page.css=input#search-input.or_(self.page.css=div.search-input > input)
 
     @property
-    def cart_icon(self):
-        """Link to the shopping cart."""
-        return self.page.css=a[aria-label='Please go to your basket'].or_(self.page.css=svg[id='basket'])
+    def shop_now_button(self):
+        """Button to navigate to the product page featured in the hero section."""
+        return self.page.//a[contains(text(),'Shop now')].or_(self.page.text=Shop now)
 
     @property
-    def deals(self):
+    def deals_link(self):
         """Link to the deals page."""
-        return self.page.text=Deals.or_(self.page.css=a[href='/deals'])
+        return self.page.//a[contains(text(),'Deals')].or_(self.page.text=Deals)
 
     @property
-    def vacuum_wet_cleaners(self):
-        """Link to the vacuum cleaners page."""
-        return self.page.text=Vacuum & wet cleaners.or_(self.page.css=a[href='/vacuum-cleaners'])
+    def vacuum_wet_cleaners_link(self):
+        """Link to the vacuum and wet cleaners product category."""
+        return self.page.//a[contains(text(),'Vacuum & wet cleaners')].or_(self.page.text=Vacuum & wet cleaners)
 
     @property
-    def hair_care(self):
-        """Link to the hair care products page."""
-        return self.page.text=Hair care.or_(self.page.css=a[href='/hair-care'])
+    def hair_care_link(self):
+        """Link to the hair care product category."""
+        return self.page.//a[contains(text(),'Hair care')].or_(self.page.text=Hair care)
 
     @property
-    def air_purifier(self):
-        """Link to the air purifier products page."""
-        return self.page.text=Air purifier.or_(self.page.css=a[href='/air-treatment'])
+    def air_purifier_link(self):
+        """Link to the air purifier product category."""
+        return self.page.//a[contains(text(),'Air purifier')].or_(self.page.text=Air purifier)
 
     @property
-    def headphones(self):
-        """Link to the headphones products page."""
-        return self.page.text=Headphones.or_(self.page.css=a[href='/headphones'])
+    def headphones_link(self):
+        """Link to the headphones product category."""
+        return self.page.//a[contains(text(),'Headphones')].or_(self.page.text=Headphones)
 
     @property
-    def lighting(self):
-        """Link to the lighting products page."""
-        return self.page.text=Lighting.or_(self.page.css=a[href='/lighting'])
+    def lighting_link(self):
+        """Link to the lighting product category."""
+        return self.page.//a[contains(text(),'Lighting')].or_(self.page.text=Lighting)
 
     @property
-    def support(self):
+    def support_link(self):
         """Link to the support page."""
-        return self.page.text=Support.or_(self.page.css=a[href='/support'])
+        return self.page.//a[contains(text(),'Support')].or_(self.page.text=Support)
 
     @property
-    def best_sellers(self):
+    def best_sellers_link(self):
         """Link to the best sellers page."""
-        return self.page.text=Best sellers.or_(self.page.css=a[href='/best-sellers'])
-
-    @property
-    def shop_now(self):
-        """Button to shop the featured product."""
-        return self.page.text=Shop now.or_(self.page.css=a[class*='button'])
+        return self.page.//a[contains(text(),'Best sellers')].or_(self.page.text=Best sellers)
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
         await Title contains 'Dyson'
-        await Page contains the Dyson logo
-        await Page contains the 'Search products and parts' search box
-        await Page contains the 'Deals' link
-        await Page contains the 'Vacuum & wet cleaners' link
-        await Page contains the 'Hair care' link
-        await Page contains the 'Air purifier' link
-        await Page contains the 'Headphones' link
-        await Page contains the 'Lighting' link
-        await Page contains the 'Support' link
-        await Page contains the 'Best sellers' link
+        await Page contains the text 'Compact. Powerful. Yet quiet.'
+        await Page contains the text 'Dyson.in exclusive: 24 months no cost EMI'

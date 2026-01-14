@@ -2,44 +2,49 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The plan includes smoke and regression test suites to ensure the quality and stability of the application.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user flows on the Dyson India website. The tests will be automated using Playwright and follow a Behavior-Driven Development (BDD) approach with Gherkin syntax.
 
 ## Scope
 
-The testing scope covers essential functionalities such as product search, product detail page (PDP) verification, adding items to the cart, and navigating to the checkout page.
+The scope of this test plan includes:
+
+*   Smoke tests to verify core functionality.
+*   Regression tests to ensure existing functionality remains intact after changes.
 
 ## Test Suites
 
-### 1. Smoke Suite
+### Smoke Suite
 
-The smoke suite comprises a minimal set of tests to verify the core functionality of the application. These tests are executed to ensure the build's basic stability before more extensive testing.
+The smoke suite will cover the most critical user flows to ensure the basic functionality of the Dyson India website is working as expected. These tests are designed to be executed quickly and efficiently to provide rapid feedback on the stability of the application.
 
 #### Smoke Suite Strategy
 
-The following 8-point checklist has been applied to define the smoke suite for this project:
+The following 8-point checklist has been applied to define the Smoke Suite for this project:
 
-1.  **Critical Paths:** Focuses on core user journeys like searching for a product and initiating the checkout process.
-2.  **Core Business Logic:** Covers essential e-commerce functions such as adding items to the cart.
-3.  **Positive Testing:** Primarily focuses on successful scenarios (e.g., valid search, successful add to cart).
-4.  **No Negative Testing:** Excludes negative scenarios (e.g., invalid search terms) unless critical for security.
-5.  **No Complex Edge Cases:** Avoids complex scenarios or boundary conditions.
-6.  **Fast Execution:** Designed for quick execution to provide rapid feedback on build stability.
-7.  **Independent Tests:** Each test is independent and can be run in any order.
-8.  **Limited Data Dependency:** Minimizes reliance on specific test data.
+1.  **Critical Paths:** The smoke tests cover essential paths like searching for a product, adding it to the cart, and proceeding to checkout.
+2.  **Core Business Logic:** The tests validate the core e-commerce logic, such as adding products to the cart and navigating to the checkout page.
+3.  **No Negative Testing:** The smoke tests focus on happy path scenarios and do not include negative testing.
+4.  **No Complex Edge Cases:** The smoke tests avoid complex edge cases and focus on the most common user flows.
+5.  **Speed of Execution:** The smoke tests are designed to be executed quickly to provide rapid feedback.
+6.  **Independence:** Each smoke test should be independent of other tests.
+7.  **Minimal Setup:** The setup required for each smoke test should be minimal.
+8.  **Clear Assertions:** The assertions in the smoke tests should be clear and easy to understand.
 
-### 2. Regression Suite
+### Regression Suite
 
-The regression suite includes a comprehensive set of tests to ensure that new changes haven't introduced regressions in existing functionality. This suite covers alternative flows, negative scenarios, boundary conditions, and cross-module interactions.
+The regression suite will cover a broader range of scenarios, including alternative flows, negative scenarios, boundary analysis, and cross-module interactions. These tests are designed to ensure that changes to the application do not introduce regressions or break existing functionality.
+
+## Test Cases
+
+Test cases will be defined in Gherkin syntax and stored in feature files. Each feature file will represent a specific area of functionality, and each scenario will represent a specific test case.
 
 ## Test Environment
 
-*   **Browser:** Chrome (latest version)
-*   **Operating System:** Windows 10/11, macOS
-*   **Test Data:** Using a set of predefined test data for products and user accounts.
+*   Browser: Chromium, Firefox, and WebKit
+*   Operating System: Windows, macOS, and Linux
+*   Test Framework: Playwright
+*   Programming Language: JavaScript/TypeScript
 
-## Test Deliverables
+## Test Execution
 
-*   Test Plan Document
-*   Gherkin Feature Files
-*   Test Execution Reports
-
+Tests will be executed automatically as part of the CI/CD pipeline. Test results will be reported in a clear and concise manner.
