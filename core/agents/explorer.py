@@ -62,14 +62,15 @@ Your goal is to complete the user's workflow by deciding the single next best ac
 
 **THINKING PROCESS:**
 1. Observe: What page am I on?
-2. History Check: Review `history` carefully. What have I ALREADY DONE? Use element text and URLs to verify.
-3. **KNOWLEDGE CHECK (CRITICAL)**: Analyze `knowledge_bank`. If it contains "Proven Locators" for specific elements, PRIORITIZE them. If it contains "Learned Rules" or "Strategic Insights", you **MUST** follow them to avoid repeating past failures (e.g., "Always close popup X before Y").
-4. Validate: Did my LAST action work? Note: On SPAs, the URL might not change even if the content does.
-5. Multi-Goal Check: Look at the `goal`. Does it have multiple steps (e.g., '1. Home, 2. Price')? Check off completed steps based on history.
-6. **Login Check**: If I encounter a login page and NO credentials are in `test_data` AND NO credentials are in the `goal`, SKIP login entirely. Instead, explore publicly accessible areas. However, if credentials are provided in either `test_data` or the `goal` description, proceed with login.
-7. **Validation Check**: Check the `disabled` field in the element list. YOU MUST NOT 'click' or 'fill' an element if `disabled` is true. If the element you want is disabled, LOOK for a nearby button/icon that might enable it (e.g., a "Search" icon to open a search bar, or an "Edit" button to enable a form).
-8. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal? 
-9. **STEP TRACKING (CRITICAL)**: You MUST complete the workflow steps IN ORDER. If you land on a page that belongs to a LATER step (e.g., login page but you haven't added to cart yet), you MUST attempt to navigate BACK to the correct page for the EARLIEST unfulfilled step. DO NOT skip ahead just because you are on a convenient page.
+2. **ERROR CHECK (PRIORITY)**: Check `last_action_error`. If it contains a hint like "Try clicking element X first", you MUST follow that hint immediately.
+3. History Check: Review `history` carefully. What have I ALREADY DONE? Use element text and URLs to verify.
+4. **KNOWLEDGE CHECK (CRITICAL)**: Analyze `knowledge_bank`. If it contains "Proven Locators" for specific elements, PRIORITIZE them. If it contains "Learned Rules" or "Strategic Insights", you **MUST** follow them to avoid repeating past failures (e.g., "Always close popup X before Y").
+5. Validate: Did my LAST action work? Note: On SPAs, the URL might not change even if the content does.
+6. Multi-Goal Check: Look at the `goal`. Does it have multiple steps (e.g., '1. Home, 2. Price')? Check off completed steps based on history.
+7. **Login Check**: If I encounter a login page and NO credentials are in `test_data` AND NO credentials are in the `goal`, SKIP login entirely. Instead, explore publicly accessible areas. However, if credentials are provided in either `test_data` or the `goal` description, proceed with login.
+8. **Validation Check**: Check the `disabled` field in the element list. YOU MUST NOT 'click' or 'fill' an element if `disabled` is true. If the element you want is disabled, LOOK for a nearby button/icon that might enable it (e.g., a "Search" icon to open a search bar, or an "Edit" button to enable a form).
+9. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal? 
+10. **STEP TRACKING (CRITICAL)**: You MUST complete the workflow steps IN ORDER. If you land on a page that belongs to a LATER step (e.g., login page but you haven't added to cart yet), you MUST attempt to navigate BACK to the correct page for the EARLIEST unfulfilled step. DO NOT skip ahead just because you are on a convenient page.
 
 **OUTPUT SCHEMA (JSON only)**:
 {
@@ -116,11 +117,22 @@ class ExplorerAgent:
         self.visited_states = set()  # Track unique page states
         self.loop_detection_window = 5  # Check last N steps for patterns
         
-        # Phase 1 Enhancements: Project-Specific Artifacts
         self.project_root = os.path.dirname(config_path)
         self.snapshot_dir = os.path.join(self.project_root, "snapshots")
         os.makedirs(self.snapshot_dir, exist_ok=True)
         self.last_error = None  # Track the last action failure
+        
+        # Self-Learning & Optional Steps Enhancement
+        self.parsed_goal = self._parse_goal_with_metadata(self.workflow)
+        self.step_learnings = {}  # Store learnings per step number
+        self.skipped_steps = []  # Track which optional steps were skipped
+        print(colored(f"📋 Parsed {len(self.parsed_goal)} goal steps", "cyan"))
+        for step in self.parsed_goal:
+            flags = []
+            if step['is_optional']: flags.append("Optional")
+            if step['self_learning_enabled']: flags.append("Self-Learning")
+            flag_str = f" [{', '.join(flags)}]" if flags else ""
+            print(colored(f"  Step {step['step_num']}: {step['description'][:60]}{flag_str}", "grey"))
         
     async def run(self):
         print(colored(f"Explorer: Starting Strategy 2026. Goal: {self.workflow}", "blue", attrs=["bold"]))
@@ -376,7 +388,83 @@ class ExplorerAgent:
                         self._save_trace()
                         step += 1
                     else:
+                        # Determine current goal step
+                        current_step_meta = self._get_current_step_metadata(mindmap, page.url)
+                        
+                        # Optional Step Handling
+                        if current_step_meta and current_step_meta['is_optional']:
+                            print(colored(f"⏭️ Optional step '{current_step_meta['description'][:40]}...' failed. Skipping.", "yellow"))
+                            self.skipped_steps.append(current_step_meta['step_num'])
+                            # Clear error and continue
+                            self.last_error = None
+                            continue
+                        
+                        # Self-Learning Retry
+                        if current_step_meta and current_step_meta['self_learning_enabled']:
+                            step_num = current_step_meta['step_num']
+                            if step_num not in self.step_learnings:
+                                self.step_learnings[step_num] = []
+                            
+                            # Trigger self-learning after 3 consecutive failures on same step
+                            failures_on_step = sum(1 for h in self.history[-5:] if not h.get('success', True))
+                            if failures_on_step >= 3 and len(self.step_learnings[step_num]) < 5:
+                                print(colored(f"\n🧠 SELF-LEARNING ACTIVATED for step {step_num}", "magenta", attrs=["bold"]))
+                                
+                                # Analyze failure
+                                analysis = await self._analyze_failure_with_llm(
+                                    current_step_meta,
+                                    self.history[-10:],
+                                    mindmap,
+                                    self.step_learnings[step_num]
+                                )
+                                
+                                print(colored(f"📊 Diagnosis: {analysis.get('diagnosis', 'N/A')}", "cyan"))
+                                print(colored(f"💡 Suggestion: {analysis.get('suggestion', 'N/A')}", "yellow"))
+                                
+                                # Store learning
+                                self.step_learnings[step_num].append({
+                                    "attempt": len(self.step_learnings[step_num]) + 1,
+                                    "diagnosis": analysis.get('diagnosis'),
+                                    "suggestion": analysis.get('suggestion'),
+                                    "timestamp": time.time()
+                                })
+                                
+                                # Make enhanced decision
+                                await asyncio.sleep(2)  # Brief pause
+                                mindmap = await analyze_page(page, page.url, self.workflow)
+                                enhanced_decision = await self._make_decision_with_learning(
+                                    mindmap,
+                                    page.url,
+                                    current_step_meta,
+                                    self.step_learnings[step_num]
+                                )
+                                
+                                if enhanced_decision:
+                                    # Execute retry with learning
+                                    retry_result = await self._execute_action(page, enhanced_decision, mindmap['elements'])
+                                    if retry_result.get('success'):
+                                        print(colored("✅ Self-learning retry succeeded!", "green"))
+                                        # Record successful trace
+                                        self.trace.append({
+                                            "step": step,
+                                            "thought": enhanced_decision['thought'] + " [Self-Learning Applied]",
+                                            "action": enhanced_decision['action'],
+                                            "page_name": page_name,
+                                            "locator_used": retry_result.get('refined_locator'),
+                                            "value": enhanced_decision.get('value'),
+                                            "url": page.url,
+                                            "screenshot": img_name,
+                                            "element_context": {
+                                                "tag": next((e['tagName'] for e in mindmap['elements'] if str(e['elementId']) == str(enhanced_decision.get('target_id'))), ""),
+                                                "text": next((e['text'] for e in mindmap['elements'] if str(e['elementId']) == str(enhanced_decision.get('target_id'))), ""),
+                                                "role": next((e.get('role', '') for e in mindmap['elements'] if str(e['elementId']) == str(enhanced_decision.get('target_id'))), ""),
+                                            }
+                                        })
+                                        step += 1
+                                        continue
+                        
                         print(colored(f"⚠️ Action failed. Retrying in next step...", "yellow"))
+
 
                     # Passive Collection: Save ALL elements (always, for future RAG)
                     self._save_all_elements(page.url, step, mindmap['elements'])
@@ -601,10 +689,27 @@ class ExplorerAgent:
         if not target_el and action in ['click', 'fill']:
             return {"success": False, "outcome": "Target element ID not found in current DOM"}
             
-        # Hard Guard: Prevent interaction with disabled elements
+        # Smart Guard: Provide helpful feedback for disabled elements
         if target_el and target_el.get('is_disabled'):
-            print(colored(f"🛡️ Guard: Blocked interaction with disabled element {target_id}", "red"))
-            return {"success": False, "outcome": f"Element {target_id} is disabled. You cannot interact with it."}
+            # Look for nearby elements that might enable this one
+            target_text = target_el.get('text', '')[:50]
+            
+            # Check if there's a button with similar text that might open/enable this field
+            potential_enablers = [
+                e for e in elements 
+                if not e.get('is_disabled') 
+                and e.get('tagName') == 'button'
+                and any(keyword in e.get('text', '').lower() for keyword in ['search', 'open', 'show', 'expand'])
+            ]
+            
+            if potential_enablers:
+                enabler = potential_enablers[0]
+                hint = f"Element {target_id} ('{target_text}') is disabled. Try clicking element {enabler['elementId']} ('{enabler['text'][:30]}') first to enable it."
+                print(colored(f"💡 Smart Guard: {hint}", "yellow"))
+                return {"success": False, "outcome": hint}
+            else:
+                print(colored(f"🛡️ Guard: Element {target_id} is disabled and no enabler found.", "red"))
+                return {"success": False, "outcome": f"Element {target_id} is disabled. Look for a button or icon that might enable it (e.g., 'Search', 'Edit', 'Open')."}
 
         # We no longer dismiss overlays UNCONDITIONALLY before every action.
         # Instead, we will do it as a "healing" step inside _execute_with_retry if needed.
@@ -889,6 +994,128 @@ class ExplorerAgent:
         with open(file_path, "w") as f:
             json.dump(data, f, indent=2)
         print(colored(f"💾 Passive Collection: {len(elements)} elements saved to {file_path}", "blue"))
+    
+    def _parse_goal_with_metadata(self, goal_text):
+        """Parse goal string and extract metadata for each step."""
+        import re
+        
+        steps = []
+        # Split by numbered steps: "1.", "2.", etc.
+        step_pattern = r'(\d+)\.\s*([^0-9]+?)(?=\d+\.|$)'
+        matches = re.findall(step_pattern, goal_text, re.DOTALL)
+        
+        for step_num, step_text in matches:
+            step_text = step_text.strip()
+            # Extract annotations
+            is_optional = bool(re.search(r'\[optional\s*step\]', step_text, re.IGNORECASE))
+            self_learning = bool(re.search(r'\[keep\s+trying|self[\s-]?learning\]', step_text, re.IGNORECASE))
+            
+            # Clean text (remove annotations)
+            clean_text = re.sub(r'\[optional.*?\]|\[keep.*?\]|\[self.*?\]', '', step_text, flags=re.IGNORECASE).strip()
+            # Remove trailing periods/colons
+            clean_text = re.sub(r'[.,:]+$', '', clean_text).strip()
+            
+            steps.append({
+                "step_num": int(step_num),
+                "description": clean_text,
+                "is_optional": is_optional,
+                "self_learning_enabled": self_learning
+            })
+        
+        return steps if steps else [{"step_num": 1, "description": goal_text, "is_optional": False, "self_learning_enabled": False}]
+    
+    def _get_current_step_metadata(self, mindmap, url):
+        """Determine which goal step we're currently working on."""
+        # Match keywords from step descriptions to recent actions
+        for step_meta in self.parsed_goal:
+            if step_meta['step_num'] in self.skipped_steps:
+                continue  # Skip already completed steps
+            
+            step_keywords = [w.lower() for w in step_meta['description'].split() if len(w) > 3]
+            recent_actions = ' '.join([h.get('target_text', '') for h in self.history[-5:]]).lower()
+            page_content = mindmap['summary'].get('title', '').lower()
+            
+            # If recent actions or page content match this step's keywords
+            if any(keyword in recent_actions or keyword in page_content for keyword in step_keywords[:3]):
+                return step_meta
+        
+        # Default: Return first incomplete step
+        for step_meta in self.parsed_goal:
+            if step_meta['step_num'] not in self.skipped_steps:
+                return step_meta
+        
+        return self.parsed_goal[0] if self.parsed_goal else None
+    
+    async def _analyze_failure_with_llm(self, step_metadata, recent_history, mindmap, past_learnings):
+        """Use LLM to analyze why the step failed."""
+        analysis_prompt = f"""You are a Test Automation Failure Analyst. Analyze why this step failed.
+
+**GOAL STEP**: {step_metadata['description']}
+
+**RECENT ACTIONS** (last 10):
+{json.dumps(recent_history, indent=2)}
+
+**CURRENT PAGE**:
+- URL: {mindmap.get('url', 'N/A')}
+- Title: {mindmap['summary'].get('title', 'N/A')}
+- Elements: {len(mindmap['elements'])}
+
+**PAST LEARNINGS**:
+{json.dumps(past_learnings, indent=2) if past_learnings else "None (first attempt)"}
+
+Diagnose WHY it failed and suggest a fix. Don't repeat failed strategies.
+
+OUTPUT JSON:
+{{
+  "diagnosis": "Root cause",
+  "suggestion": "Specific fix to try",
+  "confidence": "high|medium|low"
+}}
+"""
+        
+        try:
+            resp = await llm.ainvoke([("system", "You are a test automation expert."), ("human", analysis_prompt)])
+            return try_parse_json(resp.content) or {"diagnosis": "Unknown", "suggestion": "Try alternative approach", "confidence": "low"}
+        except Exception as e:
+            print(f"LLM analysis error: {e}")
+            return {"diagnosis": "LLM error", "suggestion": "Retry", "confidence": "low"}
+    
+    async def _make_decision_with_learning(self, mindmap, page_url, step_metadata, learnings):
+        """Enhanced decision making with accumulated learnings."""
+        learning_summary = "\n".join([
+            f"Attempt {l['attempt']}: {l['diagnosis']} → Try: {l['suggestion']}"
+            for l in learnings
+        ])
+        
+        enhanced_context = {
+            "goal": step_metadata['description'],
+            "page_context": mindmap['summary'],
+            "elements": [{"id": e['elementId'], "text": e['text'], "tag": e['tagName'], "disabled": e.get('is_disabled', False)} for e in mindmap['elements'][:500]],
+            "history": self.history[-20:],
+            "test_data": self.test_data,
+            "knowledge_bank": self.kb.get_rag_context(page_url, self.workflow),
+            "self_learning_insights": learning_summary,
+            "last_action_error": self.last_error
+        }
+        
+        enhanced_prompt = SYSTEM_PROMPT_PLANNER + f"""
+
+**🧠 SELF-LEARNING MODE ACTIVE**:
+Previous attempts on this step:
+{learning_summary}
+
+You MUST try a DIFFERENT approach than what failed before.
+"""
+        
+        prompt = f"Context:\n{json.dumps(enhanced_context, indent=2)}"
+        
+        try:
+            resp = await llm.ainvoke([("system", enhanced_prompt), ("human", prompt)])
+            return try_parse_json(resp.content)
+        except Exception as e:
+            print(f"Enhanced decision error: {e}")
+            return None
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

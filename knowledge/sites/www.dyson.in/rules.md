@@ -12,6 +12,11 @@
 
 - ⚠️ PROHIBITED: DON'T assume that the Python environment is correctly configured without explicitly verifying the PYTHONPATH and module import paths.
 
+- 💡 STRATEGY: IF you have clicked the search icon `button[aria-label='Search products and parts']` and the input still seems disabled:
+  1. DO NOT click the icon again (this toggles it closed!).
+  2. WAIT 2 seconds.
+  3. ATTEMPT to fill the input `input[type='search']` or `input[placeholder*='dyson']` anyway.
+
 - ✅ PREFERRED: DO ensure that the Python environment's PYTHONPATH includes the project's root directory or any directory containing modules used in the tests.
 
 - ⚠️ PROHIBITED: DON'T assume that all module paths are correct without verifying the file structure and module names.
@@ -908,3 +913,7 @@
 - ✅ PREFERRED: DO implement robust error handling for network-related exceptions, especially when using `page.goto()`, and consider retrying with a different protocol version or browser context if HTTP/2 errors are encountered.
 
 - ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for initial page loads. Also, consider adding a check for basic network connectivity before attempting to navigate.
+
+- ⚠️ PROHIBITED: DON'T assume that HTTP/2 protocol is stable; implement retry logic with fallback to HTTP/1.1 if HTTP/2 fails during initial page load.
+
+- ✅ PREFERRED: DO implement robust error handling for network-related errors during page navigation, including retries and logging of detailed error information.
