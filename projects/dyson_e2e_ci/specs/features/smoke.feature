@@ -1,11 +1,12 @@
-Feature: Product Search and PDP Verification
-  As a user
-  I want to search for a product and verify its details
-  So that I can find and purchase the desired product
+Feature: Smoke Tests - Dyson E-commerce
 
   @smoke
-  Scenario: Search for 'Dyson V15 Detect' and verify PDP
+  Scenario: Add product to cart and proceed to checkout
     Given I am on the Dyson India homepage
-    When I search for 'Dyson V15 Detect'
-    And I click on the first product result
-    Then I should see the 'Add to Cart' button on the PDP
+    When I handle the initial popup
+    And I search for "Dyson V15 Detect" and select the first product
+    Then I should see the "Add to Cart" button
+    When I click "Add to Cart"
+    Then the cart drawer should open
+    When I click "Checkout"
+    Then I should be on the Checkout page
