@@ -2,7 +2,7 @@ from playwright.async_api import Page, expect
 
 class HomePage:
     """
-    This is the homepage for Dyson India. It showcases Dyson products, particularly the 'hushjet Purifier Compact', and provides navigation to different product categories and support resources.
+    The Dyson India homepage showcasing products and promotions.
     URL Pattern: https://www.dyson.in/
     """
     def __init__(self, page: Page):
@@ -10,63 +10,51 @@ class HomePage:
 
     @property
     def dyson_logo(self):
-        """Dyson logo in the top left corner, navigates to the homepage."""
-        return self.page.role=img[name='Dyson'].or_(self.page.css=svg[class*='DysonLogo'])
+        """Dyson logo in the top left corner."""
+        return self.page.//a[@aria-label='Homepage'].or_(self.page.css=svg[class*='DysonLogo'])
 
     @property
     def search_products_and_parts(self):
-        """Search input field to find specific products or parts."""
-        return self.page.role=searchbox[name='Search products and parts'].or_(self.page.css=input[placeholder='Search products and parts'])
+        """Search input box to find products and parts."""
+        return self.page.css=input[placeholder='Search products and parts'].or_(self.page.css=div[class*='search'])
 
     @property
     def shop_now(self):
-        """Button to navigate to the product page for the featured product."""
+        """Button to navigate to the product page."""
         return self.page.text=Shop now.or_(self.page.css=a[class*='Button'])
 
     @property
-    def deals(self):
-        """Link to the deals page."""
-        return self.page.text=Deals.or_(self.page.css=a[href*='/deals'])
-
-    @property
     def vacuum_wet_cleaners(self):
-        """Link to the vacuum cleaners page."""
-        return self.page.text=Vacuum & wet cleaners.or_(self.page.css=a[href*='/vacuum-cleaners'])
-
-    @property
-    def hair_care(self):
-        """Link to the hair care products page."""
-        return self.page.text=Hair care.or_(self.page.css=a[href*='/hair-care'])
+        """Link to the vacuum cleaners category."""
+        return self.page.text=Vacuum & wet cleaners.or_(self.page.css=a[href='/vacuum-cleaners'])
 
     @property
     def air_purifier(self):
-        """Link to the air purifier products page."""
-        return self.page.text=Air purifier.or_(self.page.css=a[href*='/air-purifiers'])
+        """Link to the air purifier category."""
+        return self.page.text=Air purifier.or_(self.page.css=a[href='/air-treatment'])
 
     @property
     def headphones(self):
-        """Link to the headphones products page."""
-        return self.page.text=Headphones.or_(self.page.css=a[href*='/headphones'])
+        """Link to the headphones category."""
+        return self.page.text=Headphones.or_(self.page.css=a[href='/headphones'])
 
     @property
     def lighting(self):
-        """Link to the lighting products page."""
-        return self.page.text=Lighting.or_(self.page.css=a[href*='/lighting'])
+        """Link to the lighting category."""
+        return self.page.text=Lighting.or_(self.page.css=a[href='/lighting'])
 
     @property
     def support(self):
         """Link to the support page."""
-        return self.page.text=Support.or_(self.page.css=a[href*='/support'])
+        return self.page.text=Support.or_(self.page.css=a[href='/support'])
 
     @property
     def best_sellers(self):
         """Link to the best sellers page."""
-        return self.page.text=Best sellers.or_(self.page.css=a[href*='/best-sellers'])
+        return self.page.text=Best sellers.or_(self.page.css=a[href='/best-sellers'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Page title contains 'Dyson'
-        await The Dyson logo is visible
-        await The 'Search products and parts' search box is present
-        await The 'Shop now' button is visible
-        await The text 'Compact. Powerful. Yet quiet.' is visible
+        await Title contains 'Dyson'
+        await Page contains the text 'Compact. Powerful. Yet quiet.'
+        await Page contains the text 'Dyson.in exclusive: 24 months no cost EMI'

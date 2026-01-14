@@ -872,3 +872,5 @@
 - ✅ PREFERRED: DO implement retry logic with exponential backoff for page navigation, especially when encountering network-related errors like `ERR_HTTP2_PROTOCOL_ERROR`.
 
 - ✅ PREFERRED: DO implement robust error handling for network requests, including retries with exponential backoff and fallback to HTTP/1.1 if HTTP/2 fails.
+
+- ✅ PREFERRED: DO implement a check for network connectivity and website availability before attempting to navigate to the target URL.
