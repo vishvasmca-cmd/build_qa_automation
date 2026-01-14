@@ -958,28 +958,6 @@ class ExplorerAgent:
         if not target_el and action in ['click', 'fill']:
             return {"success": False, "outcome": "Target element ID not found in current DOM"}
             
-        # Smart Guard: Provide helpful feedback for disabled elements
-        if target_el and target_el.get('is_disabled'):
-            # Look for nearby elements that might enable this one
-            target_text = target_el.get('text', '')[:50]
-            
-            # Check if there's a button with similar text that might open/enable this field
-            potential_enablers = [
-                e for e in elements 
-                if not e.get('is_disabled') 
-                and e.get('tagName') == 'button'
-                and any(keyword in e.get('text', '').lower() for keyword in ['search', 'open', 'show', 'expand'])
-            ]
-            
-            if potential_enablers:
-                enabler = potential_enablers[0]
-                hint = f"Element {target_id} ('{target_text}') is disabled. Try clicking element {enabler['elementId']} ('{enabler['text'][:30]}') first to enable it."
-                print(colored(f"💡 Smart Guard: {hint}", "yellow"))
-                return {"success": False, "outcome": hint}
-            else:
-                print(colored(f"🛡️ Guard: Element {target_id} is disabled and no enabler found.", "red"))
-                return {"success": False, "outcome": f"Element {target_id} is disabled. Look for a button or icon that might enable it (e.g., 'Search', 'Edit', 'Open')."}
-
         # We no longer dismiss overlays UNCONDITIONALLY before every action.
         # Instead, we will do it as a "healing" step inside _execute_with_retry if needed.
 
@@ -1054,16 +1032,16 @@ class ExplorerAgent:
                 
             elif action == 'fill':
                 val = decision.get('value', '')
-                print(colored(f"⌨️ Filling ID={target_id} with '{val}'", "yellow"))
+                print(colored(f"⌨️  Interacting with ID={target_id}...", "yellow"))
                 try:
-                    await page.locator(locator_str).fill(val, timeout=15000)
+                    # 1. Click to focus first (Dyson needs this to activate the input)
+                    await page.locator(locator_str).click(timeout=5000)
+                    # 2. Use natural typing instead of instant fill (more reliable for SPAs)
+                    await page.locator(locator_str).type(val, delay=50) # Legacy type/press_sequentially
+                    print(colored(f"   ✅ Entered: '{val}'", "green"))
                 except Exception as e:
-                    print(colored(f"   👉 Locator failed ({e}). Using coordinate fallback.", "magenta"))
-                    if target_el.get('center') and target_el['center'].get('x') is not None:
-                        await page.mouse.click(target_el['center']['x'], target_el['center']['y'])
-                        await page.keyboard.type(val)
-                    else:
-                        print(colored("   ❌ Coordinate fallback failed: No center coordinates.", "red"))
+                    print(colored(f"   ⚠️ Interaction failed: {e}. Trying simple fill...", "yellow"))
+                    await page.locator(locator_str).fill(val, timeout=5000)
             
             elif action == 'navigate':
                 url = decision.get('value')
@@ -1072,10 +1050,30 @@ class ExplorerAgent:
                 await page.goto(url, wait_until="load", timeout=60000)
                 await asyncio.sleep(1) # Extra settlement time
                 
-            elif action == 'scroll':
-                print(colored("📜 Scrolling down...", "yellow"))
-                await page.keyboard.press("PageDown")
-                await asyncio.sleep(0.5)
+            elif action == 'scroll_down':
+                print(colored(f"📜 Scrolling down...", "yellow"))
+                await page.mouse.wheel(0, 600)
+                await asyncio.sleep(1)
+
+            elif action == 'scroll_up':
+                print(colored(f"📜 Scrolling up...", "yellow"))
+                await page.mouse.wheel(0, -600)
+                await asyncio.sleep(1)
+
+            elif action == 'press_enter':
+                print(colored(f"⌨️ Pressing Enter...", "yellow"))
+                await page.keyboard.press("Enter")
+                await asyncio.sleep(2)
+
+            elif action == 'hover':
+                print(colored(f"🖱️ Hovering over ID={target_id}", "yellow"))
+                # Coordinate hover fallback if visibility fails
+                if target_el.get('center') and target_el['center'].get('x') is not None and target_el['center'].get('y') is not None:
+                     cx, cy = target_el['center'].get('x'), target_el['center'].get('y')
+                     await page.mouse.move(cx, cy)
+                else:
+                     await page.locator(locator_str).hover(timeout=5000)
+                await asyncio.sleep(1)
                 
             elif action == 'long_press':
                 print(colored(f"👆 Long-pressing ID={target_id} (10s)...", "yellow"))
