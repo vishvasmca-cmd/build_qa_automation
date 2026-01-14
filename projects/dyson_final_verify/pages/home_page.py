@@ -2,7 +2,7 @@ from playwright.async_api import Page, expect
 
 class HomePage:
     """
-    This is the homepage for Dyson India. The primary purpose is to allow users to search for products and navigate to different sections of the website.
+    The homepage of Dyson India, featuring a prominent search bar and links to popular product categories.
     URL Pattern: https://www.dyson.in/
     """
     def __init__(self, page: Page):
@@ -15,73 +15,72 @@ class HomePage:
 
     @property
     def search_button(self):
-        """Button to initiate the search."""
-        return self.page.//button[@aria-label='Search'].or_(self.page.css=button[class*='search'])
+        """Button to submit the search query."""
+        return self.page.//button[@type='submit'].or_(self.page.button[aria-label='Open search'])
 
     @property
-    def dyson_airstrait_straightener(self):
-        """Link to Dyson Airstrait straightener product page."""
-        return self.page.//a[text()='Dyson Airstrait™ straightener'].or_(self.page.text=Dyson Airstrait™ straightener)
+    def dyson_airstrait_straightener_link(self):
+        """Link to the Dyson Airstrait straightener product page."""
+        return self.page.//a[contains(text(),'Dyson Airstrait™ straightener')].or_(self.page.a[href*='airstrait'])
 
     @property
-    def _new_dyson_airwrap_i_d_(self):
-        """Link to *NEW* Dyson Airwrap i.d. product page."""
-        return self.page.//a[text()='*NEW* Dyson Airwrap i.d.™'].or_(self.page.text=*NEW* Dyson Airwrap i.d.™)
+    def _new_dyson_airwrap_i_d_link(self):
+        """Link to the Dyson Airwrap i.d. product page."""
+        return self.page.//a[contains(text(),'*NEW* Dyson Airwrap i.d.™')].or_(self.page.a[href*='airwrap-multi-styler'])
 
     @property
-    def dyson_v8_absolute_vacuum(self):
-        """Link to Dyson V8 Absolute Vacuum product page."""
-        return self.page.//a[text()='Dyson V8 Absolute Vacuum'].or_(self.page.text=Dyson V8 Absolute Vacuum)
+    def dyson_v8_absolute_vacuum_link(self):
+        """Link to the Dyson V8 Absolute Vacuum product page."""
+        return self.page.//a[contains(text(),'Dyson V8 Absolute Vacuum')].or_(self.page.a[href*='v8-absolute'])
 
     @property
-    def dyson_vacuum_cleaners(self):
-        """Link to Dyson Vacuum Cleaners product page."""
-        return self.page.//a[text()='Dyson Vacuum Cleaners'].or_(self.page.text=Dyson Vacuum Cleaners)
+    def dyson_vacuum_cleaners_link(self):
+        """Link to the Dyson Vacuum Cleaners product page."""
+        return self.page.//a[contains(text(),'Dyson Vacuum Cleaners')].or_(self.page.a[href*='vacuum-cleaners'])
 
     @property
-    def dyson_air_purifiers(self):
-        """Link to Dyson Air Purifiers product page."""
-        return self.page.//a[text()='Dyson Air Purifiers'].or_(self.page.text=Dyson Air Purifiers)
+    def dyson_air_purifiers_link(self):
+        """Link to the Dyson Air Purifiers product page."""
+        return self.page.//a[contains(text(),'Dyson Air Purifiers')].or_(self.page.a[href*='air-purifiers'])
 
     @property
-    def dyson_deals(self):
-        """Link to Dyson Deals page."""
-        return self.page.//a[text()='Dyson Deals'].or_(self.page.text=Dyson Deals)
+    def dyson_deals_link(self):
+        """Link to the Dyson Deals page."""
+        return self.page.//a[contains(text(),'Dyson Deals')].or_(self.page.a[href*='deals'])
 
     @property
-    def discover_dyson(self):
-        """Link to Discover Dyson page."""
-        return self.page.//a[text()='Discover Dyson'].or_(self.page.text=Discover Dyson)
+    def dyson_airwrap_accessories_link(self):
+        """Link to the Dyson Airwrap accessories page."""
+        return self.page.//a[contains(text(),'Dyson Airwrap™ accessories')].or_(self.page.a[href*='airwrap-accessories'])
 
     @property
-    def for_business(self):
-        """Link to For business page."""
-        return self.page.//a[text()='For business'].or_(self.page.text=For business)
+    def discover_dyson_link(self):
+        """Link to the Discover Dyson page."""
+        return self.page.//a[contains(text(),'Discover Dyson')].or_(self.page.a[href*='discover-dyson'])
 
     @property
-    def store_finder(self):
-        """Link to Store finder page."""
-        return self.page.//a[text()='Store finder'].or_(self.page.text=Store finder)
+    def for_business_link(self):
+        """Link to the For business page."""
+        return self.page.//a[contains(text(),'For business')].or_(self.page.a[href*='for-business'])
 
     @property
-    def register_machine(self):
-        """Link to Register machine page."""
-        return self.page.//a[text()='Register machine'].or_(self.page.text=Register machine)
+    def store_finder_link(self):
+        """Link to the Store finder page."""
+        return self.page.//a[contains(text(),'Store finder')].or_(self.page.a[href*='store-finder'])
 
     @property
-    def contact_us(self):
-        """Link to Contact us page."""
-        return self.page.//a[text()='Contact us'].or_(self.page.text=Contact us)
+    def register_machine_link(self):
+        """Link to the Register machine page."""
+        return self.page.//a[contains(text(),'Register machine')].or_(self.page.a[href*='register-machine'])
 
     @property
-    def close_promotion(self):
-        """Button to close the promotion banner."""
-        return self.page.//button[@aria-label='Close'].or_(self.page.css=button[aria-label='Close'])
+    def contact_us_link(self):
+        """Link to the Contact us page."""
+        return self.page.//a[contains(text(),'Contact us')].or_(self.page.a[href*='contact-us'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Title of the page should contain 'Dyson'
-        await The Dyson logo is visible
-        await The search input field is present
-        await The 'Discover Dyson' link is visible
-        await The 'For business' link is visible
+        await Title contains 'Dyson India'
+        await Search input field is present
+        await The 'Most searched for' section is displayed
+        await Dyson logo is visible
