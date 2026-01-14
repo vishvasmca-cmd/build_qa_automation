@@ -1,13 +1,13 @@
-Feature: Dyson E-commerce Smoke Tests
+Feature: E-commerce Flow
 
   @smoke
   Scenario: Search, Add to Cart, and Checkout
-    Given I am on the Dyson India homepage
-    When I close the subscribe popup
-    And I search for "Dyson V15 Detect"
-    And I click the first product result
-    Then I should see the "Add to Cart" button
-    When I click "Add to Cart"
-    Then the cart drawer should open
-    When I click "Checkout"
-    Then I should be on the checkout page
+    Given User navigates to the Dyson India website
+    When User closes the subscription popup
+    And User searches for "Dyson V15 Detect"
+    And User clicks on the first product result
+    Then User should see the "Add to Cart" button
+    When User clicks "Add to Cart"
+    Then The cart drawer should open
+    And User clicks "Checkout"
+    Then User should be redirected to the Checkout page

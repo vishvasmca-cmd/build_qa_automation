@@ -7,7 +7,8 @@
 
 - ⚠️ PROHIBITED: DON'T assume a website fully supports HTTP/2 without proper error handling and fallback mechanisms in place.
 
-- ✅ PREFERRED: DO implement robust error handling around `page.goto()` calls, including catching network errors and potentially retrying with a different protocol (if feasible) or a different browser.
+
+- ✅ PREFERRED: DO use `wait_until='commit'` and `timeout=30000` for initial `page.goto()` on dyson.in to avoid hanging on asset loading. Follow with `page.wait_for_load_state('domcontentloaded')`.
 
 - ⚠️ PROHIBITED: DON'T assume that the Python environment is correctly configured without explicitly verifying the PYTHONPATH and module import paths.
 
@@ -895,3 +896,5 @@
 - ✅ PREFERRED: DO implement robust error handling for network-related errors like `net::ERR_HTTP2_PROTOCOL_ERROR` when navigating to a page, including retries or alternative navigation strategies.
 
 - ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for `page.goto()` calls, especially for critical pages like the homepage.
+
+- ⚠️ PROHIBITED: DON'T assume that the target website (dyson.in) will always correctly handle HTTP/2 protocol negotiation; implement retry mechanisms or fallback strategies.

@@ -333,6 +333,14 @@ class ExplorerAgent:
                         metadata={"step": step, "action": decision.get('action'), "target": decision.get('target_id'), "locator": action_result.get('locator')}
                     )
                     
+                    # POST-ACTION DOM REFRESH: If we clicked something, wait and re-mine to catch newly enabled elements
+                    if action_result.get('success') and decision.get('action') == 'click':
+                        print(colored("   ⏳ Post-click refresh: Checking for newly enabled elements...", "grey"))
+                        await asyncio.sleep(1)  # Brief wait for any animations/state changes
+                        mindmap = await analyze_page(page, page.url, self.workflow)
+                        print(colored(f"   ✅ Refreshed: Now see {len(mindmap['elements'])} elements", "grey"))
+
+                    
                     # 4. VALIDATE & LOG
                     page_title = mindmap['summary'].get('title', 'Unknown')
                     page_name = self._get_page_name(page.url, page_title)
