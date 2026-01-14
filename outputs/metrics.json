@@ -19934,6 +19934,39 @@
         "reason": "The agent repeatedly clicked on the search bar but did not actually perform the search for 'Dyson V15 Detect' or navigate to a product page to verify the 'Add to Cart' button. The goal was not achieved.",
         "confidence": 1.0
       }
+    },
+    {
+      "agent": "Orchestrator",
+      "action": "pipeline_start",
+      "end_time": 1768361565.4582522,
+      "duration": 0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": {
+          "project_name": "dyson_e2e_ci",
+          "target_url": "https://www.dyson.in/",
+          "workflow_description": "1. Handle Popup: Close 'Subscribe' popup[Optional step]. 2. Search: Search for 'Dyson V15 Detect' and click the first product result[Keep trying and Self learning]. 3. PDP Verification: Verify 'Add to Cart' button is visible.",
+          "domain": "e_commerce",
+          "paths": {
+            "test": "projects/dyson_e2e_ci/tests/test_main.py",
+            "report": "projects/dyson_e2e_ci/outputs/report.md"
+          }
+        }
+      }
+    },
+    {
+      "agent": "Validator",
+      "action": "validate_goal",
+      "end_time": 1768361568.5689104,
+      "duration": 0.0,
+      "success": false,
+      "cost": 0.0,
+      "metadata": {
+        "status": "FAIL",
+        "reason": "The agent repeatedly clicked on the search bar but did not actually perform the search for 'Dyson V15 Detect' or navigate to the product details page (PDP) to verify the 'Add to Cart' button. The final URL is still the homepage, indicating the search and PDP verification steps were not completed.",
+        "confidence": 1.0
+      }
     }
   ],
   "failures": [
