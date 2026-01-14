@@ -82,6 +82,7 @@ Your goal is to complete the user's workflow by deciding the single next best ac
   "target_id": 5, 
   "value": "...", 
   "expected_outcome": "Description of expected UI change",
+  "completed_step": 1, // Optional: The number of the step you just finished
   "is_goal_achieved": false 
 }
 **CRITICAL**: Set `is_goal_achieved` to `true` ONLY if EVERY part of the user's workflow description is completed. 
@@ -132,8 +133,10 @@ class ExplorerAgent:
         
         # Self-Learning & Optional Steps Enhancement
         self.parsed_goal = self._parse_goal_with_metadata(self.workflow)
+        self.completed_goal_steps = [] # Track IDs of completed steps
+        self.skipped_goal_steps = []   # Track IDs of skipped (failed optional) steps
         self.step_learnings = {}  # Store learnings per step number
-        self.skipped_steps = []  # Track which optional steps were skipped
+        self.skipped_steps = []  # Track which optional steps were skipped (legacy name)
         
         # Extract search query from goal if present
         import re
@@ -493,11 +496,8 @@ class ExplorerAgent:
                     
                     thought = decision.get('thought', '')
                     print(colored(f"🧠 MISSION STATUS: {thought}", "cyan"), flush=True)
-                    
-                    # --- GOAL COMPLETION CHECK ---
-                    # Only exit immediately if action is 'done'. 
-                    # If 'is_goal_achieved' is true but there is an active action (click/fill),
-                    # we execute the action FIRST before breaking the loop.
+
+                    # --- GOAL COMPLETION CHECK (Pre-Action 'done' only) ---
                     if decision.get('action') == 'done':
                         self.trace.append({
                             "step": step,
@@ -568,6 +568,12 @@ class ExplorerAgent:
                         self._save_trace()
                         
                         # NEW: Check if this action completed the goal
+                        if decision.get('completed_step'):
+                            step_num = int(decision.get('completed_step'))
+                            if step_num not in self.completed_goal_steps:
+                                self.completed_goal_steps.append(step_num)
+                                print(colored(f"✅ STEP {step_num} PASSED!", "green", attrs=["bold"]))
+
                         if decision.get('is_goal_achieved'):
                              print(colored("🎯 MISSION ACCOMPLISHED: Final action executed. Goal Achieved!", "green", attrs=["bold"]), flush=True)
                              break
@@ -580,6 +586,7 @@ class ExplorerAgent:
                         # Optional Step Handling
                         if current_step_meta and current_step_meta['is_optional']:
                             print(colored(f"⏭️ Optional step '{current_step_meta['description'][:40]}...' failed. Skipping.", "yellow"))
+                            self.skipped_goal_steps.append(current_step_meta['step_num'])
                             self.skipped_steps.append(current_step_meta['step_num'])
                             # Clear error and continue
                             self.last_error = None
@@ -701,8 +708,24 @@ class ExplorerAgent:
         if len(str_rag) > 5000:
             rag_context = str_rag[:5000] + "... [TRUNCATED]"
 
+        # GOAL PROGRESS TRACKING
+        goal_status = []
+        current_step_id = None
+        for step in self.parsed_goal:
+            status = "⏳ PENDING"
+            if step['step_num'] in self.completed_goal_steps:
+                status = "✅ PASSED"
+            elif step['step_num'] in self.skipped_goal_steps:
+                status = "⏭️ SKIPPED"
+            elif current_step_id is None:
+                status = "🏃 IN PROGRESS"
+                current_step_id = step['step_num']
+            goal_status.append(f"Step {step['step_num']}: {step['description']} [{status}]")
+
         context = {
             "goal": self.workflow,
+            "goal_progress": goal_status, # NEW: Clear progress tracking
+            "current_step": current_step_id,
             "page_context": mindmap['summary'],
             "elements": formatted_elements,
             "history": self.history[-10:], # Reduced from 15
@@ -823,14 +846,28 @@ class ExplorerAgent:
 
     async def _validate_locator(self, page, locator_str):
         """
-        Checks if the locator is actually visible on the page before we try to use it.
+        Verify if the element is interactable.
         """
         if not locator_str: return False
         
         try:
-            # We use a short timeout for validation to keep explorer fast
-            is_visible = await page.locator(locator_str).is_visible(timeout=2000)
-            return is_visible
+            loc = page.locator(locator_str)
+            if await loc.count() == 0:
+                return False
+                
+            # If it's visible, great!
+            if await loc.is_visible(timeout=1500):
+                return True
+                
+            # SPECIAL CASE: If not visible but attached, it might be clickable via coordinates
+            # if it's just considered 'hidden' by Playwright due to some CSS quirk (like z-index)
+            if await loc.is_attached(timeout=500):
+                 # We still return false here BUT _execute_action will check for coordinates
+                 # Actually, let's return True if it's attached and it's a click action?
+                 # No, better to keep this clean and handle the 'invisible click' in _execute_action.
+                 pass
+
+            return False
         except:
             return False
 
@@ -944,9 +981,21 @@ class ExplorerAgent:
         # PRE-EXECUTION VALIDATION
         is_valid = await self._validate_locator(page, locator_str)
         if not is_valid:
-            print(colored(f"⚠️ Validation Failed: ID={target_id} not visible. Attempting overlay dismissal...", "yellow"))
+            # COORDINATE FALLBACK: If we have coordinates, try them even if 'is_visible' is false
+            # This handles elements that are visible to a human/miner but hidden to Playwright's strict check
+            if action == 'click' and target_el.get('center'):
+                 cx, cy = target_el['center'].get('x'), target_el['center'].get('y')
+                 print(colored(f"⚠️ Validation Failed: ID={target_id} not strictly visible. Attempting Coordinate Click at ({cx}, {cy})...", "yellow"))
+                 try:
+                     if self.headed:
+                         await page.evaluate(f"window.showAgentCursor && window.showAgentCursor({cx}, {cy}, 'click')")
+                     await page.mouse.click(cx, cy)
+                     return {"success": True, "outcome": "Coordinate click executed on ostensibly hidden element", "locator": locator_str}
+                 except Exception as e:
+                     print(colored(f"   ❌ Coordinate click failed: {e}", "red"))
+
+            print(colored(f"⚠️ Validation Failed: ID={target_id} not visible and no fallback. Attempting overlay dismissal...", "yellow"))
             await self._dismiss_overlays(page)
-            # Second check
             is_valid = await self._validate_locator(page, locator_str)
             if not is_valid:
                 return {"success": False, "outcome": "Locator validation failed (element not visible or blocked)"}
@@ -1256,8 +1305,9 @@ class ExplorerAgent:
         import re
         
         steps = []
-        # Split by numbered steps: "1.", "2.", etc.
-        step_pattern = r'(\d+)\.\s*([^0-9]+?)(?=\d+\.|$)'
+        # Robust numbering pattern: Matches "1." or "Step 1:" at start of line or after period
+        # Uses a lookahead to stop at the next number-dot sequence.
+        step_pattern = r'(\d+)[.:]\s*(.*?)(?=\s*\d+[.:]\s*|$)'
         matches = re.findall(step_pattern, goal_text, re.DOTALL)
         
         for step_num, step_text in matches:
