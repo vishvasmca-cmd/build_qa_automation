@@ -82,8 +82,8 @@ Your goal is to complete the user's workflow by deciding the single next best ac
   "target_id": 5, 
   "value": "...", 
   "expected_outcome": "Description of expected UI change",
-  "completed_step": 1, // Optional: The number of the step you just finished
-  "is_goal_achieved": false 
+  "completed_step": 1, // CRITICAL: The number of the step you just finished (e.g., 1, 2, 3). ALWAYS update this when a sub-goal is met.
+  "is_goal_achieved": false // Set TRUE only when the absolute final step of the entire mission is verified.
 }
 **CRITICAL**: Set `is_goal_achieved` to `true` ONLY if EVERY part of the user's workflow description is completed. 
 - For "Onboarding" goals, filling a form is NOT enough; you MUST click the 'Save' or 'Submit' button.
@@ -498,7 +498,14 @@ class ExplorerAgent:
                     print(colored(f"🧠 MISSION STATUS: {thought}", "cyan"), flush=True)
 
                     # --- GOAL COMPLETION CHECK (Pre-Action 'done' only) ---
-                    if decision.get('action') == 'done':
+                    if decision.get('action') == 'done' or decision.get('is_goal_achieved'):
+                        # Log final state before exiting
+                        # AUTO-COMPLETE: If we are done, mark all remaining steps as passed
+                        for gs in self.parsed_goal:
+                            if gs['step_num'] not in self.completed_goal_steps:
+                                self.completed_goal_steps.append(gs['step_num'])
+                                print(colored(f"✅ STEP {gs['step_num']} PASSED!", "green", attrs=["bold"]))
+
                         self.trace.append({
                             "step": step,
                             "thought": thought or 'Goal already achieved.',
@@ -1305,10 +1312,9 @@ class ExplorerAgent:
         import re
         
         steps = []
-        # Robust numbering pattern: Matches "1." or "Step 1:" at start of line or after period
-        # Uses a lookahead to stop at the next number-dot sequence.
-        step_pattern = r'(\d+)[.:]\s*(.*?)(?=\s*\d+[.:]\s*|$)'
-        matches = re.findall(step_pattern, goal_text, re.DOTALL)
+        # Support multiple formats: "1.", "1:", "Step 1:", "1) "
+        step_pattern = r'(?:Step\s+)?(\d+)[.:)]\s*(.*?)(?=\s*(?:Step\s+)?\d+[.:)]\s*|$)'
+        matches = re.findall(step_pattern, goal_text, re.DOTALL | re.IGNORECASE)
         
         for step_num, step_text in matches:
             step_text = step_text.strip()
