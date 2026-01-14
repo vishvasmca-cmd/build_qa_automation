@@ -512,8 +512,8 @@ def run_pipeline(config_path, headed=False):
     with open(config_path, "r") as f:
         config = json.load(f)
     
-    # 0. SYNC (User Request)
-    GitManager.sync()
+    # 0. SYNC (User Request) - DISABLED per request
+    # GitManager.sync()
         
     print(colored("\n" + "="*60, "green", attrs=["bold"]))
     print(colored(f"🚀 MISSION: {config.get('project_name', 'Unnamed Project')}", "green", attrs=["bold"]))
@@ -703,7 +703,7 @@ def run_pipeline(config_path, headed=False):
 
     if success:
         print(colored("\n✅ Pipeline COMPLETE!", "green", attrs=["bold"]))
-        GitManager.commit_and_push(f"SUCCESS: Mission Accomplished for {config.get('project_name')}")
+        # GitManager.commit_and_push(f"SUCCESS: Mission Accomplished for {config.get('project_name')}")
     else:
         print(colored("\n⚠️ Pipeline ended with test failures.", "yellow"))
         # GitManager.commit_and_push(f"FAILURE: Unresolved issues in {config.get('project_name')}")

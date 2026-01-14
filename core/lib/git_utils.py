@@ -31,8 +31,8 @@ class GitManager:
     def commit_and_push(message):
         print(colored(f"🚀 Git: Committing changes - {message}", "cyan"))
         try:
-            # Stage core artifacts, projects, and new package initializers
-            subprocess.run(["git", "add", "knowledge/", "projects/", "outputs/", "__init__.py"], capture_output=True)
+            # Stage core artifacts and new package initializers (EXCLUDE projects/ as requested)
+            subprocess.run(["git", "add", "knowledge/", "outputs/", "__init__.py"], capture_output=True)
             
             # Check if there are changes to commit
             status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
