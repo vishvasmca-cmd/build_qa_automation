@@ -947,3 +947,5 @@
 - ⚠️ PROHIBITED: DON'T assume that HTTP/2 protocol errors are solely client-side issues; investigate server-side configurations and network stability.
 
 - ✅ PREFERRED: DO implement retry logic with exponential backoff for `page.goto()` calls, especially for initial page loads, to handle transient network or server-side issues.
+
+- ⚠️ PROHIBITED: DON'T assume that HTTP/2 protocol errors are solely client-side issues; ALWAYS investigate potential server-side problems or network configurations.

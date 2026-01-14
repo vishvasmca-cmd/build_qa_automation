@@ -1,13 +1,11 @@
-Feature: Search and Verify Add to Cart
+Feature: Product Search and Add to Cart Verification
   As a user
-  I want to search for a product
-  So that I can verify the 'Add to Cart' button is present
+  I want to search for a specific product
+  So that I can verify its availability
 
   @smoke
-  Scenario: Search for 'Dyson V15 Detect' and verify 'Add to Cart' button
+  Scenario: Search for Dyson V15 Detect and verify 'Add to Cart' button
     Given I am on the Dyson India homepage
-    When I click the search icon
-    And I close the popup if it appears
-    And I fill the search input with 'Dyson V15 Detect'
-    And I click the search button
-    Then I should see the 'Add to Cart' button
+    When I handle the popup if it exists
+    And I search for "Dyson V15 Detect"
+    Then I should see the 'Add to Cart' button on the product page

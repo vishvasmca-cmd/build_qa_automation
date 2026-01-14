@@ -1,45 +1,38 @@
-# Test Plan: Dyson Final Verify
+# Test Plan: dyson_final_verify
 
 ## Introduction
 
-This document outlines the test plan for the Dyson Final Verify project. The goal is to ensure the core functionality of the Dyson India website is working as expected, specifically focusing on searching for a product and verifying the presence of the 'Add to Cart' button.
+This document outlines the test plan for the dyson_final_verify project. The primary goal is to ensure the core functionality of the Dyson India website is working as expected, focusing on searching for a specific product (Dyson V15 Detect) and verifying the presence of the 'Add to Cart' button.
 
 ## Scope
 
-The scope of this test plan includes:
+The testing will cover the following:
 
+*   Handling popups (if present).
 *   Searching for 'Dyson V15 Detect'.
 *   Verifying the presence of the 'Add to Cart' button on the product page.
 
 ## Test Suites
 
-This test plan includes the following test suites:
-
-*   Smoke Suite: A minimal set of tests to verify the core functionality.
-*   Regression Suite: A comprehensive set of tests to ensure that recent changes have not broken existing functionality.
+This test plan includes a Smoke Suite and a Regression Suite.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite is designed to provide a quick and efficient way to verify the stability of the Dyson India website. The following checklist is applied to this project:
+The Smoke Suite will focus on the most critical path: searching for a product and verifying a key element on the product page. The following 8-point checklist has been applied:
 
-1.  **Critical Paths:** Focuses on the most critical user flow (searching and verifying 'Add to Cart').
-2.  **Core Business Logic:** Verifies the basic search functionality.
-3.  **Positive Testing:** Only positive scenarios are considered (successful search, 'Add to Cart' button present).
-4.  **No Negative Testing:** Negative scenarios (e.g., invalid search query) are excluded.
-5.  **No Complex Edge Cases:** Complex scenarios are not considered.
-6.  **Fast Execution:** The tests are designed to execute quickly.
-7.  **High Priority:** Any failure in the Smoke Suite will result in build rejection.
-8.  **Limited Scope:** Only the essential functionality is covered.
+1.  **Critical Path Coverage:** Covers the core search and product page verification flow.
+2.  **Positive Testing:** Focuses on successful search and element verification.
+3.  **No Negative Testing:** No invalid search terms or error conditions are tested.
+4.  **Minimal Data Variation:** Only one product ('Dyson V15 Detect') is used.
+5.  **Key Functionality Only:** Only the search and 'Add to Cart' button verification are included.
+6.  **Fast Execution:** The test should execute quickly to provide rapid feedback.
+7.  **Build Validation:** Failure of this suite indicates a critical issue and should block the build.
+8.  **Automated:** This suite is designed for full automation.
 
 ### Regression Suite
 
-The Regression Suite will include more comprehensive tests, including:
-
-*   Searching for different products.
-*   Verifying different elements on the product page.
-*   Negative search scenarios (e.g., invalid search query).
-*   Edge cases (e.g., searching for products with special characters).
+The Regression Suite will include more comprehensive testing, covering alternative flows, negative scenarios, and edge cases (details to be added in future iterations).
 
 ## Test Cases
 
-Test cases will be documented in the Gherkin feature files.
+Test cases will be detailed in the Gherkin feature files.
