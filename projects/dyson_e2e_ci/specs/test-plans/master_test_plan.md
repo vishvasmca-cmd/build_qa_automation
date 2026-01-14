@@ -2,52 +2,87 @@
 
 ## Introduction
 
-This document outlines the test plan for the Dyson E-commerce website, focusing on end-to-end testing. The goal is to ensure the critical functionalities of the website are working as expected.
+This document outlines the test plan for the Dyson E2E CI project, focusing on end-to-end testing of critical user workflows on the Dyson India website. The primary goal is to ensure the core functionality of the e-commerce platform remains stable and reliable with each new deployment.
 
 ## Scope
 
-The testing will cover the following areas:
+The testing will cover essential user journeys, including:
 
-*   Homepage
-*   Product Search
-*   Product Detail Page (PDP)
-*   Add to Cart
-*   Checkout
+*   Handling popups
+*   Searching for products
+*   Adding products to the cart
+*   Navigating to the checkout page
 
 ## Test Suites
 
-This test plan includes two main test suites: Smoke and Regression.
+This test plan defines two main test suites: Smoke and Regression.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite is designed to quickly verify the core functionalities of the Dyson website. The following checklist is applied to define the scope of the Smoke Suite:
+The Smoke Suite is designed to provide a quick and efficient way to verify the stability of the core functionalities. The following checklist has been applied to define the Smoke Suite for this project:
 
-1.  **Critical Paths:** Tests cover essential user flows like product search, adding to cart, and initiating checkout.
-2.  **Core Business Logic:** Focuses on verifying the primary revenue-generating flows.
+1.  **Critical Paths:** Tests cover the most critical user paths (e.g., search, add to cart, checkout).
+2.  **Core Business Logic:** Focuses on testing the primary revenue-generating flows.
 3.  **Positive Testing:** Primarily focuses on happy path scenarios.
-4.  **No Negative Testing:** Excludes negative scenarios unless critical for security.
+4.  **No Negative Testing:** Excludes negative test cases unless they involve critical security concerns.
 5.  **No Complex Edge Cases:** Avoids complex or less common scenarios.
-6.  **Limited Data Variation:** Uses a minimal set of test data.
-7.  **Fast Execution:** Tests are designed to execute quickly.
-8.  **Build Validation:** Failure of any smoke test indicates a critical issue and potential build rejection.
+6.  **Minimal Test Set:** Aims for a small, manageable set of tests.
+7.  **Fast Execution:** Tests should execute quickly to provide rapid feedback.
+8.  **Build Acceptance:** Failure of any smoke test indicates a critical issue and should reject the build.
 
 ### Regression Suite
 
-The Regression Suite is a comprehensive set of tests to ensure that new changes haven't introduced any regressions. It covers a wider range of scenarios, including alternative flows, negative scenarios, and edge cases.
+The Regression Suite is a comprehensive set of tests designed to ensure that new changes haven't introduced defects into existing functionality. This suite will include:
+
+*   Alternative flows
+*   Negative scenarios
+*   Boundary analysis
+*   Cross-module interactions
+*   Validation messages
 
 ## Test Environment
 
-*   Browser: Chrome (latest version)
-*   Operating System: Windows/macOS (latest versions)
-*   Test Framework: Playwright
+*   **Browser:** Chrome (latest version)
+*   **Operating System:** Windows 10/11, macOS
+*   **Test Framework:** Playwright
+
+## Test Cases
+
+Test cases will be written in Gherkin syntax and organized into feature files.
+
+## Smoke Suite Test Cases
+
+*   Verify the ability to close the initial subscription popup.
+*   Verify the ability to search for a product ('Dyson V15 Detect').
+*   Verify the ability to add the searched product to the cart.
+*   Verify the ability to navigate to the checkout page from the cart.
+
+## Regression Suite Test Cases (Examples)
+
+*   Verify search functionality with different search terms.
+*   Verify error handling when adding out-of-stock items to the cart.
+*   Verify the cart updates correctly when changing quantities.
+*   Verify the display of appropriate validation messages during checkout (e.g., missing address).
 
 ## Test Data
 
-Test data will be used to simulate different user scenarios and product variations.
+Test data will be created and managed to support both smoke and regression testing. This includes:
 
-## Test Deliverables
+*   Valid and invalid search terms
+*   Product inventory data
+*   Valid and invalid user credentials
+*   Payment information
 
-*   Test Plan Document
-*   Test Automation Scripts
-*   Test Execution Reports
-*   Defect Reports
+## Metrics
+
+*   Number of tests executed
+*   Number of tests passed
+*   Number of tests failed
+*   Test execution time
+*   Defect density
+
+## Tools
+
+*   Playwright: For test automation
+*   GitHub: For version control
+*   CI/CD pipeline: For automated test execution

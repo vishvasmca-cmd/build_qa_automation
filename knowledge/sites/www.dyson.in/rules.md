@@ -953,3 +953,7 @@
 - ⚠️ PROHIBITED: DON'T assume that the target website (dyson.in) will always reliably support HTTP/2. Implement retry mechanisms and consider handling potential protocol errors gracefully.
 
 - ✅ PREFERRED: DO implement robust error handling and retry mechanisms when navigating to external websites, especially when dealing with HTTP/2, to mitigate potential network or server-side issues.
+
+- ⚠️ PROHIBITED: DON'T assume a website will always successfully load on the first attempt; network errors and server issues can occur.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for critical navigation actions like `page.goto()` to handle transient network or server errors.
