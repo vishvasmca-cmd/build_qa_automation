@@ -6687,6 +6687,39 @@
         "reason": "Without knowing the last URL or having any trace of recent actions, it's impossible to determine if the agent successfully navigated through the website to reach the checkout page after performing the specified steps. The success of each step (popup handling, search, PDP verification, cart flow) is unknown.",
         "confidence": 0.1
       }
+    },
+    {
+      "agent": "Orchestrator",
+      "action": "pipeline_start",
+      "end_time": 1768355167.4244704,
+      "duration": 0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "config": {
+          "project_name": "dyson_e2e_ci",
+          "target_url": "https://www.dyson.in/",
+          "workflow_description": "1. Handle Popup: Close 'Subscribe' popup. 2. Search: Search for 'Dyson V15 Detect' and click the first product result. 3. PDP Verification: Verify 'Add to Cart' button is visible. 4. Cart Flow: Click 'Add to Cart', verify cart drawer opens, and click 'Checkout'. 5. Verification: Ensure we reach the Checkout page.",
+          "domain": "e_commerce",
+          "paths": {
+            "test": "projects/dyson_e2e_ci/tests/test_main.py",
+            "report": "projects/dyson_e2e_ci/outputs/report.md"
+          }
+        }
+      }
+    },
+    {
+      "agent": "Validator",
+      "action": "validate_goal",
+      "end_time": 1768355171.4463856,
+      "duration": 0.0,
+      "success": true,
+      "cost": 0.0,
+      "metadata": {
+        "status": "AMBIGUOUS",
+        "reason": "Without knowing the last URL or having any trace of recent actions, it's impossible to determine if the agent successfully navigated through the website, added the product to the cart, and reached the checkout page. The absence of information makes it impossible to validate the goal.",
+        "confidence": 0.01
+      }
     }
   ],
   "failures": [
