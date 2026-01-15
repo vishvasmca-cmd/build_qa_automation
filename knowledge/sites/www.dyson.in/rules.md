@@ -993,3 +993,39 @@
 - ⚠️ PROHIBITED: DON'T rely solely on `get_by_text` without considering potential ambiguity or dynamic content changes. A single character match like 'X' is highly prone to false positives.
 
 - ✅ PREFERRED: DO use more specific and resilient locators, combining text matching with other attributes like `role`, `id`, or `class` to uniquely identify the target element. Consider using `nth()` or `filter()` to narrow down the selection if multiple elements match the initial criteria.
+
+- ⚠️ PROHIBITED: DON'T assume a successful page load without explicitly checking the response status or page content after navigation.
+
+- ✅ PREFERRED: DO implement retry logic with exponential backoff for page navigation, especially for initial page loads, to handle transient network errors or server-side issues.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for `page.goto()` calls, especially when dealing with HTTP/2 connections, and include specific error handling for `net::ERR_HTTP2_PROTOCOL_ERROR`.
+
+- ⚠️ PROHIBITED: DON'T assume the target website fully supports HTTP/2 without proper error handling and retries in the navigation logic.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, especially when encountering HTTP/2 protocol errors. Also, consider adding a check for network connectivity before navigation.
+
+- ✅ PREFERRED: DO implement a retry mechanism with exponential backoff for page navigation, especially for initial page load, to handle transient network or server issues.
+
+- ⚠️ PROHIBITED: DON'T assume that HTTP/2 protocol is stable; ALWAYS implement retry mechanisms for initial page load failures, especially when dealing with external websites.
+
+- ✅ PREFERRED: DO implement robust error handling and retry logic for page navigation, including checks for HTTP/2 protocol errors and other network-related issues.
+
+- ⚠️ PROHIBITED: DON'T assume a website supports HTTP/2 flawlessly; be prepared to handle protocol errors gracefully.
+
+- ✅ PREFERRED: DO implement retry mechanisms with exponential backoff for page navigation, especially when encountering network-related errors like 'net::ERR_HTTP2_PROTOCOL_ERROR'.
+
+- ⚠️ PROHIBITED: DON'T use the `ignore_https_errors` argument with `page.goto()` unless you are certain your Playwright version supports it.
+
+- ✅ PREFERRED: DO verify the supported arguments for `page.goto()` in your Playwright version's documentation before using them.
+
+- ⚠️ PROHIBITED: DON'T use the `ignore_https_errors` argument with `page.goto()` unless the Playwright version is confirmed to support it.
+
+- ✅ PREFERRED: DO verify the installed Playwright version and consult the official documentation for the correct usage of `page.goto()` and its available arguments.
+
+- ⚠️ PROHIBITED: DON'T assume a successful page load without proper error handling and retry mechanisms, especially when dealing with external websites.
+
+- ✅ PREFERRED: DO implement robust error handling and retry logic for page navigation, including checks for HTTP status codes and specific error types like 'net::ERR_HTTP2_PROTOCOL_ERROR'.
+
+- ⚠️ PROHIBITED: DON'T assume that the target website will always correctly negotiate HTTP/2. Be prepared to handle potential protocol errors.
+
+- ✅ PREFERRED: DO implement robust error handling around `page.goto()` calls, including catching network errors and retrying with a fallback mechanism (e.g., disabling HTTP/2 if possible, or using a different browser context).

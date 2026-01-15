@@ -1,0 +1,56 @@
+{
+  "target_url": "https://opensource-demo.orangehrmlive.com",
+  "mode": "deep_exploration",
+  "max_depth": 3,
+  "max_steps": 30,
+  "login": {
+    "username": "Admin",
+    "password": "admin123"
+  },
+  "post_login_actions": [
+    {
+      "url_suffix": "/web/index.php/admin/saveSystemUser",
+      "fill": {
+        "label:User Role": "ESS",
+        "label:Status": "Enabled",
+        "input[placeholder='Type for hints...']": "Ranga  Akunuri",
+        "label:Username": "testuser_auto_001",
+        "label:Password": "Password123!",
+        "label:Confirm Password": "Password123!"
+      },
+      "submit_selector": "button.oxd-button--secondary"
+    },
+    {
+      "url_suffix": "/web/index.php/pim/addEmployee",
+      "fill": {
+        "input[name='firstName']": "Alice",
+        "input[name='middleName']": "Automated",
+        "input[name='lastName']": "Tester"
+      },
+      "submit_selector": "button.oxd-button--secondary"
+    },
+    {
+      "url_suffix": "/web/index.php/leave/applyLeave",
+      "fill": {
+        "textarea": "Automated leave request for testing purposes."
+      },
+      "submit_selector": "button.oxd-button--secondary"
+    },
+    {
+      "url_suffix": "/web/index.php/recruitment/addCandidate",
+      "fill": {
+        "input[name='firstName']": "Bob",
+        "input[name='lastName']": "Builder",
+        "input[placeholder='Type here']": "bob.builder@example.com"
+      },
+      "submit_selector": "button.oxd-button--secondary"
+    },
+    {
+      "url_suffix": "/web/index.php/claim/submitClaim",
+      "fill": {
+        "textarea": "Travel Expenses - Automation Run"
+      },
+      "submit_selector": "button.oxd-button--secondary"
+    }
+  ]
+}

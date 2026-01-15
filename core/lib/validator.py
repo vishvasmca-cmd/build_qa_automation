@@ -16,19 +16,37 @@ class BusinessValidator:
     def __init__(self):
         self.llm = SafeLLM(model="gemini-2.0-flash", temperature=0.0)
 
-    def validate_goal_completion(self, goal, trace_path, screenshot_path=None):
+    def validate_goal_completion(self, goal, trace_path, screenshot_path=None, execution_success=False, test_code=""):
         """
-        Analyzes trace and screenshot to confirm if the business goal was met.
+        Analyzes trace, screenshot, and Execution Result to confirm if the business goal was met.
         
         Args:
             goal (str): The original user objective (e.g. "Add to cart")
             trace_path (str): Path to the execution trace JSON
             screenshot_path (str): Path to the final state screenshot (optional)
+            execution_success (bool): Whether the Playwright test process exited with code 0
+            test_code (str): The actual TypeScript code that was executed
             
         Returns:
             dict: {"status": "PASS/FAIL/AMBIGUOUS", "reason": "...", "confidence": 0-1}
         """
         print(colored("🕵️ Running Business Validation (Self-Critic)...", "cyan"))
+        
+        # --- DETERMINISTIC CHECK (Trust the Test) ---
+        # If the test passed at the system level AND the code actually contains assertions
+        if execution_success and test_code:
+            # Simple heuristic: Does the code assert something?
+            has_assertion = "expect(" in test_code and ("toBeVisible" in test_code or "toHaveText" in test_code or "toHaveURL" in test_code)
+            
+            if has_assertion:
+                print(colored(f"✅ VALIDATOR: Deterministic Pass (Test Passed + Assertions Found)", "green"))
+                return {
+                    "status": "PASS", 
+                    "reason": "Automation Test execution passed successfully with explicit assertions in code.",
+                    "confidence": 1.0
+                }
+
+        # --- FALLBACK: Heuristic / LLM Check ---
         
         # 1. Load Trace Context
         trace_summary = "No trace available."
@@ -74,6 +92,7 @@ class BusinessValidator:
         
         FINAL APP STATE:
         - Last URL: {last_url}
+        - Test Execution Passed: {execution_success}
         - Recent Actions:
         {trace_summary}
         

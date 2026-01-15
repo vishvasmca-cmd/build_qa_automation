@@ -1,41 +1,42 @@
-# Test Plan: dyson_final_verify_type_refix
+# Test Plan: Dyson Final Verify Type Refix
 
 ## Introduction
 
-This document outlines the test plan for the dyson_final_verify_type_refix project. The primary goal is to ensure the core functionality of the Dyson India website is working as expected, focusing on the search functionality and the ability to add a product to the cart.
+This document outlines the test plan for the Dyson Final Verify Type Refix project. The goal is to ensure the core functionality of the Dyson India website is working as expected, focusing on search and product verification.
 
 ## Scope
 
 The testing will cover the following areas:
 
-*   Homepage functionality
-*   Search functionality
-*   Product page functionality (specifically, the 'Add to Cart' button)
+*   Searching for a specific product ('Dyson V15 Detect').
+*   Verifying the presence of the 'Add to Cart' button for the searched product.
 
 ## Test Suites
 
-This test plan includes two main test suites:
+This test plan includes two test suites:
 
-1.  Smoke Suite: A minimal set of tests to verify the most critical functions.
-2.  Regression Suite: A comprehensive suite to ensure existing functionality remains intact after changes.
+1.  Smoke Suite: A minimal set of tests to verify the core functionality.
+2.  Regression Suite: A comprehensive set of tests to cover various scenarios and edge cases.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite is designed to provide a quick check of the system's health. It focuses on the 'happy path' scenarios and critical functionalities. The following checklist has been applied to define the Smoke Suite for this project:
+The Smoke Suite is designed to provide a quick check of the system's critical functions. The following checklist is applied to determine the scope of the smoke tests:
 
-1.  **Critical Paths:** Tests cover essential user flows like searching for a product and adding it to the cart.
-2.  **Core Business Logic:** Focuses on the primary function of the website - product discovery and potential purchase.
-3.  **No Negative Testing:** Only positive scenarios are considered (e.g., valid search query).
-4.  **No Complex Edge Cases:** Simple and straightforward scenarios are prioritized.
-5.  **Minimal Data Variation:** A single, representative search term is used.
-6.  **Fast Execution:** Tests are designed to run quickly to provide rapid feedback.
-7.  **Independent Tests:** Each test should be independent and not rely on the state of other tests.
-8.  **Clear Pass/Fail Criteria:** The expected outcome of each test is clearly defined.
+1.  **Critical Paths:** Does the test cover a primary user flow (e.g., login, search, checkout)?
+2.  **Core Business Logic:** Does the test exercise essential business rules or calculations?
+3.  **Positive Testing:** Does the test focus on successful scenarios rather than error handling?
+4.  **End-to-End:** Does the test span multiple modules or components?
+5.  **Data Dependency:** Does the test require specific data setup or configuration?
+6.  **External Systems:** Does the test interact with external APIs or services?
+7.  **Performance:** Is the test designed for speed and efficiency?
+8.  **Security:** Does the test address critical security vulnerabilities?
+
+For this project, the smoke tests will focus on searching for a product and verifying the 'Add to Cart' button.
 
 ### Regression Suite
 
-The Regression Suite will include more comprehensive tests, covering alternative flows, negative scenarios, boundary conditions, and cross-module interactions. This suite will be developed in subsequent iterations.
+The Regression Suite will include more comprehensive tests, covering alternative flows, negative scenarios, and edge cases. This suite will be developed based on further analysis and requirements.
 
 ## Test Cases
 
-Detailed test cases will be documented in the Regression Suite.
+Test cases will be documented in the form of Gherkin feature files.
