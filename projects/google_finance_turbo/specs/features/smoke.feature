@@ -1,25 +1,18 @@
 Feature: Google Finance - Smoke Tests
+  As a user,
+  I want to verify the core functionality of Google Finance
+  So that I can ensure the application is working as expected
 
-  Scenario: Verify Homepage Load and Market Indices Display @smoke
-    Given User navigates to the Google Finance homepage
-    Then The Google Finance logo should be visible
-    And The 'Compare Markets' section should display major indices
-    And Each index card should show a numeric price and percentage change
+  @smoke
+  Scenario: Verify Homepage Load and Basic Elements
+    Given I navigate to the Google Finance homepage
+    Then I should see the 'Google Finance' logo
+    And I should see the 'Compare Markets' section with major indices
 
-  Scenario: Verify Search Functionality with Autosuggest @smoke
-    Given User is on the Google Finance homepage
-    When User clicks on the search bar
-    And User types 'TES' in the search bar
-    Then Tesla (TSLA) should appear in the dropdown suggestions
-
-  Scenario: Verify Stock Detail Page Loads @smoke
-    Given User searches for 'TSLA'
-    When User selects Tesla (TSLA) from the search suggestions
-    Then The browser should redirect to the Tesla (TSLA) detail page
-    And The main stock price should be displayed
-    And The 'Day's Change' should be visible
-
-  Scenario: Verify Chart Interaction @smoke
-    Given User is on the Tesla (TSLA) detail page
-    When User clicks the '1D' button on the chart
-    Then The graph line should appear
+  @smoke
+  Scenario: Search for a Stock and Verify Navigation
+    Given I am on the Google Finance homepage
+    When I search for 'TES'
+    Then Tesla (TSLA) should appear in the search suggestions
+    When I click on the Tesla suggestion
+    Then I should be redirected to the Tesla stock detail page

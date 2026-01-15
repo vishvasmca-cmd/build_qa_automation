@@ -2,7 +2,7 @@ from playwright.async_api import Page, expect
 
 class GoogleFinancePage:
     """
-    Google Finance provides real-time stock quotes, international market data, news, and financial information.
+    Google Finance page provides financial information, market data, and news.
     URL Pattern: https://www.google.com/finance/
     """
     def __init__(self, page: Page):
@@ -10,37 +10,42 @@ class GoogleFinancePage:
 
     @property
     def search_input(self):
-        """Input field to search for stocks, ETFs, and other financial instruments."""
-        return self.page.role=searchbox.or_(self.page.css=input[aria-label='Search for stocks, ETFs & more'])
+        """Input field to search for stocks, ETFs, or other financial instruments."""
+        return self.page.//input[@aria-label='Search'].or_(self.page.input[type='text'])
 
     @property
-    def sign_in_button(self):
-        """Button to sign in to Google Finance."""
-        return self.page.text=Sign in.or_(self.page.css=a[href*='signin'])
+    def sign_in_link(self):
+        """Link to sign in to a Google account."""
+        return self.page.//a[text()='Sign in'].or_(self.page.a[href*='accounts.google.com'])
 
     @property
-    def finance_link(self):
-        """Link to the main Finance page."""
-        return self.page.text=Finance.or_(self.page.css=a[href='/finance'])
+    def create_portfolio_button(self):
+        """Button to create a new portfolio."""
+        return self.page.//a[text()='Create portfolio'].or_(self.page.a[href*='/portfolio/create'])
 
     @property
-    def market_trends_link(self):
-        """Link to the Market Trends page."""
-        return self.page.text=Market trends.or_(self.page.css=a[href*='market_trends'])
+    def create_watchlist_button(self):
+        """Button to create a new watchlist."""
+        return self.page.//a[text()='Create watchlist'].or_(self.page.a[href*='/watchlist/create'])
 
     @property
-    def create_portfolio_link(self):
-        """Link to create a new portfolio."""
-        return self.page.text=Create portfolio.or_(self.page.css=a[href*='portfolio'])
+    def nvidia_corp_link(self):
+        """Link to the NVIDIA Corp stock quote page."""
+        return self.page.//a[text()='NVIDIA Corp'].or_(self.page.a[href*='/quote/NVDA'])
 
     @property
-    def create_watchlist_link(self):
-        """Link to create a new watchlist."""
-        return self.page.text=Create watchlist.or_(self.page.css=a[href*='watchlist'])
+    def intel_corp_link(self):
+        """Link to the Intel Corp stock quote page."""
+        return self.page.//a[text()='Intel Corp'].or_(self.page.a[href*='/quote/INTC'])
+
+    @property
+    def settings_link(self):
+        """Link to the settings page."""
+        return self.page.//a[text()='Settings'].or_(self.page.a[href*='/settings'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Page title contains 'Google Finance'
-        await Search input field is present
-        await Sign in button is present
-        await Finance link is present
+        await Title contains 'Finance - Google Finance'
+        await Search input is present
+        await Sign in link is present
+        await At least one stock quote link is present (e.g., NVIDIA Corp)

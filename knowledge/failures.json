@@ -7,5 +7,23 @@
       "phase": "exploration"
     },
     "error": "Explorer failed after all retries"
+  },
+  {
+    "timestamp": "2026-01-15T04:49:18.437484",
+    "context": {
+      "site": "https://finance.yahoo.com",
+      "project": "yahoo_finance_turbo",
+      "phase": "execution"
+    },
+    "error": ")\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nE           Call log:\nE             - waiting for get_by_role(\"link\", name=\"Markets\").first\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/yahoo_finance_turbo/tests/test_main.py::test_generated_task[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_role(\"link\", name=\"Markets\").first\n======================== 1 failed in 131.32s (0:02:11) =========================\n\n\n"
+  },
+  {
+    "timestamp": "2026-01-15T05:00:49.310166",
+    "context": {
+      "site": "https://www.google.com/finance/",
+      "project": "google_finance_turbo",
+      "phase": "execution"
+    },
+    "error": "ack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nE           playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nE           Call log:\nE             - waiting for get_by_role(\"link\", name=\"TSLA Tesla Inc $439.15 1.80%\", exact=True).first\n\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py:559: TimeoutError\n=========================== short test summary info ============================\nFAILED projects/google_finance_turbo/tests/test_main.py::test_generated_task[chromium] - playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_role(\"link\", name=\"TSLA Tesla Inc $439.15 1.80%\", exact=True).first\n============================== 1 failed in 35.61s ==============================\n\n\n"
   }
 ]

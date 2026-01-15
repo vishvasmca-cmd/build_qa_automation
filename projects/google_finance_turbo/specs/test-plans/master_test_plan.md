@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document outlines the test plan for the Google Finance Turbo application. The plan includes smoke and regression test suites designed to ensure the application's functionality, reliability, and performance.
+This document outlines the test plan for the Google Finance Turbo application. It covers the scope, strategy, and approach for testing the application's functionality, performance, and reliability.
 
 ## Scope
 
@@ -14,55 +14,57 @@ The testing will cover the following areas:
 *   Comparison Features
 *   Navigation and Responsiveness
 
+## Test Strategy
+
+The testing will be conducted using a combination of manual and automated testing techniques. The test suites will include both smoke and regression tests.
+
+### Smoke Suite Strategy
+
+The smoke suite will focus on the critical path and core functionality of the application. The following checklist will be applied:
+
+1.  **Critical Path Coverage:** Tests cover essential user flows (e.g., loading the homepage, searching for a stock).
+2.  **Core Functionality:** Focus on verifying the primary functions of each module.
+3.  **Positive Testing:** Primarily positive tests, ensuring the application works as expected under normal conditions.
+4.  **Data Validation:** Basic validation of data displayed (e.g., ensuring stock prices are numeric).
+5.  **Environment Stability:** Checks for basic environment stability (e.g., page loads successfully).
+6.  **No Edge Cases:** Exclude complex edge cases or boundary conditions.
+7.  **Speed and Efficiency:** Tests are designed to be quick and efficient, providing rapid feedback.
+8.  **Build Acceptance:** Successful completion of the smoke suite is required for build acceptance.
+
 ## Test Suites
 
-### Smoke Suite
-
-The smoke suite will focus on the critical path and core functionalities of the application.
-
-#### Smoke Suite Strategy
-
-The following 8-point checklist has been applied to define the Smoke Suite for this project:
-
-1.  **Critical Path Coverage:** Tests cover essential user flows like loading the homepage, searching for a stock, and viewing stock details.
-2.  **Core Functionality:** Focuses on verifying the main features, such as market data display, search functionality, and basic chart interaction.
-3.  **Positive Testing:** Primarily uses positive test cases to ensure the application works as expected under normal conditions.
-4.  **Minimal Data Variation:** Uses a limited set of test data to quickly validate the core functionalities.
-5.  **Independence:** Tests are designed to be independent of each other to avoid cascading failures.
-6.  **Speed of Execution:** Tests are designed to execute quickly, providing rapid feedback on the application's health.
-7.  **High Priority Issues:** Addresses any known high-priority issues or defects.
-8.  **Deployment Validation:** Validates the successful deployment and basic stability of the application.
-
-### Regression Suite
-
-The regression suite will provide comprehensive coverage of the application's functionalities, including edge cases and negative scenarios.
+*   Smoke Suite: A minimal set of tests to verify the core functionality of the application.
+*   Regression Suite: A comprehensive suite of tests to ensure that new changes have not broken existing functionality.
 
 ## Test Environment
 
-*   Browsers: Chrome, Firefox, Safari
-*   Operating Systems: Windows, macOS, Linux
-*   Devices: Desktop, Tablet, Mobile
+The tests will be executed on the following environments:
+
+*   Chrome
+*   Latest stable version
 
 ## Test Deliverables
 
-*   Test Plan Document
-*   Test Cases (Gherkin Feature Files)
-*   Test Execution Reports
+*   Test Plan
+*   Test Cases
+*   Test Scripts
+*   Test Results
+*   Defect Reports
 
 ## Smoke Test Cases
 
-*   Verify homepage loads successfully.
-*   Verify market indices are displayed.
-*   Verify search functionality with autosuggest.
-*   Verify stock detail page loads.
-*   Verify chart interaction.
+1.  Verify the homepage loads successfully.
+2.  Verify the 'Google Finance' logo is visible.
+3.  Verify the 'Compare Markets' section displays major indices.
+4.  Verify the search functionality returns relevant results.
+5.  Verify navigation to a stock detail page.
 
 ## Regression Test Cases
 
-*   Verify all elements of the homepage are displayed correctly.
-*   Verify different market indices are displayed correctly.
-*   Verify search functionality with valid and invalid inputs.
-*   Verify all elements of the stock detail page are displayed correctly.
-*   Verify all chart interactions work as expected.
-*   Verify comparison features work as expected.
-*   Verify navigation and responsiveness across different devices.
+1.  Verify all elements on the homepage load correctly.
+2.  Verify the 'Market Trends' section displays correct data.
+3.  Verify the autosuggest functionality works as expected.
+4.  Verify the stock detail page displays all relevant information.
+5.  Verify the comparison feature works correctly.
+6.  Verify all links and navigation elements function as expected.
+7.  Verify the application is responsive on different screen sizes.
