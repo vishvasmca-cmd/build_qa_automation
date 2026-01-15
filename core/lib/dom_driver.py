@@ -16,6 +16,19 @@ DOM_EXTRACTION_SCRIPT = """
     const items = [];
     let idCounter = offset;
 
+    // --- CLEANING PHASE (Turbo Mode) ---
+    // Distill the DOM by removing known noise sources before traversal
+    const noiseSelectors = [
+        'script', 'style', 'iframe[id*="google"]', '.ad', '.ads', 
+        '.advertisement', '#cookie-banner', '.cookie-consent',
+        'noscript', 'svg:not([aria-label]):not([title])'
+    ];
+    document.querySelectorAll(noiseSelectors.join(',')).forEach(el => {
+        // Only remove if not essential (e.g., don't remove if it contains an input)
+        if (!el.querySelector('input, button, a')) el.remove();
+    });
+    // -----------------------------------
+
     function isVisible(el) {
         if (!el) return false;
         const style = window.getComputedStyle(el);

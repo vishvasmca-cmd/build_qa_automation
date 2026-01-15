@@ -29,9 +29,8 @@ if sys.platform == "win32":
 # Import robust LLM wrapper
 from core.lib.llm_utils import SafeLLM, try_parse_json
 
-# Import Metrics Logger
-# Import Metrics Logger
 from core.lib.metrics_logger import logger
+from core.lib.workflow_utils import extract_workflow_keywords, score_element_relevance
 
 # Import the 2026-style driver
 # Import the 2026-style driver
@@ -113,6 +112,43 @@ async def extract_all_elements(page: Page):
 
     return all_elements
 
+def _optimize_image(image_bytes):
+    """
+    Optimizes image size to prevent 429 Rate Limits.
+    Resizes to max 640px width (Aggressive) and strictly compresses.
+    """
+    try:
+        from PIL import Image
+        img = Image.open(io.BytesIO(image_bytes))
+        
+        # Resize if too large (Aggressive 640px width)
+        max_width = 640
+        if img.width > max_width:
+            ratio = max_width / img.width
+            new_height = int(img.height * ratio)
+            img = img.resize((max_width, new_height), Image.Resampling.LANCZOS)
+            
+        # Convert to RGB (remove alpha)
+        if img.mode in ("RGBA", "P"):
+            img = img.convert("RGB")
+            
+        # Compress (Quality 50)
+        output = io.BytesIO()
+        img.save(output, format="JPEG", quality=50, optimize=True)
+        b64 = base64.b64encode(output.getvalue()).decode('utf-8')
+        
+        # Log reduction
+        original_size = len(image_bytes)
+        new_size = len(output.getvalue())
+        reduction = (1 - (new_size / original_size)) * 100
+        print(colored(f"   📉 Image Optimized: {original_size//1024}KB -> {new_size//1024}KB ({reduction:.1f}% reduced)", "grey"))
+        return b64
+    except ImportError:
+        print(colored("⚠️ Pillow not installed. Using raw screenshot (high bandwidth).", "yellow"))
+        return base64.b64encode(image_bytes).decode('utf-8')
+    except Exception as e:
+         print(colored(f"⚠️ Image optim failed: {e}. using raw.", "yellow"))
+         return base64.b64encode(image_bytes).decode('utf-8')
 
 
 async def analyze_page(page: Page, url: str, user_goal=None):
@@ -122,12 +158,72 @@ async def analyze_page(page: Page, url: str, user_goal=None):
     """
     print(colored(f"🔍 Mining Page (2026 Strategy): {url}", "cyan"))
     
-    # 1. Extract Structural Data
-    elements = await extract_all_elements(page)
+    # --- TURBO: Parallel Cleanup & Extraction ---
+    # 1. Background Cleanup (Nuke ads/noise before mining)
+    await page.evaluate("""
+        () => {
+            const noise = [
+                'iframe[id*="google"]', 'iframe[src*="doubleclick"]',
+                '.ad', '.ads', '.advertisement', '.social-share',
+                '#cookies-banner', '[class*="cookie-banner"]',
+                '.vignette', '#credential_picker_container'
+            ];
+            document.querySelectorAll(noise.join(',')).forEach(el => el.remove());
+        }
+    """)
+
+    # 2. Parallel DOM + Vision Capture
+    print(colored(f"🚀 Parallel Capture: DOM + Screenshot...", "grey"))
+    elements_task = extract_all_elements(page)
+    screenshot_task = page.screenshot(type="jpeg", quality=60)
     
-    # 2. Capture Visual State
-    screenshot_bytes = await page.screenshot(type="jpeg", quality=85)
-    b64_img = base64.b64encode(screenshot_bytes).decode('utf-8')
+    elements, screenshot_bytes = await asyncio.gather(elements_task, screenshot_task)
+    b64_img = _optimize_image(screenshot_bytes)
+    # ---------------------------------------------
+    
+    # --- FOCUSED MINING FILTER ---
+    keywords = extract_workflow_keywords(user_goal)
+    scored_elements = []
+    
+    if keywords:
+        print(colored(f"   🎯 Focused Mining: Filtering with {len(keywords)} workflow keywords...", "cyan"))
+        for el in elements:
+            score = score_element_relevance(el, keywords)
+            # EXTREMELY Strict threshold (0.7)
+            # Only keeps elements that explicitly match journey keywords
+            if score >= 0.7:
+                scored_elements.append(el)
+        
+        reduction = (1 - (len(scored_elements) / len(elements))) * 100
+        print(colored(f"   📉 Focus Filter: Reduced {len(elements)} -> {len(scored_elements)} candidates ({reduction:.1f}% reduction)", "cyan"))
+        elements = scored_elements
+    # ----------------------------
+
+    # --- VISION FILTERING (No-LLM) ---
+    from core.lib.vision_miner import VisionMiner
+    import concurrent.futures
+
+    visible_elements = []
+    print(colored(f"   👁️ Vision Filter: Checking {len(elements)} elements in parallel...", "grey"))
+    
+    def verify_el(el):
+        w, h = el['rect']['width'], el['rect']['height']
+        if 0 < w < 800 and 0 < h < 600:
+            res = VisionMiner.verify_visibility(
+                screenshot_bytes, 
+                el['rect']['x'], el['rect']['y'], w, h
+            )
+            return el if res['is_visible'] else None
+        return el # Giant containers
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        results = list(executor.map(verify_el, elements))
+    
+    visible_elements = [r for r in results if r is not None]
+            
+    print(colored(f"   📉 Vision Filter: Reduced {len(elements)} -> {len(visible_elements)} elements", "cyan"))
+    elements = visible_elements
+    # ---------------------------------
     
     # 3. LLM Reconciliation
     # Check Cache First (File-Based Persistence)

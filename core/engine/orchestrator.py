@@ -124,7 +124,7 @@ def _run_planning(project_root, config, config_hash, config_path):
             context = browser.new_context(
                 viewport={"width": 1280, "height": 800},
                 user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-                ignore_https_errors=True,
+                ignore_https_errors=False,
                 locale="en-US",
                 extra_http_headers={
                     "Accept-Language": "en-US,en;q=0.9",
@@ -456,7 +456,14 @@ def _run_validation(project_root, config, success):
             trace_path = os.path.join(project_root, "outputs/trace.json")
             goal = config.get("goal") or config.get("workflow_description", "Unknown Goal")
             
-            result = validator.validate_goal_completion(goal, trace_path, screenshot_path)
+            # Read Test Code for Analysis
+            test_code = ""
+            test_file_path = config.get("paths", {}).get("test", "")
+            if os.path.exists(test_file_path):
+                with open(test_file_path, "r", encoding="utf-8") as f:
+                    test_code = f.read()
+
+            result = validator.validate_goal_completion(goal, trace_path, screenshot_path, execution_success=success, test_code=test_code)
             
             if result.get("status") == "FAIL":
                 print(colored(f"⚠️ TEST PASSED BUT GOAL FAILED: {result.get('reason')}", "red", attrs=["bold"]))
@@ -712,10 +719,18 @@ def run_pipeline(config_path, headed=False):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python core/orchestrator.py <config_path> [--headed]")
+        print("Usage: python core/orchestrator.py <config_path> [--headed] [--deep]")
         sys.exit(1)
         
     config_path = sys.argv[1]
     headed = "--headed" in sys.argv
+    deep_mode = "--deep" in sys.argv
     
-    run_pipeline(config_path, headed=headed)
+    if deep_mode:
+        print(colored("🚀 Launching Deep Explorer (Recursive Crawler Mode)...", "magenta", attrs=["bold"]))
+        from core.agents.deep_explorer import DeepExplorer
+        import asyncio
+        explorer = DeepExplorer(config_path, headed=headed)
+        asyncio.run(explorer.run())
+    else:
+        run_pipeline(config_path, headed=headed)

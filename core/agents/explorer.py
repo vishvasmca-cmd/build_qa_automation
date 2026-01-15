@@ -40,6 +40,7 @@ from core.lib.metrics_logger import logger
 
 # Import Robust Action Handler
 from core.lib.robust_handler import get_handler as get_robust_handler
+from core.lib.visual_verifier import VisualVerifier
 
 load_dotenv()
 
@@ -73,17 +74,20 @@ Your goal is to complete the user's workflow by deciding the single next best ac
 7. **Login Check**: If I encounter a login page and NO credentials are in `test_data` AND NO credentials are in the `goal`, SKIP login entirely. Instead, explore publicly accessible areas. However, if credentials are provided in either `test_data` or the `goal` description, proceed with login.
 8. **Validation Check**: Check the `disabled` field in the element list. YOU MUST NOT 'click' or 'fill' an element if `disabled` is true. If the element you want is disabled, LOOK for a nearby button/icon that might enable it (e.g., a "Search" icon to open a search bar, or an "Edit" button to enable a form).
 9. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal? 
-10. **STEP TRACKING (CRITICAL)**: You MUST complete the workflow steps IN ORDER. If you land on a page that belongs to a LATER step (e.g., login page but you haven't added to cart yet), you MUST attempt to navigate BACK to the correct page for the EARLIEST unfulfilled step. DO NOT skip ahead just because you are on a convenient page.
+10. **STEP TRACKING (CRITICAL)**: You MUST complete the workflow phases IN ORDER (Phase 1, then Phase 2, etc.). 
+- Do NOT jump to Phase 7 just because you see a 'Screeners' link. 
+- You must verify the current phase is fully completed before moving to the next.
+- If you are accidentally on a page for a later phase, navigate BACK or find a way home to finish the earlier phases.
 
 **OUTPUT SCHEMA (JSON only)**:
 {
-  "thought": "Direct explanation of which part of the goal is being addressed and why this action moves us closer, citing any applied knowledge from the Knowledge Bank.",
+  "thought": "Explicitly state which Phase/Step you are currently on (e.g., 'Completing Phase 1: Logo Verification') and why this action is the correct sequential step.",
   "action": "click | fill | scroll | long_press | navigate | done",
   "target_id": 5, 
   "value": "...", 
   "expected_outcome": "Description of expected UI change",
-  "completed_step": 1, // CRITICAL: The number of the step you just finished (e.g., 1, 2, 3). ALWAYS update this when a sub-goal is met.
-  "is_goal_achieved": false // Set TRUE only when the absolute final step of the entire mission is verified.
+  "completed_step": 1, // The number of the PHASE or STEP you just finished. Use this to track progress through the numbered phases in the goal.
+  "is_goal_achieved": false 
 }
 **CRITICAL**: Set `is_goal_achieved` to `true` ONLY if EVERY part of the user's workflow description is completed. 
 - For "Onboarding" goals, filling a form is NOT enough; you MUST click the 'Save' or 'Submit' button.
@@ -137,6 +141,7 @@ class ExplorerAgent:
         self.skipped_goal_steps = []   # Track IDs of skipped (failed optional) steps
         self.step_learnings = {}  # Store learnings per step number
         self.skipped_steps = []  # Track which optional steps were skipped (legacy name)
+        self.scrolled_urls = set() # Track URLs where we have already performed infinite scroll
         
         # Extract search query from goal if present
         import re
@@ -176,7 +181,7 @@ class ExplorerAgent:
                     no_viewport=True if self.headed else False,
                     viewport=None if self.headed else {"width": 1920, "height": 1080},
                     user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-                    ignore_https_errors=True,
+                    ignore_https_errors=False,
                     bypass_csp=True,
                     locale="en-US",
                     timezone_id="America/New_York",
@@ -299,21 +304,40 @@ class ExplorerAgent:
                     print(colored(f"🚀 [STEP {step + 1}] PROCESSING...", "blue", attrs=["bold"]), flush=True)
                     print(colored("─"*40, "blue"), flush=True)
                     
-                    # 1. ANALYZE (Miner) with Timeout Protection
-                    try:
-                        mindmap = await asyncio.wait_for(
-                            analyze_page(page, page.url, self.workflow),
-                            timeout=120
-                        )
-                    except asyncio.TimeoutError:
-                        print(colored("⚠️ Vision analysis timed out. Falling back to simple extraction.", "yellow"))
-                        # Basic fallback: dummy mindmap with just title and empty elements
-                        # (Miner already has internal fallbacks, but this keeps explorer moving)
-                        mindmap = {
-                            "summary": {"title": await page.title(), "mission_status": "Vision timed out."},
-                            "elements": [],
-                            "blocking_elements": []
-                        }
+                    prio_keywords = ['search', 'product', 'category', 'collection', 'find', 'vacuum', 'hair', 'shop', 'store']
+                    if page.url not in self.scrolled_urls and any(k in page.url.lower() for k in prio_keywords):
+                        print(colored("📜 Triggering one-time infinite scroll for new relevant page...", "cyan"))
+                        await self.handle_infinite_scroll(page, max_scrolls=3)
+                        self.scrolled_urls.add(page.url)
+
+                    # --- TURBO: State-Aware Caching ---
+                    await asyncio.sleep(0.5) # Wait for page to settle
+                    current_dom_hash = await self.get_dom_hash(page)
+                    state_key = f"{page.url}:{current_dom_hash}"
+                    
+                    # Force mining if the last action was a 'fill' (to see suggestions)
+                    force_mining = self.history and self.history[-1]['action'] == 'fill'
+                    
+                    if not force_mining and hasattr(self, 'last_state_key') and self.last_state_key == state_key:
+                        print(colored(f"⚡ Turbo Mode: State unchanged. Skipping mining (Reusing cache)...", "green", attrs=["bold"]))
+                        mindmap = self.last_mindmap
+                    else:
+                        # 1. ANALYZE (Miner) with Timeout Protection
+                        try:
+                            mindmap = await asyncio.wait_for(
+                                analyze_page(page, page.url, self.workflow),
+                                timeout=120
+                            )
+                        except asyncio.TimeoutError:
+                            print(colored("⚠️ Vision analysis timed out. Falling back to simple extraction.", "yellow"))
+                            mindmap = {
+                                "summary": {"title": await page.title(), "mission_status": "Vision timed out."},
+                                "elements": [],
+                                "blocking_elements": []
+                            }
+                        self.last_state_key = state_key
+                        self.last_mindmap = mindmap
+                    # ----------------------------------
                     
                     # Save screenshot for trace
                     page_title = mindmap['summary'].get('title', 'Unknown')
@@ -326,7 +350,7 @@ class ExplorerAgent:
                     print(colored(f"🔍 URL: {page.url}", "grey"), flush=True)
                     
                     # Check for duplicate states (infinite loop prevention)
-                    is_dup_state = self.is_duplicate_state(page.url, mindmap)
+                    is_dup_state = await self.is_duplicate_state(page.url, mindmap, page=page)
                     
                     # Trigger Self-Learning on recurrent duplicates (Check counter directly)
                     if self.consecutive_duplicate_count == 5:
@@ -401,7 +425,7 @@ class ExplorerAgent:
                         
                         # Re-mine after rescue
                         mindmap = await analyze_page(page, page.url, self.workflow)
-                        if self.is_duplicate_state(page.url, mindmap) and self.consecutive_duplicate_count >= 12:
+                        if await self.is_duplicate_state(page.url, mindmap, page=page) and self.consecutive_duplicate_count >= 12:
                             print(colored(f"❌ Rescue failed: Duplicate limit reached ({self.consecutive_duplicate_count}). Breaking loop.", "red"), flush=True)
                             break
                         print(colored("🚑 Rescue successful! State changed.", "green"))
@@ -523,6 +547,12 @@ class ExplorerAgent:
                     target_info = next((f"[{e['tagName']}] {e['text'][:30]}..." for e in mindmap['elements'] if str(e['elementId']) == str(target_id)), "None")
                     print(colored(f"🔨 EXECUTION: {decision.get('action')} target {target_id} ({target_info})", "magenta"), flush=True)
                     
+                    # 📸 PRE-ACTION CAPTURE (For Visual Verification)
+                    try:
+                        pre_action_screenshot = await page.screenshot(type="jpeg", quality=50)
+                    except:
+                        pre_action_screenshot = None
+
                     action_result = await self._execute_action(page, decision, mindmap['elements'])
                     logger.log_event(
                         agent="Explorer",
@@ -536,7 +566,25 @@ class ExplorerAgent:
                     if action_result.get('success') and decision.get('action') == 'click':
                         print(colored("   ⏳ Post-click refresh: Checking for newly enabled elements...", "grey"))
                         await asyncio.sleep(1)  # Brief wait for any animations/state changes
+                        
+                        # 📸 VISUAL VERIFICATION (Local Diff)
+                        visual_diff = {"score": 0, "changed": False}
+                        if pre_action_screenshot:
+                            try:
+                                post_action_screenshot = await page.screenshot(type="jpeg", quality=50)
+                                visual_diff = VisualVerifier.get_visual_diff(pre_action_screenshot, post_action_screenshot)
+                                
+                                if visual_diff['changed']:
+                                    print(colored(f"   👀 VISUAL CONFIRMATION: UI Changed by {visual_diff['score']}%", "green"))
+                                else:
+                                    print(colored(f"   ⚠️ VISUAL WARNING: No significant visual change detected ({visual_diff['score']}%)", "yellow"))
+                            except Exception as e:
+                                print(colored(f"   ⚠️ Visual verify failed: {e}", "yellow"))
+
                         mindmap = await analyze_page(page, page.url, self.workflow)
+                        # Inject visual feedback into mindmap for next turn
+                        mindmap['last_visual_diff'] = visual_diff
+                        
                         print(colored(f"   ✅ Refreshed: Now see {len(mindmap['elements'])} elements", "grey"))
 
                     
@@ -751,57 +799,80 @@ class ExplorerAgent:
             print(f"Error in decision: {e}")
             return None
     
-    def is_duplicate_state(self, page_url, mindmap):
+    async def get_dom_hash(self, page):
+        """
+        Hash the *semantic* content, not the full HTML.
+        Ignore timestamps, ads, dynamic IDs, and scripts.
+        """
+        try:
+            content = await page.evaluate("""
+                () => {
+                    const clone = document.body.cloneNode(true);
+                    // Remove dynamic elements that cause false positives
+                    clone.querySelectorAll('script, style, [id*="timestamp"], .ad, .advertisement, [id*="google"]').forEach(el => el.remove());
+                    
+                    // Get text + tag structure + inputs
+                    // This ensures we catch changes in form states or text content
+                    return clone.innerText + clone.innerHTML.replace(/\s+/g, '').substring(0, 5000); 
+                }
+            """)
+            return hashlib.md5(content.encode()).hexdigest()
+        except:
+            return None
+    
+    async def is_duplicate_state(self, page_url, mindmap, page=None):
         """
         Check if we are stuck on the same state after an action.
-        Repeated visits to the same page (e.g. returning from a modal) are ALLOWED.
-        Consecutive identical states are only a problem if the action taken also produced no change.
+        Now uses robust DOM Hashing + Action Fingerprinting.
         """
-        element_count = len(mindmap.get('elements', []))
-        page_title = mindmap.get('summary', {}).get('title', '')
-        
-        # Enhanced: Track enabled vs disabled element counts
-        enabled_count = sum(1 for e in mindmap.get('elements', []) if not e.get('is_disabled'))
-        disabled_count = element_count - enabled_count
-        
-        # Enhanced fingerprint: URL + Enabled/Disabled counts + Title
-        # This catches state changes like "search icon clicked → input becomes enabled"
-        state_fingerprint = f"{page_url}:{enabled_count}:{disabled_count}:{page_title}"
-        
-        # Action fingerprint: What we just did
-        last_action = self.history[-1]['action'] if self.history else 'none'
-        last_target = self.history[-1].get('target_text', '') if self.history else 'none'
-        last_value = str(self.history[-1].get('value', '')) if self.history else 'none'
-        action_fingerprint = f"{last_action}:{last_target}"
+        try:
+            # Enhanced fingerprint: URL + DOM Hash
+            dom_hash = await self.get_dom_hash(page) if page else None
+            
+            # Fallback to metadata if DOM hash fails or page not provided
+            if not dom_hash:
+                element_count = len(mindmap.get('elements', []))
+                page_title = mindmap.get('summary', {}).get('title', '')
+                state_fingerprint = f"{page_url}:{element_count}:{page_title}"
+            else:
+                state_fingerprint = f"{page_url}:{dom_hash}"
+            
+            # Action fingerprint: What we just did
+            last_action = self.history[-1]['action'] if self.history else 'none'
+            last_target = self.history[-1].get('target_text', '') if self.history else 'none'
+            # last_value = str(self.history[-1].get('value', '')) if self.history else 'none'
+            action_fingerprint = f"{last_action}:{last_target}"
 
-        # Initialize tracking on first call
-        if not hasattr(self, 'last_action_fingerprint'):
-            self.last_state_fingerprint = None
-            self.last_action_fingerprint = None
-            self.consecutive_duplicate_count = 0
+            # Initialize tracking on first call
+            if not hasattr(self, 'last_action_fingerprint'):
+                self.last_state_fingerprint = None
+                self.last_action_fingerprint = None
+                self.consecutive_duplicate_count = 0
 
-        # It's a "bad" duplicate only if BOTH the state AND the action we took are the same as before,
-        # OR if we've taken many different actions and the state hasn't changed at all (stuck)
-        if state_fingerprint == self.last_state_fingerprint:
-            if action_fingerprint == self.last_action_fingerprint:
-                # Same action on same state - very likely stuck.
+            # It's a "bad" duplicate only if BOTH the state AND the action we took are the same as before,
+            # OR if we've taken many different actions and the state hasn't changed at all (stuck)
+            if state_fingerprint == self.last_state_fingerprint:
+                if action_fingerprint == self.last_action_fingerprint:
+                    # Same action on same state - very likely stuck.
+                    self.consecutive_duplicate_count += 1
+                    return self.consecutive_duplicate_count >= 3
+                
+                # Different action on same state
                 self.consecutive_duplicate_count += 1
-                return self.consecutive_duplicate_count >= 4
-            
-            # Different action on same state (e.g. filling next field)
-            self.consecutive_duplicate_count += 1
-            # Lowered threshold to trigger rescue faster (was 20)
-            if self.consecutive_duplicate_count >= 8: 
-                return True
+                # Lowered threshold to trigger rescue faster (was 20)
+                if self.consecutive_duplicate_count >= 8: 
+                    return True
+                return False
+            else:
+                # Progress made! Reset counters.
+                self.last_state_fingerprint = state_fingerprint
+                self.last_action_fingerprint = action_fingerprint
+                self.consecutive_duplicate_count = 0
+                return False
+                
+        except Exception as e:
+            print(colored(f"⚠️ Error in is_duplicate_state: {e}", "yellow"))
             return False
-        else:
-            # Progress made! Reset counters.
-            self.last_state_fingerprint = state_fingerprint
-            self.last_action_fingerprint = action_fingerprint
-            self.consecutive_duplicate_count = 0
-            return False
-            
-        return False
     
     def detect_stuck_loop(self):
         """
@@ -885,6 +956,15 @@ class ExplorerAgent:
             # 1. Structural Removal (Shadow-Piercing "Nuke" Option) with broader selectors
             await page.evaluate("""
                 () => {
+                    // SAFETY: If an input is focused, we are likely interacting with a search or form. 
+                    // Don't dismiss potential containers (like search overlays).
+                    if (document.activeElement && 
+                        (document.activeElement.tagName === 'INPUT' || 
+                         document.activeElement.tagName === 'TEXTAREA' || 
+                         document.activeElement.getAttribute('contenteditable') === 'true')) {
+                        return;
+                    }
+
                     const dismiss = (root) => {
                         const selectors = '[class*="overlay"], [class*="modal"], [id*="cookie"], [class*="banner"], [role="dialog"], [aria-modal="true"], [class*="popup"], [class*="consent"], #hs-eu-cookie-confirmation';
                         const overlays = root.querySelectorAll(selectors);
@@ -895,7 +975,7 @@ class ExplorerAgent:
                                               text.includes('menu') || 
                                               el.querySelector('input') || 
                                               el.id.toLowerCase().includes('search') ||
-                                              el.className.toLowerCase().includes('search-container');
+                                              el.className.toLowerCase().includes('search');
                                               
                             if (isProtected) return;
 
@@ -935,6 +1015,51 @@ class ExplorerAgent:
             # await page.keyboard.press("Escape")
         except Exception as e:
             print(colored(f"   ⚠️ Overlay dismissal warning: {e}", "yellow"))
+
+    async def handle_infinite_scroll(self, page, max_scrolls=5):
+        """
+        Smart Infinite Scroll Handler (Crawlee-inspired).
+        Scrolls down until no new content is loaded or max_scrolls reached.
+        """
+        try:
+            previous_height = await page.evaluate('document.body.scrollHeight')
+            scroll_count = 0
+            
+            print(colored("📜 Checking for infinite scroll...", "cyan"))
+            
+            while scroll_count < max_scrolls:
+                # Scroll to bottom
+                await page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+                
+                # Wait for potential network activity
+                try:
+                    await page.wait_for_load_state('networkidle', timeout=2000)
+                except: 
+                    await asyncio.sleep(1) # Fallback wait
+                
+                # Check height
+                current_height = await page.evaluate('document.body.scrollHeight')
+                
+                if current_height <= previous_height:
+                    # No growth? Try one more aggressive scroll to be sure
+                    # Sometimes removing 'scroll-behavior: smooth' helps
+                    await page.evaluate("document.documentElement.style.scrollBehavior = 'auto'")
+                    await page.evaluate('window.scrollTo(0, document.body.scrollHeight + 500)')
+                    await asyncio.sleep(1)
+                    current_height = await page.evaluate('document.body.scrollHeight')
+                    if current_height <= previous_height:
+                         break # Truly stuck
+                
+                previous_height = current_height
+                scroll_count += 1
+                print(colored(f"   ⬇️ Scrolled {scroll_count}/{max_scrolls} (Height: {current_height}px)", "cyan"))
+                
+            if scroll_count > 0:
+                print(colored(f"✅ Infinite scroll complete. Expanded page by {scroll_count} screens.", "green"))
+                return True
+        except Exception as e:
+            print(colored(f"⚠️ Infinite scroll warning: {e}", "yellow"))
+        return False
 
     async def _execute_with_retry(self, page, func, *args, retries=3, **kwargs):
         """Utility to retry an async action up to `retries` times with a short pause."""
@@ -1034,10 +1159,23 @@ class ExplorerAgent:
                 val = decision.get('value', '')
                 print(colored(f"⌨️  Interacting with ID={target_id}...", "yellow"))
                 try:
-                    # 1. Click to focus first (Dyson needs this to activate the input)
+                    # 1. Click to focus and CLEAR existing content (Crucial to avoid duplication like MicrosoftMicrosoft)
                     await page.locator(locator_str).click(timeout=5000)
-                    # 2. Use natural typing instead of instant fill (more reliable for SPAs)
-                    await page.locator(locator_str).type(val, delay=50) # Legacy type/press_sequentially
+                    
+                    # Select all and delete (Robust clear for SPAs where .fill('') might not trigger events correctly)
+                    await page.keyboard.down('Control')
+                    await page.keyboard.press('a')
+                    await page.keyboard.up('Control')
+                    await page.keyboard.press('Backspace')
+                    
+                    # 2. Use natural typing (more reliable for SPAs like Yahoo/Dyson)
+                    await page.locator(locator_str).type(val, delay=40) 
+                    
+                    # 3. Enter key if requested or the value implies it
+                    if val.endswith('\n') or 'search' in target_el.get('text', '').lower():
+                         await page.keyboard.press("Enter")
+                         await asyncio.sleep(2) # Wait for results
+                         
                     print(colored(f"   ✅ Entered: '{val}'", "green"))
                 except Exception as e:
                     print(colored(f"   ⚠️ Interaction failed: {e}. Trying simple fill...", "yellow"))
