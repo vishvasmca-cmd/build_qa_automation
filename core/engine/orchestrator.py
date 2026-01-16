@@ -710,8 +710,8 @@ def run_pipeline(config_path, headed=False):
     # [Step 6.2] Validation - SKIPPED
     # _run_validation(project_root, config, success)
 
-    # [Step 6.5] Feedback
-    _run_feedback(config_path, execution_log, success)
+    # [Step 6.5] Feedback - SKIPPED (Legacy)
+    # _run_feedback(config_path, execution_log, success)
 
     # [Step 7/7] Security Audit
     _run_security_audit(project_root, config, config_hash)
