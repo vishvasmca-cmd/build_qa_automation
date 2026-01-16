@@ -1,79 +1,64 @@
 # Test Plan: Yahoo Finance Turbo
 
-## 1. Introduction
+## Introduction
 
-This document outlines the test plan for the Yahoo Finance Turbo project. The goal is to ensure the application functions correctly and provides a reliable user experience.
+This document outlines the test plan for the Yahoo Finance Turbo project. It details the testing scope, strategy, and specific test cases to ensure the quality and reliability of the application.
 
-## 2. Scope
+## Test Scope
 
-The testing will cover the following areas:
+The testing will cover the core functionalities of the Yahoo Finance Turbo application, including:
 
-*   Navigation and basic UI elements
-*   Searching for stocks
-*   Display of stock information (price, statistics, profile)
-*   Chart functionality
-*   Historical data
+*   Homepage navigation and element verification
+*   Searching for stock quotes (e.g., AAPL, Microsoft)
+*   Verifying stock quote details (price, statistics, company profile)
+*   Toggling chart periods
+*   Checking historical data
 
-## 3. Test Strategy
+## Testing Strategy
 
-We will employ a two-pronged testing strategy:
-
-*   **Smoke Testing:** A quick check to verify the core functionality.
-*   **Regression Testing:** A more comprehensive test suite to ensure existing functionality remains intact after changes.
+The testing strategy will consist of two main suites: Smoke and Regression. The Smoke suite will focus on critical path testing to ensure the core functionalities are working as expected. The Regression suite will provide a more comprehensive test coverage, including edge cases and alternative flows.
 
 ### Smoke Suite Strategy
 
-The Smoke Suite will adhere to the following 8-point checklist:
+The Smoke Suite will adhere to the following checklist:
 
-1.  **Critical Paths Only:** Focus solely on the most essential workflows.
-2.  **Positive Testing:** Primarily happy-path scenarios.
-3.  **Minimal Data Variation:** Use a small, representative set of data.
-4.  **Fast Execution:** Tests should be quick to execute.
-5.  **Automated:** Designed for automated execution.
-6.  **Build Acceptance:** Failure indicates a critical issue, rejecting the build.
-7.  **Independent Tests:** Each test should be independent and not rely on the state of others.
-8.  **Clear Pass/Fail Criteria:** Easy to determine if the test passed or failed.
+1.  **Critical Paths:** Tests cover the most essential user flows (e.g., navigating to the homepage, searching for a stock, viewing stock details).
+2.  **Core Business Logic:** Focuses on verifying the primary functions related to stock data retrieval and display.
+3.  **Positive Testing:** Primarily focuses on successful scenarios without negative or error handling tests.
+4.  **Minimal Data Variation:** Uses a limited set of test data (e.g., AAPL, Microsoft).
+5.  **Fast Execution:** Designed for quick execution to provide rapid feedback on build stability.
+6.  **Independent Tests:** Tests are independent and can be run in any order.
+7.  **Environment Stability:** Assumes a stable test environment.
+8.  **Build Acceptance:** Passing the Smoke Suite is a prerequisite for build acceptance.
 
-## 4. Test Suites
+### Regression Suite Strategy
 
-### 4.1. Smoke Suite
+The Regression Suite will include:
 
-The Smoke Suite will include the following test cases:
+*   Alternative flows (e.g., different search methods, various chart period selections).
+*   Negative scenarios (e.g., invalid stock symbols, error handling).
+*   Boundary analysis (e.g., date ranges for historical data).
+*   Cross-module interactions (e.g., impact of search on different page elements).
+*   Validation messages (e.g., error messages for invalid input).
 
-*   Verify homepage loads successfully.
-*   Verify Yahoo Finance logo and Market Summary banner are displayed.
-*   Navigate to 'News' and 'Markets' pages.
-*   Search for 'AAPL' and verify the Apple Inc. page loads.
-*   Verify the price display on the AAPL page.
+## Test Suites
 
-### 4.2. Regression Suite
+1.  **Smoke Suite:**
+    *   Verify homepage elements (Yahoo Finance logo, Market Summary banner).
+    *   Search for AAPL and verify the Apple Inc. quote page.
+    *   Verify the price on the AAPL quote page.
+    *   Navigate to the Historical Data tab on the AAPL quote page.
 
-The Regression Suite will include the following test cases (in addition to the Smoke Suite):
+2.  **Regression Suite:** (Details to be added based on further analysis and requirements)
+    *   Search for Microsoft and verify suggestion.
+    *   Verify Statistics tab on AAPL quote page.
+    *   Toggle chart periods on AAPL quote page.
+    *   Test different date ranges for historical data.
+    *   Test error handling for invalid stock symbols.
 
-*   Verify all elements on the homepage load correctly.
-*   Test various search queries (valid and invalid).
-*   Verify all tabs on the AAPL page load correctly (Statistics, Company Profile, Historical Data).
-*   Test chart period toggling.
-*   Verify historical data is displayed correctly.
-*   Test searching for 'Microsoft' and verifying suggestions.
-
-## 5. Test Environment
-
-*   Browsers: Chrome, Firefox, Safari
-*   Operating Systems: Windows, macOS
-
-## 6. Test Deliverables
+## Test Deliverables
 
 *   Test Plan document
-*   Test Cases (Gherkin Feature Files)
-*   Test Execution Reports
+*   Gherkin feature files (Smoke and Regression)
+*   Test execution reports
 
-## 7. Roles and Responsibilities
-
-*   QA Architect: [Your Name] - Responsible for creating and maintaining the test plan and test automation framework.
-*   QA Engineers: [Team Names] - Responsible for writing and executing test cases.
-
-## 8. Entry and Exit Criteria
-
-*   Entry Criteria: Test environment is set up, test data is prepared, and test cases are written.
-*   Exit Criteria: All planned tests have been executed, and the results have been analyzed.

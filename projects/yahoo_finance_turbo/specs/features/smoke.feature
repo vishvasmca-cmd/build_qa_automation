@@ -1,26 +1,27 @@
 Feature: Yahoo Finance Smoke Tests
+  As a user,
+  I want to verify the core functionalities of Yahoo Finance
+  So that I can ensure the application is working as expected.
 
   @smoke
   Scenario: Verify Yahoo Finance Homepage
-    Given User navigates to the Yahoo Finance homepage
-    Then User should see the Yahoo Finance logo
-    And User should see the Market Summary banner
+    Given I navigate to the Yahoo Finance homepage
+    Then I should see the Yahoo Finance logo
+    And I should see the Market Summary banner
 
   @smoke
-  Scenario: Navigate to News and Markets pages
-    Given User is on the Yahoo Finance homepage
-    When User clicks the 'News' link
-    Then User should be navigated to the 'News' page
-    When User clicks the 'Markets' link
-    Then User should be navigated to the 'Markets' page
+  Scenario: Search for AAPL and verify quote page
+    Given I am on the Yahoo Finance homepage
+    When I search for AAPL
+    Then I should see the Apple Inc. quote page
 
   @smoke
-  Scenario: Search for AAPL and verify Apple Inc. page
-    Given User is on the Yahoo Finance homepage
-    When User searches for 'AAPL'
-    Then User should be navigated to the Apple Inc. page
+  Scenario: Verify AAPL quote price
+    Given I am on the Apple Inc. quote page
+    Then I should see the current price of AAPL
 
   @smoke
-  Scenario: Verify AAPL price display
-    Given User is on the Apple Inc. page
-    Then User should see the current price of AAPL
+  Scenario: Navigate to AAPL Historical Data
+    Given I am on the Apple Inc. quote page
+    When I click on the Historical Data tab
+    Then I should be on the AAPL Historical Data page

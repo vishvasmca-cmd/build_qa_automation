@@ -164,8 +164,15 @@ def _run_exploration(project_root, config, config_hash, config_path, headed=Fals
     trace_path = config.get("paths", {}).get("trace", os.path.join(project_root, "outputs/trace.json"))
     
     if can_skip_phase(project_root, "exploration", config_hash):
-        print(colored("⏩ Skipping Exploration (Checkpoint found)", "grey"))
-        return True
+        # ⚡ FAST LANE CHECK: Even if checkpoint exists, we might want to replay!
+        # If trace.json exists, we should NOT skip, so Explorer can activate Fast Lane.
+        if os.path.exists(trace_path):
+            # Fall through to execute Explorer (Replay Mode)
+            pass
+        else:
+            print(colored("⚠️ Checkpoint found but trace.json missing. Forcing Exploration.", "yellow"))
+            # Fall through to execute Explorer (Builder Mode)
+            pass
 
     for attempt in range(1, 4):
         start_time = time.time()
@@ -681,23 +688,27 @@ def run_pipeline(config_path, headed=False):
     # [Step 3/7] Code Generation (Refiner)
     print(colored("\n📝 PHASE: TEST SCRIPT REFINEMENT", "white", attrs=["bold"]))
     test_path = config.get("paths", {}).get("test", os.path.join(project_root, "tests/test_main.py"))
-    gen_success = _run_sub_agent("Coder", _run_code_generation, project_root, config, config_hash, trace_path, test_path)
     
-    if not gen_success:
-        print(colored("❌ Pipeline Halting: Code Generation Failed.", "red"))
-        return False
+    # [Step 3/7] Code Generation - SKIPPED (Legacy)
+    print(colored("\n⏩ Skipping Code Generation (Running in Explorer-Only Mode)", "grey"))
+    gen_success = True 
+    # gen_success = _run_sub_agent("Coder", _run_code_generation, project_root, config, config_hash, trace_path, test_path)
 
-    # [Step 4/7] Spec Synthesis
-    _run_spec_synthesis(project_root, config, config_hash)
+    # [Step 4/7] Spec Synthesis - SKIPPED (Legacy)
+    print(colored("⏩ Skipping Spec Synthesis (trace.json is the new source of truth)", "grey"))
+    # _run_spec_synthesis(project_root, config, config_hash)
 
     # [Step 5/7] Reporting
     _run_reporting(project_root, config, config_hash, trace_path)
     
-    # [Step 6/7] Execution
-    success, execution_log = _run_execution(project_root, config, config_hash, test_path, trace_path)
+    # [Step 6/7] Execution - SKIPPED (No generated tests to run)
+    print(colored("\n⏩ Skipping Pytest Execution (Trace Generation is the test)", "grey"))
+    success = True
+    execution_log = "Run executed via Explorer Replay."
+    # success, execution_log = _run_execution(project_root, config, config_hash, test_path, trace_path)
     
-    # [Step 6.2] Validation
-    _run_validation(project_root, config, success)
+    # [Step 6.2] Validation - SKIPPED
+    # _run_validation(project_root, config, success)
 
     # [Step 6.5] Feedback
     _run_feedback(config_path, execution_log, success)

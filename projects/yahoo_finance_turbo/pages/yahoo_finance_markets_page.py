@@ -2,39 +2,29 @@ from playwright.async_api import Page, expect
 
 class YahooFinanceMarketsPage:
     """
-    This page displays a list of market categories and related news/information.
-    URL Pattern: https://finance.yahoo.com/markets/
+    This page provides news and information on various topics including finance, health, and world events.
+    URL Pattern: https://finance.yahoo.com/quote/AAPL/
     """
     def __init__(self, page: Page):
         self.page = page
 
     @property
-    def markets_link(self):
-        """Link to the main markets page."""
-        return self.page.text=Markets.or_(self.page.css=a[href='/markets/'])
+    def learn_more_button(self):
+        """Button to learn more about the Mercedes-Benz offer."""
+        return self.page.text='LEARN MORE'.or_(self.page.css=a[aria-label='LEARN MORE'])
 
     @property
-    def stocks_link(self):
-        """Link to the stocks page."""
-        return self.page.text=Stocks.or_(self.page.css=a[href='/topic/stock-market-news/'])
+    def news_link(self):
+        """Link to the News section."""
+        return self.page.text='News'.or_(self.page.css=a[href*='/news/'])
 
     @property
-    def most_active_link(self):
-        """Link to the most active stocks page."""
-        return self.page.text=Most active.or_(self.page.css=a[href='/most-active'])
-
-    @property
-    def day_gainers_link(self):
-        """Link to the day gainers page."""
-        return self.page.text=Day gainers.or_(self.page.css=a[href='/day-gainers'])
-
-    @property
-    def day_losers_link(self):
-        """Link to the day losers page."""
-        return self.page.text=Day losers.or_(self.page.css=a[href='/day-losers'])
+    def health_link(self):
+        """Link to the Health section."""
+        return self.page.text='Health'.or_(self.page.css=a[href*='/health/'])
 
     async def verify_loaded(self):
         """Executes critical checks to ensure page is ready."""
-        await Page title contains 'Markets - Yahoo Finance'
-        await The 'Markets' link is visible
-        await The 'Stocks' link is visible
+        await Page title contains 'Yahoo Finance'
+        await Presence of 'News' link
+        await Presence of 'Health' link

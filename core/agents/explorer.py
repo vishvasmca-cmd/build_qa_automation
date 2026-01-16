@@ -41,6 +41,10 @@ from core.lib.metrics_logger import logger
 # Import Robust Action Handler
 from core.lib.robust_handler import get_handler as get_robust_handler
 from core.lib.visual_verifier import VisualVerifier
+from core.lib.tool_executor import ToolExecutor
+from core.lib.visual_locator import VisualLocator
+import cv2
+import numpy as np
 
 load_dotenv()
 
@@ -53,47 +57,82 @@ llm = SafeLLM(
 )
 
 SYSTEM_PROMPT_PLANNER = """
-You are a Senior Automation Planner. 
-Your goal is to complete the user's workflow by deciding the single next best action.
+You are a Senior Automation Strategist working with a Tool Registry system.
+Your goal is to complete the user's workflow by deciding the next best TOOL to use.
+
+**AVAILABLE TOOLS** (Pre-written, robust Python functions):
+1. **perform_search**: Search for a query (auto-detects input and submit method)
+   - Args: {"query": "text to search"}
+   
+2. **smart_click**: Click an element using robust fallback
+   - Args: {"text": "Button Text"} OR {"selector": "css selector"}
+   
+3. **smart_fill**: Fill an input field with validation
+   - Args: {"value": "text", "placeholder": "Email"} OR {"selector": "..."} 
+   
+4. **navigate_to**: Go to a specific URL
+   - Args: {"url": "https://..."}
 
 **INPUTS:**
 1. `goal`: The user's workflow goal.
 2. `page_context`: A summary of the current page.
 3. `elements`: A list of interactive elements found.
-4. `history`: Past actions and their outcomes.
+4. `history`: Past tool executions and their outcomes.
 5. `test_data`: Available credentials or input data.
-6. `knowledge_bank`: Strategic insights and lessons learned from PREVIOUS failures on this site.
+6. `knowledge_bank`: Strategic insights from previous runs.
 
 **THINKING PROCESS:**
 1. Observe: What page am I on?
-2. **ERROR CHECK (PRIORITY)**: Check `last_action_error`. If it contains a hint like "Try clicking element X first", you MUST follow that hint immediately.
-3. History Check: Review `history` carefully. What have I ALREADY DONE? Use element text and URLs to verify.
-4. **KNOWLEDGE CHECK (CRITICAL)**: Analyze `knowledge_bank`. If it contains "Proven Locators" for specific elements, PRIORITIZE them. If it contains "Learned Rules" or "Strategic Insights", you **MUST** follow them to avoid repeating past failures (e.g., "Always close popup X before Y").
-5. Validate: Did my LAST action work? Note: On SPAs, the URL might not change even if the content does.
-6. Multi-Goal Check: Look at the `goal`. Does it have multiple steps (e.g., '1. Home, 2. Price')? Check off completed steps based on history.
-7. **Login Check**: If I encounter a login page and NO credentials are in `test_data` AND NO credentials are in the `goal`, SKIP login entirely. Instead, explore publicly accessible areas. However, if credentials are provided in either `test_data` or the `goal` description, proceed with login.
-8. **Validation Check**: Check the `disabled` field in the element list. YOU MUST NOT 'click' or 'fill' an element if `disabled` is true. If the element you want is disabled, LOOK for a nearby button/icon that might enable it (e.g., a "Search" icon to open a search bar, or an "Edit" button to enable a form).
-9. Select: Which element ID from the list corresponds to the NEXT unfulfilled part of the goal? 
-10. **STEP TRACKING (CRITICAL)**: You MUST complete the workflow phases IN ORDER (Phase 1, then Phase 2, etc.). 
-- Do NOT jump to Phase 7 just because you see a 'Screeners' link. 
-- You must verify the current phase is fully completed before moving to the next.
-- If you are accidentally on a page for a later phase, navigate BACK or find a way home to finish the earlier phases.
+2. **ERROR CHECK**: If `last_tool_error` exists, learn from it and try a different approach.
+3. History Check: What tools have I ALREADY executed? Don't repeat unless stuck.
+4. **KNOWLEDGE CHECK**: If `knowledge_bank` has proven strategies, follow them.
+5. Validate: Did my LAST tool call work? (Check if elements changed or new content appeared)
+6. Multi-Goal Check: Does the goal have multiple phases? Track which are complete.
+7. **Login Check**: If login page appears and NO credentials in `test_data` or `goal`, skip login.
+8. Select: Which TOOL and ARGUMENTS achieve the next unfulfilled part of the goal?
+
+**CRITICAL RULES:**
+- **Tool Selection**: Choose the right tool for the task (search vs click vs fill)
+- **Argument Quality**: Provide exact, specific arguments (e.g., text="Submit" not text="button")
+- **Sequential Progress**: Complete Phase 1 before Phase 2
+- **Error Recovery**: If a tool fails, try a different approach (different text, selector strategy)
 
 **OUTPUT SCHEMA (JSON only)**:
 {
-  "thought": "Explicitly state which Phase/Step you are currently on (e.g., 'Completing Phase 1: Logo Verification') and why this action is the correct sequential step.",
-  "action": "click | fill | scroll | long_press | navigate | done",
-  "target_id": 5, 
-  "value": "...", 
-  "expected_outcome": "Description of expected UI change",
-  "completed_step": 1, // The number of the PHASE or STEP you just finished. Use this to track progress through the numbered phases in the goal.
-  "is_goal_achieved": false 
+  "thought": "Explicitly state which Phase/Step you are currently on and why this tool is the correct choice",
+  "tool": "perform_search | smart_click | smart_fill | navigate_to",
+  "arguments": {
+    // Tool-specific arguments (see AVAILABLE TOOLS above)
+  },
+  "expected_outcome": "Description of expected UI change (e.g., 'Search results page loads')",
+  "completed_step": 1,  // The number of the PHASE you just finished
+  "is_goal_achieved": false
 }
-**CRITICAL**: Set `is_goal_achieved` to `true` ONLY if EVERY part of the user's workflow description is completed. 
-- For "Onboarding" goals, filling a form is NOT enough; you MUST click the 'Save' or 'Submit' button.
-- You are ONLY done when you see a confirmation message (e.g., "Successfully Saved") or land on the resulting target page (e.g., Employee Profile).
-- If the goal involves multiple modules (e.g., PIM and Admin), you MUST navigate to the second module AFTER completing the first.
-- **FORBIDDEN**: Do not set `is_goal_achieved: true` if you have not at least visited EVERY top-level feature mentioned in the goal (e.g. if the goal says 'PIM and Admin', you MUST visit both).
+
+**EXAMPLES:**
+
+// Search scenario
+{
+  "thought": "Phase 2 requires searching for 'AAPL'. I will use perform_search which auto-handles the search submission.",
+  "tool": "perform_search",
+  "arguments": {"query": "AAPL"},
+  "expected_outcome": "Search results page appears with Apple Inc. information",
+  "completed_step": 2,
+  "is_goal_achieved": false
+}
+
+// Click scenario  
+{
+  "thought": "I need to click the 'News' link to proceed to Phase 1b.",
+  "tool": "smart_click",
+  "arguments": {"text": "News"},
+  "expected_outcome": "News section loads",
+  "completed_step": 1,
+  "is_goal_achieved": false
+}
+
+**GOAL COMPLETION**:
+Set `is_goal_achieved: true` ONLY when EVERY phase is complete and you see confirmation (success message, target page loaded, etc.).
 """
 
 
@@ -134,6 +173,10 @@ class ExplorerAgent:
         self.robust_handler = get_robust_handler()
         self.robust_handler.set_domain(self.config.get("target_url", ""))
         self.robust_handler.reset()  # Fresh start for this session
+        
+        # Initialize Tool Executor (replaces Code Generator)
+        self.tool_executor = ToolExecutor()
+        print(colored("🔧 Tool Executor initialized", "cyan"))
         
         # Self-Learning & Optional Steps Enhancement
         self.parsed_goal = self._parse_goal_with_metadata(self.workflow)
@@ -260,6 +303,7 @@ class ExplorerAgent:
                     try: await page.wait_for_load_state("domcontentloaded", timeout=30000)
                     except: pass
                 
+                
                 # --- NAVIGATION GUARD ---
                 # If we landed on a vignette or a different page, force back to target
                 if "#google_vignette" in page.url or ("/login" in page.url and "/login" not in self.config["target_url"]):
@@ -267,6 +311,66 @@ class ExplorerAgent:
                     await self._dismiss_overlays(page)
                     try: await page.goto(self.config["target_url"], wait_until="domcontentloaded", timeout=90000)
                     except: pass
+                
+                # ⚡ FAST LANE: Check if we have a saved workflow to replay
+                trace_file = os.path.join(self.output_dir, 'trace.json')
+                
+                if os.path.exists(trace_file):
+                    try:
+                        print(colored("\n⚡ FAST LANE ACTIVATED: Replaying saved workflow!", "green", attrs=["bold"]))
+                        print(colored(f"📋 Loading trace from: {trace_file}", "cyan"))
+                        
+                        with open(trace_file, 'r', encoding='utf-8') as f:
+                            saved_trace = json.load(f)
+                        
+                        workflow_steps = saved_trace.get('trace', [])
+                        print(colored(f"🎯 Found {len(workflow_steps)} steps to replay", "cyan"))
+                        
+                        # Initialize ToolExecutor with trace path for self-healing
+                        self.tool_executor = ToolExecutor(trace_path=trace_file)
+                        
+                        # Execute workflow with multi-locator fallback
+                        success_count = 0
+                        for idx, step_data in enumerate(workflow_steps, 1):
+                            print(colored(f"\n--- Step {idx}/{len(workflow_steps)} ---", "blue"))
+                            
+                            # Get current page screenshot for visual matching
+                            try:
+                                screenshot_path = os.path.join(self.output_dir, f'replay_step_{idx}.png')
+                                await page.screenshot(path=screenshot_path)
+                            except:
+                                screenshot_path = None
+                            
+                            # Execute with multi-locator fallback
+                            result = await self.tool_executor.execute_with_fallback(
+                                page, 
+                                step_data,
+                                screenshot_path
+                            )
+                            
+                            if result.get('status') == 'success':
+                                success_count += 1
+                                if result.get('fallback_used'):
+                                    print(colored(f"  🔄 Used fallback locator (self-healed)", "cyan"))
+                            else:
+                                print(colored(f"  ❌ Step {idx} failed: {result.get('error')}", "red"))
+                                print(colored(f"\\n⚠️ Fast Lane failed at step {idx}, falling back to exploration...", "yellow"))
+                                break
+                        
+                        if success_count == len(workflow_steps):
+                            print(colored(f"\\n✅ Fast Lane completed successfully!", "green", attrs=["bold"]))
+                            print(colored(f"⚡ Skipped heavy exploration - used saved workflow!", "green"))
+                            return  # Done!
+                        else:
+                            print(colored(f"\\n⚠️ Fast Lane partial completion ({success_count}/{len(workflow_steps)})", "yellow"))
+                    
+                    except Exception as e:
+                        print(colored(f"⚠️ Fast Lane error: {e}", "yellow"))
+                        print(colored("🔄 Falling back to normal exploration...", "yellow"))
+                        # Continue to slow lane below
+                else:
+                    print(colored("\n🐢 SLOW LANE: No saved workflow found - exploring from scratch...", "cyan"))
+                
                 
                 step = 0
                 max_steps = 50 
@@ -344,7 +448,14 @@ class ExplorerAgent:
                     page_name = self._get_page_name(page.url, page_title)
                     img_name = f"step_{step:02d}_{page_name}.png"
                     img_path = os.path.join(self.snapshot_dir, img_name)
-                    await page.screenshot(path=img_path)
+                    
+                    # Capture screenshot with error handling for connection issues
+                    try:
+                        await page.screenshot(path=img_path)
+                    except Exception as screenshot_error:
+                        print(colored(f"⚠️ Screenshot failed: {screenshot_error}", "yellow"))
+                        # Create a placeholder to avoid breaking trace
+                        img_name = f"step_{step:02d}_error.png"
                     
                     print(colored(f"📍 PAGE: {page_title}", "white", attrs=["bold"]), flush=True)
                     print(colored(f"🔍 URL: {page.url}", "grey"), flush=True)
@@ -385,7 +496,7 @@ class ExplorerAgent:
                              
                              if enhanced_decision:
                                  print(colored(f"🚑 Breaking duplicate state with enhanced decision: {enhanced_decision['action']}", "green"))
-                                 action_result = await self._execute_action(page, enhanced_decision, mindmap['elements'])
+                                 action_result = await self._execute_tool_intent(page, enhanced_decision, mindmap['elements'])
                                  self.history.append({
                                      "step": step,
                                      "thought": enhanced_decision['thought'] + " [Dup Break]",
@@ -467,7 +578,7 @@ class ExplorerAgent:
                                 if enhanced_decision:
                                     print(colored(f"🚑 Breaking loop with enhanced decision: {enhanced_decision['action']}", "green"))
                                     # Execute immediately
-                                    action_result = await self._execute_action(page, enhanced_decision, mindmap['elements'])
+                                    action_result = await self._execute_tool_intent(page, enhanced_decision, mindmap['elements'])
                                     self.history.append({
                                         "step": step,
                                         "thought": enhanced_decision['thought'] + " [Loop Break]",
@@ -553,7 +664,7 @@ class ExplorerAgent:
                     except:
                         pre_action_screenshot = None
 
-                    action_result = await self._execute_action(page, decision, mindmap['elements'])
+                    action_result = await self._execute_tool_intent(page, decision, mindmap['elements'])
                     logger.log_event(
                         agent="Explorer",
                         action="execute_action",
@@ -594,7 +705,7 @@ class ExplorerAgent:
                     
                     self.history.append({
                         "step": step,
-                        "action": decision['action'],
+                        "action": decision.get('tool') or decision.get('action', 'unknown'),
                         "target_text": next((e['text'] for e in mindmap['elements'] if str(e['elementId']) == str(decision.get('target_id'))), ""),
                         "target_id": decision.get('target_id'),
                         "url": page.url,
@@ -602,16 +713,27 @@ class ExplorerAgent:
                         "outcome": action_result.get('outcome'),
                         "success": action_result.get('success'),
                     })
-                    
-                    # Update trace for Refiner
-                    if action_result.get('success') or decision['action'] in ['navigate', 'done']:
+                    action_key = decision.get('tool') or decision.get('action', '')
+                    if action_result.get('success') or action_key in ['navigate', 'navigate_to', 'done']:
+                        # Build multi-locator array
+                        locators_array = self._build_locators_array(
+                            decision, 
+                            action_result, 
+                            mindmap['elements'], 
+                            step,
+                            page,
+                            current_screenshot_path=img_path
+                        )
+                        
                         self.trace.append({
                             "step": step,
                             "thought": decision['thought'],
-                            "action": decision['action'],
+                            "action": decision.get('tool') or decision.get('action', 'unknown'),
                             "page_name": page_name,
-                            "locator_used": action_result.get('refined_locator') or action_result.get('locator'),
-                            "value": decision.get('value'),
+                            "locators": locators_array,  # NEW: Multi-locator array
+                            # Keep old fields for backward compatibility
+                            "locator_used": action_result.get('refined_locator') or action_result.get('locator') or decision.get('arguments', {}).get('selector') or decision.get('arguments', {}).get('text'),
+                            "value": decision.get('value') or decision.get('arguments', {}).get('value') or decision.get('arguments', {}).get('query'),
                             "url": page.url,
                             "screenshot": img_name,
                             "element_context":  {
@@ -689,7 +811,7 @@ class ExplorerAgent:
                                 
                                 if enhanced_decision:
                                     # Execute retry with learning
-                                    retry_result = await self._execute_action(page, enhanced_decision, mindmap['elements'])
+                                    retry_result = await self._execute_tool_intent(page, enhanced_decision, mindmap['elements'])
                                     if retry_result.get('success'):
                                         print(colored("✅ Self-learning retry succeeded!", "green"))
                                         # Record successful trace
@@ -754,6 +876,9 @@ class ExplorerAgent:
                 "id": e['elementId'],
                 "text": text,
                 "tag": e['tagName'],
+                "type": e.get('type', ''),
+                "placeholder": e.get('attributes', {}).get('placeholder', ''),
+                "name": e.get('attributes', {}).get('name', ''),
                 "role": e.get('role', ''),
                 "disabled": e.get('is_disabled', False)
             })
@@ -801,23 +926,47 @@ class ExplorerAgent:
     
     async def get_dom_hash(self, page):
         """
-        Hash the *semantic* content, not the full HTML.
-        Ignore timestamps, ads, dynamic IDs, and scripts.
+        Hash the *semantic* content, including Shadow DOM and input values.
+        This provides a robust 'state fingerprint' that catches form changes.
         """
         try:
             content = await page.evaluate("""
                 () => {
-                    const clone = document.body.cloneNode(true);
-                    // Remove dynamic elements that cause false positives
-                    clone.querySelectorAll('script, style, [id*="timestamp"], .ad, .advertisement, [id*="google"]').forEach(el => el.remove());
+                    const getSemantic = (root) => {
+                        let text = "";
+                        // 1. Collect direct text if possible
+                        if (root.innerText) text += root.innerText;
+                        
+                        // 2. Iterate all children to find Shadow Roots and Inputs
+                        const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+                        let node = walker.nextNode();
+                        while (node) {
+                            // Catch Shadow DOM
+                            if (node.shadowRoot) {
+                                text += getSemantic(node.shadowRoot);
+                            }
+                            // Catch Input Values (Very important for detecting fill success!)
+                            if (node.tagName === 'INPUT' || node.tagName === 'TEXTAREA' || node.tagName === 'SELECT') {
+                                text += `[val:${node.value}]`;
+                            }
+                            node = walker.nextNode();
+                        }
+                        return text;
+                    };
                     
-                    // Get text + tag structure + inputs
-                    // This ensures we catch changes in form states or text content
-                    return clone.innerText + clone.innerHTML.replace(/\s+/g, '').substring(0, 5000); 
+                    const raw = getSemantic(document.body);
+                    // Standardize: remove timestamps, long numbers (IDs), and collapse whitespace
+                    return raw
+                        .replace(/\\d{10,}/g, '') 
+                        .replace(/\\d{2}:\\d{2}(:\\d{2})?/g, '') // Time
+                        .replace(/\\s+/g, ' ')
+                        .substring(0, 10000);
                 }
             """)
-            return hashlib.md5(content.encode()).hexdigest()
-        except:
+            if not content: return None
+            return hashlib.md5(content.encode('utf-8')).hexdigest()
+        except Exception as e:
+            print(f"⚠️ DOM Hash failed: {e}")
             return None
     
     async def is_duplicate_state(self, page_url, mindmap, page=None):
@@ -1111,6 +1260,76 @@ class ExplorerAgent:
                 return {"success": False, "outcome": "Locator validation failed (element not visible or blocked)"}
 
         refined_locator = await self._refine_locator(page, target_el) if target_el else locator_str
+    
+    async def _execute_tool_intent(self, page, decision, elements):
+        """
+        Execute a tool intent from the Planner (NEW PATTERN - replaces _execute_action).
+        
+        Args:
+            page: Playwright Page object
+            decision: JSON from Planner with {"tool": "...", "arguments": {...}}
+            elements: Current DOM elements
+            
+        Returns:
+            Dict with success status and outcome
+        """
+        tool_name = decision.get('tool')
+        arguments = decision.get('arguments', {})
+        
+        if not tool_name:
+            # Fallback to old pattern if Planner hasn't adapted yet
+            if decision.get('action'):
+                print(colored("⚠️ Planner used old 'action' format, falling back to legacy executor", "yellow"))
+                return await self._execute_action(page, decision, elements)
+            return {"success": False, "outcome": "No tool or action specified in decision"}
+        
+        print(colored(f"\n🔧 EXECUTING TOOL: {tool_name}", "cyan"))
+        
+        # Execute the tool through ToolExecutor
+        result = await self.tool_executor.execute_intent(page, decision)
+        
+        # Convert ToolExecutor result to legacy format for compatibility
+        return {
+            "success": result.get("status") == "success",
+            "outcome": result.get("error") if result.get("status") == "failure" else f"Tool '{tool_name}' executed successfully"
+        }
+
+    async def _execute_action(self, page, decision, elements):
+        action = decision['action']
+        target_id = decision.get('target_id')
+        target_el = next((e for e in elements if str(e['elementId']) == str(target_id)), None)
+
+        if not target_el and action in ['click', 'fill']:
+            return {"success": False, "outcome": "Target element ID not found in current DOM"}
+            
+        # We no longer dismiss overlays UNCONDITIONALLY before every action.
+        # Instead, we will do it as a "healing" step inside _execute_with_retry if needed.
+
+        locator_str = f"[data-agent-id='{target_id}']"
+        
+        # PRE-EXECUTION VALIDATION
+        is_valid = await self._validate_locator(page, locator_str)
+        if not is_valid:
+            # COORDINATE FALLBACK: If we have coordinates, try them even if 'is_visible' is false
+            # This handles elements that are visible to a human/miner but hidden to Playwright's strict check
+            if action == 'click' and target_el.get('center'):
+                 cx, cy = target_el['center'].get('x'), target_el['center'].get('y')
+                 print(colored(f"⚠️ Validation Failed: ID={target_id} not strictly visible. Attempting Coordinate Click at ({cx}, {cy})...", "yellow"))
+                 try:
+                     if self.headed:
+                         await page.evaluate(f"window.showAgentCursor && window.showAgentCursor({cx}, {cy}, 'click')")
+                     await page.mouse.click(cx, cy)
+                     return {"success": True, "outcome": "Coordinate click executed on ostensibly hidden element", "locator": locator_str}
+                 except Exception as e:
+                     print(colored(f"   ❌ Coordinate click failed: {e}", "red"))
+
+            print(colored(f"⚠️ Validation Failed: ID={target_id} not visible and no fallback. Attempting overlay dismissal...", "yellow"))
+            await self._dismiss_overlays(page)
+            is_valid = await self._validate_locator(page, locator_str)
+            if not is_valid:
+                return {"success": False, "outcome": "Locator validation failed (element not visible or blocked)"}
+
+        refined_locator = await self._refine_locator(page, target_el) if target_el else locator_str
 
         async def perform():
             if action == 'click':
@@ -1159,22 +1378,30 @@ class ExplorerAgent:
                 val = decision.get('value', '')
                 print(colored(f"⌨️  Interacting with ID={target_id}...", "yellow"))
                 try:
-                    # 1. Click to focus and CLEAR existing content (Crucial to avoid duplication like MicrosoftMicrosoft)
+                    # 1. Click to focus and CLEAR existing content
                     await page.locator(locator_str).click(timeout=5000)
                     
-                    # Select all and delete (Robust clear for SPAs where .fill('') might not trigger events correctly)
+                    # Select all and delete (Robust clear for SPAs)
                     await page.keyboard.down('Control')
                     await page.keyboard.press('a')
                     await page.keyboard.up('Control')
                     await page.keyboard.press('Backspace')
                     
-                    # 2. Use natural typing (more reliable for SPAs like Yahoo/Dyson)
+                    # 2. Use natural typing
                     await page.locator(locator_str).type(val, delay=40) 
                     
-                    # 3. Enter key if requested or the value implies it
-                    if val.endswith('\n') or 'search' in target_el.get('text', '').lower():
+                    # 3. Enter key if requested OR if the element is clearly a search input 
+                    # OR if the goal looks like a search and we are filling a text-like input
+                    is_search_context = any(kw in self.workflow.lower() for kw in ['search', 'find', 'lookup', 'query', 'check price'])
+                    is_input_element = target_el.get('tagName') in ['input', 'textarea'] or target_el.get('role') == 'searchbox'
+                    text_lower = target_el.get('text', '').lower()
+                    attr_lower = str(target_el.get('attributes', {})).lower()
+                    looks_like_search = 'search' in text_lower or 'search' in attr_lower or 'query' in attr_lower
+                    
+                    if val.endswith('\n') or (is_input_element and (looks_like_search or is_search_context)):
+                         print(colored("   ⌨️ Search pattern detected. Pressing Enter...", "cyan"))
                          await page.keyboard.press("Enter")
-                         await asyncio.sleep(2) # Wait for results
+                         await asyncio.sleep(3) # Heavy wait for search results
                          
                     print(colored(f"   ✅ Entered: '{val}'", "green"))
                 except Exception as e:
@@ -1343,6 +1570,156 @@ class ExplorerAgent:
             
         print(colored(f"   ✨ Refined: {refined}", "cyan"))
         return refined
+
+    def _build_locators_array(self, decision, action_result, elements, step, page, current_screenshot_path=None):
+        """
+        Build multi-locator array for robust replay with visual fallback.
+        Returns array of locator dictionaries with different strategies.
+        """
+        locators = []
+        action = decision.get('tool') or decision.get('action', '')
+        arguments = decision.get('arguments', {})
+        
+        # Extract what we clicked/filled from tool arguments
+        selector = arguments.get('selector')
+        text = arguments.get('text') or arguments.get('query')
+        
+        # 1. CSS Locator (from action_result or arguments)
+        css_locator = (
+            action_result.get('refined_locator') or 
+            action_result.get('locator') or 
+            selector
+        )
+        if css_locator and css_locator != text:  # Don't add if it's just text
+            locators.append({
+                "type": "css",
+                "value": css_locator,
+                "priority": 1,
+                "success_count": 0
+            })
+        
+        # 2. Text Locator (from arguments or action result)
+        if text and len(text) < 100:
+            locators.append({
+                "type": "text",
+                "value": text,
+                "priority": 2,
+                "success_count": 0
+            })
+            
+            # 2b. Add synthetic CSS/XPath selectors as fallbacks
+            if action == "smart_click":
+                # CSS: Anchor with exact text
+                locators.append({
+                    "type": "css",
+                    "value": f"a:has-text('{text}')",
+                    "priority": 3,
+                    "success_count": 0
+                })
+                
+                # XPath: Link or button containing text
+                locators.append({
+                    "type": "xpath",
+                    "value": f"//a[contains(text(), '{text}')] | //button[contains(text(), '{text}')]",
+                    "priority": 4,
+                    "success_count": 0
+                })
+                
+                # CSS: Aria-label match
+                locators.append({
+                    "type": "css",
+                    "value": f"[aria-label*='{text}' i]",  # Case-insensitive
+                    "priority": 5,
+                    "success_count": 0
+                })
+        
+        # 3. Try to find element in mindmap for additional context (bbox, role)
+        target_id = decision.get('target_id')
+        target_element = None
+        
+        if target_id:
+            target_element = next((e for e in elements if str(e['elementId']) == str(target_id)), None)
+        elif text:
+            # Fallback: Robust element finding strategy when target_id is missing
+            
+            # 1. Try Exact Match (stripped)
+            target_element = next((e for e in elements if e.get('text', '').strip() == text), None)
+            
+            # 2. Try Case-Insensitive Match
+            if not target_element:
+                target_element = next((e for e in elements if e.get('text', '').strip().lower() == text.lower()), None)
+                
+            # 3. Try Partial Match (text in element_text)
+            if not target_element:
+                candidates = [e for e in elements if text.lower() in e.get('text', '').strip().lower()]
+                
+                # Filter candidates by role if possible
+                interactive_candidates = [e for e in candidates if e.get('role') in ['link', 'button', 'menuitem']]
+                
+                if interactive_candidates:
+                    # Pick the shortest text match (most specific)
+                    target_element = min(interactive_candidates, key=lambda e: len(e.get('text', '')))
+                elif candidates:
+                    target_element = min(candidates, key=lambda e: len(e.get('text', '')))
+            
+        # 4. Role Locator (if we have element context OR can infer from action)
+        if target_element:
+            role = target_element.get('role', '')
+            elem_text = target_element.get('text', '').strip()
+            if role and elem_text:
+                locators.append({
+                    "type": "role",
+                    "value": f"{role}[name='{elem_text[:50]}']",
+                    "priority": 4,
+                    "success_count": 0
+                })
+        elif text and action == "smart_click":
+            # Infer likely role (link for clicks)
+            locators.append({
+                "type": "role",
+                "value": f"link[name='{text[:50]}']",
+                "priority": 4,
+                "success_count": 0
+            })
+        
+        # 5. Visual Template (if we have bbox and screenshot)
+        if target_element and target_element.get('bbox') and current_screenshot_path and os.path.exists(current_screenshot_path):
+            try:
+                template_dir = os.path.join(self.output_dir, 'element_templates')
+                os.makedirs(template_dir, exist_ok=True)
+                
+                bbox = target_element['bbox']
+                template_filename = f"step_{step:02d}_element_{target_id or 'text'}_{step}.png"
+                template_path = os.path.join('element_templates', template_filename)
+                full_template_path = os.path.join(self.output_dir, template_path)
+                
+                # Crop and save template using OpenCV
+                img = cv2.imread(current_screenshot_path)
+                if img is not None:
+                    x, y, w, h = bbox
+                    # Ensure coordinates are within bounds
+                    h_img, w_img, _ = img.shape
+                    x = max(0, min(x, w_img-1))
+                    y = max(0, min(y, h_img-1))
+                    w = max(1, min(w, w_img-x))
+                    h = max(1, min(h, h_img-y))
+                    
+                    crop = img[y:y+h, x:x+w]
+                    cv2.imwrite(full_template_path, crop)
+                    
+                    locators.append({
+                        "type": "visual",
+                        "template": template_path.replace('\\', '/'),  # Normalize for cross-platform check
+                        "priority": 5,
+                        "success_count": 0,
+                        "bbox": bbox
+                    })
+                    print(colored(f"      📸 Captured visual template: {template_filename}", "cyan"))
+                
+            except Exception as e:
+                print(colored(f"⚠️ Failed to setup visual template: {e}", "yellow"))
+        
+        return locators
 
     def _save_trace(self):
         # Ensure trace path is absolute and directory exists
