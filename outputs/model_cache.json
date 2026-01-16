@@ -9105,5 +9105,53 @@
       "Language dropdown is present",
       "Search button is present"
     ]
+  },
+  "UnknownPage_810fbb7f6639ecaccf6971f70c8ce9e0": {
+    "description": "This is the main Wikipedia landing page, used to select a language and search for articles.",
+    "url_pattern": "https://www.wikipedia.org/",
+    "elements": [
+      {
+        "name": "Search Input",
+        "type": "input",
+        "primary_locator": "role=searchbox",
+        "backup_locator": "css=input#searchInput",
+        "description": "Input field to enter search query."
+      },
+      {
+        "name": "Search Button",
+        "type": "button",
+        "primary_locator": "css=button.searchButton",
+        "backup_locator": "css=button.pure-button",
+        "description": "Button to initiate the search."
+      },
+      {
+        "name": "Language Selection Dropdown",
+        "type": "dropdown",
+        "primary_locator": "css=select#searchLanguage",
+        "backup_locator": "text=EN",
+        "description": "Dropdown to select the language for Wikipedia."
+      },
+      {
+        "name": "Read Wikipedia in your language",
+        "type": "link",
+        "primary_locator": "text=Read Wikipedia in your language",
+        "backup_locator": "css=div.footer a",
+        "description": "Link to read Wikipedia in your selected language."
+      },
+      {
+        "name": "English Language Link",
+        "type": "link",
+        "primary_locator": "text=English",
+        "backup_locator": "css=a[title='English']",
+        "description": "Link to the English version of Wikipedia."
+      }
+    ],
+    "assertions": [
+      "Page title contains 'Wikipedia'",
+      "The Wikipedia logo is visible",
+      "The search input field is present",
+      "At least 10 language options are displayed",
+      "The 'Read Wikipedia in your language' link is present"
+    ]
   }
 }

@@ -164,9 +164,12 @@ class ExplorerAgent:
         self.visited_states = set()  # Track unique page states
         self.loop_detection_window = 5  # Check last N steps for patterns
         
+        
         self.project_root = os.path.dirname(config_path)
-        self.snapshot_dir = os.path.join(self.project_root, "snapshots")
-        os.makedirs(self.snapshot_dir, exist_ok=True)
+        # snapshots/ is deprecated - screenshots now go to outputs/
+        # self.snapshot_dir = os.path.join(self.project_root, "snapshots")
+        # os.makedirs(self.snapshot_dir, exist_ok=True)
+        self.snapshot_dir = self.output_dir  # Use outputs/ instead
         self.last_error = None  # Track the last action failure
         
         # Initialize Robust Action Handler

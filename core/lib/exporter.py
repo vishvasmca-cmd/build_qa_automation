@@ -23,67 +23,35 @@ def export_project(project_name, output_dir, workspace_root=None):
         
     os.makedirs(output_dir, exist_ok=True)
     os.makedirs(os.path.join(output_dir, "lib"), exist_ok=True)
-    os.makedirs(os.path.join(output_dir, "tests"), exist_ok=True)
-    os.makedirs(os.path.join(output_dir, "pages"), exist_ok=True)
-    os.makedirs(os.path.join(output_dir, "outputs", "screenshots"), exist_ok=True)
+    # Legacy directories - no longer needed for trace-based execution
+    # os.makedirs(os.path.join(output_dir, "tests"), exist_ok=True)
+    # os.makedirs(os.path.join(output_dir, "pages"), exist_ok=True)
+    os.makedirs(os.path.join(output_dir, "outputs"), exist_ok=True)
     
     print(f"🚀 Exporting '{project_name}' to '{output_dir}'...")
     
-    # 2. Copy Helpers
-    helpers_src = os.path.join(workspace_root, "core", "lib", "templates", "helpers.py")
-    if os.path.exists(helpers_src):
-        shutil.copy(helpers_src, os.path.join(output_dir, "lib", "helpers.py"))
-        print("✅ Copied helpers.py")
+    # 2. Copy trace.json (primary artifact)
+    trace_src = os.path.join(project_source, "outputs", "trace.json")
+    if os.path.exists(trace_src):
+        shutil.copy(trace_src, os.path.join(output_dir, "outputs", "trace.json"))
+        print("✅ Copied trace.json")
     
-    # 3. Copy Pages
-    pages_src = os.path.join(project_source, "pages")
-    if os.path.exists(pages_src):
-        for item in os.listdir(pages_src):
-            s = os.path.join(pages_src, item)
-            d = os.path.join(output_dir, "pages", item)
-            if os.path.isdir(s):
-                shutil.copytree(s, d)
-            else:
-                shutil.copy2(s, d)
-        print("✅ Copied page objects")
-
-    # 4. Copy and Patch Tests
-    tests_src = os.path.join(project_source, "tests")
-    if os.path.exists(tests_src):
-        for item in os.listdir(tests_src):
-            if item.endswith(".py"):
-                with open(os.path.join(tests_src, item), "r", encoding="utf-8") as f:
-                    content = f.read()
-                
-                # Patch dynamic path discovery block
-                # This regex targets the block starting with # Dynamic path discovery and ending before class definitions
-                dynamic_path_pattern = re.compile(r"# Dynamic path discovery:.*?(?=class|def)", re.DOTALL)
-                content = dynamic_path_pattern.sub(
-                    "# Standalone path initialization\n"
-                    "sys.path.append(os.path.join(os.path.dirname(__file__), '..'))\n"
-                    "from lib.helpers import take_screenshot\n\n", 
-                    content
-                )
-                
-                # Cleanup: Remove original helper imports if they survived
-                content = content.replace("from helpers import take_screenshot", "")
-                # Remove duplicate sys/os imports if any
-                lines = content.splitlines()
-                # Simple deduplication for common imports at top
-                new_lines = []
-                seen_imports = set()
-                for line in lines:
-                    if line.strip() in ["import sys", "import os", "import pytest", "import re"]:
-                        if line.strip() not in seen_imports:
-                            new_lines.append(line)
-                            seen_imports.add(line.strip())
-                    else:
-                        new_lines.append(line)
-                content = "\n".join(new_lines)
-                
-                with open(os.path.join(output_dir, "tests", item), "w", encoding="utf-8") as f:
-                    f.write(content)
-        print("✅ Patched and copied tests")
+    # 3. Copy element templates (for visual locator)
+    templates_src = os.path.join(project_source, "outputs", "element_templates")
+    if os.path.exists(templates_src):
+        shutil.copytree(templates_src, os.path.join(output_dir, "outputs", "element_templates"))
+        print("✅ Copied visual templates")
+    
+    # Legacy: Pages and Tests are deprecated
+    # # 3. Copy Pages
+    # pages_src = os.path.join(project_source, "pages")
+    # if os.path.exists(pages_src):
+    #     ...
+    
+    # # 4. Copy and Patch Tests
+    # tests_src = os.path.join(project_source, "tests")
+    # if os.path.exists(tests_src):
+    #     ...
 
     # 5. Generate requirements.txt
     requirements = [
