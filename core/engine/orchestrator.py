@@ -670,20 +670,20 @@ def run_pipeline(config_path, headed=False):
         return
     print(colored(f"✅ Exploration complete in {time.time() - start_explore:.1f}s", "green"))
 
-    # 4. Mine (New Phase)
-    print(colored("\n🛠️  PHASE: BATCH MINING (AUTO-DISCOVERY)", "magenta", attrs=["bold"]))
-    _run_batch_mining(project_root, config, config_hash)
+    # 4. Mine (New Phase) - SKIPPED (Explorer-Only Trace Mode)
+    # print(colored("\n🛠️  PHASE: BATCH MINING (AUTO-DISCOVERY)", "magenta", attrs=["bold"]))
+    # _run_batch_mining(project_root, config, config_hash)
 
-    # 5. Knowledge Update
-    print(colored("\n📖 PHASE: KNOWLEDGE BANK SYNCHRONIZATION", "cyan", attrs=["bold"]))
-    _run_knowledge_update(project_root, config, config_hash, trace_path) 
+    # 5. Knowledge Update - SKIPPED (Legacy)
+    # print(colored("\n📖 PHASE: KNOWLEDGE BANK SYNCHRONIZATION", "cyan", attrs=["bold"]))
+    # _run_knowledge_update(project_root, config, config_hash, trace_path) 
 
-    # 6. Framework Generation
-    print(colored("\n🏗️  PHASE: POM FRAMEWORK GENERATION", "blue", attrs=["bold"]))
-    if not _run_framework_generation(project_root, config, config_hash):
-        print(colored("⚠️ Framework Generation skipped/failed. Proceeding to Refiner fallback...", "yellow"))
-        # Do not return, let Refiner try to generate standalone execution code
-        pass
+    # 6. Framework Generation - SKIPPED (Legacy)
+    # print(colored("\n🏗️  PHASE: POM FRAMEWORK GENERATION", "blue", attrs=["bold"]))
+    # if not _run_framework_generation(project_root, config, config_hash):
+    #     print(colored("⚠️ Framework Generation skipped/failed. Proceeding to Refiner fallback...", "yellow"))
+    #     # Do not return, let Refiner try to generate standalone execution code
+    #     pass
 
     # [Step 3/7] Code Generation (Refiner)
     print(colored("\n📝 PHASE: TEST SCRIPT REFINEMENT", "white", attrs=["bold"]))
