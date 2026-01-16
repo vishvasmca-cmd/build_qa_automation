@@ -72,6 +72,8 @@ jobs:
 
       - name: Run Explorer (Trace Generation)
         id: explorer
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: |
           python trigger_agent.py projects/ci_${{ matrix.website.name }}/config.json --headless
         continue-on-error: true
