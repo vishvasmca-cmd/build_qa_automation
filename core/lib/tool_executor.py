@@ -25,6 +25,26 @@ class ToolExecutor:
         self.visual_locator = VisualLocator(confidence_threshold=0.8)
         self.trace_path = trace_path  # For self-healing trace updates
     
+    async def _highlight_element(self, page: Page, arguments: Dict[str, Any]):
+        """Highlights the target element with a visible border before interaction."""
+        try:
+            target = None
+            if "selector" in arguments:
+                target = page.locator(arguments["selector"]).first
+            elif "text" in arguments:
+                target = page.get_by_text(arguments["text"]).first
+            elif "role" in arguments:
+                # Basic role support - naive mapping
+                target = page.get_by_role(arguments["role"]).first
+                
+            if target:
+                # Magenta border + glow
+                await target.evaluate("el => { el.style.outline = '3px solid #FF00FF'; el.style.boxShadow = '0 0 15px rgba(255, 0, 255, 0.7)'; el.style.transition = 'all 0.3s'; }")
+                await page.wait_for_timeout(500) # 500ms visual pause
+        except Exception:
+            # Ignore highlighting errors (e.g., element not found, stale ref) to not break execution
+            pass
+
     async def execute_intent(self, page: Page, intent: Dict[str, Any]) -> Dict[str, Any]:
         """
         Execute a single tool intent from the Planner.
@@ -48,6 +68,9 @@ class ToolExecutor:
         
         print(colored(f"🔧 Executing Tool: {tool_name}", "cyan"))
         print(colored(f"   Arguments: {arguments}", "grey"))
+        
+        # 🌟 VISUAL DEBUGGING: Highlight target element before interaction
+        await self._highlight_element(page, arguments)
         
         try:
             # Execute the tool through the registry
@@ -139,6 +162,12 @@ class ToolExecutor:
         """
         
         action = step_data.get("action")
+        
+        # Handle 'done' action gracefully for replay
+        if action == "done":
+            print(colored("✅ Reached 'done' step. Fast Lane execution complete.", "green"))
+            return {"status": "success", "message": "Mission completed successfully"}
+
         locators = step_data.get("locators", [])
         
         if not locators:
