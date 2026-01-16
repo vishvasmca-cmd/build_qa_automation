@@ -1,0 +1,124 @@
+name: CI - Complex Website Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-complex-websites:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        website:
+          # 5 Complex, Diverse Websites for Comprehensive Testing
+          - name: "saucedemo_ecommerce"
+            url: "https://www.saucedemo.com/"
+            goal: "Login with standard_user/secret_sauce, add 3 items to cart, proceed to checkout, fill shipping info, complete order"
+            max_steps: 15
+            
+          - name: "parabank_banking"
+            url: "https://parabank.parasoft.com/"
+            goal: "Register new user, login, open new account, transfer funds between accounts, view account overview"
+            max_steps: 20
+            
+          - name: "orangehrm_demo"
+            url: "https://opensource-demo.orangehrmlive.com/"
+            goal: "Login with Admin/admin123, navigate to PIM module, add new employee, verify employee was added, logout"
+            max_steps: 18
+            
+          - name: "automation_exercise"
+            url: "https://www.automationexercise.com/"
+            goal: "Navigate homepage, view products, search for 'dress', filter results, add product to cart, view cart"
+            max_steps: 12
+            
+          - name: "demoqa_forms"
+            url: "https://demoqa.com/"
+            goal: "Navigate to Forms, fill Practice Form with all fields (name, email, gender, mobile, subjects, hobbies, address), submit"
+            max_steps: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Create project config
+        run: |
+          mkdir -p projects/ci_${{ matrix.website.name }}
+          cat > projects/ci_${{ matrix.website.name }}/config.json << 'EOF'
+          {
+            "project_name": "ci_${{ matrix.website.name }}",
+            "target_url": "${{ matrix.website.url }}",
+            "goal": "${{ matrix.website.goal }}",
+            "max_steps": ${{ matrix.website.max_steps }},
+            "headless": true
+          }
+          EOF
+
+      - name: Run Explorer (Trace Generation)
+        id: explorer
+        run: |
+          python trigger_agent.py projects/ci_${{ matrix.website.name }}/config.json --headless
+        continue-on-error: true
+
+      - name: Check trace generated
+        run: |
+          if [ -f "projects/ci_${{ matrix.website.name }}/outputs/trace.json" ]; then
+            echo "✅ Trace generated successfully"
+            cat projects/ci_${{ matrix.website.name }}/outputs/trace.json | jq '.trace | length' || echo "Trace exists"
+          else
+            echo "❌ Trace generation failed"
+            exit 1
+          fi
+
+      - name: Upload artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.website.name }}-failure-artifacts
+          path: |
+            projects/ci_${{ matrix.website.name }}/outputs/
+          retention-days: 7
+
+      - name: Upload trace on success
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.website.name }}-trace
+          path: projects/ci_${{ matrix.website.name }}/outputs/trace.json
+          retention-days: 30
+
+  summary:
+    runs-on: ubuntu-latest
+    needs: test-complex-websites
+    if: always()
+    
+    steps:
+      - name: Test Summary
+        run: |
+          echo "## 🧪 CI Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Tested 5 complex websites for trace-based execution stability." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Website | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| SauceDemo E-commerce | ${{ needs.test-complex-websites.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| ParaBank Banking | ${{ needs.test-complex-websites.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| OrangeHRM | ${{ needs.test-complex-websites.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Automationexercise | ${{ needs.test-complex-websites.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| DemoQA Forms | ${{ needs.test-complex-websites.result }} |" >> $GITHUB_STEP_SUMMARY
