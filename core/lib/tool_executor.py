@@ -215,6 +215,11 @@ class ToolExecutor:
                         "arguments": {"coordinates": (match['x'], match['y'])}
                     }
                     
+                elif action == "perform_search" and loc_type == "text":
+                    # Support for replay of search actions
+                    intent = {"tool": "perform_search", "arguments": {"query": loc_value}}
+                    
+                    
                 else:
                     # Skip unsupported combinations
                     continue
