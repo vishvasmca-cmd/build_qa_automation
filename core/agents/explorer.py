@@ -594,11 +594,29 @@ class ExplorerAgent:
                             self.last_mindmap = mindmap
                     # ----------------------------------
                     
-                    # Save screenshot for trace
-                    page_title = mindmap['summary'].get('title')
                     if not page_title or page_title == "Unknown":
                         page_title = await page.title() or "Unknown"
-                    
+
+                    # --- VISION ORACLE FALLBACK ---
+                    # If mining found NO elements but page is visually active, ask Gemini directly
+                    if mindmap and not mindmap.get('elements') and not mindmap.get('blocking_elements'):
+                         print(colored("⚠️ DOM Mining yielded 0 elements. Calling Vision Oracle...", "yellow"))
+                         vision_decision = await self._ask_vision_oracle(page, self.workflow['goal'])
+                         
+                         if vision_decision:
+                             # Convert Oracle decision to Tool Intent
+                             intent = {}
+                             if vision_decision.get('action') == 'click':
+                                 intent = {"tool": "smart_click", "arguments": {"text": vision_decision.get('target_text')}}
+                             elif vision_decision.get('action') == 'type':
+                                 intent = {"tool": "smart_fill", "arguments": {"text": vision_decision.get('target_text'), "value": "Test Data"}} # Simple fallback
+                             
+                             if intent:
+                                 print(colored(f"🔮 Executing Vision Oracle Intent: {intent}", "magenta"))
+                                 await self._execute_tool(page, intent)
+                                 continue
+                    # ------------------------------
+
                     page_name = self._get_page_name(page.url, page_title)
                     img_name = f"step_{step:02d}_{page_name}.png"
                     img_path = os.path.join(self.snapshot_dir, img_name)
@@ -1004,6 +1022,43 @@ class ExplorerAgent:
             print(colored(f"❌ Explorer Crashed: {e}", "red"))
             traceback.print_exc()
             raise e
+
+    async def _ask_vision_oracle(self, page: Page, goal: str) -> dict:
+        """
+        Fallback: Ask LLM to look at the screenshot and decide the next step purely visually.
+        """
+        print(colored("👁️ Vision Oracle: Analyzing screenshot for next step...", "magenta", attrs=["bold"]))
+        
+        try:
+            # 1. Capture Screenshot
+            screenshot_bytes = await page.screenshot(format="png")
+            b64_img = base64.b64encode(screenshot_bytes).decode('utf-8')
+            
+            # 2. Construct Vision Prompt
+            prompt = [
+                f"You are a Vision-Based Automation Agent. The user wants to achieve: '{goal}'.",
+                "Look at the screenshot and identifying the SINGLE best interactive element (button, link, input) to interact with right now.",
+                "Return a JSON object with:",
+                "- thought: Your reasoning.",
+                "- action: 'click' or 'type'",
+                "- target_text: The visible text on the element or near the input.",
+                "- location_description: Brief description of where it is (e.g., 'blue button top right').",
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64_img}"}}
+            ]
+            
+            # 3. Ask Gemini
+            response = await self.llm.ainvoke(prompt)
+            decision = try_parse_json(response)
+            
+            if decision:
+                print(colored(f"👁️ Vision Oracle says: {decision.get('thought')}", "cyan"))
+                return decision
+                
+            return None
+            
+        except Exception as e:
+            print(colored(f"⚠️ Vision Oracle failed: {e}", "yellow"))
+            return None
 
     async def _make_decision(self, mindmap, page_url):
         # Retrieve RAG context from Knowledge Bank
