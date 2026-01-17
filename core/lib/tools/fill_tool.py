@@ -83,24 +83,51 @@ class FillTool(Tool):
             return {"status": "failure", "error": str(e)}
     
     async def _perform_fill(self, page: Page, locator, value: str, press_enter: bool):
-        """Robust fill operation with proper clearing"""
+        """Robust fill operation with proper clearing, JS fallbacks, and verification"""
         
-        # 1. Click to focus
-        await locator.click(timeout=5000)
-        
-        # 2. Clear existing content (Ctrl+A, Backspace)
-        await page.keyboard.down('Control')
-        await page.keyboard.press('a')
-        await page.keyboard.up('Control')
-        await page.keyboard.press('Backspace')
-        
-        # 3. Type naturally (with delay for SPA detection)
-        await locator.type(value, delay=40)
-        
-        # 4. Press Enter if requested
-        if press_enter:
-            await page.keyboard.press("Enter")
-            await asyncio.sleep(2)  # Wait for response
+        try:
+            # 1. Focus and Clear
+            await locator.click(timeout=3000)
+            
+            # Use native clear if available
+            try:
+                await locator.clear(timeout=1000)
+            except:
+                # Fallback clear (Ctrl+A, Backspace)
+                await page.keyboard.down('Control')
+                await page.keyboard.press('a')
+                await page.keyboard.up('Control')
+                await page.keyboard.press('Backspace')
+            
+            # 2. Strategy A: Native Type (best for trigger validation)
+            self._log("Attempting Native Type...")
+            await locator.type(str(value), delay=30)
+            
+            # Verification: Did it take?
+            current_val = await locator.input_value()
+            if current_val == str(value):
+                self._log("Native type verified.", "SUCCESS")
+            else:
+                # Strategy B: Native Fill (faster)
+                self._log("Native type incomplete, attempting Native Fill...")
+                await locator.fill(str(value))
+                
+                # Final Verification
+                current_val = await locator.input_value()
+                if current_val != str(value):
+                    # Strategy C: The "Nuke" Option - JS Injection
+                    self._log("Native fill failed verification, attempting JS Injection...", "WARN")
+                    # Get selector if possible, else use marker
+                    await locator.evaluate(f"(el, val) => {{ el.value = val; el.dispatchEvent(new Event('input', {{ bubbles: true }})); el.dispatchEvent(new Event('change', {{ bubbles: true }})); }}", str(value))
+            
+            # 4. Press Enter if requested
+            if press_enter:
+                await page.keyboard.press("Enter")
+                await asyncio.sleep(1)
+                
+        except Exception as e:
+            self._log(f"Fill sub-step failed: {e}. Attempting direct JS injection as last resort...", "WARN")
+            await locator.evaluate(f"(el, val) => {{ el.value = val; el.dispatchEvent(new Event('input', {{ bubbles: true }})); }}", str(value))
     
     def get_signature(self) -> Dict[str, Any]:
         return {

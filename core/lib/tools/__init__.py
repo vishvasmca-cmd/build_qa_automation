@@ -7,7 +7,10 @@ from .base_tool import Tool
 from .search_tool import SearchTool
 from .click_tool import ClickTool
 from .fill_tool import FillTool
-from. navigate_tool import NavigateTool
+from .fill_tool import FillTool
+from .navigate_tool import NavigateTool
+from .verify_tool import VerifyTool
+from .get_css_hierarchy import GetCssHierarchyTool
 
 
 class ToolRegistry:
@@ -26,6 +29,8 @@ class ToolRegistry:
         self.register_tool("smart_click", ClickTool())
         self.register_tool("smart_fill", FillTool())
         self.register_tool("navigate_to", NavigateTool())
+        self.register_tool("verify_text", VerifyTool())
+        self.register_tool("get_css_hierarchy", GetCssHierarchyTool())
     
     def register_tool(self, name: str, tool: Tool):
         """Register a new tool"""

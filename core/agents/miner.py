@@ -2,16 +2,7 @@
 import asyncio
 import json
 import sys
-
-# Windows Unicode Fix
-try:
-    if sys.stdout.encoding.lower() != 'utf-8':
-        sys.stdout.reconfigure(encoding='utf-8')
-except Exception:
-    pass
-
 import os
-import sys
 import io
 import base64
 import hashlib
@@ -23,22 +14,21 @@ from termcolor import colored
 
 # Force UTF-8 for console output on Windows
 if sys.platform == "win32":
-    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    try:
+        if sys.stdout.encoding.lower() != 'utf-8':
+            sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
 
-# Import robust LLM wrapper
 # Import robust LLM wrapper
 from core.lib.llm_utils import SafeLLM, try_parse_json
-
 from core.lib.metrics_logger import logger
 from core.lib.workflow_utils import extract_workflow_keywords, score_element_relevance
-
-# Import the 2026-style driver
-# Import the 2026-style driver
 from core.lib.dom_driver import DOM_EXTRACTION_SCRIPT
+from core.lib.image_optimizer import ImageOptimizer
 
 load_dotenv()
 
-# Initialize 2026-ready LLM (Vision-Capable)
 # Initialize 2026-ready LLM (Vision-Capable)
 llm = SafeLLM(
     model="gemini-2.0-flash",
@@ -52,30 +42,32 @@ Your goal is to reconcile a provided list of "Interactive Elements" with a scree
 
 **TASK**:
 1. Analyze the screenshot and the `interactive_elements` JSON.
-2. Verify the accuracy of the element list. If you see a button in the screenshot that is NOT in the list, note it in `visibility_notes`.
+2. **DETECT BLOCKERS**: Look for popups, newsletter signups, cookie banners, or "overlay backdrops".
+   - If an element is a "Close" button for a popup (even if it's just an 'X' icon), mark it clearly.
+   - If the main content is dimmed/blurred behind an overlay, note this in `mission_status`.
 3. Provide a high-level `page_summary` describing the page's purpose and state.
-4. For each element, identify its "Semantic Surroundings" (e.g., "Next to Login text", "Inside navigation bar").
-5. Provide a `playwright_hint` for important elements following this hierarchy:
-   - Rank 1: `getByRole`, `getByLabel`, `getByPlaceholder`, `getByText`.
-   - Rank 2: `getByTestId` (look for `data-test*` attributes).
-   - Rank 3: CSS attributes (e.g., `button[type="submit"]`).
-6. If the user goal is provided, suggest the MOST likely sequence of target elements by ID.
+4. For each element, identify its "Semantic Surroundings".
+5. Provide a `playwright_hint` for important elements.
+6. Suggest the MOST likely sequence of target elements by ID to achieve the goal.
 
 **OUTPUT SCHEMA**:
 {
   "page_summary": {
     "title": "...",
     "purpose": "...",
-    "state": "logged_in | login_screen | error | dashboard",
-    "spatial_verification": "How many buttons/links did you see vs how many were in the list?"
+    "state": "logged_in | login_screen | error | dashboard | blocked_by_modal",
+    "mission_status": "Briefly state if the goal is visible or if a popup is blocking the view."
   },
   "important_elements": [
     {
        "elementId": 1,
-       "semantic_context": "Next to 'Forgot Password'",
+       "semantic_context": "e.g., 'Close button (X icon) for newsletter popup'",
        "confidence": "high | medium | low",
-       "playwright_hint": "e.g., getByRole('button', name='Submit')"
+       "playwright_hint": "e.g., getByRole('button', name='Close')"
     }
+  ],
+  "blocking_elements": [
+    {"elementId": 4, "description": "Newsletter modal backdrop"}
   ],
   "visibility_notes": "..."
 }
@@ -98,7 +90,6 @@ async def extract_all_elements(page: Page):
     for frame in page.frames:
         if frame == page.main_frame: continue
         try:
-            # Check if frame is accessible
             if frame.is_detached(): continue
             frame_res = await frame.evaluate(DOM_EXTRACTION_SCRIPT, current_id)
             frame_elements = frame_res.get('elements', [])
@@ -106,60 +97,97 @@ async def extract_all_elements(page: Page):
                 el['frame_context'] = frame.name or frame.url
             all_elements.extend(frame_elements)
             current_id = frame_res.get('lastId', current_id)
-        except Exception as e:
-            # Often iframes are cross-origin and blocked from JS injection
+        except Exception:
             pass
 
     return all_elements
 
-def _optimize_image(image_bytes):
+def optimize_image(image_bytes: bytes, context: dict = None) -> str:
     """
-    Optimizes image size to prevent 429 Rate Limits.
-    Resizes to max 640px width (Aggressive) and strictly compresses.
+    Advanced image optimization with context-aware strategies.
     """
     try:
-        from PIL import Image
-        img = Image.open(io.BytesIO(image_bytes))
+        # Detected step type
+        step_type = context.get('step_type', 'general') if context else 'general'
+        prev_url = context.get('prev_url') if context else None
+        current_url = context.get('current_url') if context else None
         
-        # Resize if too large (Aggressive 640px width)
-        max_width = 640
-        if img.width > max_width:
-            ratio = max_width / img.width
-            new_height = int(img.height * ratio)
-            img = img.resize((max_width, new_height), Image.Resampling.LANCZOS)
+        # Strategy 5: Skip/Minimize if URL unchanged
+        if prev_url and current_url and prev_url == current_url:
+            print(colored(f"   ⚡ Smart Skip: URL unchanged, using minimal optimization", "magenta"))
+            step_type = "search" # Most aggressive crop/resize
             
-        # Convert to RGB (remove alpha)
-        if img.mode in ("RGBA", "P"):
-            img = img.convert("RGB")
-            
-        # Compress (Quality 50)
-        output = io.BytesIO()
-        img.save(output, format="JPEG", quality=50, optimize=True)
-        b64 = base64.b64encode(output.getvalue()).decode('utf-8')
+        # Use ImageOptimizer
+        b64 = ImageOptimizer.context_aware_optimization(image_bytes, step_type)
         
         # Log reduction
         original_size = len(image_bytes)
-        new_size = len(output.getvalue())
+        decoded = base64.b64decode(b64)
+        new_size = len(decoded)
         reduction = (1 - (new_size / original_size)) * 100
-        print(colored(f"   📉 Image Optimized: {original_size//1024}KB -> {new_size//1024}KB ({reduction:.1f}% reduced)", "grey"))
+        
+        strategy_label = {
+            'search': '🔍 Search-optimized',
+            'button': '🎯 Button-optimized',
+            'form': '📝 Form-optimized',
+            'verification': '✓ Verify-optimized',
+            'general': '📸 Optimized'
+        }.get(step_type, '📸 Optimized')
+        
+        print(colored(f"   📉 {strategy_label}: {original_size//1024}KB -> {new_size//1024}KB ({reduction:.1f}% reduced)", "grey"))
         return b64
-    except ImportError:
-        print(colored("⚠️ Pillow not installed. Using raw screenshot (high bandwidth).", "yellow"))
-        return base64.b64encode(image_bytes).decode('utf-8')
+        
     except Exception as e:
-         print(colored(f"⚠️ Image optim failed: {e}. using raw.", "yellow"))
-         return base64.b64encode(image_bytes).decode('utf-8')
-
+        # Fallback to simple compression if ImageOptimizer fails
+        try:
+            from PIL import Image
+            img = Image.open(io.BytesIO(image_bytes))
+            if img.mode in ("RGBA", "P"):
+                img = img.convert("RGB")
+            output = io.BytesIO()
+            img.save(output, format="JPEG", quality=30, optimize=True)
+            return base64.b64encode(output.getvalue()).decode('utf-8')
+        except:
+            return base64.b64encode(image_bytes).decode('utf-8')
 
 async def analyze_page(page: Page, url: str, user_goal=None):
     """
     Performs a Vision + DOM reconciliation.
-    Returns a unified Page Mindmap.
     """
     print(colored(f"🔍 Mining Page (2026 Strategy): {url}", "cyan"))
     
-    # --- TURBO: Parallel Cleanup & Extraction ---
-    # 1. Background Cleanup (Nuke ads/noise before mining)
+    # --- HYDRATION GUARD ---
+    # Detect if we are in a 'skeleton/blocked' state
+    for i in range(5): # Up to 5 retries (15s total)
+        is_skeleton = await page.evaluate("""
+            () => {
+                if (!document.body) return true; // Treat as skeleton if body is missing
+                const links = document.querySelectorAll('a');
+                const hasSkip = Array.from(links).some(a => a.innerText.toLowerCase().includes('skip to'));
+                const hasBodyContent = document.body.innerText.length > 500;
+                // If we see 'skip to products' but the page is very light, it's a skeleton
+                return hasSkip && !hasBodyContent;
+            }
+        """)
+        
+        if is_skeleton:
+            print(colored(f"   ⏳ [Retry {i+1}] Detected Skeleton/Blocked state. Waiting for hydration...", "yellow"))
+            if i == 1: # On second retry, try a hard reload
+                print(colored("   🔄 [Skeleton Guard] Hard Reloading page to bypass ghost block...", "magenta"))
+                await page.reload(wait_until="networkidle", timeout=60000)
+            await asyncio.sleep(3)
+        else:
+            break
+
+    # Final check for meaningful elements
+    try:
+        await page.wait_for_selector('button, .price, .product-details, h1', timeout=10000)
+    except:
+        print(colored("   ⏳ Meaningful elements slow. Waiting 3s for settlement...", "yellow"))
+        await asyncio.sleep(3)
+
+
+    # 1. Background Cleanup
     await page.evaluate("""
         () => {
             const noise = [
@@ -178,8 +206,22 @@ async def analyze_page(page: Page, url: str, user_goal=None):
     screenshot_task = page.screenshot(type="jpeg", quality=60)
     
     elements, screenshot_bytes = await asyncio.gather(elements_task, screenshot_task)
-    b64_img = _optimize_image(screenshot_bytes)
-    # ---------------------------------------------
+    
+    # Determine step type for optimization
+    step_type = "general"
+    if user_goal:
+        goal_lower = user_goal.lower()
+        if "search" in goal_lower: step_type = "search"
+        elif any(k in goal_lower for k in ["cart", "checkout", "button", "click", "buy"]): step_type = "button"
+        elif any(k in goal_lower for k in ["form", "fill", "type", "login"]): step_type = "form"
+        elif any(k in goal_lower for k in ["verify", "check", "confirm"]): step_type = "verification"
+
+    b64_img = optimize_image(screenshot_bytes, context={
+        'step_type': step_type,
+        'prev_url': getattr(analyze_page, '_last_url', None),
+        'current_url': url
+    })
+    analyze_page._last_url = url
     
     # --- FOCUSED MINING FILTER ---
     keywords = extract_workflow_keywords(user_goal)
@@ -189,334 +231,109 @@ async def analyze_page(page: Page, url: str, user_goal=None):
         print(colored(f"   🎯 Focused Mining: Filtering with {len(keywords)} workflow keywords...", "cyan"))
         for el in elements:
             score = score_element_relevance(el, keywords)
-            # EXTREMELY Strict threshold (0.7)
-            # Only keeps elements that explicitly match journey keywords
             if score >= 0.7:
                 scored_elements.append(el)
         
-        reduction = (1 - (len(scored_elements) / len(elements))) * 100
+        reduction = (1 - (len(scored_elements) / len(elements))) * 100 if len(elements) > 0 else 0
         print(colored(f"   📉 Focus Filter: Reduced {len(elements)} -> {len(scored_elements)} candidates ({reduction:.1f}% reduction)", "cyan"))
         elements = scored_elements
-    # ----------------------------
 
     # --- VISION FILTERING (No-LLM) ---
     from core.lib.vision_miner import VisionMiner
     import concurrent.futures
 
     visible_elements = []
-    print(colored(f"   👁️ Vision Filter: Checking {len(elements)} elements in parallel...", "grey"))
-    
-    def verify_el(el):
-        w, h = el['rect']['width'], el['rect']['height']
-        if 0 < w < 800 and 0 < h < 600:
-            res = VisionMiner.verify_visibility(
-                screenshot_bytes, 
-                el['rect']['x'], el['rect']['y'], w, h
-            )
-            return el if res['is_visible'] else None
-        return el # Giant containers
+    if len(elements) > 0:
+        print(colored(f"   👁️ Vision Filter: Checking {len(elements)} elements in parallel...", "grey"))
+        total_focused = len(elements)
+        
+        def verify_el(el):
+            w, h = el['rect']['width'], el['rect']['height']
+            if 0 < w < 800 and 0 < h < 600:
+                res = VisionMiner.verify_visibility(
+                    screenshot_bytes, 
+                    el['rect']['x'], el['rect']['y'], w, h
+                )
+                if res['is_visible']:
+                    el['is_visible'] = True
+                    el['contrast_score'] = res.get('contrast_score', 0)
+                    return el
+            return None 
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-        results = list(executor.map(verify_el, elements))
-    
-    visible_elements = [r for r in results if r is not None]
-            
-    print(colored(f"   📉 Vision Filter: Reduced {len(elements)} -> {len(visible_elements)} elements", "cyan"))
-    elements = visible_elements
-    # ---------------------------------
-    
-    # 3. LLM Reconciliation
-    # Check Cache First (File-Based Persistence)
-    cache_path = os.path.join(os.path.dirname(__file__), "..", "..", "outputs", "vision_cache.json")
-    
-    # Load Cache
-    if not hasattr(analyze_page, "cache"):
-        if os.path.exists(cache_path):
-            try:
-                with open(cache_path, "r") as f:
-                    analyze_page.cache = json.load(f)
-            except: 
-                analyze_page.cache = {}
+        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+            results = list(executor.map(verify_el, elements))
+        
+        visible_elements = [r for r in results if r is not None]
+        verified_count = len(visible_elements)
+                
+        if verified_count == 0 and total_focused > 0:
+            print(colored("   ⚠️ Vision Filter was too strict (0 results). Falling back to focused DOM elements.", "yellow"))
+            # Keep the elements as they were before vision filter
         else:
-            analyze_page.cache = {}
+            reduction = (1 - (verified_count / total_focused)) * 100 if total_focused > 0 else 0
+            print(colored(f"   📉 Vision Filter: Reduced {total_focused} -> {verified_count} elements ({reduction:.1f}% reduction)", "cyan"))
+            elements = visible_elements
 
-    # Robust Cache Key: URL + Title + Round(ElementCount, -1) to handle minor DOM fluctations
-    # e.g. 104 elements -> 100, 106 -> 110. This prevents cache bust on dynamic ads.
-    ele_count_approx = round(len(elements) / 10) * 10
-    page_title = elements[0].get('text', '') if elements else "NoTitle" # Very rough proxy if title tag missing
     
-    # Try to find title in elements
-    for e in elements[:10]:
-        if e['tagName'] == 'TITLE': 
-            page_title = e['text']
-            break
-            
-    cache_key = hashlib.md5(f"{url}|{user_goal}|{page_title}|{ele_count_approx}".encode()).hexdigest()
-    current_time = __import__('time').time()
-    
-    cached = analyze_page.cache.get(cache_key)
-    # 24 Hour TTL for stability testing
-    if cached and (current_time - cached['timestamp'] < 86400):
-        print(colored("⚡ Cache Hit! Skipping Vision Analysis.", "green"))
-        
-        # Log Cache Hit
-        logger.log_event(
-            agent="Miner", 
-            action="analyze_page_cache_hit", 
-            duration=0.001, 
-            metadata={"url": url}
-        )
-        
-        analysis = cached['analysis']
-    else:
-        start_time = time.time()
-        # Filter list to top 100 for token efficiency
-        element_summary = [
-            {
-                "id": e['elementId'], 
-                "tag": e['tagName'], 
-                "text": e['text'], 
-                "type": e['type'], 
-                "center": e['center']
-            } 
-            for e in elements[:100] if not e.get('is_disabled', False)
-        ]
-    
-        prompt = f"""
-        URL: {url}
-        Goal: {user_goal or "Understand the page structure"}
-        Interactive Elements List (JSON): {json.dumps(element_summary)}
-        
-        Analyze the screenshot and verify the list. Answer 'how many buttons are on web page' in spatial_verification.
-        """
-    
-        message = HumanMessage(
-            content=[
-                {"type": "text", "text": f"{SYSTEM_PROMPT_ANALYST}\n\n{prompt}"},
-                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64_img}"}}
-            ]
-        )
-        
-        try:
-            resp = await llm.ainvoke([message])
-        except Exception as e:
-            if "INVALID_ARGUMENT" in str(e) or "image" in str(e).lower():
-                 print(colored("⚠️ Vision failed (Invalid Image). Retrying with Text-Only...", "yellow"))
-                 # Fallback: Text Only
-                 message_text = HumanMessage(content=f"{SYSTEM_PROMPT_ANALYST}\n\n{prompt}\n\n[IMAGE UPLOAD FAILED - RELY ON JSON LIST]")
-                 resp = await llm.ainvoke([message_text])
-            else:
-                 raise e
-
-        analysis = try_parse_json(resp.content) or {}
-        
-        # Save to cache & Persist to Disk
-        analyze_page.cache[cache_key] = {
-            'analysis': analysis,
-            'timestamp': current_time
+    # --- VISION-FIRST OPTIMIZATION ---
+    if len(elements) > 0 and len(elements) < 10: 
+         print(colored(f"⚡ Vision-First Optimization: Small target set ({len(elements)}). Passing directly to Planner.", "green", attrs=["bold"]))
+         browser_title = await page.title()
+         return {
+            "summary": {"title": browser_title, "purpose": "Vision-Verified Page", "state": "active"},
+            "elements": elements,
+            "url": url,
+            "verification": f"VisionMiner Verified {len(elements)} elements"
         }
-        try:
-             # Atomic write prevention (simple)
-             os.makedirs(os.path.dirname(cache_path), exist_ok=True)
-             with open(cache_path, "w") as f:
-                 json.dump(analyze_page.cache, f)
-        except Exception as e:
-            print(colored(f"⚠️ Cache Write Error: {e}", "yellow"))
-        
-        # Log LLM Call
-        duration = time.time() - start_time
-        logger.log_event(
-            agent="Miner", 
-            action="analyze_page_llm_call", 
-            duration=duration, 
-            cost=0.005, # Est cost for flash vision
-            metadata={"url": url, "elements": len(elements)}
-        )
 
-
+    # 3. LLM Reconciliation
+    messages = [
+        ("system", SYSTEM_PROMPT_ANALYST),
+        ("human", [
+            {"type": "text", "text": f"User Goal: {user_goal or 'Explore page'}\nInteractive Elements: {json.dumps(elements[:100], indent=2)}"},
+            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64_img}"}}
+        ])
+    ]
+    
     try:
-        # Merge analysis back to elements
-        important_map = {str(item['elementId']): item for item in analysis.get('important_elements', [])}
-        for el in elements:
-            info = important_map.get(str(el['elementId']))
-            if info:
-                el['semantic_context'] = info.get('semantic_context')
-                el['is_important'] = True
-                el['playwright_hint'] = info.get('playwright_hint')
-
+        print(colored(f"   🤖 Requesting Vision Analysis for {len(elements)} elements...", "grey"))
+        resp = await llm.ainvoke(messages)
+        mindmap = try_parse_json(resp.content)
+        
+        enriched_elements = []
+        element_map = {str(e['elementId']): e for e in elements}
+        
+        for imp in mindmap.get('important_elements', []):
+            eid = str(imp.get('elementId'))
+            if eid in element_map:
+                el = element_map[eid]
+                el['semantic_context'] = imp.get('semantic_context')
+                el['playwright_hint'] = imp.get('playwright_hint')
+                el['confidence'] = imp.get('confidence')
+                enriched_elements.append(el)
+        
         return {
-            "summary": analysis.get('page_summary', {}),
-            "elements": elements,
+            "summary": mindmap.get('page_summary', {}),
+            "elements": enriched_elements or elements, 
             "url": url,
-            "verification": analysis.get('page_summary', {}).get('spatial_verification', '')
+            "visibility_notes": mindmap.get('visibility_notes', '')
         }
-
     except Exception as e:
-        print(colored(f"❌ Miner LLM Error: {e}", "red"))
+        print(colored(f"   ⚠️ Vision analysis failed: {e}. Falling back to focused DOM.", "yellow"))
         return {
-            "summary": {"purpose": "Fallback due to error"},
+            "summary": {"purpose": "Fallback Page", "state": "error"},
             "elements": elements,
-            "url": url,
-            "verification": "Error"
+            "url": url
         }
 
 if __name__ == "__main__":
     async def test():
         async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=False)
+            browser = await p.chromium.launch(headless=True)
             page = await browser.new_page()
-            await page.goto("https://my.astound.com/login")
-            await asyncio.sleep(2)
-            result = await analyze_page(page, "https://my.astound.com/login", "Login to account")
-            print(colored("\n--- Page Analysis Result ---", "green"))
-            print(json.dumps(result['summary'], indent=2))
-            print(f"Found {len(result['elements'])} elements.")
-            print(f"Verification: {result['verification']}")
+            await page.goto("https://www.google.com")
+            res = await analyze_page(page, "https://www.google.com")
+            print(json.dumps(res, indent=2))
             await browser.close()
+    
     asyncio.run(test())
-
-
-class BatchMiner:
-    """
-    Phase 2: Automation Discovery Engine.
-    Processes artifacts from Phase 1 to build a robust Page Object Model blueprint.
-    """
-    def __init__(self, project_path):
-        self.project_path = project_path
-        self.output_dir = os.path.join(project_path, "outputs")
-        self.snapshot_dir = os.path.join(project_path, "snapshots")
-        self.trace_path = os.path.join(self.output_dir, "trace.json")
-        self.elements_path = os.path.join(self.output_dir, "discovered_elements.json")
-        self.page_models = {}
-
-    async def mine(self):
-        print(colored("⛏️ Starting Batch Mining...", "cyan"))
-        
-        # 1. Load Artifacts
-        if not os.path.exists(self.trace_path):
-            print(colored(f"❌ No trace.json found at {self.trace_path}. Skipping Mining.", "red"))
-            return
-            
-        with open(self.trace_path, "r") as f:
-            trace_data = json.load(f)
-            
-        trace = trace_data.get("trace", [])
-        
-        # 2. Group by Page
-        pages = {}
-        for step in trace:
-            page_name = step.get("page_name", "UnknownPage")
-            if page_name not in pages:
-                pages[page_name] = {
-                    "url": step.get("url"),
-                    "screenshots": [],
-                    "actions": []
-                }
-            if step.get("screenshot"):
-                pages[page_name]["screenshots"].append(step.get("screenshot"))
-            pages[page_name]["actions"].append(step)
-
-        # 3. Analyze Each Page
-        print(colored(f"🔍 Discovered {len(pages)} unique pages.", "blue"))
-        
-        for page_name, data in pages.items():
-            await self._analyze_page_model(page_name, data)
-
-        # 4. Save Page Models
-        output_path = os.path.join(self.output_dir, "page_models.json")
-        with open(output_path, "w") as f:
-            json.dump(self.page_models, f, indent=2)
-            
-        print(colored(f"✅ Page Models saved to {output_path}", "green"))
-
-    async def _analyze_page_model(self, page_name, data):
-        print(colored(f"   👉 Analyzing {page_name}...", "yellow"))
-        
-        # Select best screenshot (last one is usually most stable)
-        if not data["screenshots"]:
-            print(colored(f"      ⚠️ No screenshots for {page_name}", "red"))
-            return
-            
-        screenshot_name = data["screenshots"][-1]
-        screenshot_path = os.path.join(self.snapshot_dir, screenshot_name)
-        
-        if not os.path.exists(screenshot_path):
-             # Try legacy path fallback
-             screenshot_path = os.path.join(self.output_dir, screenshot_name)
-        
-        if not os.path.exists(screenshot_path):
-            print(colored(f"      ⚠️ Screenshot not found: {screenshot_path}", "red"))
-            return
-
-        # --- CACHING LOGIC (Avoid redundant modeling) ---
-        cache_path = os.path.join(os.path.dirname(__file__), "..", "..", "outputs", "model_cache.json")
-        if not hasattr(self, "cache"):
-            if os.path.exists(cache_path):
-                try:
-                    with open(cache_path, "r") as f: self.cache = json.load(f)
-                except: self.cache = {}
-            else: self.cache = {}
-
-        # Cache key: Page Name + Screenshot MD5
-        with open(screenshot_path, "rb") as f:
-            screenshot_bytes = f.read()
-            img_hash = hashlib.md5(screenshot_bytes).hexdigest()
-            b64_img = base64.b64encode(screenshot_bytes).decode('utf-8')
-            
-        cache_key = f"{page_name}_{img_hash}"
-        if cache_key in self.cache:
-            print(colored(f"      ⚡ Cache Hit for {page_name}! Skipping LLM modeling.", "green"))
-            self.page_models[page_name] = self.cache[cache_key]
-            return
-        # -----------------------------------------------
-
-        # Prompt for Page Modeling
-        prompt = f"""
-        You are an Automation Architect. Analyze the screenshot of '{page_name}'.
-        URL: {data['url']}
-        
-        **TASK**:
-        1. Identify the **Primary Purpose** of this page.
-        2. Define **Robust Locators** for key interactive elements visible in the screenshot.
-           - For each element, provide a PRIMARY locator (Role/TestID) and a BACKUP locator (CSS/Text).
-           - The 'locator_strategy' field will be used to generate `primary.or_(backup)`.
-        3. Identify **Critical Assertions** to verify this page is loaded (e.g., Title, Header text).
-        
-        **OUTPUT JSON SCHEMA**:
-        {{
-            "description": "...",
-            "url_pattern": "...",
-            "elements": [
-                {{
-                    "name": "...",
-                    "type": "...",
-                    "primary_locator": "...",
-                    "backup_locator": "...",
-                    "description": "..."
-                }}
-            ],
-            "assertions": [
-                "..."
-            ]
-        }}
-        """
-        
-        message = HumanMessage(
-            content=[
-                {"type": "text", "text": prompt},
-                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64_img}"}}
-            ]
-        )
-        
-        try:
-            resp = await llm.ainvoke([message])
-            model = try_parse_json(resp.content)
-            if model:
-                self.page_models[page_name] = model
-                # Update Cache
-                self.cache[cache_key] = model
-                with open(cache_path, "w") as f:
-                    json.dump(self.cache, f, indent=2)
-                    
-        except Exception as e:
-            print(colored(f"      ❌ Modeling failed: {e}", "red"))

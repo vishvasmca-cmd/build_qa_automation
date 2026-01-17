@@ -43,6 +43,8 @@ from core.lib.robust_handler import get_handler as get_robust_handler
 from core.lib.visual_verifier import VisualVerifier
 from core.lib.tool_executor import ToolExecutor
 from core.lib.visual_locator import VisualLocator
+from core.lib.visual_watcher import VisualWatcher
+from core.lib.vision_interactor import VisionInteractor
 import cv2
 import numpy as np
 
@@ -60,18 +62,34 @@ SYSTEM_PROMPT_PLANNER = """
 You are a Senior Automation Strategist working with a Tool Registry system.
 Your goal is to complete the user's workflow by deciding the next best TOOL to use.
 
-**AVAILABLE TOOLS** (Pre-written, robust Python functions):
-1. **perform_search**: Search for a query (auto-detects input and submit method)
+**AVAILABLE TOOLS (World-Class, High-Resilience):**
+1. **perform_search**: Search for a query.
    - Args: {"query": "text to search"}
+   - *Strategy*: High-level abstraction. Use this first for any search task.
    
-2. **smart_click**: Click an element using robust fallback
-   - Args: {"text": "Button Text"} OR {"selector": "css selector"}
+2. **smart_click**: Click an element with multi-stage fallback.
+   - Args: {"element_id": int (MANDATORY), "text": "optional", "selector": "optional"}
+   - *Strategic Note*: High reliability. It uses the `element_id` to retrieve vision coordinates (x,y) if Playwright fails. ALWAYS include the `element_id` from the list.
    
-3. **smart_fill**: Fill an input field with validation
-   - Args: {"value": "text", "placeholder": "Email"} OR {"selector": "..."} 
+3. **smart_fill**: Fill an input field with verification.
+   - Args: {"element_id": int (MANDATORY), "value": "text", "placeholder": "optional"}
+   - *Strategic Note*: Tries Native Type -> Force Fill -> JS Value Injection. ALWAYS include `element_id`.
    
-4. **navigate_to**: Go to a specific URL
-   - Args: {"url": "https://..."}
+4. **navigate_to**: Direct URL navigation.
+5. **verify_text**: Check if text is present on the page (Validation).
+   - Args: {"text": "exact text to look for"}
+   - *Strategy*: Use this for "Verify X appears" or "Confirm X is in cart" steps. NOT for searching.
+
+6. **get_css_hierarchy**: Generate a robust, unique CSS selector.
+   - Args: {"text": "visible text of element"}
+   - *Strategy*: **PRIORITY TOOL**. Use this BEFORE clicking to get a guaranteed unique selector, especially for products or lists.
+
+**THINKING PROCESS (WORLD CLASS):**
+1. **Selector First**: Can I get a unique selector for my target? Use `get_css_hierarchy`.
+2. **Action-Result Cycle**: I just used tool X. Did the page change? If NO, why?
+3. **Vision-First Trust**: If you see an element in the list, use its `id`.
+4. **State Awareness**: If the goal says "Enter credentials" and the modal is open, focus on those inputs.
+4. **Crisis Recovery**: If trapped in a loop, propose a DIFFERENT target or a DIFFERENT tool. Don't be afraid to click neighboring elements to trigger UI updates.
 
 **INPUTS:**
 1. `goal`: The user's workflow goal.
@@ -100,7 +118,7 @@ Your goal is to complete the user's workflow by deciding the next best TOOL to u
 **OUTPUT SCHEMA (JSON only)**:
 {
   "thought": "Explicitly state which Phase/Step you are currently on and why this tool is the correct choice",
-  "tool": "perform_search | smart_click | smart_fill | navigate_to",
+  "tool": "perform_search | smart_click | smart_fill | navigate_to | verify_text | get_css_hierarchy",
   "arguments": {
     // Tool-specific arguments (see AVAILABLE TOOLS above)
   },
@@ -152,57 +170,73 @@ class ExplorerAgent:
             
         self.trace = []
         self.kb = KnowledgeBank()
-        # RAG context if available
         self.total_cost = {"input": 0, "output": 0}
         self.output_dir = os.path.join(os.path.dirname(config_path), "outputs")
         os.makedirs(self.output_dir, exist_ok=True)
         
-        logger.log_event("Explorer", "init", 0.0, metadata={"config": config_path})
         self.history = []
+        self.vision_first_mode = os.environ.get("VISION_FIRST", "false").lower() == "true"
+        self.visual_watcher = None
+        self.vision_interactor = None
         
-        # State deduplication and loop detection
-        self.visited_states = set()  # Track unique page states
-        self.loop_detection_window = 5  # Check last N steps for patterns
-        
-        
-        self.project_root = os.path.dirname(config_path)
-        # snapshots/ is deprecated - screenshots now go to outputs/
-        # self.snapshot_dir = os.path.join(self.project_root, "snapshots")
-        # os.makedirs(self.snapshot_dir, exist_ok=True)
-        self.snapshot_dir = self.output_dir  # Use outputs/ instead
-        self.last_error = None  # Track the last action failure
+        # Initialize Vision components if mode enabled
+        if self.vision_first_mode:
+            print(colored("👁️ Vision-First mode enabled (with OCR support)", "cyan", attrs=["bold"]))
+            self.visual_watcher = VisualWatcher(None) # Page set during execute
+            self.vision_interactor = VisionInteractor(None)
+        self.visited_states = set()
+        self.loop_detection_window = 5
+        self.scrolled_urls = set()
+        self.snapshot_dir = self.output_dir
+        self.last_error = None
         
         # Initialize Robust Action Handler
         self.robust_handler = get_robust_handler()
         self.robust_handler.set_domain(self.config.get("target_url", ""))
         self.robust_handler.reset()  # Fresh start for this session
         
-        # Initialize Tool Executor (replaces Code Generator)
+        # Initialize Tool Executor
         self.tool_executor = ToolExecutor()
         print(colored("🔧 Tool Executor initialized", "cyan"))
         
-        # Self-Learning & Optional Steps Enhancement
+        # Goal Parsing
         self.parsed_goal = self._parse_goal_with_metadata(self.workflow)
-        self.completed_goal_steps = [] # Track IDs of completed steps
-        self.skipped_goal_steps = []   # Track IDs of skipped (failed optional) steps
-        self.step_learnings = {}  # Store learnings per step number
-        self.skipped_steps = []  # Track which optional steps were skipped (legacy name)
-        self.scrolled_urls = set() # Track URLs where we have already performed infinite scroll
-        
-        # Extract search query from goal if present
-        import re
-        search_match = re.search(r"[Ss]earch[^'\"]*['\"]([^'\"]+)['\"]", self.workflow)
-        if search_match:
-            self.test_data['search_query'] = search_match.group(1)
-            print(colored(f"🔍 Extracted search query: '{self.test_data['search_query']}'", "cyan"))
+        self.completed_goal_steps = []
+        self.skipped_goal_steps = []
+        self.step_learnings = {}
         
         print(colored(f"📋 Parsed {len(self.parsed_goal)} goal steps", "cyan"))
         for step in self.parsed_goal:
-            flags = []
-            if step['is_optional']: flags.append("Optional")
-            if step['self_learning_enabled']: flags.append("Self-Learning")
-            flag_str = f" [{', '.join(flags)}]" if flags else ""
-            print(colored(f"  Step {step['step_num']}: {step['description'][:60]}{flag_str}", "grey"))
+            print(colored(f"  Step {step['step_num']}: {step['description'][:60]}", "grey"))
+
+    async def wait_for_page_stability(self, page, timeout=5000, interval=500):
+        """World-Class Stability Check: Waits until the DOM stops changing."""
+        try:
+            print(colored(f"⏳ Waiting for page stability...", "grey"))
+            last_count = -1
+            start_time = time.time()
+            while time.time() - start_time < timeout / 1000:
+                current_count = await page.evaluate("document.querySelectorAll('*').length")
+                if current_count == last_count:
+                    await asyncio.sleep(0.3)
+                    return True
+                last_count = current_count
+                await asyncio.sleep(interval / 1000)
+        except: pass
+        return False
+
+    def _get_page_name(self, url, title):
+        """Determines a valid class name for the current page."""
+        from urllib.parse import urlparse
+        path = urlparse(url).path.strip('/')
+        if not path or path == 'index.php': return "HomePage"
+        if 'login' in path: return "LoginPage"
+        if 'product' in path: return "ProductsPage"
+        if 'cart' in path: return "CartPage"
+        if title:
+            clean_title = re.sub(r'[^a-zA-Z0-9]', ' ', title).title().replace(' ', '')
+            if clean_title: return f"{clean_title}Page"
+        return "GenericPage"
 
         
     async def run(self):
@@ -212,6 +246,7 @@ class ExplorerAgent:
             async with async_playwright() as p:
                 browser = await p.chromium.launch(
                     headless=not self.headed,
+                    channel="chrome", 
                     args=[
                         "--disable-blink-features=AutomationControlled",
                         "--no-sandbox",
@@ -220,6 +255,8 @@ class ExplorerAgent:
                         "--start-maximized"
                     ]
                 )
+
+
                 
                 # Enhanced stealth configuration for headless mode
                 # Use no_viewport for maximized window, or large viewport
@@ -242,13 +279,52 @@ class ExplorerAgent:
                     }
                 )
                 
-                # Override navigator properties to hide automation
+                # Override navigator properties to hide automation (Super-Stealth Mode)
                 await context.add_init_script("""
+                    // Hide WebDriver
                     Object.defineProperty(navigator, 'webdriver', {get: () => undefined});
-                    Object.defineProperty(navigator, 'plugins', {get: () => [1, 2, 3, 4, 5]});
+                    
+                    // Add realistic plugins
+                    Object.defineProperty(navigator, 'plugins', {get: () => [
+                        {name: 'Chrome PDF Viewer', filename: 'internal-pdf-viewer', description: 'Portable Document Format'},
+                        {name: 'Chrome PDF Plugin', filename: 'internal-pdf-viewer', description: 'Portable Document Format'},
+                        {name: 'Native Client', filename: 'internal-nacl-plugin', description: ''}
+                    ]});
+                    
+                    // Add realistic languages and platform
                     Object.defineProperty(navigator, 'languages', {get: () => ['en-US', 'en']});
-                    window.chrome = {runtime: {}};
+                    Object.defineProperty(navigator, 'platform', {get: () => 'Win32'});
+                    
+                    // Hardware signals
+                    Object.defineProperty(navigator, 'hardwareConcurrency', {get: () => 8});
+                    Object.defineProperty(navigator, 'deviceMemory', {get: () => 8});
+                    
+                    // WebGL Spoofing (often used for fingerprinting)
+                    const getParameter = WebGLRenderingContext.prototype.getParameter;
+                    WebGLRenderingContext.prototype.getParameter = function(parameter) {
+                        if (parameter === 37445) return 'Intel Open Source Technology Center';
+                        if (parameter === 37446) return 'Mesa DRI Intel(R) HD Graphics 520 (Skylake GT2)';
+                        return getParameter(parameter);
+                    };
+
+                    window.chrome = {runtime: {}, loadTimes: () => ({}), csi: () => ({}), app: {}};
+                    
+                    // Fake Battery API
+                    if (navigator.getBattery) {
+                        const originalGetBattery = navigator.getBattery;
+                        navigator.getBattery = () => Promise.resolve({
+                            charging: true,
+                            chargingTime: 0,
+                            dischargingTime: Infinity,
+                            level: 1,
+                            onchargingchange: null,
+                            onchargingtimechange: null,
+                            ondischargingtimechange: null,
+                            onlevelchange: null
+                        });
+                    }
                 """)
+                
                 page = await context.new_page()
                 page.set_default_timeout(60000) # Standard timeout
                 
@@ -299,9 +375,34 @@ class ExplorerAgent:
                     """)
                 
                 try:
+                    # Random human-like delay before first navigation
+                    delay = 1.0 + (float(int(hashlib.md5(self.config['target_url'].encode()).hexdigest(), 16)) % 2000) / 1000
+                    print(colored(f"⏳ Humanizing: Waiting {delay:.1f}s before navigation...", "grey"))
+                    await asyncio.sleep(delay)
+
                     print(colored(f"🌐 Initial Navigation: {self.config['target_url']}", "cyan"))
-                    await page.goto(self.config["target_url"], wait_until="domcontentloaded", timeout=90000)
+                    response = await page.goto(self.config["target_url"], wait_until="domcontentloaded", timeout=90000)
+
+
+                    
+                    # --- HUMAN SIGNALS ---
+                    # Akamai often unblocks after mouse move/scroll
+                    print(colored("🖱️ Sending human signals (Mouse move + Scroll)...", "grey"))
+                    await page.mouse.move(100, 100)
+                    await asyncio.sleep(0.5)
+                    await page.mouse.move(400, 300)
+                    await page.mouse.wheel(0, 300) # Scroll down
+                    await asyncio.sleep(0.8)
+                    await page.mouse.wheel(0, -300) # Scroll back up
+                    
+                    # Check if blocked (status code or skeleton)
+                    if response and response.status >= 400:
+                         print(colored(f"⚠️ Page blocked (Status {response.status}). Retrying with fresh context...", "yellow"))
+                         await asyncio.sleep(5)
+                         await page.goto(self.config["target_url"], wait_until="networkidle", timeout=60000)
+
                 except Exception as e:
+
                     print(colored(f"⚠️ Initial load warning: {e}. Proceeding with current state.", "yellow"))
                     try: await page.wait_for_load_state("domcontentloaded", timeout=30000)
                     except: pass
@@ -315,9 +416,8 @@ class ExplorerAgent:
                     try: await page.goto(self.config["target_url"], wait_until="domcontentloaded", timeout=90000)
                     except: pass
                 
-                # ⚡ FAST LANE: Check if we have a saved workflow to replay
+                step = 0
                 trace_file = os.path.join(self.output_dir, 'trace.json')
-                
                 if os.path.exists(trace_file):
                     try:
                         print(colored("\n⚡ FAST LANE ACTIVATED: Replaying saved workflow!", "green", attrs=["bold"]))
@@ -361,11 +461,12 @@ class ExplorerAgent:
                                 break
                         
                         if success_count == len(workflow_steps):
-                            print(colored(f"\\n✅ Fast Lane completed successfully!", "green", attrs=["bold"]))
-                            print(colored(f"⚡ Skipped heavy exploration - used saved workflow!", "green"))
-                            return  # Done!
+                            print(colored(f"\\n✅ Fast Lane replay of {success_count} steps finished.", "green", attrs=["bold"]))
+                            # Pick up from where we left off to ensure goal is reached
+                            step = success_count
                         else:
                             print(colored(f"\\n⚠️ Fast Lane partial completion ({success_count}/{len(workflow_steps)})", "yellow"))
+                            step = success_count
                     
                     except Exception as e:
                         print(colored(f"⚠️ Fast Lane error: {e}", "yellow"))
@@ -374,8 +475,6 @@ class ExplorerAgent:
                 else:
                     print(colored("\n🐢 SLOW LANE: No saved workflow found - exploring from scratch...", "cyan"))
                 
-                
-                step = 0
                 max_steps = 50 
                 lock_retries = 0
                 
@@ -417,37 +516,89 @@ class ExplorerAgent:
                         await self.handle_infinite_scroll(page, max_scrolls=3)
                         self.scrolled_urls.add(page.url)
 
-                    # --- TURBO: State-Aware Caching ---
-                    await asyncio.sleep(0.5) # Wait for page to settle
+                    # Initialize mindmap for this step
+                    mindmap = None
+
+                    # --- TURBO: Stability & State-Aware Caching ---
+                    await self.wait_for_page_stability(page)
                     current_dom_hash = await self.get_dom_hash(page)
                     state_key = f"{page.url}:{current_dom_hash}"
                     
                     # Force mining if the last action was a 'fill' (to see suggestions)
                     force_mining = self.history and self.history[-1]['action'] == 'fill'
                     
-                    if not force_mining and hasattr(self, 'last_state_key') and self.last_state_key == state_key:
-                        print(colored(f"⚡ Turbo Mode: State unchanged. Skipping mining (Reusing cache)...", "green", attrs=["bold"]))
-                        mindmap = self.last_mindmap
-                    else:
-                        # 1. ANALYZE (Miner) with Timeout Protection
-                        try:
-                            mindmap = await asyncio.wait_for(
-                                analyze_page(page, page.url, self.workflow),
-                                timeout=120
-                            )
-                        except asyncio.TimeoutError:
-                            print(colored("⚠️ Vision analysis timed out. Falling back to simple extraction.", "yellow"))
-                            mindmap = {
-                                "summary": {"title": await page.title(), "mission_status": "Vision timed out."},
-                                "elements": [],
-                                "blocking_elements": []
-                            }
-                        self.last_state_key = state_key
-                        self.last_mindmap = mindmap
+                    # --- VISION-FIRST: Instant Fallback for Modals ---
+                    if self.vision_first_mode and self.visual_watcher:
+                        # Update VisualWatcher with the current page
+                        self.visual_watcher.page = page
+                        if await self.visual_watcher.wait_for_visual_stability(timeout_ms=5000):
+                            if self.visual_watcher.is_overlay_present():
+                                print(colored("🚀 [Instant Vision Fallback] Modal detected - providing skeletal mindmap for Vision assistance", "green", attrs=["bold"]))
+                                goal_lower = self.workflow.get('goal', '').lower()
+                                skeletal_elements = []
+                                if 'login' in goal_lower:
+                                    skeletal_elements = [
+                                        {"elementId": 9991, "text": "Username", "type": "input", "hint": "Visible via OCR"},
+                                        {"elementId": 9992, "text": "Password", "type": "input", "hint": "Visible via OCR"},
+                                        {"elementId": 9993, "text": "Log in", "type": "button", "hint": "Visible via OCR"}
+                                    ]
+                                elif 'signup' in goal_lower or 'sign up' in goal_lower:
+                                    skeletal_elements = [
+                                        {"elementId": 9991, "text": "Username", "type": "input", "hint": "Visible via OCR"},
+                                        {"elementId": 9992, "text": "Password", "type": "input", "hint": "Visible via OCR"},
+                                        {"elementId": 9993, "text": "Sign up", "type": "button", "hint": "Visible via OCR"}
+                                    ]
+                                elif 'order' in goal_lower or 'purchase' in goal_lower:
+                                    # Support for Place Order modal
+                                    skeletal_elements = [
+                                        {"elementId": 9991, "text": "Name", "type": "input", "hint": "Visible via OCR"},
+                                        {"elementId": 9992, "text": "Credit card", "type": "input", "hint": "Visible via OCR"},
+                                        {"elementId": 9993, "text": "Purchase", "type": "button", "hint": "Visible via OCR"}
+                                    ]
+                                mindmap = {
+                                    "summary": {"title": await page.title(), "mission_status": "Vision-assisted modal detected", "state": "action_required"},
+                                    "elements": skeletal_elements,
+                                    "blocking_elements": [{"type": "overlay", "reason": "Modal backdrop blocking DOM mining"}]
+                                }
+                                self.last_mindmap = mindmap
+                                self.last_state_key = state_key # Use the same state key
+                    
+                    if not mindmap:
+                        if not force_mining and hasattr(self, 'last_state_key') and self.last_state_key == state_key:
+                            print(colored(f"⚡ Turbo Mode: State unchanged. Skipping mining (Reusing cache)...", "green", attrs=["bold"]))
+                            mindmap = self.last_mindmap
+                        else:
+                            # 1. ANALYZE (Miner) with Timeout Protection
+                            try:
+                                mindmap = await asyncio.wait_for(
+                                    analyze_page(page, page.url, self.workflow),
+                                    timeout=120
+                                )
+                            except asyncio.TimeoutError:
+                                print(colored("⚠️ Vision analysis timed out. Falling back to simple extraction.", "yellow"))
+                                mindmap = {
+                                    "summary": {"title": await page.title(), "mission_status": "Vision timed out.", "state": "error"},
+                                    "elements": [],
+                                    "blocking_elements": []
+                                }
+                            
+                            # PROACTIVE BLOCKER HANDLING: If Miner detects a modal, dismiss it immediately
+                            if mindmap and (mindmap.get('summary', {}).get('state') == 'blocked_by_modal' or mindmap.get('blocking_elements')):
+                                print(colored("🚨 Proactive Blocker Detected! Triggering dismissal shield...", "magenta", attrs=["bold"]))
+                                await self._dismiss_overlays(page)
+                                await asyncio.sleep(1)
+                                # Re-mine after dismissal
+                                mindmap = await analyze_page(page, page.url, self.workflow)
+                            
+                            self.last_state_key = state_key
+                            self.last_mindmap = mindmap
                     # ----------------------------------
                     
                     # Save screenshot for trace
-                    page_title = mindmap['summary'].get('title', 'Unknown')
+                    page_title = mindmap['summary'].get('title')
+                    if not page_title or page_title == "Unknown":
+                        page_title = await page.title() or "Unknown"
+                    
                     page_name = self._get_page_name(page.url, page_title)
                     img_name = f"step_{step:02d}_{page_name}.png"
                     img_path = os.path.join(self.snapshot_dir, img_name)
@@ -905,20 +1056,45 @@ class ExplorerAgent:
                 current_step_id = step['step_num']
             goal_status.append(f"Step {step['step_num']}: {step['description']} [{status}]")
 
+        # COGNITIVE UNSTUCK MECHANISM
+        # Detect potentially stuck state based on history
+        failed_attempts = [h for h in self.history[-5:] if not h.get('success', True)]
+        last_3_actions = [h['action'] for h in self.history[-3:]]
+        
+        # Condition 1: Repeated Failures (3+ failures in last 5 steps)
+        if len(failed_attempts) >= 3:
+            loop_warning = f"⚠️ COGNITIVE STOP: You have failed {len(failed_attempts)} times recently. STOP. Do NOT retry the same action. Look for a different way. Is there a popup? Is the element disabled? Try 'perform_search' instead of clicking. Try scrolling."
+            
+        # Condition 2: Action Loop (Last 3 actions are identical)
+        elif len(last_3_actions) == 3 and len(set(last_3_actions)) == 1:
+            loop_warning = f"⚠️ COGNITIVE STOP: You are looping on action '{last_3_actions[0]}'. STOP. You already tried this 3 times. It is NOT working. Propose a DIFFERENT tool or a DIFFERENT target."
+            
+        # Condition 3: Existing State Loop (Duplicate state count)
+        elif hasattr(self, 'consecutive_duplicate_count') and self.consecutive_duplicate_count > 1:
+            loop_warning = f"⚠️ CRITICAL LOOP WARNING: You have been on this EXACT page state for {self.consecutive_duplicate_count} steps. Your last action '{self.history[-1]['action']}' on target '{self.history[-1].get('target_text')}' CHANGED NOTHING. Do NOT repeat this. Try a different element, scroll, or assume the goal might be partially blocked. If you just clicked a search icon and the input is still 'disabled', try clicking it again OR look for a hidden input that might have appeared."
+            
+        # Condition 4: Stuck on same Goal Step for too long
+        # (This logic requires tracking step start times/counts, skipping for now to keep it simple)
+
         context = {
             "goal": self.workflow,
-            "goal_progress": goal_status, # NEW: Clear progress tracking
+            "goal_progress": goal_status, 
             "current_step": current_step_id,
             "page_context": mindmap['summary'],
             "elements": formatted_elements,
-            "history": self.history[-10:], # Reduced from 15
+            "history": self.history[-10:], 
             "test_data": self.test_data,
             "knowledge_bank": rag_context,
             "last_action_error": self.last_error,
             "loop_warning": loop_warning 
         }
         
+        
         prompt = f"Current Mindmap Context:\n{json.dumps(context, indent=2)}"
+        
+        if loop_warning:
+            print(colored(f"\n🧠 COGNITIVE UNSTUCK TRIGGERED: {loop_warning}\n", "magenta", attrs=['bold']))
+            prompt = f"!!! CRISIS MODE - READ THIS FIRST !!!\n{loop_warning}\n\n" + prompt
         
         try:
             resp = await llm.ainvoke([("system", SYSTEM_PROMPT_PLANNER), ("human", prompt)])
@@ -1103,71 +1279,71 @@ class ExplorerAgent:
 
 
     async def _dismiss_overlays(self, page):
-        """Aggressively dismisses modals, overlays, cookie banners, popups, and consent dialogs, including shadow DOMs."""
+        """World-Class Overlay Handler: Unlocks scroll and hunts for close buttons."""
         try:
-            # 1. Structural Removal (Shadow-Piercing "Nuke" Option) with broader selectors
+            print(colored("🛡️ [World-Class] Handling potential interrupters (Popups/Overlays)...", "magenta"))
             await page.evaluate("""
                 () => {
-                    // SAFETY: If an input is focused, we are likely interacting with a search or form. 
-                    // Don't dismiss potential containers (like search overlays).
-                    if (document.activeElement && 
-                        (document.activeElement.tagName === 'INPUT' || 
-                         document.activeElement.tagName === 'TEXTAREA' || 
-                         document.activeElement.getAttribute('contenteditable') === 'true')) {
-                        return;
-                    }
-
-                    const dismiss = (root) => {
-                        const selectors = '[class*="overlay"], [class*="modal"], [id*="cookie"], [class*="banner"], [role="dialog"], [aria-modal="true"], [class*="popup"], [class*="consent"], #hs-eu-cookie-confirmation';
-                        const overlays = root.querySelectorAll(selectors);
-                        overlays.forEach(el => {
-                            // PROTECTED ELEMENTS: Don't nuke search bars, main nav, or anything that looks like core UI
-                            const text = el.innerText.toLowerCase();
-                            const isProtected = text.includes('search') || 
-                                              text.includes('menu') || 
-                                              el.querySelector('input') || 
-                                              el.id.toLowerCase().includes('search') ||
-                                              el.className.toLowerCase().includes('search');
-                                              
-                            if (isProtected) return;
-
-                            const style = window.getComputedStyle(el);
-                            if (style.position === 'fixed' || style.position === 'absolute') {
-                                if (parseInt(style.zIndex) > 100 || text.includes('cookie') || text.includes('accept')) {
-                                    el.remove();
-                                }
-                            }
+                    // 1. SCROLL UNLOCKER: Force body to be scrollable
+                    document.body.style.overflow = 'auto';
+                    document.body.style.setProperty('overflow', 'auto', 'important');
+                    document.documentElement.style.overflow = 'auto';
+                    document.documentElement.style.setProperty('overflow', 'auto', 'important');
+                    
+                    // 2. SEMANTIC CLOSE HUNTER: Find and click 'X', 'Close', 'Accept', 'Got it'
+                    const closeSelectors = [
+                        '[aria-label*="Close"]', '[aria-label*="dismiss"]', '[aria-label*="Close" i]',
+                        '[class*="close"]', '[id*="close"]',
+                        '.close-icon', '.modal-close', '.popup-close',
+                        'button:has-text("Accept")', 'button:has-text("Got it")', 'button:has-text("Dismiss")'
+                    ];
+                    
+                    const huntAndClick = (root) => {
+                        closeSelectors.forEach(sel => {
+                            try {
+                                const btns = root.querySelectorAll(sel);
+                                btns.forEach(btn => {
+                                    const style = window.getComputedStyle(btn);
+                                    if (style.display !== 'none' && style.visibility !== 'hidden') {
+                                        btn.click();
+                                    }
+                                });
+                            } catch(e) {}
                         });
-                        // Recurse into shadows
-                        const all = root.querySelectorAll('*');
-                        all.forEach(el => {
-                            if (el.shadowRoot) dismiss(el.shadowRoot);
+                        
+                        // Recurse into Shadow DOM
+                        root.querySelectorAll('*').forEach(el => {
+                            if (el.shadowRoot) huntAndClick(el.shadowRoot);
                         });
                     };
-                    dismiss(document);
-                    
-                    // 3. Specific Google Vignette Handling
-                    const adFrame = document.querySelector('iframe[id*="google_ads_iframe"]');
-                    if (adFrame) {
-                        try {
-                            const innerDoc = adFrame.contentDocument || adFrame.contentWindow.document;
-                            const dismissBtn = innerDoc.querySelector('#dismiss-button') || innerDoc.querySelector('.dismiss-button');
-                            if (dismissBtn) dismissBtn.click();
-                        } catch (e) {}
-                        adFrame.remove();
-                    }
-                    
-                    // Clear vignette hash if present
-                    if (window.location.hash.includes('google_vignette')) {
-                        window.location.hash = '';
-                    }
+                    huntAndClick(document);
+
+                    // 3. NUCLEAR BACKDROP NUKE: Remove blockers
+                    const blockers = document.querySelectorAll('[class*="backdrop"], [class*="overlay"], [class*="modal-bg"], [class*="cookie"]');
+                    blockers.forEach(b => {
+                        const style = window.getComputedStyle(b);
+                        const zIndex = parseInt(style.zIndex);
+                        if (zIndex > 50 || style.position === 'fixed') {
+                            b.remove();
+                        }
+                    });
+
+                    // 4. PREVENTATIVE: Hide any high z-index element that covers most of the screen
+                    document.querySelectorAll('*').forEach(el => {
+                        const style = window.getComputedStyle(el);
+                        if (parseInt(style.zIndex) > 1000) {
+                            const rect = el.getBoundingClientRect();
+                            if (rect.width > window.innerWidth * 0.8 && rect.height > window.innerHeight * 0.8) {
+                                el.style.display = 'none';
+                            }
+                        }
+                    });
                 }
             """)
-            # 2. Escape Key (Removed: Too broad, closes legitimate modals)
-            # await page.keyboard.press("Escape")
+            # 5. Escape Key (The universal close signal)
+            await page.keyboard.press("Escape")
         except Exception as e:
-            print(colored(f"   ⚠️ Overlay dismissal warning: {e}", "yellow"))
-
+            print(colored(f"   ⚠️ Overlay handler warning: {e}", "yellow"))
     async def handle_infinite_scroll(self, page, max_scrolls=5):
         """
         Smart Infinite Scroll Handler (Crawlee-inspired).
@@ -1286,11 +1462,65 @@ class ExplorerAgent:
                 return await self._execute_action(page, decision, elements)
             return {"success": False, "outcome": "No tool or action specified in decision"}
         
+        # ENHANCEMENT: Inject target_el into arguments for precision fallbacks (e.g. coordinates)
+        target_id = decision.get('arguments', {}).get('element_id')
+        target_el = next((e for e in elements if str(e['elementId']) == str(target_id)), None)
+        if target_el:
+            decision['arguments']['target_el'] = target_el
+            
+        # --- VISION-FIRST: Placeholder ID handling ---
+        if str(target_id) in ['9991', '9992', '9993']:
+            print(colored(f"🎯 [Vision-First] Handling skeletal ID {target_id} via OCR...", "magenta", attrs=["bold"]))
+            
+            # Special case for "Log in"/"Sign up" button (ID 9993) to use button detection, not label detection
+            if str(target_id) == '9993':
+                 btn_text = target_el.get('text', 'Log in')
+                 success = await self.vision_interactor.click_button_by_text(btn_text)
+                 if success:
+                     return {"success": True, "outcome": f"Skeletal '{btn_text}' button clicked via OCR"}
+                 else:
+                     return {"success": False, "outcome": f"Vision failed to find '{btn_text}' button"}
+
+            label = target_el.get('text', 'Username')
+            coords = await self.vision_interactor.find_input_by_label(label)
+            if coords:
+                if tool_name == 'smart_fill':
+                    val = decision.get('arguments', {}).get('value', '')
+                    await page.mouse.click(coords[0], coords[1])
+                    await asyncio.sleep(0.5)
+                    await page.keyboard.type(val, delay=50)
+                    return {"success": True, "outcome": "Skeletal ID filled via Vision"}
+                elif tool_name == 'smart_click':
+                    await page.mouse.click(coords[0], coords[1])
+                    return {"success": True, "outcome": "Skeletal ID clicked via Vision"}
+            return {"success": False, "outcome": f"Vision failed to locate skeletal label '{label}'"}
+
         print(colored(f"\n🔧 EXECUTING TOOL: {tool_name}", "cyan"))
         
+        # Adjust timeout for Vision-First mode (fail faster to DOM so we can use Vision)
+        if self.vision_first_mode:
+            print(colored("⏳ [Vision-First] Using 5s DOM interaction timeout", "grey"))
+            if 'arguments' not in decision: decision['arguments'] = {}
+            decision['arguments']['interaction_timeout'] = 5000
+
         # Execute the tool through ToolExecutor
         result = await self.tool_executor.execute_intent(page, decision)
         
+        # --- VISION RECOVERY ---
+        if result.get("status") == "failure" and self.vision_first_mode and self.vision_interactor:
+            err = result.get("error", "").lower()
+            if any(k in err for k in ["visible", "timeout", "intercepts", "hidden", "attached"]):
+                print(colored("🔄 [Vision Recovery] DOM interaction failed. Attempting OCR fallback...", "magenta", attrs=["bold"]))
+                label = target_el.get('text', '') if target_el else ""
+                if label and tool_name in ['smart_click', 'smart_fill']:
+                    coords = await self.vision_interactor.find_input_by_label(label)
+                    if coords:
+                        await page.mouse.click(coords[0], coords[1])
+                        if tool_name == 'smart_fill':
+                            await asyncio.sleep(0.5)
+                            await page.keyboard.type(decision.get('arguments', {}).get('value', ''), delay=50)
+                        return {"success": True, "outcome": "Recovered via Vision OCR"}
+
         # Convert ToolExecutor result to legacy format for compatibility
         return {
             "success": result.get("status") == "success",
@@ -1856,7 +2086,7 @@ class ExplorerAgent:
         """Determine which goal step we're currently working on."""
         # Match keywords from step descriptions to recent actions
         for step_meta in self.parsed_goal:
-            if step_meta['step_num'] in self.skipped_steps:
+            if step_meta['step_num'] in self.skipped_goal_steps:
                 continue  # Skip already completed steps
             
             step_keywords = [w.lower() for w in step_meta['description'].split() if len(w) > 3]
@@ -1869,7 +2099,7 @@ class ExplorerAgent:
         
         # Default: Return first incomplete step
         for step_meta in self.parsed_goal:
-            if step_meta['step_num'] not in self.skipped_steps:
+            if step_meta['step_num'] not in self.skipped_goal_steps:
                 return step_meta
         
         return self.parsed_goal[0] if self.parsed_goal else None

@@ -12,87 +12,108 @@ class VisionMiner:
     @staticmethod
     def detect_elements(image_bytes: bytes, min_area=100, max_area=100000):
         """
-        Detects rectangular blobs in the image that look like buttons or inputs.
-        Returns a list of bounding boxes: {'x', 'y', 'width', 'height', 'type'}
+        Detects rectangular blobs in the image that look like buttons or inputs using OpenCV.
         """
-        start_time = time.time()
-        
         try:
-            # 1. Load Image
-            img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
-            width, height = img.size
+            import cv2
+            import numpy as np
             
-            # 2. Preprocessing for Edge Detection
-            # Convert to grayscale
-            gray = img.convert("L")
+            # Decode image
+            nparr = np.frombuffer(image_bytes, np.uint8)
+            img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
             
-            # Find Edges (Gradient)
-            edges = gray.filter(ImageFilter.FIND_EDGES)
+            if img is None:
+                return {"success": False, "error": "Failed to decode image"}
+                
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             
-            # Threshold to get strong edges (High Contrast)
-            # This creates a binary image where edges are white
-            binary = edges.point(lambda p: 255 if p > 30 else 0)
+            # Edge Detection (Canny)
+            edges = cv2.Canny(gray, 50, 150)
             
-            # REMOVED: Inverting. We want white edges on black background for bounding box logic usually,
-            # but Pillow's getbbox works on non-zero pixels.
+            # Dilate to connect broken edges of same element
+            kernel = np.ones((3,3), np.uint8)
+            dilated = cv2.dilate(edges, kernel, iterations=1)
             
-            # 3. Simple Contour / Blob Detection Simulation
-            # Since Pillow doesn't have cv2.findContours, we can use a heuristic:
-            # - Divide image into grid or use floodfill? 
-            # - actually, a better pillow-only approach for "boxes" is hard without OpenCV.
-            # - Let's use a simpler heuristic: High Contrast Regions.
+            # Find Contours
+            contours, _ = cv2.findContours(dilated, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             
-            # ALTERNATIVE: Use ImageOps.colorize or look for solid color blocks?
-            # A robust "button detector" without OpenCV is tricky.
-            # Let's try a "Contrast Scanner"
-            
-            detected = []
-            
-            # Heuristic: Scan for rectangular regions of high contrast
-            # For a production system without OpenCV, we might just look for distinct colors.
-            # verification_targets = []
-            
-            # For now, let's implement a 'mock' detector that assumes 
-            # if we see a high-contrast rect, it's an element.
-            # But accurately getting the box coordinates purely with Pillow is computationally heavy in python loops.
-            
-            # FALLBACK: If we can't use OpenCV, we can use the 'edges' image to validate existing DOM elements.
-            # This is safer than trying to 'discover' them from scratch with slow python loops.
+            elements = []
+            for cnt in contours:
+                x, y, w, h = cv2.boundingRect(cnt)
+                area = w * h
+                
+                if min_area < area < max_area:
+                    # Aspect ratio check (buttons are usually wider than tall, inputs too)
+                    aspect = w / float(h)
+                    if 0.5 < aspect < 20: # Wide range to include icons and long bars
+                        elements.append({
+                            'x': x, 'y': y, 'width': w, 'height': h,
+                            'area': area,
+                            'type': 'detected_region'
+                        })
             
             return {
                 "success": True,
-                "elements": [], # TODO: Requires OpenCV for efficient contour detection
-                "message": "Pure Pillow detection is limited. Please install opencv-python for full bounding-box detection."
+                "elements": elements,
+                "count": len(elements)
             }
 
+        except ImportError:
+            return {"success": False, "error": "OpenCV not installed"}
         except Exception as e:
             return {"success": False, "error": str(e)}
 
     @staticmethod
     def verify_visibility(image_bytes: bytes, x, y, w, h):
         """
-        Verifies if a specific region has content (edges/contrast) vs being flat (invisible/white-on-white).
+        Verifies if a specific region has content using OpenCV statistical analysis.
         """
         try:
-            img = Image.open(io.BytesIO(image_bytes)).convert("L")
-            crop = img.crop((x, y, x+w, y+h))
+            import cv2
+            import numpy as np
             
-            # Calculate standard deviation of pixel intensity
-            # Flat regions (invisible) will have low std dev.
-            # Text/Buttons will have high std dev.
-            stat = ImageOps.grayscale(crop).getextrema()
-            # This is range, lets get variance.
+            nparr = np.frombuffer(image_bytes, np.uint8)
+            # Flag IMREAD_GRAYSCALE is faster
+            img = cv2.imdecode(nparr, cv2.IMREAD_GRAYSCALE)
             
-            import math
-            pixels = list(crop.getdata())
-            avg = sum(pixels) / len(pixels)
-            variance = sum([((x - avg) ** 2) for x in pixels]) / len(pixels)
-            std_dev = math.sqrt(variance)
+            if img is None:
+               return {"is_visible": False, "error": "Decode failed"}
+               
+            # Crop
+            # Ensure ROI is within bounds
+            h_img, w_img = img.shape
+            x = max(0, x); y = max(0, y)
+            w = min(w, w_img - x); h = min(h, h_img - y)
+            
+            if w <= 0 or h <= 0:
+                return {"is_visible": False, "reason": "Invalid ROI"}
+
+            roi = img[y:y+h, x:x+w]
+            
+            # 1. Standard Deviation (Contrast)
+            # Solid color bg = low std_dev. Text/Borders = high std_dev.
+            mean, std_dev = cv2.meanStdDev(roi)
+            std_val = std_dev[0][0]
+            
+            # 2. Edge Density
+            edges = cv2.Canny(roi, 50, 150)
+            edge_pixels = cv2.countNonZero(edges)
+            density = edge_pixels / (w * h)
+            
+            # Thresholds
+            # std_dev > 2.0 implies some contrast variation
+            # density > 0.001 implies some edges
+            is_visible = std_val > 2.0 and density > 0.001
+
             
             return {
-                "is_visible": std_dev > 5.0, # Threshold for "something is there"
-                "contrast_score": std_dev
+                "is_visible": bool(is_visible),
+                "contrast_score": float(std_val),
+                "edge_density": float(density)
             }
             
+        except ImportError:
+            # Fallback to Pillow if CV2 missing (though we verified it exists)
+            return {"is_visible": True, "note": "OpenCV missing, assuming visible"}
         except Exception as e:
             return {"is_visible": False, "error": str(e)}

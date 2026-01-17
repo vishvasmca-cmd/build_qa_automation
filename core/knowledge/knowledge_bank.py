@@ -55,10 +55,18 @@ class KnowledgeBank:
                         print(f"⚠️ Warning: Failed to load Knowledge File {loc_file}: {e}")
 
             # Load Learned Behavioral Rules
-            rules_file = os.path.join(site_path, "rules.md")
-            if os.path.exists(rules_file):
-                with open(rules_file, "r", encoding="utf-8") as f:
+            rules_file_md = os.path.join(site_path, "rules.md")
+            rules_file_json = os.path.join(site_path, "rules.json")
+            if os.path.exists(rules_file_md):
+                with open(rules_file_md, "r", encoding="utf-8") as f:
                     context.append(f"### Learned Behavioral Rules (CRITICAL - DO NOT IGNORE):\n{f.read()}")
+            elif os.path.exists(rules_file_json):
+                with open(rules_file_json, "r", encoding="utf-8") as f:
+                    try:
+                        rules_content = json.load(f)
+                        context.append(f"### Learned Behavioral Rules (CRITICAL - DO NOT IGNORE):\n{json.dumps(rules_content, indent=2)}")
+                    except Exception as e:
+                        print(f"⚠️ Warning: Failed to load rules file {rules_file_json}: {e}")
 
         # 2. Domain Knowledge (Generic patterns for E-commerce, etc)
         # We try to infer domain or use project config
