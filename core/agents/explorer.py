@@ -28,6 +28,7 @@ if sys.platform == "win32":
 # Import robust LLM wrapper
 # Import robust LLM wrapper
 from core.lib.llm_utils import SafeLLM, try_parse_json
+from types import SimpleNamespace
 
 # Import agents
 # Import agents
@@ -593,7 +594,8 @@ class ExplorerAgent:
                             self.last_state_key = state_key
                             self.last_mindmap = mindmap
                     # ----------------------------------
-                    
+                    page_title = mindmap.get('summary', {}).get('title') if mindmap else None
+
                     if not page_title or page_title == "Unknown":
                         page_title = await page.title() or "Unknown"
 
@@ -2227,6 +2229,46 @@ You MUST try a DIFFERENT approach than what failed before.
             return try_parse_json(resp.content)
         except Exception as e:
             print(f"Enhanced decision error: {e}")
+            return None
+
+
+    async def _ask_vision_oracle(self, page: Page, goal: str) -> dict:
+        """
+        Fallback: Ask LLM to look at the screenshot and decide the next step purely visually.
+        """
+        print(colored("👁️ Vision Oracle: Analyzing screenshot for next step...", "magenta", attrs=["bold"]))
+        
+        try:
+            # 1. Capture Screenshot
+            screenshot_bytes = await page.screenshot(format="png")
+            b64_img = base64.b64encode(screenshot_bytes).decode('utf-8')
+            
+            # 2. Construct Vision Prompt (Wrapper for Image handling)
+            # We use a structured list that SafeLLM can process
+            content_parts = [
+                {"type": "text", "text": f"You are a Vision-Based Automation Agent. The user wants to achieve: '{goal}'."},
+                {"type": "text", "text": "Look at the screenshot and identifying the SINGLE best interactive element (button, link, input) to interact with right now."},
+                {"type": "text", "text": "Return a JSON object with:\n- thought: Your reasoning.\n- action: 'click' or 'type'\n- target_text: The visible text on the element or near the input.\n- location_description: Brief description of where it is."},
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64_img}"}}
+            ]
+            
+            # Wrap in a SimpleNamespace to mimic an object with .content attribute
+            # This triggers the list processing logic in SafeLLM
+            prompt_msg = SimpleNamespace(content=content_parts)
+            
+            # 3. Ask Gemini
+            response = await self.llm.ainvoke([prompt_msg])
+            decision = try_parse_json(response)
+            
+            if decision:
+                print(colored(f"👁️ Vision Oracle says: {decision.get('thought')}", "cyan"))
+                return decision
+                
+            return None
+            
+        except Exception as e:
+            print(colored(f"⚠️ Vision Oracle failed: {e}", "yellow"))
+            traceback.print_exc()
             return None
 
 
