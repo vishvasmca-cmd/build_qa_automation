@@ -75,16 +75,22 @@ jobs:
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: |
-          python trigger_agent.py projects/ci_${{ matrix.website.name }}/config.json --headless
+          # Use the new Orchestrator with refined exploration.
+          # We don't use --deep here to keep CI fast (1 scenario vs 5), 
+          # but we benefit from the new iterative & self-healing explorer.py
+          python orchestrator.py --project projects/ci_${{ matrix.website.name }} --force
         continue-on-error: true
 
-      - name: Check trace generated
+      - name: Check Results Generated
         run: |
-          if [ -f "projects/ci_${{ matrix.website.name }}/outputs/trace.json" ]; then
-            echo "✅ Trace generated successfully"
-            cat projects/ci_${{ matrix.website.name }}/outputs/trace.json | jq '.trace | length' || echo "Trace exists"
+          # The new orchestrator outputs execution.json in the project root
+          RESULT_FILE="projects/ci_${{ matrix.website.name }}/execution.json"
+          if [ -f "$RESULT_FILE" ]; then
+            echo "✅ Results generated successfully: $RESULT_FILE"
+            # Extract count of passed scenarios/steps for visibility
+            cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"
           else
-            echo "❌ Trace generation failed"
+            echo "❌ No result file found at $RESULT_FILE"
             exit 1
           fi
 
@@ -92,17 +98,18 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.website.name }}-failure-artifacts
+          name: ${{ matrix.website.name }}-failure-logs
           path: |
-            projects/ci_${{ matrix.website.name }}/outputs/
+            projects/ci_${{ matrix.website.name }}/*.log
+            projects/ci_${{ matrix.website.name }}/.checkpoint.json
           retention-days: 7
 
-      - name: Upload trace on success
+      - name: Upload execution results on success
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.website.name }}-trace
-          path: projects/ci_${{ matrix.website.name }}/outputs/trace.json
+          name: ${{ matrix.website.name }}-execution-results
+          path: projects/ci_${{ matrix.website.name }}/execution.json
           retention-days: 30
 
   summary:
