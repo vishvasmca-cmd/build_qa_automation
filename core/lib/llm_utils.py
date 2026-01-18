@@ -280,6 +280,9 @@ class SafeLLM:
                                             pass
                     else:
                         prompt_parts.append(str(content))
+        else:
+            # Handle string-based messages
+            prompt_parts.append(str(messages))
         
         # Combine all prompts and hash
         combined_prompt = "\n---\n".join(prompt_parts)
@@ -340,6 +343,4 @@ def try_parse_json(content):
     except:
         pass
         
-    return None
-
     return None

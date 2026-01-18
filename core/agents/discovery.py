@@ -26,6 +26,10 @@ class DiscoveryAgent:
     def __init__(self, project_dir: str, headed: bool = False, concurrency: int = 3):
         self.project_dir = os.path.abspath(project_dir)
         self.sitemap_path = os.path.join(self.project_dir, "sitemap.json")
+        
+        # Ensure project directory exists
+        os.makedirs(self.project_dir, exist_ok=True)
+        
         self.headed = headed
         self.concurrency = concurrency
         self.visited_urls: Set[str] = set()
