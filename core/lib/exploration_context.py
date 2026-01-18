@@ -1,6 +1,7 @@
 from datetime import datetime
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
+import hashlib
 
 
 @dataclass
@@ -33,6 +34,11 @@ class ExplorationContext:
         self.stuck_count = 0
         self.last_url = None
         self.url_visit_count: Dict[str, int] = {}
+        
+        # State fingerprinting for page equivalence
+        self.state_fingerprints: Dict[str, Tuple[str, List[str]]] = {}  # {fingerprint: (url, actions_to_reach)}
+        self.current_fingerprint: Optional[str] = None
+        self.state_transitions: Dict[str, Dict[str, str]] = {}  # {from_state: {action: to_state}}
         
     def add_action(self, step_id: Any, keyword: str, description: str, 
                    selector: Optional[str], success: bool, page_url: str,
@@ -173,3 +179,85 @@ Pages Visited: {len(self.pages_visited)}
                 for a in self.get_recent_actions(5)
             ]
         }
+    
+    def get_page_fingerprint(self, url: str, dom_snapshot: Optional[str] = None) -> str:
+        """
+        Generate state fingerprint from URL and DOM content.
+        
+        Args:
+            url: Current page URL
+            dom_snapshot: Optional DOM content snapshot (first 5000 chars)
+            
+        Returns:
+            MD5 hash representing page state
+        """
+        # Use URL as primary identifier
+        state_parts = [url]
+        
+        # Add DOM hash if available (for detecting dynamic content changes)
+        if dom_snapshot:
+            # Hash first 5000 chars to capture page structure without full content
+            dom_hash = hashlib.md5(dom_snapshot[:5000].encode()).hexdigest()[:8]
+            state_parts.append(dom_hash)
+        
+        # Combine and hash
+        combined = "|".join(state_parts)
+        return hashlib.md5(combined.encode()).hexdigest()
+    
+    def record_state(self, url: str, dom_snapshot: Optional[str] = None) -> bool:
+        """
+        Record current page state and detect if we've been here before.
+        
+        Args:
+            url: Current page URL
+            dom_snapshot: Optional DOM snapshot
+            
+        Returns:
+            True if this is a NEW state, False if we've visited this exact state before
+        """
+        fingerprint = self.get_page_fingerprint(url, dom_snapshot)
+        
+        is_new_state = fingerprint not in self.state_fingerprints
+        
+        if is_new_state:
+            # Track how we reached this state
+            recent_step_ids = [a.step_id for a in self.get_recent_actions(3)]
+            self.state_fingerprints[fingerprint] = (url, recent_step_ids)
+        
+        self.current_fingerprint = fingerprint
+        return is_new_state
+    
+    def record_transition(self, from_state: str, action_desc: str, to_state: str):
+        """
+        Record state transition for path analysis.
+        
+        Args:
+            from_state: State fingerprint before action
+            action_desc: Action description (e.g., "click login-button")
+            to_state: State fingerprint after action
+        """
+        if from_state not in self.state_transitions:
+            self.state_transitions[from_state] = {}
+        
+        self.state_transitions[from_state][action_desc] = to_state
+    
+    def is_circular_navigation(self, target_fingerprint: str) -> bool:
+        """
+        Detect if we're about to navigate in a circle.
+        
+        Args:
+            target_fingerprint: Fingerprint we're about to navigate to
+            
+        Returns:
+            True if this would create a circular path
+        """
+        # Check if we've already visited this exact state
+        if target_fingerprint in self.state_fingerprints:
+            # Allow revisiting if it's been more than 5 actions ago
+            _, steps_to_reach = self.state_fingerprints[target_fingerprint]
+            recent_steps = [a.step_id for a in self.get_recent_actions(5)]
+            
+            # If any of the steps to reach this state are in recent actions, it's circular
+            return any(step in recent_steps for step in steps_to_reach if step)
+        
+        return False
