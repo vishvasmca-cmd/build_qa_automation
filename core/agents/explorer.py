@@ -418,7 +418,19 @@ class ExplorerAgent:
                             dom_snapshot = await page.content()
                             is_new_state = self.exploration_context.record_state(page.url, dom_snapshot)
                             if not is_new_state:
-                                self.log(f"    🔄 Revisited state detected", "yellow")
+                                # Track revisit count to prevent infinite loops
+                                self._revisit_counter = getattr(self, "_revisit_counter", 0) + 1
+                                self.log(f"    🔄 Revisited state detected (count: {self._revisit_counter})", "yellow")
+                                
+                                # If we've revisited too many times, stop injecting AI steps
+                                if self._revisit_counter >= 5:
+                                    self.log(f"    ⚠️ Too many revisits ({self._revisit_counter}). Stopping AI step injection to prevent loops.", "red")
+                                    # Skip AI suggestion by jumping to next step
+                                    i += 1
+                                    continue
+                            else:
+                                # Reset revisit counter on new state
+                                self._revisit_counter = 0
                         except:
                             pass  # Don't fail exploration if state tracking fails
                     
@@ -445,11 +457,23 @@ class ExplorerAgent:
                     else:
                         context_summary = f"Just completed: {keyword} {description or ''}"
                     
+                    # FORM COMPLETION DETECTION: Check if we're on a form page with submit button
+                    form_complete_hint = ""
+                    if getattr(self, "_revisit_counter", 0) >= 3:
+                        # Check for form elements and submit buttons
+                        try:
+                            has_inputs = await page.locator("input[type='text'], input[type='password'], input[type='email'], textarea").count()
+                            has_submit = await page.locator("button[type='submit'], input[type='submit'], button:has-text('Register'), button:has-text('Submit'), button:has-text('Sign Up')").count()
+                            if has_inputs > 0 and has_submit > 0:
+                                form_complete_hint = "\n**IMPORTANT:** This appears to be a form page. If all required fields are filled, suggest clicking the submit/register button instead of re-filling fields."
+                        except:
+                            pass
+                    
                     # Ask AI for next step using the same mindmap (no duplicate analyze_page call)
                     next_suggestion = await self._ask_llm_next_step(
                         page, 
                         self.workflow.get("goal", ""),
-                        context_summary,  # Enhanced with exploration history
+                        context_summary + form_complete_hint,  # Enhanced with exploration history and form hint
                         mindmap.get("elements", []),
                         mindmap.get("screenshot")
                     )
