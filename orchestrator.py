@@ -17,12 +17,15 @@ class Orchestrator:
     def __init__(self, project_dir: str, deep_mode: bool = False):
         self.project_dir = os.path.abspath(project_dir)
         self.project_name = os.path.basename(self.project_dir)
+        
+        # Ensure project directory exists
+        os.makedirs(self.project_dir, exist_ok=True)
+        
         self.workflow_path = os.path.join(self.project_dir, "workflow.json")
         self.execution_path = os.path.join(self.project_dir, "execution.json")
         self.checkpoint_path = os.path.join(self.project_dir, ".checkpoint.json")
         self.config_path = os.path.join(self.project_dir, "config.json")
         self.config = self._load_config()
-        self.deep_mode = deep_mode  # New flag to trigger deep explorer
         self.deep_mode = deep_mode  # New flag to trigger deep explorer
         
     def _load_config(self) -> Dict:
@@ -93,7 +96,7 @@ class Orchestrator:
 
     def execute_pipeline(self, goal: str = None, force: bool = False, security: bool = False, headed: bool = False, phase: str = None, base_url: str = None):
         # Use config defaults if not provided
-        goal = goal or self.config.get("workflow_description")
+        goal = goal or self.config.get("goal") or self.config.get("workflow_description")  # Try "goal" first, fallback to old key
         base_url = base_url or self.config.get("target_url")
 
         if force and os.path.exists(self.checkpoint_path):
@@ -101,12 +104,16 @@ class Orchestrator:
 
         # 1. INITIAL DISCOVERY PHASE (Discovery-First)
         # This captures the landing page structure to help the planner
-        if not phase or phase == "discovery":
+        # We only run this in DEEP mode by default, or if explicitly requested.
+        if (not phase and self.deep_mode) or phase == "discovery":
              # Use the new Semantic Discovery Agent
              discovery_script = "discovery.py"
              # Use configured URL or default
              url = base_url or self.config.get("target_url") or "https://automationexercise.com"
              discovery_args = ["--project", self.project_dir, "--url", url]
+             
+             if self.deep_mode:
+                 discovery_args.append("--deep")
              
              # Check if sitemap exists to potentially skip
              sitemap_path = os.path.join(self.project_dir, "sitemap.json")

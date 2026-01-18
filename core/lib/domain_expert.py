@@ -9,23 +9,23 @@ class DomainExpert:
     DOMAINS = {
         "ecommerce": {
             "keywords": ["cart", "shop", "checkout", "product", "price", "buy", "order", "stock"],
-            "persona": "E-commerce Optimization Specialist",
-            "heuristics": "Focus on the shopping funnel. CRITICAL: Identify SEARCH BARS (inputs with placeholders like 'Search'), magnifying glass icons, and 'Add to Cart' buttons. Dismiss popups immediately. For product lists, select the FIRST available item."
+            "persona": "Senior SDET focusing on e-commerce flow automation and conversion funnel reliability",
+            "heuristics": "Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation."
         },
         "finance": {
             "keywords": ["account", "balance", "transfer", "bank", "loan", "invest", "trading", "stock"],
-            "persona": "FinTech Security & UX Auditor",
-            "heuristics": "Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options."
+            "persona": "Senior SDET focusing on exploring application to understand functional flow and automating FinTech scenarios",
+            "heuristics": "Focus on the end-to-end functional flow (e.g., Account Creation, Login, Funds Transfer, Loan Application). Prioritize identifying stable locators and interactive elements for automation. Ensure core banking features are accessible and functional."
         },
         "saas": {
             "keywords": ["dashboard", "settings", "profile", "billing", "features", "solutions", "pricing"],
-            "persona": "SaaS Product Strategist",
-            "heuristics": "Focus on user onboarding and dashboard navigation. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items."
+            "persona": "Senior SDET focusing on SaaS platform stability and functional coverage",
+            "heuristics": "Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths."
         },
         "social_media": {
             "keywords": ["feed", "post", "friend", "follow", "comment", "share", "like", "profile"],
-            "persona": "Social Media Engagement Expert",
-            "heuristics": "Focus on interaction elements: like, share, comment. Prioritize feed navigation and profile settings."
+            "persona": "Senior SDET focusing on social interaction and feed reliability",
+            "heuristics": "Focus on interactive engagement elements: like, share, comment. Prioritize feed scrolling behavior and profile settings automation."
         }
     }
 
@@ -71,4 +71,4 @@ class DomainExpert:
         data = DomainExpert.DOMAINS.get(domain)
         if data:
             return f"Act as a {data['persona']}. {data['heuristics']}"
-        return "Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns."
+        return "Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation."

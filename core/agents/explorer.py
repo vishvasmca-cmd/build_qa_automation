@@ -225,8 +225,36 @@ class ExplorerAgent:
                 
                 # 1. Navigation
                 if keyword == "navigate":
-                    await page.goto(args["url"], wait_until="domcontentloaded")
-                    self.log(f"    ✅ Navigated to {args['url']}", "green")
+                    nav_url = args["url"]
+                    base_url = self.workflow.get("base_url", "")
+                    
+                    # Handle relative URLs
+                    if nav_url.startswith("/") and base_url:
+                        full_url = base_url.rstrip("/") + nav_url
+                        self.log(f"    🔗 Joining relative URL: {nav_url} -> {full_url}", "grey")
+                        nav_url = full_url
+                    
+                    # Domain validation: Prevent cross-domain navigation
+                    if base_url:
+                        from urllib.parse import urlparse
+                        base_domain = urlparse(base_url).netloc
+                        nav_domain = urlparse(nav_url).netloc
+                        
+                        if nav_domain and base_domain and nav_domain != base_domain:
+                            self.log(f"    ⚠️ Skipping cross-domain navigation: {nav_domain} (target: {base_domain})", "yellow")
+                            self.log(f"    🎯 Staying on target domain to maintain test focus", "cyan")
+                            i += 1
+                            continue
+                    
+                    try:
+                        await page.goto(nav_url, wait_until="domcontentloaded", timeout=30000)
+                        self.log(f"    ✅ Navigated to {nav_url}", "green")
+                    except Exception as e:
+                        self.log(f"    ❌ Navigation failed to {nav_url}: {e}", "red")
+                        # If it's a relative URL and we didn't have a base_url, this is expected to fail
+                        # But we'll let it try to heal if possible, though navigation is tricky
+                        raise e
+                        
                     i += 1
                     continue
                 
