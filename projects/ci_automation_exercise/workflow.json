@@ -1,0 +1,208 @@
+{
+  "project": "ci_automation_exercise",
+  "goal": "Navigate homepage, view products, search for 'dress', filter results, add product to cart, view cart",
+  "base_url": "https://www.automationexercise.com/",
+  "scenarios": [
+    {
+      "id": "TC001",
+      "name": "Product Search, Filter, and Add to Cart",
+      "description": "Navigates the homepage, searches for 'dress', filters results (if applicable), adds a product to the cart, and views the cart.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://www.automationexercise.com/"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "dress",
+            "description": "Search"
+          }
+        },
+        {
+          "keyword": "press",
+          "args": {
+            "key": "Enter",
+            "description": "Search"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/products?search=dress"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "View Product"
+          }
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Write Your Review"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart"
+          }
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "View Cart"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "View Cart"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/view_cart"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TC002",
+      "name": "Browse Products and Add to Cart",
+      "description": "Navigates to the products page, selects the first product, and adds it to the cart.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://www.automationexercise.com/"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Products"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/products"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "View Product"
+          }
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Write Your Review"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart"
+          }
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "View Cart"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "View Cart"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/view_cart"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TC003",
+      "name": "Contact Us Form Submission",
+      "description": "Navigates to the Contact Us page, fills out the form, and submits it.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://www.automationexercise.com/"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Contact us"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/contact_us"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "{random_name}",
+            "description": "Name"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "{random_email}",
+            "description": "Email"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "Subject",
+            "description": "Subject"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "This is a test message.",
+            "description": "Your Message"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Submit"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "OK"
+          }
+        }
+      ]
+    }
+  ]
+}
