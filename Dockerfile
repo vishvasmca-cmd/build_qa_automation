@@ -22,5 +22,5 @@ COPY . .
 RUN mkdir -p /app/projects && chmod -R 777 /app/projects
 RUN mkdir -p /app/outputs && chmod -R 777 /app/outputs
 
-# 6. Run Server
-CMD ["uvicorn", "api.server:app", "--host", "0.0.0.0", "--port", "7860"]
+# 6. Default Command (Example usage)
+CMD ["python", "orchestrator.py", "--help"]

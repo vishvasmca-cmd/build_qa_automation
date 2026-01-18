@@ -113,14 +113,12 @@ class BusinessValidator:
         }}
         """
         
-        # 3. Construct Prompt (Use HumanMessage for Robustness)
-        from langchain_core.messages import HumanMessage
-        
+        # 3. Construct Prompt (Use structured messages for SafeLLM)
         content_parts = [{"type": "text", "text": prompt}]
         if image_context:
             content_parts.extend(image_context)
             
-        messages = [HumanMessage(content=content_parts)]
+        messages = [{"content": content_parts}] # SafeLLM handles this format
         
         # 4. Call LLM
         response = self.llm.invoke(messages)
