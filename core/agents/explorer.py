@@ -114,6 +114,10 @@ class ExplorerAgent:
                 await self._explore_scenario(page, scenario, discovery_stats)
                 await asyncio.sleep(1)
 
+            # Count completed scenarios (those with at least some steps)
+            completed_scenarios = sum(1 for s in self.workflow.get('scenarios', []) 
+                                     if s.get('steps') and len(s.get('steps', [])) > 0)
+
             # Save updated workflow
             self.log(f"💾 Saving {len(self.workflow.get('scenarios', []))} scenarios to {self.workflow_path}", "cyan")
             with open(self.workflow_path, 'w', encoding='utf-8') as f:
@@ -122,16 +126,31 @@ class ExplorerAgent:
             await browser.close()
             
             # --- FINAL EXPLORATION SUMMARY ---
-            self.log("\n" + "="*40, "blue")
-            self.log("📋 EXPLORATION SUMMARY", "blue", attrs=["bold"])
-            self.log(f"✅ Successfully Mined: {discovery_stats['passed']}")
-            self.log(f"✨ AI Assisted/Healed: {discovery_stats['healed']}")
-            self.log(f"❌ Discovery Failures: {discovery_stats['failed']}")
+            total_scenarios = len(self.workflow.get('scenarios', []))
+            self.log("\n" + "="*60, "blue")
+            self.log("📊 EXPLORATION SUMMARY", "blue", attrs=["bold"])
+            self.log("="*60, "blue")
+            
+            # High-level overview
+            self.log(f"\n📋 Scenario Overview:", "cyan", attrs=["bold"])
+            self.log(f"   • Total Scenarios Planned: {total_scenarios}")
+            self.log(f"   • Scenarios Explored: {completed_scenarios}")
+            self.log(f"   • Total Steps Generated: {sum(len(s.get('steps', [])) for s in self.workflow.get('scenarios', []))}")
+            
+            # Discovery stats
+            self.log(f"\n🔍 Discovery Statistics:", "cyan", attrs=["bold"])
+            self.log(f"   ✅ Successfully Mined: {discovery_stats['passed']}")
+            self.log(f"   ✨ AI Assisted/Healed: {discovery_stats['healed']}")
+            self.log(f"   ❌ Discovery Failures: {discovery_stats['failed']}")
+            
             if discovery_stats["details"]:
-                self.log("\nFailure Details:", "red")
-                for detail in discovery_stats["details"]:
-                    self.log(f"  - {detail}")
-            self.log("="*40 + "\n", "blue")
+                self.log("\n⚠️  Failure Details:", "red")
+                for detail in discovery_stats["details"][:5]:  # Show first 5
+                    self.log(f"   - {detail}")
+                if len(discovery_stats["details"]) > 5:
+                    self.log(f"   ... and {len(discovery_stats['details']) - 5} more")
+            
+            self.log("\n" + "="*60, "blue")
             # ----------------------------------
             
             self.log(f"🏁 Exploration Complete. Locators saved to: {self.workflow_path}", "green", attrs=["bold"])

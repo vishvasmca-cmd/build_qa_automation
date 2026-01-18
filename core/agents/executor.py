@@ -131,6 +131,41 @@ class ExecutorAgent:
                 json.dump(self.results, f, indent=2)
             
             await browser.close()
+            
+            # --- EXECUTION SUMMARY ---
+            total_scenarios = len(self.workflow.get("scenarios", []))
+            executed_scenarios = len(self.results["scenarios"])
+            passed_scenarios = sum(1 for s in self.results["scenarios"] if s["status"] == "passed")
+            failed_scenarios = executed_scenarios - passed_scenarios
+            
+            self.log("\n" + "="*60, "blue")
+            self.log("🎯 EXECUTION SUMMARY", "blue", attrs=["bold"])
+            self.log("="*60, "blue")
+            
+            # High-level overview
+            self.log(f"\n📋 Scenario Overview:", "cyan", attrs=["bold"])
+            self.log(f"   • Total Scenarios Planned: {total_scenarios}")
+            self.log(f"   • Scenarios Executed: {executed_scenarios}")
+            self.log(f"   • Total Steps Executed: {sum(len(s.get('steps', [])) for s in self.results['scenarios'])}")
+            
+            # Pass/Fail breakdown
+            self.log(f"\n✅ Results:", "cyan", attrs=["bold"])
+            if passed_scenarios > 0:
+                self.log(f"   ✅ Passed: {passed_scenarios} ({int(passed_scenarios/executed_scenarios*100)}%)" if executed_scenarios > 0 else "   ✅ Passed: 0", "green")
+            if failed_scenarios > 0:
+                self.log(f"   ❌ Failed: {failed_scenarios} ({int(failed_scenarios/executed_scenarios*100)}%)" if executed_scenarios > 0 else "   ❌ Failed: 0", "red")
+            
+            # List failed scenarios
+            if failed_scenarios > 0:
+                self.log(f"\n⚠️  Failed Scenarios:", "red", attrs=["bold"])
+                for scenario_result in self.results["scenarios"]:
+                    if scenario_result["status"] == "failed":
+                        scenario_name = next((s["name"] for s in self.workflow.get("scenarios", []) if s["id"] == scenario_result["id"]), "Unknown")
+                        self.log(f"   • {scenario_name}")
+                        if "error" in scenario_result:
+                            self.log(f"     Error: {scenario_result['error'][:100]}...", "red")
+            
+            self.log("\n" + "="*60, "blue")
             self.log(f"\n🏁 Execution Finished. Report: {self.execution_path}", "green", attrs=["bold"])
 
     async def execute_step(self, page: Page, step: Dict, scenario_name: str) -> Dict:
