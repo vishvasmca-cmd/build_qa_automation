@@ -1,0 +1,1118 @@
+﻿2026-01-18T09:25:35.8966973Z Current runner version: '2.331.0'
+2026-01-18T09:25:35.8998771Z ##[group]Runner Image Provisioner
+2026-01-18T09:25:35.9000112Z Hosted Compute Agent
+2026-01-18T09:25:35.9000964Z Version: 20251211.462
+2026-01-18T09:25:35.9002333Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-18T09:25:35.9003793Z Build Date: 2025-12-11T16:28:49Z
+2026-01-18T09:25:35.9005016Z Worker ID: {96342905-aff6-44f6-95e9-64448999cf12}
+2026-01-18T09:25:35.9006292Z ##[endgroup]
+2026-01-18T09:25:35.9007281Z ##[group]Operating System
+2026-01-18T09:25:35.9008164Z Ubuntu
+2026-01-18T09:25:35.9008816Z 24.04.3
+2026-01-18T09:25:35.9009602Z LTS
+2026-01-18T09:25:35.9010379Z ##[endgroup]
+2026-01-18T09:25:35.9011448Z ##[group]Runner Image
+2026-01-18T09:25:35.9012460Z Image: ubuntu-24.04
+2026-01-18T09:25:35.9013241Z Version: 20260111.209.1
+2026-01-18T09:25:35.9014891Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-18T09:25:35.9017616Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-18T09:25:35.9019411Z ##[endgroup]
+2026-01-18T09:25:35.9021293Z ##[group]GITHUB_TOKEN Permissions
+2026-01-18T09:25:35.9024158Z Contents: read
+2026-01-18T09:25:35.9025055Z Metadata: read
+2026-01-18T09:25:35.9025821Z Packages: read
+2026-01-18T09:25:35.9026661Z ##[endgroup]
+2026-01-18T09:25:35.9029391Z Secret source: Actions
+2026-01-18T09:25:35.9030412Z Prepare workflow directory
+2026-01-18T09:25:35.9478381Z Prepare all required actions
+2026-01-18T09:25:35.9533698Z Getting action download info
+2026-01-18T09:25:36.2402453Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-18T09:25:36.3829974Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-18T09:25:36.4704379Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-18T09:25:36.6890887Z Complete job name: test-complex-websites (orangehrm_demo, https://opensource-demo.orangehrmlive.com/, Login with Adm...
+2026-01-18T09:25:36.7572825Z ##[group]Run actions/checkout@v4
+2026-01-18T09:25:36.7573659Z with:
+2026-01-18T09:25:36.7574106Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T09:25:36.7574832Z   token: ***
+2026-01-18T09:25:36.7575205Z   ssh-strict: true
+2026-01-18T09:25:36.7575585Z   ssh-user: git
+2026-01-18T09:25:36.7575978Z   persist-credentials: true
+2026-01-18T09:25:36.7576405Z   clean: true
+2026-01-18T09:25:36.7576789Z   sparse-checkout-cone-mode: true
+2026-01-18T09:25:36.7577252Z   fetch-depth: 1
+2026-01-18T09:25:36.7577629Z   fetch-tags: false
+2026-01-18T09:25:36.7578018Z   show-progress: true
+2026-01-18T09:25:36.7578403Z   lfs: false
+2026-01-18T09:25:36.7578764Z   submodules: false
+2026-01-18T09:25:36.7579155Z   set-safe-directory: true
+2026-01-18T09:25:36.7579927Z ##[endgroup]
+2026-01-18T09:25:36.8663805Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T09:25:36.8665570Z ##[group]Getting Git version info
+2026-01-18T09:25:36.8666415Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T09:25:36.8667493Z [command]/usr/bin/git version
+2026-01-18T09:25:36.8757522Z git version 2.52.0
+2026-01-18T09:25:36.8785355Z ##[endgroup]
+2026-01-18T09:25:36.8801429Z Temporarily overriding HOME='/home/runner/work/_temp/68b39e21-05ac-4af5-a38a-ff7828683ad2' before making global git config changes
+2026-01-18T09:25:36.8803813Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T09:25:36.8815485Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T09:25:36.8856267Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T09:25:36.8859916Z ##[group]Initializing the repository
+2026-01-18T09:25:36.8865609Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T09:25:36.8987083Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-18T09:25:36.8988372Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-18T09:25:36.8989939Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-18T09:25:36.8991468Z hint: call:
+2026-01-18T09:25:36.8992116Z hint:
+2026-01-18T09:25:36.8992851Z hint: 	git config --global init.defaultBranch <name>
+2026-01-18T09:25:36.8993794Z hint:
+2026-01-18T09:25:36.8994341Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-18T09:25:36.8995223Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-18T09:25:36.8995901Z hint:
+2026-01-18T09:25:36.8996280Z hint: 	git branch -m <name>
+2026-01-18T09:25:36.8996713Z hint:
+2026-01-18T09:25:36.8997276Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-18T09:25:36.8998364Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-18T09:25:36.9008652Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T09:25:36.9046419Z ##[endgroup]
+2026-01-18T09:25:36.9047824Z ##[group]Disabling automatic garbage collection
+2026-01-18T09:25:36.9050326Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-18T09:25:36.9081403Z ##[endgroup]
+2026-01-18T09:25:36.9082690Z ##[group]Setting up auth
+2026-01-18T09:25:36.9088660Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T09:25:36.9121519Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T09:25:36.9509298Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T09:25:36.9538024Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T09:25:36.9759077Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T09:25:36.9788486Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T09:25:37.0029929Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-18T09:25:37.0064498Z ##[endgroup]
+2026-01-18T09:25:37.0065336Z ##[group]Fetching the repository
+2026-01-18T09:25:37.0072909Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +0876873ded0353f71e85298c7ecbf6841b796082:refs/remotes/origin/main
+2026-01-18T09:25:37.6855461Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T09:25:37.6857387Z  * [new ref]         0876873ded0353f71e85298c7ecbf6841b796082 -> origin/main
+2026-01-18T09:25:37.6892155Z ##[endgroup]
+2026-01-18T09:25:37.6893455Z ##[group]Determining the checkout info
+2026-01-18T09:25:37.6894888Z ##[endgroup]
+2026-01-18T09:25:37.6897891Z [command]/usr/bin/git sparse-checkout disable
+2026-01-18T09:25:37.6938851Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-18T09:25:37.6966014Z ##[group]Checking out the ref
+2026-01-18T09:25:37.6970589Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-18T09:25:37.7874578Z Switched to a new branch 'main'
+2026-01-18T09:25:37.7876075Z branch 'main' set up to track 'origin/main'.
+2026-01-18T09:25:37.7891033Z ##[endgroup]
+2026-01-18T09:25:37.7928940Z [command]/usr/bin/git log -1 --format=%H
+2026-01-18T09:25:37.7950994Z 0876873ded0353f71e85298c7ecbf6841b796082
+2026-01-18T09:25:37.8262418Z ##[group]Run actions/setup-python@v5
+2026-01-18T09:25:37.8263597Z with:
+2026-01-18T09:25:37.8264421Z   python-version: 3.11
+2026-01-18T09:25:37.8265359Z   cache: pip
+2026-01-18T09:25:37.8266435Z   check-latest: false
+2026-01-18T09:25:37.8267698Z   token: ***
+2026-01-18T09:25:37.8268567Z   update-environment: true
+2026-01-18T09:25:37.8269587Z   allow-prereleases: false
+2026-01-18T09:25:37.8270580Z   freethreaded: false
+2026-01-18T09:25:37.8271857Z ##[endgroup]
+2026-01-18T09:25:37.9939559Z ##[group]Installed versions
+2026-01-18T09:25:38.0054306Z Successfully set up CPython (3.11.14)
+2026-01-18T09:25:38.0055494Z ##[endgroup]
+2026-01-18T09:25:38.0602044Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-18T09:25:38.3811672Z /home/runner/.cache/pip
+2026-01-18T09:25:38.5134228Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-e01604ec9be86a26965d6215464cc16bab5cdc759625cb1899035b468728c8f7
+2026-01-18T09:25:39.2659347Z Received 173771502 of 173771502 (100.0%), 229.8 MBs/sec
+2026-01-18T09:25:39.2660269Z Cache Size: ~166 MB (173771502 B)
+2026-01-18T09:25:39.2688990Z [command]/usr/bin/tar -xf /home/runner/work/_temp/364807fe-006e-4345-9353-498d5fa7d0bf/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-18T09:25:39.5454681Z Cache restored successfully
+2026-01-18T09:25:39.5792710Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-ad5e4ba510d266fcd4d29dab1e74cf3459c639ec34c8ba822fa9eb95ff648a3c
+2026-01-18T09:25:39.6028092Z ##[group]Run pip install -r requirements.txt
+2026-01-18T09:25:39.6028545Z [36;1mpip install -r requirements.txt[0m
+2026-01-18T09:25:39.6028858Z [36;1mplaywright install chromium[0m
+2026-01-18T09:25:39.6066970Z shell: /usr/bin/bash -e {0}
+2026-01-18T09:25:39.6067242Z env:
+2026-01-18T09:25:39.6067502Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:39.6067933Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:25:39.6068368Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:39.6068780Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:39.6069168Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:39.6069548Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:25:39.6069854Z ##[endgroup]
+2026-01-18T09:25:40.2766270Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-18T09:25:40.2782157Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-18T09:25:40.2994520Z Collecting langchain-google-genai (from -r requirements.txt (line 2))
+2026-01-18T09:25:40.3009090Z   Using cached langchain_google_genai-4.2.0-py3-none-any.whl.metadata (2.7 kB)
+2026-01-18T09:25:40.3200662Z Collecting python-dotenv (from -r requirements.txt (line 3))
+2026-01-18T09:25:40.3214703Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-18T09:25:40.3592312Z Collecting requests (from -r requirements.txt (line 4))
+2026-01-18T09:25:40.3607518Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-18T09:25:40.5216969Z Collecting pillow (from -r requirements.txt (line 5))
+2026-01-18T09:25:40.5237509Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-18T09:25:40.5872650Z Collecting openai (from -r requirements.txt (line 6))
+2026-01-18T09:25:40.5885567Z   Using cached openai-2.15.0-py3-none-any.whl.metadata (29 kB)
+2026-01-18T09:25:40.6158192Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 7))
+2026-01-18T09:25:40.6178628Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-18T09:25:40.6386646Z Collecting termcolor (from -r requirements.txt (line 8))
+2026-01-18T09:25:40.6399486Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-18T09:25:40.6755341Z Collecting pytest (from -r requirements.txt (line 9))
+2026-01-18T09:25:40.6767807Z   Using cached pytest-9.0.2-py3-none-any.whl.metadata (7.6 kB)
+2026-01-18T09:25:40.6948487Z Collecting pytest-playwright (from -r requirements.txt (line 10))
+2026-01-18T09:25:40.6961360Z   Using cached pytest_playwright-0.7.2-py3-none-any.whl.metadata (14 kB)
+2026-01-18T09:25:40.7170480Z Collecting pytest-html (from -r requirements.txt (line 11))
+2026-01-18T09:25:40.7183378Z   Using cached pytest_html-4.1.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-18T09:25:40.7364188Z Collecting jinja2 (from -r requirements.txt (line 12))
+2026-01-18T09:25:40.7377813Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+2026-01-18T09:25:40.7747991Z Collecting PyYAML (from -r requirements.txt (line 13))
+2026-01-18T09:25:40.7761576Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-18T09:25:40.8267108Z Collecting fastapi (from -r requirements.txt (line 14))
+2026-01-18T09:25:40.8281675Z   Using cached fastapi-0.128.0-py3-none-any.whl.metadata (30 kB)
+2026-01-18T09:25:40.8609860Z Collecting uvicorn (from -r requirements.txt (line 15))
+2026-01-18T09:25:40.8622885Z   Using cached uvicorn-0.40.0-py3-none-any.whl.metadata (6.7 kB)
+2026-01-18T09:25:40.9950183Z Collecting pydantic (from -r requirements.txt (line 16))
+2026-01-18T09:25:40.9965156Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-18T09:25:41.0731983Z Collecting opencv-python-headless (from -r requirements.txt (line 17))
+2026-01-18T09:25:41.1410981Z   Downloading opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-18T09:25:41.3250378Z Collecting numpy (from -r requirements.txt (line 18))
+2026-01-18T09:25:41.3265416Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-18T09:25:41.4104881Z Collecting faker (from -r requirements.txt (line 19))
+2026-01-18T09:25:41.4179132Z   Downloading faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-18T09:25:41.4412727Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-18T09:25:41.4425448Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-18T09:25:41.5830845Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-18T09:25:41.5845591Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-18T09:25:41.6047013Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-18T09:25:41.6060103Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-18T09:25:41.6201466Z Collecting filetype<2.0.0,>=1.2.0 (from langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:41.6214392Z   Using cached filetype-1.2.0-py2.py3-none-any.whl.metadata (6.5 kB)
+2026-01-18T09:25:41.6762775Z Collecting langchain-core<2.0.0,>=1.2.5 (from langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:41.6775295Z   Using cached langchain_core-1.2.7-py3-none-any.whl.metadata (3.7 kB)
+2026-01-18T09:25:41.7115377Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.7128021Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-18T09:25:41.7517023Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.7529834Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-18T09:25:41.7794702Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.7807100Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-18T09:25:41.8209754Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.8222824Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-18T09:25:41.9079571Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.9094145Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-18T09:25:41.9264781Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.9277285Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-18T09:25:41.9390471Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.9403482Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-18T09:25:42.0202103Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 4))
+2026-01-18T09:25:42.0215899Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-18T09:25:42.0389829Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 4))
+2026-01-18T09:25:42.0402617Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T09:25:42.0691339Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 4))
+2026-01-18T09:25:42.0703555Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-18T09:25:42.0926169Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 4))
+2026-01-18T09:25:42.0938918Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T09:25:42.1065805Z Collecting annotated-types>=0.6.0 (from pydantic->-r requirements.txt (line 16))
+2026-01-18T09:25:42.1078272Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-18T09:25:42.8027273Z Collecting pydantic-core==2.41.5 (from pydantic->-r requirements.txt (line 16))
+2026-01-18T09:25:42.8043186Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-18T09:25:42.8193268Z Collecting typing-inspection>=0.4.2 (from pydantic->-r requirements.txt (line 16))
+2026-01-18T09:25:42.8207054Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-18T09:25:42.8500179Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:42.8513737Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-18T09:25:42.8682289Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:42.8695472Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-18T09:25:42.8983795Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:42.8996295Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-18T09:25:42.9142091Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:42.9154675Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-18T09:25:42.9327013Z Collecting jsonpatch<2.0.0,>=1.33.0 (from langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:42.9339392Z   Using cached jsonpatch-1.33-py2.py3-none-any.whl.metadata (3.0 kB)
+2026-01-18T09:25:43.0112608Z Collecting langsmith<1.0.0,>=0.3.45 (from langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:43.0126211Z   Using cached langsmith-0.6.4-py3-none-any.whl.metadata (15 kB)
+2026-01-18T09:25:43.0339618Z Collecting packaging<26.0.0,>=23.2.0 (from langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:43.0353353Z   Using cached packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-18T09:25:43.1095720Z Collecting uuid-utils<1.0,>=0.12.0 (from langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:43.1109299Z   Using cached uuid_utils-0.13.0-cp39-abi3-manylinux_2_24_x86_64.whl.metadata (5.4 kB)
+2026-01-18T09:25:43.1268964Z Collecting jsonpointer>=1.9 (from jsonpatch<2.0.0,>=1.33.0->langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:43.1281652Z   Using cached jsonpointer-3.0.0-py2.py3-none-any.whl.metadata (2.3 kB)
+2026-01-18T09:25:43.4206918Z Collecting orjson>=3.9.14 (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:43.4221756Z   Using cached orjson-3.11.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+2026-01-18T09:25:43.4386077Z Collecting requests-toolbelt>=1.0.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:43.4398671Z   Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)
+2026-01-18T09:25:43.5185600Z Collecting zstandard>=0.23.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:43.5199573Z   Using cached zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+2026-01-18T09:25:43.5558328Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:43.5630872Z   Downloading pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T09:25:43.6563504Z Collecting jiter<1,>=0.10.0 (from openai->-r requirements.txt (line 6))
+2026-01-18T09:25:43.6579275Z   Using cached jiter-0.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)
+2026-01-18T09:25:43.7086043Z Collecting tqdm>4 (from openai->-r requirements.txt (line 6))
+2026-01-18T09:25:43.7099131Z   Using cached tqdm-4.67.1-py3-none-any.whl.metadata (57 kB)
+2026-01-18T09:25:43.7305862Z Collecting iniconfig>=1.0.1 (from pytest->-r requirements.txt (line 9))
+2026-01-18T09:25:43.7318691Z   Using cached iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T09:25:43.7504790Z Collecting pluggy<2,>=1.5 (from pytest->-r requirements.txt (line 9))
+2026-01-18T09:25:43.7523071Z   Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+2026-01-18T09:25:43.7730498Z Collecting pygments>=2.7.2 (from pytest->-r requirements.txt (line 9))
+2026-01-18T09:25:43.7744380Z   Using cached pygments-2.19.2-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T09:25:43.8044002Z Collecting pytest-base-url<3.0.0,>=1.0.0 (from pytest-playwright->-r requirements.txt (line 10))
+2026-01-18T09:25:43.8056689Z   Using cached pytest_base_url-2.1.0-py3-none-any.whl.metadata (6.6 kB)
+2026-01-18T09:25:43.8221653Z Collecting python-slugify<9.0.0,>=6.0.0 (from pytest-playwright->-r requirements.txt (line 10))
+2026-01-18T09:25:43.8234352Z   Using cached python_slugify-8.0.4-py2.py3-none-any.whl.metadata (8.5 kB)
+2026-01-18T09:25:43.8606935Z Collecting text-unidecode>=1.3 (from python-slugify<9.0.0,>=6.0.0->pytest-playwright->-r requirements.txt (line 10))
+2026-01-18T09:25:43.8619751Z   Using cached text_unidecode-1.3-py2.py3-none-any.whl.metadata (2.4 kB)
+2026-01-18T09:25:43.8804132Z Collecting pytest-metadata>=2.0.0 (from pytest-html->-r requirements.txt (line 11))
+2026-01-18T09:25:43.8817206Z   Using cached pytest_metadata-3.1.1-py3-none-any.whl.metadata (8.6 kB)
+2026-01-18T09:25:43.9351816Z Collecting MarkupSafe>=2.0 (from jinja2->-r requirements.txt (line 12))
+2026-01-18T09:25:43.9366392Z   Using cached markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-01-18T09:25:43.9664713Z Collecting starlette<0.51.0,>=0.40.0 (from fastapi->-r requirements.txt (line 14))
+2026-01-18T09:25:43.9677946Z   Using cached starlette-0.50.0-py3-none-any.whl.metadata (6.3 kB)
+2026-01-18T09:25:43.9986600Z Collecting annotated-doc>=0.0.2 (from fastapi->-r requirements.txt (line 14))
+2026-01-18T09:25:43.9999974Z   Using cached annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+2026-01-18T09:25:44.0313921Z Collecting click>=7.0 (from uvicorn->-r requirements.txt (line 15))
+2026-01-18T09:25:44.0327194Z   Using cached click-8.3.1-py3-none-any.whl.metadata (2.6 kB)
+2026-01-18T09:25:44.0945008Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-18T09:25:44.1286629Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-18T09:25:44.1304131Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-18T09:25:44.1317754Z Using cached langchain_google_genai-4.2.0-py3-none-any.whl (66 kB)
+2026-01-18T09:25:44.1331844Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-18T09:25:44.1349850Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-18T09:25:44.1363476Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-18T09:25:44.1380576Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-18T09:25:44.1409779Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-18T09:25:44.1424611Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-18T09:25:44.1439212Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-18T09:25:44.1452614Z Using cached filetype-1.2.0-py2.py3-none-any.whl (19 kB)
+2026-01-18T09:25:44.1466237Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-18T09:25:44.1480848Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-18T09:25:44.1494446Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-18T09:25:44.1507899Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-18T09:25:44.1522130Z Using cached langchain_core-1.2.7-py3-none-any.whl (490 kB)
+2026-01-18T09:25:44.1539199Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-18T09:25:44.1557621Z Using cached jsonpatch-1.33-py2.py3-none-any.whl (12 kB)
+2026-01-18T09:25:44.1570467Z Using cached langsmith-0.6.4-py3-none-any.whl (283 kB)
+2026-01-18T09:25:44.1585775Z Using cached packaging-25.0-py3-none-any.whl (66 kB)
+2026-01-18T09:25:44.1599222Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-18T09:25:44.1612194Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-18T09:25:44.1625162Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-18T09:25:44.1638167Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-18T09:25:44.1651894Z Using cached uuid_utils-0.13.0-cp39-abi3-manylinux_2_24_x86_64.whl (342 kB)
+2026-01-18T09:25:44.1667984Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-18T09:25:44.1681741Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-18T09:25:44.1695118Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-18T09:25:44.1757041Z Using cached openai-2.15.0-py3-none-any.whl (1.1 MB)
+2026-01-18T09:25:44.1777683Z Using cached jiter-0.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (364 kB)
+2026-01-18T09:25:44.1793093Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-18T09:25:44.1806191Z Using cached pytest-9.0.2-py3-none-any.whl (374 kB)
+2026-01-18T09:25:44.1821702Z Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+2026-01-18T09:25:44.1834902Z Using cached pytest_playwright-0.7.2-py3-none-any.whl (16 kB)
+2026-01-18T09:25:44.1847856Z Using cached pytest_base_url-2.1.0-py3-none-any.whl (5.3 kB)
+2026-01-18T09:25:44.1860730Z Using cached python_slugify-8.0.4-py2.py3-none-any.whl (10 kB)
+2026-01-18T09:25:44.1874022Z Using cached pytest_html-4.1.1-py3-none-any.whl (23 kB)
+2026-01-18T09:25:44.1887023Z Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+2026-01-18T09:25:44.1900780Z Using cached fastapi-0.128.0-py3-none-any.whl (103 kB)
+2026-01-18T09:25:44.1914552Z Using cached starlette-0.50.0-py3-none-any.whl (74 kB)
+2026-01-18T09:25:44.1927797Z Using cached uvicorn-0.40.0-py3-none-any.whl (68 kB)
+2026-01-18T09:25:44.2004900Z Downloading opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-18T09:25:44.4310565Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.5/62.5 MB 288.7 MB/s  0:00:00
+2026-01-18T09:25:44.4388423Z Downloading numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-18T09:25:44.4992980Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 284.6 MB/s  0:00:00
+2026-01-18T09:25:44.5066240Z Downloading faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-18T09:25:44.5222213Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 176.0 MB/s  0:00:00
+2026-01-18T09:25:44.5235416Z Using cached annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+2026-01-18T09:25:44.5248555Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-18T09:25:44.5261479Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-18T09:25:44.5275299Z Using cached click-8.3.1-py3-none-any.whl (108 kB)
+2026-01-18T09:25:44.5288767Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-18T09:25:44.5302221Z Using cached iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+2026-01-18T09:25:44.5315209Z Using cached jsonpointer-3.0.0-py2.py3-none-any.whl (7.6 kB)
+2026-01-18T09:25:44.5328234Z Using cached markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-01-18T09:25:44.5341362Z Using cached orjson-3.11.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (138 kB)
+2026-01-18T09:25:44.5415701Z Downloading pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-18T09:25:44.5454043Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-18T09:25:44.5468018Z Using cached pygments-2.19.2-py3-none-any.whl (1.2 MB)
+2026-01-18T09:25:44.5489357Z Using cached pytest_metadata-3.1.1-py3-none-any.whl (11 kB)
+2026-01-18T09:25:44.5502136Z Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl (54 kB)
+2026-01-18T09:25:44.5515196Z Using cached text_unidecode-1.3-py2.py3-none-any.whl (78 kB)
+2026-01-18T09:25:44.5528297Z Using cached tqdm-4.67.1-py3-none-any.whl (78 kB)
+2026-01-18T09:25:44.5541637Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-18T09:25:44.5554512Z Using cached zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.6 MB)
+2026-01-18T09:25:44.5605140Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-18T09:25:44.8374559Z Installing collected packages: text-unidecode, filetype, zstandard, websockets, uuid-utils, urllib3, typing-extensions, tqdm, termcolor, tenacity, sniffio, PyYAML, python-slugify, python-dotenv, pygments, pyasn1, pluggy, pillow, packaging, orjson, numpy, MarkupSafe, jsonpointer, jiter, iniconfig, idna, h11, greenlet, faker, distro, click, charset_normalizer, certifi, annotated-types, annotated-doc, uvicorn, typing-inspection, rsa, requests, pytest, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, jsonpatch, jinja2, httpcore, anyio, starlette, requests-toolbelt, pytest-metadata, pytest-base-url, pydantic, playwright, httpx, google-auth, pytest-playwright, pytest-html, openai, langsmith, fastapi, langchain-core, google-genai, langchain-google-genai
+2026-01-18T09:25:54.2348814Z 
+2026-01-18T09:25:54.2386538Z Successfully installed MarkupSafe-3.0.3 PyYAML-6.0.3 annotated-doc-0.0.4 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 click-8.3.1 distro-1.9.0 faker-40.1.2 fastapi-0.128.0 filetype-1.2.0 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 iniconfig-2.3.0 jinja2-3.1.6 jiter-0.12.0 jsonpatch-1.33 jsonpointer-3.0.0 langchain-core-1.2.7 langchain-google-genai-4.2.0 langsmith-0.6.4 numpy-2.4.1 openai-2.15.0 opencv-python-headless-4.13.0.90 orjson-3.11.5 packaging-25.0 pillow-12.1.0 playwright-1.57.0 pluggy-1.6.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 pygments-2.19.2 pytest-9.0.2 pytest-base-url-2.1.0 pytest-html-4.1.1 pytest-metadata-3.1.1 pytest-playwright-0.7.2 python-dotenv-1.2.1 python-slugify-8.0.4 requests-2.32.5 requests-toolbelt-1.0.0 rsa-4.9.1 sniffio-1.3.1 starlette-0.50.0 tenacity-9.1.2 termcolor-3.3.0 text-unidecode-1.3 tqdm-4.67.1 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 uuid-utils-0.13.0 uvicorn-0.40.0 websockets-15.0.1 zstandard-0.25.0
+2026-01-18T09:25:54.9788503Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-18T09:25:55.0747922Z (node:2242) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T09:25:55.0749500Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T09:25:55.1550933Z |                                                                                |   0% of 164.7 MiB
+2026-01-18T09:25:55.2727349Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-18T09:25:55.3449509Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-18T09:25:55.4119591Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-18T09:25:55.4839781Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-18T09:25:55.5504512Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-18T09:25:55.6142782Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-18T09:25:55.6687138Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-18T09:25:55.7222402Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-18T09:25:55.7742557Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-18T09:25:55.8440394Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-18T09:25:58.2770834Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-18T09:25:58.2775166Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-18T09:25:58.3737871Z (node:2253) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T09:25:58.3739094Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T09:25:58.4326786Z |                                                                                |   0% of 2.3 MiB
+2026-01-18T09:25:58.4434417Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-18T09:25:58.4476831Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-18T09:25:58.4514277Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-18T09:25:58.4532548Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-18T09:25:58.4563263Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-18T09:25:58.4576484Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-18T09:25:58.4595465Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-18T09:25:58.4614538Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-18T09:25:58.4748919Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-18T09:25:58.4779325Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-18T09:25:58.5319661Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-18T09:25:58.5323593Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-18T09:25:58.6278606Z (node:2264) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T09:25:58.6279696Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T09:25:58.6984109Z |                                                                                |   0% of 109.7 MiB
+2026-01-18T09:25:58.8019081Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-18T09:25:58.8592400Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-18T09:25:58.9070156Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-18T09:25:58.9537665Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-18T09:25:58.9957745Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-18T09:25:59.0333923Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-18T09:25:59.0750835Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-18T09:25:59.1120042Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-18T09:25:59.1498161Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-18T09:25:59.1814612Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-18T09:26:00.9796973Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-18T09:26:01.0013974Z ##[group]Run mkdir -p projects/ci_orangehrm_demo
+2026-01-18T09:26:01.0014380Z [36;1mmkdir -p projects/ci_orangehrm_demo[0m
+2026-01-18T09:26:01.0014749Z [36;1mcat > projects/ci_orangehrm_demo/config.json << 'EOF'[0m
+2026-01-18T09:26:01.0015075Z [36;1m{[0m
+2026-01-18T09:26:01.0015276Z [36;1m  "project_name": "ci_orangehrm_demo",[0m
+2026-01-18T09:26:01.0015676Z [36;1m  "target_url": "https://opensource-demo.orangehrmlive.com/",[0m
+2026-01-18T09:26:01.0016321Z [36;1m  "goal": "Login with Admin/admin123, navigate to PIM module, add new employee, verify employee was added, logout",[0m
+2026-01-18T09:26:01.0016862Z [36;1m  "max_steps": 18,[0m
+2026-01-18T09:26:01.0017081Z [36;1m  "headless": true[0m
+2026-01-18T09:26:01.0017294Z [36;1m}[0m
+2026-01-18T09:26:01.0017458Z [36;1mEOF[0m
+2026-01-18T09:26:01.0050709Z shell: /usr/bin/bash -e {0}
+2026-01-18T09:26:01.0050951Z env:
+2026-01-18T09:26:01.0051379Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:01.0051840Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:26:01.0052279Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:01.0052665Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:01.0053055Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:01.0053429Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:26:01.0053733Z ##[endgroup]
+2026-01-18T09:26:01.0157930Z ##[group]Run # Use the new Orchestrator with refined exploration.
+2026-01-18T09:26:01.0158393Z [36;1m# Use the new Orchestrator with refined exploration.[0m
+2026-01-18T09:26:01.0158805Z [36;1m# We don't use --deep here to keep CI fast (1 scenario vs 5), [0m
+2026-01-18T09:26:01.0159247Z [36;1m# but we benefit from the new iterative & self-healing explorer.py[0m
+2026-01-18T09:26:01.0159726Z [36;1mpython orchestrator.py --project projects/ci_orangehrm_demo --force[0m
+2026-01-18T09:26:01.0189679Z shell: /usr/bin/bash -e {0}
+2026-01-18T09:26:01.0189910Z env:
+2026-01-18T09:26:01.0190165Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:01.0190593Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:26:01.0191023Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:01.0191539Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:01.0191934Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:01.0192306Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:26:01.0192809Z   GOOGLE_API_KEY: ***
+2026-01-18T09:26:01.0193027Z   PYTHONPATH: .
+2026-01-18T09:26:01.0193212Z ##[endgroup]
+2026-01-18T09:26:02.7789970Z 
+2026-01-18T09:26:02.7791473Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://opensource-demo.orangehrmlive.com/ (Workers: 3)
+2026-01-18T09:26:04.1268882Z   🔍 [Worker 0] Visiting (0): https://opensource-demo.orangehrmlive.com/
+2026-01-18T09:26:05.5820887Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:05.5821983Z [DEBUG] Received response (Length: 231)
+2026-01-18T09:26:05.5822487Z ✅ Discovery Complete. Mapped 1 pages.
+2026-01-18T09:26:13.1160514Z 
+2026-01-18T09:26:13.1161029Z [PLAN] PLANNER: Planning goal -> 'None' (Deep Mode: False)
+2026-01-18T09:26:13.1161967Z 🗺️ [PLAN] Loaded Sitemap with 1 pages.
+2026-01-18T09:26:13.1162724Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns
+2026-01-18T09:26:13.1163421Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:13.1164462Z [DEBUG] Received response (Length: 2402)
+2026-01-18T09:26:13.1165040Z ✅ Planner generated 1 scenarios. Workflow updated.
+2026-01-18T09:26:14.0752064Z 
+2026-01-18T09:26:14.0752915Z 🧭 [EXPLORE] Starting AI-Guided Exploration & Mining
+2026-01-18T09:26:14.0753620Z 📍 Project: ci_orangehrm_demo
+2026-01-18T09:26:14.4351355Z 
+2026-01-18T09:26:14.4352204Z --- Exploring Scenario: Explore OrangeHRM Website and Identify Key User Flows ---
+2026-01-18T09:26:14.4353809Z     🧠 Initialized exploration context for goal: 'Explore the website and identify key user flows and interactive elements.'
+2026-01-18T09:26:14.4354811Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T09:26:15.6051493Z     ✅ Navigated to https://opensource-demo.orangehrmlive.com/
+2026-01-18T09:26:15.6052222Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-18T09:26:20.6361947Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:26:22.6384914Z     ✅ State transitioned.
+2026-01-18T09:26:23.9186823Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:26:23.9187530Z [DEBUG] Received response (Length: 225)
+2026-01-18T09:26:23.9188348Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-18T09:26:23.9188984Z     🧩 Suggested Locator: input[name='username']
+2026-01-18T09:26:23.9190110Z     💭 Reasoning: The page displays the username to use for login. Filling the username field is the next logical step.
+2026-01-18T09:26:23.9191342Z     ➕ Injected AI step: fill -> Username
+2026-01-18T09:26:23.9191896Z   ▶️ [STEP step_2_ai_1] FILL: Username
+2026-01-18T09:26:23.9255385Z     🎯 Using AI-provided locator: input[name='username']
+2026-01-18T09:26:23.9323104Z     ✅ Found 1 verified locators
+2026-01-18T09:26:29.3857175Z     ✅ State transitioned.
+2026-01-18T09:26:30.6284199Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:26:30.6284886Z [DEBUG] Received response (Length: 201)
+2026-01-18T09:26:30.6285666Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T09:26:30.6286289Z     🧩 Suggested Locator: input[name='password']
+2026-01-18T09:26:30.6287135Z     💭 Reasoning: The next step is to fill in the password field with the provided password.
+2026-01-18T09:26:30.6287883Z     ➕ Injected AI step: fill -> Password
+2026-01-18T09:26:30.6288206Z   ▶️ [STEP step_2_ai_2] FILL: Password
+2026-01-18T09:26:30.6342511Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-18T09:26:30.6403407Z     ✅ Found 1 verified locators
+2026-01-18T09:26:36.5772227Z     ✅ State transitioned.
+2026-01-18T09:26:37.9047817Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:26:37.9048516Z [DEBUG] Received response (Length: 214)
+2026-01-18T09:26:37.9049428Z     🤖 AI Next Step Suggestion: click -> Login
+2026-01-18T09:26:37.9050098Z     🧩 Suggested Locator: button
+2026-01-18T09:26:37.9051823Z     💭 Reasoning: Now that the username and password fields are filled, the next logical step is to click the 'Login' button to attempt to log in.
+2026-01-18T09:26:37.9053154Z     ➕ Injected AI step: click -> Login
+2026-01-18T09:26:37.9053556Z   ▶️ [STEP step_2_ai_3] CLICK: Login
+2026-01-18T09:26:37.9102779Z     🎯 Using AI-provided locator: button
+2026-01-18T09:26:37.9155731Z     ✅ Found 1 verified locators
+2026-01-18T09:26:41.9668518Z     ✅ State transitioned.
+2026-01-18T09:26:43.7888710Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:26:43.7889236Z [DEBUG] Received response (Length: 253)
+2026-01-18T09:26:43.7889860Z     🤖 AI Next Step Suggestion: click -> Admin
+2026-01-18T09:26:43.7890343Z     🧩 Suggested Locator: a[href*='/web/index.php/admin/viewAdminModule']
+2026-01-18T09:26:43.7891331Z     💭 Reasoning: Navigating to the 'Admin' section is a key user flow for managing the system. It's a prominent item in the navigation sidebar.
+2026-01-18T09:26:43.7891999Z     ➕ Injected AI step: click -> Admin
+2026-01-18T09:26:43.7892302Z   ▶️ [STEP step_2_ai_4] CLICK: Admin
+2026-01-18T09:26:43.8048157Z     🎯 Using AI-provided locator: a[href*='/web/index.php/admin/viewAdminModule']
+2026-01-18T09:26:43.8105912Z     ✅ Found 1 verified locators
+2026-01-18T09:26:47.8665238Z     ✅ State transitioned.
+2026-01-18T09:26:49.5183510Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:26:49.5184214Z [DEBUG] Received response (Length: 183)
+2026-01-18T09:26:49.5185039Z     🤖 AI Next Step Suggestion: click -> PIM
+2026-01-18T09:26:49.5185684Z     🧩 Suggested Locator: a[href*='/pim/viewPimModule']
+2026-01-18T09:26:49.5186756Z     💭 Reasoning: Navigating to the PIM module to explore employee management functionalities.
+2026-01-18T09:26:49.5187649Z     ➕ Injected AI step: click -> PIM
+2026-01-18T09:26:49.5188185Z   ▶️ [STEP step_2_ai_5] CLICK: PIM
+2026-01-18T09:26:49.5363566Z     🎯 Using AI-provided locator: a[href*='/pim/viewPimModule']
+2026-01-18T09:26:49.5432860Z     ✅ Found 1 verified locators
+2026-01-18T09:26:53.6015738Z     ✅ State transitioned.
+2026-01-18T09:26:55.4432558Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:26:55.4433201Z [DEBUG] Received response (Length: 170)
+2026-01-18T09:26:55.4433732Z     🤖 AI Next Step Suggestion: click -> Add
+2026-01-18T09:26:55.4434274Z     💭 Reasoning: To explore the functionality of adding a new employee in the PIM section.
+2026-01-18T09:26:55.4435954Z     ➕ Injected AI step: click -> Add
+2026-01-18T09:26:55.4436410Z   ▶️ [STEP step_2_ai_6] CLICK: Add
+2026-01-18T09:26:55.4624721Z     🔍 Mining locators for: 'Add'
+2026-01-18T09:26:55.8501759Z     ✅ Found 2 verified locators
+2026-01-18T09:26:59.4028473Z     ✅ State transitioned.
+2026-01-18T09:27:00.9910957Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:00.9911731Z [DEBUG] Received response (Length: 249)
+2026-01-18T09:27:00.9912289Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T09:27:00.9912961Z     🧩 Suggested Locator: input[name='firstName']
+2026-01-18T09:27:00.9913688Z     💭 Reasoning: The current page is the 'Add Employee' page. Filling the 'First Name' field is the next logical step to add a new employee.
+2026-01-18T09:27:00.9914333Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T09:27:00.9914644Z   ▶️ [STEP step_2_ai_7] FILL: First Name
+2026-01-18T09:27:01.0057309Z     🎯 Using AI-provided locator: input[name='firstName']
+2026-01-18T09:27:01.0115796Z     ✅ Found 1 verified locators
+2026-01-18T09:27:06.5592227Z     ✅ State transitioned.
+2026-01-18T09:27:08.1076284Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:08.1076941Z [DEBUG] Received response (Length: 160)
+2026-01-18T09:27:08.1077506Z     🤖 AI Next Step Suggestion: fill -> Middle Name
+2026-01-18T09:27:08.1077983Z     💭 Reasoning: Need to fill out the rest of the form to add an employee.
+2026-01-18T09:27:08.1078422Z     ➕ Injected AI step: fill -> Middle Name
+2026-01-18T09:27:08.1078774Z   ▶️ [STEP step_2_ai_8] FILL: Middle Name
+2026-01-18T09:27:08.1132686Z     🔍 Mining locators for: 'Middle Name'
+2026-01-18T09:27:08.1805328Z     ✅ Found 3 verified locators
+2026-01-18T09:27:12.8381912Z     ✅ State transitioned.
+2026-01-18T09:27:14.2163923Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:14.2164465Z [DEBUG] Received response (Length: 212)
+2026-01-18T09:27:14.2165251Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T09:27:14.2165901Z     🧩 Suggested Locator: input[placeholder='Last Name']
+2026-01-18T09:27:14.2166795Z     💭 Reasoning: The form requires a last name to be filled in to proceed with adding an employee.
+2026-01-18T09:27:14.2167581Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T09:27:14.2168250Z   ▶️ [STEP step_2_ai_9] FILL: Last Name
+2026-01-18T09:27:14.2309745Z     🎯 Using AI-provided locator: input[placeholder='Last Name']
+2026-01-18T09:27:14.2368884Z     ✅ Found 1 verified locators
+2026-01-18T09:27:19.7486005Z     ✅ State transitioned.
+2026-01-18T09:27:21.3895872Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:21.3896487Z [DEBUG] Received response (Length: 183)
+2026-01-18T09:27:21.3897344Z     🤖 AI Next Step Suggestion: fill -> Employee Id
+2026-01-18T09:27:21.3897899Z     💭 Reasoning: The employee id field is visible and needs to be filled to complete the form.
+2026-01-18T09:27:21.3898403Z     ➕ Injected AI step: fill -> Employee Id
+2026-01-18T09:27:21.3898739Z   ▶️ [STEP step_2_ai_10] FILL: Employee Id
+2026-01-18T09:27:21.3949621Z     🔍 Mining locators for: 'Employee Id'
+2026-01-18T09:27:21.4486299Z     🧠 Consulting AI (Vision-First) to find 'Employee Id'...
+2026-01-18T09:27:21.4487354Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:27:26.5953316Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:26.5954016Z [DEBUG] Received response (Length: 338)
+2026-01-18T09:27:26.5954831Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T09:27:26.5955424Z   ▶️ [STEP step_13] ASSERT_VISIBLE: Username
+2026-01-18T09:27:26.5999871Z     🔍 Mining locators for: 'Username'
+2026-01-18T09:27:26.6480992Z     🧠 Consulting AI (Vision-First) to find 'Username'...
+2026-01-18T09:27:26.6482242Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:27:31.3197093Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:31.3197775Z [DEBUG] Received response (Length: 257)
+2026-01-18T09:27:31.3199214Z     💡 Expert Suggestion: The 'Username' field is likely within the 'Create Login Details' section, which is currently toggled off.
+2026-01-18T09:27:31.3200507Z     🛠️ Executing corrective action: click -> 'Create Login Details'
+2026-01-18T09:27:31.8926394Z     ✅ Executed corrective navigation
+2026-01-18T09:27:33.8949625Z     🔄 Retry 1/3 mining locators for 'Username'...
+2026-01-18T09:27:34.9486045Z     🧠 Consulting AI (Vision-First) to find 'Username'...
+2026-01-18T09:27:34.9487013Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:27:36.4397330Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:36.4397955Z [DEBUG] Received response (Length: 309)
+2026-01-18T09:27:36.4398705Z     ⚠️ Skipping duplicate injection: Create Login Details
+2026-01-18T09:27:36.4399220Z     🔄 Retry 2/3 mining locators for 'Username'...
+2026-01-18T09:27:37.4973139Z     🧠 Consulting AI (Vision-First) to find 'Username'...
+2026-01-18T09:27:37.4974599Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:27:41.4285270Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:41.4285682Z [DEBUG] Received response (Length: 257)
+2026-01-18T09:27:41.4286478Z     ⚠️ Skipping duplicate injection: Create Login Details
+2026-01-18T09:27:41.4287390Z     🧠 Verifying step validity for 'Username' after no candidates found...
+2026-01-18T09:27:46.2416324Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:46.2416751Z [DEBUG] Received response (Length: 275)
+2026-01-18T09:27:46.2417413Z     🛠️ Self-Correction: Step is valid. Using new locator: div.oxd-switch-wrapper
+2026-01-18T09:27:49.2654488Z     ✅ State transitioned.
+2026-01-18T09:27:51.3607278Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:51.3607991Z [DEBUG] Received response (Length: 204)
+2026-01-18T09:27:51.3608840Z     🤖 AI Next Step Suggestion: fill -> Employee Id
+2026-01-18T09:27:51.3609623Z     🧩 Suggested Locator: input[class='oxd-input oxd-input--active']
+2026-01-18T09:27:51.3610643Z     💭 Reasoning: The next logical step is to fill in the Employee Id field.
+2026-01-18T09:27:51.3611704Z     ➕ Injected AI step: fill -> Employee Id
+2026-01-18T09:27:51.3612350Z   ▶️ [STEP step_13_ai_1] FILL: Employee Id
+2026-01-18T09:27:51.3663920Z     🎯 Using AI-provided locator: input[class='oxd-input oxd-input--active']
+2026-01-18T09:27:51.3715747Z     ✅ Found 1 verified locators
+2026-01-18T09:27:57.0218060Z     ✅ State transitioned.
+2026-01-18T09:27:58.5335905Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:58.5336474Z [DEBUG] Received response (Length: 232)
+2026-01-18T09:27:58.5337229Z     🤖 AI Next Step Suggestion: click -> Save
+2026-01-18T09:27:58.5337592Z     🧩 Suggested Locator: button[type='submit']
+2026-01-18T09:27:58.5338345Z     💭 Reasoning: All required fields are filled, so clicking 'Save' will submit the form and potentially move to the next step in adding an employee.
+2026-01-18T09:27:58.5339019Z     ➕ Injected AI step: click -> Save
+2026-01-18T09:27:58.5339324Z   ▶️ [STEP step_13_ai_2] CLICK: Save
+2026-01-18T09:27:58.5391604Z     🎯 Using AI-provided locator: button[type='submit']
+2026-01-18T09:27:58.5443817Z     ✅ Found 1 verified locators
+2026-01-18T09:28:02.5826239Z     ✅ State transitioned.
+2026-01-18T09:28:04.3123055Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:04.3123748Z [DEBUG] Received response (Length: 279)
+2026-01-18T09:28:04.3124539Z     🤖 AI Next Step Suggestion: fill -> Employee Id
+2026-01-18T09:28:04.3125447Z     🧩 Suggested Locator: input[aria-required='true'][class='oxd-input oxd-input--active']
+2026-01-18T09:28:04.3126842Z     💭 Reasoning: The previous attempt to save failed because the Employee Id already exists. I will try a different Employee Id.
+2026-01-18T09:28:04.3127781Z     ➕ Injected AI step: fill -> Employee Id
+2026-01-18T09:28:04.3128130Z   ▶️ [STEP step_13_ai_3] FILL: Employee Id
+2026-01-18T09:28:04.3182178Z     🎯 Using AI-provided locator: input[aria-required='true'][class='oxd-input oxd-input--active']
+2026-01-18T09:28:04.3199652Z     🔍 Mining locators for: 'Employee Id'
+2026-01-18T09:28:04.3673837Z     ✅ Found 1 verified locators
+2026-01-18T09:28:09.4046921Z     ✅ State transitioned.
+2026-01-18T09:28:11.0269190Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:11.0269928Z [DEBUG] Received response (Length: 291)
+2026-01-18T09:28:11.0270828Z     🤖 AI Next Step Suggestion: fill -> Employee Id
+2026-01-18T09:28:11.0271784Z     🧩 Suggested Locator: input[placeholder='Type here']
+2026-01-18T09:28:11.0273511Z     💭 Reasoning: The previous attempt to fill the Employee Id resulted in an error message 'Employee Id already exists'. Therefore, a different Employee Id should be entered.
+2026-01-18T09:28:11.0275252Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('fill', 'employee id')
+2026-01-18T09:28:11.0276127Z   ▶️ [STEP step_17] ASSERT_VISIBLE: Password
+2026-01-18T09:28:11.0327185Z     🔍 Mining locators for: 'Password'
+2026-01-18T09:28:11.0795536Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T09:28:11.0796848Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:28:15.9592437Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:15.9593080Z [DEBUG] Received response (Length: 223)
+2026-01-18T09:28:15.9594212Z     💡 Expert Suggestion: The password field is likely within the 'Create Login Details' section.
+2026-01-18T09:28:15.9594825Z     🛠️ Executing corrective action: click -> 'Create Login Details'
+2026-01-18T09:28:16.5553075Z     ✅ Executed corrective navigation
+2026-01-18T09:28:18.5576389Z     🔄 Retry 1/3 mining locators for 'Password'...
+2026-01-18T09:28:19.5953176Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T09:28:19.5954519Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:28:21.1010705Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:21.1011610Z [DEBUG] Received response (Length: 291)
+2026-01-18T09:28:21.1012212Z     ⚠️ Skipping duplicate injection: Create Login Details
+2026-01-18T09:28:21.1012664Z     🔄 Retry 2/3 mining locators for 'Password'...
+2026-01-18T09:28:22.1463294Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T09:28:22.1464366Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:28:26.1047452Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:26.1048140Z [DEBUG] Received response (Length: 257)
+2026-01-18T09:28:26.1048708Z     ⚠️ Skipping duplicate injection: Create Login Details
+2026-01-18T09:28:26.1049208Z     🧠 Verifying step validity for 'Password' after no candidates found...
+2026-01-18T09:28:30.8731992Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:30.8732665Z [DEBUG] Received response (Length: 245)
+2026-01-18T09:28:30.8734818Z     🗑️ Step deemed INVALID: The 'Password' field is not visible on the page. It appears after enabling the 'Create Login Details' toggle. The current task is invalid because the toggle needs to be enabled first.. Removing from workflow.
+2026-01-18T09:28:30.8736648Z     ⏭️ Skipping execution of invalid step: Password
+2026-01-18T09:28:30.8737295Z   ▶️ [STEP step_18] ASSERT_VISIBLE: Login
+2026-01-18T09:28:30.8790082Z     🔍 Mining locators for: 'Login'
+2026-01-18T09:28:30.9329599Z     ✅ Found 1 verified locators
+2026-01-18T09:28:33.4637347Z     ✅ State transitioned.
+2026-01-18T09:28:36.3336403Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:36.3337050Z [DEBUG] Received response (Length: 369)
+2026-01-18T09:28:36.3337840Z     🤖 AI Next Step Suggestion: fill -> Employee Id
+2026-01-18T09:28:36.3338723Z     🧩 Suggested Locator: input[aria-required='true'][class='oxd-input oxd-input--active']
+2026-01-18T09:28:36.3339914Z     💭 Reasoning: The previous attempt to fill the Employee Id field resulted in an error message 'Employee Id already exists'. Therefore, I need to try a different Employee Id. I will increment the previous value by 1.
+2026-01-18T09:28:36.3341480Z ⚠️ Loop detected: same AI suggestion repeated 3 times. Moving to next step.
+2026-01-18T09:28:36.3341974Z   ▶️ [STEP step_19] FILL: Username
+2026-01-18T09:28:36.3392532Z     🔍 Mining locators for: 'Username'
+2026-01-18T09:28:36.3783631Z     🧠 Consulting AI (Vision-First) to find 'Username'...
+2026-01-18T09:28:36.3784749Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:28:40.8966450Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:40.8967073Z [DEBUG] Received response (Length: 257)
+2026-01-18T09:28:40.8968094Z     💡 Expert Suggestion: The 'Username' field is likely within the 'Create Login Details' section, which is currently toggled off.
+2026-01-18T09:28:40.8969001Z     🛠️ Executing corrective action: click -> 'Create Login Details'
+2026-01-18T09:28:41.4532630Z     ✅ Executed corrective navigation
+2026-01-18T09:28:43.4556325Z     🔄 Retry 1/3 mining locators for 'Username'...
+2026-01-18T09:28:44.4950364Z     🧠 Consulting AI (Vision-First) to find 'Username'...
+2026-01-18T09:28:44.4951750Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:28:45.8328400Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:45.8329059Z [DEBUG] Received response (Length: 257)
+2026-01-18T09:28:45.8329881Z     ⚠️ Skipping duplicate injection: Create Login Details
+2026-01-18T09:28:45.8330325Z     🔄 Retry 2/3 mining locators for 'Username'...
+2026-01-18T09:28:46.8780472Z     🧠 Consulting AI (Vision-First) to find 'Username'...
+2026-01-18T09:28:46.8781903Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:28:50.9061484Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:50.9062070Z [DEBUG] Received response (Length: 257)
+2026-01-18T09:28:50.9063001Z     ⚠️ Skipping duplicate injection: Create Login Details
+2026-01-18T09:28:50.9063807Z     🧠 Verifying step validity for 'Username' after no candidates found...
+2026-01-18T09:28:55.9777232Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:55.9777891Z [DEBUG] Received response (Length: 226)
+2026-01-18T09:28:55.9779791Z     🗑️ Step deemed INVALID: The 'Username' field is not visible on the 'Add Employee' page by default. It only appears after the 'Create Login Details' toggle is switched to the 'on' position.. Removing from workflow.
+2026-01-18T09:28:55.9781479Z     ⏭️ Skipping execution of invalid step: Username
+2026-01-18T09:28:55.9781840Z   ▶️ [STEP step_20] FILL: Password
+2026-01-18T09:28:55.9832752Z     🔍 Mining locators for: 'Password'
+2026-01-18T09:28:56.0270601Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T09:28:56.0272016Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:29:01.1210405Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:01.1211269Z [DEBUG] Received response (Length: 284)
+2026-01-18T09:29:01.1213146Z     💡 Expert Suggestion: The 'Create Login Details' toggle is present on the 'Add Employee' form. Clicking it should reveal fields for username and password.
+2026-01-18T09:29:01.1214821Z     🛠️ Executing corrective action: click -> 'Create Login Details'
+2026-01-18T09:29:01.6870428Z     ✅ Executed corrective navigation
+2026-01-18T09:29:03.6894143Z     🔄 Retry 1/3 mining locators for 'Password'...
+2026-01-18T09:29:04.7270549Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T09:29:04.7272064Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:29:06.2854316Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:06.2854935Z [DEBUG] Received response (Length: 255)
+2026-01-18T09:29:06.2855830Z     ⚠️ Skipping duplicate injection: Create Login Details
+2026-01-18T09:29:06.2856294Z     🔄 Retry 2/3 mining locators for 'Password'...
+2026-01-18T09:29:07.3270474Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T09:29:07.3271986Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:29:11.0261394Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:11.0262066Z [DEBUG] Received response (Length: 255)
+2026-01-18T09:29:11.0262927Z     ⚠️ Skipping duplicate injection: Create Login Details
+2026-01-18T09:29:11.0263693Z     🧠 Verifying step validity for 'Password' after no candidates found...
+2026-01-18T09:29:16.2572637Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:16.2573209Z [DEBUG] Received response (Length: 220)
+2026-01-18T09:29:16.2574399Z     🗑️ Step deemed INVALID: The 'Password' field is not visible on the page. The 'Create Login Details' toggle is currently off. We need to enable it first to reveal the password fields.. Removing from workflow.
+2026-01-18T09:29:16.2575290Z     ⏭️ Skipping execution of invalid step: Password
+2026-01-18T09:29:16.2575988Z   ▶️ [STEP step_21] CLICK: Login
+2026-01-18T09:29:16.2631704Z     🔍 Mining locators for: 'Login'
+2026-01-18T09:29:16.3139869Z     ✅ Found 1 verified locators
+2026-01-18T09:29:19.8640426Z     ✅ State transitioned.
+2026-01-18T09:29:21.2246607Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:21.2247266Z [DEBUG] Received response (Length: 252)
+2026-01-18T09:29:21.2248070Z     🤖 AI Next Step Suggestion: fill -> Employee Id
+2026-01-18T09:29:21.2248709Z     🧩 Suggested Locator: input[name='employeeId']
+2026-01-18T09:29:21.2249970Z     💭 Reasoning: The previous attempt to save the employee failed because the Employee Id already exists. I will try a different Employee Id.
+2026-01-18T09:29:21.2251288Z     ➕ Injected AI step: fill -> Employee Id
+2026-01-18T09:29:21.2251715Z   ▶️ [STEP step_21_ai_1] FILL: Employee Id
+2026-01-18T09:29:21.2302130Z     🎯 Using AI-provided locator: input[name='employeeId']
+2026-01-18T09:29:21.2318804Z     🔍 Mining locators for: 'Employee Id'
+2026-01-18T09:29:21.2809300Z     ✅ Found 1 verified locators
+2026-01-18T09:29:26.3907867Z     ✅ State transitioned.
+2026-01-18T09:29:27.8539355Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:27.8540063Z [DEBUG] Received response (Length: 252)
+2026-01-18T09:29:27.8541356Z     🤖 AI Next Step Suggestion: fill -> Employee Id
+2026-01-18T09:29:27.8542222Z     🧩 Suggested Locator: input[name='employeeId']
+2026-01-18T09:29:27.8543865Z     💭 Reasoning: The previous employee ID already exists, so I'm changing the employee ID to a new value to proceed with adding the employee.
+2026-01-18T09:29:27.8545615Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('fill', 'employee id')
+2026-01-18T09:29:27.8546609Z   ▶️ [STEP step_23] ASSERT_VISIBLE: Dashboard
+2026-01-18T09:29:27.8600281Z     🔍 Mining locators for: 'Dashboard'
+2026-01-18T09:29:27.9097201Z     🧠 Consulting AI (Vision-First) to find 'Dashboard'...
+2026-01-18T09:29:27.9098516Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:29:32.6677836Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:32.6678337Z [DEBUG] Received response (Length: 204)
+2026-01-18T09:29:32.6679028Z     💡 Expert Suggestion: Dashboard is likely accessible from the Employee List page.
+2026-01-18T09:29:32.6679585Z     🛠️ Executing corrective action: click -> 'Employee List'
+2026-01-18T09:29:34.9312553Z     ✅ Executed corrective navigation
+2026-01-18T09:29:36.9335351Z     🔄 Retry 1/3 mining locators for 'Dashboard'...
+2026-01-18T09:29:38.0521793Z     ✅ Found 2 verified locators
+2026-01-18T09:29:40.6111853Z     ✅ State transitioned.
+2026-01-18T09:29:42.5497628Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:42.5498641Z [DEBUG] Received response (Length: 445)
+2026-01-18T09:29:42.5499469Z     🤖 AI Next Step Suggestion: click -> PIM
+2026-01-18T09:29:42.5499956Z     🧩 Suggested Locator: a[href*='/web/index.php/pim/viewPimModule']
+2026-01-18T09:29:42.5501958Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. Since we are already on the PIM page, clicking the PIM link again will refresh the page and ensure that the page is fully loaded and ready for further exploration. This will help in identifying all the interactive elements on the page.
+2026-01-18T09:29:42.5503286Z     ➕ Injected AI step: click -> PIM
+2026-01-18T09:29:42.5503591Z   ▶️ [STEP step_23_ai_1] CLICK: PIM
+2026-01-18T09:29:42.5572490Z     🎯 Using AI-provided locator: a[href*='/web/index.php/pim/viewPimModule']
+2026-01-18T09:29:42.5640974Z     ✅ Found 1 verified locators
+2026-01-18T09:29:46.6099200Z     ✅ State transitioned.
+2026-01-18T09:29:47.1787204Z     ⚠️ Action failed: Page.evaluate: Execution context was destroyed, mo...
+2026-01-18T09:29:48.1249039Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:48.1249798Z [DEBUG] Received response (Length: 142)
+2026-01-18T09:29:48.1250322Z   ▶️ [STEP step_25] ASSERT_VISIBLE: PIM
+2026-01-18T09:29:48.1396449Z     🔍 Mining locators for: 'PIM'
+2026-01-18T09:29:48.2172555Z     ✅ Found 2 verified locators
+2026-01-18T09:29:50.7590434Z     ✅ State transitioned.
+2026-01-18T09:29:54.1995168Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:54.1995875Z [DEBUG] Received response (Length: 338)
+2026-01-18T09:29:54.1996699Z     🤖 AI Next Step Suggestion: click -> PIM
+2026-01-18T09:29:54.1997456Z     🧩 Suggested Locator: a[href*='/web/index.php/pim/viewPimModule']
+2026-01-18T09:29:54.1999498Z     💭 Reasoning: The previous attempt to click 'PIM' failed. Trying again to ensure the PIM module is properly loaded and accessible. It's possible the element wasn't fully loaded or interactable on the first attempt.
+2026-01-18T09:29:54.2001390Z     ➕ Injected AI step: click -> PIM
+2026-01-18T09:29:54.2001963Z   ▶️ [STEP step_25_ai_1] CLICK: PIM
+2026-01-18T09:29:54.2078511Z     🎯 Using AI-provided locator: a[href*='/web/index.php/pim/viewPimModule']
+2026-01-18T09:29:54.2143235Z     ✅ Found 1 verified locators
+2026-01-18T09:29:58.2574915Z     ✅ State transitioned.
+2026-01-18T09:29:59.7000006Z     ⚠️ Action failed: Page.evaluate: Execution context was destroyed, mo...
+2026-01-18T09:30:00.6511035Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:00.6511715Z [DEBUG] Received response (Length: 141)
+2026-01-18T09:30:00.6512241Z   ▶️ [STEP step_27] ASSERT_VISIBLE: Leave
+2026-01-18T09:30:00.6656912Z     🔍 Mining locators for: 'Leave'
+2026-01-18T09:30:00.6868005Z     🧠 Consulting AI (Vision-First) to find 'Leave'...
+2026-01-18T09:30:00.6869017Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:30:05.8622275Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:05.8622690Z [DEBUG] Received response (Length: 223)
+2026-01-18T09:30:05.8623785Z     💡 Expert Suggestion: "Leave" is typically found within account settings or profile management sections.
+2026-01-18T09:30:05.8624800Z     🛠️ Executing corrective action: click -> 'Account'
+2026-01-18T09:30:06.2309684Z     🔄 Retry 1/3 mining locators for 'Leave'...
+2026-01-18T09:30:07.6625505Z     ✅ Found 2 verified locators
+2026-01-18T09:30:10.2088821Z     ✅ State transitioned.
+2026-01-18T09:30:12.3473896Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:12.3474469Z [DEBUG] Received response (Length: 342)
+2026-01-18T09:30:12.3475176Z     🤖 AI Next Step Suggestion: click -> PIM
+2026-01-18T09:30:12.3475697Z     🧩 Suggested Locator: a[href*='/web/index.php/pim/viewPimModule']
+2026-01-18T09:30:12.3479374Z     💭 Reasoning: The previous attempts to click 'PIM' failed. It's important to re-attempt clicking 'PIM' to ensure the navigation works as expected. The goal is to explore the website and identify key user flows, and PIM is a key module.
+2026-01-18T09:30:12.3482027Z ⚠️ Loop detected: same AI suggestion repeated 3 times. Moving to next step.
+2026-01-18T09:30:12.3482999Z   ▶️ [STEP step_28] ASSERT_VISIBLE: Recruitment
+2026-01-18T09:30:12.3544686Z     🔍 Mining locators for: 'Recruitment'
+2026-01-18T09:30:12.7755265Z     ✅ Found 2 verified locators
+2026-01-18T09:30:15.3097634Z     ✅ State transitioned.
+2026-01-18T09:30:17.2302605Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:17.2303256Z [DEBUG] Received response (Length: 152)
+2026-01-18T09:30:17.2304062Z     🤖 AI Next Step Suggestion: click -> Add
+2026-01-18T09:30:17.2304585Z     🧩 Suggested Locator: button
+2026-01-18T09:30:17.2305386Z     💭 Reasoning: To explore the 'Add Employee' flow, I should click the 'Add' button.
+2026-01-18T09:30:17.2306203Z     ➕ Injected AI step: click -> Add
+2026-01-18T09:30:17.2306767Z   ▶️ [STEP step_28_ai_1] CLICK: Add
+2026-01-18T09:30:17.2376358Z     🎯 Using AI-provided locator: button
+2026-01-18T09:30:17.2440151Z     ✅ Found 1 verified locators
+2026-01-18T09:30:21.3097165Z     ✅ State transitioned.
+2026-01-18T09:30:23.1913235Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:23.1913901Z [DEBUG] Received response (Length: 308)
+2026-01-18T09:30:23.1914647Z     🤖 AI Next Step Suggestion: click -> PIM
+2026-01-18T09:30:23.1915368Z     🧩 Suggested Locator: a[href*='/web/index.php/pim/viewPimModule']
+2026-01-18T09:30:23.1916521Z     💭 Reasoning: The previous attempts to click 'PIM' failed. I will try again to ensure the navigation works as expected. It's possible the element wasn't fully loaded or there was an intermittent issue.
+2026-01-18T09:30:23.1917378Z     ➕ Injected AI step: click -> PIM
+2026-01-18T09:30:23.1917686Z   ▶️ [STEP step_28_ai_2] CLICK: PIM
+2026-01-18T09:30:23.1983544Z     🎯 Using AI-provided locator: a[href*='/web/index.php/pim/viewPimModule']
+2026-01-18T09:30:23.2046478Z     ✅ Found 1 verified locators
+2026-01-18T09:30:27.2569067Z     ✅ State transitioned.
+2026-01-18T09:30:27.5238903Z     ⚠️ Action failed: Page.evaluate: Execution context was destroyed, mo...
+2026-01-18T09:30:28.4944731Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:28.4945160Z [DEBUG] Received response (Length: 141)
+2026-01-18T09:30:28.4945649Z   ▶️ [STEP step_31] CLICK: PIM
+2026-01-18T09:30:28.5101628Z     🔍 Mining locators for: 'PIM'
+2026-01-18T09:30:28.5827942Z     ✅ Found 2 verified locators
+2026-01-18T09:30:32.1475402Z     ✅ State transitioned.
+2026-01-18T09:30:34.4232381Z     ⚠️ Action failed: Page.evaluate: Execution context was destroyed, mo...
+2026-01-18T09:30:35.3402569Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:35.3402996Z [DEBUG] Received response (Length: 141)
+2026-01-18T09:30:35.3403551Z   ▶️ [STEP step_32] ASSERT_VISIBLE: Employee List
+2026-01-18T09:30:35.3547352Z     🔍 Mining locators for: 'Employee List'
+2026-01-18T09:30:35.3749446Z     🧠 Consulting AI (Vision-First) to find 'Employee List'...
+2026-01-18T09:30:35.3750667Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:30:40.6267447Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:40.6267864Z [DEBUG] Received response (Length: 207)
+2026-01-18T09:30:40.6268577Z     💡 Expert Suggestion: Employee lists are often found under 'About Us' or 'Team' sections.
+2026-01-18T09:30:40.6269128Z     🛠️ Executing corrective action: click -> 'About Us'
+2026-01-18T09:30:41.0295791Z     🔄 Retry 1/3 mining locators for 'Employee List'...
+2026-01-18T09:30:42.3931440Z     ✅ Found 2 verified locators
+2026-01-18T09:30:44.9235244Z     ✅ State transitioned.
+2026-01-18T09:30:46.5117264Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:46.5117932Z [DEBUG] Received response (Length: 156)
+2026-01-18T09:30:46.5119212Z     🤖 AI Next Step Suggestion: click -> Add
+2026-01-18T09:30:46.5120016Z     🧩 Suggested Locator: text=+ Add
+2026-01-18T09:30:46.5121300Z     💭 Reasoning: To explore the 'Add Employee' flow, I will click the '+ Add' button.
+2026-01-18T09:30:46.5122365Z     ➕ Injected AI step: click -> Add
+2026-01-18T09:30:46.5123006Z   ▶️ [STEP step_32_ai_1] CLICK: Add
+2026-01-18T09:30:46.5194945Z     🎯 Using AI-provided locator: text=+ Add
+2026-01-18T09:30:46.5241732Z     🔍 Mining locators for: 'Add'
+2026-01-18T09:30:46.8555730Z     ✅ Found 2 verified locators
+2026-01-18T09:30:50.4259845Z     ✅ State transitioned.
+2026-01-18T09:30:51.9610837Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:51.9611851Z [DEBUG] Received response (Length: 230)
+2026-01-18T09:30:51.9612901Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T09:30:51.9613391Z     🧩 Suggested Locator: input[name='firstName']
+2026-01-18T09:30:51.9614208Z     💭 Reasoning: The page is the 'Add Employee' page. Filling the first name is the next logical step to add an employee.
+2026-01-18T09:30:51.9614910Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T09:30:51.9615637Z   ▶️ [STEP step_32_ai_2] FILL: First Name
+2026-01-18T09:30:51.9759142Z     🎯 Using AI-provided locator: input[name='firstName']
+2026-01-18T09:30:51.9814698Z     ✅ Found 1 verified locators
+2026-01-18T09:30:57.3324844Z     ✅ State transitioned.
+2026-01-18T09:30:58.9112873Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:58.9113742Z [DEBUG] Received response (Length: 190)
+2026-01-18T09:30:58.9114794Z     🤖 AI Next Step Suggestion: fill -> Middle Name
+2026-01-18T09:30:58.9115614Z     🧩 Suggested Locator: input[name='middleName']
+2026-01-18T09:30:58.9116709Z     💭 Reasoning: Filling the middle name field to proceed with adding an employee.
+2026-01-18T09:30:58.9117764Z     ➕ Injected AI step: fill -> Middle Name
+2026-01-18T09:30:58.9119996Z   ▶️ [STEP step_32_ai_3] FILL: Middle Name
+2026-01-18T09:30:58.9176904Z     🎯 Using AI-provided locator: input[name='middleName']
+2026-01-18T09:30:58.9228884Z     ✅ Found 1 verified locators
+2026-01-18T09:31:04.1029267Z     ✅ State transitioned.
+2026-01-18T09:31:05.6857917Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:05.6858494Z [DEBUG] Received response (Length: 216)
+2026-01-18T09:31:05.6859189Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T09:31:05.6859906Z     💭 Reasoning: The first and middle names have been filled. Filling the last name is the next logical step to complete the form.
+2026-01-18T09:31:05.6860513Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T09:31:05.6860830Z   ▶️ [STEP step_32_ai_4] FILL: Last Name
+2026-01-18T09:31:05.6913777Z     🔍 Mining locators for: 'Last Name'
+2026-01-18T09:31:05.8045115Z     ✅ Found 3 verified locators
+2026-01-18T09:31:10.7476657Z     ✅ State transitioned.
+2026-01-18T09:31:12.3173687Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:12.3174432Z [DEBUG] Received response (Length: 194)
+2026-01-18T09:31:12.3175477Z     🤖 AI Next Step Suggestion: fill -> Employee Id
+2026-01-18T09:31:12.3176267Z     🧩 Suggested Locator: input[class='oxd-input oxd-input--active']
+2026-01-18T09:31:12.3177219Z     💭 Reasoning: Fill the employee id field to complete the form.
+2026-01-18T09:31:12.3177930Z     ➕ Injected AI step: fill -> Employee Id
+2026-01-18T09:31:12.3178512Z   ▶️ [STEP step_32_ai_5] FILL: Employee Id
+2026-01-18T09:31:12.3246201Z     🎯 Using AI-provided locator: input[class='oxd-input oxd-input--active']
+2026-01-18T09:31:12.3298184Z     ✅ Found 1 verified locators
+2026-01-18T09:31:17.5995309Z     ✅ State transitioned.
+2026-01-18T09:31:19.2797758Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:19.2798478Z [DEBUG] Received response (Length: 216)
+2026-01-18T09:31:19.2799239Z     🤖 AI Next Step Suggestion: click -> Save
+2026-01-18T09:31:19.2799915Z     🧩 Suggested Locator: button[type='submit']
+2026-01-18T09:31:19.2801561Z     💭 Reasoning: All required fields are filled, so clicking 'Save' is the next logical step to create the employee.
+2026-01-18T09:31:19.2802631Z     ➕ Injected AI step: click -> Save
+2026-01-18T09:31:19.2803187Z   ▶️ [STEP step_32_ai_6] CLICK: Save
+2026-01-18T09:31:19.2855764Z     🎯 Using AI-provided locator: button[type='submit']
+2026-01-18T09:31:19.2908692Z     ✅ Found 1 verified locators
+2026-01-18T09:31:23.3397790Z     ✅ State transitioned.
+2026-01-18T09:31:25.0729312Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:25.0730087Z [DEBUG] Received response (Length: 172)
+2026-01-18T09:31:25.0730847Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T09:31:25.0732120Z     💭 Reasoning: The form has been filled and saved. There are no other immediately actionable elements on the page to further the exploration goal.
+2026-01-18T09:31:25.0733018Z   ▶️ [STEP step_39] CLICK: Employee List
+2026-01-18T09:31:25.0783058Z     🔍 Mining locators for: 'Employee List'
+2026-01-18T09:31:25.1336412Z     ✅ Found 2 verified locators
+2026-01-18T09:31:28.6739721Z     ✅ State transitioned.
+2026-01-18T09:31:32.4724373Z     ⚠️ Action failed: Page.evaluate: Execution context was destroyed, mo...
+2026-01-18T09:31:33.4027722Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:33.4028389Z [DEBUG] Received response (Length: 186)
+2026-01-18T09:31:33.4029216Z   ▶️ [STEP step_40] ASSERT_VISIBLE: Add
+2026-01-18T09:31:33.4174112Z     🔍 Mining locators for: 'Add'
+2026-01-18T09:31:33.4377153Z     🧠 Consulting AI (Vision-First) to find 'Add'...
+2026-01-18T09:31:33.4378362Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:31:38.5835286Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:38.5835844Z [DEBUG] Received response (Length: 182)
+2026-01-18T09:31:38.5836576Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T09:31:38.5837178Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T09:31:38.6174264Z     🔄 Retry 1/3 mining locators for 'Add'...
+2026-01-18T09:31:39.6872664Z     ✅ Found 2 verified locators
+2026-01-18T09:31:42.2395284Z     ✅ State transitioned.
+2026-01-18T09:31:44.0900949Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:44.0901913Z [DEBUG] Received response (Length: 264)
+2026-01-18T09:31:44.0902726Z     🤖 AI Next Step Suggestion: click -> Add
+2026-01-18T09:31:44.0903286Z     🧩 Suggested Locator: text=+ Add
+2026-01-18T09:31:44.0904981Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The 'Add' button is visible and allows to add a new employee, which is a key user flow.
+2026-01-18T09:31:44.0906444Z     ➕ Injected AI step: click -> Add
+2026-01-18T09:31:44.0907197Z   ▶️ [STEP step_40_ai_1] CLICK: Add
+2026-01-18T09:31:44.0960829Z     🎯 Using AI-provided locator: text=+ Add
+2026-01-18T09:31:44.0981895Z     🔍 Mining locators for: 'Add'
+2026-01-18T09:31:44.1675239Z     ✅ Found 2 verified locators
+2026-01-18T09:31:47.7279847Z     ✅ State transitioned.
+2026-01-18T09:31:52.8878069Z     ⚠️ Action failed: Page.evaluate: Execution context was destroyed, mo...
+2026-01-18T09:31:55.8759264Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:55.8759788Z [DEBUG] Received response (Length: 160)
+2026-01-18T09:31:55.8760838Z 💾 Saving 1 scenarios to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo/workflow.json
+2026-01-18T09:31:55.9053366Z 
+2026-01-18T09:31:55.9054023Z ========================================
+2026-01-18T09:31:55.9054841Z 📋 EXPLORATION SUMMARY
+2026-01-18T09:31:55.9055402Z ✅ Successfully Mined: 36
+2026-01-18T09:31:55.9055895Z ✨ AI Assisted/Healed: 0
+2026-01-18T09:31:55.9056371Z ❌ Discovery Failures: 7
+2026-01-18T09:31:55.9057656Z 
+2026-01-18T09:31:55.9057815Z Failure Details:
+2026-01-18T09:31:55.9058194Z   - Step step_2_ai_10: 'priority'
+2026-01-18T09:31:55.9059752Z   - Step step_23_ai_1: Action failed and no healing
+2026-01-18T09:31:55.9060322Z   - Step step_25_ai_1: Action failed and no healing
+2026-01-18T09:31:55.9060898Z   - Step step_28_ai_2: Action failed and no healing
+2026-01-18T09:31:55.9061661Z   - Step step_31: Action failed and no healing
+2026-01-18T09:31:55.9062207Z   - Step step_39: Action failed and no healing
+2026-01-18T09:31:55.9062723Z   - Step step_40_ai_1: Action failed and no healing
+2026-01-18T09:31:55.9063009Z ========================================
+2026-01-18T09:31:55.9063183Z 
+2026-01-18T09:31:55.9063785Z 🏁 Exploration Complete. Locators saved to: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo/workflow.json
+2026-01-18T09:34:45.6356770Z 
+2026-01-18T09:34:45.6357558Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-18T09:34:45.6358255Z 📍 Project: ci_orangehrm_demo
+2026-01-18T09:34:45.6358714Z 🎬 Mode: Headless
+2026-01-18T09:34:45.6358925Z 
+2026-01-18T09:34:45.6359333Z --- Scenario: Explore OrangeHRM Website and Identify Key User Flows ---
+2026-01-18T09:34:45.6360116Z   ▶️ [STEP unknown] NAVIGATE: Step unknown
+2026-01-18T09:34:45.6360665Z     ✅ Step unknown Passed.
+2026-01-18T09:34:45.6361815Z   ▶️ [STEP unknown] ASSERT_URL: Step unknown
+2026-01-18T09:34:45.6362334Z     ✅ Step unknown Passed.
+2026-01-18T09:34:45.6362790Z   ▶️ [STEP step_2_ai_1] FILL: Username
+2026-01-18T09:34:45.6363339Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:34:45.6364102Z     ❌ Attempt 1 failed (unknown): Locator.scroll_into_view_if_needed: Error: strict mode violation: locator("text=Username") resolved ...
+2026-01-18T09:34:45.6364775Z     🔧 [AUTO-HEAL] Re-mining page to find 'Username'...
+2026-01-18T09:34:45.6365164Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:45.6365512Z [DEBUG] Received response (Length: 998)
+2026-01-18T09:34:45.6365896Z     ✨ AI successfully healed the step! Found 3 alternatives.
+2026-01-18T09:34:45.6366378Z     ✨ AI successfully healed the step! New selector: input[name="username"]
+2026-01-18T09:34:45.6366778Z     ✅ Step step_2_ai_1 Passed.
+2026-01-18T09:34:45.6367052Z   ▶️ [STEP step_2_ai_2] FILL: Password
+2026-01-18T09:34:45.6367389Z     🎯 Using mined locator: input[name='password']
+2026-01-18T09:34:45.6367704Z     ✅ Step step_2_ai_2 Passed.
+2026-01-18T09:34:45.6367961Z   ▶️ [STEP step_2_ai_3] CLICK: Login
+2026-01-18T09:34:45.6368238Z     🎯 Using mined locator: button
+2026-01-18T09:34:45.6368494Z     ✅ Step step_2_ai_3 Passed.
+2026-01-18T09:34:45.6368747Z   ▶️ [STEP step_2_ai_4] CLICK: Admin
+2026-01-18T09:34:45.6369135Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:34:45.6369509Z     ✅ Step step_2_ai_4 Passed.
+2026-01-18T09:34:45.6369756Z   ▶️ [STEP step_2_ai_5] CLICK: PIM
+2026-01-18T09:34:45.6370133Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:34:45.6370508Z     ✅ Step step_2_ai_5 Passed.
+2026-01-18T09:34:45.6370762Z   ▶️ [STEP step_2_ai_6] CLICK: Add
+2026-01-18T09:34:45.6371397Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:34:45.6372429Z     ❌ Attempt 1 failed (unknown): Locator.bounding_box: Error: strict mode violation: locator("text=Add") resolved to 2 elements:
+2026-01-18T09:34:45.6372980Z     ...
+2026-01-18T09:34:45.6373246Z     🔧 [AUTO-HEAL] Re-mining page to find 'Add'...
+2026-01-18T09:34:45.6373612Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:45.6373950Z [DEBUG] Received response (Length: 653)
+2026-01-18T09:34:45.6374313Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T09:34:45.6374946Z     ✨ AI successfully healed the step! New selector: div.orangehrm-paper-container > div > button.oxd-button
+2026-01-18T09:34:45.6375606Z     ✅ Step step_2_ai_6 Passed.
+2026-01-18T09:34:45.6375886Z   ▶️ [STEP step_2_ai_7] FILL: First Name
+2026-01-18T09:34:45.6376279Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:34:45.6377121Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-18T09:34:45.6377614Z Call log:
+2026-01-18T09:34:45.6377800Z   - waiting for locator("tex...
+2026-01-18T09:34:45.6378131Z     🔧 [AUTO-HEAL] Re-mining page to find 'First Name'...
+2026-01-18T09:34:45.6378503Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:45.6378841Z [DEBUG] Received response (Length: 713)
+2026-01-18T09:34:45.6379398Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T09:34:45.6379996Z     ✨ AI successfully healed the step! New selector: input[placeholder='First Name']
+2026-01-18T09:34:45.6380428Z     ✅ Step step_2_ai_7 Passed.
+2026-01-18T09:34:45.6380704Z   ▶️ [STEP step_2_ai_8] FILL: Middle Name
+2026-01-18T09:34:45.6381672Z     🎯 Using mined locator: role=textbox[name='Middle Name']
+2026-01-18T09:34:45.6382113Z     ✅ Step step_2_ai_8 Passed.
+2026-01-18T09:34:45.6382435Z   ▶️ [STEP step_2_ai_9] FILL: Last Name
+2026-01-18T09:34:45.6382935Z     🎯 Using mined locator: input[placeholder='Last Name']
+2026-01-18T09:34:45.6383279Z     ✅ Step step_2_ai_9 Passed.
+2026-01-18T09:34:45.6383759Z   ▶️ [STEP step_2_ai_10] FILL: Employee Id
+2026-01-18T09:34:45.6384051Z     ✅ Step step_2_ai_10 Passed.
+2026-01-18T09:34:45.6384334Z   ▶️ [STEP unknown] ASSERT_VISIBLE: Username
+2026-01-18T09:34:45.6384672Z     🎯 Using mined locator: div.oxd-switch-wrapper
+2026-01-18T09:34:45.6384981Z     ✅ Step unknown Passed.
+2026-01-18T09:34:45.6385243Z   ▶️ [STEP step_13_ai_1] FILL: Employee Id
+2026-01-18T09:34:45.6385632Z     🎯 Using mined locator: input[class='oxd-input oxd-input--active']
+2026-01-18T09:34:45.6386018Z     ✅ Step step_13_ai_1 Passed.
+2026-01-18T09:34:45.6386290Z   ▶️ [STEP step_13_ai_2] CLICK: Save
+2026-01-18T09:34:45.6386626Z     🎯 Using mined locator: button[type='submit']
+2026-01-18T09:34:45.6387039Z     ✅ Step step_13_ai_2 Passed.
+2026-01-18T09:34:45.6387319Z   ▶️ [STEP step_13_ai_3] FILL: Employee Id
+2026-01-18T09:34:45.6387734Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:34:45.6388115Z     ✅ Step step_13_ai_3 Passed.
+2026-01-18T09:34:45.6388404Z   ▶️ [STEP unknown] ASSERT_VISIBLE: Password
+2026-01-18T09:34:45.6388818Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-18T09:34:45.6389167Z Actual value: None
+2026-01-18T09:34:45.6389375Z Error: element(s) not found 
+2026-01-18T09:34:45.6389586Z Call log:
+2026-01-18T09:34:45.6389755Z   - Expect ...
+2026-01-18T09:34:45.6390140Z     🔧 [AUTO-HEAL] Re-mining page to find 'Password'...
+2026-01-18T09:34:45.6390657Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:45.6391403Z [DEBUG] Received response (Length: 38)
+2026-01-18T09:34:45.6391999Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T09:34:45.6392494Z     ❌ Attempt 2 failed (element_not_found): Locator expected to be visible
+2026-01-18T09:34:45.6392864Z Actual value: None
+2026-01-18T09:34:45.6393223Z Error: element(s) not found 
+2026-01-18T09:34:45.6393518Z Call log:
+2026-01-18T09:34:45.6393812Z   - Expect ...
+2026-01-18T09:34:45.6394132Z     🔧 [AUTO-HEAL] Re-mining page to find 'Password'...
+2026-01-18T09:34:45.6394566Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:45.6394906Z [DEBUG] Received response (Length: 38)
+2026-01-18T09:34:45.6395298Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T09:34:45.6395776Z     ❌ Attempt 3 failed (element_not_found): Locator expected to be visible
+2026-01-18T09:34:45.6396115Z Actual value: None
+2026-01-18T09:34:45.6396310Z Error: element(s) not found 
+2026-01-18T09:34:45.6396520Z Call log:
+2026-01-18T09:34:45.6396680Z   - Expect ...
+2026-01-18T09:34:45.6396929Z     💀 Step unknown failed after all retries.
+2026-01-18T09:34:45.6397460Z 🛑 Scenario 'Explore OrangeHRM Website and Identify Key User Flows' aborted due to step failure.
+2026-01-18T09:34:45.6397827Z 
+2026-01-18T09:34:45.6398316Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo/execution.json
+2026-01-18T09:34:45.7514821Z 
+2026-01-18T09:34:45.7515770Z [PHASE] Running Phase: DISCOVERY
+2026-01-18T09:34:45.7517056Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo --url https://opensource-demo.orangehrmlive.com/
+2026-01-18T09:34:45.7518567Z ✅ Phase 'discovery' completed successfully.
+2026-01-18T09:34:45.7518784Z 
+2026-01-18T09:34:45.7518877Z [PHASE] Running Phase: PLANNING
+2026-01-18T09:34:45.7519990Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo --url https://opensource-demo.orangehrmlive.com/
+2026-01-18T09:34:45.7521435Z ✅ Phase 'planning' completed successfully.
+2026-01-18T09:34:45.7521637Z 
+2026-01-18T09:34:45.7521731Z [PHASE] Running Phase: EXPLORATION
+2026-01-18T09:34:45.7522909Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo
+2026-01-18T09:34:45.7523913Z ✅ Phase 'exploration' completed successfully.
+2026-01-18T09:34:45.7524292Z 📊 Exploration Discovery Success Rate: 87.5%
+2026-01-18T09:34:45.7524487Z 
+2026-01-18T09:34:45.7524584Z [PHASE] Running Phase: EXECUTION
+2026-01-18T09:34:45.7525497Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo
+2026-01-18T09:34:45.7526465Z ✅ Phase 'execution' completed successfully.
+2026-01-18T09:34:45.7526664Z 
+2026-01-18T09:34:45.7526766Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-18T09:34:45.8461613Z ##[group]Run # The new orchestrator outputs execution.json in the project root
+2026-01-18T09:34:45.8462220Z [36;1m# The new orchestrator outputs execution.json in the project root[0m
+2026-01-18T09:34:45.8462659Z [36;1mRESULT_FILE="projects/ci_orangehrm_demo/execution.json"[0m
+2026-01-18T09:34:45.8463004Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-18T09:34:45.8463334Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-18T09:34:45.8463748Z [36;1m  # Extract count of passed scenarios/steps for visibility[0m
+2026-01-18T09:34:45.8464196Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-18T09:34:45.8464552Z [36;1melse[0m
+2026-01-18T09:34:45.8464785Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-18T09:34:45.8465064Z [36;1m  exit 1[0m
+2026-01-18T09:34:45.8465237Z [36;1mfi[0m
+2026-01-18T09:34:45.8497026Z shell: /usr/bin/bash -e {0}
+2026-01-18T09:34:45.8497256Z env:
+2026-01-18T09:34:45.8497538Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:34:45.8497973Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:34:45.8498379Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:34:45.8498744Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:34:45.8499298Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:34:45.8499766Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:34:45.8500171Z ##[endgroup]
+2026-01-18T09:34:45.8601219Z ✅ Results generated successfully: projects/ci_orangehrm_demo/execution.json
+2026-01-18T09:34:45.8627413Z 1
+2026-01-18T09:34:45.8689241Z ##[group]Run actions/upload-artifact@v4
+2026-01-18T09:34:45.8689517Z with:
+2026-01-18T09:34:45.8689711Z   name: orangehrm_demo-execution-results
+2026-01-18T09:34:45.8690008Z   path: projects/ci_orangehrm_demo/execution.json
+2026-01-18T09:34:45.8690283Z   retention-days: 30
+2026-01-18T09:34:45.8690486Z   if-no-files-found: warn
+2026-01-18T09:34:45.8690712Z   compression-level: 6
+2026-01-18T09:34:45.8690914Z   overwrite: false
+2026-01-18T09:34:45.8691610Z   include-hidden-files: false
+2026-01-18T09:34:45.8691850Z env:
+2026-01-18T09:34:45.8692094Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:34:45.8692513Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:34:45.8692924Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:34:45.8693291Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:34:45.8693651Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:34:45.8694035Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:34:45.8694337Z ##[endgroup]
+2026-01-18T09:34:46.0812860Z With the provided path, there will be 1 file uploaded
+2026-01-18T09:34:46.0818317Z Artifact name is valid!
+2026-01-18T09:34:46.0819331Z Root directory input is valid!
+2026-01-18T09:34:46.1628772Z Beginning upload of artifact content to blob storage
+2026-01-18T09:34:46.2483687Z Uploaded bytes 553
+2026-01-18T09:34:46.2721642Z Finished uploading artifact content to blob storage!
+2026-01-18T09:34:46.2725481Z SHA256 digest of uploaded artifact zip is 5409fbff27467f827011ebf38b358cfa01984687cd1ac85ff9eca5813a051244
+2026-01-18T09:34:46.2726982Z Finalizing artifact upload
+2026-01-18T09:34:46.3576099Z Artifact orangehrm_demo-execution-results.zip successfully finalized. Artifact ID 5168003250
+2026-01-18T09:34:46.3577537Z Artifact orangehrm_demo-execution-results has been successfully uploaded! Final size is 553 bytes. Artifact ID is 5168003250
+2026-01-18T09:34:46.3584195Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21109461243/artifacts/5168003250
+2026-01-18T09:34:46.3708431Z Post job cleanup.
+2026-01-18T09:34:46.5435019Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --files-from manifest.txt --use-compress-program zstdmt
+2026-01-18T09:34:47.0961298Z Failed to save: Unable to reserve cache with key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-e01604ec9be86a26965d6215464cc16bab5cdc759625cb1899035b468728c8f7, another job may be creating this cache.
+2026-01-18T09:34:47.1555609Z Post job cleanup.
+2026-01-18T09:34:47.2494500Z [command]/usr/bin/git version
+2026-01-18T09:34:47.2529468Z git version 2.52.0
+2026-01-18T09:34:47.2571250Z Temporarily overriding HOME='/home/runner/work/_temp/152af81e-79d1-4288-8082-3130f3106f56' before making global git config changes
+2026-01-18T09:34:47.2572517Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T09:34:47.2576922Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T09:34:47.2610966Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T09:34:47.2642152Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T09:34:47.2867217Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T09:34:47.2886987Z http.https://github.com/.extraheader
+2026-01-18T09:34:47.2898945Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-18T09:34:47.2928648Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T09:34:47.3145934Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T09:34:47.3176065Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T09:34:47.3496812Z Cleaning up orphan processes

@@ -157,12 +157,9 @@ class ExplorerAgent:
                         unique_states=len(self.exploration_context.state_fingerprints)
                     )
                     metrics.record_cache_stats(cache_hits, cache_misses)
-                    metrics.record_circular_navigation(
-                        sum(1 for fp in self.exploration_context.state_fingerprints 
-                            if self.exploration_context.get_visit_count(
-                                self.exploration_context.state_fingerprints[fp][0]
-                            ) > 1)
-                    )
+                    # Count duplicate state visits
+                    circular_paths = sum(1 for url, count in self.exploration_context.url_visit_count.items() if count > 1)
+                    metrics.record_circular_navigation(circular_paths)
                     
                     metrics.print_summary()
                     metrics_file = metrics.save(os.path.join(self.project_dir, "outputs"))

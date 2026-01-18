@@ -1,0 +1,2017 @@
+﻿2026-01-18T09:25:36.2749980Z Current runner version: '2.331.0'
+2026-01-18T09:25:36.2772111Z ##[group]Runner Image Provisioner
+2026-01-18T09:25:36.2773003Z Hosted Compute Agent
+2026-01-18T09:25:36.2773586Z Version: 20251211.462
+2026-01-18T09:25:36.2774159Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-18T09:25:36.2774898Z Build Date: 2025-12-11T16:28:49Z
+2026-01-18T09:25:36.2775540Z Worker ID: {172e0f46-aef2-4478-ae86-99330657e8ee}
+2026-01-18T09:25:36.2776264Z ##[endgroup]
+2026-01-18T09:25:36.2776869Z ##[group]Operating System
+2026-01-18T09:25:36.2777448Z Ubuntu
+2026-01-18T09:25:36.2777911Z 24.04.3
+2026-01-18T09:25:36.2778526Z LTS
+2026-01-18T09:25:36.2779073Z ##[endgroup]
+2026-01-18T09:25:36.2779600Z ##[group]Runner Image
+2026-01-18T09:25:36.2780101Z Image: ubuntu-24.04
+2026-01-18T09:25:36.2780677Z Version: 20260111.209.1
+2026-01-18T09:25:36.2781675Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-18T09:25:36.2783190Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-18T09:25:36.2784195Z ##[endgroup]
+2026-01-18T09:25:36.2785293Z ##[group]GITHUB_TOKEN Permissions
+2026-01-18T09:25:36.2787051Z Contents: read
+2026-01-18T09:25:36.2787589Z Metadata: read
+2026-01-18T09:25:36.2788230Z Packages: read
+2026-01-18T09:25:36.2789064Z ##[endgroup]
+2026-01-18T09:25:36.2791465Z Secret source: Actions
+2026-01-18T09:25:36.2792233Z Prepare workflow directory
+2026-01-18T09:25:36.3161968Z Prepare all required actions
+2026-01-18T09:25:36.3204907Z Getting action download info
+2026-01-18T09:25:36.6463634Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-18T09:25:36.7691435Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-18T09:25:36.8504610Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-18T09:25:37.0652910Z Complete job name: test-complex-websites (parabank_banking, https://parabank.parasoft.com/, Register new user, login...
+2026-01-18T09:25:37.1340920Z ##[group]Run actions/checkout@v4
+2026-01-18T09:25:37.1341751Z with:
+2026-01-18T09:25:37.1342206Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T09:25:37.1342921Z   token: ***
+2026-01-18T09:25:37.1343302Z   ssh-strict: true
+2026-01-18T09:25:37.1343697Z   ssh-user: git
+2026-01-18T09:25:37.1344096Z   persist-credentials: true
+2026-01-18T09:25:37.1344536Z   clean: true
+2026-01-18T09:25:37.1344931Z   sparse-checkout-cone-mode: true
+2026-01-18T09:25:37.1345408Z   fetch-depth: 1
+2026-01-18T09:25:37.1345783Z   fetch-tags: false
+2026-01-18T09:25:37.1346170Z   show-progress: true
+2026-01-18T09:25:37.1346572Z   lfs: false
+2026-01-18T09:25:37.1346924Z   submodules: false
+2026-01-18T09:25:37.1347322Z   set-safe-directory: true
+2026-01-18T09:25:37.1347958Z ##[endgroup]
+2026-01-18T09:25:37.2406213Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T09:25:37.2408014Z ##[group]Getting Git version info
+2026-01-18T09:25:37.2409087Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T09:25:37.2410145Z [command]/usr/bin/git version
+2026-01-18T09:25:37.2493566Z git version 2.52.0
+2026-01-18T09:25:37.2519462Z ##[endgroup]
+2026-01-18T09:25:37.2533193Z Temporarily overriding HOME='/home/runner/work/_temp/16a1ef91-f323-4587-a0fa-2116cbb38e5d' before making global git config changes
+2026-01-18T09:25:37.2535609Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T09:25:37.2547421Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T09:25:37.2587723Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T09:25:37.2591398Z ##[group]Initializing the repository
+2026-01-18T09:25:37.2595254Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T09:25:37.2707574Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-18T09:25:37.2709140Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-18T09:25:37.2710344Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-18T09:25:37.2711587Z hint: call:
+2026-01-18T09:25:37.2712200Z hint:
+2026-01-18T09:25:37.2713000Z hint: 	git config --global init.defaultBranch <name>
+2026-01-18T09:25:37.2713938Z hint:
+2026-01-18T09:25:37.2714804Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-18T09:25:37.2715848Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-18T09:25:37.2716535Z hint:
+2026-01-18T09:25:37.2716914Z hint: 	git branch -m <name>
+2026-01-18T09:25:37.2717351Z hint:
+2026-01-18T09:25:37.2717927Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-18T09:25:37.2719662Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-18T09:25:37.2724723Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T09:25:37.2759076Z ##[endgroup]
+2026-01-18T09:25:37.2759790Z ##[group]Disabling automatic garbage collection
+2026-01-18T09:25:37.2763075Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-18T09:25:37.2791805Z ##[endgroup]
+2026-01-18T09:25:37.2792472Z ##[group]Setting up auth
+2026-01-18T09:25:37.2798753Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T09:25:37.2828187Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T09:25:37.3254180Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T09:25:37.3288641Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T09:25:37.3541279Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T09:25:37.3573400Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T09:25:37.3835568Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-18T09:25:37.3868918Z ##[endgroup]
+2026-01-18T09:25:37.3869767Z ##[group]Fetching the repository
+2026-01-18T09:25:37.3877123Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +0876873ded0353f71e85298c7ecbf6841b796082:refs/remotes/origin/main
+2026-01-18T09:25:38.0344340Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T09:25:38.0345457Z  * [new ref]         0876873ded0353f71e85298c7ecbf6841b796082 -> origin/main
+2026-01-18T09:25:38.0379447Z ##[endgroup]
+2026-01-18T09:25:38.0380806Z ##[group]Determining the checkout info
+2026-01-18T09:25:38.0383907Z ##[endgroup]
+2026-01-18T09:25:38.0388177Z [command]/usr/bin/git sparse-checkout disable
+2026-01-18T09:25:38.0432447Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-18T09:25:38.0458902Z ##[group]Checking out the ref
+2026-01-18T09:25:38.0461361Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-18T09:25:38.1358853Z Switched to a new branch 'main'
+2026-01-18T09:25:38.1360065Z branch 'main' set up to track 'origin/main'.
+2026-01-18T09:25:38.1374697Z ##[endgroup]
+2026-01-18T09:25:38.1410652Z [command]/usr/bin/git log -1 --format=%H
+2026-01-18T09:25:38.1432383Z 0876873ded0353f71e85298c7ecbf6841b796082
+2026-01-18T09:25:38.1740635Z ##[group]Run actions/setup-python@v5
+2026-01-18T09:25:38.1741781Z with:
+2026-01-18T09:25:38.1742585Z   python-version: 3.11
+2026-01-18T09:25:38.1743499Z   cache: pip
+2026-01-18T09:25:38.1744526Z   check-latest: false
+2026-01-18T09:25:38.1745707Z   token: ***
+2026-01-18T09:25:38.1746574Z   update-environment: true
+2026-01-18T09:25:38.1747589Z   allow-prereleases: false
+2026-01-18T09:25:38.1748754Z   freethreaded: false
+2026-01-18T09:25:38.1749653Z ##[endgroup]
+2026-01-18T09:25:38.3384738Z ##[group]Installed versions
+2026-01-18T09:25:38.3480069Z Successfully set up CPython (3.11.14)
+2026-01-18T09:25:38.3481788Z ##[endgroup]
+2026-01-18T09:25:38.3945390Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-18T09:25:38.7180360Z /home/runner/.cache/pip
+2026-01-18T09:25:38.8865937Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-e01604ec9be86a26965d6215464cc16bab5cdc759625cb1899035b468728c8f7
+2026-01-18T09:25:40.0356297Z Received 117440512 of 173771502 (67.6%), 112.0 MBs/sec
+2026-01-18T09:25:40.4877856Z Received 173771502 of 173771502 (100.0%), 114.1 MBs/sec
+2026-01-18T09:25:40.4879073Z Cache Size: ~166 MB (173771502 B)
+2026-01-18T09:25:40.4989165Z [command]/usr/bin/tar -xf /home/runner/work/_temp/6d7ac988-dfc6-47ef-821b-a469fc778d3d/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-18T09:25:40.7988871Z Cache restored successfully
+2026-01-18T09:25:40.8318453Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-ad5e4ba510d266fcd4d29dab1e74cf3459c639ec34c8ba822fa9eb95ff648a3c
+2026-01-18T09:25:40.8535673Z ##[group]Run pip install -r requirements.txt
+2026-01-18T09:25:40.8536099Z [36;1mpip install -r requirements.txt[0m
+2026-01-18T09:25:40.8536396Z [36;1mplaywright install chromium[0m
+2026-01-18T09:25:40.8573976Z shell: /usr/bin/bash -e {0}
+2026-01-18T09:25:40.8574242Z env:
+2026-01-18T09:25:40.8574511Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:40.8574956Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:25:40.8575382Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:40.8575794Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:40.8576158Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:40.8576534Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:25:40.8576842Z ##[endgroup]
+2026-01-18T09:25:41.5698170Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-18T09:25:41.5713320Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-18T09:25:41.6013389Z Collecting langchain-google-genai (from -r requirements.txt (line 2))
+2026-01-18T09:25:41.6027823Z   Using cached langchain_google_genai-4.2.0-py3-none-any.whl.metadata (2.7 kB)
+2026-01-18T09:25:41.6277440Z Collecting python-dotenv (from -r requirements.txt (line 3))
+2026-01-18T09:25:41.6298849Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-18T09:25:41.6762885Z Collecting requests (from -r requirements.txt (line 4))
+2026-01-18T09:25:41.6777420Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-18T09:25:41.8429279Z Collecting pillow (from -r requirements.txt (line 5))
+2026-01-18T09:25:41.8444455Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-18T09:25:41.9130269Z Collecting openai (from -r requirements.txt (line 6))
+2026-01-18T09:25:41.9144543Z   Using cached openai-2.15.0-py3-none-any.whl.metadata (29 kB)
+2026-01-18T09:25:41.9477843Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 7))
+2026-01-18T09:25:41.9490500Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-18T09:25:41.9725215Z Collecting termcolor (from -r requirements.txt (line 8))
+2026-01-18T09:25:41.9738579Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-18T09:25:42.0162553Z Collecting pytest (from -r requirements.txt (line 9))
+2026-01-18T09:25:42.0175696Z   Using cached pytest-9.0.2-py3-none-any.whl.metadata (7.6 kB)
+2026-01-18T09:25:42.0443404Z Collecting pytest-playwright (from -r requirements.txt (line 10))
+2026-01-18T09:25:42.0456734Z   Using cached pytest_playwright-0.7.2-py3-none-any.whl.metadata (14 kB)
+2026-01-18T09:25:42.0732585Z Collecting pytest-html (from -r requirements.txt (line 11))
+2026-01-18T09:25:42.0745317Z   Using cached pytest_html-4.1.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-18T09:25:42.0986679Z Collecting jinja2 (from -r requirements.txt (line 12))
+2026-01-18T09:25:42.1000271Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+2026-01-18T09:25:42.1430392Z Collecting PyYAML (from -r requirements.txt (line 13))
+2026-01-18T09:25:42.1443630Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-18T09:25:42.2078071Z Collecting fastapi (from -r requirements.txt (line 14))
+2026-01-18T09:25:42.2091087Z   Using cached fastapi-0.128.0-py3-none-any.whl.metadata (30 kB)
+2026-01-18T09:25:42.2475975Z Collecting uvicorn (from -r requirements.txt (line 15))
+2026-01-18T09:25:42.2491168Z   Using cached uvicorn-0.40.0-py3-none-any.whl.metadata (6.7 kB)
+2026-01-18T09:25:42.3890605Z Collecting pydantic (from -r requirements.txt (line 16))
+2026-01-18T09:25:42.3904847Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-18T09:25:42.4818842Z Collecting opencv-python-headless (from -r requirements.txt (line 17))
+2026-01-18T09:25:42.5773992Z   Downloading opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-18T09:25:42.7696315Z Collecting numpy (from -r requirements.txt (line 18))
+2026-01-18T09:25:42.7710872Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-18T09:25:42.8732296Z Collecting faker (from -r requirements.txt (line 19))
+2026-01-18T09:25:42.8897160Z   Downloading faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-18T09:25:42.9249116Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-18T09:25:42.9267814Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-18T09:25:43.0759144Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-18T09:25:43.0773563Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-18T09:25:43.1039574Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-18T09:25:43.1052882Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-18T09:25:43.1260472Z Collecting filetype<2.0.0,>=1.2.0 (from langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:43.1273369Z   Using cached filetype-1.2.0-py2.py3-none-any.whl.metadata (6.5 kB)
+2026-01-18T09:25:43.1840981Z Collecting langchain-core<2.0.0,>=1.2.5 (from langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:43.1853719Z   Using cached langchain_core-1.2.7-py3-none-any.whl.metadata (3.7 kB)
+2026-01-18T09:25:43.2254010Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:43.2266775Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-18T09:25:43.2678589Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:43.2690736Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-18T09:25:43.2994229Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:43.3006974Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-18T09:25:43.3474531Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:43.3487759Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-18T09:25:43.4407539Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:43.4421317Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-18T09:25:43.4640930Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:43.4653654Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-18T09:25:43.4827472Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:43.4840753Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-18T09:25:43.5701894Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 4))
+2026-01-18T09:25:43.5716028Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-18T09:25:43.5951880Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 4))
+2026-01-18T09:25:43.5965051Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T09:25:43.6324927Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 4))
+2026-01-18T09:25:43.6338122Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-18T09:25:43.6624019Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 4))
+2026-01-18T09:25:43.6637634Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T09:25:43.6831567Z Collecting annotated-types>=0.6.0 (from pydantic->-r requirements.txt (line 16))
+2026-01-18T09:25:43.6844628Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-18T09:25:44.3749362Z Collecting pydantic-core==2.41.5 (from pydantic->-r requirements.txt (line 16))
+2026-01-18T09:25:44.3765021Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-18T09:25:44.3975527Z Collecting typing-inspection>=0.4.2 (from pydantic->-r requirements.txt (line 16))
+2026-01-18T09:25:44.3989595Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-18T09:25:44.4342041Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:44.4355554Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-18T09:25:44.4583219Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:44.4596950Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-18T09:25:44.4970654Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:44.4983839Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-18T09:25:44.5189742Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:44.5202635Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-18T09:25:44.5437503Z Collecting jsonpatch<2.0.0,>=1.33.0 (from langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:44.5450681Z   Using cached jsonpatch-1.33-py2.py3-none-any.whl.metadata (3.0 kB)
+2026-01-18T09:25:44.6189042Z Collecting langsmith<1.0.0,>=0.3.45 (from langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:44.6201404Z   Using cached langsmith-0.6.4-py3-none-any.whl.metadata (15 kB)
+2026-01-18T09:25:44.6471321Z Collecting packaging<26.0.0,>=23.2.0 (from langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:44.6483713Z   Using cached packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-18T09:25:44.7283070Z Collecting uuid-utils<1.0,>=0.12.0 (from langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:44.7295812Z   Using cached uuid_utils-0.13.0-cp39-abi3-manylinux_2_24_x86_64.whl.metadata (5.4 kB)
+2026-01-18T09:25:44.7518628Z Collecting jsonpointer>=1.9 (from jsonpatch<2.0.0,>=1.33.0->langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:44.7531033Z   Using cached jsonpointer-3.0.0-py2.py3-none-any.whl.metadata (2.3 kB)
+2026-01-18T09:25:45.0576995Z Collecting orjson>=3.9.14 (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:45.0592113Z   Using cached orjson-3.11.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+2026-01-18T09:25:45.0816576Z Collecting requests-toolbelt>=1.0.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:45.0829498Z   Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)
+2026-01-18T09:25:45.1689763Z Collecting zstandard>=0.23.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:45.1703448Z   Using cached zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+2026-01-18T09:25:45.2139062Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:45.2304464Z   Downloading pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T09:25:45.3277186Z Collecting jiter<1,>=0.10.0 (from openai->-r requirements.txt (line 6))
+2026-01-18T09:25:45.3291424Z   Using cached jiter-0.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)
+2026-01-18T09:25:45.3908893Z Collecting tqdm>4 (from openai->-r requirements.txt (line 6))
+2026-01-18T09:25:45.3921824Z   Using cached tqdm-4.67.1-py3-none-any.whl.metadata (57 kB)
+2026-01-18T09:25:45.4186528Z Collecting iniconfig>=1.0.1 (from pytest->-r requirements.txt (line 9))
+2026-01-18T09:25:45.4199525Z   Using cached iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T09:25:45.4443690Z Collecting pluggy<2,>=1.5 (from pytest->-r requirements.txt (line 9))
+2026-01-18T09:25:45.4456225Z   Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+2026-01-18T09:25:45.4727093Z Collecting pygments>=2.7.2 (from pytest->-r requirements.txt (line 9))
+2026-01-18T09:25:45.4741159Z   Using cached pygments-2.19.2-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T09:25:45.5109567Z Collecting pytest-base-url<3.0.0,>=1.0.0 (from pytest-playwright->-r requirements.txt (line 10))
+2026-01-18T09:25:45.5122289Z   Using cached pytest_base_url-2.1.0-py3-none-any.whl.metadata (6.6 kB)
+2026-01-18T09:25:45.5346483Z Collecting python-slugify<9.0.0,>=6.0.0 (from pytest-playwright->-r requirements.txt (line 10))
+2026-01-18T09:25:45.5364822Z   Using cached python_slugify-8.0.4-py2.py3-none-any.whl.metadata (8.5 kB)
+2026-01-18T09:25:45.5807972Z Collecting text-unidecode>=1.3 (from python-slugify<9.0.0,>=6.0.0->pytest-playwright->-r requirements.txt (line 10))
+2026-01-18T09:25:45.5820928Z   Using cached text_unidecode-1.3-py2.py3-none-any.whl.metadata (2.4 kB)
+2026-01-18T09:25:45.6089045Z Collecting pytest-metadata>=2.0.0 (from pytest-html->-r requirements.txt (line 11))
+2026-01-18T09:25:45.6101798Z   Using cached pytest_metadata-3.1.1-py3-none-any.whl.metadata (8.6 kB)
+2026-01-18T09:25:45.6698205Z Collecting MarkupSafe>=2.0 (from jinja2->-r requirements.txt (line 12))
+2026-01-18T09:25:45.6711835Z   Using cached markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-01-18T09:25:45.7073945Z Collecting starlette<0.51.0,>=0.40.0 (from fastapi->-r requirements.txt (line 14))
+2026-01-18T09:25:45.7086869Z   Using cached starlette-0.50.0-py3-none-any.whl.metadata (6.3 kB)
+2026-01-18T09:25:45.7448195Z Collecting annotated-doc>=0.0.2 (from fastapi->-r requirements.txt (line 14))
+2026-01-18T09:25:45.7461156Z   Using cached annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+2026-01-18T09:25:45.7833354Z Collecting click>=7.0 (from uvicorn->-r requirements.txt (line 15))
+2026-01-18T09:25:45.7846451Z   Using cached click-8.3.1-py3-none-any.whl.metadata (2.6 kB)
+2026-01-18T09:25:45.8471978Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-18T09:25:45.8802486Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-18T09:25:45.8819090Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-18T09:25:45.8832199Z Using cached langchain_google_genai-4.2.0-py3-none-any.whl (66 kB)
+2026-01-18T09:25:45.8845327Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-18T09:25:45.8863016Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-18T09:25:45.8876164Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-18T09:25:45.8892397Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-18T09:25:45.8919074Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-18T09:25:45.8932702Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-18T09:25:45.8945849Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-18T09:25:45.8958674Z Using cached filetype-1.2.0-py2.py3-none-any.whl (19 kB)
+2026-01-18T09:25:45.8971566Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-18T09:25:45.8985841Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-18T09:25:45.8998866Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-18T09:25:45.9012100Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-18T09:25:45.9025490Z Using cached langchain_core-1.2.7-py3-none-any.whl (490 kB)
+2026-01-18T09:25:45.9042415Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-18T09:25:45.9060530Z Using cached jsonpatch-1.33-py2.py3-none-any.whl (12 kB)
+2026-01-18T09:25:45.9073520Z Using cached langsmith-0.6.4-py3-none-any.whl (283 kB)
+2026-01-18T09:25:45.9088547Z Using cached packaging-25.0-py3-none-any.whl (66 kB)
+2026-01-18T09:25:45.9101882Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-18T09:25:45.9115062Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-18T09:25:45.9128127Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-18T09:25:45.9141552Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-18T09:25:45.9155465Z Using cached uuid_utils-0.13.0-cp39-abi3-manylinux_2_24_x86_64.whl (342 kB)
+2026-01-18T09:25:45.9171399Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-18T09:25:45.9185323Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-18T09:25:45.9198827Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-18T09:25:45.9261093Z Using cached openai-2.15.0-py3-none-any.whl (1.1 MB)
+2026-01-18T09:25:45.9281942Z Using cached jiter-0.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (364 kB)
+2026-01-18T09:25:45.9297334Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-18T09:25:45.9310833Z Using cached pytest-9.0.2-py3-none-any.whl (374 kB)
+2026-01-18T09:25:45.9327052Z Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+2026-01-18T09:25:45.9340592Z Using cached pytest_playwright-0.7.2-py3-none-any.whl (16 kB)
+2026-01-18T09:25:45.9353675Z Using cached pytest_base_url-2.1.0-py3-none-any.whl (5.3 kB)
+2026-01-18T09:25:45.9366792Z Using cached python_slugify-8.0.4-py2.py3-none-any.whl (10 kB)
+2026-01-18T09:25:45.9379844Z Using cached pytest_html-4.1.1-py3-none-any.whl (23 kB)
+2026-01-18T09:25:45.9393290Z Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+2026-01-18T09:25:45.9407088Z Using cached fastapi-0.128.0-py3-none-any.whl (103 kB)
+2026-01-18T09:25:45.9421016Z Using cached starlette-0.50.0-py3-none-any.whl (74 kB)
+2026-01-18T09:25:45.9434466Z Using cached uvicorn-0.40.0-py3-none-any.whl (68 kB)
+2026-01-18T09:25:45.9632739Z Downloading opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-18T09:25:46.3302474Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.5/62.5 MB 189.2 MB/s  0:00:00
+2026-01-18T09:25:46.3476545Z Downloading numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-18T09:25:46.4320377Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 201.8 MB/s  0:00:00
+2026-01-18T09:25:46.4498235Z Downloading faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-18T09:25:46.4607804Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 198.1 MB/s  0:00:00
+2026-01-18T09:25:46.4623035Z Using cached annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+2026-01-18T09:25:46.4636735Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-18T09:25:46.4650298Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-18T09:25:46.4664380Z Using cached click-8.3.1-py3-none-any.whl (108 kB)
+2026-01-18T09:25:46.4678518Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-18T09:25:46.4692135Z Using cached iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+2026-01-18T09:25:46.4705190Z Using cached jsonpointer-3.0.0-py2.py3-none-any.whl (7.6 kB)
+2026-01-18T09:25:46.4719221Z Using cached markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-01-18T09:25:46.4733121Z Using cached orjson-3.11.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (138 kB)
+2026-01-18T09:25:46.4898480Z Downloading pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-18T09:25:46.4934856Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-18T09:25:46.4949264Z Using cached pygments-2.19.2-py3-none-any.whl (1.2 MB)
+2026-01-18T09:25:46.4970761Z Using cached pytest_metadata-3.1.1-py3-none-any.whl (11 kB)
+2026-01-18T09:25:46.4984130Z Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl (54 kB)
+2026-01-18T09:25:46.4997704Z Using cached text_unidecode-1.3-py2.py3-none-any.whl (78 kB)
+2026-01-18T09:25:46.5011594Z Using cached tqdm-4.67.1-py3-none-any.whl (78 kB)
+2026-01-18T09:25:46.5025250Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-18T09:25:46.5038910Z Using cached zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.6 MB)
+2026-01-18T09:25:46.5090146Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-18T09:25:46.7835509Z Installing collected packages: text-unidecode, filetype, zstandard, websockets, uuid-utils, urllib3, typing-extensions, tqdm, termcolor, tenacity, sniffio, PyYAML, python-slugify, python-dotenv, pygments, pyasn1, pluggy, pillow, packaging, orjson, numpy, MarkupSafe, jsonpointer, jiter, iniconfig, idna, h11, greenlet, faker, distro, click, charset_normalizer, certifi, annotated-types, annotated-doc, uvicorn, typing-inspection, rsa, requests, pytest, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, jsonpatch, jinja2, httpcore, anyio, starlette, requests-toolbelt, pytest-metadata, pytest-base-url, pydantic, playwright, httpx, google-auth, pytest-playwright, pytest-html, openai, langsmith, fastapi, langchain-core, google-genai, langchain-google-genai
+2026-01-18T09:25:56.1120383Z 
+2026-01-18T09:25:56.1157750Z Successfully installed MarkupSafe-3.0.3 PyYAML-6.0.3 annotated-doc-0.0.4 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 click-8.3.1 distro-1.9.0 faker-40.1.2 fastapi-0.128.0 filetype-1.2.0 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 iniconfig-2.3.0 jinja2-3.1.6 jiter-0.12.0 jsonpatch-1.33 jsonpointer-3.0.0 langchain-core-1.2.7 langchain-google-genai-4.2.0 langsmith-0.6.4 numpy-2.4.1 openai-2.15.0 opencv-python-headless-4.13.0.90 orjson-3.11.5 packaging-25.0 pillow-12.1.0 playwright-1.57.0 pluggy-1.6.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 pygments-2.19.2 pytest-9.0.2 pytest-base-url-2.1.0 pytest-html-4.1.1 pytest-metadata-3.1.1 pytest-playwright-0.7.2 python-dotenv-1.2.1 python-slugify-8.0.4 requests-2.32.5 requests-toolbelt-1.0.0 rsa-4.9.1 sniffio-1.3.1 starlette-0.50.0 tenacity-9.1.2 termcolor-3.3.0 text-unidecode-1.3 tqdm-4.67.1 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 uuid-utils-0.13.0 uvicorn-0.40.0 websockets-15.0.1 zstandard-0.25.0
+2026-01-18T09:25:56.8473699Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-18T09:25:56.9429952Z (node:2237) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T09:25:56.9431035Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T09:25:57.0739874Z |                                                                                |   0% of 164.7 MiB
+2026-01-18T09:25:57.3537886Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-18T09:25:57.4529356Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-18T09:25:57.5510321Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-18T09:25:57.6415673Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-18T09:25:57.7331323Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-18T09:25:57.8232058Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-18T09:25:57.9133559Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-18T09:25:58.0040618Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-18T09:25:58.0939055Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-18T09:25:58.1877653Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-18T09:26:00.6170991Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-18T09:26:00.6175338Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-18T09:26:00.7143905Z (node:2248) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T09:26:00.7144959Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T09:26:00.7927073Z |                                                                                |   0% of 2.3 MiB
+2026-01-18T09:26:00.8137006Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-18T09:26:00.8243155Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-18T09:26:00.8302028Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-18T09:26:00.8341348Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-18T09:26:00.8390365Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-18T09:26:00.8435176Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-18T09:26:00.8453406Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-18T09:26:00.8469047Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-18T09:26:00.8493499Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-18T09:26:00.8508481Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-18T09:26:00.9055603Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-18T09:26:00.9059982Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-18T09:26:01.0040415Z (node:2259) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T09:26:01.0041619Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T09:26:01.1141210Z |                                                                                |   0% of 109.7 MiB
+2026-01-18T09:26:01.3327187Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-18T09:26:01.3946981Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-18T09:26:01.4574147Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-18T09:26:01.5191426Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-18T09:26:01.5785670Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-18T09:26:01.6347008Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-18T09:26:01.6907422Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-18T09:26:01.7476030Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-18T09:26:01.8028025Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-18T09:26:01.8582163Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-18T09:26:03.6769903Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-18T09:26:03.7002753Z ##[group]Run mkdir -p projects/ci_parabank_banking
+2026-01-18T09:26:03.7003178Z [36;1mmkdir -p projects/ci_parabank_banking[0m
+2026-01-18T09:26:03.7003555Z [36;1mcat > projects/ci_parabank_banking/config.json << 'EOF'[0m
+2026-01-18T09:26:03.7003890Z [36;1m{[0m
+2026-01-18T09:26:03.7004106Z [36;1m  "project_name": "ci_parabank_banking",[0m
+2026-01-18T09:26:03.7004466Z [36;1m  "target_url": "https://parabank.parasoft.com/",[0m
+2026-01-18T09:26:03.7005046Z [36;1m  "goal": "Register new user, login, open new account, transfer funds between accounts, view account overview",[0m
+2026-01-18T09:26:03.7005570Z [36;1m  "max_steps": 20,[0m
+2026-01-18T09:26:03.7005800Z [36;1m  "headless": true[0m
+2026-01-18T09:26:03.7006009Z [36;1m}[0m
+2026-01-18T09:26:03.7006169Z [36;1mEOF[0m
+2026-01-18T09:26:03.7039069Z shell: /usr/bin/bash -e {0}
+2026-01-18T09:26:03.7039305Z env:
+2026-01-18T09:26:03.7039554Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:03.7040033Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:26:03.7040471Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:03.7040845Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:03.7041221Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:03.7041592Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:26:03.7041897Z ##[endgroup]
+2026-01-18T09:26:03.7148925Z ##[group]Run # Use the new Orchestrator with refined exploration.
+2026-01-18T09:26:03.7149440Z [36;1m# Use the new Orchestrator with refined exploration.[0m
+2026-01-18T09:26:03.7149871Z [36;1m# We don't use --deep here to keep CI fast (1 scenario vs 5), [0m
+2026-01-18T09:26:03.7150307Z [36;1m# but we benefit from the new iterative & self-healing explorer.py[0m
+2026-01-18T09:26:03.7150820Z [36;1mpython orchestrator.py --project projects/ci_parabank_banking --force[0m
+2026-01-18T09:26:03.7182027Z shell: /usr/bin/bash -e {0}
+2026-01-18T09:26:03.7182256Z env:
+2026-01-18T09:26:03.7182510Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:03.7182954Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:26:03.7183396Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:03.7183760Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:03.7184157Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:26:03.7184551Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:26:03.7185046Z   GOOGLE_API_KEY: ***
+2026-01-18T09:26:03.7185246Z   PYTHONPATH: .
+2026-01-18T09:26:03.7185429Z ##[endgroup]
+2026-01-18T09:26:05.3773588Z 
+2026-01-18T09:26:05.3774635Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://parabank.parasoft.com/ (Workers: 3)
+2026-01-18T09:26:05.8177312Z   🔍 [Worker 0] Visiting (0): https://parabank.parasoft.com/
+2026-01-18T09:26:07.4299678Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:07.4301272Z [DEBUG] Received response (Length: 178)
+2026-01-18T09:26:07.4302282Z   🔍 [Worker 1] Visiting (1): https://parabank.parasoft.com/parabank/news.htm
+2026-01-18T09:26:07.4309394Z   🔍 [Worker 2] Visiting (1): https://parabank.parasoft.com/parabank/register.htm
+2026-01-18T09:26:07.4335380Z   🔍 [Worker 0] Visiting (1): https://parabank.parasoft.com/parabank/services.htm
+2026-01-18T09:26:12.3524139Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:12.3525500Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:12.3526146Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:12.3526647Z [DEBUG] Received response (Length: 204)
+2026-01-18T09:26:12.3527744Z   🔍 [Worker 2] Visiting (1): https://parabank.parasoft.com/parabank/services/bank?_wadl&_type=xml
+2026-01-18T09:26:12.6062803Z [DEBUG] Received response (Length: 376)
+2026-01-18T09:26:12.6063910Z   🔍 [Worker 1] Visiting (1): https://parabank.parasoft.com/parabank/contact.htm
+2026-01-18T09:26:12.7632352Z [DEBUG] Received response (Length: 515)
+2026-01-18T09:26:12.7633698Z   🔍 [Worker 0] Visiting (1): https://parabank.parasoft.com/parabank/admin.htm
+2026-01-18T09:26:17.3992312Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:17.3994097Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:17.3994882Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:17.3995509Z [DEBUG] Received response (Length: 264)
+2026-01-18T09:26:17.3996518Z   🔍 [Worker 0] Visiting (1): https://parabank.parasoft.com/parabank/sitemap.htm
+2026-01-18T09:26:17.4601860Z [DEBUG] Received response (Length: 295)
+2026-01-18T09:26:17.4607287Z   🔍 [Worker 1] Visiting (1): https://parabank.parasoft.com/parabank/services/ParaBank?wsdl
+2026-01-18T09:26:17.5561764Z [DEBUG] Received response (Length: 349)
+2026-01-18T09:26:17.5571003Z   🔍 [Worker 2] Visiting (1): https://parabank.parasoft.com/parabank/about.htm
+2026-01-18T09:26:22.4146163Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:22.4147377Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:22.4149201Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:22.4149858Z [DEBUG] Received response (Length: 306)
+2026-01-18T09:26:22.4156639Z   🔍 [Worker 2] Visiting (1): https://parabank.parasoft.com/parabank/index.htm
+2026-01-18T09:26:22.6078563Z [DEBUG] Received response (Length: 400)
+2026-01-18T09:26:22.6079824Z   🔍 [Worker 0] Visiting (1): https://parabank.parasoft.com/parabank/lookup.htm
+2026-01-18T09:26:22.7147056Z [DEBUG] Received response (Length: 390)
+2026-01-18T09:26:22.7148659Z   🔍 [Worker 1] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/store-01?wsdl
+2026-01-18T09:26:27.3202101Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:27.3204298Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:27.3205779Z [DEBUG] Received response (Length: 178)
+2026-01-18T09:26:27.3206925Z   🔍 [Worker 2] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/store-wss-03?wsdl
+2026-01-18T09:26:27.3498796Z [DEBUG] Received response (Length: 198)
+2026-01-18T09:26:27.3499890Z   🔍 [Worker 0] Visiting (2): https://parabank.parasoft.com/parabank/soatest.pfx
+2026-01-18T09:26:27.4397193Z     ❌ [Worker 0] Failed https://parabank.parasoft.com/parabank/soatest.pfx: Page.goto: Download is starting
+2026-01-18T09:26:27.4400408Z Call log:
+2026-01-18T09:26:27.4401161Z   - navigating to "https://parabank.parasoft.com/parabank/soatest.pfx", waiting until "domcontentloaded"
+2026-01-18T09:26:27.4401894Z 
+2026-01-18T09:26:27.4421967Z   🔍 [Worker 0] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/store-wss-02?wsdl
+2026-01-18T09:26:37.7459893Z     ❌ [Worker 1] Failed http://parabank.parasoft.com:8080/parabank/services/store-01?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-18T09:26:37.7460499Z Call log:
+2026-01-18T09:26:37.7460971Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/store-01?wsdl", waiting until "domcontentloaded"
+2026-01-18T09:26:37.7461437Z 
+2026-01-18T09:26:37.7487841Z   🔍 [Worker 1] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/store-wss-01?wsdl
+2026-01-18T09:26:42.3467536Z     ❌ [Worker 2] Failed http://parabank.parasoft.com:8080/parabank/services/store-wss-03?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-18T09:26:42.3469566Z Call log:
+2026-01-18T09:26:42.3470532Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/store-wss-03?wsdl", waiting until "domcontentloaded"
+2026-01-18T09:26:42.3471550Z 
+2026-01-18T09:26:42.3497071Z   🔍 [Worker 2] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/LoanProcessor?wsdl
+2026-01-18T09:26:42.4649999Z     ❌ [Worker 0] Failed http://parabank.parasoft.com:8080/parabank/services/store-wss-02?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-18T09:26:42.4651242Z Call log:
+2026-01-18T09:26:42.4652240Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/store-wss-02?wsdl", waiting until "domcontentloaded"
+2026-01-18T09:26:42.4653158Z 
+2026-01-18T09:26:42.4675480Z   🔍 [Worker 0] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/bank?_wadl&_type=xml
+2026-01-18T09:26:52.7712499Z     ❌ [Worker 1] Failed http://parabank.parasoft.com:8080/parabank/services/store-wss-01?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-18T09:26:52.7713197Z Call log:
+2026-01-18T09:26:52.7713738Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/store-wss-01?wsdl", waiting until "domcontentloaded"
+2026-01-18T09:26:52.7714286Z 
+2026-01-18T09:26:52.7739920Z   🔍 [Worker 1] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/store-wss-04?wsdl
+2026-01-18T09:26:57.3720233Z     ❌ [Worker 2] Failed http://parabank.parasoft.com:8080/parabank/services/LoanProcessor?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-18T09:26:57.3721645Z Call log:
+2026-01-18T09:26:57.3722817Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/LoanProcessor?wsdl", waiting until "domcontentloaded"
+2026-01-18T09:26:57.3723983Z 
+2026-01-18T09:26:57.3756484Z   🔍 [Worker 2] Visiting (2): http://parabank.parasoft.com:8080/parabank/api-docs/index.html
+2026-01-18T09:26:57.4896048Z     ❌ [Worker 0] Failed http://parabank.parasoft.com:8080/parabank/services/bank?_wadl&_type=xml: Page.goto: Timeout 15000ms exceeded.
+2026-01-18T09:26:57.4897254Z Call log:
+2026-01-18T09:26:57.4898187Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/bank?_wadl&_type=xml", waiting until "domcontentloaded"
+2026-01-18T09:26:57.4899369Z 
+2026-01-18T09:26:57.4919665Z   🔍 [Worker 0] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/store-01V2?wsdl
+2026-01-18T09:27:07.7977164Z     ❌ [Worker 1] Failed http://parabank.parasoft.com:8080/parabank/services/store-wss-04?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-18T09:27:07.7978730Z Call log:
+2026-01-18T09:27:07.7979979Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/store-wss-04?wsdl", waiting until "domcontentloaded"
+2026-01-18T09:27:07.7980944Z 
+2026-01-18T09:27:07.8005971Z   🔍 [Worker 1] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/ParaBank?wsdl
+2026-01-18T09:27:12.3971658Z     ❌ [Worker 2] Failed http://parabank.parasoft.com:8080/parabank/api-docs/index.html: Page.goto: Timeout 15000ms exceeded.
+2026-01-18T09:27:12.3972445Z Call log:
+2026-01-18T09:27:12.3973049Z   - navigating to "http://parabank.parasoft.com:8080/parabank/api-docs/index.html", waiting until "domcontentloaded"
+2026-01-18T09:27:12.3973646Z 
+2026-01-18T09:27:12.3997220Z   🔍 [Worker 2] Visiting (2): https://parabank.parasoft.com/parabank/api-docs/index.html
+2026-01-18T09:27:12.5146498Z     ❌ [Worker 0] Failed http://parabank.parasoft.com:8080/parabank/services/store-01V2?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-18T09:27:12.5147502Z Call log:
+2026-01-18T09:27:12.5148487Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/store-01V2?wsdl", waiting until "domcontentloaded"
+2026-01-18T09:27:12.5149068Z 
+2026-01-18T09:27:12.5168933Z   🔍 [Worker 0] Visiting (2): https://parabank.parasoft.com/parabank/services/LoanProcessor?wsdl
+2026-01-18T09:27:13.5833166Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:27:13.5833917Z [DEBUG] Received response (Length: 255)
+2026-01-18T09:27:13.5835344Z   🔍 [Worker 0] Visiting (2): https://parabank.parasoft.com/parabank/findtrans.htm
+2026-01-18T09:27:18.3646602Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:27:18.3656473Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:27:18.3660734Z [DEBUG] Received response (Length: 135)
+2026-01-18T09:27:18.3661731Z   🔍 [Worker 2] Visiting (2): https://parabank.parasoft.com/parabank/updateprofile.htm
+2026-01-18T09:27:18.4893892Z [DEBUG] Received response (Length: 233)
+2026-01-18T09:27:18.4894989Z   🔍 [Worker 0] Visiting (2): https://parabank.parasoft.com/parabank/billpay.htm
+2026-01-18T09:27:19.2263823Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:27:19.2265810Z [DEBUG] Received response (Length: 272)
+2026-01-18T09:27:19.2266879Z   🔍 [Worker 2] Visiting (2): https://parabank.parasoft.com/parabank/transfer.htm
+2026-01-18T09:27:22.8243827Z     ❌ [Worker 1] Failed http://parabank.parasoft.com:8080/parabank/services/ParaBank?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-18T09:27:22.8244579Z Call log:
+2026-01-18T09:27:22.8245164Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/ParaBank?wsdl", waiting until "domcontentloaded"
+2026-01-18T09:27:22.8245745Z 
+2026-01-18T09:27:22.8271347Z   🔍 [Worker 1] Visiting (2): https://parabank.parasoft.com/parabank/openaccount.htm
+2026-01-18T09:27:24.2387783Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:27:24.2390160Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:27:24.2390934Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:27:24.2391551Z [DEBUG] Received response (Length: 272)
+2026-01-18T09:27:24.2392547Z   🔍 [Worker 2] Visiting (2): https://parabank.parasoft.com/parabank/overview.htm
+2026-01-18T09:27:24.2854091Z [DEBUG] Received response (Length: 233)
+2026-01-18T09:27:24.2861529Z   🔍 [Worker 1] Visiting (2): https://parabank.parasoft.com/parabank/requestloan.htm
+2026-01-18T09:27:24.3214943Z [DEBUG] Received response (Length: 272)
+2026-01-18T09:27:24.3216332Z   🔍 [Worker 0] Visiting (2): https://parabank.parasoft.com/parabank/logout.htm
+2026-01-18T09:27:30.3004790Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:27:30.3005465Z [DEBUG] Received response (Length: 272)
+2026-01-18T09:27:30.3006058Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:27:30.3006747Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:27:30.3007312Z [DEBUG] Received response (Length: 272)
+2026-01-18T09:27:30.3007766Z [DEBUG] Received response (Length: 340)
+2026-01-18T09:27:30.3008736Z ✅ Discovery Complete. Mapped 20 pages.
+2026-01-18T09:27:39.9467058Z 
+2026-01-18T09:27:39.9467682Z [PLAN] PLANNER: Planning goal -> 'None' (Deep Mode: False)
+2026-01-18T09:27:39.9468701Z 🗺️ [PLAN] Loaded Sitemap with 20 pages.
+2026-01-18T09:27:39.9469366Z 🎭 [EXPERT] Detected Domain: FINANCE. Persona: Act as a FinTech Security & UX Auditor
+2026-01-18T09:27:39.9470013Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:27:39.9470439Z [DEBUG] Received response (Length: 4114)
+2026-01-18T09:27:39.9470880Z ✅ Planner generated 1 scenarios. Workflow updated.
+2026-01-18T09:27:40.8960743Z 
+2026-01-18T09:27:40.8961696Z 🧭 [EXPLORE] Starting AI-Guided Exploration & Mining
+2026-01-18T09:27:40.8962215Z 📍 Project: ci_parabank_banking
+2026-01-18T09:27:41.2527672Z 
+2026-01-18T09:27:41.2528274Z --- Exploring Scenario: Explore Website and Identify Key User Flows ---
+2026-01-18T09:27:41.2529995Z     🧠 Initialized exploration context for goal: 'Explore the website and identify key user flows and interactive elements.'
+2026-01-18T09:27:41.2530950Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T09:27:42.2921067Z     ✅ Navigated to https://parabank.parasoft.com/
+2026-01-18T09:27:42.2921771Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-18T09:27:47.3213032Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:27:49.3235773Z     ✅ State transitioned.
+2026-01-18T09:27:50.6647964Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:50.6648796Z [DEBUG] Received response (Length: 185)
+2026-01-18T09:27:50.6649575Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-18T09:27:50.6650175Z     🧩 Suggested Locator: input[name='username']
+2026-01-18T09:27:50.6650853Z     💭 Reasoning: To proceed with the login process, a username must be entered.
+2026-01-18T09:27:50.6651313Z     ➕ Injected AI step: fill -> Username
+2026-01-18T09:27:50.6651627Z   ▶️ [STEP step_2_ai_1] FILL: Username
+2026-01-18T09:27:50.6712284Z     🎯 Using AI-provided locator: input[name='username']
+2026-01-18T09:27:50.6810562Z     ✅ Found 1 verified locators
+2026-01-18T09:27:55.9693946Z     ✅ State transitioned.
+2026-01-18T09:27:57.4527733Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:57.4528660Z [DEBUG] Received response (Length: 219)
+2026-01-18T09:27:57.4529485Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T09:27:57.4549739Z     🧩 Suggested Locator: input[name='password']
+2026-01-18T09:27:57.4550383Z     💭 Reasoning: The username field has been filled. Now, the password field needs to be filled to attempt login.
+2026-01-18T09:27:57.4551139Z     ➕ Injected AI step: fill -> Password
+2026-01-18T09:27:57.4551706Z   ▶️ [STEP step_2_ai_2] FILL: Password
+2026-01-18T09:27:57.4589741Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-18T09:27:57.4648743Z     ✅ Found 1 verified locators
+2026-01-18T09:28:03.1273913Z     ✅ State transitioned.
+2026-01-18T09:28:04.5745075Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:04.5745805Z [DEBUG] Received response (Length: 169)
+2026-01-18T09:28:04.5746636Z     🤖 AI Next Step Suggestion: click -> input
+2026-01-18T09:28:04.5747232Z     🧩 Suggested Locator: input[value='Log In']
+2026-01-18T09:28:04.5748743Z     💭 Reasoning: Now that username and password have been entered, attempt to log in.
+2026-01-18T09:28:04.5749706Z     ➕ Injected AI step: click -> input
+2026-01-18T09:28:04.5750291Z   ▶️ [STEP step_2_ai_3] CLICK: input
+2026-01-18T09:28:04.5803627Z     🎯 Using AI-provided locator: input[value='Log In']
+2026-01-18T09:28:04.5859698Z     ✅ Found 1 verified locators
+2026-01-18T09:28:08.6325692Z     ✅ State transitioned.
+2026-01-18T09:28:10.0667686Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:10.0668521Z [DEBUG] Received response (Length: 218)
+2026-01-18T09:28:10.0669299Z     🤖 AI Next Step Suggestion: click -> Forgot login info?
+2026-01-18T09:28:10.0669765Z     🧩 Suggested Locator: a[href*='lookup']
+2026-01-18T09:28:10.0670439Z     💭 Reasoning: The login attempt failed. The next logical step is to try to recover the login information.
+2026-01-18T09:28:10.0671104Z     ➕ Injected AI step: click -> Forgot login info?
+2026-01-18T09:28:10.0671534Z   ▶️ [STEP step_2_ai_4] CLICK: Forgot login info?
+2026-01-18T09:28:10.0824648Z     🎯 Using AI-provided locator: a[href*='lookup']
+2026-01-18T09:28:10.0882333Z     ✅ Found 1 verified locators
+2026-01-18T09:28:14.1328744Z     ✅ State transitioned.
+2026-01-18T09:28:15.6543348Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:15.6543986Z [DEBUG] Received response (Length: 194)
+2026-01-18T09:28:15.6544803Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T09:28:15.6545419Z     🧩 Suggested Locator: #firstName
+2026-01-18T09:28:15.6546293Z     💭 Reasoning: The page is for customer lookup, and the first step is to fill in the first name.
+2026-01-18T09:28:15.6547161Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T09:28:15.6547695Z   ▶️ [STEP step_2_ai_5] FILL: First Name
+2026-01-18T09:28:15.6696513Z     🎯 Using AI-provided locator: #firstName
+2026-01-18T09:28:15.6753673Z     ✅ Found 1 verified locators
+2026-01-18T09:28:21.0387938Z     ✅ State transitioned.
+2026-01-18T09:28:22.5017328Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:22.5018048Z [DEBUG] Received response (Length: 226)
+2026-01-18T09:28:22.5019101Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T09:28:22.5019723Z     🧩 Suggested Locator: #lastName
+2026-01-18T09:28:22.5020948Z     💭 Reasoning: The form requires more information to find the login info. Filling out the last name field is the next logical step.
+2026-01-18T09:28:22.5022141Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T09:28:22.5022662Z   ▶️ [STEP step_2_ai_6] FILL: Last Name
+2026-01-18T09:28:22.5076855Z     🎯 Using AI-provided locator: #lastName
+2026-01-18T09:28:22.5128524Z     ✅ Found 1 verified locators
+2026-01-18T09:28:27.9151552Z     ✅ State transitioned.
+2026-01-18T09:28:29.3530660Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:29.3531307Z [DEBUG] Received response (Length: 203)
+2026-01-18T09:28:29.3532092Z     🤖 AI Next Step Suggestion: click -> FIND MY LOGIN INFO
+2026-01-18T09:28:29.3532815Z     💭 Reasoning: The form is filled with first name and last name. Clicking the button will submit the form.
+2026-01-18T09:28:29.3533440Z     ➕ Injected AI step: click -> FIND MY LOGIN INFO
+2026-01-18T09:28:29.3533831Z   ▶️ [STEP step_2_ai_7] CLICK: FIND MY LOGIN INFO
+2026-01-18T09:28:29.3588636Z     🔍 Mining locators for: 'FIND MY LOGIN INFO'
+2026-01-18T09:28:29.3965553Z     🧠 Consulting AI (Vision-First) to find 'FIND MY LOGIN INFO'...
+2026-01-18T09:28:29.3967149Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:28:34.6709886Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:34.6710406Z [DEBUG] Received response (Length: 446)
+2026-01-18T09:28:34.6711075Z     🔄 Retry 1/3 mining locators for 'FIND MY LOGIN INFO'...
+2026-01-18T09:28:35.7124899Z     🧠 Consulting AI (Vision-First) to find 'FIND MY LOGIN INFO'...
+2026-01-18T09:28:35.7128950Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:28:39.6880296Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:39.6880717Z [DEBUG] Received response (Length: 551)
+2026-01-18T09:28:39.6881313Z     🔄 Retry 2/3 mining locators for 'FIND MY LOGIN INFO'...
+2026-01-18T09:28:40.7304572Z     🧠 Consulting AI (Vision-First) to find 'FIND MY LOGIN INFO'...
+2026-01-18T09:28:40.7306559Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:28:44.7402804Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:44.7403468Z [DEBUG] Received response (Length: 446)
+2026-01-18T09:28:44.7404184Z     🧠 Verifying step validity for 'FIND MY LOGIN INFO' after mining failure...
+2026-01-18T09:28:49.4150348Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:49.4150864Z [DEBUG] Received response (Length: 245)
+2026-01-18T09:28:49.4151789Z     🛠️ Self-Correction: Step is valid. Using new locator: input[value='FIND MY LOGIN INFO']
+2026-01-18T09:28:54.9248919Z     ⚠️ Scroll into view failed for input[value='FIND MY LOGIN INFO']. Proceeding anyway.
+2026-01-18T09:28:59.9269609Z     ⚠️ Action failed: Locator.bounding_box: Timeout 5000ms exceeded.
+2026-01-18T09:28:59.9270220Z Cal...
+2026-01-18T09:29:01.4027875Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:01.4028714Z [DEBUG] Received response (Length: 253)
+2026-01-18T09:29:01.4030277Z     ✨ AI Heal Reasoning: The button with the text 'FIND MY LOGIN INFO' is the best element to perform the click action. It is visible and directly relates to the user's goal.
+2026-01-18T09:29:01.4031955Z     ✨ AI healed exploration action! New selector: input[type='submit'][value='FIND MY LOGIN INFO']
+2026-01-18T09:29:06.9075400Z     ⚠️ Scroll into view failed for input[type='submit'][value='FIND MY LOGIN INFO']. Proceeding anyway.
+2026-01-18T09:29:11.9094562Z   ▶️ [STEP step_10] ASSERT_VISIBLE: Customer Login
+2026-01-18T09:29:11.9146760Z     🔍 Mining locators for: 'Customer Login'
+2026-01-18T09:29:11.9658230Z     ✅ Found 1 verified locators
+2026-01-18T09:29:14.4960721Z     ✅ State transitioned.
+2026-01-18T09:29:15.9357610Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:15.9358510Z [DEBUG] Received response (Length: 234)
+2026-01-18T09:29:15.9359424Z     🤖 AI Next Step Suggestion: click -> FIND MY LOGIN INFO
+2026-01-18T09:29:15.9360221Z     🧩 Suggested Locator: input[value='FIND MY LOGIN INFO']
+2026-01-18T09:29:15.9361626Z     💭 Reasoning: The form is partially filled, and the next logical step is to submit the information to find the login info.
+2026-01-18T09:29:15.9364513Z     ➕ Injected AI step: click -> FIND MY LOGIN INFO
+2026-01-18T09:29:15.9365218Z   ▶️ [STEP step_10_ai_1] CLICK: FIND MY LOGIN INFO
+2026-01-18T09:29:15.9417189Z     🎯 Using AI-provided locator: input[value='FIND MY LOGIN INFO']
+2026-01-18T09:29:15.9434511Z     🔍 Mining locators for: 'FIND MY LOGIN INFO'
+2026-01-18T09:29:15.9949070Z     🧠 Consulting AI (Vision-First) to find 'FIND MY LOGIN INFO'...
+2026-01-18T09:29:15.9951044Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:29:21.1884067Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:21.1884745Z [DEBUG] Received response (Length: 446)
+2026-01-18T09:29:21.1885587Z     🔄 Retry 1/3 mining locators for 'FIND MY LOGIN INFO'...
+2026-01-18T09:29:22.2273173Z     🧠 Consulting AI (Vision-First) to find 'FIND MY LOGIN INFO'...
+2026-01-18T09:29:22.2274861Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:29:26.4717179Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:26.4717603Z [DEBUG] Received response (Length: 551)
+2026-01-18T09:29:26.4718209Z     🔄 Retry 2/3 mining locators for 'FIND MY LOGIN INFO'...
+2026-01-18T09:29:27.5275870Z     🧠 Consulting AI (Vision-First) to find 'FIND MY LOGIN INFO'...
+2026-01-18T09:29:27.5277799Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:29:31.3519249Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:31.3519955Z [DEBUG] Received response (Length: 446)
+2026-01-18T09:29:31.3521019Z     🧠 Verifying step validity for 'FIND MY LOGIN INFO' after mining failure...
+2026-01-18T09:29:36.0245669Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:36.0246115Z [DEBUG] Received response (Length: 245)
+2026-01-18T09:29:36.0246862Z     🛠️ Self-Correction: Step is valid. Using new locator: input[value='FIND MY LOGIN INFO']
+2026-01-18T09:29:41.5352684Z     ⚠️ Scroll into view failed for input[value='FIND MY LOGIN INFO']. Proceeding anyway.
+2026-01-18T09:29:46.5365172Z     ⚠️ Action failed: Locator.bounding_box: Timeout 5000ms exceeded.
+2026-01-18T09:29:46.5365651Z Cal...
+2026-01-18T09:29:48.0265674Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:48.0266095Z [DEBUG] Received response (Length: 253)
+2026-01-18T09:29:48.0267118Z     ✨ AI Heal Reasoning: The button with the text 'FIND MY LOGIN INFO' is the best element to perform the click action. It is visible and directly relates to the user's goal.
+2026-01-18T09:29:48.0268134Z     ✨ AI healed exploration action! New selector: input[type='submit'][value='FIND MY LOGIN INFO']
+2026-01-18T09:29:53.5316544Z     ⚠️ Scroll into view failed for input[type='submit'][value='FIND MY LOGIN INFO']. Proceeding anyway.
+2026-01-18T09:29:58.5339237Z   ▶️ [STEP step_12] CLICK: Register
+2026-01-18T09:29:58.5393246Z     🔍 Mining locators for: 'Register'
+2026-01-18T09:29:58.6083736Z     ✅ Found 2 verified locators
+2026-01-18T09:30:02.1779267Z     ✅ State transitioned.
+2026-01-18T09:30:03.8866021Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:03.8866741Z [DEBUG] Received response (Length: 204)
+2026-01-18T09:30:03.8867584Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T09:30:03.8868209Z     🧩 Suggested Locator: #customer\.firstName
+2026-01-18T09:30:03.8869440Z     💭 Reasoning: The form requires filling out the first name field to proceed with registration.
+2026-01-18T09:30:03.8870402Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T09:30:03.8871048Z   ▶️ [STEP step_12_ai_1] FILL: First Name
+2026-01-18T09:30:03.9021933Z     🎯 Using AI-provided locator: #customer\.firstName
+2026-01-18T09:30:03.9077794Z     ✅ Found 1 verified locators
+2026-01-18T09:30:09.2373889Z     ✅ State transitioned.
+2026-01-18T09:30:10.9103389Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:10.9104104Z [DEBUG] Received response (Length: 202)
+2026-01-18T09:30:10.9104966Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T09:30:10.9105703Z     🧩 Suggested Locator: input[id='customer.lastName']
+2026-01-18T09:30:10.9106762Z     💭 Reasoning: Filling out the registration form. The next logical field is Last Name.
+2026-01-18T09:30:10.9107731Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T09:30:10.9108612Z   ▶️ [STEP step_12_ai_2] FILL: Last Name
+2026-01-18T09:30:10.9161606Z     🎯 Using AI-provided locator: input[id='customer.lastName']
+2026-01-18T09:30:10.9215492Z     ✅ Found 1 verified locators
+2026-01-18T09:30:16.2164284Z     ✅ State transitioned.
+2026-01-18T09:30:17.7450992Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:17.7451533Z [DEBUG] Received response (Length: 208)
+2026-01-18T09:30:17.7452374Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-18T09:30:17.7452752Z     🧩 Suggested Locator: #customer\.address
+2026-01-18T09:30:17.7453312Z     💭 Reasoning: The next logical step in the registration process is to fill in the address field.
+2026-01-18T09:30:17.7453855Z     ➕ Injected AI step: fill -> Address
+2026-01-18T09:30:17.7454171Z   ▶️ [STEP step_12_ai_3] FILL: Address
+2026-01-18T09:30:17.7509663Z     🎯 Using AI-provided locator: #customer\.address
+2026-01-18T09:30:17.7526298Z     🔍 Mining locators for: 'Address'
+2026-01-18T09:30:17.7922260Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:30:17.7924367Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:30:23.1343632Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:23.1344052Z [DEBUG] Received response (Length: 494)
+2026-01-18T09:30:23.1344727Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T09:30:23.1345269Z   ▶️ [STEP step_16] ASSERT_URL: 
+2026-01-18T09:30:28.1473349Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:30:30.1481774Z     ✅ State transitioned.
+2026-01-18T09:30:31.5534639Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:31.5535291Z [DEBUG] Received response (Length: 208)
+2026-01-18T09:30:31.5536055Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-18T09:30:31.5536647Z     🧩 Suggested Locator: #customer\.address
+2026-01-18T09:30:31.5537474Z     💭 Reasoning: The next logical step in the registration process is to fill in the address field.
+2026-01-18T09:30:31.5538043Z     ➕ Injected AI step: fill -> Address
+2026-01-18T09:30:31.5538646Z   ▶️ [STEP step_16_ai_1] FILL: Address
+2026-01-18T09:30:31.5591706Z     🎯 Using AI-provided locator: #customer\.address
+2026-01-18T09:30:31.5607880Z     🔍 Mining locators for: 'Address'
+2026-01-18T09:30:31.6083431Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:30:31.6085364Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:30:37.0654866Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:37.0655502Z [DEBUG] Received response (Length: 494)
+2026-01-18T09:30:37.0656021Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T09:30:37.0656347Z   ▶️ [STEP step_18] NAVIGATE: 
+2026-01-18T09:30:37.8188878Z     ✅ Navigated to https://parabank.parasoft.com/
+2026-01-18T09:30:37.8189501Z   ▶️ [STEP step_19] CLICK: Forgot login info?
+2026-01-18T09:30:37.8350253Z     🔍 Mining locators for: 'Forgot login info?'
+2026-01-18T09:30:37.9056979Z     ✅ Found 2 verified locators
+2026-01-18T09:30:41.4774612Z     ✅ State transitioned.
+2026-01-18T09:30:43.0320418Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:43.0321080Z [DEBUG] Received response (Length: 235)
+2026-01-18T09:30:43.0321996Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T09:30:43.0322428Z     🧩 Suggested Locator: input[id='firstName']
+2026-01-18T09:30:43.0323169Z     💭 Reasoning: The page requires filling out the form to find login info. Filling out the first name is the next logical step.
+2026-01-18T09:30:43.0323814Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T09:30:43.0324143Z   ▶️ [STEP step_19_ai_1] FILL: First Name
+2026-01-18T09:30:43.0470742Z     🎯 Using AI-provided locator: input[id='firstName']
+2026-01-18T09:30:43.0526193Z     ✅ Found 1 verified locators
+2026-01-18T09:30:48.4625806Z     ✅ State transitioned.
+2026-01-18T09:30:49.9477068Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:49.9478890Z [DEBUG] Received response (Length: 233)
+2026-01-18T09:30:49.9479711Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T09:30:49.9480398Z     🧩 Suggested Locator: input[id='lastName']
+2026-01-18T09:30:49.9481649Z     💭 Reasoning: The form requires more information to find the login. Filling out the last name field is the next logical step.
+2026-01-18T09:30:49.9482821Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T09:30:49.9483413Z   ▶️ [STEP step_19_ai_2] FILL: Last Name
+2026-01-18T09:30:49.9534858Z     🎯 Using AI-provided locator: input[id='lastName']
+2026-01-18T09:30:49.9590772Z     ✅ Found 1 verified locators
+2026-01-18T09:30:55.3302529Z     ✅ State transitioned.
+2026-01-18T09:30:56.8267509Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:56.8268156Z [DEBUG] Received response (Length: 219)
+2026-01-18T09:30:56.8269187Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-18T09:30:56.8269778Z     🧩 Suggested Locator: input[name='address']
+2026-01-18T09:30:56.8270849Z     💭 Reasoning: To proceed with the customer lookup, filling in the address field is the next logical step.
+2026-01-18T09:30:56.8271413Z     ➕ Injected AI step: fill -> Address
+2026-01-18T09:30:56.8271737Z   ▶️ [STEP step_19_ai_3] FILL: Address
+2026-01-18T09:30:56.8325014Z     🎯 Using AI-provided locator: input[name='address']
+2026-01-18T09:30:56.8342531Z     🔍 Mining locators for: 'Address'
+2026-01-18T09:30:56.8737100Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:30:56.8738704Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:31:02.0517576Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:02.0518040Z [DEBUG] Received response (Length: 393)
+2026-01-18T09:31:02.0518834Z     🔄 Retry 1/3 mining locators for 'Address'...
+2026-01-18T09:31:03.1068722Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:31:03.1071973Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:31:07.1131838Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:07.1132340Z [DEBUG] Received response (Length: 393)
+2026-01-18T09:31:07.1132905Z     🔄 Retry 2/3 mining locators for 'Address'...
+2026-01-18T09:31:08.1570757Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:31:08.1572205Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:31:12.0678050Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:12.0678968Z [DEBUG] Received response (Length: 393)
+2026-01-18T09:31:12.0679913Z     🧠 Verifying step validity for 'Address' after mining failure...
+2026-01-18T09:31:16.6522003Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:16.6522449Z [DEBUG] Received response (Length: 205)
+2026-01-18T09:31:16.6523153Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name='address']
+2026-01-18T09:31:22.1626567Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:31:27.6638275Z     ⚠️ Action failed: Locator.click: Timeout 5000ms exceeded.
+2026-01-18T09:31:27.6639023Z Call log:
+2026-01-18T09:31:27.6639237Z ...
+2026-01-18T09:31:29.1110754Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:29.1111178Z [DEBUG] Received response (Length: 232)
+2026-01-18T09:31:29.1112536Z     ✨ AI Heal Reasoning: The input field labeled 'Address:' is the best visible element to perform the 'fill' action. It is an input field, which is required for the 'fill' action.
+2026-01-18T09:31:29.1113471Z     ✨ AI healed exploration action! New selector: input[name='address']
+2026-01-18T09:31:34.6156588Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:31:40.1175560Z   ▶️ [STEP step_23] ASSERT_URL: 
+2026-01-18T09:31:45.1327488Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:31:47.1350080Z     ✅ State transitioned.
+2026-01-18T09:31:48.6176805Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:48.6177382Z [DEBUG] Received response (Length: 253)
+2026-01-18T09:31:48.6178150Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-18T09:31:48.6178781Z     🧩 Suggested Locator: input[name='address']
+2026-01-18T09:31:48.6179591Z     💭 Reasoning: The address field is visible and has not been filled yet. Filling it is the next logical step in providing the required information.
+2026-01-18T09:31:48.6180276Z     ➕ Injected AI step: fill -> Address
+2026-01-18T09:31:48.6180890Z   ▶️ [STEP step_23_ai_1] FILL: Address
+2026-01-18T09:31:48.6230455Z     🎯 Using AI-provided locator: input[name='address']
+2026-01-18T09:31:48.6247068Z     🔍 Mining locators for: 'Address'
+2026-01-18T09:31:48.6714004Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:31:48.6715914Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:31:53.8402571Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:53.8403236Z [DEBUG] Received response (Length: 393)
+2026-01-18T09:31:53.8404021Z     🔄 Retry 1/3 mining locators for 'Address'...
+2026-01-18T09:31:54.8885212Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:31:54.8887152Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:31:58.8604438Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:58.8604862Z [DEBUG] Received response (Length: 393)
+2026-01-18T09:31:58.8605457Z     🔄 Retry 2/3 mining locators for 'Address'...
+2026-01-18T09:31:59.9049174Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:31:59.9051026Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:32:04.0398487Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:04.0399104Z [DEBUG] Received response (Length: 393)
+2026-01-18T09:32:04.0400086Z     🧠 Verifying step validity for 'Address' after mining failure...
+2026-01-18T09:32:08.4734199Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:08.4734640Z [DEBUG] Received response (Length: 205)
+2026-01-18T09:32:08.4735345Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name='address']
+2026-01-18T09:32:13.9831173Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:32:19.4847442Z     ⚠️ Action failed: Locator.click: Timeout 5000ms exceeded.
+2026-01-18T09:32:20.9324399Z Call log:
+2026-01-18T09:32:20.9324731Z ...
+2026-01-18T09:32:20.9325125Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:20.9325716Z [DEBUG] Received response (Length: 232)
+2026-01-18T09:32:20.9327293Z     ✨ AI Heal Reasoning: The input field labeled 'Address:' is the best visible element to perform the 'fill' action. It is an input field, which is required for the 'fill' action.
+2026-01-18T09:32:20.9328832Z     ✨ AI healed exploration action! New selector: input[name='address']
+2026-01-18T09:32:26.4377494Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:32:31.9386782Z   ▶️ [STEP step_25] NAVIGATE: 
+2026-01-18T09:32:32.8065452Z     ✅ Navigated to https://parabank.parasoft.com/
+2026-01-18T09:32:32.8066042Z   ▶️ [STEP step_26] CLICK: About Us
+2026-01-18T09:32:32.8225822Z     🔍 Mining locators for: 'About Us'
+2026-01-18T09:32:32.8914927Z     ✅ Found 2 verified locators
+2026-01-18T09:32:36.4439954Z     ✅ State transitioned.
+2026-01-18T09:32:37.9107623Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:37.9108153Z [DEBUG] Received response (Length: 196)
+2026-01-18T09:32:37.9109066Z     🤖 AI Next Step Suggestion: click -> Services
+2026-01-18T09:32:37.9109612Z     🧩 Suggested Locator: a:contains('Services')
+2026-01-18T09:32:37.9110210Z     💭 Reasoning: Navigating to the 'Services' page to explore available services and their security aspects.
+2026-01-18T09:32:37.9110770Z     ➕ Injected AI step: click -> Services
+2026-01-18T09:32:37.9111086Z   ▶️ [STEP step_26_ai_1] CLICK: Services
+2026-01-18T09:32:37.9263948Z     🎯 Using AI-provided locator: a:contains('Services')
+2026-01-18T09:32:37.9296555Z     🔍 Mining locators for: 'Services'
+2026-01-18T09:32:37.9877533Z     ✅ Found 2 verified locators
+2026-01-18T09:32:41.5593784Z     ✅ State transitioned.
+2026-01-18T09:32:43.1945723Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:43.1946372Z [DEBUG] Received response (Length: 245)
+2026-01-18T09:32:43.1947149Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-18T09:32:43.1947737Z     🧩 Suggested Locator: input[name='username']
+2026-01-18T09:32:43.1948937Z     💭 Reasoning: To attempt to log in, I need to fill in the username and password fields. Filling in the username field is the first step.
+2026-01-18T09:32:43.1949595Z     ➕ Injected AI step: fill -> Username
+2026-01-18T09:32:43.1949918Z   ▶️ [STEP step_26_ai_2] FILL: Username
+2026-01-18T09:32:43.2113337Z     🎯 Using AI-provided locator: input[name='username']
+2026-01-18T09:32:43.2173213Z     ✅ Found 1 verified locators
+2026-01-18T09:32:48.7724912Z     ✅ State transitioned.
+2026-01-18T09:32:50.2628786Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:50.2629388Z [DEBUG] Received response (Length: 205)
+2026-01-18T09:32:50.2630306Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T09:32:50.2630891Z     🧩 Suggested Locator: input[name='password']
+2026-01-18T09:32:50.2631646Z     💭 Reasoning: The username field has been filled. Now, fill the password field to attempt login.
+2026-01-18T09:32:50.2632344Z     ➕ Injected AI step: fill -> Password
+2026-01-18T09:32:50.2632766Z   ▶️ [STEP step_26_ai_3] FILL: Password
+2026-01-18T09:32:50.2686737Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-18T09:32:50.2749492Z     ✅ Found 1 verified locators
+2026-01-18T09:32:55.9268212Z     ✅ State transitioned.
+2026-01-18T09:32:57.5282872Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:57.5283508Z [DEBUG] Received response (Length: 188)
+2026-01-18T09:32:57.5284322Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-18T09:32:57.5284904Z     🧩 Suggested Locator: input[value='Log In']
+2026-01-18T09:32:57.5285729Z     💭 Reasoning: Attempting to log in with the provided credentials to explore account functionalities.
+2026-01-18T09:32:57.5286275Z     ➕ Injected AI step: click -> LOG IN
+2026-01-18T09:32:57.5286584Z   ▶️ [STEP step_26_ai_4] CLICK: LOG IN
+2026-01-18T09:32:57.5343395Z     🎯 Using AI-provided locator: input[value='Log In']
+2026-01-18T09:32:57.5398776Z     ✅ Found 1 verified locators
+2026-01-18T09:33:01.5857319Z     ✅ State transitioned.
+2026-01-18T09:33:02.9085028Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:02.9085686Z [DEBUG] Received response (Length: 200)
+2026-01-18T09:33:02.9086373Z     🤖 AI Next Step Suggestion: click -> Register
+2026-01-18T09:33:02.9087193Z     🧩 Suggested Locator: a:contains('Register')
+2026-01-18T09:33:02.9087820Z     💭 Reasoning: The login failed, and the next logical step is to register if the user doesn't have an account.
+2026-01-18T09:33:02.9088680Z     ➕ Injected AI step: click -> Register
+2026-01-18T09:33:02.9089002Z   ▶️ [STEP step_26_ai_5] CLICK: Register
+2026-01-18T09:33:02.9242051Z     🎯 Using AI-provided locator: a:contains('Register')
+2026-01-18T09:33:02.9265982Z     🔍 Mining locators for: 'Register'
+2026-01-18T09:33:02.9812962Z     ✅ Found 2 verified locators
+2026-01-18T09:33:06.5525394Z     ✅ State transitioned.
+2026-01-18T09:33:08.0972851Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:08.0973463Z [DEBUG] Received response (Length: 264)
+2026-01-18T09:33:08.0974133Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T09:33:08.0974725Z     🧩 Suggested Locator: input[id='customer.firstName']
+2026-01-18T09:33:08.0975584Z     💭 Reasoning: The current page is the registration page. Filling the first name field is the next logical step to complete the registration form.
+2026-01-18T09:33:08.0976563Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T09:33:08.0976887Z   ▶️ [STEP step_26_ai_6] FILL: First Name
+2026-01-18T09:33:08.1135044Z     🎯 Using AI-provided locator: input[id='customer.firstName']
+2026-01-18T09:33:08.1190777Z     ✅ Found 1 verified locators
+2026-01-18T09:33:13.5619456Z     ✅ State transitioned.
+2026-01-18T09:33:14.9876939Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:14.9877481Z [DEBUG] Received response (Length: 189)
+2026-01-18T09:33:14.9878180Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T09:33:14.9878901Z     🧩 Suggested Locator: input[id='customer.lastName']
+2026-01-18T09:33:14.9879385Z     💭 Reasoning: The form requires a last name to proceed with registration.
+2026-01-18T09:33:14.9879818Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T09:33:14.9880133Z   ▶️ [STEP step_26_ai_7] FILL: Last Name
+2026-01-18T09:33:14.9931736Z     🎯 Using AI-provided locator: input[id='customer.lastName']
+2026-01-18T09:33:14.9988127Z     ✅ Found 1 verified locators
+2026-01-18T09:33:20.4668269Z     ✅ State transitioned.
+2026-01-18T09:33:22.1548912Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:22.1549622Z [DEBUG] Received response (Length: 208)
+2026-01-18T09:33:22.1550608Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-18T09:33:22.1551405Z     🧩 Suggested Locator: #customer\.address
+2026-01-18T09:33:22.1552592Z     💭 Reasoning: The next logical step in the registration process is to fill in the address field.
+2026-01-18T09:33:22.1553693Z     ➕ Injected AI step: fill -> Address
+2026-01-18T09:33:22.1554341Z   ▶️ [STEP step_26_ai_8] FILL: Address
+2026-01-18T09:33:22.1608126Z     🎯 Using AI-provided locator: #customer\.address
+2026-01-18T09:33:22.1625340Z     🔍 Mining locators for: 'Address'
+2026-01-18T09:33:22.2011421Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:33:22.2013271Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:33:27.3200662Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:27.3201131Z [DEBUG] Received response (Length: 409)
+2026-01-18T09:33:27.3201722Z     🔄 Retry 1/3 mining locators for 'Address'...
+2026-01-18T09:33:28.3673452Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:33:28.3675302Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:33:32.2453594Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:32.2454036Z [DEBUG] Received response (Length: 400)
+2026-01-18T09:33:32.2454555Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T09:33:32.2455162Z   ▶️ [STEP step_35] ASSERT_URL: 
+2026-01-18T09:33:37.2592068Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:33:39.2615052Z     ✅ State transitioned.
+2026-01-18T09:33:40.6556265Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:40.6556921Z [DEBUG] Received response (Length: 224)
+2026-01-18T09:33:40.6557695Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-18T09:33:40.6558569Z     🧩 Suggested Locator: input[id='customer.address.street']
+2026-01-18T09:33:40.6559345Z     💭 Reasoning: The next logical step in the registration process is to fill in the address field.
+2026-01-18T09:33:40.6559903Z     ➕ Injected AI step: fill -> Address
+2026-01-18T09:33:40.6560239Z   ▶️ [STEP step_35_ai_1] FILL: Address
+2026-01-18T09:33:40.6612987Z     🎯 Using AI-provided locator: input[id='customer.address.street']
+2026-01-18T09:33:40.7028068Z     ✅ Found 1 verified locators
+2026-01-18T09:33:46.7464344Z     ✅ State transitioned.
+2026-01-18T09:33:48.2222676Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:48.2223818Z [DEBUG] Received response (Length: 191)
+2026-01-18T09:33:48.2224580Z     🤖 AI Next Step Suggestion: fill -> City
+2026-01-18T09:33:48.2225322Z     🧩 Suggested Locator: input[id='customer.address.city']
+2026-01-18T09:33:48.2226258Z     💭 Reasoning: Need to fill in the city as part of the registration form.
+2026-01-18T09:33:48.2227037Z     ➕ Injected AI step: fill -> City
+2026-01-18T09:33:48.2227597Z   ▶️ [STEP step_35_ai_2] FILL: City
+2026-01-18T09:33:48.2281193Z     🎯 Using AI-provided locator: input[id='customer.address.city']
+2026-01-18T09:33:48.2331606Z     ✅ Found 1 verified locators
+2026-01-18T09:33:54.3410052Z     ✅ State transitioned.
+2026-01-18T09:33:55.8756012Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:55.8756541Z [DEBUG] Received response (Length: 183)
+2026-01-18T09:33:55.8757344Z     🤖 AI Next Step Suggestion: fill -> State
+2026-01-18T09:33:55.8757784Z     🧩 Suggested Locator: input[id='customer.state']
+2026-01-18T09:33:55.8758536Z     💭 Reasoning: Filling out the registration form. Need to fill in the state.
+2026-01-18T09:33:55.8758997Z     ➕ Injected AI step: fill -> State
+2026-01-18T09:33:55.8759293Z   ▶️ [STEP step_35_ai_3] FILL: State
+2026-01-18T09:33:55.8811785Z     🎯 Using AI-provided locator: input[id='customer.state']
+2026-01-18T09:33:55.8828902Z     🔍 Mining locators for: 'State'
+2026-01-18T09:33:55.9332688Z     🧠 Consulting AI (Vision-First) to find 'State'...
+2026-01-18T09:33:55.9334599Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:34:01.2636758Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:01.2637310Z [DEBUG] Received response (Length: 358)
+2026-01-18T09:34:01.2637886Z     🔄 Retry 1/3 mining locators for 'State'...
+2026-01-18T09:34:02.3161764Z     🧠 Consulting AI (Vision-First) to find 'State'...
+2026-01-18T09:34:02.3163139Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:34:06.0361866Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:06.0362301Z [DEBUG] Received response (Length: 358)
+2026-01-18T09:34:06.0362840Z     🔄 Retry 2/3 mining locators for 'State'...
+2026-01-18T09:34:07.0825058Z     🧠 Consulting AI (Vision-First) to find 'State'...
+2026-01-18T09:34:07.0826924Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:34:11.1926030Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:11.1927085Z [DEBUG] Received response (Length: 358)
+2026-01-18T09:34:11.1927964Z     🧠 Verifying step validity for 'State' after mining failure...
+2026-01-18T09:34:15.9314320Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:15.9314733Z [DEBUG] Received response (Length: 198)
+2026-01-18T09:34:15.9315457Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name='customer.address.state']
+2026-01-18T09:34:21.2012827Z     ✅ State transitioned.
+2026-01-18T09:34:23.1438904Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:23.1439513Z [DEBUG] Received response (Length: 212)
+2026-01-18T09:34:23.1440209Z     🤖 AI Next Step Suggestion: fill -> Zip Code
+2026-01-18T09:34:23.1440780Z     🧩 Suggested Locator: input[id='customer.zipCode']
+2026-01-18T09:34:23.1441346Z     💭 Reasoning: Filling the zip code is the next logical step in completing the registration form.
+2026-01-18T09:34:23.1441863Z     ➕ Injected AI step: fill -> Zip Code
+2026-01-18T09:34:23.1442176Z   ▶️ [STEP step_35_ai_4] FILL: Zip Code
+2026-01-18T09:34:23.1495640Z     🎯 Using AI-provided locator: input[id='customer.zipCode']
+2026-01-18T09:34:23.1513533Z     🔍 Mining locators for: 'Zip Code'
+2026-01-18T09:34:23.1986283Z     🧠 Consulting AI (Vision-First) to find 'Zip Code'...
+2026-01-18T09:34:23.1988204Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:34:28.3419229Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:28.3419650Z [DEBUG] Received response (Length: 567)
+2026-01-18T09:34:28.3420185Z     🔄 Retry 1/3 mining locators for 'Zip Code'...
+2026-01-18T09:34:29.3981359Z     🧠 Consulting AI (Vision-First) to find 'Zip Code'...
+2026-01-18T09:34:29.3982799Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:34:33.3852783Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:33.3853345Z [DEBUG] Received response (Length: 567)
+2026-01-18T09:34:33.3854147Z     🔄 Retry 2/3 mining locators for 'Zip Code'...
+2026-01-18T09:34:34.4312977Z     🧠 Consulting AI (Vision-First) to find 'Zip Code'...
+2026-01-18T09:34:34.4314875Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:34:38.1386925Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:38.1387589Z [DEBUG] Received response (Length: 489)
+2026-01-18T09:34:38.1388787Z     🧠 Verifying step validity for 'Zip Code' after mining failure...
+2026-01-18T09:34:42.6451553Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:42.6452309Z [DEBUG] Received response (Length: 203)
+2026-01-18T09:34:42.6453498Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name='customer.address.zipCode']
+2026-01-18T09:34:48.1030630Z     ✅ State transitioned.
+2026-01-18T09:34:49.7306053Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:49.7306768Z [DEBUG] Received response (Length: 205)
+2026-01-18T09:34:49.7307600Z     🤖 AI Next Step Suggestion: fill -> Phone #
+2026-01-18T09:34:49.7308554Z     🧩 Suggested Locator: input[id='customer.phoneNumber']
+2026-01-18T09:34:49.7309519Z     💭 Reasoning: Filling the phone number field to complete the registration form.
+2026-01-18T09:34:49.7310312Z     ➕ Injected AI step: fill -> Phone #
+2026-01-18T09:34:49.7310855Z   ▶️ [STEP step_35_ai_5] FILL: Phone #
+2026-01-18T09:34:49.7363902Z     🎯 Using AI-provided locator: input[id='customer.phoneNumber']
+2026-01-18T09:34:49.7418615Z     ✅ Found 1 verified locators
+2026-01-18T09:34:56.3756121Z     ✅ State transitioned.
+2026-01-18T09:34:58.2514496Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:58.2515209Z [DEBUG] Received response (Length: 185)
+2026-01-18T09:34:58.2516040Z     🤖 AI Next Step Suggestion: fill -> SSN
+2026-01-18T09:34:58.2516662Z     🧩 Suggested Locator: input[name='customer.ssn']
+2026-01-18T09:34:58.2517487Z     💭 Reasoning: Filling the SSN field to complete the registration form.
+2026-01-18T09:34:58.2518229Z     ➕ Injected AI step: fill -> SSN
+2026-01-18T09:34:58.2518991Z   ▶️ [STEP step_35_ai_6] FILL: SSN
+2026-01-18T09:34:58.2572559Z     🎯 Using AI-provided locator: input[name='customer.ssn']
+2026-01-18T09:34:58.2625224Z     ✅ Found 1 verified locators
+2026-01-18T09:35:04.4488747Z     ✅ State transitioned.
+2026-01-18T09:35:06.2885673Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:06.2886368Z [DEBUG] Received response (Length: 203)
+2026-01-18T09:35:06.2887234Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-18T09:35:06.2888555Z     🧩 Suggested Locator: input[id='customer.username']
+2026-01-18T09:35:06.2889584Z     💭 Reasoning: Need to fill in the username field to complete the registration form.
+2026-01-18T09:35:06.2890402Z     ➕ Injected AI step: fill -> Username
+2026-01-18T09:35:06.2890939Z   ▶️ [STEP step_35_ai_7] FILL: Username
+2026-01-18T09:35:06.2942801Z     🎯 Using AI-provided locator: input[id='customer.username']
+2026-01-18T09:35:06.2995764Z     ✅ Found 1 verified locators
+2026-01-18T09:35:12.0454739Z     ✅ State transitioned.
+2026-01-18T09:35:13.7990172Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:13.7990883Z [DEBUG] Received response (Length: 196)
+2026-01-18T09:35:13.7991723Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T09:35:13.7992363Z     🧩 Suggested Locator: input[name='password']
+2026-01-18T09:35:13.7993323Z     💭 Reasoning: Need to fill in the password field to complete the registration form.
+2026-01-18T09:35:13.7994213Z     ➕ Injected AI step: fill -> Password
+2026-01-18T09:35:13.7994839Z   ▶️ [STEP step_35_ai_8] FILL: Password
+2026-01-18T09:35:13.8045916Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-18T09:35:13.8097462Z     ✅ Found 1 verified locators
+2026-01-18T09:35:19.5145669Z     ✅ State transitioned.
+2026-01-18T09:35:21.0930826Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:21.0931458Z [DEBUG] Received response (Length: 284)
+2026-01-18T09:35:21.0932175Z     🤖 AI Next Step Suggestion: fill -> Confirm password
+2026-01-18T09:35:21.0932786Z     🧩 Suggested Locator: input[name='repeatedPassword']
+2026-01-18T09:35:21.0933714Z     💭 Reasoning: The registration form requires a confirmation password. This step fills the confirmation password field to complete the registration process.
+2026-01-18T09:35:21.0934536Z     ➕ Injected AI step: fill -> Confirm password
+2026-01-18T09:35:21.0935210Z   ▶️ [STEP step_35_ai_9] FILL: Confirm password
+2026-01-18T09:35:21.0989812Z     🎯 Using AI-provided locator: input[name='repeatedPassword']
+2026-01-18T09:35:21.1041358Z     ✅ Found 1 verified locators
+2026-01-18T09:35:26.9331436Z     ✅ State transitioned.
+2026-01-18T09:35:28.6706071Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:28.6707158Z [DEBUG] Received response (Length: 253)
+2026-01-18T09:35:28.6763535Z     🤖 AI Next Step Suggestion: click -> REGISTER
+2026-01-18T09:35:28.6764210Z     🧩 Suggested Locator: input[value='Register']
+2026-01-18T09:35:28.6765664Z     💭 Reasoning: All the required fields for registration have been filled. Clicking the 'Register' button will submit the form and attempt to create a new account.
+2026-01-18T09:35:28.6767000Z     ➕ Injected AI step: click -> REGISTER
+2026-01-18T09:35:28.6767598Z   ▶️ [STEP step_35_ai_10] CLICK: REGISTER
+2026-01-18T09:35:28.6777505Z     🎯 Using AI-provided locator: input[value='Register']
+2026-01-18T09:35:28.6831496Z     ✅ Found 1 verified locators
+2026-01-18T09:35:32.7321533Z     ✅ State transitioned.
+2026-01-18T09:35:34.1293836Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:34.1294552Z [DEBUG] Received response (Length: 274)
+2026-01-18T09:35:34.1295445Z     🤖 AI Next Step Suggestion: click -> Verify you are human
+2026-01-18T09:35:34.1296118Z     🧩 Suggested Locator: input[type='checkbox']
+2026-01-18T09:35:34.1297578Z     💭 Reasoning: The page requires human verification before proceeding. Clicking the checkbox is the next logical step to complete the registration process.
+2026-01-18T09:35:34.1299242Z     ➕ Injected AI step: click -> Verify you are human
+2026-01-18T09:35:34.1299946Z   ▶️ [STEP step_35_ai_11] CLICK: Verify you are human
+2026-01-18T09:35:34.1505757Z     🎯 Using AI-provided locator: input[type='checkbox']
+2026-01-18T09:35:34.1523122Z     🔍 Mining locators for: 'Verify you are human'
+2026-01-18T09:35:34.1976557Z     ✅ Found 1 verified locators
+2026-01-18T09:35:37.7629150Z     ✅ State transitioned.
+2026-01-18T09:35:39.0581273Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:39.0582566Z [DEBUG] Received response (Length: 248)
+2026-01-18T09:35:39.0583269Z     🤖 AI Next Step Suggestion: click -> Verify you are human
+2026-01-18T09:35:39.0583779Z     🧩 Suggested Locator: input[type='checkbox']
+2026-01-18T09:35:39.0584636Z     💭 Reasoning: The page requires human verification to proceed with registration. Clicking the checkbox is the next logical step.
+2026-01-18T09:35:39.0585595Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'verify you are human')
+2026-01-18T09:35:39.0586159Z   ▶️ [STEP step_47] NAVIGATE: 
+2026-01-18T09:35:39.9389507Z     ✅ Navigated to https://parabank.parasoft.com/
+2026-01-18T09:35:39.9390333Z   ▶️ [STEP step_48] CLICK: Services
+2026-01-18T09:35:39.9620459Z     🔍 Mining locators for: 'Services'
+2026-01-18T09:35:40.0365599Z     ✅ Found 2 verified locators
+2026-01-18T09:35:43.5991177Z     ✅ State transitioned.
+2026-01-18T09:35:45.4075914Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:45.4078854Z [DEBUG] Received response (Length: 231)
+2026-01-18T09:35:45.4079727Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-18T09:35:45.4080429Z     🧩 Suggested Locator: input[name='username']
+2026-01-18T09:35:45.4081602Z     💭 Reasoning: To attempt to log in, we need to fill in the username and password fields. Filling the username field first.
+2026-01-18T09:35:45.4082596Z     ➕ Injected AI step: fill -> Username
+2026-01-18T09:35:45.4083133Z   ▶️ [STEP step_48_ai_1] FILL: Username
+2026-01-18T09:35:45.4238236Z     🎯 Using AI-provided locator: input[name='username']
+2026-01-18T09:35:45.4297871Z     ✅ Found 1 verified locators
+2026-01-18T09:35:50.7486810Z     ✅ State transitioned.
+2026-01-18T09:35:52.3941686Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:52.3942275Z [DEBUG] Received response (Length: 211)
+2026-01-18T09:35:52.3942972Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T09:35:52.3943891Z     🧩 Suggested Locator: input[name='password']
+2026-01-18T09:35:52.3944966Z     💭 Reasoning: The username field is already filled. Now, fill the password field to attempt login.
+2026-01-18T09:35:52.3945818Z     ➕ Injected AI step: fill -> Password
+2026-01-18T09:35:52.3946326Z   ▶️ [STEP step_48_ai_2] FILL: Password
+2026-01-18T09:35:52.4001693Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-18T09:35:52.4065629Z     ✅ Found 1 verified locators
+2026-01-18T09:35:58.3043476Z     ✅ State transitioned.
+2026-01-18T09:35:59.9215383Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:59.9215982Z [DEBUG] Received response (Length: 160)
+2026-01-18T09:35:59.9216659Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-18T09:35:59.9217024Z     🧩 Suggested Locator: input[value='Log In']
+2026-01-18T09:35:59.9217501Z     💭 Reasoning: Attempt to log in with the provided username and password.
+2026-01-18T09:35:59.9217989Z     ➕ Injected AI step: click -> LOG IN
+2026-01-18T09:35:59.9218495Z   ▶️ [STEP step_48_ai_3] CLICK: LOG IN
+2026-01-18T09:35:59.9274425Z     🎯 Using AI-provided locator: input[value='Log In']
+2026-01-18T09:35:59.9334649Z     ✅ Found 1 verified locators
+2026-01-18T09:36:03.9801713Z     ✅ State transitioned.
+2026-01-18T09:36:05.3680765Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:05.3681325Z [DEBUG] Received response (Length: 205)
+2026-01-18T09:36:05.3682214Z     🤖 AI Next Step Suggestion: click -> Forgot login info?
+2026-01-18T09:36:05.3682666Z     🧩 Suggested Locator: a[href*='lookup.htm']
+2026-01-18T09:36:05.3683323Z     💭 Reasoning: The login attempt failed. The next logical step is to try to recover the login information.
+2026-01-18T09:36:05.3683943Z     ➕ Injected AI step: click -> Forgot login info?
+2026-01-18T09:36:05.3684342Z   ▶️ [STEP step_48_ai_4] CLICK: Forgot login info?
+2026-01-18T09:36:05.3823113Z     🎯 Using AI-provided locator: a[href*='lookup.htm']
+2026-01-18T09:36:05.3878589Z     ✅ Found 1 verified locators
+2026-01-18T09:36:09.4463790Z     ✅ State transitioned.
+2026-01-18T09:36:10.9224961Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:10.9225693Z [DEBUG] Received response (Length: 232)
+2026-01-18T09:36:10.9226291Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T09:36:10.9226696Z     🧩 Suggested Locator: input[id='firstName']
+2026-01-18T09:36:10.9227384Z     💭 Reasoning: To find login info, we need to fill out the form. Filling out the first name field is the next logical step.
+2026-01-18T09:36:10.9228013Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T09:36:10.9228548Z   ▶️ [STEP step_48_ai_5] FILL: First Name
+2026-01-18T09:36:10.9368190Z     🎯 Using AI-provided locator: input[id='firstName']
+2026-01-18T09:36:10.9430758Z     ✅ Found 1 verified locators
+2026-01-18T09:36:16.2682785Z     ✅ State transitioned.
+2026-01-18T09:36:17.9035326Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:17.9036309Z [DEBUG] Received response (Length: 223)
+2026-01-18T09:36:17.9037426Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T09:36:17.9038271Z     🧩 Suggested Locator: input[id='lastName']
+2026-01-18T09:36:17.9040103Z     💭 Reasoning: The form requires multiple fields to be filled. Filling the last name field is the next logical step.
+2026-01-18T09:36:17.9041318Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T09:36:17.9041951Z   ▶️ [STEP step_48_ai_6] FILL: Last Name
+2026-01-18T09:36:17.9094119Z     🎯 Using AI-provided locator: input[id='lastName']
+2026-01-18T09:36:17.9146072Z     ✅ Found 1 verified locators
+2026-01-18T09:36:23.2034913Z     ✅ State transitioned.
+2026-01-18T09:36:24.7976456Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:24.7977178Z [DEBUG] Received response (Length: 238)
+2026-01-18T09:36:24.7978015Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-18T09:36:24.7978895Z     🧩 Suggested Locator: input[name='address']
+2026-01-18T09:36:24.7980546Z     💭 Reasoning: The form requires more information to find the login info. Filling the address field is the next logical step.
+2026-01-18T09:36:24.7981741Z     ➕ Injected AI step: fill -> Address
+2026-01-18T09:36:24.7982313Z   ▶️ [STEP step_48_ai_7] FILL: Address
+2026-01-18T09:36:24.8035133Z     🎯 Using AI-provided locator: input[name='address']
+2026-01-18T09:36:24.8052094Z     🔍 Mining locators for: 'Address'
+2026-01-18T09:36:24.8445592Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:36:24.8447531Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:36:29.9964867Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:29.9965325Z [DEBUG] Received response (Length: 393)
+2026-01-18T09:36:29.9965904Z     🔄 Retry 1/3 mining locators for 'Address'...
+2026-01-18T09:36:31.0434168Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:36:31.0435557Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:36:34.9431176Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:34.9431628Z [DEBUG] Received response (Length: 393)
+2026-01-18T09:36:34.9432200Z     🔄 Retry 2/3 mining locators for 'Address'...
+2026-01-18T09:36:35.9934022Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:36:35.9935434Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:36:39.9263404Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:39.9264015Z [DEBUG] Received response (Length: 393)
+2026-01-18T09:36:39.9264980Z     🧠 Verifying step validity for 'Address' after mining failure...
+2026-01-18T09:36:44.7745178Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:44.7745628Z [DEBUG] Received response (Length: 205)
+2026-01-18T09:36:44.7746331Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name='address']
+2026-01-18T09:36:50.2860016Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:36:55.7877529Z     ⚠️ Action failed: Locator.click: Timeout 5000ms exceeded.
+2026-01-18T09:36:55.7878135Z Call log:
+2026-01-18T09:36:55.7878567Z ...
+2026-01-18T09:36:57.1975351Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:57.1976037Z [DEBUG] Received response (Length: 232)
+2026-01-18T09:36:57.1977299Z     ✨ AI Heal Reasoning: The input field labeled 'Address:' is the best visible element to perform the 'fill' action. It is an input field, which is required for the 'fill' action.
+2026-01-18T09:36:57.1978539Z     ✨ AI healed exploration action! New selector: input[name='address']
+2026-01-18T09:37:02.7061312Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:37:08.2075486Z   ▶️ [STEP step_56] ASSERT_URL: 
+2026-01-18T09:37:13.2213184Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:37:15.2236292Z     ✅ State transitioned.
+2026-01-18T09:37:16.7148877Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:37:16.7149746Z [DEBUG] Received response (Length: 235)
+2026-01-18T09:37:16.7150745Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-18T09:37:16.7151441Z     🧩 Suggested Locator: input[name='address']
+2026-01-18T09:37:16.7152723Z     💭 Reasoning: The form requires address information to validate the account. Filling the address field is the next logical step.
+2026-01-18T09:37:16.7153920Z     ➕ Injected AI step: fill -> Address
+2026-01-18T09:37:16.7154885Z   ▶️ [STEP step_56_ai_1] FILL: Address
+2026-01-18T09:37:16.7208976Z     🎯 Using AI-provided locator: input[name='address']
+2026-01-18T09:37:16.7225694Z     🔍 Mining locators for: 'Address'
+2026-01-18T09:37:16.7583002Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:37:16.7584492Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:37:22.0786692Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:37:22.0787132Z [DEBUG] Received response (Length: 393)
+2026-01-18T09:37:22.0787720Z     🔄 Retry 1/3 mining locators for 'Address'...
+2026-01-18T09:37:23.1249537Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:37:23.1251257Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:37:27.0422814Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:37:27.0423239Z [DEBUG] Received response (Length: 393)
+2026-01-18T09:37:27.0423773Z     🔄 Retry 2/3 mining locators for 'Address'...
+2026-01-18T09:37:28.0914871Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:37:28.0916377Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:37:32.0455862Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:37:32.0456496Z [DEBUG] Received response (Length: 393)
+2026-01-18T09:37:32.0457141Z     🧠 Verifying step validity for 'Address' after mining failure...
+2026-01-18T09:37:36.5679429Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:37:36.5679873Z [DEBUG] Received response (Length: 205)
+2026-01-18T09:37:36.5680581Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name='address']
+2026-01-18T09:37:42.0773233Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:37:47.5785516Z     ⚠️ Action failed: Locator.click: Timeout 5000ms exceeded.
+2026-01-18T09:37:47.5785967Z Call log:
+2026-01-18T09:37:47.5786175Z ...
+2026-01-18T09:37:49.0278474Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:37:49.0279123Z [DEBUG] Received response (Length: 232)
+2026-01-18T09:37:49.0280229Z     ✨ AI Heal Reasoning: The input field labeled 'Address:' is the best visible element to perform the 'fill' action. It is an input field, which is required for the 'fill' action.
+2026-01-18T09:37:49.0281188Z     ✨ AI healed exploration action! New selector: input[name='address']
+2026-01-18T09:37:54.5327637Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:38:00.0356548Z   ▶️ [STEP step_58] NAVIGATE: 
+2026-01-18T09:38:00.8706931Z     ✅ Navigated to https://parabank.parasoft.com/
+2026-01-18T09:38:00.8707815Z   ▶️ [STEP step_59] CLICK: Products
+2026-01-18T09:38:00.8869565Z     🔍 Mining locators for: 'Products'
+2026-01-18T09:38:00.9928222Z     ✅ Found 2 verified locators
+2026-01-18T09:38:04.5563009Z     ✅ State transitioned.
+2026-01-18T09:38:06.3778800Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:38:06.3779433Z [DEBUG] Received response (Length: 249)
+2026-01-18T09:38:06.3780212Z     🤖 AI Next Step Suggestion: click -> Accept All
+2026-01-18T09:38:06.3780864Z     🧩 Suggested Locator: button:contains('Accept All')
+2026-01-18T09:38:06.3781737Z     💭 Reasoning: The page displays a cookie consent popup. To proceed with exploring the website, it's necessary to accept the cookies.
+2026-01-18T09:38:06.3782384Z     ➕ Injected AI step: click -> Accept All
+2026-01-18T09:38:06.3783020Z   ▶️ [STEP step_59_ai_1] CLICK: Accept All
+2026-01-18T09:38:06.3933333Z     🎯 Using AI-provided locator: button:contains('Accept All')
+2026-01-18T09:38:06.3964886Z     🔍 Mining locators for: 'Accept All'
+2026-01-18T09:38:06.6213759Z     ✅ Found 2 verified locators
+2026-01-18T09:38:10.1817212Z     ✅ State transitioned.
+2026-01-18T09:38:11.6821898Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:38:11.6822484Z [DEBUG] Received response (Length: 186)
+2026-01-18T09:38:11.6823256Z     🤖 AI Next Step Suggestion: click -> Close
+2026-01-18T09:38:11.6823629Z     🧩 Suggested Locator: button
+2026-01-18T09:38:11.6824142Z     💭 Reasoning: There is a cookie banner that needs to be closed to continue exploring the website.
+2026-01-18T09:38:11.6824646Z     ➕ Injected AI step: click -> Close
+2026-01-18T09:38:11.6824943Z   ▶️ [STEP step_59_ai_2] CLICK: Close
+2026-01-18T09:38:11.6894590Z     🎯 Using AI-provided locator: button
+2026-01-18T09:38:11.6953259Z     ✅ Found 1 verified locators
+2026-01-18T09:38:15.7402425Z     ✅ State transitioned.
+2026-01-18T09:38:17.3404139Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:38:17.3404755Z [DEBUG] Received response (Length: 259)
+2026-01-18T09:38:17.3405306Z     🤖 AI Next Step Suggestion: click -> Close
+2026-01-18T09:38:17.3405848Z     🧩 Suggested Locator: button:nth-of-type(1)
+2026-01-18T09:38:17.3406889Z     💭 Reasoning: The cookie banner is still present, and the 'Close' button is available to dismiss it. Dismissing it will allow interaction with the main content of the page.
+2026-01-18T09:38:17.3407821Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'close')
+2026-01-18T09:38:17.3408237Z   ▶️ [STEP step_62] NAVIGATE: 
+2026-01-18T09:38:18.0864003Z     ✅ Navigated to https://parabank.parasoft.com/
+2026-01-18T09:38:18.0864651Z   ▶️ [STEP step_63] CLICK: Locations
+2026-01-18T09:38:18.1020988Z     🔍 Mining locators for: 'Locations'
+2026-01-18T09:38:18.1755217Z     ✅ Found 2 verified locators
+2026-01-18T09:38:21.7412028Z     ✅ State transitioned.
+2026-01-18T09:38:23.1946909Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:38:23.1947523Z [DEBUG] Received response (Length: 205)
+2026-01-18T09:38:23.1948527Z     🤖 AI Next Step Suggestion: click -> Close
+2026-01-18T09:38:23.1948960Z     🧩 Suggested Locator: button:nth-of-type(1)
+2026-01-18T09:38:23.1949611Z     💭 Reasoning: The cookie banner is still visible. Closing it will allow interaction with the main content of the page.
+2026-01-18T09:38:23.1950312Z ⚠️ Loop detected: same AI suggestion repeated 3 times. Moving to next step.
+2026-01-18T09:38:23.1950716Z   ▶️ [STEP step_64] NAVIGATE: 
+2026-01-18T09:38:23.9614547Z     ✅ Navigated to https://parabank.parasoft.com/
+2026-01-18T09:38:23.9615293Z   ▶️ [STEP step_65] CLICK: Contact Us
+2026-01-18T09:38:23.9792636Z     🔍 Mining locators for: 'Contact Us'
+2026-01-18T09:38:24.0330572Z     ✅ Found 2 verified locators
+2026-01-18T09:38:27.6071134Z     ✅ State transitioned.
+2026-01-18T09:38:29.0144635Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:38:29.0145251Z [DEBUG] Received response (Length: 188)
+2026-01-18T09:38:29.0146038Z     🤖 AI Next Step Suggestion: fill -> Name
+2026-01-18T09:38:29.0146498Z     🧩 Suggested Locator: input[id='name']
+2026-01-18T09:38:29.0147137Z     💭 Reasoning: Fill the name field in the customer care form to explore the functionality.
+2026-01-18T09:38:29.0147727Z     ➕ Injected AI step: fill -> Name
+2026-01-18T09:38:29.0148104Z   ▶️ [STEP step_65_ai_1] FILL: Name
+2026-01-18T09:38:29.0283888Z     🎯 Using AI-provided locator: input[id='name']
+2026-01-18T09:38:29.0337100Z     ✅ Found 1 verified locators
+2026-01-18T09:38:34.5436016Z     ✅ State transitioned.
+2026-01-18T09:38:36.1690825Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:38:36.1691513Z [DEBUG] Received response (Length: 200)
+2026-01-18T09:38:36.1692349Z     🤖 AI Next Step Suggestion: fill -> Email
+2026-01-18T09:38:36.1692712Z     🧩 Suggested Locator: input[id='email']
+2026-01-18T09:38:36.1693484Z     💭 Reasoning: Fill the email field in the customer care form to explore the functionality.
+2026-01-18T09:38:36.1693990Z     ➕ Injected AI step: fill -> Email
+2026-01-18T09:38:36.1694294Z   ▶️ [STEP step_65_ai_2] FILL: Email
+2026-01-18T09:38:36.1744165Z     🎯 Using AI-provided locator: input[id='email']
+2026-01-18T09:38:36.1803747Z     ✅ Found 1 verified locators
+2026-01-18T09:38:43.1493772Z     ✅ State transitioned.
+2026-01-18T09:38:44.8679555Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:38:44.8680265Z [DEBUG] Received response (Length: 213)
+2026-01-18T09:38:44.8681093Z     🤖 AI Next Step Suggestion: fill -> Phone
+2026-01-18T09:38:44.8681788Z     🧩 Suggested Locator: input[id='email'] + input
+2026-01-18T09:38:44.8682792Z     💭 Reasoning: The form requires a phone number. Filling it out will allow us to submit the form.
+2026-01-18T09:38:44.8685433Z     ➕ Injected AI step: fill -> Phone
+2026-01-18T09:38:44.8686024Z   ▶️ [STEP step_65_ai_3] FILL: Phone
+2026-01-18T09:38:44.8737295Z     🎯 Using AI-provided locator: input[id='email'] + input
+2026-01-18T09:38:44.8757250Z     🔍 Mining locators for: 'Phone'
+2026-01-18T09:38:44.9211049Z     🧠 Consulting AI (Vision-First) to find 'Phone'...
+2026-01-18T09:38:44.9212953Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:38:50.0571894Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:38:50.0572580Z [DEBUG] Received response (Length: 341)
+2026-01-18T09:38:50.0573358Z     🔄 Retry 1/3 mining locators for 'Phone'...
+2026-01-18T09:38:51.1045570Z     🧠 Consulting AI (Vision-First) to find 'Phone'...
+2026-01-18T09:38:51.1046990Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:38:54.7628597Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:38:54.7629032Z [DEBUG] Received response (Length: 341)
+2026-01-18T09:38:54.7629560Z     🔄 Retry 2/3 mining locators for 'Phone'...
+2026-01-18T09:38:55.8051131Z     🧠 Consulting AI (Vision-First) to find 'Phone'...
+2026-01-18T09:38:55.8053044Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:38:59.7957690Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:38:59.7958574Z [DEBUG] Received response (Length: 341)
+2026-01-18T09:38:59.7959543Z     🧠 Verifying step validity for 'Phone' after mining failure...
+2026-01-18T09:39:04.3913325Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:39:04.3914023Z [DEBUG] Received response (Length: 192)
+2026-01-18T09:39:04.3915094Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name='phone']
+2026-01-18T09:39:10.6761063Z     ✅ State transitioned.
+2026-01-18T09:39:12.2061009Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:39:12.2061726Z [DEBUG] Received response (Length: 162)
+2026-01-18T09:39:12.2062497Z     🤖 AI Next Step Suggestion: fill -> Message
+2026-01-18T09:39:12.2063346Z     💭 Reasoning: Fill the message field to complete the contact form.
+2026-01-18T09:39:12.2064069Z     ➕ Injected AI step: fill -> Message
+2026-01-18T09:39:12.2064618Z   ▶️ [STEP step_65_ai_4] FILL: Message
+2026-01-18T09:39:12.2116468Z     🔍 Mining locators for: 'Message'
+2026-01-18T09:39:12.2537231Z     🧠 Consulting AI (Vision-First) to find 'Message'...
+2026-01-18T09:39:12.2539626Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:39:17.6908181Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:39:17.6908859Z [DEBUG] Received response (Length: 499)
+2026-01-18T09:39:17.6909405Z     🔄 Retry 1/3 mining locators for 'Message'...
+2026-01-18T09:39:18.7372761Z     🧠 Consulting AI (Vision-First) to find 'Message'...
+2026-01-18T09:39:18.7374102Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:39:22.5710952Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:39:22.5711600Z [DEBUG] Received response (Length: 499)
+2026-01-18T09:39:22.5712506Z     🔄 Retry 2/3 mining locators for 'Message'...
+2026-01-18T09:39:23.6203364Z     🧠 Consulting AI (Vision-First) to find 'Message'...
+2026-01-18T09:39:23.6205328Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:39:28.1707259Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:39:28.1707913Z [DEBUG] Received response (Length: 499)
+2026-01-18T09:39:28.1709045Z     🧠 Verifying step validity for 'Message' after mining failure...
+2026-01-18T09:39:32.0176547Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:39:32.0176974Z [DEBUG] Received response (Length: 210)
+2026-01-18T09:39:32.0177663Z     🛠️ Self-Correction: Step is valid. Using new locator: textarea[name='message']
+2026-01-18T09:39:37.7771503Z     ✅ State transitioned.
+2026-01-18T09:39:39.3835719Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:39:39.3836416Z [DEBUG] Received response (Length: 165)
+2026-01-18T09:39:39.3837258Z     🤖 AI Next Step Suggestion: fill -> Phone
+2026-01-18T09:39:39.3837831Z     🧩 Suggested Locator: input[id='phone']
+2026-01-18T09:39:39.3838799Z     💭 Reasoning: Fill the phone number in the contact form.
+2026-01-18T09:39:39.3839494Z     ➕ Injected AI step: fill -> Phone
+2026-01-18T09:39:39.3840026Z   ▶️ [STEP step_65_ai_5] FILL: Phone
+2026-01-18T09:39:39.3892867Z     🎯 Using AI-provided locator: input[id='phone']
+2026-01-18T09:39:39.3945511Z     ✅ Found 1 verified locators
+2026-01-18T09:39:45.3872961Z     ✅ State transitioned.
+2026-01-18T09:39:47.0808927Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:39:47.0809590Z [DEBUG] Received response (Length: 226)
+2026-01-18T09:39:47.0810345Z     🤖 AI Next Step Suggestion: click -> SEND TO CUSTOMER CARE
+2026-01-18T09:39:47.0810975Z     🧩 Suggested Locator: input[value='Send to Customer Care']
+2026-01-18T09:39:47.0811593Z     💭 Reasoning: All the fields in the customer care form are filled. Clicking the button will submit the form.
+2026-01-18T09:39:47.0812187Z     ➕ Injected AI step: click -> SEND TO CUSTOMER CARE
+2026-01-18T09:39:47.0812593Z   ▶️ [STEP step_65_ai_6] CLICK: SEND TO CUSTOMER CARE
+2026-01-18T09:39:47.0867031Z     🎯 Using AI-provided locator: input[value='Send to Customer Care']
+2026-01-18T09:39:47.0918566Z     ✅ Found 1 verified locators
+2026-01-18T09:39:51.1371902Z     ✅ State transitioned.
+2026-01-18T09:39:52.8041013Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:39:52.8041583Z [DEBUG] Received response (Length: 221)
+2026-01-18T09:39:52.8042299Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-18T09:39:52.8042667Z     🧩 Suggested Locator: input[name='username']
+2026-01-18T09:39:52.8043268Z     💭 Reasoning: To attempt to log in, a username is required. Filling the username field is the next logical step.
+2026-01-18T09:39:52.8043811Z     ➕ Injected AI step: fill -> Username
+2026-01-18T09:39:52.8044122Z   ▶️ [STEP step_65_ai_7] FILL: Username
+2026-01-18T09:39:52.8188067Z     🎯 Using AI-provided locator: input[name='username']
+2026-01-18T09:39:52.8247918Z     ✅ Found 1 verified locators
+2026-01-18T09:39:58.3176269Z     ✅ State transitioned.
+2026-01-18T09:39:59.9197688Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:39:59.9198573Z [DEBUG] Received response (Length: 195)
+2026-01-18T09:39:59.9199293Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T09:39:59.9199710Z     🧩 Suggested Locator: input[name='password']
+2026-01-18T09:39:59.9200255Z     💭 Reasoning: To attempt to log in, a password is required after filling the username.
+2026-01-18T09:39:59.9200764Z     ➕ Injected AI step: fill -> Password
+2026-01-18T09:39:59.9201108Z   ▶️ [STEP step_65_ai_8] FILL: Password
+2026-01-18T09:39:59.9253275Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-18T09:39:59.9308454Z     ✅ Found 1 verified locators
+2026-01-18T09:40:05.2741745Z     ✅ State transitioned.
+2026-01-18T09:40:06.9887005Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:40:06.9887738Z [DEBUG] Received response (Length: 208)
+2026-01-18T09:40:06.9889108Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-18T09:40:06.9889768Z     🧩 Suggested Locator: input[value='Log In']
+2026-01-18T09:40:06.9891091Z     💭 Reasoning: Now that the username and password fields have been filled, the next logical step is to attempt to log in.
+2026-01-18T09:40:06.9892315Z     ➕ Injected AI step: click -> LOG IN
+2026-01-18T09:40:06.9892923Z   ▶️ [STEP step_65_ai_9] CLICK: LOG IN
+2026-01-18T09:40:06.9945224Z     🎯 Using AI-provided locator: input[value='Log In']
+2026-01-18T09:40:06.9997572Z     ✅ Found 1 verified locators
+2026-01-18T09:40:11.0358787Z     ✅ State transitioned.
+2026-01-18T09:40:12.4368522Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:40:12.4369246Z [DEBUG] Received response (Length: 216)
+2026-01-18T09:40:12.4370180Z     🤖 AI Next Step Suggestion: click -> Forgot login info?
+2026-01-18T09:40:12.4371027Z     🧩 Suggested Locator: a:contains('Forgot login info?')
+2026-01-18T09:40:12.4372336Z     💭 Reasoning: The login attempt failed. The next logical step is to try to recover the login information.
+2026-01-18T09:40:12.4373615Z     ➕ Injected AI step: click -> Forgot login info?
+2026-01-18T09:40:12.4374418Z   ▶️ [STEP step_65_ai_10] CLICK: Forgot login info?
+2026-01-18T09:40:12.4513342Z     🎯 Using AI-provided locator: a:contains('Forgot login info?')
+2026-01-18T09:40:12.4542377Z     🔍 Mining locators for: 'Forgot login info?'
+2026-01-18T09:40:12.5162780Z     ✅ Found 2 verified locators
+2026-01-18T09:40:16.0842182Z     ✅ State transitioned.
+2026-01-18T09:40:17.5589412Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:40:17.5589966Z [DEBUG] Received response (Length: 176)
+2026-01-18T09:40:17.5590757Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T09:40:17.5591172Z     🧩 Suggested Locator: input[id='firstName']
+2026-01-18T09:40:17.5591648Z     💭 Reasoning: To validate the account, the first name is required.
+2026-01-18T09:40:17.5592113Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T09:40:17.5592475Z   ▶️ [STEP step_65_ai_11] FILL: First Name
+2026-01-18T09:40:17.5737336Z     🎯 Using AI-provided locator: input[id='firstName']
+2026-01-18T09:40:17.5788528Z     ✅ Found 1 verified locators
+2026-01-18T09:40:23.2379332Z     ✅ State transitioned.
+2026-01-18T09:40:24.7796488Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:40:24.7797356Z [DEBUG] Received response (Length: 237)
+2026-01-18T09:40:24.7798001Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T09:40:24.7798650Z     🧩 Suggested Locator: input[id='lastName']
+2026-01-18T09:40:24.7799501Z     💭 Reasoning: The form requires more information to find the login info. Filling out the last name field is the next logical step.
+2026-01-18T09:40:24.7800250Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T09:40:24.7800633Z   ▶️ [STEP step_65_ai_12] FILL: Last Name
+2026-01-18T09:40:24.7851043Z     🎯 Using AI-provided locator: input[id='lastName']
+2026-01-18T09:40:24.7911190Z     ✅ Found 1 verified locators
+2026-01-18T09:40:30.2699396Z     ✅ State transitioned.
+2026-01-18T09:40:31.7190063Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:40:31.7190642Z [DEBUG] Received response (Length: 238)
+2026-01-18T09:40:31.7191446Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-18T09:40:31.7191846Z     🧩 Suggested Locator: input[name='address']
+2026-01-18T09:40:31.7192574Z     💭 Reasoning: The form requires more information to find the login info. Filling the address field is the next logical step.
+2026-01-18T09:40:31.7193228Z     ➕ Injected AI step: fill -> Address
+2026-01-18T09:40:31.7193561Z   ▶️ [STEP step_65_ai_13] FILL: Address
+2026-01-18T09:40:31.7246901Z     🎯 Using AI-provided locator: input[name='address']
+2026-01-18T09:40:31.7265597Z     🔍 Mining locators for: 'Address'
+2026-01-18T09:40:31.7669703Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:40:31.7671627Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:40:37.1538939Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:40:37.1539348Z [DEBUG] Received response (Length: 343)
+2026-01-18T09:40:37.1539883Z     🔄 Retry 1/3 mining locators for 'Address'...
+2026-01-18T09:40:38.2009075Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:40:38.2010950Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:40:42.5469372Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:40:42.5469819Z [DEBUG] Received response (Length: 468)
+2026-01-18T09:40:42.5470392Z     🔄 Retry 2/3 mining locators for 'Address'...
+2026-01-18T09:40:43.6000515Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:40:43.6001911Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:40:47.1626302Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:40:47.1626951Z [DEBUG] Received response (Length: 468)
+2026-01-18T09:40:47.1627651Z     🧠 Verifying step validity for 'Address' after mining failure...
+2026-01-18T09:40:51.7870305Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:40:51.7871120Z [DEBUG] Received response (Length: 202)
+2026-01-18T09:40:51.7872175Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name='address']
+2026-01-18T09:40:57.2965304Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:41:02.7983951Z     ⚠️ Action failed: Locator.click: Timeout 5000ms exceeded.
+2026-01-18T09:41:02.7984335Z Call log:
+2026-01-18T09:41:02.7984500Z ...
+2026-01-18T09:41:04.2525479Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:41:04.2525904Z [DEBUG] Received response (Length: 225)
+2026-01-18T09:41:04.2527535Z     ✨ AI Heal Reasoning: The input field next to 'Address:' is the best visible element to fill the address. It is an input element, which is required for the 'fill' action.
+2026-01-18T09:41:04.2528541Z     ✨ AI healed exploration action! New selector: input[name='address']
+2026-01-18T09:41:09.7579215Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:41:15.2597107Z   ▶️ [STEP step_79] ASSERT_URL: 
+2026-01-18T09:41:20.2736973Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:41:22.2759641Z     ✅ State transitioned.
+2026-01-18T09:41:23.8190846Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:41:23.8191699Z [DEBUG] Received response (Length: 242)
+2026-01-18T09:41:23.8192545Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-18T09:41:23.8193133Z     🧩 Suggested Locator: input[name='address']
+2026-01-18T09:41:23.8194306Z     💭 Reasoning: The form requires address information to validate the account. Filling the address field is the next logical step.
+2026-01-18T09:41:23.8195282Z     ➕ Injected AI step: fill -> Address
+2026-01-18T09:41:23.8195594Z   ▶️ [STEP step_79_ai_1] FILL: Address
+2026-01-18T09:41:23.8246764Z     🎯 Using AI-provided locator: input[name='address']
+2026-01-18T09:41:23.8263104Z     🔍 Mining locators for: 'Address'
+2026-01-18T09:41:23.9145441Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:41:23.9147366Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:41:28.9784594Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:41:28.9785741Z [DEBUG] Received response (Length: 343)
+2026-01-18T09:41:28.9786536Z     🔄 Retry 1/3 mining locators for 'Address'...
+2026-01-18T09:41:30.0313008Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:41:30.0314814Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:41:34.2920304Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:41:34.2920718Z [DEBUG] Received response (Length: 468)
+2026-01-18T09:41:34.2921264Z     🔄 Retry 2/3 mining locators for 'Address'...
+2026-01-18T09:41:35.3310997Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:41:35.3312920Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:41:39.3660908Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:41:39.3661557Z [DEBUG] Received response (Length: 468)
+2026-01-18T09:41:39.3662173Z     🧠 Verifying step validity for 'Address' after mining failure...
+2026-01-18T09:41:43.6352082Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:41:43.6352789Z [DEBUG] Received response (Length: 202)
+2026-01-18T09:41:43.6353930Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name='address']
+2026-01-18T09:41:49.1444762Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:41:54.6462882Z     ⚠️ Action failed: Locator.click: Timeout 5000ms exceeded.
+2026-01-18T09:41:54.6463365Z Call log:
+2026-01-18T09:41:54.6463581Z ...
+2026-01-18T09:41:56.0685044Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:41:56.0685606Z [DEBUG] Received response (Length: 191)
+2026-01-18T09:41:56.0686632Z     ✨ AI Heal Reasoning: The input field next to the 'Address:' label is the best element to fill the address. It is a visible input field.
+2026-01-18T09:41:56.0687382Z     ✨ AI healed exploration action! New selector: input[name='address']
+2026-01-18T09:42:01.5738941Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:42:07.0768744Z   ▶️ [STEP step_81] NAVIGATE: 
+2026-01-18T09:42:07.9268010Z     ✅ Navigated to https://parabank.parasoft.com/
+2026-01-18T09:42:07.9268894Z   ▶️ [STEP step_82] CLICK: Site Map
+2026-01-18T09:42:07.9425112Z     🔍 Mining locators for: 'Site Map'
+2026-01-18T09:42:08.0091308Z     ✅ Found 2 verified locators
+2026-01-18T09:42:11.5838608Z     ✅ State transitioned.
+2026-01-18T09:42:13.3561271Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:42:13.3561973Z [DEBUG] Received response (Length: 173)
+2026-01-18T09:42:13.3563168Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-18T09:42:13.3563855Z     🧩 Suggested Locator: input[name='username']
+2026-01-18T09:42:13.3564658Z     💭 Reasoning: To proceed with login, a username must be entered.
+2026-01-18T09:42:13.3565422Z     ➕ Injected AI step: fill -> Username
+2026-01-18T09:42:13.3566001Z   ▶️ [STEP step_82_ai_1] FILL: Username
+2026-01-18T09:42:13.3709825Z     🎯 Using AI-provided locator: input[name='username']
+2026-01-18T09:42:13.3763198Z     ✅ Found 1 verified locators
+2026-01-18T09:42:18.7866771Z     ✅ State transitioned.
+2026-01-18T09:42:20.4413876Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:42:20.4414526Z [DEBUG] Received response (Length: 175)
+2026-01-18T09:42:20.4415299Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T09:42:20.4415925Z     🧩 Suggested Locator: input[name='password']
+2026-01-18T09:42:20.4416660Z     💭 Reasoning: Need to fill in the password field to attempt login.
+2026-01-18T09:42:20.4417389Z     ➕ Injected AI step: fill -> Password
+2026-01-18T09:42:20.4418233Z   ▶️ [STEP step_82_ai_2] FILL: Password
+2026-01-18T09:42:20.4468081Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-18T09:42:20.4526821Z     ✅ Found 1 verified locators
+2026-01-18T09:42:26.0624792Z     ✅ State transitioned.
+2026-01-18T09:42:27.8086318Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:42:27.8086968Z [DEBUG] Received response (Length: 245)
+2026-01-18T09:42:27.8087738Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-18T09:42:27.8088487Z     🧩 Suggested Locator: input[value='Log In']
+2026-01-18T09:42:27.8089736Z     💭 Reasoning: The username and password fields have been filled. Clicking the 'LOG IN' button is the next logical step to attempt to log in.
+2026-01-18T09:42:27.8090864Z     ➕ Injected AI step: click -> LOG IN
+2026-01-18T09:42:27.8091218Z   ▶️ [STEP step_82_ai_3] CLICK: LOG IN
+2026-01-18T09:42:27.8144358Z     🎯 Using AI-provided locator: input[value='Log In']
+2026-01-18T09:42:27.8195385Z     ✅ Found 1 verified locators
+2026-01-18T09:42:31.8628638Z     ✅ State transitioned.
+2026-01-18T09:42:33.1968191Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:42:33.1969110Z [DEBUG] Received response (Length: 216)
+2026-01-18T09:42:33.1970000Z     🤖 AI Next Step Suggestion: click -> Forgot login info?
+2026-01-18T09:42:33.1970728Z     🧩 Suggested Locator: a:contains('Forgot login info?')
+2026-01-18T09:42:33.1971886Z     💭 Reasoning: The login attempt failed. The next logical step is to try to recover the login information.
+2026-01-18T09:42:33.1972975Z     ➕ Injected AI step: click -> Forgot login info?
+2026-01-18T09:42:33.1973667Z   ▶️ [STEP step_82_ai_4] CLICK: Forgot login info?
+2026-01-18T09:42:33.2120096Z     🎯 Using AI-provided locator: a:contains('Forgot login info?')
+2026-01-18T09:42:33.2144027Z     🔍 Mining locators for: 'Forgot login info?'
+2026-01-18T09:42:33.2757550Z     ✅ Found 2 verified locators
+2026-01-18T09:42:36.8476222Z     ✅ State transitioned.
+2026-01-18T09:42:38.3342026Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:42:38.3342716Z [DEBUG] Received response (Length: 176)
+2026-01-18T09:42:38.3343545Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T09:42:38.3343962Z     🧩 Suggested Locator: input[id='firstName']
+2026-01-18T09:42:38.3344422Z     💭 Reasoning: To validate the account, the first name is required.
+2026-01-18T09:42:38.3344862Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T09:42:38.3345205Z   ▶️ [STEP step_82_ai_5] FILL: First Name
+2026-01-18T09:42:38.3486669Z     🎯 Using AI-provided locator: input[id='firstName']
+2026-01-18T09:42:38.3539811Z     ✅ Found 1 verified locators
+2026-01-18T09:42:43.7801513Z     ✅ State transitioned.
+2026-01-18T09:42:45.4674166Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:42:45.4674822Z [DEBUG] Received response (Length: 239)
+2026-01-18T09:42:45.4675623Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T09:42:45.4676582Z     🧩 Suggested Locator: input[name='lastName']
+2026-01-18T09:42:45.4687618Z     💭 Reasoning: The form requires more information to find the login info. Filling out the last name field is the next logical step.
+2026-01-18T09:42:45.4688475Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T09:42:45.4688813Z   ▶️ [STEP step_82_ai_6] FILL: Last Name
+2026-01-18T09:42:45.4730473Z     🎯 Using AI-provided locator: input[name='lastName']
+2026-01-18T09:42:45.4783293Z     ✅ Found 1 verified locators
+2026-01-18T09:42:50.7022628Z     ✅ State transitioned.
+2026-01-18T09:42:52.1856106Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:42:52.1856733Z [DEBUG] Received response (Length: 238)
+2026-01-18T09:42:52.1857278Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-18T09:42:52.1857637Z     🧩 Suggested Locator: input[name='address']
+2026-01-18T09:42:52.1860378Z     💭 Reasoning: The form requires more information to find the login info. Filling the address field is the next logical step.
+2026-01-18T09:42:52.1861484Z     ➕ Injected AI step: fill -> Address
+2026-01-18T09:42:52.1862420Z   ▶️ [STEP step_82_ai_7] FILL: Address
+2026-01-18T09:42:52.1916818Z     🎯 Using AI-provided locator: input[name='address']
+2026-01-18T09:42:52.1934965Z     🔍 Mining locators for: 'Address'
+2026-01-18T09:42:52.2286720Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:42:52.2288985Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:42:57.3736714Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:42:57.3737358Z [DEBUG] Received response (Length: 343)
+2026-01-18T09:42:57.3738077Z     🔄 Retry 1/3 mining locators for 'Address'...
+2026-01-18T09:42:58.4283408Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:42:58.4284831Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:43:02.6624136Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:43:02.6624679Z [DEBUG] Received response (Length: 468)
+2026-01-18T09:43:02.6625348Z     🔄 Retry 2/3 mining locators for 'Address'...
+2026-01-18T09:43:03.7141444Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:43:03.7142892Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:43:07.7807788Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:43:07.7808520Z [DEBUG] Received response (Length: 468)
+2026-01-18T09:43:07.7809226Z     🧠 Verifying step validity for 'Address' after mining failure...
+2026-01-18T09:43:11.9904221Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:43:11.9904664Z [DEBUG] Received response (Length: 202)
+2026-01-18T09:43:11.9905368Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name='address']
+2026-01-18T09:43:17.5000078Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:43:23.0008906Z     ⚠️ Action failed: Locator.click: Timeout 5000ms exceeded.
+2026-01-18T09:43:23.0009707Z Call log:
+2026-01-18T09:43:23.0010098Z ...
+2026-01-18T09:43:24.4743181Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:43:24.4743844Z [DEBUG] Received response (Length: 191)
+2026-01-18T09:43:24.4745282Z     ✨ AI Heal Reasoning: The input field next to the 'Address:' label is the best element to fill the address. It is a visible input field.
+2026-01-18T09:43:24.4746667Z     ✨ AI healed exploration action! New selector: input[name='address']
+2026-01-18T09:43:29.9792218Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:43:35.4803624Z   ▶️ [STEP step_90] ASSERT_URL: 
+2026-01-18T09:43:40.4942624Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:43:42.4965386Z     ✅ State transitioned.
+2026-01-18T09:43:43.9536187Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:43:43.9536745Z [DEBUG] Received response (Length: 238)
+2026-01-18T09:43:43.9537519Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-18T09:43:43.9537915Z     🧩 Suggested Locator: input[name='address']
+2026-01-18T09:43:43.9538810Z     💭 Reasoning: The form requires more information to find the login info. Filling the address field is the next logical step.
+2026-01-18T09:43:43.9539423Z     ➕ Injected AI step: fill -> Address
+2026-01-18T09:43:43.9539739Z   ▶️ [STEP step_90_ai_1] FILL: Address
+2026-01-18T09:43:43.9590774Z     🎯 Using AI-provided locator: input[name='address']
+2026-01-18T09:43:43.9607570Z     🔍 Mining locators for: 'Address'
+2026-01-18T09:43:44.0095608Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:43:44.0097450Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:43:49.2742001Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:43:49.2742412Z [DEBUG] Received response (Length: 343)
+2026-01-18T09:43:49.2742995Z     🔄 Retry 1/3 mining locators for 'Address'...
+2026-01-18T09:43:50.3258651Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:43:50.3260068Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:43:54.5575007Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:43:54.5575445Z [DEBUG] Received response (Length: 468)
+2026-01-18T09:43:54.5575973Z     🔄 Retry 2/3 mining locators for 'Address'...
+2026-01-18T09:43:55.6090145Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-18T09:43:55.6091629Z     🧠 [EXPERT] Strategy: Act as a FinTech Security & UX Auditor. Prioritize security and accuracy. Focus on login forms, account summary tables, and transaction buttons. Ensure data privacy and look for secure logout options.
+2026-01-18T09:43:59.3154953Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:43:59.3155594Z [DEBUG] Received response (Length: 468)
+2026-01-18T09:43:59.3156260Z     🧠 Verifying step validity for 'Address' after mining failure...
+2026-01-18T09:44:03.8749105Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:44:03.8749922Z [DEBUG] Received response (Length: 202)
+2026-01-18T09:44:03.8751261Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name='address']
+2026-01-18T09:44:09.3845401Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:44:14.8853572Z     ⚠️ Action failed: Locator.click: Timeout 5000ms exceeded.
+2026-01-18T09:44:14.8854009Z Call log:
+2026-01-18T09:44:14.8854219Z ...
+2026-01-18T09:44:16.3673185Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:44:16.3673659Z [DEBUG] Received response (Length: 225)
+2026-01-18T09:44:16.3674666Z     ✨ AI Heal Reasoning: The input field next to 'Address:' is the best visible element to fill the address. It is an input element, which is required for the 'fill' action.
+2026-01-18T09:44:16.3675530Z     ✨ AI healed exploration action! New selector: input[name='address']
+2026-01-18T09:44:21.8710094Z     ⚠️ Scroll into view failed for input[name='address']. Proceeding anyway.
+2026-01-18T09:44:27.3718084Z   ▶️ [STEP step_92] NAVIGATE: 
+2026-01-18T09:44:28.2415615Z     ✅ Navigated to https://parabank.parasoft.com/
+2026-01-18T09:44:28.2416530Z   ▶️ [STEP step_93] CLICK: Admin Page
+2026-01-18T09:44:28.2581102Z     🔍 Mining locators for: 'Admin Page'
+2026-01-18T09:44:28.3189382Z     ✅ Found 2 verified locators
+2026-01-18T09:44:31.8917293Z     ✅ State transitioned.
+2026-01-18T09:44:33.5819361Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:44:33.5820027Z [DEBUG] Received response (Length: 236)
+2026-01-18T09:44:33.5820926Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-18T09:44:33.5821314Z     🧩 Suggested Locator: input[name='username']
+2026-01-18T09:44:33.5821951Z     💭 Reasoning: To log in as an administrator, I need to fill in the username and password fields. I'll start with the username.
+2026-01-18T09:44:33.5822518Z     ➕ Injected AI step: fill -> Username
+2026-01-18T09:44:33.5822839Z   ▶️ [STEP step_93_ai_1] FILL: Username
+2026-01-18T09:44:33.5969854Z     🎯 Using AI-provided locator: input[name='username']
+2026-01-18T09:44:33.6021758Z     ✅ Found 1 verified locators
+2026-01-18T09:44:38.9620067Z     ✅ State transitioned.
+2026-01-18T09:44:40.5561719Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:44:40.5562278Z [DEBUG] Received response (Length: 198)
+2026-01-18T09:44:40.5562944Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T09:44:40.5563321Z     🧩 Suggested Locator: input[name='password']
+2026-01-18T09:44:40.5563849Z     💭 Reasoning: Need to fill in the password field to attempt to log in to the admin page.
+2026-01-18T09:44:40.5564331Z     ➕ Injected AI step: fill -> Password
+2026-01-18T09:44:40.5564644Z   ▶️ [STEP step_93_ai_2] FILL: Password
+2026-01-18T09:44:40.5614740Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-18T09:44:40.5675096Z     ✅ Found 1 verified locators
+2026-01-18T09:44:45.9847378Z     ✅ State transitioned.
+2026-01-18T09:44:47.5946384Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:44:47.5946978Z [DEBUG] Received response (Length: 244)
+2026-01-18T09:44:47.5947766Z     🤖 AI Next Step Suggestion: click -> INITIALIZE
+2026-01-18T09:44:47.5948575Z     🧩 Suggested Locator: button[name='action'][value='INITIALIZE']
+2026-01-18T09:44:47.5949442Z     💭 Reasoning: Clicking the INITIALIZE button is a logical next step to interact with the admin page and explore its functionalities.
+2026-01-18T09:44:47.5950143Z     ➕ Injected AI step: click -> INITIALIZE
+2026-01-18T09:44:47.5950493Z   ▶️ [STEP step_93_ai_3] CLICK: INITIALIZE
+2026-01-18T09:44:47.6004452Z     🎯 Using AI-provided locator: button[name='action'][value='INITIALIZE']
+2026-01-18T09:44:47.6021375Z     🔍 Mining locators for: 'INITIALIZE'
+2026-01-18T09:44:47.6663125Z     ✅ Found 1 verified locators
+2026-01-18T09:44:51.7071147Z     ✅ State transitioned.
+2026-01-18T09:44:53.3718478Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:44:53.3719121Z [DEBUG] Received response (Length: 156)
+2026-01-18T09:44:53.3719878Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T09:44:53.3721360Z     💭 Reasoning: The current page is the admin page. The database is initialized. There are no further actions to take on this page.
+2026-01-18T09:44:53.3722051Z   ▶️ [STEP step_97] ASSERT_URL: 
+2026-01-18T09:44:58.3951740Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:45:00.3974692Z     ✅ State transitioned.
+2026-01-18T09:45:01.9618563Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:45:01.9619219Z [DEBUG] Received response (Length: 137)
+2026-01-18T09:45:01.9619976Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T09:45:01.9620997Z     💭 Reasoning: The bot has already initialized the database. There are no further actions to take on this page.
+2026-01-18T09:45:03.9644552Z 💾 Saving 1 scenarios to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking/workflow.json
+2026-01-18T09:45:03.9942920Z 
+2026-01-18T09:45:03.9943926Z ========================================
+2026-01-18T09:45:03.9945771Z 📋 EXPLORATION SUMMARY
+2026-01-18T09:45:03.9946252Z ✅ Successfully Mined: 71
+2026-01-18T09:45:03.9946711Z ✨ AI Assisted/Healed: 4
+2026-01-18T09:45:03.9947121Z ❌ Discovery Failures: 13
+2026-01-18T09:45:03.9947351Z 
+2026-01-18T09:45:03.9947473Z Failure Details:
+2026-01-18T09:45:03.9947850Z   - Step step_2_ai_7: Action failed after healing
+2026-01-18T09:45:03.9948593Z   - Step step_10_ai_1: Action failed after healing
+2026-01-18T09:45:03.9949094Z   - Step step_12_ai_3: 'priority'
+2026-01-18T09:45:03.9949491Z   - Step step_16_ai_1: 'priority'
+2026-01-18T09:45:03.9949936Z   - Step step_19_ai_3: Action failed after healing
+2026-01-18T09:45:03.9950461Z   - Step step_23_ai_1: Action failed after healing
+2026-01-18T09:45:03.9950928Z   - Step step_26_ai_8: 'priority'
+2026-01-18T09:45:03.9951358Z   - Step step_48_ai_7: Action failed after healing
+2026-01-18T09:45:03.9951853Z   - Step step_56_ai_1: Action failed after healing
+2026-01-18T09:45:03.9952359Z   - Step step_65_ai_13: Action failed after healing
+2026-01-18T09:45:03.9952935Z   - Step step_79_ai_1: Action failed after healing
+2026-01-18T09:45:03.9953497Z   - Step step_82_ai_7: Action failed after healing
+2026-01-18T09:45:03.9954415Z   - Step step_90_ai_1: Action failed after healing
+2026-01-18T09:45:03.9954909Z ========================================
+2026-01-18T09:45:03.9955216Z 
+2026-01-18T09:45:03.9956265Z 🏁 Exploration Complete. Locators saved to: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking/workflow.json
+2026-01-18T09:48:49.9177270Z 
+2026-01-18T09:48:49.9178117Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-18T09:48:49.9179232Z 📍 Project: ci_parabank_banking
+2026-01-18T09:48:49.9179849Z 🎬 Mode: Headless
+2026-01-18T09:48:49.9180136Z 
+2026-01-18T09:48:49.9180550Z --- Scenario: Explore Website and Identify Key User Flows ---
+2026-01-18T09:48:49.9181544Z   ▶️ [STEP unknown] NAVIGATE: Step unknown
+2026-01-18T09:48:49.9182202Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9182746Z   ▶️ [STEP unknown] ASSERT_URL: Step unknown
+2026-01-18T09:48:49.9183360Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9183898Z   ▶️ [STEP step_2_ai_1] FILL: Username
+2026-01-18T09:48:49.9184542Z     🎯 Using mined locator: input[name='username']
+2026-01-18T09:48:49.9185227Z     ✅ Step step_2_ai_1 Passed.
+2026-01-18T09:48:49.9185774Z   ▶️ [STEP step_2_ai_2] FILL: Password
+2026-01-18T09:48:49.9186423Z     🎯 Using mined locator: input[name='password']
+2026-01-18T09:48:49.9187043Z     ✅ Step step_2_ai_2 Passed.
+2026-01-18T09:48:49.9187575Z   ▶️ [STEP step_2_ai_3] CLICK: input
+2026-01-18T09:48:49.9188206Z     🎯 Using mined locator: input[value='Log In']
+2026-01-18T09:48:49.9189053Z     ✅ Step step_2_ai_3 Passed.
+2026-01-18T09:48:49.9189635Z   ▶️ [STEP step_2_ai_4] CLICK: Forgot login info?
+2026-01-18T09:48:49.9190307Z     🎯 Using mined locator: a[href*='lookup']
+2026-01-18T09:48:49.9190890Z     ✅ Step step_2_ai_4 Passed.
+2026-01-18T09:48:49.9191350Z   ▶️ [STEP step_2_ai_5] FILL: First Name
+2026-01-18T09:48:49.9191912Z     🎯 Using mined locator: #firstName
+2026-01-18T09:48:49.9192779Z     ✅ Step step_2_ai_5 Passed.
+2026-01-18T09:48:49.9193312Z   ▶️ [STEP step_2_ai_6] FILL: Last Name
+2026-01-18T09:48:49.9193842Z     🎯 Using mined locator: #lastName
+2026-01-18T09:48:49.9194324Z     ✅ Step step_2_ai_6 Passed.
+2026-01-18T09:48:49.9194629Z   ▶️ [STEP step_2_ai_7] CLICK: FIND MY LOGIN INFO
+2026-01-18T09:48:49.9195065Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:48:49.9195454Z     ✅ Step step_2_ai_7 Passed.
+2026-01-18T09:48:49.9195931Z   ▶️ [STEP unknown] ASSERT_VISIBLE: Customer Login
+2026-01-18T09:48:49.9196377Z     🎯 Using mined locator: text='Customer Login'
+2026-01-18T09:48:49.9196863Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9197403Z   ▶️ [STEP step_10_ai_1] CLICK: FIND MY LOGIN INFO
+2026-01-18T09:48:49.9198164Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:48:49.9199060Z     ✅ Step step_10_ai_1 Passed.
+2026-01-18T09:48:49.9199502Z   ▶️ [STEP unknown] CLICK: Register
+2026-01-18T09:48:49.9200094Z     🎯 Using mined locator: role=link[name='Register']
+2026-01-18T09:48:49.9200626Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9201057Z   ▶️ [STEP step_12_ai_1] FILL: First Name
+2026-01-18T09:48:49.9201572Z     🎯 Using mined locator: #customer\.firstName
+2026-01-18T09:48:49.9202078Z     ✅ Step step_12_ai_1 Passed.
+2026-01-18T09:48:49.9202510Z   ▶️ [STEP step_12_ai_2] FILL: Last Name
+2026-01-18T09:48:49.9203099Z     🎯 Using mined locator: input[id='customer.lastName']
+2026-01-18T09:48:49.9203631Z     ✅ Step step_12_ai_2 Passed.
+2026-01-18T09:48:49.9204055Z   ▶️ [STEP step_12_ai_3] FILL: Address
+2026-01-18T09:48:49.9204456Z     ✅ Step step_12_ai_3 Passed.
+2026-01-18T09:48:49.9204745Z   ▶️ [STEP unknown] ASSERT_URL: Step unknown
+2026-01-18T09:48:49.9205031Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9205545Z   ▶️ [STEP step_16_ai_1] FILL: Address
+2026-01-18T09:48:49.9206079Z     ✅ Step step_16_ai_1 Passed.
+2026-01-18T09:48:49.9206598Z   ▶️ [STEP unknown] NAVIGATE: Step unknown
+2026-01-18T09:48:49.9207169Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9208000Z   ▶️ [STEP unknown] CLICK: Forgot login info?
+2026-01-18T09:48:49.9208927Z     🎯 Using mined locator: role=link[name='Forgot login info?']
+2026-01-18T09:48:49.9209550Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9209999Z   ▶️ [STEP step_19_ai_1] FILL: First Name
+2026-01-18T09:48:49.9210556Z     🎯 Using mined locator: input[id='firstName']
+2026-01-18T09:48:49.9211104Z     ✅ Step step_19_ai_1 Passed.
+2026-01-18T09:48:49.9211571Z   ▶️ [STEP step_19_ai_2] FILL: Last Name
+2026-01-18T09:48:49.9212123Z     🎯 Using mined locator: input[id='lastName']
+2026-01-18T09:48:49.9212668Z     ✅ Step step_19_ai_2 Passed.
+2026-01-18T09:48:49.9213126Z   ▶️ [STEP step_19_ai_3] FILL: Address
+2026-01-18T09:48:49.9213820Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:48:49.9214504Z     ✅ Step step_19_ai_3 Passed.
+2026-01-18T09:48:49.9215006Z   ▶️ [STEP unknown] ASSERT_URL: Step unknown
+2026-01-18T09:48:49.9215541Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9216021Z   ▶️ [STEP step_23_ai_1] FILL: Address
+2026-01-18T09:48:49.9216736Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:48:49.9217454Z     ✅ Step step_23_ai_1 Passed.
+2026-01-18T09:48:49.9217959Z   ▶️ [STEP unknown] NAVIGATE: Step unknown
+2026-01-18T09:48:49.9220334Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9220613Z   ▶️ [STEP unknown] CLICK: About Us
+2026-01-18T09:48:49.9220952Z     🎯 Using mined locator: role=link[name='About Us']
+2026-01-18T09:48:49.9221272Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9221659Z   ▶️ [STEP step_26_ai_1] CLICK: Services
+2026-01-18T09:48:49.9222267Z     🎯 Using mined locator: role=link[name='Services']
+2026-01-18T09:48:49.9222832Z     ✅ Step step_26_ai_1 Passed.
+2026-01-18T09:48:49.9223311Z   ▶️ [STEP step_26_ai_2] FILL: Username
+2026-01-18T09:48:49.9223797Z     🎯 Using mined locator: input[name='username']
+2026-01-18T09:48:49.9224352Z     ✅ Step step_26_ai_2 Passed.
+2026-01-18T09:48:49.9224814Z   ▶️ [STEP step_26_ai_3] FILL: Password
+2026-01-18T09:48:49.9225157Z     🎯 Using mined locator: input[name='password']
+2026-01-18T09:48:49.9225464Z     ✅ Step step_26_ai_3 Passed.
+2026-01-18T09:48:49.9225723Z   ▶️ [STEP step_26_ai_4] CLICK: LOG IN
+2026-01-18T09:48:49.9226038Z     🎯 Using mined locator: input[value='Log In']
+2026-01-18T09:48:49.9226418Z     ✅ Step step_26_ai_4 Passed.
+2026-01-18T09:48:49.9226889Z   ▶️ [STEP step_26_ai_5] CLICK: Register
+2026-01-18T09:48:49.9227492Z     🎯 Using mined locator: role=link[name='Register']
+2026-01-18T09:48:49.9227820Z     ✅ Step step_26_ai_5 Passed.
+2026-01-18T09:48:49.9228089Z   ▶️ [STEP step_26_ai_6] FILL: First Name
+2026-01-18T09:48:49.9228711Z     🎯 Using mined locator: input[id='customer.firstName']
+2026-01-18T09:48:49.9229053Z     ✅ Step step_26_ai_6 Passed.
+2026-01-18T09:48:49.9229317Z   ▶️ [STEP step_26_ai_7] FILL: Last Name
+2026-01-18T09:48:49.9229657Z     🎯 Using mined locator: input[id='customer.lastName']
+2026-01-18T09:48:49.9229995Z     ✅ Step step_26_ai_7 Passed.
+2026-01-18T09:48:49.9230429Z   ▶️ [STEP step_26_ai_8] FILL: Address
+2026-01-18T09:48:49.9230692Z     ✅ Step step_26_ai_8 Passed.
+2026-01-18T09:48:49.9230963Z   ▶️ [STEP unknown] ASSERT_URL: Step unknown
+2026-01-18T09:48:49.9231245Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9231495Z   ▶️ [STEP step_35_ai_1] FILL: Address
+2026-01-18T09:48:49.9231841Z     🎯 Using mined locator: input[id='customer.address.street']
+2026-01-18T09:48:49.9232186Z     ✅ Step step_35_ai_1 Passed.
+2026-01-18T09:48:49.9232437Z   ▶️ [STEP step_35_ai_2] FILL: City
+2026-01-18T09:48:49.9232776Z     🎯 Using mined locator: input[id='customer.address.city']
+2026-01-18T09:48:49.9233105Z     ✅ Step step_35_ai_2 Passed.
+2026-01-18T09:48:49.9233352Z   ▶️ [STEP step_35_ai_3] FILL: State
+2026-01-18T09:48:49.9233704Z     🎯 Using mined locator: input[name='customer.address.state']
+2026-01-18T09:48:49.9234052Z     ✅ Step step_35_ai_3 Passed.
+2026-01-18T09:48:49.9234310Z   ▶️ [STEP step_35_ai_4] FILL: Zip Code
+2026-01-18T09:48:49.9234694Z     🎯 Using mined locator: input[name='customer.address.zipCode']
+2026-01-18T09:48:49.9235059Z     ✅ Step step_35_ai_4 Passed.
+2026-01-18T09:48:49.9235317Z   ▶️ [STEP step_35_ai_5] FILL: Phone #
+2026-01-18T09:48:49.9235893Z     🎯 Using mined locator: input[id='customer.phoneNumber']
+2026-01-18T09:48:49.9236518Z     ✅ Step step_35_ai_5 Passed.
+2026-01-18T09:48:49.9236785Z   ▶️ [STEP step_35_ai_6] FILL: SSN
+2026-01-18T09:48:49.9237100Z     🎯 Using mined locator: input[name='customer.ssn']
+2026-01-18T09:48:49.9237410Z     ✅ Step step_35_ai_6 Passed.
+2026-01-18T09:48:49.9237662Z   ▶️ [STEP step_35_ai_7] FILL: Username
+2026-01-18T09:48:49.9237994Z     🎯 Using mined locator: input[id='customer.username']
+2026-01-18T09:48:49.9238446Z     ✅ Step step_35_ai_7 Passed.
+2026-01-18T09:48:49.9238717Z   ▶️ [STEP step_35_ai_8] FILL: Password
+2026-01-18T09:48:49.9239034Z     🎯 Using mined locator: input[name='password']
+2026-01-18T09:48:49.9239343Z     ✅ Step step_35_ai_8 Passed.
+2026-01-18T09:48:49.9239636Z   ▶️ [STEP step_35_ai_9] FILL: Confirm password
+2026-01-18T09:48:49.9240006Z     🎯 Using mined locator: input[name='repeatedPassword']
+2026-01-18T09:48:49.9240329Z     ✅ Step step_35_ai_9 Passed.
+2026-01-18T09:48:49.9240584Z   ▶️ [STEP step_35_ai_10] CLICK: REGISTER
+2026-01-18T09:48:49.9240901Z     🎯 Using mined locator: input[value='Register']
+2026-01-18T09:48:49.9241210Z     ✅ Step step_35_ai_10 Passed.
+2026-01-18T09:48:49.9241513Z   ▶️ [STEP step_35_ai_11] CLICK: Verify you are human
+2026-01-18T09:48:49.9241935Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:48:49.9242311Z     ✅ Step step_35_ai_11 Passed.
+2026-01-18T09:48:49.9242587Z   ▶️ [STEP unknown] NAVIGATE: Step unknown
+2026-01-18T09:48:49.9242866Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9243111Z   ▶️ [STEP unknown] CLICK: Services
+2026-01-18T09:48:49.9243426Z     🎯 Using mined locator: role=link[name='Services']
+2026-01-18T09:48:49.9243733Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9244142Z   ▶️ [STEP step_48_ai_1] FILL: Username
+2026-01-18T09:48:49.9244468Z     🎯 Using mined locator: input[name='username']
+2026-01-18T09:48:49.9244767Z     ✅ Step step_48_ai_1 Passed.
+2026-01-18T09:48:49.9245028Z   ▶️ [STEP step_48_ai_2] FILL: Password
+2026-01-18T09:48:49.9245335Z     🎯 Using mined locator: input[name='password']
+2026-01-18T09:48:49.9245630Z     ✅ Step step_48_ai_2 Passed.
+2026-01-18T09:48:49.9245891Z   ▶️ [STEP step_48_ai_3] CLICK: LOG IN
+2026-01-18T09:48:49.9246196Z     🎯 Using mined locator: input[value='Log In']
+2026-01-18T09:48:49.9246492Z     ✅ Step step_48_ai_3 Passed.
+2026-01-18T09:48:49.9246769Z   ▶️ [STEP step_48_ai_4] CLICK: Forgot login info?
+2026-01-18T09:48:49.9247097Z     🎯 Using mined locator: a[href*='lookup.htm']
+2026-01-18T09:48:49.9247390Z     ✅ Step step_48_ai_4 Passed.
+2026-01-18T09:48:49.9247650Z   ▶️ [STEP step_48_ai_5] FILL: First Name
+2026-01-18T09:48:49.9247956Z     🎯 Using mined locator: input[id='firstName']
+2026-01-18T09:48:49.9248249Z     ✅ Step step_48_ai_5 Passed.
+2026-01-18T09:48:49.9248638Z   ▶️ [STEP step_48_ai_6] FILL: Last Name
+2026-01-18T09:48:49.9249074Z     🎯 Using mined locator: input[id='lastName']
+2026-01-18T09:48:49.9249369Z     ✅ Step step_48_ai_6 Passed.
+2026-01-18T09:48:49.9249619Z   ▶️ [STEP step_48_ai_7] FILL: Address
+2026-01-18T09:48:49.9250001Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:48:49.9250376Z     ✅ Step step_48_ai_7 Passed.
+2026-01-18T09:48:49.9250648Z   ▶️ [STEP unknown] ASSERT_URL: Step unknown
+2026-01-18T09:48:49.9250921Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9251171Z   ▶️ [STEP step_56_ai_1] FILL: Address
+2026-01-18T09:48:49.9251543Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:48:49.9251907Z     ✅ Step step_56_ai_1 Passed.
+2026-01-18T09:48:49.9252166Z   ▶️ [STEP unknown] NAVIGATE: Step unknown
+2026-01-18T09:48:49.9252439Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9252684Z   ▶️ [STEP unknown] CLICK: Products
+2026-01-18T09:48:49.9253010Z     🎯 Using mined locator: role=link[name='Products']
+2026-01-18T09:48:49.9253320Z     ✅ Step unknown Passed.
+2026-01-18T09:48:49.9253571Z   ▶️ [STEP step_59_ai_1] CLICK: Accept All
+2026-01-18T09:48:49.9253955Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T09:48:49.9254697Z     ❌ Attempt 1 failed (unknown): Locator.bounding_box: Error: strict mode violation: locator("text=Accept All") resolved to 3 element...
+2026-01-18T09:48:49.9255372Z     🔧 [AUTO-HEAL] Re-mining page to find 'Accept All'...
+2026-01-18T09:48:49.9255732Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:48:49.9256066Z [DEBUG] Received response (Length: 715)
+2026-01-18T09:48:49.9256422Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T09:48:49.9257127Z     ✨ AI successfully healed the step! New selector: body > div > div > div > div > div > div > div:nth-child(2) > div:nth-child(3) > button:nth-child(3)
+2026-01-18T09:48:49.9257897Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T09:48:49.9258415Z Call log:
+2026-01-18T09:49:27.8841103Z   - waiting for locator("body > div > div ...
+2026-01-18T09:49:27.8841879Z     🔧 [AUTO-HEAL] Re-mining page to find 'Accept All'...
+2026-01-18T09:49:27.8842284Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:49:27.8842632Z [DEBUG] Received response (Length: 715)
+2026-01-18T09:49:27.8843020Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T09:49:27.8843777Z     ✨ AI successfully healed the step! New selector: body > div > div > div > div > div > div > div:nth-child(2) > div:nth-child(3) > button:nth-child(3)
+2026-01-18T09:49:27.8844564Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T09:49:27.8844964Z Call log:
+2026-01-18T09:49:27.8845165Z   - waiting for locator("body > div > div ...
+2026-01-18T09:49:27.8845795Z     💀 Step step_59_ai_1 failed after all retries.
+2026-01-18T09:49:27.8846307Z 🛑 Scenario 'Explore Website and Identify Key User Flows' aborted due to step failure.
+2026-01-18T09:49:27.8846656Z 
+2026-01-18T09:49:27.8847136Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking/execution.json
+2026-01-18T09:49:27.9988000Z 
+2026-01-18T09:49:27.9988742Z [PHASE] Running Phase: DISCOVERY
+2026-01-18T09:49:27.9989961Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking --url https://parabank.parasoft.com/
+2026-01-18T09:49:27.9991326Z ✅ Phase 'discovery' completed successfully.
+2026-01-18T09:49:27.9991529Z 
+2026-01-18T09:49:27.9991624Z [PHASE] Running Phase: PLANNING
+2026-01-18T09:49:27.9992723Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking --url https://parabank.parasoft.com/
+2026-01-18T09:49:27.9994150Z ✅ Phase 'planning' completed successfully.
+2026-01-18T09:49:27.9994349Z 
+2026-01-18T09:49:27.9994441Z [PHASE] Running Phase: EXPLORATION
+2026-01-18T09:49:27.9995353Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking
+2026-01-18T09:49:27.9996358Z ✅ Phase 'exploration' completed successfully.
+2026-01-18T09:49:27.9996720Z 📊 Exploration Discovery Success Rate: 87.5%
+2026-01-18T09:49:27.9996911Z 
+2026-01-18T09:49:27.9996999Z [PHASE] Running Phase: EXECUTION
+2026-01-18T09:49:27.9997921Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking
+2026-01-18T09:49:27.9999206Z ✅ Phase 'execution' completed successfully.
+2026-01-18T09:49:27.9999399Z 
+2026-01-18T09:49:27.9999504Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-18T09:49:28.0935390Z ##[group]Run # The new orchestrator outputs execution.json in the project root
+2026-01-18T09:49:28.0935959Z [36;1m# The new orchestrator outputs execution.json in the project root[0m
+2026-01-18T09:49:28.0936406Z [36;1mRESULT_FILE="projects/ci_parabank_banking/execution.json"[0m
+2026-01-18T09:49:28.0936773Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-18T09:49:28.0937102Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-18T09:49:28.0937513Z [36;1m  # Extract count of passed scenarios/steps for visibility[0m
+2026-01-18T09:49:28.0937954Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-18T09:49:28.0938610Z [36;1melse[0m
+2026-01-18T09:49:28.0938866Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-18T09:49:28.0939169Z [36;1m  exit 1[0m
+2026-01-18T09:49:28.0939352Z [36;1mfi[0m
+2026-01-18T09:49:28.0970975Z shell: /usr/bin/bash -e {0}
+2026-01-18T09:49:28.0971208Z env:
+2026-01-18T09:49:28.0971495Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:49:28.0971928Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:49:28.0972355Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:49:28.0972722Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:49:28.0973095Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:49:28.0973461Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:49:28.0973762Z ##[endgroup]
+2026-01-18T09:49:28.1027039Z ✅ Results generated successfully: projects/ci_parabank_banking/execution.json
+2026-01-18T09:49:28.1053559Z 1
+2026-01-18T09:49:28.1115276Z ##[group]Run actions/upload-artifact@v4
+2026-01-18T09:49:28.1115565Z with:
+2026-01-18T09:49:28.1115765Z   name: parabank_banking-execution-results
+2026-01-18T09:49:28.1116066Z   path: projects/ci_parabank_banking/execution.json
+2026-01-18T09:49:28.1116354Z   retention-days: 30
+2026-01-18T09:49:28.1116555Z   if-no-files-found: warn
+2026-01-18T09:49:28.1116768Z   compression-level: 6
+2026-01-18T09:49:28.1116958Z   overwrite: false
+2026-01-18T09:49:28.1117150Z   include-hidden-files: false
+2026-01-18T09:49:28.1117359Z env:
+2026-01-18T09:49:28.1117597Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:49:28.1117996Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:49:28.1118583Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:49:28.1118949Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:49:28.1119309Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:49:28.1119694Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:49:28.1120177Z ##[endgroup]
+2026-01-18T09:49:28.3221716Z With the provided path, there will be 1 file uploaded
+2026-01-18T09:49:28.3225789Z Artifact name is valid!
+2026-01-18T09:49:28.3227232Z Root directory input is valid!
+2026-01-18T09:49:28.4676801Z Beginning upload of artifact content to blob storage
+2026-01-18T09:49:28.6628821Z Uploaded bytes 656
+2026-01-18T09:49:28.7145035Z Finished uploading artifact content to blob storage!
+2026-01-18T09:49:28.7148176Z SHA256 digest of uploaded artifact zip is cbdfa3133c6a1dd6671b1a760ee7523e1d8f47e38b514e60314ab317fbae3aa6
+2026-01-18T09:49:28.7149800Z Finalizing artifact upload
+2026-01-18T09:49:28.8061157Z Artifact parabank_banking-execution-results.zip successfully finalized. Artifact ID 5168050465
+2026-01-18T09:49:28.8062590Z Artifact parabank_banking-execution-results has been successfully uploaded! Final size is 656 bytes. Artifact ID is 5168050465
+2026-01-18T09:49:28.8068620Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21109461243/artifacts/5168050465
+2026-01-18T09:49:28.8185143Z Post job cleanup.
+2026-01-18T09:49:28.9878153Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --files-from manifest.txt --use-compress-program zstdmt
+2026-01-18T09:49:29.6470823Z Failed to save: Unable to reserve cache with key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-e01604ec9be86a26965d6215464cc16bab5cdc759625cb1899035b468728c8f7, another job may be creating this cache.
+2026-01-18T09:49:29.7066222Z Post job cleanup.
+2026-01-18T09:49:29.7984072Z [command]/usr/bin/git version
+2026-01-18T09:49:29.8019128Z git version 2.52.0
+2026-01-18T09:49:29.8060194Z Temporarily overriding HOME='/home/runner/work/_temp/ae1a6143-cc12-4e6d-901b-df6e88ce2e6b' before making global git config changes
+2026-01-18T09:49:29.8061365Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T09:49:29.8065786Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T09:49:29.8100662Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T09:49:29.8132045Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T09:49:29.8358181Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T09:49:29.8378855Z http.https://github.com/.extraheader
+2026-01-18T09:49:29.8391376Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-18T09:49:29.8421906Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T09:49:29.8641094Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T09:49:29.8670701Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T09:49:29.8990625Z Cleaning up orphan processes

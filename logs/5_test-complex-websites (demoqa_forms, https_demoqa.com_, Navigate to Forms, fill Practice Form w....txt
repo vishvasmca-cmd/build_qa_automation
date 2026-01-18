@@ -1,0 +1,1666 @@
+﻿2026-01-18T09:25:35.8155996Z Current runner version: '2.331.0'
+2026-01-18T09:25:35.8176657Z ##[group]Runner Image Provisioner
+2026-01-18T09:25:35.8177601Z Hosted Compute Agent
+2026-01-18T09:25:35.8178140Z Version: 20251211.462
+2026-01-18T09:25:35.8178786Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-18T09:25:35.8179505Z Build Date: 2025-12-11T16:28:49Z
+2026-01-18T09:25:35.8180199Z Worker ID: {6d9cff77-554c-4c39-9cba-40d2f9cd9753}
+2026-01-18T09:25:35.8180921Z ##[endgroup]
+2026-01-18T09:25:35.8181453Z ##[group]Operating System
+2026-01-18T09:25:35.8182036Z Ubuntu
+2026-01-18T09:25:35.8182467Z 24.04.3
+2026-01-18T09:25:35.8182957Z LTS
+2026-01-18T09:25:35.8183435Z ##[endgroup]
+2026-01-18T09:25:35.8184271Z ##[group]Runner Image
+2026-01-18T09:25:35.8184909Z Image: ubuntu-24.04
+2026-01-18T09:25:35.8185448Z Version: 20260111.209.1
+2026-01-18T09:25:35.8186411Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-18T09:25:35.8187998Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-18T09:25:35.8188985Z ##[endgroup]
+2026-01-18T09:25:35.8190116Z ##[group]GITHUB_TOKEN Permissions
+2026-01-18T09:25:35.8192162Z Contents: read
+2026-01-18T09:25:35.8192801Z Metadata: read
+2026-01-18T09:25:35.8193283Z Packages: read
+2026-01-18T09:25:35.8193951Z ##[endgroup]
+2026-01-18T09:25:35.8195941Z Secret source: Actions
+2026-01-18T09:25:35.8196665Z Prepare workflow directory
+2026-01-18T09:25:35.8492232Z Prepare all required actions
+2026-01-18T09:25:35.8529482Z Getting action download info
+2026-01-18T09:25:36.1232388Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-18T09:25:36.2413165Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-18T09:25:36.3185826Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-18T09:25:36.5197887Z Complete job name: test-complex-websites (demoqa_forms, https://demoqa.com/, Navigate to Forms, fill Practice Form w...
+2026-01-18T09:25:36.5835685Z ##[group]Run actions/checkout@v4
+2026-01-18T09:25:36.5836446Z with:
+2026-01-18T09:25:36.5836855Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T09:25:36.5837519Z   token: ***
+2026-01-18T09:25:36.5837872Z   ssh-strict: true
+2026-01-18T09:25:36.5838227Z   ssh-user: git
+2026-01-18T09:25:36.5838598Z   persist-credentials: true
+2026-01-18T09:25:36.5839005Z   clean: true
+2026-01-18T09:25:36.5839368Z   sparse-checkout-cone-mode: true
+2026-01-18T09:25:36.5839802Z   fetch-depth: 1
+2026-01-18T09:25:36.5840151Z   fetch-tags: false
+2026-01-18T09:25:36.5840526Z   show-progress: true
+2026-01-18T09:25:36.5840896Z   lfs: false
+2026-01-18T09:25:36.5841222Z   submodules: false
+2026-01-18T09:25:36.5841592Z   set-safe-directory: true
+2026-01-18T09:25:36.5842174Z ##[endgroup]
+2026-01-18T09:25:36.6833536Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T09:25:36.6835566Z ##[group]Getting Git version info
+2026-01-18T09:25:36.6836438Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T09:25:36.6837450Z [command]/usr/bin/git version
+2026-01-18T09:25:36.6899015Z git version 2.52.0
+2026-01-18T09:25:36.6921903Z ##[endgroup]
+2026-01-18T09:25:36.6935180Z Temporarily overriding HOME='/home/runner/work/_temp/da2e7e22-6647-4e5d-89cb-141cb51dcedb' before making global git config changes
+2026-01-18T09:25:36.6936577Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T09:25:36.6946521Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T09:25:36.6980838Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T09:25:36.6983902Z ##[group]Initializing the repository
+2026-01-18T09:25:36.6987567Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T09:25:36.7087340Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-18T09:25:36.7089161Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-18T09:25:36.7090592Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-18T09:25:36.7091687Z hint: call:
+2026-01-18T09:25:36.7092076Z hint:
+2026-01-18T09:25:36.7092748Z hint: 	git config --global init.defaultBranch <name>
+2026-01-18T09:25:36.7093331Z hint:
+2026-01-18T09:25:36.7094022Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-18T09:25:36.7094918Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-18T09:25:36.7095604Z hint:
+2026-01-18T09:25:36.7096149Z hint: 	git branch -m <name>
+2026-01-18T09:25:36.7096889Z hint:
+2026-01-18T09:25:36.7097694Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-18T09:25:36.7098665Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-18T09:25:36.7101755Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T09:25:36.7133485Z ##[endgroup]
+2026-01-18T09:25:36.7134481Z ##[group]Disabling automatic garbage collection
+2026-01-18T09:25:36.7137590Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-18T09:25:36.7163141Z ##[endgroup]
+2026-01-18T09:25:36.7164515Z ##[group]Setting up auth
+2026-01-18T09:25:36.7170187Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T09:25:36.7198184Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T09:25:36.7494855Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T09:25:36.7522722Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T09:25:36.7728172Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T09:25:36.7756186Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T09:25:36.7975938Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-18T09:25:36.8006744Z ##[endgroup]
+2026-01-18T09:25:36.8007512Z ##[group]Fetching the repository
+2026-01-18T09:25:36.8014248Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +0876873ded0353f71e85298c7ecbf6841b796082:refs/remotes/origin/main
+2026-01-18T09:25:37.4159986Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T09:25:37.4162075Z  * [new ref]         0876873ded0353f71e85298c7ecbf6841b796082 -> origin/main
+2026-01-18T09:25:37.4188096Z ##[endgroup]
+2026-01-18T09:25:37.4189592Z ##[group]Determining the checkout info
+2026-01-18T09:25:37.4191255Z ##[endgroup]
+2026-01-18T09:25:37.4193697Z [command]/usr/bin/git sparse-checkout disable
+2026-01-18T09:25:37.4232620Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-18T09:25:37.4258171Z ##[group]Checking out the ref
+2026-01-18T09:25:37.4262071Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-18T09:25:37.5130447Z Switched to a new branch 'main'
+2026-01-18T09:25:37.5131629Z branch 'main' set up to track 'origin/main'.
+2026-01-18T09:25:37.5146620Z ##[endgroup]
+2026-01-18T09:25:37.5183201Z [command]/usr/bin/git log -1 --format=%H
+2026-01-18T09:25:37.5203079Z 0876873ded0353f71e85298c7ecbf6841b796082
+2026-01-18T09:25:37.5499995Z ##[group]Run actions/setup-python@v5
+2026-01-18T09:25:37.5501008Z with:
+2026-01-18T09:25:37.5501676Z   python-version: 3.11
+2026-01-18T09:25:37.5502465Z   cache: pip
+2026-01-18T09:25:37.5503517Z   check-latest: false
+2026-01-18T09:25:37.5505000Z   token: ***
+2026-01-18T09:25:37.5505717Z   update-environment: true
+2026-01-18T09:25:37.5506604Z   allow-prereleases: false
+2026-01-18T09:25:37.5507453Z   freethreaded: false
+2026-01-18T09:25:37.5508248Z ##[endgroup]
+2026-01-18T09:25:37.7098706Z ##[group]Installed versions
+2026-01-18T09:25:37.7204550Z Successfully set up CPython (3.11.14)
+2026-01-18T09:25:37.7206488Z ##[endgroup]
+2026-01-18T09:25:37.7750021Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-18T09:25:38.0518180Z /home/runner/.cache/pip
+2026-01-18T09:25:38.1484888Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-e01604ec9be86a26965d6215464cc16bab5cdc759625cb1899035b468728c8f7
+2026-01-18T09:25:39.1119870Z Received 173771502 of 173771502 (100.0%), 183.9 MBs/sec
+2026-01-18T09:25:39.1120832Z Cache Size: ~166 MB (173771502 B)
+2026-01-18T09:25:39.1223660Z [command]/usr/bin/tar -xf /home/runner/work/_temp/a9de1959-b121-414a-8ded-5d1ef82b1347/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-18T09:25:39.3895061Z Cache restored successfully
+2026-01-18T09:25:39.4213077Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-ad5e4ba510d266fcd4d29dab1e74cf3459c639ec34c8ba822fa9eb95ff648a3c
+2026-01-18T09:25:39.4422464Z ##[group]Run pip install -r requirements.txt
+2026-01-18T09:25:39.4422862Z [36;1mpip install -r requirements.txt[0m
+2026-01-18T09:25:39.4423143Z [36;1mplaywright install chromium[0m
+2026-01-18T09:25:39.4459849Z shell: /usr/bin/bash -e {0}
+2026-01-18T09:25:39.4460096Z env:
+2026-01-18T09:25:39.4460345Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:39.4460743Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:25:39.4461131Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:39.4461485Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:39.4461871Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:39.4462247Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:25:39.4462537Z ##[endgroup]
+2026-01-18T09:25:39.9936363Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-18T09:25:39.9950435Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-18T09:25:40.0121546Z Collecting langchain-google-genai (from -r requirements.txt (line 2))
+2026-01-18T09:25:40.0134871Z   Using cached langchain_google_genai-4.2.0-py3-none-any.whl.metadata (2.7 kB)
+2026-01-18T09:25:40.0282497Z Collecting python-dotenv (from -r requirements.txt (line 3))
+2026-01-18T09:25:40.0295075Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-18T09:25:40.0616208Z Collecting requests (from -r requirements.txt (line 4))
+2026-01-18T09:25:40.0630687Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-18T09:25:40.2106887Z Collecting pillow (from -r requirements.txt (line 5))
+2026-01-18T09:25:40.2121576Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-18T09:25:40.2704307Z Collecting openai (from -r requirements.txt (line 6))
+2026-01-18T09:25:40.2716943Z   Using cached openai-2.15.0-py3-none-any.whl.metadata (29 kB)
+2026-01-18T09:25:40.2945972Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 7))
+2026-01-18T09:25:40.2957598Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-18T09:25:40.3094868Z Collecting termcolor (from -r requirements.txt (line 8))
+2026-01-18T09:25:40.3107105Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-18T09:25:40.3412736Z Collecting pytest (from -r requirements.txt (line 9))
+2026-01-18T09:25:40.3424239Z   Using cached pytest-9.0.2-py3-none-any.whl.metadata (7.6 kB)
+2026-01-18T09:25:40.3565743Z Collecting pytest-playwright (from -r requirements.txt (line 10))
+2026-01-18T09:25:40.3578322Z   Using cached pytest_playwright-0.7.2-py3-none-any.whl.metadata (14 kB)
+2026-01-18T09:25:40.3750650Z Collecting pytest-html (from -r requirements.txt (line 11))
+2026-01-18T09:25:40.3764262Z   Using cached pytest_html-4.1.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-18T09:25:40.3909848Z Collecting jinja2 (from -r requirements.txt (line 12))
+2026-01-18T09:25:40.3922981Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+2026-01-18T09:25:40.4253584Z Collecting PyYAML (from -r requirements.txt (line 13))
+2026-01-18T09:25:40.4266538Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-18T09:25:40.4708132Z Collecting fastapi (from -r requirements.txt (line 14))
+2026-01-18T09:25:40.4720343Z   Using cached fastapi-0.128.0-py3-none-any.whl.metadata (30 kB)
+2026-01-18T09:25:40.4999655Z Collecting uvicorn (from -r requirements.txt (line 15))
+2026-01-18T09:25:40.5011709Z   Using cached uvicorn-0.40.0-py3-none-any.whl.metadata (6.7 kB)
+2026-01-18T09:25:40.6235522Z Collecting pydantic (from -r requirements.txt (line 16))
+2026-01-18T09:25:40.6249948Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-18T09:25:40.6947765Z Collecting opencv-python-headless (from -r requirements.txt (line 17))
+2026-01-18T09:25:40.7567131Z   Downloading opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-18T09:25:40.9271826Z Collecting numpy (from -r requirements.txt (line 18))
+2026-01-18T09:25:40.9285828Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-18T09:25:41.0002792Z Collecting faker (from -r requirements.txt (line 19))
+2026-01-18T09:25:41.0045448Z   Downloading faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-18T09:25:41.0229094Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-18T09:25:41.0241204Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-18T09:25:41.1535841Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-18T09:25:41.1550002Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-18T09:25:41.1710862Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-18T09:25:41.1723052Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-18T09:25:41.1822778Z Collecting filetype<2.0.0,>=1.2.0 (from langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:41.1835658Z   Using cached filetype-1.2.0-py2.py3-none-any.whl.metadata (6.5 kB)
+2026-01-18T09:25:41.2267302Z Collecting langchain-core<2.0.0,>=1.2.5 (from langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:41.2279486Z   Using cached langchain_core-1.2.7-py3-none-any.whl.metadata (3.7 kB)
+2026-01-18T09:25:41.2589712Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.2601848Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-18T09:25:41.2945653Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.2957816Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-18T09:25:41.3158757Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.3170880Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-18T09:25:41.3523106Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.3535644Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-18T09:25:41.4292145Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.4305161Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-18T09:25:41.4425262Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.4438154Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-18T09:25:41.4512443Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:41.4525945Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-18T09:25:41.5243544Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 4))
+2026-01-18T09:25:41.5256640Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-18T09:25:41.5392807Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 4))
+2026-01-18T09:25:41.5405983Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T09:25:41.5653279Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 4))
+2026-01-18T09:25:41.5665607Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-18T09:25:41.5844511Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 4))
+2026-01-18T09:25:41.5856643Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T09:25:41.5975900Z Collecting annotated-types>=0.6.0 (from pydantic->-r requirements.txt (line 16))
+2026-01-18T09:25:41.5988022Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-18T09:25:42.2407562Z Collecting pydantic-core==2.41.5 (from pydantic->-r requirements.txt (line 16))
+2026-01-18T09:25:42.2421601Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-18T09:25:42.2532434Z Collecting typing-inspection>=0.4.2 (from pydantic->-r requirements.txt (line 16))
+2026-01-18T09:25:42.2544671Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-18T09:25:42.2797737Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:42.2809823Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-18T09:25:42.2940615Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:42.2953917Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-18T09:25:42.3201171Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:42.3213222Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-18T09:25:42.3318948Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:42.3331061Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-18T09:25:42.3462714Z Collecting jsonpatch<2.0.0,>=1.33.0 (from langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:42.3475247Z   Using cached jsonpatch-1.33-py2.py3-none-any.whl.metadata (3.0 kB)
+2026-01-18T09:25:42.4147695Z Collecting langsmith<1.0.0,>=0.3.45 (from langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:42.4160361Z   Using cached langsmith-0.6.4-py3-none-any.whl.metadata (15 kB)
+2026-01-18T09:25:42.4324222Z Collecting packaging<26.0.0,>=23.2.0 (from langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:42.4336055Z   Using cached packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-18T09:25:42.5019253Z Collecting uuid-utils<1.0,>=0.12.0 (from langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:42.5032279Z   Using cached uuid_utils-0.13.0-cp39-abi3-manylinux_2_24_x86_64.whl.metadata (5.4 kB)
+2026-01-18T09:25:42.5154027Z Collecting jsonpointer>=1.9 (from jsonpatch<2.0.0,>=1.33.0->langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:42.5167104Z   Using cached jsonpointer-3.0.0-py2.py3-none-any.whl.metadata (2.3 kB)
+2026-01-18T09:25:42.7885460Z Collecting orjson>=3.9.14 (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:42.7898827Z   Using cached orjson-3.11.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+2026-01-18T09:25:42.8030954Z Collecting requests-toolbelt>=1.0.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:42.8043152Z   Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl.metadata (14 kB)
+2026-01-18T09:25:42.8719395Z Collecting zstandard>=0.23.0 (from langsmith<1.0.0,>=0.3.45->langchain-core<2.0.0,>=1.2.5->langchain-google-genai->-r requirements.txt (line 2))
+2026-01-18T09:25:42.8732404Z   Using cached zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+2026-01-18T09:25:42.8956284Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 7))
+2026-01-18T09:25:42.9000094Z   Downloading pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T09:25:42.9754675Z Collecting jiter<1,>=0.10.0 (from openai->-r requirements.txt (line 6))
+2026-01-18T09:25:42.9767149Z   Using cached jiter-0.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)
+2026-01-18T09:25:43.0246535Z Collecting tqdm>4 (from openai->-r requirements.txt (line 6))
+2026-01-18T09:25:43.0258773Z   Using cached tqdm-4.67.1-py3-none-any.whl.metadata (57 kB)
+2026-01-18T09:25:43.0418029Z Collecting iniconfig>=1.0.1 (from pytest->-r requirements.txt (line 9))
+2026-01-18T09:25:43.0430356Z   Using cached iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T09:25:43.0563697Z Collecting pluggy<2,>=1.5 (from pytest->-r requirements.txt (line 9))
+2026-01-18T09:25:43.0576146Z   Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+2026-01-18T09:25:43.0748394Z Collecting pygments>=2.7.2 (from pytest->-r requirements.txt (line 9))
+2026-01-18T09:25:43.0762071Z   Using cached pygments-2.19.2-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T09:25:43.1015666Z Collecting pytest-base-url<3.0.0,>=1.0.0 (from pytest-playwright->-r requirements.txt (line 10))
+2026-01-18T09:25:43.1027579Z   Using cached pytest_base_url-2.1.0-py3-none-any.whl.metadata (6.6 kB)
+2026-01-18T09:25:43.1149242Z Collecting python-slugify<9.0.0,>=6.0.0 (from pytest-playwright->-r requirements.txt (line 10))
+2026-01-18T09:25:43.1162182Z   Using cached python_slugify-8.0.4-py2.py3-none-any.whl.metadata (8.5 kB)
+2026-01-18T09:25:43.1499131Z Collecting text-unidecode>=1.3 (from python-slugify<9.0.0,>=6.0.0->pytest-playwright->-r requirements.txt (line 10))
+2026-01-18T09:25:43.1511217Z   Using cached text_unidecode-1.3-py2.py3-none-any.whl.metadata (2.4 kB)
+2026-01-18T09:25:43.1654802Z Collecting pytest-metadata>=2.0.0 (from pytest-html->-r requirements.txt (line 11))
+2026-01-18T09:25:43.1667008Z   Using cached pytest_metadata-3.1.1-py3-none-any.whl.metadata (8.6 kB)
+2026-01-18T09:25:43.2144577Z Collecting MarkupSafe>=2.0 (from jinja2->-r requirements.txt (line 12))
+2026-01-18T09:25:43.2158154Z   Using cached markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-01-18T09:25:43.2434223Z Collecting starlette<0.51.0,>=0.40.0 (from fastapi->-r requirements.txt (line 14))
+2026-01-18T09:25:43.2446246Z   Using cached starlette-0.50.0-py3-none-any.whl.metadata (6.3 kB)
+2026-01-18T09:25:43.2719420Z Collecting annotated-doc>=0.0.2 (from fastapi->-r requirements.txt (line 14))
+2026-01-18T09:25:43.2736691Z   Using cached annotated_doc-0.0.4-py3-none-any.whl.metadata (6.6 kB)
+2026-01-18T09:25:43.3000746Z Collecting click>=7.0 (from uvicorn->-r requirements.txt (line 15))
+2026-01-18T09:25:43.3013136Z   Using cached click-8.3.1-py3-none-any.whl.metadata (2.6 kB)
+2026-01-18T09:25:43.3604459Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-18T09:25:43.3920303Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-18T09:25:43.3935709Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-18T09:25:43.3947888Z Using cached langchain_google_genai-4.2.0-py3-none-any.whl (66 kB)
+2026-01-18T09:25:43.3960175Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-18T09:25:43.3977064Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-18T09:25:43.3990222Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-18T09:25:43.4006834Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-18T09:25:43.4032730Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-18T09:25:43.4046109Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-18T09:25:43.4058559Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-18T09:25:43.4070491Z Using cached filetype-1.2.0-py2.py3-none-any.whl (19 kB)
+2026-01-18T09:25:43.4082424Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-18T09:25:43.4096317Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-18T09:25:43.4109294Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-18T09:25:43.4121506Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-18T09:25:43.4133948Z Using cached langchain_core-1.2.7-py3-none-any.whl (490 kB)
+2026-01-18T09:25:43.4149484Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-18T09:25:43.4166390Z Using cached jsonpatch-1.33-py2.py3-none-any.whl (12 kB)
+2026-01-18T09:25:43.4178212Z Using cached langsmith-0.6.4-py3-none-any.whl (283 kB)
+2026-01-18T09:25:43.4192778Z Using cached packaging-25.0-py3-none-any.whl (66 kB)
+2026-01-18T09:25:43.4206252Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-18T09:25:43.4218231Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-18T09:25:43.4230184Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-18T09:25:43.4242175Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-18T09:25:43.4254868Z Using cached uuid_utils-0.13.0-cp39-abi3-manylinux_2_24_x86_64.whl (342 kB)
+2026-01-18T09:25:43.4269343Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-18T09:25:43.4281793Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-18T09:25:43.4294589Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-18T09:25:43.4353529Z Using cached openai-2.15.0-py3-none-any.whl (1.1 MB)
+2026-01-18T09:25:43.4372650Z Using cached jiter-0.12.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (364 kB)
+2026-01-18T09:25:43.4386968Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-18T09:25:43.4399639Z Using cached pytest-9.0.2-py3-none-any.whl (374 kB)
+2026-01-18T09:25:43.4414515Z Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+2026-01-18T09:25:43.4426654Z Using cached pytest_playwright-0.7.2-py3-none-any.whl (16 kB)
+2026-01-18T09:25:43.4438604Z Using cached pytest_base_url-2.1.0-py3-none-any.whl (5.3 kB)
+2026-01-18T09:25:43.4450363Z Using cached python_slugify-8.0.4-py2.py3-none-any.whl (10 kB)
+2026-01-18T09:25:43.4462099Z Using cached pytest_html-4.1.1-py3-none-any.whl (23 kB)
+2026-01-18T09:25:43.4474091Z Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+2026-01-18T09:25:43.4486569Z Using cached fastapi-0.128.0-py3-none-any.whl (103 kB)
+2026-01-18T09:25:43.4499484Z Using cached starlette-0.50.0-py3-none-any.whl (74 kB)
+2026-01-18T09:25:43.4512567Z Using cached uvicorn-0.40.0-py3-none-any.whl (68 kB)
+2026-01-18T09:25:43.4579162Z Downloading opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-18T09:25:43.7583095Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.5/62.5 MB 220.0 MB/s  0:00:00
+2026-01-18T09:25:43.7630590Z Downloading numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-18T09:25:43.8269144Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 268.3 MB/s  0:00:00
+2026-01-18T09:25:43.8309120Z Downloading faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-18T09:25:43.8443722Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 164.5 MB/s  0:00:00
+2026-01-18T09:25:43.8457726Z Using cached annotated_doc-0.0.4-py3-none-any.whl (5.3 kB)
+2026-01-18T09:25:43.8471168Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-18T09:25:43.8484489Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-18T09:25:43.8498474Z Using cached click-8.3.1-py3-none-any.whl (108 kB)
+2026-01-18T09:25:43.8512121Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-18T09:25:43.8525618Z Using cached iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+2026-01-18T09:25:43.8538790Z Using cached jsonpointer-3.0.0-py2.py3-none-any.whl (7.6 kB)
+2026-01-18T09:25:43.8552533Z Using cached markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-01-18T09:25:43.8566231Z Using cached orjson-3.11.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (138 kB)
+2026-01-18T09:25:43.8613313Z Downloading pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-18T09:25:43.8649215Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-18T09:25:43.8663347Z Using cached pygments-2.19.2-py3-none-any.whl (1.2 MB)
+2026-01-18T09:25:43.8684345Z Using cached pytest_metadata-3.1.1-py3-none-any.whl (11 kB)
+2026-01-18T09:25:43.8696403Z Using cached requests_toolbelt-1.0.0-py2.py3-none-any.whl (54 kB)
+2026-01-18T09:25:43.8708777Z Using cached text_unidecode-1.3-py2.py3-none-any.whl (78 kB)
+2026-01-18T09:25:43.8722110Z Using cached tqdm-4.67.1-py3-none-any.whl (78 kB)
+2026-01-18T09:25:43.8734604Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-18T09:25:43.8746959Z Using cached zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.6 MB)
+2026-01-18T09:25:43.8794423Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-18T09:25:44.1365600Z Installing collected packages: text-unidecode, filetype, zstandard, websockets, uuid-utils, urllib3, typing-extensions, tqdm, termcolor, tenacity, sniffio, PyYAML, python-slugify, python-dotenv, pygments, pyasn1, pluggy, pillow, packaging, orjson, numpy, MarkupSafe, jsonpointer, jiter, iniconfig, idna, h11, greenlet, faker, distro, click, charset_normalizer, certifi, annotated-types, annotated-doc, uvicorn, typing-inspection, rsa, requests, pytest, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, jsonpatch, jinja2, httpcore, anyio, starlette, requests-toolbelt, pytest-metadata, pytest-base-url, pydantic, playwright, httpx, google-auth, pytest-playwright, pytest-html, openai, langsmith, fastapi, langchain-core, google-genai, langchain-google-genai
+2026-01-18T09:25:52.7935305Z 
+2026-01-18T09:25:52.7966793Z Successfully installed MarkupSafe-3.0.3 PyYAML-6.0.3 annotated-doc-0.0.4 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 click-8.3.1 distro-1.9.0 faker-40.1.2 fastapi-0.128.0 filetype-1.2.0 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 iniconfig-2.3.0 jinja2-3.1.6 jiter-0.12.0 jsonpatch-1.33 jsonpointer-3.0.0 langchain-core-1.2.7 langchain-google-genai-4.2.0 langsmith-0.6.4 numpy-2.4.1 openai-2.15.0 opencv-python-headless-4.13.0.90 orjson-3.11.5 packaging-25.0 pillow-12.1.0 playwright-1.57.0 pluggy-1.6.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 pygments-2.19.2 pytest-9.0.2 pytest-base-url-2.1.0 pytest-html-4.1.1 pytest-metadata-3.1.1 pytest-playwright-0.7.2 python-dotenv-1.2.1 python-slugify-8.0.4 requests-2.32.5 requests-toolbelt-1.0.0 rsa-4.9.1 sniffio-1.3.1 starlette-0.50.0 tenacity-9.1.2 termcolor-3.3.0 text-unidecode-1.3 tqdm-4.67.1 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 uuid-utils-0.13.0 uvicorn-0.40.0 websockets-15.0.1 zstandard-0.25.0
+2026-01-18T09:25:53.4599388Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-18T09:25:53.5493320Z (node:2241) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T09:25:53.5494717Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T09:25:53.7195191Z |                                                                                |   0% of 164.7 MiB
+2026-01-18T09:25:53.8335482Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-18T09:25:53.9118813Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-18T09:25:53.9810585Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-18T09:25:54.0325200Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-18T09:25:54.0847533Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-18T09:25:54.1355021Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-18T09:25:54.1849592Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-18T09:25:54.2373185Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-18T09:25:54.2901147Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-18T09:25:54.3479108Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-18T09:25:56.5979920Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-18T09:25:56.5983985Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-18T09:25:56.6923143Z (node:2252) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T09:25:56.6925386Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T09:25:56.7375519Z |                                                                                |   0% of 2.3 MiB
+2026-01-18T09:25:56.7426670Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-18T09:25:56.7452129Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-18T09:25:56.7477734Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-18T09:25:56.7494372Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-18T09:25:56.7517047Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-18T09:25:56.7530247Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-18T09:25:56.7544797Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-18T09:25:56.7560645Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-18T09:25:56.7573266Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-18T09:25:56.7582160Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-18T09:25:56.8088086Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-18T09:25:56.8091654Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-18T09:25:56.8975743Z (node:2263) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T09:25:56.8976792Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T09:25:56.9599305Z |                                                                                |   0% of 109.7 MiB
+2026-01-18T09:25:57.0521840Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-18T09:25:57.1123048Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-18T09:25:57.1680598Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-18T09:25:57.2200258Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-18T09:25:57.2710334Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-18T09:25:57.3121844Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-18T09:25:57.3611659Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-18T09:25:57.3975669Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-18T09:25:57.4379373Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-18T09:25:57.4688522Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-18T09:25:59.1079422Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-18T09:25:59.1290430Z ##[group]Run mkdir -p projects/ci_demoqa_forms
+2026-01-18T09:25:59.1290799Z [36;1mmkdir -p projects/ci_demoqa_forms[0m
+2026-01-18T09:25:59.1291135Z [36;1mcat > projects/ci_demoqa_forms/config.json << 'EOF'[0m
+2026-01-18T09:25:59.1291419Z [36;1m{[0m
+2026-01-18T09:25:59.1291610Z [36;1m  "project_name": "ci_demoqa_forms",[0m
+2026-01-18T09:25:59.1291905Z [36;1m  "target_url": "https://demoqa.com/",[0m
+2026-01-18T09:25:59.1292462Z [36;1m  "goal": "Navigate to Forms, fill Practice Form with all fields (name, email, gender, mobile, subjects, hobbies, address), submit",[0m
+2026-01-18T09:25:59.1293008Z [36;1m  "max_steps": 15,[0m
+2026-01-18T09:25:59.1293217Z [36;1m  "headless": true[0m
+2026-01-18T09:25:59.1293411Z [36;1m}[0m
+2026-01-18T09:25:59.1293561Z [36;1mEOF[0m
+2026-01-18T09:25:59.1325166Z shell: /usr/bin/bash -e {0}
+2026-01-18T09:25:59.1325390Z env:
+2026-01-18T09:25:59.1325624Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:59.1326051Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:25:59.1326438Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:59.1326788Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:59.1327151Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:59.1327504Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:25:59.1327796Z ##[endgroup]
+2026-01-18T09:25:59.1425501Z ##[group]Run # Use the new Orchestrator with refined exploration.
+2026-01-18T09:25:59.1425944Z [36;1m# Use the new Orchestrator with refined exploration.[0m
+2026-01-18T09:25:59.1426362Z [36;1m# We don't use --deep here to keep CI fast (1 scenario vs 5), [0m
+2026-01-18T09:25:59.1426788Z [36;1m# but we benefit from the new iterative & self-healing explorer.py[0m
+2026-01-18T09:25:59.1427241Z [36;1mpython orchestrator.py --project projects/ci_demoqa_forms --force[0m
+2026-01-18T09:25:59.1456391Z shell: /usr/bin/bash -e {0}
+2026-01-18T09:25:59.1456620Z env:
+2026-01-18T09:25:59.1456874Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:59.1457298Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:25:59.1457721Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:59.1458092Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:59.1458485Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:25:59.1458870Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:25:59.1459371Z   GOOGLE_API_KEY: ***
+2026-01-18T09:25:59.1459573Z   PYTHONPATH: .
+2026-01-18T09:25:59.1459758Z ##[endgroup]
+2026-01-18T09:26:00.8271389Z 
+2026-01-18T09:26:00.8272400Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://demoqa.com/ (Workers: 3)
+2026-01-18T09:26:01.8836957Z   🔍 [Worker 0] Visiting (0): https://demoqa.com/
+2026-01-18T09:26:03.9341281Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:03.9342365Z [DEBUG] Received response (Length: 290)
+2026-01-18T09:26:03.9343440Z   🔍 [Worker 1] Visiting (1): https://demoqa.com
+2026-01-18T09:26:08.9284141Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:08.9285014Z [DEBUG] Received response (Length: 290)
+2026-01-18T09:26:08.9289026Z ✅ Discovery Complete. Mapped 2 pages.
+2026-01-18T09:26:19.5286849Z 
+2026-01-18T09:26:19.5290164Z [PLAN] PLANNER: Planning goal -> 'None' (Deep Mode: False)
+2026-01-18T09:26:19.5290788Z 🗺️ [PLAN] Loaded Sitemap with 2 pages.
+2026-01-18T09:26:19.5291725Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns
+2026-01-18T09:26:19.5292358Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T09:26:19.5292674Z [DEBUG] Received response (Length: 4559)
+2026-01-18T09:26:19.5292997Z ✅ Planner generated 1 scenarios. Workflow updated.
+2026-01-18T09:26:20.4218621Z 
+2026-01-18T09:26:20.4219490Z 🧭 [EXPLORE] Starting AI-Guided Exploration & Mining
+2026-01-18T09:26:20.4219982Z 📍 Project: ci_demoqa_forms
+2026-01-18T09:26:20.7626962Z 
+2026-01-18T09:26:20.7627809Z --- Exploring Scenario: Explore DemoQA Website and Identify Key User Flows ---
+2026-01-18T09:26:20.7629019Z     🧠 Initialized exploration context for goal: 'Explore the website and identify key user flows and interactive elements.'
+2026-01-18T09:26:20.7629650Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T09:26:22.3079537Z     ✅ Navigated to https://demoqa.com/
+2026-01-18T09:26:22.3082221Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-18T09:26:27.4169714Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:26:29.4200579Z     ✅ State transitioned.
+2026-01-18T09:26:32.3198923Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:26:32.3199615Z [DEBUG] Received response (Length: 335)
+2026-01-18T09:26:32.3200392Z     🤖 AI Next Step Suggestion: click -> Elements
+2026-01-18T09:26:32.3201336Z     🧩 Suggested Locator: div:nth-of-type(1) > div.card.mt-4.top-card > div > div:nth-of-type(1) > h5
+2026-01-18T09:26:32.3203184Z     💭 Reasoning: To explore the website and identify key user flows and interactive elements, I should start by clicking on one of the main sections. 'Elements' seems like a good starting point.
+2026-01-18T09:26:32.3204801Z     ➕ Injected AI step: click -> Elements
+2026-01-18T09:26:32.3206012Z   ▶️ [STEP step_2_ai_1] CLICK: Elements
+2026-01-18T09:26:32.3261300Z     🎯 Using AI-provided locator: div:nth-of-type(1) > div.card.mt-4.top-card > div > div:nth-of-type(1) > h5
+2026-01-18T09:26:32.3292006Z     🔍 Mining locators for: 'Elements'
+2026-01-18T09:26:32.3783151Z     ✅ Found 1 verified locators
+2026-01-18T09:26:35.9240838Z     ✅ State transitioned.
+2026-01-18T09:26:37.4077625Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:26:37.4078340Z [DEBUG] Received response (Length: 293)
+2026-01-18T09:26:37.4079166Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-18T09:26:37.4079987Z     🧩 Suggested Locator: div:nth-child(2) > div > div:nth-child(1) > div > h5
+2026-01-18T09:26:37.4081793Z     💭 Reasoning: Now that we've explored the 'Elements' section, let's move on to the 'Forms' section to continue exploring the website's key user flows and interactive elements.
+2026-01-18T09:26:37.4083361Z     ➕ Injected AI step: click -> Forms
+2026-01-18T09:26:37.4084242Z   ▶️ [STEP step_2_ai_2] CLICK: Forms
+2026-01-18T09:26:37.4134412Z     🎯 Using AI-provided locator: div:nth-child(2) > div > div:nth-child(1) > div > h5
+2026-01-18T09:26:37.4156041Z     🔍 Mining locators for: 'Forms'
+2026-01-18T09:26:37.4626174Z     ✅ Found 1 verified locators
+2026-01-18T09:26:41.0062575Z     ✅ State transitioned.
+2026-01-18T09:26:42.4487777Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:26:42.4488442Z [DEBUG] Received response (Length: 290)
+2026-01-18T09:26:42.4489309Z     🤖 AI Next Step Suggestion: click -> Alerts, Frame & Windows
+2026-01-18T09:26:42.4490205Z     🧩 Suggested Locator: div:nth-child(3) > div > div > div:nth-child(1) > div > h5
+2026-01-18T09:26:42.4491644Z     💭 Reasoning: We have explored Elements and Forms. Now, let's explore 'Alerts, Frame & Windows' to identify key user flows and interactive elements.
+2026-01-18T09:26:42.4492853Z     ➕ Injected AI step: click -> Alerts, Frame & Windows
+2026-01-18T09:26:42.4493515Z   ▶️ [STEP step_2_ai_3] CLICK: Alerts, Frame & Windows
+2026-01-18T09:26:42.4544164Z     🎯 Using AI-provided locator: div:nth-child(3) > div > div > div:nth-child(1) > div > h5
+2026-01-18T09:26:42.4565412Z     🔍 Mining locators for: 'Alerts, Frame & Windows'
+2026-01-18T09:26:42.5022230Z     ✅ Found 1 verified locators
+2026-01-18T09:26:46.0421149Z     ✅ State transitioned.
+2026-01-18T09:26:47.5748550Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:26:47.5749221Z [DEBUG] Received response (Length: 408)
+2026-01-18T09:26:47.5750015Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:26:47.5750886Z     🧩 Suggested Locator: div:nth-of-type(4) > div > div:nth-of-type(1) > div > div > div > h5
+2026-01-18T09:26:47.5753290Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. After clicking on Elements, Forms, and Alerts, Frame & Windows, the next logical step is to click on Widgets to continue exploring the different sections of the website.
+2026-01-18T09:26:47.5755411Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:26:47.5755925Z   ▶️ [STEP step_2_ai_4] CLICK: Widgets
+2026-01-18T09:26:47.5804168Z     🎯 Using AI-provided locator: div:nth-of-type(4) > div > div:nth-of-type(1) > div > div > div > h5
+2026-01-18T09:26:47.5827305Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:26:47.6320583Z     ✅ Found 1 verified locators
+2026-01-18T09:26:51.1755483Z     ✅ State transitioned.
+2026-01-18T09:26:52.8420607Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:26:52.8421231Z [DEBUG] Received response (Length: 311)
+2026-01-18T09:26:52.8422003Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:26:52.8422736Z     🧩 Suggested Locator: div:nth-child(4) > div > div:nth-child(1) > div > h5
+2026-01-18T09:26:52.8424075Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. I have clicked on Elements, Forms, Alerts, Frame & Windows. Now I will click on Widgets.
+2026-01-18T09:26:52.8425208Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'widgets')
+2026-01-18T09:26:52.8425614Z   ▶️ [STEP step_7] ASSERT_VISIBLE: DEMOQA
+2026-01-18T09:26:52.8472570Z     🔍 Mining locators for: 'DEMOQA'
+2026-01-18T09:26:52.8797212Z     🧠 Consulting AI (Vision-First) to find 'DEMOQA'...
+2026-01-18T09:26:52.8798212Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:26:57.6036139Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:26:57.6036752Z [DEBUG] Received response (Length: 282)
+2026-01-18T09:26:57.6038252Z     💡 Expert Suggestion: DEMOQA is likely a sub-section or product within the TOOLSQA website. Clicking the logo might lead to the main page where DEMOQA is accessible.
+2026-01-18T09:26:57.6039261Z     🛠️ Executing corrective action: click -> 'TOOLSQA'
+2026-01-18T09:26:58.1516614Z     ✅ Executed corrective navigation
+2026-01-18T09:27:00.1539073Z     🔄 Retry 1/3 mining locators for 'DEMOQA'...
+2026-01-18T09:27:01.1900909Z     🧠 Consulting AI (Vision-First) to find 'DEMOQA'...
+2026-01-18T09:27:01.1901815Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:27:02.4861229Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:02.4861709Z [DEBUG] Received response (Length: 282)
+2026-01-18T09:27:02.4862100Z     ⚠️ Skipping duplicate injection: TOOLSQA
+2026-01-18T09:27:02.4862432Z     🔄 Retry 2/3 mining locators for 'DEMOQA'...
+2026-01-18T09:27:03.5254054Z     🧠 Consulting AI (Vision-First) to find 'DEMOQA'...
+2026-01-18T09:27:03.5255281Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:27:07.5024431Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:07.5024838Z [DEBUG] Received response (Length: 253)
+2026-01-18T09:27:07.5025486Z     ⚠️ Skipping duplicate injection: TOOLSQA
+2026-01-18T09:27:07.5026236Z     🧠 Verifying step validity for 'DEMOQA' after no candidates found...
+2026-01-18T09:27:12.6784830Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:12.6785209Z [DEBUG] Received response (Length: 253)
+2026-01-18T09:27:12.6785852Z     🛠️ Self-Correction: Step is valid. Using new locator: a[href='https://demoqa.com']
+2026-01-18T09:27:15.7426502Z     ✅ State transitioned.
+2026-01-18T09:27:17.5855070Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:17.5855963Z [DEBUG] Received response (Length: 288)
+2026-01-18T09:27:17.5856953Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:27:17.5859146Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The next logical step is to click on the 'Widgets' element to explore that section of the website.
+2026-01-18T09:27:17.5861204Z ⚠️ Loop detected: same AI suggestion repeated 3 times. Moving to next step.
+2026-01-18T09:27:17.5861967Z   ▶️ [STEP step_8] CLICK: Elements
+2026-01-18T09:27:17.5911197Z     🔍 Mining locators for: 'Elements'
+2026-01-18T09:27:17.6376944Z     ✅ Found 1 verified locators
+2026-01-18T09:27:21.1739739Z     ✅ State transitioned.
+2026-01-18T09:27:22.7435485Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:22.7435958Z [DEBUG] Received response (Length: 323)
+2026-01-18T09:27:22.7445258Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:27:22.7447175Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. I have clicked on Elements, Forms, and Alerts, Frame & Windows. The next logical step is to click on Widgets to explore that section.
+2026-01-18T09:27:22.7448334Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:27:22.7448623Z   ▶️ [STEP step_8_ai_1] CLICK: Widgets
+2026-01-18T09:27:22.7492214Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:27:22.7940921Z     ✅ Found 1 verified locators
+2026-01-18T09:27:26.3404051Z     ✅ State transitioned.
+2026-01-18T09:27:27.7611730Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:27.7612484Z [DEBUG] Received response (Length: 244)
+2026-01-18T09:27:27.7613317Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-18T09:27:27.7614338Z     🧩 Suggested Locator: div:nth-child(2) > div > div:nth-child(2) > h5
+2026-01-18T09:27:27.7615772Z     💭 Reasoning: To explore the different sections of the website and identify key user flows, I will now click on the 'Forms' section.
+2026-01-18T09:27:27.7616915Z     ➕ Injected AI step: click -> Forms
+2026-01-18T09:27:27.7617459Z   ▶️ [STEP step_8_ai_2] CLICK: Forms
+2026-01-18T09:27:27.7663662Z     🎯 Using AI-provided locator: div:nth-child(2) > div > div:nth-child(2) > h5
+2026-01-18T09:27:27.7683411Z     🔍 Mining locators for: 'Forms'
+2026-01-18T09:27:27.8181459Z     ✅ Found 1 verified locators
+2026-01-18T09:27:31.3560412Z     ✅ State transitioned.
+2026-01-18T09:27:32.6587437Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:32.6588083Z [DEBUG] Received response (Length: 205)
+2026-01-18T09:27:32.6589248Z     🤖 AI Next Step Suggestion: click -> Alerts, Frame & Windows
+2026-01-18T09:27:32.6590334Z     💭 Reasoning: Navigating to 'Alerts, Frame & Windows' to explore different UI elements and user flows.
+2026-01-18T09:27:32.6591281Z     ➕ Injected AI step: click -> Alerts, Frame & Windows
+2026-01-18T09:27:32.6591925Z   ▶️ [STEP step_8_ai_3] CLICK: Alerts, Frame & Windows
+2026-01-18T09:27:32.6636890Z     🔍 Mining locators for: 'Alerts, Frame & Windows'
+2026-01-18T09:27:32.7091975Z     ✅ Found 1 verified locators
+2026-01-18T09:27:36.2520155Z     ✅ State transitioned.
+2026-01-18T09:27:37.9297246Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:37.9297729Z [DEBUG] Received response (Length: 335)
+2026-01-18T09:27:37.9298343Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:27:37.9298898Z     🧩 Suggested Locator: div:nth-child(4) > div > div:nth-child(1) > div > h5
+2026-01-18T09:27:37.9299906Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. I have clicked on Elements, Forms, Alerts, Frame & Windows. Now I will click on Widgets to explore that section.
+2026-01-18T09:27:37.9300724Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:27:37.9301015Z   ▶️ [STEP step_8_ai_4] CLICK: Widgets
+2026-01-18T09:27:37.9347786Z     🎯 Using AI-provided locator: div:nth-child(4) > div > div:nth-child(1) > div > h5
+2026-01-18T09:27:37.9366445Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:27:37.9841382Z     ✅ Found 1 verified locators
+2026-01-18T09:27:41.5206140Z     ✅ State transitioned.
+2026-01-18T09:27:43.0327029Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:43.0327704Z [DEBUG] Received response (Length: 327)
+2026-01-18T09:27:43.0328460Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-18T09:27:43.0329261Z     🧩 Suggested Locator: div:nth-child(2) > div > div:nth-child(2) > h5
+2026-01-18T09:27:43.0331145Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. I have clicked on Elements, Widgets, Alerts, Frame & Windows. Now I will click on Forms to explore that section.
+2026-01-18T09:27:43.0332689Z     ➕ Injected AI step: click -> Forms
+2026-01-18T09:27:43.0333195Z   ▶️ [STEP step_8_ai_5] CLICK: Forms
+2026-01-18T09:27:43.0377625Z     🎯 Using AI-provided locator: div:nth-child(2) > div > div:nth-child(2) > h5
+2026-01-18T09:27:43.0395271Z     🔍 Mining locators for: 'Forms'
+2026-01-18T09:27:43.0848821Z     ✅ Found 1 verified locators
+2026-01-18T09:27:46.6217948Z     ✅ State transitioned.
+2026-01-18T09:27:47.9367767Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:47.9369743Z [DEBUG] Received response (Length: 235)
+2026-01-18T09:27:47.9370533Z     🤖 AI Next Step Suggestion: click -> Alerts, Frame & Windows
+2026-01-18T09:27:47.9371983Z     💭 Reasoning: The bot has clicked on Widgets and Forms twice. It should now click on Alerts, Frame & Windows to explore the website.
+2026-01-18T09:27:47.9373289Z     ➕ Injected AI step: click -> Alerts, Frame & Windows
+2026-01-18T09:27:47.9374244Z   ▶️ [STEP step_8_ai_6] CLICK: Alerts, Frame & Windows
+2026-01-18T09:27:47.9419158Z     🔍 Mining locators for: 'Alerts, Frame & Windows'
+2026-01-18T09:27:47.9899597Z     ✅ Found 1 verified locators
+2026-01-18T09:27:51.5372052Z     ✅ State transitioned.
+2026-01-18T09:27:53.1717982Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:53.1718424Z [DEBUG] Received response (Length: 377)
+2026-01-18T09:27:53.1719093Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:27:53.1719602Z     🧩 Suggested Locator: div:nth-child(4) > div > div:nth-child(1) > div > div.card-body > h5
+2026-01-18T09:27:53.1720760Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The 'Widgets' section has not been explored yet, and it's a logical next step to continue exploring the different sections of the website.
+2026-01-18T09:27:53.1722155Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:27:53.1722500Z   ▶️ [STEP step_8_ai_7] CLICK: Widgets
+2026-01-18T09:27:53.1767324Z     🎯 Using AI-provided locator: div:nth-child(4) > div > div:nth-child(1) > div > div.card-body > h5
+2026-01-18T09:27:53.1786367Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:27:53.2225374Z     ✅ Found 1 verified locators
+2026-01-18T09:27:56.7704221Z     ✅ State transitioned.
+2026-01-18T09:27:58.3283731Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:27:58.3284568Z [DEBUG] Received response (Length: 330)
+2026-01-18T09:27:58.3285365Z     🤖 AI Next Step Suggestion: click -> Elements
+2026-01-18T09:27:58.3286311Z     🧩 Suggested Locator: div:nth-of-type(1) > div > div:nth-of-type(1) > div > div:nth-of-type(1) > h5
+2026-01-18T09:27:58.3288148Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The 'Elements' section is a good starting point to explore different UI elements.
+2026-01-18T09:27:58.3289541Z     ➕ Injected AI step: click -> Elements
+2026-01-18T09:27:58.3290052Z   ▶️ [STEP step_8_ai_8] CLICK: Elements
+2026-01-18T09:27:58.3333202Z     🎯 Using AI-provided locator: div:nth-of-type(1) > div > div:nth-of-type(1) > div > div:nth-of-type(1) > h5
+2026-01-18T09:27:58.3351804Z     🔍 Mining locators for: 'Elements'
+2026-01-18T09:27:58.3824135Z     ✅ Found 1 verified locators
+2026-01-18T09:28:01.9188454Z     ✅ State transitioned.
+2026-01-18T09:28:03.6427475Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:03.6427997Z [DEBUG] Received response (Length: 389)
+2026-01-18T09:28:03.6428616Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:28:03.6429326Z     🧩 Suggested Locator: div:nth-child(4) > div > div > div:nth-child(1) > div > ul > li:nth-child(4)
+2026-01-18T09:28:03.6430624Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The last few actions have been clicking on different sections. 'Widgets' is the next logical section to explore based on the visible elements.
+2026-01-18T09:28:03.6431632Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:28:03.6431938Z   ▶️ [STEP step_8_ai_9] CLICK: Widgets
+2026-01-18T09:28:03.6480743Z     🎯 Using AI-provided locator: div:nth-child(4) > div > div > div:nth-child(1) > div > ul > li:nth-child(4)
+2026-01-18T09:28:03.6501271Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:28:03.6986037Z     ✅ Found 1 verified locators
+2026-01-18T09:28:07.2378466Z     ✅ State transitioned.
+2026-01-18T09:28:08.7305079Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:08.7305730Z [DEBUG] Received response (Length: 383)
+2026-01-18T09:28:08.7306528Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:28:08.7307642Z     🧩 Suggested Locator: div:nth-child(4) > div > div > div:nth-child(1) > div
+2026-01-18T09:28:08.7309930Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The last few actions have been clicking on different sections. Since 'Widgets' was clicked previously, let's explore the next section, which is 'Interactions'.
+2026-01-18T09:28:08.7311988Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'widgets')
+2026-01-18T09:28:08.7312684Z   ▶️ [STEP step_18] ASSERT_URL: 
+2026-01-18T09:28:13.7435407Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:28:15.7440663Z     ✅ State transitioned.
+2026-01-18T09:28:17.4655724Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:17.4656345Z [DEBUG] Received response (Length: 429)
+2026-01-18T09:28:17.4656991Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-18T09:28:17.4657537Z     🧩 Suggested Locator: div:nth-child(2) > div > div:nth-child(1) > div > div.card.mt-4.top-card > div > h5
+2026-01-18T09:28:17.4658875Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. After clicking on 'Elements', 'Widgets', and 'Alerts, Frame & Windows', the next logical step is to click on 'Forms' to continue exploring the different sections of the website.
+2026-01-18T09:28:17.4660159Z     ➕ Injected AI step: click -> Forms
+2026-01-18T09:28:17.4660445Z   ▶️ [STEP step_18_ai_1] CLICK: Forms
+2026-01-18T09:28:17.4706979Z     🎯 Using AI-provided locator: div:nth-child(2) > div > div:nth-child(1) > div > div.card.mt-4.top-card > div > h5
+2026-01-18T09:28:17.4727091Z     🔍 Mining locators for: 'Forms'
+2026-01-18T09:28:17.5172927Z     ✅ Found 1 verified locators
+2026-01-18T09:28:21.0536812Z     ✅ State transitioned.
+2026-01-18T09:28:22.2652605Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:22.2653258Z [DEBUG] Received response (Length: 224)
+2026-01-18T09:28:22.2654402Z     🤖 AI Next Step Suggestion: click -> Alerts, Frame & Windows
+2026-01-18T09:28:22.2655660Z     💭 Reasoning: Navigating to the next section to explore the website and identify key user flows and interactive elements.
+2026-01-18T09:28:22.2656753Z     ➕ Injected AI step: click -> Alerts, Frame & Windows
+2026-01-18T09:28:22.2657407Z   ▶️ [STEP step_18_ai_2] CLICK: Alerts, Frame & Windows
+2026-01-18T09:28:22.2703374Z     🔍 Mining locators for: 'Alerts, Frame & Windows'
+2026-01-18T09:28:22.3160331Z     ✅ Found 1 verified locators
+2026-01-18T09:28:25.8548115Z     ✅ State transitioned.
+2026-01-18T09:28:27.8370540Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:27.8371143Z [DEBUG] Received response (Length: 360)
+2026-01-18T09:28:27.8371869Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:28:27.8373399Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. We have clicked on Elements, Forms, and Alerts, Frame & Windows. The next logical step is to click on Widgets to continue exploring the different sections of the website.
+2026-01-18T09:28:27.8374600Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:28:27.8374903Z   ▶️ [STEP step_18_ai_3] CLICK: Widgets
+2026-01-18T09:28:27.8422790Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:28:27.8876288Z     ✅ Found 1 verified locators
+2026-01-18T09:28:31.4373715Z     ✅ State transitioned.
+2026-01-18T09:28:32.9318212Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:32.9318878Z [DEBUG] Received response (Length: 371)
+2026-01-18T09:28:32.9319746Z     🤖 AI Next Step Suggestion: click -> Alerts, Frame & Windows
+2026-01-18T09:28:32.9320632Z     🧩 Suggested Locator: div:nth-child(3) > div > div:nth-child(3) > div > h5
+2026-01-18T09:28:32.9322665Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The last few actions have been clicking on different sections, and 'Alerts, Frame & Windows' is the next logical section to explore.
+2026-01-18T09:28:32.9324894Z     ➕ Injected AI step: click -> Alerts, Frame & Windows
+2026-01-18T09:28:32.9325591Z   ▶️ [STEP step_18_ai_4] CLICK: Alerts, Frame & Windows
+2026-01-18T09:28:32.9369699Z     🎯 Using AI-provided locator: div:nth-child(3) > div > div:nth-child(3) > div > h5
+2026-01-18T09:28:32.9388499Z     🔍 Mining locators for: 'Alerts, Frame & Windows'
+2026-01-18T09:28:32.9830119Z     ✅ Found 1 verified locators
+2026-01-18T09:28:36.5217801Z     ✅ State transitioned.
+2026-01-18T09:28:37.9957297Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:37.9957900Z [DEBUG] Received response (Length: 264)
+2026-01-18T09:28:37.9958402Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:28:37.9960066Z     🧩 Suggested Locator: div:nth-child(4) > div > div:nth-child(1) > div > div.card-body > h5
+2026-01-18T09:28:37.9960851Z     💭 Reasoning: To explore the website and identify key user flows and interactive elements, I will click on the 'Widgets' button.
+2026-01-18T09:28:37.9961428Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:28:37.9961717Z   ▶️ [STEP step_18_ai_5] CLICK: Widgets
+2026-01-18T09:28:38.0007527Z     🎯 Using AI-provided locator: div:nth-child(4) > div > div:nth-child(1) > div > div.card-body > h5
+2026-01-18T09:28:38.0025240Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:28:38.0482690Z     ✅ Found 1 verified locators
+2026-01-18T09:28:41.5876700Z     ✅ State transitioned.
+2026-01-18T09:28:43.1210020Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:43.1210826Z [DEBUG] Received response (Length: 332)
+2026-01-18T09:28:43.1211757Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:28:43.1212971Z     🧩 Suggested Locator: div:nth-child(4) > div > div > div:nth-child(1) > div
+2026-01-18T09:28:43.1215081Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The last few actions have been clicking on different sections, and 'Widgets' is the next section to explore.
+2026-01-18T09:28:43.1216142Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'widgets')
+2026-01-18T09:28:43.1216562Z   ▶️ [STEP step_24] CLICK: Text Box
+2026-01-18T09:28:43.1259374Z     🔍 Mining locators for: 'Text Box'
+2026-01-18T09:28:43.1595028Z     🧠 Consulting AI (Vision-First) to find 'Text Box'...
+2026-01-18T09:28:43.1596277Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:28:47.9913961Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:47.9914734Z [DEBUG] Received response (Length: 230)
+2026-01-18T09:28:47.9915938Z     💡 Expert Suggestion: Clicking 'JOIN NOW' might lead to a registration or contact form that contains text boxes.
+2026-01-18T09:28:47.9916945Z     🛠️ Executing corrective action: click -> 'JOIN NOW'
+2026-01-18T09:28:48.0364434Z     🔄 Retry 1/3 mining locators for 'Text Box'...
+2026-01-18T09:28:49.0705648Z     🧠 Consulting AI (Vision-First) to find 'Text Box'...
+2026-01-18T09:28:49.0706953Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:28:52.9074007Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:52.9074676Z [DEBUG] Received response (Length: 221)
+2026-01-18T09:28:52.9075364Z     ⚠️ Skipping duplicate injection: JOIN NOW
+2026-01-18T09:28:52.9075734Z     🔄 Retry 2/3 mining locators for 'Text Box'...
+2026-01-18T09:28:53.9428859Z     🧠 Consulting AI (Vision-First) to find 'Text Box'...
+2026-01-18T09:28:53.9430020Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:28:57.9901175Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:28:57.9901867Z [DEBUG] Received response (Length: 221)
+2026-01-18T09:28:57.9902426Z     ⚠️ Skipping duplicate injection: JOIN NOW
+2026-01-18T09:28:57.9903187Z     🧠 Verifying step validity for 'Text Box' after no candidates found...
+2026-01-18T09:29:03.0090095Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:03.0090803Z [DEBUG] Received response (Length: 333)
+2026-01-18T09:29:03.0093682Z     🗑️ Step deemed INVALID: The current page (https://demoqa.com/) is the landing page for the ToolsQA website, which showcases their Selenium certification training. The 'Text Box' element is not present on this page. We need to navigate to the 'Elements' page first to find the 'Text Box' element.. Removing from workflow.
+2026-01-18T09:29:03.0096298Z     ⏭️ Skipping execution of invalid step: Text Box
+2026-01-18T09:29:03.0096897Z   ▶️ [STEP step_25] ASSERT_URL: 
+2026-01-18T09:29:08.0224316Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:29:10.0246482Z     ✅ State transitioned.
+2026-01-18T09:29:11.7510869Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:11.7511312Z [DEBUG] Received response (Length: 388)
+2026-01-18T09:29:11.7512031Z     🤖 AI Next Step Suggestion: click -> Elements
+2026-01-18T09:29:11.7512546Z     🧩 Suggested Locator: div:nth-child(1) > div > div:nth-child(1) > div > div.card.mt-4.top-card
+2026-01-18T09:29:11.7514113Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. Clicking on 'Elements' will navigate to a page with various element-related options, allowing for further exploration of the website's features.
+2026-01-18T09:29:11.7515314Z     ➕ Injected AI step: click -> Elements
+2026-01-18T09:29:11.7515688Z   ▶️ [STEP step_25_ai_1] CLICK: Elements
+2026-01-18T09:29:11.7560816Z     🎯 Using AI-provided locator: div:nth-child(1) > div > div:nth-child(1) > div > div.card.mt-4.top-card
+2026-01-18T09:29:11.7579694Z     🔍 Mining locators for: 'Elements'
+2026-01-18T09:29:11.8029254Z     ✅ Found 1 verified locators
+2026-01-18T09:29:15.3491673Z     ✅ State transitioned.
+2026-01-18T09:29:16.5448667Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:16.5449314Z [DEBUG] Received response (Length: 188)
+2026-01-18T09:29:16.5450034Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-18T09:29:16.5450691Z     🧩 Suggested Locator: div:nth-child(2) > div > div > div:nth-child(2) > h5
+2026-01-18T09:29:16.5451200Z     💭 Reasoning: To explore the different forms available on the website.
+2026-01-18T09:29:16.5451578Z     ➕ Injected AI step: click -> Forms
+2026-01-18T09:29:16.5451855Z   ▶️ [STEP step_25_ai_2] CLICK: Forms
+2026-01-18T09:29:16.5497443Z     🎯 Using AI-provided locator: div:nth-child(2) > div > div > div:nth-child(2) > h5
+2026-01-18T09:29:16.5516284Z     🔍 Mining locators for: 'Forms'
+2026-01-18T09:29:16.5966166Z     ✅ Found 1 verified locators
+2026-01-18T09:29:20.1337364Z     ✅ State transitioned.
+2026-01-18T09:29:21.7858932Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:21.7859634Z [DEBUG] Received response (Length: 296)
+2026-01-18T09:29:21.7860201Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:29:21.7861237Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The last action was clicking 'Forms'. Now, clicking 'Widgets' will explore another section of the website.
+2026-01-18T09:29:21.7864458Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:29:21.7865039Z   ▶️ [STEP step_25_ai_3] CLICK: Widgets
+2026-01-18T09:29:21.7912348Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:29:21.8472481Z     ✅ Found 1 verified locators
+2026-01-18T09:29:25.3842175Z     ✅ State transitioned.
+2026-01-18T09:29:26.8123682Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:26.8124440Z [DEBUG] Received response (Length: 320)
+2026-01-18T09:29:26.8125242Z     🤖 AI Next Step Suggestion: click -> Alerts, Frame & Windows
+2026-01-18T09:29:26.8126745Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. I have clicked on Elements, Forms, and Widgets. Now I will click on Alerts, Frame & Windows to continue exploring.
+2026-01-18T09:29:26.8127627Z     ➕ Injected AI step: click -> Alerts, Frame & Windows
+2026-01-18T09:29:26.8128012Z   ▶️ [STEP step_25_ai_4] CLICK: Alerts, Frame & Windows
+2026-01-18T09:29:26.8175567Z     🔍 Mining locators for: 'Alerts, Frame & Windows'
+2026-01-18T09:29:26.8625685Z     ✅ Found 1 verified locators
+2026-01-18T09:29:30.4009141Z     ✅ State transitioned.
+2026-01-18T09:29:31.8981245Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:31.8981855Z [DEBUG] Received response (Length: 348)
+2026-01-18T09:29:31.8982583Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:29:31.8983319Z     🧩 Suggested Locator: div:nth-child(4) > div > div:nth-child(1) > div > div.card-body > h5
+2026-01-18T09:29:31.8984605Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The last few actions were clicking on different sections. Now, clicking on 'Widgets' to explore that section.
+2026-01-18T09:29:31.8985528Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:29:31.8985816Z   ▶️ [STEP step_25_ai_5] CLICK: Widgets
+2026-01-18T09:29:31.9032622Z     🎯 Using AI-provided locator: div:nth-child(4) > div > div:nth-child(1) > div > div.card-body > h5
+2026-01-18T09:29:31.9049572Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:29:31.9496563Z     ✅ Found 1 verified locators
+2026-01-18T09:29:35.5397117Z     ✅ State transitioned.
+2026-01-18T09:29:36.9648320Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:36.9648758Z [DEBUG] Received response (Length: 311)
+2026-01-18T09:29:36.9649426Z     🤖 AI Next Step Suggestion: click -> Alerts, Frame & Windows
+2026-01-18T09:29:36.9650385Z     💭 Reasoning: The exploration history shows that I have clicked on 'Elements', 'Forms', 'Widgets', and 'Alerts, Frame & Windows'. I should click on 'Alerts, Frame & Windows' again to explore its sub-elements.
+2026-01-18T09:29:36.9651218Z     ➕ Injected AI step: click -> Alerts, Frame & Windows
+2026-01-18T09:29:36.9651588Z   ▶️ [STEP step_25_ai_6] CLICK: Alerts, Frame & Windows
+2026-01-18T09:29:36.9701235Z     🔍 Mining locators for: 'Alerts, Frame & Windows'
+2026-01-18T09:29:37.0154185Z     ✅ Found 1 verified locators
+2026-01-18T09:29:40.5670635Z     ✅ State transitioned.
+2026-01-18T09:29:41.9423106Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:41.9423525Z [DEBUG] Received response (Length: 276)
+2026-01-18T09:29:41.9424316Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:29:41.9425175Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The 'Widgets' section has not been explored yet, and it's a main category on the page.
+2026-01-18T09:29:41.9425909Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:29:41.9426200Z   ▶️ [STEP step_25_ai_7] CLICK: Widgets
+2026-01-18T09:29:41.9480919Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:29:41.9969287Z     ✅ Found 1 verified locators
+2026-01-18T09:29:45.5343485Z     ✅ State transitioned.
+2026-01-18T09:29:47.1005235Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:47.1005864Z [DEBUG] Received response (Length: 354)
+2026-01-18T09:29:47.1006700Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-18T09:29:47.1007189Z     🧩 Suggested Locator: div:nth-child(2) > div > div:nth-child(2) > h5
+2026-01-18T09:29:47.1008396Z     💭 Reasoning: The bot has been clicking on Widgets and Alerts, Frame & Windows repeatedly. It's time to explore other main sections on the page to identify key user flows and interactive elements. Forms is the next logical section to explore.
+2026-01-18T09:29:47.1009373Z     ➕ Injected AI step: click -> Forms
+2026-01-18T09:29:47.1009680Z   ▶️ [STEP step_25_ai_8] CLICK: Forms
+2026-01-18T09:29:47.1058113Z     🎯 Using AI-provided locator: div:nth-child(2) > div > div:nth-child(2) > h5
+2026-01-18T09:29:47.1075300Z     🔍 Mining locators for: 'Forms'
+2026-01-18T09:29:47.1539270Z     ✅ Found 1 verified locators
+2026-01-18T09:29:50.7007930Z     ✅ State transitioned.
+2026-01-18T09:29:52.3100092Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:52.3100723Z [DEBUG] Received response (Length: 314)
+2026-01-18T09:29:52.3101476Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:29:52.3103209Z     💭 Reasoning: The bot has been clicking back and forth between Alerts, Frame & Windows and Widgets. It should explore the other options on the homepage to avoid looping. Forms is also an option, but Widgets is next in the list.
+2026-01-18T09:29:52.3104525Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:29:52.3104829Z   ▶️ [STEP step_25_ai_9] CLICK: Widgets
+2026-01-18T09:29:52.3148887Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:29:52.3615064Z     ✅ Found 1 verified locators
+2026-01-18T09:29:55.9003195Z     ✅ State transitioned.
+2026-01-18T09:29:57.4797349Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:29:57.4797978Z [DEBUG] Received response (Length: 222)
+2026-01-18T09:29:57.4798743Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:29:57.4800237Z     💭 Reasoning: The bot is looping through the main categories. Clicking 'Widgets' again to see if there are any changes or new elements.
+2026-01-18T09:29:57.4801451Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'widgets')
+2026-01-18T09:29:57.4801864Z   ▶️ [STEP step_35] NAVIGATE: 
+2026-01-18T09:29:58.4379978Z     ✅ Navigated to https://demoqa.com/
+2026-01-18T09:29:58.4380635Z   ▶️ [STEP step_36] CLICK: Forms
+2026-01-18T09:29:58.4598992Z     🔍 Mining locators for: 'Forms'
+2026-01-18T09:29:58.5302151Z     ✅ Found 1 verified locators
+2026-01-18T09:30:02.0999449Z     ✅ State transitioned.
+2026-01-18T09:30:03.7512872Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:03.7513558Z [DEBUG] Received response (Length: 450)
+2026-01-18T09:30:03.7514430Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:30:03.7514941Z     🧩 Suggested Locator: div:nth-child(4) > div > div > div:nth-child(1) > div
+2026-01-18T09:30:03.7516436Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. Based on the action history, I have clicked on 'Alerts, Frame & Windows', 'Widgets', and 'Forms' multiple times. To continue exploring, I will click on 'Widgets' again to see if there are any new elements or flows to discover.
+2026-01-18T09:30:03.7517819Z ⚠️ Loop detected: same AI suggestion repeated 3 times. Moving to next step.
+2026-01-18T09:30:03.7518233Z   ▶️ [STEP step_37] ASSERT_URL: 
+2026-01-18T09:30:08.7653445Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:30:10.7675518Z     ✅ State transitioned.
+2026-01-18T09:30:12.4388126Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:12.4388727Z [DEBUG] Received response (Length: 411)
+2026-01-18T09:30:12.4389550Z     🤖 AI Next Step Suggestion: click -> Alerts, Frame & Windows
+2026-01-18T09:30:12.4390626Z     🧩 Suggested Locator: div:nth-child(3) > div > div > div:nth-child(1) > div
+2026-01-18T09:30:12.4392153Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. Based on the action history, the bot has clicked on 'Widgets' and 'Forms' multiple times. To avoid looping, the next logical step is to click on 'Alerts, Frame & Windows'.
+2026-01-18T09:30:12.4393457Z     ➕ Injected AI step: click -> Alerts, Frame & Windows
+2026-01-18T09:30:12.4394091Z   ▶️ [STEP step_37_ai_1] CLICK: Alerts, Frame & Windows
+2026-01-18T09:30:12.4436372Z     🎯 Using AI-provided locator: div:nth-child(3) > div > div > div:nth-child(1) > div
+2026-01-18T09:30:12.4454331Z     🔍 Mining locators for: 'Alerts, Frame & Windows'
+2026-01-18T09:30:12.4945601Z     ✅ Found 1 verified locators
+2026-01-18T09:30:16.0290008Z     ✅ State transitioned.
+2026-01-18T09:30:17.5654895Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:17.5655827Z [DEBUG] Received response (Length: 301)
+2026-01-18T09:30:17.5656772Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:30:17.5657935Z     🧩 Suggested Locator: div:nth-child(4) > div > div > div:nth-child(1) > div > ul > li:nth-child(4)
+2026-01-18T09:30:17.5659826Z     💭 Reasoning: To continue exploring the website and identify key user flows and interactive elements, I will click on the 'Widgets' section.
+2026-01-18T09:30:17.5661212Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:30:17.5661852Z   ▶️ [STEP step_37_ai_2] CLICK: Widgets
+2026-01-18T09:30:17.5729252Z     🎯 Using AI-provided locator: div:nth-child(4) > div > div > div:nth-child(1) > div > ul > li:nth-child(4)
+2026-01-18T09:30:17.5746827Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:30:17.6284478Z     ✅ Found 1 verified locators
+2026-01-18T09:30:21.1637358Z     ✅ State transitioned.
+2026-01-18T09:30:22.8747119Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:22.8747868Z [DEBUG] Received response (Length: 438)
+2026-01-18T09:30:22.8748773Z     🤖 AI Next Step Suggestion: click -> Alerts, Frame & Windows
+2026-01-18T09:30:22.8749985Z     🧩 Suggested Locator: div:nth-child(3) > div > div > div:nth-child(1) > div
+2026-01-18T09:30:22.8752452Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The last few actions have been clicking on different elements on the home page. Clicking on 'Alerts, Frame & Windows' will navigate to a new section of the website and allow for further exploration.
+2026-01-18T09:30:22.8754792Z     ➕ Injected AI step: click -> Alerts, Frame & Windows
+2026-01-18T09:30:22.8755457Z   ▶️ [STEP step_37_ai_3] CLICK: Alerts, Frame & Windows
+2026-01-18T09:30:22.8801388Z     🎯 Using AI-provided locator: div:nth-child(3) > div > div > div:nth-child(1) > div
+2026-01-18T09:30:22.8821036Z     🔍 Mining locators for: 'Alerts, Frame & Windows'
+2026-01-18T09:30:22.9284473Z     ✅ Found 1 verified locators
+2026-01-18T09:30:26.4639309Z     ✅ State transitioned.
+2026-01-18T09:30:27.9733525Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:27.9734282Z [DEBUG] Received response (Length: 311)
+2026-01-18T09:30:27.9734903Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:30:27.9735532Z     🧩 Suggested Locator: div:nth-child(4) > div > div > div:nth-child(1) > div
+2026-01-18T09:30:27.9736524Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The 'Widgets' section has not been explored yet, and it is a main category on the page.
+2026-01-18T09:30:27.9737310Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:30:27.9737619Z   ▶️ [STEP step_37_ai_4] CLICK: Widgets
+2026-01-18T09:30:27.9787204Z     🎯 Using AI-provided locator: div:nth-child(4) > div > div > div:nth-child(1) > div
+2026-01-18T09:30:27.9807834Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:30:28.0276636Z     ✅ Found 1 verified locators
+2026-01-18T09:30:31.5648658Z     ✅ State transitioned.
+2026-01-18T09:30:32.8918733Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:32.8919329Z [DEBUG] Received response (Length: 254)
+2026-01-18T09:30:32.8920076Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:30:32.8921002Z     💭 Reasoning: The bot is looping between Alerts, Frame & Windows and Widgets. Need to explore other options. Clicking on Widgets again to see if there are any changes.
+2026-01-18T09:30:32.8921784Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'widgets')
+2026-01-18T09:30:32.8922185Z   ▶️ [STEP step_42] CLICK: Practice Form
+2026-01-18T09:30:32.8966232Z     🔍 Mining locators for: 'Practice Form'
+2026-01-18T09:30:32.9667865Z     🧠 Consulting AI (Vision-First) to find 'Practice Form'...
+2026-01-18T09:30:32.9668691Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:30:37.9964432Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:37.9965033Z [DEBUG] Received response (Length: 324)
+2026-01-18T09:30:37.9966963Z     💡 Expert Suggestion: The 'Practice Form' is likely located within the website's interactive elements or demo section, which might be accessible after clicking 'JOIN NOW' or a similar call-to-action button.
+2026-01-18T09:30:37.9968542Z     🛠️ Executing corrective action: click -> 'JOIN NOW'
+2026-01-18T09:30:38.0363967Z     🔄 Retry 1/3 mining locators for 'Practice Form'...
+2026-01-18T09:30:39.0699207Z     🧠 Consulting AI (Vision-First) to find 'Practice Form'...
+2026-01-18T09:30:39.0700184Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:30:43.1266181Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:43.1266941Z [DEBUG] Received response (Length: 311)
+2026-01-18T09:30:43.1267561Z     ⚠️ Skipping duplicate injection: JOIN NOW
+2026-01-18T09:30:43.1268068Z     🔄 Retry 2/3 mining locators for 'Practice Form'...
+2026-01-18T09:30:44.1634562Z     🧠 Consulting AI (Vision-First) to find 'Practice Form'...
+2026-01-18T09:30:44.1636164Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:30:48.0467500Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:48.0468104Z [DEBUG] Received response (Length: 324)
+2026-01-18T09:30:48.0468618Z     ⚠️ Skipping duplicate injection: JOIN NOW
+2026-01-18T09:30:48.0469044Z     🧠 Verifying step validity for 'Practice Form' after no candidates found...
+2026-01-18T09:30:53.2038101Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:30:53.2038754Z [DEBUG] Received response (Length: 421)
+2026-01-18T09:30:53.2041764Z     🗑️ Step deemed INVALID: The current page (https://demoqa.com/) appears to be the landing page for ToolsQA's Selenium Certification Training. The 'Practice Form' is not directly visible on this page. It is likely located under the 'Forms' section of the website, which is not accessible from this page. Therefore, attempting to locate 'Practice Form' on this page is not a valid step.. Removing from workflow.
+2026-01-18T09:30:53.2043420Z     ⏭️ Skipping execution of invalid step: Practice Form
+2026-01-18T09:30:53.2043736Z   ▶️ [STEP step_43] ASSERT_URL: 
+2026-01-18T09:30:58.2160073Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:31:00.2182620Z     ✅ State transitioned.
+2026-01-18T09:31:01.7560291Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:01.7561060Z [DEBUG] Received response (Length: 359)
+2026-01-18T09:31:01.7561666Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:31:01.7562163Z     🧩 Suggested Locator: div:nth-of-type(5) > div > div > div > h5
+2026-01-18T09:31:01.7563545Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The bot has been clicking back and forth between 'Alerts, Frame & Windows' and 'Widgets'. It should now click on 'Widgets' to explore that section.
+2026-01-18T09:31:01.7565126Z ⚠️ Loop detected: same AI suggestion repeated 3 times. Moving to next step.
+2026-01-18T09:31:01.7565615Z   ▶️ [STEP step_44] NAVIGATE: 
+2026-01-18T09:31:02.4706891Z     ✅ Navigated to https://demoqa.com/
+2026-01-18T09:31:02.4707903Z   ▶️ [STEP step_45] CLICK: Alerts, Frame & Windows
+2026-01-18T09:31:02.4977171Z     🔍 Mining locators for: 'Alerts, Frame & Windows'
+2026-01-18T09:31:02.5788122Z     ✅ Found 1 verified locators
+2026-01-18T09:31:06.1493303Z     ✅ State transitioned.
+2026-01-18T09:31:07.5271712Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:07.5272263Z [DEBUG] Received response (Length: 310)
+2026-01-18T09:31:07.5272884Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:31:07.5274296Z     💭 Reasoning: The bot has been clicking between 'Widgets' and 'Alerts, Frame & Windows' repeatedly. To break this loop and continue exploring, I will click on 'Widgets' again to see if there are any new elements or changes.
+2026-01-18T09:31:07.5275188Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:31:07.5275491Z   ▶️ [STEP step_45_ai_1] CLICK: Widgets
+2026-01-18T09:31:07.5319390Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:31:07.5773241Z     ✅ Found 1 verified locators
+2026-01-18T09:31:11.1134355Z     ✅ State transitioned.
+2026-01-18T09:31:12.6990704Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:12.6991246Z [DEBUG] Received response (Length: 277)
+2026-01-18T09:31:12.6991847Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:31:12.6992845Z     💭 Reasoning: The bot has been clicking between 'Alerts, Frame & Windows' and 'Widgets'. To avoid looping, the next logical step is to click on the next available option, which is 'Widgets'.
+2026-01-18T09:31:12.6993701Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'widgets')
+2026-01-18T09:31:12.6994350Z   ▶️ [STEP step_47] ASSERT_URL: 
+2026-01-18T09:31:17.7125371Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:31:19.7146313Z     ✅ State transitioned.
+2026-01-18T09:31:21.1247242Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:21.1248138Z [DEBUG] Received response (Length: 260)
+2026-01-18T09:31:21.1249242Z     🤖 AI Next Step Suggestion: click -> Alerts, Frame & Windows
+2026-01-18T09:31:21.1251207Z     💭 Reasoning: The bot is looping between Widgets and Alerts, Frame & Windows. Clicking Alerts, Frame & Windows again to see if a different path can be taken.
+2026-01-18T09:31:21.1252925Z     ➕ Injected AI step: click -> Alerts, Frame & Windows
+2026-01-18T09:31:21.1254072Z   ▶️ [STEP step_47_ai_1] CLICK: Alerts, Frame & Windows
+2026-01-18T09:31:21.1302880Z     🔍 Mining locators for: 'Alerts, Frame & Windows'
+2026-01-18T09:31:21.1880090Z     ✅ Found 1 verified locators
+2026-01-18T09:31:24.7475605Z     ✅ State transitioned.
+2026-01-18T09:31:26.2349134Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:26.2349689Z [DEBUG] Received response (Length: 311)
+2026-01-18T09:31:26.2350328Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:31:26.2350945Z     🧩 Suggested Locator: div:nth-child(4) > div > div > div:nth-child(1) > div
+2026-01-18T09:31:26.2351926Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The 'Widgets' section has not been explored yet, and it is a main category on the page.
+2026-01-18T09:31:26.2352719Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:31:26.2353022Z   ▶️ [STEP step_47_ai_2] CLICK: Widgets
+2026-01-18T09:31:26.2397965Z     🎯 Using AI-provided locator: div:nth-child(4) > div > div > div:nth-child(1) > div
+2026-01-18T09:31:26.2417206Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:31:26.2994190Z     ✅ Found 1 verified locators
+2026-01-18T09:31:29.8453640Z     ✅ State transitioned.
+2026-01-18T09:31:31.5200944Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:31.5201447Z [DEBUG] Received response (Length: 403)
+2026-01-18T09:31:31.5202183Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:31:31.5202607Z     🧩 Suggested Locator: div:nth-of-type(5) > div > div > div > h5
+2026-01-18T09:31:31.5204060Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The last few actions have been clicking on 'Alerts, Frame & Windows' and 'Widgets'. To avoid looping, I will click on 'Widgets' again to see if there are any new elements or flows to explore.
+2026-01-18T09:31:31.5205239Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'widgets')
+2026-01-18T09:31:31.5205621Z   ▶️ [STEP step_50] CLICK: Alerts
+2026-01-18T09:31:31.5250804Z     🔍 Mining locators for: 'Alerts'
+2026-01-18T09:31:31.5737086Z     ✅ Found 1 verified locators
+2026-01-18T09:31:35.1095406Z     ✅ State transitioned.
+2026-01-18T09:31:36.5872278Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:36.5872828Z [DEBUG] Received response (Length: 334)
+2026-01-18T09:31:36.5873426Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-18T09:31:36.5874176Z     🧩 Suggested Locator: div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)
+2026-01-18T09:31:36.5875195Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. After exploring Alerts, Frame & Windows and Widgets, the next logical category to explore is Forms.
+2026-01-18T09:31:36.5875976Z     ➕ Injected AI step: click -> Forms
+2026-01-18T09:31:36.5876268Z   ▶️ [STEP step_50_ai_1] CLICK: Forms
+2026-01-18T09:31:36.5921172Z     🎯 Using AI-provided locator: div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2)
+2026-01-18T09:31:36.5940563Z     🔍 Mining locators for: 'Forms'
+2026-01-18T09:31:36.6397702Z     ✅ Found 1 verified locators
+2026-01-18T09:31:40.1771817Z     ✅ State transitioned.
+2026-01-18T09:31:41.7718455Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:41.7718871Z [DEBUG] Received response (Length: 347)
+2026-01-18T09:31:41.7719892Z     🤖 AI Next Step Suggestion: click -> Elements
+2026-01-18T09:31:41.7720661Z     🧩 Suggested Locator: div:nth-of-type(1) > div.card.mt-4.top-card > div
+2026-01-18T09:31:41.7722314Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. Since we are on the home page, clicking on one of the main sections is the next logical step. 'Elements' is the first section.
+2026-01-18T09:31:41.7723169Z     ➕ Injected AI step: click -> Elements
+2026-01-18T09:31:41.7723459Z   ▶️ [STEP step_50_ai_2] CLICK: Elements
+2026-01-18T09:31:41.7768480Z     🎯 Using AI-provided locator: div:nth-of-type(1) > div.card.mt-4.top-card > div
+2026-01-18T09:31:41.7822482Z     ✅ Found 1 verified locators
+2026-01-18T09:31:45.8429027Z     ✅ State transitioned.
+2026-01-18T09:31:47.3161078Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:47.3161636Z [DEBUG] Received response (Length: 182)
+2026-01-18T09:31:47.3162249Z     🤖 AI Next Step Suggestion: click -> Text Box
+2026-01-18T09:31:47.3162727Z     🧩 Suggested Locator: #item-0
+2026-01-18T09:31:47.3163234Z     💭 Reasoning: To explore the 'Elements' section, it's logical to start with the first element, 'Text Box'.
+2026-01-18T09:31:47.3163720Z     ➕ Injected AI step: click -> Text Box
+2026-01-18T09:31:47.3164259Z   ▶️ [STEP step_50_ai_3] CLICK: Text Box
+2026-01-18T09:31:47.3213391Z     🎯 Using AI-provided locator: #item-0
+2026-01-18T09:31:47.3260181Z     ✅ Found 1 verified locators
+2026-01-18T09:31:51.3738872Z     ✅ State transitioned.
+2026-01-18T09:31:52.8308127Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:52.8308604Z [DEBUG] Received response (Length: 182)
+2026-01-18T09:31:52.8309201Z     🤖 AI Next Step Suggestion: fill -> Full Name
+2026-01-18T09:31:52.8309650Z     🧩 Suggested Locator: #userName
+2026-01-18T09:31:52.8310321Z     💭 Reasoning: The page is a text box form. Filling the form is the next logical step.
+2026-01-18T09:31:52.8310773Z     ➕ Injected AI step: fill -> Full Name
+2026-01-18T09:31:52.8311081Z   ▶️ [STEP step_50_ai_4] FILL: Full Name
+2026-01-18T09:31:52.8357654Z     🎯 Using AI-provided locator: #userName
+2026-01-18T09:31:52.8407935Z     ✅ Found 1 verified locators
+2026-01-18T09:31:58.1405464Z     ✅ State transitioned.
+2026-01-18T09:31:59.7785082Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:31:59.7785679Z [DEBUG] Received response (Length: 193)
+2026-01-18T09:31:59.7786372Z     🤖 AI Next Step Suggestion: fill -> Email
+2026-01-18T09:31:59.7786692Z     🧩 Suggested Locator: #userEmail
+2026-01-18T09:31:59.7787177Z     💭 Reasoning: The 'Email' field is visible and needs to be filled to complete the form.
+2026-01-18T09:31:59.7787947Z     ➕ Injected AI step: fill -> Email
+2026-01-18T09:31:59.7788433Z   ▶️ [STEP step_50_ai_5] FILL: Email
+2026-01-18T09:31:59.7837676Z     🎯 Using AI-provided locator: #userEmail
+2026-01-18T09:31:59.7884800Z     ✅ Found 1 verified locators
+2026-01-18T09:32:06.5183103Z     ✅ State transitioned.
+2026-01-18T09:32:07.9127188Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:07.9127765Z [DEBUG] Received response (Length: 201)
+2026-01-18T09:32:07.9128490Z     🤖 AI Next Step Suggestion: fill -> Current Address
+2026-01-18T09:32:07.9128851Z     🧩 Suggested Locator: textarea#currentAddress
+2026-01-18T09:32:07.9129278Z     💭 Reasoning: The next logical step is to fill in the current address field.
+2026-01-18T09:32:07.9129710Z     ➕ Injected AI step: fill -> Current Address
+2026-01-18T09:32:07.9130224Z   ▶️ [STEP step_50_ai_6] FILL: Current Address
+2026-01-18T09:32:07.9178534Z     🎯 Using AI-provided locator: textarea#currentAddress
+2026-01-18T09:32:07.9230164Z     ✅ Found 1 verified locators
+2026-01-18T09:32:14.3972994Z     ✅ State transitioned.
+2026-01-18T09:32:15.8911493Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:15.8912081Z [DEBUG] Received response (Length: 209)
+2026-01-18T09:32:15.8912853Z     🤖 AI Next Step Suggestion: fill -> Permanent Address
+2026-01-18T09:32:15.8913485Z     🧩 Suggested Locator: #permanentAddress
+2026-01-18T09:32:15.8914160Z     💭 Reasoning: The next logical step is to fill in the permanent address field.
+2026-01-18T09:32:15.8914601Z     ➕ Injected AI step: fill -> Permanent Address
+2026-01-18T09:32:15.8914938Z   ▶️ [STEP step_50_ai_7] FILL: Permanent Address
+2026-01-18T09:32:15.8960299Z     🎯 Using AI-provided locator: #permanentAddress
+2026-01-18T09:32:15.9009454Z     ✅ Found 1 verified locators
+2026-01-18T09:32:23.2332318Z     ✅ State transitioned.
+2026-01-18T09:32:24.6326064Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:24.6326722Z [DEBUG] Received response (Length: 162)
+2026-01-18T09:32:24.6327518Z     🤖 AI Next Step Suggestion: click -> Submit
+2026-01-18T09:32:24.6328066Z     🧩 Suggested Locator: #submit
+2026-01-18T09:32:24.6328911Z     💭 Reasoning: All the fields are filled, so the next logical step is to submit the form.
+2026-01-18T09:32:24.6329719Z     ➕ Injected AI step: click -> Submit
+2026-01-18T09:32:24.6330251Z   ▶️ [STEP step_50_ai_8] CLICK: Submit
+2026-01-18T09:32:24.6375762Z     🎯 Using AI-provided locator: #submit
+2026-01-18T09:32:24.6425599Z     ✅ Found 1 verified locators
+2026-01-18T09:32:28.6837949Z     ✅ State transitioned.
+2026-01-18T09:32:29.8986863Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:29.8987508Z [DEBUG] Received response (Length: 144)
+2026-01-18T09:32:29.8988254Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T09:32:29.8989312Z     💭 Reasoning: The form has been filled and submitted. There are no other interactive elements on the page to explore.
+2026-01-18T09:32:29.8990273Z   ▶️ [STEP step_59] ASSERT_URL: 
+2026-01-18T09:32:34.9126347Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:32:36.9145876Z     ✅ State transitioned.
+2026-01-18T09:32:38.3714732Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:38.3715404Z [DEBUG] Received response (Length: 267)
+2026-01-18T09:32:38.3716244Z     🤖 AI Next Step Suggestion: click -> Check Box
+2026-01-18T09:32:38.3716832Z     🧩 Suggested Locator: #item-1
+2026-01-18T09:32:38.3718219Z     💭 Reasoning: The previous actions filled out the text box form. Now, to continue exploring the 'Elements' section, the next logical element to interact with is 'Check Box'.
+2026-01-18T09:32:38.3719506Z     ➕ Injected AI step: click -> Check Box
+2026-01-18T09:32:38.3720037Z   ▶️ [STEP step_59_ai_1] CLICK: Check Box
+2026-01-18T09:32:38.3766335Z     🎯 Using AI-provided locator: #item-1
+2026-01-18T09:32:38.3812258Z     ✅ Found 1 verified locators
+2026-01-18T09:32:42.4364682Z     ✅ State transitioned.
+2026-01-18T09:32:44.1121522Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:44.1122121Z [DEBUG] Received response (Length: 299)
+2026-01-18T09:32:44.1122916Z     🤖 AI Next Step Suggestion: click -> Radio Button
+2026-01-18T09:32:44.1123495Z     🧩 Suggested Locator: #item-2
+2026-01-18T09:32:44.1124764Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The last action was clicking the Check Box. The next logical step is to click the Radio Button to explore that page.
+2026-01-18T09:32:44.1125605Z     ➕ Injected AI step: click -> Radio Button
+2026-01-18T09:32:44.1125913Z   ▶️ [STEP step_59_ai_2] CLICK: Radio Button
+2026-01-18T09:32:44.1171632Z     🎯 Using AI-provided locator: #item-2
+2026-01-18T09:32:44.1215367Z     ✅ Found 1 verified locators
+2026-01-18T09:32:48.1635930Z     ✅ State transitioned.
+2026-01-18T09:32:49.6640443Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:49.6641100Z [DEBUG] Received response (Length: 259)
+2026-01-18T09:32:49.6641902Z     🤖 AI Next Step Suggestion: click -> Radio Button
+2026-01-18T09:32:49.6642489Z     🧩 Suggested Locator: #item-2
+2026-01-18T09:32:49.6644001Z     💭 Reasoning: The bot is on the radio button page, but the last action was clicking the radio button link. It should explore the radio button options on the page.
+2026-01-18T09:32:49.6645747Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'radio button')
+2026-01-18T09:32:49.6646472Z   ▶️ [STEP step_62] NAVIGATE: 
+2026-01-18T09:32:50.6079804Z     ✅ Navigated to https://demoqa.com/
+2026-01-18T09:32:50.6080478Z   ▶️ [STEP step_63] CLICK: Widgets
+2026-01-18T09:32:50.6315317Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:32:50.7070983Z     ✅ Found 1 verified locators
+2026-01-18T09:32:54.3160124Z     ✅ State transitioned.
+2026-01-18T09:32:55.8772458Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:32:55.8773057Z [DEBUG] Received response (Length: 369)
+2026-01-18T09:32:55.8773970Z     🤖 AI Next Step Suggestion: click -> Elements
+2026-01-18T09:32:55.8774807Z     🧩 Suggested Locator: div:nth-child(1) > div > div > div:nth-child(1) > div
+2026-01-18T09:32:55.8776046Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. Clicking on 'Elements' will navigate to a page with various element-related options, allowing for further exploration of the website's features.
+2026-01-18T09:32:55.8777107Z     ➕ Injected AI step: click -> Elements
+2026-01-18T09:32:55.8777400Z   ▶️ [STEP step_63_ai_1] CLICK: Elements
+2026-01-18T09:32:55.8821227Z     🎯 Using AI-provided locator: div:nth-child(1) > div > div > div:nth-child(1) > div
+2026-01-18T09:32:55.8881364Z     ✅ Found 1 verified locators
+2026-01-18T09:32:59.9380917Z     ✅ State transitioned.
+2026-01-18T09:33:01.1991160Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:01.1991867Z [DEBUG] Received response (Length: 167)
+2026-01-18T09:33:01.1992706Z     🤖 AI Next Step Suggestion: click -> Web Tables
+2026-01-18T09:33:01.1993352Z     🧩 Suggested Locator: #item-3
+2026-01-18T09:33:01.1994816Z     💭 Reasoning: To explore the next interactive element on the page, which is 'Web Tables'.
+2026-01-18T09:33:01.1995727Z     ➕ Injected AI step: click -> Web Tables
+2026-01-18T09:33:01.1996288Z   ▶️ [STEP step_63_ai_2] CLICK: Web Tables
+2026-01-18T09:33:01.2049905Z     🎯 Using AI-provided locator: #item-3
+2026-01-18T09:33:01.2095343Z     ✅ Found 1 verified locators
+2026-01-18T09:33:05.2754722Z     ✅ State transitioned.
+2026-01-18T09:33:06.8309943Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:06.8310675Z [DEBUG] Received response (Length: 283)
+2026-01-18T09:33:06.8311493Z     🤖 AI Next Step Suggestion: click -> Add
+2026-01-18T09:33:06.8312731Z     💭 Reasoning: The current page is the Web Tables page. Clicking the 'Add' button will allow us to explore the functionality of adding a new entry to the table, which is a key interaction on this page.
+2026-01-18T09:33:06.8364920Z     ➕ Injected AI step: click -> Add
+2026-01-18T09:33:06.8365575Z   ▶️ [STEP step_63_ai_3] CLICK: Add
+2026-01-18T09:33:06.8368015Z     🔍 Mining locators for: 'Add'
+2026-01-18T09:33:06.9091008Z     ✅ Found 3 verified locators
+2026-01-18T09:33:10.4539882Z     ✅ State transitioned.
+2026-01-18T09:33:12.0302520Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:12.0303133Z [DEBUG] Received response (Length: 156)
+2026-01-18T09:33:12.0304044Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T09:33:12.0304576Z     💭 Reasoning: Fill the first name field in the registration form.
+2026-01-18T09:33:12.0304944Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T09:33:12.0305237Z   ▶️ [STEP step_63_ai_4] FILL: First Name
+2026-01-18T09:33:12.0352306Z     🔍 Mining locators for: 'First Name'
+2026-01-18T09:33:12.1102949Z     🧠 Consulting AI (Vision-First) to find 'First Name'...
+2026-01-18T09:33:12.1104020Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:33:17.5454647Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:17.5455258Z [DEBUG] Received response (Length: 430)
+2026-01-18T09:33:17.5455748Z     🔄 Retry 1/3 mining locators for 'First Name'...
+2026-01-18T09:33:18.6774688Z     🧠 Consulting AI (Vision-First) to find 'First Name'...
+2026-01-18T09:33:18.6775675Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:33:22.3566082Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:22.3566471Z [DEBUG] Received response (Length: 430)
+2026-01-18T09:33:22.3567065Z     🔄 Retry 2/3 mining locators for 'First Name'...
+2026-01-18T09:33:23.4284313Z     🧠 Consulting AI (Vision-First) to find 'First Name'...
+2026-01-18T09:33:23.4285240Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:33:27.3270118Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:27.3270745Z [DEBUG] Received response (Length: 430)
+2026-01-18T09:33:27.3271586Z     🧠 Verifying step validity for 'First Name' after mining failure...
+2026-01-18T09:33:31.7469525Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:31.7470145Z [DEBUG] Received response (Length: 192)
+2026-01-18T09:33:31.7471035Z     🛠️ Self-Correction: Step is valid. Using new locator: input[id="firstName"]
+2026-01-18T09:33:37.2419171Z     ✅ State transitioned.
+2026-01-18T09:33:38.7574753Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:38.7575277Z [DEBUG] Received response (Length: 166)
+2026-01-18T09:33:38.7575855Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T09:33:38.7576290Z     💭 Reasoning: Need to fill out the last name field in the registration form.
+2026-01-18T09:33:38.7576688Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T09:33:38.7576974Z   ▶️ [STEP step_63_ai_5] FILL: Last Name
+2026-01-18T09:33:38.7626759Z     🔍 Mining locators for: 'Last Name'
+2026-01-18T09:33:38.8262944Z     🧠 Consulting AI (Vision-First) to find 'Last Name'...
+2026-01-18T09:33:38.8264301Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:33:44.2300410Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:44.2300994Z [DEBUG] Received response (Length: 482)
+2026-01-18T09:33:44.2301482Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T09:33:44.2301809Z   ▶️ [STEP step_69] ASSERT_URL: 
+2026-01-18T09:33:49.2442487Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:33:51.2464790Z     ✅ State transitioned.
+2026-01-18T09:33:52.8831365Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:52.8831997Z [DEBUG] Received response (Length: 158)
+2026-01-18T09:33:52.8832518Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T09:33:52.8832962Z     💭 Reasoning: Fill the last name field to continue filling the form.
+2026-01-18T09:33:52.8833340Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T09:33:52.8833627Z   ▶️ [STEP step_69_ai_1] FILL: Last Name
+2026-01-18T09:33:52.8880756Z     🔍 Mining locators for: 'Last Name'
+2026-01-18T09:33:52.9599302Z     🧠 Consulting AI (Vision-First) to find 'Last Name'...
+2026-01-18T09:33:52.9600832Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:33:58.1957839Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:33:58.1958313Z [DEBUG] Received response (Length: 491)
+2026-01-18T09:33:58.1958846Z     🔄 Retry 1/3 mining locators for 'Last Name'...
+2026-01-18T09:33:59.3116611Z     🧠 Consulting AI (Vision-First) to find 'Last Name'...
+2026-01-18T09:33:59.3117703Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:34:03.1971072Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:03.1971728Z [DEBUG] Received response (Length: 501)
+2026-01-18T09:34:03.1972471Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T09:34:03.1973030Z   ▶️ [STEP step_71] CLICK: Accordian
+2026-01-18T09:34:03.2027134Z     🔍 Mining locators for: 'Accordian'
+2026-01-18T09:34:03.2756331Z     🧠 Consulting AI (Vision-First) to find 'Accordian'...
+2026-01-18T09:34:03.2757239Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:34:07.6004672Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:07.6005553Z [DEBUG] Received response (Length: 233)
+2026-01-18T09:34:07.6007114Z     💡 Expert Suggestion: Accordions are UI elements, and the 'Elements' section is the most likely place to find them.
+2026-01-18T09:34:07.6008508Z     🛠️ Executing corrective action: click -> 'Elements'
+2026-01-18T09:34:08.1974759Z     ✅ Executed corrective navigation
+2026-01-18T09:34:10.1997542Z     🔄 Retry 1/3 mining locators for 'Accordian'...
+2026-01-18T09:34:11.2759100Z     🧠 Consulting AI (Vision-First) to find 'Accordian'...
+2026-01-18T09:34:11.2760303Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:34:12.6333977Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:12.6334716Z [DEBUG] Received response (Length: 223)
+2026-01-18T09:34:12.6335362Z     ⚠️ Skipping duplicate injection: Elements
+2026-01-18T09:34:12.6335944Z     🔄 Retry 2/3 mining locators for 'Accordian'...
+2026-01-18T09:34:13.6909245Z     🧠 Consulting AI (Vision-First) to find 'Accordian'...
+2026-01-18T09:34:13.6910373Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:34:17.5431652Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:17.5432339Z [DEBUG] Received response (Length: 223)
+2026-01-18T09:34:17.5433170Z     ⚠️ Skipping duplicate injection: Elements
+2026-01-18T09:34:17.5433633Z     🧠 Verifying step validity for 'Accordian' after no candidates found...
+2026-01-18T09:34:22.6272962Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:22.6273565Z [DEBUG] Received response (Length: 179)
+2026-01-18T09:34:22.6274655Z     🗑️ Step deemed INVALID: The current page is 'Web Tables'. 'Accordian' is not present on this page. It is located under the 'Widgets' section.. Removing from workflow.
+2026-01-18T09:34:22.6275367Z     ⏭️ Skipping execution of invalid step: Accordian
+2026-01-18T09:34:22.6275689Z   ▶️ [STEP step_72] ASSERT_URL: 
+2026-01-18T09:34:27.6412699Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:34:29.6435260Z     ✅ State transitioned.
+2026-01-18T09:34:31.3438674Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:31.3439295Z [DEBUG] Received response (Length: 241)
+2026-01-18T09:34:31.3440084Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T09:34:31.3440700Z     🧩 Suggested Locator: input[placeholder='Last Name']
+2026-01-18T09:34:31.3442103Z     💭 Reasoning: After filling the first name, the next logical step is to fill the last name field in the registration form.
+2026-01-18T09:34:31.3442953Z ⚠️ Loop detected: same AI suggestion repeated 3 times. Moving to next step.
+2026-01-18T09:34:31.3443348Z   ▶️ [STEP step_73] NAVIGATE: 
+2026-01-18T09:34:32.2842632Z     ✅ Navigated to https://demoqa.com/
+2026-01-18T09:34:32.2843111Z   ▶️ [STEP step_74] CLICK: Interactions
+2026-01-18T09:34:32.3083646Z     🔍 Mining locators for: 'Interactions'
+2026-01-18T09:34:32.3711694Z     ✅ Found 1 verified locators
+2026-01-18T09:34:35.9406353Z     ✅ State transitioned.
+2026-01-18T09:34:37.4852311Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:37.4853431Z [DEBUG] Received response (Length: 333)
+2026-01-18T09:34:37.4854449Z     🤖 AI Next Step Suggestion: click -> Elements
+2026-01-18T09:34:37.4855004Z     🧩 Suggested Locator: div:nth-child(1) > div > div:nth-child(1) > div > div.card.mt-4.top-card
+2026-01-18T09:34:37.4855996Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. Clicking on 'Elements' will navigate to a page with different element options to explore.
+2026-01-18T09:34:37.4856740Z     ➕ Injected AI step: click -> Elements
+2026-01-18T09:34:37.4857036Z   ▶️ [STEP step_74_ai_1] CLICK: Elements
+2026-01-18T09:34:37.4899869Z     🎯 Using AI-provided locator: div:nth-child(1) > div > div:nth-child(1) > div > div.card.mt-4.top-card
+2026-01-18T09:34:37.4920266Z     🔍 Mining locators for: 'Elements'
+2026-01-18T09:34:37.5356223Z     ✅ Found 1 verified locators
+2026-01-18T09:34:41.0888382Z     ✅ State transitioned.
+2026-01-18T09:34:42.5996331Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:42.5997013Z [DEBUG] Received response (Length: 288)
+2026-01-18T09:34:42.5997821Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-18T09:34:42.5998716Z     🧩 Suggested Locator: div:nth-child(2) > div > div:nth-child(1) > div > div.card.mt-4.top-card
+2026-01-18T09:34:42.6000300Z     💭 Reasoning: After exploring Elements, it's logical to move to the next category, Forms, to continue identifying user flows and interactive elements.
+2026-01-18T09:34:42.6001449Z     ➕ Injected AI step: click -> Forms
+2026-01-18T09:34:42.6001964Z   ▶️ [STEP step_74_ai_2] CLICK: Forms
+2026-01-18T09:34:42.6046903Z     🎯 Using AI-provided locator: div:nth-child(2) > div > div:nth-child(1) > div > div.card.mt-4.top-card
+2026-01-18T09:34:42.6064926Z     🔍 Mining locators for: 'Forms'
+2026-01-18T09:34:42.6499204Z     ✅ Found 1 verified locators
+2026-01-18T09:34:46.1881081Z     ✅ State transitioned.
+2026-01-18T09:34:47.6452880Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:47.6453355Z [DEBUG] Received response (Length: 315)
+2026-01-18T09:34:47.6454461Z     🤖 AI Next Step Suggestion: click -> Alerts, Frame & Windows
+2026-01-18T09:34:47.6455001Z     🧩 Suggested Locator: div:nth-child(3) > div > div > div:nth-child(3) > h5
+2026-01-18T09:34:47.6455900Z     💭 Reasoning: Based on the previous clicks, it seems like we are exploring the different categories on the page. 'Alerts, Frame & Windows' is the next logical category to explore.
+2026-01-18T09:34:47.6456651Z     ➕ Injected AI step: click -> Alerts, Frame & Windows
+2026-01-18T09:34:47.6457009Z   ▶️ [STEP step_74_ai_3] CLICK: Alerts, Frame & Windows
+2026-01-18T09:34:47.6499736Z     🎯 Using AI-provided locator: div:nth-child(3) > div > div > div:nth-child(3) > h5
+2026-01-18T09:34:47.6518452Z     🔍 Mining locators for: 'Alerts, Frame & Windows'
+2026-01-18T09:34:47.6990452Z     ✅ Found 1 verified locators
+2026-01-18T09:34:51.2382318Z     ✅ State transitioned.
+2026-01-18T09:34:52.7891091Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:52.7891747Z [DEBUG] Received response (Length: 316)
+2026-01-18T09:34:52.7892548Z     🤖 AI Next Step Suggestion: click -> Widgets
+2026-01-18T09:34:52.7893466Z     🧩 Suggested Locator: div:nth-of-type(4) > div > div > div:nth-of-type(1) > div > h5
+2026-01-18T09:34:52.7895801Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The next logical step is to click on the 'Widgets' section to explore its elements.
+2026-01-18T09:34:52.7897168Z     ➕ Injected AI step: click -> Widgets
+2026-01-18T09:34:52.7897672Z   ▶️ [STEP step_74_ai_4] CLICK: Widgets
+2026-01-18T09:34:52.7941557Z     🎯 Using AI-provided locator: div:nth-of-type(4) > div > div > div:nth-of-type(1) > div > h5
+2026-01-18T09:34:52.7960316Z     🔍 Mining locators for: 'Widgets'
+2026-01-18T09:34:52.8553206Z     ✅ Found 1 verified locators
+2026-01-18T09:34:56.4042001Z     ✅ State transitioned.
+2026-01-18T09:34:57.7853576Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:34:57.7854321Z [DEBUG] Received response (Length: 291)
+2026-01-18T09:34:57.7855097Z     🤖 AI Next Step Suggestion: click -> Elements
+2026-01-18T09:34:57.7855790Z     🧩 Suggested Locator: div:nth-child(1) > div.card.mt-4.top-card
+2026-01-18T09:34:57.7856697Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. The 'Elements' card is a good starting point to explore different UI elements.
+2026-01-18T09:34:57.7857431Z     ➕ Injected AI step: click -> Elements
+2026-01-18T09:34:57.7857724Z   ▶️ [STEP step_74_ai_5] CLICK: Elements
+2026-01-18T09:34:57.7901712Z     🎯 Using AI-provided locator: div:nth-child(1) > div.card.mt-4.top-card
+2026-01-18T09:34:57.7952462Z     ✅ Found 1 verified locators
+2026-01-18T09:35:01.8466409Z     ✅ State transitioned.
+2026-01-18T09:35:03.2559366Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:03.2559957Z [DEBUG] Received response (Length: 284)
+2026-01-18T09:35:03.2560799Z     🤖 AI Next Step Suggestion: click -> Text Box
+2026-01-18T09:35:03.2561447Z     🧩 Suggested Locator: #item-0
+2026-01-18T09:35:03.2562691Z     💭 Reasoning: The goal is to explore the website and identify key user flows and interactive elements. Since the bot is on the Elements page, it should click on the 'Text Box' element to explore that section.
+2026-01-18T09:35:03.2563497Z     ➕ Injected AI step: click -> Text Box
+2026-01-18T09:35:03.2563989Z   ▶️ [STEP step_74_ai_6] CLICK: Text Box
+2026-01-18T09:35:03.2609741Z     🎯 Using AI-provided locator: #item-0
+2026-01-18T09:35:03.2657801Z     ✅ Found 1 verified locators
+2026-01-18T09:35:07.3108675Z     ✅ State transitioned.
+2026-01-18T09:35:08.7228940Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:08.7229369Z [DEBUG] Received response (Length: 191)
+2026-01-18T09:35:08.7229980Z     🤖 AI Next Step Suggestion: fill -> Full Name
+2026-01-18T09:35:08.7230293Z     🧩 Suggested Locator: #userName
+2026-01-18T09:35:08.7230760Z     💭 Reasoning: The page is the Text Box page. Filling the form fields is the next logical step.
+2026-01-18T09:35:08.7231437Z     ➕ Injected AI step: fill -> Full Name
+2026-01-18T09:35:08.7231738Z   ▶️ [STEP step_74_ai_7] FILL: Full Name
+2026-01-18T09:35:08.7277457Z     🎯 Using AI-provided locator: #userName
+2026-01-18T09:35:08.7326258Z     ✅ Found 1 verified locators
+2026-01-18T09:35:14.3602810Z     ✅ State transitioned.
+2026-01-18T09:35:15.8397307Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:15.8397776Z [DEBUG] Received response (Length: 203)
+2026-01-18T09:35:15.8398449Z     🤖 AI Next Step Suggestion: fill -> Email
+2026-01-18T09:35:15.8399712Z     🧩 Suggested Locator: #userEmail
+2026-01-18T09:35:15.8400641Z     💭 Reasoning: The next logical step is to fill the email field after filling the full name field.
+2026-01-18T09:35:15.8401483Z     ➕ Injected AI step: fill -> Email
+2026-01-18T09:35:15.8401974Z   ▶️ [STEP step_74_ai_8] FILL: Email
+2026-01-18T09:35:15.8452006Z     🎯 Using AI-provided locator: #userEmail
+2026-01-18T09:35:15.8504207Z     ✅ Found 1 verified locators
+2026-01-18T09:35:22.3228345Z     ✅ State transitioned.
+2026-01-18T09:35:23.8802176Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:23.8803123Z [DEBUG] Received response (Length: 193)
+2026-01-18T09:35:23.8804119Z     🤖 AI Next Step Suggestion: fill -> Current Address
+2026-01-18T09:35:23.8804848Z     🧩 Suggested Locator: #currentAddress
+2026-01-18T09:35:23.8805576Z     💭 Reasoning: The next logical step is to fill the current address field.
+2026-01-18T09:35:23.8806302Z     ➕ Injected AI step: fill -> Current Address
+2026-01-18T09:35:23.8806879Z   ▶️ [STEP step_74_ai_9] FILL: Current Address
+2026-01-18T09:35:23.8855671Z     🎯 Using AI-provided locator: #currentAddress
+2026-01-18T09:35:23.8908758Z     ✅ Found 1 verified locators
+2026-01-18T09:35:29.9882736Z     ✅ State transitioned.
+2026-01-18T09:35:31.4357895Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:31.4358500Z [DEBUG] Received response (Length: 201)
+2026-01-18T09:35:31.4359334Z     🤖 AI Next Step Suggestion: fill -> Permanent Address
+2026-01-18T09:35:31.4359934Z     🧩 Suggested Locator: #permanentAddress
+2026-01-18T09:35:31.4360649Z     💭 Reasoning: The next logical step is to fill the permanent address field.
+2026-01-18T09:35:31.4361396Z     ➕ Injected AI step: fill -> Permanent Address
+2026-01-18T09:35:31.4361973Z   ▶️ [STEP step_74_ai_10] FILL: Permanent Address
+2026-01-18T09:35:31.4409627Z     🎯 Using AI-provided locator: #permanentAddress
+2026-01-18T09:35:31.4455275Z     ✅ Found 1 verified locators
+2026-01-18T09:35:37.4459558Z     ✅ State transitioned.
+2026-01-18T09:35:39.1597417Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:39.1597915Z [DEBUG] Received response (Length: 172)
+2026-01-18T09:35:39.1598548Z     🤖 AI Next Step Suggestion: click -> Submit
+2026-01-18T09:35:39.1598948Z     🧩 Suggested Locator: #submit
+2026-01-18T09:35:39.1599583Z     💭 Reasoning: All the fields in the form are filled. Clicking the submit button to see the output.
+2026-01-18T09:35:39.1600231Z     ➕ Injected AI step: click -> Submit
+2026-01-18T09:35:39.1600612Z   ▶️ [STEP step_74_ai_11] CLICK: Submit
+2026-01-18T09:35:39.1646589Z     🎯 Using AI-provided locator: #submit
+2026-01-18T09:35:39.1694934Z     ✅ Found 1 verified locators
+2026-01-18T09:35:43.2226142Z     ✅ State transitioned.
+2026-01-18T09:35:44.5299268Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:44.5299857Z [DEBUG] Received response (Length: 144)
+2026-01-18T09:35:44.5300431Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T09:35:44.5301136Z     💭 Reasoning: The form has been filled and submitted. There are no other interactive elements on the page to explore.
+2026-01-18T09:35:44.5301752Z   ▶️ [STEP step_86] ASSERT_URL: 
+2026-01-18T09:35:49.5430750Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:35:51.5452727Z     ✅ State transitioned.
+2026-01-18T09:35:52.7030793Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:52.7031919Z [DEBUG] Received response (Length: 185)
+2026-01-18T09:35:52.7032908Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T09:35:52.7034744Z     💭 Reasoning: The form has been filled and submitted. The next action would depend on the result of the submission, which is not visible in the current state.
+2026-01-18T09:35:52.7035981Z   ▶️ [STEP step_87] CLICK: Sortable
+2026-01-18T09:35:52.7082213Z     🔍 Mining locators for: 'Sortable'
+2026-01-18T09:35:52.7532129Z     🧠 Consulting AI (Vision-First) to find 'Sortable'...
+2026-01-18T09:35:52.7533027Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:35:58.0785612Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:35:58.0786100Z [DEBUG] Received response (Length: 241)
+2026-01-18T09:35:58.0786831Z     💡 Expert Suggestion: The 'Sortable' functionality is commonly found within 'Web Tables' or similar data grid components.
+2026-01-18T09:35:58.0787467Z     🛠️ Executing corrective action: click -> 'Web Tables'
+2026-01-18T09:35:58.6631415Z     ✅ Executed corrective navigation
+2026-01-18T09:36:00.6654216Z     🔄 Retry 1/3 mining locators for 'Sortable'...
+2026-01-18T09:36:01.7541488Z     🧠 Consulting AI (Vision-First) to find 'Sortable'...
+2026-01-18T09:36:01.7542402Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:36:03.2249405Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:03.2250236Z [DEBUG] Received response (Length: 272)
+2026-01-18T09:36:03.2251998Z     💡 Expert Suggestion: The 'Sortable' functionality is likely located within the 'Elements' section of the website, as it involves interactive UI elements.
+2026-01-18T09:36:03.2253428Z     🛠️ Executing corrective action: click -> 'Elements'
+2026-01-18T09:36:03.8020844Z     ✅ Executed corrective navigation
+2026-01-18T09:36:05.8043598Z     🔄 Retry 2/3 mining locators for 'Sortable'...
+2026-01-18T09:36:06.8312352Z     🧠 Consulting AI (Vision-First) to find 'Sortable'...
+2026-01-18T09:36:06.8313563Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:36:07.9644807Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:07.9645391Z [DEBUG] Received response (Length: 224)
+2026-01-18T09:36:07.9646218Z     💡 Expert Suggestion: Sortable functionality is commonly found within product listing or management pages.
+2026-01-18T09:36:07.9646814Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T09:36:07.9909822Z     🧠 Verifying step validity for 'Sortable' after no candidates found...
+2026-01-18T09:36:12.9999179Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:12.9999718Z [DEBUG] Received response (Length: 184)
+2026-01-18T09:36:13.0000688Z     🗑️ Step deemed INVALID: The screenshot is completely blank. It's impossible to determine if 'Sortable' exists on the page or to provide a locator.. Removing from workflow.
+2026-01-18T09:36:13.0001437Z     ⏭️ Skipping execution of invalid step: Sortable
+2026-01-18T09:36:13.0001759Z   ▶️ [STEP step_88] ASSERT_URL: 
+2026-01-18T09:36:18.0122219Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:36:20.0145002Z     ✅ State transitioned.
+2026-01-18T09:36:21.0937196Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:21.0937907Z [DEBUG] Received response (Length: 210)
+2026-01-18T09:36:21.0938820Z     🤖 AI Next Step Suggestion: click -> adplus-dvertising
+2026-01-18T09:36:21.0939509Z     🧩 Suggested Locator: #close-fixedban
+2026-01-18T09:36:21.0940593Z     💭 Reasoning: The ad is obscuring the content and needs to be closed to continue exploring the page.
+2026-01-18T09:36:21.0941602Z     ➕ Injected AI step: click -> adplus-dvertising
+2026-01-18T09:36:21.0942248Z   ▶️ [STEP step_88_ai_1] CLICK: adplus-dvertising
+2026-01-18T09:36:21.0988019Z     🎯 Using AI-provided locator: #close-fixedban
+2026-01-18T09:36:21.1038737Z     ✅ Found 1 verified locators
+2026-01-18T09:36:25.1534720Z     ✅ State transitioned.
+2026-01-18T09:36:26.1090469Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:26.1091081Z [DEBUG] Received response (Length: 196)
+2026-01-18T09:36:26.1091878Z     🤖 AI Next Step Suggestion: click -> adplus-dvertising
+2026-01-18T09:36:26.1092459Z     🧩 Suggested Locator: #close-fixedban
+2026-01-18T09:36:26.1093339Z     💭 Reasoning: The ad is obscuring the page and needs to be closed to continue exploring the web tables.
+2026-01-18T09:36:26.1094485Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'adplus-dvertising')
+2026-01-18T09:36:26.1094912Z   ▶️ [STEP step_90] NAVIGATE: 
+2026-01-18T09:36:27.0536458Z     ✅ Navigated to https://demoqa.com/
+2026-01-18T09:36:27.0536940Z   ▶️ [STEP step_91] CLICK: Book Store Application
+2026-01-18T09:36:27.0799138Z     🔍 Mining locators for: 'Book Store Application'
+2026-01-18T09:36:27.1485156Z     ✅ Found 1 verified locators
+2026-01-18T09:36:30.7249027Z     ✅ State transitioned.
+2026-01-18T09:36:32.6151341Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:32.6152311Z [DEBUG] Received response (Length: 234)
+2026-01-18T09:36:32.6153094Z     🤖 AI Next Step Suggestion: click -> Elements
+2026-01-18T09:36:32.6154299Z     🧩 Suggested Locator: div:nth-child(1) > .element-list.collapse.show > ul > #item-0 > span
+2026-01-18T09:36:32.6155507Z     💭 Reasoning: Navigating back to the Elements page to explore other elements and functionalities.
+2026-01-18T09:36:32.6156367Z     ➕ Injected AI step: click -> Elements
+2026-01-18T09:36:32.6156892Z   ▶️ [STEP step_91_ai_1] CLICK: Elements
+2026-01-18T09:36:32.6207659Z     🎯 Using AI-provided locator: div:nth-child(1) > .element-list.collapse.show > ul > #item-0 > span
+2026-01-18T09:36:32.6236525Z     🔍 Mining locators for: 'Elements'
+2026-01-18T09:36:32.7323364Z     ✅ Found 1 verified locators
+2026-01-18T09:36:36.2713484Z     ✅ State transitioned.
+2026-01-18T09:36:37.3693966Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:37.3694596Z [DEBUG] Received response (Length: 193)
+2026-01-18T09:36:37.3695385Z     🤖 AI Next Step Suggestion: click -> adplus-dvertising
+2026-01-18T09:36:37.3695969Z     🧩 Suggested Locator: #close-fixedban
+2026-01-18T09:36:37.3696627Z     💭 Reasoning: The ad is obscuring the content and needs to be closed to continue exploring the page.
+2026-01-18T09:36:37.3697128Z     ➕ Injected AI step: click -> adplus-dvertising
+2026-01-18T09:36:37.3697466Z   ▶️ [STEP step_91_ai_2] CLICK: adplus-dvertising
+2026-01-18T09:36:37.3744981Z     🎯 Using AI-provided locator: #close-fixedban
+2026-01-18T09:36:37.3788753Z     ✅ Found 1 verified locators
+2026-01-18T09:36:41.4155619Z     ✅ State transitioned.
+2026-01-18T09:36:42.2316510Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:42.2317161Z [DEBUG] Received response (Length: 193)
+2026-01-18T09:36:42.2318044Z     🤖 AI Next Step Suggestion: click -> adplus-dvertising
+2026-01-18T09:36:42.2318682Z     🧩 Suggested Locator: #close-fixedban
+2026-01-18T09:36:42.2319714Z     💭 Reasoning: The ad is obscuring the content and needs to be closed to continue exploring the page.
+2026-01-18T09:36:42.2320855Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'adplus-dvertising')
+2026-01-18T09:36:42.2321632Z   ▶️ [STEP step_94] ASSERT_URL: 
+2026-01-18T09:36:47.2442300Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:36:49.2464838Z     ✅ State transitioned.
+2026-01-18T09:36:50.2608422Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:50.2608944Z [DEBUG] Received response (Length: 203)
+2026-01-18T09:36:50.2609683Z     🤖 AI Next Step Suggestion: click -> adplus-dvertising
+2026-01-18T09:36:50.2610076Z     🧩 Suggested Locator: #close-fixedban
+2026-01-18T09:36:50.2610844Z     💭 Reasoning: The ad is obscuring the content and needs to be closed to continue exploration.
+2026-01-18T09:36:50.2611470Z ⚠️ Loop detected: same AI suggestion repeated 3 times. Moving to next step.
+2026-01-18T09:36:50.2611881Z   ▶️ [STEP step_95] CLICK: Login
+2026-01-18T09:36:50.2654714Z     🔍 Mining locators for: 'Login'
+2026-01-18T09:36:50.2854666Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-18T09:36:50.2855561Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:36:55.4673146Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:36:55.4673575Z [DEBUG] Received response (Length: 242)
+2026-01-18T09:36:55.4674638Z     💡 Expert Suggestion: The image only shows a 'v' which might be a dropdown or a navigation element that could lead to a login page.
+2026-01-18T09:36:55.4675292Z     🛠️ Executing corrective action: click -> 'v'
+2026-01-18T09:36:56.0092476Z     ✅ Executed corrective navigation
+2026-01-18T09:36:58.0113260Z     🔄 Retry 1/3 mining locators for 'Login'...
+2026-01-18T09:36:59.0332253Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-18T09:36:59.0333154Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:37:00.2286468Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:37:00.2286940Z [DEBUG] Received response (Length: 242)
+2026-01-18T09:37:00.2287361Z     ⚠️ Skipping duplicate injection: v
+2026-01-18T09:37:00.2287680Z     🔄 Retry 2/3 mining locators for 'Login'...
+2026-01-18T09:37:01.2508711Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-18T09:37:01.2509756Z     🧠 [EXPERT] Strategy: Act as an expert QA Automation Engineer with deep knowledge of web accessibility and UI patterns.
+2026-01-18T09:37:05.3430644Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:37:05.3431389Z [DEBUG] Received response (Length: 242)
+2026-01-18T09:37:05.3431946Z     ⚠️ Skipping duplicate injection: v
+2026-01-18T09:37:05.3432430Z     🧠 Verifying step validity for 'Login' after no candidates found...
+2026-01-18T09:37:10.2234153Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:37:10.2234794Z [DEBUG] Received response (Length: 169)
+2026-01-18T09:37:10.2236279Z     🗑️ Step deemed INVALID: The screenshot is completely blank. It's impossible to determine if 'Login' exists or to provide a locator.. Removing from workflow.
+2026-01-18T09:37:10.2237506Z     ⏭️ Skipping execution of invalid step: Login
+2026-01-18T09:37:10.2238029Z   ▶️ [STEP step_96] ASSERT_URL: 
+2026-01-18T09:37:15.2367752Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T09:37:17.2393250Z     ✅ State transitioned.
+2026-01-18T09:37:18.2781933Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:37:18.2782586Z [DEBUG] Received response (Length: 202)
+2026-01-18T09:37:18.2783446Z     🤖 AI Next Step Suggestion: click -> adplus-dvertising
+2026-01-18T09:37:18.2784309Z     🧩 Suggested Locator: #close-fixedban
+2026-01-18T09:37:18.2785240Z     💭 Reasoning: The ad is still visible and needs to be closed to continue exploring the page.
+2026-01-18T09:37:18.2786127Z     ➕ Injected AI step: click -> adplus-dvertising
+2026-01-18T09:37:18.2786730Z   ▶️ [STEP step_96_ai_1] CLICK: adplus-dvertising
+2026-01-18T09:37:18.2832039Z     🎯 Using AI-provided locator: #close-fixedban
+2026-01-18T09:37:18.2879060Z     ✅ Found 1 verified locators
+2026-01-18T09:37:22.3334401Z     ✅ State transitioned.
+2026-01-18T09:37:23.3106114Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:37:23.3106812Z [DEBUG] Received response (Length: 202)
+2026-01-18T09:37:23.3107736Z     🤖 AI Next Step Suggestion: click -> adplus-dvertising
+2026-01-18T09:37:23.3108241Z     🧩 Suggested Locator: #close-fixedban
+2026-01-18T09:37:23.3108740Z     💭 Reasoning: The ad is still present and needs to be closed to continue exploring the page.
+2026-01-18T09:37:23.3109623Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'adplus-dvertising')
+2026-01-18T09:37:25.3132450Z 💾 Saving 1 scenarios to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_forms/workflow.json
+2026-01-18T09:37:25.3593571Z 
+2026-01-18T09:37:25.3594462Z ========================================
+2026-01-18T09:37:25.3595529Z 📋 EXPLORATION SUMMARY
+2026-01-18T09:37:25.3596055Z ✅ Successfully Mined: 83
+2026-01-18T09:37:25.3596547Z ✨ AI Assisted/Healed: 1
+2026-01-18T09:37:25.3597004Z ❌ Discovery Failures: 2
+2026-01-18T09:37:25.3597259Z 
+2026-01-18T09:37:25.3597392Z Failure Details:
+2026-01-18T09:37:25.3597764Z   - Step step_63_ai_5: 'priority'
+2026-01-18T09:37:25.3598230Z   - Step step_69_ai_1: 'priority'
+2026-01-18T09:37:25.3598663Z ========================================
+2026-01-18T09:37:25.3598985Z 
+2026-01-18T09:37:25.3600062Z 🏁 Exploration Complete. Locators saved to: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_forms/workflow.json
+2026-01-18T09:39:52.0971872Z 
+2026-01-18T09:39:52.0972752Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-18T09:39:52.0973404Z 📍 Project: ci_demoqa_forms
+2026-01-18T09:39:52.0974390Z 🎬 Mode: Headless
+2026-01-18T09:39:52.0974587Z 
+2026-01-18T09:39:52.0974892Z --- Scenario: Explore DemoQA Website and Identify Key User Flows ---
+2026-01-18T09:39:52.0975584Z   ▶️ [STEP unknown] NAVIGATE: Step unknown
+2026-01-18T09:39:52.0976057Z     ✅ Step unknown Passed.
+2026-01-18T09:39:52.0976496Z   ▶️ [STEP unknown] ASSERT_URL: Step unknown
+2026-01-18T09:39:52.0976948Z     ✅ Step unknown Passed.
+2026-01-18T09:39:52.0977354Z   ▶️ [STEP step_2_ai_1] CLICK: Elements
+2026-01-18T09:39:52.0977828Z     🎯 Using mined locator: text='Elements'
+2026-01-18T09:39:52.0978278Z     ✅ Step step_2_ai_1 Passed.
+2026-01-18T09:39:52.0978671Z   ▶️ [STEP step_2_ai_2] CLICK: Forms
+2026-01-18T09:39:52.0979123Z     🎯 Using mined locator: text='Forms'
+2026-01-18T09:39:52.0979564Z     ✅ Step step_2_ai_2 Passed.
+2026-01-18T09:39:52.0980072Z   ▶️ [STEP step_2_ai_3] CLICK: Alerts, Frame & Windows
+2026-01-18T09:39:52.0980659Z     🎯 Using mined locator: text='Alerts, Frame & Windows'
+2026-01-18T09:39:52.0981188Z     ✅ Step step_2_ai_3 Passed.
+2026-01-18T09:39:52.0981609Z   ▶️ [STEP step_2_ai_4] CLICK: Widgets
+2026-01-18T09:39:52.0982076Z     🎯 Using mined locator: text='Widgets'
+2026-01-18T09:39:52.0982521Z     ✅ Step step_2_ai_4 Passed.
+2026-01-18T09:39:52.0982934Z   ▶️ [STEP unknown] ASSERT_VISIBLE: DEMOQA
+2026-01-18T09:39:52.0983490Z     🎯 Using mined locator: a[href='https://demoqa.com']
+2026-01-18T09:39:52.0984151Z     ✅ Step unknown Passed.
+2026-01-18T09:39:52.0984534Z   ▶️ [STEP unknown] CLICK: Elements
+2026-01-18T09:39:52.0984974Z     🎯 Using mined locator: text='Elements'
+2026-01-18T09:39:52.0985404Z     ✅ Step unknown Passed.
+2026-01-18T09:39:52.0985790Z   ▶️ [STEP step_8_ai_1] CLICK: Widgets
+2026-01-18T09:39:52.0986235Z     🎯 Using mined locator: text='Widgets'
+2026-01-18T09:39:52.0986679Z     ✅ Step step_8_ai_1 Passed.
+2026-01-18T09:39:52.0987108Z   ▶️ [STEP step_8_ai_2] CLICK: Forms
+2026-01-18T09:39:52.0987559Z     🎯 Using mined locator: text='Forms'
+2026-01-18T09:39:52.0987988Z     ✅ Step step_8_ai_2 Passed.
+2026-01-18T09:39:52.0988483Z   ▶️ [STEP step_8_ai_3] CLICK: Alerts, Frame & Windows
+2026-01-18T09:39:52.0989075Z     🎯 Using mined locator: text='Alerts, Frame & Windows'
+2026-01-18T09:39:52.0989588Z     ✅ Step step_8_ai_3 Passed.
+2026-01-18T09:39:52.0989997Z   ▶️ [STEP step_8_ai_4] CLICK: Widgets
+2026-01-18T09:39:52.0990444Z     🎯 Using mined locator: text='Widgets'
+2026-01-18T09:39:52.0990891Z     ✅ Step step_8_ai_4 Passed.
+2026-01-18T09:39:52.0991293Z   ▶️ [STEP step_8_ai_5] CLICK: Forms
+2026-01-18T09:39:52.0991747Z     🎯 Using mined locator: text='Forms'
+2026-01-18T09:39:52.0992167Z     ✅ Step step_8_ai_5 Passed.
+2026-01-18T09:39:52.0992627Z   ▶️ [STEP step_8_ai_6] CLICK: Alerts, Frame & Windows
+2026-01-18T09:39:52.0993205Z     🎯 Using mined locator: text='Alerts, Frame & Windows'
+2026-01-18T09:39:52.0993715Z     ✅ Step step_8_ai_6 Passed.
+2026-01-18T09:39:52.0994477Z   ▶️ [STEP step_8_ai_7] CLICK: Widgets
+2026-01-18T09:39:52.0994941Z     🎯 Using mined locator: text='Widgets'
+2026-01-18T09:39:52.0995386Z     ✅ Step step_8_ai_7 Passed.
+2026-01-18T09:39:52.0995797Z   ▶️ [STEP step_8_ai_8] CLICK: Elements
+2026-01-18T09:39:52.0996246Z     🎯 Using mined locator: text='Elements'
+2026-01-18T09:39:52.0996725Z     ✅ Step step_8_ai_8 Passed.
+2026-01-18T09:39:52.0997131Z   ▶️ [STEP step_8_ai_9] CLICK: Widgets
+2026-01-18T09:39:52.0997581Z     🎯 Using mined locator: text='Widgets'
+2026-01-18T09:39:52.0998020Z     ✅ Step step_8_ai_9 Passed.
+2026-01-18T09:39:52.0998438Z   ▶️ [STEP unknown] ASSERT_URL: Step unknown
+2026-01-18T09:39:52.0998882Z     ✅ Step unknown Passed.
+2026-01-18T09:39:52.0999274Z   ▶️ [STEP step_18_ai_1] CLICK: Forms
+2026-01-18T09:39:52.0999710Z     🎯 Using mined locator: text='Forms'
+2026-01-18T09:39:52.1000158Z     ✅ Step step_18_ai_1 Passed.
+2026-01-18T09:39:52.1000636Z   ▶️ [STEP step_18_ai_2] CLICK: Alerts, Frame & Windows
+2026-01-18T09:39:52.1001221Z     🎯 Using mined locator: text='Alerts, Frame & Windows'
+2026-01-18T09:39:52.1001724Z     ✅ Step step_18_ai_2 Passed.
+2026-01-18T09:39:52.1002316Z   ▶️ [STEP step_18_ai_3] CLICK: Widgets
+2026-01-18T09:39:52.1002765Z     🎯 Using mined locator: text='Widgets'
+2026-01-18T09:39:52.1003215Z     ✅ Step step_18_ai_3 Passed.
+2026-01-18T09:39:52.1003686Z   ▶️ [STEP step_18_ai_4] CLICK: Alerts, Frame & Windows
+2026-01-18T09:39:52.1004464Z     🎯 Using mined locator: text='Alerts, Frame & Windows'
+2026-01-18T09:39:52.1005115Z     ✅ Step step_18_ai_4 Passed.
+2026-01-18T09:39:52.1005539Z   ▶️ [STEP step_18_ai_5] CLICK: Widgets
+2026-01-18T09:39:52.1006009Z     🎯 Using mined locator: text='Widgets'
+2026-01-18T09:39:52.1006460Z     ✅ Step step_18_ai_5 Passed.
+2026-01-18T09:39:52.1006865Z   ▶️ [STEP unknown] CLICK: Text Box
+2026-01-18T09:39:52.1007613Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T09:39:52.1008266Z Call log:
+2026-01-18T09:39:52.1008574Z   - waiting for locator("text=Text Box")
+2026-01-18T09:39:52.1008954Z ...
+2026-01-18T09:39:52.1009385Z     🔧 [AUTO-HEAL] Re-mining page to find 'Text Box'...
+2026-01-18T09:39:52.1009983Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:39:52.1010519Z [DEBUG] Received response (Length: 587)
+2026-01-18T09:39:52.1011092Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T09:39:52.1011974Z     ✨ AI successfully healed the step! New selector: a[href*='selenium-certification-training']
+2026-01-18T09:39:52.1014769Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T09:39:52.1015425Z Call log:
+2026-01-18T09:39:52.1015724Z   - waiting for locator("a[href*='selenium...
+2026-01-18T09:39:52.1016297Z     🔧 [AUTO-HEAL] Re-mining page to find 'Text Box'...
+2026-01-18T09:39:52.1016886Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T09:39:52.1017620Z [DEBUG] Received response (Length: 587)
+2026-01-18T09:39:52.1018287Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T09:39:52.1019159Z     ✨ AI successfully healed the step! New selector: a[href*='selenium-certification-training']
+2026-01-18T09:39:52.1020232Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T09:39:52.1020870Z Call log:
+2026-01-18T09:39:52.1021165Z   - waiting for locator("a[href*='selenium...
+2026-01-18T09:39:52.1021689Z     💀 Step unknown failed after all retries.
+2026-01-18T09:39:52.1022498Z 🛑 Scenario 'Explore DemoQA Website and Identify Key User Flows' aborted due to step failure.
+2026-01-18T09:39:52.1023091Z 
+2026-01-18T09:39:52.1024015Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_forms/execution.json
+2026-01-18T09:39:52.2052531Z 
+2026-01-18T09:39:52.2052942Z [PHASE] Running Phase: DISCOVERY
+2026-01-18T09:39:52.2054675Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_forms --url https://demoqa.com/
+2026-01-18T09:39:52.2056017Z ✅ Phase 'discovery' completed successfully.
+2026-01-18T09:39:52.2056205Z 
+2026-01-18T09:39:52.2056296Z [PHASE] Running Phase: PLANNING
+2026-01-18T09:39:52.2057223Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_forms --url https://demoqa.com/
+2026-01-18T09:39:52.2058223Z ✅ Phase 'planning' completed successfully.
+2026-01-18T09:39:52.2058408Z 
+2026-01-18T09:39:52.2058493Z [PHASE] Running Phase: EXPLORATION
+2026-01-18T09:39:52.2059346Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_forms
+2026-01-18T09:39:52.2060256Z ✅ Phase 'exploration' completed successfully.
+2026-01-18T09:39:52.2060833Z 📊 Exploration Discovery Success Rate: 78.0%
+2026-01-18T09:39:52.2061005Z 
+2026-01-18T09:39:52.2061089Z [PHASE] Running Phase: EXECUTION
+2026-01-18T09:39:52.2061936Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_forms
+2026-01-18T09:39:52.2062830Z ✅ Phase 'execution' completed successfully.
+2026-01-18T09:39:52.2063002Z 
+2026-01-18T09:39:52.2063099Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-18T09:39:52.2916608Z ##[group]Run # The new orchestrator outputs execution.json in the project root
+2026-01-18T09:39:52.2917146Z [36;1m# The new orchestrator outputs execution.json in the project root[0m
+2026-01-18T09:39:52.2917557Z [36;1mRESULT_FILE="projects/ci_demoqa_forms/execution.json"[0m
+2026-01-18T09:39:52.2917877Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-18T09:39:52.2918193Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-18T09:39:52.2918595Z [36;1m  # Extract count of passed scenarios/steps for visibility[0m
+2026-01-18T09:39:52.2919008Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-18T09:39:52.2919344Z [36;1melse[0m
+2026-01-18T09:39:52.2919559Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-18T09:39:52.2919817Z [36;1m  exit 1[0m
+2026-01-18T09:39:52.2919984Z [36;1mfi[0m
+2026-01-18T09:39:52.2950412Z shell: /usr/bin/bash -e {0}
+2026-01-18T09:39:52.2950642Z env:
+2026-01-18T09:39:52.2950930Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:39:52.2951357Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:39:52.2951762Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:39:52.2962924Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:39:52.2963362Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:39:52.2963967Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:39:52.2964339Z ##[endgroup]
+2026-01-18T09:39:52.3014411Z ✅ Results generated successfully: projects/ci_demoqa_forms/execution.json
+2026-01-18T09:39:52.3039882Z 1
+2026-01-18T09:39:52.3098974Z ##[group]Run actions/upload-artifact@v4
+2026-01-18T09:39:52.3099242Z with:
+2026-01-18T09:39:52.3099424Z   name: demoqa_forms-execution-results
+2026-01-18T09:39:52.3099703Z   path: projects/ci_demoqa_forms/execution.json
+2026-01-18T09:39:52.3099959Z   retention-days: 30
+2026-01-18T09:39:52.3100157Z   if-no-files-found: warn
+2026-01-18T09:39:52.3100360Z   compression-level: 6
+2026-01-18T09:39:52.3100548Z   overwrite: false
+2026-01-18T09:39:52.3100731Z   include-hidden-files: false
+2026-01-18T09:39:52.3100932Z env:
+2026-01-18T09:39:52.3101150Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:39:52.3101546Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T09:39:52.3101937Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:39:52.3102275Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:39:52.3102605Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T09:39:52.3102965Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T09:39:52.3103251Z ##[endgroup]
+2026-01-18T09:39:52.5130599Z With the provided path, there will be 1 file uploaded
+2026-01-18T09:39:52.5136185Z Artifact name is valid!
+2026-01-18T09:39:52.5137278Z Root directory input is valid!
+2026-01-18T09:39:52.5846809Z Beginning upload of artifact content to blob storage
+2026-01-18T09:39:52.6251032Z Uploaded bytes 537
+2026-01-18T09:39:52.6395958Z Finished uploading artifact content to blob storage!
+2026-01-18T09:39:52.6399473Z SHA256 digest of uploaded artifact zip is 4a40863af027e0803a1509e7bd4dd15633871c064f66cca87edfeb40ccce26f6
+2026-01-18T09:39:52.6401074Z Finalizing artifact upload
+2026-01-18T09:39:52.7148843Z Artifact demoqa_forms-execution-results.zip successfully finalized. Artifact ID 5168020478
+2026-01-18T09:39:52.7150353Z Artifact demoqa_forms-execution-results has been successfully uploaded! Final size is 537 bytes. Artifact ID is 5168020478
+2026-01-18T09:39:52.7156935Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21109461243/artifacts/5168020478
+2026-01-18T09:39:52.7284892Z Post job cleanup.
+2026-01-18T09:39:52.8860651Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --files-from manifest.txt --use-compress-program zstdmt
+2026-01-18T09:39:53.4019688Z Failed to save: Unable to reserve cache with key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-e01604ec9be86a26965d6215464cc16bab5cdc759625cb1899035b468728c8f7, another job may be creating this cache.
+2026-01-18T09:39:53.4615142Z Post job cleanup.
+2026-01-18T09:39:53.5495047Z [command]/usr/bin/git version
+2026-01-18T09:39:53.5528694Z git version 2.52.0
+2026-01-18T09:39:53.5568144Z Temporarily overriding HOME='/home/runner/work/_temp/90657151-1a92-49ee-b437-b6e0c1682149' before making global git config changes
+2026-01-18T09:39:53.5569482Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T09:39:53.5580158Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T09:39:53.5612251Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T09:39:53.5642425Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T09:39:53.5856187Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T09:39:53.5874853Z http.https://github.com/.extraheader
+2026-01-18T09:39:53.5885836Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-18T09:39:53.5914987Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T09:39:53.6122466Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T09:39:53.6151428Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T09:39:53.6452780Z Cleaning up orphan processes
