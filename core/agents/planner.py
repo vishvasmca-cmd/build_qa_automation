@@ -8,7 +8,9 @@ from termcolor import colored
 from typing import Dict, Any, List
 
 # Add project root to path
-sys.path.append(os.getcwd())
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
 
 
 from core.lib.llm_utils import SafeLLM, try_parse_json
