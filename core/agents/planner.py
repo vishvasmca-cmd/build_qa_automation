@@ -47,6 +47,10 @@ class PlannerAgent:
 
     async def plan_goal(self, goal: str, base_url: str = None, deep_mode: bool = False):
         print(colored(f"\n[PLAN] PLANNER: Planning goal -> '{goal}' (Deep Mode: {deep_mode})", "cyan", attrs=["bold"]))
+        
+        # Fallback to a default goal if None provided (e.g. from CI or malformed config)
+        goal = goal or "Explore the website and identify key user flows and interactive elements."
+        
         url = base_url or self.workflow.get("base_url") or "https://www.google.com"
         landmarks = self.workflow.get("landmarks", [])
         landmarks_text = json.dumps(landmarks, indent=2) if landmarks else "None discovered yet."

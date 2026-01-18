@@ -34,9 +34,9 @@ class DomainExpert:
         """
         Detects the domain based on URL, page text, and User Goal.
         """
-        url_lower = url.lower()
-        content_lower = page_content.lower()
-        goal_lower = goal.lower()
+        url_lower = (url or "").lower()
+        content_lower = (page_content or "").lower()
+        goal_lower = (goal or "").lower()
         
         scores = {domain: 0 for domain in DomainExpert.DOMAINS}
         
