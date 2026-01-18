@@ -5,10 +5,16 @@ import time
 import random
 import json
 import re
+import base64
 from functools import wraps
 from termcolor import colored
 from google import genai
 from dotenv import load_dotenv
+
+try:
+    from .llm_cache import LLMCache
+except ImportError:
+    from llm_cache import LLMCache
 
 load_dotenv()
 
@@ -61,9 +67,27 @@ class SafeLLM:
             self.config.update(kwargs["model_kwargs"])
         elif "response_mime_type" in kwargs:
              self.config["response_mime_type"] = kwargs["response_mime_type"]
+        
+        # Initialize LLM cache
+        self.cache = LLMCache()
+        self.cache_hits = 0
+        self.cache_misses = 0
 
     @safe_llm_call()
     def invoke(self, messages):
+        # --- LLM CACHE CHECK ---
+        cache_key = self._get_request_cache_key(messages)
+        cached_response = self.cache.get(cache_key)
+        
+        if cached_response:
+            self.cache_hits += 1
+            print(f"[CACHE HIT] {cache_key[:8]}... (hits: {self.cache_hits}, misses: {self.cache_misses})")
+            from types import SimpleNamespace
+            return SimpleNamespace(content=cached_response["response"])
+        
+        self.cache_misses += 1
+        # -----------------------
+        
         # --- MULTI-PROCESS RATE LIMITING (Free Tier) ---
         # Coordinate across processes using a shared timestamp file
         lock_path = os.path.join(os.path.dirname(__file__), "..", "..", "outputs", "llm_throttle.json")
@@ -176,6 +200,10 @@ class SafeLLM:
             if not text:
                 # Handle cases where safety filters might have blocked it or empty response
                 text = "{}" 
+            
+            # Cache the response
+            self.cache.set(cache_key, text)
+            
             from types import SimpleNamespace
             return SimpleNamespace(content=text)
         except Exception as e:
@@ -249,3 +277,65 @@ def try_parse_json(content):
         pass
         
     return None
+
+    def _get_request_cache_key(self, messages):
+        """
+        Extract prompt text and image bytes for cache key generation.
+        
+        Args:
+            messages: LLM messages in various formats
+            
+        Returns:
+            Cache key string from LLMCache.get_cache_key()
+        """
+        prompt_parts = []
+        image_bytes = None
+        
+        if isinstance(messages, list):
+            for msg in messages:
+                # Handle tuple format: ("system", "text")
+                if isinstance(msg, tuple):
+                    prompt_parts.append(f"{msg[0].upper()}: {msg[1]}")
+                
+                # Handle dict/object with content attribute
+                elif hasattr(msg, 'content'):
+                    if isinstance(msg.content, list):
+                        for part in msg.content:
+                            if isinstance(part, dict):
+                                if part.get('type') == 'text':
+                                    prompt_parts.append(part.get('text', ''))
+                                elif part.get('type') == 'image_url':
+                                    url = part['image_url']['url']
+                                    if url.startswith('data:'):
+                                        _, b64_data = url.split(',', 1)
+                                        b64_data = "".join(b64_data.split())  # Remove whitespace
+                                        try:
+                                            image_bytes = base64.b64decode(b64_data)
+                                        except:
+                                            pass  # Ignore malformed base64
+                    else:
+                        prompt_parts.append(str(msg.content))
+                
+                # Handle raw dict format
+                elif isinstance(msg, dict):
+                    content = msg.get('content', '')
+                    if isinstance(content, list):
+                        for part in content:
+                            if isinstance(part, dict):
+                                if part.get('type') == 'text':
+                                    prompt_parts.append(part.get('text', ''))
+                                elif part.get('type') == 'image_url':
+                                    url = part['image_url']['url']
+                                    if url.startswith('data:'):
+                                        _, b64_data = url.split(',', 1)
+                                        b64_data = "".join(b64_data.split())
+                                        try:
+                                            image_bytes = base64.b64decode(b64_data)
+                                        except:
+                                            pass
+                    else:
+                        prompt_parts.append(str(content))
+        
+        # Combine all prompts and hash
+        combined_prompt = "\n---\n".join(prompt_parts)
+        return self.cache.get_cache_key(combined_prompt, image_bytes)
