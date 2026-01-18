@@ -221,6 +221,70 @@ class SafeLLM:
     def batch(self, prompts):
         return [self.invoke(p) for p in prompts]
 
+    def _get_request_cache_key(self, messages):
+        """
+        Extract prompt text and image bytes for cache key generation.
+        
+        Args:
+            messages: LLM messages in various formats
+            
+        Returns:
+            Cache key string from LLMCache.get_cache_key()
+        """
+        prompt_parts = []
+        image_bytes = None
+        
+        if isinstance(messages, list):
+            for msg in messages:
+                # Handle tuple format: ("system", "text")
+                if isinstance(msg, tuple):
+                    prompt_parts.append(f"{msg[0].upper()}: {msg[1]}")
+                
+                # Handle dict/object with content attribute
+                elif hasattr(msg, 'content'):
+                    if isinstance(msg.content, list):
+                        for part in msg.content:
+                            if isinstance(part, dict):
+                                if part.get('type') == 'text':
+                                    prompt_parts.append(part.get('text', ''))
+                                elif part.get('type') == 'image_url':
+                                    url = part['image_url']['url']
+                                    if url.startswith('data:'):
+                                        _, b64_data = url.split(',', 1)
+                                        b64_data = "".join(b64_data.split())  # Remove whitespace
+                                        try:
+                                            import base64
+                                            image_bytes = base64.b64decode(b64_data)
+                                        except:
+                                            pass  # Ignore malformed base64
+                    else:
+                        prompt_parts.append(str(msg.content))
+                
+                # Handle raw dict format
+                elif isinstance(msg, dict):
+                    content = msg.get('content', '')
+                    if isinstance(content, list):
+                        for part in content:
+                            if isinstance(part, dict):
+                                if part.get('type') == 'text':
+                                    prompt_parts.append(part.get('text', ''))
+                                elif part.get('type') == 'image_url':
+                                    url = part['image_url']['url']
+                                    if url.startswith('data:'):
+                                        _, b64_data = url.split(',', 1)
+                                        b64_data = "".join(b64_data.split())
+                                        try:
+                                            import base64
+                                            image_bytes = base64.b64decode(b64_data)
+                                        except:
+                                            pass
+                    else:
+                        prompt_parts.append(str(content))
+        
+        # Combine all prompts and hash
+        combined_prompt = "\n---\n".join(prompt_parts)
+        return self.cache.get_cache_key(combined_prompt, image_bytes)
+
 def try_parse_json(content):
     """
     Robustly parses JSON from LLM output, handling markdown blocks and common escape errors.
@@ -278,64 +342,4 @@ def try_parse_json(content):
         
     return None
 
-    def _get_request_cache_key(self, messages):
-        """
-        Extract prompt text and image bytes for cache key generation.
-        
-        Args:
-            messages: LLM messages in various formats
-            
-        Returns:
-            Cache key string from LLMCache.get_cache_key()
-        """
-        prompt_parts = []
-        image_bytes = None
-        
-        if isinstance(messages, list):
-            for msg in messages:
-                # Handle tuple format: ("system", "text")
-                if isinstance(msg, tuple):
-                    prompt_parts.append(f"{msg[0].upper()}: {msg[1]}")
-                
-                # Handle dict/object with content attribute
-                elif hasattr(msg, 'content'):
-                    if isinstance(msg.content, list):
-                        for part in msg.content:
-                            if isinstance(part, dict):
-                                if part.get('type') == 'text':
-                                    prompt_parts.append(part.get('text', ''))
-                                elif part.get('type') == 'image_url':
-                                    url = part['image_url']['url']
-                                    if url.startswith('data:'):
-                                        _, b64_data = url.split(',', 1)
-                                        b64_data = "".join(b64_data.split())  # Remove whitespace
-                                        try:
-                                            image_bytes = base64.b64decode(b64_data)
-                                        except:
-                                            pass  # Ignore malformed base64
-                    else:
-                        prompt_parts.append(str(msg.content))
-                
-                # Handle raw dict format
-                elif isinstance(msg, dict):
-                    content = msg.get('content', '')
-                    if isinstance(content, list):
-                        for part in content:
-                            if isinstance(part, dict):
-                                if part.get('type') == 'text':
-                                    prompt_parts.append(part.get('text', ''))
-                                elif part.get('type') == 'image_url':
-                                    url = part['image_url']['url']
-                                    if url.startswith('data:'):
-                                        _, b64_data = url.split(',', 1)
-                                        b64_data = "".join(b64_data.split())
-                                        try:
-                                            image_bytes = base64.b64decode(b64_data)
-                                        except:
-                                            pass
-                    else:
-                        prompt_parts.append(str(content))
-        
-        # Combine all prompts and hash
-        combined_prompt = "\n---\n".join(prompt_parts)
-        return self.cache.get_cache_key(combined_prompt, image_bytes)
+    return None
