@@ -419,7 +419,8 @@ class ExplorerAgent:
                                     "args": {
                                         "description": next_suggestion.get("target", ""),
                                         "locator": next_suggestion.get("locator"), 
-                                        "value": next_suggestion.get("value", "")
+                                        "value": next_suggestion.get("value", ""),
+                                        "url": next_suggestion.get("target", "") if next_suggestion["action"] == "navigate" else ""
                                     }
                                 }
                                 
@@ -814,6 +815,14 @@ class ExplorerAgent:
         except:
             self.log(f"    ⚠️ Scroll into view failed for {selector}. Proceeding anyway.", "yellow")
         
+        if keyword == "navigate":
+            target_url = args.get("url") or args.get("description")
+            if target_url:
+                self.log(f"    🌐 Navigating to: {target_url}", "blue")
+                await page.goto(target_url, wait_until="domcontentloaded", timeout=15000)
+                await asyncio.sleep(2)
+                return
+
         if keyword == "click":
             # Move mouse to element and click
             box = await target.bounding_box(timeout=5000)

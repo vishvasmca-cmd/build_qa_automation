@@ -179,7 +179,11 @@ class ExecutorAgent:
 
                 # Dispatch keyword to engine
                 if keyword == "navigate":
-                    await KeywordEngine.navigate(page, resolved_args["url"])
+                    nav_url = resolved_args.get("url") or resolved_args.get("description")
+                    if nav_url:
+                        await KeywordEngine.navigate(page, nav_url)
+                    else:
+                        raise ValueError("No URL provided for navigation")
                 elif keyword == "click":
                     await KeywordEngine.click(page, selector)
                 elif keyword == "fill":
