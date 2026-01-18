@@ -3,6 +3,7 @@ import os
 import random
 import asyncio
 from typing import Dict, Any, List, Optional
+from core.lib.data_generator import DataGenerator
 
 class KeywordEngine:
     """
@@ -44,13 +45,41 @@ class KeywordEngine:
         loc = await KeywordEngine._get_best_locator(page, selector)
         await loc.scroll_into_view_if_needed(timeout=timeout)
         
-        # Click to focus
-        await KeywordEngine.click(page, selector, timeout=timeout)
+        # Resolve dynamic data placeholders (e.g., {random_name} or {{random_name}})
+        # Support both single and double curly braces
+        resolved_value = str(value)
+        if "{" in resolved_value:
+            # Convert single braces to double for DataGenerator compatibility
+            resolved_value = resolved_value.replace("{random_", "{{random_")
+            resolved_value = resolved_value.replace("}", "}}")
+            resolved_value = DataGenerator.resolve(resolved_value)
         
-        # Human-like clearing and typing
-        await page.keyboard.press("Control+A")
-        await page.keyboard.press("Backspace")
-        await page.keyboard.type(str(value), delay=random.randint(50, 150))
+        # Attempt to fill with validation and retry
+        max_attempts = 2
+        for attempt in range(max_attempts):
+            # Click to focus
+            await KeywordEngine.click(page, selector, timeout=timeout)
+            
+            # Human-like clearing and typing
+            await page.keyboard.press("Control+A")
+            await page.keyboard.press("Backspace")
+            await page.keyboard.type(resolved_value, delay=random.randint(50, 150))
+            
+            # Verify the value was filled correctly
+            try:
+                await asyncio.sleep(0.3)  # Brief wait for JS handlers
+                actual_value = await loc.input_value(timeout=2000)
+                
+                # Check if value matches (allowing for minor differences like trimming)
+                if actual_value.strip() == resolved_value.strip():
+                    break  # Success!
+                elif attempt < max_attempts - 1:
+                    # Retry on mismatch
+                    await asyncio.sleep(0.5)
+                    continue
+            except:
+                # If we can't verify (e.g., not an input field), assume success
+                break
 
     @staticmethod
     async def type(page: Page, selector: str, value: str, delay: int = 50, timeout: int = 10000):
