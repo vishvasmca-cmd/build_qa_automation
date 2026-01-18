@@ -89,6 +89,9 @@ class PlannerAgent:
         **MISSION:**
         {task_desc}
         
+        **TARGET APPLICATION:**
+        Base URL: {url}
+        
         **DISCOVERED LANDMARKS (Use these real names/IDs if possible):**
         {landmarks_text}
         
@@ -96,9 +99,10 @@ class PlannerAgent:
         {sitemap_text}
         
         **YOUR TASK:**
-        1. Break this goal into sequential automation steps using valid Keywords.
-        2. **Automatic Validation**: Add `assert_visible` or `assert_url` steps after major actions (like clicking a link or filling a search) to verify the process.
-        3. Prefer items from the DISCOVERED LANDMARKS if they match the intent.
+        1. **CRITICAL FIRST STEP:** The very FIRST step MUST be `navigate` to: {url}
+        2. Break this goal into sequential automation steps using valid Keywords.
+        3. **Automatic Validation**: Add `assert_visible` or `assert_url` steps after major actions (like clicking a link or filling a search) to verify the process.
+        4. Prefer items from the DISCOVERED LANDMARKS if they match the intent.
         
         **VALID KEYWORDS:**
         - navigate(url)
@@ -120,6 +124,11 @@ class PlannerAgent:
         
         **DYNAMIC DATA:**
         Use placeholders like {{random_email}}, {{random_name}}, {{random_password}} for form data.
+        
+        **CRITICAL RULES:**
+        - Step 1 MUST be: navigate("{url}")
+        - DO NOT use placeholder URLs like "example.com", "banking application", or "application homepage"
+        - ONLY use the actual base URL: {url}
         
         **RESPONSE FORMAT (JSON):**
         Use "args" (not "arguments") for parameters.
@@ -171,6 +180,26 @@ class PlannerAgent:
                 # Ensure ID present
                 if "id" not in scenario:
                     scenario["id"] = f"TC_GEN_{count}"
+                
+                # VALIDATION: Ensure first step navigates to base_url
+                if scenario.get("steps") and len(scenario["steps"]) > 0:
+                    first_step = scenario["steps"][0]
+                    if first_step.get("keyword") == "navigate":
+                        first_url = first_step.get("args", {}).get("url", "")
+                        # Fix hallucinated URLs
+                        invalid_urls = ["example.com", "banking application", "application homepage", 
+                                        "http://example.com", "https://example.com"]
+                        if any(invalid in first_url.lower() for invalid in invalid_urls) or not first_url.startswith("http"):
+                            print(colored(f"    🔧 Fixing invalid first URL: '{first_url}' -> '{url}'", "yellow"))
+                            first_step["args"]["url"] = url
+                    else:
+                        # Inject navigate step if missing
+                        print(colored(f"    ➕ Injecting missing navigate step to: {url}", "yellow"))
+                        scenario["steps"].insert(0, {
+                            "id": "step_0",
+                            "keyword": "navigate",
+                            "args": {"url": url}
+                        })
                     
                 # Check if scenario ID exists, update or append
                 exists = False
