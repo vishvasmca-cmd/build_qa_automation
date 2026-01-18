@@ -1,4 +1,4 @@
-name: CI - Complex Website Tests
+name: CI - Deep Explorer Mode - 20 Websites
 
 on:
   push:
@@ -8,39 +8,105 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-complex-websites:
+  test-websites-deep:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     
     strategy:
       fail-fast: false
+      max-parallel: 4  # Run 4 at a time to avoid rate limits
       matrix:
         website:
-          # 5 Complex, Diverse Websites for Comprehensive Testing
+          # 20 Working Websites for Deep Exploration
+          
+          # E-commerce Sites
           - name: "saucedemo_ecommerce"
             url: "https://www.saucedemo.com/"
-            goal: "Login with standard_user/secret_sauce, add 3 items to cart, proceed to checkout, fill shipping info, complete order"
-            max_steps: 15
+            goal: "Complete end-to-end shopping flow"
             
+          - name: "automationexercise_shop"
+            url: "https://www.automationexercise.com/"
+            goal: "Explore shopping features and cart"
+            
+          - name: "demoblaze_store"
+            url: "https://www.demoblaze.com/"
+            goal: "Browse products and test purchase flow"
+            
+          - name: "rahulshetty_shop"
+            url: "https://rahulshettyacademy.com/seleniumPractise/"
+            goal: "Search and add items to cart"
+            
+          # Banking & Finance
           - name: "parabank_banking"
             url: "https://parabank.parasoft.com/"
-            goal: "Register new user, login, open new account, transfer funds between accounts, view account overview"
-            max_steps: 20
+            goal: "Test banking operations"
             
+          - name: "globalsqa_bank"
+            url: "https://www.globalsqa.com/angularJs-protractor/BankingProject/"
+            goal: "Customer and manager banking flows"
+            
+          # Forms & UI Testing
+          - name: "demoqa_practice"
+            url: "https://demoqa.com/"
+            goal: "Test various form elements"
+            
+          - name: "the_internet_forms"
+            url: "https://the-internet.herokuapp.com/"
+            goal: "Test authentication and forms"
+            
+          - name: "seleniumeasy_forms"
+            url: "https://demo.seleniumeasy.com/basic-first-form-demo.html"
+            goal: "Validate input forms"
+            
+          # HR & Management
           - name: "orangehrm_demo"
             url: "https://opensource-demo.orangehrmlive.com/"
-            goal: "Login with Admin/admin123, navigate to PIM module, add new employee, verify employee was added, logout"
-            max_steps: 18
+            goal: "Test HR management features"
             
-          - name: "automation_exercise"
-            url: "https://www.automationexercise.com/"
-            goal: "Navigate homepage, view products, search for 'dress', filter results, add product to cart, view cart"
-            max_steps: 12
+          # Travel & Booking
+          - name: "phptravels_demo"
+            url: "https://phptravels.com/demo/"
+            goal: "Explore travel booking"
             
-          - name: "demoqa_forms"
-            url: "https://demoqa.com/"
-            goal: "Navigate to Forms, fill Practice Form with all fields (name, email, gender, mobile, subjects, hobbies, address), submit"
-            max_steps: 15
+          - name: "blazedemo_travel"
+            url: "https://blazedemo.com/"
+            goal: "Book a flight"
+            
+          # Testing Practice Sites
+          - name: "saucedemo_locked"
+            url: "https://www.saucedemo.com/"
+            goal: "Test locked user scenarios"
+            
+          - name: "automation_practice"
+            url: "http://www.automationpractice.pl/"
+            goal: "Practice automation scenarios"
+            
+          - name: "uitestingplayground"
+            url: "http://uitestingplayground.com/"
+            goal: "Test UI interactions"
+            
+          # CMS & Admin
+          - name: "wordpress_demo"
+            url: "https://tastewp.com/new"
+            goal: "Quick WordPress testing"
+            
+          # API & Tool Testing
+          - name: "reqres_api_ui"
+            url: "https://reqres.in/"
+            goal: "Explore API documentation UI"
+            
+          - name: "petstore_swagger"
+            url: "https://petstore.swagger.io/"
+            goal: "Test Swagger UI interactions"
+            
+          # Miscellaneous
+          - name: "w3schools_tryit"
+            url: "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default"
+            goal: "Test HTML editor"
+            
+          - name: "jquery_ui_demos"
+            url: "https://jqueryui.com/demos/"
+            goal: "Test jQuery UI components"
 
     steps:
       - name: Checkout code
@@ -65,30 +131,25 @@ jobs:
             "project_name": "ci_${{ matrix.website.name }}",
             "target_url": "${{ matrix.website.url }}",
             "goal": "${{ matrix.website.goal }}",
-            "max_steps": ${{ matrix.website.max_steps }},
             "headless": true
           }
           EOF
 
-      - name: Run Explorer (Trace Generation)
+      - name: Run Deep Explorer (3-5 Scenarios)
         id: explorer
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           PYTHONPATH: .
         run: |
-          # Use the new Orchestrator with refined exploration.
-          # We don't use --deep here to keep CI fast (1 scenario vs 5), 
-          # but we benefit from the new iterative & self-healing explorer.py
-          python orchestrator.py --project projects/ci_${{ matrix.website.name }} --force
+          # Use --deep for comprehensive regression suite
+          python orchestrator.py --project projects/ci_${{ matrix.website.name }} --deep --force
         continue-on-error: true
 
       - name: Check Results Generated
         run: |
-          # The new orchestrator outputs execution.json in the project root
           RESULT_FILE="projects/ci_${{ matrix.website.name }}/execution.json"
           if [ -f "$RESULT_FILE" ]; then
             echo "✅ Results generated successfully: $RESULT_FILE"
-            # Extract count of passed scenarios/steps for visibility
             cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"
           else
             echo "❌ No result file found at $RESULT_FILE"
@@ -105,30 +166,28 @@ jobs:
             projects/ci_${{ matrix.website.name }}/.checkpoint.json
           retention-days: 7
 
-      - name: Upload execution results on success
-        if: success()
+      - name: Upload execution results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.website.name }}-execution-results
-          path: projects/ci_${{ matrix.website.name }}/execution.json
+          path: |
+            projects/ci_${{ matrix.website.name }}/execution.json
+            projects/ci_${{ matrix.website.name }}/workflow.json
           retention-days: 30
 
   summary:
     runs-on: ubuntu-latest
-    needs: test-complex-websites
+    needs: test-websites-deep
     if: always()
     
     steps:
       - name: Test Summary
         run: |
-          echo "## 🧪 CI Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "## 🧪 Deep Explorer CI - 20 Website Test Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Tested 5 complex websites for trace-based execution stability." >> $GITHUB_STEP_SUMMARY
+          echo "Tested 20 websites with **Deep Explorer Mode** (3-5 regression scenarios each)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Website | Status |" >> $GITHUB_STEP_SUMMARY
-          echo "|---------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| SauceDemo E-commerce | ${{ needs.test-complex-websites.result }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| ParaBank Banking | ${{ needs.test-complex-websites.result }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| OrangeHRM | ${{ needs.test-complex-websites.result }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Automationexercise | ${{ needs.test-complex-websites.result }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| DemoQA Forms | ${{ needs.test-complex-websites.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "### Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Status: ${{ needs.test-websites-deep.result }}" >> $GITHUB_STEP_SUMMARY
