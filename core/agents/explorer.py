@@ -30,6 +30,7 @@ from core.lib.llm_utils import SafeLLM, try_parse_json
 from core.lib.error_handler import ErrorHandler
 from core.lib.domain_expert import DomainExpert
 from core.lib.exploration_context import ExplorationContext
+from core.lib.navigation_metrics import NavigationMetrics
 
 class ExplorerAgent:
     """
@@ -134,6 +135,40 @@ class ExplorerAgent:
             # ----------------------------------
             
             self.log(f"🏁 Exploration Complete. Locators saved to: {self.workflow_path}", "green", attrs=["bold"])
+            
+            # Navigation Optimization & Metrics
+            if hasattr(self, 'exploration_context') and self.exploration_context:
+                try:
+                    # Track metrics for all scenarios
+                    total_steps = sum(len(s.get('steps', [])) for s in self.workflow.get('scenarios', []))
+                    metrics = NavigationMetrics(
+                        os.path.basename(self.project_dir),
+                        "all_scenarios"
+                    )
+                    
+                    # Get cache stats from LLM
+                    cache_hits = getattr(self.llm, 'cache_hits', 0)
+                    cache_misses = getattr(self.llm, 'cache_misses', 0)
+                    
+                    metrics.record_exploration(
+                        total_steps=total_steps,
+                        optimized_steps=len(self.exploration_context.get_optimized_steps()),
+                        states_visited=len(self.exploration_context.pages_visited),
+                        unique_states=len(self.exploration_context.state_fingerprints)
+                    )
+                    metrics.record_cache_stats(cache_hits, cache_misses)
+                    metrics.record_circular_navigation(
+                        sum(1 for fp in self.exploration_context.state_fingerprints 
+                            if self.exploration_context.get_visit_count(
+                                self.exploration_context.state_fingerprints[fp][0]
+                            ) > 1)
+                    )
+                    
+                    metrics.print_summary()
+                    metrics_file = metrics.save(os.path.join(self.project_dir, "outputs"))
+                    self.log(f"📊 Navigation metrics saved to: {metrics_file}", "cyan")
+                except Exception as e:
+                    self.log(f"⚠️ Metrics tracking error: {e}", "yellow")
 
     async def _explore_scenario(self, page: Page, scenario: Dict, discovery_stats: Dict, depth: int = 0):
         """Recursively explores a scenario, supporting dynamic step injection."""
@@ -329,6 +364,16 @@ class ExplorerAgent:
                     await self._dismiss_vignettes(page)
                     await self._execute_exploration_action(page, step, keyword, args, description)
                     self.log(f"    ✅ State transitioned.", "green")
+                    
+                    # Record PAGE STATE after successful action
+                    if self.exploration_context:
+                        try:
+                            dom_snapshot = await page.content()
+                            is_new_state = self.exploration_context.record_state(page.url, dom_snapshot)
+                            if not is_new_state:
+                                self.log(f"    🔄 Revisited state detected", "yellow")
+                        except:
+                            pass  # Don't fail exploration if state tracking fails
                     
                     # Record successful action in context
                     if self.exploration_context:
