@@ -215,6 +215,13 @@ class ExecutorAgent:
                 # Dispatch keyword to engine
                 if keyword == "navigate":
                     nav_url = resolved_args.get("url") or resolved_args.get("description")
+                    base_url = self.workflow.get("base_url", "")
+                    
+                    if nav_url and nav_url.startswith("/") and base_url:
+                        full_url = base_url.rstrip("/") + nav_url
+                        self.log(f"    🔗 Joining relative URL: {nav_url} -> {full_url}", "grey")
+                        nav_url = full_url
+                        
                     if nav_url:
                         await KeywordEngine.navigate(page, nav_url)
                     else:

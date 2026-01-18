@@ -32,22 +32,60 @@ async def analyze_page(page: Page, url: str, user_goal: str = None) -> Dict:
         }
     """)
 
-    # 2. Extract DOM Elements (Reduced set for context)
+    # 2. Extract DOM Elements and Sort by Visual Prominence
     try:
         res = await page.evaluate(DOM_EXTRACTION_SCRIPT, 0)
-        elements = res.get('elements', [])[:60] # Increased for better CSS matching
-    except Exception:
+        raw_elements = res.get('elements', [])
+        
+        # VISUAL PROMINENCE ALGORITHM:
+        # 1. Calculate screen center
+        viewport = page.viewport_size or {"width": 1280, "height": 720}
+        center_x, center_y = viewport["width"] / 2, viewport["height"] / 2
+        
+        def calculate_score(el):
+            # Distance from center (lower is better)
+            el_x = el.get("center", {}).get("x", center_x)
+            el_y = el.get("center", {}).get("y", center_y)
+            dist = ((el_x - center_x)**2 + (el_y - center_y)**2)**0.5
+            
+            # Size (larger is usually more important)
+            width = el.get("rect", {}).get("width", 10)
+            height = el.get("rect", {}).get("height", 10)
+            area = width * height
+            
+            # Boost specific interactive roles
+            role_boost = 1.0
+            if el.get("tagName") in ["button", "input", "a", "select", "textarea"]:
+                role_boost = 1.2
+            if el.get("role") in ["button", "link", "textbox", "listbox"]:
+                role_boost = 1.2
+                
+            # Final Score: Area / (Distance + 100) * Boost
+            # (Adding 100 to distance prevents division by zero and flattens very close items)
+            return (area / (dist + 100)) * role_boost
+
+        # Sort descending by score
+        elements = sorted(raw_elements, key=calculate_score, reverse=True)[:100]  # Increased limit to 100
+        
+    except Exception as e:
+        print(f"   ⚠️ DOM Extraction failed: {e}")
         elements = []
 
     # 3. Optimized Vision capture
     screenshot_b64 = None
     try:
-        # Lower resolution and quality to save tokens/cost
+        # OPTIMIZED: Resize to max 1024px width to save tokens while keeping readability
+        # Quality reduced to 40 (sufficient for UI text)
+        # Type jpeg is efficient
         screenshot_bytes = await page.screenshot(
             type="jpeg", 
-            quality=50, 
-            scale="device" 
+            quality=40, 
+            scale="css" # Use 1:1 CSS pixels, avoiding huge Retina screenshots
         )
+        
+        # Optional: Resize if needed (requires PIL/Pillow, avoiding extra deps if possible for now)
+        # Using scale="css" usually keeps it manageable (e.g. 1280x720)
+        
         import base64
         screenshot_b64 = base64.b64encode(screenshot_bytes).decode('utf-8')
     except Exception as e:
@@ -55,7 +93,7 @@ async def analyze_page(page: Page, url: str, user_goal: str = None) -> Dict:
 
     return {
         "summary": {"title": await page.title(), "status": "active"},
-        "elements": elements, # Limited DOM for semantic hints
+        "elements": elements, 
         "screenshot": screenshot_b64,
         "url": url
     }

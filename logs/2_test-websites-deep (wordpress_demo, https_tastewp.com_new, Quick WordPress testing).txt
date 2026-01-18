@@ -1,0 +1,1069 @@
+﻿2026-01-18T19:19:53.7994688Z Current runner version: '2.331.0'
+2026-01-18T19:19:53.8018843Z ##[group]Runner Image Provisioner
+2026-01-18T19:19:53.8019657Z Hosted Compute Agent
+2026-01-18T19:19:53.8020178Z Version: 20251211.462
+2026-01-18T19:19:53.8020849Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-18T19:19:53.8021564Z Build Date: 2025-12-11T16:28:49Z
+2026-01-18T19:19:53.8022205Z Worker ID: {d8971824-0263-49b3-8476-aa183ed9b63e}
+2026-01-18T19:19:53.8023258Z ##[endgroup]
+2026-01-18T19:19:53.8023815Z ##[group]Operating System
+2026-01-18T19:19:53.8024342Z Ubuntu
+2026-01-18T19:19:53.8024849Z 24.04.3
+2026-01-18T19:19:53.8025286Z LTS
+2026-01-18T19:19:53.8025778Z ##[endgroup]
+2026-01-18T19:19:53.8026310Z ##[group]Runner Image
+2026-01-18T19:19:53.8026838Z Image: ubuntu-24.04
+2026-01-18T19:19:53.8027352Z Version: 20260111.209.1
+2026-01-18T19:19:53.8028407Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-18T19:19:53.8029964Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-18T19:19:53.8030973Z ##[endgroup]
+2026-01-18T19:19:53.8032038Z ##[group]GITHUB_TOKEN Permissions
+2026-01-18T19:19:53.8034014Z Contents: read
+2026-01-18T19:19:53.8034703Z Metadata: read
+2026-01-18T19:19:53.8035250Z Packages: read
+2026-01-18T19:19:53.8036069Z ##[endgroup]
+2026-01-18T19:19:53.8038192Z Secret source: Actions
+2026-01-18T19:19:53.8038865Z Prepare workflow directory
+2026-01-18T19:19:53.8491315Z Prepare all required actions
+2026-01-18T19:19:53.8545995Z Getting action download info
+2026-01-18T19:19:54.1563724Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-18T19:19:54.2756982Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-18T19:19:54.3619395Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-18T19:19:54.5832075Z Complete job name: test-websites-deep (wordpress_demo, https://tastewp.com/new, Quick WordPress testing)
+2026-01-18T19:19:54.6522087Z ##[group]Run actions/checkout@v4
+2026-01-18T19:19:54.6523104Z with:
+2026-01-18T19:19:54.6523562Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T19:19:54.6524274Z   token: ***
+2026-01-18T19:19:54.6524666Z   ssh-strict: true
+2026-01-18T19:19:54.6525052Z   ssh-user: git
+2026-01-18T19:19:54.6525445Z   persist-credentials: true
+2026-01-18T19:19:54.6525895Z   clean: true
+2026-01-18T19:19:54.6526290Z   sparse-checkout-cone-mode: true
+2026-01-18T19:19:54.6526790Z   fetch-depth: 1
+2026-01-18T19:19:54.6527174Z   fetch-tags: false
+2026-01-18T19:19:54.6527563Z   show-progress: true
+2026-01-18T19:19:54.6527961Z   lfs: false
+2026-01-18T19:19:54.6528325Z   submodules: false
+2026-01-18T19:19:54.6528737Z   set-safe-directory: true
+2026-01-18T19:19:54.6529381Z ##[endgroup]
+2026-01-18T19:19:54.7611288Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T19:19:54.7614513Z ##[group]Getting Git version info
+2026-01-18T19:19:54.7615916Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T19:19:54.7617474Z [command]/usr/bin/git version
+2026-01-18T19:19:54.7697963Z git version 2.52.0
+2026-01-18T19:19:54.7731090Z ##[endgroup]
+2026-01-18T19:19:54.7753253Z Temporarily overriding HOME='/home/runner/work/_temp/a64984e5-c05c-453d-95cf-a07d1272afdc' before making global git config changes
+2026-01-18T19:19:54.7755605Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T19:19:54.7759803Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T19:19:54.7800257Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T19:19:54.7804188Z ##[group]Initializing the repository
+2026-01-18T19:19:54.7808837Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T19:19:54.7909134Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-18T19:19:54.7910512Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-18T19:19:54.7911592Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-18T19:19:54.7912560Z hint: call:
+2026-01-18T19:19:54.7912973Z hint:
+2026-01-18T19:19:54.7913450Z hint: 	git config --global init.defaultBranch <name>
+2026-01-18T19:19:54.7914346Z hint:
+2026-01-18T19:19:54.7915327Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-18T19:19:54.7916897Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-18T19:19:54.7918169Z hint:
+2026-01-18T19:19:54.7918882Z hint: 	git branch -m <name>
+2026-01-18T19:19:54.7919697Z hint:
+2026-01-18T19:19:54.7920764Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-18T19:19:54.7923004Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-18T19:19:54.7929823Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T19:19:54.7966297Z ##[endgroup]
+2026-01-18T19:19:54.7967499Z ##[group]Disabling automatic garbage collection
+2026-01-18T19:19:54.7971334Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-18T19:19:54.8002013Z ##[endgroup]
+2026-01-18T19:19:54.8003563Z ##[group]Setting up auth
+2026-01-18T19:19:54.8009847Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T19:19:54.8042130Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T19:19:54.8417858Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T19:19:54.8452065Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T19:19:54.8672436Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T19:19:54.8707005Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T19:19:54.8933675Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-18T19:19:54.8968511Z ##[endgroup]
+2026-01-18T19:19:54.8969759Z ##[group]Fetching the repository
+2026-01-18T19:19:54.8978570Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c9fb31d387d3134fb416430b3b3a9e89b3921439:refs/remotes/origin/main
+2026-01-18T19:19:55.7197143Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T19:19:55.7201980Z  * [new ref]         c9fb31d387d3134fb416430b3b3a9e89b3921439 -> origin/main
+2026-01-18T19:19:55.7238262Z ##[endgroup]
+2026-01-18T19:19:55.7239072Z ##[group]Determining the checkout info
+2026-01-18T19:19:55.7241371Z ##[endgroup]
+2026-01-18T19:19:55.7248545Z [command]/usr/bin/git sparse-checkout disable
+2026-01-18T19:19:55.7299058Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-18T19:19:55.7327741Z ##[group]Checking out the ref
+2026-01-18T19:19:55.7332977Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-18T19:19:55.8281320Z Switched to a new branch 'main'
+2026-01-18T19:19:55.8282644Z branch 'main' set up to track 'origin/main'.
+2026-01-18T19:19:55.8299961Z ##[endgroup]
+2026-01-18T19:19:55.8338133Z [command]/usr/bin/git log -1 --format=%H
+2026-01-18T19:19:55.8359907Z c9fb31d387d3134fb416430b3b3a9e89b3921439
+2026-01-18T19:19:55.8678126Z ##[group]Run actions/setup-python@v5
+2026-01-18T19:19:55.8679364Z with:
+2026-01-18T19:19:55.8680252Z   python-version: 3.11
+2026-01-18T19:19:55.8681296Z   cache: pip
+2026-01-18T19:19:55.8682531Z   check-latest: false
+2026-01-18T19:19:55.8683808Z   token: ***
+2026-01-18T19:19:55.8684756Z   update-environment: true
+2026-01-18T19:19:55.8685847Z   allow-prereleases: false
+2026-01-18T19:19:55.8686930Z   freethreaded: false
+2026-01-18T19:19:55.8687912Z ##[endgroup]
+2026-01-18T19:19:56.0347958Z ##[group]Installed versions
+2026-01-18T19:19:56.0455588Z Successfully set up CPython (3.11.14)
+2026-01-18T19:19:56.0463427Z ##[endgroup]
+2026-01-18T19:19:56.0951504Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-18T19:19:56.4196534Z /home/runner/.cache/pip
+2026-01-18T19:19:56.5567963Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-18T19:19:57.6806794Z Received 134217728 of 254742636 (52.7%), 127.9 MBs/sec
+2026-01-18T19:19:58.2105917Z Received 254742636 of 254742636 (100.0%), 158.7 MBs/sec
+2026-01-18T19:19:58.2107544Z Cache Size: ~243 MB (254742636 B)
+2026-01-18T19:19:58.2234968Z [command]/usr/bin/tar -xf /home/runner/work/_temp/5a489f81-8bf9-4545-8e6e-25b8b240295e/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-18T19:19:58.5969664Z Cache restored successfully
+2026-01-18T19:19:58.6451189Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-18T19:19:58.6676054Z ##[group]Run pip install -r requirements.txt
+2026-01-18T19:19:58.6676513Z [36;1mpip install -r requirements.txt[0m
+2026-01-18T19:19:58.6676820Z [36;1mplaywright install chromium[0m
+2026-01-18T19:19:58.6715468Z shell: /usr/bin/bash -e {0}
+2026-01-18T19:19:58.6715739Z env:
+2026-01-18T19:19:58.6716004Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:19:58.6716445Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:19:58.6716886Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:19:58.6717283Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:19:58.6717675Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:19:58.6718051Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:19:58.6718356Z ##[endgroup]
+2026-01-18T19:19:59.3223759Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-18T19:19:59.3239987Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-18T19:19:59.3399075Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-18T19:19:59.3414094Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-18T19:19:59.3692743Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-18T19:19:59.3708775Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-18T19:19:59.5382468Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-18T19:19:59.5399208Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-18T19:19:59.5641831Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-18T19:19:59.5655223Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-18T19:19:59.5802459Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-18T19:19:59.5815548Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-18T19:19:59.6145996Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-18T19:19:59.6159241Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-18T19:19:59.6696620Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-18T19:19:59.6711141Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-18T19:19:59.8611693Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-18T19:19:59.8627278Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-18T19:19:59.9382147Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-18T19:19:59.9397291Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-18T19:19:59.9562048Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-18T19:19:59.9575062Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-18T19:20:00.0733729Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-18T19:20:00.0749460Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-18T19:20:00.0920665Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-18T19:20:00.0934142Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-18T19:20:00.1717230Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-18T19:20:00.1732904Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-18T19:20:00.1923840Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-18T19:20:00.1940201Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T19:20:00.3318458Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-18T19:20:00.3331993Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-18T19:20:00.3529911Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-18T19:20:00.3542923Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T19:20:00.3759861Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.3773319Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-18T19:20:00.4095377Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.4108582Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-18T19:20:00.4341825Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.4355233Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-18T19:20:00.5710692Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.5725519Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-18T19:20:00.5988417Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.6001443Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-18T19:20:00.6821169Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.6836281Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-18T19:20:00.6980940Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.6993610Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-18T19:20:00.7073362Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.7086300Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-18T19:20:00.7347415Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.7360208Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-18T19:20:00.7510786Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.7523825Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-18T19:20:00.7779868Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.7792947Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-18T19:20:00.7899556Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.7912832Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-18T19:20:00.8001498Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:00.8014898Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-18T19:20:01.4499654Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:01.4515306Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-18T19:20:01.4633513Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:01.4647078Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-18T19:20:01.5344372Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:20:01.5359534Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T19:20:01.5620414Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-18T19:20:01.5964672Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-18T19:20:01.5981194Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-18T19:20:01.5994864Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-18T19:20:01.6008228Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-18T19:20:01.6022802Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-18T19:20:01.6036570Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-18T19:20:01.6049983Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-18T19:20:01.6064485Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-18T19:20:01.6128331Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-18T19:20:01.6146423Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-18T19:20:01.6160244Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-18T19:20:01.6173669Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-18T19:20:01.6188066Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-18T19:20:01.6201338Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-18T19:20:01.6215140Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-18T19:20:01.6231567Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-18T19:20:01.6259362Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-18T19:20:01.6272754Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-18T19:20:01.6286155Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-18T19:20:01.6300004Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-18T19:20:01.6313859Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-18T19:20:01.6327509Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-18T19:20:01.6346282Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-18T19:20:01.6799032Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-18T19:20:01.6928981Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-18T19:20:01.6956137Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-18T19:20:01.6969181Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-18T19:20:01.6983106Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-18T19:20:01.6996516Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-18T19:20:01.7009696Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-18T19:20:01.7024091Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-18T19:20:01.7037141Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-18T19:20:01.9047378Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-18T19:20:08.6515335Z 
+2026-01-18T19:20:08.6539364Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-18T19:20:09.2633628Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-18T19:20:09.3635983Z (node:2186) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T19:20:09.3637800Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T19:20:09.4720958Z |                                                                                |   0% of 164.7 MiB
+2026-01-18T19:20:09.6502554Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-18T19:20:09.8011665Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-18T19:20:09.9482939Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-18T19:20:10.0776822Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-18T19:20:10.2498613Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-18T19:20:10.3737078Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-18T19:20:10.5757936Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-18T19:20:10.7214867Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-18T19:20:10.8605829Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-18T19:20:11.0346744Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-18T19:20:13.5106944Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-18T19:20:13.5112768Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-18T19:20:13.6085982Z (node:2197) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T19:20:13.6088707Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T19:20:13.6560608Z |                                                                                |   0% of 2.3 MiB
+2026-01-18T19:20:13.6614677Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-18T19:20:13.6632194Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-18T19:20:13.6651890Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-18T19:20:13.6669865Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-18T19:20:13.6689772Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-18T19:20:13.6704925Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-18T19:20:13.6716050Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-18T19:20:13.6734964Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-18T19:20:13.6745390Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-18T19:20:13.6758064Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-18T19:20:13.7315787Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-18T19:20:13.7318551Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-18T19:20:13.8287654Z (node:2208) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T19:20:13.8288753Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T19:20:13.9232650Z |                                                                                |   0% of 109.7 MiB
+2026-01-18T19:20:14.0626048Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-18T19:20:14.1533432Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-18T19:20:14.2856378Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-18T19:20:14.4117115Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-18T19:20:14.4914661Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-18T19:20:14.5759275Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-18T19:20:14.6635413Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-18T19:20:14.7394976Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-18T19:20:14.8388518Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-18T19:20:14.9306450Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-18T19:20:16.7708756Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-18T19:20:16.7939437Z ##[group]Run mkdir -p projects/ci_wordpress_demo
+2026-01-18T19:20:16.7939840Z [36;1mmkdir -p projects/ci_wordpress_demo[0m
+2026-01-18T19:20:16.7940245Z [36;1mcat > projects/ci_wordpress_demo/config.json << 'EOF'[0m
+2026-01-18T19:20:16.7940564Z [36;1m{[0m
+2026-01-18T19:20:16.7940780Z [36;1m  "project_name": "ci_wordpress_demo",[0m
+2026-01-18T19:20:16.7941101Z [36;1m  "target_url": "https://tastewp.com/new",[0m
+2026-01-18T19:20:16.7941432Z [36;1m  "goal": "Quick WordPress testing",[0m
+2026-01-18T19:20:16.7941698Z [36;1m  "headless": true[0m
+2026-01-18T19:20:16.7941906Z [36;1m}[0m
+2026-01-18T19:20:16.7942065Z [36;1mEOF[0m
+2026-01-18T19:20:16.7976188Z shell: /usr/bin/bash -e {0}
+2026-01-18T19:20:16.7976422Z env:
+2026-01-18T19:20:16.7976667Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:20:16.7977102Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:20:16.7977555Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:20:16.7977933Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:20:16.7978304Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:20:16.7978670Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:20:16.7978976Z ##[endgroup]
+2026-01-18T19:20:16.8090693Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-18T19:20:16.8091155Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-18T19:20:16.8091613Z [36;1mpython orchestrator.py --project projects/ci_wordpress_demo --deep --force[0m
+2026-01-18T19:20:16.8123901Z shell: /usr/bin/bash -e {0}
+2026-01-18T19:20:16.8124137Z env:
+2026-01-18T19:20:16.8124392Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:20:16.8124819Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:20:16.8125261Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:20:16.8125648Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:20:16.8126030Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:20:16.8126591Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:20:16.8127119Z   GOOGLE_API_KEY: ***
+2026-01-18T19:20:16.8127350Z   PYTHONPATH: .
+2026-01-18T19:20:16.8127530Z ##[endgroup]
+2026-01-18T19:20:18.4656036Z usage: discovery.py [-h] --project PROJECT --url URL
+2026-01-18T19:20:18.4656799Z discovery.py: error: unrecognized arguments: --deep
+2026-01-18T19:20:24.2217278Z 
+2026-01-18T19:20:24.2217915Z [PLAN] PLANNER: Planning goal -> 'Quick WordPress testing' (Deep Mode: True)
+2026-01-18T19:20:24.2219447Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-18T19:20:24.2220436Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T19:20:24.2220795Z [DEBUG] Received response (Length: 3527)
+2026-01-18T19:20:24.2221164Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-18T19:20:25.2468895Z 
+2026-01-18T19:20:25.2470036Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-18T19:20:25.2470591Z 📋 Found 3 scenarios to explore.
+2026-01-18T19:20:25.7176960Z 
+2026-01-18T19:20:25.7177671Z [1/3] Exploring Scenario: Create a new WordPress site and verify its creation
+2026-01-18T19:20:25.7180453Z     🧠 Initialized exploration context for goal: 'Quick WordPress testing'
+2026-01-18T19:20:25.7181200Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T19:20:27.2674708Z     ✅ Navigated to https://tastewp.com/new
+2026-01-18T19:20:27.2675875Z   ▶️ [STEP step_2] CLICK: Create a temporary WordPress site
+2026-01-18T19:20:27.2952733Z     🔍 Mining locators for: 'Create a temporary WordPress site'
+2026-01-18T19:20:27.3546311Z     🧠 Consulting AI (Vision-First) to find 'Create a temporary WordPress site'...
+2026-01-18T19:20:27.3548048Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:20:28.8543494Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:28.8544316Z [DEBUG] Received response (Length: 308)
+2026-01-18T19:20:28.8546928Z     💡 Expert Suggestion: The current page is a loading screen. Navigating to the Home page might reveal the desired 'Create a temporary WordPress site' option or provide further navigation options.
+2026-01-18T19:20:28.8548790Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-18T19:20:28.8986736Z     🔄 Retry 1/3 mining locators for 'Create a temporary WordPress site'...
+2026-01-18T19:20:29.9319491Z     🧠 Consulting AI (Vision-First) to find 'Create a temporary WordPress site'...
+2026-01-18T19:20:29.9321196Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:20:33.7628730Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:33.7629222Z [DEBUG] Received response (Length: 307)
+2026-01-18T19:20:33.7630684Z     💡 Expert Suggestion: The current page shows an error. Clicking on the TasteWP.com link might redirect to the main page where the 'Create a temporary WordPress site' option is available.
+2026-01-18T19:20:33.7631667Z     🛠️ Executing corrective action: click -> 'TasteWP.com'
+2026-01-18T19:20:34.5065315Z     ✅ Executed corrective navigation
+2026-01-18T19:20:36.5073275Z     🔄 Retry 2/3 mining locators for 'Create a temporary WordPress site'...
+2026-01-18T19:20:37.6675727Z     🧠 Consulting AI (Vision-First) to find 'Create a temporary WordPress site'...
+2026-01-18T19:20:37.6677263Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:20:40.0463345Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:40.0463996Z [DEBUG] Received response (Length: 704)
+2026-01-18T19:20:40.0465082Z     🧠 Verifying step validity for 'Create a temporary WordPress site' after mining failure...
+2026-01-18T19:20:44.4538493Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:44.4538965Z [DEBUG] Received response (Length: 434)
+2026-01-18T19:20:44.4539670Z     🛠️ Self-Correction: Step is valid. Using new locator: a[href*='instance']
+2026-01-18T19:20:49.9686129Z     ⚠️ Scroll into view failed for a[href*='instance']. Proceeding anyway.
+2026-01-18T19:20:54.9698862Z     ⚠️ Action failed: Locator.bounding_box: Timeout 5000ms exceeded.
+2026-01-18T19:20:54.9699279Z Cal...
+2026-01-18T19:20:56.8507240Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:56.8507787Z [DEBUG] Received response (Length: 223)
+2026-01-18T19:20:56.8508911Z     ✨ AI Heal Reasoning: The text 'dvanced Setup' is next to the button that creates a temporary WordPress site. The button is an anchor tag with href containing 'instance'.
+2026-01-18T19:20:56.8509907Z     ✨ AI healed exploration action! New selector: a[href*='instance']
+2026-01-18T19:21:02.3556440Z     ⚠️ Scroll into view failed for a[href*='instance']. Proceeding anyway.
+2026-01-18T19:21:07.3578134Z   ▶️ [STEP step_3] WAIT: 
+2026-01-18T19:21:12.3771901Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T19:21:14.3795045Z     ✅ State transitioned.
+2026-01-18T19:21:16.0645572Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:16.0646413Z [DEBUG] Received response (Length: 346)
+2026-01-18T19:21:16.0647291Z     🤖 AI Next Step Suggestion: click -> Set it up! (no sign up required!)
+2026-01-18T19:21:16.0647838Z     🧩 Suggested Locator: a[href*='instance']
+2026-01-18T19:21:16.0649277Z     💭 Reasoning: The previous attempt to create a temporary WordPress site failed. I will try again by clicking the 'Set it up! (no sign up required!)' button, which is the primary call to action for creating a temporary WordPress site.
+2026-01-18T19:21:16.0650812Z     ➕ Injected AI step: click -> Set it up! (no sign up required!)
+2026-01-18T19:21:16.0651429Z   ▶️ [STEP step_3_ai_1] CLICK: Set it up! (no sign up required!)
+2026-01-18T19:21:16.0725760Z     🎯 Using AI-provided locator: a[href*='instance']
+2026-01-18T19:21:16.0753532Z     🔍 Mining locators for: 'Set it up! (no sign up required!)'
+2026-01-18T19:21:16.2039599Z     ✅ Found 1 verified locators
+2026-01-18T19:21:19.7862112Z     ✅ State transitioned.
+2026-01-18T19:21:19.8197586Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:21:21.5277618Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:21.5278247Z [DEBUG] Received response (Length: 363)
+2026-01-18T19:21:21.5279187Z     🤖 AI Next Step Suggestion: click -> Set it up! (no sign up required!)
+2026-01-18T19:21:21.5280084Z     🧩 Suggested Locator: a:contains('Set it up! (no sign up required!)')
+2026-01-18T19:21:21.5281799Z     💭 Reasoning: The goal is quick WordPress testing. The last attempt to create a temporary site failed. Clicking 'Set it up! (no sign up required!)' is the most direct way to achieve this, and it was successful in the past.
+2026-01-18T19:21:21.5283455Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'set it up! (no sign up required!)')
+2026-01-18T19:21:21.5284001Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Magic Link
+2026-01-18T19:21:21.5361836Z     🔍 Mining locators for: 'Magic Link'
+2026-01-18T19:21:21.6656902Z     🧠 Consulting AI (Vision-First) to find 'Magic Link'...
+2026-01-18T19:21:21.6658200Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:26.3461124Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:26.3461558Z [DEBUG] Received response (Length: 199)
+2026-01-18T19:21:26.3462510Z     💡 Expert Suggestion: The 'Magic Link' option is typically found on the login page.
+2026-01-18T19:21:26.3463091Z     🛠️ Executing corrective action: click -> 'Log in'
+2026-01-18T19:21:26.9750724Z     ✅ Executed corrective navigation
+2026-01-18T19:21:28.9773790Z     🔄 Retry 1/3 mining locators for 'Magic Link'...
+2026-01-18T19:21:30.0673566Z     🧠 Consulting AI (Vision-First) to find 'Magic Link'...
+2026-01-18T19:21:30.0674863Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:32.0633747Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:32.0634185Z [DEBUG] Received response (Length: 486)
+2026-01-18T19:21:32.0634697Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T19:21:34.1038286Z 
+2026-01-18T19:21:34.1039012Z [2/3] Exploring Scenario: Create a new WordPress site and access the admin dashboard
+2026-01-18T19:21:34.1040587Z     🧠 Initialized exploration context for goal: 'Quick WordPress testing'
+2026-01-18T19:21:34.1041310Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T19:21:35.2959950Z     ✅ Navigated to https://tastewp.com/new
+2026-01-18T19:21:35.2960742Z   ▶️ [STEP step_2] CLICK: Create a temporary WordPress site
+2026-01-18T19:21:35.3301608Z     🔍 Mining locators for: 'Create a temporary WordPress site'
+2026-01-18T19:21:35.3842836Z     🧠 Consulting AI (Vision-First) to find 'Create a temporary WordPress site'...
+2026-01-18T19:21:35.3846139Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:35.3850599Z [CACHE HIT] 04576298... (hits: 1, misses: 9)
+2026-01-18T19:21:35.3852667Z     💡 Expert Suggestion: The current page is a loading screen. Navigating to the Home page might reveal the desired 'Create a temporary WordPress site' option or provide further navigation options.
+2026-01-18T19:21:35.3854325Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-18T19:21:35.4374671Z     🔄 Retry 1/3 mining locators for 'Create a temporary WordPress site'...
+2026-01-18T19:21:36.5126177Z     🧠 Consulting AI (Vision-First) to find 'Create a temporary WordPress site'...
+2026-01-18T19:21:36.5153591Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:38.1948427Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:38.1949133Z [DEBUG] Received response (Length: 234)
+2026-01-18T19:21:38.1950715Z     💡 Expert Suggestion: The target 'Create a temporary WordPress site' is likely located under the 'Products' section.
+2026-01-18T19:21:38.1952134Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:21:38.2449595Z     🔄 Retry 2/3 mining locators for 'Create a temporary WordPress site'...
+2026-01-18T19:21:39.2780666Z     🧠 Consulting AI (Vision-First) to find 'Create a temporary WordPress site'...
+2026-01-18T19:21:39.2782475Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:39.2786347Z [CACHE HIT] aab6447f... (hits: 2, misses: 10)
+2026-01-18T19:21:39.2789247Z     💡 Expert Suggestion: The current page shows an error. Clicking on the TasteWP.com link might redirect to the main page where the 'Create a temporary WordPress site' option is available.
+2026-01-18T19:21:39.2790717Z     🛠️ Executing corrective action: click -> 'TasteWP.com'
+2026-01-18T19:21:40.0135260Z     ✅ Executed corrective navigation
+2026-01-18T19:21:42.0121021Z     🧠 Verifying step validity for 'Create a temporary WordPress site' after no candidates found...
+2026-01-18T19:21:43.2853563Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:43.2854028Z [DEBUG] Received response (Length: 213)
+2026-01-18T19:21:43.2855300Z     🗑️ Step deemed INVALID: The page shows an error message indicating a reCaptcha check failed. The 'Create a temporary WordPress site' element is not visible on this error page.. Removing from workflow.
+2026-01-18T19:21:43.2858637Z     ⏭️ Skipping execution of invalid step: Create a temporary WordPress site
+2026-01-18T19:21:43.2859106Z   ▶️ [STEP step_3] WAIT: 
+2026-01-18T19:21:48.3180250Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T19:21:50.3203314Z     ✅ State transitioned.
+2026-01-18T19:21:51.9730418Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:51.9731168Z [DEBUG] Received response (Length: 240)
+2026-01-18T19:21:51.9732147Z     🤖 AI Next Step Suggestion: click -> Set it up! (no sign up required!)
+2026-01-18T19:21:51.9733266Z     🧩 Suggested Locator: a[href*='instance']
+2026-01-18T19:21:51.9734614Z     💭 Reasoning: The main call to action is to set up a WordPress instance, which aligns with the goal of quick WordPress testing.
+2026-01-18T19:21:51.9736084Z ⚠️ Loop detected: same AI suggestion repeated 3 times. Moving to next step.
+2026-01-18T19:21:51.9736967Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Magic Link
+2026-01-18T19:21:51.9812662Z     🔍 Mining locators for: 'Magic Link'
+2026-01-18T19:21:52.1147754Z     🧠 Consulting AI (Vision-First) to find 'Magic Link'...
+2026-01-18T19:21:52.1149074Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:56.8987752Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:56.8988376Z [DEBUG] Received response (Length: 252)
+2026-01-18T19:21:56.8989273Z     💡 Expert Suggestion: The 'Magic Link' option is typically found on the login page or within the user account settings after logging in.
+2026-01-18T19:21:56.8990722Z     🛠️ Executing corrective action: click -> 'Log in'
+2026-01-18T19:21:57.5302015Z     ✅ Executed corrective navigation
+2026-01-18T19:21:59.5325228Z     🔄 Retry 1/3 mining locators for 'Magic Link'...
+2026-01-18T19:22:00.6316866Z     🧠 Consulting AI (Vision-First) to find 'Magic Link'...
+2026-01-18T19:22:00.6318488Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:22:02.7768450Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:02.7769105Z [DEBUG] Received response (Length: 501)
+2026-01-18T19:22:02.7769875Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T19:22:02.7770411Z   ▶️ [STEP step_5] CLICK: Magic Link
+2026-01-18T19:22:02.7843265Z     🔍 Mining locators for: 'Magic Link'
+2026-01-18T19:22:02.8829295Z     🧠 Consulting AI (Vision-First) to find 'Magic Link'...
+2026-01-18T19:22:02.8830510Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:22:07.8827965Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:07.8828600Z [DEBUG] Received response (Length: 406)
+2026-01-18T19:22:07.8829466Z     🔄 Retry 1/3 mining locators for 'Magic Link'...
+2026-01-18T19:22:08.9864457Z     🧠 Consulting AI (Vision-First) to find 'Magic Link'...
+2026-01-18T19:22:08.9866341Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:22:12.5850038Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:12.5850449Z [DEBUG] Received response (Length: 505)
+2026-01-18T19:22:12.5850966Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T19:22:12.5851277Z   ▶️ [STEP step_6] WAIT: 
+2026-01-18T19:22:17.6041230Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T19:22:19.6064123Z     ✅ State transitioned.
+2026-01-18T19:22:21.2207604Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:21.2208270Z [DEBUG] Received response (Length: 153)
+2026-01-18T19:22:21.2208923Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-18T19:22:21.2209650Z     🧩 Suggested Locator: #loginField
+2026-01-18T19:22:21.2210069Z     💭 Reasoning: Need to fill in username to attempt login
+2026-01-18T19:22:21.2210503Z     ➕ Injected AI step: fill -> Username
+2026-01-18T19:22:21.2210904Z   ▶️ [STEP step_6_ai_1] FILL: Username
+2026-01-18T19:22:21.2288200Z     🎯 Using AI-provided locator: #loginField
+2026-01-18T19:22:21.2371245Z     ✅ Found 1 verified locators
+2026-01-18T19:22:26.7545319Z     ✅ State transitioned.
+2026-01-18T19:22:26.7799362Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:22:28.4718606Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:28.4719230Z [DEBUG] Received response (Length: 162)
+2026-01-18T19:22:28.4720009Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T19:22:28.4720579Z     🧩 Suggested Locator: #password
+2026-01-18T19:22:28.4721026Z     💭 Reasoning: Need to fill in the password field to attempt login.
+2026-01-18T19:22:28.4721428Z     ➕ Injected AI step: fill -> Password
+2026-01-18T19:22:28.4721785Z   ▶️ [STEP step_6_ai_2] FILL: Password
+2026-01-18T19:22:28.4798585Z     🎯 Using AI-provided locator: #password
+2026-01-18T19:22:28.4874395Z     ✅ Found 1 verified locators
+2026-01-18T19:22:34.1164526Z     ✅ State transitioned.
+2026-01-18T19:22:34.1426524Z     🔄 Revisited state detected (count: 2)
+2026-01-18T19:22:35.8605235Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:35.8605947Z [DEBUG] Received response (Length: 204)
+2026-01-18T19:22:35.8606714Z     🤖 AI Next Step Suggestion: click -> Log in
+2026-01-18T19:22:35.8607288Z     🧩 Suggested Locator: #loginUser
+2026-01-18T19:22:35.8608312Z     💭 Reasoning: The username and password have been filled. Now, click the 'Log in' button to attempt to log in.
+2026-01-18T19:22:35.8609277Z     ➕ Injected AI step: click -> Log in
+2026-01-18T19:22:35.8609792Z   ▶️ [STEP step_6_ai_3] CLICK: Log in
+2026-01-18T19:22:35.8686785Z     🎯 Using AI-provided locator: #loginUser
+2026-01-18T19:22:35.8763975Z     ✅ Found 1 verified locators
+2026-01-18T19:22:39.9523828Z     ✅ State transitioned.
+2026-01-18T19:22:39.9772728Z     🔄 Revisited state detected (count: 3)
+2026-01-18T19:22:41.6822006Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:41.6822969Z [DEBUG] Received response (Length: 229)
+2026-01-18T19:22:41.6823622Z     🤖 AI Next Step Suggestion: click -> Forgot password?
+2026-01-18T19:22:41.6824092Z     🧩 Suggested Locator: a:contains('Forgot password?')
+2026-01-18T19:22:41.6824766Z     💭 Reasoning: The previous login attempt failed. The next logical step is to try to recover the password.
+2026-01-18T19:22:41.6825391Z     ➕ Injected AI step: click -> Forgot password?
+2026-01-18T19:22:41.6825790Z   ▶️ [STEP step_6_ai_4] CLICK: Forgot password?
+2026-01-18T19:22:41.6902699Z     🎯 Using AI-provided locator: a:contains('Forgot password?')
+2026-01-18T19:22:41.6930093Z     🔍 Mining locators for: 'Forgot password?'
+2026-01-18T19:22:41.8480647Z     ✅ Found 2 verified locators
+2026-01-18T19:22:45.4188453Z     ✅ State transitioned.
+2026-01-18T19:22:45.4450482Z     🔄 Revisited state detected (count: 4)
+2026-01-18T19:22:47.0434848Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:47.0435540Z [DEBUG] Received response (Length: 183)
+2026-01-18T19:22:47.0436410Z     🤖 AI Next Step Suggestion: fill -> Email
+2026-01-18T19:22:47.0436994Z     🧩 Suggested Locator: #email-forgot
+2026-01-18T19:22:47.0437667Z     💭 Reasoning: To recover the password, we need to fill in the email field.
+2026-01-18T19:22:47.0438386Z     ➕ Injected AI step: fill -> Email
+2026-01-18T19:22:47.0438903Z   ▶️ [STEP step_6_ai_5] FILL: Email
+2026-01-18T19:22:47.0522183Z     🎯 Using AI-provided locator: #email-forgot
+2026-01-18T19:22:47.0598519Z     ✅ Found 1 verified locators
+2026-01-18T19:22:53.1799263Z     ✅ State transitioned.
+2026-01-18T19:22:53.2074210Z     🔄 Revisited state detected (count: 5)
+2026-01-18T19:22:53.2075036Z     ⚠️ Too many revisits (5). Stopping AI step injection to prevent loops.
+2026-01-18T19:22:53.2076139Z   ▶️ [STEP step_7] ASSERT_VISIBLE: Dashboard
+2026-01-18T19:22:53.2154311Z     🔍 Mining locators for: 'Dashboard'
+2026-01-18T19:22:53.3124165Z     🧠 Consulting AI (Vision-First) to find 'Dashboard'...
+2026-01-18T19:22:53.3143537Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:22:55.0152092Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:55.0152932Z [DEBUG] Received response (Length: 190)
+2026-01-18T19:22:55.0153897Z     💡 Expert Suggestion: The 'Dashboard' is typically found after logging in.
+2026-01-18T19:22:55.0154718Z     🛠️ Executing corrective action: click -> 'Log in'
+2026-01-18T19:22:55.6533580Z     ✅ Executed corrective navigation
+2026-01-18T19:22:57.6557007Z     🔄 Retry 1/3 mining locators for 'Dashboard'...
+2026-01-18T19:22:58.7462034Z     🧠 Consulting AI (Vision-First) to find 'Dashboard'...
+2026-01-18T19:22:58.7463772Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:00.3775175Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:00.3775799Z [DEBUG] Received response (Length: 209)
+2026-01-18T19:23:00.3778167Z     ⚠️ Skipping duplicate injection: Log in
+2026-01-18T19:23:00.3778559Z     🔄 Retry 2/3 mining locators for 'Dashboard'...
+2026-01-18T19:23:01.4623396Z     🧠 Consulting AI (Vision-First) to find 'Dashboard'...
+2026-01-18T19:23:01.4625028Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:05.2543317Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:05.2544119Z [DEBUG] Received response (Length: 214)
+2026-01-18T19:23:05.2545134Z     ⚠️ Skipping duplicate injection: Log in
+2026-01-18T19:23:05.2546203Z     🧠 Verifying step validity for 'Dashboard' after no candidates found...
+2026-01-18T19:23:09.9809554Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:09.9810202Z [DEBUG] Received response (Length: 293)
+2026-01-18T19:23:09.9811923Z     🗑️ Step deemed INVALID: The current page is the landing page of TasteWP.com. The 'Dashboard' is part of the WordPress admin interface, which is not accessible from this page. We need to first create a WordPress instance before we can access the dashboard.. Removing from workflow.
+2026-01-18T19:23:09.9813651Z     ⏭️ Skipping execution of invalid step: Dashboard
+2026-01-18T19:23:12.0206941Z 
+2026-01-18T19:23:12.0207545Z [3/3] Exploring Scenario: Create a new WordPress site and delete it
+2026-01-18T19:23:12.0209089Z     🧠 Initialized exploration context for goal: 'Quick WordPress testing'
+2026-01-18T19:23:12.0209831Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T19:23:13.2229231Z     ✅ Navigated to https://tastewp.com/new
+2026-01-18T19:23:13.2230442Z   ▶️ [STEP step_2] CLICK: Create a temporary WordPress site
+2026-01-18T19:23:13.2516970Z     🔍 Mining locators for: 'Create a temporary WordPress site'
+2026-01-18T19:23:13.2967611Z     🧠 Consulting AI (Vision-First) to find 'Create a temporary WordPress site'...
+2026-01-18T19:23:13.2969339Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:15.2916149Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:15.2916666Z [DEBUG] Received response (Length: 300)
+2026-01-18T19:23:15.2917750Z     💡 Expert Suggestion: The image shows a loading screen. 'Create a temporary WordPress site' is likely on a page accessible after loading, possibly under 'Products' or a similar menu.
+2026-01-18T19:23:15.2918642Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:23:15.3413315Z     🔄 Retry 1/3 mining locators for 'Create a temporary WordPress site'...
+2026-01-18T19:23:16.4248634Z     🧠 Consulting AI (Vision-First) to find 'Create a temporary WordPress site'...
+2026-01-18T19:23:16.4249933Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:16.4253233Z [CACHE HIT] aab6447f... (hits: 3, misses: 26)
+2026-01-18T19:23:16.4254600Z     💡 Expert Suggestion: The current page shows an error. Clicking on the TasteWP.com link might redirect to the main page where the 'Create a temporary WordPress site' option is available.
+2026-01-18T19:23:16.4255474Z     🛠️ Executing corrective action: click -> 'TasteWP.com'
+2026-01-18T19:23:17.1614519Z     ✅ Executed corrective navigation
+2026-01-18T19:23:19.1625468Z     🔄 Retry 2/3 mining locators for 'Create a temporary WordPress site'...
+2026-01-18T19:23:20.2612414Z     🧠 Consulting AI (Vision-First) to find 'Create a temporary WordPress site'...
+2026-01-18T19:23:20.2613764Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:22.5379847Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:22.5380489Z [DEBUG] Received response (Length: 688)
+2026-01-18T19:23:22.5381586Z     🧠 Verifying step validity for 'Create a temporary WordPress site' after mining failure...
+2026-01-18T19:23:27.0503429Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:27.0504262Z [DEBUG] Received response (Length: 438)
+2026-01-18T19:23:27.0505454Z     🛠️ Self-Correction: Step is valid. Using new locator: a[href*='instance']
+2026-01-18T19:23:32.5743270Z     ⚠️ Scroll into view failed for a[href*='instance']. Proceeding anyway.
+2026-01-18T19:23:37.5757728Z     ⚠️ Action failed: Locator.bounding_box: Timeout 5000ms exceeded.
+2026-01-18T19:23:37.5758224Z Cal...
+2026-01-18T19:23:37.6602830Z [CACHE HIT] 6f2430a8... (hits: 4, misses: 28)
+2026-01-18T19:23:37.6603948Z     ✨ AI Heal Reasoning: The text 'dvanced Setup' is next to the button that creates a temporary WordPress site. The button is an anchor tag with href containing 'instance'.
+2026-01-18T19:23:37.6604793Z     ✨ AI healed exploration action! New selector: a[href*='instance']
+2026-01-18T19:23:43.1648450Z     ⚠️ Scroll into view failed for a[href*='instance']. Proceeding anyway.
+2026-01-18T19:23:48.1666219Z   ▶️ [STEP step_3] WAIT: 
+2026-01-18T19:23:53.1860003Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T19:23:55.1873974Z     ✅ State transitioned.
+2026-01-18T19:23:55.2927643Z [CACHE HIT] 2f7b0a9f... (hits: 5, misses: 28)
+2026-01-18T19:23:55.2928639Z     🤖 AI Next Step Suggestion: click -> Set it up! (no sign up required!)
+2026-01-18T19:23:55.2929712Z     🧩 Suggested Locator: a[href*='instance']
+2026-01-18T19:23:55.2931949Z     💭 Reasoning: The previous attempt to create a temporary WordPress site failed. I will try again by clicking the 'Set it up! (no sign up required!)' button, which is the primary call to action for creating a temporary WordPress site.
+2026-01-18T19:23:55.2934704Z     ➕ Injected AI step: click -> Set it up! (no sign up required!)
+2026-01-18T19:23:55.2935512Z   ▶️ [STEP step_3_ai_1] CLICK: Set it up! (no sign up required!)
+2026-01-18T19:23:55.3004196Z     🎯 Using AI-provided locator: a[href*='instance']
+2026-01-18T19:23:55.3029301Z     🔍 Mining locators for: 'Set it up! (no sign up required!)'
+2026-01-18T19:23:55.4499996Z     ✅ Found 1 verified locators
+2026-01-18T19:23:59.0285295Z     ✅ State transitioned.
+2026-01-18T19:23:59.0525470Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:23:59.1919568Z [CACHE HIT] 9427f750... (hits: 6, misses: 28)
+2026-01-18T19:23:59.1920609Z     🤖 AI Next Step Suggestion: click -> Set it up! (no sign up required!)
+2026-01-18T19:23:59.1921502Z     🧩 Suggested Locator: a:contains('Set it up! (no sign up required!)')
+2026-01-18T19:23:59.1923555Z     💭 Reasoning: The goal is quick WordPress testing. The last attempt to create a temporary site failed. Clicking 'Set it up! (no sign up required!)' is the most direct way to achieve this, and it was successful in the past.
+2026-01-18T19:23:59.1924728Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'set it up! (no sign up required!)')
+2026-01-18T19:23:59.1925259Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Magic Link
+2026-01-18T19:23:59.1991650Z     🔍 Mining locators for: 'Magic Link'
+2026-01-18T19:23:59.2752099Z     🧠 Consulting AI (Vision-First) to find 'Magic Link'...
+2026-01-18T19:23:59.2753733Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:59.2757626Z [CACHE HIT] 5c91801c... (hits: 7, misses: 28)
+2026-01-18T19:23:59.2758686Z     💡 Expert Suggestion: The 'Magic Link' option is typically found on the login page or within the user account settings after logging in.
+2026-01-18T19:23:59.2760753Z     🛠️ Executing corrective action: click -> 'Log in'
+2026-01-18T19:23:59.8850693Z     ✅ Executed corrective navigation
+2026-01-18T19:24:01.8871512Z     🔄 Retry 1/3 mining locators for 'Magic Link'...
+2026-01-18T19:24:02.9783447Z     🧠 Consulting AI (Vision-First) to find 'Magic Link'...
+2026-01-18T19:24:02.9786728Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:24:03.0010720Z [CACHE HIT] 187d6dc6... (hits: 8, misses: 28)
+2026-01-18T19:24:03.0011569Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T19:24:03.0012143Z   ▶️ [STEP step_5] CLICK: Magic Link
+2026-01-18T19:24:03.0087363Z     🔍 Mining locators for: 'Magic Link'
+2026-01-18T19:24:03.0947019Z     🧠 Consulting AI (Vision-First) to find 'Magic Link'...
+2026-01-18T19:24:03.0948412Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:24:03.1060272Z [CACHE HIT] 187d6dc6... (hits: 9, misses: 28)
+2026-01-18T19:24:03.1061070Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T19:24:03.1061582Z   ▶️ [STEP step_6] WAIT: 
+2026-01-18T19:24:08.1252396Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T19:24:10.1275041Z     ✅ State transitioned.
+2026-01-18T19:24:11.9905474Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:11.9906189Z [DEBUG] Received response (Length: 277)
+2026-01-18T19:24:11.9907012Z     🤖 AI Next Step Suggestion: click -> Create!
+2026-01-18T19:24:11.9907606Z     🧩 Suggested Locator: a
+2026-01-18T19:24:11.9909530Z     💭 Reasoning: Since the goal is quick WordPress testing and the user is currently on the login popup, but doesn't have an account, the next logical step is to create an account by clicking the 'Create!' link.
+2026-01-18T19:24:11.9911357Z     ➕ Injected AI step: click -> Create!
+2026-01-18T19:24:11.9912557Z   ▶️ [STEP step_6_ai_1] CLICK: Create!
+2026-01-18T19:24:11.9984720Z     🎯 Using AI-provided locator: a
+2026-01-18T19:24:12.0009224Z     🔍 Mining locators for: 'Create!'
+2026-01-18T19:24:12.1523497Z     ✅ Found 2 verified locators
+2026-01-18T19:24:15.7477681Z     ✅ State transitioned.
+2026-01-18T19:24:15.7743191Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:24:17.5574269Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:17.5574874Z [DEBUG] Received response (Length: 264)
+2026-01-18T19:24:17.5575575Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-18T19:24:17.5575974Z     🧩 Suggested Locator: input[id='registerLoginField']
+2026-01-18T19:24:17.5576720Z     💭 Reasoning: The 'Create an account' popup is displayed. Filling the username field is the next logical step to proceed with account creation.
+2026-01-18T19:24:17.5577377Z     ➕ Injected AI step: fill -> Username
+2026-01-18T19:24:17.5577684Z   ▶️ [STEP step_6_ai_2] FILL: Username
+2026-01-18T19:24:17.5651760Z     🎯 Using AI-provided locator: input[id='registerLoginField']
+2026-01-18T19:24:17.5727842Z     ✅ Found 1 verified locators
+2026-01-18T19:24:23.2418829Z     ✅ State transitioned.
+2026-01-18T19:24:23.2666520Z     🔄 Revisited state detected (count: 2)
+2026-01-18T19:24:24.8782540Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:24.8783278Z [DEBUG] Received response (Length: 187)
+2026-01-18T19:24:24.8784128Z     🤖 AI Next Step Suggestion: fill -> Email
+2026-01-18T19:24:24.8784752Z     🧩 Suggested Locator: #registerEmailField
+2026-01-18T19:24:24.8785744Z     💭 Reasoning: Need to fill the email field to proceed with registration.
+2026-01-18T19:24:24.8786673Z     ➕ Injected AI step: fill -> Email
+2026-01-18T19:24:24.8787307Z   ▶️ [STEP step_6_ai_3] FILL: Email
+2026-01-18T19:24:24.8861097Z     🎯 Using AI-provided locator: #registerEmailField
+2026-01-18T19:24:24.8936105Z     ✅ Found 1 verified locators
+2026-01-18T19:24:31.0536267Z     ✅ State transitioned.
+2026-01-18T19:24:31.0802461Z     🔄 Revisited state detected (count: 3)
+2026-01-18T19:24:32.7355693Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:32.7356379Z [DEBUG] Received response (Length: 199)
+2026-01-18T19:24:32.7357216Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T19:24:32.7357822Z     🧩 Suggested Locator: #regiserPasswordField
+2026-01-18T19:24:32.7358446Z     💭 Reasoning: Need to fill in the password field to complete the registration form.
+2026-01-18T19:24:32.7358924Z     ➕ Injected AI step: fill -> Password
+2026-01-18T19:24:32.7359237Z   ▶️ [STEP step_6_ai_4] FILL: Password
+2026-01-18T19:24:32.7433806Z     🎯 Using AI-provided locator: #regiserPasswordField
+2026-01-18T19:24:32.7505512Z     ✅ Found 1 verified locators
+2026-01-18T19:24:39.3079585Z     ✅ State transitioned.
+2026-01-18T19:24:39.3341747Z     🔄 Revisited state detected (count: 4)
+2026-01-18T19:24:41.1054950Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:41.1055653Z [DEBUG] Received response (Length: 206)
+2026-01-18T19:24:41.1056481Z     🤖 AI Next Step Suggestion: fill -> Confirm password
+2026-01-18T19:24:41.1057195Z     🧩 Suggested Locator: #regiserConfirmPasswordField
+2026-01-18T19:24:41.1058059Z     💭 Reasoning: Need to fill the confirm password field to proceed with registration.
+2026-01-18T19:24:41.1058895Z     ➕ Injected AI step: fill -> Confirm password
+2026-01-18T19:24:41.1059323Z   ▶️ [STEP step_6_ai_5] FILL: Confirm password
+2026-01-18T19:24:41.1154633Z     🎯 Using AI-provided locator: #regiserConfirmPasswordField
+2026-01-18T19:24:41.1226965Z     ✅ Found 1 verified locators
+2026-01-18T19:24:46.4830109Z     ✅ State transitioned.
+2026-01-18T19:24:46.5087691Z     🔄 Revisited state detected (count: 5)
+2026-01-18T19:24:46.5088516Z     ⚠️ Too many revisits (5). Stopping AI step injection to prevent loops.
+2026-01-18T19:24:46.5089150Z   ▶️ [STEP step_7] ASSERT_VISIBLE: Dashboard
+2026-01-18T19:24:46.5176632Z     🔍 Mining locators for: 'Dashboard'
+2026-01-18T19:24:46.6113795Z     🧠 Consulting AI (Vision-First) to find 'Dashboard'...
+2026-01-18T19:24:46.6116084Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:24:48.3391008Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:48.3391738Z [DEBUG] Received response (Length: 237)
+2026-01-18T19:24:48.3393460Z     💡 Expert Suggestion: The current page is the 'Create an account' page. To find the 'Dashboard', we need to log in first.
+2026-01-18T19:24:48.3394683Z     🛠️ Executing corrective action: click -> 'Log in'
+2026-01-18T19:24:48.9654652Z     ✅ Executed corrective navigation
+2026-01-18T19:24:50.9677549Z     🔄 Retry 1/3 mining locators for 'Dashboard'...
+2026-01-18T19:24:52.0589193Z     🧠 Consulting AI (Vision-First) to find 'Dashboard'...
+2026-01-18T19:24:52.0590336Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:24:53.6470254Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:53.6470943Z [DEBUG] Received response (Length: 209)
+2026-01-18T19:24:53.6471691Z     ⚠️ Skipping duplicate injection: Log in
+2026-01-18T19:24:53.6472475Z     🔄 Retry 2/3 mining locators for 'Dashboard'...
+2026-01-18T19:24:54.7246814Z     🧠 Consulting AI (Vision-First) to find 'Dashboard'...
+2026-01-18T19:24:54.7248388Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:24:54.7252472Z [CACHE HIT] fab4e078... (hits: 10, misses: 35)
+2026-01-18T19:24:54.7253085Z     ⚠️ Skipping duplicate injection: Log in
+2026-01-18T19:24:54.7253822Z     🧠 Verifying step validity for 'Dashboard' after no candidates found...
+2026-01-18T19:24:54.7257735Z [CACHE HIT] 7d1f5140... (hits: 11, misses: 35)
+2026-01-18T19:24:54.7259701Z     🗑️ Step deemed INVALID: The current page is the landing page of TasteWP.com. The 'Dashboard' is part of the WordPress admin interface, which is not accessible from this page. We need to first create a WordPress instance before we can access the dashboard.. Removing from workflow.
+2026-01-18T19:24:54.7260877Z     ⏭️ Skipping execution of invalid step: Dashboard
+2026-01-18T19:24:54.7261203Z   ▶️ [STEP step_8] NAVIGATE: 
+2026-01-18T19:24:56.1966892Z     ✅ Navigated to https://tastewp.com/dashboard
+2026-01-18T19:24:56.1967550Z   ▶️ [STEP step_9] WAIT: 
+2026-01-18T19:25:01.5174830Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T19:25:03.5185963Z     ✅ State transitioned.
+2026-01-18T19:25:05.2278365Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:05.2279041Z [DEBUG] Received response (Length: 139)
+2026-01-18T19:25:05.2279848Z     🤖 AI Next Step Suggestion: click -> Log in
+2026-01-18T19:25:05.2280479Z     🧩 Suggested Locator: #loginUser
+2026-01-18T19:25:05.2280894Z     💭 Reasoning: Attempt to log in with the provided credentials.
+2026-01-18T19:25:05.2281320Z     ➕ Injected AI step: click -> Log in
+2026-01-18T19:25:05.2281628Z   ▶️ [STEP step_9_ai_1] CLICK: Log in
+2026-01-18T19:25:05.2358093Z     🎯 Using AI-provided locator: #loginUser
+2026-01-18T19:25:05.2442402Z     ✅ Found 1 verified locators
+2026-01-18T19:25:09.3301845Z     ✅ State transitioned.
+2026-01-18T19:25:09.3574110Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:25:11.0102472Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:11.0103146Z [DEBUG] Received response (Length: 257)
+2026-01-18T19:25:11.0103988Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-18T19:25:11.0104404Z     🧩 Suggested Locator: #loginField
+2026-01-18T19:25:11.0105255Z     💭 Reasoning: The error message 'Please fill up login field' indicates that the username field is empty. Filling it with a test value is the next logical step.
+2026-01-18T19:25:11.0106352Z     ➕ Injected AI step: fill -> Username
+2026-01-18T19:25:11.0106692Z   ▶️ [STEP step_9_ai_2] FILL: Username
+2026-01-18T19:25:11.0181624Z     🎯 Using AI-provided locator: #loginField
+2026-01-18T19:25:11.0255806Z     ✅ Found 1 verified locators
+2026-01-18T19:25:16.3537754Z     ✅ State transitioned.
+2026-01-18T19:25:16.3785905Z     🔄 Revisited state detected (count: 2)
+2026-01-18T19:25:17.9686073Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:17.9686641Z [DEBUG] Received response (Length: 207)
+2026-01-18T19:25:17.9687280Z     🤖 AI Next Step Suggestion: click -> Log in
+2026-01-18T19:25:17.9687628Z     🧩 Suggested Locator: #loginUser
+2026-01-18T19:25:17.9688281Z     💭 Reasoning: After filling the username and password, the next logical step is to click the 'Log in' button to attempt to log in.
+2026-01-18T19:25:17.9688896Z     ➕ Injected AI step: click -> Log in
+2026-01-18T19:25:17.9689198Z   ▶️ [STEP step_9_ai_3] CLICK: Log in
+2026-01-18T19:25:17.9761254Z     🎯 Using AI-provided locator: #loginUser
+2026-01-18T19:25:17.9834403Z     ✅ Found 1 verified locators
+2026-01-18T19:25:22.0610990Z     ✅ State transitioned.
+2026-01-18T19:25:22.0878165Z     🔄 Revisited state detected (count: 3)
+2026-01-18T19:25:23.7059197Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:23.7059831Z [DEBUG] Received response (Length: 203)
+2026-01-18T19:25:23.7060660Z     🤖 AI Next Step Suggestion: click -> Log in
+2026-01-18T19:25:23.7061369Z     🧩 Suggested Locator: #loginUser
+2026-01-18T19:25:23.7062738Z     💭 Reasoning: The password field was filled, and the username was filled. Now, click the 'Log in' button to attempt to log in.
+2026-01-18T19:25:23.7064108Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'log in')
+2026-01-18T19:25:23.7064754Z   ▶️ [STEP step_10] CLICK: Delete
+2026-01-18T19:25:23.7135589Z     🔍 Mining locators for: 'Delete'
+2026-01-18T19:25:23.8411169Z     🧠 Consulting AI (Vision-First) to find 'Delete'...
+2026-01-18T19:25:23.8412839Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:25:28.5111282Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:28.5111908Z [DEBUG] Received response (Length: 286)
+2026-01-18T19:25:28.5112713Z     ⚠️ Skipping duplicate injection: Log in
+2026-01-18T19:25:28.5113121Z     🔄 Retry 1/3 mining locators for 'Delete'...
+2026-01-18T19:25:29.6089288Z     🧠 Consulting AI (Vision-First) to find 'Delete'...
+2026-01-18T19:25:29.6090501Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:25:33.8240017Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:33.8240549Z [DEBUG] Received response (Length: 216)
+2026-01-18T19:25:33.8241244Z     ⚠️ Skipping duplicate injection: Log in
+2026-01-18T19:25:33.8241689Z     🔄 Retry 2/3 mining locators for 'Delete'...
+2026-01-18T19:25:34.9092553Z     🧠 Consulting AI (Vision-First) to find 'Delete'...
+2026-01-18T19:25:34.9094108Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:25:38.9156844Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:38.9157621Z [DEBUG] Received response (Length: 316)
+2026-01-18T19:25:38.9158560Z     ⚠️ Skipping duplicate injection: Log in
+2026-01-18T19:25:38.9159478Z     🧠 Verifying step validity for 'Delete' after no candidates found...
+2026-01-18T19:25:43.5679496Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:43.5679979Z [DEBUG] Received response (Length: 183)
+2026-01-18T19:25:43.5681030Z     🗑️ Step deemed INVALID: The current page shows a login modal. There is no 'Delete' button visible on this page. Therefore, the step is not valid.. Removing from workflow.
+2026-01-18T19:25:43.5682097Z     ⏭️ Skipping execution of invalid step: Delete
+2026-01-18T19:25:43.5682957Z   ▶️ [STEP step_11] WAIT: 
+2026-01-18T19:25:48.5872117Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T19:25:50.5895677Z     ✅ State transitioned.
+2026-01-18T19:25:50.6164183Z     🔄 Revisited state detected (count: 4)
+2026-01-18T19:25:52.1356980Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:52.1357887Z [DEBUG] Received response (Length: 166)
+2026-01-18T19:25:52.1358884Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T19:25:52.1359537Z     🧩 Suggested Locator: #password
+2026-01-18T19:25:52.1360515Z     💭 Reasoning: Need to fill in the password field to attempt login.
+2026-01-18T19:25:52.1361479Z     ➕ Injected AI step: fill -> Password
+2026-01-18T19:25:52.1362207Z   ▶️ [STEP step_11_ai_1] FILL: Password
+2026-01-18T19:25:52.1439724Z     🎯 Using AI-provided locator: #password
+2026-01-18T19:25:52.1514244Z     ✅ Found 1 verified locators
+2026-01-18T19:25:58.3246938Z     ✅ State transitioned.
+2026-01-18T19:25:58.3518444Z     🔄 Revisited state detected (count: 5)
+2026-01-18T19:25:58.3519130Z     ⚠️ Too many revisits (5). Stopping AI step injection to prevent loops.
+2026-01-18T19:26:00.3903460Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo/tests/generated_scenarios.json
+2026-01-18T19:26:00.3911625Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-18T19:26:00.3912103Z 
+2026-01-18T19:26:00.3912688Z ✅ Deep Exploration Complete.
+2026-01-18T19:34:38.5996758Z 
+2026-01-18T19:34:38.5997546Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-18T19:34:38.5998202Z 📍 Project: ci_wordpress_demo
+2026-01-18T19:34:38.5998669Z 🎬 Mode: Headless
+2026-01-18T19:34:38.5998883Z 
+2026-01-18T19:34:38.5999280Z --- Scenario: Create a new WordPress site and verify its creation ---
+2026-01-18T19:34:38.6000130Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T19:34:38.6000706Z     ✅ Step step_1 Passed.
+2026-01-18T19:34:38.6001374Z   ▶️ [STEP step_2] CLICK: Create a temporary WordPress site
+2026-01-18T19:34:38.6002738Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:34:38.6003387Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:34:38.6003951Z Call log:
+2026-01-18T19:34:38.6004305Z   - waiting for locator("text=Create a tem...
+2026-01-18T19:34:38.6005171Z     🔧 [AUTO-HEAL] Re-mining page to find 'Create a temporary WordPress site'...
+2026-01-18T19:34:38.6005920Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:34:38.6006442Z [DEBUG] Received response (Length: 391)
+2026-01-18T19:34:38.6007071Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T19:34:38.6007552Z     ✨ AI successfully healed the step! New selector: body
+2026-01-18T19:34:38.6007908Z     ✅ Step step_2 Passed.
+2026-01-18T19:34:38.6008169Z   ▶️ [STEP step_3] WAIT: Step step_3
+2026-01-18T19:34:38.6008438Z     ✅ Step step_3 Passed.
+2026-01-18T19:34:38.6008775Z   ▶️ [STEP step_3_ai_1] CLICK: Set it up! (no sign up required!)
+2026-01-18T19:34:38.6009237Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:34:38.6009792Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:34:38.6010188Z Call log:
+2026-01-18T19:34:38.6010408Z   - waiting for locator("text=Set it up! (...
+2026-01-18T19:34:38.6010846Z     🔧 [AUTO-HEAL] Re-mining page to find 'Set it up! (no sign up required!)'...
+2026-01-18T19:34:38.6011282Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:34:38.6011609Z [DEBUG] Received response (Length: 636)
+2026-01-18T19:34:38.6011964Z     ✨ AI successfully healed the step! Found 3 alternatives.
+2026-01-18T19:34:38.6012585Z     ✨ AI successfully healed the step! New selector: body
+2026-01-18T19:34:38.6013197Z     ✅ Step step_3_ai_1 Passed.
+2026-01-18T19:34:38.6013483Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Magic Link
+2026-01-18T19:34:38.6014035Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-18T19:34:38.6014386Z Actual value: None
+2026-01-18T19:34:38.6014583Z Error: element(s) not found 
+2026-01-18T19:34:38.6014785Z Call log:
+2026-01-18T19:34:38.6014950Z   - Expect ...
+2026-01-18T19:34:38.6015238Z     🔧 [AUTO-HEAL] Re-mining page to find 'Magic Link'...
+2026-01-18T19:34:38.6015616Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:34:38.6015948Z [DEBUG] Received response (Length: 24577)
+2026-01-18T19:34:38.6016335Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:34:38.6016813Z     ❌ Attempt 2 failed (element_not_found): Locator expected to be visible
+2026-01-18T19:34:38.6017149Z Actual value: None
+2026-01-18T19:34:38.6017340Z Error: element(s) not found 
+2026-01-18T19:34:38.6017550Z Call log:
+2026-01-18T19:34:38.6017709Z   - Expect ...
+2026-01-18T19:34:38.6017977Z     🔧 [AUTO-HEAL] Re-mining page to find 'Magic Link'...
+2026-01-18T19:34:38.6018343Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:34:38.6018669Z [DEBUG] Received response (Length: 40154)
+2026-01-18T19:34:38.6019056Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:34:38.6019530Z     ❌ Attempt 3 failed (element_not_found): Locator expected to be visible
+2026-01-18T19:34:38.6019859Z Actual value: None
+2026-01-18T19:34:38.6020041Z Error: element(s) not found 
+2026-01-18T19:34:38.6020244Z Call log:
+2026-01-18T19:34:38.6020402Z   - Expect ...
+2026-01-18T19:34:38.6020639Z     💀 Step step_4 failed after all retries.
+2026-01-18T19:34:38.6021119Z 🛑 Scenario 'Create a new WordPress site and verify its creation' aborted due to step failure.
+2026-01-18T19:34:38.6021480Z 
+2026-01-18T19:34:38.6021672Z --- Scenario: Create a new WordPress site and access the admin dashboard ---
+2026-01-18T19:34:38.6022103Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T19:34:38.6022957Z     ✅ Step step_1 Passed.
+2026-01-18T19:34:38.6023254Z   ▶️ [STEP step_3] WAIT: Step step_3
+2026-01-18T19:34:38.6023542Z     ✅ Step step_3 Passed.
+2026-01-18T19:34:38.6023818Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Magic Link
+2026-01-18T19:34:38.6024234Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-18T19:34:38.6024578Z Actual value: None
+2026-01-18T19:34:38.6024764Z Error: element(s) not found 
+2026-01-18T19:34:38.6024988Z Call log:
+2026-01-18T19:34:38.6025271Z   - Expect ...
+2026-01-18T19:34:38.6025550Z     🔧 [AUTO-HEAL] Re-mining page to find 'Magic Link'...
+2026-01-18T19:34:38.6025919Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:34:38.6026254Z [DEBUG] Received response (Length: 16510)
+2026-01-18T19:34:38.6026642Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:34:38.6027127Z     ❌ Attempt 2 failed (element_not_found): Locator expected to be visible
+2026-01-18T19:34:38.6027461Z Actual value: None
+2026-01-18T19:34:38.6027647Z Error: element(s) not found 
+2026-01-18T19:34:38.6028020Z Call log:
+2026-01-18T19:34:38.6028193Z   - Expect ...
+2026-01-18T19:34:38.6028470Z     🔧 [AUTO-HEAL] Re-mining page to find 'Magic Link'...
+2026-01-18T19:34:38.6028775Z [CACHE HIT] 65ab9c18... (hits: 1, misses: 5)
+2026-01-18T19:34:38.6029157Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:34:38.6029626Z     ❌ Attempt 3 failed (element_not_found): Locator expected to be visible
+2026-01-18T19:34:38.6031712Z Actual value: None
+2026-01-18T19:34:38.6032020Z Error: element(s) not found 
+2026-01-18T19:34:38.6032557Z Call log:
+2026-01-18T19:34:38.6032830Z   - Expect ...
+2026-01-18T19:34:38.6033272Z     💀 Step step_4 failed after all retries.
+2026-01-18T19:34:38.6034154Z 🛑 Scenario 'Create a new WordPress site and access the admin dashboard' aborted due to step failure.
+2026-01-18T19:34:38.6035003Z 
+2026-01-18T19:34:38.6035245Z --- Scenario: Create a new WordPress site and delete it ---
+2026-01-18T19:34:38.6035758Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T19:34:38.6036070Z     ✅ Step step_1 Passed.
+2026-01-18T19:34:38.6036401Z   ▶️ [STEP step_2] CLICK: Create a temporary WordPress site
+2026-01-18T19:34:38.6036850Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:34:38.6037423Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:34:38.6037824Z Call log:
+2026-01-18T19:34:38.6038024Z   - waiting for locator("text=Create a tem...
+2026-01-18T19:34:38.6038460Z     🔧 [AUTO-HEAL] Re-mining page to find 'Create a temporary WordPress site'...
+2026-01-18T19:34:38.6038858Z [CACHE HIT] 2e26190b... (hits: 2, misses: 5)
+2026-01-18T19:34:38.6039222Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T19:34:38.6039626Z     ✨ AI successfully healed the step! New selector: body
+2026-01-18T19:34:38.6039963Z     ✅ Step step_2 Passed.
+2026-01-18T19:34:38.6040214Z   ▶️ [STEP step_3] WAIT: Step step_3
+2026-01-18T19:34:38.6040481Z     ✅ Step step_3 Passed.
+2026-01-18T19:34:38.6040810Z   ▶️ [STEP step_3_ai_1] CLICK: Set it up! (no sign up required!)
+2026-01-18T19:34:38.6041270Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:34:38.6041820Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:34:38.6042429Z Call log:
+2026-01-18T19:34:38.6042798Z   - waiting for locator("text=Set it up! (...
+2026-01-18T19:34:38.6043253Z     🔧 [AUTO-HEAL] Re-mining page to find 'Set it up! (no sign up required!)'...
+2026-01-18T19:34:38.6043690Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:34:38.6044029Z [DEBUG] Received response (Length: 38)
+2026-01-18T19:34:38.6044414Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:34:38.6044953Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:34:38.6045354Z Call log:
+2026-01-18T19:34:38.6045540Z   - waiting for locator("text=Set it up! (...
+2026-01-18T19:34:38.6045965Z     🔧 [AUTO-HEAL] Re-mining page to find 'Set it up! (no sign up required!)'...
+2026-01-18T19:34:38.6046394Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:34:38.6046725Z [DEBUG] Received response (Length: 353)
+2026-01-18T19:34:38.6047070Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T19:34:38.6047460Z     ✨ AI successfully healed the step! New selector: body
+2026-01-18T19:34:38.6047787Z     ✅ Step step_3_ai_1 Passed.
+2026-01-18T19:34:38.6048066Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Magic Link
+2026-01-18T19:34:38.6048467Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-18T19:34:38.6048806Z Actual value: None
+2026-01-18T19:34:38.6049002Z Error: element(s) not found 
+2026-01-18T19:34:38.6049217Z Call log:
+2026-01-18T19:34:38.6049376Z   - Expect ...
+2026-01-18T19:34:38.6049649Z     🔧 [AUTO-HEAL] Re-mining page to find 'Magic Link'...
+2026-01-18T19:34:38.6050166Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:34:38.6050507Z [DEBUG] Received response (Length: 809)
+2026-01-18T19:34:38.6050848Z     ✨ AI successfully healed the step! Found 4 alternatives.
+2026-01-18T19:34:38.6051231Z     ✨ AI successfully healed the step! New selector: body
+2026-01-18T19:34:38.6051541Z     ✅ Step step_4 Passed.
+2026-01-18T19:34:38.6051790Z   ▶️ [STEP step_5] CLICK: Magic Link
+2026-01-18T19:34:38.6052428Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:34:38.6052836Z Call log:
+2026-01-18T19:34:38.6053036Z   - waiting for locator("text=Magic Link")...
+2026-01-18T19:34:38.6053398Z     🔧 [AUTO-HEAL] Re-mining page to find 'Magic Link'...
+2026-01-18T19:34:38.6053766Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:34:38.6054240Z [DEBUG] Received response (Length: 24605)
+2026-01-18T19:34:38.6054636Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:34:38.6055194Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:34:38.6055591Z Call log:
+2026-01-18T19:34:38.6055781Z   - waiting for locator("text=Magic Link")...
+2026-01-18T19:34:38.6056137Z     🔧 [AUTO-HEAL] Re-mining page to find 'Magic Link'...
+2026-01-18T19:34:38.6056503Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:34:38.6056839Z [DEBUG] Received response (Length: 539)
+2026-01-18T19:34:38.6057188Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T19:34:38.6057582Z     ✨ AI successfully healed the step! New selector: div
+2026-01-18T19:34:38.6058051Z     ❌ Attempt 3 failed (element_not_found): Locator.click: Timeout 10000ms exceeded.
+2026-01-18T19:34:38.6058417Z Call log:
+2026-01-18T19:34:38.6058601Z   - waiting for locator("div").first
+2026-01-18T19:34:38.6058841Z     - locato...
+2026-01-18T19:34:38.6059083Z     💀 Step step_5 failed after all retries.
+2026-01-18T19:34:38.6059539Z 🛑 Scenario 'Create a new WordPress site and delete it' aborted due to step failure.
+2026-01-18T19:34:38.6059857Z 
+2026-01-18T19:34:38.6059961Z ============================================================
+2026-01-18T19:34:38.6060255Z 🎯 EXECUTION SUMMARY
+2026-01-18T19:34:38.6060474Z ============================================================
+2026-01-18T19:34:38.6060661Z 
+2026-01-18T19:34:38.6060760Z 📋 Scenario Overview:
+2026-01-18T19:34:38.6061003Z    • Total Scenarios Planned: 3
+2026-01-18T19:34:38.6061257Z    • Scenarios Executed: 3
+2026-01-18T19:34:38.6061504Z    • Total Steps Executed: 14
+2026-01-18T19:34:38.6061651Z 
+2026-01-18T19:34:38.6061736Z ✅ Results:
+2026-01-18T19:34:38.6061929Z    ❌ Failed: 3 (100%)
+2026-01-18T19:34:38.6062052Z 
+2026-01-18T19:34:38.6062156Z ⚠️  Failed Scenarios:
+2026-01-18T19:34:38.6062641Z    • Create a new WordPress site and verify its creation
+2026-01-18T19:34:38.6063073Z    • Create a new WordPress site and access the admin dashboard
+2026-01-18T19:34:38.6063445Z    • Create a new WordPress site and delete it
+2026-01-18T19:34:38.6063640Z 
+2026-01-18T19:34:38.6063739Z ============================================================
+2026-01-18T19:34:38.6063921Z 
+2026-01-18T19:34:38.6083272Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo/execution.json
+2026-01-18T19:34:38.7278725Z 
+2026-01-18T19:34:38.7279126Z [PHASE] Running Phase: DISCOVERY
+2026-01-18T19:34:38.7280651Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo --url https://tastewp.com/new --deep
+2026-01-18T19:34:38.7284655Z ❌ Phase 'discovery' failed with error: Command '['/opt/hostedtoolcache/Python/3.11.14/x64/bin/python', '/home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py', '--project', '/home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo', '--url', 'https://tastewp.com/new', '--deep']' returned non-zero exit status 2.
+2026-01-18T19:34:38.7286387Z ⚠️ Initial discovery failed, but proceeding to planning...
+2026-01-18T19:34:38.7286661Z 
+2026-01-18T19:34:38.7286767Z [PHASE] Running Phase: PLANNING
+2026-01-18T19:34:38.7288111Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo --goal Quick WordPress testing --url https://tastewp.com/new --deep
+2026-01-18T19:34:38.7289536Z ✅ Phase 'planning' completed successfully.
+2026-01-18T19:34:38.7289749Z 
+2026-01-18T19:34:38.7289848Z [PHASE] Running Phase: EXPLORATION
+2026-01-18T19:34:38.7290929Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo
+2026-01-18T19:34:38.7292378Z ✅ Phase 'exploration' completed successfully.
+2026-01-18T19:34:38.7292775Z 📊 Exploration Discovery Success Rate: 60.0%
+2026-01-18T19:34:38.7292985Z 
+2026-01-18T19:34:38.7293081Z [PHASE] Running Phase: EXECUTION
+2026-01-18T19:34:38.7294146Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo
+2026-01-18T19:34:38.7295298Z ✅ Phase 'execution' completed successfully.
+2026-01-18T19:34:38.7295478Z 
+2026-01-18T19:34:38.7295581Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-18T19:34:38.8313219Z ##[group]Run RESULT_FILE="projects/ci_wordpress_demo/execution.json"
+2026-01-18T19:34:38.8313773Z [36;1mRESULT_FILE="projects/ci_wordpress_demo/execution.json"[0m
+2026-01-18T19:34:38.8314118Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-18T19:34:38.8314438Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-18T19:34:38.8314871Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-18T19:34:38.8315230Z [36;1melse[0m
+2026-01-18T19:34:38.8315461Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-18T19:34:38.8315735Z [36;1m  exit 1[0m
+2026-01-18T19:34:38.8315910Z [36;1mfi[0m
+2026-01-18T19:34:38.8347746Z shell: /usr/bin/bash -e {0}
+2026-01-18T19:34:38.8347968Z env:
+2026-01-18T19:34:38.8348205Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:34:38.8348629Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:34:38.8349077Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:34:38.8349434Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:34:38.8349794Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:34:38.8350151Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:34:38.8350450Z ##[endgroup]
+2026-01-18T19:34:38.8401904Z ✅ Results generated successfully: projects/ci_wordpress_demo/execution.json
+2026-01-18T19:34:38.8428212Z 3
+2026-01-18T19:34:38.8493221Z ##[group]Run actions/upload-artifact@v4
+2026-01-18T19:34:38.8493516Z with:
+2026-01-18T19:34:38.8493713Z   name: wordpress_demo-execution-results
+2026-01-18T19:34:38.8494141Z   path: projects/ci_wordpress_demo/execution.json
+projects/ci_wordpress_demo/workflow.json
+
+2026-01-18T19:34:38.8494562Z   retention-days: 30
+2026-01-18T19:34:38.8494762Z   if-no-files-found: warn
+2026-01-18T19:34:38.8494974Z   compression-level: 6
+2026-01-18T19:34:38.8495165Z   overwrite: false
+2026-01-18T19:34:38.8495356Z   include-hidden-files: false
+2026-01-18T19:34:38.8495572Z env:
+2026-01-18T19:34:38.8495806Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:34:38.8496224Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:34:38.8496690Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:34:38.8497048Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:34:38.8497428Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:34:38.8497785Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:34:38.8498082Z ##[endgroup]
+2026-01-18T19:34:39.0692588Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-18T19:34:39.0696951Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo. This will be the root directory of the artifact
+2026-01-18T19:34:39.0698353Z With the provided path, there will be 2 files uploaded
+2026-01-18T19:34:39.0703984Z Artifact name is valid!
+2026-01-18T19:34:39.0705268Z Root directory input is valid!
+2026-01-18T19:34:39.1832746Z Beginning upload of artifact content to blob storage
+2026-01-18T19:34:39.3090142Z Uploaded bytes 2360
+2026-01-18T19:34:39.3490017Z Finished uploading artifact content to blob storage!
+2026-01-18T19:34:39.3493160Z SHA256 digest of uploaded artifact zip is c242a3e533ab7854c1f6d2e49e55b43d455bfd59592fb4e56cbe68f8aa93700f
+2026-01-18T19:34:39.3495636Z Finalizing artifact upload
+2026-01-18T19:34:39.4580924Z Artifact wordpress_demo-execution-results.zip successfully finalized. Artifact ID 5170106844
+2026-01-18T19:34:39.4582644Z Artifact wordpress_demo-execution-results has been successfully uploaded! Final size is 2360 bytes. Artifact ID is 5170106844
+2026-01-18T19:34:39.4589526Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21116744370/artifacts/5170106844
+2026-01-18T19:34:39.4713517Z Post job cleanup.
+2026-01-18T19:34:39.6244519Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-18T19:34:39.6352669Z Post job cleanup.
+2026-01-18T19:34:39.7295398Z [command]/usr/bin/git version
+2026-01-18T19:34:39.7331773Z git version 2.52.0
+2026-01-18T19:34:39.7374965Z Temporarily overriding HOME='/home/runner/work/_temp/c2a4157a-4387-421a-ae02-7dd742e6a22d' before making global git config changes
+2026-01-18T19:34:39.7376179Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T19:34:39.7380731Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T19:34:39.7416322Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T19:34:39.7448332Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T19:34:39.7677002Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T19:34:39.7697656Z http.https://github.com/.extraheader
+2026-01-18T19:34:39.7710714Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-18T19:34:39.7741734Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T19:34:39.7963488Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T19:34:39.7994599Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T19:34:39.8326554Z Cleaning up orphan processes

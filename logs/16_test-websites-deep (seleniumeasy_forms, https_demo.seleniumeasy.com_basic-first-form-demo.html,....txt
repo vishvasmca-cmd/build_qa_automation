@@ -1,0 +1,929 @@
+﻿2026-01-18T19:00:05.6760422Z Current runner version: '2.331.0'
+2026-01-18T19:00:05.6786067Z ##[group]Runner Image Provisioner
+2026-01-18T19:00:05.6787200Z Hosted Compute Agent
+2026-01-18T19:00:05.6787781Z Version: 20251211.462
+2026-01-18T19:00:05.6788419Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-18T19:00:05.6789159Z Build Date: 2025-12-11T16:28:49Z
+2026-01-18T19:00:05.6789859Z Worker ID: {1459288a-8279-4817-b2e7-20438230c4ce}
+2026-01-18T19:00:05.6790587Z ##[endgroup]
+2026-01-18T19:00:05.6791136Z ##[group]Operating System
+2026-01-18T19:00:05.6791897Z Ubuntu
+2026-01-18T19:00:05.6792379Z 24.04.3
+2026-01-18T19:00:05.6792851Z LTS
+2026-01-18T19:00:05.6793339Z ##[endgroup]
+2026-01-18T19:00:05.6793841Z ##[group]Runner Image
+2026-01-18T19:00:05.6794443Z Image: ubuntu-24.04
+2026-01-18T19:00:05.6794984Z Version: 20260111.209.1
+2026-01-18T19:00:05.6795988Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-18T19:00:05.6797643Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-18T19:00:05.6798684Z ##[endgroup]
+2026-01-18T19:00:05.6799849Z ##[group]GITHUB_TOKEN Permissions
+2026-01-18T19:00:05.6802352Z Contents: read
+2026-01-18T19:00:05.6802997Z Metadata: read
+2026-01-18T19:00:05.6803513Z Packages: read
+2026-01-18T19:00:05.6804036Z ##[endgroup]
+2026-01-18T19:00:05.6806613Z Secret source: Actions
+2026-01-18T19:00:05.6807657Z Prepare workflow directory
+2026-01-18T19:00:05.7151826Z Prepare all required actions
+2026-01-18T19:00:05.7191941Z Getting action download info
+2026-01-18T19:00:06.0967204Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-18T19:00:06.1951284Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-18T19:00:06.2774619Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-18T19:00:06.5066444Z Complete job name: test-websites-deep (seleniumeasy_forms, https://demo.seleniumeasy.com/basic-first-form-demo.html,...
+2026-01-18T19:00:06.5808863Z ##[group]Run actions/checkout@v4
+2026-01-18T19:00:06.5809763Z with:
+2026-01-18T19:00:06.5810283Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T19:00:06.5811097Z   token: ***
+2026-01-18T19:00:06.5811523Z   ssh-strict: true
+2026-01-18T19:00:06.5812207Z   ssh-user: git
+2026-01-18T19:00:06.5812660Z   persist-credentials: true
+2026-01-18T19:00:06.5813157Z   clean: true
+2026-01-18T19:00:06.5813613Z   sparse-checkout-cone-mode: true
+2026-01-18T19:00:06.5814153Z   fetch-depth: 1
+2026-01-18T19:00:06.5814589Z   fetch-tags: false
+2026-01-18T19:00:06.5815044Z   show-progress: true
+2026-01-18T19:00:06.5815483Z   lfs: false
+2026-01-18T19:00:06.5815894Z   submodules: false
+2026-01-18T19:00:06.5816339Z   set-safe-directory: true
+2026-01-18T19:00:06.5817166Z ##[endgroup]
+2026-01-18T19:00:06.7003503Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T19:00:06.7005872Z ##[group]Getting Git version info
+2026-01-18T19:00:06.7006964Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T19:00:06.7008199Z [command]/usr/bin/git version
+2026-01-18T19:00:06.7117596Z git version 2.52.0
+2026-01-18T19:00:06.7157612Z ##[endgroup]
+2026-01-18T19:00:06.7186232Z Temporarily overriding HOME='/home/runner/work/_temp/c873ac8e-f4a6-4032-854e-93438b2b4c60' before making global git config changes
+2026-01-18T19:00:06.7188050Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T19:00:06.7194157Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T19:00:06.7241086Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T19:00:06.7244798Z ##[group]Initializing the repository
+2026-01-18T19:00:06.7249253Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T19:00:06.7395403Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-18T19:00:06.7397978Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-18T19:00:06.7399800Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-18T19:00:06.7401165Z hint: call:
+2026-01-18T19:00:06.7402253Z hint:
+2026-01-18T19:00:06.7402844Z hint: 	git config --global init.defaultBranch <name>
+2026-01-18T19:00:06.7403533Z hint:
+2026-01-18T19:00:06.7404155Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-18T19:00:06.7405179Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-18T19:00:06.7406023Z hint:
+2026-01-18T19:00:06.7406440Z hint: 	git branch -m <name>
+2026-01-18T19:00:06.7406950Z hint:
+2026-01-18T19:00:06.7407639Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-18T19:00:06.7408836Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-18T19:00:06.7421157Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T19:00:06.7462941Z ##[endgroup]
+2026-01-18T19:00:06.7464475Z ##[group]Disabling automatic garbage collection
+2026-01-18T19:00:06.7466673Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-18T19:00:06.7500174Z ##[endgroup]
+2026-01-18T19:00:06.7501372Z ##[group]Setting up auth
+2026-01-18T19:00:06.7508439Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T19:00:06.7539612Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T19:00:06.7930768Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T19:00:06.7964180Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T19:00:06.8202911Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T19:00:06.8236732Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T19:00:06.8465218Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-18T19:00:06.8504323Z ##[endgroup]
+2026-01-18T19:00:06.8505843Z ##[group]Fetching the repository
+2026-01-18T19:00:06.8515097Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c9fb31d387d3134fb416430b3b3a9e89b3921439:refs/remotes/origin/main
+2026-01-18T19:00:07.6796012Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T19:00:07.6798271Z  * [new ref]         c9fb31d387d3134fb416430b3b3a9e89b3921439 -> origin/main
+2026-01-18T19:00:07.6828919Z ##[endgroup]
+2026-01-18T19:00:07.6830524Z ##[group]Determining the checkout info
+2026-01-18T19:00:07.6832201Z ##[endgroup]
+2026-01-18T19:00:07.6836076Z [command]/usr/bin/git sparse-checkout disable
+2026-01-18T19:00:07.6880991Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-18T19:00:07.6909019Z ##[group]Checking out the ref
+2026-01-18T19:00:07.6913232Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-18T19:00:07.7856708Z Switched to a new branch 'main'
+2026-01-18T19:00:07.7858599Z branch 'main' set up to track 'origin/main'.
+2026-01-18T19:00:07.7873746Z ##[endgroup]
+2026-01-18T19:00:07.7914961Z [command]/usr/bin/git log -1 --format=%H
+2026-01-18T19:00:07.7939703Z c9fb31d387d3134fb416430b3b3a9e89b3921439
+2026-01-18T19:00:07.8280777Z ##[group]Run actions/setup-python@v5
+2026-01-18T19:00:07.8282223Z with:
+2026-01-18T19:00:07.8283075Z   python-version: 3.11
+2026-01-18T19:00:07.8284059Z   cache: pip
+2026-01-18T19:00:07.8285197Z   check-latest: false
+2026-01-18T19:00:07.8286448Z   token: ***
+2026-01-18T19:00:07.8287358Z   update-environment: true
+2026-01-18T19:00:07.8288448Z   allow-prereleases: false
+2026-01-18T19:00:07.8289522Z   freethreaded: false
+2026-01-18T19:00:07.8290471Z ##[endgroup]
+2026-01-18T19:00:07.9988595Z ##[group]Installed versions
+2026-01-18T19:00:08.0122750Z Successfully set up CPython (3.11.14)
+2026-01-18T19:00:08.0125393Z ##[endgroup]
+2026-01-18T19:00:08.0650816Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-18T19:00:08.3964531Z /home/runner/.cache/pip
+2026-01-18T19:00:08.5337790Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-18T19:00:09.6309869Z Received 159383552 of 254742636 (62.6%), 152.0 MBs/sec
+2026-01-18T19:00:10.0629690Z Received 254742636 of 254742636 (100.0%), 169.7 MBs/sec
+2026-01-18T19:00:10.0631287Z Cache Size: ~243 MB (254742636 B)
+2026-01-18T19:00:10.0669799Z [command]/usr/bin/tar -xf /home/runner/work/_temp/8695b1b5-b81e-4974-836a-24c765e0d6a5/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-18T19:00:10.4745897Z Cache restored successfully
+2026-01-18T19:00:10.5229025Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-18T19:00:10.5500355Z ##[group]Run pip install -r requirements.txt
+2026-01-18T19:00:10.5500798Z [36;1mpip install -r requirements.txt[0m
+2026-01-18T19:00:10.5501119Z [36;1mplaywright install chromium[0m
+2026-01-18T19:00:10.5540713Z shell: /usr/bin/bash -e {0}
+2026-01-18T19:00:10.5541003Z env:
+2026-01-18T19:00:10.5541285Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:00:10.5542020Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:00:10.5542539Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:00:10.5542990Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:00:10.5543374Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:00:10.5543759Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:00:10.5544082Z ##[endgroup]
+2026-01-18T19:00:11.2835067Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-18T19:00:11.2851967Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-18T19:00:11.3003046Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-18T19:00:11.3017457Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-18T19:00:11.3278022Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-18T19:00:11.3292035Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-18T19:00:11.5287756Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-18T19:00:11.5306387Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-18T19:00:11.5553728Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-18T19:00:11.5569534Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-18T19:00:11.5732203Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-18T19:00:11.5746862Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-18T19:00:11.6113023Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-18T19:00:11.6128175Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-18T19:00:11.6672718Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-18T19:00:11.6689186Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-18T19:00:11.8664999Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-18T19:00:11.8680821Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-18T19:00:11.9556507Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-18T19:00:11.9572146Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-18T19:00:11.9714324Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-18T19:00:11.9728780Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-18T19:00:12.0923690Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-18T19:00:12.0939642Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-18T19:00:12.1155173Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-18T19:00:12.1173104Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-18T19:00:12.2004495Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-18T19:00:12.2020467Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-18T19:00:12.2210534Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-18T19:00:12.2224082Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T19:00:12.2632270Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-18T19:00:12.2646817Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-18T19:00:12.2847911Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-18T19:00:12.2861469Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T19:00:12.3103600Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.3117073Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-18T19:00:12.3447986Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.3463101Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-18T19:00:12.3754111Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.3768095Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-18T19:00:12.5212976Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.5229152Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-18T19:00:12.5464622Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.5477793Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-18T19:00:12.6330525Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.6351006Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-18T19:00:12.6488880Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.6502388Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-18T19:00:12.6582801Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.6596055Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-18T19:00:12.6884470Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.6898248Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-18T19:00:12.7050612Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.7064051Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-18T19:00:12.7325538Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.7338763Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-18T19:00:12.7448536Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.7461480Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-18T19:00:12.7561538Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:12.7574824Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-18T19:00:13.4084453Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:13.4099627Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-18T19:00:13.4237063Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:13.4250210Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-18T19:00:13.4888104Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:00:13.4902481Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T19:00:13.5160549Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-18T19:00:13.5500627Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-18T19:00:13.5516409Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-18T19:00:13.5528990Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-18T19:00:13.5541500Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-18T19:00:13.5555416Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-18T19:00:13.5568128Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-18T19:00:13.5580767Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-18T19:00:13.5594636Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-18T19:00:13.5656232Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-18T19:00:13.5673412Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-18T19:00:13.5686467Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-18T19:00:13.5698917Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-18T19:00:13.5712654Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-18T19:00:13.5725460Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-18T19:00:13.5738191Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-18T19:00:13.5754472Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-18T19:00:13.5780779Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-18T19:00:13.5793520Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-18T19:00:13.5806060Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-18T19:00:13.5819289Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-18T19:00:13.5832058Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-18T19:00:13.5845395Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-18T19:00:13.5863722Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-18T19:00:13.6315801Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-18T19:00:13.6447147Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-18T19:00:13.6473479Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-18T19:00:13.6487329Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-18T19:00:13.6500900Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-18T19:00:13.6513862Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-18T19:00:13.6526595Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-18T19:00:13.6540102Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-18T19:00:13.6552592Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-18T19:00:13.8571519Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-18T19:00:20.5858493Z 
+2026-01-18T19:00:20.5881334Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-18T19:00:21.2737414Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-18T19:00:21.3823696Z (node:2182) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T19:00:21.3825859Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T19:00:21.4737964Z |                                                                                |   0% of 164.7 MiB
+2026-01-18T19:00:21.6023300Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-18T19:00:21.6953930Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-18T19:00:21.7655452Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-18T19:00:21.8446442Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-18T19:00:21.9325836Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-18T19:00:22.0055276Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-18T19:00:22.0917118Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-18T19:00:22.1872683Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-18T19:00:22.2667423Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-18T19:00:22.3537824Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-18T19:00:25.0109897Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-18T19:00:25.0114300Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-18T19:00:25.1097707Z (node:2193) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T19:00:25.1100877Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T19:00:25.1628975Z |                                                                                |   0% of 2.3 MiB
+2026-01-18T19:00:25.1970356Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-18T19:00:25.2086564Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-18T19:00:25.2177944Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-18T19:00:25.2271405Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-18T19:00:25.2318714Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-18T19:00:25.2363061Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-18T19:00:25.2379582Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-18T19:00:25.2403021Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-18T19:00:25.2414251Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-18T19:00:25.2431309Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-18T19:00:25.3057517Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-18T19:00:25.3061978Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-18T19:00:25.4033566Z (node:2204) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T19:00:25.4036760Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T19:00:25.5002741Z |                                                                                |   0% of 109.7 MiB
+2026-01-18T19:00:25.7778411Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-18T19:00:25.8544027Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-18T19:00:25.9259047Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-18T19:00:26.0150833Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-18T19:00:26.1169317Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-18T19:00:26.2118482Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-18T19:00:26.3262893Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-18T19:00:26.4058704Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-18T19:00:26.4828643Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-18T19:00:26.5817088Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-18T19:00:28.4529303Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-18T19:00:28.4752737Z ##[group]Run mkdir -p projects/ci_seleniumeasy_forms
+2026-01-18T19:00:28.4753229Z [36;1mmkdir -p projects/ci_seleniumeasy_forms[0m
+2026-01-18T19:00:28.4753633Z [36;1mcat > projects/ci_seleniumeasy_forms/config.json << 'EOF'[0m
+2026-01-18T19:00:28.4753985Z [36;1m{[0m
+2026-01-18T19:00:28.4754222Z [36;1m  "project_name": "ci_seleniumeasy_forms",[0m
+2026-01-18T19:00:28.4754678Z [36;1m  "target_url": "https://demo.seleniumeasy.com/basic-first-form-demo.html",[0m
+2026-01-18T19:00:28.4755123Z [36;1m  "goal": "Validate input forms",[0m
+2026-01-18T19:00:28.4755401Z [36;1m  "headless": true[0m
+2026-01-18T19:00:28.4755626Z [36;1m}[0m
+2026-01-18T19:00:28.4755810Z [36;1mEOF[0m
+2026-01-18T19:00:28.4787421Z shell: /usr/bin/bash -e {0}
+2026-01-18T19:00:28.4787669Z env:
+2026-01-18T19:00:28.4787931Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:00:28.4788361Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:00:28.4788829Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:00:28.4789211Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:00:28.4789596Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:00:28.4789980Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:00:28.4790311Z ##[endgroup]
+2026-01-18T19:00:28.4899504Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-18T19:00:28.4900018Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-18T19:00:28.4900525Z [36;1mpython orchestrator.py --project projects/ci_seleniumeasy_forms --deep --force[0m
+2026-01-18T19:00:28.4930423Z shell: /usr/bin/bash -e {0}
+2026-01-18T19:00:28.4930673Z env:
+2026-01-18T19:00:28.4930938Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:00:28.4931387Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:00:28.4932052Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:00:28.4932448Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:00:28.4933044Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:00:28.4933433Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:00:28.4933928Z   GOOGLE_API_KEY: ***
+2026-01-18T19:00:28.4934178Z   PYTHONPATH: .
+2026-01-18T19:00:28.4934378Z ##[endgroup]
+2026-01-18T19:00:30.2919284Z usage: discovery.py [-h] --project PROJECT --url URL
+2026-01-18T19:00:30.2920527Z discovery.py: error: unrecognized arguments: --deep
+2026-01-18T19:00:36.6218138Z 
+2026-01-18T19:00:36.6218623Z [PLAN] PLANNER: Planning goal -> 'Validate input forms' (Deep Mode: True)
+2026-01-18T19:00:36.6220113Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-18T19:00:36.6221181Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T19:00:36.6221832Z [DEBUG] Received response (Length: 3899)
+2026-01-18T19:00:36.6222280Z ✅ Planner generated 4 scenarios. Workflow updated.
+2026-01-18T19:00:37.6671529Z 
+2026-01-18T19:00:37.6672785Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-18T19:00:37.6673409Z 📋 Found 4 scenarios to explore.
+2026-01-18T19:00:39.3179476Z 
+2026-01-18T19:00:39.3180167Z [1/4] Exploring Scenario: Validate Single Input Form
+2026-01-18T19:00:39.3182496Z     🧠 Initialized exploration context for goal: 'Validate input forms'
+2026-01-18T19:00:39.3183222Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T19:00:40.0372852Z     ❌ Navigation failed to https://demo.seleniumeasy.com/basic-first-form-demo.html: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:00:40.0374691Z Call log:
+2026-01-18T19:00:40.0375720Z   - navigating to "https://demo.seleniumeasy.com/basic-first-form-demo.html", waiting until "domcontentloaded"
+2026-01-18T19:00:40.0376770Z 
+2026-01-18T19:00:40.0377738Z     ⚠️ Critical step failure: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:00:40.0378580Z Ca
+2026-01-18T19:00:40.0378971Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Single Input Field
+2026-01-18T19:00:40.0622546Z     🔍 Mining locators for: 'Single Input Field'
+2026-01-18T19:00:40.0888083Z     🧠 Consulting AI (Vision-First) to find 'Single Input Field'...
+2026-01-18T19:00:40.0889335Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:00:41.2224465Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:00:41.2225074Z [DEBUG] Received response (Length: 182)
+2026-01-18T19:00:41.2225982Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T19:00:41.2226777Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:00:41.2509032Z     🔄 Retry 1/3 mining locators for 'Single Input Field'...
+2026-01-18T19:00:42.2790826Z     🧠 Consulting AI (Vision-First) to find 'Single Input Field'...
+2026-01-18T19:00:42.2792357Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:00:42.2795779Z [CACHE HIT] 10dfedcb... (hits: 1, misses: 1)
+2026-01-18T19:00:42.2796408Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:00:42.2796839Z     🔄 Retry 2/3 mining locators for 'Single Input Field'...
+2026-01-18T19:00:43.3032576Z     🧠 Consulting AI (Vision-First) to find 'Single Input Field'...
+2026-01-18T19:00:43.3033746Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:00:43.3036974Z [CACHE HIT] 10dfedcb... (hits: 2, misses: 1)
+2026-01-18T19:00:43.3037612Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:00:43.3038215Z     🧠 Verifying step validity for 'Single Input Field' after no candidates found...
+2026-01-18T19:00:46.2333122Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:00:46.2334008Z [DEBUG] Received response (Length: 144)
+2026-01-18T19:00:46.2335818Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. There is no input field to interact with.. Removing from workflow.
+2026-01-18T19:00:46.2337191Z     ⏭️ Skipping execution of invalid step: Single Input Field
+2026-01-18T19:00:46.2337744Z   ▶️ [STEP step_3] FILL: Single Input Field
+2026-01-18T19:00:46.2396386Z     🔍 Mining locators for: 'Single Input Field'
+2026-01-18T19:00:46.2637270Z     🧠 Consulting AI (Vision-First) to find 'Single Input Field'...
+2026-01-18T19:00:46.2638513Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:00:46.2641364Z [CACHE HIT] 10dfedcb... (hits: 3, misses: 2)
+2026-01-18T19:00:46.2642401Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T19:00:46.2643335Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:00:46.2960333Z     🔄 Retry 1/3 mining locators for 'Single Input Field'...
+2026-01-18T19:00:47.3182596Z     🧠 Consulting AI (Vision-First) to find 'Single Input Field'...
+2026-01-18T19:00:47.3184077Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:00:47.3186515Z [CACHE HIT] 10dfedcb... (hits: 4, misses: 2)
+2026-01-18T19:00:47.3187322Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:00:47.3187933Z     🔄 Retry 2/3 mining locators for 'Single Input Field'...
+2026-01-18T19:00:48.3468293Z     🧠 Consulting AI (Vision-First) to find 'Single Input Field'...
+2026-01-18T19:00:48.3469417Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:00:48.3472328Z [CACHE HIT] 10dfedcb... (hits: 5, misses: 2)
+2026-01-18T19:00:48.3472962Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:00:48.3473653Z     🧠 Verifying step validity for 'Single Input Field' after no candidates found...
+2026-01-18T19:00:48.3476315Z [CACHE HIT] 1f62fbe7... (hits: 6, misses: 2)
+2026-01-18T19:00:48.3477495Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. There is no input field to interact with.. Removing from workflow.
+2026-01-18T19:00:48.3478301Z     ⏭️ Skipping execution of invalid step: Single Input Field
+2026-01-18T19:00:48.3478680Z   ▶️ [STEP step_4] CLICK: Show Message
+2026-01-18T19:00:48.3532754Z     🔍 Mining locators for: 'Show Message'
+2026-01-18T19:00:48.3791011Z     🧠 Consulting AI (Vision-First) to find 'Show Message'...
+2026-01-18T19:00:48.3792799Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:00:51.1554488Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:00:51.1555400Z [DEBUG] Received response (Length: 244)
+2026-01-18T19:00:51.1557504Z     💡 Expert Suggestion: The 'Show Message' button is likely located within the 'Home' section, where input forms are commonly found.
+2026-01-18T19:00:51.1558608Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-18T19:00:51.1840392Z     🔄 Retry 1/3 mining locators for 'Show Message'...
+2026-01-18T19:00:52.2069778Z     🧠 Consulting AI (Vision-First) to find 'Show Message'...
+2026-01-18T19:00:52.2071890Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:00:52.2074772Z [CACHE HIT] 66b0d950... (hits: 7, misses: 3)
+2026-01-18T19:00:52.2075527Z     ⚠️ Skipping duplicate injection: Home
+2026-01-18T19:00:52.2076013Z     🔄 Retry 2/3 mining locators for 'Show Message'...
+2026-01-18T19:00:53.2622444Z     🧠 Consulting AI (Vision-First) to find 'Show Message'...
+2026-01-18T19:00:53.2623673Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:00:53.2626387Z [CACHE HIT] 66b0d950... (hits: 8, misses: 3)
+2026-01-18T19:00:53.2627106Z     ⚠️ Skipping duplicate injection: Home
+2026-01-18T19:00:53.2627681Z     🧠 Verifying step validity for 'Show Message' after no candidates found...
+2026-01-18T19:00:56.0669435Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:00:56.0670127Z [DEBUG] Received response (Length: 184)
+2026-01-18T19:00:56.0671884Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. The 'Show Message' element does not exist on this page. We are on the wrong page.. Removing from workflow.
+2026-01-18T19:00:56.0672883Z     ⏭️ Skipping execution of invalid step: Show Message
+2026-01-18T19:00:56.0673426Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Your Message: Test Input
+2026-01-18T19:00:56.0732373Z     🔍 Mining locators for: 'Your Message: Test Input'
+2026-01-18T19:00:56.0952616Z     🧠 Consulting AI (Vision-First) to find 'Your Message: Test Input'...
+2026-01-18T19:00:56.0954473Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:01.0756341Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:01:01.0757258Z [DEBUG] Received response (Length: 207)
+2026-01-18T19:01:01.0758878Z     💡 Expert Suggestion: The 'Your Message' input field is typically found on a contact form.
+2026-01-18T19:01:01.0760329Z     🛠️ Executing corrective action: click -> 'Contact'
+2026-01-18T19:01:01.1032753Z     🔄 Retry 1/3 mining locators for 'Your Message: Test Input'...
+2026-01-18T19:01:02.1285155Z     🧠 Consulting AI (Vision-First) to find 'Your Message: Test Input'...
+2026-01-18T19:01:02.1286428Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:02.1289052Z [CACHE HIT] d6c1b63a... (hits: 9, misses: 5)
+2026-01-18T19:01:02.1289748Z     ⚠️ Skipping duplicate injection: Contact
+2026-01-18T19:01:02.1290220Z     🔄 Retry 2/3 mining locators for 'Your Message: Test Input'...
+2026-01-18T19:01:03.1517957Z     🧠 Consulting AI (Vision-First) to find 'Your Message: Test Input'...
+2026-01-18T19:01:03.1519261Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:03.1521841Z [CACHE HIT] d6c1b63a... (hits: 10, misses: 5)
+2026-01-18T19:01:03.1522430Z     ⚠️ Skipping duplicate injection: Contact
+2026-01-18T19:01:03.1523364Z     🧠 Verifying step validity for 'Your Message: Test Input' after no candidates found...
+2026-01-18T19:01:06.0707984Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:01:06.0708548Z [DEBUG] Received response (Length: 215)
+2026-01-18T19:01:06.0710315Z     🗑️ Step deemed INVALID: The current page is a Chrome error page, not the intended web application. Therefore, the element 'Your Message: Test Input' does not exist on this page.. Removing from workflow.
+2026-01-18T19:01:06.0711843Z     ⏭️ Skipping execution of invalid step: Your Message: Test Input
+2026-01-18T19:01:08.1065900Z 
+2026-01-18T19:01:08.1066657Z [2/4] Exploring Scenario: Validate Two Input Fields Form
+2026-01-18T19:01:08.1067776Z     🧠 Initialized exploration context for goal: 'Validate input forms'
+2026-01-18T19:01:08.1068508Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T19:01:08.7345607Z     ❌ Navigation failed to https://demo.seleniumeasy.com/basic-first-form-demo.html: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:01:08.7346762Z Call log:
+2026-01-18T19:01:08.7347700Z   - navigating to "https://demo.seleniumeasy.com/basic-first-form-demo.html", waiting until "domcontentloaded"
+2026-01-18T19:01:08.7348350Z 
+2026-01-18T19:01:08.7349129Z     ⚠️ Critical step failure: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:01:08.7349910Z Ca
+2026-01-18T19:01:08.7350251Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Enter value
+2026-01-18T19:01:08.7586217Z     🔍 Mining locators for: 'Enter value'
+2026-01-18T19:01:08.7820739Z     🧠 Consulting AI (Vision-First) to find 'Enter value'...
+2026-01-18T19:01:08.7822372Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:11.0393329Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:01:11.0394213Z [DEBUG] Received response (Length: 182)
+2026-01-18T19:01:11.0395563Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T19:01:11.0396895Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:01:11.0667442Z     🔄 Retry 1/3 mining locators for 'Enter value'...
+2026-01-18T19:01:12.0888268Z     🧠 Consulting AI (Vision-First) to find 'Enter value'...
+2026-01-18T19:01:12.0889765Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:12.0892592Z [CACHE HIT] 08797077... (hits: 11, misses: 7)
+2026-01-18T19:01:12.0893194Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:12.0893597Z     🔄 Retry 2/3 mining locators for 'Enter value'...
+2026-01-18T19:01:13.1126229Z     🧠 Consulting AI (Vision-First) to find 'Enter value'...
+2026-01-18T19:01:13.1127770Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:13.1130441Z [CACHE HIT] 08797077... (hits: 12, misses: 7)
+2026-01-18T19:01:13.1131096Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:13.1132142Z     🧠 Verifying step validity for 'Enter value' after no candidates found...
+2026-01-18T19:01:16.1172647Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:01:16.1173222Z [DEBUG] Received response (Length: 204)
+2026-01-18T19:01:16.1174602Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. There is no input form or element labeled 'Enter value' on this page. Therefore, the task is invalid.. Removing from workflow.
+2026-01-18T19:01:16.1175745Z     ⏭️ Skipping execution of invalid step: Enter value
+2026-01-18T19:01:16.1176212Z   ▶️ [STEP step_3] FILL: Enter value
+2026-01-18T19:01:16.1234309Z     🔍 Mining locators for: 'Enter value'
+2026-01-18T19:01:16.1443084Z     🧠 Consulting AI (Vision-First) to find 'Enter value'...
+2026-01-18T19:01:16.1444580Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:16.1447626Z [CACHE HIT] 08797077... (hits: 13, misses: 8)
+2026-01-18T19:01:16.1448545Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T19:01:16.1449045Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:01:16.1786845Z     🔄 Retry 1/3 mining locators for 'Enter value'...
+2026-01-18T19:01:17.2013318Z     🧠 Consulting AI (Vision-First) to find 'Enter value'...
+2026-01-18T19:01:17.2014624Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:17.2017556Z [CACHE HIT] 08797077... (hits: 14, misses: 8)
+2026-01-18T19:01:17.2018290Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:17.2018953Z     🔄 Retry 2/3 mining locators for 'Enter value'...
+2026-01-18T19:01:18.2279840Z     🧠 Consulting AI (Vision-First) to find 'Enter value'...
+2026-01-18T19:01:18.2281403Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:18.2284422Z [CACHE HIT] 08797077... (hits: 15, misses: 8)
+2026-01-18T19:01:18.2285150Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:18.2285628Z     🧠 Verifying step validity for 'Enter value' after no candidates found...
+2026-01-18T19:01:18.2288598Z [CACHE HIT] 9f9e0ef0... (hits: 16, misses: 8)
+2026-01-18T19:01:18.2290331Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. There is no input form or element labeled 'Enter value' on this page. Therefore, the task is invalid.. Removing from workflow.
+2026-01-18T19:01:18.2292189Z     ⏭️ Skipping execution of invalid step: Enter value
+2026-01-18T19:01:18.2292749Z   ▶️ [STEP step_4] FILL: Enter value2
+2026-01-18T19:01:18.2343666Z     🔍 Mining locators for: 'Enter value2'
+2026-01-18T19:01:18.2614047Z     🧠 Consulting AI (Vision-First) to find 'Enter value2'...
+2026-01-18T19:01:18.2615614Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:21.0169857Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:01:21.0170800Z [DEBUG] Received response (Length: 182)
+2026-01-18T19:01:21.0172340Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T19:01:21.0173525Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:01:21.0440413Z     🔄 Retry 1/3 mining locators for 'Enter value2'...
+2026-01-18T19:01:22.0675000Z     🧠 Consulting AI (Vision-First) to find 'Enter value2'...
+2026-01-18T19:01:22.0676264Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:22.0679186Z [CACHE HIT] 0552944c... (hits: 17, misses: 9)
+2026-01-18T19:01:22.0679855Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:22.0680263Z     🔄 Retry 2/3 mining locators for 'Enter value2'...
+2026-01-18T19:01:23.0946680Z     🧠 Consulting AI (Vision-First) to find 'Enter value2'...
+2026-01-18T19:01:23.0947949Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:23.0950612Z [CACHE HIT] 0552944c... (hits: 18, misses: 9)
+2026-01-18T19:01:23.0951368Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:23.0952196Z     🧠 Verifying step validity for 'Enter value2' after no candidates found...
+2026-01-18T19:01:26.0118366Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:01:26.0119171Z [DEBUG] Received response (Length: 170)
+2026-01-18T19:01:26.0121235Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. There are no input fields to interact with, so the task is invalid.. Removing from workflow.
+2026-01-18T19:01:26.0123431Z     ⏭️ Skipping execution of invalid step: Enter value2
+2026-01-18T19:01:26.0124260Z   ▶️ [STEP step_5] CLICK: Get Total
+2026-01-18T19:01:26.0181141Z     🔍 Mining locators for: 'Get Total'
+2026-01-18T19:01:26.0383909Z     🧠 Consulting AI (Vision-First) to find 'Get Total'...
+2026-01-18T19:01:26.0385220Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:31.0145275Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:01:31.0145800Z [DEBUG] Received response (Length: 182)
+2026-01-18T19:01:31.0146529Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T19:01:31.0147039Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:01:31.0447500Z     🔄 Retry 1/3 mining locators for 'Get Total'...
+2026-01-18T19:01:32.0667084Z     🧠 Consulting AI (Vision-First) to find 'Get Total'...
+2026-01-18T19:01:32.0668400Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:32.0670936Z [CACHE HIT] d9326a98... (hits: 19, misses: 11)
+2026-01-18T19:01:32.0671521Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:32.0672214Z     🔄 Retry 2/3 mining locators for 'Get Total'...
+2026-01-18T19:01:33.0948648Z     🧠 Consulting AI (Vision-First) to find 'Get Total'...
+2026-01-18T19:01:33.0950266Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:33.0952447Z [CACHE HIT] d9326a98... (hits: 20, misses: 11)
+2026-01-18T19:01:33.0953098Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:33.0953789Z     🧠 Verifying step validity for 'Get Total' after no candidates found...
+2026-01-18T19:01:35.8662537Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:01:35.8663176Z [DEBUG] Received response (Length: 181)
+2026-01-18T19:01:35.8664705Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. The 'Get Total' element does not exist on this page. We are on the wrong page.. Removing from workflow.
+2026-01-18T19:01:35.8665958Z     ⏭️ Skipping execution of invalid step: Get Total
+2026-01-18T19:01:35.8666563Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Total a + b = 30
+2026-01-18T19:01:35.8722365Z     🔍 Mining locators for: 'Total a + b = 30'
+2026-01-18T19:01:35.8940814Z     🧠 Consulting AI (Vision-First) to find 'Total a + b = 30'...
+2026-01-18T19:01:35.8943058Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:41.0832242Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:01:41.0833171Z [DEBUG] Received response (Length: 215)
+2026-01-18T19:01:41.0834925Z     💡 Expert Suggestion: The input form with the total calculation is likely located on the Forms page.
+2026-01-18T19:01:41.0836491Z     🛠️ Executing corrective action: click -> 'Forms'
+2026-01-18T19:01:41.1109580Z     🔄 Retry 1/3 mining locators for 'Total a + b = 30'...
+2026-01-18T19:01:42.1344066Z     🧠 Consulting AI (Vision-First) to find 'Total a + b = 30'...
+2026-01-18T19:01:42.1345754Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:42.1347733Z [CACHE HIT] 3dd655c2... (hits: 21, misses: 13)
+2026-01-18T19:01:42.1348352Z     ⚠️ Skipping duplicate injection: Forms
+2026-01-18T19:01:42.1348990Z     🔄 Retry 2/3 mining locators for 'Total a + b = 30'...
+2026-01-18T19:01:43.1608657Z     🧠 Consulting AI (Vision-First) to find 'Total a + b = 30'...
+2026-01-18T19:01:43.1610082Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:43.1612945Z [CACHE HIT] 3dd655c2... (hits: 22, misses: 13)
+2026-01-18T19:01:43.1613576Z     ⚠️ Skipping duplicate injection: Forms
+2026-01-18T19:01:43.1614162Z     🧠 Verifying step validity for 'Total a + b = 30' after no candidates found...
+2026-01-18T19:01:45.9642649Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:01:45.9643432Z [DEBUG] Received response (Length: 162)
+2026-01-18T19:01:45.9644593Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. The element 'Total a + b = 30' does not exist on this page.. Removing from workflow.
+2026-01-18T19:01:45.9645552Z     ⏭️ Skipping execution of invalid step: Total a + b = 30
+2026-01-18T19:01:47.9979357Z 
+2026-01-18T19:01:47.9980547Z [3/4] Exploring Scenario: Validate Single Input Form with Empty Input
+2026-01-18T19:01:47.9982619Z     🧠 Initialized exploration context for goal: 'Validate input forms'
+2026-01-18T19:01:47.9984562Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T19:01:48.6737471Z     ❌ Navigation failed to https://demo.seleniumeasy.com/basic-first-form-demo.html: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:01:48.6738624Z Call log:
+2026-01-18T19:01:48.6739270Z   - navigating to "https://demo.seleniumeasy.com/basic-first-form-demo.html", waiting until "domcontentloaded"
+2026-01-18T19:01:48.6739926Z 
+2026-01-18T19:01:48.6740674Z     ⚠️ Critical step failure: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:01:48.6741456Z Ca
+2026-01-18T19:01:48.6742002Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Single Input Field
+2026-01-18T19:01:48.6968845Z     🔍 Mining locators for: 'Single Input Field'
+2026-01-18T19:01:48.7212275Z     🧠 Consulting AI (Vision-First) to find 'Single Input Field'...
+2026-01-18T19:01:48.7213784Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:48.7216756Z [CACHE HIT] 10dfedcb... (hits: 23, misses: 14)
+2026-01-18T19:01:48.7217330Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T19:01:48.7217827Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:01:48.7601113Z     🔄 Retry 1/3 mining locators for 'Single Input Field'...
+2026-01-18T19:01:49.7822360Z     🧠 Consulting AI (Vision-First) to find 'Single Input Field'...
+2026-01-18T19:01:49.7823590Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:49.7826122Z [CACHE HIT] 10dfedcb... (hits: 24, misses: 14)
+2026-01-18T19:01:49.7826796Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:49.7827273Z     🔄 Retry 2/3 mining locators for 'Single Input Field'...
+2026-01-18T19:01:50.8109910Z     🧠 Consulting AI (Vision-First) to find 'Single Input Field'...
+2026-01-18T19:01:50.8111831Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:50.8114078Z [CACHE HIT] 10dfedcb... (hits: 25, misses: 14)
+2026-01-18T19:01:50.8114754Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:50.8115613Z     🧠 Verifying step validity for 'Single Input Field' after no candidates found...
+2026-01-18T19:01:50.8117735Z [CACHE HIT] 1f62fbe7... (hits: 26, misses: 14)
+2026-01-18T19:01:50.8118966Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. There is no input field to interact with.. Removing from workflow.
+2026-01-18T19:01:50.8119844Z     ⏭️ Skipping execution of invalid step: Single Input Field
+2026-01-18T19:01:50.8120230Z   ▶️ [STEP step_3] CLICK: Show Message
+2026-01-18T19:01:50.8170127Z     🔍 Mining locators for: 'Show Message'
+2026-01-18T19:01:50.8432351Z     🧠 Consulting AI (Vision-First) to find 'Show Message'...
+2026-01-18T19:01:50.8433889Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:50.8436414Z [CACHE HIT] 66b0d950... (hits: 27, misses: 14)
+2026-01-18T19:01:50.8437755Z     💡 Expert Suggestion: The 'Show Message' button is likely located within the 'Home' section, where input forms are commonly found.
+2026-01-18T19:01:50.8438986Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-18T19:01:50.8766348Z     🔄 Retry 1/3 mining locators for 'Show Message'...
+2026-01-18T19:01:51.8989671Z     🧠 Consulting AI (Vision-First) to find 'Show Message'...
+2026-01-18T19:01:51.8990888Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:51.8993806Z [CACHE HIT] 66b0d950... (hits: 28, misses: 14)
+2026-01-18T19:01:51.8994500Z     ⚠️ Skipping duplicate injection: Home
+2026-01-18T19:01:51.8994939Z     🔄 Retry 2/3 mining locators for 'Show Message'...
+2026-01-18T19:01:52.9278218Z     🧠 Consulting AI (Vision-First) to find 'Show Message'...
+2026-01-18T19:01:52.9279531Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:52.9282400Z [CACHE HIT] 66b0d950... (hits: 29, misses: 14)
+2026-01-18T19:01:52.9283123Z     ⚠️ Skipping duplicate injection: Home
+2026-01-18T19:01:52.9283698Z     🧠 Verifying step validity for 'Show Message' after no candidates found...
+2026-01-18T19:01:52.9286038Z [CACHE HIT] 04900409... (hits: 30, misses: 14)
+2026-01-18T19:01:52.9287662Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. The 'Show Message' element does not exist on this page. We are on the wrong page.. Removing from workflow.
+2026-01-18T19:01:52.9289213Z     ⏭️ Skipping execution of invalid step: Show Message
+2026-01-18T19:01:52.9289937Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Single Input Field
+2026-01-18T19:01:52.9344341Z     🔍 Mining locators for: 'Single Input Field'
+2026-01-18T19:01:52.9600341Z     🧠 Consulting AI (Vision-First) to find 'Single Input Field'...
+2026-01-18T19:01:52.9602147Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:52.9604229Z [CACHE HIT] 10dfedcb... (hits: 31, misses: 14)
+2026-01-18T19:01:52.9605007Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T19:01:52.9605504Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:01:52.9929529Z     🔄 Retry 1/3 mining locators for 'Single Input Field'...
+2026-01-18T19:01:54.0284497Z     🧠 Consulting AI (Vision-First) to find 'Single Input Field'...
+2026-01-18T19:01:54.0285535Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:54.0288045Z [CACHE HIT] 10dfedcb... (hits: 32, misses: 14)
+2026-01-18T19:01:54.0288695Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:54.0289269Z     🔄 Retry 2/3 mining locators for 'Single Input Field'...
+2026-01-18T19:01:55.0508048Z     🧠 Consulting AI (Vision-First) to find 'Single Input Field'...
+2026-01-18T19:01:55.0509228Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:55.0511937Z [CACHE HIT] 10dfedcb... (hits: 33, misses: 14)
+2026-01-18T19:01:55.0512705Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:55.0513275Z     🧠 Verifying step validity for 'Single Input Field' after no candidates found...
+2026-01-18T19:01:55.0515620Z [CACHE HIT] 1f62fbe7... (hits: 34, misses: 14)
+2026-01-18T19:01:55.0516806Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. There is no input field to interact with.. Removing from workflow.
+2026-01-18T19:01:55.0517522Z     ⏭️ Skipping execution of invalid step: Single Input Field
+2026-01-18T19:01:57.0836672Z 
+2026-01-18T19:01:57.0838265Z [4/4] Exploring Scenario: Validate Two Input Fields Form with Empty Input
+2026-01-18T19:01:57.0840188Z     🧠 Initialized exploration context for goal: 'Validate input forms'
+2026-01-18T19:01:57.0843382Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T19:01:57.7349749Z     ❌ Navigation failed to https://demo.seleniumeasy.com/basic-first-form-demo.html: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:01:57.7351428Z Call log:
+2026-01-18T19:01:57.7352427Z   - navigating to "https://demo.seleniumeasy.com/basic-first-form-demo.html", waiting until "domcontentloaded"
+2026-01-18T19:01:57.7353105Z 
+2026-01-18T19:01:57.7353884Z     ⚠️ Critical step failure: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:01:57.7354663Z Ca
+2026-01-18T19:01:57.7355011Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Enter value
+2026-01-18T19:01:57.7582623Z     🔍 Mining locators for: 'Enter value'
+2026-01-18T19:01:57.7818869Z     🧠 Consulting AI (Vision-First) to find 'Enter value'...
+2026-01-18T19:01:57.7820778Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:57.7823556Z [CACHE HIT] 08797077... (hits: 35, misses: 14)
+2026-01-18T19:01:57.7824269Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T19:01:57.7824878Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:01:57.8100836Z     🔄 Retry 1/3 mining locators for 'Enter value'...
+2026-01-18T19:01:58.8323149Z     🧠 Consulting AI (Vision-First) to find 'Enter value'...
+2026-01-18T19:01:58.8324802Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:58.8326801Z [CACHE HIT] 08797077... (hits: 36, misses: 14)
+2026-01-18T19:01:58.8327433Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:58.8328056Z     🔄 Retry 2/3 mining locators for 'Enter value'...
+2026-01-18T19:01:59.8607387Z     🧠 Consulting AI (Vision-First) to find 'Enter value'...
+2026-01-18T19:01:59.8609012Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:59.8611050Z [CACHE HIT] 08797077... (hits: 37, misses: 14)
+2026-01-18T19:01:59.8611845Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:01:59.8612685Z     🧠 Verifying step validity for 'Enter value' after no candidates found...
+2026-01-18T19:01:59.8615059Z [CACHE HIT] 9f9e0ef0... (hits: 38, misses: 14)
+2026-01-18T19:01:59.8616711Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. There is no input form or element labeled 'Enter value' on this page. Therefore, the task is invalid.. Removing from workflow.
+2026-01-18T19:01:59.8617592Z     ⏭️ Skipping execution of invalid step: Enter value
+2026-01-18T19:01:59.8617962Z   ▶️ [STEP step_3] FILL: Enter value
+2026-01-18T19:01:59.8666529Z     🔍 Mining locators for: 'Enter value'
+2026-01-18T19:01:59.8935401Z     🧠 Consulting AI (Vision-First) to find 'Enter value'...
+2026-01-18T19:01:59.8936678Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:01:59.8939635Z [CACHE HIT] 08797077... (hits: 39, misses: 14)
+2026-01-18T19:01:59.8940222Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T19:01:59.8941010Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:01:59.9263954Z     🔄 Retry 1/3 mining locators for 'Enter value'...
+2026-01-18T19:02:00.9493656Z     🧠 Consulting AI (Vision-First) to find 'Enter value'...
+2026-01-18T19:02:00.9494801Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:02:00.9497448Z [CACHE HIT] 08797077... (hits: 40, misses: 14)
+2026-01-18T19:02:00.9498101Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:02:00.9501109Z     🔄 Retry 2/3 mining locators for 'Enter value'...
+2026-01-18T19:02:01.9778910Z     🧠 Consulting AI (Vision-First) to find 'Enter value'...
+2026-01-18T19:02:01.9781035Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:02:01.9783438Z [CACHE HIT] 08797077... (hits: 41, misses: 14)
+2026-01-18T19:02:01.9784318Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:02:01.9785434Z     🧠 Verifying step validity for 'Enter value' after no candidates found...
+2026-01-18T19:02:01.9787472Z [CACHE HIT] 9f9e0ef0... (hits: 42, misses: 14)
+2026-01-18T19:02:01.9789084Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. There is no input form or element labeled 'Enter value' on this page. Therefore, the task is invalid.. Removing from workflow.
+2026-01-18T19:02:01.9790862Z     ⏭️ Skipping execution of invalid step: Enter value
+2026-01-18T19:02:01.9791395Z   ▶️ [STEP step_4] FILL: Enter value2
+2026-01-18T19:02:01.9836961Z     🔍 Mining locators for: 'Enter value2'
+2026-01-18T19:02:02.0110758Z     🧠 Consulting AI (Vision-First) to find 'Enter value2'...
+2026-01-18T19:02:02.0112227Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:02:02.0116752Z [CACHE HIT] 0552944c... (hits: 43, misses: 14)
+2026-01-18T19:02:02.0117617Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T19:02:02.0118509Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:02:02.0437964Z     🔄 Retry 1/3 mining locators for 'Enter value2'...
+2026-01-18T19:02:03.0665112Z     🧠 Consulting AI (Vision-First) to find 'Enter value2'...
+2026-01-18T19:02:03.0666713Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:02:03.0669148Z [CACHE HIT] 0552944c... (hits: 44, misses: 14)
+2026-01-18T19:02:03.0669729Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:02:03.0670128Z     🔄 Retry 2/3 mining locators for 'Enter value2'...
+2026-01-18T19:02:04.0935808Z     🧠 Consulting AI (Vision-First) to find 'Enter value2'...
+2026-01-18T19:02:04.0937336Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:02:04.0939973Z [CACHE HIT] 0552944c... (hits: 45, misses: 14)
+2026-01-18T19:02:04.0940477Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:02:04.0941368Z     🧠 Verifying step validity for 'Enter value2' after no candidates found...
+2026-01-18T19:02:04.0943996Z [CACHE HIT] 857f3f0f... (hits: 46, misses: 14)
+2026-01-18T19:02:04.0945034Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. There are no input fields to interact with, so the task is invalid.. Removing from workflow.
+2026-01-18T19:02:04.0945800Z     ⏭️ Skipping execution of invalid step: Enter value2
+2026-01-18T19:02:04.0946154Z   ▶️ [STEP step_5] CLICK: Get Total
+2026-01-18T19:02:04.0996724Z     🔍 Mining locators for: 'Get Total'
+2026-01-18T19:02:04.1273907Z     🧠 Consulting AI (Vision-First) to find 'Get Total'...
+2026-01-18T19:02:04.1275512Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:02:04.1277898Z [CACHE HIT] d9326a98... (hits: 47, misses: 14)
+2026-01-18T19:02:04.1278915Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T19:02:04.1279718Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T19:02:04.1606383Z     🔄 Retry 1/3 mining locators for 'Get Total'...
+2026-01-18T19:02:05.1838599Z     🧠 Consulting AI (Vision-First) to find 'Get Total'...
+2026-01-18T19:02:05.1840097Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:02:05.1842929Z [CACHE HIT] d9326a98... (hits: 48, misses: 14)
+2026-01-18T19:02:05.1843623Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:02:05.1844022Z     🔄 Retry 2/3 mining locators for 'Get Total'...
+2026-01-18T19:02:06.2095794Z     🧠 Consulting AI (Vision-First) to find 'Get Total'...
+2026-01-18T19:02:06.2097004Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:02:06.2099642Z [CACHE HIT] d9326a98... (hits: 49, misses: 14)
+2026-01-18T19:02:06.2100395Z     ⚠️ Skipping duplicate injection: Products
+2026-01-18T19:02:06.2100897Z     🧠 Verifying step validity for 'Get Total' after no candidates found...
+2026-01-18T19:02:06.2103431Z [CACHE HIT] dc057f49... (hits: 50, misses: 14)
+2026-01-18T19:02:06.2104550Z     🗑️ Step deemed INVALID: The current page is a Chrome error page. The 'Get Total' element does not exist on this page. We are on the wrong page.. Removing from workflow.
+2026-01-18T19:02:06.2105340Z     ⏭️ Skipping execution of invalid step: Get Total
+2026-01-18T19:02:06.2105737Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Total a + b = NaN
+2026-01-18T19:02:06.2156198Z     🔍 Mining locators for: 'Total a + b = NaN'
+2026-01-18T19:02:06.2436973Z     🧠 Consulting AI (Vision-First) to find 'Total a + b = NaN'...
+2026-01-18T19:02:06.2438706Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:02:07.3392469Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:02:07.3393032Z [DEBUG] Received response (Length: 235)
+2026-01-18T19:02:07.3394060Z     💡 Expert Suggestion: The 'Total a + b = NaN' message is likely displayed on a calculator page after invalid input.
+2026-01-18T19:02:07.3394967Z     🛠️ Executing corrective action: click -> 'Calculator'
+2026-01-18T19:02:07.3665036Z     🔄 Retry 1/3 mining locators for 'Total a + b = NaN'...
+2026-01-18T19:02:08.3929481Z     🧠 Consulting AI (Vision-First) to find 'Total a + b = NaN'...
+2026-01-18T19:02:08.3931890Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:02:08.3933676Z [CACHE HIT] 8928d9dc... (hits: 51, misses: 15)
+2026-01-18T19:02:08.3934447Z     ⚠️ Skipping duplicate injection: Calculator
+2026-01-18T19:02:08.3935038Z     🔄 Retry 2/3 mining locators for 'Total a + b = NaN'...
+2026-01-18T19:02:09.4166071Z     🧠 Consulting AI (Vision-First) to find 'Total a + b = NaN'...
+2026-01-18T19:02:09.4168218Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:02:09.4170052Z [CACHE HIT] 8928d9dc... (hits: 52, misses: 15)
+2026-01-18T19:02:09.4170944Z     ⚠️ Skipping duplicate injection: Calculator
+2026-01-18T19:02:09.4172323Z     🧠 Verifying step validity for 'Total a + b = NaN' after no candidates found...
+2026-01-18T19:02:12.3606549Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:02:12.3607126Z [DEBUG] Received response (Length: 283)
+2026-01-18T19:02:12.3609383Z     🗑️ Step deemed INVALID: The current page is a Chrome error page (chrome-error://chromewebdata/). It's impossible to find the element 'Total a + b = NaN' on this page because it's not related to the intended application. We are on the wrong page.. Removing from workflow.
+2026-01-18T19:02:12.3610967Z     ⏭️ Skipping execution of invalid step: Total a + b = NaN
+2026-01-18T19:02:14.3923541Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_seleniumeasy_forms/tests/generated_scenarios.json
+2026-01-18T19:02:14.3926235Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-18T19:02:14.3926931Z 
+2026-01-18T19:02:14.3927117Z ✅ Deep Exploration Complete.
+2026-01-18T19:02:31.3312773Z 
+2026-01-18T19:02:31.3313605Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-18T19:02:31.3314254Z 📍 Project: ci_seleniumeasy_forms
+2026-01-18T19:02:31.3314706Z 🎬 Mode: Headless
+2026-01-18T19:02:31.3314944Z 
+2026-01-18T19:02:31.3315138Z --- Scenario: Validate Single Input Form ---
+2026-01-18T19:02:31.3315715Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T19:02:31.3317081Z     ❌ Attempt 1 failed (unknown): Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:02:31.3317999Z Ca...
+2026-01-18T19:02:31.3318486Z     🔧 [AUTO-HEAL] Re-mining page to find 'Step step_1'...
+2026-01-18T19:02:31.3319117Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:02:31.3319673Z [DEBUG] Received response (Length: 38)
+2026-01-18T19:02:31.3320324Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:02:31.3322008Z     ❌ Attempt 2 failed (unknown): Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:02:31.3322899Z Ca...
+2026-01-18T19:02:31.3323349Z     🔧 [AUTO-HEAL] Re-mining page to find 'navigate'...
+2026-01-18T19:02:31.3323897Z [CACHE HIT] 32166800... (hits: 1, misses: 1)
+2026-01-18T19:02:31.3324574Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:02:31.3325802Z     ❌ Attempt 3 failed (unknown): Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:02:31.3326640Z Ca...
+2026-01-18T19:02:31.3327014Z     💀 Step step_1 failed after all retries.
+2026-01-18T19:02:31.3327673Z 🛑 Scenario 'Validate Single Input Form' aborted due to step failure.
+2026-01-18T19:02:31.3328112Z 
+2026-01-18T19:02:31.3328306Z --- Scenario: Validate Two Input Fields Form ---
+2026-01-18T19:02:31.3328850Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T19:02:31.3329931Z     ❌ Attempt 1 failed (unknown): Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:02:31.3330805Z Ca...
+2026-01-18T19:02:31.3331243Z     🔧 [AUTO-HEAL] Re-mining page to find 'Step step_1'...
+2026-01-18T19:02:31.3331923Z [CACHE HIT] 32166800... (hits: 2, misses: 1)
+2026-01-18T19:02:31.3332590Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:02:31.3333805Z     ❌ Attempt 2 failed (unknown): Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:02:31.3334667Z Ca...
+2026-01-18T19:02:31.3335089Z     🔧 [AUTO-HEAL] Re-mining page to find 'navigate'...
+2026-01-18T19:02:31.3335576Z [CACHE HIT] 32166800... (hits: 3, misses: 1)
+2026-01-18T19:02:31.3336202Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:02:31.3337392Z     ❌ Attempt 3 failed (unknown): Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:02:31.3338276Z Ca...
+2026-01-18T19:02:31.3338650Z     💀 Step step_1 failed after all retries.
+2026-01-18T19:02:31.3339328Z 🛑 Scenario 'Validate Two Input Fields Form' aborted due to step failure.
+2026-01-18T19:02:31.3339795Z 
+2026-01-18T19:02:31.3340046Z --- Scenario: Validate Single Input Form with Empty Input ---
+2026-01-18T19:02:31.3340947Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T19:02:31.3342533Z     ❌ Attempt 1 failed (unknown): Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:02:31.3343418Z Ca...
+2026-01-18T19:02:31.3343854Z     🔧 [AUTO-HEAL] Re-mining page to find 'Step step_1'...
+2026-01-18T19:02:31.3344368Z [CACHE HIT] 32166800... (hits: 4, misses: 1)
+2026-01-18T19:02:31.3345014Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:02:31.3346213Z     ❌ Attempt 2 failed (unknown): Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:02:31.3347086Z Ca...
+2026-01-18T19:02:31.3347501Z     🔧 [AUTO-HEAL] Re-mining page to find 'navigate'...
+2026-01-18T19:02:31.3347985Z [CACHE HIT] 32166800... (hits: 5, misses: 1)
+2026-01-18T19:02:31.3348614Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:02:31.3349841Z     ❌ Attempt 3 failed (unknown): Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:02:31.3350706Z Ca...
+2026-01-18T19:02:31.3351079Z     💀 Step step_1 failed after all retries.
+2026-01-18T19:02:31.3352010Z 🛑 Scenario 'Validate Single Input Form with Empty Input' aborted due to step failure.
+2026-01-18T19:02:31.3352581Z 
+2026-01-18T19:02:31.3352848Z --- Scenario: Validate Two Input Fields Form with Empty Input ---
+2026-01-18T19:02:31.3353473Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T19:02:31.3354544Z     ❌ Attempt 1 failed (unknown): Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:02:31.3355407Z Ca...
+2026-01-18T19:02:31.3355840Z     🔧 [AUTO-HEAL] Re-mining page to find 'Step step_1'...
+2026-01-18T19:02:31.3356352Z [CACHE HIT] 32166800... (hits: 6, misses: 1)
+2026-01-18T19:02:31.3356983Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:02:31.3358221Z     ❌ Attempt 2 failed (unknown): Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:02:31.3359076Z Ca...
+2026-01-18T19:02:31.3359514Z     🔧 [AUTO-HEAL] Re-mining page to find 'navigate'...
+2026-01-18T19:02:31.3359999Z [CACHE HIT] 32166800... (hits: 7, misses: 1)
+2026-01-18T19:02:31.3360661Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T19:02:31.3362051Z     ❌ Attempt 3 failed (unknown): Page.goto: net::ERR_NAME_NOT_RESOLVED at https://demo.seleniumeasy.com/basic-first-form-demo.html
+2026-01-18T19:02:31.3363017Z Ca...
+2026-01-18T19:02:31.3363441Z     💀 Step step_1 failed after all retries.
+2026-01-18T19:02:31.3364319Z 🛑 Scenario 'Validate Two Input Fields Form with Empty Input' aborted due to step failure.
+2026-01-18T19:02:31.3364894Z 
+2026-01-18T19:02:31.3365052Z ============================================================
+2026-01-18T19:02:31.3365566Z 🎯 EXECUTION SUMMARY
+2026-01-18T19:02:31.3365923Z ============================================================
+2026-01-18T19:02:31.3366234Z 
+2026-01-18T19:02:31.3366401Z 📋 Scenario Overview:
+2026-01-18T19:02:31.3366800Z    • Total Scenarios Planned: 4
+2026-01-18T19:02:31.3367227Z    • Scenarios Executed: 4
+2026-01-18T19:02:31.3367640Z    • Total Steps Executed: 4
+2026-01-18T19:02:31.3367883Z 
+2026-01-18T19:02:31.3368033Z ✅ Results:
+2026-01-18T19:02:31.3368358Z    ❌ Failed: 4 (100%)
+2026-01-18T19:02:31.3368550Z 
+2026-01-18T19:02:31.3368723Z ⚠️  Failed Scenarios:
+2026-01-18T19:02:31.3369096Z    • Validate Single Input Form
+2026-01-18T19:02:31.3369542Z    • Validate Two Input Fields Form
+2026-01-18T19:02:31.3371922Z    • Validate Single Input Form with Empty Input
+2026-01-18T19:02:31.3372541Z    • Validate Two Input Fields Form with Empty Input
+2026-01-18T19:02:31.3372886Z 
+2026-01-18T19:02:31.3373044Z ============================================================
+2026-01-18T19:02:31.3373354Z 
+2026-01-18T19:02:31.3374371Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_seleniumeasy_forms/execution.json
+2026-01-18T19:02:31.4436707Z 
+2026-01-18T19:02:31.4437318Z [PHASE] Running Phase: DISCOVERY
+2026-01-18T19:02:31.4440330Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_seleniumeasy_forms --url https://demo.seleniumeasy.com/basic-first-form-demo.html --deep
+2026-01-18T19:02:31.4445316Z ❌ Phase 'discovery' failed with error: Command '['/opt/hostedtoolcache/Python/3.11.14/x64/bin/python', '/home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py', '--project', '/home/runner/work/build_qa_automation/build_qa_automation/projects/ci_seleniumeasy_forms', '--url', 'https://demo.seleniumeasy.com/basic-first-form-demo.html', '--deep']' returned non-zero exit status 2.
+2026-01-18T19:02:31.4448060Z ⚠️ Initial discovery failed, but proceeding to planning...
+2026-01-18T19:02:31.4448447Z 
+2026-01-18T19:02:31.4448601Z [PHASE] Running Phase: PLANNING
+2026-01-18T19:02:31.4450751Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_seleniumeasy_forms --goal Validate input forms --url https://demo.seleniumeasy.com/basic-first-form-demo.html --deep
+2026-01-18T19:02:31.4453159Z ✅ Phase 'planning' completed successfully.
+2026-01-18T19:02:31.4453474Z 
+2026-01-18T19:02:31.4453622Z [PHASE] Running Phase: EXPLORATION
+2026-01-18T19:02:31.4455202Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_seleniumeasy_forms
+2026-01-18T19:02:31.4456938Z ✅ Phase 'exploration' completed successfully.
+2026-01-18T19:02:31.4457274Z 
+2026-01-18T19:02:31.4457430Z [PHASE] Running Phase: EXECUTION
+2026-01-18T19:02:31.4459001Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_seleniumeasy_forms
+2026-01-18T19:02:31.4460643Z ✅ Phase 'execution' completed successfully.
+2026-01-18T19:02:31.4460960Z 
+2026-01-18T19:02:31.4461146Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-18T19:02:31.5401270Z ##[group]Run RESULT_FILE="projects/ci_seleniumeasy_forms/execution.json"
+2026-01-18T19:02:31.5402086Z [36;1mRESULT_FILE="projects/ci_seleniumeasy_forms/execution.json"[0m
+2026-01-18T19:02:31.5402476Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-18T19:02:31.5402833Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-18T19:02:31.5403303Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-18T19:02:31.5403701Z [36;1melse[0m
+2026-01-18T19:02:31.5403947Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-18T19:02:31.5404236Z [36;1m  exit 1[0m
+2026-01-18T19:02:31.5404438Z [36;1mfi[0m
+2026-01-18T19:02:31.5435912Z shell: /usr/bin/bash -e {0}
+2026-01-18T19:02:31.5436168Z env:
+2026-01-18T19:02:31.5436437Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:02:31.5436884Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:02:31.5437343Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:02:31.5437744Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:02:31.5438133Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:02:31.5438555Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:02:31.5438877Z ##[endgroup]
+2026-01-18T19:02:31.5492553Z ✅ Results generated successfully: projects/ci_seleniumeasy_forms/execution.json
+2026-01-18T19:02:31.5518303Z 4
+2026-01-18T19:02:31.5583752Z ##[group]Run actions/upload-artifact@v4
+2026-01-18T19:02:31.5584048Z with:
+2026-01-18T19:02:31.5584277Z   name: seleniumeasy_forms-execution-results
+2026-01-18T19:02:31.5584780Z   path: projects/ci_seleniumeasy_forms/execution.json
+projects/ci_seleniumeasy_forms/workflow.json
+
+2026-01-18T19:02:31.5585253Z   retention-days: 30
+2026-01-18T19:02:31.5585472Z   if-no-files-found: warn
+2026-01-18T19:02:31.5585703Z   compression-level: 6
+2026-01-18T19:02:31.5585920Z   overwrite: false
+2026-01-18T19:02:31.5586138Z   include-hidden-files: false
+2026-01-18T19:02:31.5586364Z env:
+2026-01-18T19:02:31.5586612Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:02:31.5587036Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:02:31.5587454Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:02:31.5587828Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:02:31.5588241Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:02:31.5588625Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:02:31.5588944Z ##[endgroup]
+2026-01-18T19:02:31.7738708Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-18T19:02:31.7743896Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_seleniumeasy_forms. This will be the root directory of the artifact
+2026-01-18T19:02:31.7745262Z With the provided path, there will be 2 files uploaded
+2026-01-18T19:02:31.7749887Z Artifact name is valid!
+2026-01-18T19:02:31.7751238Z Root directory input is valid!
+2026-01-18T19:02:31.8972331Z Beginning upload of artifact content to blob storage
+2026-01-18T19:02:32.0198233Z Uploaded bytes 954
+2026-01-18T19:02:32.0557094Z Finished uploading artifact content to blob storage!
+2026-01-18T19:02:32.0561405Z SHA256 digest of uploaded artifact zip is 1dd895b377810cf138a41587b5a792d31a5df760b035294db41883450f6e5eef
+2026-01-18T19:02:32.0563077Z Finalizing artifact upload
+2026-01-18T19:02:32.1557153Z Artifact seleniumeasy_forms-execution-results.zip successfully finalized. Artifact ID 5169991694
+2026-01-18T19:02:32.1558695Z Artifact seleniumeasy_forms-execution-results has been successfully uploaded! Final size is 954 bytes. Artifact ID is 5169991694
+2026-01-18T19:02:32.1566584Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21116744370/artifacts/5169991694
+2026-01-18T19:02:32.1705014Z Post job cleanup.
+2026-01-18T19:02:32.3226792Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-18T19:02:32.3385947Z Post job cleanup.
+2026-01-18T19:02:32.4322940Z [command]/usr/bin/git version
+2026-01-18T19:02:32.4358432Z git version 2.52.0
+2026-01-18T19:02:32.4401989Z Temporarily overriding HOME='/home/runner/work/_temp/0d014ad3-42a0-4a82-a723-9c99ae19244f' before making global git config changes
+2026-01-18T19:02:32.4403472Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T19:02:32.4408616Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T19:02:32.4444943Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T19:02:32.4477121Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T19:02:32.4709933Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T19:02:32.4733591Z http.https://github.com/.extraheader
+2026-01-18T19:02:32.4747350Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-18T19:02:32.4780457Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T19:02:32.5026455Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T19:02:32.5059990Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T19:02:32.5427835Z Cleaning up orphan processes

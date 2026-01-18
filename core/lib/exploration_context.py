@@ -180,16 +180,17 @@ Pages Visited: {len(self.pages_visited)}
             ]
         }
     
-    def get_page_fingerprint(self, url: str, dom_snapshot: Optional[str] = None) -> str:
+    def get_page_fingerprint(self, url: str, dom_snapshot: Optional[str] = None, form_state: Optional[Dict[str, str]] = None) -> str:
         """
-        Generate state fingerprint from URL and DOM content.
+        Generate state fingerprint from URL, DOM content, and form field values.
         
         Args:
             url: Current page URL
             dom_snapshot: Optional DOM content snapshot (first 5000 chars)
+            form_state: Optional dict of form field values {field_name: field_value}
             
         Returns:
-            MD5 hash representing page state
+            MD5 hash representing page state including form data
         """
         # Use URL as primary identifier
         state_parts = [url]
@@ -200,22 +201,32 @@ Pages Visited: {len(self.pages_visited)}
             dom_hash = hashlib.md5(dom_snapshot[:5000].encode()).hexdigest()[:8]
             state_parts.append(dom_hash)
         
+        # Add form state hash to detect field-level changes
+        if form_state:
+            # Sort keys for consistent hashing
+            sorted_form = sorted(form_state.items())
+            form_repr = "|".join([f"{k}={v}" for k, v in sorted_form if v])  # Only non-empty values
+            if form_repr:  # Only add if there are filled fields
+                form_hash = hashlib.md5(form_repr.encode()).hexdigest()[:8]
+                state_parts.append(f"form:{form_hash}")
+        
         # Combine and hash
         combined = "|".join(state_parts)
         return hashlib.md5(combined.encode()).hexdigest()
     
-    def record_state(self, url: str, dom_snapshot: Optional[str] = None) -> bool:
+    def record_state(self, url: str, dom_snapshot: Optional[str] = None, form_state: Optional[Dict[str, str]] = None) -> bool:
         """
         Record current page state and detect if we've been here before.
         
         Args:
             url: Current page URL
             dom_snapshot: Optional DOM snapshot
+            form_state: Optional form field values dict
             
         Returns:
             True if this is a NEW state, False if we've visited this exact state before
         """
-        fingerprint = self.get_page_fingerprint(url, dom_snapshot)
+        fingerprint = self.get_page_fingerprint(url, dom_snapshot, form_state)
         
         is_new_state = fingerprint not in self.state_fingerprints
         

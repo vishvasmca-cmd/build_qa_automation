@@ -1,0 +1,74 @@
+{
+  "project": "real_world_demo",
+  "goal": "Add the first product ('Blue Top') to the cart and then view the cart",
+  "base_url": "https://automationexercise.com/",
+  "scenarios": [
+    {
+      "id": "TC001",
+      "name": "Add Blue Top to Cart and View Cart",
+      "description": "This test case adds the first product (assumed to be 'Blue Top' or similar) from the 'Tops & Shirts' category to the cart and then navigates to the cart page.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://automationexercise.com/"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://automationexercise.com/"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Products"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://automationexercise.com/products"
+          }
+        },
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://automationexercise.com/category_products/5"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://automationexercise.com/category_products/5"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart"
+          }
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "View Cart"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "View Cart"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://automationexercise.com/view_cart"
+          }
+        }
+      ]
+    }
+  ]
+}

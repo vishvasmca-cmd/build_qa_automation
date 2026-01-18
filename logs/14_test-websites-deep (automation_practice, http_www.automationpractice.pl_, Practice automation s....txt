@@ -1,0 +1,1891 @@
+﻿2026-01-18T19:16:00.3836153Z Current runner version: '2.331.0'
+2026-01-18T19:16:00.3858291Z ##[group]Runner Image Provisioner
+2026-01-18T19:16:00.3859468Z Hosted Compute Agent
+2026-01-18T19:16:00.3860024Z Version: 20251211.462
+2026-01-18T19:16:00.3860656Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-18T19:16:00.3861416Z Build Date: 2025-12-11T16:28:49Z
+2026-01-18T19:16:00.3862077Z Worker ID: {b6a3457f-c6c7-4bf5-8a4d-bfe341eef088}
+2026-01-18T19:16:00.3862773Z ##[endgroup]
+2026-01-18T19:16:00.3863345Z ##[group]Operating System
+2026-01-18T19:16:00.3863855Z Ubuntu
+2026-01-18T19:16:00.3864364Z 24.04.3
+2026-01-18T19:16:00.3864873Z LTS
+2026-01-18T19:16:00.3865306Z ##[endgroup]
+2026-01-18T19:16:00.3865874Z ##[group]Runner Image
+2026-01-18T19:16:00.3866439Z Image: ubuntu-24.04
+2026-01-18T19:16:00.3866911Z Version: 20260111.209.1
+2026-01-18T19:16:00.3868213Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-18T19:16:00.3869773Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-18T19:16:00.3870797Z ##[endgroup]
+2026-01-18T19:16:00.3871846Z ##[group]GITHUB_TOKEN Permissions
+2026-01-18T19:16:00.3874332Z Contents: read
+2026-01-18T19:16:00.3874895Z Metadata: read
+2026-01-18T19:16:00.3875403Z Packages: read
+2026-01-18T19:16:00.3876234Z ##[endgroup]
+2026-01-18T19:16:00.3878509Z Secret source: Actions
+2026-01-18T19:16:00.3879592Z Prepare workflow directory
+2026-01-18T19:16:00.4200981Z Prepare all required actions
+2026-01-18T19:16:00.4239446Z Getting action download info
+2026-01-18T19:16:00.7472252Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-18T19:16:00.8434013Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-18T19:16:00.9274069Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-18T19:16:01.1477378Z Complete job name: test-websites-deep (automation_practice, http://www.automationpractice.pl/, Practice automation s...
+2026-01-18T19:16:01.2162036Z ##[group]Run actions/checkout@v4
+2026-01-18T19:16:01.2162847Z with:
+2026-01-18T19:16:01.2163302Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T19:16:01.2164011Z   token: ***
+2026-01-18T19:16:01.2164392Z   ssh-strict: true
+2026-01-18T19:16:01.2164785Z   ssh-user: git
+2026-01-18T19:16:01.2165179Z   persist-credentials: true
+2026-01-18T19:16:01.2165623Z   clean: true
+2026-01-18T19:16:01.2166026Z   sparse-checkout-cone-mode: true
+2026-01-18T19:16:01.2166503Z   fetch-depth: 1
+2026-01-18T19:16:01.2166883Z   fetch-tags: false
+2026-01-18T19:16:01.2167278Z   show-progress: true
+2026-01-18T19:16:01.2167860Z   lfs: false
+2026-01-18T19:16:01.2168278Z   submodules: false
+2026-01-18T19:16:01.2168681Z   set-safe-directory: true
+2026-01-18T19:16:01.2169380Z ##[endgroup]
+2026-01-18T19:16:01.3216983Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T19:16:01.3219112Z ##[group]Getting Git version info
+2026-01-18T19:16:01.3219990Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T19:16:01.3221256Z [command]/usr/bin/git version
+2026-01-18T19:16:01.3290390Z git version 2.52.0
+2026-01-18T19:16:01.3315715Z ##[endgroup]
+2026-01-18T19:16:01.3335784Z Temporarily overriding HOME='/home/runner/work/_temp/651aa8e6-ec32-47ce-b61f-fa9317e31859' before making global git config changes
+2026-01-18T19:16:01.3337120Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T19:16:01.3341511Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T19:16:01.3378737Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T19:16:01.3382458Z ##[group]Initializing the repository
+2026-01-18T19:16:01.3387260Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T19:16:01.3467554Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-18T19:16:01.3469476Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-18T19:16:01.3470847Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-18T19:16:01.3471743Z hint: call:
+2026-01-18T19:16:01.3472373Z hint:
+2026-01-18T19:16:01.3473216Z hint: 	git config --global init.defaultBranch <name>
+2026-01-18T19:16:01.3474278Z hint:
+2026-01-18T19:16:01.3475257Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-18T19:16:01.3476881Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-18T19:16:01.3478416Z hint:
+2026-01-18T19:16:01.3479067Z hint: 	git branch -m <name>
+2026-01-18T19:16:01.3479805Z hint:
+2026-01-18T19:16:01.3480789Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-18T19:16:01.3482811Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-18T19:16:01.3486036Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T19:16:01.3518181Z ##[endgroup]
+2026-01-18T19:16:01.3519362Z ##[group]Disabling automatic garbage collection
+2026-01-18T19:16:01.3522987Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-18T19:16:01.3554911Z ##[endgroup]
+2026-01-18T19:16:01.3555703Z ##[group]Setting up auth
+2026-01-18T19:16:01.3561334Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T19:16:01.3596828Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T19:16:01.3920730Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T19:16:01.3953889Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T19:16:01.4185716Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T19:16:01.4219228Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T19:16:01.4463915Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-18T19:16:01.4503008Z ##[endgroup]
+2026-01-18T19:16:01.4503717Z ##[group]Fetching the repository
+2026-01-18T19:16:01.4510922Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c9fb31d387d3134fb416430b3b3a9e89b3921439:refs/remotes/origin/main
+2026-01-18T19:16:02.2329216Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T19:16:02.2331016Z  * [new ref]         c9fb31d387d3134fb416430b3b3a9e89b3921439 -> origin/main
+2026-01-18T19:16:02.2361912Z ##[endgroup]
+2026-01-18T19:16:02.2363167Z ##[group]Determining the checkout info
+2026-01-18T19:16:02.2364731Z ##[endgroup]
+2026-01-18T19:16:02.2369546Z [command]/usr/bin/git sparse-checkout disable
+2026-01-18T19:16:02.2410122Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-18T19:16:02.2437135Z ##[group]Checking out the ref
+2026-01-18T19:16:02.2439660Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-18T19:16:02.3379666Z Switched to a new branch 'main'
+2026-01-18T19:16:02.3381659Z branch 'main' set up to track 'origin/main'.
+2026-01-18T19:16:02.3394962Z ##[endgroup]
+2026-01-18T19:16:02.3433898Z [command]/usr/bin/git log -1 --format=%H
+2026-01-18T19:16:02.3454895Z c9fb31d387d3134fb416430b3b3a9e89b3921439
+2026-01-18T19:16:02.3761626Z ##[group]Run actions/setup-python@v5
+2026-01-18T19:16:02.3762766Z with:
+2026-01-18T19:16:02.3763567Z   python-version: 3.11
+2026-01-18T19:16:02.3764485Z   cache: pip
+2026-01-18T19:16:02.3765506Z   check-latest: false
+2026-01-18T19:16:02.3766688Z   token: ***
+2026-01-18T19:16:02.3767543Z   update-environment: true
+2026-01-18T19:16:02.3768890Z   allow-prereleases: false
+2026-01-18T19:16:02.3770127Z   freethreaded: false
+2026-01-18T19:16:02.3771011Z ##[endgroup]
+2026-01-18T19:16:02.5415249Z ##[group]Installed versions
+2026-01-18T19:16:02.5508263Z Successfully set up CPython (3.11.14)
+2026-01-18T19:16:02.5510072Z ##[endgroup]
+2026-01-18T19:16:02.6001915Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-18T19:16:02.8812549Z /home/runner/.cache/pip
+2026-01-18T19:16:03.0132121Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-18T19:16:04.1344893Z Received 150994944 of 254742636 (59.3%), 142.7 MBs/sec
+2026-01-18T19:16:04.5759134Z Received 254742636 of 254742636 (100.0%), 167.5 MBs/sec
+2026-01-18T19:16:04.5761014Z Cache Size: ~243 MB (254742636 B)
+2026-01-18T19:16:04.5812288Z [command]/usr/bin/tar -xf /home/runner/work/_temp/2a69ed31-59ed-4975-8185-ee8260464734/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-18T19:16:04.9598241Z Cache restored successfully
+2026-01-18T19:16:05.0083898Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-18T19:16:05.0327861Z ##[group]Run pip install -r requirements.txt
+2026-01-18T19:16:05.0328301Z [36;1mpip install -r requirements.txt[0m
+2026-01-18T19:16:05.0328608Z [36;1mplaywright install chromium[0m
+2026-01-18T19:16:05.0368155Z shell: /usr/bin/bash -e {0}
+2026-01-18T19:16:05.0368423Z env:
+2026-01-18T19:16:05.0368686Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:16:05.0369138Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:16:05.0369587Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:16:05.0369962Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:16:05.0370331Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:16:05.0370695Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:16:05.0370997Z ##[endgroup]
+2026-01-18T19:16:05.6397320Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-18T19:16:05.6412773Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-18T19:16:05.6580835Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-18T19:16:05.6594833Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-18T19:16:05.6850769Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-18T19:16:05.6864349Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-18T19:16:05.8530806Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-18T19:16:05.8547370Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-18T19:16:05.8783465Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-18T19:16:05.8796972Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-18T19:16:05.8933205Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-18T19:16:05.8946529Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-18T19:16:05.9298301Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-18T19:16:05.9311982Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-18T19:16:05.9852516Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-18T19:16:05.9867023Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-18T19:16:06.1754533Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-18T19:16:06.1768924Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-18T19:16:06.2511033Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-18T19:16:06.2524303Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-18T19:16:06.2675200Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-18T19:16:06.2688452Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-18T19:16:06.3921922Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-18T19:16:06.3936631Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-18T19:16:06.4100309Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-18T19:16:06.4113828Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-18T19:16:06.4901433Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-18T19:16:06.4916390Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-18T19:16:06.5056273Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-18T19:16:06.5069613Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T19:16:06.5324110Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-18T19:16:06.5336454Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-18T19:16:06.5528257Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-18T19:16:06.5540945Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T19:16:06.5733133Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:06.5746027Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-18T19:16:06.6090054Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:06.6106692Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-18T19:16:06.6371298Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:06.6389337Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-18T19:16:06.7976055Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:06.7990660Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-18T19:16:06.8238871Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:06.8252589Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-18T19:16:06.9092779Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:06.9108370Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-18T19:16:06.9252143Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:06.9265502Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-18T19:16:06.9347496Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:06.9362125Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-18T19:16:06.9631750Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:06.9645296Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-18T19:16:06.9780036Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:06.9795693Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-18T19:16:07.0074036Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:07.0086792Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-18T19:16:07.0194056Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:07.0206262Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-18T19:16:07.0301161Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:07.0313856Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-18T19:16:07.6899986Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:07.6915899Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-18T19:16:07.7035373Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:07.7048838Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-18T19:16:07.7699983Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T19:16:07.7714172Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T19:16:07.7978232Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-18T19:16:07.8316979Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-18T19:16:07.8332822Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-18T19:16:07.8345790Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-18T19:16:07.8358664Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-18T19:16:07.8372164Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-18T19:16:07.8385053Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-18T19:16:07.8397931Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-18T19:16:07.8411666Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-18T19:16:07.8472349Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-18T19:16:07.8489715Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-18T19:16:07.8502764Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-18T19:16:07.8515234Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-18T19:16:07.8529114Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-18T19:16:07.8541769Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-18T19:16:07.8554414Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-18T19:16:07.8570241Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-18T19:16:07.8596465Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-18T19:16:07.8609097Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-18T19:16:07.8621704Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-18T19:16:07.8634911Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-18T19:16:07.8647896Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-18T19:16:07.8661027Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-18T19:16:07.8679299Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-18T19:16:07.9131462Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-18T19:16:07.9261928Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-18T19:16:07.9288733Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-18T19:16:07.9301406Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-18T19:16:07.9314480Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-18T19:16:07.9326901Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-18T19:16:07.9340168Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-18T19:16:07.9353915Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-18T19:16:07.9366420Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-18T19:16:08.1398461Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-18T19:16:15.1152607Z 
+2026-01-18T19:16:15.1175233Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-18T19:16:15.7194227Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-18T19:16:15.8159146Z (node:2208) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T19:16:15.8160733Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T19:16:15.9432946Z |                                                                                |   0% of 164.7 MiB
+2026-01-18T19:16:16.1494317Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-18T19:16:16.3131515Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-18T19:16:16.4780550Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-18T19:16:16.7076209Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-18T19:16:17.0157422Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-18T19:16:17.2032917Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-18T19:16:17.4119773Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-18T19:16:17.6010132Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-18T19:16:17.7619778Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-18T19:16:17.9403083Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-18T19:16:20.4509721Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-18T19:16:20.4514047Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-18T19:16:20.5550397Z (node:2219) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T19:16:20.5553174Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T19:16:20.6145530Z |                                                                                |   0% of 2.3 MiB
+2026-01-18T19:16:20.6194367Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-18T19:16:20.6239946Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-18T19:16:20.6269682Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-18T19:16:20.6307017Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-18T19:16:20.6330440Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-18T19:16:20.6345435Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-18T19:16:20.6361227Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-18T19:16:20.6382774Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-18T19:16:20.6396093Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-18T19:16:20.6406669Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-18T19:16:20.7009520Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-18T19:16:20.7013570Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-18T19:16:20.7999354Z (node:2230) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T19:16:20.8001368Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T19:16:20.8883075Z |                                                                                |   0% of 109.7 MiB
+2026-01-18T19:16:21.0087031Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-18T19:16:21.0916861Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-18T19:16:21.1696913Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-18T19:16:21.2289642Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-18T19:16:21.3045126Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-18T19:16:21.3834344Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-18T19:16:21.4641482Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-18T19:16:21.5370283Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-18T19:16:21.6160191Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-18T19:16:21.7008845Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-18T19:16:23.5216550Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-18T19:16:23.5451423Z ##[group]Run mkdir -p projects/ci_automation_practice
+2026-01-18T19:16:23.5451903Z [36;1mmkdir -p projects/ci_automation_practice[0m
+2026-01-18T19:16:23.5452309Z [36;1mcat > projects/ci_automation_practice/config.json << 'EOF'[0m
+2026-01-18T19:16:23.5452661Z [36;1m{[0m
+2026-01-18T19:16:23.5452899Z [36;1m  "project_name": "ci_automation_practice",[0m
+2026-01-18T19:16:23.5453296Z [36;1m  "target_url": "http://www.automationpractice.pl/",[0m
+2026-01-18T19:16:23.5453672Z [36;1m  "goal": "Practice automation scenarios",[0m
+2026-01-18T19:16:23.5453967Z [36;1m  "headless": true[0m
+2026-01-18T19:16:23.5454191Z [36;1m}[0m
+2026-01-18T19:16:23.5454363Z [36;1mEOF[0m
+2026-01-18T19:16:23.5488275Z shell: /usr/bin/bash -e {0}
+2026-01-18T19:16:23.5488749Z env:
+2026-01-18T19:16:23.5489226Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:16:23.5489860Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:16:23.5490406Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:16:23.5490859Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:16:23.5491306Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:16:23.5491760Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:16:23.5492137Z ##[endgroup]
+2026-01-18T19:16:23.5607317Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-18T19:16:23.5608094Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-18T19:16:23.5608681Z [36;1mpython orchestrator.py --project projects/ci_automation_practice --deep --force[0m
+2026-01-18T19:16:23.5639036Z shell: /usr/bin/bash -e {0}
+2026-01-18T19:16:23.5639312Z env:
+2026-01-18T19:16:23.5639604Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:16:23.5640117Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:16:23.5640630Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:16:23.5641082Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:16:23.5641707Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:16:23.5642159Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:16:23.5642734Z   GOOGLE_API_KEY: ***
+2026-01-18T19:16:23.5642994Z   PYTHONPATH: .
+2026-01-18T19:16:23.5643206Z ##[endgroup]
+2026-01-18T19:16:25.1989167Z usage: discovery.py [-h] --project PROJECT --url URL
+2026-01-18T19:16:25.1990308Z discovery.py: error: unrecognized arguments: --deep
+2026-01-18T19:16:35.7355941Z 
+2026-01-18T19:16:35.7356790Z [PLAN] PLANNER: Planning goal -> 'Practice automation scenarios' (Deep Mode: True)
+2026-01-18T19:16:35.7358758Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-18T19:16:35.7359796Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T19:16:35.7360210Z [DEBUG] Received response (Length: 7884)
+2026-01-18T19:16:35.7360627Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-18T19:16:36.7919352Z 
+2026-01-18T19:16:36.7920351Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-18T19:16:36.7922787Z 📋 Found 3 scenarios to explore.
+2026-01-18T19:16:38.1877202Z 
+2026-01-18T19:16:38.1878426Z [1/3] Exploring Scenario: Registration and Purchase Flow
+2026-01-18T19:16:38.1879635Z     🧠 Initialized exploration context for goal: 'Practice automation scenarios'
+2026-01-18T19:16:38.1880451Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T19:16:41.1035951Z     ✅ Navigated to http://www.automationpractice.pl/
+2026-01-18T19:16:41.1036811Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-18T19:16:46.1349206Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T19:16:48.1372315Z     ✅ State transitioned.
+2026-01-18T19:16:49.7089987Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:16:49.7090627Z [DEBUG] Received response (Length: 213)
+2026-01-18T19:16:49.7091174Z     🤖 AI Next Step Suggestion: fill -> Search
+2026-01-18T19:16:49.7091541Z     🧩 Suggested Locator: #search_query_top
+2026-01-18T19:16:49.7095876Z     💭 Reasoning: To practice automation scenarios, I will search for a product. 'dress' is a good starting point.
+2026-01-18T19:16:49.7096888Z     ➕ Injected AI step: fill -> Search
+2026-01-18T19:16:49.7097407Z   ▶️ [STEP step_2_ai_1] FILL: Search
+2026-01-18T19:16:49.7162176Z     🎯 Using AI-provided locator: #search_query_top
+2026-01-18T19:16:49.7229652Z     ✅ Found 1 verified locators
+2026-01-18T19:16:55.5078910Z     ✅ State transitioned.
+2026-01-18T19:16:57.3196295Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:16:57.3197011Z [DEBUG] Received response (Length: 202)
+2026-01-18T19:16:57.3198103Z     🤖 AI Next Step Suggestion: click -> Search
+2026-01-18T19:16:57.3198635Z     🧩 Suggested Locator: button[name='submit_search']
+2026-01-18T19:16:57.3199438Z     💭 Reasoning: After filling the search bar, the next logical step is to submit the search.
+2026-01-18T19:16:57.3200166Z     ➕ Injected AI step: click -> Search
+2026-01-18T19:16:57.3200600Z   ▶️ [STEP step_2_ai_2] CLICK: Search
+2026-01-18T19:16:57.3273099Z     🎯 Using AI-provided locator: button[name='submit_search']
+2026-01-18T19:16:57.3344620Z     ✅ Found 1 verified locators
+2026-01-18T19:17:01.3918307Z     ✅ State transitioned.
+2026-01-18T19:17:03.0599332Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:17:03.0600033Z [DEBUG] Received response (Length: 180)
+2026-01-18T19:17:03.0600798Z     🤖 AI Next Step Suggestion: click -> Blouse
+2026-01-18T19:17:03.0601472Z     🧩 Suggested Locator: h5 > a[title='Blouse']
+2026-01-18T19:17:03.0602459Z     💭 Reasoning: Select the first product in the list to proceed with the automation scenario.
+2026-01-18T19:17:03.0603347Z     ➕ Injected AI step: click -> Blouse
+2026-01-18T19:17:03.0603888Z   ▶️ [STEP step_2_ai_3] CLICK: Blouse
+2026-01-18T19:17:03.0761687Z     🎯 Using AI-provided locator: h5 > a[title='Blouse']
+2026-01-18T19:17:03.0830753Z     ✅ Found 1 verified locators
+2026-01-18T19:17:07.2331424Z     ✅ State transitioned.
+2026-01-18T19:17:08.7064761Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:17:08.7065184Z [DEBUG] Received response (Length: 109)
+2026-01-18T19:17:08.7065752Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T19:17:08.7066229Z     💭 Reasoning: The product is out of stock, so there is nothing to add to the cart.
+2026-01-18T19:17:08.7066677Z   ▶️ [STEP step_3] CLICK: Sign in
+2026-01-18T19:17:08.7223449Z     🔍 Mining locators for: 'Sign in'
+2026-01-18T19:17:08.7846501Z     🧠 Consulting AI (Vision-First) to find 'Sign in'...
+2026-01-18T19:17:08.7848019Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:17:14.3396690Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:17:14.3397254Z [DEBUG] Received response (Length: 393)
+2026-01-18T19:17:14.3398334Z     🔄 Retry 1/3 mining locators for 'Sign in'...
+2026-01-18T19:17:15.4016677Z     🧠 Consulting AI (Vision-First) to find 'Sign in'...
+2026-01-18T19:17:15.4018320Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:17:15.4024957Z [CACHE HIT] 4d0fc627... (hits: 1, misses: 5)
+2026-01-18T19:17:15.4025670Z     🔄 Retry 2/3 mining locators for 'Sign in'...
+2026-01-18T19:17:16.5181850Z     🧠 Consulting AI (Vision-First) to find 'Sign in'...
+2026-01-18T19:17:16.5184205Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:17:16.5190842Z [CACHE HIT] 4d0fc627... (hits: 2, misses: 5)
+2026-01-18T19:17:16.5191822Z     🧠 Verifying step validity for 'Sign in' after mining failure...
+2026-01-18T19:17:18.6265429Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:17:18.6266587Z [DEBUG] Received response (Length: 212)
+2026-01-18T19:17:18.6268388Z     🛠️ Self-Correction: Step is valid. Using new locator: .header_user_info > a
+2026-01-18T19:17:22.6895315Z     ✅ State transitioned.
+2026-01-18T19:17:24.0634127Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:17:24.0634777Z [DEBUG] Received response (Length: 215)
+2026-01-18T19:17:24.0635514Z     🤖 AI Next Step Suggestion: fill -> Email address
+2026-01-18T19:17:24.0635913Z     🧩 Suggested Locator: #email_create
+2026-01-18T19:17:24.0636458Z     💭 Reasoning: To create an account, an email address must be entered in the 'Email address' field.
+2026-01-18T19:17:24.0636994Z     ➕ Injected AI step: fill -> Email address
+2026-01-18T19:17:24.0637339Z   ▶️ [STEP step_3_ai_1] FILL: Email address
+2026-01-18T19:17:24.0786662Z     🎯 Using AI-provided locator: #email_create
+2026-01-18T19:17:24.0842757Z     ✅ Found 1 verified locators
+2026-01-18T19:17:30.0300224Z     ✅ State transitioned.
+2026-01-18T19:17:31.8722014Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:17:31.8722732Z [DEBUG] Received response (Length: 294)
+2026-01-18T19:17:31.8723919Z     🤖 AI Next Step Suggestion: click -> Create an account
+2026-01-18T19:17:31.8724601Z     🧩 Suggested Locator: #SubmitCreate
+2026-01-18T19:17:31.8726112Z     💭 Reasoning: The email address has been filled in the 'CREATE AN ACCOUNT' section. The next step is to click the 'Create an account' button to proceed with the account creation process.
+2026-01-18T19:17:31.8727520Z     ➕ Injected AI step: click -> Create an account
+2026-01-18T19:17:31.8728409Z   ▶️ [STEP step_3_ai_2] CLICK: Create an account
+2026-01-18T19:17:31.8782479Z     🎯 Using AI-provided locator: #SubmitCreate
+2026-01-18T19:17:31.8838226Z     ✅ Found 1 verified locators
+2026-01-18T19:17:35.9402708Z     ✅ State transitioned.
+2026-01-18T19:17:35.9455865Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:17:37.3887425Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:17:37.3888164Z [DEBUG] Received response (Length: 242)
+2026-01-18T19:17:37.3888938Z     🤖 AI Next Step Suggestion: fill -> Email address
+2026-01-18T19:17:37.3889583Z     🧩 Suggested Locator: #email_create
+2026-01-18T19:17:37.3890461Z     💭 Reasoning: The previous email address was already registered. Need to use a different email address to create an account.
+2026-01-18T19:17:37.3891136Z     ➕ Injected AI step: fill -> Email address
+2026-01-18T19:17:37.3891499Z   ▶️ [STEP step_3_ai_3] FILL: Email address
+2026-01-18T19:17:37.3949157Z     🎯 Using AI-provided locator: #email_create
+2026-01-18T19:17:37.4008669Z     ✅ Found 1 verified locators
+2026-01-18T19:17:44.5968457Z     ✅ State transitioned.
+2026-01-18T19:17:44.6020931Z     🔄 Revisited state detected (count: 2)
+2026-01-18T19:17:46.1694765Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:17:46.1695431Z [DEBUG] Received response (Length: 222)
+2026-01-18T19:17:46.1696331Z     🤖 AI Next Step Suggestion: click -> Create an account
+2026-01-18T19:17:46.1696962Z     🧩 Suggested Locator: #SubmitCreate
+2026-01-18T19:17:46.1698232Z     💭 Reasoning: The email address has already been registered. Need to try a new email address to create an account.
+2026-01-18T19:17:46.1699095Z     ➕ Injected AI step: click -> Create an account
+2026-01-18T19:17:46.1699467Z   ▶️ [STEP step_3_ai_4] CLICK: Create an account
+2026-01-18T19:17:46.1753597Z     🎯 Using AI-provided locator: #SubmitCreate
+2026-01-18T19:17:46.1808400Z     ✅ Found 1 verified locators
+2026-01-18T19:17:50.2382833Z     ✅ State transitioned.
+2026-01-18T19:17:50.2435061Z     🔄 Revisited state detected (count: 3)
+2026-01-18T19:17:52.0900385Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:17:52.0900902Z [DEBUG] Received response (Length: 386)
+2026-01-18T19:17:52.0901576Z     🤖 AI Next Step Suggestion: click -> Create an account
+2026-01-18T19:17:52.0902029Z     🧩 Suggested Locator: #SubmitCreate
+2026-01-18T19:17:52.0903843Z     💭 Reasoning: The email address field has been filled, and the next logical step is to click the 'Create an account' button to proceed with the account creation process. The email address has already been registered, but we need to proceed to the next step to see the full flow.
+2026-01-18T19:17:52.0906544Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'create an account')
+2026-01-18T19:17:52.0907479Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Create an account
+2026-01-18T19:17:52.0961915Z     🔍 Mining locators for: 'Create an account'
+2026-01-18T19:17:52.1925944Z     ✅ Found 4 verified locators
+2026-01-18T19:17:54.7340861Z     ✅ State transitioned.
+2026-01-18T19:17:54.7397091Z     🔄 Revisited state detected (count: 4)
+2026-01-18T19:17:56.7216356Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:17:56.7217966Z [DEBUG] Received response (Length: 267)
+2026-01-18T19:17:56.7219279Z     🤖 AI Next Step Suggestion: click -> Create an account
+2026-01-18T19:17:56.7220547Z     🧩 Suggested Locator: #SubmitCreate
+2026-01-18T19:17:56.7223490Z     💭 Reasoning: The email address has been entered, and the 'Create an account' button is visible. Clicking it will proceed to the next step of account creation.
+2026-01-18T19:17:56.7226302Z ⚠️ Loop detected: same AI suggestion repeated 3 times. Moving to next step.
+2026-01-18T19:17:56.7228012Z   ▶️ [STEP step_5] FILL: Email address
+2026-01-18T19:17:56.7288910Z     🔍 Mining locators for: 'Email address'
+2026-01-18T19:17:56.8232198Z     ✅ Found 7 verified locators
+2026-01-18T19:18:02.2676821Z     ✅ State transitioned.
+2026-01-18T19:18:02.2732389Z     🔄 Revisited state detected (count: 5)
+2026-01-18T19:18:02.2733267Z     ⚠️ Too many revisits (5). Stopping AI step injection to prevent loops.
+2026-01-18T19:18:02.2734050Z   ▶️ [STEP step_6] CLICK: Create an account
+2026-01-18T19:18:02.2785521Z     🔍 Mining locators for: 'Create an account'
+2026-01-18T19:18:02.3616038Z     ✅ Found 4 verified locators
+2026-01-18T19:18:05.9076205Z     ✅ State transitioned.
+2026-01-18T19:18:05.9131785Z     🔄 Revisited state detected (count: 6)
+2026-01-18T19:18:05.9132472Z     ⚠️ Too many revisits (6). Stopping AI step injection to prevent loops.
+2026-01-18T19:18:05.9133010Z   ▶️ [STEP step_7] ASSERT_VISIBLE: YOUR PERSONAL INFORMATION
+2026-01-18T19:18:05.9186184Z     🔍 Mining locators for: 'YOUR PERSONAL INFORMATION'
+2026-01-18T19:18:05.9648212Z     🧠 Consulting AI (Vision-First) to find 'YOUR PERSONAL INFORMATION'...
+2026-01-18T19:18:05.9649469Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:18:07.6503694Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:18:07.6504378Z [DEBUG] Received response (Length: 215)
+2026-01-18T19:18:07.6505656Z     💡 Expert Suggestion: "YOUR PERSONAL INFORMATION" is likely under the "My account" section.
+2026-01-18T19:18:07.6506823Z     🛠️ Executing corrective action: click -> 'My account'
+2026-01-18T19:18:08.6642521Z     ✅ Executed corrective navigation
+2026-01-18T19:18:10.6665860Z     🔄 Retry 1/3 mining locators for 'YOUR PERSONAL INFORMATION'...
+2026-01-18T19:18:11.7651917Z     🧠 Consulting AI (Vision-First) to find 'YOUR PERSONAL INFORMATION'...
+2026-01-18T19:18:11.7653050Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:18:13.1665514Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:18:13.1665974Z [DEBUG] Received response (Length: 237)
+2026-01-18T19:18:13.1666864Z     💡 Expert Suggestion: "Your Personal Information" is likely located within the user account settings after signing in.
+2026-01-18T19:18:13.1667831Z     🛠️ Executing corrective action: click -> 'Sign in'
+2026-01-18T19:18:14.1568600Z     ✅ Executed corrective navigation
+2026-01-18T19:18:16.1600676Z     🔄 Retry 2/3 mining locators for 'YOUR PERSONAL INFORMATION'...
+2026-01-18T19:18:17.2150560Z     🧠 Consulting AI (Vision-First) to find 'YOUR PERSONAL INFORMATION'...
+2026-01-18T19:18:17.2153642Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:18:18.8037362Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:18:18.8038235Z [DEBUG] Received response (Length: 273)
+2026-01-18T19:18:18.8038979Z     ⚠️ Skipping duplicate injection: Sign in
+2026-01-18T19:18:18.8039860Z     🧠 Verifying step validity for 'YOUR PERSONAL INFORMATION' after no candidates found...
+2026-01-18T19:18:23.3960375Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:18:23.3960997Z [DEBUG] Received response (Length: 291)
+2026-01-18T19:18:23.3962522Z     🗑️ Step deemed INVALID: The text 'YOUR PERSONAL INFORMATION' is not visible on the page. The page is the authentication page, where users can create an account or log in. Therefore, it's not logical to look for 'YOUR PERSONAL INFORMATION' at this stage.. Removing from workflow.
+2026-01-18T19:18:23.3964005Z     ⏭️ Skipping execution of invalid step: YOUR PERSONAL INFORMATION
+2026-01-18T19:18:23.3964411Z   ▶️ [STEP step_8] FILL: First name
+2026-01-18T19:18:23.4116611Z     🔍 Mining locators for: 'First name'
+2026-01-18T19:18:23.4660542Z     🧠 Consulting AI (Vision-First) to find 'First name'...
+2026-01-18T19:18:23.4661795Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:18:28.5401093Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:18:28.5401534Z [DEBUG] Received response (Length: 281)
+2026-01-18T19:18:28.5402601Z     💡 Expert Suggestion: The 'First name' field is likely part of the account creation form, which is accessed after clicking the 'Create an account' button.
+2026-01-18T19:18:28.5403745Z     🛠️ Executing corrective action: click -> 'Create an account'
+2026-01-18T19:18:29.1146952Z     ✅ Executed corrective navigation
+2026-01-18T19:18:31.1170747Z     🔄 Retry 1/3 mining locators for 'First name'...
+2026-01-18T19:18:32.1645855Z     🧠 Consulting AI (Vision-First) to find 'First name'...
+2026-01-18T19:18:32.1647101Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:18:33.5175987Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:18:33.5176598Z [DEBUG] Received response (Length: 251)
+2026-01-18T19:18:33.5178041Z     💡 Expert Suggestion: The 'First name' field is likely located on the registration form, which is accessible after clicking 'Sign in'.
+2026-01-18T19:18:33.5179142Z     🛠️ Executing corrective action: click -> 'Sign in'
+2026-01-18T19:18:34.6365751Z     ✅ Executed corrective navigation
+2026-01-18T19:18:36.6389061Z     🔄 Retry 2/3 mining locators for 'First name'...
+2026-01-18T19:18:37.6967126Z     🧠 Consulting AI (Vision-First) to find 'First name'...
+2026-01-18T19:18:37.6968447Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:18:37.6972326Z [CACHE HIT] 62f9b2b7... (hits: 3, misses: 18)
+2026-01-18T19:18:37.6972957Z     ⚠️ Skipping duplicate injection: Create an account
+2026-01-18T19:18:37.6973566Z     🧠 Verifying step validity for 'First name' after no candidates found...
+2026-01-18T19:18:39.0043892Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:18:39.0044602Z [DEBUG] Received response (Length: 260)
+2026-01-18T19:18:39.0046194Z     🗑️ Step deemed INVALID: The 'First name' field is not present on the authentication page. The page only contains fields for creating an account (email address) and for already registered users (email address and password).. Removing from workflow.
+2026-01-18T19:18:39.0047532Z     ⏭️ Skipping execution of invalid step: First name
+2026-01-18T19:18:39.0048169Z   ▶️ [STEP step_9] FILL: Last name
+2026-01-18T19:18:39.0192571Z     🔍 Mining locators for: 'Last name'
+2026-01-18T19:18:39.0635628Z     🧠 Consulting AI (Vision-First) to find 'Last name'...
+2026-01-18T19:18:39.0637194Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:18:44.1264401Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:18:44.1265052Z [DEBUG] Received response (Length: 277)
+2026-01-18T19:18:44.1266619Z     💡 Expert Suggestion: The 'Last name' field is likely part of the account creation form, which is accessed by clicking the 'Create an account' button.
+2026-01-18T19:18:44.1268346Z     🛠️ Executing corrective action: click -> 'Create an account'
+2026-01-18T19:18:44.6977871Z     ✅ Executed corrective navigation
+2026-01-18T19:18:46.7000491Z     🔄 Retry 1/3 mining locators for 'Last name'...
+2026-01-18T19:18:47.7467200Z     🧠 Consulting AI (Vision-First) to find 'Last name'...
+2026-01-18T19:18:47.7468845Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:18:49.2251353Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:18:49.2252300Z [DEBUG] Received response (Length: 247)
+2026-01-18T19:18:49.2254134Z     💡 Expert Suggestion: The 'Last name' field is likely part of the registration form, which is usually found on the 'Sign in' page.
+2026-01-18T19:18:49.2255734Z     🛠️ Executing corrective action: click -> 'Sign in'
+2026-01-18T19:18:50.3413172Z     ✅ Executed corrective navigation
+2026-01-18T19:18:52.3436200Z     🔄 Retry 2/3 mining locators for 'Last name'...
+2026-01-18T19:18:53.3966078Z     🧠 Consulting AI (Vision-First) to find 'Last name'...
+2026-01-18T19:18:53.3967531Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:18:53.3971508Z [CACHE HIT] f34da3c2... (hits: 4, misses: 21)
+2026-01-18T19:18:53.3972303Z     ⚠️ Skipping duplicate injection: Create an account
+2026-01-18T19:18:53.3972835Z     🧠 Verifying step validity for 'Last name' after no candidates found...
+2026-01-18T19:18:54.6578166Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:18:54.6578842Z [DEBUG] Received response (Length: 241)
+2026-01-18T19:18:54.6580971Z     🗑️ Step deemed INVALID: The 'Last name' field is not present on the authentication page. The page only contains fields for creating an account (email address) and logging in (email address and password).. Removing from workflow.
+2026-01-18T19:18:54.6582821Z     ⏭️ Skipping execution of invalid step: Last name
+2026-01-18T19:18:54.6583469Z   ▶️ [STEP step_10] FILL: Password
+2026-01-18T19:18:54.6731381Z     🔍 Mining locators for: 'Password'
+2026-01-18T19:18:54.7961343Z     ✅ Found 6 verified locators
+2026-01-18T19:19:00.6510075Z     ✅ State transitioned.
+2026-01-18T19:19:00.6562426Z     🔄 Revisited state detected (count: 7)
+2026-01-18T19:19:00.6563215Z     ⚠️ Too many revisits (7). Stopping AI step injection to prevent loops.
+2026-01-18T19:19:00.6563910Z   ▶️ [STEP step_11] SELECT: Day
+2026-01-18T19:19:00.6614096Z     🔍 Mining locators for: 'Day'
+2026-01-18T19:19:00.7128821Z     🧠 Consulting AI (Vision-First) to find 'Day'...
+2026-01-18T19:19:00.7130023Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:19:02.1957076Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:19:02.1958002Z [DEBUG] Received response (Length: 242)
+2026-01-18T19:19:02.1959367Z     💡 Expert Suggestion: The 'Day' option might be available under the 'Dresses' category, potentially as a filter or attribute.
+2026-01-18T19:19:02.1960300Z     🛠️ Executing corrective action: click -> 'Dresses'
+2026-01-18T19:19:03.3626041Z     ✅ Executed corrective navigation
+2026-01-18T19:19:05.3644353Z     🔄 Retry 1/3 mining locators for 'Day'...
+2026-01-18T19:19:06.5327423Z     ✅ Found 1 verified locators
+2026-01-18T19:19:12.0452592Z     ⚠️ Scroll into view failed for text=You are looking for a dress for every day? Take a look at our selection of dresses to find one tha. Proceeding anyway.
+2026-01-18T19:19:14.0475356Z     ✅ State transitioned.
+2026-01-18T19:19:15.5492128Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:19:15.5492818Z [DEBUG] Received response (Length: 188)
+2026-01-18T19:19:15.5493640Z     🤖 AI Next Step Suggestion: click -> Women
+2026-01-18T19:19:15.5494238Z     🧩 Suggested Locator: a[title='Women']
+2026-01-18T19:19:15.5495280Z     💭 Reasoning: Navigating to the 'Women' category to explore products and potentially add them to the cart.
+2026-01-18T19:19:15.5496473Z     ➕ Injected AI step: click -> Women
+2026-01-18T19:19:15.5496846Z   ▶️ [STEP step_11_ai_1] CLICK: Women
+2026-01-18T19:19:15.5561907Z     🎯 Using AI-provided locator: a[title='Women']
+2026-01-18T19:19:15.5623770Z     ✅ Found 1 verified locators
+2026-01-18T19:19:19.6188312Z     ✅ State transitioned.
+2026-01-18T19:19:21.4048727Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:19:21.4049551Z [DEBUG] Received response (Length: 279)
+2026-01-18T19:19:21.4050403Z     🤖 AI Next Step Suggestion: search -> Search
+2026-01-18T19:19:21.4051217Z     🧩 Suggested Locator: #search_query_top
+2026-01-18T19:19:21.4053064Z     💭 Reasoning: To practice automation scenarios, I will search for a product. Searching for 'dress' seems like a reasonable next step after navigating to the 'Women' category.
+2026-01-18T19:19:21.4054581Z     ➕ Injected AI step: search -> Search
+2026-01-18T19:19:21.4055198Z   ▶️ [STEP step_11_ai_2] SEARCH: Search
+2026-01-18T19:19:21.4228814Z     🎯 Using AI-provided locator: #search_query_top
+2026-01-18T19:19:21.4288161Z     ✅ Found 1 verified locators
+2026-01-18T19:19:24.4637977Z     ✅ State transitioned.
+2026-01-18T19:19:26.2964493Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:19:26.2965250Z [DEBUG] Received response (Length: 238)
+2026-01-18T19:19:26.2966100Z     🤖 AI Next Step Suggestion: search -> Search
+2026-01-18T19:19:26.2966748Z     🧩 Suggested Locator: #search_query_top
+2026-01-18T19:19:26.2968197Z     💭 Reasoning: To practice automation scenarios, I will search for a product. Searching for 'dress' seems like a reasonable next step.
+2026-01-18T19:19:26.2969543Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('search', 'search')
+2026-01-18T19:19:26.2970286Z   ▶️ [STEP step_12] SELECT: Month
+2026-01-18T19:19:26.3029214Z     🔍 Mining locators for: 'Month'
+2026-01-18T19:19:26.4648563Z     🧠 Consulting AI (Vision-First) to find 'Month'...
+2026-01-18T19:19:26.4650068Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:19:31.2643573Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:19:31.2644253Z [DEBUG] Received response (Length: 249)
+2026-01-18T19:19:31.2645824Z     💡 Expert Suggestion: The 'Month' is likely part of a date selection, which might be found in a contact form or calendar section.
+2026-01-18T19:19:31.2647215Z     🛠️ Executing corrective action: click -> 'Contact us'
+2026-01-18T19:19:32.1851296Z     ✅ Executed corrective navigation
+2026-01-18T19:19:34.1872292Z     🔄 Retry 1/3 mining locators for 'Month'...
+2026-01-18T19:19:35.2454151Z     🧠 Consulting AI (Vision-First) to find 'Month'...
+2026-01-18T19:19:35.2455544Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:19:36.9468406Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:19:36.9468812Z [DEBUG] Received response (Length: 259)
+2026-01-18T19:19:36.9469776Z     💡 Expert Suggestion: The term 'Month' is often associated with blog posts or calendar-related features, which might be found on the 'Blog' page.
+2026-01-18T19:19:36.9470499Z     🛠️ Executing corrective action: click -> 'Blog'
+2026-01-18T19:19:37.5396798Z     ✅ Executed corrective navigation
+2026-01-18T19:19:39.5408451Z     🔄 Retry 2/3 mining locators for 'Month'...
+2026-01-18T19:19:40.5946137Z     🧠 Consulting AI (Vision-First) to find 'Month'...
+2026-01-18T19:19:40.5947375Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:19:42.0240591Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:19:42.0241254Z [DEBUG] Received response (Length: 257)
+2026-01-18T19:19:42.0242408Z     ⚠️ Skipping duplicate injection: Contact us
+2026-01-18T19:19:42.0243185Z     🧠 Verifying step validity for 'Month' after no candidates found...
+2026-01-18T19:19:47.1757960Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:19:47.1758704Z [DEBUG] Received response (Length: 249)
+2026-01-18T19:19:47.1761144Z     🗑️ Step deemed INVALID: The 'Month' element is not present on the Contact Us page. The form includes fields for Subject Heading, Email address, Order reference, and a Message box, but no date or month selection.. Removing from workflow.
+2026-01-18T19:19:47.1763242Z     ⏭️ Skipping execution of invalid step: Month
+2026-01-18T19:19:47.1763900Z   ▶️ [STEP step_13] SELECT: Year
+2026-01-18T19:19:47.1816977Z     🔍 Mining locators for: 'Year'
+2026-01-18T19:19:47.2276843Z     🧠 Consulting AI (Vision-First) to find 'Year'...
+2026-01-18T19:19:47.2280653Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:19:51.7323678Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:19:51.7324473Z [DEBUG] Received response (Length: 182)
+2026-01-18T19:19:51.7325257Z     💡 Expert Suggestion: Year might be found in blog posts or archives.
+2026-01-18T19:19:51.7325815Z     🛠️ Executing corrective action: click -> 'Blog'
+2026-01-18T19:19:52.3218395Z     ✅ Executed corrective navigation
+2026-01-18T19:19:54.3230781Z     🔄 Retry 1/3 mining locators for 'Year'...
+2026-01-18T19:19:55.4105525Z     🧠 Consulting AI (Vision-First) to find 'Year'...
+2026-01-18T19:19:55.4106699Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:19:55.4110846Z [CACHE HIT] 79989a13... (hits: 5, misses: 31)
+2026-01-18T19:19:55.4111426Z     ⚠️ Skipping duplicate injection: Blog
+2026-01-18T19:19:55.4112047Z     🔄 Retry 2/3 mining locators for 'Year'...
+2026-01-18T19:19:56.4610238Z     🧠 Consulting AI (Vision-First) to find 'Year'...
+2026-01-18T19:19:56.4611819Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:19:56.4615153Z [CACHE HIT] 79989a13... (hits: 6, misses: 31)
+2026-01-18T19:19:56.4615755Z     ⚠️ Skipping duplicate injection: Blog
+2026-01-18T19:19:56.4616456Z     🧠 Verifying step validity for 'Year' after no candidates found...
+2026-01-18T19:19:57.6162343Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:19:57.6162983Z [DEBUG] Received response (Length: 199)
+2026-01-18T19:19:57.6164701Z     🗑️ Step deemed INVALID: The element 'Year' is not visible on the 'Contact Us' page. It's likely that the intended interaction target is not present on this page.. Removing from workflow.
+2026-01-18T19:19:57.6165974Z     ⏭️ Skipping execution of invalid step: Year
+2026-01-18T19:19:57.6166354Z   ▶️ [STEP step_14] FILL: Address
+2026-01-18T19:19:57.6219477Z     🔍 Mining locators for: 'Address'
+2026-01-18T19:19:57.7170873Z     ✅ Found 7 verified locators
+2026-01-18T19:20:03.9930357Z     ✅ State transitioned.
+2026-01-18T19:20:05.5417201Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:05.5418052Z [DEBUG] Received response (Length: 215)
+2026-01-18T19:20:05.5418630Z     🤖 AI Next Step Suggestion: fill -> Email address
+2026-01-18T19:20:05.5418991Z     🧩 Suggested Locator: #email
+2026-01-18T19:20:05.5419545Z     💭 Reasoning: The email address field is visible and needs to be filled to proceed with the contact form.
+2026-01-18T19:20:05.5420102Z     ➕ Injected AI step: fill -> Email address
+2026-01-18T19:20:05.5420442Z   ▶️ [STEP step_14_ai_1] FILL: Email address
+2026-01-18T19:20:05.5473879Z     🎯 Using AI-provided locator: #email
+2026-01-18T19:20:05.5529240Z     ✅ Found 1 verified locators
+2026-01-18T19:20:12.2058563Z     ✅ State transitioned.
+2026-01-18T19:20:12.2107507Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:20:13.8428985Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:13.8430038Z [DEBUG] Received response (Length: 181)
+2026-01-18T19:20:13.8430890Z     🤖 AI Next Step Suggestion: fill -> Order reference
+2026-01-18T19:20:13.8431551Z     🧩 Suggested Locator: #id_order
+2026-01-18T19:20:13.8432420Z     💭 Reasoning: To fill the order reference field to complete the contact form.
+2026-01-18T19:20:13.8433341Z     ➕ Injected AI step: fill -> Order reference
+2026-01-18T19:20:13.8434039Z   ▶️ [STEP step_14_ai_2] FILL: Order reference
+2026-01-18T19:20:13.8488433Z     🎯 Using AI-provided locator: #id_order
+2026-01-18T19:20:13.8540867Z     ✅ Found 1 verified locators
+2026-01-18T19:20:19.2770789Z     ✅ State transitioned.
+2026-01-18T19:20:19.2821708Z     🔄 Revisited state detected (count: 2)
+2026-01-18T19:20:20.6833590Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:20.6834541Z [DEBUG] Received response (Length: 147)
+2026-01-18T19:20:20.6835594Z     🤖 AI Next Step Suggestion: fill -> Message
+2026-01-18T19:20:20.6836478Z     💭 Reasoning: Fill the message to complete the form
+2026-01-18T19:20:20.6837339Z     ➕ Injected AI step: fill -> Message
+2026-01-18T19:20:20.6838346Z   ▶️ [STEP step_14_ai_3] FILL: Message
+2026-01-18T19:20:20.6892448Z     🔍 Mining locators for: 'Message'
+2026-01-18T19:20:20.7665190Z     ✅ Found 5 verified locators
+2026-01-18T19:20:26.0663463Z     ✅ State transitioned.
+2026-01-18T19:20:26.0718909Z     🔄 Revisited state detected (count: 3)
+2026-01-18T19:20:27.8400318Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:27.8401279Z [DEBUG] Received response (Length: 185)
+2026-01-18T19:20:27.8402019Z     🤖 AI Next Step Suggestion: click -> Choose File
+2026-01-18T19:20:27.8402915Z     💭 Reasoning: The form appears to be mostly filled. The next logical step is to attach a file.
+2026-01-18T19:20:27.8403745Z     ➕ Injected AI step: click -> Choose File
+2026-01-18T19:20:27.8404249Z   ▶️ [STEP step_14_ai_4] CLICK: Choose File
+2026-01-18T19:20:27.8459435Z     🔍 Mining locators for: 'Choose File'
+2026-01-18T19:20:27.9070720Z     ✅ Found 2 verified locators
+2026-01-18T19:20:31.9477545Z     ✅ State transitioned.
+2026-01-18T19:20:31.9528102Z     🔄 Revisited state detected (count: 4)
+2026-01-18T19:20:33.6408801Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:33.6409613Z [DEBUG] Received response (Length: 180)
+2026-01-18T19:20:33.6410480Z     🤖 AI Next Step Suggestion: click -> -- Choose --
+2026-01-18T19:20:33.6410894Z     🧩 Suggested Locator: #id_contact
+2026-01-18T19:20:33.6411466Z     💭 Reasoning: The subject heading is a required field. Need to select a value from the dropdown.
+2026-01-18T19:20:33.6412033Z     ➕ Injected AI step: click -> -- Choose --
+2026-01-18T19:20:33.6412402Z   ▶️ [STEP step_14_ai_5] CLICK: -- Choose --
+2026-01-18T19:20:33.6467145Z     🎯 Using AI-provided locator: #id_contact
+2026-01-18T19:20:33.6522667Z     ✅ Found 1 verified locators
+2026-01-18T19:20:37.6979264Z     ✅ State transitioned.
+2026-01-18T19:20:37.7029767Z     🔄 Revisited state detected (count: 5)
+2026-01-18T19:20:37.7030682Z     ⚠️ Too many revisits (5). Stopping AI step injection to prevent loops.
+2026-01-18T19:20:37.7031430Z   ▶️ [STEP step_15] FILL: City
+2026-01-18T19:20:37.7082389Z     🔍 Mining locators for: 'City'
+2026-01-18T19:20:37.7664533Z     🧠 Consulting AI (Vision-First) to find 'City'...
+2026-01-18T19:20:37.7665694Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:20:39.4056240Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:39.4058484Z [DEBUG] Received response (Length: 258)
+2026-01-18T19:20:39.4059603Z     💡 Expert Suggestion: The 'City' field is likely part of the contact form or address information, which might be found on the 'Contact' page.
+2026-01-18T19:20:39.4060757Z     🛠️ Executing corrective action: click -> 'Contact'
+2026-01-18T19:20:40.3632842Z     ✅ Executed corrective navigation
+2026-01-18T19:20:42.3666501Z     🔄 Retry 1/3 mining locators for 'City'...
+2026-01-18T19:20:43.4257925Z     🧠 Consulting AI (Vision-First) to find 'City'...
+2026-01-18T19:20:43.4259303Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:20:44.9804832Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:44.9805726Z [DEBUG] Received response (Length: 266)
+2026-01-18T19:20:44.9808141Z     💡 Expert Suggestion: The page is a contact form. 'City' is likely part of the address information, which might be found on the 'Contact us' page.
+2026-01-18T19:20:44.9810128Z     🛠️ Executing corrective action: click -> 'Contact us'
+2026-01-18T19:20:45.8556977Z     ✅ Executed corrective navigation
+2026-01-18T19:20:47.8589289Z     🔄 Retry 2/3 mining locators for 'City'...
+2026-01-18T19:20:48.9087261Z     🧠 Consulting AI (Vision-First) to find 'City'...
+2026-01-18T19:20:48.9088952Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:20:50.3253716Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:50.3254551Z [DEBUG] Received response (Length: 278)
+2026-01-18T19:20:50.3255482Z     ⚠️ Skipping duplicate injection: Contact us
+2026-01-18T19:20:50.3256397Z     🧠 Verifying step validity for 'City' after no candidates found...
+2026-01-18T19:20:55.1509710Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:20:55.1510363Z [DEBUG] Received response (Length: 251)
+2026-01-18T19:20:55.1513471Z     🗑️ Step deemed INVALID: The 'City' field does not exist on the contact form displayed in the screenshot. The form only contains fields for Subject Heading, Email address, Order reference, Attach File, and Message.. Removing from workflow.
+2026-01-18T19:20:55.1515415Z     ⏭️ Skipping execution of invalid step: City
+2026-01-18T19:20:55.1515940Z   ▶️ [STEP step_16] SELECT: State
+2026-01-18T19:20:55.1689689Z     🔍 Mining locators for: 'State'
+2026-01-18T19:20:55.2255930Z     🧠 Consulting AI (Vision-First) to find 'State'...
+2026-01-18T19:20:55.2257160Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:00.1390345Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:00.1391127Z [DEBUG] Received response (Length: 259)
+2026-01-18T19:21:00.1392492Z     💡 Expert Suggestion: The 'State' field is often found within the checkout process or address form, which is usually accessible through the cart.
+2026-01-18T19:21:00.1393644Z     🛠️ Executing corrective action: click -> 'Cart'
+2026-01-18T19:21:01.1089667Z     ✅ Executed corrective navigation
+2026-01-18T19:21:03.1113321Z     🔄 Retry 1/3 mining locators for 'State'...
+2026-01-18T19:21:04.1577892Z     🧠 Consulting AI (Vision-First) to find 'State'...
+2026-01-18T19:21:04.1579377Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:05.7718543Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:05.7719308Z [DEBUG] Received response (Length: 258)
+2026-01-18T19:21:05.7721174Z     💡 Expert Suggestion: The 'State' field is likely part of the address form during the checkout process, which is accessible after signing in.
+2026-01-18T19:21:05.7722913Z     🛠️ Executing corrective action: click -> 'Sign in'
+2026-01-18T19:21:06.3561835Z     ✅ Executed corrective navigation
+2026-01-18T19:21:08.3584567Z     🔄 Retry 2/3 mining locators for 'State'...
+2026-01-18T19:21:09.4080078Z     🧠 Consulting AI (Vision-First) to find 'State'...
+2026-01-18T19:21:09.4083809Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:10.8163452Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:10.8164140Z [DEBUG] Received response (Length: 231)
+2026-01-18T19:21:10.8164906Z     ⚠️ Skipping duplicate injection: Sign in
+2026-01-18T19:21:10.8165636Z     🧠 Verifying step validity for 'State' after no candidates found...
+2026-01-18T19:21:15.7780319Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:15.7781107Z [DEBUG] Received response (Length: 323)
+2026-01-18T19:21:15.7783730Z     🗑️ Step deemed INVALID: The current page is the 'Shopping-cart summary' page, and the cart is empty. The 'State' field is part of the address form, which is not visible on this page. We need to add an item to the cart and proceed to the address step to interact with the 'State' field.. Removing from workflow.
+2026-01-18T19:21:15.7785991Z     ⏭️ Skipping execution of invalid step: State
+2026-01-18T19:21:15.7786590Z   ▶️ [STEP step_17] FILL: Zip/Postal Code
+2026-01-18T19:21:15.7844975Z     🔍 Mining locators for: 'Zip/Postal Code'
+2026-01-18T19:21:15.8405935Z     🧠 Consulting AI (Vision-First) to find 'Zip/Postal Code'...
+2026-01-18T19:21:15.8407401Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:20.8032806Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:20.8033358Z [DEBUG] Received response (Length: 251)
+2026-01-18T19:21:20.8034508Z     💡 Expert Suggestion: The 'Zip/Postal Code' field is likely located within the address form on the 'Address' page during checkout.
+2026-01-18T19:21:20.8035480Z     🛠️ Executing corrective action: click -> '03. Address'
+2026-01-18T19:21:20.8613083Z     🔄 Retry 1/3 mining locators for 'Zip/Postal Code'...
+2026-01-18T19:21:21.9081519Z     🧠 Consulting AI (Vision-First) to find 'Zip/Postal Code'...
+2026-01-18T19:21:21.9082808Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:21.9086544Z [CACHE HIT] 7dd26471... (hits: 7, misses: 46)
+2026-01-18T19:21:21.9087191Z     ⚠️ Skipping duplicate injection: 03. Address
+2026-01-18T19:21:21.9087841Z     🔄 Retry 2/3 mining locators for 'Zip/Postal Code'...
+2026-01-18T19:21:22.9572213Z     🧠 Consulting AI (Vision-First) to find 'Zip/Postal Code'...
+2026-01-18T19:21:22.9574020Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:22.9578985Z [CACHE HIT] 7dd26471... (hits: 8, misses: 46)
+2026-01-18T19:21:22.9579535Z     ⚠️ Skipping duplicate injection: 03. Address
+2026-01-18T19:21:22.9580534Z     🧠 Verifying step validity for 'Zip/Postal Code' after no candidates found...
+2026-01-18T19:21:26.1504641Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:26.1505167Z [DEBUG] Received response (Length: 331)
+2026-01-18T19:21:26.1506703Z     🗑️ Step deemed INVALID: The cart is empty and we are on the 'Summary' step of the order process. The 'Zip/Postal Code' field is not present on this page. It will likely appear on the 'Address' step (step 3) after the user has added items to the cart and proceeded through the checkout process.. Removing from workflow.
+2026-01-18T19:21:26.1508271Z     ⏭️ Skipping execution of invalid step: Zip/Postal Code
+2026-01-18T19:21:26.1508633Z   ▶️ [STEP step_18] FILL: Mobile phone
+2026-01-18T19:21:26.1561894Z     🔍 Mining locators for: 'Mobile phone'
+2026-01-18T19:21:26.2073448Z     🧠 Consulting AI (Vision-First) to find 'Mobile phone'...
+2026-01-18T19:21:26.2075392Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:30.7726216Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:30.7726639Z [DEBUG] Received response (Length: 254)
+2026-01-18T19:21:30.7727532Z     💡 Expert Suggestion: The term 'Mobile phone' is not directly visible on the page. Suggesting to use the search bar to find 'Mobile phone'.
+2026-01-18T19:21:30.7728493Z     🛠️ Executing corrective action: fill -> 'Search'
+2026-01-18T19:21:31.3360643Z     ✅ Executed corrective navigation
+2026-01-18T19:21:33.3382942Z     🔄 Retry 1/3 mining locators for 'Mobile phone'...
+2026-01-18T19:21:34.3903380Z     🧠 Consulting AI (Vision-First) to find 'Mobile phone'...
+2026-01-18T19:21:34.3904618Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:35.8435619Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:35.8436061Z [DEBUG] Received response (Length: 194)
+2026-01-18T19:21:35.8436568Z     ⚠️ Skipping duplicate injection: Search
+2026-01-18T19:21:35.8436989Z     🔄 Retry 2/3 mining locators for 'Mobile phone'...
+2026-01-18T19:21:36.9136388Z     🧠 Consulting AI (Vision-First) to find 'Mobile phone'...
+2026-01-18T19:21:36.9137496Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:36.9141660Z [CACHE HIT] bc89cf9c... (hits: 9, misses: 49)
+2026-01-18T19:21:36.9142226Z     ⚠️ Skipping duplicate injection: Search
+2026-01-18T19:21:36.9144500Z     🧠 Verifying step validity for 'Mobile phone' after no candidates found...
+2026-01-18T19:21:40.9042866Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:40.9043305Z [DEBUG] Received response (Length: 287)
+2026-01-18T19:21:40.9045983Z     🗑️ Step deemed INVALID: The current page is the shopping cart page, and the cart is empty. There is no 'Mobile phone' element visible on this page. Therefore, attempting to locate and interact with 'Mobile phone' is not a valid step in this context.. Removing from workflow.
+2026-01-18T19:21:40.9048638Z     ⏭️ Skipping execution of invalid step: Mobile phone
+2026-01-18T19:21:40.9049352Z   ▶️ [STEP step_19] FILL: Address alias
+2026-01-18T19:21:40.9099095Z     🔍 Mining locators for: 'Address alias'
+2026-01-18T19:21:40.9903386Z     🧠 Consulting AI (Vision-First) to find 'Address alias'...
+2026-01-18T19:21:40.9904960Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:45.7912733Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:45.7913450Z [DEBUG] Received response (Length: 296)
+2026-01-18T19:21:45.7915295Z     💡 Expert Suggestion: The 'Address alias' field is likely located on the address page, which can be accessed by clicking the '03. Address' button in the shopping cart summary.
+2026-01-18T19:21:45.7916761Z     🛠️ Executing corrective action: click -> '03. Address'
+2026-01-18T19:21:45.8427869Z     🔄 Retry 1/3 mining locators for 'Address alias'...
+2026-01-18T19:21:46.8905076Z     🧠 Consulting AI (Vision-First) to find 'Address alias'...
+2026-01-18T19:21:46.8906268Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:46.8910351Z [CACHE HIT] 254f0dd9... (hits: 10, misses: 51)
+2026-01-18T19:21:46.8911018Z     ⚠️ Skipping duplicate injection: 03. Address
+2026-01-18T19:21:46.8911416Z     🔄 Retry 2/3 mining locators for 'Address alias'...
+2026-01-18T19:21:47.9400597Z     🧠 Consulting AI (Vision-First) to find 'Address alias'...
+2026-01-18T19:21:47.9401814Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:47.9405801Z [CACHE HIT] 254f0dd9... (hits: 11, misses: 51)
+2026-01-18T19:21:47.9406814Z     ⚠️ Skipping duplicate injection: 03. Address
+2026-01-18T19:21:47.9407877Z     🧠 Verifying step validity for 'Address alias' after no candidates found...
+2026-01-18T19:21:50.9663701Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:50.9664360Z [DEBUG] Received response (Length: 365)
+2026-01-18T19:21:50.9667302Z     🗑️ Step deemed INVALID: The current page is the 'Shopping-cart summary' page, and the cart is empty. The 'Address alias' element is only present on the address creation/selection page, which is step 3 in the checkout process. Since the cart is empty, we are not far enough in the checkout flow for the 'Address alias' to exist.. Removing from workflow.
+2026-01-18T19:21:50.9669997Z     ⏭️ Skipping execution of invalid step: Address alias
+2026-01-18T19:21:50.9670638Z   ▶️ [STEP step_20] CLICK: Register
+2026-01-18T19:21:50.9722232Z     🔍 Mining locators for: 'Register'
+2026-01-18T19:21:51.0231826Z     🧠 Consulting AI (Vision-First) to find 'Register'...
+2026-01-18T19:21:51.0233034Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:21:55.6586488Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:21:55.6587371Z [DEBUG] Received response (Length: 202)
+2026-01-18T19:21:55.6589084Z     💡 Expert Suggestion: The 'Register' option is usually found near the 'Sign in' link.
+2026-01-18T19:21:55.6590448Z     🛠️ Executing corrective action: click -> 'Sign in'
+2026-01-18T19:21:56.2198000Z     ✅ Executed corrective navigation
+2026-01-18T19:21:58.2220865Z     🔄 Retry 1/3 mining locators for 'Register'...
+2026-01-18T19:21:59.2895106Z     🧠 Consulting AI (Vision-First) to find 'Register'...
+2026-01-18T19:21:59.2896329Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:22:00.6184147Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:00.6184694Z [DEBUG] Received response (Length: 202)
+2026-01-18T19:22:00.6185302Z     ⚠️ Skipping duplicate injection: Sign in
+2026-01-18T19:22:00.6185743Z     🔄 Retry 2/3 mining locators for 'Register'...
+2026-01-18T19:22:01.6731494Z     🧠 Consulting AI (Vision-First) to find 'Register'...
+2026-01-18T19:22:01.6732764Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:22:01.6736702Z [CACHE HIT] 03732f54... (hits: 12, misses: 54)
+2026-01-18T19:22:01.6737409Z     ⚠️ Skipping duplicate injection: Sign in
+2026-01-18T19:22:01.6738413Z     🧠 Verifying step validity for 'Register' after no candidates found...
+2026-01-18T19:22:05.7519367Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:05.7520023Z [DEBUG] Received response (Length: 307)
+2026-01-18T19:22:05.7522181Z     🗑️ Step deemed INVALID: The 'Register' button is not visible on the current page. The page shows the shopping cart summary, and the next step is 'Sign in', not 'Register'. The 'Sign in' link is present in the top right corner, but there is no 'Register' button visible.. Removing from workflow.
+2026-01-18T19:22:05.7523993Z     ⏭️ Skipping execution of invalid step: Register
+2026-01-18T19:22:05.7524367Z   ▶️ [STEP step_21] ASSERT_VISIBLE: My account
+2026-01-18T19:22:05.7576264Z     🔍 Mining locators for: 'My account'
+2026-01-18T19:22:05.8111760Z     ✅ Found 1 verified locators
+2026-01-18T19:22:08.3743709Z     ✅ State transitioned.
+2026-01-18T19:22:11.0604654Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:11.0605150Z [DEBUG] Received response (Length: 289)
+2026-01-18T19:22:11.0606248Z     🤖 AI Next Step Suggestion: fill -> Search
+2026-01-18T19:22:11.0606825Z     🧩 Suggested Locator: #search_query_top
+2026-01-18T19:22:11.0608677Z     💭 Reasoning: The shopping cart is empty. To practice automation scenarios, we need to add an item to the cart. Filling the search bar with 'dress' will allow us to search for a product.
+2026-01-18T19:22:11.0609508Z     ➕ Injected AI step: fill -> Search
+2026-01-18T19:22:11.0609825Z   ▶️ [STEP step_21_ai_1] FILL: Search
+2026-01-18T19:22:11.0672193Z     🎯 Using AI-provided locator: #search_query_top
+2026-01-18T19:22:11.0730904Z     ✅ Found 1 verified locators
+2026-01-18T19:22:16.5333198Z     ✅ State transitioned.
+2026-01-18T19:22:16.5385300Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:22:18.2772716Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:18.2773510Z [DEBUG] Received response (Length: 212)
+2026-01-18T19:22:18.2774468Z     🤖 AI Next Step Suggestion: fill -> Search
+2026-01-18T19:22:18.2775199Z     🧩 Suggested Locator: #search_query_top
+2026-01-18T19:22:18.2776614Z     💭 Reasoning: To initiate the e-commerce flow, I will search for a product. 'dress' is a good starting point.
+2026-01-18T19:22:18.2778502Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('fill', 'search')
+2026-01-18T19:22:18.2780815Z   ▶️ [STEP step_22] FILL: Search
+2026-01-18T19:22:18.2835265Z     🔍 Mining locators for: 'Search'
+2026-01-18T19:22:18.3759411Z     ✅ Found 6 verified locators
+2026-01-18T19:22:23.4161395Z     ✅ State transitioned.
+2026-01-18T19:22:23.4215449Z     🔄 Revisited state detected (count: 2)
+2026-01-18T19:22:24.8163432Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:24.8164487Z [DEBUG] Received response (Length: 229)
+2026-01-18T19:22:24.8165641Z     🤖 AI Next Step Suggestion: fill -> Search
+2026-01-18T19:22:24.8166560Z     🧩 Suggested Locator: #search_query_top
+2026-01-18T19:22:24.8168654Z     💭 Reasoning: To initiate the e-commerce flow, I will search for a product. 'dress' is a common item and should yield results.
+2026-01-18T19:22:24.8170010Z ⚠️ Loop detected: same AI suggestion repeated 3 times. Moving to next step.
+2026-01-18T19:22:24.8170771Z   ▶️ [STEP step_23] CLICK: Search
+2026-01-18T19:22:24.8227970Z     🔍 Mining locators for: 'Search'
+2026-01-18T19:22:24.9034829Z     ✅ Found 6 verified locators
+2026-01-18T19:22:28.4548756Z     ✅ State transitioned.
+2026-01-18T19:22:28.4599918Z     🔄 Revisited state detected (count: 3)
+2026-01-18T19:22:29.8675282Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:29.8676892Z [DEBUG] Received response (Length: 246)
+2026-01-18T19:22:29.8678686Z     🤖 AI Next Step Suggestion: fill -> Search
+2026-01-18T19:22:29.8680033Z     🧩 Suggested Locator: #search_query_top
+2026-01-18T19:22:29.8682933Z     💭 Reasoning: To continue the automation scenario, filling the search bar with 'dress' will allow us to find products and add them to the cart.
+2026-01-18T19:22:29.8685590Z     ➕ Injected AI step: fill -> Search
+2026-01-18T19:22:29.8686741Z   ▶️ [STEP step_23_ai_1] FILL: Search
+2026-01-18T19:22:29.8744699Z     🎯 Using AI-provided locator: #search_query_top
+2026-01-18T19:22:29.8804956Z     ✅ Found 1 verified locators
+2026-01-18T19:22:35.2054495Z     ✅ State transitioned.
+2026-01-18T19:22:35.2101198Z     🔄 Revisited state detected (count: 4)
+2026-01-18T19:22:36.8750197Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:36.8750828Z [DEBUG] Received response (Length: 321)
+2026-01-18T19:22:36.8751561Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T19:22:36.8753140Z     💭 Reasoning: The cart is empty and the current page is the order page. To add items to the cart, we need to go back to the product listing or search for a product. However, based on the recent actions, there's a loop of filling and clicking the search bar. Therefore, it's better to stop here.
+2026-01-18T19:22:36.8754288Z   ▶️ [STEP step_24] ASSERT_VISIBLE: SEARCH
+2026-01-18T19:22:36.8802303Z     🔍 Mining locators for: 'SEARCH'
+2026-01-18T19:22:36.9523970Z     ✅ Found 6 verified locators
+2026-01-18T19:22:39.4892675Z     ✅ State transitioned.
+2026-01-18T19:22:39.4939579Z     🔄 Revisited state detected (count: 5)
+2026-01-18T19:22:39.4940439Z     ⚠️ Too many revisits (5). Stopping AI step injection to prevent loops.
+2026-01-18T19:22:39.4941210Z   ▶️ [STEP step_25] HOVER: Printed Dress
+2026-01-18T19:22:39.4990767Z     🔍 Mining locators for: 'Printed Dress'
+2026-01-18T19:22:39.5375838Z     🧠 Consulting AI (Vision-First) to find 'Printed Dress'...
+2026-01-18T19:22:39.5377004Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:22:42.3230175Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:42.3230673Z [DEBUG] Received response (Length: 689)
+2026-01-18T19:22:42.3231278Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T19:22:42.3231703Z   ▶️ [STEP step_26] CLICK: Add to cart
+2026-01-18T19:22:42.3279581Z     🔍 Mining locators for: 'Add to cart'
+2026-01-18T19:22:42.3709806Z     🧠 Consulting AI (Vision-First) to find 'Add to cart'...
+2026-01-18T19:22:42.3711318Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:22:46.6356284Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:46.6356747Z [DEBUG] Received response (Length: 276)
+2026-01-18T19:22:46.6357874Z     💡 Expert Suggestion: The 'Add to cart' button is likely on a product details page, which can be accessed by clicking on a product from the 'DRESSES' category.
+2026-01-18T19:22:46.6358653Z     🛠️ Executing corrective action: click -> 'DRESSES'
+2026-01-18T19:22:47.7595318Z     ✅ Executed corrective navigation
+2026-01-18T19:22:49.7620290Z     🔄 Retry 1/3 mining locators for 'Add to cart'...
+2026-01-18T19:22:50.8894465Z     🧠 Consulting AI (Vision-First) to find 'Add to cart'...
+2026-01-18T19:22:50.8896145Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:22:52.6063691Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:52.6064535Z [DEBUG] Received response (Length: 295)
+2026-01-18T19:22:52.6065953Z     💡 Expert Suggestion: The 'Add to cart' button is likely on the product details page, which can be accessed by clicking on a specific dress category like 'Casual Dresses'.
+2026-01-18T19:22:52.6067136Z     🛠️ Executing corrective action: click -> 'Casual Dresses'
+2026-01-18T19:22:53.3062346Z     ✅ Executed corrective navigation
+2026-01-18T19:22:55.3072300Z     🔄 Retry 2/3 mining locators for 'Add to cart'...
+2026-01-18T19:22:56.3885561Z     🧠 Consulting AI (Vision-First) to find 'Add to cart'...
+2026-01-18T19:22:56.3886998Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:22:58.1610291Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:22:58.1610848Z [DEBUG] Received response (Length: 298)
+2026-01-18T19:22:58.1611390Z     ⚠️ Skipping duplicate injection: DRESSES
+2026-01-18T19:22:58.1611964Z     🧠 Verifying step validity for 'Add to cart' after no candidates found...
+2026-01-18T19:23:05.7762565Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:05.7763328Z [DEBUG] Received response (Length: 200)
+2026-01-18T19:23:05.7765603Z     🗑️ Step deemed INVALID: The 'Add to cart' button is not visible on the category page. It only appears when hovering over a product or on the product details page.. Removing from workflow.
+2026-01-18T19:23:05.7767878Z     ⏭️ Skipping execution of invalid step: Add to cart
+2026-01-18T19:23:05.7768819Z   ▶️ [STEP step_27] WAIT_FOR_ELEMENT: Proceed to checkout
+2026-01-18T19:23:05.7824627Z     🔍 Mining locators for: 'Proceed to checkout'
+2026-01-18T19:23:05.8712180Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:05.8713460Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:07.6555337Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:07.6555867Z [DEBUG] Received response (Length: 239)
+2026-01-18T19:23:07.6556688Z     💡 Expert Suggestion: The 'Proceed to checkout' button is typically found within the cart or shopping bag after adding items.
+2026-01-18T19:23:07.6557429Z     🛠️ Executing corrective action: click -> 'Cart'
+2026-01-18T19:23:08.6550308Z     ✅ Executed corrective navigation
+2026-01-18T19:23:10.6581277Z     🔄 Retry 1/3 mining locators for 'Proceed to checkout'...
+2026-01-18T19:23:11.7045099Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:11.7046279Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:13.1950956Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:13.1951646Z [DEBUG] Received response (Length: 230)
+2026-01-18T19:23:13.1952383Z     ⚠️ Skipping duplicate injection: Cart
+2026-01-18T19:23:13.1953044Z     🔄 Retry 2/3 mining locators for 'Proceed to checkout'...
+2026-01-18T19:23:14.2363511Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:14.2365201Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:14.2370201Z [CACHE HIT] 9e6a52b1... (hits: 13, misses: 67)
+2026-01-18T19:23:14.2370657Z     ⚠️ Skipping duplicate injection: Cart
+2026-01-18T19:23:14.2371580Z     🧠 Verifying step validity for 'Proceed to checkout' after no candidates found...
+2026-01-18T19:23:17.8171655Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:17.8172341Z [DEBUG] Received response (Length: 157)
+2026-01-18T19:23:17.8173424Z     🗑️ Step deemed INVALID: The cart is empty. Therefore, there is no "Proceed to checkout" button available on the page.. Removing from workflow.
+2026-01-18T19:23:17.8174254Z     ⏭️ Skipping execution of invalid step: Proceed to checkout
+2026-01-18T19:23:17.8174677Z   ▶️ [STEP step_28] CLICK: Proceed to checkout
+2026-01-18T19:23:17.8315350Z     🔍 Mining locators for: 'Proceed to checkout'
+2026-01-18T19:23:17.8861138Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:17.8862702Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:17.8867731Z [CACHE HIT] 9e6a52b1... (hits: 14, misses: 68)
+2026-01-18T19:23:17.8868577Z     💡 Expert Suggestion: The cart is currently empty. Adding a product to the cart is necessary to proceed to checkout.
+2026-01-18T19:23:17.8869452Z     🛠️ Executing corrective action: click -> 'Cart'
+2026-01-18T19:23:18.7524549Z     ✅ Executed corrective navigation
+2026-01-18T19:23:20.7547477Z     🔄 Retry 1/3 mining locators for 'Proceed to checkout'...
+2026-01-18T19:23:21.8026516Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:21.8028170Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:21.8033126Z [CACHE HIT] 9e6a52b1... (hits: 15, misses: 68)
+2026-01-18T19:23:21.8033641Z     ⚠️ Skipping duplicate injection: Cart
+2026-01-18T19:23:21.8034040Z     🔄 Retry 2/3 mining locators for 'Proceed to checkout'...
+2026-01-18T19:23:22.8521893Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:22.8523872Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:22.8527956Z [CACHE HIT] 9e6a52b1... (hits: 16, misses: 68)
+2026-01-18T19:23:22.8528821Z     ⚠️ Skipping duplicate injection: Cart
+2026-01-18T19:23:22.8529663Z     🧠 Verifying step validity for 'Proceed to checkout' after no candidates found...
+2026-01-18T19:23:22.8533691Z [CACHE HIT] 1284a67b... (hits: 17, misses: 68)
+2026-01-18T19:23:22.8535058Z     🗑️ Step deemed INVALID: The cart is empty. Therefore, there is no "Proceed to checkout" button available on the page.. Removing from workflow.
+2026-01-18T19:23:22.8536373Z     ⏭️ Skipping execution of invalid step: Proceed to checkout
+2026-01-18T19:23:22.8537154Z   ▶️ [STEP step_29] ASSERT_VISIBLE: SHOPPING-CART SUMMARY
+2026-01-18T19:23:22.8672940Z     🔍 Mining locators for: 'SHOPPING-CART SUMMARY'
+2026-01-18T19:23:22.9264242Z     ✅ Found 1 verified locators
+2026-01-18T19:23:25.9691366Z     ✅ State transitioned.
+2026-01-18T19:23:25.9742509Z     🔄 Revisited state detected (count: 6)
+2026-01-18T19:23:25.9743273Z     ⚠️ Too many revisits (6). Stopping AI step injection to prevent loops.
+2026-01-18T19:23:25.9743842Z   ▶️ [STEP step_30] CLICK: Proceed to checkout
+2026-01-18T19:23:25.9793909Z     🔍 Mining locators for: 'Proceed to checkout'
+2026-01-18T19:23:26.0188844Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:26.0190544Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:26.0195836Z [CACHE HIT] 9e6a52b1... (hits: 18, misses: 68)
+2026-01-18T19:23:26.0196676Z     💡 Expert Suggestion: The cart is currently empty. Adding a product to the cart is necessary to proceed to checkout.
+2026-01-18T19:23:26.0197380Z     🛠️ Executing corrective action: click -> 'Cart'
+2026-01-18T19:23:26.8353118Z     ✅ Executed corrective navigation
+2026-01-18T19:23:28.8375100Z     🔄 Retry 1/3 mining locators for 'Proceed to checkout'...
+2026-01-18T19:23:29.8860624Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:29.8861779Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:29.8865450Z [CACHE HIT] 9e6a52b1... (hits: 19, misses: 68)
+2026-01-18T19:23:29.8866050Z     ⚠️ Skipping duplicate injection: Cart
+2026-01-18T19:23:29.8866586Z     🔄 Retry 2/3 mining locators for 'Proceed to checkout'...
+2026-01-18T19:23:30.9356680Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:30.9358062Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:30.9361962Z [CACHE HIT] 9e6a52b1... (hits: 20, misses: 68)
+2026-01-18T19:23:30.9362550Z     ⚠️ Skipping duplicate injection: Cart
+2026-01-18T19:23:30.9363510Z     🧠 Verifying step validity for 'Proceed to checkout' after no candidates found...
+2026-01-18T19:23:30.9366707Z [CACHE HIT] 1284a67b... (hits: 21, misses: 68)
+2026-01-18T19:23:30.9368141Z     🗑️ Step deemed INVALID: The cart is empty. Therefore, there is no "Proceed to checkout" button available on the page.. Removing from workflow.
+2026-01-18T19:23:30.9368908Z     ⏭️ Skipping execution of invalid step: Proceed to checkout
+2026-01-18T19:23:30.9369285Z   ▶️ [STEP step_31] ASSERT_VISIBLE: ADDRESSES
+2026-01-18T19:23:30.9507245Z     🔍 Mining locators for: 'ADDRESSES'
+2026-01-18T19:23:31.0207517Z     ✅ Found 3 verified locators
+2026-01-18T19:23:33.5533273Z     ✅ State transitioned.
+2026-01-18T19:23:33.5582380Z     🔄 Revisited state detected (count: 7)
+2026-01-18T19:23:33.5583190Z     ⚠️ Too many revisits (7). Stopping AI step injection to prevent loops.
+2026-01-18T19:23:33.5583979Z   ▶️ [STEP step_32] CLICK: Proceed to checkout
+2026-01-18T19:23:33.5630531Z     🔍 Mining locators for: 'Proceed to checkout'
+2026-01-18T19:23:33.6022373Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:33.6023939Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:34.9439074Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:34.9439576Z [DEBUG] Received response (Length: 270)
+2026-01-18T19:23:34.9440573Z     💡 Expert Suggestion: The shopping cart is empty. Navigate to a product page (e.g., 'Women') to add items and then 'Proceed to checkout' will be available.
+2026-01-18T19:23:34.9441306Z     🛠️ Executing corrective action: click -> 'Women'
+2026-01-18T19:23:35.9227055Z     ✅ Executed corrective navigation
+2026-01-18T19:23:37.9250251Z     🔄 Retry 1/3 mining locators for 'Proceed to checkout'...
+2026-01-18T19:23:39.0869004Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:39.0870533Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:40.3434797Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:40.3435270Z [DEBUG] Received response (Length: 275)
+2026-01-18T19:23:40.3436294Z     💡 Expert Suggestion: The 'Proceed to checkout' button is typically found within the cart or during the checkout process after items have been added to the cart.
+2026-01-18T19:23:40.3437158Z     🛠️ Executing corrective action: click -> 'Cart'
+2026-01-18T19:23:41.2387222Z     ✅ Executed corrective navigation
+2026-01-18T19:23:43.2392813Z     🔄 Retry 2/3 mining locators for 'Proceed to checkout'...
+2026-01-18T19:23:44.2862895Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:44.2865039Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:44.2870245Z [CACHE HIT] 9e6a52b1... (hits: 22, misses: 70)
+2026-01-18T19:23:44.2870929Z     ⚠️ Skipping duplicate injection: Cart
+2026-01-18T19:23:44.2871563Z     🧠 Verifying step validity for 'Proceed to checkout' after no candidates found...
+2026-01-18T19:23:44.2875300Z [CACHE HIT] 1284a67b... (hits: 23, misses: 70)
+2026-01-18T19:23:44.2876544Z     🗑️ Step deemed INVALID: The cart is empty. Therefore, there is no "Proceed to checkout" button available on the page.. Removing from workflow.
+2026-01-18T19:23:44.2877333Z     ⏭️ Skipping execution of invalid step: Proceed to checkout
+2026-01-18T19:23:44.2878127Z   ▶️ [STEP step_33] CHECK: I agree to the terms of service and will adhere to them unconditionally.
+2026-01-18T19:23:44.3021828Z     🔍 Mining locators for: 'I agree to the terms of service and will adhere to them unconditionally.'
+2026-01-18T19:23:44.3519708Z     🧠 Consulting AI (Vision-First) to find 'I agree to the terms of service and will adhere to them unconditionally.'...
+2026-01-18T19:23:44.3521216Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:45.7017964Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:45.7018615Z [DEBUG] Received response (Length: 247)
+2026-01-18T19:23:45.7019534Z     💡 Expert Suggestion: The 'I agree to the terms of service and will adhere to them unconditionally' is likely on the sign-in page.
+2026-01-18T19:23:45.7020275Z     🛠️ Executing corrective action: click -> 'Sign in'
+2026-01-18T19:23:46.2662047Z     ✅ Executed corrective navigation
+2026-01-18T19:23:48.2681424Z     🔄 Retry 1/3 mining locators for 'I agree to the terms of service and will adhere to them unconditionally.'...
+2026-01-18T19:23:49.3182529Z     🧠 Consulting AI (Vision-First) to find 'I agree to the terms of service and will adhere to them unconditionally.'...
+2026-01-18T19:23:49.3183786Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:50.5784670Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:50.5785747Z [DEBUG] Received response (Length: 246)
+2026-01-18T19:23:50.5786762Z     ⚠️ Skipping duplicate injection: Sign in
+2026-01-18T19:23:50.5788411Z     🔄 Retry 2/3 mining locators for 'I agree to the terms of service and will adhere to them unconditionally.'...
+2026-01-18T19:23:51.6394131Z     🧠 Consulting AI (Vision-First) to find 'I agree to the terms of service and will adhere to them unconditionally.'...
+2026-01-18T19:23:51.6395775Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:23:51.6396518Z [CACHE HIT] d26ab9b1... (hits: 24, misses: 72)
+2026-01-18T19:23:51.6396864Z     ⚠️ Skipping duplicate injection: Sign in
+2026-01-18T19:23:51.6397514Z     🧠 Verifying step validity for 'I agree to the terms of service and will adhere to them unconditionally.' after no candidates found...
+2026-01-18T19:23:55.7799377Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:23:55.7800141Z [DEBUG] Received response (Length: 253)
+2026-01-18T19:23:55.7802667Z     🗑️ Step deemed INVALID: The cart is empty, and the page is at the 'Summary' stage of the order process. The 'I agree to the terms of service' element is not present at this stage. It appears in the 'Shipping' stage.. Removing from workflow.
+2026-01-18T19:23:55.7804371Z     ⏭️ Skipping execution of invalid step: I agree to the terms of service and will adhere to them unconditionally.
+2026-01-18T19:23:55.7805101Z   ▶️ [STEP step_34] CLICK: Proceed to checkout
+2026-01-18T19:23:55.7855669Z     🔍 Mining locators for: 'Proceed to checkout'
+2026-01-18T19:23:55.8346975Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:23:55.8348391Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:24:00.7061727Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:00.7062175Z [DEBUG] Received response (Length: 246)
+2026-01-18T19:24:00.7063127Z     💡 Expert Suggestion: The cart is currently empty. Adding a product to the cart will likely reveal the 'Proceed to checkout' button.
+2026-01-18T19:24:00.7063889Z     🛠️ Executing corrective action: click -> 'Cart'
+2026-01-18T19:24:01.6390580Z     ✅ Executed corrective navigation
+2026-01-18T19:24:03.6413150Z     🔄 Retry 1/3 mining locators for 'Proceed to checkout'...
+2026-01-18T19:24:04.7009252Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:24:04.7011260Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:24:04.7016151Z [CACHE HIT] 9e6a52b1... (hits: 25, misses: 74)
+2026-01-18T19:24:04.7016578Z     ⚠️ Skipping duplicate injection: Cart
+2026-01-18T19:24:04.7016990Z     🔄 Retry 2/3 mining locators for 'Proceed to checkout'...
+2026-01-18T19:24:05.8005023Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-18T19:24:05.8006639Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:24:05.8010259Z [CACHE HIT] 9e6a52b1... (hits: 26, misses: 74)
+2026-01-18T19:24:05.8010864Z     ⚠️ Skipping duplicate injection: Cart
+2026-01-18T19:24:05.8011674Z     🧠 Verifying step validity for 'Proceed to checkout' after no candidates found...
+2026-01-18T19:24:05.8015081Z [CACHE HIT] 1284a67b... (hits: 27, misses: 74)
+2026-01-18T19:24:05.8016334Z     🗑️ Step deemed INVALID: The cart is empty. Therefore, there is no "Proceed to checkout" button available on the page.. Removing from workflow.
+2026-01-18T19:24:05.8017562Z     ⏭️ Skipping execution of invalid step: Proceed to checkout
+2026-01-18T19:24:05.8018535Z   ▶️ [STEP step_35] ASSERT_VISIBLE: PLEASE CHOOSE YOUR PAYMENT METHOD
+2026-01-18T19:24:05.8157051Z     🔍 Mining locators for: 'PLEASE CHOOSE YOUR PAYMENT METHOD'
+2026-01-18T19:24:05.8674307Z     🧠 Consulting AI (Vision-First) to find 'PLEASE CHOOSE YOUR PAYMENT METHOD'...
+2026-01-18T19:24:05.8676294Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:24:07.4451126Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:07.4451636Z [DEBUG] Received response (Length: 382)
+2026-01-18T19:24:07.4453064Z     💡 Expert Suggestion: The current page is the 'Summary' page of the shopping cart. To reach the 'Payment' page where the payment methods are displayed, the user needs to proceed through the checkout steps. Clicking '02. Sign in' will start the checkout process.
+2026-01-18T19:24:07.4454216Z     🛠️ Executing corrective action: click -> '02. Sign in'
+2026-01-18T19:24:07.5036248Z     🔄 Retry 1/3 mining locators for 'PLEASE CHOOSE YOUR PAYMENT METHOD'...
+2026-01-18T19:24:08.5514814Z     🧠 Consulting AI (Vision-First) to find 'PLEASE CHOOSE YOUR PAYMENT METHOD'...
+2026-01-18T19:24:08.5516514Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:24:08.5521578Z [CACHE HIT] 421ad073... (hits: 28, misses: 75)
+2026-01-18T19:24:08.5522251Z     ⚠️ Skipping duplicate injection: 02. Sign in
+2026-01-18T19:24:08.5522865Z     🔄 Retry 2/3 mining locators for 'PLEASE CHOOSE YOUR PAYMENT METHOD'...
+2026-01-18T19:24:09.6003056Z     🧠 Consulting AI (Vision-First) to find 'PLEASE CHOOSE YOUR PAYMENT METHOD'...
+2026-01-18T19:24:09.6004218Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:24:09.6008235Z [CACHE HIT] 421ad073... (hits: 29, misses: 75)
+2026-01-18T19:24:09.6008877Z     ⚠️ Skipping duplicate injection: 02. Sign in
+2026-01-18T19:24:09.6009808Z     🧠 Verifying step validity for 'PLEASE CHOOSE YOUR PAYMENT METHOD' after no candidates found...
+2026-01-18T19:24:12.3865339Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:12.3866254Z [DEBUG] Received response (Length: 328)
+2026-01-18T19:24:12.3869783Z     🗑️ Step deemed INVALID: The cart is empty. The user is on the 'Summary' step of the checkout process. The 'PLEASE CHOOSE YOUR PAYMENT METHOD' element will only appear on the 'Payment' step, after the user has added items to the cart, signed in, entered their address, and selected shipping.. Removing from workflow.
+2026-01-18T19:24:12.3872312Z     ⏭️ Skipping execution of invalid step: PLEASE CHOOSE YOUR PAYMENT METHOD
+2026-01-18T19:24:14.4279239Z 
+2026-01-18T19:24:14.4280180Z [2/3] Exploring Scenario: Contact Us Flow
+2026-01-18T19:24:14.4281397Z     🧠 Initialized exploration context for goal: 'Practice automation scenarios'
+2026-01-18T19:24:14.4282179Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T19:24:16.8582986Z     ✅ Navigated to http://www.automationpractice.pl/
+2026-01-18T19:24:16.8583713Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-18T19:24:21.8839042Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T19:24:23.8861664Z     ✅ State transitioned.
+2026-01-18T19:24:23.9696007Z [CACHE HIT] 11fa8f81... (hits: 30, misses: 76)
+2026-01-18T19:24:23.9696934Z     🤖 AI Next Step Suggestion: fill -> Search
+2026-01-18T19:24:23.9697302Z     🧩 Suggested Locator: #search_query_top
+2026-01-18T19:24:23.9698110Z     💭 Reasoning: To practice automation scenarios, I will search for a product. 'dress' is a good starting point.
+2026-01-18T19:24:23.9698733Z     ➕ Injected AI step: fill -> Search
+2026-01-18T19:24:23.9699058Z   ▶️ [STEP step_2_ai_1] FILL: Search
+2026-01-18T19:24:23.9750240Z     🎯 Using AI-provided locator: #search_query_top
+2026-01-18T19:24:23.9813729Z     ✅ Found 1 verified locators
+2026-01-18T19:24:29.4502929Z     ✅ State transitioned.
+2026-01-18T19:24:29.5206702Z [CACHE HIT] 712177e0... (hits: 31, misses: 76)
+2026-01-18T19:24:29.5207866Z     🤖 AI Next Step Suggestion: click -> Search
+2026-01-18T19:24:29.5208574Z     🧩 Suggested Locator: button[name='submit_search']
+2026-01-18T19:24:29.5209558Z     💭 Reasoning: After filling the search bar, the next logical step is to submit the search.
+2026-01-18T19:24:29.5210427Z     ➕ Injected AI step: click -> Search
+2026-01-18T19:24:29.5210951Z   ▶️ [STEP step_2_ai_2] CLICK: Search
+2026-01-18T19:24:29.5261967Z     🎯 Using AI-provided locator: button[name='submit_search']
+2026-01-18T19:24:29.5326578Z     ✅ Found 1 verified locators
+2026-01-18T19:24:33.5837430Z     ✅ State transitioned.
+2026-01-18T19:24:33.6854834Z [CACHE HIT] 40221597... (hits: 32, misses: 76)
+2026-01-18T19:24:33.6855835Z     🤖 AI Next Step Suggestion: click -> Blouse
+2026-01-18T19:24:33.6856513Z     🧩 Suggested Locator: h5 > a[title='Blouse']
+2026-01-18T19:24:33.6857483Z     💭 Reasoning: Select the first product in the list to proceed with the automation scenario.
+2026-01-18T19:24:33.6858708Z     ➕ Injected AI step: click -> Blouse
+2026-01-18T19:24:33.6859235Z   ▶️ [STEP step_2_ai_3] CLICK: Blouse
+2026-01-18T19:24:33.7008006Z     🎯 Using AI-provided locator: h5 > a[title='Blouse']
+2026-01-18T19:24:33.7069028Z     ✅ Found 1 verified locators
+2026-01-18T19:24:37.8558845Z     ✅ State transitioned.
+2026-01-18T19:24:37.9350951Z [CACHE HIT] 6eff8825... (hits: 33, misses: 76)
+2026-01-18T19:24:37.9351884Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T19:24:37.9352779Z     💭 Reasoning: The product is out of stock, so there is nothing to add to the cart.
+2026-01-18T19:24:37.9353613Z   ▶️ [STEP step_3] CLICK: Contact us
+2026-01-18T19:24:37.9500386Z     🔍 Mining locators for: 'Contact us'
+2026-01-18T19:24:38.0733785Z     ✅ Found 3 verified locators
+2026-01-18T19:24:41.6188230Z     ✅ State transitioned.
+2026-01-18T19:24:42.7747141Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:42.7748061Z [DEBUG] Received response (Length: 192)
+2026-01-18T19:24:42.7748969Z     🤖 AI Next Step Suggestion: fill -> Email address
+2026-01-18T19:24:42.7749576Z     🧩 Suggested Locator: #email
+2026-01-18T19:24:42.7750413Z     💭 Reasoning: To fill out the contact form, the email address is a required field.
+2026-01-18T19:24:42.7751287Z     ➕ Injected AI step: fill -> Email address
+2026-01-18T19:24:42.7753011Z   ▶️ [STEP step_3_ai_1] FILL: Email address
+2026-01-18T19:24:42.7893378Z     🎯 Using AI-provided locator: #email
+2026-01-18T19:24:42.7946976Z     ✅ Found 1 verified locators
+2026-01-18T19:24:49.9550206Z     ✅ State transitioned.
+2026-01-18T19:24:51.5972289Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:51.5972977Z [DEBUG] Received response (Length: 201)
+2026-01-18T19:24:51.5974136Z     🤖 AI Next Step Suggestion: fill -> Order reference
+2026-01-18T19:24:51.5974819Z     🧩 Suggested Locator: #id_order
+2026-01-18T19:24:51.5975907Z     💭 Reasoning: Filling the order reference field to provide more information for the contact form.
+2026-01-18T19:24:51.5977022Z     ➕ Injected AI step: fill -> Order reference
+2026-01-18T19:24:51.5978017Z   ▶️ [STEP step_3_ai_2] FILL: Order reference
+2026-01-18T19:24:51.6029566Z     🎯 Using AI-provided locator: #id_order
+2026-01-18T19:24:51.6083993Z     ✅ Found 1 verified locators
+2026-01-18T19:24:57.0477996Z     ✅ State transitioned.
+2026-01-18T19:24:57.0523132Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:24:58.4671105Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:24:58.4671799Z [DEBUG] Received response (Length: 135)
+2026-01-18T19:24:58.4672591Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T19:24:58.4673699Z     💭 Reasoning: The form on the contact page has been filled. There are no other actions to take on this page.
+2026-01-18T19:24:58.4674723Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Contact us
+2026-01-18T19:24:58.4725230Z     🔍 Mining locators for: 'Contact us'
+2026-01-18T19:24:58.5378823Z     ✅ Found 4 verified locators
+2026-01-18T19:25:01.0828991Z     ✅ State transitioned.
+2026-01-18T19:25:01.0877294Z     🔄 Revisited state detected (count: 2)
+2026-01-18T19:25:03.2775907Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:03.2776671Z [DEBUG] Received response (Length: 162)
+2026-01-18T19:25:03.2777477Z     🤖 AI Next Step Suggestion: fill -> Message
+2026-01-18T19:25:03.2778608Z     💭 Reasoning: Fill the message field to complete the contact form.
+2026-01-18T19:25:03.2779318Z     ➕ Injected AI step: fill -> Message
+2026-01-18T19:25:03.2779892Z   ▶️ [STEP step_4_ai_1] FILL: Message
+2026-01-18T19:25:03.2835043Z     🔍 Mining locators for: 'Message'
+2026-01-18T19:25:03.3550521Z     ✅ Found 5 verified locators
+2026-01-18T19:25:09.0299767Z     ✅ State transitioned.
+2026-01-18T19:25:09.0349683Z     🔄 Revisited state detected (count: 3)
+2026-01-18T19:25:10.8266329Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:10.8266980Z [DEBUG] Received response (Length: 176)
+2026-01-18T19:25:10.8267967Z     🤖 AI Next Step Suggestion: click -> Choose File
+2026-01-18T19:25:10.8268571Z     💭 Reasoning: The form is almost complete. The next logical step is to attach a file.
+2026-01-18T19:25:10.8269068Z     ➕ Injected AI step: click -> Choose File
+2026-01-18T19:25:10.8269410Z   ▶️ [STEP step_4_ai_2] CLICK: Choose File
+2026-01-18T19:25:10.8318525Z     🔍 Mining locators for: 'Choose File'
+2026-01-18T19:25:10.8954548Z     ✅ Found 2 verified locators
+2026-01-18T19:25:14.9329802Z     ✅ State transitioned.
+2026-01-18T19:25:14.9383785Z     🔄 Revisited state detected (count: 4)
+2026-01-18T19:25:16.1767989Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:16.1768597Z [DEBUG] Received response (Length: 153)
+2026-01-18T19:25:16.1769299Z     🤖 AI Next Step Suggestion: click -> Choose File
+2026-01-18T19:25:16.1769860Z     💭 Reasoning: The file upload button has not been clicked yet.
+2026-01-18T19:25:16.1770582Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'choose file')
+2026-01-18T19:25:16.1771189Z   ▶️ [STEP step_5] SELECT: Subject Heading
+2026-01-18T19:25:16.1819201Z     🔍 Mining locators for: 'Subject Heading'
+2026-01-18T19:25:16.2304989Z     🧠 Consulting AI (Vision-First) to find 'Subject Heading'...
+2026-01-18T19:25:16.2306660Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:25:21.7739742Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:21.7740655Z [DEBUG] Received response (Length: 449)
+2026-01-18T19:25:21.7741260Z     🔄 Retry 1/3 mining locators for 'Subject Heading'...
+2026-01-18T19:25:22.8636007Z     🧠 Consulting AI (Vision-First) to find 'Subject Heading'...
+2026-01-18T19:25:22.8638169Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:25:22.8642122Z [CACHE HIT] 06dd0c01... (hits: 34, misses: 83)
+2026-01-18T19:25:22.8642676Z     🔄 Retry 2/3 mining locators for 'Subject Heading'...
+2026-01-18T19:25:23.9140517Z     🧠 Consulting AI (Vision-First) to find 'Subject Heading'...
+2026-01-18T19:25:23.9142120Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:25:23.9145177Z [CACHE HIT] 06dd0c01... (hits: 35, misses: 83)
+2026-01-18T19:25:23.9145931Z     🧠 Verifying step validity for 'Subject Heading' after mining failure...
+2026-01-18T19:25:26.4649014Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:26.4649859Z [DEBUG] Received response (Length: 169)
+2026-01-18T19:25:26.4650951Z     🛠️ Self-Correction: Step is valid. Using new locator: #id_contact
+2026-01-18T19:25:29.4990506Z     ✅ State transitioned.
+2026-01-18T19:25:29.5042929Z     🔄 Revisited state detected (count: 5)
+2026-01-18T19:25:29.5043754Z     ⚠️ Too many revisits (5). Stopping AI step injection to prevent loops.
+2026-01-18T19:25:29.5044245Z   ▶️ [STEP step_6] FILL: Email address
+2026-01-18T19:25:29.5091918Z     🔍 Mining locators for: 'Email address'
+2026-01-18T19:25:29.5866516Z     ✅ Found 4 verified locators
+2026-01-18T19:25:35.8616200Z     ✅ State transitioned.
+2026-01-18T19:25:35.8667279Z     🔄 Revisited state detected (count: 6)
+2026-01-18T19:25:35.8668390Z     ⚠️ Too many revisits (6). Stopping AI step injection to prevent loops.
+2026-01-18T19:25:35.8669061Z   ▶️ [STEP step_7] FILL: Order reference
+2026-01-18T19:25:35.8718076Z     🔍 Mining locators for: 'Order reference'
+2026-01-18T19:25:35.9309550Z     🧠 Consulting AI (Vision-First) to find 'Order reference'...
+2026-01-18T19:25:35.9310706Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:25:38.1350392Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:38.1351023Z [DEBUG] Received response (Length: 542)
+2026-01-18T19:25:38.1351564Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T19:25:38.1351886Z   ▶️ [STEP step_8] FILL: Message
+2026-01-18T19:25:38.1397185Z     🔍 Mining locators for: 'Message'
+2026-01-18T19:25:38.2189646Z     ✅ Found 5 verified locators
+2026-01-18T19:25:44.3902271Z     ✅ State transitioned.
+2026-01-18T19:25:44.3953154Z     🔄 Revisited state detected (count: 7)
+2026-01-18T19:25:44.3953890Z     ⚠️ Too many revisits (7). Stopping AI step injection to prevent loops.
+2026-01-18T19:25:44.3954361Z   ▶️ [STEP step_9] CLICK: Send
+2026-01-18T19:25:44.4007965Z     🔍 Mining locators for: 'Send'
+2026-01-18T19:25:44.4721351Z     ✅ Found 4 verified locators
+2026-01-18T19:25:48.0327377Z     ✅ State transitioned.
+2026-01-18T19:25:49.7670631Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:49.7671652Z [DEBUG] Received response (Length: 295)
+2026-01-18T19:25:49.7672786Z     🤖 AI Next Step Suggestion: fill -> Email address
+2026-01-18T19:25:49.7673821Z     🧩 Suggested Locator: #email
+2026-01-18T19:25:49.7676518Z     💭 Reasoning: The form has an error indicating an invalid email address. Filling the email address field is the next logical step to resolve the error and proceed with submitting the form.
+2026-01-18T19:25:49.7679263Z     ➕ Injected AI step: fill -> Email address
+2026-01-18T19:25:49.7680234Z   ▶️ [STEP step_9_ai_1] FILL: Email address
+2026-01-18T19:25:49.7828293Z     🎯 Using AI-provided locator: #email
+2026-01-18T19:25:49.7881060Z     ✅ Found 1 verified locators
+2026-01-18T19:25:56.6811732Z     ✅ State transitioned.
+2026-01-18T19:25:56.6859647Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:25:58.3898864Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:25:58.3899545Z [DEBUG] Received response (Length: 223)
+2026-01-18T19:25:58.3900391Z     🤖 AI Next Step Suggestion: click -> -- Choose --
+2026-01-18T19:25:58.3900969Z     🧩 Suggested Locator: span:contains('-- Choose --')
+2026-01-18T19:25:58.3901613Z     💭 Reasoning: The email address field is showing an error. Need to select a subject heading before resending the message.
+2026-01-18T19:25:58.3902201Z     ➕ Injected AI step: click -> -- Choose --
+2026-01-18T19:25:58.3902534Z   ▶️ [STEP step_9_ai_2] CLICK: -- Choose --
+2026-01-18T19:25:58.3958086Z     🎯 Using AI-provided locator: span:contains('-- Choose --')
+2026-01-18T19:25:58.3992220Z     🔍 Mining locators for: '-- Choose --'
+2026-01-18T19:25:58.4529963Z     ✅ Found 1 verified locators
+2026-01-18T19:26:02.0040947Z     ✅ State transitioned.
+2026-01-18T19:26:02.0089687Z     🔄 Revisited state detected (count: 2)
+2026-01-18T19:26:03.4942436Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:26:03.4942971Z [DEBUG] Received response (Length: 204)
+2026-01-18T19:26:03.4943769Z     🤖 AI Next Step Suggestion: fill -> Email address
+2026-01-18T19:26:03.4944326Z     🧩 Suggested Locator: #email
+2026-01-18T19:26:03.4945246Z     💭 Reasoning: The previous email address was invalid, so I will try the same email address again.
+2026-01-18T19:26:03.4946169Z     ➕ Injected AI step: fill -> Email address
+2026-01-18T19:26:03.4946722Z   ▶️ [STEP step_9_ai_3] FILL: Email address
+2026-01-18T19:26:03.4998211Z     🎯 Using AI-provided locator: #email
+2026-01-18T19:26:03.5050835Z     ✅ Found 1 verified locators
+2026-01-18T19:26:09.8080790Z     ✅ State transitioned.
+2026-01-18T19:26:09.8135556Z     🔄 Revisited state detected (count: 3)
+2026-01-18T19:26:11.4643367Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:26:11.4644428Z [DEBUG] Received response (Length: 210)
+2026-01-18T19:26:11.4645264Z     🤖 AI Next Step Suggestion: fill -> Email address
+2026-01-18T19:26:11.4645772Z     🧩 Suggested Locator: #email
+2026-01-18T19:26:11.4646530Z     💭 Reasoning: The email address field is showing an error. I will refill it with a valid email address.
+2026-01-18T19:26:11.4647481Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('fill', 'email address')
+2026-01-18T19:26:11.4648520Z   ▶️ [STEP step_10] ASSERT_VISIBLE: Your message has been successfully sent to our team.
+2026-01-18T19:26:11.4704724Z     🔍 Mining locators for: 'Your message has been successfully sent to our team.'
+2026-01-18T19:26:11.5133272Z     🧠 Consulting AI (Vision-First) to find 'Your message has been successfully sent to our team.'...
+2026-01-18T19:26:11.5135966Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:26:16.4021061Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:26:16.4021863Z [DEBUG] Received response (Length: 289)
+2026-01-18T19:26:16.4023846Z     💡 Expert Suggestion: After submitting the contact form, the success message 'Your message has been successfully sent to our team.' should appear on the Contact Us page.
+2026-01-18T19:26:16.4025561Z     🛠️ Executing corrective action: click -> 'Contact us'
+2026-01-18T19:26:17.3475625Z     ✅ Executed corrective navigation
+2026-01-18T19:26:19.3498995Z     🔄 Retry 1/3 mining locators for 'Your message has been successfully sent to our team.'...
+2026-01-18T19:26:20.4116364Z     🧠 Consulting AI (Vision-First) to find 'Your message has been successfully sent to our team.'...
+2026-01-18T19:26:20.4117807Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:26:21.7464739Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:26:21.7465595Z [DEBUG] Received response (Length: 283)
+2026-01-18T19:26:21.7466300Z     ⚠️ Skipping duplicate injection: Contact us
+2026-01-18T19:26:21.7467487Z     🔄 Retry 2/3 mining locators for 'Your message has been successfully sent to our team.'...
+2026-01-18T19:26:22.7962626Z     🧠 Consulting AI (Vision-First) to find 'Your message has been successfully sent to our team.'...
+2026-01-18T19:26:22.7965750Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:26:22.7967409Z [CACHE HIT] f2832bac... (hits: 36, misses: 91)
+2026-01-18T19:26:22.7968655Z     ⚠️ Skipping duplicate injection: Contact us
+2026-01-18T19:26:22.7970314Z     🧠 Verifying step validity for 'Your message has been successfully sent to our team.' after no candidates found...
+2026-01-18T19:26:26.8951785Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:26:26.8952463Z [DEBUG] Received response (Length: 317)
+2026-01-18T19:26:26.8955264Z     🗑️ Step deemed INVALID: The message "Your message has been successfully sent to our team." is not present on the page in the current state. The contact form is visible, but it hasn't been submitted yet. Therefore, it's not logical to look for the success message at this point.. Removing from workflow.
+2026-01-18T19:26:26.8957493Z     ⏭️ Skipping execution of invalid step: Your message has been successfully sent to our team.
+2026-01-18T19:26:28.9281562Z 
+2026-01-18T19:26:28.9282108Z [3/3] Exploring Scenario: Newsletter Subscription
+2026-01-18T19:26:28.9283278Z     🧠 Initialized exploration context for goal: 'Practice automation scenarios'
+2026-01-18T19:26:28.9284110Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T19:26:31.3792514Z     ✅ Navigated to http://www.automationpractice.pl/
+2026-01-18T19:26:31.3793072Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-18T19:26:36.4063189Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T19:26:38.4086089Z     ✅ State transitioned.
+2026-01-18T19:26:38.5306905Z [CACHE HIT] 11fa8f81... (hits: 37, misses: 92)
+2026-01-18T19:26:38.5307969Z     🤖 AI Next Step Suggestion: fill -> Search
+2026-01-18T19:26:38.5308545Z     🧩 Suggested Locator: #search_query_top
+2026-01-18T19:26:38.5309423Z     💭 Reasoning: To practice automation scenarios, I will search for a product. 'dress' is a good starting point.
+2026-01-18T19:26:38.5310014Z     ➕ Injected AI step: fill -> Search
+2026-01-18T19:26:38.5310349Z   ▶️ [STEP step_2_ai_1] FILL: Search
+2026-01-18T19:26:38.5360334Z     🎯 Using AI-provided locator: #search_query_top
+2026-01-18T19:26:38.5425107Z     ✅ Found 1 verified locators
+2026-01-18T19:26:44.0541760Z     ✅ State transitioned.
+2026-01-18T19:26:45.6795484Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:26:45.6796677Z [DEBUG] Received response (Length: 208)
+2026-01-18T19:26:45.6798246Z     🤖 AI Next Step Suggestion: click -> Search
+2026-01-18T19:26:45.6799541Z     🧩 Suggested Locator: button[name='submit_search']
+2026-01-18T19:26:45.6801383Z     💭 Reasoning: After filling the search bar, the next logical step is to submit the search query.
+2026-01-18T19:26:45.6802879Z     ➕ Injected AI step: click -> Search
+2026-01-18T19:26:45.6803761Z   ▶️ [STEP step_2_ai_2] CLICK: Search
+2026-01-18T19:26:45.6860072Z     🎯 Using AI-provided locator: button[name='submit_search']
+2026-01-18T19:26:45.6927123Z     ✅ Found 1 verified locators
+2026-01-18T19:26:49.7539099Z     ✅ State transitioned.
+2026-01-18T19:26:49.8465663Z [CACHE HIT] 40221597... (hits: 38, misses: 93)
+2026-01-18T19:26:49.8466629Z     🤖 AI Next Step Suggestion: click -> Blouse
+2026-01-18T19:26:49.8467298Z     🧩 Suggested Locator: h5 > a[title='Blouse']
+2026-01-18T19:26:49.8468622Z     💭 Reasoning: Select the first product in the list to proceed with the automation scenario.
+2026-01-18T19:26:49.8469574Z     ➕ Injected AI step: click -> Blouse
+2026-01-18T19:26:49.8470494Z   ▶️ [STEP step_2_ai_3] CLICK: Blouse
+2026-01-18T19:26:49.8616207Z     🎯 Using AI-provided locator: h5 > a[title='Blouse']
+2026-01-18T19:26:49.8679052Z     ✅ Found 1 verified locators
+2026-01-18T19:26:53.9813751Z     ✅ State transitioned.
+2026-01-18T19:26:54.0625380Z [CACHE HIT] 6eff8825... (hits: 39, misses: 93)
+2026-01-18T19:26:54.0626312Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T19:26:54.0627188Z     💭 Reasoning: The product is out of stock, so there is nothing to add to the cart.
+2026-01-18T19:26:54.0628253Z   ▶️ [STEP step_3] FILL: Newsletter
+2026-01-18T19:26:54.0780010Z     🔍 Mining locators for: 'Newsletter'
+2026-01-18T19:26:54.1450405Z     🧠 Consulting AI (Vision-First) to find 'Newsletter'...
+2026-01-18T19:26:54.1451999Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:26:55.4695026Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:26:55.4695847Z [DEBUG] Received response (Length: 205)
+2026-01-18T19:26:55.4697085Z     💡 Expert Suggestion: Newsletter is often found in the footer or contact information.
+2026-01-18T19:26:55.4698491Z     🛠️ Executing corrective action: click -> 'Contact us'
+2026-01-18T19:26:56.2889097Z     ✅ Executed corrective navigation
+2026-01-18T19:26:58.2910412Z     🔄 Retry 1/3 mining locators for 'Newsletter'...
+2026-01-18T19:26:59.3914906Z     ✅ Found 1 verified locators
+2026-01-18T19:27:04.8889467Z     ✅ State transitioned.
+2026-01-18T19:27:06.4403122Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:27:06.4403755Z [DEBUG] Received response (Length: 187)
+2026-01-18T19:27:06.4404551Z     🤖 AI Next Step Suggestion: fill -> Email address
+2026-01-18T19:27:06.4405123Z     🧩 Suggested Locator: #email
+2026-01-18T19:27:06.4405636Z     💭 Reasoning: To proceed with the contact form, an email address is required.
+2026-01-18T19:27:06.4406111Z     ➕ Injected AI step: fill -> Email address
+2026-01-18T19:27:06.4406434Z   ▶️ [STEP step_3_ai_1] FILL: Email address
+2026-01-18T19:27:06.4458079Z     🎯 Using AI-provided locator: #email
+2026-01-18T19:27:06.4510780Z     ✅ Found 1 verified locators
+2026-01-18T19:27:13.8276720Z     ✅ State transitioned.
+2026-01-18T19:27:13.8333650Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:27:15.2424067Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:27:15.2424876Z [DEBUG] Received response (Length: 210)
+2026-01-18T19:27:15.2425816Z     🤖 AI Next Step Suggestion: click -> -- Choose --
+2026-01-18T19:27:15.2427448Z     💭 Reasoning: The contact form requires a subject heading to be chosen. Clicking the dropdown will reveal the options.
+2026-01-18T19:27:15.2429086Z     ➕ Injected AI step: click -> -- Choose --
+2026-01-18T19:27:15.2429865Z   ▶️ [STEP step_3_ai_2] CLICK: -- Choose --
+2026-01-18T19:27:15.2485896Z     🔍 Mining locators for: '-- Choose --'
+2026-01-18T19:27:15.2981994Z     ✅ Found 1 verified locators
+2026-01-18T19:27:18.8567273Z     ✅ State transitioned.
+2026-01-18T19:27:18.8623435Z     🔄 Revisited state detected (count: 2)
+2026-01-18T19:27:20.6043519Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:27:20.6044713Z [DEBUG] Received response (Length: 241)
+2026-01-18T19:27:20.6046090Z     🤖 AI Next Step Suggestion: click -> Customer service
+2026-01-18T19:27:20.6049001Z     💭 Reasoning: The last action was clicking the dropdown. Now we need to select an option from the dropdown. 'Customer service' is a valid option.
+2026-01-18T19:27:20.6051107Z     ➕ Injected AI step: click -> Customer service
+2026-01-18T19:27:20.6052028Z   ▶️ [STEP step_3_ai_3] CLICK: Customer service
+2026-01-18T19:27:20.6108935Z     🔍 Mining locators for: 'Customer service'
+2026-01-18T19:27:20.6719148Z     ✅ Found 1 verified locators
+2026-01-18T19:27:24.2312350Z     ✅ State transitioned.
+2026-01-18T19:27:24.2365608Z     🔄 Revisited state detected (count: 3)
+2026-01-18T19:27:25.8344947Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:27:25.8346146Z [DEBUG] Received response (Length: 195)
+2026-01-18T19:27:25.8347536Z     🤖 AI Next Step Suggestion: click -> Send >
+2026-01-18T19:27:25.8349637Z     💭 Reasoning: All visible required fields are filled, so clicking the submit button is the next logical step.
+2026-01-18T19:27:25.8350985Z     ➕ Injected AI step: click -> Send >
+2026-01-18T19:27:25.8351706Z   ▶️ [STEP step_3_ai_4] CLICK: Send >
+2026-01-18T19:27:25.8401323Z     🔍 Mining locators for: 'Send >'
+2026-01-18T19:27:25.8928926Z     🧠 Consulting AI (Vision-First) to find 'Send >'...
+2026-01-18T19:27:25.8930409Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:27:31.0501029Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:27:31.0501500Z [DEBUG] Received response (Length: 571)
+2026-01-18T19:27:31.0502080Z     🔄 Retry 1/3 mining locators for 'Send >'...
+2026-01-18T19:27:32.1078883Z     🧠 Consulting AI (Vision-First) to find 'Send >'...
+2026-01-18T19:27:32.1080605Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:27:32.1084859Z [CACHE HIT] de10eb03... (hits: 40, misses: 99)
+2026-01-18T19:27:32.1085534Z     🔄 Retry 2/3 mining locators for 'Send >'...
+2026-01-18T19:27:33.1572773Z     🧠 Consulting AI (Vision-First) to find 'Send >'...
+2026-01-18T19:27:33.1574493Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:27:33.1577953Z [CACHE HIT] de10eb03... (hits: 41, misses: 99)
+2026-01-18T19:27:33.1578654Z     🧠 Verifying step validity for 'Send >' after mining failure...
+2026-01-18T19:27:35.3824444Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:27:35.3825112Z [DEBUG] Received response (Length: 153)
+2026-01-18T19:27:35.3825970Z     🛠️ Self-Correction: Step is valid. Using new locator: #submitMessage
+2026-01-18T19:27:39.4233642Z     ✅ State transitioned.
+2026-01-18T19:27:40.9590009Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:27:40.9590722Z [DEBUG] Received response (Length: 258)
+2026-01-18T19:27:40.9591535Z     🤖 AI Next Step Suggestion: fill -> Message
+2026-01-18T19:27:40.9593225Z     💭 Reasoning: The error message indicates that the message field cannot be blank. Filling this field is the next logical step to proceed with sending the message.
+2026-01-18T19:27:40.9594748Z     ➕ Injected AI step: fill -> Message
+2026-01-18T19:27:40.9595368Z   ▶️ [STEP step_3_ai_5] FILL: Message
+2026-01-18T19:27:40.9740370Z     🔍 Mining locators for: 'Message'
+2026-01-18T19:27:41.0505973Z     ✅ Found 5 verified locators
+2026-01-18T19:27:47.0657853Z     ✅ State transitioned.
+2026-01-18T19:27:47.0706718Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:27:48.6526109Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:27:48.6526780Z [DEBUG] Received response (Length: 197)
+2026-01-18T19:27:48.6528071Z     🤖 AI Next Step Suggestion: click -> Send >
+2026-01-18T19:27:48.6529217Z     💭 Reasoning: Clicking send again to see if the error message changes or if the form requires more information.
+2026-01-18T19:27:48.6530109Z     ➕ Injected AI step: click -> Send >
+2026-01-18T19:27:48.6530423Z   ▶️ [STEP step_3_ai_6] CLICK: Send >
+2026-01-18T19:27:48.6579024Z     🔍 Mining locators for: 'Send >'
+2026-01-18T19:27:48.7422698Z     🧠 Consulting AI (Vision-First) to find 'Send >'...
+2026-01-18T19:27:48.7423937Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:27:53.5994439Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:27:53.5995548Z [DEBUG] Received response (Length: 354)
+2026-01-18T19:27:53.5998252Z     💡 Expert Suggestion: The 'Send >' button is not visible on the current page. The form appears to be incomplete due to the error message 'The message cannot be blank.' Filling the form and attaching a file might reveal the 'Send >' button.
+2026-01-18T19:27:53.6000384Z     🛠️ Executing corrective action: none -> 'Send >'
+2026-01-18T19:27:53.6579950Z     🔄 Retry 1/3 mining locators for 'Send >'...
+2026-01-18T19:27:54.7072746Z     🧠 Consulting AI (Vision-First) to find 'Send >'...
+2026-01-18T19:27:54.7074199Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:27:54.7078245Z [CACHE HIT] 573d4423... (hits: 42, misses: 103)
+2026-01-18T19:27:54.7078921Z     ⚠️ Skipping duplicate injection: Send >
+2026-01-18T19:27:54.7079527Z     🔄 Retry 2/3 mining locators for 'Send >'...
+2026-01-18T19:27:55.7587176Z     🧠 Consulting AI (Vision-First) to find 'Send >'...
+2026-01-18T19:27:55.7589202Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:27:55.7591980Z [CACHE HIT] 573d4423... (hits: 43, misses: 103)
+2026-01-18T19:27:55.7592442Z     ⚠️ Skipping duplicate injection: Send >
+2026-01-18T19:27:55.7593013Z     🧠 Verifying step validity for 'Send >' after no candidates found...
+2026-01-18T19:27:58.2576195Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:27:58.2576868Z [DEBUG] Received response (Length: 179)
+2026-01-18T19:27:58.2578837Z     🗑️ Step deemed INVALID: The 'Send >' button is not visible in the provided screenshot. The form is present, but the submit button is missing.. Removing from workflow.
+2026-01-18T19:27:58.2580442Z     ⏭️ Skipping execution of invalid step: Send >
+2026-01-18T19:27:58.2581098Z   ▶️ [STEP step_4] CLICK: Submit
+2026-01-18T19:27:58.2631121Z     🔍 Mining locators for: 'Submit'
+2026-01-18T19:27:58.3452524Z     ✅ Found 7 verified locators
+2026-01-18T19:28:02.3936955Z     ✅ State transitioned.
+2026-01-18T19:28:04.1751550Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:28:04.1752247Z [DEBUG] Received response (Length: 226)
+2026-01-18T19:28:04.1753162Z     🤖 AI Next Step Suggestion: fill -> Email address
+2026-01-18T19:28:04.1753843Z     🧩 Suggested Locator: #email
+2026-01-18T19:28:04.1755027Z     💭 Reasoning: The email address field is visible and needs to be filled to proceed with the contact form submission.
+2026-01-18T19:28:04.1756234Z     ➕ Injected AI step: fill -> Email address
+2026-01-18T19:28:04.1756899Z   ▶️ [STEP step_4_ai_1] FILL: Email address
+2026-01-18T19:28:04.1904852Z     🎯 Using AI-provided locator: #email
+2026-01-18T19:28:04.1957808Z     ✅ Found 1 verified locators
+2026-01-18T19:28:10.1638251Z     ✅ State transitioned.
+2026-01-18T19:28:10.1701112Z     🔄 Revisited state detected (count: 1)
+2026-01-18T19:28:11.7392940Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:28:11.7394205Z [DEBUG] Received response (Length: 241)
+2026-01-18T19:28:11.7395375Z     🤖 AI Next Step Suggestion: click -> -- Choose --
+2026-01-18T19:28:11.7397021Z     💭 Reasoning: The error message indicates that a subject must be selected from the dropdown. This action will open the dropdown to allow a selection.
+2026-01-18T19:28:11.7398687Z     ➕ Injected AI step: click -> -- Choose --
+2026-01-18T19:28:11.7399373Z   ▶️ [STEP step_4_ai_2] CLICK: -- Choose --
+2026-01-18T19:28:11.7462778Z     🔍 Mining locators for: '-- Choose --'
+2026-01-18T19:28:11.7993122Z     ✅ Found 1 verified locators
+2026-01-18T19:28:15.3743574Z     ✅ State transitioned.
+2026-01-18T19:28:15.3803431Z     🔄 Revisited state detected (count: 2)
+2026-01-18T19:28:16.9002079Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:28:16.9003191Z [DEBUG] Received response (Length: 311)
+2026-01-18T19:28:16.9004389Z     🤖 AI Next Step Suggestion: click -> Customer service
+2026-01-18T19:28:16.9005909Z     💭 Reasoning: The error message indicates that a subject must be selected from the list. The last action was clicking the dropdown, so now we need to select a value. 'Customer service' is the first available option.
+2026-01-18T19:28:16.9007211Z     ➕ Injected AI step: click -> Customer service
+2026-01-18T19:28:16.9007953Z   ▶️ [STEP step_4_ai_3] CLICK: Customer service
+2026-01-18T19:28:16.9062715Z     🔍 Mining locators for: 'Customer service'
+2026-01-18T19:28:16.9711041Z     ✅ Found 1 verified locators
+2026-01-18T19:28:20.5290291Z     ✅ State transitioned.
+2026-01-18T19:28:20.5347796Z     🔄 Revisited state detected (count: 3)
+2026-01-18T19:28:22.1176923Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:28:22.1177749Z [DEBUG] Received response (Length: 253)
+2026-01-18T19:28:22.1178558Z     🤖 AI Next Step Suggestion: click -> -- Choose --
+2026-01-18T19:28:22.1179678Z     💭 Reasoning: The error message indicates that a subject must be selected from the dropdown. Clicking the dropdown is the next logical step to resolve the error.
+2026-01-18T19:28:22.1180651Z     ➕ Injected AI step: click -> -- Choose --
+2026-01-18T19:28:22.1181072Z   ▶️ [STEP step_4_ai_4] CLICK: -- Choose --
+2026-01-18T19:28:22.1230355Z     🔍 Mining locators for: '-- Choose --'
+2026-01-18T19:28:22.1802615Z     ✅ Found 1 verified locators
+2026-01-18T19:28:25.7482368Z     ✅ State transitioned.
+2026-01-18T19:28:25.7532649Z     🔄 Revisited state detected (count: 4)
+2026-01-18T19:28:27.2185804Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:28:27.2186440Z [DEBUG] Received response (Length: 353)
+2026-01-18T19:28:27.2187251Z     🤖 AI Next Step Suggestion: click -> -- Choose --
+2026-01-18T19:28:27.2188816Z     💭 Reasoning: The error message indicates that a subject must be selected. The last action was clicking 'Customer service', but it seems like it didn't register correctly or another selection is needed. Clicking the dropdown again to ensure a selection is made.
+2026-01-18T19:28:27.2190039Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', '-- choose --')
+2026-01-18T19:28:27.2190688Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Newsletter : You have successfully subscribed to this newsletter.
+2026-01-18T19:28:27.2236151Z     🔍 Mining locators for: 'Newsletter : You have successfully subscribed to this newsletter.'
+2026-01-18T19:28:27.3147160Z     🧠 Consulting AI (Vision-First) to find 'Newsletter : You have successfully subscribed to this newsletter.'...
+2026-01-18T19:28:27.3149865Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:28:32.5203646Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:28:32.5204352Z [DEBUG] Received response (Length: 261)
+2026-01-18T19:28:32.5206110Z     💡 Expert Suggestion: The target string 'Newsletter : You have successfully subscribed to this newsletter.' is likely to be found on the blog page.
+2026-01-18T19:28:32.5207874Z     🛠️ Executing corrective action: click -> 'Blog'
+2026-01-18T19:28:33.1124793Z     ✅ Executed corrective navigation
+2026-01-18T19:28:35.1144530Z     🔄 Retry 1/3 mining locators for 'Newsletter : You have successfully subscribed to this newsletter.'...
+2026-01-18T19:28:36.1815099Z     🧠 Consulting AI (Vision-First) to find 'Newsletter : You have successfully subscribed to this newsletter.'...
+2026-01-18T19:28:36.1817035Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:28:37.6034564Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:28:37.6034974Z [DEBUG] Received response (Length: 239)
+2026-01-18T19:28:37.6035482Z     ⚠️ Skipping duplicate injection: Blog
+2026-01-18T19:28:37.6036365Z     🔄 Retry 2/3 mining locators for 'Newsletter : You have successfully subscribed to this newsletter.'...
+2026-01-18T19:28:38.6563808Z     🧠 Consulting AI (Vision-First) to find 'Newsletter : You have successfully subscribed to this newsletter.'...
+2026-01-18T19:28:38.6565688Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T19:28:38.6568263Z [CACHE HIT] 8da0f54e... (hits: 44, misses: 111)
+2026-01-18T19:28:38.6568869Z     ⚠️ Skipping duplicate injection: Blog
+2026-01-18T19:28:38.6570011Z     🧠 Verifying step validity for 'Newsletter : You have successfully subscribed to this newsletter.' after no candidates found...
+2026-01-18T19:28:42.5070435Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:28:42.5070869Z [DEBUG] Received response (Length: 288)
+2026-01-18T19:28:42.5072371Z     🗑️ Step deemed INVALID: The target element 'Newsletter : You have successfully subscribed to this newsletter.' is not visible on the current page. Instead, there is an error message: 'There is 1 error. Please select a subject from the list provided.'. Removing from workflow.
+2026-01-18T19:28:42.5073863Z     ⏭️ Skipping execution of invalid step: Newsletter : You have successfully subscribed to this newsletter.
+2026-01-18T19:28:44.5447451Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice/tests/generated_scenarios.json
+2026-01-18T19:28:44.5468119Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-18T19:28:44.5468578Z 
+2026-01-18T19:28:44.5468825Z ✅ Deep Exploration Complete.
+2026-01-18T19:33:23.4779340Z 
+2026-01-18T19:33:23.4780070Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-18T19:33:23.4780730Z 📍 Project: ci_automation_practice
+2026-01-18T19:33:23.4781152Z 🎬 Mode: Headless
+2026-01-18T19:33:23.4781331Z 
+2026-01-18T19:33:23.4793525Z --- Scenario: Registration and Purchase Flow ---
+2026-01-18T19:33:23.4794177Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T19:33:23.4794668Z     ✅ Step step_1 Passed.
+2026-01-18T19:33:23.4795168Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-18T19:33:23.4795727Z     ✅ Step step_2 Passed.
+2026-01-18T19:33:23.4796218Z   ▶️ [STEP step_2_ai_1] FILL: Search
+2026-01-18T19:33:23.4796784Z     🎯 Using mined locator: #search_query_top
+2026-01-18T19:33:23.4797318Z     ✅ Step step_2_ai_1 Passed.
+2026-01-18T19:33:23.4798007Z   ▶️ [STEP step_2_ai_2] CLICK: Search
+2026-01-18T19:33:23.4798616Z     🎯 Using mined locator: button[name='submit_search']
+2026-01-18T19:33:23.4799207Z     ✅ Step step_2_ai_2 Passed.
+2026-01-18T19:33:23.4799681Z   ▶️ [STEP step_2_ai_3] CLICK: Blouse
+2026-01-18T19:33:23.4800259Z     🎯 Using mined locator: h5 > a[title='Blouse']
+2026-01-18T19:33:23.4800679Z     ✅ Step step_2_ai_3 Passed.
+2026-01-18T19:33:23.4800944Z   ▶️ [STEP step_3] CLICK: Sign in
+2026-01-18T19:33:23.4801249Z     🎯 Using mined locator: .header_user_info > a
+2026-01-18T19:33:23.4801568Z     ✅ Step step_3 Passed.
+2026-01-18T19:33:23.4801841Z   ▶️ [STEP step_3_ai_1] FILL: Email address
+2026-01-18T19:33:23.4802585Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:33:23.4804335Z     ❌ Attempt 1 failed (unknown): Locator.scroll_into_view_if_needed: Error: strict mode violation: locator("text=Email address") reso...
+2026-01-18T19:33:23.4805663Z     🔧 [AUTO-HEAL] Re-mining page to find 'Email address'...
+2026-01-18T19:33:23.4806492Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:33:23.4807089Z [DEBUG] Received response (Length: 449)
+2026-01-18T19:33:23.4807928Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T19:33:23.4808772Z     ✨ AI successfully healed the step! New selector: input[name='email']
+2026-01-18T19:33:23.4809438Z     ✅ Step step_3_ai_1 Passed.
+2026-01-18T19:33:23.4809952Z   ▶️ [STEP step_3_ai_2] CLICK: Create an account
+2026-01-18T19:33:23.4810804Z     🎯 Using mined locator: #SubmitCreate
+2026-01-18T19:33:23.4811369Z     ✅ Step step_3_ai_2 Passed.
+2026-01-18T19:33:23.4811863Z   ▶️ [STEP step_3_ai_3] FILL: Email address
+2026-01-18T19:33:23.4812394Z     🎯 Using mined locator: #email_create
+2026-01-18T19:33:23.4812863Z     ✅ Step step_3_ai_3 Passed.
+2026-01-18T19:33:23.4813337Z   ▶️ [STEP step_3_ai_4] CLICK: Create an account
+2026-01-18T19:33:23.4813875Z     🎯 Using mined locator: #SubmitCreate
+2026-01-18T19:33:23.4814374Z     ✅ Step step_3_ai_4 Passed.
+2026-01-18T19:33:23.4814946Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Create an account
+2026-01-18T19:33:23.4815629Z     🎯 Using mined locator: text='Create an account'
+2026-01-18T19:33:23.4816204Z     ✅ Step step_4 Passed.
+2026-01-18T19:33:23.4816680Z   ▶️ [STEP step_5] FILL: Email address
+2026-01-18T19:33:23.4817277Z     🎯 Using mined locator: role=textbox[name='Email address']
+2026-01-18T19:33:23.4817833Z     ✅ Step step_5 Passed.
+2026-01-18T19:33:23.4818121Z   ▶️ [STEP step_6] CLICK: Create an account
+2026-01-18T19:33:23.4818473Z     🎯 Using mined locator: text='Create an account'
+2026-01-18T19:33:23.4818942Z     ✅ Step step_6 Passed.
+2026-01-18T19:33:23.4819363Z   ▶️ [STEP step_10] FILL: Password
+2026-01-18T19:33:23.4819845Z     🎯 Using mined locator: role=textbox[name='Password']
+2026-01-18T19:33:23.4820437Z     ✅ Step step_10 Passed.
+2026-01-18T19:33:23.4820885Z   ▶️ [STEP step_11] SELECT: Day
+2026-01-18T19:33:23.4821538Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:33:23.4822249Z     ✅ Step step_11 Passed.
+2026-01-18T19:33:23.4822690Z   ▶️ [STEP step_11_ai_1] CLICK: Women
+2026-01-18T19:33:23.4823239Z     🎯 Using mined locator: a[title='Women']
+2026-01-18T19:33:23.4823819Z     ✅ Step step_11_ai_1 Passed.
+2026-01-18T19:33:23.4824353Z   ▶️ [STEP step_11_ai_2] SEARCH: Search
+2026-01-18T19:33:23.4824996Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:33:23.4825653Z     ✅ Step step_11_ai_2 Passed.
+2026-01-18T19:33:23.4826108Z   ▶️ [STEP step_14] FILL: Address
+2026-01-18T19:33:23.4826743Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:33:23.4827368Z     ✅ Step step_14 Passed.
+2026-01-18T19:33:23.4828006Z   ▶️ [STEP step_14_ai_1] FILL: Email address
+2026-01-18T19:33:23.4828310Z     🎯 Using mined locator: #email
+2026-01-18T19:33:23.4828576Z     ✅ Step step_14_ai_1 Passed.
+2026-01-18T19:33:23.4828883Z   ▶️ [STEP step_14_ai_2] FILL: Order reference
+2026-01-18T19:33:23.4829365Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:33:23.4829977Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-18T19:33:23.4830566Z Call log:
+2026-01-18T19:33:23.4830746Z   - waiting for locator("tex...
+2026-01-18T19:33:23.4831089Z     🔧 [AUTO-HEAL] Re-mining page to find 'Order reference'...
+2026-01-18T19:33:23.4831470Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:33:23.4831997Z [DEBUG] Received response (Length: 590)
+2026-01-18T19:33:23.4832524Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T19:33:23.4832967Z     ✨ AI successfully healed the step! New selector: input[name='email']
+2026-01-18T19:33:23.4833523Z     ✅ Step step_14_ai_2 Passed.
+2026-01-18T19:33:23.4833791Z   ▶️ [STEP step_14_ai_3] FILL: Message
+2026-01-18T19:33:23.4834173Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:33:23.4834764Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-18T19:33:23.4835204Z Call log:
+2026-01-18T19:33:23.4835471Z   - waiting for locator("tex...
+2026-01-18T19:33:23.4835781Z     🔧 [AUTO-HEAL] Re-mining page to find 'Message'...
+2026-01-18T19:33:23.4836132Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:33:23.4836457Z [DEBUG] Received response (Length: 492)
+2026-01-18T19:33:23.4836805Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T19:33:23.4837223Z     ✨ AI successfully healed the step! New selector: #email_create
+2026-01-18T19:33:23.4837765Z     ✅ Step step_14_ai_3 Passed.
+2026-01-18T19:33:23.4838080Z   ▶️ [STEP step_14_ai_4] CLICK: Choose File
+2026-01-18T19:33:23.4838488Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:33:23.4839038Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:33:23.4839432Z Call log:
+2026-01-18T19:33:23.4839622Z   - waiting for locator("text=Choose File"...
+2026-01-18T19:33:23.4839977Z     🔧 [AUTO-HEAL] Re-mining page to find 'Choose File'...
+2026-01-18T19:33:23.4840333Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:33:23.4840651Z [DEBUG] Received response (Length: 570)
+2026-01-18T19:33:23.4840999Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T19:33:23.4841486Z     ✨ AI successfully healed the step! New selector: button[title='Create an account']
+2026-01-18T19:33:23.4842102Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:33:23.4842484Z Call log:
+2026-01-18T19:33:23.4842671Z   - waiting for locator("button[title='Cre...
+2026-01-18T19:33:23.4843032Z     🔧 [AUTO-HEAL] Re-mining page to find 'Choose File'...
+2026-01-18T19:33:23.4843335Z [CACHE HIT] 0a39703c... (hits: 1, misses: 4)
+2026-01-18T19:33:23.4843683Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T19:33:23.4844180Z     ✨ AI successfully healed the step! New selector: button[title='Create an account']
+2026-01-18T19:33:23.4844781Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:33:23.4845173Z Call log:
+2026-01-18T19:33:23.4845360Z   - waiting for locator("button[title='Cre...
+2026-01-18T19:33:23.4845684Z     💀 Step step_14_ai_4 failed after all retries.
+2026-01-18T19:33:23.4846117Z 🛑 Scenario 'Registration and Purchase Flow' aborted due to step failure.
+2026-01-18T19:33:23.4846408Z 
+2026-01-18T19:33:23.4846508Z --- Scenario: Contact Us Flow ---
+2026-01-18T19:33:23.4846796Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T19:33:23.4847071Z     ✅ Step step_1 Passed.
+2026-01-18T19:33:23.4847336Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-18T19:33:23.4847818Z     ✅ Step step_2 Passed.
+2026-01-18T19:33:23.4848103Z   ▶️ [STEP step_2_ai_1] FILL: Search
+2026-01-18T19:33:23.4848405Z     🎯 Using mined locator: #search_query_top
+2026-01-18T19:33:23.4848700Z     ✅ Step step_2_ai_1 Passed.
+2026-01-18T19:33:23.4848964Z   ▶️ [STEP step_2_ai_2] CLICK: Search
+2026-01-18T19:33:23.4849293Z     🎯 Using mined locator: button[name='submit_search']
+2026-01-18T19:33:23.4849607Z     ✅ Step step_2_ai_2 Passed.
+2026-01-18T19:33:23.4849869Z   ▶️ [STEP step_2_ai_3] CLICK: Blouse
+2026-01-18T19:33:23.4850174Z     🎯 Using mined locator: h5 > a[title='Blouse']
+2026-01-18T19:33:23.4850473Z     ✅ Step step_2_ai_3 Passed.
+2026-01-18T19:33:23.4850719Z   ▶️ [STEP step_3] CLICK: Contact us
+2026-01-18T19:33:23.4851262Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:33:23.4851632Z     ✅ Step step_3 Passed.
+2026-01-18T19:33:23.4851888Z   ▶️ [STEP step_3_ai_1] FILL: Email address
+2026-01-18T19:33:23.4852318Z     🎯 Using mined locator: #email
+2026-01-18T19:33:23.4852604Z     ✅ Step step_3_ai_1 Passed.
+2026-01-18T19:33:23.4852878Z   ▶️ [STEP step_3_ai_2] FILL: Order reference
+2026-01-18T19:33:23.4853169Z     🎯 Using mined locator: #id_order
+2026-01-18T19:33:23.4853430Z     ✅ Step step_3_ai_2 Passed.
+2026-01-18T19:33:23.4853689Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Contact us
+2026-01-18T19:33:23.4854027Z     🎯 Using mined locator: role=link[name='Contact us']
+2026-01-18T19:33:23.4854336Z     ✅ Step step_4 Passed.
+2026-01-18T19:33:23.4854575Z   ▶️ [STEP step_4_ai_1] FILL: Message
+2026-01-18T19:33:23.4854884Z     🎯 Using mined locator: role=textbox[name='Message']
+2026-01-18T19:33:23.4855190Z     ✅ Step step_4_ai_1 Passed.
+2026-01-18T19:33:23.4855461Z   ▶️ [STEP step_4_ai_2] CLICK: Choose File
+2026-01-18T19:33:23.4855773Z     🎯 Using mined locator: #uniform-fileUpload
+2026-01-18T19:33:23.4856057Z     ✅ Step step_4_ai_2 Passed.
+2026-01-18T19:33:23.4856343Z   ▶️ [STEP step_5] SELECT: Subject Heading
+2026-01-18T19:33:23.4856626Z     🎯 Using mined locator: #id_contact
+2026-01-18T19:33:23.4856889Z     ✅ Step step_5 Passed.
+2026-01-18T19:33:23.4857130Z   ▶️ [STEP step_6] FILL: Email address
+2026-01-18T19:33:23.4857462Z     🎯 Using mined locator: role=textbox[name='Email address']
+2026-01-18T19:33:23.4857928Z     ✅ Step step_6 Passed.
+2026-01-18T19:33:23.4858172Z   ▶️ [STEP step_7] FILL: Order reference
+2026-01-18T19:33:23.4858434Z     ✅ Step step_7 Passed.
+2026-01-18T19:33:23.4858673Z   ▶️ [STEP step_8] FILL: Message
+2026-01-18T19:33:23.4858979Z     🎯 Using mined locator: role=textbox[name='Message']
+2026-01-18T19:33:23.4859277Z     ✅ Step step_8 Passed.
+2026-01-18T19:33:23.4859502Z   ▶️ [STEP step_9] CLICK: Send
+2026-01-18T19:33:23.4859761Z     🎯 Using mined locator: text='Send'
+2026-01-18T19:33:23.4860038Z     ✅ Step step_9 Passed.
+2026-01-18T19:33:23.4860286Z   ▶️ [STEP step_9_ai_1] FILL: Email address
+2026-01-18T19:33:23.4860565Z     🎯 Using mined locator: #email
+2026-01-18T19:33:23.4860833Z     ✅ Step step_9_ai_1 Passed.
+2026-01-18T19:33:23.4861099Z   ▶️ [STEP step_9_ai_2] CLICK: -- Choose --
+2026-01-18T19:33:23.4861402Z     🎯 Using mined locator: text='-- Choose --'
+2026-01-18T19:33:23.4861690Z     ✅ Step step_9_ai_2 Passed.
+2026-01-18T19:33:23.4861945Z   ▶️ [STEP step_9_ai_3] FILL: Email address
+2026-01-18T19:33:23.4862220Z     🎯 Using mined locator: #email
+2026-01-18T19:33:23.4862474Z     ✅ Step step_9_ai_3 Passed.
+2026-01-18T19:33:23.4862773Z ✅ Scenario 'Contact Us Flow' completed successfully!
+2026-01-18T19:33:23.4862982Z 
+2026-01-18T19:33:23.4863081Z --- Scenario: Newsletter Subscription ---
+2026-01-18T19:33:23.4863386Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T19:33:23.4863663Z     ✅ Step step_1 Passed.
+2026-01-18T19:33:23.4863927Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-18T19:33:23.4864195Z     ✅ Step step_2 Passed.
+2026-01-18T19:33:23.4864436Z   ▶️ [STEP step_2_ai_1] FILL: Search
+2026-01-18T19:33:23.4864726Z     🎯 Using mined locator: #search_query_top
+2026-01-18T19:33:23.4865020Z     ✅ Step step_2_ai_1 Passed.
+2026-01-18T19:36:18.8379778Z   ▶️ [STEP step_2_ai_2] CLICK: Search
+2026-01-18T19:36:18.8380366Z     🎯 Using mined locator: button[name='submit_search']
+2026-01-18T19:36:18.8380940Z     ✅ Step step_2_ai_2 Passed.
+2026-01-18T19:36:18.8381429Z   ▶️ [STEP step_2_ai_3] CLICK: Blouse
+2026-01-18T19:36:18.8381978Z     🎯 Using mined locator: h5 > a[title='Blouse']
+2026-01-18T19:36:18.8382510Z     ✅ Step step_2_ai_3 Passed.
+2026-01-18T19:36:18.8382968Z   ▶️ [STEP step_3] FILL: Newsletter
+2026-01-18T19:36:18.8383657Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:36:18.8384081Z     ✅ Step step_3 Passed.
+2026-01-18T19:36:18.8384366Z   ▶️ [STEP step_3_ai_1] FILL: Email address
+2026-01-18T19:36:18.8385078Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:36:18.8385705Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-18T19:36:18.8386294Z Call log:
+2026-01-18T19:36:18.8386487Z   - waiting for locator("tex...
+2026-01-18T19:36:18.8386830Z     🔧 [AUTO-HEAL] Re-mining page to find 'Email address'...
+2026-01-18T19:36:18.8387210Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:36:18.8387553Z [DEBUG] Received response (Length: 546)
+2026-01-18T19:36:18.8388196Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T19:36:18.8388647Z     ✨ AI successfully healed the step! New selector: input[name='email']
+2026-01-18T19:36:18.8389029Z     ✅ Step step_3_ai_1 Passed.
+2026-01-18T19:36:18.8389305Z   ▶️ [STEP step_3_ai_2] CLICK: -- Choose --
+2026-01-18T19:36:18.8389710Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:36:18.8390290Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:36:18.8390683Z Call log:
+2026-01-18T19:36:18.8390902Z   - waiting for locator("text=-- Choose --...
+2026-01-18T19:36:18.8391279Z     🔧 [AUTO-HEAL] Re-mining page to find '-- Choose --'...
+2026-01-18T19:36:18.8391655Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:36:18.8391987Z [DEBUG] Received response (Length: 730)
+2026-01-18T19:36:18.8392340Z     ✨ AI successfully healed the step! Found 3 alternatives.
+2026-01-18T19:36:18.8392780Z     ✨ AI successfully healed the step! New selector: button[type='submit']
+2026-01-18T19:36:18.8393158Z     ✅ Step step_3_ai_2 Passed.
+2026-01-18T19:36:18.8393438Z   ▶️ [STEP step_3_ai_3] CLICK: Customer service
+2026-01-18T19:36:18.8393846Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T19:36:18.8394402Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:36:18.8394793Z Call log:
+2026-01-18T19:36:18.8394984Z   - waiting for locator("text=Customer ser...
+2026-01-18T19:36:18.8395352Z     🔧 [AUTO-HEAL] Re-mining page to find 'Customer service'...
+2026-01-18T19:36:18.8395732Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T19:36:18.8396053Z [DEBUG] Received response (Length: 534)
+2026-01-18T19:36:18.8396397Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T19:36:18.8396848Z     ✨ AI successfully healed the step! New selector: a[href*='contact-us']
+2026-01-18T19:36:18.8397412Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:36:18.8397989Z Call log:
+2026-01-18T19:36:18.8398182Z   - waiting for locator("a[href*='contact-...
+2026-01-18T19:36:18.8398575Z     🔧 [AUTO-HEAL] Re-mining page to find 'Customer service'...
+2026-01-18T19:36:18.8398902Z [CACHE HIT] fd5d23bb... (hits: 2, misses: 7)
+2026-01-18T19:36:18.8399262Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T19:36:18.8399707Z     ✨ AI successfully healed the step! New selector: a[href*='contact-us']
+2026-01-18T19:36:18.8400265Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T19:36:18.8400648Z Call log:
+2026-01-18T19:36:18.8400834Z   - waiting for locator("a[href*='contact-...
+2026-01-18T19:36:18.8401155Z     💀 Step step_3_ai_3 failed after all retries.
+2026-01-18T19:36:18.8401567Z 🛑 Scenario 'Newsletter Subscription' aborted due to step failure.
+2026-01-18T19:36:18.8401831Z 
+2026-01-18T19:36:18.8401927Z ============================================================
+2026-01-18T19:36:18.8402214Z 🎯 EXECUTION SUMMARY
+2026-01-18T19:36:18.8402422Z ============================================================
+2026-01-18T19:36:18.8402602Z 
+2026-01-18T19:36:18.8402704Z 📋 Scenario Overview:
+2026-01-18T19:36:18.8402944Z    • Total Scenarios Planned: 3
+2026-01-18T19:36:18.8403198Z    • Scenarios Executed: 3
+2026-01-18T19:36:18.8403604Z    • Total Steps Executed: 50
+2026-01-18T19:36:18.8403746Z 
+2026-01-18T19:36:18.8403832Z ✅ Results:
+2026-01-18T19:36:18.8404023Z    ✅ Passed: 1 (33%)
+2026-01-18T19:36:18.8404229Z    ❌ Failed: 2 (66%)
+2026-01-18T19:36:18.8404336Z 
+2026-01-18T19:36:18.8404553Z ⚠️  Failed Scenarios:
+2026-01-18T19:36:18.8404795Z    • Registration and Purchase Flow
+2026-01-18T19:36:18.8405079Z    • Newsletter Subscription
+2026-01-18T19:36:18.8405220Z 
+2026-01-18T19:36:18.8405308Z ============================================================
+2026-01-18T19:36:18.8405486Z 
+2026-01-18T19:36:18.8405989Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice/execution.json
+2026-01-18T19:36:18.9452044Z 
+2026-01-18T19:36:18.9452743Z [PHASE] Running Phase: DISCOVERY
+2026-01-18T19:36:18.9454123Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice --url http://www.automationpractice.pl/ --deep
+2026-01-18T19:36:18.9456988Z ❌ Phase 'discovery' failed with error: Command '['/opt/hostedtoolcache/Python/3.11.14/x64/bin/python', '/home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py', '--project', '/home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice', '--url', 'http://www.automationpractice.pl/', '--deep']' returned non-zero exit status 2.
+2026-01-18T19:36:18.9458760Z ⚠️ Initial discovery failed, but proceeding to planning...
+2026-01-18T19:36:18.9458999Z 
+2026-01-18T19:36:18.9459097Z [PHASE] Running Phase: PLANNING
+2026-01-18T19:36:18.9460319Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice --goal Practice automation scenarios --url http://www.automationpractice.pl/ --deep
+2026-01-18T19:36:18.9461643Z ✅ Phase 'planning' completed successfully.
+2026-01-18T19:36:18.9461843Z 
+2026-01-18T19:36:18.9461948Z [PHASE] Running Phase: EXPLORATION
+2026-01-18T19:36:18.9462920Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice
+2026-01-18T19:36:18.9463946Z ✅ Phase 'exploration' completed successfully.
+2026-01-18T19:36:18.9464302Z 📊 Exploration Discovery Success Rate: 92.2%
+2026-01-18T19:36:18.9464491Z 
+2026-01-18T19:36:18.9464584Z [PHASE] Running Phase: EXECUTION
+2026-01-18T19:36:18.9465497Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice
+2026-01-18T19:36:18.9466488Z ✅ Phase 'execution' completed successfully.
+2026-01-18T19:36:18.9466674Z 
+2026-01-18T19:36:18.9466773Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-18T19:36:19.0300358Z ##[group]Run RESULT_FILE="projects/ci_automation_practice/execution.json"
+2026-01-18T19:36:19.0300891Z [36;1mRESULT_FILE="projects/ci_automation_practice/execution.json"[0m
+2026-01-18T19:36:19.0301261Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-18T19:36:19.0301592Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-18T19:36:19.0302041Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-18T19:36:19.0302402Z [36;1melse[0m
+2026-01-18T19:36:19.0302629Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-18T19:36:19.0302903Z [36;1m  exit 1[0m
+2026-01-18T19:36:19.0303076Z [36;1mfi[0m
+2026-01-18T19:36:19.0334791Z shell: /usr/bin/bash -e {0}
+2026-01-18T19:36:19.0335015Z env:
+2026-01-18T19:36:19.0335263Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:36:19.0335862Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:36:19.0336302Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:36:19.0336678Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:36:19.0337040Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:36:19.0337421Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:36:19.0338077Z ##[endgroup]
+2026-01-18T19:36:19.0391213Z ✅ Results generated successfully: projects/ci_automation_practice/execution.json
+2026-01-18T19:36:19.0417445Z 3
+2026-01-18T19:36:19.0481667Z ##[group]Run actions/upload-artifact@v4
+2026-01-18T19:36:19.0481946Z with:
+2026-01-18T19:36:19.0482156Z   name: automation_practice-execution-results
+2026-01-18T19:36:19.0482641Z   path: projects/ci_automation_practice/execution.json
+projects/ci_automation_practice/workflow.json
+
+2026-01-18T19:36:19.0483108Z   retention-days: 30
+2026-01-18T19:36:19.0483320Z   if-no-files-found: warn
+2026-01-18T19:36:19.0483528Z   compression-level: 6
+2026-01-18T19:36:19.0483717Z   overwrite: false
+2026-01-18T19:36:19.0483907Z   include-hidden-files: false
+2026-01-18T19:36:19.0484118Z env:
+2026-01-18T19:36:19.0484348Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:36:19.0484742Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T19:36:19.0485138Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:36:19.0485492Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:36:19.0485869Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T19:36:19.0486225Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T19:36:19.0486525Z ##[endgroup]
+2026-01-18T19:36:19.2704164Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-18T19:36:19.2709147Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice. This will be the root directory of the artifact
+2026-01-18T19:36:19.2710602Z With the provided path, there will be 2 files uploaded
+2026-01-18T19:36:19.2715741Z Artifact name is valid!
+2026-01-18T19:36:19.2716986Z Root directory input is valid!
+2026-01-18T19:36:19.3855340Z Beginning upload of artifact content to blob storage
+2026-01-18T19:36:19.5126540Z Uploaded bytes 3823
+2026-01-18T19:36:19.5475971Z Finished uploading artifact content to blob storage!
+2026-01-18T19:36:19.5479571Z SHA256 digest of uploaded artifact zip is 7e6ca1d0981ee02f85c0dc1f4a0f4a300a512c09b4280e842b517031db57d39c
+2026-01-18T19:36:19.5482135Z Finalizing artifact upload
+2026-01-18T19:36:19.6271838Z Artifact automation_practice-execution-results.zip successfully finalized. Artifact ID 5170113391
+2026-01-18T19:36:19.6273712Z Artifact automation_practice-execution-results has been successfully uploaded! Final size is 3823 bytes. Artifact ID is 5170113391
+2026-01-18T19:36:19.6280889Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21116744370/artifacts/5170113391
+2026-01-18T19:36:19.6405052Z Post job cleanup.
+2026-01-18T19:36:19.7908021Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-18T19:36:19.8017531Z Post job cleanup.
+2026-01-18T19:36:19.8954824Z [command]/usr/bin/git version
+2026-01-18T19:36:19.8995578Z git version 2.52.0
+2026-01-18T19:36:19.9040996Z Temporarily overriding HOME='/home/runner/work/_temp/e557da55-ce84-40c0-9760-b5d27db7d852' before making global git config changes
+2026-01-18T19:36:19.9042511Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T19:36:19.9048246Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T19:36:19.9091400Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T19:36:19.9125193Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T19:36:19.9373927Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T19:36:19.9396982Z http.https://github.com/.extraheader
+2026-01-18T19:36:19.9410651Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-18T19:36:19.9443807Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T19:36:19.9684299Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T19:36:19.9720214Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T19:36:20.0062948Z Cleaning up orphan processes

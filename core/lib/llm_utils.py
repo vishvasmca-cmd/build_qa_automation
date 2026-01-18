@@ -216,6 +216,22 @@ class SafeLLM:
         Runs the blocking invoke() in a separate thread to prevent event loop blocking.
         """
         return await asyncio.to_thread(self.invoke, messages)
+    
+    def invalidate_last_cache(self, messages):
+        """
+        Invalidate the cache for the last request to force a fresh query.
+        
+        Args:
+            messages: Same messages format used in invoke/ainvoke
+            
+        Returns:
+            True if cache was invalidated, False otherwise
+        """
+        cache_key = self._get_request_cache_key(messages)
+        deleted = self.cache.delete(cache_key)
+        if deleted:
+            print(f"[CACHE INVALIDATED] {cache_key[:8]}... Forcing fresh query on next call.")
+        return deleted
 
     @safe_llm_call()
     def batch(self, prompts):

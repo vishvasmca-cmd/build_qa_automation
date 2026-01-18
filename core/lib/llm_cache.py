@@ -91,3 +91,25 @@ class LLMCache:
                     os.remove(os.path.join(self.cache_dir, filename))
                     count += 1
         return count
+    
+    def delete(self, cache_key: str) -> bool:
+        """
+        Delete a specific cached response.
+        
+        Args:
+            cache_key: Cache key from get_cache_key()
+            
+        Returns:
+            True if cache file was deleted, False otherwise
+        """
+        cache_file = os.path.join(self.cache_dir, f"{cache_key}.json")
+        
+        if os.path.exists(cache_file):
+            try:
+                os.remove(cache_file)
+                return True
+            except Exception as e:
+                print(f"[CACHE] Warning: Failed to delete cache {cache_key[:8]}: {e}")
+                return False
+        
+        return False

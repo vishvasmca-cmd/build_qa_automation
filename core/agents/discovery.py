@@ -47,7 +47,12 @@ class DiscoveryAgent:
         else:
             print(msg, flush=True)
 
-    async def run(self, base_url: str, max_depth: int = 2, max_pages: int = 20):
+    async def run(self, base_url: str, max_depth: int = 2, max_pages: int = 20, deep: bool = False):
+        if deep:
+            max_depth = 3
+            max_pages = 50
+            self.log("🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)", "yellow")
+        
         self.log(f"\n🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on {base_url} (Workers: {self.concurrency})", "blue")
         
         async with async_playwright() as p:
@@ -186,12 +191,13 @@ async def main():
     parser = argparse.ArgumentParser(description="Discovery Agent")
     parser.add_argument("--project", required=True, help="Project directory")
     parser.add_argument("--url", required=True, help="Start URL")
+    parser.add_argument("--deep", action="store_true", help="Enable deep extensive mapping")
     
     args = parser.parse_args()
     
     # Default to 3 workers for speed
     agent = DiscoveryAgent(args.project, concurrency=3)
-    await agent.run(args.url)
+    await agent.run(args.url, deep=args.deep)
 
 if __name__ == "__main__":
     asyncio.run(main())

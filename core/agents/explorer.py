@@ -228,6 +228,16 @@ class ExplorerAgent:
                     nav_url = args["url"]
                     base_url = self.workflow.get("base_url", "")
                     
+                    # VALIDATION: Reject generic terms that are not valid URLs
+                    from urllib.parse import urlparse
+                    
+                    invalid_nav_terms = ["home", "application url", "main page", " back"]
+                    if nav_url.lower() in invalid_nav_terms:
+                        self.log(f"    ⚠️ Skipping invalid navigation target: '{nav_url}' (not a valid URL)", "yellow")
+                        self.log(f"    💡 Hint: AI should suggest clicking a link/button, not navigating to '{nav_url}'", "cyan")
+                        i += 1
+                        continue
+                    
                     # Handle relative URLs
                     if nav_url.startswith("/") and base_url:
                         full_url = base_url.rstrip("/") + nav_url
@@ -247,8 +257,34 @@ class ExplorerAgent:
                             continue
                     
                     try:
-                        await page.goto(nav_url, wait_until="domcontentloaded", timeout=30000)
-                        self.log(f"    ✅ Navigated to {nav_url}", "green")
+                        # ADAPTIVE TIMEOUT: Start with shorter timeout, retry with longer if needed
+                        nav_successful = False
+                        timeouts = [15000, 30000]  # 15s then 30s
+                        
+                        for attempt, timeout in enumerate(timeouts, 1):
+                            try:
+                                if attempt > 1:
+                                    self.log(f"    🔄 Retrying navigation with {timeout/1000}s timeout...", "yellow")
+                                
+                                await page.goto(nav_url, wait_until="domcontentloaded", timeout=timeout)
+                                self.log(f"    ✅ Navigated to {nav_url}", "green")
+                                nav_successful = True
+                                break
+                            except Exception as e:
+                                if attempt == len(timeouts):
+                                    # Last attempt failed
+                                    raise e
+                                elif "Timeout" in str(e):
+                                    self.log(f"    ⚠️ Navigation timeout ({timeout/1000}s). Will retry with longer timeout...", "yellow")
+                                    continue
+                                else:
+                                    # Non-timeout error, don't retry
+                                    raise e
+                        
+                        if not nav_successful:
+                            self.log(f"    ❌ Navigation failed to {nav_url} after all attempts", "red")
+                            raise Exception(f"Navigation failed after {len(timeouts)} attempts")
+                            
                     except Exception as e:
                         self.log(f"    ❌ Navigation failed to {nav_url}: {e}", "red")
                         # If it's a relative URL and we didn't have a base_url, this is expected to fail
@@ -286,6 +322,39 @@ class ExplorerAgent:
                         if not candidates:
                             if mining_retries == 0:
                                 self.log(f"    🔍 Mining locators for: '{description}'", "magenta")
+                            
+                            # CACHE INVALIDATION: On retry >= 2, invalidate previous AI response
+                            # to force a fresh query instead of using potentially stale cache
+                            if mining_retries >= 2:
+                                try:
+                                    self.log(f"    🗑️ Invalidating stale AI cache (retry {mining_retries})...", "yellow")
+                                    # Construct the same message that _find_candidates_with_ai will use
+                                    # This is a simplified version just for cache key generation
+                                    goal = self.workflow.get("goal", "Complete the scenario")
+                                    url = self.workflow.get("base_url", "")
+                                    from .domain_expert import DomainExpert
+                                    domain = DomainExpert.detect_domain(url, "", goal)
+                                    persona = DomainExpert.get_persona_prompt(domain)
+                                    
+                                    cache_msg = [{
+                                        "role": "user",
+                                        "content": [{
+                                            "type": "text",
+                                            "text": f"ROLE & STRATEGY:\n{persona}\n\nMISSION:\nGoal: \"{goal}\"\nCurrent Task: Find \"{description}\""
+                                        }]
+                                    }]
+                                    
+                                    # Invalidate the cache for this prompt pattern
+                                    if screenshot:
+                                        cache_msg[0]["content"].append({
+                                            "type": "image_url",
+                                            "image_url": {"url": f"data:image/jpeg;base64,{screenshot}"}
+                                        })
+                                    
+                                    self.llm.invalidate_last_cache(cache_msg)
+                                except Exception as e:
+                                    self.log(f"    ⚠️ Cache invalidation warning: {e}", "grey")
+                            
                             mindmap = await analyze_page(page, page.url, description)
                             elements = mindmap.get("elements", [])
                             screenshot = mindmap.get("screenshot")
@@ -416,14 +485,36 @@ class ExplorerAgent:
                     if self.exploration_context:
                         try:
                             dom_snapshot = await page.content()
-                            is_new_state = self.exploration_context.record_state(page.url, dom_snapshot)
+                            
+                            # ENHANCED: Extract form field values for state fingerprinting
+                            form_state = {}
+                            try:
+                                # Get all input and textarea elements with values
+                                form_fields = await page.evaluate("""
+                                    () => {
+                                        const fields = {};
+                                        document.querySelectorAll('input, textarea, select').forEach(el => {
+                                            const name = el.name || el.id || el.placeholder;
+                                            const value = el.value;
+                                            if (name && value) {
+                                                fields[name] = value;
+                                            }
+                                        });
+                                        return fields;
+                                    }
+                                """)
+                                form_state = form_fields or {}
+                            except:
+                                pass  # Form extraction is optional
+                            
+                            is_new_state = self.exploration_context.record_state(page.url, dom_snapshot, form_state)
                             if not is_new_state:
                                 # Track revisit count to prevent infinite loops
                                 self._revisit_counter = getattr(self, "_revisit_counter", 0) + 1
                                 self.log(f"    🔄 Revisited state detected (count: {self._revisit_counter})", "yellow")
                                 
                                 # If we've revisited too many times, stop injecting AI steps
-                                if self._revisit_counter >= 5:
+                                if self._revisit_counter >= 3:
                                     self.log(f"    ⚠️ Too many revisits ({self._revisit_counter}). Stopping AI step injection to prevent loops.", "red")
                                     # Skip AI suggestion by jumping to next step
                                     i += 1
@@ -457,15 +548,59 @@ class ExplorerAgent:
                     else:
                         context_summary = f"Just completed: {keyword} {description or ''}"
                     
-                    # FORM COMPLETION DETECTION: Check if we're on a form page with submit button
+                    # SMART COMPLETION DETECTION: Check if we're on a form page OR cart goal-based detection
                     form_complete_hint = ""
-                    if getattr(self, "_revisit_counter", 0) >= 3:
-                        # Check for form elements and submit buttons
+                    cart_hint = ""
+                    
+                    if getattr(self, "_revisit_counter", 0) >= 2:  # Earlier detection (was 3)
                         try:
-                            has_inputs = await page.locator("input[type='text'], input[type='password'], input[type='email'], textarea").count()
-                            has_submit = await page.locator("button[type='submit'], input[type='submit'], button:has-text('Register'), button:has-text('Submit'), button:has-text('Sign Up')").count()
-                            if has_inputs > 0 and has_submit > 0:
-                                form_complete_hint = "\n**IMPORTANT:** This appears to be a form page. If all required fields are filled, suggest clicking the submit/register button instead of re-filling fields."
+                            # === FORM COMPLETION DETECTION ===
+                            # Count filled vs empty inputs
+                            total_inputs = await page.locator("input[type='text'], input[type='password'], input[type='email'], input[type='tel'], textarea").count()
+                            filled_inputs = await page.locator("input[type='text']:not([value='']), input[type='password']:not([value='']), input[type='email']:not([value='']), textarea:not(:empty)").count()
+                            has_submit = await page.locator("button[type='submit'], input[type='submit'], button:has-text('Register'), button:has-text('Submit'), button:has-text('Sign Up'), button:has-text('Continue')").count()
+                            
+                            if total_inputs > 0 and has_submit > 0 and filled_inputs >= (total_inputs * 0.7):  # 70% filled
+                                form_complete_hint = f"\n**IMPORTANT:** Form is ~{int(filled_inputs/total_inputs*100)}% complete ({filled_inputs}/{total_inputs} fields filled). Submit button is visible. Suggest clicking submit/register/continue instead of re-filling fields."
+                            
+                            # === CART QUANTITY TRACKING ===
+                            # Check if goal mentions adding specific number of items
+                            goal = self.workflow.get("goal", "").lower()
+                            cart_match = None
+                            import re
+                            # Match patterns like "add 3 items", "add three items", etc.
+                            for pattern in [r"add (\d+) items?", r"(\d+) items? to cart", r"add (\w+) items?"]:
+                                match = re.search(pattern, goal)
+                                if match:
+                                    cart_match = match.group(1)
+                                    break
+                            
+                            if cart_match:
+                                # Try to extract cart count from page
+                                cart_count = 0
+                                try:
+                                    # Common cart badge/icon selectors
+                                    cart_selectors = [
+                                        "span.shopping_cart_badge", "span.cart-badge", ".cart-count", 
+                                        "[class*='cart'] [class*='count']", "[class*='cart'] [class*='badge']",
+                                        "a[href*='cart'] span", ".shopping-cart-link span"
+                                    ]
+                                    for sel in cart_selectors:
+                                        if await page.is_visible(sel, timeout=1000):
+                                            count_text = await page.locator(sel).first.inner_text()
+                                            cart_count = int(count_text.strip())
+                                            break
+                                except:
+                                    pass
+                                
+                                # Convert word numbers to digits
+                                word_to_num = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6}
+                                target_count = int(cart_match) if cart_match.isdigit() else word_to_num.get(cart_match.lower(), 0)
+                                
+                                if cart_count >= target_count > 0:
+                                    cart_hint = f"\n**CART GOAL MET:** Current cart has {cart_count} items (goal: {target_count}). Suggest 'Proceed to checkout' or 'View cart' instead of adding more items."
+                                elif cart_count > 0:
+                                    cart_hint = f"\n**CART STATUS:** Current cart: {cart_count} items (goal: {target_count}). Need {target_count - cart_count} more."
                         except:
                             pass
                     
@@ -473,7 +608,7 @@ class ExplorerAgent:
                     next_suggestion = await self._ask_llm_next_step(
                         page, 
                         self.workflow.get("goal", ""),
-                        context_summary + form_complete_hint,  # Enhanced with exploration history and form hint
+                        context_summary + form_complete_hint + cart_hint,  # Enhanced with exploration history, form hint, and cart tracking
                         mindmap.get("elements", []),
                         mindmap.get("screenshot")
                     )
@@ -486,7 +621,7 @@ class ExplorerAgent:
                         else:
                             self._repeat_ai_counter = 1
                             self._last_ai_suggestion = cur_tuple
-                        if self._repeat_ai_counter >= 3:
+                        if self._repeat_ai_counter >= 2:
                             self.log(
                                 f"⚠️ Loop detected: same AI suggestion repeated {self._repeat_ai_counter} times. Moving to next step.",
                                 "red",
@@ -808,6 +943,13 @@ class ExplorerAgent:
 
                     **YOUR TASK:**
                     Based on the current page state and history, what is the NEXT immediate action to progress toward expectations?
+                    
+                    **CRITICAL ANTI-LOOP RULES:**
+                    1. **NO REPETITION**: If you suggested an action in the last 2 steps (check ACTION HISTORY), DO NOT suggest it again unless absolutely necessary for form input.
+                    2. **FORM COMPLETION**: If the Current Context mentions "Form is ~XX% complete" with percentage >= 70%, you MUST suggest clicking Submit/Register/Continue. DO NOT suggest filling more fields.
+                    3. **CART GOALS**: If the Current Context mentions "CART GOAL MET" or cart count >= target, you MUST suggest "Checkout" or "View Cart". DO NOT suggest adding more items.
+                    4. **PROGRESS FORWARD**: Always suggest actions that move toward the goal. Clicking the same button twice achieves nothing.
+                    5. **AVOID GENERIC ACTIONS**: Never suggest vague actions like "scroll", "wait", or "refresh" unless explicitly required.
                     
                     **RESPONSE FORMAT (Strict JSON):**
                     {{
