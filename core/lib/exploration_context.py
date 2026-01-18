@@ -261,3 +261,80 @@ Pages Visited: {len(self.pages_visited)}
             return any(step in recent_steps for step in steps_to_reach if step)
         
         return False
+    
+    def extract_shortest_path(self, start_state: str, goal_state: str) -> Optional[List[Tuple[str, str]]]:
+        """
+        Extract shortest path from start to goal state using BFS on state transitions.
+        
+        Args:
+            start_state: Starting state fingerprint
+            goal_state: Goal state fingerprint
+            
+        Returns:
+            List of (state, action) tuples representing shortest path, or None if no path exists
+        """
+        from collections import deque
+        
+        if start_state == goal_state:
+            return []
+        
+        if start_state not in self.state_transitions:
+            return None
+        
+        # BFS to find shortest path
+        queue = deque([(start_state, [])])
+        visited = {start_state}
+        
+        while queue:
+            current_state, path = queue.popleft()
+            
+            # Check all possible transitions from current state
+            if current_state in self.state_transitions:
+                for action, next_state in self.state_transitions[current_state].items():
+                    if next_state in visited:
+                        continue
+                    
+                    new_path = path + [(current_state, action)]
+                    
+                    if next_state == goal_state:
+                        return new_path + [(next_state, "GOAL")]
+                    
+                    queue.append((next_state, new_path))
+                    visited.add(next_state)
+        
+        return None  # No path found
+    
+    def get_optimized_steps(self) -> List[str]:
+        """
+        Get optimized step sequence by extracting shortest paths between key states.
+        This removes redundant navigation loops and duplicate steps.
+        
+        Returns:
+            List of step IDs representing the optimal path
+        """
+        if not self.state_fingerprints:
+            return [a.step_id for a in self.actions_taken]
+        
+        # Find start and end states
+        state_list = list(self.state_fingerprints.keys())
+        if len(state_list) < 2:
+            return [a.step_id for a in self.actions_taken]
+        
+        start_state = state_list[0]
+        goal_state = state_list[-1]
+        
+        # Extract shortest path
+        shortest_path = self.extract_shortest_path(start_state, goal_state)
+        
+        if not shortest_path:
+            # Fallback to original steps if no optimization found
+            return [a.step_id for a in self.actions_taken]
+        
+        # Convert state path to step IDs
+        optimized_steps = []
+        for state, action in shortest_path:
+            if state in self.state_fingerprints:
+                _, step_ids = self.state_fingerprints[state]
+                optimized_steps.extend(step_ids)
+        
+        return optimized_steps
