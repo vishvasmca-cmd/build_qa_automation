@@ -44,6 +44,9 @@ class ExplorerAgent:
         self.headed = headed
         self.shallow = shallow
         
+        # Ensure project directory exists
+        os.makedirs(self.project_dir, exist_ok=True)
+        
         # Initialize Debug Log
         with open(self.debug_log, 'w', encoding='utf-8') as f:
             f.write(f"Explorer Session started at {datetime.now()}\n")
