@@ -7,6 +7,7 @@ DOM_EXTRACTION_SCRIPT = """
 (offset = 0) => {
     const INTERACTIVE_SELECTORS = [
         'a', 'button', 'input', 'textarea', 'select', 'details', 
+        'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span',
         '[role="button"]', '[role="checkbox"]', '[role="radio"]', 
         '[role="link"]', '[role="menuitem"]', '[role="tab"]',
         '[contenteditable="true"]', '[onclick]', '[tabindex]:not([tabindex="-1"])',

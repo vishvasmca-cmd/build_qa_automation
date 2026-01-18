@@ -85,9 +85,9 @@ class ClickTool(Tool):
         self._log(f"Attempting Selector Click: {selector}")
         
         try:
-            # 1. Standard Playwright Click
-            await page.wait_for_selector(selector, timeout=3000, state="visible")
-            await page.click(selector, timeout=3000, force=force)
+            # 1. Standard Playwright Click with .first to handle multiple matches
+            await page.locator(selector).first.wait_for(timeout=3000, state="visible")
+            await page.locator(selector).first.click(timeout=3000, force=force)
             return {"status": "success", "method": "playwright_selector"}
         except Exception as e:
             self._log(f"Standard click failed: {str(e)[:50]}...", "WARN")
@@ -95,18 +95,18 @@ class ClickTool(Tool):
             # 2. JavaScript Click (Bypasses many overlays/strict checks)
             try:
                 self._log("Attempting JavaScript Fallback Click...")
-                await page.evaluate(f"document.querySelector('{selector}').click()")
+                await page.locator(selector).first.evaluate("el => el.click()")
                 return {"status": "success", "method": "javascript_eval"}
             except:
                 # 3. Last resort for selectors: Force click
                 if not force:
                     try:
                         self._log("Attempting Force Click...")
-                        await page.click(selector, force=True, timeout=2000)
+                        await page.locator(selector).first.click(force=True, timeout=2000)
                         return {"status": "success", "method": "force_click"}
                     except: pass
         
-        return {"status": "failure", "error": "Selector click failed"}
+        return {"status": "failure", "error": f"Selector click failed: {str(e)}"}
 
     async def _click_by_text(self, page: Page, text: str, force: bool) -> Dict[str, Any]:
         """Click using text content with robust matching"""

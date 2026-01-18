@@ -134,25 +134,50 @@ class SafeLLM:
                     else:
                         parts.append(msg.content)
                 elif isinstance(msg, dict):
-                    parts.append(msg.get('content', ''))
+                    inner_content = msg.get('content', '')
+                    if isinstance(inner_content, list):
+                        for part in inner_content:
+                            if isinstance(part, dict) and part.get('type') == 'image_url':
+                                url = part['image_url']['url']
+                                mime_type = "image/png"
+                                b64_data = url
+                                if url.startswith('data:'):
+                                    header, b64_data = url.split(',', 1)
+                                    match = re.search(r'data:(.*?);base64', header)
+                                    if match: mime_type = match.group(1)
+                                b64_data = "".join(b64_data.split())
+                                import base64 as b64_lib
+                                try:
+                                    img_bytes = b64_lib.b64decode(b64_data)
+                                    parts.append({"inline_data": {"mime_type": mime_type, "data": img_bytes}})
+                                except: parts.append(url)
+                            elif isinstance(part, dict) and part.get('type') == 'text':
+                                parts.append(part.get('text', ''))
+                            else:
+                                parts.append(str(part))
+                    else:
+                        parts.append(str(inner_content))
                 else:
                     parts.append(str(msg))
                 
-                # In google-genai, we can pass a list of strings/dicts directly as content parts
                 contents.extend(parts)
         else:
             contents = [str(messages)]
 
-        print(f"[DEBUG] Sending request to {self.model_name}. Content length: {len(str(contents))}")
+        print(f"[DEBUG] Sending request to {self.model_name}. Number of parts: {len(contents)}")
         try:
             resp = self.client.models.generate_content(
                 model=self.model_name,
                 contents=contents,
                 config=self.config
             )
-            print(f"[DEBUG] Received response from {self.model_name}. Length: {len(resp.text) if resp.text else 0}")
+            text = resp.text
+            print(f"[DEBUG] Received response (Length: {len(text) if text else 0})")
+            if not text:
+                # Handle cases where safety filters might have blocked it or empty response
+                text = "{}" 
             from types import SimpleNamespace
-            return SimpleNamespace(content=resp.text)
+            return SimpleNamespace(content=text)
         except Exception as e:
             print(f"[DEBUG] LLM Error: {e}")
             raise e

@@ -1,270 +1,208 @@
-
 import asyncio
+import json
 import os
-import time
+import sys
+import argparse
+from datetime import datetime
 from termcolor import colored
+from typing import Dict, Any, List, Optional
+from playwright.async_api import async_playwright
+
+# Force UTF-8 for console output on Windows
+# (Handled by imported modules or environment)
+if sys.platform == "win32":
+    pass
+
+# Add project root to path
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 from core.agents.explorer import ExplorerAgent
-from core.lib.graph_memory import GraphMemory
-from core.agents.miner import analyze_page
+from core.lib.llm_utils import SafeLLM, try_parse_json
 
-class DeepExplorer(ExplorerAgent):
+class DeepExplorerAgent:
     """
-    Autonomous Recursive Graph Crawler.
-    Inherits from ExplorerAgent but ignores 'goals' in favor of 'unexplored edges'.
+    Orchestrates the ExplorerAgent to drive deep semantic exploration 
+    and generate regression test scenarios.
     """
-    def __init__(self, config_path, headed=False):
-        super().__init__(config_path, headed)
-        self.domain = self.config.get("domain", "general_crawl")
-        self.graph = GraphMemory(self.project_root, self.domain)
-        self.max_depth = self.config.get("max_depth", 5)
-        self.current_depth = 0
-    
-    async def _make_decision(self, mindmap, page_url):
-        """
-        OVERRIDE: Instead of LLM planning, use Graph Traversal (BFS/DFS).
-        1. Identify current state (DOM Hash).
-        2. Register state in Graph.
-        3. Pick an unexplored edge (action) from this state.
-        4. If no edges, backtrack (or navigate to frontier).
-        """
-        # 1. Get State Hash
-        # We need the page object to hash. But _make_decision signature in Explorer doesn't pass page *object*, only URL/Mindmap.
-        # However, Explorer calls this method. We might need to modify Explorer to pass page, OR we re-implement 'run' loop.
-        # Actually, let's re-implement the 'run' loop because DeepExplorer flow is fundamentally different (Validation/Goal checks don't apply).
-        pass
+    def __init__(self, project_dir: str, headed: bool = False):
+        self.project_dir = os.path.abspath(project_dir)
+        self.workflow_path = os.path.join(self.project_dir, "workflow.json")
+        self.debug_log = os.path.join(self.project_dir, "deep_explorer_debug.log")
+        self.headed = headed
+        
+        # Initialize Debug Log
+        with open(self.debug_log, 'w', encoding='utf-8') as f:
+            f.write(f"Deep Explorer Session started at {datetime.now()}\n")
+            f.write("-" * 50 + "\n")
+            
+        # Re-use the underlying Explorer for execution logic
+        self.explorer = ExplorerAgent(project_dir, headed=self.headed, shallow=False)
+        self.generated_scenarios = []
+
+    def log(self, msg: str, color: Optional[str] = None):
+        if color:
+            print(colored(msg, color), flush=True)
+        else:
+            print(msg, flush=True)
+            
+        with open(self.debug_log, 'a', encoding='utf-8') as f:
+            f.write(f"[{datetime.now().isoformat()}] {msg}\n")
 
     async def run(self):
-        """
-        Deep Explorer Main Loop
-        """
-        print(colored(f"🕸️ DeepExplorer: Starting Recursive Crawl on {self.config['target_url']}", "cyan", attrs=["bold"]))
+        self.log("\n🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration", "magenta")
         
-        async with self._get_playwright_context() as (page, browser): # We'll need to refactor context creation to be reusable if possible, or just copy it.
-             # For now, let's copy the context setup from Explorer.run or assuming inheritance works if we break it out.
-             # But Explorer.run is a giant method. 
-             # RECOMMENDATION: We should duplicate the setup logic for now to avoid breaking Explorer.
-             pass
-             
-    # ... We need to be careful. Explorer.run is monolithic. 
-    # Let's write the full class with its own run loop that reuses helper methods.
+        if not os.path.exists(self.workflow_path):
+            self.log("❌ workflow.json not found.", "red")
+            return
 
-    async def run(self):
-        from playwright.async_api import async_playwright
-        
-        try:
-            async with async_playwright() as p:
-                # --- BROWSER SETUP (Copied from Explorer) ---
-                browser = await p.chromium.launch(
-                    headless=not self.headed,
-                    args=["--disable-blink-features=AutomationControlled", "--no-sandbox", "--start-maximized"]
-                )
-                context = await browser.new_context(
-                    no_viewport=True,
-                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-                    ignore_https_errors=True
-                )
-                await context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-                
-                page = await context.new_page()
+        with open(self.workflow_path, 'r', encoding='utf-8') as f:
+            workflow = json.load(f)
+            
+        scenarios = workflow.get("scenarios", [])
+        if not scenarios:
+            self.log("⚠️ No scenarios found in workflow.json to explore.", "yellow")
+            return
+
+        self.log(f"📋 Found {len(scenarios)} scenarios to explore.", "cyan")
+
+        # Check if already done
+        out_path = os.path.join(self.project_dir, "tests", "generated_scenarios.json")
+        if os.path.exists(out_path):
+            with open(out_path, 'r', encoding='utf-8') as f:
+                existing = json.load(f)
+            # Only skip if we have results
+            if existing and len(existing) > 0:
+                 self.log(f"⚡ [SKIP] Deep Exploration already completed ({len(existing)} scenarios found).", "yellow")
+                 self.generated_scenarios = existing
+                 self._save_results() # Ensure workflow.json is synced
+                 return
+
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(headless=not self.headed, slow_mo=500)
+            # Iterate through each planned scenario
+            for i, scenario in enumerate(scenarios):
+                context = None
                 try:
-                    await page.goto(self.config["target_url"], timeout=60000, wait_until="domcontentloaded")
-                except:
-                    print(colored("❌ Initial navigation failed.", "red"))
-                    return
-
-                # --- CRAWL LOOP ---
-                step = 0
-                max_steps = self.config.get("max_steps", 50)
-                previous_hash = None
-                previous_action_id = None
-                previous_screenshot_bytes = None
-                unproductive_streak = 0
-                
-                # Import VisualVerifier for Reflexes
-                from core.lib.visual_verifier import VisualVerifier
-
-                # --- BOOTSTRAP LOGIN (New Capability) ---
-                if self.config.get("login"):
-                    print(colored("   🔑 Login Configured. Attempting to authenticate...", "cyan"))
+                    # Request a new context/page for each scenario to ensure isolation and stability
+                    context = await browser.new_context(viewport={"width": 1280, "height": 720})
+                    page = await context.new_page()
+                    
                     try:
-                        creds = self.config["login"]
-                        # Simple Heuristic: Look for common login fields
-                        # Note: In a real robust system, we'd use the LLM to identify these fields.
-                        # For speed/demo, we use heuristics or common selectors. Or we can ask the LLM "Where is the login?"
-                        # Let's try a direct locators approach first for OrangeHRM specifically or generic generic.
+                        # Ensure ID exists for tracking
+                        if "id" not in scenario:
+                            scenario["id"] = f"TC_AUTO_{i+1}"
                         
-                        # Generic best-effort
-                        await page.wait_for_selector("input[type='password']", timeout=5000)
-                        
-                        # Guess fields
-                        user_filled = False
-                        pass_filled = False
-                        
-                        # Try standard selectors
-                        if await page.locator("input[name='username']").count() > 0:
-                            await page.fill("input[name='username']", creds['username'])
-                            user_filled = True
-                        elif await page.locator("input[name='email']").count() > 0:
-                            await page.fill("input[name='email']", creds['username'])
-                            user_filled = True
+                        # Pre-process steps: Add IDs and fix URLs
+                        base_url = workflow.get("base_url", "")
+                        for idx, step in enumerate(scenario.get("steps", [])):
+                            if "id" not in step:
+                                step["id"] = f"step_{idx+1}"
                             
-                        if await page.locator("input[name='password']").count() > 0:
-                            await page.fill("input[name='password']", creds['password'])
-                            pass_filled = True
+                            if "args" not in step:
+                                step["args"] = {}
+                                
+                            # Fix relative URLs
+                            if step.get("keyword") == "navigate":
+                                url = step["args"].get("url", "")
+                                if url.startswith("/"):
+                                    # Ensure base_url doesn't end with / if url starts with /
+                                    if base_url.endswith("/"):
+                                        step["args"]["url"] = base_url + url[1:]
+                                    elif base_url:
+                                        step["args"]["url"] = base_url + url
+                                elif not url.startswith("http") and base_url:
+                                     step["args"]["url"] = base_url
                             
-                        if user_filled and pass_filled:
-                            print(colored("   ✅ Credentials Filled.", "green"))
-                            # Try to click login
-                            await page.press("input[name='password']", "Enter") # Easiest way often
-                            await page.wait_for_load_state("domcontentloaded")
-                            await asyncio.sleep(3) # Wait for redirect
-                            print(colored("   🚀 Login Submitted. Continuing...", "green"))
-                        else:
-                             print(colored("   ⚠️ Could not find standard login fields. Skipping bootstrap.", "yellow"))
-                    except Exception as e:
-                        print(colored(f"   ⚠️ Login Bootstrap Failed: {e}", "red"))
-
-                while step < max_steps:
-                    step += 1
-                    print(colored(f"\n🕸️ [Step {step}] Analyzing State...", "blue"))
-                    
-                    # 1. Analyze
-                    try:
-                        mindmap = await analyze_page(page, page.url, "General Exploration")
-                    except:
-                        mindmap = {"elements": [], "summary": {"title": "Error"}}
-                    
-                    # 2. Hash State & Visual Aliasing (REFLEX: Loop Prevention)
-                    dom_hash = await self.get_dom_hash(page)
-                    if not dom_hash: dom_hash = "unknown_state"
-                    
-                    # Visual Similarity Check
-                    # If the visual diff is tiny (<1%), we assume it's the SAME state even if DOM Hash changed.
-                    try:
-                        current_screenshot_bytes = await page.screenshot(type="jpeg", quality=50) # Use captured bytes
-                    except Exception as e:
-                        print(colored(f"   ⚠️ Screenshot failed (Browser potentially closed): {e}", "red"))
-                        current_screenshot_bytes = None
-                        # If we can't see, we can't safely explore. Attempt to recover or save and exit.
-                        self.graph.save() 
-                        return # Stop this run cleanly
-                    
-                    if previous_screenshot_bytes:
-                         diff_result = VisualVerifier.get_visual_diff(previous_screenshot_bytes, current_screenshot_bytes)
-                         diff_score = diff_result.get('score', 0.0)
-                         print(colored(f"   👀 Visual Delta: {diff_score:.2f}%", "grey"))
-                         
-                         if diff_score < 1.0: # 1% threshold (score is 0-100)
-                             print(colored("   🛑 Visual Aliasing: State is visually identical to previous. Reverting to previous hash.", "yellow"))
-                             # Force collision to trigger loop logic
-                             if previous_hash:
-                                 dom_hash = previous_hash.split("::")[1] 
-                    
-                    state_hash = f"{page.url}::{dom_hash}"
-                    previous_screenshot_bytes = current_screenshot_bytes
-                    
-                    # 3. Update Graph
-                    is_new = self.graph.add_state(state_hash, page.url, mindmap['summary'].get('title'), mindmap['elements'])
-                    if is_new:
-                        print(colored(f"   📍 New State Discovered: {state_hash[:20]}...", "green"))
-                        unproductive_streak = 0 # Progress made!
-                        self.graph.save() # Ensure we persist nodes immediately
-                    else:
-                        print(colored(f"   📍 Re-visiting State: {state_hash[:20]}...", "grey"))
-                        # If we just acted and came back here, that action was unproductive.
-                        if previous_action_id:
-                            # TODO: Penalize specific edge in graph? For now, local streak.
-                            unproductive_streak += 1
-                    
-                    self.graph.mark_visited(state_hash)
-                    
-                    # 4. PANIC MODE (REFLEX: Escape Local Optima)
-                    if unproductive_streak >= 3:
-                        print(colored(f"   🔥 PANIC MODE: Stuck for {unproductive_streak} steps. Jumping...", "red", attrs=["bold"]))
-                        unproductive_streak = 0
-                        previous_hash = None # Reset history
+                        self.log(f"\n[{i+1}/{len(scenarios)}] Exploring Scenario: {scenario.get('name')}", "blue")
                         
-                        # Jump to random frontier
-                        import random
-                        if self.graph.frontier:
-                            target_hash = random.choice(self.graph.frontier)
-                            target_url = self.graph.nodes[target_hash]['url']
-                            print(colored(f"   ✈️ Panic Jump to: {target_url}", "magenta"))
+                        # Goal: Explore this specific scenario to confirm validity and find locators
+                        stats = {"passed": 0, "healed": 0, "failed": 0, "details": []}
+                        
+                        try:
+                            await self.explorer._explore_scenario(page, scenario, stats)
+                        except Exception as e:
+                            self.log(f"❌ critical error processing scenario '{scenario.get('name')}': {e}", "red")
+                            if "Target page, context or browser has been closed" in str(e) or "Connection closed" in str(e):
+                                raise 
+    
+                        # Store the result (Explorer modifies 'scenario' dict in-place)
+                        scenario["steps"] = [s for s in scenario.get("steps", []) if not s.get("skipped")]
+                        self.generated_scenarios.append(scenario)
+                        
+                    finally:
+                        if context:
                             try:
-                                await page.goto(target_url, timeout=30000)
-                                continue # Restart loop
+                                await context.close()
                             except:
                                 pass
+                except Exception as sc_e:
+                    self.log(f"❌ Critical error processing scenario '{scenario.get('name', i)}': {sc_e}", "red")
+                    if "Connection closed" in str(sc_e) or "Target closed" in str(sc_e):
+                        self.log("🛑 Browser connection lost. Stopping deep exploration.", "red")
+                        break
+                
+                await asyncio.sleep(1)
 
-                    # 5. Decide Next Action (BFS/Greedy with Penalties)
-                    unexplored = self.graph.get_unexplored_actions(state_hash)
-                    
-                    target = None
-                    if unexplored:
-                        # HEURISTIC SCORER
-                        # Compute Score = (Novelty * 10) - (LoopPenalty * 5)
-                        scored_candidates = []
-                        for cand in unexplored:
-                            score = 100 # Base score for being unexplored
-                            
-                            # Heuristic 1: Avoid immediate repeat (Self-Loop Risk)
-                            if cand['elementId'] == previous_action_id:
-                                score -= 500 # Heavy penalty
-                            
-                            # Heuristic 2: Prefer Navigation over Generic clicks (Tag Bias)
-                            tag = cand.get('tagName', '').lower()
-                            if tag == 'a': 
-                                score += 50
-                            elif tag == 'button':
-                                score += 20
-                            elif tag in ['span', 'div']:
-                                score -= 10 # Possible overly generic click
-                                
-                            # Heuristic 3: Spatial Diversity (Distance from last click)
-                            # (Not implemented yet, needs coordinates in GraphMemory)
-                            
-                            scored_candidates.append((score, cand))
-                        
-                        # Sort by Score DESC
-                        scored_candidates.sort(key=lambda x: x[0], reverse=True)
-                        target = scored_candidates[0][1]
-                        
-                        print(colored(f"   🧠 Best Candidate: '{target['text'][:20]}' (Score: {scored_candidates[0][0]})", "cyan"))
-                        
-                    if target:
-                        print(colored(f"   👉 Exploring Edge: Click '{target['text']}' ({target['tagName']})", "magenta"))
-                        
-                        # Execute
-                        decision = {"action": "click", "target_id": target['elementId'], "thought": "Exploring new edge"}
-                        result = await self._execute_action(page, decision, mindmap['elements'])
-                        
-                        previous_hash = state_hash
-                        previous_action_id = target['elementId']
+            await browser.close()
+            
+            # Persist all generated tests
+            self._save_results()
+            self.log("\n✅ Deep Exploration Complete.", "green")
 
-                        if result['success']:
-                             # Record transition is handled in next loop iteration by identifying new state
-                             # But we need to link (Old -> Action -> New). 
-                             # Wait, we can't lookahead. GraphMemory.record_transition needs (From, To).
-                             # So we must store 'pending_transition' and commit it next loop.
-                             # Actually simplified: We just record it if we detect change next time? 
-                             # No, let's just wait briefly and grab ID.
-                             await asyncio.sleep(2)
-                             # Note: Real graph building usually happens *after* seeing the result. 
-                             # But here we loop. The 'Previous Hash' logic handles the edge connection implicitly?
-                             # Missing: explicit record_transition call. 
-                             # Let's fix this architecture later. For now, simply exploring is enough to Map Nodes.
-                             pass
-                        else:
-                            print(colored("   ⚠️ Action failed.", "yellow"))
-                            unproductive_streak += 1
-                            
-                    else:
-                        # Dead End logic
-                        print(colored("   🛑 Node fully explored. Backtracking...", "yellow"))
-                        unproductive_streak += 5 # Trigger panic jump next loop
+    def _save_results(self):
+        # 1. Save to generated_scenarios.json (Backup)
+        out_path = os.path.join(self.project_dir, "tests", "generated_scenarios.json")
+        os.makedirs(os.path.dirname(out_path), exist_ok=True)
+        with open(out_path, "w", encoding="utf-8") as f:
+            json.dump(self.generated_scenarios, f, indent=2)
+        self.log(f"🗂️  All generated tests written to {out_path}", "cyan")
+        
+        # 2. Update workflow.json for Executor
+        workflow_update = {"project": os.path.basename(self.project_dir), "scenarios": []}
+        if os.path.exists(self.workflow_path):
+                 with open(self.workflow_path, "r", encoding="utf-8") as f:
+                    workflow_update = json.load(f)
+        
+        # Map generated scenarios to workflow.json
+        new_scenarios_map = {s["id"]: s["steps"] for s in self.generated_scenarios if "id" in s}
+        for s in self.generated_scenarios:
+            if "id" not in s: new_scenarios_map[s["name"]] = s["steps"]
+        
+        for i, existing in enumerate(workflow_update.get("scenarios", [])):
+            sid = existing.get("id")
+            name = existing.get("name")
+            
+            steps_source = None
+            if sid in new_scenarios_map:
+                steps_source = new_scenarios_map[sid]
+            elif name in new_scenarios_map:
+                steps_source = new_scenarios_map[name]
+                
+            if steps_source:
+                sanitized_steps = []
+                for idx, step in enumerate(steps_source):
+                    new_step = step.copy()
+                    if "arguments" in new_step and "args" not in new_step:
+                         new_step["args"] = new_step.pop("arguments")
+                    if "id" not in new_step:
+                        new_step["id"] = f"step_{idx+1}"
+                    sanitized_steps.append(new_step)
+                workflow_update["scenarios"][i]["steps"] = sanitized_steps
+        
+        with open(self.workflow_path, "w", encoding="utf-8") as f:
+            json.dump(workflow_update, f, indent=2)
+        self.log(f"🔄 Updated workflow.json with discovered steps and locators.", "cyan")
 
-        except Exception as e:
-            print(colored(f"❌ Crawler Crash: {e}", "red"))
-            import traceback
-            traceback.print_exc()
+async def main():
+    parser = argparse.ArgumentParser(description="Deep Explorer Agent")
+    parser.add_argument("--project", required=True, help="Project directory")
+    parser.add_argument("--headed", action="store_true", help="Run headed")
+    
+    args = parser.parse_args()
+    agent = DeepExplorerAgent(args.project, headed=args.headed)
+    await agent.run()
 
+if __name__ == "__main__":
+    asyncio.run(main())
