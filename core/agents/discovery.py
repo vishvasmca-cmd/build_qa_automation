@@ -98,10 +98,11 @@ class DiscoveryAgent:
                             summary, links = await asyncio.gather(summary_task, links_task)
                             
                             if processed_count < max_pages:
+                                # summary is now a Dict with structured data
                                 self.sitemap.append({
                                     "url": current_url,
                                     "title": await page.title(),
-                                    "summary": summary
+                                    **summary  # Unpack all structured fields
                                 })
                                 processed_count += 1
                             
@@ -168,8 +169,42 @@ class DiscoveryAgent:
         except:
             return []
 
-    async def _summarize_page(self, page: Page) -> str:
-        """Uses LLM to summarize page capability."""
+    async def _summarize_page(self, page: Page) -> Dict:
+        """Enhanced structured page analysis for rich test generation."""
+        try:
+            # Run all analysis in parallel for speed
+            (page_type, elements, forms, business_rules, relationships, summary_text) = await asyncio.gather(
+                self._classify_page_type(page),
+                self._extract_interactive_elements(page),
+                self._extract_forms(page),
+                self._detect_business_rules(page),
+                self._map_page_relationships(page),
+                self._get_text_summary(page),
+                return_exceptions=True
+            )
+            
+            # Handle any failures gracefully
+            return {
+                "page_type": page_type if not isinstance(page_type, Exception) else "unknown",
+                "elements": elements if not isinstance(elements, Exception) else {},
+                "forms": forms if not isinstance(forms, Exception) else [],
+                "business_rules": business_rules if not isinstance(business_rules, Exception) else {},
+                "relationships": relationships if not isinstance(relationships, Exception) else {},
+                "summary": summary_text if not isinstance(summary_text, Exception) else "Analysis error"
+            }
+        except Exception as e:
+            self.log(f"    ⚠️ Page analysis failed: {e}", "yellow")
+            return {
+                "page_type": "unknown",
+                "elements": {},
+                "forms": [],
+                "business_rules": {},
+                "relationships": {},
+                "summary": "Analysis error"
+            }
+    
+    async def _get_text_summary(self, page: Page) -> str:
+        """Original text summary for backward compatibility."""
         try:
             title = await page.title()
             text_content = await page.evaluate("document.body.innerText.substring(0, 2000)")
@@ -180,12 +215,243 @@ class DiscoveryAgent:
             Format: JSON {{ "summary": "..." }}
             """
             
-            # Reduced context for speed
             resp = await self.llm.ainvoke(prompt)
             data = try_parse_json(resp)
             return data.get("summary", "Unknown") if data else "Unknown"
         except:
             return "Analysis error"
+    
+    async def _classify_page_type(self, page: Page) -> str:
+        """Classify page type using DOM patterns + heuristics."""
+        try:
+            url = page.url.lower()
+            title = (await page.title()).lower()
+            
+            # Fast heuristic classification
+            if any(x in url for x in ["product_details", "/product/", "/p/", "/item/"]):
+                return "product_detail"
+            elif any(x in url for x in ["/products", "/shop", "/catalog", "/category"]):
+                return "product_list"
+            elif any(x in url for x in ["/cart", "/basket", "/bag"]):
+                return "cart"
+            elif any(x in url for x in ["/checkout", "/payment"]):
+                return "checkout"
+            elif any(x in url for x in ["/login", "/signin", "/signup", "/register", "/account"]):
+                return "login"
+            elif "contact" in url or "contact" in title:
+                return "contact_form"
+            elif url.rstrip("/").endswith(page.url.split("//")[1].split("/")[0]) or "home" in url:
+                return "homepage"
+            
+            # DOM-based detection for ambiguous cases
+            dom_indicators = await page.evaluate("""
+                () => {
+                    return {
+                        hasProductGrid: !!document.querySelector('.product, .item, [data-product], .product-card'),
+                        hasAddToCart: !!document.querySelector('[data-product-id], button:contains("Add to Cart"), .add-to-cart'),
+                        hasCheckoutButton: !!document.querySelector('button:contains("Checkout"), a[href*="checkout"]'),
+                        hasLoginForm: !!document.querySelector('input[type="password"]'),
+                        hasContactForm: !!(document.querySelector('textarea') && document.querySelector('input[type="email"]'))
+                    };
+                }
+            """)
+            
+            # Classify based on DOM indicators
+            if dom_indicators.get("hasLoginForm"):
+                return "login"
+            elif dom_indicators.get("hasContactForm"):
+                return "contact_form"
+            elif dom_indicators.get("hasAddToCart") and not dom_indicators.get("hasProductGrid"):
+                return "product_detail"
+            elif dom_indicators.get("hasProductGrid"):
+                return "product_list"
+            elif dom_indicators.get("hasCheckoutButton"):
+                return "cart"
+            
+            return "other"
+        except:
+            return "unknown"
+    
+    async def _extract_interactive_elements(self, page: Page) -> Dict:
+        """Extract all interactive elements with metadata."""
+        try:
+            elements = await page.evaluate("""
+                () => {
+                    const result = {
+                        buttons: [],
+                        inputs: [],
+                        dropdowns: [],
+                        links: []
+                    };
+                    
+                    // Buttons
+                    document.querySelectorAll('button, input[type="button"], input[type="submit"], a.btn, .button').forEach(btn => {
+                        const text = (btn.textContent || btn.value || '').trim();
+                        if (text && text.length < 50 && text.length > 0) {
+                            const item = {text: text};
+                            if (btn.id) item.selector = '#' + btn.id;
+                            else if (btn.className) item.selector = '.' + btn.className.split(' ')[0];
+                            
+                            // Collect data attributes
+                            Array.from(btn.attributes).forEach(attr => {
+                                if (attr.name.startsWith('data-')) {
+                                    item[attr.name] = attr.value;
+                                }
+                            });
+                            result.buttons.push(item);
+                        }
+                    });
+                    
+                    // Inputs
+                    document.querySelectorAll('input:not([type="hidden"]), textarea').forEach(input => {
+                        if (input.type !== 'submit' && input.type !== 'button') {
+                            result.inputs.push({
+                                name: input.name || input.id || input.placeholder,
+                                type: input.type || 'text',
+                                placeholder: input.placeholder,
+                                required: input.required
+                            });
+                        }
+                    });
+                    
+                    // Dropdowns
+                    document.querySelectorAll('select').forEach(select => {
+                        const options = Array.from(select.options).map(o => o.text.trim()).filter(t => t);
+                        if (options.length > 0) {
+                            result.dropdowns.push({
+                                name: select.name || select.id,
+                                options: options.slice(0, 10),  // Limit to 10 options
+                                required: select.required
+                            });
+                        }
+                    });
+                    
+                    // Important links (limit to visible, meaningful ones)
+                    const linkTexts = new Set();
+                    document.querySelectorAll('a[href]:not(.hidden)').forEach(link => {
+                        const text = link.textContent?.trim();
+                        if (text && text.length < 50 && text.length > 0 && !linkTexts.has(text)) {
+                            linkTexts.add(text);
+                            if (result.links.length < 20) {  // Limit to 20 unique links
+                                result.links.push({
+                                    text: text,
+                                    href: link.getAttribute('href')
+                                });
+                            }
+                        }
+                    });
+                    
+                    return result;
+                }
+            """)
+            return elements
+        except:
+            return {"buttons": [], "inputs": [], "dropdowns": [], "links": []}
+    
+    async def _extract_forms(self, page: Page) -> List[Dict]:
+        """Extract all forms with field metadata."""
+        try:
+            forms = await page.evaluate("""
+                () => {
+                    return Array.from(document.querySelectorAll('form')).map((form, idx) => {
+                        const fields = [];
+                        Array.from(form.elements).forEach(field => {
+                            if (field.tagName !== 'BUTTON' && field.type !== 'submit') {
+                                fields.push({
+                                    name: field.name || field.id,
+                                    type: field.type,
+                                    label: field.labels?.[0]?.textContent?.trim(),
+                                    placeholder: field.placeholder,
+                                    required: field.required
+                                });
+                            }
+                        });
+                        
+                        const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+                        
+                        return {
+                            id: form.id || `form_${idx}`,
+                            action: form.action,
+                            method: form.method || 'GET',
+                            fields: fields,
+                            submitText: submitBtn?.textContent?.trim() || submitBtn?.value || 'Submit'
+                        };
+                    });
+                }
+            """)
+            return forms
+        except:
+            return []
+    
+    async def _detect_business_rules(self, page: Page) -> Dict:
+        """Detect business logic rules."""
+        try:
+            rules = await page.evaluate("""
+                () => {
+                    const bodyText = document.body.textContent || '';
+                    return {
+                        requires_login: !!(
+                            document.querySelector('a[href*="login"], .login-required') ||
+                            bodyText.includes('Please log in') ||
+                            bodyText.includes('Sign in to continue')
+                        ),
+                        has_captcha: !!document.querySelector('.g-recaptcha, [data-captcha]'),
+                        has_variants: !!document.querySelector('select[name*="size"], select[name*="color"], .variant-selector'),
+                        has_quantity: !!document.querySelector('input[name*="quantity"], input[type="number"]')
+                    };
+                }
+            """)
+            
+            # Get quantity limits if exists
+            if rules.get("has_quantity"):
+                qty_el = await page.query_selector('input[name*="quantity"], input[type="number"]')
+                if qty_el:
+                    rules["quantity_limits"] = {
+                        "min": await qty_el.get_attribute("min") or "1",
+                        "max": await qty_el.get_attribute("max") or "999"
+                    }
+            
+            return rules
+        except:
+            return {}
+    
+    async def _map_page_relationships(self, page: Page) -> Dict:
+        """Map page relationships and flow position."""
+        try:
+            relationships = await page.evaluate("""
+                () => {
+                    const result = {parent: null, children: []};
+                    
+                    // Detect breadcrumbs
+                    const breadcrumb = document.querySelector('.breadcrumb, [aria-label*="breadcrumb" i], .breadcrumbs');
+                    if (breadcrumb) {
+                        const crumbs = Array.from(breadcrumb.querySelectorAll('a, span')).map(el => ({
+                            text: el.textContent?.trim(),
+                            href: el.href || null
+                        })).filter(c => c.text);
+                        
+                        if (crumbs.length > 1) {
+                            result.parent = crumbs[crumbs.length - 2];
+                            result.flow_position = `step ${crumbs.length}`;
+                        }
+                    }
+                    
+                    // Detect next steps from prominent CTAs
+                    const ctas = Array.from(document.querySelectorAll('button, a.btn, .cta, [class*="button"]'))
+                        .map(btn => ({
+                            text: btn.textContent?.trim(),
+                            href: btn.href || null
+                        }))
+                        .filter(a => a.text && a.text.length < 50)
+                        .slice(0, 5);  // Top 5
+                    
+                    result.children = ctas;
+                    return result;
+                }
+            """)
+            return relationships
+        except:
+            return {}
 
 async def main():
     parser = argparse.ArgumentParser(description="Discovery Agent")
