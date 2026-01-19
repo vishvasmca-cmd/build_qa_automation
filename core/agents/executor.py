@@ -524,20 +524,29 @@ class ExecutorAgent:
             # Validation 2: Text content should contain keywords from description
             desc_lower = description.lower()
             keywords = desc_lower.split()
-            # At least one keyword should match
-            if text_content and any(kw in text_content for kw in keywords if len(kw) > 2):
-                self.log(f"      ✅ Validated: '{text_content[:30]}...' matches '{description}'", "green")
-                return True
+            # At least one keyword should match (filter short words)
+            meaningful_keywords = [kw for kw in keywords if len(kw) > 2]
+            
+            if text_content:
+                # Check for strong keyword match
+                matched_keywords = [kw for kw in meaningful_keywords if kw in text_content]
+                if matched_keywords:
+                    self.log(f"      ✅ Validated: '{text_content[:30]}...' matches '{description}'", "green")
+                    return True
+                else:
+                    # 🐛 FIX: Reject instead of warning for no match
+                    self.log(f"      ❌ Rejected: No keyword match in '{text_content[:30]}' for '{description}'", "grey")
+                    return False
             
             # If no text match, check if selector itself contains relevant terms
             selector_lower = selector.lower()
-            if any(kw in selector_lower for kw in keywords if len(kw) > 3):
+            if any(kw in selector_lower for kw in meaningful_keywords):
                 self.log(f"      ✅ Validated: Selector contains relevant terms", "green")
                 return True
            
-            # Otherwise warn but accept (might be valid)
-            self.log(f"      ⚠️ Partial match: '{text_content[:20]}' for '{description}'", "yellow")
-            return True  # Accept with warning
+            # 🐛 FIX: Reject weak matches instead of accepting
+            self.log(f"      ❌ Rejected: No match for '{description}'", "grey")
+            return False
             
         except Exception as e:
             self.log(f"      ❌ Validation error: {str(e)[:40]}", "grey")

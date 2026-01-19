@@ -1496,6 +1496,14 @@ class ExplorerAgent:
             # Get current URL to infer page type
             current_url = page.url.lower()
             
+            # 🐛 FIX P1+: State-aware filtering - detect completed actions
+            # Rule 0: Check if action already completed based on URL
+            if "login" in target or "sign in" in target or "username" in target or "password" in target:
+                # If on inventory/products/dashboard page, login already completed
+                if any(indicator in current_url for indicator in ["/inventory", "/products", "/dashboard", "/home", "/account"]):
+                    self.log(f"      ❌ Rejected: Already logged in (on {current_url})", "grey")
+                    return False
+            
             # Rule 1: Don't suggest product/cart actions on contact pages
             if any(word in current_url for word in ["contact", "contact_us", "contactus"]):
                 if any(word in target for word in ["product", "cart", "checkout", "add to cart", "view product"]):
