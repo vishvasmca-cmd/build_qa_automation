@@ -51,6 +51,10 @@ class ExplorerAgent:
         with open(self.debug_log, 'w', encoding='utf-8') as f:
             f.write(f"Explorer Session started at {datetime.now()}\n")
             f.write("-" * 50 + "\n")
+        
+        # Initialize Performance Metrics
+        from core.lib.performance_metrics import PerformanceMetrics
+        self.metrics = PerformanceMetrics()
 
         if not os.path.exists(self.workflow_path):
              self.workflow = {
@@ -188,6 +192,14 @@ class ExplorerAgent:
                     self.log(f"📊 Navigation metrics saved to: {metrics_file}", "cyan")
                 except Exception as e:
                     self.log(f"⚠️ Metrics tracking error: {e}", "yellow")
+            
+            # Performance Metrics Summary
+            try:
+                self.metrics.print_summary()
+                perf_metrics_file = self.metrics.save(os.path.join(self.project_dir, "outputs"))
+                self.log(f"📊 Performance metrics saved to: {perf_metrics_file}", "cyan")
+            except Exception as e:
+                self.log(f"⚠️ Performance metrics error: {e}", "yellow")
 
     async def _explore_scenario(self, page: Page, scenario: Dict, discovery_stats: Dict, depth: int = 0):
         """Recursively explores a scenario, supporting dynamic step injection."""
@@ -363,7 +375,7 @@ class ExplorerAgent:
                         
                         if not candidates:
                             self.log(f"    🧠 Consulting AI (Vision-First) to find '{description}'...", "yellow")
-                            ai_locators = await self._find_candidates_with_ai(elements, description, scenario['name'], screenshot)
+                            ai_locators = await self._find_candidates_with_ai(page, elements, description, scenario['name'], screenshot)
                             if ai_locators:
                                     # Check for Navigation Suggestion
                                 if "suggest_navigation" in ai_locators[0]:
@@ -815,9 +827,124 @@ class ExplorerAgent:
                     candidates.append({"type": "css", "value": el["selector"], "priority": 4})
 
         return candidates
+    
+    def _group_steps_into_batches(self, steps: List[Dict], start_idx: int, max_batch_size: int = 5) -> List[List[int]]:
+        """
+        Group consecutive fill steps into batches for parallel locator mining.
+        
+        Args:
+            steps: List of all steps in scenario
+            start_idx: Index to start batching from
+            max_batch_size: Maximum number of steps per batch (default 5)
+            
+        Returns:
+            List of batches, where each batch is a list of step indices
+            Example: [[0, 1, 2], [3], [4, 5]]
+        """
+        batches = []
+        current_batch = []
+        
+        for i in range(start_idx, len(steps)):
+            step = steps[i]
+            keyword = step.get("keyword", "")
+            
+            # Only batch 'fill' steps
+            if keyword == "fill":
+                current_batch.append(i)
+                
+                # Enforce max batch size
+                if len(current_batch) >= max_batch_size:
+                    batches.append(current_batch)
+                    current_batch = []
+            else:
+                # Non-fill step breaks the batch
+                if current_batch:
+                    batches.append(current_batch)
+                    current_batch = []
+                batches.append([i])  # Add singular step
+        
+        # Don't forget last batch
+        if current_batch:
+            batches.append(current_batch)
+        
+        return batches
+    
+    async def _mine_locators_batch(self, page: Page, steps: List[Dict], scenario_name: str) -> Dict[int, List[Dict]]:
+        """
+        Mine locators for multiple steps in parallel using asyncio.gather.
+        
+        Args:
+            page: Current playwright page
+            steps: List of steps to mine (all should be 'fill' on same page)
+            scenario_name: Name of current scenario
+            
+        Returns:
+            Dict mapping {step_index: [locators]}
+        """
+        self.log(f"    ⚡ Batch mining {len(steps)} fields in parallel...", "cyan")
+        
+        # Capture page state once (shared by all parallel AI calls)
+        from core.agents.miner import analyze_page
+        mindmap = await analyze_page(page, page.url, "batch mining")
+        elements = mindmap.get("elements", [])
+        screenshot = mindmap.get("screenshot")
+        
+        # Create parallel AI tasks for each step
+        tasks = []
+        for step in steps:
+            description = step.get("args", {}).get("description", "")
+            # Try deterministic first
+            candidates = self._find_candidates_deterministically(elements, description)
+            if candidates:
+                # Already found, don't need AI
+                tasks.append(asyncio.sleep(0, result=candidates))  # Immediate resolution
+            else:
+                # Need AI - add to parallel batch
+                task = self._find_candidates_with_ai(page, elements, description, scenario_name, screenshot)
+                tasks.append(task)
+        
+        # Execute all AI calls in parallel
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        
+        # Map results back to steps
+        locators_map = {}
+        for i, (step, result) in enumerate(zip(steps, results)):
+            if isinstance(result, Exception):
+                self.log(f"    ⚠️ Batch mining error for '{step.get('args', {}).get('description')}': {result}", "red")
+                locators_map[i] = []
+            else:
+                locators_map[i] = result if result else []
+                desc = step.get('args', {}).get('description', '')
+                self.log(f"    ✅ Batch mined '{desc}' ({len(locators_map[i])} locators)", "green")
+        
+        return locators_map
 
-    async def _find_candidates_with_ai(self, elements: List[Dict], description: str, scenario_name: str, screenshot: str = None) -> List[Dict]:
+
+    async def _find_candidates_with_ai(self, page: Page, elements: List[Dict], description: str, scenario_name: str, screenshot: str = None) -> List[Dict]:
         """Uses LLM (Vision + DOM) to find multiple potential elements, ranked by priority."""
+        
+        # PERFORMANCE OPTIMIZATION: Try smart selectors FIRST before expensive AI call
+        try:
+            from core.lib.smart_locator import find_element_smart
+            
+            self.log(f"    🔍 Trying smart selectors for '{description}'...", "cyan")
+            smart_result = await find_element_smart(page, description)
+            
+            if smart_result:
+                self.log(f"    ✅ Smart selector found '{description}' via {smart_result['method']} (confidence: {smart_result['confidence']})", "green")
+                self.metrics.record_element_resolution("smart")
+                return [{
+                    "value": smart_result["selector"],
+                    "confidence": smart_result["confidence"],
+                    "priority": 0  # Highest priority
+                }]
+            else:
+                self.log(f"    ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...", "yellow")
+        except Exception as e:
+            self.log(f"    ⚠️ Smart selector error: {e}. Falling back to AI Vision...", "yellow")
+        
+        # FALLBACK: Original AI Vision logic
+        start_time = time.time()
         try:
             goal = self.workflow.get("goal", "Complete the scenario")
             url = self.workflow.get("base_url", "")
@@ -877,6 +1004,11 @@ class ExplorerAgent:
 
             resp = await self.llm.ainvoke([{"role": "user", "content": message_content}])
             fix = try_parse_json(resp.content)
+            
+            # Record AI call metrics
+            latency_ms = (time.time() - start_time) * 1000
+            self.metrics.record_ai_call(is_batch=False, latency_ms=latency_ms)
+            self.metrics.record_element_resolution("ai")
             
             if fix:
                 if fix.get("found") and fix.get("locators"):

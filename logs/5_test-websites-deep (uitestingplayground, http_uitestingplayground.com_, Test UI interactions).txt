@@ -1,0 +1,1234 @@
+﻿2026-01-18T23:52:21.4423169Z Current runner version: '2.331.0'
+2026-01-18T23:52:21.4446594Z ##[group]Runner Image Provisioner
+2026-01-18T23:52:21.4447408Z Hosted Compute Agent
+2026-01-18T23:52:21.4448028Z Version: 20251211.462
+2026-01-18T23:52:21.4448645Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-18T23:52:21.4449336Z Build Date: 2025-12-11T16:28:49Z
+2026-01-18T23:52:21.4450031Z Worker ID: {ecf66ded-825f-4c1e-b329-c2302bc61c11}
+2026-01-18T23:52:21.4450762Z ##[endgroup]
+2026-01-18T23:52:21.4451262Z ##[group]Operating System
+2026-01-18T23:52:21.4451834Z Ubuntu
+2026-01-18T23:52:21.4452289Z 24.04.3
+2026-01-18T23:52:21.4452707Z LTS
+2026-01-18T23:52:21.4453377Z ##[endgroup]
+2026-01-18T23:52:21.4453923Z ##[group]Runner Image
+2026-01-18T23:52:21.4454446Z Image: ubuntu-24.04
+2026-01-18T23:52:21.4455015Z Version: 20260111.209.1
+2026-01-18T23:52:21.4456021Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-18T23:52:21.4457551Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-18T23:52:21.4458545Z ##[endgroup]
+2026-01-18T23:52:21.4459619Z ##[group]GITHUB_TOKEN Permissions
+2026-01-18T23:52:21.4461402Z Contents: read
+2026-01-18T23:52:21.4461949Z Metadata: read
+2026-01-18T23:52:21.4462574Z Packages: read
+2026-01-18T23:52:21.4463052Z ##[endgroup]
+2026-01-18T23:52:21.4465773Z Secret source: Actions
+2026-01-18T23:52:21.4466507Z Prepare workflow directory
+2026-01-18T23:52:21.5430380Z Prepare all required actions
+2026-01-18T23:52:21.5468694Z Getting action download info
+2026-01-18T23:52:21.9014089Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-18T23:52:22.0031850Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-18T23:52:22.0837701Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-18T23:52:22.4179457Z Complete job name: test-websites-deep (uitestingplayground, http://uitestingplayground.com/, Test UI interactions)
+2026-01-18T23:52:22.6459414Z ##[group]Run actions/checkout@v4
+2026-01-18T23:52:22.6460293Z with:
+2026-01-18T23:52:22.6460776Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T23:52:22.6461559Z   token: ***
+2026-01-18T23:52:22.6461964Z   ssh-strict: true
+2026-01-18T23:52:22.6462377Z   ssh-user: git
+2026-01-18T23:52:22.6462811Z   persist-credentials: true
+2026-01-18T23:52:22.6463554Z   clean: true
+2026-01-18T23:52:22.6464006Z   sparse-checkout-cone-mode: true
+2026-01-18T23:52:22.6464523Z   fetch-depth: 1
+2026-01-18T23:52:22.6464935Z   fetch-tags: false
+2026-01-18T23:52:22.6465368Z   show-progress: true
+2026-01-18T23:52:22.6465797Z   lfs: false
+2026-01-18T23:52:22.6466201Z   submodules: false
+2026-01-18T23:52:22.6466639Z   set-safe-directory: true
+2026-01-18T23:52:22.6467398Z ##[endgroup]
+2026-01-18T23:52:22.7539430Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T23:52:22.7541237Z ##[group]Getting Git version info
+2026-01-18T23:52:22.7542141Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T23:52:22.7543520Z [command]/usr/bin/git version
+2026-01-18T23:52:22.7645288Z git version 2.52.0
+2026-01-18T23:52:22.7671112Z ##[endgroup]
+2026-01-18T23:52:22.7684723Z Temporarily overriding HOME='/home/runner/work/_temp/a416962a-9a02-4826-9481-77eafafcdb1d' before making global git config changes
+2026-01-18T23:52:22.7686110Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T23:52:22.7697261Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T23:52:22.7735631Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T23:52:22.7739957Z ##[group]Initializing the repository
+2026-01-18T23:52:22.7745109Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T23:52:22.7876178Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-18T23:52:22.7877782Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-18T23:52:22.7878920Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-18T23:52:22.7879651Z hint: call:
+2026-01-18T23:52:22.7880169Z hint:
+2026-01-18T23:52:22.7881149Z hint: 	git config --global init.defaultBranch <name>
+2026-01-18T23:52:22.7881901Z hint:
+2026-01-18T23:52:22.7882815Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-18T23:52:22.7884813Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-18T23:52:22.7886212Z hint:
+2026-01-18T23:52:22.7886990Z hint: 	git branch -m <name>
+2026-01-18T23:52:22.7887919Z hint:
+2026-01-18T23:52:22.7889091Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-18T23:52:22.7891108Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-18T23:52:22.7895564Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T23:52:22.7931357Z ##[endgroup]
+2026-01-18T23:52:22.7932674Z ##[group]Disabling automatic garbage collection
+2026-01-18T23:52:22.7936274Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-18T23:52:22.7965089Z ##[endgroup]
+2026-01-18T23:52:22.7966490Z ##[group]Setting up auth
+2026-01-18T23:52:22.7972368Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T23:52:22.8003163Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T23:52:22.8361268Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T23:52:22.8389576Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T23:52:22.8602154Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T23:52:22.8632511Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T23:52:22.8859982Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-18T23:52:22.8892861Z ##[endgroup]
+2026-01-18T23:52:22.8894503Z ##[group]Fetching the repository
+2026-01-18T23:52:22.8902711Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +10179ac5c7473147e4be3845796c28603a0fa5da:refs/remotes/origin/main
+2026-01-18T23:52:24.2430934Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T23:52:24.2435946Z  * [new ref]         10179ac5c7473147e4be3845796c28603a0fa5da -> origin/main
+2026-01-18T23:52:24.2467898Z ##[endgroup]
+2026-01-18T23:52:24.2469857Z ##[group]Determining the checkout info
+2026-01-18T23:52:24.2472008Z ##[endgroup]
+2026-01-18T23:52:24.2475717Z [command]/usr/bin/git sparse-checkout disable
+2026-01-18T23:52:24.2520250Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-18T23:52:24.2549028Z ##[group]Checking out the ref
+2026-01-18T23:52:24.2553107Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-18T23:52:24.3712920Z Switched to a new branch 'main'
+2026-01-18T23:52:24.3714443Z branch 'main' set up to track 'origin/main'.
+2026-01-18T23:52:24.3729535Z ##[endgroup]
+2026-01-18T23:52:24.3767033Z [command]/usr/bin/git log -1 --format=%H
+2026-01-18T23:52:24.3788673Z 10179ac5c7473147e4be3845796c28603a0fa5da
+2026-01-18T23:52:24.5225110Z ##[group]Run actions/setup-python@v5
+2026-01-18T23:52:24.5225480Z with:
+2026-01-18T23:52:24.5225709Z   python-version: 3.11
+2026-01-18T23:52:24.5225968Z   cache: pip
+2026-01-18T23:52:24.5226454Z   check-latest: false
+2026-01-18T23:52:24.5226891Z   token: ***
+2026-01-18T23:52:24.5227144Z   update-environment: true
+2026-01-18T23:52:24.5227435Z   allow-prereleases: false
+2026-01-18T23:52:24.5227703Z   freethreaded: false
+2026-01-18T23:52:24.5227955Z ##[endgroup]
+2026-01-18T23:52:24.6891156Z ##[group]Installed versions
+2026-01-18T23:52:24.7015872Z Successfully set up CPython (3.11.14)
+2026-01-18T23:52:24.7016720Z ##[endgroup]
+2026-01-18T23:52:24.7786215Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-18T23:52:25.1293440Z /home/runner/.cache/pip
+2026-01-18T23:52:25.3790066Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-18T23:52:26.6408026Z Received 25165824 of 254742636 (9.9%), 24.0 MBs/sec
+2026-01-18T23:52:27.6409092Z Received 146800640 of 254742636 (57.6%), 70.0 MBs/sec
+2026-01-18T23:52:28.2792670Z Received 254742636 of 254742636 (100.0%), 92.0 MBs/sec
+2026-01-18T23:52:28.2794936Z Cache Size: ~243 MB (254742636 B)
+2026-01-18T23:52:28.2833656Z [command]/usr/bin/tar -xf /home/runner/work/_temp/b65aba31-41d9-4992-9998-896867ecd9d5/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-18T23:52:28.6838937Z Cache restored successfully
+2026-01-18T23:52:28.7320269Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-18T23:52:28.7557258Z ##[group]Run pip install -r requirements.txt
+2026-01-18T23:52:28.7557702Z [36;1mpip install -r requirements.txt[0m
+2026-01-18T23:52:28.7558047Z [36;1mplaywright install chromium[0m
+2026-01-18T23:52:28.7597022Z shell: /usr/bin/bash -e {0}
+2026-01-18T23:52:28.7597292Z env:
+2026-01-18T23:52:28.7597563Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:52:28.7598474Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T23:52:28.7599203Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:52:28.7599687Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:52:28.7600063Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:52:28.7600445Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T23:52:28.7600788Z ##[endgroup]
+2026-01-18T23:52:29.7850126Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-18T23:52:29.7866074Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-18T23:52:29.8093975Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-18T23:52:29.8108336Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-18T23:52:29.8437014Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-18T23:52:29.8450642Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-18T23:52:30.0168562Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-18T23:52:30.0185858Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-18T23:52:30.0493650Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-18T23:52:30.0507519Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-18T23:52:30.0757925Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-18T23:52:30.0772152Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-18T23:52:30.1186018Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-18T23:52:30.1200874Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-18T23:52:30.1805316Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-18T23:52:30.1819801Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-18T23:52:30.3814658Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-18T23:52:30.3829799Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-18T23:52:30.4652522Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-18T23:52:30.4667083Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-18T23:52:30.4899512Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-18T23:52:30.4919617Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-18T23:52:30.6151064Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-18T23:52:30.6166143Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-18T23:52:30.6423521Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-18T23:52:30.6437128Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-18T23:52:30.7287893Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-18T23:52:30.7302724Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-18T23:52:30.7511847Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-18T23:52:30.7524926Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T23:52:30.7850554Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-18T23:52:30.7862938Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-18T23:52:30.8113846Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-18T23:52:30.8127697Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T23:52:30.8379543Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:30.8392002Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-18T23:52:30.8820915Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:30.8834109Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-18T23:52:30.9124934Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:30.9138596Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-18T23:52:31.0592781Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:31.0608480Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-18T23:52:31.0932456Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:31.0946812Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-18T23:52:31.1845483Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:31.1861466Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-18T23:52:31.2056530Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:31.2069839Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-18T23:52:31.2217650Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:31.2230869Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-18T23:52:31.2547201Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:31.2560621Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-18T23:52:31.2760097Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:31.2773943Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-18T23:52:31.3137669Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:31.3150925Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-18T23:52:31.3333689Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:31.3347688Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-18T23:52:31.3505028Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:31.3518194Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-18T23:52:32.0047587Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:32.0063795Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-18T23:52:32.0254627Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:32.0268837Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-18T23:52:32.1001098Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:52:32.1016642Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T23:52:32.1274443Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-18T23:52:32.1609953Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-18T23:52:32.1627933Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-18T23:52:32.1642074Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-18T23:52:32.1655896Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-18T23:52:32.1670046Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-18T23:52:32.1683895Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-18T23:52:32.1697253Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-18T23:52:32.1711488Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-18T23:52:32.1773976Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-18T23:52:32.1791875Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-18T23:52:32.1805549Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-18T23:52:32.1818604Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-18T23:52:32.1833075Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-18T23:52:32.1846738Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-18T23:52:32.1860006Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-18T23:52:32.1876546Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-18T23:52:32.1903465Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-18T23:52:32.1916696Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-18T23:52:32.1929879Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-18T23:52:32.1943701Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-18T23:52:32.1957477Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-18T23:52:32.1971070Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-18T23:52:32.1989646Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-18T23:52:32.2434353Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-18T23:52:32.2565473Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-18T23:52:32.2592782Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-18T23:52:32.2606400Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-18T23:52:32.2620404Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-18T23:52:32.2633797Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-18T23:52:32.2649828Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-18T23:52:32.2664163Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-18T23:52:32.2677483Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-18T23:52:32.4695759Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-18T23:52:39.2075791Z 
+2026-01-18T23:52:39.2097708Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-18T23:52:39.8068442Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-18T23:52:39.9024176Z (node:2186) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T23:52:39.9025776Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T23:52:40.0624561Z |                                                                                |   0% of 164.7 MiB
+2026-01-18T23:52:40.2009323Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-18T23:52:40.3063744Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-18T23:52:40.3770383Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-18T23:52:40.4859629Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-18T23:52:40.5662868Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-18T23:52:40.6496443Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-18T23:52:40.7399598Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-18T23:52:40.8254083Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-18T23:52:40.9255044Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-18T23:52:41.0189528Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-18T23:52:43.3829561Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-18T23:52:43.3833645Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-18T23:52:43.4779973Z (node:2197) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T23:52:43.4781590Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T23:52:43.6399311Z |                                                                                |   0% of 2.3 MiB
+2026-01-18T23:52:43.6587158Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-18T23:52:43.6671700Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-18T23:52:43.6726729Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-18T23:52:43.6778129Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-18T23:52:43.6841520Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-18T23:52:43.6855824Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-18T23:52:43.6885062Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-18T23:52:43.6898690Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-18T23:52:43.6921615Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-18T23:52:43.6935741Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-18T23:52:43.7477246Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-18T23:52:43.7480056Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-18T23:52:43.8480649Z (node:2212) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T23:52:43.8481865Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T23:52:44.0057108Z |                                                                                |   0% of 109.7 MiB
+2026-01-18T23:52:44.1222163Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-18T23:52:44.1787026Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-18T23:52:44.2314060Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-18T23:52:44.2802171Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-18T23:52:44.3301641Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-18T23:52:44.3777508Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-18T23:52:44.4201030Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-18T23:52:44.4647115Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-18T23:52:44.5104807Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-18T23:52:44.5558601Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-18T23:52:46.4098736Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-18T23:52:46.4483654Z ##[group]Run mkdir -p projects/ci_uitestingplayground
+2026-01-18T23:52:46.4484125Z [36;1mmkdir -p projects/ci_uitestingplayground[0m
+2026-01-18T23:52:46.4484536Z [36;1mcat > projects/ci_uitestingplayground/config.json << 'EOF'[0m
+2026-01-18T23:52:46.4484856Z [36;1m{[0m
+2026-01-18T23:52:46.4485093Z [36;1m  "project_name": "ci_uitestingplayground",[0m
+2026-01-18T23:52:46.4485478Z [36;1m  "target_url": "http://uitestingplayground.com/",[0m
+2026-01-18T23:52:46.4485817Z [36;1m  "goal": "Test UI interactions",[0m
+2026-01-18T23:52:46.4486075Z [36;1m  "headless": true[0m
+2026-01-18T23:52:46.4486278Z [36;1m}[0m
+2026-01-18T23:52:46.4486439Z [36;1mEOF[0m
+2026-01-18T23:52:46.4518456Z shell: /usr/bin/bash -e {0}
+2026-01-18T23:52:46.4518692Z env:
+2026-01-18T23:52:46.4518944Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:52:46.4519362Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T23:52:46.4519806Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:52:46.4520182Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:52:46.4520536Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:52:46.4520898Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T23:52:46.4521202Z ##[endgroup]
+2026-01-18T23:52:46.4685567Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-18T23:52:46.4686047Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-18T23:52:46.4686522Z [36;1mpython orchestrator.py --project projects/ci_uitestingplayground --deep --force[0m
+2026-01-18T23:52:46.4718215Z shell: /usr/bin/bash -e {0}
+2026-01-18T23:52:46.4718451Z env:
+2026-01-18T23:52:46.4718691Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:52:46.4719123Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T23:52:46.4719546Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:52:46.4719910Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:52:46.4720445Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:52:46.4720820Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T23:52:46.4721527Z   GOOGLE_API_KEY: ***
+2026-01-18T23:52:46.4721784Z   PYTHONPATH: .
+2026-01-18T23:52:46.4721958Z ##[endgroup]
+2026-01-18T23:52:48.2357484Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-18T23:52:48.2357951Z 
+2026-01-18T23:52:48.2358640Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on http://uitestingplayground.com/ (Workers: 3)
+2026-01-18T23:52:48.6875251Z   🔍 [Worker 0] Visiting (0): http://uitestingplayground.com/
+2026-01-18T23:52:49.9320231Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:52:49.9320896Z [DEBUG] Received response (Length: 303)
+2026-01-18T23:52:49.9321866Z   🔍 [Worker 1] Visiting (1): http://uitestingplayground.com/disabledinput
+2026-01-18T23:52:49.9350872Z   🔍 [Worker 2] Visiting (1): http://uitestingplayground.com/alerts
+2026-01-18T23:52:49.9357005Z   🔍 [Worker 0] Visiting (1): http://uitestingplayground.com/ajax
+2026-01-18T23:52:54.9680834Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:52:54.9682482Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:52:54.9683414Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:52:54.9684028Z [DEBUG] Received response (Length: 350)
+2026-01-18T23:52:54.9685039Z   🔍 [Worker 1] Visiting (1): http://uitestingplayground.com/visibility
+2026-01-18T23:52:55.1043958Z [DEBUG] Received response (Length: 386)
+2026-01-18T23:52:55.1045064Z   🔍 [Worker 0] Visiting (1): http://uitestingplayground.com/autowait
+2026-01-18T23:52:55.1347262Z [DEBUG] Received response (Length: 480)
+2026-01-18T23:52:55.1348383Z   🔍 [Worker 2] Visiting (1): http://uitestingplayground.com/overlapped
+2026-01-18T23:52:59.9387981Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:52:59.9389463Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:52:59.9393078Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:52:59.9396279Z [DEBUG] Received response (Length: 308)
+2026-01-18T23:52:59.9397279Z   🔍 [Worker 0] Visiting (1): http://uitestingplayground.com/mouseover
+2026-01-18T23:52:59.9648858Z [DEBUG] Received response (Length: 272)
+2026-01-18T23:52:59.9650396Z   🔍 [Worker 2] Visiting (1): http://uitestingplayground.com/shadowdom
+2026-01-18T23:53:00.1369702Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:00.1370508Z [DEBUG] Received response (Length: 443)
+2026-01-18T23:53:00.1374314Z   🔍 [Worker 1] Visiting (1): http://uitestingplayground.com/sampleapp
+2026-01-18T23:53:01.1287070Z [DEBUG] Received response (Length: 423)
+2026-01-18T23:53:01.1288037Z   🔍 [Worker 0] Visiting (1): http://uitestingplayground.com/home
+2026-01-18T23:53:01.3494804Z [CACHE HIT] fa439546... (hits: 1, misses: 10)
+2026-01-18T23:53:01.3496333Z   🔍 [Worker 0] Visiting (1): http://uitestingplayground.com/classattr
+2026-01-18T23:53:06.0758852Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:06.0760036Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:06.0762377Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:06.0763604Z [DEBUG] Received response (Length: 343)
+2026-01-18T23:53:06.0765148Z   🔍 [Worker 2] Visiting (1): http://uitestingplayground.com/nbsp
+2026-01-18T23:53:06.1764137Z [DEBUG] Received response (Length: 276)
+2026-01-18T23:53:06.1765885Z   🔍 [Worker 1] Visiting (1): http://uitestingplayground.com
+2026-01-18T23:53:06.3987438Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:06.3993871Z [DEBUG] Received response (Length: 500)
+2026-01-18T23:53:06.3995282Z   🔍 [Worker 0] Visiting (1): http://uitestingplayground.com/dynamicid
+2026-01-18T23:53:06.4115612Z [CACHE HIT] fa439546... (hits: 2, misses: 12)
+2026-01-18T23:53:06.4117000Z   🔍 [Worker 1] Visiting (1): http://uitestingplayground.com/scrollbars
+2026-01-18T23:53:07.4165389Z [DEBUG] Received response (Length: 351)
+2026-01-18T23:53:07.4166610Z   🔍 [Worker 2] Visiting (1): http://uitestingplayground.com/textinput
+2026-01-18T23:53:12.0568036Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:12.0568820Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:12.0569541Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:12.0570122Z [DEBUG] Received response (Length: 304)
+2026-01-18T23:53:12.0571056Z   🔍 [Worker 2] Visiting (1): http://uitestingplayground.com/click
+2026-01-18T23:53:12.1437119Z [DEBUG] Received response (Length: 339)
+2026-01-18T23:53:12.1438163Z   🔍 [Worker 1] Visiting (1): http://uitestingplayground.com/clientdelay
+2026-01-18T23:53:12.2321392Z [DEBUG] Received response (Length: 420)
+2026-01-18T23:53:12.2322788Z   🔍 [Worker 0] Visiting (1): http://uitestingplayground.com/upload
+2026-01-18T23:53:17.0599509Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:17.0602322Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:17.0603053Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:17.0603930Z [DEBUG] Received response (Length: 285)
+2026-01-18T23:53:17.0605004Z   🔍 [Worker 0] Visiting (1): http://uitestingplayground.com/hiddenlayers
+2026-01-18T23:53:17.1381573Z [DEBUG] Received response (Length: 331)
+2026-01-18T23:53:17.1382815Z   🔍 [Worker 2] Visiting (1): http://uitestingplayground.com/dynamictable
+2026-01-18T23:53:17.3201590Z [DEBUG] Received response (Length: 507)
+2026-01-18T23:53:17.3204760Z   🔍 [Worker 1] Visiting (1): http://uitestingplayground.com/verifytext
+2026-01-18T23:53:22.1921774Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:22.1924887Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:22.1926962Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:22.1927582Z [DEBUG] Received response (Length: 370)
+2026-01-18T23:53:22.1928566Z   🔍 [Worker 0] Visiting (1): http://uitestingplayground.com/loaddelay
+2026-01-18T23:53:22.2845943Z [DEBUG] Received response (Length: 369)
+2026-01-18T23:53:22.2847771Z   🔍 [Worker 2] Visiting (1): http://uitestingplayground.com/animation
+2026-01-18T23:53:22.3275402Z [DEBUG] Received response (Length: 491)
+2026-01-18T23:53:22.3281087Z   🔍 [Worker 1] Visiting (1): http://uitestingplayground.com/progressbar
+2026-01-18T23:53:27.2078402Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:27.2079443Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:27.2085954Z [DEBUG] Received response (Length: 321)
+2026-01-18T23:53:27.2087900Z   🔍 [Worker 1] Visiting (1): http://uitestingplayground.com/resources
+2026-01-18T23:53:33.4748616Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:33.4749322Z [DEBUG] Received response (Length: 351)
+2026-01-18T23:53:33.4749806Z [DEBUG] Received response (Length: 388)
+2026-01-18T23:53:33.4750393Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:33.4750968Z [DEBUG] Received response (Length: 500)
+2026-01-18T23:53:33.4751947Z ✅ Discovery Complete. Mapped 27 pages.
+2026-01-18T23:53:42.2377341Z 
+2026-01-18T23:53:42.2378057Z [PLAN] PLANNER: Planning goal -> 'Test UI interactions' (Deep Mode: True)
+2026-01-18T23:53:42.2378970Z 🗺️ [PLAN] Loaded Sitemap with 27 pages.
+2026-01-18T23:53:42.2380107Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-18T23:53:42.2381165Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:53:42.2381600Z [DEBUG] Received response (Length: 3638)
+2026-01-18T23:53:42.2382039Z ✅ Planner generated 4 scenarios. Workflow updated.
+2026-01-18T23:53:43.2434593Z 
+2026-01-18T23:53:43.2435580Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-18T23:53:43.2436089Z 📋 Found 4 scenarios to explore.
+2026-01-18T23:53:43.6018679Z 
+2026-01-18T23:53:43.6019414Z [1/4] Exploring Scenario: Verify Dynamic Table Data
+2026-01-18T23:53:43.6020332Z     🧠 Initialized exploration context for goal: 'Test UI interactions'
+2026-01-18T23:53:43.6020764Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T23:53:44.4352765Z     ✅ Navigated to http://uitestingplayground.com/
+2026-01-18T23:53:44.4353692Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-18T23:53:49.4654822Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T23:53:51.4677959Z     ✅ State transitioned.
+2026-01-18T23:53:53.0960487Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:53:53.0961367Z [DEBUG] Received response (Length: 206)
+2026-01-18T23:53:53.0962382Z     🤖 AI Next Step Suggestion: click -> Class Attribute
+2026-01-18T23:53:53.0963534Z     🧩 Suggested Locator: a[href='/classattr']
+2026-01-18T23:53:53.0964898Z     💭 Reasoning: Navigating to the 'Class Attribute' page to explore UI interactions related to class attributes.
+2026-01-18T23:53:53.0965895Z     ➕ Injected AI step: click -> Class Attribute
+2026-01-18T23:53:53.0966511Z   ▶️ [STEP step_2_ai_1] CLICK: Class Attribute
+2026-01-18T23:53:53.1027104Z     🎯 Using AI-provided locator: a[href='/classattr']
+2026-01-18T23:53:53.1098997Z     ✅ Found 1 verified locators
+2026-01-18T23:53:57.1766692Z     ✅ State transitioned.
+2026-01-18T23:53:58.9136479Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:53:58.9137190Z [DEBUG] Received response (Length: 250)
+2026-01-18T23:53:58.9137999Z     🤖 AI Next Step Suggestion: click -> Button
+2026-01-18T23:53:58.9138622Z     🧩 Suggested Locator: button.btn.btn-primary
+2026-01-18T23:53:58.9140093Z     💭 Reasoning: The scenario describes clicking the primary (blue) button and pressing ok in the alert popup. This button has the class 'btn btn-primary btn-test'.
+2026-01-18T23:53:58.9141410Z     ➕ Injected AI step: click -> Button
+2026-01-18T23:53:58.9141927Z   ▶️ [STEP step_2_ai_2] CLICK: Button
+2026-01-18T23:53:58.9291306Z     🎯 Using AI-provided locator: button.btn.btn-primary
+2026-01-18T23:53:58.9353878Z     ✅ Found 1 verified locators
+2026-01-18T23:54:02.9894174Z     ✅ State transitioned.
+2026-01-18T23:54:04.6519691Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:54:04.6520488Z [DEBUG] Received response (Length: 259)
+2026-01-18T23:54:04.6521417Z     🤖 AI Next Step Suggestion: click -> Button
+2026-01-18T23:54:04.6522316Z     🧩 Suggested Locator: button.btn.btn-primary.btn-test
+2026-01-18T23:54:04.6524455Z     💭 Reasoning: The scenario describes clicking the primary (blue) button and pressing ok in the alert popup. This button has the class 'btn btn-primary btn-test'.
+2026-01-18T23:54:04.6526345Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:54:04.6527325Z   ▶️ [STEP step_3] CLICK: Dynamic Table
+2026-01-18T23:54:04.6581314Z     🔍 Mining locators for: 'Dynamic Table'
+2026-01-18T23:54:04.6909811Z     🧠 Consulting AI (Vision-First) to find 'Dynamic Table'...
+2026-01-18T23:54:04.6911579Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:54:09.5495436Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:54:09.5496093Z [DEBUG] Received response (Length: 209)
+2026-01-18T23:54:09.5496839Z     💡 Expert Suggestion: The 'Dynamic Table' is likely located under the 'Resources' section.
+2026-01-18T23:54:09.5497430Z     🛠️ Executing corrective action: click -> 'Resources'
+2026-01-18T23:54:10.1739109Z     ✅ Executed corrective navigation
+2026-01-18T23:54:12.1753950Z     🔄 Retry 1/3 mining locators for 'Dynamic Table'...
+2026-01-18T23:54:13.2160456Z     🧠 Consulting AI (Vision-First) to find 'Dynamic Table'...
+2026-01-18T23:54:13.2162352Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:54:14.9662866Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:54:14.9663534Z [DEBUG] Received response (Length: 234)
+2026-01-18T23:54:14.9664373Z     💡 Expert Suggestion: The 'Dynamic Table' is likely located on the Home page or a subpage accessible from the Home page.
+2026-01-18T23:54:15.5970258Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-18T23:54:15.5970725Z     ✅ Executed corrective navigation
+2026-01-18T23:54:17.5995719Z     🔄 Retry 2/3 mining locators for 'Dynamic Table'...
+2026-01-18T23:54:18.6008900Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:54:18.6010209Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:54:18.6814088Z     ✅ Found 3 verified locators
+2026-01-18T23:54:22.2548170Z     ✅ State transitioned.
+2026-01-18T23:54:23.9679990Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:54:23.9680720Z [DEBUG] Received response (Length: 334)
+2026-01-18T23:54:23.9681632Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T23:54:23.9684938Z     💭 Reasoning: The goal is to test UI interactions. The current page shows a dynamic table. The task is to compare the Chrome CPU value with the value in the yellow label. The Chrome CPU value is already displayed on the page. There are no further UI interactions to perform on this page to achieve the goal.
+2026-01-18T23:54:23.9687572Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-18T23:54:28.9921281Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T23:54:30.9944157Z     ✅ State transitioned.
+2026-01-18T23:54:32.4786482Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:54:32.4787146Z [DEBUG] Received response (Length: 238)
+2026-01-18T23:54:32.4787912Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T23:54:32.4789747Z     💭 Reasoning: The page displays a dynamic table and the CPU value for Chrome. The goal is to test UI interactions, and there are no further interactive elements to engage with on this page. The task is complete.
+2026-01-18T23:54:32.4791323Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Chrome
+2026-01-18T23:54:32.4844866Z     🔍 Mining locators for: 'Chrome'
+2026-01-18T23:54:32.5399165Z     ✅ Found 3 verified locators
+2026-01-18T23:54:35.0685536Z     ✅ State transitioned.
+2026-01-18T23:54:35.0736315Z     🔄 Revisited state detected (count: 1)
+2026-01-18T23:54:37.5145108Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:54:37.5145685Z [DEBUG] Received response (Length: 266)
+2026-01-18T23:54:37.5146413Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T23:54:37.5148130Z     💭 Reasoning: The goal is to test UI interactions. The current page displays a dynamic table with CPU values. The Chrome CPU value is displayed below the table. There are no more UI interactions to perform on this page to further the goal.
+2026-01-18T23:54:39.5496828Z 
+2026-01-18T23:54:39.5497272Z [2/4] Exploring Scenario: Handle Hidden Layers
+2026-01-18T23:54:39.5499830Z     🧠 Initialized exploration context for goal: 'Test UI interactions'
+2026-01-18T23:54:39.5500730Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T23:54:40.3863844Z     ✅ Navigated to http://uitestingplayground.com/
+2026-01-18T23:54:40.3864367Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-18T23:54:45.4129355Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T23:54:47.4152068Z     ✅ State transitioned.
+2026-01-18T23:54:47.4719956Z [CACHE HIT] f2e4673a... (hits: 1, misses: 8)
+2026-01-18T23:54:47.4720939Z     🤖 AI Next Step Suggestion: click -> Class Attribute
+2026-01-18T23:54:47.4721618Z     🧩 Suggested Locator: a[href='/classattr']
+2026-01-18T23:54:47.4722703Z     💭 Reasoning: Navigating to the 'Class Attribute' page to explore UI interactions related to class attributes.
+2026-01-18T23:54:47.4724344Z     ➕ Injected AI step: click -> Class Attribute
+2026-01-18T23:54:47.4724936Z   ▶️ [STEP step_2_ai_1] CLICK: Class Attribute
+2026-01-18T23:54:47.4775360Z     🎯 Using AI-provided locator: a[href='/classattr']
+2026-01-18T23:54:47.4837094Z     ✅ Found 1 verified locators
+2026-01-18T23:54:51.5366336Z     ✅ State transitioned.
+2026-01-18T23:54:53.2898659Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:54:53.2899309Z [DEBUG] Received response (Length: 250)
+2026-01-18T23:54:53.2900107Z     🤖 AI Next Step Suggestion: click -> Button
+2026-01-18T23:54:53.2900730Z     🧩 Suggested Locator: button.btn.btn-primary
+2026-01-18T23:54:53.2901583Z     💭 Reasoning: The scenario describes clicking the primary (blue) button and pressing ok in the alert popup. This button has the class 'btn btn-primary btn-test'.
+2026-01-18T23:54:53.2902306Z     ➕ Injected AI step: click -> Button
+2026-01-18T23:54:53.2902634Z   ▶️ [STEP step_2_ai_2] CLICK: Button
+2026-01-18T23:54:53.3046908Z     🎯 Using AI-provided locator: button.btn.btn-primary
+2026-01-18T23:54:53.3106772Z     ✅ Found 1 verified locators
+2026-01-18T23:54:57.3690888Z     ✅ State transitioned.
+2026-01-18T23:54:59.0105376Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:54:59.0106170Z [DEBUG] Received response (Length: 250)
+2026-01-18T23:54:59.0106963Z     🤖 AI Next Step Suggestion: click -> Button
+2026-01-18T23:54:59.0107428Z     🧩 Suggested Locator: button.btn.btn-primary
+2026-01-18T23:54:59.0108493Z     💭 Reasoning: The scenario describes clicking the primary (blue) button and pressing ok in the alert popup. This button has the class 'btn btn-primary btn-test'.
+2026-01-18T23:54:59.0109588Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:54:59.0110133Z   ▶️ [STEP step_3] CLICK: Hidden Layers
+2026-01-18T23:54:59.0159637Z     🔍 Mining locators for: 'Hidden Layers'
+2026-01-18T23:54:59.0479669Z     🧠 Consulting AI (Vision-First) to find 'Hidden Layers'...
+2026-01-18T23:54:59.0480887Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:55:03.8841141Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:03.8841806Z [DEBUG] Received response (Length: 216)
+2026-01-18T23:55:03.8842908Z     💡 Expert Suggestion: The target 'Hidden Layers' is likely located under the 'Resources' section.
+2026-01-18T23:55:03.8844018Z     🛠️ Executing corrective action: click -> 'Resources'
+2026-01-18T23:55:04.5019156Z     ✅ Executed corrective navigation
+2026-01-18T23:55:06.5034839Z     🔄 Retry 1/3 mining locators for 'Hidden Layers'...
+2026-01-18T23:55:07.5386316Z     🧠 Consulting AI (Vision-First) to find 'Hidden Layers'...
+2026-01-18T23:55:07.5387761Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:55:09.0078564Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:09.0079001Z [DEBUG] Received response (Length: 275)
+2026-01-18T23:55:09.0080292Z     💡 Expert Suggestion: The 'Hidden Layers' element is not visible on this page. It might be located on the 'Home' page or another main section of the application.
+2026-01-18T23:55:09.0081129Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-18T23:55:09.6491757Z     ✅ Executed corrective navigation
+2026-01-18T23:55:11.6516213Z     🔄 Retry 2/3 mining locators for 'Hidden Layers'...
+2026-01-18T23:55:12.6528805Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:55:12.6530142Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:55:12.7272159Z     ✅ Found 2 verified locators
+2026-01-18T23:55:16.3396681Z     ✅ State transitioned.
+2026-01-18T23:55:18.1272757Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:18.1273950Z [DEBUG] Received response (Length: 271)
+2026-01-18T23:55:18.1274586Z     🤖 AI Next Step Suggestion: click -> Button
+2026-01-18T23:55:18.1274953Z     🧩 Suggested Locator: #greenButton
+2026-01-18T23:55:18.1275813Z     💭 Reasoning: The scenario description suggests clicking the button and ensuring it can't be hit twice. This is the next logical step to test the UI interactions on this page.
+2026-01-18T23:55:18.1276572Z     ➕ Injected AI step: click -> Button
+2026-01-18T23:55:18.1276884Z   ▶️ [STEP step_3_ai_1] CLICK: Button
+2026-01-18T23:55:18.1415841Z     🎯 Using AI-provided locator: #greenButton
+2026-01-18T23:55:18.1469483Z     ✅ Found 1 verified locators
+2026-01-18T23:55:22.2037986Z     ✅ State transitioned.
+2026-01-18T23:55:23.9591428Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:23.9592074Z [DEBUG] Received response (Length: 328)
+2026-01-18T23:55:23.9592866Z     🤖 AI Next Step Suggestion: click -> Button
+2026-01-18T23:55:23.9593636Z     🧩 Suggested Locator: #greenButton
+2026-01-18T23:55:23.9596759Z     💭 Reasoning: The scenario description mentions to execute the test to make sure that the green button can not be hit twice. Clicking the green button is the next logical step to progress towards the goal of testing UI interactions.
+2026-01-18T23:55:23.9597883Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:55:23.9598309Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-18T23:55:28.9742398Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T23:55:30.9765116Z     ✅ State transitioned.
+2026-01-18T23:55:32.5003713Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:32.5004384Z [DEBUG] Received response (Length: 255)
+2026-01-18T23:55:32.5005231Z     🤖 AI Next Step Suggestion: click -> Button
+2026-01-18T23:55:32.5005836Z     🧩 Suggested Locator: #greenButton
+2026-01-18T23:55:32.5006905Z     💭 Reasoning: The scenario description mentions to execute the test to make sure that green button can not be hit twice. So, clicking the green button is the next logical step.
+2026-01-18T23:55:32.5007838Z     ➕ Injected AI step: click -> Button
+2026-01-18T23:55:32.5008194Z   ▶️ [STEP step_4_ai_1] CLICK: Button
+2026-01-18T23:55:32.5059557Z     🎯 Using AI-provided locator: #greenButton
+2026-01-18T23:55:32.5110102Z     ✅ Found 1 verified locators
+2026-01-18T23:55:36.5517827Z     ✅ State transitioned.
+2026-01-18T23:55:36.5561840Z     🔄 Revisited state detected (count: 1)
+2026-01-18T23:55:38.0905842Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:38.0906493Z [DEBUG] Received response (Length: 273)
+2026-01-18T23:55:38.0907310Z     🤖 AI Next Step Suggestion: click -> Button
+2026-01-18T23:55:38.0907863Z     🧩 Suggested Locator: #greenButton
+2026-01-18T23:55:38.0909407Z     💭 Reasoning: The scenario description mentions executing a test to make sure that the green button cannot be hit twice. Clicking the green button is the next logical step to test this scenario.
+2026-01-18T23:55:38.0910769Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:55:38.0911218Z   ▶️ [STEP step_5] CLICK: greenButton
+2026-01-18T23:55:38.0962169Z     🔍 Mining locators for: 'greenButton'
+2026-01-18T23:55:38.1290305Z     🧠 Consulting AI (Vision-First) to find 'greenButton'...
+2026-01-18T23:55:38.1291922Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:55:42.9549542Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:42.9550160Z [DEBUG] Received response (Length: 230)
+2026-01-18T23:55:42.9550766Z     ⚠️ Skipping duplicate injection: Button
+2026-01-18T23:55:42.9551241Z     🔄 Retry 1/3 mining locators for 'greenButton'...
+2026-01-18T23:55:43.9854948Z     🧠 Consulting AI (Vision-First) to find 'greenButton'...
+2026-01-18T23:55:43.9856356Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:55:43.9861531Z [CACHE HIT] ed29fdc1... (hits: 2, misses: 17)
+2026-01-18T23:55:43.9862016Z     ⚠️ Skipping duplicate injection: Button
+2026-01-18T23:55:43.9862408Z     🔄 Retry 2/3 mining locators for 'greenButton'...
+2026-01-18T23:55:44.9875488Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:55:44.9876813Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:55:45.0167780Z     🧠 Consulting AI (Vision-First) to find 'greenButton'...
+2026-01-18T23:55:45.0169039Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:55:45.0173490Z [CACHE HIT] ed29fdc1... (hits: 3, misses: 17)
+2026-01-18T23:55:45.0174220Z     ⚠️ Skipping duplicate injection: Button
+2026-01-18T23:55:45.0174775Z     🧠 Verifying step validity for 'greenButton' after no candidates found...
+2026-01-18T23:55:48.2403661Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:48.2404217Z [DEBUG] Received response (Length: 294)
+2026-01-18T23:55:48.2404864Z     🛠️ Self-Correction: Step is valid. Using new locator: #greenButton
+2026-01-18T23:55:52.2827890Z     ✅ State transitioned.
+2026-01-18T23:55:52.2874664Z     🔄 Revisited state detected (count: 2)
+2026-01-18T23:55:53.8205614Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:53.8206485Z [DEBUG] Received response (Length: 251)
+2026-01-18T23:55:53.8207446Z     🤖 AI Next Step Suggestion: click -> blueButton
+2026-01-18T23:55:53.8208038Z     🧩 Suggested Locator: #blueButton
+2026-01-18T23:55:53.8209645Z     💭 Reasoning: The scenario description mentions duplicating the button click. Since the green button was clicked last, the next logical step is to click the blue button.
+2026-01-18T23:55:53.8211115Z     ➕ Injected AI step: click -> blueButton
+2026-01-18T23:55:53.8211767Z   ▶️ [STEP step_5_ai_1] CLICK: blueButton
+2026-01-18T23:55:53.8264319Z     🎯 Using AI-provided locator: #blueButton
+2026-01-18T23:55:53.8315709Z     ✅ Found 1 verified locators
+2026-01-18T23:55:57.8810006Z     ✅ State transitioned.
+2026-01-18T23:55:59.3502269Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:59.3503138Z [DEBUG] Received response (Length: 281)
+2026-01-18T23:55:59.3504386Z     🤖 AI Next Step Suggestion: click -> greenButton
+2026-01-18T23:55:59.3505139Z     🧩 Suggested Locator: #greenButton
+2026-01-18T23:55:59.3507058Z     💭 Reasoning: The scenario description mentions to execute the test to make sure that the green button can not be hit twice. So, clicking the green button is the next logical step.
+2026-01-18T23:55:59.3508838Z     ➕ Injected AI step: click -> greenButton
+2026-01-18T23:55:59.3509549Z   ▶️ [STEP step_5_ai_2] CLICK: greenButton
+2026-01-18T23:55:59.3561473Z     🎯 Using AI-provided locator: #greenButton
+2026-01-18T23:55:59.3620409Z     ✅ Found 1 verified locators
+2026-01-18T23:56:03.4147125Z     ✅ State transitioned.
+2026-01-18T23:56:03.4196939Z     🔄 Revisited state detected (count: 1)
+2026-01-18T23:56:04.9470413Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:56:04.9471360Z [DEBUG] Received response (Length: 314)
+2026-01-18T23:56:04.9472173Z     🤖 AI Next Step Suggestion: click -> blueButton
+2026-01-18T23:56:04.9472751Z     🧩 Suggested Locator: #blueButton
+2026-01-18T23:56:04.9474646Z     💭 Reasoning: The scenario mentions recording button clicks and duplicating them. We've clicked the green button twice and the blue button once. Clicking the blue button again might be the next step in the scenario.
+2026-01-18T23:56:04.9475573Z     ➕ Injected AI step: click -> blueButton
+2026-01-18T23:56:04.9475903Z   ▶️ [STEP step_5_ai_3] CLICK: blueButton
+2026-01-18T23:56:04.9524673Z     🎯 Using AI-provided locator: #blueButton
+2026-01-18T23:56:04.9575106Z     ✅ Found 1 verified locators
+2026-01-18T23:56:08.9988341Z     ✅ State transitioned.
+2026-01-18T23:56:09.0032466Z     🔄 Revisited state detected (count: 2)
+2026-01-18T23:56:10.4785521Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:56:10.4786056Z [DEBUG] Received response (Length: 270)
+2026-01-18T23:56:10.4786726Z     🤖 AI Next Step Suggestion: click -> greenButton
+2026-01-18T23:56:10.4787220Z     🧩 Suggested Locator: #greenButton
+2026-01-18T23:56:10.4788025Z     💭 Reasoning: The scenario description mentions executing a test to ensure the green button cannot be hit twice. Clicking it again is the next logical step to test this.
+2026-01-18T23:56:10.4788757Z     ➕ Injected AI step: click -> greenButton
+2026-01-18T23:56:10.4789071Z   ▶️ [STEP step_5_ai_4] CLICK: greenButton
+2026-01-18T23:56:10.4846008Z     🎯 Using AI-provided locator: #greenButton
+2026-01-18T23:56:10.4895728Z     ✅ Found 1 verified locators
+2026-01-18T23:56:14.5299312Z     ✅ State transitioned.
+2026-01-18T23:56:14.5344727Z     🔄 Revisited state detected (count: 3)
+2026-01-18T23:56:14.5345410Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-18T23:56:16.5901555Z 
+2026-01-18T23:56:16.5902795Z [3/4] Exploring Scenario: Test File Upload Functionality
+2026-01-18T23:56:16.5904425Z     🧠 Initialized exploration context for goal: 'Test UI interactions'
+2026-01-18T23:56:16.5905164Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T23:56:17.4267981Z     ✅ Navigated to http://uitestingplayground.com/
+2026-01-18T23:56:17.4268679Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-18T23:56:22.4535498Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T23:56:24.4545385Z     ✅ State transitioned.
+2026-01-18T23:56:24.5137427Z [CACHE HIT] f2e4673a... (hits: 4, misses: 22)
+2026-01-18T23:56:24.5138430Z     🤖 AI Next Step Suggestion: click -> Class Attribute
+2026-01-18T23:56:24.5139133Z     🧩 Suggested Locator: a[href='/classattr']
+2026-01-18T23:56:24.5140232Z     💭 Reasoning: Navigating to the 'Class Attribute' page to explore UI interactions related to class attributes.
+2026-01-18T23:56:24.5141305Z     ➕ Injected AI step: click -> Class Attribute
+2026-01-18T23:56:24.5141913Z   ▶️ [STEP step_2_ai_1] CLICK: Class Attribute
+2026-01-18T23:56:24.5189522Z     🎯 Using AI-provided locator: a[href='/classattr']
+2026-01-18T23:56:24.5246834Z     ✅ Found 1 verified locators
+2026-01-18T23:56:28.5829371Z     ✅ State transitioned.
+2026-01-18T23:56:30.3568832Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:56:30.3569473Z [DEBUG] Received response (Length: 310)
+2026-01-18T23:56:30.3570482Z     🤖 AI Next Step Suggestion: click -> Button with class 'btn btn-primary btn-test'
+2026-01-18T23:56:30.3571349Z     🧩 Suggested Locator: button.btn.btn-primary.btn-test
+2026-01-18T23:56:30.3572823Z     💭 Reasoning: The scenario asks to record the primary (blue) button click and press ok in alert popup. The button with class 'btn btn-primary btn-test' is the primary button.
+2026-01-18T23:56:30.3574122Z     ➕ Injected AI step: click -> Button with class 'btn btn-primary btn-test'
+2026-01-18T23:56:30.3574964Z   ▶️ [STEP step_2_ai_2] CLICK: Button with class 'btn btn-primary btn-test'
+2026-01-18T23:56:30.3719252Z     🎯 Using AI-provided locator: button.btn.btn-primary.btn-test
+2026-01-18T23:56:30.3778099Z     ✅ Found 1 verified locators
+2026-01-18T23:56:34.4313396Z     ✅ State transitioned.
+2026-01-18T23:56:36.0179478Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:56:36.0180157Z [DEBUG] Received response (Length: 309)
+2026-01-18T23:56:36.0181024Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T23:56:36.0183704Z     💭 Reasoning: The goal was to test UI interactions, specifically clicking the button with class 'btn btn-primary btn-test'. This has already been done successfully according to the action history. There are no further interactions to perform on this page to achieve the stated goal.
+2026-01-18T23:56:36.0185879Z   ▶️ [STEP step_3] CLICK: File Upload
+2026-01-18T23:56:36.0236839Z     🔍 Mining locators for: 'File Upload'
+2026-01-18T23:56:36.0604744Z     🧠 Consulting AI (Vision-First) to find 'File Upload'...
+2026-01-18T23:56:36.0605934Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:56:41.0155170Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:56:41.0155811Z [DEBUG] Received response (Length: 207)
+2026-01-18T23:56:41.0156635Z     💡 Expert Suggestion: File Upload functionality is likely under the 'Resources' section.
+2026-01-18T23:56:41.0157202Z     🛠️ Executing corrective action: click -> 'Resources'
+2026-01-18T23:56:41.6376426Z     ✅ Executed corrective navigation
+2026-01-18T23:56:43.6400350Z     🔄 Retry 1/3 mining locators for 'File Upload'...
+2026-01-18T23:56:44.6764183Z     🧠 Consulting AI (Vision-First) to find 'File Upload'...
+2026-01-18T23:56:44.6765447Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:56:46.3757689Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:56:46.3758332Z [DEBUG] Received response (Length: 283)
+2026-01-18T23:56:46.3760071Z     💡 Expert Suggestion: The 'File Upload' functionality is not visible on the current page. It might be available on the 'Home' page or another section of the application.
+2026-01-18T23:56:46.3761439Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-18T23:56:47.0107290Z     ✅ Executed corrective navigation
+2026-01-18T23:56:49.0131227Z     🔄 Retry 2/3 mining locators for 'File Upload'...
+2026-01-18T23:56:50.0144170Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:56:50.0145680Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:56:50.0897049Z     ✅ Found 2 verified locators
+2026-01-18T23:56:53.6682621Z     ✅ State transitioned.
+2026-01-18T23:56:55.2650303Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:56:55.2650925Z [DEBUG] Received response (Length: 220)
+2026-01-18T23:56:55.2651665Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T23:56:55.2653631Z     💭 Reasoning: The file upload functionality has been initiated. Further interaction requires selecting a file, which is outside the scope of UI interaction testing without specific file access.
+2026-01-18T23:56:55.2654528Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-18T23:57:00.2890754Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T23:57:02.2906606Z     ✅ State transitioned.
+2026-01-18T23:57:03.9618930Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:57:03.9619566Z [DEBUG] Received response (Length: 276)
+2026-01-18T23:57:03.9620387Z     🤖 AI Next Step Suggestion: click -> Browse files
+2026-01-18T23:57:03.9621467Z     💭 Reasoning: The goal is to test UI interactions, and the current page is the file upload page. The next logical step is to click the 'Browse files' button to select a file to upload.
+2026-01-18T23:57:03.9622549Z     ➕ Injected AI step: click -> Browse files
+2026-01-18T23:57:03.9622874Z   ▶️ [STEP step_4_ai_1] CLICK: Browse files
+2026-01-18T23:57:03.9673920Z     🔍 Mining locators for: 'Browse files'
+2026-01-18T23:57:04.0086813Z     🧠 Consulting AI (Vision-First) to find 'Browse files'...
+2026-01-18T23:57:04.0087878Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:57:09.4794684Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:57:09.4795317Z [DEBUG] Received response (Length: 553)
+2026-01-18T23:57:09.4795895Z     🔄 Retry 1/3 mining locators for 'Browse files'...
+2026-01-18T23:57:10.5091279Z     🧠 Consulting AI (Vision-First) to find 'Browse files'...
+2026-01-18T23:57:10.5092409Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:57:10.5095953Z [CACHE HIT] e7811c22... (hits: 5, misses: 29)
+2026-01-18T23:57:10.5096572Z     🔄 Retry 2/3 mining locators for 'Browse files'...
+2026-01-18T23:57:11.5109755Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:57:11.5110946Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:57:11.5412797Z     🧠 Consulting AI (Vision-First) to find 'Browse files'...
+2026-01-18T23:57:11.5414261Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:57:11.5417558Z [CACHE HIT] e7811c22... (hits: 6, misses: 29)
+2026-01-18T23:57:11.5418221Z     🧠 Verifying step validity for 'Browse files' after mining failure...
+2026-01-18T23:57:13.5800712Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:57:13.5801187Z [DEBUG] Received response (Length: 163)
+2026-01-18T23:57:13.5801792Z     🛠️ Self-Correction: Step is valid. Using new locator: .example
+2026-01-18T23:57:19.0905072Z     ⚠️ Scroll into view failed for .example. Proceeding anyway.
+2026-01-18T23:57:24.0926247Z     ⚠️ Action failed: Locator.bounding_box: Timeout 5000ms exceeded.
+2026-01-18T23:57:24.0927083Z Cal...
+2026-01-18T23:57:59.1221154Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:57:59.1221588Z [DEBUG] Received response (Length: 24572)
+2026-01-18T23:57:59.1222120Z   ▶️ [STEP step_5] CLICK: Browse files
+2026-01-18T23:57:59.1276665Z     🔍 Mining locators for: 'Browse files'
+2026-01-18T23:57:59.1570824Z     🧠 Consulting AI (Vision-First) to find 'Browse files'...
+2026-01-18T23:57:59.1572516Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:57:59.1576818Z [CACHE HIT] e7811c22... (hits: 7, misses: 31)
+2026-01-18T23:57:59.1577550Z     🔄 Retry 1/3 mining locators for 'Browse files'...
+2026-01-18T23:58:00.1912858Z     🧠 Consulting AI (Vision-First) to find 'Browse files'...
+2026-01-18T23:58:00.1914522Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:58:00.1918216Z [CACHE HIT] e7811c22... (hits: 8, misses: 31)
+2026-01-18T23:58:00.1918768Z     🔄 Retry 2/3 mining locators for 'Browse files'...
+2026-01-18T23:58:01.1931786Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:58:01.1933465Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:58:01.2247087Z     🧠 Consulting AI (Vision-First) to find 'Browse files'...
+2026-01-18T23:58:01.2248333Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:58:01.2251786Z [CACHE HIT] e7811c22... (hits: 9, misses: 31)
+2026-01-18T23:58:01.2252510Z     🧠 Verifying step validity for 'Browse files' after mining failure...
+2026-01-18T23:58:01.2255979Z [CACHE HIT] 134ea265... (hits: 10, misses: 31)
+2026-01-18T23:58:01.2257099Z     🛠️ Self-Correction: Step is valid. Using new locator: .example
+2026-01-18T23:58:06.7349574Z     ⚠️ Scroll into view failed for .example. Proceeding anyway.
+2026-01-18T23:58:11.7372499Z     ⚠️ Action failed: Locator.bounding_box: Timeout 5000ms exceeded.
+2026-01-18T23:58:11.7372923Z Cal...
+2026-01-18T23:58:13.8281458Z [CACHE HIT] b318db43... (hits: 11, misses: 31)
+2026-01-18T23:58:13.8281858Z 
+2026-01-18T23:58:13.8282086Z [4/4] Exploring Scenario: Verify Visibility of Elements
+2026-01-18T23:58:13.8285439Z     🧠 Initialized exploration context for goal: 'Test UI interactions'
+2026-01-18T23:58:13.8286193Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T23:58:14.6761381Z     ✅ Navigated to http://uitestingplayground.com/
+2026-01-18T23:58:14.6761958Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-18T23:58:19.7042730Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T23:58:21.7065184Z     ✅ State transitioned.
+2026-01-18T23:58:21.7656861Z [CACHE HIT] f2e4673a... (hits: 12, misses: 31)
+2026-01-18T23:58:21.7657611Z     🤖 AI Next Step Suggestion: click -> Class Attribute
+2026-01-18T23:58:21.7658080Z     🧩 Suggested Locator: a[href='/classattr']
+2026-01-18T23:58:21.7658671Z     💭 Reasoning: Navigating to the 'Class Attribute' page to explore UI interactions related to class attributes.
+2026-01-18T23:58:21.7659225Z     ➕ Injected AI step: click -> Class Attribute
+2026-01-18T23:58:21.7659580Z   ▶️ [STEP step_2_ai_1] CLICK: Class Attribute
+2026-01-18T23:58:21.7708073Z     🎯 Using AI-provided locator: a[href='/classattr']
+2026-01-18T23:58:21.7769456Z     ✅ Found 1 verified locators
+2026-01-18T23:58:25.8776841Z     ✅ State transitioned.
+2026-01-18T23:58:27.7085277Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:58:27.7086030Z [DEBUG] Received response (Length: 206)
+2026-01-18T23:58:27.7086836Z     🤖 AI Next Step Suggestion: click -> Button
+2026-01-18T23:58:27.7087454Z     🧩 Suggested Locator: button.btn.btn-primary
+2026-01-18T23:58:27.7088628Z     💭 Reasoning: The scenario describes to click the primary (blue) button. This button has the class 'btn btn-primary'.
+2026-01-18T23:58:27.7089640Z     ➕ Injected AI step: click -> Button
+2026-01-18T23:58:27.7090161Z   ▶️ [STEP step_2_ai_2] CLICK: Button
+2026-01-18T23:58:27.7240191Z     🎯 Using AI-provided locator: button.btn.btn-primary
+2026-01-18T23:58:27.7294584Z     ✅ Found 1 verified locators
+2026-01-18T23:58:31.7785546Z     ✅ State transitioned.
+2026-01-18T23:58:33.4621134Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:58:33.4621830Z [DEBUG] Received response (Length: 259)
+2026-01-18T23:58:33.4622698Z     🤖 AI Next Step Suggestion: click -> Button
+2026-01-18T23:58:33.4623598Z     🧩 Suggested Locator: button.btn.btn-primary.btn-test
+2026-01-18T23:58:33.4625175Z     💭 Reasoning: The scenario describes clicking the primary (blue) button and pressing ok in the alert popup. This button has the class 'btn btn-primary btn-test'.
+2026-01-18T23:58:33.4626668Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:58:33.4627397Z   ▶️ [STEP step_3] CLICK: Visibility
+2026-01-18T23:58:33.4681004Z     🔍 Mining locators for: 'Visibility'
+2026-01-18T23:58:33.4983895Z     🧠 Consulting AI (Vision-First) to find 'Visibility'...
+2026-01-18T23:58:33.4985168Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-18T23:58:38.2468572Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:58:38.2469212Z [DEBUG] Received response (Length: 216)
+2026-01-18T23:58:38.2470483Z     💡 Expert Suggestion: The 'Visibility' option might be available on the homepage or a related section.
+2026-01-18T23:58:38.2471843Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-18T23:58:38.8784434Z     ✅ Executed corrective navigation
+2026-01-18T23:58:40.8808617Z     🔄 Retry 1/3 mining locators for 'Visibility'...
+2026-01-18T23:58:41.9554359Z     ✅ Found 2 verified locators
+2026-01-18T23:58:45.5107482Z     ✅ State transitioned.
+2026-01-18T23:58:47.3792162Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:58:47.3792768Z [DEBUG] Received response (Length: 233)
+2026-01-18T23:58:47.3793599Z     🤖 AI Next Step Suggestion: click -> Hide
+2026-01-18T23:58:47.3793945Z     🧩 Suggested Locator: #hideButton
+2026-01-18T23:58:47.3794702Z     💭 Reasoning: The scenario instructs to press the 'Hide' button. This will likely change the visibility of other elements, which is the purpose of this page.
+2026-01-18T23:58:47.3795397Z     ➕ Injected AI step: click -> Hide
+2026-01-18T23:58:47.3795701Z   ▶️ [STEP step_3_ai_1] CLICK: Hide
+2026-01-18T23:58:47.3943821Z     🎯 Using AI-provided locator: #hideButton
+2026-01-18T23:58:47.3999124Z     ✅ Found 1 verified locators
+2026-01-18T23:58:51.4609105Z     ✅ State transitioned.
+2026-01-18T23:58:52.9233114Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:58:52.9234014Z [DEBUG] Received response (Length: 253)
+2026-01-18T23:58:52.9234813Z     🤖 AI Next Step Suggestion: click -> Overlapped
+2026-01-18T23:58:52.9235407Z     🧩 Suggested Locator: #overlappedButton
+2026-01-18T23:58:52.9236304Z     💭 Reasoning: Now that the 'Hide' button has been clicked, the next logical step is to interact with the other visible buttons to test their visibility and behavior.
+2026-01-18T23:58:52.9237023Z     ➕ Injected AI step: click -> Overlapped
+2026-01-18T23:58:52.9237341Z   ▶️ [STEP step_3_ai_2] CLICK: Overlapped
+2026-01-18T23:58:52.9289523Z     🎯 Using AI-provided locator: #overlappedButton
+2026-01-18T23:58:52.9342667Z     ✅ Found 1 verified locators
+2026-01-18T23:58:56.9744323Z     ✅ State transitioned.
+2026-01-18T23:58:58.2983115Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:58:58.2983931Z [DEBUG] Received response (Length: 249)
+2026-01-18T23:58:58.2984602Z     🤖 AI Next Step Suggestion: click -> Offscreen
+2026-01-18T23:58:58.2985000Z     🧩 Suggested Locator: #offscreenButton
+2026-01-18T23:58:58.2985785Z     💭 Reasoning: The 'Hide' and 'Overlapped' buttons have already been clicked. Clicking 'Offscreen' will test another aspect of UI interaction related to visibility.
+2026-01-18T23:58:58.2986482Z     ➕ Injected AI step: click -> Offscreen
+2026-01-18T23:58:58.2986786Z   ▶️ [STEP step_3_ai_3] CLICK: Offscreen
+2026-01-18T23:58:58.3039902Z     🎯 Using AI-provided locator: #offscreenButton
+2026-01-18T23:58:58.3097132Z     ✅ Found 1 verified locators
+2026-01-18T23:59:02.3566155Z     ✅ State transitioned.
+2026-01-18T23:59:03.5976497Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:59:03.5977159Z [DEBUG] Received response (Length: 206)
+2026-01-18T23:59:03.5978017Z     🤖 AI Next Step Suggestion: click -> Hide
+2026-01-18T23:59:03.5978592Z     🧩 Suggested Locator: #hideButton
+2026-01-18T23:59:03.5979781Z     💭 Reasoning: The scenario description mentions pressing the Hide button. The button is visible and has not been clicked recently.
+2026-01-18T23:59:03.5980938Z     ➕ Injected AI step: click -> Hide
+2026-01-18T23:59:03.5981461Z   ▶️ [STEP step_3_ai_4] CLICK: Hide
+2026-01-18T23:59:03.6032209Z     🎯 Using AI-provided locator: #hideButton
+2026-01-18T23:59:03.6089468Z     ✅ Found 1 verified locators
+2026-01-18T23:59:07.6584310Z     ✅ State transitioned.
+2026-01-18T23:59:07.6630353Z     🔄 Revisited state detected (count: 1)
+2026-01-18T23:59:09.3852691Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:59:09.3853442Z [DEBUG] Received response (Length: 301)
+2026-01-18T23:59:09.3853988Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T23:59:09.3855212Z     💭 Reasoning: The goal is to test UI interactions related to visibility. The buttons 'Hide', 'Overlapped', and 'Offscreen' have been clicked. There are no other visible elements to interact with on the page to further test visibility. Therefore, the goal is likely achieved.
+2026-01-18T23:59:09.3856712Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-18T23:59:11.9240015Z     ✅ State transitioned.
+2026-01-18T23:59:11.9286417Z     🔄 Revisited state detected (count: 2)
+2026-01-18T23:59:14.0708393Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:59:14.0709075Z [DEBUG] Received response (Length: 319)
+2026-01-18T23:59:14.0709613Z     🤖 AI Next Step Suggestion: click -> Hide
+2026-01-18T23:59:14.0709970Z     🧩 Suggested Locator: #hideButton
+2026-01-18T23:59:14.0711222Z     💭 Reasoning: The scenario description mentions pressing the Hide button. The button has been clicked before, but it toggles the visibility of other elements, so clicking it again is a valid action to test the UI interactions.
+2026-01-18T23:59:14.0715521Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:59:14.0716089Z   ▶️ [STEP step_5] CLICK: Hide
+2026-01-18T23:59:14.0772833Z     🔍 Mining locators for: 'Hide'
+2026-01-18T23:59:14.1186760Z     ✅ Found 3 verified locators
+2026-01-18T23:59:17.6732336Z     ✅ State transitioned.
+2026-01-18T23:59:17.6779001Z     🔄 Revisited state detected (count: 3)
+2026-01-18T23:59:17.6779681Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-18T23:59:19.7102499Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_uitestingplayground/tests/generated_scenarios.json
+2026-01-18T23:59:19.7112069Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-18T23:59:19.7112508Z 
+2026-01-18T23:59:19.7112764Z ✅ Deep Exploration Complete.
+2026-01-19T00:06:39.1591072Z 
+2026-01-19T00:06:39.1592059Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-19T00:06:39.1592744Z 📍 Project: ci_uitestingplayground
+2026-01-19T00:06:39.1593471Z 🎬 Mode: Headless
+2026-01-19T00:06:39.1593672Z 
+2026-01-19T00:06:39.1593857Z --- Scenario: Verify Dynamic Table Data ---
+2026-01-19T00:06:39.1594463Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T00:06:39.1594948Z     ✅ Step step_1 Passed.
+2026-01-19T00:06:39.1595425Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T00:06:39.1595914Z     ✅ Step step_2 Passed.
+2026-01-19T00:06:39.1596385Z   ▶️ [STEP step_2_ai_1] CLICK: Class Attribute
+2026-01-19T00:06:39.1596980Z     🎯 Using mined locator: a[href='/classattr']
+2026-01-19T00:06:39.1597543Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T00:06:39.1598015Z   ▶️ [STEP step_2_ai_2] CLICK: Button
+2026-01-19T00:06:39.1598557Z     🎯 Using mined locator: button.btn.btn-primary
+2026-01-19T00:06:39.1599158Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T00:06:39.1599625Z   ▶️ [STEP step_3] CLICK: Dynamic Table
+2026-01-19T00:06:39.1600325Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:06:39.1601333Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:06:39.1602022Z Call log:
+2026-01-19T00:06:39.1602349Z   - waiting for locator("text=Dynamic Tabl...
+2026-01-19T00:06:39.1603028Z     🔧 [AUTO-HEAL] Re-mining page to find 'Dynamic Table'...
+2026-01-19T00:06:39.1603881Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:06:39.1604478Z [DEBUG] Received response (Length: 492)
+2026-01-19T00:06:39.1605091Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:06:39.1605569Z     ✨ AI successfully healed the step! New selector: .btn-primary
+2026-01-19T00:06:39.1605926Z     ✅ Step step_3 Passed.
+2026-01-19T00:06:39.1606195Z   ▶️ [STEP step_4] ASSERT_URL: Step step_4
+2026-01-19T00:06:39.1606470Z     ✅ Step step_4 Passed.
+2026-01-19T00:06:39.1606909Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Chrome
+2026-01-19T00:06:39.1607401Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:06:39.1608118Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-19T00:06:39.1608780Z Actual value: None
+2026-01-19T00:06:39.1608975Z Error: element(s) not found 
+2026-01-19T00:06:39.1609182Z Call log:
+2026-01-19T00:06:39.1609342Z   - Expect ...
+2026-01-19T00:06:39.1610028Z     🔧 [AUTO-HEAL] Re-mining page to find 'Chrome'...
+2026-01-19T00:06:39.1610409Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:06:39.1610919Z [DEBUG] Received response (Length: 454)
+2026-01-19T00:06:39.1611537Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:06:39.1611964Z     ✨ AI successfully healed the step! New selector: .btn-primary
+2026-01-19T00:06:39.1612301Z     ✅ Step step_5 Passed.
+2026-01-19T00:06:39.1612929Z ✅ Scenario 'Verify Dynamic Table Data' completed successfully!
+2026-01-19T00:06:39.1613572Z 
+2026-01-19T00:06:39.1613745Z --- Scenario: Handle Hidden Layers ---
+2026-01-19T00:06:39.1614330Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T00:06:39.1614870Z     ✅ Step step_1 Passed.
+2026-01-19T00:06:39.1615341Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T00:06:39.1615850Z     ✅ Step step_2 Passed.
+2026-01-19T00:06:39.1616319Z   ▶️ [STEP step_2_ai_1] CLICK: Class Attribute
+2026-01-19T00:06:39.1616882Z     🎯 Using mined locator: a[href='/classattr']
+2026-01-19T00:06:39.1617407Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T00:06:39.1617860Z   ▶️ [STEP step_2_ai_2] CLICK: Button
+2026-01-19T00:06:39.1618424Z     🎯 Using mined locator: button.btn.btn-primary
+2026-01-19T00:06:39.1618968Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T00:06:39.1619439Z   ▶️ [STEP step_3] CLICK: Hidden Layers
+2026-01-19T00:06:39.1620139Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:06:39.1621144Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:06:39.1621847Z Call log:
+2026-01-19T00:06:39.1622175Z   - waiting for locator("text=Hidden Layer...
+2026-01-19T00:06:39.1622827Z     🔧 [AUTO-HEAL] Re-mining page to find 'Hidden Layers'...
+2026-01-19T00:06:39.1623696Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:06:39.1625625Z [DEBUG] LLM Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.', 'status': 'RESOURCE_EXHAUSTED'}}
+2026-01-19T00:06:39.1627330Z ⚠️ 429 Rate Limit Hit. Cooling down for 60s...
+2026-01-19T00:06:39.1627690Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:06:39.1628088Z [DEBUG] Received response (Length: 666)
+2026-01-19T00:06:39.1628765Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:06:39.1629270Z     ✨ AI successfully healed the step! New selector: button.btn-primary
+2026-01-19T00:06:39.1629715Z     ✅ Step step_3 Passed.
+2026-01-19T00:06:39.1630149Z   ▶️ [STEP step_3_ai_1] CLICK: Button
+2026-01-19T00:06:39.1630816Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:06:39.1631431Z     ✅ Step step_3_ai_1 Passed.
+2026-01-19T00:06:39.1631712Z   ▶️ [STEP step_4] ASSERT_URL: Step step_4
+2026-01-19T00:06:39.1631989Z     ✅ Step step_4 Passed.
+2026-01-19T00:06:39.1632249Z   ▶️ [STEP step_4_ai_1] CLICK: Button
+2026-01-19T00:06:39.1632863Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:06:39.1633773Z     ✅ Step step_4_ai_1 Passed.
+2026-01-19T00:06:39.1634167Z   ▶️ [STEP step_5] CLICK: greenButton
+2026-01-19T00:06:39.1634553Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:06:39.1635103Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:06:39.1635499Z Call log:
+2026-01-19T00:06:39.1635695Z   - waiting for locator("text=greenButton"...
+2026-01-19T00:06:39.1636054Z     🔧 [AUTO-HEAL] Re-mining page to find 'greenButton'...
+2026-01-19T00:06:39.1638177Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:06:39.1639061Z [DEBUG] Received response (Length: 535)
+2026-01-19T00:06:39.1639745Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:06:39.1640540Z     ✨ AI successfully healed the step! New selector: button.btn.btn-primary
+2026-01-19T00:06:39.1641191Z     ✅ Step step_5 Passed.
+2026-01-19T00:06:39.1641619Z   ▶️ [STEP step_5_ai_1] CLICK: blueButton
+2026-01-19T00:06:39.1642043Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:06:39.1642622Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:06:39.1643014Z Call log:
+2026-01-19T00:06:39.1643425Z   - waiting for locator("text=blueButton")...
+2026-01-19T00:06:39.1643807Z     🔧 [AUTO-HEAL] Re-mining page to find 'blueButton'...
+2026-01-19T00:06:39.1644178Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:06:39.1644502Z [DEBUG] Received response (Length: 472)
+2026-01-19T00:06:39.1644863Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:06:39.1645312Z     ✨ AI successfully healed the step! New selector: button.btn.btn-primary
+2026-01-19T00:06:39.1645712Z     ✅ Step step_5_ai_1 Passed.
+2026-01-19T00:06:39.1645993Z   ▶️ [STEP step_5_ai_2] CLICK: greenButton
+2026-01-19T00:06:39.1646389Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:06:39.1646942Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:06:39.1647330Z Call log:
+2026-01-19T00:06:39.1647522Z   - waiting for locator("text=greenButton"...
+2026-01-19T00:06:39.1647890Z     🔧 [AUTO-HEAL] Re-mining page to find 'greenButton'...
+2026-01-19T00:06:39.1648261Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:06:39.1648594Z [DEBUG] Received response (Length: 430)
+2026-01-19T00:06:39.1648946Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:06:39.1649429Z     ✨ AI successfully healed the step! New selector: button.btn.btn-primary
+2026-01-19T00:06:39.1649809Z     ✅ Step step_5_ai_2 Passed.
+2026-01-19T00:06:39.1650076Z   ▶️ [STEP step_5_ai_3] CLICK: blueButton
+2026-01-19T00:06:39.1650459Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:06:39.1651012Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:06:39.1651391Z Call log:
+2026-01-19T00:06:39.1651583Z   - waiting for locator("text=blueButton")...
+2026-01-19T00:06:39.1651937Z     🔧 [AUTO-HEAL] Re-mining page to find 'blueButton'...
+2026-01-19T00:06:39.1652237Z [CACHE HIT] dec5ec03... (hits: 1, misses: 7)
+2026-01-19T00:06:39.1652584Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:06:39.1653025Z     ✨ AI successfully healed the step! New selector: button.btn.btn-primary
+2026-01-19T00:06:39.1653643Z     ✅ Step step_5_ai_3 Passed.
+2026-01-19T00:06:39.1653916Z   ▶️ [STEP step_5_ai_4] CLICK: greenButton
+2026-01-19T00:06:39.1654311Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:06:39.1654992Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:06:39.1655715Z Call log:
+2026-01-19T00:06:39.1656191Z   - waiting for locator("text=greenButton"...
+2026-01-19T00:06:39.1656731Z     🔧 [AUTO-HEAL] Re-mining page to find 'greenButton'...
+2026-01-19T00:06:39.1657278Z [CACHE HIT] 4f202228... (hits: 2, misses: 7)
+2026-01-19T00:06:39.1657976Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:06:39.1658843Z     ✨ AI successfully healed the step! New selector: button.btn.btn-primary
+2026-01-19T00:06:39.1659564Z     ✅ Step step_5_ai_4 Passed.
+2026-01-19T00:06:39.1660160Z ✅ Scenario 'Handle Hidden Layers' completed successfully!
+2026-01-19T00:06:39.1660572Z 
+2026-01-19T00:06:39.1660768Z --- Scenario: Test File Upload Functionality ---
+2026-01-19T00:06:39.1661452Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T00:06:39.1662202Z     ✅ Step step_1 Passed.
+2026-01-19T00:06:39.1662677Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T00:06:39.1663347Z     ✅ Step step_2 Passed.
+2026-01-19T00:06:39.1663859Z   ▶️ [STEP step_2_ai_1] CLICK: Class Attribute
+2026-01-19T00:06:39.1664467Z     🎯 Using mined locator: a[href='/classattr']
+2026-01-19T00:06:39.1664996Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T00:06:39.1665658Z   ▶️ [STEP step_2_ai_2] CLICK: Button with class 'btn btn-primary btn-test'
+2026-01-19T00:06:39.1666470Z     🎯 Using mined locator: button.btn.btn-primary.btn-test
+2026-01-19T00:06:39.1667067Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T00:06:39.1667529Z   ▶️ [STEP step_3] CLICK: File Upload
+2026-01-19T00:06:39.1668220Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:06:39.1669234Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:06:39.1669935Z Call log:
+2026-01-19T00:06:39.1670264Z   - waiting for locator("text=File Upload"...
+2026-01-19T00:06:39.1670925Z     🔧 [AUTO-HEAL] Re-mining page to find 'File Upload'...
+2026-01-19T00:06:39.1671579Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:06:39.1672141Z [DEBUG] Received response (Length: 373)
+2026-01-19T00:06:39.1672769Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:06:39.1673703Z     ✨ AI successfully healed the step! New selector: .btn-primary
+2026-01-19T00:06:39.1674306Z     ✅ Step step_3 Passed.
+2026-01-19T00:06:39.1674800Z   ▶️ [STEP step_4] ASSERT_URL: Step step_4
+2026-01-19T00:06:39.1675295Z     ✅ Step step_4 Passed.
+2026-01-19T00:06:39.1675744Z   ▶️ [STEP step_4_ai_1] CLICK: Browse files
+2026-01-19T00:06:39.1676458Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:06:39.1677490Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:06:39.1678188Z Call log:
+2026-01-19T00:06:39.1678513Z   - waiting for locator("text=Browse files...
+2026-01-19T00:11:17.5322458Z     🔧 [AUTO-HEAL] Re-mining page to find 'Browse files'...
+2026-01-19T00:11:17.5323640Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:11:17.5324267Z [DEBUG] Received response (Length: 468)
+2026-01-19T00:11:17.5324918Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:11:17.5325414Z     ✨ AI successfully healed the step! New selector: button.btn.btn-primary
+2026-01-19T00:11:17.5325834Z     ✅ Step step_4_ai_1 Passed.
+2026-01-19T00:11:17.5326127Z   ▶️ [STEP step_5] CLICK: Browse files
+2026-01-19T00:11:17.5326523Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:11:17.5327089Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:11:17.5327491Z Call log:
+2026-01-19T00:11:17.5327692Z   - waiting for locator("text=Browse files...
+2026-01-19T00:11:17.5328059Z     🔧 [AUTO-HEAL] Re-mining page to find 'Browse files'...
+2026-01-19T00:11:17.5328393Z [CACHE HIT] 021141da... (hits: 3, misses: 9)
+2026-01-19T00:11:17.5328745Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:11:17.5329203Z     ✨ AI successfully healed the step! New selector: button.btn.btn-primary
+2026-01-19T00:11:17.5329823Z     ✅ Step step_5 Passed.
+2026-01-19T00:11:17.5330190Z ✅ Scenario 'Test File Upload Functionality' completed successfully!
+2026-01-19T00:11:17.5330451Z 
+2026-01-19T00:11:17.5330564Z --- Scenario: Verify Visibility of Elements ---
+2026-01-19T00:11:17.5330885Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T00:11:17.5331182Z     ✅ Step step_1 Passed.
+2026-01-19T00:11:17.5331438Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T00:11:17.5331703Z     ✅ Step step_2 Passed.
+2026-01-19T00:11:17.5331966Z   ▶️ [STEP step_2_ai_1] CLICK: Class Attribute
+2026-01-19T00:11:17.5332289Z     🎯 Using mined locator: a[href='/classattr']
+2026-01-19T00:11:17.5332591Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T00:11:17.5333031Z   ▶️ [STEP step_2_ai_2] CLICK: Button
+2026-01-19T00:11:17.5333602Z     🎯 Using mined locator: button.btn.btn-primary
+2026-01-19T00:11:17.5333913Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T00:11:17.5334172Z   ▶️ [STEP step_3] CLICK: Visibility
+2026-01-19T00:11:17.5334564Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:11:17.5335117Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:11:17.5335514Z Call log:
+2026-01-19T00:11:17.5335710Z   - waiting for locator("text=Visibility")...
+2026-01-19T00:11:17.5336069Z     🔧 [AUTO-HEAL] Re-mining page to find 'Visibility'...
+2026-01-19T00:11:17.5336450Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:11:17.5336790Z [DEBUG] Received response (Length: 546)
+2026-01-19T00:11:17.5337145Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:11:17.5337566Z     ✨ AI successfully healed the step! New selector: .btn-primary
+2026-01-19T00:11:17.5337911Z     ✅ Step step_3 Passed.
+2026-01-19T00:11:17.5338160Z   ▶️ [STEP step_3_ai_1] CLICK: Hide
+2026-01-19T00:11:17.5338538Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:11:17.5339099Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:11:17.5339483Z Call log:
+2026-01-19T00:11:17.5339689Z   - waiting for locator("text=Hide")
+2026-01-19T00:11:17.5339915Z ...
+2026-01-19T00:11:17.5340152Z     🔧 [AUTO-HEAL] Re-mining page to find 'Hide'...
+2026-01-19T00:11:17.5340505Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:11:17.5340833Z [DEBUG] Received response (Length: 579)
+2026-01-19T00:11:17.5341178Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:11:17.5341631Z     ✨ AI successfully healed the step! New selector: button.btn.btn-primary
+2026-01-19T00:11:17.5342019Z     ✅ Step step_3_ai_1 Passed.
+2026-01-19T00:11:17.5342287Z   ▶️ [STEP step_3_ai_2] CLICK: Overlapped
+2026-01-19T00:11:17.5342674Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:11:17.5343428Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:11:17.5343826Z Call log:
+2026-01-19T00:11:17.5344031Z   - waiting for locator("text=Overlapped")...
+2026-01-19T00:11:17.5344392Z     🔧 [AUTO-HEAL] Re-mining page to find 'Overlapped'...
+2026-01-19T00:11:17.5344756Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:11:17.5345080Z [DEBUG] Received response (Length: 586)
+2026-01-19T00:11:17.5345457Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:11:17.5345910Z     ✨ AI successfully healed the step! New selector: button.btn.btn-primary
+2026-01-19T00:11:17.5346287Z     ✅ Step step_3_ai_2 Passed.
+2026-01-19T00:11:17.5346552Z   ▶️ [STEP step_3_ai_3] CLICK: Offscreen
+2026-01-19T00:11:17.5346935Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:11:17.5347490Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:11:17.5347881Z Call log:
+2026-01-19T00:11:17.5348056Z   - waiting for locator("text=Offscreen")
+2026-01-19T00:11:17.5348283Z ...
+2026-01-19T00:11:17.5348692Z     🔧 [AUTO-HEAL] Re-mining page to find 'Offscreen'...
+2026-01-19T00:11:17.5349043Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T00:11:17.5349362Z [DEBUG] Received response (Length: 518)
+2026-01-19T00:11:17.5349710Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:11:17.5350152Z     ✨ AI successfully healed the step! New selector: button.btn.btn-primary
+2026-01-19T00:11:17.5350530Z     ✅ Step step_3_ai_3 Passed.
+2026-01-19T00:11:17.5350777Z   ▶️ [STEP step_3_ai_4] CLICK: Hide
+2026-01-19T00:11:17.5351144Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:11:17.5351682Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:11:17.5352187Z Call log:
+2026-01-19T00:11:17.5352359Z   - waiting for locator("text=Hide")
+2026-01-19T00:11:17.5352580Z ...
+2026-01-19T00:11:17.5352818Z     🔧 [AUTO-HEAL] Re-mining page to find 'Hide'...
+2026-01-19T00:11:17.5353116Z [CACHE HIT] f35f39d6... (hits: 4, misses: 13)
+2026-01-19T00:11:17.5353665Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:11:17.5354110Z     ✨ AI successfully healed the step! New selector: button.btn.btn-primary
+2026-01-19T00:11:17.5354495Z     ✅ Step step_3_ai_4 Passed.
+2026-01-19T00:11:17.5354760Z   ▶️ [STEP step_4] ASSERT_URL: Step step_4
+2026-01-19T00:11:17.5355025Z     ✅ Step step_4 Passed.
+2026-01-19T00:11:17.5355263Z   ▶️ [STEP step_5] CLICK: Hide
+2026-01-19T00:11:17.5355613Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T00:11:17.5356149Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T00:11:17.5356539Z Call log:
+2026-01-19T00:11:17.5356705Z   - waiting for locator("text=Hide")
+2026-01-19T00:11:17.5356927Z ...
+2026-01-19T00:11:17.5357155Z     🔧 [AUTO-HEAL] Re-mining page to find 'Hide'...
+2026-01-19T00:11:17.5357441Z [CACHE HIT] f35f39d6... (hits: 5, misses: 13)
+2026-01-19T00:11:17.5357793Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T00:11:17.5358232Z     ✨ AI successfully healed the step! New selector: button.btn.btn-primary
+2026-01-19T00:11:17.5358603Z     ✅ Step step_5 Passed.
+2026-01-19T00:11:17.5358943Z ✅ Scenario 'Verify Visibility of Elements' completed successfully!
+2026-01-19T00:11:17.5359194Z 
+2026-01-19T00:11:17.5359287Z ============================================================
+2026-01-19T00:11:17.5359586Z 🎯 EXECUTION SUMMARY
+2026-01-19T00:11:17.5359802Z ============================================================
+2026-01-19T00:11:17.5359986Z 
+2026-01-19T00:11:17.5360093Z 📋 Scenario Overview:
+2026-01-19T00:11:17.5360325Z    • Total Scenarios Planned: 4
+2026-01-19T00:11:17.5360588Z    • Scenarios Executed: 4
+2026-01-19T00:11:17.5360835Z    • Total Steps Executed: 39
+2026-01-19T00:11:17.5360981Z 
+2026-01-19T00:11:17.5361073Z ✅ Results:
+2026-01-19T00:11:17.5361262Z    ✅ Passed: 4 (100%)
+2026-01-19T00:11:17.5361376Z 
+2026-01-19T00:11:17.5361476Z ============================================================
+2026-01-19T00:11:17.5361665Z 
+2026-01-19T00:11:17.5362162Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_uitestingplayground/execution.json
+2026-01-19T00:11:17.6391423Z 
+2026-01-19T00:11:17.6391994Z [PHASE] Running Phase: DISCOVERY
+2026-01-19T00:11:17.6395241Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_uitestingplayground --url http://uitestingplayground.com/ --deep
+2026-01-19T00:11:17.6396971Z ✅ Phase 'discovery' completed successfully.
+2026-01-19T00:11:17.6397209Z 
+2026-01-19T00:11:17.6397310Z [PHASE] Running Phase: PLANNING
+2026-01-19T00:11:17.6398711Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_uitestingplayground --goal Test UI interactions --url http://uitestingplayground.com/ --deep
+2026-01-19T00:11:17.6399971Z ✅ Phase 'planning' completed successfully.
+2026-01-19T00:11:17.6400167Z 
+2026-01-19T00:11:17.6400260Z [PHASE] Running Phase: EXPLORATION
+2026-01-19T00:11:17.6401216Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_uitestingplayground
+2026-01-19T00:11:17.6402231Z ✅ Phase 'exploration' completed successfully.
+2026-01-19T00:11:17.6402593Z 📊 Exploration Discovery Success Rate: 77.1%
+2026-01-19T00:11:17.6402919Z 
+2026-01-19T00:11:17.6403017Z [PHASE] Running Phase: EXECUTION
+2026-01-19T00:11:17.6404147Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_uitestingplayground
+2026-01-19T00:11:17.6405141Z ✅ Phase 'execution' completed successfully.
+2026-01-19T00:11:17.6405329Z 
+2026-01-19T00:11:17.6405433Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-19T00:11:17.7418618Z ##[group]Run RESULT_FILE="projects/ci_uitestingplayground/execution.json"
+2026-01-19T00:11:17.7419166Z [36;1mRESULT_FILE="projects/ci_uitestingplayground/execution.json"[0m
+2026-01-19T00:11:17.7419538Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-19T00:11:17.7419870Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-19T00:11:17.7420318Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-19T00:11:17.7420744Z [36;1melse[0m
+2026-01-19T00:11:17.7420977Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-19T00:11:17.7421256Z [36;1m  exit 1[0m
+2026-01-19T00:11:17.7421435Z [36;1mfi[0m
+2026-01-19T00:11:17.7453547Z shell: /usr/bin/bash -e {0}
+2026-01-19T00:11:17.7453785Z env:
+2026-01-19T00:11:17.7454032Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T00:11:17.7454463Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T00:11:17.7454901Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T00:11:17.7455261Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T00:11:17.7455608Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T00:11:17.7455970Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T00:11:17.7456270Z ##[endgroup]
+2026-01-19T00:11:17.7508748Z ✅ Results generated successfully: projects/ci_uitestingplayground/execution.json
+2026-01-19T00:11:17.7534679Z 4
+2026-01-19T00:11:17.7765345Z ##[group]Run actions/upload-artifact@v4
+2026-01-19T00:11:17.7765623Z with:
+2026-01-19T00:11:17.7765835Z   name: uitestingplayground-execution-results
+2026-01-19T00:11:17.7766346Z   path: projects/ci_uitestingplayground/execution.json
+projects/ci_uitestingplayground/workflow.json
+
+2026-01-19T00:11:17.7766818Z   retention-days: 30
+2026-01-19T00:11:17.7767017Z   if-no-files-found: warn
+2026-01-19T00:11:17.7767228Z   compression-level: 6
+2026-01-19T00:11:17.7767415Z   overwrite: false
+2026-01-19T00:11:17.7767605Z   include-hidden-files: false
+2026-01-19T00:11:17.7767811Z env:
+2026-01-19T00:11:17.7768037Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T00:11:17.7768433Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T00:11:17.7768825Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T00:11:17.7769188Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T00:11:17.7769742Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T00:11:17.7770129Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T00:11:17.7770428Z ##[endgroup]
+2026-01-19T00:11:17.9889222Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-19T00:11:17.9893163Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_uitestingplayground. This will be the root directory of the artifact
+2026-01-19T00:11:17.9894384Z With the provided path, there will be 2 files uploaded
+2026-01-19T00:11:17.9899352Z Artifact name is valid!
+2026-01-19T00:11:17.9900633Z Root directory input is valid!
+2026-01-19T00:11:18.2642198Z Beginning upload of artifact content to blob storage
+2026-01-19T00:11:18.5471283Z Uploaded bytes 2416
+2026-01-19T00:11:18.6192373Z Finished uploading artifact content to blob storage!
+2026-01-19T00:11:18.6195605Z SHA256 digest of uploaded artifact zip is 08c42e0893904ab3046ac63ee9ed66300290ea4354e54f9ec562c9c97ebe61d4
+2026-01-19T00:11:18.6198188Z Finalizing artifact upload
+2026-01-19T00:11:18.7456835Z Artifact uitestingplayground-execution-results.zip successfully finalized. Artifact ID 5171123947
+2026-01-19T00:11:18.7458446Z Artifact uitestingplayground-execution-results has been successfully uploaded! Final size is 2416 bytes. Artifact ID is 5171123947
+2026-01-19T00:11:18.7465269Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21120211878/artifacts/5171123947
+2026-01-19T00:11:18.7777500Z Post job cleanup.
+2026-01-19T00:11:18.9292924Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-19T00:11:18.9709002Z Post job cleanup.
+2026-01-19T00:11:19.0643602Z [command]/usr/bin/git version
+2026-01-19T00:11:19.0685771Z git version 2.52.0
+2026-01-19T00:11:19.0731235Z Temporarily overriding HOME='/home/runner/work/_temp/752884ca-5367-4b70-a4b2-e745cd1c1905' before making global git config changes
+2026-01-19T00:11:19.0732628Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T00:11:19.0738515Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T00:11:19.0784381Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T00:11:19.0819986Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T00:11:19.1074314Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T00:11:19.1095628Z http.https://github.com/.extraheader
+2026-01-19T00:11:19.1112065Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-19T00:11:19.1147769Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T00:11:19.1394359Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T00:11:19.1430251Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T00:11:19.1779343Z Cleaning up orphan processes

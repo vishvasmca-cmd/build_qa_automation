@@ -1,0 +1,1891 @@
+﻿2026-01-18T23:36:56.7301599Z Current runner version: '2.331.0'
+2026-01-18T23:36:56.7348799Z ##[group]Runner Image Provisioner
+2026-01-18T23:36:56.7350388Z Hosted Compute Agent
+2026-01-18T23:36:56.7351077Z Version: 20251211.462
+2026-01-18T23:36:56.7352068Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-18T23:36:56.7352970Z Build Date: 2025-12-11T16:28:49Z
+2026-01-18T23:36:56.7353641Z Worker ID: {5f0c14a5-ae83-486e-8a41-ee5b870160e2}
+2026-01-18T23:36:56.7354548Z ##[endgroup]
+2026-01-18T23:36:56.7355128Z ##[group]Operating System
+2026-01-18T23:36:56.7355722Z Ubuntu
+2026-01-18T23:36:56.7356415Z 24.04.3
+2026-01-18T23:36:56.7356960Z LTS
+2026-01-18T23:36:56.7358077Z ##[endgroup]
+2026-01-18T23:36:56.7359194Z ##[group]Runner Image
+2026-01-18T23:36:56.7359972Z Image: ubuntu-24.04
+2026-01-18T23:36:56.7360551Z Version: 20260111.209.1
+2026-01-18T23:36:56.7361753Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-18T23:36:56.7363720Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-18T23:36:56.7365539Z ##[endgroup]
+2026-01-18T23:36:56.7368349Z ##[group]GITHUB_TOKEN Permissions
+2026-01-18T23:36:56.7373203Z Contents: read
+2026-01-18T23:36:56.7374045Z Metadata: read
+2026-01-18T23:36:56.7374565Z Packages: read
+2026-01-18T23:36:56.7375338Z ##[endgroup]
+2026-01-18T23:36:56.7380817Z Secret source: Actions
+2026-01-18T23:36:56.7382023Z Prepare workflow directory
+2026-01-18T23:36:56.9047862Z Prepare all required actions
+2026-01-18T23:36:56.9109554Z Getting action download info
+2026-01-18T23:36:57.2348972Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-18T23:36:57.4041161Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-18T23:36:57.5112019Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-18T23:36:58.0111177Z Complete job name: test-websites-deep (orangehrm_demo, https://opensource-demo.orangehrmlive.com/, Test HR managemen...
+2026-01-18T23:36:58.3755555Z ##[group]Run actions/checkout@v4
+2026-01-18T23:36:58.3757833Z with:
+2026-01-18T23:36:58.3758615Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T23:36:58.3759767Z   token: ***
+2026-01-18T23:36:58.3760288Z   ssh-strict: true
+2026-01-18T23:36:58.3760750Z   ssh-user: git
+2026-01-18T23:36:58.3761215Z   persist-credentials: true
+2026-01-18T23:36:58.3761740Z   clean: true
+2026-01-18T23:36:58.3762187Z   sparse-checkout-cone-mode: true
+2026-01-18T23:36:58.3762730Z   fetch-depth: 1
+2026-01-18T23:36:58.3763209Z   fetch-tags: false
+2026-01-18T23:36:58.3763675Z   show-progress: true
+2026-01-18T23:36:58.3764137Z   lfs: false
+2026-01-18T23:36:58.3764553Z   submodules: false
+2026-01-18T23:36:58.3765048Z   set-safe-directory: true
+2026-01-18T23:36:58.3766597Z ##[endgroup]
+2026-01-18T23:36:58.5460801Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-18T23:36:58.5466146Z ##[group]Getting Git version info
+2026-01-18T23:36:58.5468859Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T23:36:58.5470888Z [command]/usr/bin/git version
+2026-01-18T23:36:58.5561455Z git version 2.52.0
+2026-01-18T23:36:58.5613279Z ##[endgroup]
+2026-01-18T23:36:58.5653157Z Temporarily overriding HOME='/home/runner/work/_temp/38bd0a96-a66e-41b0-8d4a-48cb6bc25801' before making global git config changes
+2026-01-18T23:36:58.5654804Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T23:36:58.5663150Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T23:36:58.5728790Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-18T23:36:58.5737266Z ##[group]Initializing the repository
+2026-01-18T23:36:58.5746143Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T23:36:58.5894877Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-18T23:36:58.5899346Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-18T23:36:58.5901928Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-18T23:36:58.5903791Z hint: call:
+2026-01-18T23:36:58.5904873Z hint:
+2026-01-18T23:36:58.5906252Z hint: 	git config --global init.defaultBranch <name>
+2026-01-18T23:36:58.5908114Z hint:
+2026-01-18T23:36:58.5909735Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-18T23:36:58.5911902Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-18T23:36:58.5913615Z hint:
+2026-01-18T23:36:58.5914535Z hint: 	git branch -m <name>
+2026-01-18T23:36:58.5915550Z hint:
+2026-01-18T23:36:58.5916928Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-18T23:36:58.5920252Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-18T23:36:58.5926030Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T23:36:58.5988509Z ##[endgroup]
+2026-01-18T23:36:58.5990414Z ##[group]Disabling automatic garbage collection
+2026-01-18T23:36:58.5998253Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-18T23:36:58.6057886Z ##[endgroup]
+2026-01-18T23:36:58.6059970Z ##[group]Setting up auth
+2026-01-18T23:36:58.6073608Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T23:36:58.6128020Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T23:36:58.6624166Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T23:36:58.6676614Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T23:36:58.7080315Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T23:36:58.7145552Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T23:36:58.7581321Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-18T23:36:58.7669293Z ##[endgroup]
+2026-01-18T23:36:58.7694048Z ##[group]Fetching the repository
+2026-01-18T23:36:58.7695969Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +10179ac5c7473147e4be3845796c28603a0fa5da:refs/remotes/origin/main
+2026-01-18T23:36:59.7694016Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-18T23:36:59.7699950Z  * [new ref]         10179ac5c7473147e4be3845796c28603a0fa5da -> origin/main
+2026-01-18T23:36:59.7748755Z ##[endgroup]
+2026-01-18T23:36:59.7750719Z ##[group]Determining the checkout info
+2026-01-18T23:36:59.7753336Z ##[endgroup]
+2026-01-18T23:36:59.7763949Z [command]/usr/bin/git sparse-checkout disable
+2026-01-18T23:36:59.7833892Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-18T23:36:59.7875517Z ##[group]Checking out the ref
+2026-01-18T23:36:59.7880958Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-18T23:36:59.9361964Z Switched to a new branch 'main'
+2026-01-18T23:36:59.9363755Z branch 'main' set up to track 'origin/main'.
+2026-01-18T23:36:59.9386939Z ##[endgroup]
+2026-01-18T23:36:59.9449775Z [command]/usr/bin/git log -1 --format=%H
+2026-01-18T23:36:59.9485866Z 10179ac5c7473147e4be3845796c28603a0fa5da
+2026-01-18T23:37:00.1536787Z ##[group]Run actions/setup-python@v5
+2026-01-18T23:37:00.1538682Z with:
+2026-01-18T23:37:00.1539642Z   python-version: 3.11
+2026-01-18T23:37:00.1540647Z   cache: pip
+2026-01-18T23:37:00.1542386Z   check-latest: false
+2026-01-18T23:37:00.1544000Z   token: ***
+2026-01-18T23:37:00.1544917Z   update-environment: true
+2026-01-18T23:37:00.1545968Z   allow-prereleases: false
+2026-01-18T23:37:00.1547006Z   freethreaded: false
+2026-01-18T23:37:00.1548146Z ##[endgroup]
+2026-01-18T23:37:00.4127749Z ##[group]Installed versions
+2026-01-18T23:37:00.4351896Z Successfully set up CPython (3.11.14)
+2026-01-18T23:37:00.4354790Z ##[endgroup]
+2026-01-18T23:37:00.5819348Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-18T23:37:01.0794103Z /home/runner/.cache/pip
+2026-01-18T23:37:01.2910288Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-18T23:37:02.4922659Z Received 134217728 of 254742636 (52.7%), 117.1 MBs/sec
+2026-01-18T23:37:03.2713326Z Received 254742636 of 254742636 (100.0%), 129.8 MBs/sec
+2026-01-18T23:37:03.2714682Z Cache Size: ~243 MB (254742636 B)
+2026-01-18T23:37:03.2781230Z [command]/usr/bin/tar -xf /home/runner/work/_temp/6afa9d54-e26b-4c0d-8c18-73468c60f68b/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-18T23:37:03.7738676Z Cache restored successfully
+2026-01-18T23:37:03.8286539Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-18T23:37:03.8896950Z ##[group]Run pip install -r requirements.txt
+2026-01-18T23:37:03.8898232Z [36;1mpip install -r requirements.txt[0m
+2026-01-18T23:37:03.8898625Z [36;1mplaywright install chromium[0m
+2026-01-18T23:37:03.8954260Z shell: /usr/bin/bash -e {0}
+2026-01-18T23:37:03.8954694Z env:
+2026-01-18T23:37:03.8955057Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:37:03.8955589Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T23:37:03.8956121Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:37:03.8956641Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:37:03.8957098Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:37:03.8958080Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T23:37:03.8958482Z ##[endgroup]
+2026-01-18T23:37:04.8741668Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-18T23:37:04.8770897Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-18T23:37:04.9013882Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-18T23:37:04.9036520Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-18T23:37:04.9406070Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-18T23:37:04.9433987Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-18T23:37:05.1866970Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-18T23:37:05.1897199Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-18T23:37:05.2251684Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-18T23:37:05.2274870Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-18T23:37:05.2479523Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-18T23:37:05.2501606Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-18T23:37:05.2963140Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-18T23:37:05.2988885Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-18T23:37:05.3745811Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-18T23:37:05.3771158Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-18T23:37:05.6662593Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-18T23:37:05.6691748Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-18T23:37:05.7769349Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-18T23:37:05.7800362Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-18T23:37:05.8042850Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-18T23:37:05.8067127Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-18T23:37:05.9647281Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-18T23:37:05.9682173Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-18T23:37:06.0002821Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-18T23:37:06.0024247Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-18T23:37:06.1168151Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-18T23:37:06.1191737Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-18T23:37:06.1408628Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-18T23:37:06.1428364Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T23:37:06.1789674Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-18T23:37:06.1811257Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-18T23:37:06.2088124Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-18T23:37:06.2113362Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-18T23:37:06.2406897Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.2431142Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-18T23:37:06.3056121Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.3077310Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-18T23:37:06.3431446Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.3452908Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-18T23:37:06.5660551Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.5688026Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-18T23:37:06.6019260Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.6043679Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-18T23:37:06.7223270Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.7249550Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-18T23:37:06.7440738Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.7465003Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-18T23:37:06.7587205Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.7610542Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-18T23:37:06.7990869Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.8019959Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-18T23:37:06.8226189Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.8252791Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-18T23:37:06.8628584Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.8654105Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-18T23:37:06.8829874Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.8854377Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-18T23:37:06.9008598Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:06.9033530Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-18T23:37:07.8711076Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:07.8735750Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-18T23:37:07.8907046Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:07.8931859Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-18T23:37:08.0491754Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-18T23:37:08.0520611Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-18T23:37:08.0905171Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-18T23:37:08.1475719Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-18T23:37:08.1506557Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-18T23:37:08.1526982Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-18T23:37:08.1547903Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-18T23:37:08.1569608Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-18T23:37:08.1590099Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-18T23:37:08.1611045Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-18T23:37:08.1636792Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-18T23:37:08.1745905Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-18T23:37:08.1774803Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-18T23:37:08.1798544Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-18T23:37:08.1819794Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-18T23:37:08.1842410Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-18T23:37:08.1863524Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-18T23:37:08.1886465Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-18T23:37:08.1913260Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-18T23:37:08.1957298Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-18T23:37:08.1979990Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-18T23:37:08.2002479Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-18T23:37:08.2024807Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-18T23:37:08.2046447Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-18T23:37:08.2068756Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-18T23:37:08.2099085Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-18T23:37:08.2838183Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-18T23:37:08.3056158Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-18T23:37:08.3103444Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-18T23:37:08.3126813Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-18T23:37:08.3151286Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-18T23:37:08.3174074Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-18T23:37:08.3196176Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-18T23:37:08.3221154Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-18T23:37:08.3242191Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-18T23:37:08.6008465Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-18T23:37:19.0635432Z 
+2026-01-18T23:37:19.0670430Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-18T23:37:20.4778358Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-18T23:37:20.6427181Z (node:2187) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T23:37:20.6430914Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T23:37:20.7549493Z |                                                                                |   0% of 164.7 MiB
+2026-01-18T23:37:20.9993234Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-18T23:37:21.1804136Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-18T23:37:21.3406450Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-18T23:37:21.4727127Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-18T23:37:21.5968539Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-18T23:37:21.7435255Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-18T23:37:21.8799929Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-18T23:37:22.0160402Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-18T23:37:22.1374520Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-18T23:37:22.2727318Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-18T23:37:26.2192729Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-18T23:37:26.2204671Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-18T23:37:26.3830218Z (node:2199) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T23:37:26.3833227Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T23:37:26.4705303Z |                                                                                |   0% of 2.3 MiB
+2026-01-18T23:37:26.4799175Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-18T23:37:26.4842159Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-18T23:37:26.4889943Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-18T23:37:26.4945785Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-18T23:37:26.4973962Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-18T23:37:26.4999450Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-18T23:37:26.5029621Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-18T23:37:26.5076969Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-18T23:37:26.5119222Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-18T23:37:26.5148322Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-18T23:37:26.6227607Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-18T23:37:26.6236766Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-18T23:37:26.7957058Z (node:2210) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-18T23:37:26.7958677Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-18T23:37:26.8945915Z |                                                                                |   0% of 109.7 MiB
+2026-01-18T23:37:27.0728878Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-18T23:37:27.2091968Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-18T23:37:27.3356992Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-18T23:37:27.4365421Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-18T23:37:27.5315692Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-18T23:37:27.6248073Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-18T23:37:27.6972004Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-18T23:37:27.7672738Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-18T23:37:27.8396902Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-18T23:37:27.9199942Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-18T23:37:30.7993227Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-18T23:37:30.8609981Z ##[group]Run mkdir -p projects/ci_orangehrm_demo
+2026-01-18T23:37:30.8610688Z [36;1mmkdir -p projects/ci_orangehrm_demo[0m
+2026-01-18T23:37:30.8611199Z [36;1mcat > projects/ci_orangehrm_demo/config.json << 'EOF'[0m
+2026-01-18T23:37:30.8611550Z [36;1m{[0m
+2026-01-18T23:37:30.8611791Z [36;1m  "project_name": "ci_orangehrm_demo",[0m
+2026-01-18T23:37:30.8612223Z [36;1m  "target_url": "https://opensource-demo.orangehrmlive.com/",[0m
+2026-01-18T23:37:30.8612670Z [36;1m  "goal": "Test HR management features",[0m
+2026-01-18T23:37:30.8612975Z [36;1m  "headless": true[0m
+2026-01-18T23:37:30.8613206Z [36;1m}[0m
+2026-01-18T23:37:30.8613396Z [36;1mEOF[0m
+2026-01-18T23:37:30.8655247Z shell: /usr/bin/bash -e {0}
+2026-01-18T23:37:30.8655615Z env:
+2026-01-18T23:37:30.8655930Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:37:30.8656404Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T23:37:30.8656991Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:37:30.8657741Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:37:30.8658270Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:37:30.8658707Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T23:37:30.8659066Z ##[endgroup]
+2026-01-18T23:37:30.8913259Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-18T23:37:30.8913950Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-18T23:37:30.8914454Z [36;1mpython orchestrator.py --project projects/ci_orangehrm_demo --deep --force[0m
+2026-01-18T23:37:30.8955451Z shell: /usr/bin/bash -e {0}
+2026-01-18T23:37:30.8955789Z env:
+2026-01-18T23:37:30.8956090Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:37:30.8956565Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T23:37:30.8957032Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:37:30.8957692Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:37:30.8958174Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:37:30.8959108Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T23:37:30.8960473Z   GOOGLE_API_KEY: ***
+2026-01-18T23:37:30.8960993Z   PYTHONPATH: .
+2026-01-18T23:37:30.8961225Z ##[endgroup]
+2026-01-18T23:37:33.7728533Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-18T23:37:33.7729003Z 
+2026-01-18T23:37:33.7729695Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://opensource-demo.orangehrmlive.com/ (Workers: 3)
+2026-01-18T23:37:34.4670588Z   🔍 [Worker 0] Visiting (0): https://opensource-demo.orangehrmlive.com/
+2026-01-18T23:37:36.8195380Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:37:36.8196240Z [DEBUG] Received response (Length: 231)
+2026-01-18T23:37:36.8197339Z ✅ Discovery Complete. Mapped 1 pages.
+2026-01-18T23:37:48.9303151Z 
+2026-01-18T23:37:48.9304361Z [PLAN] PLANNER: Planning goal -> 'Test HR management features' (Deep Mode: True)
+2026-01-18T23:37:48.9306282Z 🗺️ [PLAN] Loaded Sitemap with 1 pages.
+2026-01-18T23:37:48.9307610Z 🎭 [EXPERT] Detected Domain: SAAS. Persona: Act as a Senior SDET focusing on SaaS platform stability and functional coverage
+2026-01-18T23:37:48.9308784Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-18T23:37:48.9309437Z [DEBUG] Received response (Length: 6469)
+2026-01-18T23:37:48.9310072Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-18T23:37:50.9394940Z 
+2026-01-18T23:37:50.9396657Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-18T23:37:50.9398281Z 📋 Found 3 scenarios to explore.
+2026-01-18T23:37:51.5512602Z 
+2026-01-18T23:37:51.5513862Z [1/3] Exploring Scenario: HR Management - Login and Employee Management
+2026-01-18T23:37:51.5515596Z     🧠 Initialized exploration context for goal: 'Test HR management features'
+2026-01-18T23:37:51.5516712Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T23:37:53.0818467Z     ✅ Navigated to https://opensource-demo.orangehrmlive.com/
+2026-01-18T23:37:53.0819799Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Login page
+2026-01-18T23:37:53.2325558Z     🔍 Mining locators for: 'Login page'
+2026-01-18T23:37:53.3975972Z     🧠 Consulting AI (Vision-First) to find 'Login page'...
+2026-01-18T23:37:53.3980482Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:37:55.2701942Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:37:55.2702906Z [DEBUG] Received response (Length: 447)
+2026-01-18T23:37:55.2703986Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T23:37:55.2704699Z   ▶️ [STEP step_3] FILL: Username
+2026-01-18T23:37:55.2804240Z     🔍 Mining locators for: 'Username'
+2026-01-18T23:37:55.3957037Z     ✅ Found 5 verified locators
+2026-01-18T23:38:00.8104790Z     ✅ State transitioned.
+2026-01-18T23:38:02.4367201Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:38:02.4368220Z [DEBUG] Received response (Length: 210)
+2026-01-18T23:38:02.4369252Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T23:38:02.4370642Z     🧩 Suggested Locator: input[name='password']
+2026-01-18T23:38:02.4372195Z     💭 Reasoning: The username has been filled. Now filling the password field to proceed with login.
+2026-01-18T23:38:02.4372973Z     ➕ Injected AI step: fill -> Password
+2026-01-18T23:38:02.4373405Z   ▶️ [STEP step_3_ai_1] FILL: Password
+2026-01-18T23:38:02.4499598Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-18T23:38:02.4645112Z     ✅ Found 1 verified locators
+2026-01-18T23:38:08.0859330Z     ✅ State transitioned.
+2026-01-18T23:38:09.7235328Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:38:09.7236248Z [DEBUG] Received response (Length: 245)
+2026-01-18T23:38:09.7237112Z     🤖 AI Next Step Suggestion: click -> Login
+2026-01-18T23:38:09.7238767Z     🧩 Suggested Locator: button
+2026-01-18T23:38:09.7239977Z     💭 Reasoning: Now that the username and password have been entered, the next step is to click the Login button to access the system and begin testing HR management features.
+2026-01-18T23:38:09.7241061Z     ➕ Injected AI step: click -> Login
+2026-01-18T23:38:09.7241510Z   ▶️ [STEP step_3_ai_2] CLICK: Login
+2026-01-18T23:38:09.7330541Z     🎯 Using AI-provided locator: button
+2026-01-18T23:38:09.7434267Z     ✅ Found 1 verified locators
+2026-01-18T23:38:13.8229918Z     ✅ State transitioned.
+2026-01-18T23:38:15.5562551Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:38:15.5563441Z [DEBUG] Received response (Length: 245)
+2026-01-18T23:38:15.5564536Z     🤖 AI Next Step Suggestion: click -> Admin
+2026-01-18T23:38:15.5565460Z     🧩 Suggested Locator: a[href*='/web/index.php/admin/viewAdminModule']
+2026-01-18T23:38:15.5567155Z     💭 Reasoning: The goal is to test HR management features. 'Admin' is a core HR function, so navigating there is a logical next step.
+2026-01-18T23:38:15.5569431Z     ➕ Injected AI step: click -> Admin
+2026-01-18T23:38:15.5570191Z   ▶️ [STEP step_3_ai_3] CLICK: Admin
+2026-01-18T23:38:15.5837725Z     🎯 Using AI-provided locator: a[href*='/web/index.php/admin/viewAdminModule']
+2026-01-18T23:38:15.5938732Z     ✅ Found 1 verified locators
+2026-01-18T23:38:19.6841073Z     ✅ State transitioned.
+2026-01-18T23:38:21.4622425Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:38:21.4623313Z [DEBUG] Received response (Length: 235)
+2026-01-18T23:38:21.4624374Z     🤖 AI Next Step Suggestion: click -> Add
+2026-01-18T23:38:21.4625367Z     💭 Reasoning: To test HR management features, specifically user management, adding a new user is a logical next step after navigating to the Admin page.
+2026-01-18T23:38:21.4626154Z     ➕ Injected AI step: click -> Add
+2026-01-18T23:38:21.4626543Z   ▶️ [STEP step_3_ai_4] CLICK: Add
+2026-01-18T23:38:21.4869716Z     🔍 Mining locators for: 'Add'
+2026-01-18T23:38:21.6154866Z     ✅ Found 1 verified locators
+2026-01-18T23:38:25.2018403Z     ✅ State transitioned.
+2026-01-18T23:38:26.9104052Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:38:26.9105333Z [DEBUG] Received response (Length: 241)
+2026-01-18T23:38:26.9106798Z     🤖 AI Next Step Suggestion: click -> -- Select --
+2026-01-18T23:38:26.9108521Z     🧩 Suggested Locator: div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div
+2026-01-18T23:38:26.9110058Z     💭 Reasoning: The form requires a 'User Role' to be selected. Clicking the dropdown will reveal the options.
+2026-01-18T23:38:26.9111326Z     ➕ Injected AI step: click -> -- Select --
+2026-01-18T23:38:26.9112248Z   ▶️ [STEP step_3_ai_5] CLICK: -- Select --
+2026-01-18T23:38:26.9360671Z     🎯 Using AI-provided locator: div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div
+2026-01-18T23:38:26.9500969Z     ✅ Found 1 verified locators
+2026-01-18T23:38:31.0373607Z     ✅ State transitioned.
+2026-01-18T23:38:32.7629656Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:38:32.7630479Z [DEBUG] Received response (Length: 228)
+2026-01-18T23:38:32.7631624Z     🤖 AI Next Step Suggestion: click -> Admin
+2026-01-18T23:38:32.7633058Z     🧩 Suggested Locator: div:nth-child(2)
+2026-01-18T23:38:32.7634447Z     💭 Reasoning: The previous action was clicking the '-- Select --' dropdown for User Role. Now we need to select a role. 'Admin' is a valid option.
+2026-01-18T23:38:32.7635419Z     ➕ Injected AI step: click -> Admin
+2026-01-18T23:38:32.7635880Z   ▶️ [STEP step_3_ai_6] CLICK: Admin
+2026-01-18T23:38:32.7730744Z     🎯 Using AI-provided locator: div:nth-child(2)
+2026-01-18T23:38:32.7853228Z     ✅ Found 1 verified locators
+2026-01-18T23:38:36.8686114Z     ✅ State transitioned.
+2026-01-18T23:38:39.1217890Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:38:39.1218733Z [DEBUG] Received response (Length: 329)
+2026-01-18T23:38:39.1219560Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T23:38:39.1226848Z     💭 Reasoning: The current page is the landing page. The previous actions indicate that the bot was trying to add an admin, but it has navigated back to the landing page. There is no clear path forward to continue adding an admin from this page. Therefore, the goal is unlikely to be achieved from here.
+2026-01-18T23:38:39.1229794Z   ▶️ [STEP step_4] FILL: Password
+2026-01-18T23:38:39.1522503Z     🔍 Mining locators for: 'Password'
+2026-01-18T23:38:39.5890572Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T23:38:39.5893103Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:38:43.9298268Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:38:43.9299031Z [DEBUG] Received response (Length: 232)
+2026-01-18T23:38:43.9300363Z     💡 Expert Suggestion: The 'Password' setting is likely located within the 'About' section or a related settings area.
+2026-01-18T23:38:43.9301161Z     🛠️ Executing corrective action: click -> 'About'
+2026-01-18T23:38:44.8795273Z     ✅ Executed corrective navigation
+2026-01-18T23:38:46.8822288Z     🔄 Retry 1/3 mining locators for 'Password'...
+2026-01-18T23:38:48.3754679Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T23:38:48.3757267Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:38:50.0926665Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:38:50.0928012Z [DEBUG] Received response (Length: 307)
+2026-01-18T23:38:50.0930616Z     💡 Expert Suggestion: The current page displays cookie information. Clicking 'Learn more about this provider' might lead to a page where password settings are located.
+2026-01-18T23:38:50.0932664Z     🛠️ Executing corrective action: click -> 'Learn more about this provider'
+2026-01-18T23:38:50.5773328Z     🔄 Retry 2/3 mining locators for 'Password'...
+2026-01-18T23:38:51.5788929Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:38:51.5791652Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:38:52.1029085Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T23:38:52.1031553Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:38:52.1043378Z [CACHE HIT] b1670af7... (hits: 1, misses: 10)
+2026-01-18T23:38:52.1044519Z     ⚠️ Skipping duplicate injection: Learn more about this provider
+2026-01-18T23:38:52.1045628Z     🧠 Verifying step validity for 'Password' after no candidates found...
+2026-01-18T23:38:54.7673955Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:38:54.7675446Z [DEBUG] Received response (Length: 275)
+2026-01-18T23:38:54.7678367Z     🗑️ Step deemed INVALID: The current page appears to be displaying cookie information and preferences, not the main OrangeHRM website. Therefore, the 'Password' element is not expected to be present on this page. We are on the wrong page.. Removing from workflow.
+2026-01-18T23:38:54.7680178Z     ⏭️ Skipping execution of invalid step: Password
+2026-01-18T23:38:54.7680615Z   ▶️ [STEP step_5] CLICK: Login
+2026-01-18T23:38:54.7872429Z     🔍 Mining locators for: 'Login'
+2026-01-18T23:38:55.0958493Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-18T23:38:55.0965947Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:39:00.2884605Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:39:00.2885420Z [DEBUG] Received response (Length: 336)
+2026-01-18T23:39:00.2888138Z     💡 Expert Suggestion: The current page appears to be a cookie information page, not the main OrangeHRM site where the login would be located. Navigating to the base URL is the most direct way to find the login.
+2026-01-18T23:39:00.2890195Z     🛠️ Executing corrective action: navigate -> 'orangehrm.com'
+2026-01-18T23:39:01.2571121Z     ✅ Executed corrective navigation
+2026-01-18T23:39:03.2597266Z     🔄 Retry 1/3 mining locators for 'Login'...
+2026-01-18T23:39:04.6542436Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-18T23:39:04.6544542Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:39:06.5146146Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:39:06.5146970Z [DEBUG] Received response (Length: 298)
+2026-01-18T23:39:06.5149551Z     💡 Expert Suggestion: The current page appears to be a cookie information page. Clicking 'Learn more' might redirect to the main OrangeHRM site where the login button is located.
+2026-01-18T23:39:06.5151433Z     🛠️ Executing corrective action: click -> 'Learn more'
+2026-01-18T23:39:07.4169789Z     ✅ Executed corrective navigation
+2026-01-18T23:39:09.4196864Z     🔄 Retry 2/3 mining locators for 'Login'...
+2026-01-18T23:39:10.4204219Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:39:10.4205873Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:39:10.8035128Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-18T23:39:10.8037905Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:39:10.8047923Z [CACHE HIT] db1fccb8... (hits: 2, misses: 13)
+2026-01-18T23:39:10.8052931Z     ⚠️ Skipping duplicate injection: orangehrm.com
+2026-01-18T23:39:10.8053852Z     🧠 Verifying step validity for 'Login' after no candidates found...
+2026-01-18T23:39:12.1509746Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:39:12.1510539Z [DEBUG] Received response (Length: 287)
+2026-01-18T23:39:12.1512675Z     🗑️ Step deemed INVALID: The current page appears to be displaying cookie information and preferences, not the main OrangeHRM website. Therefore, the 'Login' element is not present on this page, and attempting to interact with it is not a valid step.. Removing from workflow.
+2026-01-18T23:39:12.1514228Z     ⏭️ Skipping execution of invalid step: Login
+2026-01-18T23:39:12.1514653Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Dashboard
+2026-01-18T23:39:12.1656722Z     🔍 Mining locators for: 'Dashboard'
+2026-01-18T23:39:12.5703574Z     🧠 Consulting AI (Vision-First) to find 'Dashboard'...
+2026-01-18T23:39:12.5706897Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:39:17.6622989Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:39:17.6623869Z [DEBUG] Received response (Length: 291)
+2026-01-18T23:39:17.6625409Z     💡 Expert Suggestion: The current page appears to be a cookie consent page. Clicking 'Learn more' might navigate to the main OrangeHRM site where the Dashboard is located.
+2026-01-18T23:39:17.6626468Z     🛠️ Executing corrective action: click -> 'Learn more'
+2026-01-18T23:39:18.6702527Z     ✅ Executed corrective navigation
+2026-01-18T23:39:20.6729512Z     🔄 Retry 1/3 mining locators for 'Dashboard'...
+2026-01-18T23:39:21.9330162Z     🧠 Consulting AI (Vision-First) to find 'Dashboard'...
+2026-01-18T23:39:21.9332631Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:39:21.9340314Z [CACHE HIT] 2cbaff26... (hits: 3, misses: 15)
+2026-01-18T23:39:21.9341364Z     ⚠️ Skipping duplicate injection: Learn more
+2026-01-18T23:39:21.9341944Z     🔄 Retry 2/3 mining locators for 'Dashboard'...
+2026-01-18T23:39:22.9356327Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:39:22.9358601Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:39:23.3357965Z     🧠 Consulting AI (Vision-First) to find 'Dashboard'...
+2026-01-18T23:39:23.3360558Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:39:23.3370441Z [CACHE HIT] 2cbaff26... (hits: 4, misses: 15)
+2026-01-18T23:39:23.3371624Z     ⚠️ Skipping duplicate injection: Learn more
+2026-01-18T23:39:23.3372656Z     🧠 Verifying step validity for 'Dashboard' after no candidates found...
+2026-01-18T23:39:24.7529565Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:39:24.7530402Z [DEBUG] Received response (Length: 246)
+2026-01-18T23:39:24.7533027Z     🗑️ Step deemed INVALID: The current page displays cookie information and preferences, not the main OrangeHRM dashboard. Therefore, the 'Dashboard' element is not present on this page, and the step is invalid.. Removing from workflow.
+2026-01-18T23:39:24.7535613Z     ⏭️ Skipping execution of invalid step: Dashboard
+2026-01-18T23:39:24.7536377Z   ▶️ [STEP step_7] CLICK: PIM
+2026-01-18T23:39:24.7678701Z     🔍 Mining locators for: 'PIM'
+2026-01-18T23:39:25.1520886Z     🧠 Consulting AI (Vision-First) to find 'PIM'...
+2026-01-18T23:39:25.1523288Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:39:29.9186470Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:39:29.9186996Z [DEBUG] Received response (Length: 384)
+2026-01-18T23:39:29.9188751Z     💡 Expert Suggestion: The current page displays cookie information and preferences, not the main HR management features. 'PIM' is a module within the HR system and would be found in the main navigation.
+2026-01-18T23:39:29.9190149Z     🛠️ Executing corrective action: click -> 'the main navigation menu (usually a hamburger icon or a list of modules)'
+2026-01-18T23:39:30.1673253Z     🔄 Retry 1/3 mining locators for 'PIM'...
+2026-01-18T23:39:31.5541636Z     🧠 Consulting AI (Vision-First) to find 'PIM'...
+2026-01-18T23:39:31.5544417Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:39:31.5552547Z [CACHE HIT] 10c8f3c9... (hits: 5, misses: 17)
+2026-01-18T23:39:31.5553936Z     ⚠️ Skipping duplicate injection: the main navigation menu (usually a hamburger icon or a list of modules)
+2026-01-18T23:39:31.5554713Z     🔄 Retry 2/3 mining locators for 'PIM'...
+2026-01-18T23:39:32.5569562Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:39:32.5570870Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:39:32.9684185Z     🧠 Consulting AI (Vision-First) to find 'PIM'...
+2026-01-18T23:39:32.9686943Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:39:32.9696409Z [CACHE HIT] 10c8f3c9... (hits: 6, misses: 17)
+2026-01-18T23:39:32.9697873Z     ⚠️ Skipping duplicate injection: the main navigation menu (usually a hamburger icon or a list of modules)
+2026-01-18T23:39:32.9699094Z     🧠 Verifying step validity for 'PIM' after no candidates found...
+2026-01-18T23:39:34.6868495Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:39:34.6869453Z [DEBUG] Received response (Length: 230)
+2026-01-18T23:39:34.6871810Z     🗑️ Step deemed INVALID: The current page appears to be a cookie consent page, not the main OrangeHRM website. Therefore, the 'PIM' element is not present on this page, and the step is invalid.. Removing from workflow.
+2026-01-18T23:39:34.6874049Z     ⏭️ Skipping execution of invalid step: PIM
+2026-01-18T23:39:34.6874784Z   ▶️ [STEP step_8] ASSERT_URL: 
+2026-01-18T23:39:39.7181530Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T23:39:41.7206571Z     ✅ State transitioned.
+2026-01-18T23:39:43.7172898Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:39:43.7173840Z [DEBUG] Received response (Length: 365)
+2026-01-18T23:39:43.7174856Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T23:39:43.7176806Z     💭 Reasoning: The current page is a cookie consent page, and the previous actions suggest an attempt to add an admin. Since the current page doesn't directly relate to HR management features or user onboarding flows, and there are no actionable elements related to the goal, it's best to consider the current exploration path as complete.
+2026-01-18T23:39:43.7179099Z   ▶️ [STEP step_9] CLICK: Add
+2026-01-18T23:39:43.7310549Z     🔍 Mining locators for: 'Add'
+2026-01-18T23:39:44.3211046Z     ✅ Found 1 verified locators
+2026-01-18T23:39:47.9797277Z     ✅ State transitioned.
+2026-01-18T23:39:50.4218384Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:39:50.4219248Z [DEBUG] Received response (Length: 351)
+2026-01-18T23:39:50.4220342Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T23:39:50.4222049Z     💭 Reasoning: The current page is the landing page of orangehrm.com, and the previous actions were related to adding an admin user. Since the current page doesn't directly relate to that goal, and there are no clear HR management features to test on this page, it's best to consider the current exploration path as complete.
+2026-01-18T23:39:50.4223894Z   ▶️ [STEP step_10] ASSERT_VISIBLE: Add Employee
+2026-01-18T23:39:50.4354713Z     🔍 Mining locators for: 'Add Employee'
+2026-01-18T23:39:50.8398777Z     🧠 Consulting AI (Vision-First) to find 'Add Employee'...
+2026-01-18T23:39:50.8402633Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:39:55.5824037Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:39:55.5824812Z [DEBUG] Received response (Length: 182)
+2026-01-18T23:39:55.5825717Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-18T23:39:55.5826335Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-18T23:39:56.4663121Z     ✅ Executed corrective navigation
+2026-01-18T23:39:58.4690441Z     🔄 Retry 1/3 mining locators for 'Add Employee'...
+2026-01-18T23:39:59.9191561Z     🧠 Consulting AI (Vision-First) to find 'Add Employee'...
+2026-01-18T23:39:59.9194019Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:40:03.3048565Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:40:03.3049962Z [DEBUG] Received response (Length: 389)
+2026-01-18T23:40:03.3053497Z     💡 Expert Suggestion: The current page appears to be a marketing page or cookie information page. 'Add Employee' functionality is likely within the application itself, accessible after navigating to the main application, possibly through a 'Learn more' or similar link.
+2026-01-18T23:40:03.3056330Z     🛠️ Executing corrective action: click -> 'Learn more'
+2026-01-18T23:40:04.3849289Z     ✅ Executed corrective navigation
+2026-01-18T23:40:06.3876013Z     🔄 Retry 2/3 mining locators for 'Add Employee'...
+2026-01-18T23:40:07.3893340Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:40:07.3894823Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:40:07.6746358Z     🧠 Consulting AI (Vision-First) to find 'Add Employee'...
+2026-01-18T23:40:07.6749327Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:40:07.6762649Z [CACHE HIT] 8978c7c1... (hits: 7, misses: 22)
+2026-01-18T23:40:07.6763530Z     ⚠️ Skipping duplicate injection: Learn more
+2026-01-18T23:40:07.6764578Z     🧠 Verifying step validity for 'Add Employee' after no candidates found...
+2026-01-18T23:40:09.2519076Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:40:09.2519948Z [DEBUG] Received response (Length: 239)
+2026-01-18T23:40:09.2522459Z     🗑️ Step deemed INVALID: The current page displays cookie information and advertisements, not the OrangeHRM application itself. Therefore, the 'Add Employee' functionality is not available on this page.. Removing from workflow.
+2026-01-18T23:40:09.2524078Z     ⏭️ Skipping execution of invalid step: Add Employee
+2026-01-18T23:40:09.2524523Z   ▶️ [STEP step_11] FILL: First Name
+2026-01-18T23:40:09.2673587Z     🔍 Mining locators for: 'First Name'
+2026-01-18T23:40:09.7345013Z     🧠 Consulting AI (Vision-First) to find 'First Name'...
+2026-01-18T23:40:09.7347974Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:40:15.5506722Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:40:15.5507313Z [DEBUG] Received response (Length: 290)
+2026-01-18T23:40:15.5509164Z     💡 Expert Suggestion: The image shows marketing and cookie information, not an HR management form. Clicking 'Learn more' might lead to a page with HR management features.
+2026-01-18T23:40:15.5510885Z     🛠️ Executing corrective action: click -> 'Learn more'
+2026-01-18T23:40:16.6339548Z     ✅ Executed corrective navigation
+2026-01-18T23:40:18.6369571Z     🔄 Retry 1/3 mining locators for 'First Name'...
+2026-01-18T23:40:20.1554939Z     🧠 Consulting AI (Vision-First) to find 'First Name'...
+2026-01-18T23:40:20.1557056Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:40:20.1564193Z [CACHE HIT] 02ea913b... (hits: 8, misses: 24)
+2026-01-18T23:40:20.1565043Z     ⚠️ Skipping duplicate injection: Learn more
+2026-01-18T23:40:20.1565876Z     🔄 Retry 2/3 mining locators for 'First Name'...
+2026-01-18T23:40:21.1584226Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:40:21.1587210Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:40:21.4686834Z     🧠 Consulting AI (Vision-First) to find 'First Name'...
+2026-01-18T23:40:21.4692329Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:40:21.4701355Z [CACHE HIT] 02ea913b... (hits: 9, misses: 24)
+2026-01-18T23:40:21.4702630Z     ⚠️ Skipping duplicate injection: Learn more
+2026-01-18T23:40:21.4703310Z     🧠 Verifying step validity for 'First Name' after no candidates found...
+2026-01-18T23:40:22.8795686Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:40:22.8796444Z [DEBUG] Received response (Length: 213)
+2026-01-18T23:40:22.8798362Z     🗑️ Step deemed INVALID: The current page displays cookie information and advertisements. There is no "First Name" field visible on this page. Therefore, the task is invalid.. Removing from workflow.
+2026-01-18T23:40:22.8799550Z     ⏭️ Skipping execution of invalid step: First Name
+2026-01-18T23:40:22.8799960Z   ▶️ [STEP step_12] FILL: Last Name
+2026-01-18T23:40:22.8935586Z     🔍 Mining locators for: 'Last Name'
+2026-01-18T23:40:23.4143668Z     🧠 Consulting AI (Vision-First) to find 'Last Name'...
+2026-01-18T23:40:23.4146246Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:40:30.1619795Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:40:30.1620669Z [DEBUG] Received response (Length: 396)
+2026-01-18T23:40:30.1623499Z     💡 Expert Suggestion: The term 'Last Name' is not visible in the current context. It is likely part of a form within the OrangeHRM platform, potentially related to user registration or profile settings. Clicking 'Learn more' might lead to a page with user management features.
+2026-01-18T23:40:30.1626160Z     🛠️ Executing corrective action: click -> 'Learn more'
+2026-01-18T23:40:31.1913591Z     ✅ Executed corrective navigation
+2026-01-18T23:40:33.1940752Z     🔄 Retry 1/3 mining locators for 'Last Name'...
+2026-01-18T23:40:34.4335860Z     🧠 Consulting AI (Vision-First) to find 'Last Name'...
+2026-01-18T23:40:34.4338255Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:40:34.4348256Z [CACHE HIT] f8aee456... (hits: 10, misses: 26)
+2026-01-18T23:40:34.4349142Z     ⚠️ Skipping duplicate injection: Learn more
+2026-01-18T23:40:34.4349869Z     🔄 Retry 2/3 mining locators for 'Last Name'...
+2026-01-18T23:40:35.4364820Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:40:35.4367114Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:40:35.8524682Z     🧠 Consulting AI (Vision-First) to find 'Last Name'...
+2026-01-18T23:40:35.8527799Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:40:35.8538461Z [CACHE HIT] f8aee456... (hits: 11, misses: 26)
+2026-01-18T23:40:35.8539340Z     ⚠️ Skipping duplicate injection: Learn more
+2026-01-18T23:40:35.8540066Z     🧠 Verifying step validity for 'Last Name' after no candidates found...
+2026-01-18T23:40:37.3391365Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:40:37.3392266Z [DEBUG] Received response (Length: 273)
+2026-01-18T23:40:37.3394799Z     🗑️ Step deemed INVALID: The current page displays information about marketing cookies and does not contain any HR management features or a "Last Name" field. Therefore, interacting with "Last Name" is not a valid step on this page.. Removing from workflow.
+2026-01-18T23:40:37.3397163Z     ⏭️ Skipping execution of invalid step: Last Name
+2026-01-18T23:40:37.3398279Z   ▶️ [STEP step_13] CLICK: Save
+2026-01-18T23:40:37.3537970Z     🔍 Mining locators for: 'Save'
+2026-01-18T23:40:37.7856303Z     🧠 Consulting AI (Vision-First) to find 'Save'...
+2026-01-18T23:40:37.7860279Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:40:43.0250033Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:40:43.0250794Z [DEBUG] Received response (Length: 396)
+2026-01-18T23:40:43.0253801Z     💡 Expert Suggestion: The 'Save' button is likely associated with settings or configuration options related to the cookies or marketing preferences mentioned on the page. Clicking 'Learn more' might lead to a page where these settings, and thus the 'Save' button, are located.
+2026-01-18T23:40:43.0256529Z     🛠️ Executing corrective action: click -> 'Learn more'
+2026-01-18T23:40:43.9956217Z     ✅ Executed corrective navigation
+2026-01-18T23:40:45.9980129Z     🔄 Retry 1/3 mining locators for 'Save'...
+2026-01-18T23:40:47.2539303Z     🧠 Consulting AI (Vision-First) to find 'Save'...
+2026-01-18T23:40:47.2541495Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:40:47.2551289Z [CACHE HIT] 9b31dfd6... (hits: 12, misses: 28)
+2026-01-18T23:40:47.2552172Z     ⚠️ Skipping duplicate injection: Learn more
+2026-01-18T23:40:47.2552712Z     🔄 Retry 2/3 mining locators for 'Save'...
+2026-01-18T23:40:48.2568906Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:40:48.2570446Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:40:48.7054539Z     🧠 Consulting AI (Vision-First) to find 'Save'...
+2026-01-18T23:40:48.7057168Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:40:48.7067850Z [CACHE HIT] 9b31dfd6... (hits: 13, misses: 28)
+2026-01-18T23:40:48.7068686Z     ⚠️ Skipping duplicate injection: Learn more
+2026-01-18T23:40:48.7069521Z     🧠 Verifying step validity for 'Save' after no candidates found...
+2026-01-18T23:40:50.8614751Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:40:50.8615671Z [DEBUG] Received response (Length: 274)
+2026-01-18T23:40:50.8618599Z     🗑️ Step deemed INVALID: The current page displays cookie information and marketing content. There is no HR management interface visible, and therefore no "Save" button related to HR features would be present. We are on the wrong page.. Removing from workflow.
+2026-01-18T23:40:50.8620888Z     ⏭️ Skipping execution of invalid step: Save
+2026-01-18T23:40:50.8621385Z   ▶️ [STEP step_14] ASSERT_VISIBLE: Personal Details
+2026-01-18T23:40:50.8758255Z     🔍 Mining locators for: 'Personal Details'
+2026-01-18T23:40:51.2898828Z     🧠 Consulting AI (Vision-First) to find 'Personal Details'...
+2026-01-18T23:40:51.2901153Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:40:55.7354025Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:40:55.7354971Z [DEBUG] Received response (Length: 391)
+2026-01-18T23:40:55.7359086Z     💡 Expert Suggestion: The current page appears to be a privacy/cookie information page. 'Personal Details' would likely be found within the HR management application itself, accessible via the 'Learn more' link which likely navigates to the OrangeHRM Rosters application.
+2026-01-18T23:40:55.7361399Z     🛠️ Executing corrective action: click -> 'Learn more'
+2026-01-18T23:40:56.6009334Z     ✅ Executed corrective navigation
+2026-01-18T23:40:58.6033906Z     🔄 Retry 1/3 mining locators for 'Personal Details'...
+2026-01-18T23:41:00.0444325Z     🧠 Consulting AI (Vision-First) to find 'Personal Details'...
+2026-01-18T23:41:00.0446412Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:41:00.0458100Z [CACHE HIT] 4277b2f7... (hits: 14, misses: 30)
+2026-01-18T23:41:00.0458904Z     ⚠️ Skipping duplicate injection: Learn more
+2026-01-18T23:41:00.0459835Z     🔄 Retry 2/3 mining locators for 'Personal Details'...
+2026-01-18T23:41:01.0476644Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:41:01.0479844Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:41:01.4792066Z     🧠 Consulting AI (Vision-First) to find 'Personal Details'...
+2026-01-18T23:41:01.4794845Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:41:01.4806919Z [CACHE HIT] 4277b2f7... (hits: 15, misses: 30)
+2026-01-18T23:41:01.4808228Z     ⚠️ Skipping duplicate injection: Learn more
+2026-01-18T23:41:01.4809431Z     🧠 Verifying step validity for 'Personal Details' after no candidates found...
+2026-01-18T23:41:03.1079932Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:41:03.1080771Z [DEBUG] Received response (Length: 312)
+2026-01-18T23:41:03.1083381Z     🗑️ Step deemed INVALID: The screenshot shows a page related to cookie information and advertisements, not the OrangeHRM dashboard or employee management section where 'Personal Details' would be located. Therefore, the element 'Personal Details' does not exist on this page.. Removing from workflow.
+2026-01-18T23:41:03.1084908Z     ⏭️ Skipping execution of invalid step: Personal Details
+2026-01-18T23:41:05.1849948Z 
+2026-01-18T23:41:05.1852307Z [2/3] Exploring Scenario: HR Management - Leave Request
+2026-01-18T23:41:05.1854371Z     🧠 Initialized exploration context for goal: 'Test HR management features'
+2026-01-18T23:41:05.1856423Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T23:41:06.8152569Z     ✅ Navigated to https://opensource-demo.orangehrmlive.com/
+2026-01-18T23:41:06.8155190Z   ▶️ [STEP step_2] FILL: Username
+2026-01-18T23:41:06.8556582Z     🔍 Mining locators for: 'Username'
+2026-01-18T23:41:06.9939755Z     ✅ Found 5 verified locators
+2026-01-18T23:41:12.2029235Z     ✅ State transitioned.
+2026-01-18T23:41:12.2744811Z [CACHE HIT] 2a5dfe92... (hits: 16, misses: 31)
+2026-01-18T23:41:12.2748841Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T23:41:12.2751802Z     🧩 Suggested Locator: input[name='password']
+2026-01-18T23:41:12.2752972Z     💭 Reasoning: The username has been filled. Now filling the password field to proceed with login.
+2026-01-18T23:41:12.2754166Z     ➕ Injected AI step: fill -> Password
+2026-01-18T23:41:12.2754864Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-18T23:41:12.2849145Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-18T23:41:12.2944097Z     ✅ Found 1 verified locators
+2026-01-18T23:41:18.4518574Z     ✅ State transitioned.
+2026-01-18T23:41:18.5236357Z [CACHE HIT] cc78f28e... (hits: 17, misses: 31)
+2026-01-18T23:41:18.5238394Z     🤖 AI Next Step Suggestion: click -> Login
+2026-01-18T23:41:18.5239232Z     🧩 Suggested Locator: button
+2026-01-18T23:41:18.5240958Z     💭 Reasoning: Now that the username and password have been entered, the next step is to click the Login button to access the system and begin testing HR management features.
+2026-01-18T23:41:18.5242565Z     ➕ Injected AI step: click -> Login
+2026-01-18T23:41:18.5243413Z   ▶️ [STEP step_2_ai_2] CLICK: Login
+2026-01-18T23:41:18.5334305Z     🎯 Using AI-provided locator: button
+2026-01-18T23:41:18.5427688Z     ✅ Found 1 verified locators
+2026-01-18T23:41:22.6088983Z     ✅ State transitioned.
+2026-01-18T23:41:24.3255061Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:41:24.3255817Z [DEBUG] Received response (Length: 269)
+2026-01-18T23:41:24.3256839Z     🤖 AI Next Step Suggestion: click -> PIM
+2026-01-18T23:41:24.3257882Z     🧩 Suggested Locator: a[href*='/pim/viewPimModule']
+2026-01-18T23:41:24.3259610Z     💭 Reasoning: Navigating to the PIM (Personnel Information Management) module is a logical next step in testing HR management features, as it allows for managing employee data.
+2026-01-18T23:41:24.3261133Z     ➕ Injected AI step: click -> PIM
+2026-01-18T23:41:24.3261554Z   ▶️ [STEP step_2_ai_3] CLICK: PIM
+2026-01-18T23:41:24.3525736Z     🎯 Using AI-provided locator: a[href*='/pim/viewPimModule']
+2026-01-18T23:41:24.3645134Z     ✅ Found 1 verified locators
+2026-01-18T23:41:28.4879120Z     ✅ State transitioned.
+2026-01-18T23:41:30.1623974Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:41:30.1624528Z [DEBUG] Received response (Length: 215)
+2026-01-18T23:41:30.1625508Z     🤖 AI Next Step Suggestion: click -> Add Employee
+2026-01-18T23:41:30.1626838Z     💭 Reasoning: Navigating to the 'Add Employee' page is a logical step within the PIM module to test HR management features.
+2026-01-18T23:41:30.1628196Z     ➕ Injected AI step: click -> Add Employee
+2026-01-18T23:41:30.1628640Z   ▶️ [STEP step_2_ai_4] CLICK: Add Employee
+2026-01-18T23:41:30.1920999Z     🔍 Mining locators for: 'Add Employee'
+2026-01-18T23:41:31.0249844Z     ✅ Found 1 verified locators
+2026-01-18T23:41:34.6121906Z     ✅ State transitioned.
+2026-01-18T23:41:36.5048623Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:41:36.5049484Z [DEBUG] Received response (Length: 247)
+2026-01-18T23:41:36.5050525Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T23:41:36.5051229Z     🧩 Suggested Locator: input[name='firstName']
+2026-01-18T23:41:36.5052002Z     💭 Reasoning: The 'Add Employee' form is open, and the next logical step is to fill in the required fields, starting with 'First Name'.
+2026-01-18T23:41:36.5052700Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T23:41:36.5053074Z   ▶️ [STEP step_2_ai_5] FILL: First Name
+2026-01-18T23:41:36.5271708Z     🎯 Using AI-provided locator: input[name='firstName']
+2026-01-18T23:41:36.5389080Z     ✅ Found 1 verified locators
+2026-01-18T23:41:42.0998412Z     ✅ State transitioned.
+2026-01-18T23:41:43.7118985Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:41:43.7120629Z [DEBUG] Received response (Length: 192)
+2026-01-18T23:41:43.7121865Z     🤖 AI Next Step Suggestion: FILL -> Last Name
+2026-01-18T23:41:43.7122836Z     🧩 Suggested Locator: input[name='lastName']
+2026-01-18T23:41:43.7128180Z     💭 Reasoning: Filling out the last name field to complete the employee information.
+2026-01-18T23:41:43.7129663Z     ➕ Injected AI step: FILL -> Last Name
+2026-01-18T23:41:43.7130472Z   ▶️ [STEP step_2_ai_6] FILL: Last Name
+2026-01-18T23:41:43.7302114Z     🎯 Using AI-provided locator: input[name='lastName']
+2026-01-18T23:41:43.7390435Z     ✅ Found 1 verified locators
+2026-01-18T23:41:46.7787343Z     ✅ State transitioned.
+2026-01-18T23:41:46.7872189Z     🔄 Revisited state detected (count: 1)
+2026-01-18T23:41:48.4329878Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:41:48.4330859Z [DEBUG] Received response (Length: 178)
+2026-01-18T23:41:48.4332087Z     🤖 AI Next Step Suggestion: fill -> Middle Name
+2026-01-18T23:41:48.4332754Z     🧩 Suggested Locator: input[name='middleName']
+2026-01-18T23:41:48.4333346Z     💭 Reasoning: Need to fill in the middle name to complete the form.
+2026-01-18T23:41:48.4333884Z     ➕ Injected AI step: fill -> Middle Name
+2026-01-18T23:41:48.4334383Z   ▶️ [STEP step_2_ai_7] FILL: Middle Name
+2026-01-18T23:41:48.4422342Z     🎯 Using AI-provided locator: input[name='middleName']
+2026-01-18T23:41:48.4532318Z     ✅ Found 1 verified locators
+2026-01-18T23:41:53.6572430Z     ✅ State transitioned.
+2026-01-18T23:41:55.4339674Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:41:55.4340532Z [DEBUG] Received response (Length: 254)
+2026-01-18T23:41:55.4341693Z     🤖 AI Next Step Suggestion: FILL -> Last Name
+2026-01-18T23:41:55.4342430Z     🧩 Suggested Locator: input[name='lastName']
+2026-01-18T23:41:55.4343372Z     💭 Reasoning: The first and middle names have been filled. Filling the last name is the next logical step to complete the employee's full name.
+2026-01-18T23:41:55.4344282Z     ➕ Injected AI step: FILL -> Last Name
+2026-01-18T23:41:55.4346834Z   ▶️ [STEP step_2_ai_8] FILL: Last Name
+2026-01-18T23:41:55.4430438Z     🎯 Using AI-provided locator: input[name='lastName']
+2026-01-18T23:41:55.4524180Z     ✅ Found 1 verified locators
+2026-01-18T23:41:58.4951653Z     ✅ State transitioned.
+2026-01-18T23:41:58.5044975Z     🔄 Revisited state detected (count: 1)
+2026-01-18T23:42:00.6680397Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:42:00.6681411Z [DEBUG] Received response (Length: 193)
+2026-01-18T23:42:00.6682595Z     🤖 AI Next Step Suggestion: FILL -> Last Name
+2026-01-18T23:42:00.6683296Z     🧩 Suggested Locator: input[name='lastName']
+2026-01-18T23:42:00.6684374Z     💭 Reasoning: The last name field is still empty and is required to add an employee.
+2026-01-18T23:42:00.6685720Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:42:00.6686694Z   ▶️ [STEP step_3] FILL: Password
+2026-01-18T23:42:00.6775140Z     🔍 Mining locators for: 'Password'
+2026-01-18T23:42:00.7528528Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T23:42:00.7530881Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:42:05.2722740Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:42:05.2723616Z [DEBUG] Received response (Length: 223)
+2026-01-18T23:42:05.2725167Z     💡 Expert Suggestion: The password field should appear after enabling 'Create Login Details'.
+2026-01-18T23:42:05.2726510Z     🛠️ Executing corrective action: click -> 'Create Login Details'
+2026-01-18T23:42:05.8755999Z     ✅ Executed corrective navigation
+2026-01-18T23:42:07.8781922Z     🔄 Retry 1/3 mining locators for 'Password'...
+2026-01-18T23:42:08.9490088Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T23:42:08.9493029Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:42:10.6563803Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:42:10.6564699Z [DEBUG] Received response (Length: 371)
+2026-01-18T23:42:10.6566516Z     💡 Expert Suggestion: The 'Create Login Details' toggle suggests password creation is on this page, but it's not immediately visible. Clicking 'Add Employee' might reveal the password fields after the employee is added or when the toggle is enabled.
+2026-01-18T23:42:10.6568296Z     🛠️ Executing corrective action: click -> 'Add Employee'
+2026-01-18T23:42:11.7536897Z     ✅ Executed corrective navigation
+2026-01-18T23:42:13.7556921Z     🔄 Retry 2/3 mining locators for 'Password'...
+2026-01-18T23:42:14.7571631Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:42:14.7573491Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:42:14.8514418Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T23:42:14.8516876Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:42:16.1478698Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:42:16.1479562Z [DEBUG] Received response (Length: 257)
+2026-01-18T23:42:16.1480715Z     ⚠️ Skipping duplicate injection: Create Login Details
+2026-01-18T23:42:16.1481417Z     🧠 Verifying step validity for 'Password' after no candidates found...
+2026-01-18T23:42:21.7218737Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:42:21.7219751Z [DEBUG] Received response (Length: 218)
+2026-01-18T23:42:21.7222522Z     🗑️ Step deemed INVALID: The 'Password' field is not visible on the page. The 'Create Login Details' toggle needs to be switched on first to reveal the username and password fields.. Removing from workflow.
+2026-01-18T23:42:21.7224525Z     ⏭️ Skipping execution of invalid step: Password
+2026-01-18T23:42:21.7225274Z   ▶️ [STEP step_4] CLICK: Login
+2026-01-18T23:42:21.7443480Z     🔍 Mining locators for: 'Login'
+2026-01-18T23:42:21.8299643Z     ✅ Found 1 verified locators
+2026-01-18T23:42:25.4227031Z     ✅ State transitioned.
+2026-01-18T23:42:26.8623931Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:42:26.8624700Z [DEBUG] Received response (Length: 171)
+2026-01-18T23:42:26.8625821Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T23:42:26.8626515Z     🧩 Suggested Locator: input[name='firstName']
+2026-01-18T23:42:26.8626998Z     💭 Reasoning: Fill the first name field to add an employee.
+2026-01-18T23:42:26.8628046Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T23:42:26.8628499Z   ▶️ [STEP step_4_ai_1] FILL: First Name
+2026-01-18T23:42:26.8716158Z     🎯 Using AI-provided locator: input[name='firstName']
+2026-01-18T23:42:26.8838386Z     ✅ Found 1 verified locators
+2026-01-18T23:42:32.2894644Z     ✅ State transitioned.
+2026-01-18T23:42:33.9148937Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:42:33.9149710Z [DEBUG] Received response (Length: 227)
+2026-01-18T23:42:33.9150786Z     🤖 AI Next Step Suggestion: fill -> Middle Name
+2026-01-18T23:42:33.9151584Z     🧩 Suggested Locator: input[name='middleName']
+2026-01-18T23:42:33.9152735Z     💭 Reasoning: The first name and last name have been filled, so the next logical step is to fill the middle name.
+2026-01-18T23:42:33.9154018Z     ➕ Injected AI step: fill -> Middle Name
+2026-01-18T23:42:33.9154690Z   ▶️ [STEP step_4_ai_2] FILL: Middle Name
+2026-01-18T23:42:33.9237143Z     🎯 Using AI-provided locator: input[name='middleName']
+2026-01-18T23:42:33.9339387Z     ✅ Found 1 verified locators
+2026-01-18T23:42:39.3201072Z     ✅ State transitioned.
+2026-01-18T23:42:40.8147176Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:42:40.8148762Z [DEBUG] Received response (Length: 215)
+2026-01-18T23:42:40.8149892Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T23:42:40.8150394Z     🧩 Suggested Locator: input[name='lastName']
+2026-01-18T23:42:40.8151033Z     💭 Reasoning: The last name field is visible and needs to be filled to complete the employee information.
+2026-01-18T23:42:40.8151610Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T23:42:40.8151966Z   ▶️ [STEP step_4_ai_3] FILL: Last Name
+2026-01-18T23:42:40.8241380Z     🎯 Using AI-provided locator: input[name='lastName']
+2026-01-18T23:42:40.8367265Z     ✅ Found 1 verified locators
+2026-01-18T23:42:46.2702489Z     ✅ State transitioned.
+2026-01-18T23:42:48.2825995Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:42:48.2826760Z [DEBUG] Received response (Length: 190)
+2026-01-18T23:42:48.2828011Z     🤖 AI Next Step Suggestion: click -> Save
+2026-01-18T23:42:48.2828432Z     🧩 Suggested Locator: text=Save
+2026-01-18T23:42:48.2829591Z     💭 Reasoning: The form appears to be filled out, so clicking 'Save' is the next logical step to create the employee.
+2026-01-18T23:42:48.2830711Z     ➕ Injected AI step: click -> Save
+2026-01-18T23:42:48.2831140Z   ▶️ [STEP step_4_ai_4] CLICK: Save
+2026-01-18T23:42:48.2923716Z     🎯 Using AI-provided locator: text=Save
+2026-01-18T23:42:48.3050085Z     ✅ Found 1 verified locators
+2026-01-18T23:42:51.8707337Z     ✅ State transitioned.
+2026-01-18T23:42:51.8796863Z     🔄 Revisited state detected (count: 1)
+2026-01-18T23:42:53.5511111Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:42:53.5512130Z [DEBUG] Received response (Length: 179)
+2026-01-18T23:42:53.5513368Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T23:42:53.5514155Z     🧩 Suggested Locator: input[name='firstName']
+2026-01-18T23:42:53.5515180Z     💭 Reasoning: Need to fill the first name field to add an employee.
+2026-01-18T23:42:53.5516106Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T23:42:53.5516923Z   ▶️ [STEP step_4_ai_5] FILL: First Name
+2026-01-18T23:42:53.5614279Z     🎯 Using AI-provided locator: input[name='firstName']
+2026-01-18T23:42:53.5711866Z     ✅ Found 1 verified locators
+2026-01-18T23:43:01.9125360Z     ✅ State transitioned.
+2026-01-18T23:43:03.6850033Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:43:03.6850830Z [DEBUG] Received response (Length: 193)
+2026-01-18T23:43:03.6851814Z     🤖 AI Next Step Suggestion: click -> Save
+2026-01-18T23:43:03.6852411Z     🧩 Suggested Locator: text=Save
+2026-01-18T23:43:03.6853502Z     💭 Reasoning: The form has been filled with first name, middle name and last name. Clicking save will persist the data.
+2026-01-18T23:43:03.6854258Z     ➕ Injected AI step: click -> Save
+2026-01-18T23:43:03.6854699Z   ▶️ [STEP step_4_ai_6] CLICK: Save
+2026-01-18T23:43:03.6949298Z     🎯 Using AI-provided locator: text=Save
+2026-01-18T23:43:03.7093516Z     ✅ Found 1 verified locators
+2026-01-18T23:43:07.2777834Z     ✅ State transitioned.
+2026-01-18T23:43:08.9013746Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:43:08.9014813Z [DEBUG] Received response (Length: 217)
+2026-01-18T23:43:08.9015929Z     🤖 AI Next Step Suggestion: click -> Contact Details
+2026-01-18T23:43:08.9016429Z     🧩 Suggested Locator: a:contains('Contact Details')
+2026-01-18T23:43:08.9017124Z     💭 Reasoning: Now that the personal details are saved, the next logical step is to fill out the contact details.
+2026-01-18T23:43:08.9018294Z     ➕ Injected AI step: click -> Contact Details
+2026-01-18T23:43:08.9018729Z   ▶️ [STEP step_4_ai_7] CLICK: Contact Details
+2026-01-18T23:43:08.9114279Z     🎯 Using AI-provided locator: a:contains('Contact Details')
+2026-01-18T23:43:08.9169540Z     🔍 Mining locators for: 'Contact Details'
+2026-01-18T23:43:09.0617035Z     ✅ Found 3 verified locators
+2026-01-18T23:43:12.6392298Z     ✅ State transitioned.
+2026-01-18T23:43:14.2553187Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:43:14.2554074Z [DEBUG] Received response (Length: 198)
+2026-01-18T23:43:14.2555060Z     🤖 AI Next Step Suggestion: fill -> input
+2026-01-18T23:43:14.2555781Z     🧩 Suggested Locator: input[placeholder='Enter Street 1']
+2026-01-18T23:43:14.2556657Z     💭 Reasoning: Filling the address field to complete the contact details.
+2026-01-18T23:43:14.2557832Z     ➕ Injected AI step: fill -> input
+2026-01-18T23:43:14.2558452Z   ▶️ [STEP step_4_ai_8] FILL: input
+2026-01-18T23:43:14.2809938Z     🎯 Using AI-provided locator: input[placeholder='Enter Street 1']
+2026-01-18T23:43:14.2845150Z     🔍 Mining locators for: 'input'
+2026-01-18T23:43:14.3709045Z     🧠 Consulting AI (Vision-First) to find 'input'...
+2026-01-18T23:43:14.3711653Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:43:21.4903105Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:43:21.4903707Z [DEBUG] Received response (Length: 1514)
+2026-01-18T23:43:21.4904469Z     🔄 Retry 1/3 mining locators for 'input'...
+2026-01-18T23:43:22.5882785Z     🧠 Consulting AI (Vision-First) to find 'input'...
+2026-01-18T23:43:22.5885425Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:43:22.5894549Z [CACHE HIT] 283733ea... (hits: 18, misses: 51)
+2026-01-18T23:43:22.5895422Z     🔄 Retry 2/3 mining locators for 'input'...
+2026-01-18T23:43:23.5913007Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:43:23.5915037Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:43:23.8173562Z     🧠 Consulting AI (Vision-First) to find 'input'...
+2026-01-18T23:43:23.8176255Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:43:23.8186773Z [CACHE HIT] 283733ea... (hits: 19, misses: 51)
+2026-01-18T23:43:23.8188144Z     🧠 Verifying step validity for 'input' after mining failure...
+2026-01-18T23:43:25.2046971Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:43:25.2047898Z [DEBUG] Received response (Length: 329)
+2026-01-18T23:43:25.2048896Z     🛠️ Self-Correction: Step is valid. Using new locator: input[class='oxd-input oxd-input--active']
+2026-01-18T23:43:30.9970795Z     ✅ State transitioned.
+2026-01-18T23:43:32.6071993Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:43:32.6072914Z [DEBUG] Received response (Length: 259)
+2026-01-18T23:43:32.6077681Z     🤖 AI Next Step Suggestion: fill -> Street 1
+2026-01-18T23:43:32.6078596Z     🧩 Suggested Locator: input[name='street1']
+2026-01-18T23:43:32.6079777Z     💭 Reasoning: The current page is the Contact Details page. The next logical step is to fill in the address information, starting with Street 1.
+2026-01-18T23:43:32.6080862Z     ➕ Injected AI step: fill -> Street 1
+2026-01-18T23:43:32.6081373Z   ▶️ [STEP step_4_ai_9] FILL: Street 1
+2026-01-18T23:43:32.6183208Z     🎯 Using AI-provided locator: input[name='street1']
+2026-01-18T23:43:32.6213308Z     🔍 Mining locators for: 'Street 1'
+2026-01-18T23:43:32.7014812Z     🧠 Consulting AI (Vision-First) to find 'Street 1'...
+2026-01-18T23:43:32.7017702Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:43:38.3609655Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:43:38.3610449Z [DEBUG] Received response (Length: 777)
+2026-01-18T23:43:38.3611381Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T23:43:38.3612088Z   ▶️ [STEP step_5] CLICK: Leave
+2026-01-18T23:43:38.3703260Z     🔍 Mining locators for: 'Leave'
+2026-01-18T23:43:38.4540929Z     🧠 Consulting AI (Vision-First) to find 'Leave'...
+2026-01-18T23:43:38.4542915Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:43:42.5364393Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:43:42.5367027Z [DEBUG] Received response (Length: 232)
+2026-01-18T23:43:42.5368905Z     💡 Expert Suggestion: The 'Leave' option is likely under the 'Configuration' menu in an HR management system.
+2026-01-18T23:43:42.5369787Z     🛠️ Executing corrective action: click -> 'Configuration'
+2026-01-18T23:43:43.1393840Z     ✅ Executed corrective navigation
+2026-01-18T23:43:45.1418783Z     🔄 Retry 1/3 mining locators for 'Leave'...
+2026-01-18T23:43:46.2381454Z     🧠 Consulting AI (Vision-First) to find 'Leave'...
+2026-01-18T23:43:46.2383927Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:43:47.6394855Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:43:47.6395438Z [DEBUG] Received response (Length: 239)
+2026-01-18T23:43:47.6396188Z     ⚠️ Skipping duplicate injection: Configuration
+2026-01-18T23:43:47.6396706Z     🔄 Retry 2/3 mining locators for 'Leave'...
+2026-01-18T23:43:48.6411270Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:43:48.6415279Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:43:48.7304773Z     🧠 Consulting AI (Vision-First) to find 'Leave'...
+2026-01-18T23:43:48.7307162Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:43:48.7313792Z [CACHE HIT] a86a3f08... (hits: 20, misses: 56)
+2026-01-18T23:43:48.7314598Z     ⚠️ Skipping duplicate injection: Configuration
+2026-01-18T23:43:48.7315264Z     🧠 Verifying step validity for 'Leave' after no candidates found...
+2026-01-18T23:43:52.8039449Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:43:52.8040122Z [DEBUG] Received response (Length: 273)
+2026-01-18T23:43:52.8042596Z     🗑️ Step deemed INVALID: The 'Leave' option is not visible in the current screenshot. The current page is the 'Contact Details' page within the PIM module. 'Leave' is a separate module, and we need to navigate to the Leave module first.. Removing from workflow.
+2026-01-18T23:43:52.8044146Z     ⏭️ Skipping execution of invalid step: Leave
+2026-01-18T23:43:52.8044585Z   ▶️ [STEP step_6] ASSERT_URL: 
+2026-01-18T23:43:57.8283958Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T23:43:59.8308574Z     ✅ State transitioned.
+2026-01-18T23:44:01.2118178Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:44:01.2119026Z [DEBUG] Received response (Length: 201)
+2026-01-18T23:44:01.2120107Z     🤖 AI Next Step Suggestion: fill -> Street 1
+2026-01-18T23:44:01.2120835Z     🧩 Suggested Locator: input[placeholder='Street 1']
+2026-01-18T23:44:01.2121707Z     💭 Reasoning: Filling the street address to complete the contact details form.
+2026-01-18T23:44:01.2123433Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:44:01.2124027Z   ▶️ [STEP step_7] CLICK: Apply
+2026-01-18T23:44:01.2214495Z     🔍 Mining locators for: 'Apply'
+2026-01-18T23:44:01.2997714Z     🧠 Consulting AI (Vision-First) to find 'Apply'...
+2026-01-18T23:44:01.3000981Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:44:06.3089472Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:44:06.3090313Z [DEBUG] Received response (Length: 346)
+2026-01-18T23:44:06.3092937Z     💡 Expert Suggestion: The 'Apply' functionality is likely related to adding a new employee to the system. Clicking 'Add Employee' might lead to a form or section where you can apply for a position or add application details.
+2026-01-18T23:44:06.3095464Z     🛠️ Executing corrective action: click -> 'Add Employee'
+2026-01-18T23:44:07.4503122Z     ✅ Executed corrective navigation
+2026-01-18T23:44:09.4531580Z     🔄 Retry 1/3 mining locators for 'Apply'...
+2026-01-18T23:44:10.6802139Z     🧠 Consulting AI (Vision-First) to find 'Apply'...
+2026-01-18T23:44:10.6804961Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:44:12.1578313Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:44:12.1579169Z [DEBUG] Received response (Length: 248)
+2026-01-18T23:44:12.1585118Z     💡 Expert Suggestion: The 'Apply' functionality is typically found within the Recruitment module for managing job applications.
+2026-01-18T23:44:12.1586125Z     🛠️ Executing corrective action: click -> 'Recruitment'
+2026-01-18T23:44:13.8797967Z     ✅ Executed corrective navigation
+2026-01-18T23:44:15.8823245Z     🔄 Retry 2/3 mining locators for 'Apply'...
+2026-01-18T23:44:16.8836862Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:44:16.8839067Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:44:17.1447594Z     🧠 Consulting AI (Vision-First) to find 'Apply'...
+2026-01-18T23:44:17.1450054Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:44:18.6199088Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:44:18.6199829Z [DEBUG] Received response (Length: 210)
+2026-01-18T23:44:18.6200857Z     💡 Expert Suggestion: Clicking the 'Add' button will likely lead to a form where you can apply.
+2026-01-18T23:44:18.6201650Z     🛠️ Executing corrective action: click -> '+ Add'
+2026-01-18T23:44:19.0365027Z     🧠 Verifying step validity for 'Apply' after no candidates found...
+2026-01-18T23:44:23.5160309Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:44:23.5161160Z [DEBUG] Received response (Length: 292)
+2026-01-18T23:44:23.5163617Z     🗑️ Step deemed INVALID: The 'Apply' button is not visible on the 'Candidates' page. The page displays a search form and a list of candidates. The 'Apply' button would typically appear on a specific candidate's details page, which is not the current view.. Removing from workflow.
+2026-01-18T23:44:23.5165178Z     ⏭️ Skipping execution of invalid step: Apply
+2026-01-18T23:44:23.5165589Z   ▶️ [STEP step_8] ASSERT_VISIBLE: Apply Leave
+2026-01-18T23:44:23.5294357Z     🔍 Mining locators for: 'Apply Leave'
+2026-01-18T23:44:23.7406135Z     🧠 Consulting AI (Vision-First) to find 'Apply Leave'...
+2026-01-18T23:44:23.7408522Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:44:28.3842964Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:44:28.3843769Z [DEBUG] Received response (Length: 237)
+2026-01-18T23:44:28.3845122Z     💡 Expert Suggestion: "Apply Leave" functionality is typically found under the 'Leave' section in HR management systems.
+2026-01-18T23:44:28.3846137Z     🛠️ Executing corrective action: click -> 'Leave'
+2026-01-18T23:44:30.3713999Z     ✅ Executed corrective navigation
+2026-01-18T23:44:32.3736417Z     🔄 Retry 1/3 mining locators for 'Apply Leave'...
+2026-01-18T23:44:33.4890618Z     🧠 Consulting AI (Vision-First) to find 'Apply Leave'...
+2026-01-18T23:44:33.4893128Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:44:36.4503592Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:44:36.4504395Z [DEBUG] Received response (Length: 886)
+2026-01-18T23:44:36.4505371Z     🔄 Retry 2/3 mining locators for 'Apply Leave'...
+2026-01-18T23:44:37.4520550Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:44:37.4521827Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:44:37.5478852Z     🧠 Consulting AI (Vision-First) to find 'Apply Leave'...
+2026-01-18T23:44:37.5481707Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:44:40.9978137Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:44:40.9979204Z [DEBUG] Received response (Length: 586)
+2026-01-18T23:44:40.9980790Z     🧠 Verifying step validity for 'Apply Leave' after mining failure...
+2026-01-18T23:44:45.2347834Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:44:45.2349006Z [DEBUG] Received response (Length: 298)
+2026-01-18T23:44:45.2350380Z     🛠️ Self-Correction: Step is valid. Using new locator: a[href*='/web/index.php/leave/applyLeave']
+2026-01-18T23:44:50.7542129Z     ⚠️ Scroll into view failed for a[href*='/web/index.php/leave/applyLeave']. Proceeding anyway.
+2026-01-18T23:44:52.7566276Z     ✅ State transitioned.
+2026-01-18T23:44:54.0493059Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:44:54.0494028Z [DEBUG] Received response (Length: 179)
+2026-01-18T23:44:54.0495443Z     🤖 AI Next Step Suggestion: click -> Search
+2026-01-18T23:44:54.0496385Z     🧩 Suggested Locator: button[type='submit']
+2026-01-18T23:44:54.0497997Z     💭 Reasoning: To search for leave requests based on the selected criteria.
+2026-01-18T23:44:54.0499138Z     ➕ Injected AI step: click -> Search
+2026-01-18T23:44:54.0499978Z   ▶️ [STEP step_8_ai_1] CLICK: Search
+2026-01-18T23:44:54.0609556Z     🎯 Using AI-provided locator: button[type='submit']
+2026-01-18T23:44:54.0704689Z     ✅ Found 1 verified locators
+2026-01-18T23:44:58.1541665Z     ✅ State transitioned.
+2026-01-18T23:44:58.1643241Z     🔄 Revisited state detected (count: 1)
+2026-01-18T23:44:59.8604064Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:44:59.8604822Z [DEBUG] Received response (Length: 311)
+2026-01-18T23:44:59.8605889Z     🤖 AI Next Step Suggestion: click -> Search
+2026-01-18T23:44:59.8606498Z     🧩 Suggested Locator: button[type='submit']
+2026-01-18T23:44:59.8608593Z     💭 Reasoning: The page shows 'No Records Found'. Since we are on the Leave List page, clicking 'Search' will refresh the list and potentially show leave records if any exist based on the default date range.
+2026-01-18T23:44:59.8611442Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:44:59.8620164Z   ▶️ [STEP step_9] SELECT: Leave Type
+2026-01-18T23:44:59.8717809Z     🔍 Mining locators for: 'Leave Type'
+2026-01-18T23:45:00.0989563Z     🧠 Consulting AI (Vision-First) to find 'Leave Type'...
+2026-01-18T23:45:00.0992121Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:45:05.7675049Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:45:05.7675612Z [DEBUG] Received response (Length: 709)
+2026-01-18T23:45:05.7676363Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T23:45:05.7676741Z   ▶️ [STEP step_10] FILL: From Date
+2026-01-18T23:45:05.7770919Z     🔍 Mining locators for: 'From Date'
+2026-01-18T23:45:05.8752219Z     🧠 Consulting AI (Vision-First) to find 'From Date'...
+2026-01-18T23:45:05.8754935Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:45:10.2986371Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:45:10.2987252Z [DEBUG] Received response (Length: 580)
+2026-01-18T23:45:10.2988760Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T23:45:10.2989420Z   ▶️ [STEP step_11] FILL: To Date
+2026-01-18T23:45:10.3073142Z     🔍 Mining locators for: 'To Date'
+2026-01-18T23:45:10.4042128Z     🧠 Consulting AI (Vision-First) to find 'To Date'...
+2026-01-18T23:45:10.4044917Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:45:15.3355300Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:45:15.3356520Z [DEBUG] Received response (Length: 412)
+2026-01-18T23:45:15.3358424Z     🔄 Retry 1/3 mining locators for 'To Date'...
+2026-01-18T23:45:16.4358527Z     🧠 Consulting AI (Vision-First) to find 'To Date'...
+2026-01-18T23:45:16.4360928Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:45:16.4547839Z [CACHE HIT] 7a4c5574... (hits: 21, misses: 71)
+2026-01-18T23:45:16.4549171Z     🔄 Retry 2/3 mining locators for 'To Date'...
+2026-01-18T23:45:17.4563138Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:45:17.4565022Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:45:17.5532195Z     🧠 Consulting AI (Vision-First) to find 'To Date'...
+2026-01-18T23:45:17.5534942Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:45:17.5739401Z [CACHE HIT] 7a4c5574... (hits: 22, misses: 71)
+2026-01-18T23:45:17.5740940Z     🧠 Verifying step validity for 'To Date' after mining failure...
+2026-01-18T23:45:19.5854873Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:45:19.5855900Z [DEBUG] Received response (Length: 285)
+2026-01-18T23:45:19.5858134Z     🛠️ Self-Correction: Step is valid. Using new locator: div:nth-child(2) > div > div > div > div:nth-child(2) > div > div > input
+2026-01-18T23:45:25.9761148Z     ✅ State transitioned.
+2026-01-18T23:45:27.6438038Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:45:27.6440216Z [DEBUG] Received response (Length: 233)
+2026-01-18T23:45:27.6441530Z     🤖 AI Next Step Suggestion: click -> Search
+2026-01-18T23:45:27.6442343Z     🧩 Suggested Locator: button[type='submit']
+2026-01-18T23:45:27.6443598Z     💭 Reasoning: The 'To Date' field has been filled. Clicking 'Search' will display the leave list based on the provided criteria.
+2026-01-18T23:45:27.6444475Z     ➕ Injected AI step: click -> Search
+2026-01-18T23:45:27.6444914Z   ▶️ [STEP step_11_ai_1] CLICK: Search
+2026-01-18T23:45:27.6541882Z     🎯 Using AI-provided locator: button[type='submit']
+2026-01-18T23:45:27.6666299Z     ✅ Found 1 verified locators
+2026-01-18T23:45:31.7539060Z     ✅ State transitioned.
+2026-01-18T23:45:31.7637226Z     🔄 Revisited state detected (count: 1)
+2026-01-18T23:45:33.4257750Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:45:33.4258731Z [DEBUG] Received response (Length: 185)
+2026-01-18T23:45:33.4259568Z     🤖 AI Next Step Suggestion: click -> Search
+2026-01-18T23:45:33.4260047Z     🧩 Suggested Locator: Search
+2026-01-18T23:45:33.4277269Z     💭 Reasoning: Clicking search again after filling the 'To Date' field to filter the leave list.
+2026-01-18T23:45:33.4279462Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:45:33.4280354Z   ▶️ [STEP step_12] FILL: Comment
+2026-01-18T23:45:33.4384421Z     🔍 Mining locators for: 'Comment'
+2026-01-18T23:45:33.5326530Z     🧠 Consulting AI (Vision-First) to find 'Comment'...
+2026-01-18T23:45:33.5329488Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:45:39.0483671Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:45:39.0484992Z [DEBUG] Received response (Length: 627)
+2026-01-18T23:45:39.0486301Z     🔄 Retry 1/3 mining locators for 'Comment'...
+2026-01-18T23:45:40.1639080Z     🧠 Consulting AI (Vision-First) to find 'Comment'...
+2026-01-18T23:45:40.1644673Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:45:40.1727298Z [CACHE HIT] 0b2000a2... (hits: 23, misses: 75)
+2026-01-18T23:45:40.1728912Z     🔄 Retry 2/3 mining locators for 'Comment'...
+2026-01-18T23:45:41.1744656Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:45:41.1746948Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:45:41.4681545Z     🧠 Consulting AI (Vision-First) to find 'Comment'...
+2026-01-18T23:45:41.4682941Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:45:41.4781548Z [CACHE HIT] 0b2000a2... (hits: 24, misses: 75)
+2026-01-18T23:45:41.4784045Z     🧠 Verifying step validity for 'Comment' after mining failure...
+2026-01-18T23:45:43.3345701Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:45:43.3346491Z [DEBUG] Received response (Length: 321)
+2026-01-18T23:45:43.3348285Z     🛠️ Self-Correction: Step is valid. Using new locator: div.oxd-table-header > div > div:nth-child(6)
+2026-01-18T23:45:49.2518283Z     ✅ State transitioned.
+2026-01-18T23:45:49.2616177Z     🔄 Revisited state detected (count: 2)
+2026-01-18T23:45:51.1490664Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:45:51.1491411Z [DEBUG] Received response (Length: 279)
+2026-01-18T23:45:51.1492524Z     🤖 AI Next Step Suggestion: click -> Search
+2026-01-18T23:45:51.1493816Z     💭 Reasoning: After filling the 'To Date' and 'Comment' fields, the next logical step is to click the 'Search' button to apply the filter and view the leave list based on the provided criteria.
+2026-01-18T23:45:51.1494831Z     ➕ Injected AI step: click -> Search
+2026-01-18T23:45:51.1495196Z   ▶️ [STEP step_12_ai_1] CLICK: Search
+2026-01-18T23:45:51.1600034Z     🔍 Mining locators for: 'Search'
+2026-01-18T23:45:51.3044869Z     ✅ Found 4 verified locators
+2026-01-18T23:45:54.8852106Z     ✅ State transitioned.
+2026-01-18T23:45:56.5504714Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:45:56.5505449Z [DEBUG] Received response (Length: 228)
+2026-01-18T23:45:56.5506459Z     🤖 AI Next Step Suggestion: click -> Search
+2026-01-18T23:45:56.5507084Z     🧩 Suggested Locator: button[type='submit']
+2026-01-18T23:45:56.5508939Z     💭 Reasoning: The form has been filled with dates, and the next logical step is to search for leave requests based on the provided criteria.
+2026-01-18T23:45:56.5510475Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:45:56.5511193Z   ▶️ [STEP step_13] CLICK: Apply
+2026-01-18T23:45:56.5602744Z     🔍 Mining locators for: 'Apply'
+2026-01-18T23:45:56.6874413Z     ✅ Found 2 verified locators
+2026-01-18T23:46:00.2715752Z     ✅ State transitioned.
+2026-01-18T23:46:01.9326753Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:46:01.9328191Z [DEBUG] Received response (Length: 262)
+2026-01-18T23:46:01.9329581Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-18T23:46:01.9331680Z     💭 Reasoning: The page indicates 'No Leave Types with Leave Balance'. There are no actions available on this page to proceed with applying for leave. The goal of testing HR management features is unlikely to be achieved from this page.
+2026-01-18T23:46:01.9333313Z   ▶️ [STEP step_14] ASSERT_VISIBLE: Leave Request Successfully Sent
+2026-01-18T23:46:01.9550007Z     🔍 Mining locators for: 'Leave Request Successfully Sent'
+2026-01-18T23:46:02.0322659Z     🧠 Consulting AI (Vision-First) to find 'Leave Request Successfully Sent'...
+2026-01-18T23:46:02.0325181Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:46:06.9248309Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:46:06.9248950Z [DEBUG] Received response (Length: 312)
+2026-01-18T23:46:06.9249796Z     ⚠️ Skipping duplicate injection: Apply
+2026-01-18T23:46:06.9250373Z     🔄 Retry 1/3 mining locators for 'Leave Request Successfully Sent'...
+2026-01-18T23:46:08.0210155Z     🧠 Consulting AI (Vision-First) to find 'Leave Request Successfully Sent'...
+2026-01-18T23:46:08.0213191Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:46:08.0221477Z [CACHE HIT] 26fa38a0... (hits: 25, misses: 80)
+2026-01-18T23:46:08.0223074Z     ⚠️ Skipping duplicate injection: Apply
+2026-01-18T23:46:08.0223851Z     🔄 Retry 2/3 mining locators for 'Leave Request Successfully Sent'...
+2026-01-18T23:46:09.0239504Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:46:09.0240932Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:46:09.0974846Z     🧠 Consulting AI (Vision-First) to find 'Leave Request Successfully Sent'...
+2026-01-18T23:46:09.0977795Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:46:09.0983894Z [CACHE HIT] 26fa38a0... (hits: 26, misses: 80)
+2026-01-18T23:46:09.0984924Z     ⚠️ Skipping duplicate injection: Apply
+2026-01-18T23:46:09.0986045Z     🧠 Verifying step validity for 'Leave Request Successfully Sent' after no candidates found...
+2026-01-18T23:46:11.7920077Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:46:11.7920748Z [DEBUG] Received response (Length: 301)
+2026-01-18T23:46:11.7922859Z     🗑️ Step deemed INVALID: The page shows 'No Leave Types with Leave Balance'. This means no leave types are available to apply for. Therefore, it's impossible to have a 'Leave Request Successfully Sent' message at this stage. We need to configure leave types first.. Removing from workflow.
+2026-01-18T23:46:11.7924553Z     ⏭️ Skipping execution of invalid step: Leave Request Successfully Sent
+2026-01-18T23:46:13.8525391Z 
+2026-01-18T23:46:13.8527923Z [3/3] Exploring Scenario: HR Management - Recruitment Process
+2026-01-18T23:46:13.8530167Z     🧠 Initialized exploration context for goal: 'Test HR management features'
+2026-01-18T23:46:13.8531245Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-18T23:46:15.6099273Z     ✅ Navigated to https://opensource-demo.orangehrmlive.com/
+2026-01-18T23:46:15.6100423Z   ▶️ [STEP step_2] FILL: Username
+2026-01-18T23:46:15.6347129Z     🔍 Mining locators for: 'Username'
+2026-01-18T23:46:15.6745919Z     🧠 Consulting AI (Vision-First) to find 'Username'...
+2026-01-18T23:46:15.6748242Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:46:16.8140257Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:46:16.8141060Z [DEBUG] Received response (Length: 206)
+2026-01-18T23:46:16.8142500Z     💡 Expert Suggestion: The 'Username' field is typically found during the sign-up process.
+2026-01-18T23:46:16.8143304Z     🛠️ Executing corrective action: click -> 'Sign Up'
+2026-01-18T23:46:16.9022959Z     🔄 Retry 1/3 mining locators for 'Username'...
+2026-01-18T23:46:18.0095242Z     ✅ Found 5 verified locators
+2026-01-18T23:46:23.1825959Z     ✅ State transitioned.
+2026-01-18T23:46:23.3952279Z [CACHE HIT] 2a5dfe92... (hits: 27, misses: 82)
+2026-01-18T23:46:23.3953849Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-18T23:46:23.3954707Z     🧩 Suggested Locator: input[name='password']
+2026-01-18T23:46:23.3955637Z     💭 Reasoning: The username has been filled. Now filling the password field to proceed with login.
+2026-01-18T23:46:23.3956639Z     ➕ Injected AI step: fill -> Password
+2026-01-18T23:46:23.3957332Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-18T23:46:23.4052457Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-18T23:46:23.4144563Z     ✅ Found 1 verified locators
+2026-01-18T23:46:29.1845373Z     ✅ State transitioned.
+2026-01-18T23:46:29.2474292Z [CACHE HIT] cc78f28e... (hits: 28, misses: 82)
+2026-01-18T23:46:29.2475654Z     🤖 AI Next Step Suggestion: click -> Login
+2026-01-18T23:46:29.2477172Z     🧩 Suggested Locator: button
+2026-01-18T23:46:29.2479552Z     💭 Reasoning: Now that the username and password have been entered, the next step is to click the Login button to access the system and begin testing HR management features.
+2026-01-18T23:46:29.2480951Z     ➕ Injected AI step: click -> Login
+2026-01-18T23:46:29.2481545Z   ▶️ [STEP step_2_ai_2] CLICK: Login
+2026-01-18T23:46:29.2582907Z     🎯 Using AI-provided locator: button
+2026-01-18T23:46:29.2671630Z     ✅ Found 1 verified locators
+2026-01-18T23:46:33.3479412Z     ✅ State transitioned.
+2026-01-18T23:46:35.2782854Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:46:35.2785944Z [DEBUG] Received response (Length: 228)
+2026-01-18T23:46:35.2787856Z     🤖 AI Next Step Suggestion: click -> PIM
+2026-01-18T23:46:35.2788796Z     🧩 Suggested Locator: a[href*='/pim/viewPimModule']
+2026-01-18T23:46:35.2790356Z     💭 Reasoning: Navigating to the PIM (Personnel Information Management) module is a logical next step in testing HR management features.
+2026-01-18T23:46:35.2791792Z     ➕ Injected AI step: click -> PIM
+2026-01-18T23:46:35.2792467Z   ▶️ [STEP step_2_ai_3] CLICK: PIM
+2026-01-18T23:46:35.3099757Z     🎯 Using AI-provided locator: a[href*='/pim/viewPimModule']
+2026-01-18T23:46:35.3440885Z     ✅ Found 1 verified locators
+2026-01-18T23:46:39.4483634Z     ✅ State transitioned.
+2026-01-18T23:46:39.7919466Z [CACHE HIT] 63d1d19a... (hits: 29, misses: 83)
+2026-01-18T23:46:39.7921388Z     🤖 AI Next Step Suggestion: click -> Add Employee
+2026-01-18T23:46:39.7922935Z     💭 Reasoning: Navigating to the 'Add Employee' page is a logical step within the PIM module to test HR management features.
+2026-01-18T23:46:39.7929833Z     ➕ Injected AI step: click -> Add Employee
+2026-01-18T23:46:39.7930575Z   ▶️ [STEP step_2_ai_4] CLICK: Add Employee
+2026-01-18T23:46:39.8284237Z     🔍 Mining locators for: 'Add Employee'
+2026-01-18T23:46:40.5188060Z     ✅ Found 1 verified locators
+2026-01-18T23:46:44.1618056Z     ✅ State transitioned.
+2026-01-18T23:46:45.6798216Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:46:45.6798988Z [DEBUG] Received response (Length: 247)
+2026-01-18T23:46:45.6800866Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T23:46:45.6801623Z     🧩 Suggested Locator: input[name='firstName']
+2026-01-18T23:46:45.6802861Z     💭 Reasoning: The 'Add Employee' form is open, and the next logical step is to fill in the required fields, starting with 'First Name'.
+2026-01-18T23:46:45.6803965Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T23:46:45.6804373Z   ▶️ [STEP step_2_ai_5] FILL: First Name
+2026-01-18T23:46:45.7033017Z     🎯 Using AI-provided locator: input[name='firstName']
+2026-01-18T23:46:45.7142137Z     ✅ Found 1 verified locators
+2026-01-18T23:46:51.0949613Z     ✅ State transitioned.
+2026-01-18T23:46:52.7438433Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:46:52.7439280Z [DEBUG] Received response (Length: 185)
+2026-01-18T23:46:52.7440281Z     🤖 AI Next Step Suggestion: fill -> Middle Name
+2026-01-18T23:46:52.7440795Z     🧩 Suggested Locator: input[name='middleName']
+2026-01-18T23:46:52.7441473Z     💭 Reasoning: Need to fill out the middle name field to complete the form.
+2026-01-18T23:46:52.7442028Z     ➕ Injected AI step: fill -> Middle Name
+2026-01-18T23:46:52.7442470Z   ▶️ [STEP step_2_ai_6] FILL: Middle Name
+2026-01-18T23:46:52.7564891Z     🎯 Using AI-provided locator: input[name='middleName']
+2026-01-18T23:46:52.7670100Z     ✅ Found 1 verified locators
+2026-01-18T23:46:57.9799185Z     ✅ State transitioned.
+2026-01-18T23:46:59.5124504Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:46:59.5125254Z [DEBUG] Received response (Length: 216)
+2026-01-18T23:46:59.5126276Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T23:46:59.5126915Z     🧩 Suggested Locator: input[name='lastName']
+2026-01-18T23:46:59.5128376Z     💭 Reasoning: The 'Last Name' field is visible and needs to be filled to complete the employee information.
+2026-01-18T23:46:59.5129644Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T23:46:59.5130025Z   ▶️ [STEP step_2_ai_7] FILL: Last Name
+2026-01-18T23:46:59.5225252Z     🎯 Using AI-provided locator: input[name='lastName']
+2026-01-18T23:46:59.5318005Z     ✅ Found 1 verified locators
+2026-01-18T23:47:04.8472171Z     ✅ State transitioned.
+2026-01-18T23:47:06.4720176Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:47:06.4720953Z [DEBUG] Received response (Length: 205)
+2026-01-18T23:47:06.4721851Z     🤖 AI Next Step Suggestion: fill -> Employee Id
+2026-01-18T23:47:06.4722326Z     🧩 Suggested Locator: input[name='employeeId']
+2026-01-18T23:47:06.4722983Z     💭 Reasoning: The employee ID field is visible and needs to be filled to complete the form.
+2026-01-18T23:47:06.4725990Z     ➕ Injected AI step: fill -> Employee Id
+2026-01-18T23:47:06.4726553Z   ▶️ [STEP step_2_ai_8] FILL: Employee Id
+2026-01-18T23:47:06.4822840Z     🎯 Using AI-provided locator: input[name='employeeId']
+2026-01-18T23:47:06.4853826Z     🔍 Mining locators for: 'Employee Id'
+2026-01-18T23:47:06.5633769Z     🧠 Consulting AI (Vision-First) to find 'Employee Id'...
+2026-01-18T23:47:06.5636695Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:47:12.0143092Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:47:12.0143632Z [DEBUG] Received response (Length: 555)
+2026-01-18T23:47:12.0144421Z     🔄 Retry 1/3 mining locators for 'Employee Id'...
+2026-01-18T23:47:13.0959251Z     🧠 Consulting AI (Vision-First) to find 'Employee Id'...
+2026-01-18T23:47:13.0961708Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:47:13.0970412Z [CACHE HIT] aa962679... (hits: 30, misses: 88)
+2026-01-18T23:47:13.0971876Z     🔄 Retry 2/3 mining locators for 'Employee Id'...
+2026-01-18T23:47:14.0988542Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:47:14.0992661Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:47:14.1789403Z     🧠 Consulting AI (Vision-First) to find 'Employee Id'...
+2026-01-18T23:47:14.1792038Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:47:14.1799730Z [CACHE HIT] aa962679... (hits: 31, misses: 88)
+2026-01-18T23:47:14.1800790Z     🧠 Verifying step validity for 'Employee Id' after mining failure...
+2026-01-18T23:47:16.8271212Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:47:16.8272032Z [DEBUG] Received response (Length: 174)
+2026-01-18T23:47:16.8273525Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name="employeeId"]
+2026-01-18T23:47:22.3455941Z     ⚠️ Scroll into view failed for input[name="employeeId"]. Proceeding anyway.
+2026-01-18T23:47:27.8500196Z     ⚠️ Action failed: Locator.click: Timeout 5000ms exceeded.
+2026-01-18T23:47:27.8500993Z Call log:
+2026-01-18T23:47:27.8501258Z ...
+2026-01-18T23:47:29.6293844Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:47:29.6294768Z [DEBUG] Received response (Length: 364)
+2026-01-18T23:47:29.6296884Z     ✨ AI Heal Reasoning: The element with label 'Employee Id' is an input field, which is suitable for filling. It is also visible on the page.
+2026-01-18T23:47:29.6300918Z     ✨ AI healed exploration action! New selector: div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > form:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > input:nth-child(1)
+2026-01-18T23:47:35.1386059Z     ⚠️ Scroll into view failed for div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > form:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > input:nth-child(1). Proceeding anyway.
+2026-01-18T23:47:40.6408882Z   ▶️ [STEP step_3] FILL: Password
+2026-01-18T23:47:40.6511025Z     🔍 Mining locators for: 'Password'
+2026-01-18T23:47:40.7254318Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T23:47:40.7256534Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:47:42.2955668Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:47:42.2956585Z [DEBUG] Received response (Length: 245)
+2026-01-18T23:47:42.2958689Z     💡 Expert Suggestion: The 'Password' field is likely part of the 'Create Login Details' section when adding a new employee.
+2026-01-18T23:47:42.2960019Z     🛠️ Executing corrective action: click -> 'Add Employee'
+2026-01-18T23:47:43.3110178Z     ✅ Executed corrective navigation
+2026-01-18T23:47:45.3133786Z     🔄 Retry 1/3 mining locators for 'Password'...
+2026-01-18T23:47:46.4450057Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T23:47:46.4453023Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:47:47.7319053Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:47:47.7319602Z [DEBUG] Received response (Length: 257)
+2026-01-18T23:47:47.7320839Z     💡 Expert Suggestion: The 'Password' field is likely within the 'Create Login Details' section, which is currently toggled off.
+2026-01-18T23:47:47.7321975Z     🛠️ Executing corrective action: click -> 'Create Login Details'
+2026-01-18T23:47:48.3783990Z     ✅ Executed corrective navigation
+2026-01-18T23:47:50.3802873Z     🔄 Retry 2/3 mining locators for 'Password'...
+2026-01-18T23:47:51.3817281Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:47:51.3820667Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:47:51.4579954Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-18T23:47:51.4582309Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:47:51.4588042Z [CACHE HIT] 6495cecc... (hits: 32, misses: 92)
+2026-01-18T23:47:51.4590234Z     ⚠️ Skipping duplicate injection: Create Login Details
+2026-01-18T23:47:51.4591248Z     🧠 Verifying step validity for 'Password' after no candidates found...
+2026-01-18T23:47:52.8557948Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:47:52.8558968Z [DEBUG] Received response (Length: 214)
+2026-01-18T23:47:52.8561658Z     🗑️ Step deemed INVALID: The 'Password' field is not visible on the page. The 'Create Login Details' toggle needs to be enabled first to reveal the username and password fields.. Removing from workflow.
+2026-01-18T23:47:52.8563960Z     ⏭️ Skipping execution of invalid step: Password
+2026-01-18T23:47:52.8564705Z   ▶️ [STEP step_4] CLICK: Login
+2026-01-18T23:47:52.8654661Z     🔍 Mining locators for: 'Login'
+2026-01-18T23:47:52.9480358Z     ✅ Found 1 verified locators
+2026-01-18T23:47:56.6560813Z     ✅ State transitioned.
+2026-01-18T23:47:58.0691813Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:47:58.0693186Z [DEBUG] Received response (Length: 221)
+2026-01-18T23:47:58.0694169Z     🤖 AI Next Step Suggestion: fill -> Employee Id
+2026-01-18T23:47:58.0694697Z     🧩 Suggested Locator: input[name="employeeId"]
+2026-01-18T23:47:58.0695847Z     💭 Reasoning: The previous attempt to fill 'Employee Id' failed. Retrying to ensure the form is complete.
+2026-01-18T23:47:58.0696804Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:47:58.0697765Z   ▶️ [STEP step_5] CLICK: Recruitment
+2026-01-18T23:47:58.0780502Z     🔍 Mining locators for: 'Recruitment'
+2026-01-18T23:47:58.1815750Z     ✅ Found 2 verified locators
+2026-01-18T23:48:01.7595242Z     ✅ State transitioned.
+2026-01-18T23:48:03.3523703Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:48:03.3524753Z [DEBUG] Received response (Length: 173)
+2026-01-18T23:48:03.3526001Z     🤖 AI Next Step Suggestion: click -> + Add
+2026-01-18T23:48:03.3527218Z     💭 Reasoning: To add a new candidate for recruitment, I should click the '+ Add' button.
+2026-01-18T23:48:03.3529175Z     ➕ Injected AI step: click -> + Add
+2026-01-18T23:48:03.3530077Z   ▶️ [STEP step_5_ai_1] CLICK: + Add
+2026-01-18T23:48:03.3835108Z     🔍 Mining locators for: '+ Add'
+2026-01-18T23:48:03.7502053Z     🧠 Consulting AI (Vision-First) to find '+ Add'...
+2026-01-18T23:48:03.7504584Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:48:08.9256380Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:48:08.9257240Z [DEBUG] Received response (Length: 410)
+2026-01-18T23:48:08.9258721Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T23:48:08.9259429Z   ▶️ [STEP step_6] ASSERT_URL: 
+2026-01-18T23:48:13.9559623Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-18T23:48:15.9588413Z     ✅ State transitioned.
+2026-01-18T23:48:17.5095103Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:48:17.5095902Z [DEBUG] Received response (Length: 173)
+2026-01-18T23:48:17.5097084Z     🤖 AI Next Step Suggestion: click -> + Add
+2026-01-18T23:48:17.5098286Z     💭 Reasoning: To add a new candidate for recruitment, I should click the '+ Add' button.
+2026-01-18T23:48:17.5098980Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:48:17.5099469Z   ▶️ [STEP step_7] CLICK: Add
+2026-01-18T23:48:17.5242552Z     🔍 Mining locators for: 'Add'
+2026-01-18T23:48:17.9953513Z     ✅ Found 1 verified locators
+2026-01-18T23:48:21.6169684Z     ✅ State transitioned.
+2026-01-18T23:48:23.2607773Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:48:23.2608722Z [DEBUG] Received response (Length: 174)
+2026-01-18T23:48:23.2610122Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-18T23:48:23.2610949Z     🧩 Suggested Locator: input[name='firstName']
+2026-01-18T23:48:23.2611660Z     💭 Reasoning: Filling the first name field to add a candidate.
+2026-01-18T23:48:23.2612136Z     ➕ Injected AI step: fill -> First Name
+2026-01-18T23:48:23.2612640Z   ▶️ [STEP step_7_ai_1] FILL: First Name
+2026-01-18T23:48:23.2834848Z     🎯 Using AI-provided locator: input[name='firstName']
+2026-01-18T23:48:23.2944632Z     ✅ Found 1 verified locators
+2026-01-18T23:48:28.6506579Z     ✅ State transitioned.
+2026-01-18T23:48:30.1059325Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:48:30.1060064Z [DEBUG] Received response (Length: 195)
+2026-01-18T23:48:30.1060982Z     🤖 AI Next Step Suggestion: fill -> Middle Name
+2026-01-18T23:48:30.1061675Z     🧩 Suggested Locator: input[name='middleName']
+2026-01-18T23:48:30.1062589Z     💭 Reasoning: Filling the middle name field to complete the 'Add Candidate' form.
+2026-01-18T23:48:30.1063155Z     ➕ Injected AI step: fill -> Middle Name
+2026-01-18T23:48:30.1063554Z   ▶️ [STEP step_7_ai_2] FILL: Middle Name
+2026-01-18T23:48:30.1164635Z     🎯 Using AI-provided locator: input[name='middleName']
+2026-01-18T23:48:30.1298828Z     ✅ Found 1 verified locators
+2026-01-18T23:48:35.7286861Z     ✅ State transitioned.
+2026-01-18T23:48:37.4927189Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:48:37.4928606Z [DEBUG] Received response (Length: 223)
+2026-01-18T23:48:37.4929831Z     🤖 AI Next Step Suggestion: FILL -> Last Name
+2026-01-18T23:48:37.4930735Z     🧩 Suggested Locator: input[name='lastName']
+2026-01-18T23:48:37.4931930Z     💭 Reasoning: The first and middle names have been filled. Filling the last name field to complete the full name.
+2026-01-18T23:48:37.4932704Z     ➕ Injected AI step: FILL -> Last Name
+2026-01-18T23:48:37.4933154Z   ▶️ [STEP step_7_ai_3] FILL: Last Name
+2026-01-18T23:48:37.5023702Z     🎯 Using AI-provided locator: input[name='lastName']
+2026-01-18T23:48:37.5117253Z     ✅ Found 1 verified locators
+2026-01-18T23:48:40.5459559Z     ✅ State transitioned.
+2026-01-18T23:48:40.5549198Z     🔄 Revisited state detected (count: 1)
+2026-01-18T23:48:42.3320275Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:48:42.3321613Z [DEBUG] Received response (Length: 215)
+2026-01-18T23:48:42.3322999Z     🤖 AI Next Step Suggestion: FILL -> Last Name
+2026-01-18T23:48:42.3323791Z     🧩 Suggested Locator: input[name='lastName']
+2026-01-18T23:48:42.3324961Z     💭 Reasoning: The last name field is visible and needs to be filled to complete the 'Add Candidate' form.
+2026-01-18T23:48:42.3326678Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:48:42.3328427Z   ▶️ [STEP step_8] ASSERT_VISIBLE: Add Candidate
+2026-01-18T23:48:42.3462277Z     🔍 Mining locators for: 'Add Candidate'
+2026-01-18T23:48:42.6346940Z     ✅ Found 1 verified locators
+2026-01-18T23:48:45.1962576Z     ✅ State transitioned.
+2026-01-18T23:48:45.2060876Z     🔄 Revisited state detected (count: 2)
+2026-01-18T23:48:47.2990655Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:48:47.2991712Z [DEBUG] Received response (Length: 190)
+2026-01-18T23:48:47.2992989Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-18T23:48:47.2993632Z     🧩 Suggested Locator: input[name='lastName']
+2026-01-18T23:48:47.2994291Z     💭 Reasoning: Filling the last name field to complete the candidate's full name.
+2026-01-18T23:48:47.2994911Z     ➕ Injected AI step: fill -> Last Name
+2026-01-18T23:48:47.2995353Z   ▶️ [STEP step_8_ai_1] FILL: Last Name
+2026-01-18T23:48:47.3092347Z     🎯 Using AI-provided locator: input[name='lastName']
+2026-01-18T23:48:47.3181617Z     ✅ Found 1 verified locators
+2026-01-18T23:48:52.6599748Z     ✅ State transitioned.
+2026-01-18T23:48:54.5620010Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:48:54.5620860Z [DEBUG] Received response (Length: 175)
+2026-01-18T23:48:54.5621926Z     🤖 AI Next Step Suggestion: fill -> Email*
+2026-01-18T23:48:54.5622536Z     🧩 Suggested Locator: input
+2026-01-18T23:48:54.5623391Z     💭 Reasoning: Filling the email field to proceed with adding a candidate.
+2026-01-18T23:48:54.5624226Z     ➕ Injected AI step: fill -> Email*
+2026-01-18T23:48:54.5625342Z   ▶️ [STEP step_8_ai_2] FILL: Email*
+2026-01-18T23:48:54.5725906Z     🎯 Using AI-provided locator: input
+2026-01-18T23:48:54.5826207Z     ✅ Found 1 verified locators
+2026-01-18T23:49:00.6180883Z     ✅ State transitioned.
+2026-01-18T23:49:02.1140133Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:49:02.1140870Z [DEBUG] Received response (Length: 172)
+2026-01-18T23:49:02.1141786Z     🤖 AI Next Step Suggestion: fill -> Email*
+2026-01-18T23:49:02.1142304Z     🧩 Suggested Locator: input
+2026-01-18T23:49:02.1143090Z     💭 Reasoning: Fill the email field to proceed with adding a candidate.
+2026-01-18T23:49:02.1144151Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-18T23:49:02.1144792Z   ▶️ [STEP step_9] FILL: First Name
+2026-01-18T23:49:02.1241098Z     🔍 Mining locators for: 'First Name'
+2026-01-18T23:49:02.2204255Z     ✅ Found 3 verified locators
+2026-01-18T23:49:07.8250928Z     ✅ State transitioned.
+2026-01-18T23:49:09.3734941Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:49:09.3735724Z [DEBUG] Received response (Length: 172)
+2026-01-18T23:49:09.3736795Z     🤖 AI Next Step Suggestion: FILL -> Email*
+2026-01-18T23:49:09.3738103Z     💭 Reasoning: Filling the email field to proceed with adding a candidate.
+2026-01-18T23:49:09.3739055Z     ➕ Injected AI step: FILL -> Email*
+2026-01-18T23:49:09.3739690Z   ▶️ [STEP step_9_ai_1] FILL: Email*
+2026-01-18T23:49:09.3843724Z     🔍 Mining locators for: 'Email*'
+2026-01-18T23:49:09.4683432Z     🧠 Consulting AI (Vision-First) to find 'Email*'...
+2026-01-18T23:49:09.4686177Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:49:14.9614196Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:49:14.9614790Z [DEBUG] Received response (Length: 521)
+2026-01-18T23:49:14.9615719Z     🔄 Retry 1/3 mining locators for 'Email*'...
+2026-01-18T23:49:16.0328186Z     🧠 Consulting AI (Vision-First) to find 'Email*'...
+2026-01-18T23:49:16.0330675Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:49:19.7439350Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:49:19.7440229Z [DEBUG] Received response (Length: 501)
+2026-01-18T23:49:19.7441260Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T23:49:19.7441901Z   ▶️ [STEP step_10] FILL: Last Name
+2026-01-18T23:49:19.7528181Z     🔍 Mining locators for: 'Last Name'
+2026-01-18T23:49:19.8487075Z     ✅ Found 3 verified locators
+2026-01-18T23:49:25.2822486Z     ✅ State transitioned.
+2026-01-18T23:49:26.7729963Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:49:26.7731091Z [DEBUG] Received response (Length: 179)
+2026-01-18T23:49:26.7732505Z     🤖 AI Next Step Suggestion: fill -> Middle Name
+2026-01-18T23:49:26.7733412Z     🧩 Suggested Locator: input[name='middleName']
+2026-01-18T23:49:26.7734448Z     💭 Reasoning: Filling the middle name field to complete the form.
+2026-01-18T23:49:26.7735562Z     ➕ Injected AI step: fill -> Middle Name
+2026-01-18T23:49:26.7736377Z   ▶️ [STEP step_10_ai_1] FILL: Middle Name
+2026-01-18T23:49:26.7838088Z     🎯 Using AI-provided locator: input[name='middleName']
+2026-01-18T23:49:26.7925839Z     ✅ Found 1 verified locators
+2026-01-18T23:49:32.4658974Z     ✅ State transitioned.
+2026-01-18T23:49:32.4743998Z     🔄 Revisited state detected (count: 1)
+2026-01-18T23:49:34.0107065Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:49:34.0108101Z [DEBUG] Received response (Length: 179)
+2026-01-18T23:49:34.0109086Z     🤖 AI Next Step Suggestion: fill -> Email*
+2026-01-18T23:49:34.0110281Z     🧩 Suggested Locator: Type here
+2026-01-18T23:49:34.0111015Z     💭 Reasoning: Filling the email field to proceed with adding a candidate.
+2026-01-18T23:49:34.0111561Z     ➕ Injected AI step: fill -> Email*
+2026-01-18T23:49:34.0111942Z   ▶️ [STEP step_10_ai_2] FILL: Email*
+2026-01-18T23:49:34.0203338Z     🎯 Using AI-provided locator: Type here
+2026-01-18T23:49:34.0239473Z     🔍 Mining locators for: 'Email*'
+2026-01-18T23:49:34.0926182Z     🧠 Consulting AI (Vision-First) to find 'Email*'...
+2026-01-18T23:49:34.0928981Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:49:39.5392639Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:49:39.5393458Z [DEBUG] Received response (Length: 481)
+2026-01-18T23:49:39.5394781Z     🔄 Retry 1/3 mining locators for 'Email*'...
+2026-01-18T23:49:40.6247940Z     🧠 Consulting AI (Vision-First) to find 'Email*'...
+2026-01-18T23:49:40.6250995Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:49:44.7589340Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:49:44.7589961Z [DEBUG] Received response (Length: 504)
+2026-01-18T23:49:44.7590815Z     🔄 Retry 2/3 mining locators for 'Email*'...
+2026-01-18T23:49:45.7605491Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:49:45.7607927Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:49:45.8364915Z     🧠 Consulting AI (Vision-First) to find 'Email*'...
+2026-01-18T23:49:45.8368114Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:49:45.8492497Z [CACHE HIT] a571bea0... (hits: 33, misses: 111)
+2026-01-18T23:49:45.8493851Z     🧠 Verifying step validity for 'Email*' after mining failure...
+2026-01-18T23:49:48.9709566Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:49:48.9710482Z [DEBUG] Received response (Length: 215)
+2026-01-18T23:49:48.9712169Z     🛠️ Self-Correction: Step is valid. Using new locator: input[aria-required="true"][name="email"]
+2026-01-18T23:49:54.4895170Z     ⚠️ Scroll into view failed for input[aria-required="true"][name="email"]. Proceeding anyway.
+2026-01-18T23:49:59.9919586Z     ⚠️ Action failed: Locator.click: Timeout 5000ms exceeded.
+2026-01-18T23:49:59.9920247Z Call log:
+2026-01-18T23:49:59.9920514Z ...
+2026-01-18T23:50:01.4053478Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:50:01.4054477Z [DEBUG] Received response (Length: 221)
+2026-01-18T23:50:01.4056329Z     ✨ AI Heal Reasoning: The element is an input field labeled 'Email*' and is visible on the page, making it suitable for the 'fill' action.
+2026-01-18T23:50:01.4058507Z     ✨ AI healed exploration action! New selector: div:nth-child(4) > div:nth-child(1) > div > input
+2026-01-18T23:50:06.9144203Z     ⚠️ Scroll into view failed for div:nth-child(4) > div:nth-child(1) > div > input. Proceeding anyway.
+2026-01-18T23:50:12.4174981Z   ▶️ [STEP step_11] FILL: Email
+2026-01-18T23:50:12.4275939Z     🔍 Mining locators for: 'Email'
+2026-01-18T23:50:12.6323034Z     🧠 Consulting AI (Vision-First) to find 'Email'...
+2026-01-18T23:50:12.6325499Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:50:14.7544429Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:50:14.7545268Z [DEBUG] Received response (Length: 507)
+2026-01-18T23:50:14.7546345Z     ⚠️ Critical step failure: 'priority'
+2026-01-18T23:50:14.7546751Z   ▶️ [STEP step_12] CLICK: Save
+2026-01-18T23:50:14.7627156Z     🔍 Mining locators for: 'Save'
+2026-01-18T23:50:14.8560159Z     ✅ Found 2 verified locators
+2026-01-18T23:50:18.4420059Z     ✅ State transitioned.
+2026-01-18T23:50:18.4523939Z     🔄 Revisited state detected (count: 2)
+2026-01-18T23:50:20.2343630Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:50:20.2344713Z [DEBUG] Received response (Length: 214)
+2026-01-18T23:50:20.2346175Z     🤖 AI Next Step Suggestion: fill -> Type here
+2026-01-18T23:50:20.2349017Z     💭 Reasoning: Filling the email field to complete the form. The previous attempt to fill the email field failed.
+2026-01-18T23:50:20.2350360Z     ➕ Injected AI step: fill -> Type here
+2026-01-18T23:50:20.2351186Z   ▶️ [STEP step_12_ai_1] FILL: Type here
+2026-01-18T23:50:20.2453696Z     🔍 Mining locators for: 'Type here'
+2026-01-18T23:50:20.3685758Z     ✅ Found 2 verified locators
+2026-01-18T23:50:27.1835497Z     ✅ State transitioned.
+2026-01-18T23:50:28.8418443Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:50:28.8419265Z [DEBUG] Received response (Length: 253)
+2026-01-18T23:50:28.8420366Z     🤖 AI Next Step Suggestion: fill -> Email*
+2026-01-18T23:50:28.8420935Z     🧩 Suggested Locator: input[aria-required="true"][name="email"]
+2026-01-18T23:50:28.8421783Z     💭 Reasoning: The email field failed previously, and it's a required field. Filling it is necessary to proceed.
+2026-01-18T23:50:28.8422469Z     ➕ Injected AI step: fill -> Email*
+2026-01-18T23:50:28.8422944Z   ▶️ [STEP step_12_ai_2] FILL: Email*
+2026-01-18T23:50:28.8523438Z     🎯 Using AI-provided locator: input[aria-required="true"][name="email"]
+2026-01-18T23:50:28.8550488Z     🔍 Mining locators for: 'Email*'
+2026-01-18T23:50:28.9131462Z     🧠 Consulting AI (Vision-First) to find 'Email*'...
+2026-01-18T23:50:28.9133397Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:50:33.9689315Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:50:33.9689841Z [DEBUG] Received response (Length: 341)
+2026-01-18T23:50:33.9690574Z     🔄 Retry 1/3 mining locators for 'Email*'...
+2026-01-18T23:50:35.0503302Z     🧠 Consulting AI (Vision-First) to find 'Email*'...
+2026-01-18T23:50:35.0505831Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:50:39.6871058Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:50:39.6871699Z [DEBUG] Received response (Length: 892)
+2026-01-18T23:50:39.6872652Z     🔄 Retry 2/3 mining locators for 'Email*'...
+2026-01-18T23:50:40.6886142Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:50:40.6888277Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:50:40.7642038Z     🧠 Consulting AI (Vision-First) to find 'Email*'...
+2026-01-18T23:50:40.7644544Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:50:40.7742668Z [CACHE HIT] f3d438ce... (hits: 34, misses: 118)
+2026-01-18T23:50:40.7743910Z     🧠 Verifying step validity for 'Email*' after mining failure...
+2026-01-18T23:50:43.5212628Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:50:43.5213719Z [DEBUG] Received response (Length: 170)
+2026-01-18T23:50:43.5214747Z     🛠️ Self-Correction: Step is valid. Using new locator: input[name="email"]
+2026-01-18T23:50:49.0398999Z     ⚠️ Scroll into view failed for input[name="email"]. Proceeding anyway.
+2026-01-18T23:50:54.5444261Z     ⚠️ Action failed: Locator.click: Timeout 5000ms exceeded.
+2026-01-18T23:50:54.5445078Z Call log:
+2026-01-18T23:50:54.5445464Z ...
+2026-01-18T23:50:55.9352555Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:50:55.9353295Z [DEBUG] Received response (Length: 273)
+2026-01-18T23:50:55.9354621Z     ✨ AI Heal Reasoning: The input field with the placeholder 'test@example.com' is the most likely candidate for the 'Email*' field. It is a visible input element, which is required for the 'fill' action.
+2026-01-18T23:50:55.9356290Z     ✨ AI healed exploration action! New selector: input[placeholder='test@example.com']
+2026-01-18T23:51:01.4450685Z     ⚠️ Scroll into view failed for input[placeholder='test@example.com']. Proceeding anyway.
+2026-01-18T23:51:06.9479144Z   ▶️ [STEP step_13] ASSERT_VISIBLE: Candidate Details
+2026-01-18T23:51:06.9577701Z     🔍 Mining locators for: 'Candidate Details'
+2026-01-18T23:51:07.0308546Z     🧠 Consulting AI (Vision-First) to find 'Candidate Details'...
+2026-01-18T23:51:07.0309944Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:51:08.7058091Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:51:08.7059026Z [DEBUG] Received response (Length: 353)
+2026-01-18T23:51:08.7061604Z     💡 Expert Suggestion: The current page is the 'Candidates' page, but it only shows a form to add a new candidate. To view existing 'Candidate Details', we need to navigate to a different section within 'Candidates' or a related area.
+2026-01-18T23:51:08.7063130Z     🛠️ Executing corrective action: click -> 'Candidates'
+2026-01-18T23:51:09.9308936Z     ✅ Executed corrective navigation
+2026-01-18T23:51:11.9322830Z     🔄 Retry 1/3 mining locators for 'Candidate Details'...
+2026-01-18T23:51:13.2997707Z     🧠 Consulting AI (Vision-First) to find 'Candidate Details'...
+2026-01-18T23:51:13.3000642Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:51:14.8107166Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:51:14.8108389Z [DEBUG] Received response (Length: 231)
+2026-01-18T23:51:14.8109972Z     💡 Expert Suggestion: Clicking the 'Add' button should lead to a page where you can view and edit candidate details.
+2026-01-18T23:51:14.8110808Z     🛠️ Executing corrective action: click -> '+ Add'
+2026-01-18T23:51:15.0536329Z     🔄 Retry 2/3 mining locators for 'Candidate Details'...
+2026-01-18T23:51:16.0546884Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-18T23:51:16.0548561Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-18T23:51:16.4759140Z     🧠 Consulting AI (Vision-First) to find 'Candidate Details'...
+2026-01-18T23:51:16.4761594Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on SaaS platform stability and functional coverage. Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths.
+2026-01-18T23:51:16.4770133Z [CACHE HIT] 83407f1b... (hits: 35, misses: 122)
+2026-01-18T23:51:16.4770921Z     ⚠️ Skipping duplicate injection: + Add
+2026-01-18T23:51:16.4772019Z     🧠 Verifying step validity for 'Candidate Details' after no candidates found...
+2026-01-18T23:51:20.0682664Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:51:20.0684049Z [DEBUG] Received response (Length: 411)
+2026-01-18T23:51:20.0686881Z     🗑️ Step deemed INVALID: The term 'Candidate Details' does not appear on the page. The page displays a list of candidates and a search filter. It's unclear what 'Candidate Details' refers to in this context. It's possible that 'Candidate Details' would appear after clicking on a specific candidate in the list, but without further information, it's impossible to locate it.. Removing from workflow.
+2026-01-18T23:51:20.0689204Z     ⏭️ Skipping execution of invalid step: Candidate Details
+2026-01-18T23:51:22.1217325Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo/tests/generated_scenarios.json
+2026-01-18T23:51:22.1239670Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-18T23:51:22.1240267Z 
+2026-01-18T23:51:22.1241119Z ✅ Deep Exploration Complete.
+2026-01-18T23:55:31.4327745Z 
+2026-01-18T23:55:31.4329344Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-18T23:55:31.4330076Z 📍 Project: ci_orangehrm_demo
+2026-01-18T23:55:31.4330406Z 🎬 Mode: Headless
+2026-01-18T23:55:31.4330545Z 
+2026-01-18T23:55:31.4330768Z --- Scenario: HR Management - Login and Employee Management ---
+2026-01-18T23:55:31.4331263Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T23:55:31.4331604Z     ✅ Step step_1 Passed.
+2026-01-18T23:55:31.4331953Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Login page
+2026-01-18T23:55:31.4332461Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-18T23:55:31.4332876Z Actual value: None
+2026-01-18T23:55:31.4333115Z Error: element(s) not found 
+2026-01-18T23:55:31.4333366Z Call log:
+2026-01-18T23:55:31.4333568Z   - Expect ...
+2026-01-18T23:55:31.4333946Z     🔧 [AUTO-HEAL] Re-mining page to find 'Login page'...
+2026-01-18T23:55:31.4334430Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:31.4334856Z [DEBUG] Received response (Length: 1485)
+2026-01-18T23:55:31.4335345Z     ✨ AI successfully healed the step! Found 6 alternatives.
+2026-01-18T23:55:31.4335932Z     ✨ AI successfully healed the step! New selector: input[name='username']
+2026-01-18T23:55:31.4336417Z     ✅ Step step_2 Passed.
+2026-01-18T23:55:31.4336763Z   ▶️ [STEP step_3] FILL: Username
+2026-01-18T23:55:31.4337186Z     🎯 Using mined locator: role=textbox[name='Username']
+2026-01-18T23:55:31.4337941Z     ✅ Step step_3 Passed.
+2026-01-18T23:55:31.4338283Z   ▶️ [STEP step_3_ai_1] FILL: Password
+2026-01-18T23:55:31.4338703Z     🎯 Using mined locator: input[name='password']
+2026-01-18T23:55:31.4339094Z     ✅ Step step_3_ai_1 Passed.
+2026-01-18T23:55:31.4339417Z   ▶️ [STEP step_3_ai_2] CLICK: Login
+2026-01-18T23:55:31.4339754Z     🎯 Using mined locator: button
+2026-01-18T23:55:31.4340127Z     ✅ Step step_3_ai_2 Passed.
+2026-01-18T23:55:31.4340682Z   ▶️ [STEP step_3_ai_3] CLICK: Admin
+2026-01-18T23:55:31.4341547Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T23:55:31.4342400Z     ✅ Step step_3_ai_3 Passed.
+2026-01-18T23:55:31.4342986Z   ▶️ [STEP step_3_ai_4] CLICK: Add
+2026-01-18T23:55:31.4343758Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T23:55:31.4344569Z     ✅ Step step_3_ai_4 Passed.
+2026-01-18T23:55:31.4345179Z   ▶️ [STEP step_3_ai_5] CLICK: -- Select --
+2026-01-18T23:55:31.4346144Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T23:55:31.4347883Z     ❌ Attempt 1 failed (unknown): Locator.bounding_box: Error: strict mode violation: locator("text=-- Select --") resolved to 2 eleme...
+2026-01-18T23:55:31.4349297Z     🔧 [AUTO-HEAL] Re-mining page to find '-- Select --'...
+2026-01-18T23:55:31.4349957Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:31.4350559Z [DEBUG] Received response (Length: 919)
+2026-01-18T23:55:31.4351388Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T23:55:31.4353721Z     ✨ AI successfully healed the step! New selector: div:nth-child(1) > div.oxd-input-group.oxd-input-field-bottom-space > div:nth-child(2) > div > div.oxd-select-text.oxd-select-text--active
+2026-01-18T23:55:31.4355354Z     ✅ Step step_3_ai_5 Passed.
+2026-01-18T23:55:31.4355920Z   ▶️ [STEP step_3_ai_6] CLICK: Admin
+2026-01-18T23:55:31.4356521Z     🎯 Using mined locator: div:nth-child(2)
+2026-01-18T23:55:31.4357160Z     ✅ Step step_3_ai_6 Passed.
+2026-01-18T23:55:31.4357939Z   ▶️ [STEP step_8] ASSERT_URL: Step step_8
+2026-01-18T23:55:31.4358479Z     ✅ Step step_8 Passed.
+2026-01-18T23:55:31.4359114Z   ▶️ [STEP step_9] CLICK: Add
+2026-01-18T23:55:31.4360056Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T23:55:31.4361629Z     ❌ Attempt 1 failed (unknown): Locator.bounding_box: Error: strict mode violation: locator("text=Add") resolved to 3 elements:
+2026-01-18T23:55:31.4362944Z     ...
+2026-01-18T23:55:31.4363342Z     🔧 [AUTO-HEAL] Re-mining page to find 'Add'...
+2026-01-18T23:55:31.4363808Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:31.4364194Z [DEBUG] Received response (Length: 540)
+2026-01-18T23:55:31.4364611Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T23:55:31.4365239Z     ✨ AI successfully healed the step! New selector: a[href*='orangehrm.com/hr-management-software/']
+2026-01-18T23:55:31.4365948Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T23:55:31.4366381Z Call log:
+2026-01-18T23:55:31.4366603Z   - waiting for locator("a[href*='orangehr...
+2026-01-18T23:55:31.4366980Z     🔧 [AUTO-HEAL] Re-mining page to find 'Add'...
+2026-01-18T23:55:31.4367581Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:31.4368003Z [DEBUG] Received response (Length: 38)
+2026-01-18T23:55:31.4368461Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-18T23:55:31.4369064Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T23:55:31.4369476Z Call log:
+2026-01-18T23:55:31.4369895Z   - waiting for locator("a[href*='orangehr...
+2026-01-18T23:55:31.4370311Z     💀 Step step_9 failed after all retries.
+2026-01-18T23:55:31.4370814Z 🛑 Scenario 'HR Management - Login and Employee Management' aborted due to step failure.
+2026-01-18T23:55:31.4371158Z 
+2026-01-18T23:55:31.4371284Z --- Scenario: HR Management - Leave Request ---
+2026-01-18T23:55:31.4371644Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T23:55:31.4371970Z     ✅ Step step_1 Passed.
+2026-01-18T23:55:31.4372252Z   ▶️ [STEP step_2] FILL: Username
+2026-01-18T23:55:31.4372594Z     🎯 Using mined locator: role=textbox[name='Username']
+2026-01-18T23:55:31.4372942Z     ✅ Step step_2 Passed.
+2026-01-18T23:55:31.4373228Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-18T23:55:31.4373601Z     🎯 Using mined locator: input[name='password']
+2026-01-18T23:55:31.4373928Z     ✅ Step step_2_ai_1 Passed.
+2026-01-18T23:55:31.4374591Z   ▶️ [STEP step_2_ai_2] CLICK: Login
+2026-01-18T23:55:31.4375327Z     🎯 Using mined locator: button
+2026-01-18T23:55:31.4375933Z     ✅ Step step_2_ai_2 Passed.
+2026-01-18T23:55:31.4380296Z   ▶️ [STEP step_2_ai_3] CLICK: PIM
+2026-01-18T23:55:31.4381145Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T23:55:31.4381915Z     ✅ Step step_2_ai_3 Passed.
+2026-01-18T23:55:31.4382511Z   ▶️ [STEP step_2_ai_4] CLICK: Add Employee
+2026-01-18T23:55:31.4383333Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T23:55:31.4384054Z     ✅ Step step_2_ai_4 Passed.
+2026-01-18T23:55:31.4384714Z   ▶️ [STEP step_2_ai_5] FILL: First Name
+2026-01-18T23:55:31.4385502Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T23:55:31.4387196Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-18T23:55:31.4388398Z Call log:
+2026-01-18T23:55:31.4388795Z   - waiting for locator("tex...
+2026-01-18T23:55:31.4390088Z     🔧 [AUTO-HEAL] Re-mining page to find 'First Name'...
+2026-01-18T23:55:31.4390926Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:31.4391564Z [DEBUG] Received response (Length: 566)
+2026-01-18T23:55:31.4392353Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T23:55:31.4392973Z     ✨ AI successfully healed the step! New selector: input[placeholder='First Name']
+2026-01-18T23:55:31.4393444Z     ✅ Step step_2_ai_5 Passed.
+2026-01-18T23:55:31.4393748Z   ▶️ [STEP step_2_ai_6] FILL: Last Name
+2026-01-18T23:55:31.4394299Z     🎯 Using mined locator: input[name='lastName']
+2026-01-18T23:55:31.4395007Z     ✅ Step step_2_ai_6 Passed.
+2026-01-18T23:55:31.4395365Z   ▶️ [STEP step_2_ai_7] FILL: Middle Name
+2026-01-18T23:55:31.4395786Z     🎯 Using mined locator: input[name='middleName']
+2026-01-18T23:55:31.4396122Z     ✅ Step step_2_ai_7 Passed.
+2026-01-18T23:55:31.4396411Z   ▶️ [STEP step_2_ai_8] FILL: Last Name
+2026-01-18T23:55:31.4396797Z     🎯 Using mined locator: input[name='lastName']
+2026-01-18T23:55:31.4397123Z     ✅ Step step_2_ai_8 Passed.
+2026-01-18T23:55:31.4397679Z   ▶️ [STEP step_4] CLICK: Login
+2026-01-18T23:55:31.4398108Z     🎯 Using mined locator: text=Create Login Details
+2026-01-18T23:55:31.4398464Z     ✅ Step step_4 Passed.
+2026-01-18T23:55:31.4398858Z   ▶️ [STEP step_4_ai_1] FILL: First Name
+2026-01-18T23:55:31.4399424Z     🎯 Using mined locator: input[name='firstName']
+2026-01-18T23:55:31.4400137Z     ✅ Step step_4_ai_1 Passed.
+2026-01-18T23:55:31.4400536Z   ▶️ [STEP step_4_ai_2] FILL: Middle Name
+2026-01-18T23:55:31.4400996Z     🎯 Using mined locator: input[name='middleName']
+2026-01-18T23:55:31.4401646Z     ✅ Step step_4_ai_2 Passed.
+2026-01-18T23:55:31.4402265Z   ▶️ [STEP step_4_ai_3] FILL: Last Name
+2026-01-18T23:55:31.4402954Z     🎯 Using mined locator: input[name='lastName']
+2026-01-18T23:55:31.4403599Z     ✅ Step step_4_ai_3 Passed.
+2026-01-18T23:55:31.4404123Z   ▶️ [STEP step_4_ai_4] CLICK: Save
+2026-01-18T23:55:31.4404757Z     🎯 Using mined locator: text=Save
+2026-01-18T23:55:31.4405377Z     ✅ Step step_4_ai_4 Passed.
+2026-01-18T23:55:31.4405961Z   ▶️ [STEP step_4_ai_5] FILL: First Name
+2026-01-18T23:55:31.4406342Z     🎯 Using mined locator: input[name='firstName']
+2026-01-18T23:55:31.4406679Z     ✅ Step step_4_ai_5 Passed.
+2026-01-18T23:55:31.4406966Z   ▶️ [STEP step_4_ai_6] CLICK: Save
+2026-01-18T23:55:31.4407257Z     🎯 Using mined locator: text=Save
+2026-01-18T23:55:31.4407901Z     ✅ Step step_4_ai_6 Passed.
+2026-01-18T23:55:31.4408217Z   ▶️ [STEP step_4_ai_7] CLICK: Contact Details
+2026-01-18T23:55:31.4408630Z     🎯 Using mined locator: role=link[name='Contact Details']
+2026-01-18T23:55:31.4409003Z     ✅ Step step_4_ai_7 Passed.
+2026-01-18T23:55:31.4409300Z   ▶️ [STEP step_4_ai_8] FILL: input
+2026-01-18T23:55:31.4409739Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T23:55:31.4410400Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-18T23:55:31.4410896Z Call log:
+2026-01-18T23:55:31.4411119Z   - waiting for locator("tex...
+2026-01-18T23:55:31.4411446Z     🔧 [AUTO-HEAL] Re-mining page to find 'input'...
+2026-01-18T23:55:31.4411830Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:55:31.4412202Z [DEBUG] Received response (Length: 386)
+2026-01-18T23:55:31.4412597Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T23:55:31.4413077Z     ✨ AI successfully healed the step! New selector: input[name='firstName']
+2026-01-18T23:55:31.4413733Z     ❌ Attempt 2 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-18T23:55:31.4414198Z Call log:
+2026-01-18T23:55:31.4414414Z   - waiting for locator("inp...
+2026-01-18T23:55:31.4415292Z     🔧 [AUTO-HEAL] Re-mining page to find 'input'...
+2026-01-18T23:55:31.4415625Z [CACHE HIT] fbdaf3f9... (hits: 1, misses: 6)
+2026-01-18T23:55:31.4416042Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T23:55:31.4416773Z     ✨ AI successfully healed the step! New selector: input[name='firstName']
+2026-01-18T23:55:31.4418340Z     ❌ Attempt 3 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-18T23:55:31.4419281Z Call log:
+2026-01-18T23:55:31.4419695Z   - waiting for locator("inp...
+2026-01-18T23:55:31.4420441Z     💀 Step step_4_ai_8 failed after all retries.
+2026-01-18T23:55:31.4421366Z 🛑 Scenario 'HR Management - Leave Request' aborted due to step failure.
+2026-01-18T23:55:31.4421956Z 
+2026-01-18T23:55:31.4422308Z --- Scenario: HR Management - Recruitment Process ---
+2026-01-18T23:55:31.4423144Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-18T23:55:31.4423809Z     ✅ Step step_1 Passed.
+2026-01-18T23:55:31.4424179Z   ▶️ [STEP step_2] FILL: Username
+2026-01-18T23:55:31.4424638Z     🎯 Using mined locator: role=textbox[name='Username']
+2026-01-18T23:55:31.4425002Z     ✅ Step step_2 Passed.
+2026-01-18T23:55:31.4425336Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-18T23:55:31.4425696Z     🎯 Using mined locator: input[name='password']
+2026-01-18T23:55:31.4426055Z     ✅ Step step_2_ai_1 Passed.
+2026-01-18T23:55:31.4426352Z   ▶️ [STEP step_2_ai_2] CLICK: Login
+2026-01-18T23:55:31.4426940Z     🎯 Using mined locator: button
+2026-01-18T23:55:31.4427991Z     ✅ Step step_2_ai_2 Passed.
+2026-01-18T23:58:01.2514437Z   ▶️ [STEP step_2_ai_3] CLICK: PIM
+2026-01-18T23:58:01.2515156Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T23:58:01.2515696Z     ✅ Step step_2_ai_3 Passed.
+2026-01-18T23:58:01.2516079Z   ▶️ [STEP step_2_ai_4] CLICK: Add Employee
+2026-01-18T23:58:01.2516579Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T23:58:01.2517088Z     ✅ Step step_2_ai_4 Passed.
+2026-01-18T23:58:01.2518052Z   ▶️ [STEP step_2_ai_5] FILL: First Name
+2026-01-18T23:58:01.2518638Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T23:58:01.2519547Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-18T23:58:01.2520137Z Call log:
+2026-01-18T23:58:01.2520407Z   - waiting for locator("tex...
+2026-01-18T23:58:01.2520874Z     🔧 [AUTO-HEAL] Re-mining page to find 'First Name'...
+2026-01-18T23:58:01.2521372Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:58:01.2521805Z [DEBUG] Received response (Length: 647)
+2026-01-18T23:58:01.2522299Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-18T23:58:01.2522927Z     ✨ AI successfully healed the step! New selector: input[placeholder='First Name']
+2026-01-18T23:58:01.2523555Z     ✅ Step step_2_ai_5 Passed.
+2026-01-18T23:58:01.2523903Z   ▶️ [STEP step_2_ai_6] FILL: Middle Name
+2026-01-18T23:58:01.2524362Z     🎯 Using mined locator: input[name='middleName']
+2026-01-18T23:58:01.2524711Z     ✅ Step step_2_ai_6 Passed.
+2026-01-18T23:58:01.2525006Z   ▶️ [STEP step_2_ai_7] FILL: Last Name
+2026-01-18T23:58:01.2525375Z     🎯 Using mined locator: input[name='lastName']
+2026-01-18T23:58:01.2525709Z     ✅ Step step_2_ai_7 Passed.
+2026-01-18T23:58:01.2526007Z   ▶️ [STEP step_2_ai_8] FILL: Employee Id
+2026-01-18T23:58:01.2526425Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-18T23:58:01.2526825Z     ✅ Step step_2_ai_8 Passed.
+2026-01-18T23:58:01.2527089Z   ▶️ [STEP step_4] CLICK: Login
+2026-01-18T23:58:01.2530242Z     🎯 Using mined locator: text=Create Login Details
+2026-01-18T23:58:01.2530859Z     ✅ Step step_4 Passed.
+2026-01-18T23:58:01.2531183Z   ▶️ [STEP step_5] CLICK: Recruitment
+2026-01-18T23:58:01.2531583Z     🎯 Using mined locator: role=link[name='Recruitment']
+2026-01-18T23:58:01.2531963Z     ✅ Step step_5 Passed.
+2026-01-18T23:58:01.2532260Z   ▶️ [STEP step_5_ai_1] CLICK: + Add
+2026-01-18T23:58:01.2533607Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T23:58:01.2534058Z Call log:
+2026-01-18T23:58:01.2534297Z   - waiting for locator("text=+ Add")
+2026-01-18T23:58:01.2534794Z ...
+2026-01-18T23:58:01.2535121Z     🔧 [AUTO-HEAL] Re-mining page to find '+ Add'...
+2026-01-18T23:58:01.2535505Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-18T23:58:01.2535863Z [DEBUG] Received response (Length: 1104)
+2026-01-18T23:58:01.2536275Z     ✨ AI successfully healed the step! Found 3 alternatives.
+2026-01-18T23:58:01.2536984Z     ✨ AI successfully healed the step! New selector: div.oxd-table-filter-area > div.oxd-table-filter-header > div > button
+2026-01-18T23:58:01.2538413Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T23:58:01.2538838Z Call log:
+2026-01-18T23:58:01.2539063Z   - waiting for locator("div.oxd-table-fil...
+2026-01-18T23:58:01.2539489Z     🔧 [AUTO-HEAL] Re-mining page to find '+ Add'...
+2026-01-18T23:58:01.2539816Z [CACHE HIT] 27e1c483... (hits: 2, misses: 8)
+2026-01-18T23:58:01.2540222Z     ✨ AI successfully healed the step! Found 3 alternatives.
+2026-01-18T23:58:01.2540922Z     ✨ AI successfully healed the step! New selector: div.oxd-table-filter-area > div.oxd-table-filter-header > div > button
+2026-01-18T23:58:01.2541683Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-18T23:58:01.2542107Z Call log:
+2026-01-18T23:58:01.2542319Z   - waiting for locator("div.oxd-table-fil...
+2026-01-18T23:58:01.2542692Z     💀 Step step_5_ai_1 failed after all retries.
+2026-01-18T23:58:01.2543164Z 🛑 Scenario 'HR Management - Recruitment Process' aborted due to step failure.
+2026-01-18T23:58:01.2543472Z 
+2026-01-18T23:58:01.2543594Z ============================================================
+2026-01-18T23:58:01.2543909Z 🎯 EXECUTION SUMMARY
+2026-01-18T23:58:01.2544129Z ============================================================
+2026-01-18T23:58:01.2544342Z 
+2026-01-18T23:58:01.2544446Z 📋 Scenario Overview:
+2026-01-18T23:58:01.2544718Z    • Total Scenarios Planned: 3
+2026-01-18T23:58:01.2544995Z    • Scenarios Executed: 3
+2026-01-18T23:58:01.2545289Z    • Total Steps Executed: 43
+2026-01-18T23:58:01.2545455Z 
+2026-01-18T23:58:01.2545550Z ✅ Results:
+2026-01-18T23:58:01.2545758Z    ❌ Failed: 3 (100%)
+2026-01-18T23:58:01.2545878Z 
+2026-01-18T23:58:01.2545994Z ⚠️  Failed Scenarios:
+2026-01-18T23:58:01.2546282Z    • HR Management - Login and Employee Management
+2026-01-18T23:58:01.2546631Z    • HR Management - Leave Request
+2026-01-18T23:58:01.2546956Z    • HR Management - Recruitment Process
+2026-01-18T23:58:01.2547143Z 
+2026-01-18T23:58:01.2547248Z ============================================================
+2026-01-18T23:58:01.2547821Z 
+2026-01-18T23:58:01.2548638Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo/execution.json
+2026-01-18T23:58:01.7303989Z 
+2026-01-18T23:58:01.7305159Z [PHASE] Running Phase: DISCOVERY
+2026-01-18T23:58:01.7307148Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo --url https://opensource-demo.orangehrmlive.com/ --deep
+2026-01-18T23:58:01.7309822Z ✅ Phase 'discovery' completed successfully.
+2026-01-18T23:58:01.7310152Z 
+2026-01-18T23:58:01.7310299Z [PHASE] Running Phase: PLANNING
+2026-01-18T23:58:01.7311812Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo --goal Test HR management features --url https://opensource-demo.orangehrmlive.com/ --deep
+2026-01-18T23:58:01.7313525Z ✅ Phase 'planning' completed successfully.
+2026-01-18T23:58:01.7314544Z 
+2026-01-18T23:58:01.7314689Z [PHASE] Running Phase: EXPLORATION
+2026-01-18T23:58:01.7316192Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo
+2026-01-18T23:58:01.7318098Z ✅ Phase 'exploration' completed successfully.
+2026-01-18T23:58:01.7318664Z 📊 Exploration Discovery Success Rate: 85.3%
+2026-01-18T23:58:01.7318941Z 
+2026-01-18T23:58:01.7319066Z [PHASE] Running Phase: EXECUTION
+2026-01-18T23:58:01.7320269Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo
+2026-01-18T23:58:01.7321580Z ✅ Phase 'execution' completed successfully.
+2026-01-18T23:58:01.7321818Z 
+2026-01-18T23:58:02.1812401Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-18T23:58:02.1943216Z ##[group]Run RESULT_FILE="projects/ci_orangehrm_demo/execution.json"
+2026-01-18T23:58:02.1943978Z [36;1mRESULT_FILE="projects/ci_orangehrm_demo/execution.json"[0m
+2026-01-18T23:58:02.1944387Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-18T23:58:02.1944763Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-18T23:58:02.1945245Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-18T23:58:02.1945644Z [36;1melse[0m
+2026-01-18T23:58:02.1945920Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-18T23:58:02.1946237Z [36;1m  exit 1[0m
+2026-01-18T23:58:02.1946454Z [36;1mfi[0m
+2026-01-18T23:58:02.1984206Z shell: /usr/bin/bash -e {0}
+2026-01-18T23:58:02.1984504Z env:
+2026-01-18T23:58:02.1984789Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:58:02.1985243Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T23:58:02.1985767Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:58:02.1986186Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:58:02.1986574Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:58:02.1986970Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T23:58:02.1987285Z ##[endgroup]
+2026-01-18T23:58:02.2056135Z ✅ Results generated successfully: projects/ci_orangehrm_demo/execution.json
+2026-01-18T23:58:02.2095694Z 3
+2026-01-18T23:58:02.2425545Z ##[group]Run actions/upload-artifact@v4
+2026-01-18T23:58:02.2425954Z with:
+2026-01-18T23:58:02.2426183Z   name: orangehrm_demo-execution-results
+2026-01-18T23:58:02.2426673Z   path: projects/ci_orangehrm_demo/execution.json
+projects/ci_orangehrm_demo/workflow.json
+
+2026-01-18T23:58:02.2427136Z   retention-days: 30
+2026-01-18T23:58:02.2427807Z   if-no-files-found: warn
+2026-01-18T23:58:02.2428167Z   compression-level: 6
+2026-01-18T23:58:02.2428402Z   overwrite: false
+2026-01-18T23:58:02.2428660Z   include-hidden-files: false
+2026-01-18T23:58:02.2428888Z env:
+2026-01-18T23:58:02.2429134Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:58:02.2429575Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-18T23:58:02.2430008Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:58:02.2430386Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:58:02.2430833Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-18T23:58:02.2431220Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-18T23:58:02.2431532Z ##[endgroup]
+2026-01-18T23:58:02.5865583Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-18T23:58:02.5872551Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_orangehrm_demo. This will be the root directory of the artifact
+2026-01-18T23:58:02.5873971Z With the provided path, there will be 2 files uploaded
+2026-01-18T23:58:02.5883195Z Artifact name is valid!
+2026-01-18T23:58:02.5885619Z Root directory input is valid!
+2026-01-18T23:58:02.7336802Z Beginning upload of artifact content to blob storage
+2026-01-18T23:58:02.8675039Z Uploaded bytes 4110
+2026-01-18T23:58:02.9042111Z Finished uploading artifact content to blob storage!
+2026-01-18T23:58:02.9047164Z SHA256 digest of uploaded artifact zip is c2d5c281cba81f5e53582926f406dbde9593010a1a83283d839675d5ca4e2cbb
+2026-01-18T23:58:02.9051897Z Finalizing artifact upload
+2026-01-18T23:58:02.9901049Z Artifact orangehrm_demo-execution-results.zip successfully finalized. Artifact ID 5171066681
+2026-01-18T23:58:02.9902583Z Artifact orangehrm_demo-execution-results has been successfully uploaded! Final size is 4110 bytes. Artifact ID is 5171066681
+2026-01-18T23:58:02.9915600Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21120211878/artifacts/5171066681
+2026-01-18T23:58:03.0352294Z Post job cleanup.
+2026-01-18T23:58:03.2703047Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-18T23:58:03.3294294Z Post job cleanup.
+2026-01-18T23:58:03.4769109Z [command]/usr/bin/git version
+2026-01-18T23:58:03.4845333Z git version 2.52.0
+2026-01-18T23:58:03.4929066Z Temporarily overriding HOME='/home/runner/work/_temp/0f1de25e-86c0-4242-aca2-5a594c469836' before making global git config changes
+2026-01-18T23:58:03.4931475Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-18T23:58:03.4956902Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-18T23:58:03.5029208Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-18T23:58:03.5090586Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-18T23:58:03.5501980Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-18T23:58:03.5552194Z http.https://github.com/.extraheader
+2026-01-18T23:58:03.5580822Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-18T23:58:03.5643585Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-18T23:58:03.6035657Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-18T23:58:03.6108402Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-18T23:58:03.6728504Z Cleaning up orphan processes
