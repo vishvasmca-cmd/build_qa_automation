@@ -154,5 +154,150 @@ async def find_element_smart(page: Page, description: str) -> Optional[Dict]:
                 "count": 1
             }
     
+    # === ADVANCED STRATEGIES FOR LEGACY SITES ===
+    
+    # Strategy 8: Fuzzy Token Matching (for "First Name" → "firstname", "first_name")
+    desc_tokens = desc_clean.split()
+    if len(desc_tokens) >= 2:  # Multi-word descriptions
+        for tag in ["input", "select", "textarea"]:
+            for token in desc_tokens:
+                if len(token) >= 3:  # Skip short words
+                    # Match token in name/id/class
+                    selector = f"{tag}[name*='{token}' i], {tag}[id*='{token}' i], {tag}[class*='{token}' i]"
+                    count = await page.locator(selector).count()
+                    if count == 1:
+                        return {
+                            "selector": selector,
+                            "confidence": 0.75,
+                            "method": "fuzzy-token",
+                            "count": 1
+                        }
+    
+    # Strategy 9: Proximity-Based (text label → next input)
+    try:
+        # Find visible text containing description
+        text_selector = f"text={description}"
+        text_count = await page.locator(text_selector).count()
+        if text_count == 1:
+            # Try sibling selectors
+            for proximity_selector in [
+                f"text={description} + input",  # Immediate next sibling
+                f"text={description} ~ input",  # Any following sibling
+                f"text={description} >> xpath=.. >> input",  # Parent's input
+            ]:
+                count = await page.locator(proximity_selector).count()
+                if count == 1:
+                    return {
+                        "selector": proximity_selector,
+                        "confidence": 0.80,
+                        "method": "proximity",
+                        "count": 1
+                    }
+    except Exception:
+        pass
+    
+    # Strategy 10: Case-Insensitive Text Variations
+    # For buttons like "SUBMIT", "Submit", "submit"
+    for tag in ["button", "a", "span"]:
+        selector = f"{tag}:text-is('{description}')"  # Exact case-insensitive
+        count = await page.locator(selector).count()
+        if count == 1:
+            return {
+                "selector": selector,
+                "confidence": 0.85,
+                "method": "text-case-insensitive",
+                "count": 1
+            }
+    
+    # Strategy 11: Visual Scoring Fallback (when count > 1, pick most prominent)
+    # Try common patterns that might have multiple matches
+    fallback_selectors = [
+        f"[placeholder*='{description}' i]",
+        f"[aria-label*='{description}' i]",
+        f"button:has-text('{description}')",
+        f"input[name*='{desc_clean}']",
+        f"[id*='{desc_clean}']",
+    ]
+    
+    for selector in fallback_selectors:
+        count = await page.locator(selector).count()
+        if count > 1:
+            # Use visual scoring to pick best element
+            best_selector = await _visual_scoring_fallback(page, selector)
+            if best_selector:
+                return {
+                    "selector": best_selector,
+                    "confidence": 0.70,  # Lower confidence (position-based)
+                    "method": "visual-scoring",
+                    "count": 1
+                }
+    
     # All deterministic strategies failed - return None to trigger AI fallback
     return None
+
+
+async def _visual_scoring_fallback(page: Page, selector: str) -> Optional[str]:
+    """
+    When multiple elements match, pick the most visually prominent one.
+    
+    Scores based on:
+    - Centrality (closer to screen center)
+    - Size (larger elements)
+    - Visibility (fully visible)
+    
+    Returns: nth-based selector for best element, or None if all hidden
+    """
+    try:
+        locator = page.locator(selector)
+        count = await locator.count()
+        
+        if count <= 1:
+            return selector  # Already unique
+        
+        viewport = page.viewport_size or {"width": 1280, "height": 720}
+        center_x, center_y = viewport["width"] / 2, viewport["height"] / 2
+        
+        scores = []
+        for i in range(count):
+            el = locator.nth(i)
+            
+            # Check visibility first
+            is_visible = await el.is_visible()
+            if not is_visible:
+                scores.append(-1)  # Penalize hidden elements
+                continue
+            
+            # Get bounding box
+            box = await el.bounding_box()
+            if not box:
+                scores.append(0)
+                continue
+            
+            # Calculate element center
+            el_center_x = box['x'] + box['width'] / 2
+            el_center_y = box['y'] + box['height'] / 2
+            
+            # 1. Centrality score (inverse distance from screen center)
+            distance = ((el_center_x - center_x)**2 + (el_center_y - center_y)**2)**0.5
+            centrality = 1000 - min(distance, 1000)  # Cap at 1000
+            
+            # 2. Size score
+            area = box['width'] * box['height']
+            size_score = min(area * 0.1, 500)  # Cap contribution
+            
+            # 3. Visibility bonus
+            visibility_bonus = 1000
+            
+            total_score = centrality + size_score + visibility_bonus
+            scores.append(total_score)
+        
+        # Find highest scoring element
+        if not scores or max(scores) <= 0:
+            return None  # All hidden
+        
+        best_idx = scores.index(max(scores))
+        return f"{selector} >> nth={best_idx}"
+        
+    except Exception:
+        return None
+
