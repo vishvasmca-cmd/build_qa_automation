@@ -320,7 +320,7 @@ class DeepExplorerAgent:
     def _print_performance_summary(self):
         """Print explorer performance metrics."""
         self.log("\n" + "="*60, "blue")
-        self.log("📊 EXPLORER PERFORMANCE SUMMARY", "blue", attrs=["bold"])
+        self.log("📊 EXPLORER PERFORMANCE SUMMARY", "blue")
         self.log("="*60, "blue")
         
         total_mined = self.perf_stats["total_locators_mined"]
