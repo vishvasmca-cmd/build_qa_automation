@@ -125,6 +125,24 @@ class PlannerAgent:
         **DYNAMIC DATA:**
         Use placeholders like {{random_email}}, {{random_name}}, {{random_password}} for form data.
         
+        **FLOW AWARENESS RULES:**
+        1. **WAIT_FOR_ELEMENT Usage - Use ONLY for:**
+           - Dynamic content that loads after initial page render (AJAX, lazy loading)
+           - Elements that appear after animations or transitions
+           - DO NOT use for elements that should be present on initial page load
+           - DO NOT wait for elements from a different page than the current one
+        
+        2. **E-Commerce Flow Understanding:**
+           - Product List Page → has product tiles/cards
+           - Product Detail Page → has single product details, 'Add to Cart' button
+           - Cart Page → has cart items, quantities, 'Proceed to Checkout' button
+           - Checkout Page → has payment/shipping forms, 'Place Order' button
+           - DO NOT expect product browsing elements on checkout/cart pages
+        
+        3. **Context Switching:**
+           - After 'Checkout' or 'Place Order', you are done with that flow
+           - To browse products again, navigate back to home or products page first
+        
         **CRITICAL RULES:**
         - Step 1 MUST be: navigate("{url}")
         - DO NOT use placeholder URLs like "example.com", "banking application", or "application homepage"

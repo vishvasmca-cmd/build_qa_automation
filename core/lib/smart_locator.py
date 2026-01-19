@@ -55,37 +55,51 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
     desc_lower = description.lower().strip()
     desc_clean = re.sub(r'[^a-z0-9\s]', '', desc_lower)  # Remove special chars
     
+    # === CRITICAL FIX: Detect CSS selectors to avoid parsing errors ===
+    # If description looks like a CSS selector, skip role/link strategies
+    is_css_selector = (
+        description.startswith(('div[', 'span[', 'button[', 'a[', 'input[', '#', '.')) or
+        re.search(r'\[class\s*[=*^$~|]', description) or  # Matches [class=...] patterns
+        re.search(r'\[id\s*[=*^$~|]', description) or     # Matches [id=...] patterns
+        re.search(r'\[.*\s*=\s*["\']', description)       # Matches any [attr="..."] patterns
+    )
+    
+    if debug and is_css_selector:
+        print(f"    ⚠️ [SMART] Detected CSS selector syntax in '{description}' - skipping role/link strategies")
+    
     # === IMPROVEMENT 3 & 5: Role Locators + First Item Patterns (HIGHEST PRIORITY) ===
     # Strategy 1: Semantic role locators with common e-commerce patterns
-    role_mappings = {
-        "button": ["button", "submit", "login", "register", "search", "add", "continue", "checkout", "proceed"],
-        "link": ["link", "navigate", "view", "details", "cart", "product"],
-        "textbox": ["email", "password", "username", "search", "name", "address", "city", "zip", "phone"],
-    }
-    
-    for role, keywords in role_mappings.items():
-        if any(kw in desc_lower for kw in keywords):
-            # Try role with exact name
-            selector = f"role={role}[name='{description}' i]"
-            count = await page.locator(selector).count()
-            if count == 1:
-                return {
-                    "selector": selector,
-                    "confidence": 0.96,
-                    "method": f"role-{role}-exact",
-                    "count": 1
-                }
-            
-            # Try role with partial name
-            selector = f"role={role}[name*='{description}' i]"
-            count = await page.locator(selector).count()
-            if count == 1:
-                return {
-                    "selector": selector,
-                    "confidence": 0.93,
-                    "method": f"role-{role}-partial",
-                    "count": 1
-                }
+    # SKIP if description is CSS selector (would cause InvalidSelectorError)
+    if not is_css_selector:
+        role_mappings = {
+            "button": ["button", "submit", "login", "register", "search", "add", "continue", "checkout", "proceed"],
+            "link": ["link", "navigate", "view", "details", "cart", "product"],
+            "textbox": ["email", "password", "username", "search", "name", "address", "city", "zip", "phone"],
+        }
+        
+        for role, keywords in role_mappings.items():
+            if any(kw in desc_lower for kw in keywords):
+                # Try role with exact name
+                selector = f"role={role}[name='{description}' i]"
+                count = await page.locator(selector).count()
+                if count == 1:
+                    return {
+                        "selector": selector,
+                        "confidence": 0.96,
+                        "method": f"role-{role}-exact",
+                        "count": 1
+                    }
+                
+                # Try role with partial name
+                selector = f"role={role}[name*='{description}' i]"
+                count = await page.locator(selector).count()
+                if count == 1:
+                    return {
+                        "selector": selector,
+                        "confidence": 0.93,
+                        "method": f"role-{role}-partial",
+                        "count": 1
+                    }
     
     # === IMPROVEMENT 5: First Item / E-Commerce Patterns ===
     # Strategy 2: Common e-commerce first-item patterns
@@ -316,6 +330,77 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
                 "method": f"{tag}-text-exact",
                 "count": 1
             }
+    
+    # === NEW: Enhanced Button Text Matching ===
+    # Strategy 11b: Button text with :text-is() for case-insensitive exact match
+    for tag in ["button", "input[type='button']", "input[type='submit']", "a.btn", "a.button"]:
+        try:
+            selector = f"{tag}:text-is('{description}')"
+            count = await page.locator(selector).count()
+            if count == 1:
+                return {
+                    "selector": selector,
+                    "confidence": 0.88,
+                    "method": "button-text-is",
+                    "count": 1
+                }
+            
+            # Try with visible filter
+            if count > 1:
+                visible_selector = f"{selector}:visible"
+                visible_count = await page.locator(visible_selector).count()
+                if visible_count == 1:
+                    return {
+                        "selector": visible_selector,
+                        "confidence": 0.86,
+                        "method": "button-text-is-visible",
+                        "count": 1
+                    }
+        except Exception:
+            pass
+    
+    # === IMPROVED: Enhanced Placeholder Matching ===  
+    # Strategy 11c: Exact placeholder match (case-insensitive)
+    try:
+        selector = f"input[placeholder='{description}' i]"
+        count = await page.locator(selector).count()
+        if count == 1:
+            return {
+                "selector": selector,
+                "confidence": 0.92,
+                "method": "placeholder-exact-ci",
+                "count": 1
+            }
+        
+        # Try textarea as well
+        selector = f"textarea[placeholder='{description}' i]"
+        count = await page.locator(selector).count()
+        if count == 1:
+            return {
+                "selector": selector,
+                "confidence": 0.92,
+                "method": "placeholder-exact-ci-textarea",
+                "count": 1
+            }
+    except Exception:
+        pass
+    
+    # === NEW: Name Attribute Exact Match ===
+    # Strategy 11d: Exact name match (case-insensitive) for form fields
+    try:
+        for tag in ["input", "select", "textarea"]:
+            selector = f"{tag}[name='{desc_clean}' i]"
+            count = await page.locator(selector).count()
+            if count == 1:
+                return {
+                    "selector": selector,
+                    "confidence": 0.90,
+                    "method": "name-exact",
+                    "count": 1
+                }
+    except Exception:
+        pass
+
     
     # === ADVANCED STRATEGIES FOR LEGACY SITES ===
     

@@ -397,7 +397,7 @@ class ExplorerAgent:
                                     # This is a simplified version just for cache key generation
                                     goal = self.workflow.get("goal", "Complete the scenario")
                                     url = self.workflow.get("base_url", "")
-                                    from .domain_expert import DomainExpert
+                                    from core.lib.domain_expert import DomainExpert  # FIXED: Correct import path
                                     domain = DomainExpert.detect_domain(url, "", goal)
                                     persona = DomainExpert.get_persona_prompt(domain)
                                     
@@ -679,16 +679,33 @@ class ExplorerAgent:
                     )
                     
                     if next_suggestion and next_suggestion.get("action") != "done":
-                        # ---- Loop detection ----
+                        # ---- Enhanced Loop Detection with State Change Awareness ----
                         cur_tuple = (next_suggestion.get("action"), next_suggestion.get("target"))
+                        prev_url = getattr(self, "_prev_url_for_loop_check", None)
+                        current_url = page.url
+                        revisit_count = getattr(self, "_revisit_counter", 0)
+                        
+                        # Check if suggestion is repeated
                         if cur_tuple == getattr(self, "_last_ai_suggestion", None):
-                            self._repeat_ai_counter = getattr(self, "_repeat_ai_counter", 0) + 1
+                            # Same suggestion - but did we make progress?
+                            if prev_url != current_url or revisit_count == 0:
+                                # State changed! Not a loop, reset counter
+                                self._repeat_ai_counter = 1
+                                self.log(f"    🔄 Same AI suggestion but state changed (URL or DOM). Resetting loop counter.", "cyan")
+                            else:
+                                # State didn't change - increment loop counter
+                                self._repeat_ai_counter = getattr(self, "_repeat_ai_counter", 0) + 1
                         else:
+                            # Different suggestion
                             self._repeat_ai_counter = 1
                             self._last_ai_suggestion = cur_tuple
+                        
+                        # Update URL tracker for next iteration
+                        self._prev_url_for_loop_check = current_url
+                        
                         if self._repeat_ai_counter >= 2:
                             self.log(
-                                f"⚠️ Loop detected: same AI suggestion repeated {self._repeat_ai_counter} times. Moving to next step.",
+                                f"⚠️ Loop detected: same AI suggestion repeated {self._repeat_ai_counter} times without state change. Moving to next step.",
                                 "red",
                             )
                             # Reset counters for future suggestions
