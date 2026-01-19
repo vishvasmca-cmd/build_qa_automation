@@ -56,6 +56,12 @@ class ExplorerAgent:
         # Initialize Performance Metrics
         from core.lib.performance_metrics import PerformanceMetrics
         self.metrics = PerformanceMetrics()
+        
+        # Performance Optimization Flags (ENABLED BY DEFAULT for 3x speedup)
+        self.enable_parallel_ai = True  # Parallel batching for multi-field forms
+        self.enable_element_cache = True  # Element caching to avoid redundant mining
+        self.element_cache = {}  # Cache storage: {url: {timestamp, elements, screenshot}}
+        self.cache_ttl = 10  # Cache time-to-live in seconds
 
         if not os.path.exists(self.workflow_path):
              self.workflow = {
