@@ -1,0 +1,776 @@
+﻿2026-01-19T02:28:35.8712769Z Current runner version: '2.331.0'
+2026-01-19T02:28:35.8736429Z ##[group]Runner Image Provisioner
+2026-01-19T02:28:35.8737189Z Hosted Compute Agent
+2026-01-19T02:28:35.8737737Z Version: 20251211.462
+2026-01-19T02:28:35.8738478Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-19T02:28:35.8739185Z Build Date: 2025-12-11T16:28:49Z
+2026-01-19T02:28:35.8739822Z Worker ID: {0411b22a-2093-40b3-95b2-0d7ca9bbc0a9}
+2026-01-19T02:28:35.8740559Z ##[endgroup]
+2026-01-19T02:28:35.8741318Z ##[group]Operating System
+2026-01-19T02:28:35.8741924Z Ubuntu
+2026-01-19T02:28:35.8742444Z 24.04.3
+2026-01-19T02:28:35.8742938Z LTS
+2026-01-19T02:28:35.8743389Z ##[endgroup]
+2026-01-19T02:28:35.8743927Z ##[group]Runner Image
+2026-01-19T02:28:35.8744483Z Image: ubuntu-24.04
+2026-01-19T02:28:35.8744978Z Version: 20260111.209.1
+2026-01-19T02:28:35.8746039Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-19T02:28:35.8747625Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-19T02:28:35.8748642Z ##[endgroup]
+2026-01-19T02:28:35.8749717Z ##[group]GITHUB_TOKEN Permissions
+2026-01-19T02:28:35.8751892Z Contents: read
+2026-01-19T02:28:35.8752421Z Metadata: read
+2026-01-19T02:28:35.8752927Z Packages: read
+2026-01-19T02:28:35.8753516Z ##[endgroup]
+2026-01-19T02:28:35.8755542Z Secret source: Actions
+2026-01-19T02:28:35.8756252Z Prepare workflow directory
+2026-01-19T02:28:35.9196373Z Prepare all required actions
+2026-01-19T02:28:35.9252599Z Getting action download info
+2026-01-19T02:28:36.2236023Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-19T02:28:36.3289229Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-19T02:28:36.4455525Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-19T02:28:36.7289187Z Complete job name: test-websites-deep (saucedemo_locked, https://www.saucedemo.com/, Test locked user scenarios)
+2026-01-19T02:28:36.8024409Z ##[group]Run actions/checkout@v4
+2026-01-19T02:28:36.8025320Z with:
+2026-01-19T02:28:36.8025824Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T02:28:36.8026608Z   token: ***
+2026-01-19T02:28:36.8027027Z   ssh-strict: true
+2026-01-19T02:28:36.8027457Z   ssh-user: git
+2026-01-19T02:28:36.8027909Z   persist-credentials: true
+2026-01-19T02:28:36.8028398Z   clean: true
+2026-01-19T02:28:36.8028831Z   sparse-checkout-cone-mode: true
+2026-01-19T02:28:36.8029365Z   fetch-depth: 1
+2026-01-19T02:28:36.8029796Z   fetch-tags: false
+2026-01-19T02:28:36.8030243Z   show-progress: true
+2026-01-19T02:28:36.8030692Z   lfs: false
+2026-01-19T02:28:36.8031300Z   submodules: false
+2026-01-19T02:28:36.8031774Z   set-safe-directory: true
+2026-01-19T02:28:36.8032533Z ##[endgroup]
+2026-01-19T02:28:36.9150966Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T02:28:36.9154263Z ##[group]Getting Git version info
+2026-01-19T02:28:36.9155955Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T02:28:36.9158286Z [command]/usr/bin/git version
+2026-01-19T02:28:36.9204623Z git version 2.52.0
+2026-01-19T02:28:36.9232085Z ##[endgroup]
+2026-01-19T02:28:36.9264750Z Temporarily overriding HOME='/home/runner/work/_temp/45bff30e-2753-4945-be2f-36d51603cfe4' before making global git config changes
+2026-01-19T02:28:36.9267062Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T02:28:36.9272383Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:28:36.9317085Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T02:28:36.9320219Z ##[group]Initializing the repository
+2026-01-19T02:28:36.9324741Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:28:36.9437869Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-19T02:28:36.9439784Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-19T02:28:36.9440820Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-19T02:28:36.9442513Z hint: call:
+2026-01-19T02:28:36.9443149Z hint:
+2026-01-19T02:28:36.9444104Z hint: 	git config --global init.defaultBranch <name>
+2026-01-19T02:28:36.9445319Z hint:
+2026-01-19T02:28:36.9446475Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-19T02:28:36.9448361Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-19T02:28:36.9449849Z hint:
+2026-01-19T02:28:36.9450579Z hint: 	git branch -m <name>
+2026-01-19T02:28:36.9451652Z hint:
+2026-01-19T02:28:36.9452823Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-19T02:28:36.9455169Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-19T02:28:36.9458746Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T02:28:36.9490442Z ##[endgroup]
+2026-01-19T02:28:36.9492019Z ##[group]Disabling automatic garbage collection
+2026-01-19T02:28:36.9495570Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-19T02:28:36.9525371Z ##[endgroup]
+2026-01-19T02:28:36.9526771Z ##[group]Setting up auth
+2026-01-19T02:28:36.9533417Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T02:28:36.9565238Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T02:28:36.9922948Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T02:28:36.9953286Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T02:28:37.0178723Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T02:28:37.0210016Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T02:28:37.0438218Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-19T02:28:37.0474346Z ##[endgroup]
+2026-01-19T02:28:37.0475150Z ##[group]Fetching the repository
+2026-01-19T02:28:37.0482729Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8ae9e7a98960844bdcef67161cbe93442a7431bc:refs/remotes/origin/main
+2026-01-19T02:28:37.9618737Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T02:28:37.9620807Z  * [new ref]         8ae9e7a98960844bdcef67161cbe93442a7431bc -> origin/main
+2026-01-19T02:28:37.9652976Z ##[endgroup]
+2026-01-19T02:28:37.9654040Z ##[group]Determining the checkout info
+2026-01-19T02:28:37.9655504Z ##[endgroup]
+2026-01-19T02:28:37.9661524Z [command]/usr/bin/git sparse-checkout disable
+2026-01-19T02:28:37.9702531Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-19T02:28:37.9730357Z ##[group]Checking out the ref
+2026-01-19T02:28:37.9734121Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-19T02:28:38.1065416Z Switched to a new branch 'main'
+2026-01-19T02:28:38.1066956Z branch 'main' set up to track 'origin/main'.
+2026-01-19T02:28:38.1086403Z ##[endgroup]
+2026-01-19T02:28:38.1124483Z [command]/usr/bin/git log -1 --format=%H
+2026-01-19T02:28:38.1145974Z 8ae9e7a98960844bdcef67161cbe93442a7431bc
+2026-01-19T02:28:38.1478185Z ##[group]Run actions/setup-python@v5
+2026-01-19T02:28:38.1479385Z with:
+2026-01-19T02:28:38.1480223Z   python-version: 3.11
+2026-01-19T02:28:38.1481371Z   cache: pip
+2026-01-19T02:28:38.1482520Z   check-latest: false
+2026-01-19T02:28:38.1483786Z   token: ***
+2026-01-19T02:28:38.1484671Z   update-environment: true
+2026-01-19T02:28:38.1485737Z   allow-prereleases: false
+2026-01-19T02:28:38.1486822Z   freethreaded: false
+2026-01-19T02:28:38.1487768Z ##[endgroup]
+2026-01-19T02:28:38.3138115Z ##[group]Installed versions
+2026-01-19T02:28:38.3256178Z Successfully set up CPython (3.11.14)
+2026-01-19T02:28:38.3257964Z ##[endgroup]
+2026-01-19T02:28:38.4244818Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-19T02:28:39.6710362Z /home/runner/.cache/pip
+2026-01-19T02:28:39.8110779Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T02:28:40.9065218Z Received 150994944 of 254742636 (59.3%), 144.0 MBs/sec
+2026-01-19T02:28:41.2862419Z Received 254742636 of 254742636 (100.0%), 176.0 MBs/sec
+2026-01-19T02:28:41.2863668Z Cache Size: ~243 MB (254742636 B)
+2026-01-19T02:28:41.2902546Z [command]/usr/bin/tar -xf /home/runner/work/_temp/0fdb36fc-e8a0-4d9e-9516-c3c3427addbd/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-19T02:28:41.6818092Z Cache restored successfully
+2026-01-19T02:28:41.7316129Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T02:28:41.7554962Z ##[group]Run pip install -r requirements.txt
+2026-01-19T02:28:41.7555350Z [36;1mpip install -r requirements.txt[0m
+2026-01-19T02:28:41.7555639Z [36;1mplaywright install chromium[0m
+2026-01-19T02:28:41.7595572Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:28:41.7595820Z env:
+2026-01-19T02:28:41.7596075Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:28:41.7596511Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:28:41.7596918Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:28:41.7597312Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:28:41.7597682Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:28:41.7598048Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:28:41.7598341Z ##[endgroup]
+2026-01-19T02:28:42.7635563Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-19T02:28:42.7652478Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-19T02:28:42.7843437Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-19T02:28:42.7857832Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-19T02:28:42.8130840Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-19T02:28:42.8144684Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-19T02:28:42.9918287Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-19T02:28:42.9934768Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-19T02:28:43.0174044Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-19T02:28:43.0194818Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-19T02:28:43.0333624Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-19T02:28:43.0347683Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-19T02:28:43.0683840Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-19T02:28:43.0697904Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-19T02:28:43.1279558Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-19T02:28:43.1295302Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-19T02:28:43.3213241Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-19T02:28:43.3228484Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-19T02:28:43.3987174Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-19T02:28:43.4001594Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-19T02:28:43.4350588Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-19T02:28:43.4363704Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-19T02:28:43.5499353Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-19T02:28:43.5515015Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-19T02:28:43.5708658Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-19T02:28:43.5722267Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-19T02:28:43.6549524Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:28:43.6565372Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-19T02:28:43.6727735Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:28:43.6741231Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T02:28:43.7011214Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:28:43.7024255Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-19T02:28:43.7228581Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:28:43.7242336Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-19T02:28:43.7526084Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:43.7539873Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-19T02:28:43.7910240Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:43.7924446Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-19T02:28:43.8167374Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:43.8180755Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-19T02:28:43.9565594Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:43.9580620Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-19T02:28:43.9829738Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:43.9842871Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-19T02:28:44.0677132Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:44.0692097Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-19T02:28:44.0981442Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:44.0994551Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-19T02:28:44.1530604Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:44.1545238Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-19T02:28:44.1929654Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:44.1943146Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-19T02:28:44.2124545Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:44.2138335Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-19T02:28:44.2401819Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:44.2415169Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-19T02:28:44.2559211Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:44.2572493Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-19T02:28:44.2672739Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:44.2686137Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-19T02:28:44.9115176Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:44.9130722Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-19T02:28:44.9282980Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:44.9296212Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-19T02:28:44.9899274Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:28:44.9914813Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T02:28:45.0172476Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-19T02:28:45.0508066Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-19T02:28:45.0524654Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-19T02:28:45.0538046Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-19T02:28:45.0551836Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-19T02:28:45.0566116Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-19T02:28:45.0579798Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-19T02:28:45.0593173Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-19T02:28:45.0607421Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-19T02:28:45.0668838Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-19T02:28:45.0686615Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-19T02:28:45.0700299Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-19T02:28:45.0713564Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-19T02:28:45.0727801Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-19T02:28:45.0741253Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-19T02:28:45.0754627Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-19T02:28:45.0771253Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-19T02:28:45.0798014Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-19T02:28:45.0811252Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-19T02:28:45.0824345Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-19T02:28:45.0838059Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-19T02:28:45.0851686Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-19T02:28:45.0865776Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-19T02:28:45.0884343Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-19T02:28:45.1331257Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-19T02:28:45.1459678Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-19T02:28:45.1486167Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-19T02:28:45.1499331Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-19T02:28:45.1513147Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-19T02:28:45.1526158Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-19T02:28:45.1539504Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-19T02:28:45.1553639Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-19T02:28:45.1566576Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-19T02:28:45.3728705Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-19T02:28:52.1369440Z 
+2026-01-19T02:28:52.1393483Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-19T02:28:52.7247621Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-19T02:28:52.8210004Z (node:2183) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:28:52.8211873Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:28:52.9329077Z |                                                                                |   0% of 164.7 MiB
+2026-01-19T02:28:53.1411260Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-19T02:28:53.3186867Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-19T02:28:53.4765458Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-19T02:28:53.7513001Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-19T02:28:53.9242695Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-19T02:28:54.1894251Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-19T02:28:54.4015241Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-19T02:28:54.5961813Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-19T02:28:54.7780965Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-19T02:28:54.9480921Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-19T02:28:57.4432972Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-19T02:28:57.4437892Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-19T02:28:57.5420558Z (node:2194) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:28:57.5422264Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:28:57.6236142Z |                                                                                |   0% of 2.3 MiB
+2026-01-19T02:28:57.6286541Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-19T02:28:57.6347367Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-19T02:28:57.6370630Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-19T02:28:57.6385926Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-19T02:28:57.6408324Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-19T02:28:57.6424652Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-19T02:28:57.6437969Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-19T02:28:57.6454239Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-19T02:28:57.6470190Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-19T02:28:57.6509788Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-19T02:28:57.7065262Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-19T02:28:57.7068444Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-19T02:28:57.8061271Z (node:2205) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:28:57.8063220Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:28:57.9639109Z |                                                                                |   0% of 109.7 MiB
+2026-01-19T02:28:58.1402864Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-19T02:28:58.2356801Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-19T02:28:58.4915423Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-19T02:28:58.6558330Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-19T02:28:58.7673667Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-19T02:28:58.8632387Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-19T02:28:58.9360224Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-19T02:28:59.0376574Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-19T02:28:59.1307342Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-19T02:28:59.2615438Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-19T02:29:01.0970597Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-19T02:29:01.1191595Z ##[group]Run mkdir -p projects/ci_saucedemo_locked
+2026-01-19T02:29:01.1192031Z [36;1mmkdir -p projects/ci_saucedemo_locked[0m
+2026-01-19T02:29:01.1192441Z [36;1mcat > projects/ci_saucedemo_locked/config.json << 'EOF'[0m
+2026-01-19T02:29:01.1192760Z [36;1m{[0m
+2026-01-19T02:29:01.1192971Z [36;1m  "project_name": "ci_saucedemo_locked",[0m
+2026-01-19T02:29:01.1193308Z [36;1m  "target_url": "https://www.saucedemo.com/",[0m
+2026-01-19T02:29:01.1193638Z [36;1m  "goal": "Test locked user scenarios",[0m
+2026-01-19T02:29:01.1193927Z [36;1m  "headless": true[0m
+2026-01-19T02:29:01.1194141Z [36;1m}[0m
+2026-01-19T02:29:01.1194306Z [36;1mEOF[0m
+2026-01-19T02:29:01.1226362Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:29:01.1226597Z env:
+2026-01-19T02:29:01.1226845Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:29:01.1227293Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:29:01.1227756Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:29:01.1228139Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:29:01.1228550Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:29:01.1228933Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:29:01.1229248Z ##[endgroup]
+2026-01-19T02:29:01.1333378Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-19T02:29:01.1333830Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-19T02:29:01.1334318Z [36;1mpython orchestrator.py --project projects/ci_saucedemo_locked --deep --force[0m
+2026-01-19T02:29:01.1363022Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:29:01.1363256Z env:
+2026-01-19T02:29:01.1363510Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:29:01.1363944Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:29:01.1364367Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:29:01.1364730Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:29:01.1365102Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:29:01.1365657Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:29:01.1366125Z   GOOGLE_API_KEY: ***
+2026-01-19T02:29:01.1366357Z   PYTHONPATH: .
+2026-01-19T02:29:01.1366538Z ##[endgroup]
+2026-01-19T02:29:02.8857108Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-19T02:29:02.8857603Z 
+2026-01-19T02:29:02.8858266Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://www.saucedemo.com/ (Workers: 3)
+2026-01-19T02:29:04.4340515Z   🔍 [Worker 0] Visiting (0): https://www.saucedemo.com/
+2026-01-19T02:29:04.8291973Z [CACHE HIT] 474f9e14... (hits: 1, misses: 0)
+2026-01-19T02:29:04.8292888Z ✅ Discovery Complete. Mapped 1 pages.
+2026-01-19T02:29:10.4250892Z 
+2026-01-19T02:29:10.4251833Z [PLAN] PLANNER: Planning goal -> 'Test locked user scenarios' (Deep Mode: True)
+2026-01-19T02:29:10.4252538Z 🗺️ [PLAN] Loaded Sitemap with 1 pages.
+2026-01-19T02:29:10.4253459Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-19T02:29:10.4254371Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:29:10.4254742Z [DEBUG] Received response (Length: 3351)
+2026-01-19T02:29:10.4255095Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-19T02:29:11.4722276Z 
+2026-01-19T02:29:11.4723375Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-19T02:29:11.4723906Z 📋 Found 3 scenarios to explore.
+2026-01-19T02:29:11.8359799Z 
+2026-01-19T02:29:11.8360327Z [1/3] Exploring Scenario: Locked Out User Login Attempt
+2026-01-19T02:29:11.8362919Z     🧠 Initialized exploration context for goal: 'Test locked user scenarios'
+2026-01-19T02:29:11.8363571Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:29:12.5149969Z     ✅ Navigated to https://www.saucedemo.com/
+2026-01-19T02:29:12.5150489Z   ▶️ [STEP step_2] FILL: Username
+2026-01-19T02:29:12.5327333Z     🔍 Mining locators for: 'Username'
+2026-01-19T02:29:12.6027066Z     ✅ Found 5 verified locators
+2026-01-19T02:29:19.1204472Z     ✅ State transitioned.
+2026-01-19T02:29:20.8138528Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:29:20.8140760Z [DEBUG] Received response (Length: 220)
+2026-01-19T02:29:20.8141841Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T02:29:20.8142427Z     🧩 Suggested Locator: #password
+2026-01-19T02:29:20.8143496Z     💭 Reasoning: The username has been filled. Now, fill the password field with the correct password to attempt login.
+2026-01-19T02:29:20.8144512Z     ➕ Injected AI step: fill -> Password
+2026-01-19T02:29:20.8145079Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T02:29:20.8208347Z     🎯 Using AI-provided locator: #password
+2026-01-19T02:29:20.8268567Z     ✅ Found 1 verified locators
+2026-01-19T02:29:27.5816750Z     ✅ State transitioned.
+2026-01-19T02:29:29.1107751Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:29:29.1108191Z [DEBUG] Received response (Length: 194)
+2026-01-19T02:29:29.1108924Z     🤖 AI Next Step Suggestion: click -> login-button
+2026-01-19T02:29:29.1114131Z     🧩 Suggested Locator: input[id='login-button']
+2026-01-19T02:29:29.1115492Z     💭 Reasoning: Now that username and password are filled, click the login button to attempt login.
+2026-01-19T02:29:29.1116467Z     ➕ Injected AI step: click -> login-button
+2026-01-19T02:29:29.1117063Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
+2026-01-19T02:29:29.1175776Z     🎯 Using AI-provided locator: input[id='login-button']
+2026-01-19T02:29:29.1232072Z     ✅ Found 1 verified locators
+2026-01-19T02:29:33.1741601Z     ✅ State transitioned.
+2026-01-19T02:29:34.7644755Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:29:34.7645401Z [DEBUG] Received response (Length: 180)
+2026-01-19T02:29:34.7646154Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T02:29:34.7647552Z     💭 Reasoning: The user is locked, and there are no options to unlock the user from this page. The goal is achieved by verifying the locked user scenario.
+2026-01-19T02:29:34.7649249Z   ▶️ [STEP step_3] FILL: Password
+2026-01-19T02:29:34.7703586Z     🔍 Mining locators for: 'Password'
+2026-01-19T02:29:34.8307037Z     ✅ Found 5 verified locators
+2026-01-19T02:29:40.0947216Z     ✅ State transitioned.
+2026-01-19T02:29:41.4949446Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:29:41.4950100Z [DEBUG] Received response (Length: 241)
+2026-01-19T02:29:41.4950626Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T02:29:41.4951836Z     💭 Reasoning: The page indicates that the user is locked out. There are no further actions to take on this page to achieve the goal of testing locked user scenarios. The test has confirmed the locked user scenario.
+2026-01-19T02:29:41.4952736Z   ▶️ [STEP step_4] CLICK: Login
+2026-01-19T02:29:41.5010560Z     🔍 Mining locators for: 'Login'
+2026-01-19T02:29:41.5422446Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-19T02:29:41.5433884Z     🔍 Trying smart selectors for 'Login'...
+2026-01-19T02:29:41.5565349Z     ✅ Smart selector found 'Login' via name (confidence: 0.88)
+2026-01-19T02:29:41.5605487Z     ✅ Found 1 verified locators
+2026-01-19T02:29:45.6225168Z     ✅ State transitioned.
+2026-01-19T02:29:45.6273004Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:29:46.8422765Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:29:46.8423589Z [DEBUG] Received response (Length: 180)
+2026-01-19T02:29:46.8424497Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T02:29:46.8426207Z     💭 Reasoning: The user is locked, and there are no options to unlock the user from this page. The goal is achieved by verifying the locked user scenario.
+2026-01-19T02:29:46.8427809Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Epic sadface: Sorry, this user has been locked out.
+2026-01-19T02:29:46.8484884Z     🔍 Mining locators for: 'Epic sadface: Sorry, this user has been locked out.'
+2026-01-19T02:29:46.8955597Z     ✅ Found 1 verified locators
+2026-01-19T02:29:49.4283772Z     ✅ State transitioned.
+2026-01-19T02:29:49.4328532Z     🔄 Revisited state detected (count: 2)
+2026-01-19T02:29:51.7792472Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:29:51.7793150Z [DEBUG] Received response (Length: 248)
+2026-01-19T02:29:51.7793814Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T02:29:51.7795122Z     💭 Reasoning: The goal is to test locked user scenarios, and the application is already displaying the message indicating that the user is locked out. There are no further actions to take on this page to achieve the goal.
+2026-01-19T02:29:53.8147067Z 
+2026-01-19T02:29:53.8148056Z [2/3] Exploring Scenario: Standard User Login and Logout
+2026-01-19T02:29:53.8149938Z     🧠 Initialized exploration context for goal: 'Test locked user scenarios'
+2026-01-19T02:29:53.8150695Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:29:54.4975383Z     ✅ Navigated to https://www.saucedemo.com/
+2026-01-19T02:29:54.4975823Z   ▶️ [STEP step_2] FILL: Username
+2026-01-19T02:29:54.5133638Z     🔍 Mining locators for: 'Username'
+2026-01-19T02:29:54.5816583Z     ✅ Found 5 verified locators
+2026-01-19T02:30:00.2838272Z     ✅ State transitioned.
+2026-01-19T02:30:01.8102195Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:30:01.8102831Z [DEBUG] Received response (Length: 219)
+2026-01-19T02:30:01.8103603Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T02:30:01.8104173Z     🧩 Suggested Locator: #password
+2026-01-19T02:30:01.8105189Z     💭 Reasoning: Need to fill the password field to attempt login. The password for all users is provided on the page.
+2026-01-19T02:30:01.8106154Z     ➕ Injected AI step: fill -> Password
+2026-01-19T02:30:01.8106691Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T02:30:01.8162053Z     🎯 Using AI-provided locator: #password
+2026-01-19T02:30:01.8218859Z     ✅ Found 1 verified locators
+2026-01-19T02:30:07.6608801Z     ✅ State transitioned.
+2026-01-19T02:30:09.0858160Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:30:09.0859044Z [DEBUG] Received response (Length: 194)
+2026-01-19T02:30:09.0860062Z     🤖 AI Next Step Suggestion: click -> login-button
+2026-01-19T02:30:09.0860919Z     🧩 Suggested Locator: input[id='login-button']
+2026-01-19T02:30:09.0862493Z     💭 Reasoning: Now that username and password are filled, click the login button to attempt login.
+2026-01-19T02:30:09.0863644Z     ➕ Injected AI step: click -> login-button
+2026-01-19T02:30:09.0864378Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
+2026-01-19T02:30:09.0917027Z     🎯 Using AI-provided locator: input[id='login-button']
+2026-01-19T02:30:09.0981385Z     ✅ Found 1 verified locators
+2026-01-19T02:30:13.1680648Z     ✅ State transitioned.
+2026-01-19T02:30:14.6962133Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:30:14.6962653Z [DEBUG] Received response (Length: 182)
+2026-01-19T02:30:14.6963164Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T02:30:14.6963967Z     💭 Reasoning: The locked user is already logged in and on the inventory page. There is nothing more to do to test the locked user scenario from this point.
+2026-01-19T02:30:14.6965867Z   ▶️ [STEP step_3] FILL: Password
+2026-01-19T02:30:14.7017034Z     🔍 Mining locators for: 'Password'
+2026-01-19T02:30:14.7425134Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-19T02:30:14.7425603Z     🔍 Trying smart selectors for 'Password'...
+2026-01-19T02:30:14.7648259Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:30:14.7649101Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:30:14.7649461Z   ▶️ [STEP step_4] CLICK: Login
+2026-01-19T02:30:14.7696056Z     🔍 Mining locators for: 'Login'
+2026-01-19T02:30:14.8082810Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-19T02:30:14.8083566Z     🔍 Trying smart selectors for 'Login'...
+2026-01-19T02:30:14.8302815Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:30:14.8303737Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:30:14.8304380Z   ▶️ [STEP step_5] ASSERT_URL: 
+2026-01-19T02:30:19.8445391Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:30:21.8468314Z     ✅ State transitioned.
+2026-01-19T02:30:23.2871203Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:30:23.2871688Z [DEBUG] Received response (Length: 214)
+2026-01-19T02:30:23.2872226Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T02:30:23.2873176Z     💭 Reasoning: The user is already logged in and on the inventory page. The goal was to test locked user scenarios, which is not achievable from this page. Therefore, the task is complete.
+2026-01-19T02:30:23.2874033Z   ▶️ [STEP step_6] CLICK: Open Menu
+2026-01-19T02:30:23.2926008Z     🔍 Mining locators for: 'Open Menu'
+2026-01-19T02:30:23.3408002Z     ✅ Found 3 verified locators
+2026-01-19T02:30:26.8937082Z     ✅ State transitioned.
+2026-01-19T02:30:28.4719299Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:30:28.4720025Z [DEBUG] Received response (Length: 242)
+2026-01-19T02:30:28.4721685Z     🤖 AI Next Step Suggestion: click -> Logout
+2026-01-19T02:30:28.4722513Z     🧩 Suggested Locator: a[id='logout_sidebar_link']
+2026-01-19T02:30:28.4723830Z     💭 Reasoning: The goal is to test locked user scenarios. After logging in, the next step is to log out to prepare for testing locked user scenarios.
+2026-01-19T02:30:28.4724663Z     ➕ Injected AI step: click -> Logout
+2026-01-19T02:30:28.4725060Z   ▶️ [STEP step_6_ai_1] CLICK: Logout
+2026-01-19T02:30:28.4778465Z     🎯 Using AI-provided locator: a[id='logout_sidebar_link']
+2026-01-19T02:30:28.4844181Z     ✅ Found 1 verified locators
+2026-01-19T02:30:32.5292241Z     ✅ State transitioned.
+2026-01-19T02:30:34.1241510Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:30:34.1242518Z [DEBUG] Received response (Length: 214)
+2026-01-19T02:30:34.1243274Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-19T02:30:34.1243832Z     🧩 Suggested Locator: #user-name
+2026-01-19T02:30:34.1244780Z     💭 Reasoning: To test the locked user scenario, we need to fill the username field with 'locked_out_user'.
+2026-01-19T02:30:34.1245664Z     ➕ Injected AI step: fill -> Username
+2026-01-19T02:30:34.1245990Z   ▶️ [STEP step_6_ai_2] FILL: Username
+2026-01-19T02:30:34.1296499Z     🎯 Using AI-provided locator: #user-name
+2026-01-19T02:30:34.1348167Z     ✅ Found 1 verified locators
+2026-01-19T02:30:41.0807009Z     ✅ State transitioned.
+2026-01-19T02:30:42.4922501Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:30:42.4923225Z [DEBUG] Received response (Length: 224)
+2026-01-19T02:30:42.4924059Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T02:30:42.4924643Z     🧩 Suggested Locator: #password
+2026-01-19T02:30:42.4925719Z     💭 Reasoning: The username is already filled. Now filling the password field with the correct password to attempt login.
+2026-01-19T02:30:42.4926839Z     ➕ Injected AI step: fill -> Password
+2026-01-19T02:30:42.4927394Z   ▶️ [STEP step_6_ai_3] FILL: Password
+2026-01-19T02:30:42.4979446Z     🎯 Using AI-provided locator: #password
+2026-01-19T02:30:42.5033214Z     ✅ Found 1 verified locators
+2026-01-19T02:30:48.2125980Z     ✅ State transitioned.
+2026-01-19T02:30:49.5515318Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:30:49.5516116Z [DEBUG] Received response (Length: 246)
+2026-01-19T02:30:49.5516910Z     🤖 AI Next Step Suggestion: click -> login-button
+2026-01-19T02:30:49.5517579Z     🧩 Suggested Locator: input[id='login-button']
+2026-01-19T02:30:49.5518840Z     💭 Reasoning: Now that the username and password have been entered, the next step is to click the login button to attempt to log in.
+2026-01-19T02:30:49.5519971Z     ➕ Injected AI step: click -> login-button
+2026-01-19T02:30:49.5520536Z   ▶️ [STEP step_6_ai_4] CLICK: login-button
+2026-01-19T02:30:49.5573891Z     🎯 Using AI-provided locator: input[id='login-button']
+2026-01-19T02:30:49.5630129Z     ✅ Found 1 verified locators
+2026-01-19T02:30:53.6167773Z     ✅ State transitioned.
+2026-01-19T02:30:55.1024651Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:30:55.1025155Z [DEBUG] Received response (Length: 283)
+2026-01-19T02:30:55.1025723Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T02:30:55.1026886Z     💭 Reasoning: The user is locked, and the page indicates this with the message 'Epic sadface: Sorry, this user has been locked out.' There are no actions available to unlock the user from this page. The goal to test locked user scenarios has been achieved.
+2026-01-19T02:30:55.1028009Z   ▶️ [STEP step_7] CLICK: Logout
+2026-01-19T02:30:55.1081871Z     🔍 Mining locators for: 'Logout'
+2026-01-19T02:30:55.1386945Z     🧠 Consulting AI (Vision-First) to find 'Logout'...
+2026-01-19T02:30:55.1387693Z     🔍 Trying smart selectors for 'Logout'...
+2026-01-19T02:30:55.1604245Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:30:55.1612682Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:30:55.1613583Z   ▶️ [STEP step_8] ASSERT_URL: 
+2026-01-19T02:31:00.1747158Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:31:02.1764575Z     ✅ State transitioned.
+2026-01-19T02:31:03.6882005Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:31:03.6882576Z [DEBUG] Received response (Length: 335)
+2026-01-19T02:31:03.6883278Z     🤖 AI Next Step Suggestion: click -> login-button
+2026-01-19T02:31:03.6883662Z     🧩 Suggested Locator: #login-button
+2026-01-19T02:31:03.6884737Z     💭 Reasoning: The page shows the locked out message. To re-test the locked user scenario, we need to attempt to login again after logging out. Clicking the login button will attempt to log in with the previously entered credentials.
+2026-01-19T02:31:03.6886155Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:31:05.7235136Z 
+2026-01-19T02:31:05.7235841Z [3/3] Exploring Scenario: Problem User Login and Inventory Check
+2026-01-19T02:31:05.7237073Z     🧠 Initialized exploration context for goal: 'Test locked user scenarios'
+2026-01-19T02:31:05.7237909Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:31:06.3994041Z     ✅ Navigated to https://www.saucedemo.com/
+2026-01-19T02:31:06.3994720Z   ▶️ [STEP step_2] FILL: Username
+2026-01-19T02:31:06.4155325Z     🔍 Mining locators for: 'Username'
+2026-01-19T02:31:06.4812210Z     ✅ Found 5 verified locators
+2026-01-19T02:31:12.5872167Z     ✅ State transitioned.
+2026-01-19T02:31:14.3373315Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:31:14.3374009Z [DEBUG] Received response (Length: 219)
+2026-01-19T02:31:14.3374788Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T02:31:14.3375393Z     🧩 Suggested Locator: #password
+2026-01-19T02:31:14.3376550Z     💭 Reasoning: Need to fill the password field to attempt login. The password for all users is provided on the page.
+2026-01-19T02:31:14.3377548Z     ➕ Injected AI step: fill -> Password
+2026-01-19T02:31:14.3378091Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T02:31:14.3429189Z     🎯 Using AI-provided locator: #password
+2026-01-19T02:31:14.3490005Z     ✅ Found 1 verified locators
+2026-01-19T02:31:20.0403987Z     ✅ State transitioned.
+2026-01-19T02:31:21.4854996Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:31:21.4855720Z [DEBUG] Received response (Length: 229)
+2026-01-19T02:31:21.4856552Z     🤖 AI Next Step Suggestion: click -> login-button
+2026-01-19T02:31:21.4857230Z     🧩 Suggested Locator: input[id='login-button']
+2026-01-19T02:31:21.4858485Z     💭 Reasoning: Now that the username and password fields are filled, the next step is to click the login button to attempt to log in.
+2026-01-19T02:31:21.4859618Z     ➕ Injected AI step: click -> login-button
+2026-01-19T02:31:21.4860223Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
+2026-01-19T02:31:21.4916215Z     🎯 Using AI-provided locator: input[id='login-button']
+2026-01-19T02:31:21.4974954Z     ✅ Found 1 verified locators
+2026-01-19T02:31:25.5619187Z     ✅ State transitioned.
+2026-01-19T02:31:26.9065193Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:31:26.9065661Z [DEBUG] Received response (Length: 194)
+2026-01-19T02:31:26.9066344Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T02:31:26.9067192Z     💭 Reasoning: The user has successfully logged in. The goal is to test locked user scenarios, which cannot be achieved from this page. Therefore, the task is complete.
+2026-01-19T02:31:26.9067952Z   ▶️ [STEP step_3] FILL: Password
+2026-01-19T02:31:26.9122558Z     🔍 Mining locators for: 'Password'
+2026-01-19T02:31:26.9482751Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-19T02:31:26.9483218Z     🔍 Trying smart selectors for 'Password'...
+2026-01-19T02:31:26.9709310Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:31:26.9710252Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:31:26.9733520Z   ▶️ [STEP step_4] CLICK: Login
+2026-01-19T02:31:26.9766856Z     🔍 Mining locators for: 'Login'
+2026-01-19T02:31:27.0224325Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-19T02:31:27.0224883Z     🔍 Trying smart selectors for 'Login'...
+2026-01-19T02:31:27.0436513Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:31:27.0437348Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:31:27.0437811Z   ▶️ [STEP step_5] ASSERT_URL: 
+2026-01-19T02:31:32.0582808Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:31:34.0605795Z     ✅ State transitioned.
+2026-01-19T02:31:35.8402334Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:31:35.8402988Z [DEBUG] Received response (Length: 298)
+2026-01-19T02:31:35.8403759Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T02:31:35.8405778Z     💭 Reasoning: The user has successfully logged in. The goal was to test locked user scenarios, and the current page indicates a successful login. Since the locked user scenario would have prevented login, this test is not applicable here. Therefore, the goal is complete.
+2026-01-19T02:31:35.8407048Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Sauce Labs Backpack
+2026-01-19T02:31:35.8459587Z     🔍 Mining locators for: 'Sauce Labs Backpack'
+2026-01-19T02:31:35.9208818Z     ✅ Found 4 verified locators
+2026-01-19T02:31:38.4570960Z     ✅ State transitioned.
+2026-01-19T02:31:38.4630635Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:31:40.4185941Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:31:40.4186355Z [DEBUG] Received response (Length: 214)
+2026-01-19T02:31:40.4186899Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T02:31:40.4187811Z     💭 Reasoning: The user is already logged in and on the inventory page. The goal is to test locked user scenarios, which cannot be achieved from this page. Therefore, the task is complete.
+2026-01-19T02:31:42.4561907Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked/tests/generated_scenarios.json
+2026-01-19T02:31:42.4569709Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-19T02:31:42.4570143Z 
+2026-01-19T02:31:42.4570370Z ✅ Deep Exploration Complete.
+2026-01-19T02:33:38.9793981Z 
+2026-01-19T02:33:38.9794728Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-19T02:33:38.9795361Z 📍 Project: ci_saucedemo_locked
+2026-01-19T02:33:38.9795631Z 🎬 Mode: Headless
+2026-01-19T02:33:38.9795865Z 
+2026-01-19T02:33:38.9796086Z --- Scenario: Locked Out User Login Attempt ---
+2026-01-19T02:33:38.9796739Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:33:38.9797274Z     ✅ Step step_1 Passed.
+2026-01-19T02:33:38.9797717Z   ▶️ [STEP step_2] FILL: Username
+2026-01-19T02:33:38.9798338Z     🎯 Using mined locator: role=textbox[name='Username']
+2026-01-19T02:33:38.9798908Z     ✅ Step step_2 Passed.
+2026-01-19T02:33:38.9799338Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T02:33:38.9799725Z     🎯 Using mined locator: #password
+2026-01-19T02:33:38.9800020Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T02:33:38.9800305Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
+2026-01-19T02:33:38.9800651Z     🎯 Using mined locator: input[id='login-button']
+2026-01-19T02:33:38.9800967Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T02:33:38.9801598Z   ▶️ [STEP step_3] FILL: Password
+2026-01-19T02:33:38.9801938Z     🎯 Using mined locator: role=textbox[name='Password']
+2026-01-19T02:33:38.9802259Z     ✅ Step step_3 Passed.
+2026-01-19T02:33:38.9802504Z   ▶️ [STEP step_4] CLICK: Login
+2026-01-19T02:33:38.9802783Z     🎯 Using mined locator: [name*='login']
+2026-01-19T02:33:38.9803072Z     ✅ Step step_4 Passed.
+2026-01-19T02:33:38.9803493Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Epic sadface: Sorry, this user has been locked out.
+2026-01-19T02:33:38.9804431Z     🎯 Using mined locator: text='Epic sadface: Sorry, this user has been locked out.'
+2026-01-19T02:33:38.9804854Z     ✅ Step step_5 Passed.
+2026-01-19T02:33:38.9805353Z ✅ Scenario 'Locked Out User Login Attempt' completed successfully!
+2026-01-19T02:33:38.9805630Z 
+2026-01-19T02:33:38.9805753Z --- Scenario: Standard User Login and Logout ---
+2026-01-19T02:33:38.9806094Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:33:38.9806382Z     ✅ Step step_1 Passed.
+2026-01-19T02:33:38.9806628Z   ▶️ [STEP step_2] FILL: Username
+2026-01-19T02:33:38.9806952Z     🎯 Using mined locator: role=textbox[name='Username']
+2026-01-19T02:33:38.9807268Z     ✅ Step step_2 Passed.
+2026-01-19T02:33:38.9807546Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T02:33:38.9807840Z     🎯 Using mined locator: #password
+2026-01-19T02:33:38.9808118Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T02:33:38.9808390Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
+2026-01-19T02:33:38.9808737Z     🎯 Using mined locator: input[id='login-button']
+2026-01-19T02:33:38.9809054Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T02:33:38.9809309Z   ▶️ [STEP step_3] FILL: Password
+2026-01-19T02:33:38.9809849Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T02:33:38.9810312Z Call log:
+2026-01-19T02:33:38.9810487Z   - waiting for locator("tex...
+2026-01-19T02:33:38.9810824Z     🔧 [AUTO-HEAL] Re-mining page to find 'Password'...
+2026-01-19T02:33:38.9811428Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:33:38.9811790Z [DEBUG] Received response (Length: 38)
+2026-01-19T02:33:38.9812192Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T02:33:38.9812827Z     ❌ Attempt 2 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T02:33:38.9813284Z Call log:
+2026-01-19T02:33:38.9813466Z   - waiting for locator("tex...
+2026-01-19T02:33:38.9813799Z     🔧 [AUTO-HEAL] Re-mining page to find 'Password'...
+2026-01-19T02:33:38.9814118Z [CACHE HIT] 4a9f819c... (hits: 1, misses: 1)
+2026-01-19T02:33:38.9814526Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T02:33:38.9815145Z     ❌ Attempt 3 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T02:33:38.9815592Z Call log:
+2026-01-19T02:33:38.9815767Z   - waiting for locator("tex...
+2026-01-19T02:33:38.9816052Z     💀 Step step_3 failed after all retries.
+2026-01-19T02:33:38.9816483Z 🛑 Scenario 'Standard User Login and Logout' aborted due to step failure.
+2026-01-19T02:33:38.9816768Z 
+2026-01-19T02:33:38.9816911Z --- Scenario: Problem User Login and Inventory Check ---
+2026-01-19T02:33:38.9817264Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:33:38.9817552Z     ✅ Step step_1 Passed.
+2026-01-19T02:33:38.9817804Z   ▶️ [STEP step_2] FILL: Username
+2026-01-19T02:33:38.9818131Z     🎯 Using mined locator: role=textbox[name='Username']
+2026-01-19T02:33:38.9818461Z     ✅ Step step_2 Passed.
+2026-01-19T02:33:38.9818715Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T02:33:38.9819010Z     🎯 Using mined locator: #password
+2026-01-19T02:33:38.9819299Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T02:33:38.9819644Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
+2026-01-19T02:33:38.9820011Z     🎯 Using mined locator: input[id='login-button']
+2026-01-19T02:33:38.9820329Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T02:33:38.9820588Z   ▶️ [STEP step_3] FILL: Password
+2026-01-19T02:33:38.9821432Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T02:33:38.9821920Z Call log:
+2026-01-19T02:33:38.9822100Z   - waiting for locator("tex...
+2026-01-19T02:33:38.9822438Z     🔧 [AUTO-HEAL] Re-mining page to find 'Password'...
+2026-01-19T02:33:38.9822810Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:33:38.9823153Z [DEBUG] Received response (Length: 38)
+2026-01-19T02:33:38.9823716Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T02:33:38.9824457Z     ❌ Attempt 2 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T02:33:38.9824918Z Call log:
+2026-01-19T02:33:38.9825093Z   - waiting for locator("tex...
+2026-01-19T02:33:38.9825408Z     🔧 [AUTO-HEAL] Re-mining page to find 'Password'...
+2026-01-19T02:33:38.9826047Z [CACHE HIT] ccd52d72... (hits: 2, misses: 2)
+2026-01-19T02:33:38.9826764Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T02:33:38.9827792Z     ❌ Attempt 3 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T02:33:38.9828529Z Call log:
+2026-01-19T02:33:38.9828807Z   - waiting for locator("tex...
+2026-01-19T02:33:38.9829299Z     💀 Step step_3 failed after all retries.
+2026-01-19T02:33:38.9829782Z 🛑 Scenario 'Problem User Login and Inventory Check' aborted due to step failure.
+2026-01-19T02:33:38.9830118Z 
+2026-01-19T02:33:38.9830220Z ============================================================
+2026-01-19T02:33:38.9830524Z 🎯 EXECUTION SUMMARY
+2026-01-19T02:33:38.9830752Z ============================================================
+2026-01-19T02:33:38.9830947Z 
+2026-01-19T02:33:38.9831472Z 📋 Scenario Overview:
+2026-01-19T02:33:38.9831831Z    • Total Scenarios Planned: 3
+2026-01-19T02:33:38.9832091Z    • Scenarios Executed: 3
+2026-01-19T02:33:38.9832490Z    • Total Steps Executed: 17
+2026-01-19T02:33:38.9832646Z 
+2026-01-19T02:33:38.9832735Z ✅ Results:
+2026-01-19T02:33:38.9832930Z    ✅ Passed: 1 (33%)
+2026-01-19T02:33:38.9833141Z    ❌ Failed: 2 (66%)
+2026-01-19T02:33:38.9833258Z 
+2026-01-19T02:33:38.9833358Z ⚠️  Failed Scenarios:
+2026-01-19T02:33:38.9833599Z    • Standard User Login and Logout
+2026-01-19T02:33:38.9833894Z    • Problem User Login and Inventory Check
+2026-01-19T02:33:38.9834078Z 
+2026-01-19T02:33:38.9834175Z ============================================================
+2026-01-19T02:33:38.9834385Z 
+2026-01-19T02:33:38.9834903Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked/execution.json
+2026-01-19T02:33:39.1039040Z 
+2026-01-19T02:33:39.1039735Z [PHASE] Running Phase: DISCOVERY
+2026-01-19T02:33:39.1041844Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked --url https://www.saucedemo.com/ --deep
+2026-01-19T02:33:39.1043462Z ✅ Phase 'discovery' completed successfully.
+2026-01-19T02:33:39.1043675Z 
+2026-01-19T02:33:39.1043775Z [PHASE] Running Phase: PLANNING
+2026-01-19T02:33:39.1044999Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked --goal Test locked user scenarios --url https://www.saucedemo.com/ --deep
+2026-01-19T02:33:39.1046324Z ✅ Phase 'planning' completed successfully.
+2026-01-19T02:33:39.1046523Z 
+2026-01-19T02:33:39.1046624Z [PHASE] Running Phase: EXPLORATION
+2026-01-19T02:33:39.1047582Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked
+2026-01-19T02:33:39.1048619Z ✅ Phase 'exploration' completed successfully.
+2026-01-19T02:33:39.1048992Z 📊 Exploration Discovery Success Rate: 69.2%
+2026-01-19T02:33:39.1049183Z 
+2026-01-19T02:33:39.1049270Z [PHASE] Running Phase: EXECUTION
+2026-01-19T02:33:39.1050198Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked
+2026-01-19T02:33:39.1051752Z ✅ Phase 'execution' completed successfully.
+2026-01-19T02:33:39.1051944Z 
+2026-01-19T02:33:39.1052049Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-19T02:33:39.2055189Z ##[group]Run RESULT_FILE="projects/ci_saucedemo_locked/execution.json"
+2026-01-19T02:33:39.2055720Z [36;1mRESULT_FILE="projects/ci_saucedemo_locked/execution.json"[0m
+2026-01-19T02:33:39.2056082Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-19T02:33:39.2056414Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-19T02:33:39.2056868Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-19T02:33:39.2057242Z [36;1melse[0m
+2026-01-19T02:33:39.2057474Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-19T02:33:39.2057767Z [36;1m  exit 1[0m
+2026-01-19T02:33:39.2057942Z [36;1mfi[0m
+2026-01-19T02:33:39.2088822Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:33:39.2089044Z env:
+2026-01-19T02:33:39.2089309Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:33:39.2089738Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:33:39.2090171Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:33:39.2090534Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:33:39.2090900Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:33:39.2091389Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:33:39.2091693Z ##[endgroup]
+2026-01-19T02:33:39.2142205Z ✅ Results generated successfully: projects/ci_saucedemo_locked/execution.json
+2026-01-19T02:33:39.2167561Z 3
+2026-01-19T02:33:39.2227597Z ##[group]Run actions/upload-artifact@v4
+2026-01-19T02:33:39.2227866Z with:
+2026-01-19T02:33:39.2228062Z   name: saucedemo_locked-execution-results
+2026-01-19T02:33:39.2228521Z   path: projects/ci_saucedemo_locked/execution.json
+projects/ci_saucedemo_locked/workflow.json
+
+2026-01-19T02:33:39.2228979Z   retention-days: 30
+2026-01-19T02:33:39.2229175Z   if-no-files-found: warn
+2026-01-19T02:33:39.2229383Z   compression-level: 6
+2026-01-19T02:33:39.2229578Z   overwrite: false
+2026-01-19T02:33:39.2229769Z   include-hidden-files: false
+2026-01-19T02:33:39.2229975Z env:
+2026-01-19T02:33:39.2230207Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:33:39.2230626Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:33:39.2231183Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:33:39.2231708Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:33:39.2232101Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:33:39.2232474Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:33:39.2232774Z ##[endgroup]
+2026-01-19T02:33:39.4353625Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-19T02:33:39.4358377Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked. This will be the root directory of the artifact
+2026-01-19T02:33:39.4359796Z With the provided path, there will be 2 files uploaded
+2026-01-19T02:33:39.4365248Z Artifact name is valid!
+2026-01-19T02:33:39.4366493Z Root directory input is valid!
+2026-01-19T02:33:39.5580210Z Beginning upload of artifact content to blob storage
+2026-01-19T02:33:39.6830153Z Uploaded bytes 1801
+2026-01-19T02:33:39.7165624Z Finished uploading artifact content to blob storage!
+2026-01-19T02:33:39.7169215Z SHA256 digest of uploaded artifact zip is 6d670ca7edefa45c35a8cf6dac7461cb98e4d7250514110f1b3bd15c524e3f16
+2026-01-19T02:33:39.7171513Z Finalizing artifact upload
+2026-01-19T02:33:39.8124108Z Artifact saucedemo_locked-execution-results.zip successfully finalized. Artifact ID 5171802139
+2026-01-19T02:33:39.8125330Z Artifact saucedemo_locked-execution-results has been successfully uploaded! Final size is 1801 bytes. Artifact ID is 5171802139
+2026-01-19T02:33:39.8131759Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21122730879/artifacts/5171802139
+2026-01-19T02:33:39.8255955Z Post job cleanup.
+2026-01-19T02:33:39.9776148Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-19T02:33:39.9881600Z Post job cleanup.
+2026-01-19T02:33:40.0896202Z [command]/usr/bin/git version
+2026-01-19T02:33:40.0934684Z git version 2.52.0
+2026-01-19T02:33:40.0979104Z Temporarily overriding HOME='/home/runner/work/_temp/64d54d22-7489-4710-9cd1-b13fb7319b79' before making global git config changes
+2026-01-19T02:33:40.0980522Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T02:33:40.0985971Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:33:40.1023667Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T02:33:40.1057552Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T02:33:40.1313800Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T02:33:40.1338787Z http.https://github.com/.extraheader
+2026-01-19T02:33:40.1352962Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-19T02:33:40.1387650Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T02:33:40.1639585Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T02:33:40.1675319Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T02:33:40.2029898Z Cleaning up orphan processes

@@ -1,0 +1,811 @@
+﻿2026-01-19T02:11:45.9646685Z Current runner version: '2.331.0'
+2026-01-19T02:11:45.9670636Z ##[group]Runner Image Provisioner
+2026-01-19T02:11:45.9672269Z Hosted Compute Agent
+2026-01-19T02:11:45.9673380Z Version: 20251211.462
+2026-01-19T02:11:45.9674451Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-19T02:11:45.9675671Z Build Date: 2025-12-11T16:28:49Z
+2026-01-19T02:11:45.9677391Z Worker ID: {45b1f8ae-5cc3-4736-b1f3-472b93584fc6}
+2026-01-19T02:11:45.9678596Z ##[endgroup]
+2026-01-19T02:11:45.9679504Z ##[group]Operating System
+2026-01-19T02:11:45.9680608Z Ubuntu
+2026-01-19T02:11:45.9681490Z 24.04.3
+2026-01-19T02:11:45.9682254Z LTS
+2026-01-19T02:11:45.9683236Z ##[endgroup]
+2026-01-19T02:11:45.9684155Z ##[group]Runner Image
+2026-01-19T02:11:45.9685187Z Image: ubuntu-24.04
+2026-01-19T02:11:45.9686548Z Version: 20260111.209.1
+2026-01-19T02:11:45.9688396Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-19T02:11:45.9691324Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-19T02:11:45.9693098Z ##[endgroup]
+2026-01-19T02:11:45.9695178Z ##[group]GITHUB_TOKEN Permissions
+2026-01-19T02:11:45.9698486Z Contents: read
+2026-01-19T02:11:45.9699391Z Metadata: read
+2026-01-19T02:11:45.9700321Z Packages: read
+2026-01-19T02:11:45.9701290Z ##[endgroup]
+2026-01-19T02:11:45.9704029Z Secret source: Actions
+2026-01-19T02:11:45.9705547Z Prepare workflow directory
+2026-01-19T02:11:46.0072779Z Prepare all required actions
+2026-01-19T02:11:46.0110166Z Getting action download info
+2026-01-19T02:11:46.3799521Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-19T02:11:46.4713930Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-19T02:11:46.6575179Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-19T02:11:46.8925444Z Complete job name: test-websites-deep (demoqa_practice, https://demoqa.com/, Test various form elements)
+2026-01-19T02:11:46.9687246Z ##[group]Run actions/checkout@v4
+2026-01-19T02:11:46.9688178Z with:
+2026-01-19T02:11:46.9688698Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T02:11:46.9689570Z   token: ***
+2026-01-19T02:11:46.9690004Z   ssh-strict: true
+2026-01-19T02:11:46.9690457Z   ssh-user: git
+2026-01-19T02:11:46.9690909Z   persist-credentials: true
+2026-01-19T02:11:46.9691426Z   clean: true
+2026-01-19T02:11:46.9691946Z   sparse-checkout-cone-mode: true
+2026-01-19T02:11:46.9692510Z   fetch-depth: 1
+2026-01-19T02:11:46.9692976Z   fetch-tags: false
+2026-01-19T02:11:46.9693461Z   show-progress: true
+2026-01-19T02:11:46.9693930Z   lfs: false
+2026-01-19T02:11:46.9694348Z   submodules: false
+2026-01-19T02:11:46.9694820Z   set-safe-directory: true
+2026-01-19T02:11:46.9695558Z ##[endgroup]
+2026-01-19T02:11:47.0775897Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T02:11:47.0778030Z ##[group]Getting Git version info
+2026-01-19T02:11:47.0779126Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T02:11:47.0780601Z [command]/usr/bin/git version
+2026-01-19T02:11:47.0848860Z git version 2.52.0
+2026-01-19T02:11:47.0875307Z ##[endgroup]
+2026-01-19T02:11:47.0890021Z Temporarily overriding HOME='/home/runner/work/_temp/8707e745-b656-4bf3-a7bb-cac1714442a9' before making global git config changes
+2026-01-19T02:11:47.0891756Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T02:11:47.0902511Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:11:47.0939860Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T02:11:47.0943286Z ##[group]Initializing the repository
+2026-01-19T02:11:47.0947814Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:11:47.1052050Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-19T02:11:47.1054087Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-19T02:11:47.1056243Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-19T02:11:47.1057718Z hint: call:
+2026-01-19T02:11:47.1058378Z hint:
+2026-01-19T02:11:47.1059051Z hint: 	git config --global init.defaultBranch <name>
+2026-01-19T02:11:47.1059732Z hint:
+2026-01-19T02:11:47.1060370Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-19T02:11:47.1061456Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-19T02:11:47.1062421Z hint:
+2026-01-19T02:11:47.1063105Z hint: 	git branch -m <name>
+2026-01-19T02:11:47.1063742Z hint:
+2026-01-19T02:11:47.1064423Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-19T02:11:47.1065786Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-19T02:11:47.1068751Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T02:11:47.1101710Z ##[endgroup]
+2026-01-19T02:11:47.1102536Z ##[group]Disabling automatic garbage collection
+2026-01-19T02:11:47.1105902Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-19T02:11:47.1134689Z ##[endgroup]
+2026-01-19T02:11:47.1135456Z ##[group]Setting up auth
+2026-01-19T02:11:47.1141626Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T02:11:47.1171581Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T02:11:47.1499024Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T02:11:47.1530499Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T02:11:47.1751312Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T02:11:47.1782679Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T02:11:47.2028354Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-19T02:11:47.2064135Z ##[endgroup]
+2026-01-19T02:11:47.2065030Z ##[group]Fetching the repository
+2026-01-19T02:11:47.2074050Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8ae9e7a98960844bdcef67161cbe93442a7431bc:refs/remotes/origin/main
+2026-01-19T02:11:48.3413399Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T02:11:48.3417496Z  * [new ref]         8ae9e7a98960844bdcef67161cbe93442a7431bc -> origin/main
+2026-01-19T02:11:48.3444738Z ##[endgroup]
+2026-01-19T02:11:48.3446121Z ##[group]Determining the checkout info
+2026-01-19T02:11:48.3447891Z ##[endgroup]
+2026-01-19T02:11:48.3452218Z [command]/usr/bin/git sparse-checkout disable
+2026-01-19T02:11:48.3491198Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-19T02:11:48.3517401Z ##[group]Checking out the ref
+2026-01-19T02:11:48.3521138Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-19T02:11:48.4848254Z Switched to a new branch 'main'
+2026-01-19T02:11:48.4849882Z branch 'main' set up to track 'origin/main'.
+2026-01-19T02:11:48.4869765Z ##[endgroup]
+2026-01-19T02:11:48.4907864Z [command]/usr/bin/git log -1 --format=%H
+2026-01-19T02:11:48.4929759Z 8ae9e7a98960844bdcef67161cbe93442a7431bc
+2026-01-19T02:11:48.5246896Z ##[group]Run actions/setup-python@v5
+2026-01-19T02:11:48.5247984Z with:
+2026-01-19T02:11:48.5248700Z   python-version: 3.11
+2026-01-19T02:11:48.5249516Z   cache: pip
+2026-01-19T02:11:48.5250510Z   check-latest: false
+2026-01-19T02:11:48.5251610Z   token: ***
+2026-01-19T02:11:48.5252459Z   update-environment: true
+2026-01-19T02:11:48.5253385Z   allow-prereleases: false
+2026-01-19T02:11:48.5254298Z   freethreaded: false
+2026-01-19T02:11:48.5255097Z ##[endgroup]
+2026-01-19T02:11:48.7000171Z ##[group]Installed versions
+2026-01-19T02:11:48.7101298Z Successfully set up CPython (3.11.14)
+2026-01-19T02:11:48.7102880Z ##[endgroup]
+2026-01-19T02:11:48.8154231Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-19T02:11:49.1258408Z /home/runner/.cache/pip
+2026-01-19T02:11:49.3458988Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T02:11:50.5498662Z Received 46137344 of 254742636 (18.1%), 44.0 MBs/sec
+2026-01-19T02:11:51.5523989Z Received 209715200 of 254742636 (82.3%), 99.9 MBs/sec
+2026-01-19T02:11:51.8435523Z Received 254742636 of 254742636 (100.0%), 105.9 MBs/sec
+2026-01-19T02:11:51.8437007Z Cache Size: ~243 MB (254742636 B)
+2026-01-19T02:11:51.8516257Z [command]/usr/bin/tar -xf /home/runner/work/_temp/75f8e161-cefd-4a10-ba4c-6cef4724237f/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-19T02:11:52.2813978Z Cache restored successfully
+2026-01-19T02:11:52.3296642Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T02:11:52.3517033Z ##[group]Run pip install -r requirements.txt
+2026-01-19T02:11:52.3517434Z [36;1mpip install -r requirements.txt[0m
+2026-01-19T02:11:52.3517734Z [36;1mplaywright install chromium[0m
+2026-01-19T02:11:52.3557861Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:11:52.3558127Z env:
+2026-01-19T02:11:52.3558390Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:11:52.3558837Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:11:52.3559255Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:11:52.3559639Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:11:52.3560006Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:11:52.3560377Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:11:52.3560689Z ##[endgroup]
+2026-01-19T02:11:53.0022065Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-19T02:11:53.0037578Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-19T02:11:53.0351655Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-19T02:11:53.0365596Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-19T02:11:53.0777174Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-19T02:11:53.0790790Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-19T02:11:53.2594233Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-19T02:11:53.2611163Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-19T02:11:53.3018422Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-19T02:11:53.3031668Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-19T02:11:53.3319792Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-19T02:11:53.3333004Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-19T02:11:53.3831370Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-19T02:11:53.3845326Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-19T02:11:53.4560136Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-19T02:11:53.4573861Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-19T02:11:53.6661936Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-19T02:11:53.6677793Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-19T02:11:53.7604561Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-19T02:11:53.7619076Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-19T02:11:53.7921197Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-19T02:11:53.7934261Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-19T02:11:53.9247097Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-19T02:11:53.9262657Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-19T02:11:53.9584126Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-19T02:11:53.9597629Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-19T02:11:54.0540771Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:11:54.0555902Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-19T02:11:54.0870711Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:11:54.0887510Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T02:11:54.1350161Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:11:54.1368722Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-19T02:11:54.1708720Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:11:54.1722104Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-19T02:11:54.2091503Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.2104929Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-19T02:11:54.2671163Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.2693225Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-19T02:11:54.3096466Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.3109180Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-19T02:11:54.4693703Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.4707760Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-19T02:11:54.5121071Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.5133936Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-19T02:11:54.6118567Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.6132281Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-19T02:11:54.6452846Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.6465387Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-19T02:11:54.6802908Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.6816689Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-19T02:11:54.7318580Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.7331854Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-19T02:11:54.7626356Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.7639357Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-19T02:11:54.8071929Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.8085219Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-19T02:11:54.8384613Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.8398240Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-19T02:11:54.8650080Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:54.8663351Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-19T02:11:55.5209190Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:55.5224314Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-19T02:11:55.5525938Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:55.5539223Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-19T02:11:55.6323388Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:11:55.6338493Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T02:11:55.6610508Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-19T02:11:55.6947076Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-19T02:11:55.6963603Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-19T02:11:55.6976934Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-19T02:11:55.6990007Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-19T02:11:55.7003660Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-19T02:11:55.7018163Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-19T02:11:55.7031041Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-19T02:11:55.7044710Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-19T02:11:55.7106433Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-19T02:11:55.7123778Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-19T02:11:55.7137025Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-19T02:11:55.7149592Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-19T02:11:55.7163294Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-19T02:11:55.7176383Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-19T02:11:55.7189474Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-19T02:11:55.7205185Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-19T02:11:55.7232157Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-19T02:11:55.7244684Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-19T02:11:55.7257401Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-19T02:11:55.7270516Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-19T02:11:55.7283647Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-19T02:11:55.7296779Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-19T02:11:55.7315280Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-19T02:11:55.7769735Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-19T02:11:55.7899618Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-19T02:11:55.7925926Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-19T02:11:55.7939049Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-19T02:11:55.7952890Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-19T02:11:55.7965641Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-19T02:11:55.7979348Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-19T02:11:55.7993364Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-19T02:11:55.8006491Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-19T02:11:55.9994815Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-19T02:12:02.9891491Z 
+2026-01-19T02:12:02.9914276Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-19T02:12:03.5668990Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-19T02:12:03.6632320Z (node:2191) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:12:03.6634026Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:12:03.8050055Z |                                                                                |   0% of 164.7 MiB
+2026-01-19T02:12:03.9639758Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-19T02:12:04.0448681Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-19T02:12:04.1150458Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-19T02:12:04.1807722Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-19T02:12:04.2440490Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-19T02:12:04.3178029Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-19T02:12:04.3828580Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-19T02:12:04.4581851Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-19T02:12:04.5319904Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-19T02:12:04.6072444Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-19T02:12:07.0823590Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-19T02:12:07.0828307Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-19T02:12:07.1788044Z (node:2202) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:12:07.1789110Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:12:07.2811903Z |                                                                                |   0% of 2.3 MiB
+2026-01-19T02:12:07.3216746Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-19T02:12:07.3369302Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-19T02:12:07.3499934Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-19T02:12:07.3538633Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-19T02:12:07.3644496Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-19T02:12:07.3679095Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-19T02:12:07.3694377Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-19T02:12:07.3715443Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-19T02:12:07.3735282Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-19T02:12:07.3818423Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-19T02:12:07.4371587Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-19T02:12:07.4375265Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-19T02:12:07.5365472Z (node:2213) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:12:07.5367516Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:12:07.6547000Z |                                                                                |   0% of 109.7 MiB
+2026-01-19T02:12:07.7896485Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-19T02:12:07.8550558Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-19T02:12:07.9147763Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-19T02:12:07.9572775Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-19T02:12:08.0042117Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-19T02:12:08.0447944Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-19T02:12:08.0911065Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-19T02:12:08.1334872Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-19T02:12:08.1727879Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-19T02:12:08.2172216Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-19T02:12:10.0772942Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-19T02:12:10.1003599Z ##[group]Run mkdir -p projects/ci_demoqa_practice
+2026-01-19T02:12:10.1004057Z [36;1mmkdir -p projects/ci_demoqa_practice[0m
+2026-01-19T02:12:10.1004447Z [36;1mcat > projects/ci_demoqa_practice/config.json << 'EOF'[0m
+2026-01-19T02:12:10.1004778Z [36;1m{[0m
+2026-01-19T02:12:10.1004996Z [36;1m  "project_name": "ci_demoqa_practice",[0m
+2026-01-19T02:12:10.1005327Z [36;1m  "target_url": "https://demoqa.com/",[0m
+2026-01-19T02:12:10.1005633Z [36;1m  "goal": "Test various form elements",[0m
+2026-01-19T02:12:10.1005914Z [36;1m  "headless": true[0m
+2026-01-19T02:12:10.1006349Z [36;1m}[0m
+2026-01-19T02:12:10.1006527Z [36;1mEOF[0m
+2026-01-19T02:12:10.1038370Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:12:10.1038617Z env:
+2026-01-19T02:12:10.1038875Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:12:10.1039321Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:12:10.1039786Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:12:10.1040190Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:12:10.1040563Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:12:10.1040934Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:12:10.1041244Z ##[endgroup]
+2026-01-19T02:12:10.1144845Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-19T02:12:10.1145302Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-19T02:12:10.1145765Z [36;1mpython orchestrator.py --project projects/ci_demoqa_practice --deep --force[0m
+2026-01-19T02:12:10.1175183Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:12:10.1175423Z env:
+2026-01-19T02:12:10.1175691Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:12:10.1176328Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:12:10.1176758Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:12:10.1177144Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:12:10.1177697Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:12:10.1178079Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:12:10.1178557Z   GOOGLE_API_KEY: ***
+2026-01-19T02:12:10.1178791Z   PYTHONPATH: .
+2026-01-19T02:12:10.1178989Z ##[endgroup]
+2026-01-19T02:12:12.0534508Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-19T02:12:12.0535010Z 
+2026-01-19T02:12:12.0535442Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://demoqa.com/ (Workers: 3)
+2026-01-19T02:12:12.4870414Z   🔍 [Worker 0] Visiting (0): https://demoqa.com/
+2026-01-19T02:12:14.6446207Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:12:14.6446926Z [DEBUG] Received response (Length: 224)
+2026-01-19T02:12:14.6447728Z   🔍 [Worker 1] Visiting (1): https://demoqa.com
+2026-01-19T02:12:15.1992858Z [CACHE HIT] d9fd0d7f... (hits: 1, misses: 1)
+2026-01-19T02:12:15.1993766Z ✅ Discovery Complete. Mapped 2 pages.
+2026-01-19T02:12:26.0979909Z 
+2026-01-19T02:12:26.0980685Z [PLAN] PLANNER: Planning goal -> 'Test various form elements' (Deep Mode: True)
+2026-01-19T02:12:26.0981851Z 🗺️ [PLAN] Loaded Sitemap with 2 pages.
+2026-01-19T02:12:26.0984059Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-19T02:12:26.0985873Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:12:26.0986673Z [DEBUG] Received response (Length: 5737)
+2026-01-19T02:12:26.0987292Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-19T02:12:27.1047417Z 
+2026-01-19T02:12:27.1048367Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-19T02:12:27.1049094Z 📋 Found 3 scenarios to explore.
+2026-01-19T02:12:27.4709360Z 
+2026-01-19T02:12:27.4710059Z [1/3] Exploring Scenario: Forms - Practice Form Submission
+2026-01-19T02:12:27.4711033Z     🧠 Initialized exploration context for goal: 'Test various form elements'
+2026-01-19T02:12:27.4711533Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:12:29.4495591Z     ✅ Navigated to https://demoqa.com/
+2026-01-19T02:12:29.4497165Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-19T02:12:34.5005908Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:12:36.5028816Z     ✅ State transitioned.
+2026-01-19T02:12:38.3227184Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:38.3228064Z [DEBUG] Received response (Length: 225)
+2026-01-19T02:12:38.3228994Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-19T02:12:38.3230065Z     🧩 Suggested Locator: div:nth-of-type(4) > div:nth-of-type(1)
+2026-01-19T02:12:38.3231582Z     💭 Reasoning: The goal is to test various form elements. Clicking on the 'Forms' button will navigate to the forms page.
+2026-01-19T02:12:38.3232820Z     ➕ Injected AI step: click -> Forms
+2026-01-19T02:12:38.3233459Z   ▶️ [STEP step_2_ai_1] CLICK: Forms
+2026-01-19T02:12:38.3295074Z     🎯 Using AI-provided locator: div:nth-of-type(4) > div:nth-of-type(1)
+2026-01-19T02:12:38.3368278Z     ✅ Found 1 verified locators
+2026-01-19T02:12:42.4118889Z     ✅ State transitioned.
+2026-01-19T02:12:43.9913783Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:43.9914491Z [DEBUG] Received response (Length: 191)
+2026-01-19T02:12:43.9915320Z     🤖 AI Next Step Suggestion: click -> Practice Form
+2026-01-19T02:12:43.9916177Z     🧩 Suggested Locator: #item-0
+2026-01-19T02:12:43.9917264Z     💭 Reasoning: To test various form elements, we need to navigate to the Practice Form under the Forms section.
+2026-01-19T02:12:43.9918229Z     ➕ Injected AI step: click -> Practice Form
+2026-01-19T02:12:43.9918799Z   ▶️ [STEP step_2_ai_2] CLICK: Practice Form
+2026-01-19T02:12:43.9974341Z     🎯 Using AI-provided locator: #item-0
+2026-01-19T02:12:43.9993124Z     🔍 Mining locators for: 'Practice Form'
+2026-01-19T02:12:44.0402916Z     🧠 Consulting AI (Vision-First) to find 'Practice Form'...
+2026-01-19T02:12:44.0413457Z     🔍 Trying smart selectors for 'Practice Form'...
+2026-01-19T02:12:44.0651445Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:12:44.0652417Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:12:44.0653047Z   ▶️ [STEP step_3] CLICK: Forms
+2026-01-19T02:12:44.0708167Z     🔍 Mining locators for: 'Forms'
+2026-01-19T02:12:44.1352403Z     ✅ Found 1 verified locators
+2026-01-19T02:12:47.6826996Z     ✅ State transitioned.
+2026-01-19T02:12:48.9114470Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:48.9115011Z [DEBUG] Received response (Length: 255)
+2026-01-19T02:12:48.9115552Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T02:12:48.9116869Z     💭 Reasoning: The goal is to test various form elements. After clicking 'Forms', there are no visible form elements on the current page (https://demoqa.com/widgets). Therefore, the goal is unlikely to be achieved from this page.
+2026-01-19T02:12:48.9117895Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Practice Form
+2026-01-19T02:12:48.9171289Z     🔍 Mining locators for: 'Practice Form'
+2026-01-19T02:12:48.9390016Z     🧠 Consulting AI (Vision-First) to find 'Practice Form'...
+2026-01-19T02:12:48.9390742Z     🔍 Trying smart selectors for 'Practice Form'...
+2026-01-19T02:12:48.9605129Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:12:48.9605799Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:12:48.9606403Z   ▶️ [STEP step_5] CLICK: Practice Form
+2026-01-19T02:12:48.9653551Z     🔍 Mining locators for: 'Practice Form'
+2026-01-19T02:12:49.0015872Z     🧠 Consulting AI (Vision-First) to find 'Practice Form'...
+2026-01-19T02:12:49.0016573Z     🔍 Trying smart selectors for 'Practice Form'...
+2026-01-19T02:12:49.0228220Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:12:49.0229135Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:12:49.0229815Z   ▶️ [STEP step_6] ASSERT_URL: 
+2026-01-19T02:12:54.0373058Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:12:56.0395613Z     ✅ State transitioned.
+2026-01-19T02:12:56.0443797Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:12:57.0764573Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:57.0765216Z [DEBUG] Received response (Length: 231)
+2026-01-19T02:12:57.0766160Z     🤖 AI Next Step Suggestion: click -> adplus-dvertising
+2026-01-19T02:12:57.0766633Z     🧩 Suggested Locator: #close-fixedban
+2026-01-19T02:12:57.0767343Z     💭 Reasoning: The goal is to test form elements. The current page is the widgets page. There is an ad that needs to be closed to continue.
+2026-01-19T02:12:57.0768003Z     ➕ Injected AI step: click -> adplus-dvertising
+2026-01-19T02:12:57.0768379Z   ▶️ [STEP step_6_ai_1] CLICK: adplus-dvertising
+2026-01-19T02:12:57.0825745Z     🎯 Using AI-provided locator: #close-fixedban
+2026-01-19T02:12:57.0881265Z     ✅ Found 1 verified locators
+2026-01-19T02:13:01.1434067Z     ✅ State transitioned.
+2026-01-19T02:13:02.2932415Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:13:02.2933112Z [DEBUG] Received response (Length: 193)
+2026-01-19T02:13:02.2934248Z     🤖 AI Next Step Suggestion: click -> adplus-dvertising
+2026-01-19T02:13:02.2935012Z     🧩 Suggested Locator: #close-fixedban
+2026-01-19T02:13:02.2936214Z     💭 Reasoning: The ad is obscuring the page and needs to be closed to continue exploring the widgets.
+2026-01-19T02:13:02.2937345Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:13:02.2938059Z   ▶️ [STEP step_7] FILL: First Name
+2026-01-19T02:13:02.2991925Z     🔍 Mining locators for: 'First Name'
+2026-01-19T02:13:02.3224336Z     🧠 Consulting AI (Vision-First) to find 'First Name'...
+2026-01-19T02:13:02.3224924Z     🔍 Trying smart selectors for 'First Name'...
+2026-01-19T02:13:02.3431006Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.3432287Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.3432671Z   ▶️ [STEP step_8] FILL: Last Name
+2026-01-19T02:13:02.3481177Z     🔍 Mining locators for: 'Last Name'
+2026-01-19T02:13:02.3837045Z     🧠 Consulting AI (Vision-First) to find 'Last Name'...
+2026-01-19T02:13:02.3837857Z     🔍 Trying smart selectors for 'Last Name'...
+2026-01-19T02:13:02.4049937Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.4050865Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.4051509Z   ▶️ [STEP step_9] FILL: Email
+2026-01-19T02:13:02.4099956Z     🔍 Mining locators for: 'Email'
+2026-01-19T02:13:02.4340810Z     🧠 Consulting AI (Vision-First) to find 'Email'...
+2026-01-19T02:13:02.4341558Z     🔍 Trying smart selectors for 'Email'...
+2026-01-19T02:13:02.4557615Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.4558489Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.4559060Z   ▶️ [STEP step_10] CLICK: Male
+2026-01-19T02:13:02.4605389Z     🔍 Mining locators for: 'Male'
+2026-01-19T02:13:02.4841610Z     🧠 Consulting AI (Vision-First) to find 'Male'...
+2026-01-19T02:13:02.4842340Z     🔍 Trying smart selectors for 'Male'...
+2026-01-19T02:13:02.5052164Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.5053000Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.5053561Z   ▶️ [STEP step_11] FILL: Mobile(10 Digits)
+2026-01-19T02:13:02.5101269Z     🔍 Mining locators for: 'Mobile(10 Digits)'
+2026-01-19T02:13:02.5332781Z     🧠 Consulting AI (Vision-First) to find 'Mobile(10 Digits)'...
+2026-01-19T02:13:02.5333514Z     🔍 Trying smart selectors for 'Mobile(10 Digits)'...
+2026-01-19T02:13:02.5546782Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.5547736Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.5548384Z   ▶️ [STEP step_12] CLICK: Sports
+2026-01-19T02:13:02.5603445Z     🔍 Mining locators for: 'Sports'
+2026-01-19T02:13:02.5835273Z     🧠 Consulting AI (Vision-First) to find 'Sports'...
+2026-01-19T02:13:02.5836248Z     🔍 Trying smart selectors for 'Sports'...
+2026-01-19T02:13:02.6048313Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.6049150Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.6049669Z   ▶️ [STEP step_13] CLICK: Music
+2026-01-19T02:13:02.6096756Z     🔍 Mining locators for: 'Music'
+2026-01-19T02:13:02.6345224Z     🧠 Consulting AI (Vision-First) to find 'Music'...
+2026-01-19T02:13:02.6346174Z     🔍 Trying smart selectors for 'Music'...
+2026-01-19T02:13:02.6562825Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.6563780Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.6564478Z   ▶️ [STEP step_14] FILL: Current Address
+2026-01-19T02:13:02.6611691Z     🔍 Mining locators for: 'Current Address'
+2026-01-19T02:13:02.6834535Z     🧠 Consulting AI (Vision-First) to find 'Current Address'...
+2026-01-19T02:13:02.6835846Z     🔍 Trying smart selectors for 'Current Address'...
+2026-01-19T02:13:02.7051532Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.7052437Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.7053095Z   ▶️ [STEP step_15] CLICK: Select State
+2026-01-19T02:13:02.7100300Z     🔍 Mining locators for: 'Select State'
+2026-01-19T02:13:02.7333590Z     🧠 Consulting AI (Vision-First) to find 'Select State'...
+2026-01-19T02:13:02.7334401Z     🔍 Trying smart selectors for 'Select State'...
+2026-01-19T02:13:02.7546597Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.7547523Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.7548498Z   ▶️ [STEP step_16] CLICK: NCR
+2026-01-19T02:13:02.7595332Z     🔍 Mining locators for: 'NCR'
+2026-01-19T02:13:02.7842387Z     🧠 Consulting AI (Vision-First) to find 'NCR'...
+2026-01-19T02:13:02.7843099Z     🔍 Trying smart selectors for 'NCR'...
+2026-01-19T02:13:02.8046632Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.8047495Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.8048102Z   ▶️ [STEP step_17] CLICK: Select City
+2026-01-19T02:13:02.8094244Z     🔍 Mining locators for: 'Select City'
+2026-01-19T02:13:02.8332159Z     🧠 Consulting AI (Vision-First) to find 'Select City'...
+2026-01-19T02:13:02.8332822Z     🔍 Trying smart selectors for 'Select City'...
+2026-01-19T02:13:02.8540867Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.8542696Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.8543097Z   ▶️ [STEP step_18] CLICK: Delhi
+2026-01-19T02:13:02.8589487Z     🔍 Mining locators for: 'Delhi'
+2026-01-19T02:13:02.8833735Z     🧠 Consulting AI (Vision-First) to find 'Delhi'...
+2026-01-19T02:13:02.8834491Z     🔍 Trying smart selectors for 'Delhi'...
+2026-01-19T02:13:02.9047516Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.9048363Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.9048944Z   ▶️ [STEP step_19] CLICK: Submit
+2026-01-19T02:13:02.9094583Z     🔍 Mining locators for: 'Submit'
+2026-01-19T02:13:02.9343140Z     🧠 Consulting AI (Vision-First) to find 'Submit'...
+2026-01-19T02:13:02.9343584Z     🔍 Trying smart selectors for 'Submit'...
+2026-01-19T02:13:02.9557945Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:02.9558876Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:02.9559678Z   ▶️ [STEP step_20] ASSERT_VISIBLE: Thanks for submitting the form
+2026-01-19T02:13:02.9605074Z     🔍 Mining locators for: 'Thanks for submitting the form'
+2026-01-19T02:13:02.9838514Z     🧠 Consulting AI (Vision-First) to find 'Thanks for submitting the form'...
+2026-01-19T02:13:02.9839553Z     🔍 Trying smart selectors for 'Thanks for submitting the form'...
+2026-01-19T02:13:03.0053719Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:03.0054589Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:05.0443740Z 
+2026-01-19T02:13:05.0446173Z [2/3] Exploring Scenario: Forms - Submit form with missing required fields
+2026-01-19T02:13:05.0447698Z     🧠 Initialized exploration context for goal: 'Test various form elements'
+2026-01-19T02:13:05.0448474Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:13:07.0577135Z     ✅ Navigated to https://demoqa.com/
+2026-01-19T02:13:07.0578902Z   ▶️ [STEP step_2] CLICK: Forms
+2026-01-19T02:13:07.0779965Z     🔍 Mining locators for: 'Forms'
+2026-01-19T02:13:07.3061146Z     ✅ Found 1 verified locators
+2026-01-19T02:13:10.8575602Z     ✅ State transitioned.
+2026-01-19T02:13:12.3561762Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:13:12.3562557Z [DEBUG] Received response (Length: 197)
+2026-01-19T02:13:12.3563859Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-19T02:13:12.3564984Z     🧩 Suggested Locator: div:nth-child(4) > div > div:nth-child(1) > div:nth-child(2) > div
+2026-01-19T02:13:12.3566449Z     💭 Reasoning: Navigating to the Forms page to test form elements.
+2026-01-19T02:13:12.3567529Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'forms')
+2026-01-19T02:13:12.3568398Z   ▶️ [STEP step_3] CLICK: Practice Form
+2026-01-19T02:13:12.3619848Z     🔍 Mining locators for: 'Practice Form'
+2026-01-19T02:13:12.3971864Z     🧠 Consulting AI (Vision-First) to find 'Practice Form'...
+2026-01-19T02:13:12.3972712Z     🔍 Trying smart selectors for 'Practice Form'...
+2026-01-19T02:13:12.4188201Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:12.4189209Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:12.4189854Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-19T02:13:17.4335434Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:13:19.4358679Z     ✅ State transitioned.
+2026-01-19T02:13:19.4408990Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:13:20.8235316Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:13:20.8235919Z [DEBUG] Received response (Length: 188)
+2026-01-19T02:13:20.8236721Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-19T02:13:20.8237246Z     🧩 Suggested Locator: div:nth-child(4) > div > div:nth-child(3) > div > ul > li
+2026-01-19T02:13:20.8237851Z     💭 Reasoning: Navigating to the Forms page to test form elements.
+2026-01-19T02:13:20.8238431Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:13:20.8238911Z   ▶️ [STEP step_5] CLICK: Submit
+2026-01-19T02:13:20.8290211Z     🔍 Mining locators for: 'Submit'
+2026-01-19T02:13:20.8635674Z     🧠 Consulting AI (Vision-First) to find 'Submit'...
+2026-01-19T02:13:20.8636476Z     🔍 Trying smart selectors for 'Submit'...
+2026-01-19T02:13:20.8901442Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:20.8902375Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:20.8903121Z   ▶️ [STEP step_6] ASSERT_VISIBLE: This field is required
+2026-01-19T02:13:20.8955925Z     🔍 Mining locators for: 'This field is required'
+2026-01-19T02:13:20.9375070Z     🧠 Consulting AI (Vision-First) to find 'This field is required'...
+2026-01-19T02:13:20.9376238Z     🔍 Trying smart selectors for 'This field is required'...
+2026-01-19T02:13:20.9584876Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:20.9585560Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:22.9941038Z 
+2026-01-19T02:13:22.9942155Z [3/3] Exploring Scenario: Forms - Submit form with invalid email format
+2026-01-19T02:13:22.9944843Z     🧠 Initialized exploration context for goal: 'Test various form elements'
+2026-01-19T02:13:22.9945661Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:13:25.0029180Z     ✅ Navigated to https://demoqa.com/
+2026-01-19T02:13:25.0029836Z   ▶️ [STEP step_2] CLICK: Forms
+2026-01-19T02:13:25.0243159Z     🔍 Mining locators for: 'Forms'
+2026-01-19T02:13:25.1711483Z     ✅ Found 1 verified locators
+2026-01-19T02:13:28.7242114Z     ✅ State transitioned.
+2026-01-19T02:13:28.7714502Z [CACHE HIT] 74eb59df... (hits: 1, misses: 7)
+2026-01-19T02:13:28.7715325Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-19T02:13:28.7716335Z     🧩 Suggested Locator: div:nth-child(4) > div > div:nth-child(1) > div:nth-child(2) > div
+2026-01-19T02:13:28.7717019Z     💭 Reasoning: Navigating to the Forms page to test form elements.
+2026-01-19T02:13:28.7717544Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'forms')
+2026-01-19T02:13:28.7718237Z   ▶️ [STEP step_3] CLICK: Practice Form
+2026-01-19T02:13:28.7766382Z     🔍 Mining locators for: 'Practice Form'
+2026-01-19T02:13:28.8202812Z     🧠 Consulting AI (Vision-First) to find 'Practice Form'...
+2026-01-19T02:13:28.8203762Z     🔍 Trying smart selectors for 'Practice Form'...
+2026-01-19T02:13:28.8431373Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:28.8432223Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:28.8432646Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-19T02:13:33.8582805Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:13:35.8588012Z     ✅ State transitioned.
+2026-01-19T02:13:35.8638216Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:13:35.9043529Z [CACHE HIT] 99b79b39... (hits: 2, misses: 7)
+2026-01-19T02:13:35.9044373Z     🤖 AI Next Step Suggestion: click -> Forms
+2026-01-19T02:13:35.9045169Z     🧩 Suggested Locator: div:nth-child(4) > div > div:nth-child(3) > div > ul > li
+2026-01-19T02:13:35.9045861Z     💭 Reasoning: Navigating to the Forms page to test form elements.
+2026-01-19T02:13:35.9046741Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:13:35.9047195Z   ▶️ [STEP step_5] FILL: First Name
+2026-01-19T02:13:35.9094070Z     🔍 Mining locators for: 'First Name'
+2026-01-19T02:13:35.9814604Z     🧠 Consulting AI (Vision-First) to find 'First Name'...
+2026-01-19T02:13:35.9815203Z     🔍 Trying smart selectors for 'First Name'...
+2026-01-19T02:13:36.0020844Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:36.0022918Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:36.0023367Z   ▶️ [STEP step_6] FILL: Last Name
+2026-01-19T02:13:36.0067532Z     🔍 Mining locators for: 'Last Name'
+2026-01-19T02:13:36.0533714Z     🧠 Consulting AI (Vision-First) to find 'Last Name'...
+2026-01-19T02:13:36.0534252Z     🔍 Trying smart selectors for 'Last Name'...
+2026-01-19T02:13:36.0742080Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:36.0742991Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:36.0767230Z   ▶️ [STEP step_7] FILL: Email
+2026-01-19T02:13:36.0800997Z     🔍 Mining locators for: 'Email'
+2026-01-19T02:13:36.1210858Z     🧠 Consulting AI (Vision-First) to find 'Email'...
+2026-01-19T02:13:36.1211606Z     🔍 Trying smart selectors for 'Email'...
+2026-01-19T02:13:36.1423328Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:36.1424170Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:36.1424658Z   ▶️ [STEP step_8] CLICK: Male
+2026-01-19T02:13:36.1471200Z     🔍 Mining locators for: 'Male'
+2026-01-19T02:13:36.1871881Z     🧠 Consulting AI (Vision-First) to find 'Male'...
+2026-01-19T02:13:36.1872392Z     🔍 Trying smart selectors for 'Male'...
+2026-01-19T02:13:36.2074274Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:36.2075155Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:36.2075629Z   ▶️ [STEP step_9] FILL: Mobile(10 Digits)
+2026-01-19T02:13:36.2123365Z     🔍 Mining locators for: 'Mobile(10 Digits)'
+2026-01-19T02:13:36.2537818Z     🧠 Consulting AI (Vision-First) to find 'Mobile(10 Digits)'...
+2026-01-19T02:13:36.2538479Z     🔍 Trying smart selectors for 'Mobile(10 Digits)'...
+2026-01-19T02:13:36.2746471Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:36.2747291Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:36.2747839Z   ▶️ [STEP step_10] CLICK: Submit
+2026-01-19T02:13:36.2794022Z     🔍 Mining locators for: 'Submit'
+2026-01-19T02:13:36.3203997Z     🧠 Consulting AI (Vision-First) to find 'Submit'...
+2026-01-19T02:13:36.3204492Z     🔍 Trying smart selectors for 'Submit'...
+2026-01-19T02:13:36.3418354Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:36.3419508Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:36.3419973Z   ▶️ [STEP step_11] ASSERT_VISIBLE: Please enter a valid email
+2026-01-19T02:13:36.3466904Z     🔍 Mining locators for: 'Please enter a valid email'
+2026-01-19T02:13:36.3871376Z     🧠 Consulting AI (Vision-First) to find 'Please enter a valid email'...
+2026-01-19T02:13:36.3872437Z     🔍 Trying smart selectors for 'Please enter a valid email'...
+2026-01-19T02:13:36.4090680Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:36.4091348Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:38.4465764Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_practice/tests/generated_scenarios.json
+2026-01-19T02:13:38.4471922Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-19T02:13:38.4472376Z 
+2026-01-19T02:13:38.4473453Z ✅ Deep Exploration Complete.
+2026-01-19T02:18:18.8855746Z 
+2026-01-19T02:18:18.8856894Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-19T02:18:18.8857580Z 📍 Project: ci_demoqa_practice
+2026-01-19T02:18:18.8858072Z 🎬 Mode: Headless
+2026-01-19T02:18:18.8858299Z 
+2026-01-19T02:18:18.8858581Z --- Scenario: Forms - Practice Form Submission ---
+2026-01-19T02:18:18.8859279Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:18:18.8859795Z     ✅ Step step_1 Passed.
+2026-01-19T02:18:18.8860303Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T02:18:18.8860802Z     ✅ Step step_2 Passed.
+2026-01-19T02:18:18.8861274Z   ▶️ [STEP step_2_ai_1] CLICK: Forms
+2026-01-19T02:18:18.8861918Z     🎯 Using mined locator: div:nth-of-type(4) > div:nth-of-type(1)
+2026-01-19T02:18:18.8862390Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T02:18:18.8862696Z   ▶️ [STEP step_2_ai_2] CLICK: Practice Form
+2026-01-19T02:18:18.8863165Z     ❌ Attempt 1 failed (element_not_found): Locator.click: Timeout 10000ms exceeded.
+2026-01-19T02:18:18.8863544Z Call log:
+2026-01-19T02:18:18.8863778Z   - waiting for locator("text=Practice Form")
+2026-01-19T02:18:18.8864033Z    ...
+2026-01-19T02:18:18.8864328Z     🔧 [AUTO-HEAL] Re-mining page to find 'Practice Form'...
+2026-01-19T02:18:18.8864748Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:18:18.8865109Z [DEBUG] Received response (Length: 1159)
+2026-01-19T02:18:18.8865486Z     ✨ AI successfully healed the step! Found 4 alternatives.
+2026-01-19T02:18:18.8866327Z     ✨ AI successfully healed the step! New selector: li[id='item-0'] > span
+2026-01-19T02:18:18.8867155Z     ❌ Attempt 2 failed (element_not_found): Locator.click: Timeout 10000ms exceeded.
+2026-01-19T02:18:18.8867541Z Call log:
+2026-01-19T02:18:18.8867774Z   - waiting for locator("li[id='item-0'] > span")...
+2026-01-19T02:18:18.8868177Z     🔧 [AUTO-HEAL] Re-mining page to find 'Practice Form'...
+2026-01-19T02:18:18.8868523Z [CACHE HIT] c3cebd7e... (hits: 1, misses: 1)
+2026-01-19T02:18:18.8868904Z     ✨ AI successfully healed the step! Found 4 alternatives.
+2026-01-19T02:18:18.8869383Z     ✨ AI successfully healed the step! New selector: li[id='item-0'] > span
+2026-01-19T02:18:18.8869923Z     ❌ Attempt 3 failed (element_not_found): Locator.click: Timeout 10000ms exceeded.
+2026-01-19T02:18:18.8870296Z Call log:
+2026-01-19T02:18:18.8870548Z   - waiting for locator("li[id='item-0'] > span")...
+2026-01-19T02:18:18.8870906Z     💀 Step step_2_ai_2 failed after all retries.
+2026-01-19T02:18:18.8871360Z 🛑 Scenario 'Forms - Practice Form Submission' aborted due to step failure.
+2026-01-19T02:18:18.8871654Z 
+2026-01-19T02:18:18.8871830Z --- Scenario: Forms - Submit form with missing required fields ---
+2026-01-19T02:18:18.8872215Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:18:18.8872507Z     ✅ Step step_1 Passed.
+2026-01-19T02:18:18.8872765Z   ▶️ [STEP step_2] CLICK: Forms
+2026-01-19T02:18:18.8873047Z     🎯 Using mined locator: text='Forms'
+2026-01-19T02:18:18.8873325Z     ✅ Step step_2 Passed.
+2026-01-19T02:18:18.8873589Z   ▶️ [STEP step_3] CLICK: Practice Form
+2026-01-19T02:18:18.8874378Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:18:18.8874786Z Call log:
+2026-01-19T02:18:18.8874987Z   - waiting for locator("text=Practice For...
+2026-01-19T02:18:18.8875501Z     🔧 [AUTO-HEAL] Re-mining page to find 'Practice Form'...
+2026-01-19T02:18:18.8875896Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:18:18.8876522Z [DEBUG] Received response (Length: 456)
+2026-01-19T02:18:18.8876896Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:18:18.8877375Z     ✨ AI successfully healed the step! New selector: a[href*='practice-form']
+2026-01-19T02:18:18.8877966Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:18:18.8878364Z Call log:
+2026-01-19T02:18:18.8878567Z   - waiting for locator("a[href*='practice...
+2026-01-19T02:18:18.8878931Z     🔧 [AUTO-HEAL] Re-mining page to find 'Practice Form'...
+2026-01-19T02:18:18.8879262Z [CACHE HIT] 99638875... (hits: 2, misses: 2)
+2026-01-19T02:18:18.8879623Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:18:18.8880108Z     ✨ AI successfully healed the step! New selector: a[href*='practice-form']
+2026-01-19T02:18:18.8880691Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:18:18.8881095Z Call log:
+2026-01-19T02:18:18.8881301Z   - waiting for locator("a[href*='practice...
+2026-01-19T02:18:18.8881627Z     💀 Step step_3 failed after all retries.
+2026-01-19T02:18:18.8882100Z 🛑 Scenario 'Forms - Submit form with missing required fields' aborted due to step failure.
+2026-01-19T02:18:18.8882444Z 
+2026-01-19T02:18:18.8882601Z --- Scenario: Forms - Submit form with invalid email format ---
+2026-01-19T02:18:18.8882980Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:18:18.8883268Z     ✅ Step step_1 Passed.
+2026-01-19T02:18:18.8883522Z   ▶️ [STEP step_2] CLICK: Forms
+2026-01-19T02:18:18.8883803Z     🎯 Using mined locator: text='Forms'
+2026-01-19T02:18:18.8884151Z     ✅ Step step_2 Passed.
+2026-01-19T02:18:18.8884455Z   ▶️ [STEP step_3] CLICK: Practice Form
+2026-01-19T02:18:18.8884959Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:18:18.8885363Z Call log:
+2026-01-19T02:18:18.8885563Z   - waiting for locator("text=Practice For...
+2026-01-19T02:18:18.8886106Z     🔧 [AUTO-HEAL] Re-mining page to find 'Practice Form'...
+2026-01-19T02:18:18.8886654Z [CACHE HIT] 99638875... (hits: 3, misses: 2)
+2026-01-19T02:18:18.8887266Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:18:18.8887991Z     ✨ AI successfully healed the step! New selector: a[href*='practice-form']
+2026-01-19T02:18:18.8888574Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:18:18.8888971Z Call log:
+2026-01-19T02:18:18.8889172Z   - waiting for locator("a[href*='practice...
+2026-01-19T02:18:18.8889559Z     🔧 [AUTO-HEAL] Re-mining page to find 'Practice Form'...
+2026-01-19T02:18:18.8889876Z [CACHE HIT] 99638875... (hits: 4, misses: 2)
+2026-01-19T02:18:18.8890235Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:18:18.8890793Z     ✨ AI successfully healed the step! New selector: a[href*='practice-form']
+2026-01-19T02:18:18.8891366Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:18:18.8891757Z Call log:
+2026-01-19T02:18:18.8891962Z   - waiting for locator("a[href*='practice...
+2026-01-19T02:18:18.8892282Z     💀 Step step_3 failed after all retries.
+2026-01-19T02:18:18.8892743Z 🛑 Scenario 'Forms - Submit form with invalid email format' aborted due to step failure.
+2026-01-19T02:18:18.8893074Z 
+2026-01-19T02:18:18.8893172Z ============================================================
+2026-01-19T02:18:18.8893473Z 🎯 EXECUTION SUMMARY
+2026-01-19T02:18:18.8893693Z ============================================================
+2026-01-19T02:18:18.8894054Z 
+2026-01-19T02:18:18.8894163Z 📋 Scenario Overview:
+2026-01-19T02:18:18.8894411Z    • Total Scenarios Planned: 3
+2026-01-19T02:18:18.8894675Z    • Scenarios Executed: 3
+2026-01-19T02:18:18.8895045Z    • Total Steps Executed: 10
+2026-01-19T02:18:18.8895200Z 
+2026-01-19T02:18:18.8895297Z ✅ Results:
+2026-01-19T02:18:18.8895494Z    ❌ Failed: 3 (100%)
+2026-01-19T02:18:18.8895621Z 
+2026-01-19T02:18:18.8895725Z ⚠️  Failed Scenarios:
+2026-01-19T02:18:18.8896177Z    • Forms - Practice Form Submission
+2026-01-19T02:18:18.8896534Z    • Forms - Submit form with missing required fields
+2026-01-19T02:18:18.8896893Z    • Forms - Submit form with invalid email format
+2026-01-19T02:18:18.8897098Z 
+2026-01-19T02:18:18.8897197Z ============================================================
+2026-01-19T02:18:18.8897390Z 
+2026-01-19T02:18:18.8897876Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_practice/execution.json
+2026-01-19T02:18:19.0007547Z 
+2026-01-19T02:18:19.0008328Z [PHASE] Running Phase: DISCOVERY
+2026-01-19T02:18:19.0009769Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_practice --url https://demoqa.com/ --deep
+2026-01-19T02:18:19.0011261Z ✅ Phase 'discovery' completed successfully.
+2026-01-19T02:18:19.0011463Z 
+2026-01-19T02:18:19.0011567Z [PHASE] Running Phase: PLANNING
+2026-01-19T02:18:19.0012715Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_practice --goal Test various form elements --url https://demoqa.com/ --deep
+2026-01-19T02:18:19.0013925Z ✅ Phase 'planning' completed successfully.
+2026-01-19T02:18:19.0014120Z 
+2026-01-19T02:18:19.0014233Z [PHASE] Running Phase: EXPLORATION
+2026-01-19T02:18:19.0015165Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_practice
+2026-01-19T02:18:19.0016334Z ✅ Phase 'exploration' completed successfully.
+2026-01-19T02:18:19.0016712Z 📊 Exploration Discovery Success Rate: 13.5%
+2026-01-19T02:18:19.0017188Z ⚠️ Exploration failed to find stable locators for key steps. Execution might fail.
+2026-01-19T02:18:19.0017503Z 
+2026-01-19T02:18:19.0017598Z [PHASE] Running Phase: EXECUTION
+2026-01-19T02:18:19.0018506Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_practice
+2026-01-19T02:18:19.0019482Z ✅ Phase 'execution' completed successfully.
+2026-01-19T02:18:19.0019683Z 
+2026-01-19T02:18:19.0019793Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-19T02:18:19.0907628Z ##[group]Run RESULT_FILE="projects/ci_demoqa_practice/execution.json"
+2026-01-19T02:18:19.0908163Z [36;1mRESULT_FILE="projects/ci_demoqa_practice/execution.json"[0m
+2026-01-19T02:18:19.0908524Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-19T02:18:19.0908861Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-19T02:18:19.0909310Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-19T02:18:19.0909689Z [36;1melse[0m
+2026-01-19T02:18:19.0909930Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-19T02:18:19.0910212Z [36;1m  exit 1[0m
+2026-01-19T02:18:19.0910395Z [36;1mfi[0m
+2026-01-19T02:18:19.0941690Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:18:19.0941924Z env:
+2026-01-19T02:18:19.0942181Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:18:19.0942611Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:18:19.0943247Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:18:19.0943626Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:18:19.0943994Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:18:19.0944365Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:18:19.0944672Z ##[endgroup]
+2026-01-19T02:18:19.0994836Z ✅ Results generated successfully: projects/ci_demoqa_practice/execution.json
+2026-01-19T02:18:19.1021586Z 3
+2026-01-19T02:18:19.1082579Z ##[group]Run actions/upload-artifact@v4
+2026-01-19T02:18:19.1082869Z with:
+2026-01-19T02:18:19.1083079Z   name: demoqa_practice-execution-results
+2026-01-19T02:18:19.1083529Z   path: projects/ci_demoqa_practice/execution.json
+projects/ci_demoqa_practice/workflow.json
+
+2026-01-19T02:18:19.1083968Z   retention-days: 30
+2026-01-19T02:18:19.1084184Z   if-no-files-found: warn
+2026-01-19T02:18:19.1084421Z   compression-level: 6
+2026-01-19T02:18:19.1084633Z   overwrite: false
+2026-01-19T02:18:19.1084839Z   include-hidden-files: false
+2026-01-19T02:18:19.1085061Z env:
+2026-01-19T02:18:19.1085302Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:18:19.1085713Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:18:19.1086320Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:18:19.1086687Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:18:19.1087078Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:18:19.1087447Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:18:19.1087759Z ##[endgroup]
+2026-01-19T02:18:19.3217193Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-19T02:18:19.3221466Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoqa_practice. This will be the root directory of the artifact
+2026-01-19T02:18:19.3222563Z With the provided path, there will be 2 files uploaded
+2026-01-19T02:18:19.3230169Z Artifact name is valid!
+2026-01-19T02:18:19.3231596Z Root directory input is valid!
+2026-01-19T02:18:19.5271700Z Beginning upload of artifact content to blob storage
+2026-01-19T02:18:19.7481854Z Uploaded bytes 2200
+2026-01-19T02:18:19.8062932Z Finished uploading artifact content to blob storage!
+2026-01-19T02:18:19.8066820Z SHA256 digest of uploaded artifact zip is 6a0ef0d98320dd9c20760012cc695b13224a3473a7873d2704b1a3a0c051df16
+2026-01-19T02:18:19.8068616Z Finalizing artifact upload
+2026-01-19T02:18:19.9522874Z Artifact demoqa_practice-execution-results.zip successfully finalized. Artifact ID 5171735159
+2026-01-19T02:18:19.9524456Z Artifact demoqa_practice-execution-results has been successfully uploaded! Final size is 2200 bytes. Artifact ID is 5171735159
+2026-01-19T02:18:19.9531545Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21122730879/artifacts/5171735159
+2026-01-19T02:18:19.9664640Z Post job cleanup.
+2026-01-19T02:18:20.1144043Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-19T02:18:20.1300990Z Post job cleanup.
+2026-01-19T02:18:20.2236215Z [command]/usr/bin/git version
+2026-01-19T02:18:20.2271925Z git version 2.52.0
+2026-01-19T02:18:20.2315309Z Temporarily overriding HOME='/home/runner/work/_temp/ddf12ce7-89d9-491e-93f2-c7e5a514fb50' before making global git config changes
+2026-01-19T02:18:20.2316850Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T02:18:20.2328568Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:18:20.2362802Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T02:18:20.2394609Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T02:18:20.2625170Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T02:18:20.2645719Z http.https://github.com/.extraheader
+2026-01-19T02:18:20.2662401Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-19T02:18:20.2696369Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T02:18:20.2938491Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T02:18:20.2973223Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T02:18:20.3328735Z Cleaning up orphan processes

@@ -1,0 +1,1824 @@
+﻿2026-01-19T02:05:18.7051927Z Current runner version: '2.331.0'
+2026-01-19T02:05:18.7083000Z ##[group]Runner Image Provisioner
+2026-01-19T02:05:18.7084316Z Hosted Compute Agent
+2026-01-19T02:05:18.7085444Z Version: 20251211.462
+2026-01-19T02:05:18.7086440Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-19T02:05:18.7087661Z Build Date: 2025-12-11T16:28:49Z
+2026-01-19T02:05:18.7088710Z Worker ID: {b0922ae7-7c49-4c2a-be4a-5476da6c11ec}
+2026-01-19T02:05:18.7089832Z ##[endgroup]
+2026-01-19T02:05:18.7090676Z ##[group]Operating System
+2026-01-19T02:05:18.7091564Z Ubuntu
+2026-01-19T02:05:18.7092253Z 24.04.3
+2026-01-19T02:05:18.7093166Z LTS
+2026-01-19T02:05:18.7093901Z ##[endgroup]
+2026-01-19T02:05:18.7094834Z ##[group]Runner Image
+2026-01-19T02:05:18.7095868Z Image: ubuntu-24.04
+2026-01-19T02:05:18.7096718Z Version: 20260111.209.1
+2026-01-19T02:05:18.7098359Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-19T02:05:18.7101089Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-19T02:05:18.7102826Z ##[endgroup]
+2026-01-19T02:05:18.7104842Z ##[group]GITHUB_TOKEN Permissions
+2026-01-19T02:05:18.7107272Z Contents: read
+2026-01-19T02:05:18.7108311Z Metadata: read
+2026-01-19T02:05:18.7109093Z Packages: read
+2026-01-19T02:05:18.7109871Z ##[endgroup]
+2026-01-19T02:05:18.7112758Z Secret source: Actions
+2026-01-19T02:05:18.7113885Z Prepare workflow directory
+2026-01-19T02:05:18.7563351Z Prepare all required actions
+2026-01-19T02:05:18.7617328Z Getting action download info
+2026-01-19T02:05:19.0325049Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-19T02:05:19.1408893Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-19T02:05:19.2852812Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-19T02:05:19.5175320Z Complete job name: test-websites-deep (parabank_banking, https://parabank.parasoft.com/, Test banking operations)
+2026-01-19T02:05:19.5916635Z ##[group]Run actions/checkout@v4
+2026-01-19T02:05:19.5917561Z with:
+2026-01-19T02:05:19.5918070Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T02:05:19.5918869Z   token: ***
+2026-01-19T02:05:19.5919289Z   ssh-strict: true
+2026-01-19T02:05:19.5919716Z   ssh-user: git
+2026-01-19T02:05:19.5920147Z   persist-credentials: true
+2026-01-19T02:05:19.5920634Z   clean: true
+2026-01-19T02:05:19.5921065Z   sparse-checkout-cone-mode: true
+2026-01-19T02:05:19.5921607Z   fetch-depth: 1
+2026-01-19T02:05:19.5922041Z   fetch-tags: false
+2026-01-19T02:05:19.5922463Z   show-progress: true
+2026-01-19T02:05:19.5922908Z   lfs: false
+2026-01-19T02:05:19.5923312Z   submodules: false
+2026-01-19T02:05:19.5923772Z   set-safe-directory: true
+2026-01-19T02:05:19.5924500Z ##[endgroup]
+2026-01-19T02:05:19.7038638Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T02:05:19.7042017Z ##[group]Getting Git version info
+2026-01-19T02:05:19.7043966Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T02:05:19.7046777Z [command]/usr/bin/git version
+2026-01-19T02:05:19.7089365Z git version 2.52.0
+2026-01-19T02:05:19.7116626Z ##[endgroup]
+2026-01-19T02:05:19.7140177Z Temporarily overriding HOME='/home/runner/work/_temp/a475fbad-6bb4-4f57-8986-aad131400934' before making global git config changes
+2026-01-19T02:05:19.7142940Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T02:05:19.7147264Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:05:19.7189729Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T02:05:19.7194404Z ##[group]Initializing the repository
+2026-01-19T02:05:19.7200800Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:05:19.7330127Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-19T02:05:19.7332074Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-19T02:05:19.7333917Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-19T02:05:19.7335461Z hint: call:
+2026-01-19T02:05:19.7336166Z hint:
+2026-01-19T02:05:19.7336958Z hint: 	git config --global init.defaultBranch <name>
+2026-01-19T02:05:19.7337624Z hint:
+2026-01-19T02:05:19.7338218Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-19T02:05:19.7339185Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-19T02:05:19.7339956Z hint:
+2026-01-19T02:05:19.7340368Z hint: 	git branch -m <name>
+2026-01-19T02:05:19.7340854Z hint:
+2026-01-19T02:05:19.7341485Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-19T02:05:19.7342680Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-19T02:05:19.7351273Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T02:05:19.7389321Z ##[endgroup]
+2026-01-19T02:05:19.7390323Z ##[group]Disabling automatic garbage collection
+2026-01-19T02:05:19.7395533Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-19T02:05:19.7427363Z ##[endgroup]
+2026-01-19T02:05:19.7428815Z ##[group]Setting up auth
+2026-01-19T02:05:19.7436506Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T02:05:19.7468555Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T02:05:19.7841401Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T02:05:19.7872569Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T02:05:19.8096340Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T02:05:19.8127859Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T02:05:19.8346192Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-19T02:05:19.8380572Z ##[endgroup]
+2026-01-19T02:05:19.8382087Z ##[group]Fetching the repository
+2026-01-19T02:05:19.8390720Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8ae9e7a98960844bdcef67161cbe93442a7431bc:refs/remotes/origin/main
+2026-01-19T02:05:20.6752054Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T02:05:20.6754974Z  * [new ref]         8ae9e7a98960844bdcef67161cbe93442a7431bc -> origin/main
+2026-01-19T02:05:20.6784432Z ##[endgroup]
+2026-01-19T02:05:20.6786032Z ##[group]Determining the checkout info
+2026-01-19T02:05:20.6787256Z ##[endgroup]
+2026-01-19T02:05:20.6791257Z [command]/usr/bin/git sparse-checkout disable
+2026-01-19T02:05:20.6832165Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-19T02:05:20.6859319Z ##[group]Checking out the ref
+2026-01-19T02:05:20.6863127Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-19T02:05:20.8194013Z Switched to a new branch 'main'
+2026-01-19T02:05:20.8195956Z branch 'main' set up to track 'origin/main'.
+2026-01-19T02:05:20.8215006Z ##[endgroup]
+2026-01-19T02:05:20.8251705Z [command]/usr/bin/git log -1 --format=%H
+2026-01-19T02:05:20.8273726Z 8ae9e7a98960844bdcef67161cbe93442a7431bc
+2026-01-19T02:05:20.8607311Z ##[group]Run actions/setup-python@v5
+2026-01-19T02:05:20.8608541Z with:
+2026-01-19T02:05:20.8609368Z   python-version: 3.11
+2026-01-19T02:05:20.8610343Z   cache: pip
+2026-01-19T02:05:20.8611455Z   check-latest: false
+2026-01-19T02:05:20.8612708Z   token: ***
+2026-01-19T02:05:20.8613643Z   update-environment: true
+2026-01-19T02:05:20.8614916Z   allow-prereleases: false
+2026-01-19T02:05:20.8615970Z   freethreaded: false
+2026-01-19T02:05:20.8616906Z ##[endgroup]
+2026-01-19T02:05:21.0353354Z ##[group]Installed versions
+2026-01-19T02:05:21.0469459Z Successfully set up CPython (3.11.14)
+2026-01-19T02:05:21.0470103Z ##[endgroup]
+2026-01-19T02:05:21.1568589Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-19T02:05:22.9753910Z /home/runner/.cache/pip
+2026-01-19T02:05:23.0887364Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T02:05:24.1600602Z Received 201326592 of 254742636 (79.0%), 190.5 MBs/sec
+2026-01-19T02:05:24.3769529Z Received 254742636 of 254742636 (100.0%), 198.0 MBs/sec
+2026-01-19T02:05:24.3770844Z Cache Size: ~243 MB (254742636 B)
+2026-01-19T02:05:24.3810442Z [command]/usr/bin/tar -xf /home/runner/work/_temp/c052c6e4-1ab2-4d8e-90f7-868292c5d228/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-19T02:05:24.7553425Z Cache restored successfully
+2026-01-19T02:05:24.8058646Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T02:05:24.8309523Z ##[group]Run pip install -r requirements.txt
+2026-01-19T02:05:24.8309931Z [36;1mpip install -r requirements.txt[0m
+2026-01-19T02:05:24.8310237Z [36;1mplaywright install chromium[0m
+2026-01-19T02:05:24.8350487Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:05:24.8350757Z env:
+2026-01-19T02:05:24.8351027Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:05:24.8351472Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:05:24.8351900Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:05:24.8352292Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:05:24.8352688Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:05:24.8353071Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:05:24.8353388Z ##[endgroup]
+2026-01-19T02:05:26.2973457Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-19T02:05:26.2990287Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-19T02:05:26.3200172Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-19T02:05:26.3214157Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-19T02:05:26.3508603Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-19T02:05:26.3522195Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-19T02:05:26.5220855Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-19T02:05:26.5237748Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-19T02:05:26.5520789Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-19T02:05:26.5534290Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-19T02:05:26.5714977Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-19T02:05:26.5727893Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-19T02:05:26.6111856Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-19T02:05:26.6125909Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-19T02:05:26.6699148Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-19T02:05:26.6713368Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-19T02:05:26.8677161Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-19T02:05:26.8691791Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-19T02:05:26.9475891Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-19T02:05:26.9490361Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-19T02:05:26.9689438Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-19T02:05:26.9703483Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-19T02:05:27.0896002Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-19T02:05:27.0911235Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-19T02:05:27.1122680Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-19T02:05:27.1135546Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-19T02:05:27.1955120Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:05:27.1970228Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-19T02:05:27.2162136Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:05:27.2175074Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T02:05:27.2515192Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:05:27.2532794Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-19T02:05:27.2773769Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:05:27.2786463Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-19T02:05:27.3015588Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.3029360Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-19T02:05:27.3407903Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.3421930Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-19T02:05:27.3691605Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.3705268Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-19T02:05:27.5112170Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.5128304Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-19T02:05:27.5429156Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.5442609Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-19T02:05:27.6336161Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.6350178Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-19T02:05:27.6536235Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.6548982Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-19T02:05:27.6686803Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.6699483Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-19T02:05:27.7003599Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.7017068Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-19T02:05:27.7189876Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.7202785Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-19T02:05:27.7515444Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.7528368Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-19T02:05:27.7676842Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.7689924Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-19T02:05:27.7833619Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:27.7847197Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-19T02:05:28.4354210Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:28.4370738Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-19T02:05:28.4537765Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:28.4551467Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-19T02:05:28.5265304Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:05:28.5280525Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T02:05:28.5539464Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-19T02:05:28.5878456Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-19T02:05:28.5894866Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-19T02:05:28.5908254Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-19T02:05:28.5921481Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-19T02:05:28.5935647Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-19T02:05:28.5949208Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-19T02:05:28.5962533Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-19T02:05:28.5976881Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-19T02:05:28.6039209Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-19T02:05:28.6057207Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-19T02:05:28.6070765Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-19T02:05:28.6083858Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-19T02:05:28.6098501Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-19T02:05:28.6111876Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-19T02:05:28.6125366Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-19T02:05:28.6141910Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-19T02:05:28.6168892Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-19T02:05:28.6181738Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-19T02:05:28.6195051Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-19T02:05:28.6208877Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-19T02:05:28.6222555Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-19T02:05:28.6236206Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-19T02:05:28.6254978Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-19T02:05:28.6707337Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-19T02:05:28.6838923Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-19T02:05:28.6865927Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-19T02:05:28.6879435Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-19T02:05:28.6893698Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-19T02:05:28.6907251Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-19T02:05:28.6922404Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-19T02:05:28.6936922Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-19T02:05:28.6950098Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-19T02:05:28.9249947Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-19T02:05:35.6963146Z 
+2026-01-19T02:05:35.6987931Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-19T02:05:36.3183398Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-19T02:05:36.4152649Z (node:2190) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:05:36.4154400Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:05:36.5033018Z |                                                                                |   0% of 164.7 MiB
+2026-01-19T02:05:36.6327390Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-19T02:05:36.7068396Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-19T02:05:36.7840538Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-19T02:05:36.8463663Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-19T02:05:36.9123691Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-19T02:05:36.9732045Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-19T02:05:37.0261157Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-19T02:05:37.0850831Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-19T02:05:37.1460648Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-19T02:05:37.1985051Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-19T02:05:39.6320344Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-19T02:05:39.6325005Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-19T02:05:39.7310364Z (node:2201) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:05:39.7312272Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:05:39.8125690Z |                                                                                |   0% of 2.3 MiB
+2026-01-19T02:05:39.8379164Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-19T02:05:39.8510557Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-19T02:05:39.8596066Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-19T02:05:39.8825318Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-19T02:05:39.8975234Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-19T02:05:39.9223266Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-19T02:05:39.9592033Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-19T02:05:39.9893409Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-19T02:05:40.0115818Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-19T02:05:40.0267102Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-19T02:05:40.0827639Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-19T02:05:40.0831190Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-19T02:05:40.1791470Z (node:2212) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:05:40.1792931Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:05:40.2528590Z |                                                                                |   0% of 109.7 MiB
+2026-01-19T02:05:40.3509685Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-19T02:05:40.4095704Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-19T02:05:40.4575749Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-19T02:05:40.5084467Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-19T02:05:40.5554065Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-19T02:05:40.5957802Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-19T02:05:40.6340678Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-19T02:05:40.6733461Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-19T02:05:40.7113262Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-19T02:05:40.7518344Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-19T02:05:42.5760329Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-19T02:05:42.5984362Z ##[group]Run mkdir -p projects/ci_parabank_banking
+2026-01-19T02:05:42.5985068Z [36;1mmkdir -p projects/ci_parabank_banking[0m
+2026-01-19T02:05:42.5985509Z [36;1mcat > projects/ci_parabank_banking/config.json << 'EOF'[0m
+2026-01-19T02:05:42.5985836Z [36;1m{[0m
+2026-01-19T02:05:42.5986062Z [36;1m  "project_name": "ci_parabank_banking",[0m
+2026-01-19T02:05:42.5986439Z [36;1m  "target_url": "https://parabank.parasoft.com/",[0m
+2026-01-19T02:05:42.5986785Z [36;1m  "goal": "Test banking operations",[0m
+2026-01-19T02:05:42.5987074Z [36;1m  "headless": true[0m
+2026-01-19T02:05:42.5987311Z [36;1m}[0m
+2026-01-19T02:05:42.5987488Z [36;1mEOF[0m
+2026-01-19T02:05:42.6019607Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:05:42.6019849Z env:
+2026-01-19T02:05:42.6020112Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:05:42.6020552Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:05:42.6021004Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:05:42.6021389Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:05:42.6021771Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:05:42.6022159Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:05:42.6022477Z ##[endgroup]
+2026-01-19T02:05:42.6127390Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-19T02:05:42.6127854Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-19T02:05:42.6128335Z [36;1mpython orchestrator.py --project projects/ci_parabank_banking --deep --force[0m
+2026-01-19T02:05:42.6157332Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:05:42.6157573Z env:
+2026-01-19T02:05:42.6157834Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:05:42.6158291Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:05:42.6158719Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:05:42.6159101Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:05:42.6159497Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:05:42.6160050Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:05:42.6160536Z   GOOGLE_API_KEY: ***
+2026-01-19T02:05:42.6160789Z   PYTHONPATH: .
+2026-01-19T02:05:42.6160978Z ##[endgroup]
+2026-01-19T02:05:44.5127832Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-19T02:05:44.5128569Z 
+2026-01-19T02:05:44.5129604Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://parabank.parasoft.com/ (Workers: 3)
+2026-01-19T02:05:46.2146680Z   🔍 [Worker 0] Visiting (0): https://parabank.parasoft.com/
+2026-01-19T02:05:46.9094896Z [CACHE HIT] 400788a5... (hits: 1, misses: 0)
+2026-01-19T02:05:46.9095921Z   🔍 [Worker 1] Visiting (1): https://parabank.parasoft.com/parabank/lookup.htm
+2026-01-19T02:05:46.9103607Z   🔍 [Worker 2] Visiting (1): https://parabank.parasoft.com/parabank/register.htm
+2026-01-19T02:05:46.9127620Z   🔍 [Worker 0] Visiting (1): https://parabank.parasoft.com/parabank/admin.htm
+2026-01-19T02:05:47.1018648Z [CACHE HIT] 59992371... (hits: 2, misses: 0)
+2026-01-19T02:05:47.1020296Z   🔍 [Worker 1] Visiting (1): https://parabank.parasoft.com/parabank/news.htm
+2026-01-19T02:05:47.1892342Z [CACHE HIT] 9efe0511... (hits: 3, misses: 0)
+2026-01-19T02:05:47.1893288Z [CACHE HIT] 1b1ed538... (hits: 4, misses: 0)
+2026-01-19T02:05:47.1896937Z   🔍 [Worker 2] Visiting (1): https://parabank.parasoft.com/parabank/services/ParaBank?wsdl
+2026-01-19T02:05:47.1989469Z   🔍 [Worker 0] Visiting (1): https://parabank.parasoft.com/parabank/services.htm
+2026-01-19T02:05:47.2751390Z [CACHE HIT] 619202fb... (hits: 5, misses: 0)
+2026-01-19T02:05:47.2752522Z   🔍 [Worker 1] Visiting (1): https://parabank.parasoft.com/parabank/sitemap.htm
+2026-01-19T02:05:47.4491652Z [CACHE HIT] 4059fe92... (hits: 6, misses: 0)
+2026-01-19T02:05:47.4492285Z [CACHE HIT] 4dc35a34... (hits: 7, misses: 0)
+2026-01-19T02:05:47.4493477Z   🔍 [Worker 0] Visiting (1): https://parabank.parasoft.com/parabank/contact.htm
+2026-01-19T02:05:47.4606313Z   🔍 [Worker 1] Visiting (1): https://parabank.parasoft.com/parabank/about.htm
+2026-01-19T02:05:47.5545279Z [CACHE HIT] 442e3b17... (hits: 8, misses: 0)
+2026-01-19T02:05:47.5547216Z   🔍 [Worker 2] Visiting (1): https://parabank.parasoft.com/parabank/index.htm
+2026-01-19T02:05:47.6484860Z [CACHE HIT] 1cd1b469... (hits: 9, misses: 0)
+2026-01-19T02:05:47.6485913Z [CACHE HIT] 7d32970b... (hits: 10, misses: 0)
+2026-01-19T02:05:47.6487345Z   🔍 [Worker 0] Visiting (1): https://parabank.parasoft.com/parabank/services/bank?_wadl&_type=xml
+2026-01-19T02:05:47.6618131Z   🔍 [Worker 1] Visiting (2): https://parabank.parasoft.com/parabank/api-docs/index.html
+2026-01-19T02:05:47.7356820Z [CACHE HIT] 400788a5... (hits: 11, misses: 0)
+2026-01-19T02:05:47.7359128Z   🔍 [Worker 2] Visiting (2): https://parabank.parasoft.com/parabank/services/LoanProcessor?wsdl
+2026-01-19T02:05:47.8457379Z [CACHE HIT] 52f18eef... (hits: 12, misses: 0)
+2026-01-19T02:05:47.8458804Z   🔍 [Worker 0] Visiting (2): http://parabank.parasoft.com:8080/parabank/api-docs/index.html
+2026-01-19T02:05:47.8895068Z [CACHE HIT] 5a60e8eb... (hits: 13, misses: 0)
+2026-01-19T02:05:47.8900656Z   🔍 [Worker 2] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/LoanProcessor?wsdl
+2026-01-19T02:05:48.2449061Z [CACHE HIT] 886cf46a... (hits: 14, misses: 0)
+2026-01-19T02:05:48.2450640Z   🔍 [Worker 1] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/store-wss-01?wsdl
+2026-01-19T02:06:02.8786386Z     ❌ [Worker 0] Failed http://parabank.parasoft.com:8080/parabank/api-docs/index.html: Page.goto: Timeout 15000ms exceeded.
+2026-01-19T02:06:02.8787212Z Call log:
+2026-01-19T02:06:02.8787869Z   - navigating to "http://parabank.parasoft.com:8080/parabank/api-docs/index.html", waiting until "domcontentloaded"
+2026-01-19T02:06:02.8788546Z 
+2026-01-19T02:06:02.8813120Z   🔍 [Worker 0] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/ParaBank?wsdl
+2026-01-19T02:06:02.9176969Z     ❌ [Worker 2] Failed http://parabank.parasoft.com:8080/parabank/services/LoanProcessor?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-19T02:06:02.9179047Z Call log:
+2026-01-19T02:06:02.9180204Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/LoanProcessor?wsdl", waiting until "domcontentloaded"
+2026-01-19T02:06:02.9181320Z 
+2026-01-19T02:06:02.9203413Z   🔍 [Worker 2] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/bank?_wadl&_type=xml
+2026-01-19T02:06:03.2706627Z     ❌ [Worker 1] Failed http://parabank.parasoft.com:8080/parabank/services/store-wss-01?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-19T02:06:03.2707900Z Call log:
+2026-01-19T02:06:03.2708890Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/store-wss-01?wsdl", waiting until "domcontentloaded"
+2026-01-19T02:06:03.2709526Z 
+2026-01-19T02:06:03.2737568Z   🔍 [Worker 1] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/store-wss-04?wsdl
+2026-01-19T02:06:17.9045547Z     ❌ [Worker 0] Failed http://parabank.parasoft.com:8080/parabank/services/ParaBank?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-19T02:06:17.9047402Z Call log:
+2026-01-19T02:06:17.9048375Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/ParaBank?wsdl", waiting until "domcontentloaded"
+2026-01-19T02:06:17.9049147Z 
+2026-01-19T02:06:17.9073901Z   🔍 [Worker 0] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/store-wss-02?wsdl
+2026-01-19T02:06:17.9449929Z     ❌ [Worker 2] Failed http://parabank.parasoft.com:8080/parabank/services/bank?_wadl&_type=xml: Page.goto: Timeout 15000ms exceeded.
+2026-01-19T02:06:17.9450634Z Call log:
+2026-01-19T02:06:17.9451191Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/bank?_wadl&_type=xml", waiting until "domcontentloaded"
+2026-01-19T02:06:17.9451760Z 
+2026-01-19T02:06:17.9475185Z   🔍 [Worker 2] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/store-wss-03?wsdl
+2026-01-19T02:06:18.2982485Z     ❌ [Worker 1] Failed http://parabank.parasoft.com:8080/parabank/services/store-wss-04?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-19T02:06:18.2983925Z Call log:
+2026-01-19T02:06:18.2985350Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/store-wss-04?wsdl", waiting until "domcontentloaded"
+2026-01-19T02:06:18.2986571Z 
+2026-01-19T02:06:18.3011927Z   🔍 [Worker 1] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/store-01V2?wsdl
+2026-01-19T02:06:32.9333574Z     ❌ [Worker 0] Failed http://parabank.parasoft.com:8080/parabank/services/store-wss-02?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-19T02:06:32.9335113Z Call log:
+2026-01-19T02:06:32.9336056Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/store-wss-02?wsdl", waiting until "domcontentloaded"
+2026-01-19T02:06:32.9336696Z 
+2026-01-19T02:06:32.9365342Z   🔍 [Worker 0] Visiting (2): https://parabank.parasoft.com/parabank/soatest.pfx
+2026-01-19T02:06:32.9717969Z     ❌ [Worker 2] Failed http://parabank.parasoft.com:8080/parabank/services/store-wss-03?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-19T02:06:32.9718844Z Call log:
+2026-01-19T02:06:32.9719816Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/store-wss-03?wsdl", waiting until "domcontentloaded"
+2026-01-19T02:06:32.9720324Z 
+2026-01-19T02:06:32.9747054Z   🔍 [Worker 2] Visiting (2): http://parabank.parasoft.com:8080/parabank/services/store-01?wsdl
+2026-01-19T02:06:33.0585841Z     ❌ [Worker 0] Failed https://parabank.parasoft.com/parabank/soatest.pfx: Page.goto: Download is starting
+2026-01-19T02:06:33.0586805Z Call log:
+2026-01-19T02:06:33.0587587Z   - navigating to "https://parabank.parasoft.com/parabank/soatest.pfx", waiting until "domcontentloaded"
+2026-01-19T02:06:33.0588392Z 
+2026-01-19T02:06:33.0606873Z   🔍 [Worker 0] Visiting (2): https://parabank.parasoft.com/parabank/openaccount.htm
+2026-01-19T02:06:33.2191483Z [CACHE HIT] 5310566a... (hits: 15, misses: 0)
+2026-01-19T02:06:33.2192705Z   🔍 [Worker 0] Visiting (2): https://parabank.parasoft.com/parabank/overview.htm
+2026-01-19T02:06:33.3628593Z     ❌ [Worker 1] Failed http://parabank.parasoft.com:8080/parabank/services/store-01V2?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-19T02:06:33.3629606Z Call log:
+2026-01-19T02:06:33.3630492Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/store-01V2?wsdl", waiting until "domcontentloaded"
+2026-01-19T02:06:33.3631326Z 
+2026-01-19T02:06:33.3676594Z   🔍 [Worker 1] Visiting (2): https://parabank.parasoft.com/parabank/billpay.htm
+2026-01-19T02:06:33.3889524Z [CACHE HIT] 5310566a... (hits: 16, misses: 0)
+2026-01-19T02:06:33.3890780Z   🔍 [Worker 0] Visiting (2): https://parabank.parasoft.com/parabank/requestloan.htm
+2026-01-19T02:06:33.5431256Z [CACHE HIT] 5310566a... (hits: 17, misses: 0)
+2026-01-19T02:06:33.5440409Z   🔍 [Worker 1] Visiting (2): https://parabank.parasoft.com/parabank/logout.htm
+2026-01-19T02:06:33.5598355Z [CACHE HIT] 5310566a... (hits: 18, misses: 0)
+2026-01-19T02:06:33.5599798Z   🔍 [Worker 0] Visiting (2): https://parabank.parasoft.com/parabank/transfer.htm
+2026-01-19T02:06:33.7174326Z [CACHE HIT] 5310566a... (hits: 19, misses: 0)
+2026-01-19T02:06:33.7177951Z   🔍 [Worker 0] Visiting (2): https://parabank.parasoft.com/parabank/updateprofile.htm
+2026-01-19T02:06:33.7949266Z [CACHE HIT] 400788a5... (hits: 20, misses: 0)
+2026-01-19T02:06:33.7950520Z   🔍 [Worker 1] Visiting (2): https://parabank.parasoft.com/parabank/findtrans.htm
+2026-01-19T02:06:47.9987273Z [CACHE HIT] 5310566a... (hits: 21, misses: 0)
+2026-01-19T02:06:47.9988020Z [CACHE HIT] 5310566a... (hits: 22, misses: 0)
+2026-01-19T02:06:47.9990000Z     ❌ [Worker 2] Failed http://parabank.parasoft.com:8080/parabank/services/store-01?wsdl: Page.goto: Timeout 15000ms exceeded.
+2026-01-19T02:06:47.9991374Z Call log:
+2026-01-19T02:06:47.9992618Z   - navigating to "http://parabank.parasoft.com:8080/parabank/services/store-01?wsdl", waiting until "domcontentloaded"
+2026-01-19T02:06:47.9993903Z 
+2026-01-19T02:06:48.0362271Z ✅ Discovery Complete. Mapped 22 pages.
+2026-01-19T02:07:01.8975596Z 
+2026-01-19T02:07:01.8976357Z [PLAN] PLANNER: Planning goal -> 'Test banking operations' (Deep Mode: True)
+2026-01-19T02:07:01.8977376Z 🗺️ [PLAN] Loaded Sitemap with 22 pages.
+2026-01-19T02:07:01.8978774Z 🎭 [EXPERT] Detected Domain: FINANCE. Persona: Act as a Senior SDET focusing on exploring application to understand functional flow and automating FinTech scenarios
+2026-01-19T02:07:01.8980048Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:07:01.8980625Z [DEBUG] Received response (Length: 8945)
+2026-01-19T02:07:01.8981206Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-19T02:07:02.9060818Z 
+2026-01-19T02:07:02.9061706Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-19T02:07:02.9062622Z 📋 Found 3 scenarios to explore.
+2026-01-19T02:07:03.2711437Z 
+2026-01-19T02:07:03.2711974Z [1/3] Exploring Scenario: Account Creation and Login
+2026-01-19T02:07:03.2713915Z     🧠 Initialized exploration context for goal: 'Test banking operations'
+2026-01-19T02:07:03.2714403Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:07:04.2189108Z     ✅ Navigated to https://parabank.parasoft.com/
+2026-01-19T02:07:04.2189882Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-19T02:07:09.2506681Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:07:11.2527806Z     ✅ State transitioned.
+2026-01-19T02:07:12.9730823Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:07:12.9731505Z [DEBUG] Received response (Length: 214)
+2026-01-19T02:07:12.9732236Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-19T02:07:12.9732886Z     🧩 Suggested Locator: input[name='username']
+2026-01-19T02:07:12.9733730Z     💭 Reasoning: To test banking operations, I need to log in. Filling the username field is the first step.
+2026-01-19T02:07:12.9734289Z     ➕ Injected AI step: fill -> Username
+2026-01-19T02:07:12.9734893Z   ▶️ [STEP step_2_ai_1] FILL: Username
+2026-01-19T02:07:12.9800775Z     🎯 Using AI-provided locator: input[name='username']
+2026-01-19T02:07:12.9878024Z     ✅ Found 1 verified locators
+2026-01-19T02:07:18.5912409Z     ✅ State transitioned.
+2026-01-19T02:07:20.0875044Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:07:20.0875936Z [DEBUG] Received response (Length: 205)
+2026-01-19T02:07:20.0876794Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T02:07:20.0877672Z     🧩 Suggested Locator: input[name='password']
+2026-01-19T02:07:20.0879169Z     💭 Reasoning: The username field has been filled. Now, fill the password field to attempt login.
+2026-01-19T02:07:20.0880536Z     ➕ Injected AI step: fill -> Password
+2026-01-19T02:07:20.0881353Z   ▶️ [STEP step_2_ai_2] FILL: Password
+2026-01-19T02:07:20.0940383Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-19T02:07:20.1004737Z     ✅ Found 1 verified locators
+2026-01-19T02:07:25.3690954Z     ✅ State transitioned.
+2026-01-19T02:07:26.8995924Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:07:26.8996432Z [DEBUG] Received response (Length: 215)
+2026-01-19T02:07:26.8997264Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:07:26.8998138Z     💭 Reasoning: The username and password fields have been filled. Clicking 'LOG IN' is the next logical step to attempt to log in.
+2026-01-19T02:07:26.8998843Z     ➕ Injected AI step: click -> LOG IN
+2026-01-19T02:07:26.8999188Z   ▶️ [STEP step_2_ai_3] CLICK: LOG IN
+2026-01-19T02:07:26.9061186Z     🔍 Mining locators for: 'LOG IN'
+2026-01-19T02:07:26.9487240Z     🧠 Consulting AI (Vision-First) to find 'LOG IN'...
+2026-01-19T02:07:26.9497361Z     🔍 Trying smart selectors for 'LOG IN'...
+2026-01-19T02:07:26.9735093Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:07:26.9735986Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:07:26.9736604Z   ▶️ [STEP step_3] CLICK: Register
+2026-01-19T02:07:26.9783466Z     🔍 Mining locators for: 'Register'
+2026-01-19T02:07:27.0495855Z     ✅ Found 2 verified locators
+2026-01-19T02:07:30.6041733Z     ✅ State transitioned.
+2026-01-19T02:07:32.1159576Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:07:32.1160170Z [DEBUG] Received response (Length: 224)
+2026-01-19T02:07:32.1160846Z     🤖 AI Next Step Suggestion: fill -> First Name
+2026-01-19T02:07:32.1161240Z     🧩 Suggested Locator: #customer\.firstName
+2026-01-19T02:07:32.1161862Z     💭 Reasoning: The registration form needs to be filled out. Filling the first name field is the next logical step.
+2026-01-19T02:07:32.1162432Z     ➕ Injected AI step: fill -> First Name
+2026-01-19T02:07:32.1162756Z   ▶️ [STEP step_3_ai_1] FILL: First Name
+2026-01-19T02:07:32.1319175Z     🎯 Using AI-provided locator: #customer\.firstName
+2026-01-19T02:07:32.1386862Z     ✅ Found 1 verified locators
+2026-01-19T02:07:37.6641869Z     ✅ State transitioned.
+2026-01-19T02:07:39.3116828Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:07:39.3117701Z [DEBUG] Received response (Length: 194)
+2026-01-19T02:07:39.3118839Z     🤖 AI Next Step Suggestion: fill -> Last Name
+2026-01-19T02:07:39.3119796Z     🧩 Suggested Locator: #customer\.lastName
+2026-01-19T02:07:39.3121445Z     💭 Reasoning: Need to fill out the registration form. Filling out the last name field.
+2026-01-19T02:07:39.3122728Z     ➕ Injected AI step: fill -> Last Name
+2026-01-19T02:07:39.3123532Z   ▶️ [STEP step_3_ai_2] FILL: Last Name
+2026-01-19T02:07:39.3182451Z     🎯 Using AI-provided locator: #customer\.lastName
+2026-01-19T02:07:39.3238115Z     ✅ Found 1 verified locators
+2026-01-19T02:07:44.8246411Z     ✅ State transitioned.
+2026-01-19T02:07:46.3557589Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:07:46.3558354Z [DEBUG] Received response (Length: 203)
+2026-01-19T02:07:46.3559227Z     🤖 AI Next Step Suggestion: fill -> Address
+2026-01-19T02:07:46.3559829Z     🧩 Suggested Locator: #customer\.address\.street
+2026-01-19T02:07:46.3560479Z     💭 Reasoning: Need to fill in the address field to complete the registration form.
+2026-01-19T02:07:46.3561442Z     ➕ Injected AI step: fill -> Address
+2026-01-19T02:07:46.3561846Z   ▶️ [STEP step_3_ai_3] FILL: Address
+2026-01-19T02:07:46.3615249Z     🎯 Using AI-provided locator: #customer\.address\.street
+2026-01-19T02:07:46.3670713Z     ✅ Found 1 verified locators
+2026-01-19T02:07:52.0971926Z     ✅ State transitioned.
+2026-01-19T02:07:53.6481655Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:07:53.6482378Z [DEBUG] Received response (Length: 200)
+2026-01-19T02:07:53.6483154Z     🤖 AI Next Step Suggestion: fill -> City
+2026-01-19T02:07:53.6483946Z     🧩 Suggested Locator: input[name='customer.address.city']
+2026-01-19T02:07:53.6485378Z     💭 Reasoning: Need to fill in the city field to complete the registration form.
+2026-01-19T02:07:53.6486316Z     ➕ Injected AI step: fill -> City
+2026-01-19T02:07:53.6486919Z   ▶️ [STEP step_3_ai_4] FILL: City
+2026-01-19T02:07:53.6542795Z     🎯 Using AI-provided locator: input[name='customer.address.city']
+2026-01-19T02:07:53.6602889Z     ✅ Found 1 verified locators
+2026-01-19T02:07:59.6308621Z     ✅ State transitioned.
+2026-01-19T02:08:01.3044147Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:08:01.3044971Z [DEBUG] Received response (Length: 188)
+2026-01-19T02:08:01.3045642Z     🤖 AI Next Step Suggestion: fill -> State
+2026-01-19T02:08:01.3046225Z     🧩 Suggested Locator: input[id='customer.address.state']
+2026-01-19T02:08:01.3046790Z     💭 Reasoning: Filling the state field to complete the registration form.
+2026-01-19T02:08:01.3047265Z     ➕ Injected AI step: fill -> State
+2026-01-19T02:08:01.3047597Z   ▶️ [STEP step_3_ai_5] FILL: State
+2026-01-19T02:08:01.3104703Z     🎯 Using AI-provided locator: input[id='customer.address.state']
+2026-01-19T02:08:01.3163288Z     ✅ Found 1 verified locators
+2026-01-19T02:08:06.6578066Z     ✅ State transitioned.
+2026-01-19T02:08:08.4471810Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:08:08.4472435Z [DEBUG] Received response (Length: 199)
+2026-01-19T02:08:08.4473232Z     🤖 AI Next Step Suggestion: fill -> Zip Code
+2026-01-19T02:08:08.4473739Z     🧩 Suggested Locator: input[id='customer.address.zipCode']
+2026-01-19T02:08:08.4474377Z     💭 Reasoning: Filling the zip code field to complete the registration form.
+2026-01-19T02:08:08.4475078Z     ➕ Injected AI step: fill -> Zip Code
+2026-01-19T02:08:08.4475459Z   ▶️ [STEP step_3_ai_6] FILL: Zip Code
+2026-01-19T02:08:08.4528613Z     🎯 Using AI-provided locator: input[id='customer.address.zipCode']
+2026-01-19T02:08:08.4589152Z     ✅ Found 1 verified locators
+2026-01-19T02:08:14.2322806Z     ✅ State transitioned.
+2026-01-19T02:08:15.8045864Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:08:15.8046574Z [DEBUG] Received response (Length: 207)
+2026-01-19T02:08:15.8047405Z     🤖 AI Next Step Suggestion: fill -> Phone #
+2026-01-19T02:08:15.8048129Z     🧩 Suggested Locator: input[id='customer.phoneNumber']
+2026-01-19T02:08:15.8049114Z     💭 Reasoning: Need to fill in the phone number to complete the registration form.
+2026-01-19T02:08:15.8049934Z     ➕ Injected AI step: fill -> Phone #
+2026-01-19T02:08:15.8050851Z   ▶️ [STEP step_3_ai_7] FILL: Phone #
+2026-01-19T02:08:15.8106745Z     🎯 Using AI-provided locator: input[id='customer.phoneNumber']
+2026-01-19T02:08:15.8161350Z     ✅ Found 1 verified locators
+2026-01-19T02:08:21.7133753Z     ✅ State transitioned.
+2026-01-19T02:08:23.3612510Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:08:23.3613169Z [DEBUG] Received response (Length: 176)
+2026-01-19T02:08:23.3613873Z     🤖 AI Next Step Suggestion: fill -> SSN
+2026-01-19T02:08:23.3614289Z     🧩 Suggested Locator: #customer\.ssn
+2026-01-19T02:08:23.3615262Z     💭 Reasoning: Need to fill out the SSN field to complete the registration form.
+2026-01-19T02:08:23.3615919Z     ➕ Injected AI step: fill -> SSN
+2026-01-19T02:08:23.3616276Z   ▶️ [STEP step_3_ai_8] FILL: SSN
+2026-01-19T02:08:23.3670034Z     🎯 Using AI-provided locator: #customer\.ssn
+2026-01-19T02:08:23.3724833Z     ✅ Found 1 verified locators
+2026-01-19T02:08:28.8780972Z     ✅ State transitioned.
+2026-01-19T02:08:30.4318016Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:08:30.4318749Z [DEBUG] Received response (Length: 194)
+2026-01-19T02:08:30.4319586Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-19T02:08:30.4320252Z     🧩 Suggested Locator: #customer\.username
+2026-01-19T02:08:30.4321255Z     💭 Reasoning: Need to fill in the username field to complete the registration form.
+2026-01-19T02:08:30.4343952Z     ➕ Injected AI step: fill -> Username
+2026-01-19T02:08:30.4344744Z   ▶️ [STEP step_3_ai_9] FILL: Username
+2026-01-19T02:08:30.4379435Z     🎯 Using AI-provided locator: #customer\.username
+2026-01-19T02:08:30.4436640Z     ✅ Found 1 verified locators
+2026-01-19T02:08:36.6747037Z     ✅ State transitioned.
+2026-01-19T02:08:38.1255635Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:08:38.1256849Z [DEBUG] Received response (Length: 203)
+2026-01-19T02:08:38.1258059Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T02:08:38.1259390Z     🧩 Suggested Locator: input[id='customer.password']
+2026-01-19T02:08:38.1261103Z     💭 Reasoning: Need to fill in the password field to complete the registration form.
+2026-01-19T02:08:38.1262641Z     ➕ Injected AI step: fill -> Password
+2026-01-19T02:08:38.1263558Z   ▶️ [STEP step_3_ai_10] FILL: Password
+2026-01-19T02:08:38.1315265Z     🎯 Using AI-provided locator: input[id='customer.password']
+2026-01-19T02:08:38.1370331Z     ✅ Found 1 verified locators
+2026-01-19T02:08:44.1253589Z     ✅ State transitioned.
+2026-01-19T02:08:45.7286773Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:08:45.7287704Z [DEBUG] Received response (Length: 228)
+2026-01-19T02:08:45.7288796Z     🤖 AI Next Step Suggestion: fill -> repeatedPassword
+2026-01-19T02:08:45.7289753Z     🧩 Suggested Locator: input[name='repeatedPassword']
+2026-01-19T02:08:45.7291247Z     💭 Reasoning: The password confirmation field needs to be filled to complete the registration form.
+2026-01-19T02:08:45.7292580Z     ➕ Injected AI step: fill -> repeatedPassword
+2026-01-19T02:08:45.7293445Z   ▶️ [STEP step_3_ai_11] FILL: repeatedPassword
+2026-01-19T02:08:45.7348489Z     🎯 Using AI-provided locator: input[name='repeatedPassword']
+2026-01-19T02:08:45.7409006Z     ✅ Found 1 verified locators
+2026-01-19T02:08:51.4250681Z     ✅ State transitioned.
+2026-01-19T02:08:53.0165902Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:08:53.0166575Z [DEBUG] Received response (Length: 205)
+2026-01-19T02:08:53.0167384Z     🤖 AI Next Step Suggestion: click -> Register
+2026-01-19T02:08:53.0168202Z     💭 Reasoning: All the required fields for registration are filled. Clicking the register button will submit the form.
+2026-01-19T02:08:53.0168824Z     ➕ Injected AI step: click -> Register
+2026-01-19T02:08:53.0169163Z   ▶️ [STEP step_3_ai_12] CLICK: Register
+2026-01-19T02:08:53.0222492Z     🔍 Mining locators for: 'Register'
+2026-01-19T02:08:53.0770500Z     ✅ Found 2 verified locators
+2026-01-19T02:08:56.6476249Z     ✅ State transitioned.
+2026-01-19T02:08:56.6546504Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:08:58.5102239Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:08:58.5103023Z [DEBUG] Received response (Length: 246)
+2026-01-19T02:08:58.5103980Z     🤖 AI Next Step Suggestion: fill -> customer.firstName
+2026-01-19T02:08:58.5104855Z     🧩 Suggested Locator: #customer\.firstName
+2026-01-19T02:08:58.5105768Z     💭 Reasoning: The registration form is not complete. Filling the first name field is the next logical step to complete the form.
+2026-01-19T02:08:58.5106639Z     ➕ Injected AI step: fill -> customer.firstName
+2026-01-19T02:08:58.5107118Z   ▶️ [STEP step_3_ai_13] FILL: customer.firstName
+2026-01-19T02:08:58.5262894Z     🎯 Using AI-provided locator: #customer\.firstName
+2026-01-19T02:08:58.5319035Z     ✅ Found 1 verified locators
+2026-01-19T02:09:03.8343310Z     ✅ State transitioned.
+2026-01-19T02:09:05.4107561Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:09:05.4108272Z [DEBUG] Received response (Length: 200)
+2026-01-19T02:09:05.4108933Z     🤖 AI Next Step Suggestion: fill -> customer.lastName
+2026-01-19T02:09:05.4109357Z     🧩 Suggested Locator: #customer\.lastName
+2026-01-19T02:09:05.4109906Z     💭 Reasoning: Need to fill out the last name field to complete the registration form.
+2026-01-19T02:09:05.4110460Z     ➕ Injected AI step: fill -> customer.lastName
+2026-01-19T02:09:05.4110860Z   ▶️ [STEP step_3_ai_14] FILL: customer.lastName
+2026-01-19T02:09:05.4166819Z     🎯 Using AI-provided locator: #customer\.lastName
+2026-01-19T02:09:05.4621208Z     ✅ Found 1 verified locators
+2026-01-19T02:09:10.9249367Z     ✅ State transitioned.
+2026-01-19T02:09:12.6621112Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:09:12.6621895Z [DEBUG] Received response (Length: 219)
+2026-01-19T02:09:12.6622931Z     🤖 AI Next Step Suggestion: fill -> customer.address.street
+2026-01-19T02:09:12.6623584Z     🧩 Suggested Locator: #customer\.address\.street
+2026-01-19T02:09:12.6624159Z     💭 Reasoning: Need to fill in the address field to complete the registration form.
+2026-01-19T02:09:12.6624867Z     ➕ Injected AI step: fill -> customer.address.street
+2026-01-19T02:09:12.6625283Z   ▶️ [STEP step_3_ai_15] FILL: customer.address.street
+2026-01-19T02:09:12.6679888Z     🎯 Using AI-provided locator: #customer\.address\.street
+2026-01-19T02:09:12.6735270Z     ✅ Found 1 verified locators
+2026-01-19T02:09:19.2553618Z     ✅ State transitioned.
+2026-01-19T02:09:21.0919068Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:09:21.0919841Z [DEBUG] Received response (Length: 234)
+2026-01-19T02:09:21.0920833Z     🤖 AI Next Step Suggestion: fill -> customer.address.city
+2026-01-19T02:09:21.0921643Z     🧩 Suggested Locator: #customer\.address\.city
+2026-01-19T02:09:21.0922798Z     💭 Reasoning: The registration form is not yet complete. Filling the city field is the next logical step.
+2026-01-19T02:09:21.0923659Z     ➕ Injected AI step: fill -> customer.address.city
+2026-01-19T02:09:21.0924077Z   ▶️ [STEP step_3_ai_16] FILL: customer.address.city
+2026-01-19T02:09:21.0974192Z     🎯 Using AI-provided locator: #customer\.address\.city
+2026-01-19T02:09:21.1028297Z     ✅ Found 1 verified locators
+2026-01-19T02:09:27.2027724Z     ✅ State transitioned.
+2026-01-19T02:09:29.0923524Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:09:29.0924234Z [DEBUG] Received response (Length: 198)
+2026-01-19T02:09:29.0925390Z     🤖 AI Next Step Suggestion: fill -> customer.address.state
+2026-01-19T02:09:29.0926155Z     🧩 Suggested Locator: #customer\.address\.state
+2026-01-19T02:09:29.0926968Z     💭 Reasoning: Filling the state field to complete the registration form.
+2026-01-19T02:09:29.0927814Z     ➕ Injected AI step: fill -> customer.address.state
+2026-01-19T02:09:29.0928636Z   ▶️ [STEP step_3_ai_17] FILL: customer.address.state
+2026-01-19T02:09:29.0983828Z     🎯 Using AI-provided locator: #customer\.address\.state
+2026-01-19T02:09:29.1040452Z     ✅ Found 1 verified locators
+2026-01-19T02:09:34.4031355Z     ✅ State transitioned.
+2026-01-19T02:09:36.2317974Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:09:36.2318917Z [DEBUG] Received response (Length: 219)
+2026-01-19T02:09:36.2320114Z     🤖 AI Next Step Suggestion: fill -> customer.address.zipCode
+2026-01-19T02:09:36.2321362Z     🧩 Suggested Locator: input[id='customer.address.zipCode']
+2026-01-19T02:09:36.2322812Z     💭 Reasoning: Need to fill in the zip code to complete the address information.
+2026-01-19T02:09:36.2324184Z     ➕ Injected AI step: fill -> customer.address.zipCode
+2026-01-19T02:09:36.2325585Z   ▶️ [STEP step_3_ai_18] FILL: customer.address.zipCode
+2026-01-19T02:09:36.2380678Z     🎯 Using AI-provided locator: input[id='customer.address.zipCode']
+2026-01-19T02:09:36.2436014Z     ✅ Found 1 verified locators
+2026-01-19T02:09:41.7442764Z     ✅ State transitioned.
+2026-01-19T02:09:43.6035784Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:09:43.6036596Z [DEBUG] Received response (Length: 217)
+2026-01-19T02:09:43.6037630Z     🤖 AI Next Step Suggestion: fill -> customer.phoneNumber
+2026-01-19T02:09:43.6038505Z     🧩 Suggested Locator: #customer\.phoneNumber
+2026-01-19T02:09:43.6039722Z     💭 Reasoning: Need to fill in the phone number field to complete the registration form.
+2026-01-19T02:09:43.6040954Z     ➕ Injected AI step: fill -> customer.phoneNumber
+2026-01-19T02:09:43.6041860Z   ▶️ [STEP step_3_ai_19] FILL: customer.phoneNumber
+2026-01-19T02:09:43.6096193Z     🎯 Using AI-provided locator: #customer\.phoneNumber
+2026-01-19T02:09:43.6154316Z     ✅ Found 1 verified locators
+2026-01-19T02:09:50.0944003Z     ✅ State transitioned.
+2026-01-19T02:09:51.7560120Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:09:51.7560900Z [DEBUG] Received response (Length: 193)
+2026-01-19T02:09:51.7561732Z     🤖 AI Next Step Suggestion: fill -> customer.ssn
+2026-01-19T02:09:51.7562238Z     🧩 Suggested Locator: #customer\.ssn
+2026-01-19T02:09:51.7562832Z     💭 Reasoning: The SSN field is the next unfilled field in the registration form.
+2026-01-19T02:09:51.7563402Z     ➕ Injected AI step: fill -> customer.ssn
+2026-01-19T02:09:51.7563814Z   ▶️ [STEP step_3_ai_20] FILL: customer.ssn
+2026-01-19T02:09:51.7617376Z     🎯 Using AI-provided locator: #customer\.ssn
+2026-01-19T02:09:51.7670015Z     ✅ Found 1 verified locators
+2026-01-19T02:09:58.4319345Z     ✅ State transitioned.
+2026-01-19T02:10:00.1930410Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:10:00.1930986Z [DEBUG] Received response (Length: 189)
+2026-01-19T02:10:00.1931760Z     🤖 AI Next Step Suggestion: fill -> customer.username
+2026-01-19T02:10:00.1932375Z     🧩 Suggested Locator: input[id='customer.username']
+2026-01-19T02:10:00.1932923Z     💭 Reasoning: Need to fill in the username for registration.
+2026-01-19T02:10:00.1933408Z     ➕ Injected AI step: fill -> customer.username
+2026-01-19T02:10:00.1933856Z   ▶️ [STEP step_3_ai_21] FILL: customer.username
+2026-01-19T02:10:00.1993392Z     🎯 Using AI-provided locator: input[id='customer.username']
+2026-01-19T02:10:00.2049273Z     ✅ Found 1 verified locators
+2026-01-19T02:10:06.1273697Z     ✅ State transitioned.
+2026-01-19T02:10:07.7295817Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:10:07.7296731Z [DEBUG] Received response (Length: 203)
+2026-01-19T02:10:07.7297885Z     🤖 AI Next Step Suggestion: fill -> customer.password
+2026-01-19T02:10:07.7298723Z     🧩 Suggested Locator: #customer\.password
+2026-01-19T02:10:07.7299792Z     💭 Reasoning: Need to fill in the password field to complete the registration form.
+2026-01-19T02:10:07.7300876Z     ➕ Injected AI step: fill -> customer.password
+2026-01-19T02:10:07.7301675Z   ▶️ [STEP step_3_ai_22] FILL: customer.password
+2026-01-19T02:10:07.7357153Z     🎯 Using AI-provided locator: #customer\.password
+2026-01-19T02:10:07.7412207Z     ✅ Found 1 verified locators
+2026-01-19T02:10:13.5763610Z     ✅ State transitioned.
+2026-01-19T02:10:15.3979177Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:10:15.3979857Z [DEBUG] Received response (Length: 215)
+2026-01-19T02:10:15.3980662Z     🤖 AI Next Step Suggestion: fill -> repeatedPassword
+2026-01-19T02:10:15.3981192Z     🧩 Suggested Locator: #repeatedPassword
+2026-01-19T02:10:15.3982004Z     💭 Reasoning: The password confirmation field needs to be filled to complete the registration form.
+2026-01-19T02:10:15.3982792Z     ➕ Injected AI step: fill -> repeatedPassword
+2026-01-19T02:10:15.3983260Z   ▶️ [STEP step_3_ai_23] FILL: repeatedPassword
+2026-01-19T02:10:15.4038473Z     🎯 Using AI-provided locator: #repeatedPassword
+2026-01-19T02:10:15.4103325Z     ✅ Found 1 verified locators
+2026-01-19T02:10:21.4297507Z     ✅ State transitioned.
+2026-01-19T02:10:23.1223128Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:10:23.1223923Z [DEBUG] Received response (Length: 205)
+2026-01-19T02:10:23.1225210Z     🤖 AI Next Step Suggestion: click -> Register
+2026-01-19T02:10:23.1226843Z     💭 Reasoning: All the required fields for registration are filled. Clicking the register button will submit the form.
+2026-01-19T02:10:23.1228296Z     ➕ Injected AI step: click -> Register
+2026-01-19T02:10:23.1229039Z   ▶️ [STEP step_3_ai_24] CLICK: Register
+2026-01-19T02:10:23.1283419Z     🔍 Mining locators for: 'Register'
+2026-01-19T02:10:23.1906985Z     ✅ Found 2 verified locators
+2026-01-19T02:10:26.7618485Z     ✅ State transitioned.
+2026-01-19T02:10:26.7692542Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:10:28.1258211Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:10:28.1258901Z [DEBUG] Received response (Length: 246)
+2026-01-19T02:10:28.1259676Z     🤖 AI Next Step Suggestion: fill -> customer.firstName
+2026-01-19T02:10:28.1260154Z     🧩 Suggested Locator: #customer\.firstName
+2026-01-19T02:10:28.1260934Z     💭 Reasoning: The registration form is not complete. Filling the first name field is the next logical step to complete the form.
+2026-01-19T02:10:28.1261665Z     ➕ Injected AI step: fill -> customer.firstName
+2026-01-19T02:10:28.1262081Z   ▶️ [STEP step_3_ai_25] FILL: customer.firstName
+2026-01-19T02:10:28.1417212Z     🎯 Using AI-provided locator: #customer\.firstName
+2026-01-19T02:10:28.1473110Z     ✅ Found 1 verified locators
+2026-01-19T02:10:33.6826858Z     ✅ State transitioned.
+2026-01-19T02:10:33.6882383Z     🔄 Revisited state detected (count: 2)
+2026-01-19T02:10:35.1078981Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:10:35.1079889Z [DEBUG] Received response (Length: 201)
+2026-01-19T02:10:35.1080949Z     🤖 AI Next Step Suggestion: fill -> customer.lastName
+2026-01-19T02:10:35.1081885Z     🧩 Suggested Locator: #customer\.lastName
+2026-01-19T02:10:35.1083236Z     💭 Reasoning: Need to fill out the last name field to complete the registration form.
+2026-01-19T02:10:35.1084834Z     ➕ Injected AI step: fill -> customer.lastName
+2026-01-19T02:10:35.1085827Z   ▶️ [STEP step_3_ai_26] FILL: customer.lastName
+2026-01-19T02:10:35.1145274Z     🎯 Using AI-provided locator: #customer\.lastName
+2026-01-19T02:10:35.1198236Z     ✅ Found 1 verified locators
+2026-01-19T02:10:40.4801898Z     ✅ State transitioned.
+2026-01-19T02:10:40.4858923Z     🔄 Revisited state detected (count: 3)
+2026-01-19T02:10:40.4860098Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-19T02:10:40.4860717Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-19T02:10:45.5005945Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:10:47.5029237Z     ✅ State transitioned.
+2026-01-19T02:10:47.5085173Z     🔄 Revisited state detected (count: 4)
+2026-01-19T02:10:47.5086709Z     ⚠️ Too many revisits (4). Stopping AI step injection to prevent loops.
+2026-01-19T02:10:47.5088068Z   ▶️ [STEP step_5] FILL: First Name
+2026-01-19T02:10:47.5138807Z     🔍 Mining locators for: 'First Name'
+2026-01-19T02:10:47.5567975Z     🧠 Consulting AI (Vision-First) to find 'First Name'...
+2026-01-19T02:10:47.5568484Z     🔍 Trying smart selectors for 'First Name'...
+2026-01-19T02:10:47.5785403Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:10:47.5786419Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:10:47.5787058Z   ▶️ [STEP step_6] FILL: Last Name
+2026-01-19T02:10:47.5836629Z     🔍 Mining locators for: 'Last Name'
+2026-01-19T02:10:47.6238041Z     🧠 Consulting AI (Vision-First) to find 'Last Name'...
+2026-01-19T02:10:47.6238597Z     🔍 Trying smart selectors for 'Last Name'...
+2026-01-19T02:10:47.6817638Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:10:47.6818484Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:10:47.6818927Z   ▶️ [STEP step_7] FILL: Address
+2026-01-19T02:10:47.6864496Z     🔍 Mining locators for: 'Address'
+2026-01-19T02:10:47.7399768Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-19T02:10:47.7400278Z     🔍 Trying smart selectors for 'Address'...
+2026-01-19T02:10:47.7609928Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:10:47.7610935Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:10:47.7611354Z   ▶️ [STEP step_8] FILL: City
+2026-01-19T02:10:47.7658180Z     🔍 Mining locators for: 'City'
+2026-01-19T02:10:47.8083718Z     🧠 Consulting AI (Vision-First) to find 'City'...
+2026-01-19T02:10:47.8084469Z     🔍 Trying smart selectors for 'City'...
+2026-01-19T02:10:47.8209255Z     ✅ Smart selector found 'City' via name (confidence: 0.88)
+2026-01-19T02:10:47.8249162Z     ✅ Found 1 verified locators
+2026-01-19T02:10:53.7509534Z     ✅ State transitioned.
+2026-01-19T02:10:55.5245793Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:10:55.5246809Z [DEBUG] Received response (Length: 192)
+2026-01-19T02:10:55.5247891Z     🤖 AI Next Step Suggestion: fill -> customer.lastName
+2026-01-19T02:10:55.5248943Z     🧩 Suggested Locator: #customer\.lastName
+2026-01-19T02:10:55.5250220Z     💭 Reasoning: Filling the last name field to complete the registration form.
+2026-01-19T02:10:55.5251791Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:10:55.5252922Z   ▶️ [STEP step_9] FILL: State
+2026-01-19T02:10:55.5309734Z     🔍 Mining locators for: 'State'
+2026-01-19T02:10:55.5739044Z     🧠 Consulting AI (Vision-First) to find 'State'...
+2026-01-19T02:10:55.5739812Z     🔍 Trying smart selectors for 'State'...
+2026-01-19T02:10:55.5863834Z     ✅ Smart selector found 'State' via name (confidence: 0.88)
+2026-01-19T02:10:55.5907515Z     ✅ Found 1 verified locators
+2026-01-19T02:11:02.4812598Z     ✅ State transitioned.
+2026-01-19T02:11:04.0835459Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:11:04.0836428Z [DEBUG] Received response (Length: 202)
+2026-01-19T02:11:04.0837559Z     🤖 AI Next Step Suggestion: fill -> customer.address.zipCode
+2026-01-19T02:11:04.0838762Z     🧩 Suggested Locator: #customer\.address\.zipCode
+2026-01-19T02:11:04.0839976Z     💭 Reasoning: Filling the zip code to complete the registration form.
+2026-01-19T02:11:04.0841222Z     ➕ Injected AI step: fill -> customer.address.zipCode
+2026-01-19T02:11:04.0842270Z   ▶️ [STEP step_9_ai_1] FILL: customer.address.zipCode
+2026-01-19T02:11:04.0897313Z     🎯 Using AI-provided locator: #customer\.address\.zipCode
+2026-01-19T02:11:04.0955189Z     ✅ Found 1 verified locators
+2026-01-19T02:11:09.5287264Z     ✅ State transitioned.
+2026-01-19T02:11:11.1599075Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:11:11.1599828Z [DEBUG] Received response (Length: 192)
+2026-01-19T02:11:11.1600804Z     🤖 AI Next Step Suggestion: fill -> customer.lastName
+2026-01-19T02:11:11.1604082Z     🧩 Suggested Locator: #customer\.lastName
+2026-01-19T02:11:11.1605281Z     💭 Reasoning: Filling the last name field to complete the registration form.
+2026-01-19T02:11:11.1606472Z     ➕ Injected AI step: fill -> customer.lastName
+2026-01-19T02:11:11.1607224Z   ▶️ [STEP step_9_ai_2] FILL: customer.lastName
+2026-01-19T02:11:11.1658655Z     🎯 Using AI-provided locator: #customer\.lastName
+2026-01-19T02:11:11.1710540Z     ✅ Found 1 verified locators
+2026-01-19T02:11:16.5501422Z     ✅ State transitioned.
+2026-01-19T02:11:16.5550482Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:11:18.3818436Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:11:18.3819171Z [DEBUG] Received response (Length: 231)
+2026-01-19T02:11:18.3819977Z     🤖 AI Next Step Suggestion: fill -> customer.address.street
+2026-01-19T02:11:18.3820606Z     🧩 Suggested Locator: #customer\.address\.street
+2026-01-19T02:11:18.3821398Z     💭 Reasoning: The address field is the next logical field to fill in the registration form.
+2026-01-19T02:11:18.3822224Z     ➕ Injected AI step: fill -> customer.address.street
+2026-01-19T02:11:18.3822812Z   ▶️ [STEP step_9_ai_3] FILL: customer.address.street
+2026-01-19T02:11:18.3875885Z     🎯 Using AI-provided locator: #customer\.address\.street
+2026-01-19T02:11:18.3930337Z     ✅ Found 1 verified locators
+2026-01-19T02:11:25.0559602Z     ✅ State transitioned.
+2026-01-19T02:11:26.6550143Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:11:26.6550913Z [DEBUG] Received response (Length: 218)
+2026-01-19T02:11:26.6551896Z     🤖 AI Next Step Suggestion: fill -> customer.phoneNumber
+2026-01-19T02:11:26.6552749Z     🧩 Suggested Locator: input[id='customer.phoneNumber']
+2026-01-19T02:11:26.6553667Z     💭 Reasoning: Filling the phone number field to complete the registration form.
+2026-01-19T02:11:26.6554834Z     ➕ Injected AI step: fill -> customer.phoneNumber
+2026-01-19T02:11:26.6555272Z   ▶️ [STEP step_9_ai_4] FILL: customer.phoneNumber
+2026-01-19T02:11:26.6607063Z     🎯 Using AI-provided locator: input[id='customer.phoneNumber']
+2026-01-19T02:11:26.6663930Z     ✅ Found 1 verified locators
+2026-01-19T02:11:32.6001629Z     ✅ State transitioned.
+2026-01-19T02:11:34.4229640Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:11:34.4230310Z [DEBUG] Received response (Length: 209)
+2026-01-19T02:11:34.4231138Z     🤖 AI Next Step Suggestion: fill -> customer.ssn
+2026-01-19T02:11:34.4231758Z     🧩 Suggested Locator: #customer\.ssn
+2026-01-19T02:11:34.4232684Z     💭 Reasoning: The SSN field is visible and needs to be filled to complete the registration form.
+2026-01-19T02:11:34.4233588Z     ➕ Injected AI step: fill -> customer.ssn
+2026-01-19T02:11:34.4234156Z   ▶️ [STEP step_9_ai_5] FILL: customer.ssn
+2026-01-19T02:11:34.4286521Z     🎯 Using AI-provided locator: #customer\.ssn
+2026-01-19T02:11:34.4339428Z     ✅ Found 1 verified locators
+2026-01-19T02:11:40.0418692Z     ✅ State transitioned.
+2026-01-19T02:11:41.6084974Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:11:41.6085747Z [DEBUG] Received response (Length: 212)
+2026-01-19T02:11:41.6086671Z     🤖 AI Next Step Suggestion: fill -> customer.username
+2026-01-19T02:11:41.6087609Z     🧩 Suggested Locator: input[id='customer.username']
+2026-01-19T02:11:41.6088593Z     💭 Reasoning: Need to fill in the username field to complete the registration form.
+2026-01-19T02:11:41.6089509Z     ➕ Injected AI step: fill -> customer.username
+2026-01-19T02:11:41.6090183Z   ▶️ [STEP step_9_ai_6] FILL: customer.username
+2026-01-19T02:11:41.6143211Z     🎯 Using AI-provided locator: input[id='customer.username']
+2026-01-19T02:11:41.6197119Z     ✅ Found 1 verified locators
+2026-01-19T02:11:47.6747989Z     ✅ State transitioned.
+2026-01-19T02:11:49.2566855Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:11:49.2567562Z [DEBUG] Received response (Length: 226)
+2026-01-19T02:11:49.2568460Z     🤖 AI Next Step Suggestion: fill -> repeatedPassword
+2026-01-19T02:11:49.2569516Z     🧩 Suggested Locator: input[id='repeatedPassword']
+2026-01-19T02:11:49.2570142Z     💭 Reasoning: The password confirmation field needs to be filled to complete the registration form.
+2026-01-19T02:11:49.2570884Z     ➕ Injected AI step: fill -> repeatedPassword
+2026-01-19T02:11:49.2571256Z   ▶️ [STEP step_9_ai_7] FILL: repeatedPassword
+2026-01-19T02:11:49.2628006Z     🎯 Using AI-provided locator: input[id='repeatedPassword']
+2026-01-19T02:11:49.2684401Z     ✅ Found 1 verified locators
+2026-01-19T02:11:55.1562009Z     ✅ State transitioned.
+2026-01-19T02:11:56.8111773Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:11:56.8112443Z [DEBUG] Received response (Length: 233)
+2026-01-19T02:11:56.8113239Z     🤖 AI Next Step Suggestion: click -> Register
+2026-01-19T02:11:56.8114159Z     💭 Reasoning: All the fields on the registration form have been filled. Clicking the register button will submit the form and create the account.
+2026-01-19T02:11:56.8115111Z     ➕ Injected AI step: click -> Register
+2026-01-19T02:11:56.8115451Z   ▶️ [STEP step_9_ai_8] CLICK: Register
+2026-01-19T02:11:56.8170794Z     🔍 Mining locators for: 'Register'
+2026-01-19T02:11:56.8690973Z     ✅ Found 2 verified locators
+2026-01-19T02:12:00.4420305Z     ✅ State transitioned.
+2026-01-19T02:12:00.4493356Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:12:01.7562903Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:01.7563546Z [DEBUG] Received response (Length: 203)
+2026-01-19T02:12:01.7564410Z     🤖 AI Next Step Suggestion: fill -> customer.password
+2026-01-19T02:12:01.7565264Z     🧩 Suggested Locator: #customer\.password
+2026-01-19T02:12:01.7566141Z     💭 Reasoning: Need to fill in the password field to complete the registration form.
+2026-01-19T02:12:01.7567047Z     ➕ Injected AI step: fill -> customer.password
+2026-01-19T02:12:01.7567770Z   ▶️ [STEP step_9_ai_9] FILL: customer.password
+2026-01-19T02:12:01.7719802Z     🎯 Using AI-provided locator: #customer\.password
+2026-01-19T02:12:01.7777785Z     ✅ Found 1 verified locators
+2026-01-19T02:12:07.2573291Z     ✅ State transitioned.
+2026-01-19T02:12:08.9543271Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:08.9544038Z [DEBUG] Received response (Length: 197)
+2026-01-19T02:12:08.9545146Z     🤖 AI Next Step Suggestion: fill -> customer.firstName
+2026-01-19T02:12:08.9545732Z     🧩 Suggested Locator: #customer\.firstName
+2026-01-19T02:12:08.9546355Z     💭 Reasoning: Need to fill in the first name to complete the registration form.
+2026-01-19T02:12:08.9546962Z     ➕ Injected AI step: fill -> customer.firstName
+2026-01-19T02:12:08.9547445Z   ▶️ [STEP step_9_ai_10] FILL: customer.firstName
+2026-01-19T02:12:08.9604274Z     🎯 Using AI-provided locator: #customer\.firstName
+2026-01-19T02:12:08.9659265Z     ✅ Found 1 verified locators
+2026-01-19T02:12:14.2509657Z     ✅ State transitioned.
+2026-01-19T02:12:15.8414046Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:15.8415080Z [DEBUG] Received response (Length: 202)
+2026-01-19T02:12:15.8415951Z     🤖 AI Next Step Suggestion: fill -> customer.lastName
+2026-01-19T02:12:15.8416524Z     🧩 Suggested Locator: input[name='customer.lastName']
+2026-01-19T02:12:15.8417172Z     💭 Reasoning: Filling the last name field to complete the registration form.
+2026-01-19T02:12:15.8417765Z     ➕ Injected AI step: fill -> customer.lastName
+2026-01-19T02:12:15.8418226Z   ▶️ [STEP step_9_ai_11] FILL: customer.lastName
+2026-01-19T02:12:15.8472408Z     🎯 Using AI-provided locator: input[name='customer.lastName']
+2026-01-19T02:12:15.8529945Z     ✅ Found 1 verified locators
+2026-01-19T02:12:21.0917806Z     ✅ State transitioned.
+2026-01-19T02:12:22.7689818Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:22.7690355Z [DEBUG] Received response (Length: 225)
+2026-01-19T02:12:22.7691048Z     🤖 AI Next Step Suggestion: fill -> customer.address.street
+2026-01-19T02:12:22.7691533Z     🧩 Suggested Locator: input[id='customer.address.street']
+2026-01-19T02:12:22.7692357Z     💭 Reasoning: Filling the address street field to complete the registration form.
+2026-01-19T02:12:22.7693014Z     ➕ Injected AI step: fill -> customer.address.street
+2026-01-19T02:12:22.7693437Z   ▶️ [STEP step_9_ai_12] FILL: customer.address.street
+2026-01-19T02:12:22.7746718Z     🎯 Using AI-provided locator: input[id='customer.address.street']
+2026-01-19T02:12:22.7803950Z     ✅ Found 1 verified locators
+2026-01-19T02:12:28.5570687Z     ✅ State transitioned.
+2026-01-19T02:12:30.0976032Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:30.0976980Z [DEBUG] Received response (Length: 200)
+2026-01-19T02:12:30.0978111Z     🤖 AI Next Step Suggestion: fill -> customer.address.city
+2026-01-19T02:12:30.0979240Z     🧩 Suggested Locator: #customer\.address\.city
+2026-01-19T02:12:30.0980519Z     💭 Reasoning: Filling the city field to complete the registration form.
+2026-01-19T02:12:30.0981691Z     ➕ Injected AI step: fill -> customer.address.city
+2026-01-19T02:12:30.0982582Z   ▶️ [STEP step_9_ai_13] FILL: customer.address.city
+2026-01-19T02:12:30.1037075Z     🎯 Using AI-provided locator: #customer\.address\.city
+2026-01-19T02:12:30.1091888Z     ✅ Found 1 verified locators
+2026-01-19T02:12:35.7044019Z     ✅ State transitioned.
+2026-01-19T02:12:37.3268406Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:37.3269200Z [DEBUG] Received response (Length: 205)
+2026-01-19T02:12:37.3270185Z     🤖 AI Next Step Suggestion: fill -> customer.address.state
+2026-01-19T02:12:37.3270790Z     🧩 Suggested Locator: input[id='customer.address.state']
+2026-01-19T02:12:37.3271429Z     💭 Reasoning: Filling the state field to complete the registration form.
+2026-01-19T02:12:37.3272043Z     ➕ Injected AI step: fill -> customer.address.state
+2026-01-19T02:12:37.3272557Z   ▶️ [STEP step_9_ai_14] FILL: customer.address.state
+2026-01-19T02:12:37.3326293Z     🎯 Using AI-provided locator: input[id='customer.address.state']
+2026-01-19T02:12:37.3381220Z     ✅ Found 1 verified locators
+2026-01-19T02:12:42.6649360Z     ✅ State transitioned.
+2026-01-19T02:12:44.3396635Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:44.3397302Z [DEBUG] Received response (Length: 211)
+2026-01-19T02:12:44.3398120Z     🤖 AI Next Step Suggestion: fill -> customer.address.zipCode
+2026-01-19T02:12:44.3398678Z     🧩 Suggested Locator: input[id='customer.address.zipCode']
+2026-01-19T02:12:44.3399279Z     💭 Reasoning: Filling the zip code to complete the address information.
+2026-01-19T02:12:44.3399841Z     ➕ Injected AI step: fill -> customer.address.zipCode
+2026-01-19T02:12:44.3400323Z   ▶️ [STEP step_9_ai_15] FILL: customer.address.zipCode
+2026-01-19T02:12:44.3452685Z     🎯 Using AI-provided locator: input[id='customer.address.zipCode']
+2026-01-19T02:12:44.3505314Z     ✅ Found 1 verified locators
+2026-01-19T02:12:49.9409614Z     ✅ State transitioned.
+2026-01-19T02:12:51.4856226Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:51.4856828Z [DEBUG] Received response (Length: 223)
+2026-01-19T02:12:51.4857801Z     🤖 AI Next Step Suggestion: fill -> customer.phoneNumber
+2026-01-19T02:12:51.4858835Z     🧩 Suggested Locator: input[id='customer.phoneNumber']
+2026-01-19T02:12:51.4859467Z     💭 Reasoning: Need to fill the phone number field to complete the registration form.
+2026-01-19T02:12:51.4860032Z     ➕ Injected AI step: fill -> customer.phoneNumber
+2026-01-19T02:12:51.4860460Z   ▶️ [STEP step_9_ai_16] FILL: customer.phoneNumber
+2026-01-19T02:12:51.4913488Z     🎯 Using AI-provided locator: input[id='customer.phoneNumber']
+2026-01-19T02:12:51.4966177Z     ✅ Found 1 verified locators
+2026-01-19T02:12:57.9543517Z     ✅ State transitioned.
+2026-01-19T02:12:59.5178657Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:12:59.5179200Z [DEBUG] Received response (Length: 187)
+2026-01-19T02:12:59.5179989Z     🤖 AI Next Step Suggestion: fill -> customer.ssn
+2026-01-19T02:12:59.5180671Z     🧩 Suggested Locator: #customer\.ssn
+2026-01-19T02:12:59.5181159Z     💭 Reasoning: Need to fill the SSN field to complete the registration form.
+2026-01-19T02:12:59.5181645Z     ➕ Injected AI step: fill -> customer.ssn
+2026-01-19T02:12:59.5181993Z   ▶️ [STEP step_9_ai_17] FILL: customer.ssn
+2026-01-19T02:12:59.5239572Z     🎯 Using AI-provided locator: #customer\.ssn
+2026-01-19T02:12:59.5291563Z     ✅ Found 1 verified locators
+2026-01-19T02:13:05.7712490Z     ✅ State transitioned.
+2026-01-19T02:13:07.3039099Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:13:07.3040035Z [DEBUG] Received response (Length: 189)
+2026-01-19T02:13:07.3041017Z     🤖 AI Next Step Suggestion: fill -> customer.username
+2026-01-19T02:13:07.3042103Z     🧩 Suggested Locator: input[id='customer.username']
+2026-01-19T02:13:07.3043239Z     💭 Reasoning: Need to fill in the username for registration.
+2026-01-19T02:13:07.3044329Z     ➕ Injected AI step: fill -> customer.username
+2026-01-19T02:13:07.3045588Z   ▶️ [STEP step_9_ai_18] FILL: customer.username
+2026-01-19T02:13:07.3105076Z     🎯 Using AI-provided locator: input[id='customer.username']
+2026-01-19T02:13:07.3170480Z     ✅ Found 1 verified locators
+2026-01-19T02:13:13.5761250Z     ✅ State transitioned.
+2026-01-19T02:13:15.2928011Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:13:15.2928903Z [DEBUG] Received response (Length: 226)
+2026-01-19T02:13:15.2929962Z     🤖 AI Next Step Suggestion: fill -> repeatedPassword
+2026-01-19T02:13:15.2930881Z     🧩 Suggested Locator: input[id='repeatedPassword']
+2026-01-19T02:13:15.2932257Z     💭 Reasoning: The password confirmation field needs to be filled to complete the registration form.
+2026-01-19T02:13:15.2933353Z     ➕ Injected AI step: fill -> repeatedPassword
+2026-01-19T02:13:15.2933903Z   ▶️ [STEP step_9_ai_19] FILL: repeatedPassword
+2026-01-19T02:13:15.2986651Z     🎯 Using AI-provided locator: input[id='repeatedPassword']
+2026-01-19T02:13:15.3039455Z     ✅ Found 1 verified locators
+2026-01-19T02:13:21.2034513Z     ✅ State transitioned.
+2026-01-19T02:13:22.8146104Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:13:22.8146850Z [DEBUG] Received response (Length: 246)
+2026-01-19T02:13:22.8147571Z     🤖 AI Next Step Suggestion: click -> Register
+2026-01-19T02:13:22.8148409Z     💭 Reasoning: All the fields on the registration form have been filled. Clicking the 'Register' button will submit the form and attempt to create the account.
+2026-01-19T02:13:22.8149109Z     ➕ Injected AI step: click -> Register
+2026-01-19T02:13:22.8149440Z   ▶️ [STEP step_9_ai_20] CLICK: Register
+2026-01-19T02:13:22.8203256Z     🔍 Mining locators for: 'Register'
+2026-01-19T02:13:22.8826002Z     ✅ Found 2 verified locators
+2026-01-19T02:13:26.4553361Z     ✅ State transitioned.
+2026-01-19T02:13:26.4623690Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:13:27.7902517Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:13:27.7903235Z [DEBUG] Received response (Length: 225)
+2026-01-19T02:13:27.7904067Z     🤖 AI Next Step Suggestion: fill -> customer.firstName
+2026-01-19T02:13:27.7904976Z     🧩 Suggested Locator: #customer\.firstName
+2026-01-19T02:13:27.7905675Z     💭 Reasoning: The registration form is not complete. Filling the first name field is the next logical step.
+2026-01-19T02:13:27.7906299Z     ➕ Injected AI step: fill -> customer.firstName
+2026-01-19T02:13:27.7906700Z   ▶️ [STEP step_9_ai_21] FILL: customer.firstName
+2026-01-19T02:13:27.8064194Z     🎯 Using AI-provided locator: #customer\.firstName
+2026-01-19T02:13:27.8127322Z     ✅ Found 1 verified locators
+2026-01-19T02:13:33.3604948Z     ✅ State transitioned.
+2026-01-19T02:13:33.3657206Z     🔄 Revisited state detected (count: 2)
+2026-01-19T02:13:35.0607267Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:13:35.0608180Z [DEBUG] Received response (Length: 215)
+2026-01-19T02:13:35.0609236Z     🤖 AI Next Step Suggestion: fill -> customer.lastName
+2026-01-19T02:13:35.0610638Z     🧩 Suggested Locator: input[id='customer.lastName']
+2026-01-19T02:13:35.0611918Z     💭 Reasoning: The form requires the last name to be filled in to proceed with registration.
+2026-01-19T02:13:35.0613052Z     ➕ Injected AI step: fill -> customer.lastName
+2026-01-19T02:13:35.0613840Z   ▶️ [STEP step_9_ai_22] FILL: customer.lastName
+2026-01-19T02:13:35.0667332Z     🎯 Using AI-provided locator: input[id='customer.lastName']
+2026-01-19T02:13:35.0724415Z     ✅ Found 1 verified locators
+2026-01-19T02:13:40.2957589Z     ✅ State transitioned.
+2026-01-19T02:13:40.3010670Z     🔄 Revisited state detected (count: 3)
+2026-01-19T02:13:40.3011393Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-19T02:13:40.3011904Z   ▶️ [STEP step_10] FILL: Zip Code
+2026-01-19T02:13:40.3069114Z     🔍 Mining locators for: 'Zip Code'
+2026-01-19T02:13:40.3665421Z     🧠 Consulting AI (Vision-First) to find 'Zip Code'...
+2026-01-19T02:13:40.3666271Z     🔍 Trying smart selectors for 'Zip Code'...
+2026-01-19T02:13:40.3889858Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:13:40.3890842Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:13:40.3891493Z   ▶️ [STEP step_11] FILL: Phone
+2026-01-19T02:13:40.3942535Z     🔍 Mining locators for: 'Phone'
+2026-01-19T02:13:40.4340688Z     🧠 Consulting AI (Vision-First) to find 'Phone'...
+2026-01-19T02:13:40.4341399Z     🔍 Trying smart selectors for 'Phone'...
+2026-01-19T02:13:40.4461607Z     ✅ Smart selector found 'Phone' via name (confidence: 0.88)
+2026-01-19T02:13:40.4506051Z     ✅ Found 1 verified locators
+2026-01-19T02:13:46.2738371Z     ✅ State transitioned.
+2026-01-19T02:13:47.9618632Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:13:47.9619577Z [DEBUG] Received response (Length: 208)
+2026-01-19T02:13:47.9620691Z     🤖 AI Next Step Suggestion: fill -> customer.ssn
+2026-01-19T02:13:47.9621585Z     🧩 Suggested Locator: #customer\.ssn
+2026-01-19T02:13:47.9623107Z     💭 Reasoning: The SSN field is visible and needs to be filled to complete the registration form.
+2026-01-19T02:13:47.9624851Z     ➕ Injected AI step: fill -> customer.ssn
+2026-01-19T02:13:47.9625765Z   ▶️ [STEP step_11_ai_1] FILL: customer.ssn
+2026-01-19T02:13:47.9681711Z     🎯 Using AI-provided locator: #customer\.ssn
+2026-01-19T02:13:47.9736558Z     ✅ Found 1 verified locators
+2026-01-19T02:13:53.7971076Z     ✅ State transitioned.
+2026-01-19T02:13:55.2778367Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:13:55.2778801Z [DEBUG] Received response (Length: 221)
+2026-01-19T02:13:55.2779419Z     ⚠️ Contextual Planning Error: 'list' object has no attribute 'get'
+2026-01-19T02:13:55.2779849Z   ▶️ [STEP step_12] FILL: SSN
+2026-01-19T02:13:55.2835598Z     🔍 Mining locators for: 'SSN'
+2026-01-19T02:13:55.3329696Z     🧠 Consulting AI (Vision-First) to find 'SSN'...
+2026-01-19T02:13:55.3330229Z     🔍 Trying smart selectors for 'SSN'...
+2026-01-19T02:13:55.3455576Z     ✅ Smart selector found 'SSN' via name (confidence: 0.88)
+2026-01-19T02:13:55.3495666Z     ✅ Found 1 verified locators
+2026-01-19T02:14:00.9894157Z     ✅ State transitioned.
+2026-01-19T02:14:02.6226278Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:14:02.6227205Z [DEBUG] Received response (Length: 191)
+2026-01-19T02:14:02.6228267Z     🤖 AI Next Step Suggestion: fill -> customer.lastName
+2026-01-19T02:14:02.6229151Z     🧩 Suggested Locator: #customer\.lastName
+2026-01-19T02:14:02.6230236Z     💭 Reasoning: Filling the last name field to complete the registration form.
+2026-01-19T02:14:02.6231281Z     ➕ Injected AI step: fill -> customer.lastName
+2026-01-19T02:14:02.6232079Z   ▶️ [STEP step_12_ai_1] FILL: customer.lastName
+2026-01-19T02:14:02.6286120Z     🎯 Using AI-provided locator: #customer\.lastName
+2026-01-19T02:14:02.6340972Z     ✅ Found 1 verified locators
+2026-01-19T02:14:08.0677201Z     ✅ State transitioned.
+2026-01-19T02:14:08.0731573Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:14:09.9671138Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:14:09.9672020Z [DEBUG] Received response (Length: 219)
+2026-01-19T02:14:09.9673112Z     🤖 AI Next Step Suggestion: fill -> customer.address.street
+2026-01-19T02:14:09.9673961Z     🧩 Suggested Locator: input[id='customer.address.street']
+2026-01-19T02:14:09.9675233Z     💭 Reasoning: Need to fill in the address as part of the registration form.
+2026-01-19T02:14:09.9676233Z     ➕ Injected AI step: fill -> customer.address.street
+2026-01-19T02:14:09.9677037Z   ▶️ [STEP step_12_ai_2] FILL: customer.address.street
+2026-01-19T02:14:09.9729229Z     🎯 Using AI-provided locator: input[id='customer.address.street']
+2026-01-19T02:14:09.9784506Z     ✅ Found 1 verified locators
+2026-01-19T02:14:16.2741396Z     ✅ State transitioned.
+2026-01-19T02:14:17.7905885Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:14:17.7906496Z [DEBUG] Received response (Length: 196)
+2026-01-19T02:14:17.7907369Z     🤖 AI Next Step Suggestion: fill -> customer.address.city
+2026-01-19T02:14:17.7907807Z     🧩 Suggested Locator: #customer.address.city
+2026-01-19T02:14:17.7908314Z     💭 Reasoning: Filling the city field to complete the registration form.
+2026-01-19T02:14:17.7908811Z     ➕ Injected AI step: fill -> customer.address.city
+2026-01-19T02:14:17.7909223Z   ▶️ [STEP step_12_ai_3] FILL: customer.address.city
+2026-01-19T02:14:17.7961680Z     🎯 Using AI-provided locator: #customer.address.city
+2026-01-19T02:14:17.7980163Z     🔍 Mining locators for: 'customer.address.city'
+2026-01-19T02:14:17.8487439Z     🧠 Consulting AI (Vision-First) to find 'customer.address.city'...
+2026-01-19T02:14:17.8488909Z     🔍 Trying smart selectors for 'customer.address.city'...
+2026-01-19T02:14:17.8701332Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:14:17.8702398Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:14:17.8703102Z   ▶️ [STEP step_13] FILL: Username
+2026-01-19T02:14:17.8751236Z     🔍 Mining locators for: 'Username'
+2026-01-19T02:14:17.9208078Z     ✅ Found 1 verified locators
+2026-01-19T02:14:23.9733106Z     ✅ State transitioned.
+2026-01-19T02:14:23.9786035Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:14:25.8062656Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:14:25.8063474Z [DEBUG] Received response (Length: 201)
+2026-01-19T02:14:25.8064398Z     🤖 AI Next Step Suggestion: fill -> customer.address.city
+2026-01-19T02:14:25.8065583Z     🧩 Suggested Locator: #customer\.address\.city
+2026-01-19T02:14:25.8066706Z     💭 Reasoning: Need to fill in the city as part of the registration form.
+2026-01-19T02:14:25.8068043Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:14:25.8069082Z   ▶️ [STEP step_14] FILL: Password
+2026-01-19T02:14:25.8122570Z     🔍 Mining locators for: 'Password'
+2026-01-19T02:14:25.8696023Z     ✅ Found 1 verified locators
+2026-01-19T02:14:32.4362658Z     ✅ State transitioned.
+2026-01-19T02:14:32.4415640Z     🔄 Revisited state detected (count: 2)
+2026-01-19T02:14:33.9859684Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:14:33.9860431Z [DEBUG] Received response (Length: 207)
+2026-01-19T02:14:33.9861249Z     🤖 AI Next Step Suggestion: fill -> customer.address.city
+2026-01-19T02:14:33.9861885Z     🧩 Suggested Locator: input[id='customer.address.city']
+2026-01-19T02:14:33.9862572Z     💭 Reasoning: Filling the city field to complete the registration form.
+2026-01-19T02:14:33.9863228Z     ➕ Injected AI step: fill -> customer.address.city
+2026-01-19T02:14:33.9863777Z   ▶️ [STEP step_14_ai_1] FILL: customer.address.city
+2026-01-19T02:14:33.9919249Z     🎯 Using AI-provided locator: input[id='customer.address.city']
+2026-01-19T02:14:33.9973683Z     ✅ Found 1 verified locators
+2026-01-19T02:14:40.0076420Z     ✅ State transitioned.
+2026-01-19T02:14:41.8604453Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:14:41.8606093Z [DEBUG] Received response (Length: 205)
+2026-01-19T02:14:41.8607278Z     🤖 AI Next Step Suggestion: fill -> customer.address.state
+2026-01-19T02:14:41.8608129Z     🧩 Suggested Locator: input[id='customer.address.state']
+2026-01-19T02:14:41.8608969Z     💭 Reasoning: Filling the state field to complete the registration form.
+2026-01-19T02:14:41.8609913Z     ➕ Injected AI step: fill -> customer.address.state
+2026-01-19T02:14:41.8661854Z   ▶️ [STEP step_14_ai_2] FILL: customer.address.state
+2026-01-19T02:14:41.8664289Z     🎯 Using AI-provided locator: input[id='customer.address.state']
+2026-01-19T02:14:41.8719923Z     ✅ Found 1 verified locators
+2026-01-19T02:14:47.2237744Z     ✅ State transitioned.
+2026-01-19T02:14:49.3181622Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:14:49.3182578Z [DEBUG] Received response (Length: 209)
+2026-01-19T02:14:49.3183827Z     🤖 AI Next Step Suggestion: fill -> customer.zipCode
+2026-01-19T02:14:49.3185392Z     🧩 Suggested Locator: input[id='customer.address.zipCode']
+2026-01-19T02:14:49.3186865Z     💭 Reasoning: Need to fill in the zip code to complete the registration form.
+2026-01-19T02:14:49.3188144Z     ➕ Injected AI step: fill -> customer.zipCode
+2026-01-19T02:14:49.3189114Z   ▶️ [STEP step_14_ai_3] FILL: customer.zipCode
+2026-01-19T02:14:49.3243684Z     🎯 Using AI-provided locator: input[id='customer.address.zipCode']
+2026-01-19T02:14:49.3297837Z     ✅ Found 1 verified locators
+2026-01-19T02:14:55.0847690Z     ✅ State transitioned.
+2026-01-19T02:14:56.7571361Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:14:56.7572124Z [DEBUG] Received response (Length: 218)
+2026-01-19T02:14:56.7572900Z     🤖 AI Next Step Suggestion: fill -> customer.phoneNumber
+2026-01-19T02:14:56.7573368Z     🧩 Suggested Locator: input[id='customer.phoneNumber']
+2026-01-19T02:14:56.7573912Z     💭 Reasoning: Filling the phone number field to complete the registration form.
+2026-01-19T02:14:56.7574450Z     ➕ Injected AI step: fill -> customer.phoneNumber
+2026-01-19T02:14:56.7575069Z   ▶️ [STEP step_14_ai_4] FILL: customer.phoneNumber
+2026-01-19T02:14:56.7627192Z     🎯 Using AI-provided locator: input[id='customer.phoneNumber']
+2026-01-19T02:14:56.7680404Z     ✅ Found 1 verified locators
+2026-01-19T02:15:02.7941431Z     ✅ State transitioned.
+2026-01-19T02:15:02.7999114Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:15:04.3685373Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:15:04.3686018Z [DEBUG] Received response (Length: 176)
+2026-01-19T02:15:04.3686717Z     🤖 AI Next Step Suggestion: fill -> customer.ssn
+2026-01-19T02:15:04.3687143Z     🧩 Suggested Locator: #customer\.ssn
+2026-01-19T02:15:04.3687654Z     💭 Reasoning: Filling the SSN field to complete the registration form.
+2026-01-19T02:15:04.3688162Z     ➕ Injected AI step: fill -> customer.ssn
+2026-01-19T02:15:04.3688557Z   ▶️ [STEP step_14_ai_5] FILL: customer.ssn
+2026-01-19T02:15:04.3741207Z     🎯 Using AI-provided locator: #customer\.ssn
+2026-01-19T02:15:04.3807384Z     ✅ Found 1 verified locators
+2026-01-19T02:15:10.0295251Z     ✅ State transitioned.
+2026-01-19T02:15:10.0351050Z     🔄 Revisited state detected (count: 2)
+2026-01-19T02:15:11.5584512Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:15:11.5585450Z [DEBUG] Received response (Length: 203)
+2026-01-19T02:15:11.5586309Z     🤖 AI Next Step Suggestion: fill -> customer.username
+2026-01-19T02:15:11.5587014Z     🧩 Suggested Locator: #customer\.username
+2026-01-19T02:15:11.5587941Z     💭 Reasoning: Need to fill in the username field to complete the registration form.
+2026-01-19T02:15:11.5588879Z     ➕ Injected AI step: fill -> customer.username
+2026-01-19T02:15:11.5589549Z   ▶️ [STEP step_14_ai_6] FILL: customer.username
+2026-01-19T02:15:11.5642457Z     🎯 Using AI-provided locator: #customer\.username
+2026-01-19T02:15:11.5698376Z     ✅ Found 1 verified locators
+2026-01-19T02:15:17.6273348Z     ✅ State transitioned.
+2026-01-19T02:15:19.5671552Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:15:19.5672440Z [DEBUG] Received response (Length: 203)
+2026-01-19T02:15:19.5673550Z     🤖 AI Next Step Suggestion: fill -> customer.password
+2026-01-19T02:15:19.5674451Z     🧩 Suggested Locator: #customer\.password
+2026-01-19T02:15:19.5675974Z     💭 Reasoning: Need to fill in the password field to complete the registration form.
+2026-01-19T02:15:19.5677294Z     ➕ Injected AI step: fill -> customer.password
+2026-01-19T02:15:19.5678257Z   ▶️ [STEP step_14_ai_7] FILL: customer.password
+2026-01-19T02:15:19.5735357Z     🎯 Using AI-provided locator: #customer\.password
+2026-01-19T02:15:19.5789418Z     ✅ Found 1 verified locators
+2026-01-19T02:15:25.7739787Z     ✅ State transitioned.
+2026-01-19T02:15:27.4421560Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:15:27.4422156Z [DEBUG] Received response (Length: 228)
+2026-01-19T02:15:27.4422907Z     🤖 AI Next Step Suggestion: fill -> repeatedPassword
+2026-01-19T02:15:27.4423368Z     🧩 Suggested Locator: input[name='repeatedPassword']
+2026-01-19T02:15:27.4424021Z     💭 Reasoning: The password confirmation field needs to be filled to complete the registration form.
+2026-01-19T02:15:27.4424801Z     ➕ Injected AI step: fill -> repeatedPassword
+2026-01-19T02:15:27.4425202Z   ▶️ [STEP step_14_ai_8] FILL: repeatedPassword
+2026-01-19T02:15:27.4481924Z     🎯 Using AI-provided locator: input[name='repeatedPassword']
+2026-01-19T02:15:27.4537331Z     ✅ Found 1 verified locators
+2026-01-19T02:15:33.3585485Z     ✅ State transitioned.
+2026-01-19T02:15:35.0281518Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:15:35.0282103Z [DEBUG] Received response (Length: 204)
+2026-01-19T02:15:35.0282757Z     🤖 AI Next Step Suggestion: click -> Register
+2026-01-19T02:15:35.0283896Z     💭 Reasoning: All the fields in the registration form are filled. Clicking the register button will submit the form.
+2026-01-19T02:15:35.0285171Z     ➕ Injected AI step: click -> Register
+2026-01-19T02:15:35.0285728Z   ▶️ [STEP step_14_ai_9] CLICK: Register
+2026-01-19T02:15:35.0338197Z     🔍 Mining locators for: 'Register'
+2026-01-19T02:15:35.0921943Z     ✅ Found 2 verified locators
+2026-01-19T02:15:38.6333423Z     ✅ State transitioned.
+2026-01-19T02:15:38.6412956Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:15:40.0825538Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:15:40.0826379Z [DEBUG] Received response (Length: 246)
+2026-01-19T02:15:40.0827382Z     🤖 AI Next Step Suggestion: fill -> customer.firstName
+2026-01-19T02:15:40.0827988Z     🧩 Suggested Locator: #customer\.firstName
+2026-01-19T02:15:40.0829062Z     💭 Reasoning: The registration form is not complete. Filling the first name field is the next logical step to complete the form.
+2026-01-19T02:15:40.0830091Z     ➕ Injected AI step: fill -> customer.firstName
+2026-01-19T02:15:40.0830678Z   ▶️ [STEP step_14_ai_10] FILL: customer.firstName
+2026-01-19T02:15:40.1062598Z     🎯 Using AI-provided locator: #customer\.firstName
+2026-01-19T02:15:40.1128763Z     ✅ Found 1 verified locators
+2026-01-19T02:15:45.6736320Z     ✅ State transitioned.
+2026-01-19T02:15:45.6788600Z     🔄 Revisited state detected (count: 2)
+2026-01-19T02:15:47.1211412Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:15:47.1211856Z [DEBUG] Received response (Length: 200)
+2026-01-19T02:15:47.1212706Z     🤖 AI Next Step Suggestion: fill -> customer.lastName
+2026-01-19T02:15:47.1213145Z     🧩 Suggested Locator: input[id='customer.lastName']
+2026-01-19T02:15:47.1213653Z     💭 Reasoning: Filling the last name field to complete the registration form.
+2026-01-19T02:15:47.1214143Z     ➕ Injected AI step: fill -> customer.lastName
+2026-01-19T02:15:47.1214709Z   ▶️ [STEP step_14_ai_11] FILL: customer.lastName
+2026-01-19T02:15:47.1268146Z     🎯 Using AI-provided locator: input[id='customer.lastName']
+2026-01-19T02:15:47.1327826Z     ✅ Found 1 verified locators
+2026-01-19T02:15:52.4688964Z     ✅ State transitioned.
+2026-01-19T02:15:52.4740357Z     🔄 Revisited state detected (count: 3)
+2026-01-19T02:15:52.4741284Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-19T02:15:52.4742048Z   ▶️ [STEP step_15] FILL: Confirm
+2026-01-19T02:15:52.4792801Z     🔍 Mining locators for: 'Confirm'
+2026-01-19T02:15:52.5274789Z     🧠 Consulting AI (Vision-First) to find 'Confirm'...
+2026-01-19T02:15:52.5275592Z     🔍 Trying smart selectors for 'Confirm'...
+2026-01-19T02:15:52.5486942Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:15:52.5487909Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:15:52.5488582Z   ▶️ [STEP step_16] CLICK: Register
+2026-01-19T02:15:52.5534124Z     🔍 Mining locators for: 'Register'
+2026-01-19T02:15:52.6114441Z     ✅ Found 2 verified locators
+2026-01-19T02:15:56.1642135Z     ✅ State transitioned.
+2026-01-19T02:15:56.1709608Z     🔄 Revisited state detected (count: 4)
+2026-01-19T02:15:56.1710446Z     ⚠️ Too many revisits (4). Stopping AI step injection to prevent loops.
+2026-01-19T02:15:56.1711433Z   ▶️ [STEP step_17] ASSERT_VISIBLE: Your account was created successfully. You are now logged in.
+2026-01-19T02:15:56.1853403Z     🔍 Mining locators for: 'Your account was created successfully. You are now logged in.'
+2026-01-19T02:15:56.2281857Z     🧠 Consulting AI (Vision-First) to find 'Your account was created successfully. You are now logged in.'...
+2026-01-19T02:15:56.2282696Z     🔍 Trying smart selectors for 'Your account was created successfully. You are now logged in.'...
+2026-01-19T02:15:56.2503135Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:15:56.2503750Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:15:56.2504118Z   ▶️ [STEP step_18] CLICK: Logout
+2026-01-19T02:15:56.2549909Z     🔍 Mining locators for: 'Logout'
+2026-01-19T02:15:56.2954944Z     🧠 Consulting AI (Vision-First) to find 'Logout'...
+2026-01-19T02:15:56.2955421Z     🔍 Trying smart selectors for 'Logout'...
+2026-01-19T02:15:56.3174362Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:15:56.3175252Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:15:56.3175631Z   ▶️ [STEP step_19] ASSERT_URL: 
+2026-01-19T02:16:01.3314259Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:16:03.3336975Z     ✅ State transitioned.
+2026-01-19T02:16:04.7373835Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:16:04.7374451Z [DEBUG] Received response (Length: 193)
+2026-01-19T02:16:04.7375470Z     🤖 AI Next Step Suggestion: fill -> customer.lastName
+2026-01-19T02:16:04.7375904Z     🧩 Suggested Locator: #customer\.lastName
+2026-01-19T02:16:04.7376394Z     💭 Reasoning: Filling the last name field to complete the registration form.
+2026-01-19T02:16:04.7376998Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:16:06.7817776Z 
+2026-01-19T02:16:06.7818192Z [2/3] Exploring Scenario: Fund Transfer
+2026-01-19T02:16:06.7822564Z     🧠 Initialized exploration context for goal: 'Test banking operations'
+2026-01-19T02:16:06.7823916Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:16:07.7091954Z     ✅ Navigated to https://parabank.parasoft.com/
+2026-01-19T02:16:07.7092929Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-19T02:16:12.7372423Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:16:14.7387130Z     ✅ State transitioned.
+2026-01-19T02:16:16.3800344Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:16:16.3801074Z [DEBUG] Received response (Length: 205)
+2026-01-19T02:16:16.3801914Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T02:16:16.3802624Z     🧩 Suggested Locator: input[name='password']
+2026-01-19T02:16:16.3803694Z     💭 Reasoning: Need to fill the password field to attempt login. Filling with a placeholder value.
+2026-01-19T02:16:16.3804912Z     ➕ Injected AI step: fill -> Password
+2026-01-19T02:16:16.3805492Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T02:16:16.3860965Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-19T02:16:16.3925326Z     ✅ Found 1 verified locators
+2026-01-19T02:16:21.6442426Z     ✅ State transitioned.
+2026-01-19T02:16:23.5954980Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:16:23.5955682Z [DEBUG] Received response (Length: 175)
+2026-01-19T02:16:23.5956340Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-19T02:16:23.5956735Z     🧩 Suggested Locator: input[name='username']
+2026-01-19T02:16:23.5957197Z     💭 Reasoning: Need to fill in the username field to attempt login.
+2026-01-19T02:16:23.5957630Z     ➕ Injected AI step: fill -> Username
+2026-01-19T02:16:23.5957962Z   ▶️ [STEP step_2_ai_2] FILL: Username
+2026-01-19T02:16:23.6018215Z     🎯 Using AI-provided locator: input[name='username']
+2026-01-19T02:16:23.6073286Z     ✅ Found 1 verified locators
+2026-01-19T02:16:28.9195147Z     ✅ State transitioned.
+2026-01-19T02:16:30.3889700Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:16:30.3890511Z [DEBUG] Received response (Length: 216)
+2026-01-19T02:16:30.3891542Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:16:30.3893228Z     💭 Reasoning: After filling the username and password, the next logical step is to click the 'LOG IN' button to attempt to log in.
+2026-01-19T02:16:30.3894383Z     ➕ Injected AI step: click -> LOG IN
+2026-01-19T02:16:30.3895189Z   ▶️ [STEP step_2_ai_3] CLICK: LOG IN
+2026-01-19T02:16:30.3946654Z     🔍 Mining locators for: 'LOG IN'
+2026-01-19T02:16:30.4432362Z     🧠 Consulting AI (Vision-First) to find 'LOG IN'...
+2026-01-19T02:16:30.4433147Z     🔍 Trying smart selectors for 'LOG IN'...
+2026-01-19T02:16:30.4652641Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:16:30.4653343Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:16:30.4653755Z   ▶️ [STEP step_3] FILL: Username
+2026-01-19T02:16:30.4699133Z     🔍 Mining locators for: 'Username'
+2026-01-19T02:16:30.5156824Z     ✅ Found 1 verified locators
+2026-01-19T02:16:35.5908806Z     ✅ State transitioned.
+2026-01-19T02:16:35.5960008Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:16:37.7098190Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:16:37.7098993Z [DEBUG] Received response (Length: 216)
+2026-01-19T02:16:37.7099910Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:16:37.7101372Z     💭 Reasoning: After filling the username and password, the next logical step is to click the 'LOG IN' button to attempt to log in.
+2026-01-19T02:16:37.7102823Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:16:37.7103611Z   ▶️ [STEP step_4] FILL: Password
+2026-01-19T02:16:37.7157474Z     🔍 Mining locators for: 'Password'
+2026-01-19T02:16:37.7645245Z     ✅ Found 1 verified locators
+2026-01-19T02:16:42.6808973Z     ✅ State transitioned.
+2026-01-19T02:16:42.6863686Z     🔄 Revisited state detected (count: 2)
+2026-01-19T02:16:44.5190785Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:16:44.5191720Z [DEBUG] Received response (Length: 205)
+2026-01-19T02:16:44.5192778Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:16:44.5194463Z     💭 Reasoning: The username and password fields are filled. Clicking 'LOG IN' is the next logical step to attempt login.
+2026-01-19T02:16:44.5196279Z     ➕ Injected AI step: click -> LOG IN
+2026-01-19T02:16:44.5197053Z   ▶️ [STEP step_4_ai_1] CLICK: LOG IN
+2026-01-19T02:16:44.5252840Z     🔍 Mining locators for: 'LOG IN'
+2026-01-19T02:16:44.5763968Z     🧠 Consulting AI (Vision-First) to find 'LOG IN'...
+2026-01-19T02:16:44.5764440Z     🔍 Trying smart selectors for 'LOG IN'...
+2026-01-19T02:16:44.5969521Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:16:44.5970379Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:16:44.5970832Z   ▶️ [STEP step_5] CLICK: Log In
+2026-01-19T02:16:44.6016853Z     🔍 Mining locators for: 'Log In'
+2026-01-19T02:16:44.6430969Z     🧠 Consulting AI (Vision-First) to find 'Log In'...
+2026-01-19T02:16:44.6431502Z     🔍 Trying smart selectors for 'Log In'...
+2026-01-19T02:16:44.6639669Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:16:44.6640548Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:16:44.6641101Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Accounts Overview
+2026-01-19T02:16:44.6694277Z     🔍 Mining locators for: 'Accounts Overview'
+2026-01-19T02:16:44.7156278Z     🧠 Consulting AI (Vision-First) to find 'Accounts Overview'...
+2026-01-19T02:16:44.7157201Z     🔍 Trying smart selectors for 'Accounts Overview'...
+2026-01-19T02:16:44.7371716Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:16:44.7372720Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:16:44.7373409Z   ▶️ [STEP step_7] CLICK: Transfer Funds
+2026-01-19T02:16:44.7423755Z     🔍 Mining locators for: 'Transfer Funds'
+2026-01-19T02:16:44.8154486Z     ✅ Found 2 verified locators
+2026-01-19T02:16:48.3778565Z     ✅ State transitioned.
+2026-01-19T02:16:52.3399448Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:16:52.3400139Z [DEBUG] Received response (Length: 339)
+2026-01-19T02:16:52.3401612Z     🤖 AI Next Step Suggestion: navigate -> https://parabank.parasoft.com/parabank/index.htm;jsessionid=E7E933D3C24CE50777494A09B7877D79
+2026-01-19T02:16:52.3403285Z     💭 Reasoning: The current page is a WSDL definition, not the actual ParaBank website. Need to navigate back to the main page to continue testing banking operations.
+2026-01-19T02:16:52.3404509Z     ➕ Injected AI step: navigate -> https://parabank.parasoft.com/parabank/index.htm;jsessionid=E7E933D3C24CE50777494A09B7877D79
+2026-01-19T02:16:52.3405776Z   ▶️ [STEP step_7_ai_1] NAVIGATE: https://parabank.parasoft.com/parabank/index.htm;jsessionid=E7E933D3C24CE50777494A09B7877D79
+2026-01-19T02:16:52.9685686Z     ✅ Navigated to https://parabank.parasoft.com/parabank/index.htm;jsessionid=E7E933D3C24CE50777494A09B7877D79
+2026-01-19T02:16:52.9686550Z   ▶️ [STEP step_8] ASSERT_URL: 
+2026-01-19T02:16:57.9942271Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:16:59.9965812Z     ✅ State transitioned.
+2026-01-19T02:17:00.0016550Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:17:01.5586681Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:17:01.5587406Z [DEBUG] Received response (Length: 148)
+2026-01-19T02:17:01.5588258Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:17:01.5589218Z     💭 Reasoning: Attempt to log in with the provided credentials.
+2026-01-19T02:17:01.5590059Z     ➕ Injected AI step: click -> LOG IN
+2026-01-19T02:17:01.5590718Z   ▶️ [STEP step_8_ai_1] CLICK: LOG IN
+2026-01-19T02:17:01.5643459Z     🔍 Mining locators for: 'LOG IN'
+2026-01-19T02:17:01.6084968Z     🧠 Consulting AI (Vision-First) to find 'LOG IN'...
+2026-01-19T02:17:01.6086090Z     🔍 Trying smart selectors for 'LOG IN'...
+2026-01-19T02:17:01.6295398Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:17:01.6296367Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:17:01.6297037Z   ▶️ [STEP step_9] FILL: Amount
+2026-01-19T02:17:01.6342192Z     🔍 Mining locators for: 'Amount'
+2026-01-19T02:17:01.6764137Z     🧠 Consulting AI (Vision-First) to find 'Amount'...
+2026-01-19T02:17:01.6765029Z     🔍 Trying smart selectors for 'Amount'...
+2026-01-19T02:17:01.6976734Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:17:01.6977622Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:17:01.6978247Z   ▶️ [STEP step_10] SELECT: From Account
+2026-01-19T02:17:01.7023637Z     🔍 Mining locators for: 'From Account'
+2026-01-19T02:17:01.7423431Z     🧠 Consulting AI (Vision-First) to find 'From Account'...
+2026-01-19T02:17:01.7424221Z     🔍 Trying smart selectors for 'From Account'...
+2026-01-19T02:17:01.7634130Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:17:01.7635190Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:17:01.7635649Z   ▶️ [STEP step_11] SELECT: To Account
+2026-01-19T02:17:01.7683437Z     🔍 Mining locators for: 'To Account'
+2026-01-19T02:17:01.8097624Z     🧠 Consulting AI (Vision-First) to find 'To Account'...
+2026-01-19T02:17:01.8098449Z     🔍 Trying smart selectors for 'To Account'...
+2026-01-19T02:17:01.8306070Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:17:01.8307037Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:17:01.8307714Z   ▶️ [STEP step_12] CLICK: Transfer
+2026-01-19T02:17:01.8354002Z     🔍 Mining locators for: 'Transfer'
+2026-01-19T02:17:01.9037434Z     ✅ Found 4 verified locators
+2026-01-19T02:17:05.4645626Z     ✅ State transitioned.
+2026-01-19T02:17:07.2697822Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:17:07.2698769Z [DEBUG] Received response (Length: 235)
+2026-01-19T02:17:07.2699735Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:17:07.2700556Z     🧩 Suggested Locator: input[value='Log In']
+2026-01-19T02:17:07.2702170Z     💭 Reasoning: After filling the username and password, the next logical step is to click the 'LOG IN' button to attempt to log in.
+2026-01-19T02:17:07.2703823Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:17:07.2705793Z   ▶️ [STEP step_13] ASSERT_VISIBLE: $10.00 has been transferred from account #12345 to account #67890.
+2026-01-19T02:17:07.2850301Z     🔍 Mining locators for: '$10.00 has been transferred from account #12345 to account #67890.'
+2026-01-19T02:17:07.3259488Z     🧠 Consulting AI (Vision-First) to find '$10.00 has been transferred from account #12345 to account #67890.'...
+2026-01-19T02:17:07.3261013Z     🔍 Trying smart selectors for '$10.00 has been transferred from account #12345 to account #67890.'...
+2026-01-19T02:17:07.3478952Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:17:07.3479918Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:17:07.3480576Z   ▶️ [STEP step_14] CLICK: Logout
+2026-01-19T02:17:07.3528170Z     🔍 Mining locators for: 'Logout'
+2026-01-19T02:17:07.3929308Z     🧠 Consulting AI (Vision-First) to find 'Logout'...
+2026-01-19T02:17:07.3930069Z     🔍 Trying smart selectors for 'Logout'...
+2026-01-19T02:17:07.4148744Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:17:07.4149762Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:17:07.4150466Z   ▶️ [STEP step_15] ASSERT_URL: 
+2026-01-19T02:17:12.4289348Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:17:14.4311829Z     ✅ State transitioned.
+2026-01-19T02:17:16.0910351Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:17:16.0911153Z [DEBUG] Received response (Length: 160)
+2026-01-19T02:17:16.0912017Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-19T02:17:16.0912470Z     🧩 Suggested Locator: input[name='username']
+2026-01-19T02:17:16.0912914Z     💭 Reasoning: Need to fill in the username to login
+2026-01-19T02:17:16.0913349Z     ➕ Injected AI step: fill -> Username
+2026-01-19T02:17:16.0913713Z   ▶️ [STEP step_15_ai_1] FILL: Username
+2026-01-19T02:17:16.0963669Z     🎯 Using AI-provided locator: input[name='username']
+2026-01-19T02:17:16.1019695Z     ✅ Found 1 verified locators
+2026-01-19T02:17:21.7779615Z     ✅ State transitioned.
+2026-01-19T02:17:23.3285423Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:17:23.3286233Z [DEBUG] Received response (Length: 191)
+2026-01-19T02:17:23.3286964Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T02:17:23.3287821Z     💭 Reasoning: The username field is already filled. Now, fill the password field to attempt login.
+2026-01-19T02:17:23.3288824Z     ➕ Injected AI step: fill -> Password
+2026-01-19T02:17:23.3289420Z   ▶️ [STEP step_15_ai_2] FILL: Password
+2026-01-19T02:17:23.3342591Z     🔍 Mining locators for: 'Password'
+2026-01-19T02:17:23.3797314Z     ✅ Found 1 verified locators
+2026-01-19T02:17:28.3427815Z     ✅ State transitioned.
+2026-01-19T02:17:28.3478611Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:19:16.8641627Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:19:16.8642319Z [DEBUG] Received response (Length: 213)
+2026-01-19T02:19:16.8643017Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:19:16.8643878Z     💭 Reasoning: After filling the username and password, the next logical step is to click the login button to attempt to log in.
+2026-01-19T02:19:16.8645140Z     ➕ Injected AI step: click -> LOG IN
+2026-01-19T02:19:16.8645579Z   ▶️ [STEP step_15_ai_3] CLICK: LOG IN
+2026-01-19T02:19:16.8703023Z     🔍 Mining locators for: 'LOG IN'
+2026-01-19T02:19:16.9205563Z     🧠 Consulting AI (Vision-First) to find 'LOG IN'...
+2026-01-19T02:19:16.9206353Z     🔍 Trying smart selectors for 'LOG IN'...
+2026-01-19T02:19:16.9417335Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:19:16.9417973Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:19:18.9747005Z 
+2026-01-19T02:19:18.9748543Z [3/3] Exploring Scenario: Bill Payment
+2026-01-19T02:19:18.9749629Z     🧠 Initialized exploration context for goal: 'Test banking operations'
+2026-01-19T02:19:18.9750383Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:19:20.1462501Z     ✅ Navigated to https://parabank.parasoft.com/
+2026-01-19T02:19:20.1463143Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-19T02:19:25.1721988Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:19:27.1744406Z     ✅ State transitioned.
+2026-01-19T02:19:28.6520293Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:19:28.6521184Z [DEBUG] Received response (Length: 217)
+2026-01-19T02:19:28.6522576Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-19T02:19:28.6523484Z     🧩 Suggested Locator: input[name='username']
+2026-01-19T02:19:28.6525336Z     💭 Reasoning: To proceed with banking operations, we need to log in. Filling the username is the first step.
+2026-01-19T02:19:28.6526813Z     ➕ Injected AI step: fill -> Username
+2026-01-19T02:19:28.6527609Z   ▶️ [STEP step_2_ai_1] FILL: Username
+2026-01-19T02:19:28.6582457Z     🎯 Using AI-provided locator: input[name='username']
+2026-01-19T02:19:28.6644101Z     ✅ Found 1 verified locators
+2026-01-19T02:19:34.0224477Z     ✅ State transitioned.
+2026-01-19T02:19:35.6996727Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:19:35.6997565Z [DEBUG] Received response (Length: 175)
+2026-01-19T02:19:35.6998967Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T02:19:35.6999560Z     🧩 Suggested Locator: input[name='password']
+2026-01-19T02:19:35.7000181Z     💭 Reasoning: Need to fill in the password field to attempt login.
+2026-01-19T02:19:35.7000743Z     ➕ Injected AI step: fill -> Password
+2026-01-19T02:19:35.7001171Z   ▶️ [STEP step_2_ai_2] FILL: Password
+2026-01-19T02:19:35.7052854Z     🎯 Using AI-provided locator: input[name='password']
+2026-01-19T02:19:35.7109290Z     ✅ Found 1 verified locators
+2026-01-19T02:19:41.1217371Z     ✅ State transitioned.
+2026-01-19T02:19:42.8123672Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:19:42.8124456Z [DEBUG] Received response (Length: 229)
+2026-01-19T02:19:42.8125628Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:19:42.8127447Z     💭 Reasoning: Now that the username and password fields are filled, the next logical step is to click the 'LOG IN' button to attempt to log in.
+2026-01-19T02:19:42.8129080Z     ➕ Injected AI step: click -> LOG IN
+2026-01-19T02:19:42.8129844Z   ▶️ [STEP step_2_ai_3] CLICK: LOG IN
+2026-01-19T02:19:42.8181245Z     🔍 Mining locators for: 'LOG IN'
+2026-01-19T02:19:42.8689355Z     🧠 Consulting AI (Vision-First) to find 'LOG IN'...
+2026-01-19T02:19:42.8690031Z     🔍 Trying smart selectors for 'LOG IN'...
+2026-01-19T02:19:42.8952807Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:19:42.8953784Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:19:42.8954444Z   ▶️ [STEP step_3] FILL: Username
+2026-01-19T02:19:42.9002658Z     🔍 Mining locators for: 'Username'
+2026-01-19T02:19:42.9573076Z     ✅ Found 1 verified locators
+2026-01-19T02:19:48.0978442Z     ✅ State transitioned.
+2026-01-19T02:19:48.1029876Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:19:49.7822176Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:19:49.7822739Z [DEBUG] Received response (Length: 190)
+2026-01-19T02:19:49.7823450Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:19:49.7824063Z     💭 Reasoning: After filling in the username and password, the next logical step is to attempt to log in.
+2026-01-19T02:19:49.7825012Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:19:49.7825458Z   ▶️ [STEP step_4] FILL: Password
+2026-01-19T02:19:49.7877923Z     🔍 Mining locators for: 'Password'
+2026-01-19T02:19:49.8412108Z     ✅ Found 1 verified locators
+2026-01-19T02:19:54.8763094Z     ✅ State transitioned.
+2026-01-19T02:19:54.8811926Z     🔄 Revisited state detected (count: 2)
+2026-01-19T02:19:56.3178083Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:19:56.3178784Z [DEBUG] Received response (Length: 163)
+2026-01-19T02:19:56.3179592Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:19:56.3180441Z     💭 Reasoning: The form is complete, so the next logical step is to submit it.
+2026-01-19T02:19:56.3181255Z     ➕ Injected AI step: click -> LOG IN
+2026-01-19T02:19:56.3181871Z   ▶️ [STEP step_4_ai_1] CLICK: LOG IN
+2026-01-19T02:19:56.3237533Z     🔍 Mining locators for: 'LOG IN'
+2026-01-19T02:19:56.3686656Z     🧠 Consulting AI (Vision-First) to find 'LOG IN'...
+2026-01-19T02:19:56.3687731Z     🔍 Trying smart selectors for 'LOG IN'...
+2026-01-19T02:19:56.3895774Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:19:56.3896699Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:19:56.3897267Z   ▶️ [STEP step_5] CLICK: Log In
+2026-01-19T02:19:56.3943641Z     🔍 Mining locators for: 'Log In'
+2026-01-19T02:19:56.4360563Z     🧠 Consulting AI (Vision-First) to find 'Log In'...
+2026-01-19T02:19:56.4361017Z     🔍 Trying smart selectors for 'Log In'...
+2026-01-19T02:19:56.4566483Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:19:56.4567118Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:19:56.4567562Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Accounts Overview
+2026-01-19T02:19:56.4614725Z     🔍 Mining locators for: 'Accounts Overview'
+2026-01-19T02:19:56.5098271Z     🧠 Consulting AI (Vision-First) to find 'Accounts Overview'...
+2026-01-19T02:19:56.5098832Z     🔍 Trying smart selectors for 'Accounts Overview'...
+2026-01-19T02:19:56.6691416Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:19:56.6692033Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:19:56.6692432Z   ▶️ [STEP step_7] CLICK: Bill Pay
+2026-01-19T02:19:56.6739713Z     🔍 Mining locators for: 'Bill Pay'
+2026-01-19T02:19:56.7402982Z     ✅ Found 4 verified locators
+2026-01-19T02:20:00.3081392Z     ✅ State transitioned.
+2026-01-19T02:20:01.7015916Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:20:01.7016647Z [DEBUG] Received response (Length: 148)
+2026-01-19T02:20:01.7017452Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:20:01.7018198Z     💭 Reasoning: Attempt to log in with the provided credentials.
+2026-01-19T02:20:01.7019172Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:20:01.7019781Z   ▶️ [STEP step_8] ASSERT_URL: 
+2026-01-19T02:20:06.7258291Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:20:08.7281011Z     ✅ State transitioned.
+2026-01-19T02:20:10.3268926Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:20:10.3269530Z [DEBUG] Received response (Length: 213)
+2026-01-19T02:20:10.3270136Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:20:10.3270914Z     💭 Reasoning: After filling the username and password, the next logical step is to click the login button to attempt to log in.
+2026-01-19T02:20:10.3271608Z     ➕ Injected AI step: click -> LOG IN
+2026-01-19T02:20:10.3271953Z   ▶️ [STEP step_8_ai_1] CLICK: LOG IN
+2026-01-19T02:20:10.3326339Z     🔍 Mining locators for: 'LOG IN'
+2026-01-19T02:20:10.3855666Z     🧠 Consulting AI (Vision-First) to find 'LOG IN'...
+2026-01-19T02:20:10.3859369Z     🔍 Trying smart selectors for 'LOG IN'...
+2026-01-19T02:20:10.4068201Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:10.4069186Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:10.4069858Z   ▶️ [STEP step_9] FILL: Payee Name
+2026-01-19T02:20:10.4115242Z     🔍 Mining locators for: 'Payee Name'
+2026-01-19T02:20:10.4514472Z     🧠 Consulting AI (Vision-First) to find 'Payee Name'...
+2026-01-19T02:20:10.4515290Z     🔍 Trying smart selectors for 'Payee Name'...
+2026-01-19T02:20:10.4726768Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:10.4727561Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:10.4728016Z   ▶️ [STEP step_10] FILL: Address
+2026-01-19T02:20:10.4774029Z     🔍 Mining locators for: 'Address'
+2026-01-19T02:20:10.5184950Z     🧠 Consulting AI (Vision-First) to find 'Address'...
+2026-01-19T02:20:10.5186286Z     🔍 Trying smart selectors for 'Address'...
+2026-01-19T02:20:10.5412120Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:10.5413168Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:10.5413643Z   ▶️ [STEP step_11] FILL: City
+2026-01-19T02:20:10.5467734Z     🔍 Mining locators for: 'City'
+2026-01-19T02:20:10.6032114Z     🧠 Consulting AI (Vision-First) to find 'City'...
+2026-01-19T02:20:10.6032572Z     🔍 Trying smart selectors for 'City'...
+2026-01-19T02:20:10.6250003Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:10.6250985Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:10.6251640Z   ▶️ [STEP step_12] FILL: State
+2026-01-19T02:20:10.6299539Z     🔍 Mining locators for: 'State'
+2026-01-19T02:20:10.6845743Z     🧠 Consulting AI (Vision-First) to find 'State'...
+2026-01-19T02:20:10.6846449Z     🔍 Trying smart selectors for 'State'...
+2026-01-19T02:20:10.7065258Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:10.7066143Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:10.7066777Z   ▶️ [STEP step_13] FILL: Zip Code
+2026-01-19T02:20:10.7119355Z     🔍 Mining locators for: 'Zip Code'
+2026-01-19T02:20:10.7520093Z     🧠 Consulting AI (Vision-First) to find 'Zip Code'...
+2026-01-19T02:20:10.7520826Z     🔍 Trying smart selectors for 'Zip Code'...
+2026-01-19T02:20:10.7727523Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:10.7728450Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:10.7729097Z   ▶️ [STEP step_14] FILL: Phone
+2026-01-19T02:20:10.7772002Z     🔍 Mining locators for: 'Phone'
+2026-01-19T02:20:10.8187885Z     🧠 Consulting AI (Vision-First) to find 'Phone'...
+2026-01-19T02:20:10.8188413Z     🔍 Trying smart selectors for 'Phone'...
+2026-01-19T02:20:10.8394791Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:10.8395779Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:10.8396437Z   ▶️ [STEP step_15] FILL: Account Number
+2026-01-19T02:20:10.8440426Z     🔍 Mining locators for: 'Account Number'
+2026-01-19T02:20:10.8859284Z     🧠 Consulting AI (Vision-First) to find 'Account Number'...
+2026-01-19T02:20:10.8860094Z     🔍 Trying smart selectors for 'Account Number'...
+2026-01-19T02:20:10.9072150Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:10.9073100Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:10.9073815Z   ▶️ [STEP step_16] FILL: Verify Account Number
+2026-01-19T02:20:10.9119619Z     🔍 Mining locators for: 'Verify Account Number'
+2026-01-19T02:20:10.9524040Z     🧠 Consulting AI (Vision-First) to find 'Verify Account Number'...
+2026-01-19T02:20:10.9525107Z     🔍 Trying smart selectors for 'Verify Account Number'...
+2026-01-19T02:20:10.9731471Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:10.9732443Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:10.9733090Z   ▶️ [STEP step_17] FILL: Amount
+2026-01-19T02:20:10.9779924Z     🔍 Mining locators for: 'Amount'
+2026-01-19T02:20:11.0184446Z     🧠 Consulting AI (Vision-First) to find 'Amount'...
+2026-01-19T02:20:11.0185237Z     🔍 Trying smart selectors for 'Amount'...
+2026-01-19T02:20:11.0392983Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:11.0393941Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:11.0394849Z   ▶️ [STEP step_18] SELECT: From Account
+2026-01-19T02:20:11.0440163Z     🔍 Mining locators for: 'From Account'
+2026-01-19T02:20:11.0854867Z     🧠 Consulting AI (Vision-First) to find 'From Account'...
+2026-01-19T02:20:11.0855723Z     🔍 Trying smart selectors for 'From Account'...
+2026-01-19T02:20:11.1446587Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:11.1447531Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:11.1447952Z   ▶️ [STEP step_19] CLICK: Send Payment
+2026-01-19T02:20:11.1492463Z     🔍 Mining locators for: 'Send Payment'
+2026-01-19T02:20:11.2023273Z     🧠 Consulting AI (Vision-First) to find 'Send Payment'...
+2026-01-19T02:20:11.2024149Z     🔍 Trying smart selectors for 'Send Payment'...
+2026-01-19T02:20:11.2227849Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:11.2228804Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:11.2229572Z   ▶️ [STEP step_20] ASSERT_VISIBLE: Bill Payment Complete
+2026-01-19T02:20:11.2281027Z     🔍 Mining locators for: 'Bill Payment Complete'
+2026-01-19T02:20:11.2688860Z     🧠 Consulting AI (Vision-First) to find 'Bill Payment Complete'...
+2026-01-19T02:20:11.2900773Z     🔍 Trying smart selectors for 'Bill Payment Complete'...
+2026-01-19T02:20:11.2901728Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:11.2903044Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:11.2903710Z   ▶️ [STEP step_21] CLICK: Logout
+2026-01-19T02:20:11.2949606Z     🔍 Mining locators for: 'Logout'
+2026-01-19T02:20:11.3347472Z     🧠 Consulting AI (Vision-First) to find 'Logout'...
+2026-01-19T02:20:11.3348243Z     🔍 Trying smart selectors for 'Logout'...
+2026-01-19T02:20:11.3555859Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:20:11.3556831Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:20:11.3557495Z   ▶️ [STEP step_22] ASSERT_URL: 
+2026-01-19T02:20:16.3693399Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:20:18.3716451Z     ✅ State transitioned.
+2026-01-19T02:20:18.3763653Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:21:22.2668388Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:21:22.2670643Z [DEBUG] LLM Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.', 'status': 'RESOURCE_EXHAUSTED'}}
+2026-01-19T02:21:22.2672404Z ⚠️ 429 Rate Limit Hit. Cooling down for 60s...
+2026-01-19T02:21:22.2672924Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:21:22.2673418Z [DEBUG] Received response (Length: 150)
+2026-01-19T02:21:22.2673883Z     🤖 AI Next Step Suggestion: click -> LOG IN
+2026-01-19T02:21:22.2674358Z     🧩 Suggested Locator: input[value='Log In']
+2026-01-19T02:21:22.2675547Z     💭 Reasoning: Attempt to log in with the provided credentials.
+2026-01-19T02:21:22.2676266Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:21:24.3039900Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking/tests/generated_scenarios.json
+2026-01-19T02:21:24.3066046Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-19T02:21:24.3066524Z 
+2026-01-19T02:21:24.3066756Z ✅ Deep Exploration Complete.
+2026-01-19T02:24:57.0531001Z 
+2026-01-19T02:24:57.0533214Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-19T02:24:57.0533909Z 📍 Project: ci_parabank_banking
+2026-01-19T02:24:57.0534219Z 🎬 Mode: Headless
+2026-01-19T02:24:57.0534345Z 
+2026-01-19T02:24:57.0534743Z --- Scenario: Account Creation and Login ---
+2026-01-19T02:24:57.0535343Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:24:57.0535851Z     ✅ Step step_1 Passed.
+2026-01-19T02:24:57.0536365Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T02:24:57.0536892Z     ✅ Step step_2 Passed.
+2026-01-19T02:24:57.0537394Z   ▶️ [STEP step_2_ai_1] FILL: Username
+2026-01-19T02:24:57.0537793Z     🎯 Using mined locator: input[name='username']
+2026-01-19T02:24:57.0538150Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T02:24:57.0538455Z   ▶️ [STEP step_2_ai_2] FILL: Password
+2026-01-19T02:24:57.0539136Z     🎯 Using mined locator: input[name='password']
+2026-01-19T02:24:57.0539500Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T02:24:57.0539806Z   ▶️ [STEP step_2_ai_3] CLICK: LOG IN
+2026-01-19T02:24:57.0540276Z     ✅ Step step_2_ai_3 Passed.
+2026-01-19T02:24:57.0540570Z   ▶️ [STEP step_3] CLICK: Register
+2026-01-19T02:24:57.0541019Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T02:24:57.0541692Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:24:57.0542155Z Call log:
+2026-01-19T02:24:57.0542372Z   - waiting for locator("text=Register")
+2026-01-19T02:24:57.0542650Z ...
+2026-01-19T02:24:57.0542960Z     🔧 [AUTO-HEAL] Re-mining page to find 'Register'...
+2026-01-19T02:24:57.0543387Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:24:57.0543773Z [DEBUG] Received response (Length: 38)
+2026-01-19T02:24:57.0544213Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T02:24:57.0545097Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:24:57.0545560Z Call log:
+2026-01-19T02:24:57.0545786Z   - waiting for locator("text=Register")
+2026-01-19T02:24:57.0546061Z ...
+2026-01-19T02:24:57.0546345Z     🔧 [AUTO-HEAL] Re-mining page to find 'Register'...
+2026-01-19T02:24:57.0546693Z [CACHE HIT] c2d490a3... (hits: 1, misses: 1)
+2026-01-19T02:24:57.0547148Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T02:24:57.0547734Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:24:57.0548137Z Call log:
+2026-01-19T02:24:57.0548332Z   - waiting for locator("text=Register")
+2026-01-19T02:24:57.0548623Z ...
+2026-01-19T02:24:57.0548860Z     💀 Step step_3 failed after all retries.
+2026-01-19T02:24:57.0549273Z 🛑 Scenario 'Account Creation and Login' aborted due to step failure.
+2026-01-19T02:24:57.0549550Z 
+2026-01-19T02:24:57.0549651Z --- Scenario: Fund Transfer ---
+2026-01-19T02:24:57.0549963Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:24:57.0550273Z     ✅ Step step_1 Passed.
+2026-01-19T02:24:57.0550569Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T02:24:57.0550867Z     ✅ Step step_2 Passed.
+2026-01-19T02:24:57.0551132Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T02:24:57.0551477Z     🎯 Using mined locator: input[name='password']
+2026-01-19T02:24:57.0551811Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T02:24:57.0552102Z   ▶️ [STEP step_2_ai_2] FILL: Username
+2026-01-19T02:24:57.0552420Z     🎯 Using mined locator: input[name='username']
+2026-01-19T02:24:57.0552736Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T02:24:57.0553009Z   ▶️ [STEP step_2_ai_3] CLICK: LOG IN
+2026-01-19T02:24:57.0553296Z     ✅ Step step_2_ai_3 Passed.
+2026-01-19T02:24:57.0553560Z   ▶️ [STEP step_3] FILL: Username
+2026-01-19T02:24:57.0553955Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T02:24:57.0554817Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T02:24:57.0555321Z Call log:
+2026-01-19T02:24:57.0555529Z   - waiting for locator("tex...
+2026-01-19T02:24:57.0555871Z     🔧 [AUTO-HEAL] Re-mining page to find 'Username'...
+2026-01-19T02:24:57.0556250Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:24:57.0556594Z [DEBUG] Received response (Length: 38)
+2026-01-19T02:24:57.0556994Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T02:24:57.0557601Z     ❌ Attempt 2 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T02:24:57.0558048Z Call log:
+2026-01-19T02:24:57.0558239Z   - waiting for locator("tex...
+2026-01-19T02:24:57.0558570Z     🔧 [AUTO-HEAL] Re-mining page to find 'Username'...
+2026-01-19T02:24:57.0558964Z [CACHE HIT] 057c9018... (hits: 2, misses: 2)
+2026-01-19T02:24:57.0559403Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T02:24:57.0560346Z     ❌ Attempt 3 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T02:24:57.0560896Z Call log:
+2026-01-19T02:24:57.0561089Z   - waiting for locator("tex...
+2026-01-19T02:24:57.0561391Z     💀 Step step_3 failed after all retries.
+2026-01-19T02:24:57.0561756Z 🛑 Scenario 'Fund Transfer' aborted due to step failure.
+2026-01-19T02:24:57.0561984Z 
+2026-01-19T02:24:57.0562083Z --- Scenario: Bill Payment ---
+2026-01-19T02:24:57.0562371Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:24:57.0562664Z     ✅ Step step_1 Passed.
+2026-01-19T02:24:57.0562935Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T02:24:57.0563226Z     ✅ Step step_2 Passed.
+2026-01-19T02:24:57.0563486Z   ▶️ [STEP step_2_ai_1] FILL: Username
+2026-01-19T02:24:57.0563817Z     🎯 Using mined locator: input[name='username']
+2026-01-19T02:24:57.0564136Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T02:24:57.0567182Z   ▶️ [STEP step_2_ai_2] FILL: Password
+2026-01-19T02:24:57.0567756Z     🎯 Using mined locator: input[name='password']
+2026-01-19T02:24:57.0568326Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T02:24:57.0568799Z   ▶️ [STEP step_2_ai_3] CLICK: LOG IN
+2026-01-19T02:24:57.0569305Z     ✅ Step step_2_ai_3 Passed.
+2026-01-19T02:24:57.0569764Z   ▶️ [STEP step_3] FILL: Username
+2026-01-19T02:24:57.0570419Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T02:24:57.0571286Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T02:24:57.0571754Z Call log:
+2026-01-19T02:24:57.0571955Z   - waiting for locator("tex...
+2026-01-19T02:24:57.0572305Z     🔧 [AUTO-HEAL] Re-mining page to find 'Username'...
+2026-01-19T02:24:57.0572634Z [CACHE HIT] 057c9018... (hits: 3, misses: 2)
+2026-01-19T02:24:57.0573037Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T02:24:57.0573666Z     ❌ Attempt 2 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T02:24:57.0574140Z Call log:
+2026-01-19T02:24:57.0574336Z   - waiting for locator("tex...
+2026-01-19T02:24:57.0574910Z     🔧 [AUTO-HEAL] Re-mining page to find 'Username'...
+2026-01-19T02:24:57.0575235Z [CACHE HIT] 057c9018... (hits: 4, misses: 2)
+2026-01-19T02:24:57.0575678Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T02:24:57.0576294Z     ❌ Attempt 3 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T02:24:57.0576750Z Call log:
+2026-01-19T02:24:57.0576934Z   - waiting for locator("tex...
+2026-01-19T02:24:57.0577224Z     💀 Step step_3 failed after all retries.
+2026-01-19T02:24:57.0577595Z 🛑 Scenario 'Bill Payment' aborted due to step failure.
+2026-01-19T02:24:57.0577816Z 
+2026-01-19T02:24:57.0577926Z ============================================================
+2026-01-19T02:24:57.0578228Z 🎯 EXECUTION SUMMARY
+2026-01-19T02:24:57.0578473Z ============================================================
+2026-01-19T02:24:57.0578669Z 
+2026-01-19T02:24:57.0578773Z 📋 Scenario Overview:
+2026-01-19T02:24:57.0579032Z    • Total Scenarios Planned: 3
+2026-01-19T02:24:57.0579305Z    • Scenarios Executed: 3
+2026-01-19T02:24:57.0579564Z    • Total Steps Executed: 18
+2026-01-19T02:24:57.0579722Z 
+2026-01-19T02:24:57.0579811Z ✅ Results:
+2026-01-19T02:24:57.0580020Z    ❌ Failed: 3 (100%)
+2026-01-19T02:24:57.0580144Z 
+2026-01-19T02:24:57.0580254Z ⚠️  Failed Scenarios:
+2026-01-19T02:24:57.0580496Z    • Account Creation and Login
+2026-01-19T02:24:57.0580748Z    • Fund Transfer
+2026-01-19T02:24:57.0580956Z    • Bill Payment
+2026-01-19T02:24:57.0581070Z 
+2026-01-19T02:24:57.0581176Z ============================================================
+2026-01-19T02:24:57.0581366Z 
+2026-01-19T02:24:57.0581852Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking/execution.json
+2026-01-19T02:24:57.1630565Z 
+2026-01-19T02:24:57.1631190Z [PHASE] Running Phase: DISCOVERY
+2026-01-19T02:24:57.1633574Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking --url https://parabank.parasoft.com/ --deep
+2026-01-19T02:24:57.1636138Z ✅ Phase 'discovery' completed successfully.
+2026-01-19T02:24:57.1636479Z 
+2026-01-19T02:24:57.1636636Z [PHASE] Running Phase: PLANNING
+2026-01-19T02:24:57.1638688Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking --goal Test banking operations --url https://parabank.parasoft.com/ --deep
+2026-01-19T02:24:57.1640851Z ✅ Phase 'planning' completed successfully.
+2026-01-19T02:24:57.1641163Z 
+2026-01-19T02:24:57.1641356Z [PHASE] Running Phase: EXPLORATION
+2026-01-19T02:24:57.1642935Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking
+2026-01-19T02:24:57.1644842Z ✅ Phase 'exploration' completed successfully.
+2026-01-19T02:24:57.1645439Z 📊 Exploration Discovery Success Rate: 64.4%
+2026-01-19T02:24:57.1645753Z 
+2026-01-19T02:24:57.1645908Z [PHASE] Running Phase: EXECUTION
+2026-01-19T02:24:57.1647438Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking
+2026-01-19T02:24:57.1649085Z ✅ Phase 'execution' completed successfully.
+2026-01-19T02:24:57.1649403Z 
+2026-01-19T02:24:57.1649566Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-19T02:24:57.2562658Z ##[group]Run RESULT_FILE="projects/ci_parabank_banking/execution.json"
+2026-01-19T02:24:57.2563223Z [36;1mRESULT_FILE="projects/ci_parabank_banking/execution.json"[0m
+2026-01-19T02:24:57.2563616Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-19T02:24:57.2563979Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-19T02:24:57.2564457Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-19T02:24:57.2565114Z [36;1melse[0m
+2026-01-19T02:24:57.2565420Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-19T02:24:57.2565724Z [36;1m  exit 1[0m
+2026-01-19T02:24:57.2565917Z [36;1mfi[0m
+2026-01-19T02:24:57.2598958Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:24:57.2599311Z env:
+2026-01-19T02:24:57.2599711Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:24:57.2600396Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:24:57.2601133Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:24:57.2601562Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:24:57.2601958Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:24:57.2602378Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:24:57.2602719Z ##[endgroup]
+2026-01-19T02:24:57.2655073Z ✅ Results generated successfully: projects/ci_parabank_banking/execution.json
+2026-01-19T02:24:57.2682168Z 3
+2026-01-19T02:24:57.2744195Z ##[group]Run actions/upload-artifact@v4
+2026-01-19T02:24:57.2744485Z with:
+2026-01-19T02:24:57.2744865Z   name: parabank_banking-execution-results
+2026-01-19T02:24:57.2745329Z   path: projects/ci_parabank_banking/execution.json
+projects/ci_parabank_banking/workflow.json
+
+2026-01-19T02:24:57.2745776Z   retention-days: 30
+2026-01-19T02:24:57.2745990Z   if-no-files-found: warn
+2026-01-19T02:24:57.2746217Z   compression-level: 6
+2026-01-19T02:24:57.2746421Z   overwrite: false
+2026-01-19T02:24:57.2746622Z   include-hidden-files: false
+2026-01-19T02:24:57.2747030Z env:
+2026-01-19T02:24:57.2747275Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:24:57.2747687Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:24:57.2748094Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:24:57.2748465Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:24:57.2748866Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:24:57.2749243Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:24:57.2749560Z ##[endgroup]
+2026-01-19T02:24:57.4907809Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-19T02:24:57.4912708Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_parabank_banking. This will be the root directory of the artifact
+2026-01-19T02:24:57.4914230Z With the provided path, there will be 2 files uploaded
+2026-01-19T02:24:57.4919551Z Artifact name is valid!
+2026-01-19T02:24:57.4920799Z Root directory input is valid!
+2026-01-19T02:24:57.5883845Z Beginning upload of artifact content to blob storage
+2026-01-19T02:24:57.6347650Z Uploaded bytes 3412
+2026-01-19T02:24:57.6485678Z Finished uploading artifact content to blob storage!
+2026-01-19T02:24:57.6489077Z SHA256 digest of uploaded artifact zip is bd6130c8a25c01f54a04f5a17d781708d9916c23ff9e2570ef5f1f5da26ea3db
+2026-01-19T02:24:57.6491855Z Finalizing artifact upload
+2026-01-19T02:24:57.7368883Z Artifact parabank_banking-execution-results.zip successfully finalized. Artifact ID 5171762753
+2026-01-19T02:24:57.7370005Z Artifact parabank_banking-execution-results has been successfully uploaded! Final size is 3412 bytes. Artifact ID is 5171762753
+2026-01-19T02:24:57.7376122Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21122730879/artifacts/5171762753
+2026-01-19T02:24:57.7502021Z Post job cleanup.
+2026-01-19T02:24:57.9007516Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-19T02:24:57.9116050Z Post job cleanup.
+2026-01-19T02:24:58.0055852Z [command]/usr/bin/git version
+2026-01-19T02:24:58.0096360Z git version 2.52.0
+2026-01-19T02:24:58.0142087Z Temporarily overriding HOME='/home/runner/work/_temp/a9786083-6f56-49d8-afe0-68ee14ee0434' before making global git config changes
+2026-01-19T02:24:58.0143656Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T02:24:58.0150036Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:24:58.0187919Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T02:24:58.0222485Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T02:24:58.0473620Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T02:24:58.0497395Z http.https://github.com/.extraheader
+2026-01-19T02:24:58.0510140Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-19T02:24:58.0543463Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T02:24:58.0787469Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T02:24:58.0820891Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T02:24:58.1209983Z Cleaning up orphan processes

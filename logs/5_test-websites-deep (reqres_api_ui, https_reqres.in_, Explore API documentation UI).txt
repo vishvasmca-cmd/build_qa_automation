@@ -1,0 +1,794 @@
+﻿2026-01-19T02:35:25.6010200Z Current runner version: '2.331.0'
+2026-01-19T02:35:25.6043915Z ##[group]Runner Image Provisioner
+2026-01-19T02:35:25.6045205Z Hosted Compute Agent
+2026-01-19T02:35:25.6046139Z Version: 20251211.462
+2026-01-19T02:35:25.6047083Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-19T02:35:25.6048390Z Build Date: 2025-12-11T16:28:49Z
+2026-01-19T02:35:25.6049696Z Worker ID: {eea87040-6848-46f6-94ea-5f587eb3fabd}
+2026-01-19T02:35:25.6050859Z ##[endgroup]
+2026-01-19T02:35:25.6051918Z ##[group]Operating System
+2026-01-19T02:35:25.6052910Z Ubuntu
+2026-01-19T02:35:25.6053663Z 24.04.3
+2026-01-19T02:35:25.6054982Z LTS
+2026-01-19T02:35:25.6055717Z ##[endgroup]
+2026-01-19T02:35:25.6056540Z ##[group]Runner Image
+2026-01-19T02:35:25.6057623Z Image: ubuntu-24.04
+2026-01-19T02:35:25.6058518Z Version: 20260111.209.1
+2026-01-19T02:35:25.6060652Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-19T02:35:25.6063445Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-19T02:35:25.6065283Z ##[endgroup]
+2026-01-19T02:35:25.6067199Z ##[group]GITHUB_TOKEN Permissions
+2026-01-19T02:35:25.6070365Z Contents: read
+2026-01-19T02:35:25.6071223Z Metadata: read
+2026-01-19T02:35:25.6071967Z Packages: read
+2026-01-19T02:35:25.6072909Z ##[endgroup]
+2026-01-19T02:35:25.6076014Z Secret source: Actions
+2026-01-19T02:35:25.6077359Z Prepare workflow directory
+2026-01-19T02:35:25.6548942Z Prepare all required actions
+2026-01-19T02:35:25.6606068Z Getting action download info
+2026-01-19T02:35:25.8562140Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-19T02:35:25.9514168Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-19T02:35:26.0294670Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-19T02:35:26.2564672Z Complete job name: test-websites-deep (reqres_api_ui, https://reqres.in/, Explore API documentation UI)
+2026-01-19T02:35:26.3254333Z ##[group]Run actions/checkout@v4
+2026-01-19T02:35:26.3255143Z with:
+2026-01-19T02:35:26.3255596Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T02:35:26.3256316Z   token: ***
+2026-01-19T02:35:26.3256690Z   ssh-strict: true
+2026-01-19T02:35:26.3257071Z   ssh-user: git
+2026-01-19T02:35:26.3257462Z   persist-credentials: true
+2026-01-19T02:35:26.3257899Z   clean: true
+2026-01-19T02:35:26.3258300Z   sparse-checkout-cone-mode: true
+2026-01-19T02:35:26.3258764Z   fetch-depth: 1
+2026-01-19T02:35:26.3259144Z   fetch-tags: false
+2026-01-19T02:35:26.3259705Z   show-progress: true
+2026-01-19T02:35:26.3260108Z   lfs: false
+2026-01-19T02:35:26.3260468Z   submodules: false
+2026-01-19T02:35:26.3260864Z   set-safe-directory: true
+2026-01-19T02:35:26.3261534Z ##[endgroup]
+2026-01-19T02:35:26.4327782Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T02:35:26.4329899Z ##[group]Getting Git version info
+2026-01-19T02:35:26.4330893Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T02:35:26.4332023Z [command]/usr/bin/git version
+2026-01-19T02:35:26.4435284Z git version 2.52.0
+2026-01-19T02:35:26.4461343Z ##[endgroup]
+2026-01-19T02:35:26.4481195Z Temporarily overriding HOME='/home/runner/work/_temp/b31ffab8-0999-4d19-8bfe-8313c3ced570' before making global git config changes
+2026-01-19T02:35:26.4482582Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T02:35:26.4486217Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:35:26.4527033Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T02:35:26.4530543Z ##[group]Initializing the repository
+2026-01-19T02:35:26.4534425Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:35:26.4637198Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-19T02:35:26.4638712Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-19T02:35:26.4640241Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-19T02:35:26.4641481Z hint: call:
+2026-01-19T02:35:26.4642110Z hint:
+2026-01-19T02:35:26.4643086Z hint: 	git config --global init.defaultBranch <name>
+2026-01-19T02:35:26.4644122Z hint:
+2026-01-19T02:35:26.4644964Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-19T02:35:26.4645914Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-19T02:35:26.4646640Z hint:
+2026-01-19T02:35:26.4647023Z hint: 	git branch -m <name>
+2026-01-19T02:35:26.4647473Z hint:
+2026-01-19T02:35:26.4648073Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-19T02:35:26.4649833Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-19T02:35:26.4654199Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T02:35:26.4687486Z ##[endgroup]
+2026-01-19T02:35:26.4688197Z ##[group]Disabling automatic garbage collection
+2026-01-19T02:35:26.4691602Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-19T02:35:26.4718603Z ##[endgroup]
+2026-01-19T02:35:26.4719258Z ##[group]Setting up auth
+2026-01-19T02:35:26.4725123Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T02:35:26.4754281Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T02:35:26.5097301Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T02:35:26.5124645Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T02:35:26.5339916Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T02:35:26.5369191Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T02:35:26.5587214Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-19T02:35:26.5621357Z ##[endgroup]
+2026-01-19T02:35:26.5622519Z ##[group]Fetching the repository
+2026-01-19T02:35:26.5630938Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8ae9e7a98960844bdcef67161cbe93442a7431bc:refs/remotes/origin/main
+2026-01-19T02:35:27.3135433Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T02:35:27.3136534Z  * [new ref]         8ae9e7a98960844bdcef67161cbe93442a7431bc -> origin/main
+2026-01-19T02:35:27.3169921Z ##[endgroup]
+2026-01-19T02:35:27.3171197Z ##[group]Determining the checkout info
+2026-01-19T02:35:27.3172962Z ##[endgroup]
+2026-01-19T02:35:27.3178308Z [command]/usr/bin/git sparse-checkout disable
+2026-01-19T02:35:27.3220642Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-19T02:35:27.3248447Z ##[group]Checking out the ref
+2026-01-19T02:35:27.3252111Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-19T02:35:27.4590963Z Switched to a new branch 'main'
+2026-01-19T02:35:27.4593000Z branch 'main' set up to track 'origin/main'.
+2026-01-19T02:35:27.4610132Z ##[endgroup]
+2026-01-19T02:35:27.4647906Z [command]/usr/bin/git log -1 --format=%H
+2026-01-19T02:35:27.4669504Z 8ae9e7a98960844bdcef67161cbe93442a7431bc
+2026-01-19T02:35:27.4979679Z ##[group]Run actions/setup-python@v5
+2026-01-19T02:35:27.4980823Z with:
+2026-01-19T02:35:27.4981634Z   python-version: 3.11
+2026-01-19T02:35:27.4982540Z   cache: pip
+2026-01-19T02:35:27.4983594Z   check-latest: false
+2026-01-19T02:35:27.4984789Z   token: ***
+2026-01-19T02:35:27.4985646Z   update-environment: true
+2026-01-19T02:35:27.4986643Z   allow-prereleases: false
+2026-01-19T02:35:27.4987626Z   freethreaded: false
+2026-01-19T02:35:27.4988521Z ##[endgroup]
+2026-01-19T02:35:27.6684263Z ##[group]Installed versions
+2026-01-19T02:35:27.6818956Z Successfully set up CPython (3.11.14)
+2026-01-19T02:35:27.6820203Z ##[endgroup]
+2026-01-19T02:35:27.7939796Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-19T02:35:29.2898877Z /home/runner/.cache/pip
+2026-01-19T02:35:29.3773603Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T02:35:30.4070741Z Received 247463936 of 254742636 (97.1%), 235.8 MBs/sec
+2026-01-19T02:35:30.4881169Z Received 254742636 of 254742636 (100.0%), 224.5 MBs/sec
+2026-01-19T02:35:30.4882463Z Cache Size: ~243 MB (254742636 B)
+2026-01-19T02:35:30.4923339Z [command]/usr/bin/tar -xf /home/runner/work/_temp/e07d77aa-54af-4569-a926-cf98d81a1951/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-19T02:35:30.8631993Z Cache restored successfully
+2026-01-19T02:35:30.9174346Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T02:35:30.9427622Z ##[group]Run pip install -r requirements.txt
+2026-01-19T02:35:30.9428061Z [36;1mpip install -r requirements.txt[0m
+2026-01-19T02:35:30.9428354Z [36;1mplaywright install chromium[0m
+2026-01-19T02:35:30.9466693Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:35:30.9466962Z env:
+2026-01-19T02:35:30.9467218Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:35:30.9467688Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:35:30.9468167Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:35:30.9468545Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:35:30.9468931Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:35:30.9469299Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:35:30.9469823Z ##[endgroup]
+2026-01-19T02:35:32.0381069Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-19T02:35:32.0395885Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-19T02:35:32.0556628Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-19T02:35:32.0571486Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-19T02:35:32.0838388Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-19T02:35:32.0853134Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-19T02:35:32.2489542Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-19T02:35:32.2506135Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-19T02:35:32.2746891Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-19T02:35:32.2766582Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-19T02:35:32.2912571Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-19T02:35:32.2925802Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-19T02:35:32.3263770Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-19T02:35:32.3278262Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-19T02:35:32.3811871Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-19T02:35:32.3825806Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-19T02:35:32.5798643Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-19T02:35:32.5814455Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-19T02:35:32.6584232Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-19T02:35:32.6597463Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-19T02:35:32.6754012Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-19T02:35:32.6766397Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-19T02:35:32.8098604Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-19T02:35:32.8112504Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-19T02:35:32.8282014Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-19T02:35:32.8294633Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-19T02:35:32.9061006Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:35:32.9074914Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-19T02:35:32.9237656Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:35:32.9250285Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T02:35:32.9520477Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:35:32.9532610Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-19T02:35:32.9731025Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:35:32.9743634Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-19T02:35:32.9940077Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:32.9953531Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-19T02:35:33.0276218Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:33.0288596Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-19T02:35:33.0534635Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:33.0547080Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-19T02:35:33.1899164Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:33.1913377Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-19T02:35:33.2147324Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:33.2160037Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-19T02:35:33.2968430Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:33.2986477Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-19T02:35:33.3131615Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:33.3144170Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-19T02:35:33.3232010Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:33.3244975Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-19T02:35:33.3540583Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:33.3553269Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-19T02:35:33.3705201Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:33.3721015Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-19T02:35:33.3974828Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:33.3987904Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-19T02:35:33.4106668Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:33.4118997Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-19T02:35:33.4220154Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:33.4232688Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-19T02:35:34.0576991Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:34.0592102Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-19T02:35:34.0730956Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:34.0744042Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-19T02:35:34.1409153Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:35:34.1423907Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T02:35:34.1702748Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-19T02:35:34.2037615Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-19T02:35:34.2053548Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-19T02:35:34.2066428Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-19T02:35:34.2079319Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-19T02:35:34.2093456Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-19T02:35:34.2106099Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-19T02:35:34.2118796Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-19T02:35:34.2132987Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-19T02:35:34.2193777Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-19T02:35:34.2210850Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-19T02:35:34.2224155Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-19T02:35:34.2236677Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-19T02:35:34.2250594Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-19T02:35:34.2263702Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-19T02:35:34.2276589Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-19T02:35:34.2292994Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-19T02:35:34.2319627Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-19T02:35:34.2332269Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-19T02:35:34.2344933Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-19T02:35:34.2358177Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-19T02:35:34.2371469Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-19T02:35:34.2384501Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-19T02:35:34.2402485Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-19T02:35:34.2852563Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-19T02:35:34.2981610Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-19T02:35:34.3008884Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-19T02:35:34.3022370Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-19T02:35:34.3036097Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-19T02:35:34.3049237Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-19T02:35:34.3062826Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-19T02:35:34.3076382Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-19T02:35:34.3088756Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-19T02:35:34.5205531Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-19T02:35:41.2404319Z 
+2026-01-19T02:35:41.2427813Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-19T02:35:41.8264950Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-19T02:35:41.9221550Z (node:2189) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:35:41.9222894Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:35:41.9911090Z |                                                                                |   0% of 164.7 MiB
+2026-01-19T02:35:42.1427642Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-19T02:35:42.2262341Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-19T02:35:42.3064432Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-19T02:35:42.3777835Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-19T02:35:42.4430590Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-19T02:35:42.4971096Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-19T02:35:42.5561553Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-19T02:35:42.6130829Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-19T02:35:42.6705328Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-19T02:35:42.7264929Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-19T02:35:45.0887113Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-19T02:35:45.0891199Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-19T02:35:45.1849944Z (node:2200) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:35:45.1852349Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:35:45.2460195Z |                                                                                |   0% of 2.3 MiB
+2026-01-19T02:35:45.2613021Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-19T02:35:45.2678720Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-19T02:35:45.2725626Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-19T02:35:45.2762587Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-19T02:35:45.2796360Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-19T02:35:45.2810700Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-19T02:35:45.2837079Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-19T02:35:45.2864887Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-19T02:35:45.2879165Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-19T02:35:45.2887490Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-19T02:35:45.3421529Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-19T02:35:45.3425673Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-19T02:35:45.4374388Z (node:2211) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:35:45.4376304Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:35:45.5118886Z |                                                                                |   0% of 109.7 MiB
+2026-01-19T02:35:45.6177091Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-19T02:35:45.6886071Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-19T02:35:45.8080207Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-19T02:35:45.9169539Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-19T02:35:45.9888904Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-19T02:35:46.0440203Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-19T02:35:46.1332117Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-19T02:35:46.1854998Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-19T02:35:46.2533654Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-19T02:35:46.3199022Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-19T02:35:48.0729663Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-19T02:35:48.0948461Z ##[group]Run mkdir -p projects/ci_reqres_api_ui
+2026-01-19T02:35:48.0948858Z [36;1mmkdir -p projects/ci_reqres_api_ui[0m
+2026-01-19T02:35:48.0949258Z [36;1mcat > projects/ci_reqres_api_ui/config.json << 'EOF'[0m
+2026-01-19T02:35:48.0949828Z [36;1m{[0m
+2026-01-19T02:35:48.0950036Z [36;1m  "project_name": "ci_reqres_api_ui",[0m
+2026-01-19T02:35:48.0950346Z [36;1m  "target_url": "https://reqres.in/",[0m
+2026-01-19T02:35:48.0950661Z [36;1m  "goal": "Explore API documentation UI",[0m
+2026-01-19T02:35:48.0950939Z [36;1m  "headless": true[0m
+2026-01-19T02:35:48.0951147Z [36;1m}[0m
+2026-01-19T02:35:48.0951313Z [36;1mEOF[0m
+2026-01-19T02:35:48.0984300Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:35:48.0984650Z env:
+2026-01-19T02:35:48.0984903Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:35:48.0985322Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:35:48.0985771Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:35:48.0986141Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:35:48.0986497Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:35:48.0986862Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:35:48.0987177Z ##[endgroup]
+2026-01-19T02:35:48.1091290Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-19T02:35:48.1091726Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-19T02:35:48.1092182Z [36;1mpython orchestrator.py --project projects/ci_reqres_api_ui --deep --force[0m
+2026-01-19T02:35:48.1124182Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:35:48.1124415Z env:
+2026-01-19T02:35:48.1124668Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:35:48.1125092Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:35:48.1125497Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:35:48.1125876Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:35:48.1126249Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:35:48.1127023Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:35:48.1127529Z   GOOGLE_API_KEY: ***
+2026-01-19T02:35:48.1127757Z   PYTHONPATH: .
+2026-01-19T02:35:48.1127943Z ##[endgroup]
+2026-01-19T02:35:49.8891205Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-19T02:35:49.8891605Z 
+2026-01-19T02:35:49.8892071Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://reqres.in/ (Workers: 3)
+2026-01-19T02:35:51.2199565Z   🔍 [Worker 0] Visiting (0): https://reqres.in/
+2026-01-19T02:35:53.6752302Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:35:53.6753427Z [DEBUG] Received response (Length: 386)
+2026-01-19T02:35:53.6760716Z   🔍 [Worker 1] Visiting (1): https://reqres.in/api/users?page=2
+2026-01-19T02:35:53.6762769Z   🔍 [Worker 2] Visiting (1): https://reqres.in/api/users/2
+2026-01-19T02:35:53.6868136Z   🔍 [Worker 0] Visiting (1): https://app.reqres.in/?next=/projects
+2026-01-19T02:35:58.5630176Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:35:58.5631143Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:35:58.5632345Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:35:58.5651051Z [DEBUG] Received response (Length: 266)
+2026-01-19T02:35:58.5651950Z   🔍 [Worker 1] Visiting (1): https://reqres.in/blog
+2026-01-19T02:35:58.6302844Z [DEBUG] Received response (Length: 266)
+2026-01-19T02:35:58.6304096Z   🔍 [Worker 2] Visiting (1): https://app.reqres.in/examples/notes-app
+2026-01-19T02:35:58.7097587Z [DEBUG] Received response (Length: 435)
+2026-01-19T02:35:58.7098603Z   🔍 [Worker 0] Visiting (1): https://reqres.in/api/unknown/2
+2026-01-19T02:35:58.8426608Z [CACHE HIT] a354d2d7... (hits: 1, misses: 4)
+2026-01-19T02:35:58.8428137Z   🔍 [Worker 0] Visiting (1): https://reqres.in/blog/qa-automation-with-reqres
+2026-01-19T02:36:03.5293343Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:03.5294193Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:03.5294981Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:03.5295593Z [DEBUG] Received response (Length: 239)
+2026-01-19T02:36:03.5296449Z   🔍 [Worker 1] Visiting (1): https://reqres.in
+2026-01-19T02:36:03.5610300Z [DEBUG] Received response (Length: 236)
+2026-01-19T02:36:03.5617695Z   🔍 [Worker 0] Visiting (1): https://reqres.in/blog/frontend-only-auth
+2026-01-19T02:36:03.5877963Z [DEBUG] Received response (Length: 321)
+2026-01-19T02:36:03.5880335Z   🔍 [Worker 2] Visiting (1): https://app.reqres.in
+2026-01-19T02:36:04.2335778Z [CACHE HIT] c77acdc0... (hits: 2, misses: 7)
+2026-01-19T02:36:04.2336828Z   🔍 [Worker 2] Visiting (1): https://reqres.in/api/unknown
+2026-01-19T02:36:04.4261163Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:04.4272178Z [CACHE HIT] a354d2d7... (hits: 3, misses: 8)
+2026-01-19T02:36:04.4273593Z   🔍 [Worker 2] Visiting (1): https://reqres.in/api/users?delay=3
+2026-01-19T02:36:04.5974824Z [CACHE HIT] a354d2d7... (hits: 4, misses: 8)
+2026-01-19T02:36:04.5979640Z   🔍 [Worker 2] Visiting (1): https://reqres.in/api/login
+2026-01-19T02:36:04.7640954Z [CACHE HIT] a354d2d7... (hits: 5, misses: 8)
+2026-01-19T02:36:04.7642391Z   🔍 [Worker 2] Visiting (1): https://reqres.in/api/unknown/23
+2026-01-19T02:36:05.0004377Z [CACHE HIT] 1bb47e01... (hits: 6, misses: 8)
+2026-01-19T02:36:05.0006031Z [CACHE HIT] a354d2d7... (hits: 7, misses: 8)
+2026-01-19T02:36:05.0007375Z   🔍 [Worker 1] Visiting (1): https://reqres.in/blog/ship-mvp-without-backend
+2026-01-19T02:36:05.0428028Z   🔍 [Worker 2] Visiting (1): https://app.reqres.in/documentation
+2026-01-19T02:36:05.0756008Z [DEBUG] Received response (Length: 338)
+2026-01-19T02:36:05.0762410Z   🔍 [Worker 0] Visiting (1): https://demo.reqres.in
+2026-01-19T02:36:10.0471368Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:10.0472312Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:10.0473584Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:10.0474341Z [DEBUG] Received response (Length: 370)
+2026-01-19T02:36:10.0476181Z   🔍 [Worker 0] Visiting (1): https://reqres.in/api/users
+2026-01-19T02:36:10.1145447Z [DEBUG] Received response (Length: 367)
+2026-01-19T02:36:10.1155746Z   🔍 [Worker 2] Visiting (1): https://reqres.in/api/users/23
+2026-01-19T02:36:10.2250503Z [CACHE HIT] a354d2d7... (hits: 8, misses: 12)
+2026-01-19T02:36:10.2252254Z   🔍 [Worker 2] Visiting (1): https://reqres.in/api/register
+2026-01-19T02:36:10.2967377Z [CACHE HIT] a354d2d7... (hits: 9, misses: 12)
+2026-01-19T02:36:10.2968708Z   🔍 [Worker 2] Visiting (1): https://app.reqres.in/getting-started
+2026-01-19T02:36:10.3819665Z [DEBUG] Received response (Length: 419)
+2026-01-19T02:36:10.3821150Z   🔍 [Worker 1] Visiting (2): https://app.reqres.in/documentation?section=quickstart
+2026-01-19T02:36:10.9724764Z [CACHE HIT] b314f550... (hits: 10, misses: 13)
+2026-01-19T02:36:10.9726224Z   🔍 [Worker 1] Visiting (2): https://reqres.in/blog/stop-faking-apis
+2026-01-19T02:36:15.0494880Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:15.0495685Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:15.0496381Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:15.0496977Z [DEBUG] Received response (Length: 279)
+2026-01-19T02:36:15.0498099Z   🔍 [Worker 1] Visiting (2): https://reqres.in/blog/when-jsonplaceholder-isnt-enough
+2026-01-19T02:36:15.1345048Z [DEBUG] Received response (Length: 341)
+2026-01-19T02:36:15.1350935Z   🔍 [Worker 2] Visiting (2): https://app.reqres.in/api-keys
+2026-01-19T02:36:15.2268088Z [DEBUG] Received response (Length: 237)
+2026-01-19T02:36:15.2269138Z   🔍 [Worker 0] Visiting (2): https://app.reqres.in/dashboard
+2026-01-19T02:36:16.3428293Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:16.3429690Z [DEBUG] Received response (Length: 248)
+2026-01-19T02:36:16.3436601Z   🔍 [Worker 2] Visiting (2): https://app.reqres.in/documentation?section=app-users
+2026-01-19T02:36:16.9029956Z [CACHE HIT] b314f550... (hits: 11, misses: 17)
+2026-01-19T02:36:16.9040023Z   🔍 [Worker 2] Visiting (2): https://app.reqres.in/logs
+2026-01-19T02:36:17.2600587Z [CACHE HIT] d0eeb336... (hits: 12, misses: 17)
+2026-01-19T02:36:17.2601816Z   🔍 [Worker 2] Visiting (2): https://app.reqres.in/app-users
+2026-01-19T02:36:17.6084643Z [CACHE HIT] d0eeb336... (hits: 13, misses: 17)
+2026-01-19T02:36:17.6086021Z   🔍 [Worker 2] Visiting (2): https://app.reqres.in/projects
+2026-01-19T02:36:21.4420825Z [CACHE HIT] d0eeb336... (hits: 14, misses: 17)
+2026-01-19T02:36:21.4421539Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:21.4422293Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:21.4422928Z [DEBUG] Received response (Length: 243)
+2026-01-19T02:36:21.4423405Z [DEBUG] Received response (Length: 294)
+2026-01-19T02:36:21.4424251Z ✅ Discovery Complete. Mapped 31 pages.
+2026-01-19T02:36:30.3853648Z 
+2026-01-19T02:36:30.3855224Z [PLAN] PLANNER: Planning goal -> 'Explore API documentation UI' (Deep Mode: True)
+2026-01-19T02:36:30.3856495Z 🗺️ [PLAN] Loaded Sitemap with 31 pages.
+2026-01-19T02:36:30.3857802Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-19T02:36:30.3858838Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:36:30.3859254Z [DEBUG] Received response (Length: 3612)
+2026-01-19T02:36:30.3859909Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-19T02:36:31.3887311Z 
+2026-01-19T02:36:31.3888121Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-19T02:36:31.3890318Z 📋 Found 3 scenarios to explore.
+2026-01-19T02:36:31.8264611Z 
+2026-01-19T02:36:31.8266561Z [1/3] Exploring Scenario: Explore API Documentation UI - Basic Navigation
+2026-01-19T02:36:31.8268645Z     🧠 Initialized exploration context for goal: 'Explore API documentation UI'
+2026-01-19T02:36:31.8270031Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:36:33.4491855Z     ✅ Navigated to https://reqres.in/
+2026-01-19T02:36:33.4492485Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Frontend-first backend you call with fetch() | ReqRes
+2026-01-19T02:36:33.4904987Z     🔍 Mining locators for: 'Frontend-first backend you call with fetch() | ReqRes'
+2026-01-19T02:36:33.8676102Z     🧠 Consulting AI (Vision-First) to find 'Frontend-first backend you call with fetch() | ReqRes'...
+2026-01-19T02:36:33.8688894Z     🔍 Trying smart selectors for 'Frontend-first backend you call with fetch() | ReqRes'...
+2026-01-19T02:36:33.9170252Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:36:33.9171241Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:36:33.9171874Z   ▶️ [STEP step_3] NAVIGATE: 
+2026-01-19T02:36:33.9240179Z     ⚠️ Skipping cross-domain navigation: app.reqres.in (target: reqres.in)
+2026-01-19T02:36:33.9241143Z     🎯 Staying on target domain to maintain test focus
+2026-01-19T02:36:33.9242171Z   ▶️ [STEP step_4] ASSERT_VISIBLE: ReqRes – 30 Second Backend Templates | Deploy APIs Instantly
+2026-01-19T02:36:33.9297479Z     🔍 Mining locators for: 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'
+2026-01-19T02:36:34.1450447Z     🧠 Consulting AI (Vision-First) to find 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'...
+2026-01-19T02:36:34.1451874Z     🔍 Trying smart selectors for 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'...
+2026-01-19T02:36:34.1750319Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:36:34.1751208Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:36:34.1751575Z   ▶️ [STEP step_5] ASSERT_URL: 
+2026-01-19T02:36:39.1957684Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:36:41.1980836Z     ✅ State transitioned.
+2026-01-19T02:36:42.9097789Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:36:42.9098462Z [DEBUG] Received response (Length: 215)
+2026-01-19T02:36:42.9099164Z     🤖 AI Next Step Suggestion: navigate -> Docs
+2026-01-19T02:36:42.9099787Z     🧩 Suggested Locator: a[href='/docs/']
+2026-01-19T02:36:42.9100397Z     💭 Reasoning: To explore the API documentation UI, navigating to the 'Docs' section is the most logical next step.
+2026-01-19T02:36:42.9100970Z     ➕ Injected AI step: navigate -> Docs
+2026-01-19T02:36:42.9101292Z   ▶️ [STEP step_5_ai_1] NAVIGATE: Docs
+2026-01-19T02:36:43.4195883Z     ❌ Navigation failed to Docs: Page.goto: Protocol error (Page.navigate): Cannot navigate to invalid URL
+2026-01-19T02:36:43.4197009Z Call log:
+2026-01-19T02:36:43.4197668Z   - navigating to "Docs", waiting until "domcontentloaded"
+2026-01-19T02:36:43.4198339Z 
+2026-01-19T02:36:43.4199588Z     ⚠️ Critical step failure: Page.goto: Protocol error (Page.navigate): Cannot navigate to invalid URL
+2026-01-19T02:36:43.4200870Z Call log:
+2026-01-19T02:36:43.4201314Z   - navigating t
+2026-01-19T02:36:43.4202367Z   ▶️ [STEP step_6] NAVIGATE: 
+2026-01-19T02:36:43.4266840Z     ⚠️ Skipping cross-domain navigation: app.reqres.in (target: reqres.in)
+2026-01-19T02:36:43.4267536Z     🎯 Staying on target domain to maintain test focus
+2026-01-19T02:36:43.4268090Z   ▶️ [STEP step_7] ASSERT_VISIBLE: ReqRes – 30 Second Backend Templates | Deploy APIs Instantly
+2026-01-19T02:36:43.4322618Z     🔍 Mining locators for: 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'
+2026-01-19T02:36:43.6292759Z     🧠 Consulting AI (Vision-First) to find 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'...
+2026-01-19T02:36:43.6293595Z     🔍 Trying smart selectors for 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'...
+2026-01-19T02:36:43.6591983Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:36:43.6593188Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:36:43.6593551Z   ▶️ [STEP step_8] ASSERT_URL: 
+2026-01-19T02:36:48.6770258Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:36:50.6793399Z     ✅ State transitioned.
+2026-01-19T02:36:50.7002428Z     🔄 Revisited state detected (count: 1)
+2026-01-19T02:36:52.5111350Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:36:52.5112118Z [DEBUG] Received response (Length: 190)
+2026-01-19T02:36:52.5112934Z     🤖 AI Next Step Suggestion: click -> Docs
+2026-01-19T02:36:52.5113423Z     🧩 Suggested Locator: a[href='/docs/']
+2026-01-19T02:36:52.5114019Z     💭 Reasoning: To explore the API documentation UI, clicking on the 'Docs' link is the most logical next step.
+2026-01-19T02:36:52.5114576Z     ➕ Injected AI step: click -> Docs
+2026-01-19T02:36:52.5114889Z   ▶️ [STEP step_8_ai_1] CLICK: Docs
+2026-01-19T02:36:52.5176708Z     🎯 Using AI-provided locator: a[href='/docs/']
+2026-01-19T02:36:52.5197736Z     🔍 Mining locators for: 'Docs'
+2026-01-19T02:36:52.7102673Z     🧠 Consulting AI (Vision-First) to find 'Docs'...
+2026-01-19T02:36:52.7103239Z     🔍 Trying smart selectors for 'Docs'...
+2026-01-19T02:36:52.7403941Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:36:52.7404520Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:36:54.7796387Z 
+2026-01-19T02:36:54.7797183Z [2/3] Exploring Scenario: Explore API Documentation UI - Authentication Section
+2026-01-19T02:36:54.7798661Z     🧠 Initialized exploration context for goal: 'Explore API documentation UI'
+2026-01-19T02:36:54.7799793Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:36:56.1984276Z     ✅ Navigated to https://reqres.in/
+2026-01-19T02:36:56.1985202Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Frontend-first backend you call with fetch() | ReqRes
+2026-01-19T02:36:56.3023323Z     🔍 Mining locators for: 'Frontend-first backend you call with fetch() | ReqRes'
+2026-01-19T02:36:56.6466430Z     🧠 Consulting AI (Vision-First) to find 'Frontend-first backend you call with fetch() | ReqRes'...
+2026-01-19T02:36:56.6467845Z     🔍 Trying smart selectors for 'Frontend-first backend you call with fetch() | ReqRes'...
+2026-01-19T02:36:56.6776714Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:36:56.6777504Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:36:56.6777858Z   ▶️ [STEP step_3] NAVIGATE: 
+2026-01-19T02:36:56.6835498Z     ⚠️ Skipping cross-domain navigation: app.reqres.in (target: reqres.in)
+2026-01-19T02:36:56.6836258Z     🎯 Staying on target domain to maintain test focus
+2026-01-19T02:36:56.6836809Z   ▶️ [STEP step_4] ASSERT_VISIBLE: ReqRes – 30 Second Backend Templates | Deploy APIs Instantly
+2026-01-19T02:36:56.6899734Z     🔍 Mining locators for: 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'
+2026-01-19T02:36:56.8948102Z     🧠 Consulting AI (Vision-First) to find 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'...
+2026-01-19T02:36:56.8949793Z     🔍 Trying smart selectors for 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'...
+2026-01-19T02:36:56.9240176Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:36:56.9241066Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:36:56.9241648Z   ▶️ [STEP step_5] ASSERT_URL: 
+2026-01-19T02:37:01.9419646Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:37:03.9442415Z     ✅ State transitioned.
+2026-01-19T02:37:05.6039292Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:37:05.6040134Z [DEBUG] Received response (Length: 190)
+2026-01-19T02:37:05.6040759Z     🤖 AI Next Step Suggestion: click -> Docs
+2026-01-19T02:37:05.6041175Z     🧩 Suggested Locator: a[href='/docs/']
+2026-01-19T02:37:05.6041892Z     💭 Reasoning: To explore the API documentation UI, clicking on the 'Docs' link is the most logical next step.
+2026-01-19T02:37:05.6043067Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:37:07.6404075Z 
+2026-01-19T02:37:07.6405440Z [3/3] Exploring Scenario: Explore API Documentation UI - API Endpoints Section
+2026-01-19T02:37:07.6408898Z     🧠 Initialized exploration context for goal: 'Explore API documentation UI'
+2026-01-19T02:37:07.6409935Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:37:08.9466626Z     ✅ Navigated to https://reqres.in/
+2026-01-19T02:37:08.9469038Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Frontend-first backend you call with fetch() | ReqRes
+2026-01-19T02:37:08.9675575Z     🔍 Mining locators for: 'Frontend-first backend you call with fetch() | ReqRes'
+2026-01-19T02:37:09.2948787Z     🧠 Consulting AI (Vision-First) to find 'Frontend-first backend you call with fetch() | ReqRes'...
+2026-01-19T02:37:09.2950529Z     🔍 Trying smart selectors for 'Frontend-first backend you call with fetch() | ReqRes'...
+2026-01-19T02:37:09.3328006Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:37:09.3329016Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:37:09.3329884Z   ▶️ [STEP step_3] NAVIGATE: 
+2026-01-19T02:37:09.3417541Z     ⚠️ Skipping cross-domain navigation: app.reqres.in (target: reqres.in)
+2026-01-19T02:37:09.3420232Z     🎯 Staying on target domain to maintain test focus
+2026-01-19T02:37:09.3421244Z   ▶️ [STEP step_4] ASSERT_VISIBLE: ReqRes – 30 Second Backend Templates | Deploy APIs Instantly
+2026-01-19T02:37:09.3472221Z     🔍 Mining locators for: 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'
+2026-01-19T02:37:09.5939152Z     🧠 Consulting AI (Vision-First) to find 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'...
+2026-01-19T02:37:09.5940195Z     🔍 Trying smart selectors for 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'...
+2026-01-19T02:37:09.6218307Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:37:09.6219202Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:37:09.6219950Z   ▶️ [STEP step_5] ASSERT_URL: 
+2026-01-19T02:37:14.6397584Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:37:16.6420948Z     ✅ State transitioned.
+2026-01-19T02:37:18.3529196Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:37:18.3530007Z [DEBUG] Received response (Length: 198)
+2026-01-19T02:37:18.3530791Z     🤖 AI Next Step Suggestion: navigate -> Docs
+2026-01-19T02:37:18.3532460Z     🧩 Suggested Locator: a[href='/docs/']
+2026-01-19T02:37:18.3533568Z     💭 Reasoning: To explore the API documentation UI, navigating to the 'Docs' section is the most logical next step.
+2026-01-19T02:37:18.3534152Z     ➕ Injected AI step: navigate -> Docs
+2026-01-19T02:37:18.3534470Z   ▶️ [STEP step_5_ai_1] NAVIGATE: Docs
+2026-01-19T02:37:18.8613383Z     ❌ Navigation failed to Docs: Page.goto: Protocol error (Page.navigate): Cannot navigate to invalid URL
+2026-01-19T02:37:18.8614041Z Call log:
+2026-01-19T02:37:18.8614338Z   - navigating to "Docs", waiting until "domcontentloaded"
+2026-01-19T02:37:18.8614625Z 
+2026-01-19T02:37:18.8615389Z     ⚠️ Critical step failure: Page.goto: Protocol error (Page.navigate): Cannot navigate to invalid URL
+2026-01-19T02:37:18.8615945Z Call log:
+2026-01-19T02:37:18.8616148Z   - navigating t
+2026-01-19T02:37:20.8993236Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_reqres_api_ui/tests/generated_scenarios.json
+2026-01-19T02:37:20.8996896Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-19T02:37:20.8997335Z 
+2026-01-19T02:37:20.8997563Z ✅ Deep Exploration Complete.
+2026-01-19T02:38:51.2225179Z 
+2026-01-19T02:38:51.2226314Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-19T02:38:51.2226975Z 📍 Project: ci_reqres_api_ui
+2026-01-19T02:38:51.2227415Z 🎬 Mode: Headless
+2026-01-19T02:38:51.2227618Z 
+2026-01-19T02:38:51.2227935Z --- Scenario: Explore API Documentation UI - Basic Navigation ---
+2026-01-19T02:38:51.2246339Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:38:51.2246950Z     ✅ Step step_1 Passed.
+2026-01-19T02:38:51.2247723Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Frontend-first backend you call with fetch() | ReqRes
+2026-01-19T02:38:51.2248698Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-19T02:38:51.2249481Z Actual value: None
+2026-01-19T02:38:51.2249821Z Error: element(s) not found 
+2026-01-19T02:38:51.2250147Z Call log:
+2026-01-19T02:38:51.2250414Z   - Expect ...
+2026-01-19T02:38:51.2251185Z     🔧 [AUTO-HEAL] Re-mining page to find 'Frontend-first backend you call with fetch() | ReqRes'...
+2026-01-19T02:38:51.2251994Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:38:51.2252348Z [DEBUG] Received response (Length: 468)
+2026-01-19T02:38:51.2252746Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:38:51.2253194Z     ✨ AI successfully healed the step! New selector: text=Live preview
+2026-01-19T02:38:51.2253576Z     ✅ Step step_2 Passed.
+2026-01-19T02:38:51.2253843Z   ▶️ [STEP step_3] NAVIGATE: Step step_3
+2026-01-19T02:38:51.2254129Z     ✅ Step step_3 Passed.
+2026-01-19T02:38:51.2254564Z   ▶️ [STEP step_4] ASSERT_VISIBLE: ReqRes – 30 Second Backend Templates | Deploy APIs Instantly
+2026-01-19T02:38:51.2255130Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-19T02:38:51.2255472Z Actual value: None
+2026-01-19T02:38:51.2255656Z Error: element(s) not found 
+2026-01-19T02:38:51.2255858Z Call log:
+2026-01-19T02:38:51.2256021Z   - Expect ...
+2026-01-19T02:38:51.2256474Z     🔧 [AUTO-HEAL] Re-mining page to find 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'...
+2026-01-19T02:38:51.2257003Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:38:51.2257334Z [DEBUG] Received response (Length: 443)
+2026-01-19T02:38:51.2257683Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:38:51.2258071Z     ✨ AI successfully healed the step! New selector: h1
+2026-01-19T02:38:51.2258382Z     ✅ Step step_4 Passed.
+2026-01-19T02:38:51.2258651Z   ▶️ [STEP step_5] ASSERT_URL: Step step_5
+2026-01-19T02:38:51.2258935Z     ✅ Step step_5 Passed.
+2026-01-19T02:38:51.2259175Z   ▶️ [STEP step_5_ai_1] NAVIGATE: Docs
+2026-01-19T02:38:51.2259933Z     ❌ Attempt 1 failed (unknown): Page.goto: Protocol error (Page.navigate): Cannot navigate to invalid URL
+2026-01-19T02:38:51.2260384Z Call log:
+2026-01-19T02:38:51.2260549Z   - navigating t...
+2026-01-19T02:38:51.2260812Z     🔧 [AUTO-HEAL] Re-mining page to find 'Docs'...
+2026-01-19T02:38:51.2261170Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:38:51.2261504Z [DEBUG] Received response (Length: 571)
+2026-01-19T02:38:51.2261863Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:38:51.2262293Z     ✨ AI successfully healed the step! New selector: a[href='/docs']
+2026-01-19T02:38:51.2262904Z     ❌ Attempt 2 failed (unknown): Page.goto: Protocol error (Page.navigate): Cannot navigate to invalid URL
+2026-01-19T02:38:51.2263561Z Call log:
+2026-01-19T02:38:51.2263727Z   - navigating t...
+2026-01-19T02:38:51.2264144Z     🔧 [AUTO-HEAL] Re-mining page to find 'Docs'...
+2026-01-19T02:38:51.2264502Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:38:51.2264841Z [DEBUG] Received response (Length: 497)
+2026-01-19T02:38:51.2265201Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:38:51.2265629Z     ✨ AI successfully healed the step! New selector: a[href='/docs']
+2026-01-19T02:38:51.2266222Z     ❌ Attempt 3 failed (unknown): Page.goto: Protocol error (Page.navigate): Cannot navigate to invalid URL
+2026-01-19T02:38:51.2266666Z Call log:
+2026-01-19T02:38:51.2266829Z   - navigating t...
+2026-01-19T02:38:51.2267088Z     💀 Step step_5_ai_1 failed after all retries.
+2026-01-19T02:38:51.2267593Z 🛑 Scenario 'Explore API Documentation UI - Basic Navigation' aborted due to step failure.
+2026-01-19T02:38:51.2267954Z 
+2026-01-19T02:38:51.2268140Z --- Scenario: Explore API Documentation UI - Authentication Section ---
+2026-01-19T02:38:51.2268555Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:38:51.2268846Z     ✅ Step step_1 Passed.
+2026-01-19T02:38:51.2269260Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Frontend-first backend you call with fetch() | ReqRes
+2026-01-19T02:38:51.2270051Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-19T02:38:51.2270391Z Actual value: None
+2026-01-19T02:38:51.2270583Z Error: element(s) not found 
+2026-01-19T02:38:51.2270792Z Call log:
+2026-01-19T02:38:51.2270951Z   - Expect ...
+2026-01-19T02:38:51.2271407Z     🔧 [AUTO-HEAL] Re-mining page to find 'Frontend-first backend you call with fetch() | ReqRes'...
+2026-01-19T02:38:51.2271972Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:38:51.2272307Z [DEBUG] Received response (Length: 420)
+2026-01-19T02:38:51.2272661Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:38:51.2273152Z     ✨ AI successfully healed the step! New selector: text=Frontend-first backend
+2026-01-19T02:38:51.2273563Z     ✅ Step step_2 Passed.
+2026-01-19T02:38:51.2273825Z   ▶️ [STEP step_3] NAVIGATE: Step step_3
+2026-01-19T02:38:51.2274100Z     ✅ Step step_3 Passed.
+2026-01-19T02:38:51.2274528Z   ▶️ [STEP step_4] ASSERT_VISIBLE: ReqRes – 30 Second Backend Templates | Deploy APIs Instantly
+2026-01-19T02:38:51.2275080Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-19T02:38:51.2275415Z Actual value: None
+2026-01-19T02:38:51.2275605Z Error: element(s) not found 
+2026-01-19T02:38:51.2275807Z Call log:
+2026-01-19T02:38:51.2275961Z   - Expect ...
+2026-01-19T02:38:51.2276405Z     🔧 [AUTO-HEAL] Re-mining page to find 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'...
+2026-01-19T02:38:51.2276874Z [CACHE HIT] 239a0f4f... (hits: 1, misses: 5)
+2026-01-19T02:38:51.2277226Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:38:51.2277685Z     ✨ AI successfully healed the step! New selector: h1
+2026-01-19T02:38:51.2277996Z     ✅ Step step_4 Passed.
+2026-01-19T02:38:51.2278263Z   ▶️ [STEP step_5] ASSERT_URL: Step step_5
+2026-01-19T02:38:51.2278542Z     ✅ Step step_5 Passed.
+2026-01-19T02:38:51.2278973Z ✅ Scenario 'Explore API Documentation UI - Authentication Section' completed successfully!
+2026-01-19T02:38:51.2279323Z 
+2026-01-19T02:38:51.2279685Z --- Scenario: Explore API Documentation UI - API Endpoints Section ---
+2026-01-19T02:38:51.2280093Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:38:51.2280360Z     ✅ Step step_1 Passed.
+2026-01-19T02:38:51.2280761Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Frontend-first backend you call with fetch() | ReqRes
+2026-01-19T02:38:51.2281293Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-19T02:38:51.2281630Z Actual value: None
+2026-01-19T02:38:51.2281821Z Error: element(s) not found 
+2026-01-19T02:38:51.2282025Z Call log:
+2026-01-19T02:38:51.2282327Z   - Expect ...
+2026-01-19T02:38:51.2282837Z     🔧 [AUTO-HEAL] Re-mining page to find 'Frontend-first backend you call with fetch() | ReqRes'...
+2026-01-19T02:38:51.2283401Z [CACHE HIT] 1af657f2... (hits: 2, misses: 5)
+2026-01-19T02:38:51.2283771Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:38:51.2284206Z     ✨ AI successfully healed the step! New selector: text=Live preview
+2026-01-19T02:38:51.2284559Z     ✅ Step step_2 Passed.
+2026-01-19T02:38:51.2284810Z   ▶️ [STEP step_3] NAVIGATE: Step step_3
+2026-01-19T02:38:51.2285077Z     ✅ Step step_3 Passed.
+2026-01-19T02:38:51.2285517Z   ▶️ [STEP step_4] ASSERT_VISIBLE: ReqRes – 30 Second Backend Templates | Deploy APIs Instantly
+2026-01-19T02:38:51.2286074Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-19T02:38:51.2286406Z Actual value: None
+2026-01-19T02:38:51.2286598Z Error: element(s) not found 
+2026-01-19T02:38:51.2286801Z Call log:
+2026-01-19T02:38:51.2286967Z   - Expect ...
+2026-01-19T02:38:51.2287415Z     🔧 [AUTO-HEAL] Re-mining page to find 'ReqRes – 30 Second Backend Templates | Deploy APIs Instantly'...
+2026-01-19T02:38:51.2287894Z [CACHE HIT] 239a0f4f... (hits: 3, misses: 5)
+2026-01-19T02:38:51.2288250Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:38:51.2288634Z     ✨ AI successfully healed the step! New selector: h1
+2026-01-19T02:38:51.2288944Z     ✅ Step step_4 Passed.
+2026-01-19T02:38:51.2289201Z   ▶️ [STEP step_5] ASSERT_URL: Step step_5
+2026-01-19T02:38:51.2289732Z     ✅ Step step_5 Passed.
+2026-01-19T02:38:51.2290123Z   ▶️ [STEP step_5_ai_1] NAVIGATE: Docs
+2026-01-19T02:38:51.2290663Z     ❌ Attempt 1 failed (unknown): Page.goto: Protocol error (Page.navigate): Cannot navigate to invalid URL
+2026-01-19T02:38:51.2291110Z Call log:
+2026-01-19T02:38:51.2291277Z   - navigating t...
+2026-01-19T02:38:51.2291550Z     🔧 [AUTO-HEAL] Re-mining page to find 'Docs'...
+2026-01-19T02:38:51.2291841Z [CACHE HIT] 95d7a043... (hits: 4, misses: 5)
+2026-01-19T02:38:51.2292211Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:38:51.2292647Z     ✨ AI successfully healed the step! New selector: a[href='/docs']
+2026-01-19T02:38:51.2293252Z     ❌ Attempt 2 failed (unknown): Page.goto: Protocol error (Page.navigate): Cannot navigate to invalid URL
+2026-01-19T02:38:51.2293688Z Call log:
+2026-01-19T02:38:51.2293850Z   - navigating t...
+2026-01-19T02:38:51.2294107Z     🔧 [AUTO-HEAL] Re-mining page to find 'Docs'...
+2026-01-19T02:38:51.2294436Z [CACHE HIT] e08fa1cc... (hits: 5, misses: 5)
+2026-01-19T02:38:51.2294788Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:38:51.2295211Z     ✨ AI successfully healed the step! New selector: a[href='/docs']
+2026-01-19T02:38:51.2295806Z     ❌ Attempt 3 failed (unknown): Page.goto: Protocol error (Page.navigate): Cannot navigate to invalid URL
+2026-01-19T02:38:51.2296245Z Call log:
+2026-01-19T02:38:51.2296399Z   - navigating t...
+2026-01-19T02:38:51.2296658Z     💀 Step step_5_ai_1 failed after all retries.
+2026-01-19T02:38:51.2297173Z 🛑 Scenario 'Explore API Documentation UI - API Endpoints Section' aborted due to step failure.
+2026-01-19T02:38:51.2297531Z 
+2026-01-19T02:38:51.2297634Z ============================================================
+2026-01-19T02:38:51.2297923Z 🎯 EXECUTION SUMMARY
+2026-01-19T02:38:51.2298131Z ============================================================
+2026-01-19T02:38:51.2298322Z 
+2026-01-19T02:38:51.2298420Z 📋 Scenario Overview:
+2026-01-19T02:38:51.2298656Z    • Total Scenarios Planned: 3
+2026-01-19T02:38:51.2298912Z    • Scenarios Executed: 3
+2026-01-19T02:38:51.2299174Z    • Total Steps Executed: 17
+2026-01-19T02:38:51.2299322Z 
+2026-01-19T02:38:51.2299600Z ✅ Results:
+2026-01-19T02:38:51.2299801Z    ✅ Passed: 1 (33%)
+2026-01-19T02:38:51.2300012Z    ❌ Failed: 2 (66%)
+2026-01-19T02:38:51.2300120Z 
+2026-01-19T02:38:51.2300218Z ⚠️  Failed Scenarios:
+2026-01-19T02:38:51.2300496Z    • Explore API Documentation UI - Basic Navigation
+2026-01-19T02:38:51.2301067Z    • Explore API Documentation UI - API Endpoints Section
+2026-01-19T02:38:51.2301287Z 
+2026-01-19T02:38:51.2301495Z ============================================================
+2026-01-19T02:38:51.2301685Z 
+2026-01-19T02:38:51.2302165Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_reqres_api_ui/execution.json
+2026-01-19T02:38:51.3395287Z 
+2026-01-19T02:38:51.3396076Z [PHASE] Running Phase: DISCOVERY
+2026-01-19T02:38:51.3397329Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_reqres_api_ui --url https://reqres.in/ --deep
+2026-01-19T02:38:51.3398685Z ✅ Phase 'discovery' completed successfully.
+2026-01-19T02:38:51.3398897Z 
+2026-01-19T02:38:51.3398991Z [PHASE] Running Phase: PLANNING
+2026-01-19T02:38:51.3400367Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_reqres_api_ui --goal Explore API documentation UI --url https://reqres.in/ --deep
+2026-01-19T02:38:51.3401616Z ✅ Phase 'planning' completed successfully.
+2026-01-19T02:38:51.3401803Z 
+2026-01-19T02:38:51.3401902Z [PHASE] Running Phase: EXPLORATION
+2026-01-19T02:38:51.3402815Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_reqres_api_ui
+2026-01-19T02:38:51.3403808Z ✅ Phase 'exploration' completed successfully.
+2026-01-19T02:38:51.3404168Z 📊 Exploration Discovery Success Rate: 0.0%
+2026-01-19T02:38:51.3404658Z ⚠️ Exploration failed to find stable locators for key steps. Execution might fail.
+2026-01-19T02:38:51.3404972Z 
+2026-01-19T02:38:51.3405067Z [PHASE] Running Phase: EXECUTION
+2026-01-19T02:38:51.3405987Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_reqres_api_ui
+2026-01-19T02:38:51.3406951Z ✅ Phase 'execution' completed successfully.
+2026-01-19T02:38:51.3407137Z 
+2026-01-19T02:38:51.3407236Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-19T02:38:51.4300061Z ##[group]Run RESULT_FILE="projects/ci_reqres_api_ui/execution.json"
+2026-01-19T02:38:51.4300665Z [36;1mRESULT_FILE="projects/ci_reqres_api_ui/execution.json"[0m
+2026-01-19T02:38:51.4301015Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-19T02:38:51.4301345Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-19T02:38:51.4301785Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-19T02:38:51.4302148Z [36;1melse[0m
+2026-01-19T02:38:51.4302399Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-19T02:38:51.4302677Z [36;1m  exit 1[0m
+2026-01-19T02:38:51.4302849Z [36;1mfi[0m
+2026-01-19T02:38:51.4336069Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:38:51.4336295Z env:
+2026-01-19T02:38:51.4336545Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:38:51.4336973Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:38:51.4337416Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:38:51.4337803Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:38:51.4338176Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:38:51.4338544Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:38:51.4338843Z ##[endgroup]
+2026-01-19T02:38:51.4391367Z ✅ Results generated successfully: projects/ci_reqres_api_ui/execution.json
+2026-01-19T02:38:51.4424987Z 3
+2026-01-19T02:38:51.4488391Z ##[group]Run actions/upload-artifact@v4
+2026-01-19T02:38:51.4488839Z with:
+2026-01-19T02:38:51.4489036Z   name: reqres_api_ui-execution-results
+2026-01-19T02:38:51.4489672Z   path: projects/ci_reqres_api_ui/execution.json
+projects/ci_reqres_api_ui/workflow.json
+
+2026-01-19T02:38:51.4490105Z   retention-days: 30
+2026-01-19T02:38:51.4490307Z   if-no-files-found: warn
+2026-01-19T02:38:51.4490522Z   compression-level: 6
+2026-01-19T02:38:51.4490720Z   overwrite: false
+2026-01-19T02:38:51.4490917Z   include-hidden-files: false
+2026-01-19T02:38:51.4491125Z env:
+2026-01-19T02:38:51.4491363Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:38:51.4491780Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:38:51.4492210Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:38:51.4492567Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:38:51.4492957Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:38:51.4493320Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:38:51.4493617Z ##[endgroup]
+2026-01-19T02:38:51.6625876Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-19T02:38:51.6630731Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_reqres_api_ui. This will be the root directory of the artifact
+2026-01-19T02:38:51.6632133Z With the provided path, there will be 2 files uploaded
+2026-01-19T02:38:51.6637189Z Artifact name is valid!
+2026-01-19T02:38:51.6638066Z Root directory input is valid!
+2026-01-19T02:38:51.7413325Z Beginning upload of artifact content to blob storage
+2026-01-19T02:38:51.8144364Z Uploaded bytes 1744
+2026-01-19T02:38:51.8318383Z Finished uploading artifact content to blob storage!
+2026-01-19T02:38:51.8321606Z SHA256 digest of uploaded artifact zip is 58b734d34ac4001d0eb3ef8d3303b53912520f0243da97b3b3cfbca603409393
+2026-01-19T02:38:51.8323593Z Finalizing artifact upload
+2026-01-19T02:38:51.8983940Z Artifact reqres_api_ui-execution-results.zip successfully finalized. Artifact ID 5171824488
+2026-01-19T02:38:51.8985181Z Artifact reqres_api_ui-execution-results has been successfully uploaded! Final size is 1744 bytes. Artifact ID is 5171824488
+2026-01-19T02:38:51.8993107Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21122730879/artifacts/5171824488
+2026-01-19T02:38:51.9138213Z Post job cleanup.
+2026-01-19T02:38:52.0625388Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-19T02:38:52.0729829Z Post job cleanup.
+2026-01-19T02:38:52.1666895Z [command]/usr/bin/git version
+2026-01-19T02:38:52.1707004Z git version 2.52.0
+2026-01-19T02:38:52.1751297Z Temporarily overriding HOME='/home/runner/work/_temp/dfc7d8a4-0a03-4da8-9796-5d435187a620' before making global git config changes
+2026-01-19T02:38:52.1752688Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T02:38:52.1765693Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:38:52.1801871Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T02:38:52.1835910Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T02:38:52.2084799Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T02:38:52.2107331Z http.https://github.com/.extraheader
+2026-01-19T02:38:52.2121042Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-19T02:38:52.2153434Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T02:38:52.2394417Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T02:38:52.2428149Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T02:38:52.2770390Z Cleaning up orphan processes

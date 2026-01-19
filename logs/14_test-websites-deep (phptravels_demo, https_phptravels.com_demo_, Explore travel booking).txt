@@ -1,0 +1,723 @@
+﻿2026-01-19T02:21:26.5792302Z Current runner version: '2.331.0'
+2026-01-19T02:21:26.5822457Z ##[group]Runner Image Provisioner
+2026-01-19T02:21:26.5823434Z Hosted Compute Agent
+2026-01-19T02:21:26.5824078Z Version: 20251211.462
+2026-01-19T02:21:26.5824731Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-19T02:21:26.5825595Z Build Date: 2025-12-11T16:28:49Z
+2026-01-19T02:21:26.5826275Z Worker ID: {81ed00d5-2dec-41cd-82e1-e9bc9e2d60a3}
+2026-01-19T02:21:26.5826996Z ##[endgroup]
+2026-01-19T02:21:26.5827642Z ##[group]Operating System
+2026-01-19T02:21:26.5828212Z Ubuntu
+2026-01-19T02:21:26.5829020Z 24.04.3
+2026-01-19T02:21:26.5829689Z LTS
+2026-01-19T02:21:26.5830173Z ##[endgroup]
+2026-01-19T02:21:26.5830699Z ##[group]Runner Image
+2026-01-19T02:21:26.5831326Z Image: ubuntu-24.04
+2026-01-19T02:21:26.5831888Z Version: 20260111.209.1
+2026-01-19T02:21:26.5832925Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-19T02:21:26.5834559Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-19T02:21:26.5835631Z ##[endgroup]
+2026-01-19T02:21:26.5836730Z ##[group]GITHUB_TOKEN Permissions
+2026-01-19T02:21:26.5838558Z Contents: read
+2026-01-19T02:21:26.5839615Z Metadata: read
+2026-01-19T02:21:26.5840191Z Packages: read
+2026-01-19T02:21:26.5840715Z ##[endgroup]
+2026-01-19T02:21:26.5842856Z Secret source: Actions
+2026-01-19T02:21:26.5843805Z Prepare workflow directory
+2026-01-19T02:21:26.6178350Z Prepare all required actions
+2026-01-19T02:21:26.6215762Z Getting action download info
+2026-01-19T02:21:26.9374635Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-19T02:21:27.0367724Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-19T02:21:27.1901470Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-19T02:21:27.4923710Z Complete job name: test-websites-deep (phptravels_demo, https://phptravels.com/demo/, Explore travel booking)
+2026-01-19T02:21:27.5684690Z ##[group]Run actions/checkout@v4
+2026-01-19T02:21:27.5685572Z with:
+2026-01-19T02:21:27.5686053Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T02:21:27.5686832Z   token: ***
+2026-01-19T02:21:27.5687230Z   ssh-strict: true
+2026-01-19T02:21:27.5687633Z   ssh-user: git
+2026-01-19T02:21:27.5688043Z   persist-credentials: true
+2026-01-19T02:21:27.5688501Z   clean: true
+2026-01-19T02:21:27.5689085Z   sparse-checkout-cone-mode: true
+2026-01-19T02:21:27.5689632Z   fetch-depth: 1
+2026-01-19T02:21:27.5690030Z   fetch-tags: false
+2026-01-19T02:21:27.5690438Z   show-progress: true
+2026-01-19T02:21:27.5690851Z   lfs: false
+2026-01-19T02:21:27.5691278Z   submodules: false
+2026-01-19T02:21:27.5691702Z   set-safe-directory: true
+2026-01-19T02:21:27.5692442Z ##[endgroup]
+2026-01-19T02:21:27.6876257Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T02:21:27.6879423Z ##[group]Getting Git version info
+2026-01-19T02:21:27.6881005Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T02:21:27.6882745Z [command]/usr/bin/git version
+2026-01-19T02:21:27.6934656Z git version 2.52.0
+2026-01-19T02:21:27.6973501Z ##[endgroup]
+2026-01-19T02:21:27.6997220Z Temporarily overriding HOME='/home/runner/work/_temp/da38e294-b95c-4ecd-ad04-3887a780701c' before making global git config changes
+2026-01-19T02:21:27.6999799Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T02:21:27.7004426Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:21:27.7050749Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T02:21:27.7054631Z ##[group]Initializing the repository
+2026-01-19T02:21:27.7059821Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:21:27.7159010Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-19T02:21:27.7161111Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-19T02:21:27.7162624Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-19T02:21:27.7163769Z hint: call:
+2026-01-19T02:21:27.7164271Z hint:
+2026-01-19T02:21:27.7165032Z hint: 	git config --global init.defaultBranch <name>
+2026-01-19T02:21:27.7165622Z hint:
+2026-01-19T02:21:27.7166171Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-19T02:21:27.7167046Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-19T02:21:27.7167736Z hint:
+2026-01-19T02:21:27.7168129Z hint: 	git branch -m <name>
+2026-01-19T02:21:27.7169137Z hint:
+2026-01-19T02:21:27.7169882Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-19T02:21:27.7170985Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-19T02:21:27.7175078Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T02:21:27.7210861Z ##[endgroup]
+2026-01-19T02:21:27.7211596Z ##[group]Disabling automatic garbage collection
+2026-01-19T02:21:27.7215164Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-19T02:21:27.7260616Z ##[endgroup]
+2026-01-19T02:21:27.7261315Z ##[group]Setting up auth
+2026-01-19T02:21:27.7262014Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T02:21:27.7297582Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T02:21:27.7634512Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T02:21:27.7667671Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T02:21:27.7893940Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T02:21:27.7927402Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T02:21:27.8156916Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-19T02:21:27.8192386Z ##[endgroup]
+2026-01-19T02:21:27.8193710Z ##[group]Fetching the repository
+2026-01-19T02:21:27.8202538Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8ae9e7a98960844bdcef67161cbe93442a7431bc:refs/remotes/origin/main
+2026-01-19T02:21:28.7506017Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T02:21:28.7508184Z  * [new ref]         8ae9e7a98960844bdcef67161cbe93442a7431bc -> origin/main
+2026-01-19T02:21:28.7539299Z ##[endgroup]
+2026-01-19T02:21:28.7540737Z ##[group]Determining the checkout info
+2026-01-19T02:21:28.7542332Z ##[endgroup]
+2026-01-19T02:21:28.7546418Z [command]/usr/bin/git sparse-checkout disable
+2026-01-19T02:21:28.7587814Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-19T02:21:28.7615861Z ##[group]Checking out the ref
+2026-01-19T02:21:28.7620045Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-19T02:21:28.8957031Z Switched to a new branch 'main'
+2026-01-19T02:21:28.8958874Z branch 'main' set up to track 'origin/main'.
+2026-01-19T02:21:28.8977598Z ##[endgroup]
+2026-01-19T02:21:28.9017613Z [command]/usr/bin/git log -1 --format=%H
+2026-01-19T02:21:28.9039813Z 8ae9e7a98960844bdcef67161cbe93442a7431bc
+2026-01-19T02:21:28.9367947Z ##[group]Run actions/setup-python@v5
+2026-01-19T02:21:28.9369290Z with:
+2026-01-19T02:21:28.9370121Z   python-version: 3.11
+2026-01-19T02:21:28.9371059Z   cache: pip
+2026-01-19T02:21:28.9372151Z   check-latest: false
+2026-01-19T02:21:28.9373341Z   token: ***
+2026-01-19T02:21:28.9374210Z   update-environment: true
+2026-01-19T02:21:28.9375288Z   allow-prereleases: false
+2026-01-19T02:21:28.9376309Z   freethreaded: false
+2026-01-19T02:21:28.9377231Z ##[endgroup]
+2026-01-19T02:21:29.1064969Z ##[group]Installed versions
+2026-01-19T02:21:29.1761630Z Successfully set up CPython (3.11.14)
+2026-01-19T02:21:29.1763564Z ##[endgroup]
+2026-01-19T02:21:29.2888351Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-19T02:21:30.9629792Z /home/runner/.cache/pip
+2026-01-19T02:21:31.1306988Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T02:21:32.2607488Z Received 134217728 of 254742636 (52.7%), 127.5 MBs/sec
+2026-01-19T02:21:32.7663398Z Received 254742636 of 254742636 (100.0%), 160.9 MBs/sec
+2026-01-19T02:21:32.7665219Z Cache Size: ~243 MB (254742636 B)
+2026-01-19T02:21:32.7805971Z [command]/usr/bin/tar -xf /home/runner/work/_temp/43adbd23-c143-43d6-acef-20c955bd58a3/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-19T02:21:33.2598901Z Cache restored successfully
+2026-01-19T02:21:33.3082676Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T02:21:33.3328298Z ##[group]Run pip install -r requirements.txt
+2026-01-19T02:21:33.3329232Z [36;1mpip install -r requirements.txt[0m
+2026-01-19T02:21:33.3329819Z [36;1mplaywright install chromium[0m
+2026-01-19T02:21:33.3368542Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:21:33.3369549Z env:
+2026-01-19T02:21:33.3369812Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:21:33.3370242Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:21:33.3370663Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:21:33.3371067Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:21:33.3371431Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:21:33.3371806Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:21:33.3372119Z ##[endgroup]
+2026-01-19T02:21:34.7881625Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-19T02:21:34.7897306Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-19T02:21:34.8093988Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-19T02:21:34.8116590Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-19T02:21:34.8412061Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-19T02:21:34.8426105Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-19T02:21:35.0108578Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-19T02:21:35.0126157Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-19T02:21:35.0387283Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-19T02:21:35.0402219Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-19T02:21:35.0572048Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-19T02:21:35.0586578Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-19T02:21:35.0944221Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-19T02:21:35.0959276Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-19T02:21:35.1511817Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-19T02:21:35.1526497Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-19T02:21:35.3532903Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-19T02:21:35.3549277Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-19T02:21:35.4321416Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-19T02:21:35.4335754Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-19T02:21:35.4498003Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-19T02:21:35.4511715Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-19T02:21:35.5680025Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-19T02:21:35.5696320Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-19T02:21:35.5868603Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-19T02:21:35.5882947Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-19T02:21:35.6680141Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:21:35.6695006Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-19T02:21:35.6849274Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:21:35.6862463Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T02:21:35.7192269Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:21:35.7205484Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-19T02:21:35.7440706Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-19T02:21:35.7454397Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-19T02:21:35.7646775Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:35.7660224Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-19T02:21:35.7985670Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:35.7998957Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-19T02:21:35.8215666Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:35.8229206Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-19T02:21:35.9608209Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:35.9622958Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-19T02:21:35.9854791Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:35.9867764Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-19T02:21:36.0700579Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:36.0717416Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-19T02:21:36.0853183Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:36.0867871Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-19T02:21:36.0953996Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:36.0969380Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-19T02:21:36.1228435Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:36.1242606Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-19T02:21:36.1400568Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:36.1414586Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-19T02:21:36.1668266Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:36.1682512Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-19T02:21:36.1791993Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:36.1805950Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-19T02:21:36.1900465Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:36.1913876Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-19T02:21:36.8415092Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:36.8432284Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-19T02:21:36.8575889Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:36.8590405Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-19T02:21:36.9340682Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T02:21:36.9357289Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T02:21:36.9639041Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-19T02:21:36.9988328Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-19T02:21:37.0006659Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-19T02:21:37.0020879Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-19T02:21:37.0038370Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-19T02:21:37.0063049Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-19T02:21:37.0086400Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-19T02:21:37.0112376Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-19T02:21:37.0136477Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-19T02:21:37.0229714Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-19T02:21:37.0247830Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-19T02:21:37.0261712Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-19T02:21:37.0275795Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-19T02:21:37.0290463Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-19T02:21:37.0303720Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-19T02:21:37.0317157Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-19T02:21:37.0333767Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-19T02:21:37.0361038Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-19T02:21:37.0374186Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-19T02:21:37.0387506Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-19T02:21:37.0401636Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-19T02:21:37.0415561Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-19T02:21:37.0429231Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-19T02:21:37.0448082Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-19T02:21:37.0945945Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-19T02:21:37.1124805Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-19T02:21:37.1152965Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-19T02:21:37.1166660Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-19T02:21:37.1181356Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-19T02:21:37.1194875Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-19T02:21:37.1208541Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-19T02:21:37.1223469Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-19T02:21:37.1236629Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-19T02:21:37.3497180Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-19T02:21:44.4446289Z 
+2026-01-19T02:21:44.4468896Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-19T02:21:45.0763934Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-19T02:21:45.1764451Z (node:2190) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:21:45.1765889Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:21:45.2765855Z |                                                                                |   0% of 164.7 MiB
+2026-01-19T02:21:45.4638591Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-19T02:21:45.6235002Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-19T02:21:45.7686392Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-19T02:21:45.9211090Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-19T02:21:46.0724198Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-19T02:21:46.2316448Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-19T02:21:46.3769373Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-19T02:21:46.5193243Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-19T02:21:46.6606564Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-19T02:21:46.8045227Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-19T02:21:49.3499609Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-19T02:21:49.3504583Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-19T02:21:49.4511326Z (node:2201) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:21:49.4513789Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:21:49.4915340Z |                                                                                |   0% of 2.3 MiB
+2026-01-19T02:21:49.4956448Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-19T02:21:49.4987919Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-19T02:21:49.5005639Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-19T02:21:49.5026501Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-19T02:21:49.5045454Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-19T02:21:49.5058544Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-19T02:21:49.5070523Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-19T02:21:49.5086966Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-19T02:21:49.5101607Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-19T02:21:49.5111622Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-19T02:21:49.5685068Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-19T02:21:49.5686738Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-19T02:21:49.6710302Z (node:2212) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T02:21:49.6711735Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T02:21:49.7603040Z |                                                                                |   0% of 109.7 MiB
+2026-01-19T02:21:49.8831470Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-19T02:21:49.9661336Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-19T02:21:50.1462586Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-19T02:21:50.2818938Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-19T02:21:50.3885758Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-19T02:21:50.4696698Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-19T02:21:50.5745035Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-19T02:21:50.6605348Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-19T02:21:50.7621718Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-19T02:21:50.8544993Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-19T02:21:52.8070505Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-19T02:21:52.8322995Z ##[group]Run mkdir -p projects/ci_phptravels_demo
+2026-01-19T02:21:52.8323623Z [36;1mmkdir -p projects/ci_phptravels_demo[0m
+2026-01-19T02:21:52.8324281Z [36;1mcat > projects/ci_phptravels_demo/config.json << 'EOF'[0m
+2026-01-19T02:21:52.8324814Z [36;1m{[0m
+2026-01-19T02:21:52.8325152Z [36;1m  "project_name": "ci_phptravels_demo",[0m
+2026-01-19T02:21:52.8325714Z [36;1m  "target_url": "https://phptravels.com/demo/",[0m
+2026-01-19T02:21:52.8326252Z [36;1m  "goal": "Explore travel booking",[0m
+2026-01-19T02:21:52.8326704Z [36;1m  "headless": true[0m
+2026-01-19T02:21:52.8327051Z [36;1m}[0m
+2026-01-19T02:21:52.8327318Z [36;1mEOF[0m
+2026-01-19T02:21:52.8369174Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:21:52.8369543Z env:
+2026-01-19T02:21:52.8369931Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:21:52.8370644Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:21:52.8371384Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:21:52.8372006Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:21:52.8372633Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:21:52.8373265Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:21:52.8373784Z ##[endgroup]
+2026-01-19T02:21:52.8486396Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-19T02:21:52.8486854Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-19T02:21:52.8487314Z [36;1mpython orchestrator.py --project projects/ci_phptravels_demo --deep --force[0m
+2026-01-19T02:21:52.8518205Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:21:52.8518431Z env:
+2026-01-19T02:21:52.8518946Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:21:52.8519649Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:21:52.8520102Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:21:52.8520485Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:21:52.8520860Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:21:52.8521444Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:21:52.8521919Z   GOOGLE_API_KEY: ***
+2026-01-19T02:21:52.8522151Z   PYTHONPATH: .
+2026-01-19T02:21:52.8522335Z ##[endgroup]
+2026-01-19T02:21:54.8039277Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-19T02:21:54.8039836Z 
+2026-01-19T02:21:54.8040498Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://phptravels.com/demo/ (Workers: 3)
+2026-01-19T02:21:56.8841882Z   🔍 [Worker 0] Visiting (0): https://phptravels.com/demo/
+2026-01-19T02:21:57.9723122Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:21:57.9723811Z [DEBUG] Received response (Length: 239)
+2026-01-19T02:21:57.9724599Z ✅ Discovery Complete. Mapped 1 pages.
+2026-01-19T02:22:08.7405959Z 
+2026-01-19T02:22:08.7406791Z [PLAN] PLANNER: Planning goal -> 'Explore travel booking' (Deep Mode: True)
+2026-01-19T02:22:08.7407739Z 🗺️ [PLAN] Loaded Sitemap with 1 pages.
+2026-01-19T02:22:08.7409469Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-19T02:22:08.7410846Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T02:22:08.7411397Z [DEBUG] Received response (Length: 3706)
+2026-01-19T02:22:08.7411965Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-19T02:22:09.7970625Z 
+2026-01-19T02:22:09.7972030Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-19T02:22:09.7972720Z 📋 Found 3 scenarios to explore.
+2026-01-19T02:22:10.1750094Z 
+2026-01-19T02:22:10.1750571Z [1/3] Exploring Scenario: Explore Flight Booking
+2026-01-19T02:22:10.1752797Z     🧠 Initialized exploration context for goal: 'Explore travel booking'
+2026-01-19T02:22:10.1753558Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:22:10.8167914Z     ✅ Navigated to https://phptravels.com/demo/
+2026-01-19T02:22:10.8168865Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-19T02:22:15.8616944Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:22:17.8640642Z     ✅ State transitioned.
+2026-01-19T02:22:19.4101297Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:22:19.4101952Z [DEBUG] Received response (Length: 242)
+2026-01-19T02:22:19.4102814Z     🤖 AI Next Step Suggestion: click -> Verify you are human
+2026-01-19T02:22:19.4103493Z     🧩 Suggested Locator: input[type='checkbox']
+2026-01-19T02:22:19.4104513Z     💭 Reasoning: The page requires human verification before proceeding. Clicking the checkbox is the next logical step to access the website.
+2026-01-19T02:22:19.4105239Z     ➕ Injected AI step: click -> Verify you are human
+2026-01-19T02:22:19.4105634Z   ▶️ [STEP step_2_ai_1] CLICK: Verify you are human
+2026-01-19T02:22:19.4177826Z     🎯 Using AI-provided locator: input[type='checkbox']
+2026-01-19T02:22:19.4202605Z     🔍 Mining locators for: 'Verify you are human'
+2026-01-19T02:22:19.4511749Z     ✅ Found 1 verified locators
+2026-01-19T02:22:23.0246787Z     ✅ State transitioned.
+2026-01-19T02:22:24.2148485Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:22:24.2149754Z [DEBUG] Received response (Length: 213)
+2026-01-19T02:22:24.2150698Z     🤖 AI Next Step Suggestion: click -> Verify you are human
+2026-01-19T02:22:24.2151410Z     🧩 Suggested Locator: input[type='checkbox']
+2026-01-19T02:22:24.2152557Z     💭 Reasoning: The page requires human verification. Clicking the checkbox is the next logical step to proceed.
+2026-01-19T02:22:24.2153823Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:22:24.2154583Z   ▶️ [STEP step_3] CLICK: Flights
+2026-01-19T02:22:24.2213924Z     🔍 Mining locators for: 'Flights'
+2026-01-19T02:22:24.2496918Z     🧠 Consulting AI (Vision-First) to find 'Flights'...
+2026-01-19T02:22:24.2512342Z     🔍 Trying smart selectors for 'Flights'...
+2026-01-19T02:22:24.2759300Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:24.2760795Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:24.2761536Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Flight Search
+2026-01-19T02:22:24.2813397Z     🔍 Mining locators for: 'Flight Search'
+2026-01-19T02:22:24.3129304Z     🧠 Consulting AI (Vision-First) to find 'Flight Search'...
+2026-01-19T02:22:24.3131537Z     🔍 Trying smart selectors for 'Flight Search'...
+2026-01-19T02:22:24.3381221Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:24.3382123Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:24.3382551Z   ▶️ [STEP step_5] FILL: From
+2026-01-19T02:22:24.3434795Z     🔍 Mining locators for: 'From'
+2026-01-19T02:22:24.3793982Z     🧠 Consulting AI (Vision-First) to find 'From'...
+2026-01-19T02:22:24.3794770Z     🔍 Trying smart selectors for 'From'...
+2026-01-19T02:22:24.4029781Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:24.4030819Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:24.4031443Z   ▶️ [STEP step_6] FILL: To
+2026-01-19T02:22:24.4082595Z     🔍 Mining locators for: 'To'
+2026-01-19T02:22:24.4455932Z     🧠 Consulting AI (Vision-First) to find 'To'...
+2026-01-19T02:22:24.4456581Z     🔍 Trying smart selectors for 'To'...
+2026-01-19T02:22:24.4683356Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:24.4684192Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:24.4684565Z   ▶️ [STEP step_7] CLICK: Search
+2026-01-19T02:22:24.4737160Z     🔍 Mining locators for: 'Search'
+2026-01-19T02:22:24.5121423Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-19T02:22:24.5122120Z     🔍 Trying smart selectors for 'Search'...
+2026-01-19T02:22:24.5356116Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:24.5356996Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:24.5357503Z   ▶️ [STEP step_8] ASSERT_VISIBLE: Flight Results
+2026-01-19T02:22:24.5405440Z     🔍 Mining locators for: 'Flight Results'
+2026-01-19T02:22:24.5795296Z     🧠 Consulting AI (Vision-First) to find 'Flight Results'...
+2026-01-19T02:22:24.5796202Z     🔍 Trying smart selectors for 'Flight Results'...
+2026-01-19T02:22:24.6021088Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:24.6021785Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:26.6423754Z 
+2026-01-19T02:22:26.6424267Z [2/3] Exploring Scenario: Explore Hotel Booking
+2026-01-19T02:22:26.6425461Z     🧠 Initialized exploration context for goal: 'Explore travel booking'
+2026-01-19T02:22:26.6426319Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:22:27.2638207Z     ✅ Navigated to https://phptravels.com/demo/
+2026-01-19T02:22:27.2639251Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-19T02:22:32.3011667Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:22:34.3035111Z     ✅ State transitioned.
+2026-01-19T02:22:35.7555227Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:22:35.7556195Z [DEBUG] Received response (Length: 242)
+2026-01-19T02:22:35.7557073Z     🤖 AI Next Step Suggestion: click -> Verify you are human
+2026-01-19T02:22:35.7557733Z     🧩 Suggested Locator: input[type='checkbox']
+2026-01-19T02:22:35.7559187Z     💭 Reasoning: The page requires human verification before proceeding. Clicking the checkbox is the next logical step to access the website.
+2026-01-19T02:22:35.7560035Z     ➕ Injected AI step: click -> Verify you are human
+2026-01-19T02:22:35.7560442Z   ▶️ [STEP step_2_ai_1] CLICK: Verify you are human
+2026-01-19T02:22:35.7616222Z     🎯 Using AI-provided locator: input[type='checkbox']
+2026-01-19T02:22:35.7634430Z     🔍 Mining locators for: 'Verify you are human'
+2026-01-19T02:22:35.7944918Z     ✅ Found 1 verified locators
+2026-01-19T02:22:39.3519535Z     ✅ State transitioned.
+2026-01-19T02:22:40.7859179Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:22:40.7859809Z [DEBUG] Received response (Length: 222)
+2026-01-19T02:22:40.7860727Z     🤖 AI Next Step Suggestion: click -> Verify you are human
+2026-01-19T02:22:40.7861474Z     🧩 Suggested Locator: xpath=//input[@type='checkbox']
+2026-01-19T02:22:40.7864526Z     💭 Reasoning: The page requires human verification. Clicking the checkbox is the next logical step to proceed.
+2026-01-19T02:22:40.7866540Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:22:40.7867787Z   ▶️ [STEP step_3] CLICK: Hotels
+2026-01-19T02:22:40.7922226Z     🔍 Mining locators for: 'Hotels'
+2026-01-19T02:22:40.8180164Z     🧠 Consulting AI (Vision-First) to find 'Hotels'...
+2026-01-19T02:22:40.8180923Z     🔍 Trying smart selectors for 'Hotels'...
+2026-01-19T02:22:40.8402568Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:40.8403522Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:40.8404278Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Hotel Search
+2026-01-19T02:22:40.8452873Z     🔍 Mining locators for: 'Hotel Search'
+2026-01-19T02:22:40.8787294Z     🧠 Consulting AI (Vision-First) to find 'Hotel Search'...
+2026-01-19T02:22:40.8788153Z     🔍 Trying smart selectors for 'Hotel Search'...
+2026-01-19T02:22:40.9015844Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:40.9016719Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:40.9017295Z   ▶️ [STEP step_5] FILL: City name
+2026-01-19T02:22:40.9064644Z     🔍 Mining locators for: 'City name'
+2026-01-19T02:22:40.9448611Z     🧠 Consulting AI (Vision-First) to find 'City name'...
+2026-01-19T02:22:40.9449721Z     🔍 Trying smart selectors for 'City name'...
+2026-01-19T02:22:40.9678597Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:40.9679789Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:40.9680488Z   ▶️ [STEP step_6] CLICK: Search
+2026-01-19T02:22:40.9742552Z     🔍 Mining locators for: 'Search'
+2026-01-19T02:22:41.0111427Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-19T02:22:41.0112172Z     🔍 Trying smart selectors for 'Search'...
+2026-01-19T02:22:41.0331042Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:41.0331902Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:41.0332428Z   ▶️ [STEP step_7] ASSERT_VISIBLE: Hotel Results
+2026-01-19T02:22:41.0380903Z     🔍 Mining locators for: 'Hotel Results'
+2026-01-19T02:22:41.0782987Z     🧠 Consulting AI (Vision-First) to find 'Hotel Results'...
+2026-01-19T02:22:41.0783854Z     🔍 Trying smart selectors for 'Hotel Results'...
+2026-01-19T02:22:41.1011014Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:41.1011715Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:43.1380489Z 
+2026-01-19T02:22:43.1386163Z [3/3] Exploring Scenario: Explore Car Booking
+2026-01-19T02:22:43.1388303Z     🧠 Initialized exploration context for goal: 'Explore travel booking'
+2026-01-19T02:22:43.1389914Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T02:22:43.7879631Z     ✅ Navigated to https://phptravels.com/demo/
+2026-01-19T02:22:43.7880406Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-19T02:22:48.8252310Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T02:22:50.8274949Z     ✅ State transitioned.
+2026-01-19T02:22:52.4744419Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:22:52.4745091Z [DEBUG] Received response (Length: 237)
+2026-01-19T02:22:52.4745979Z     🤖 AI Next Step Suggestion: click -> Verify you are human
+2026-01-19T02:22:52.4746640Z     🧩 Suggested Locator: input[type='checkbox']
+2026-01-19T02:22:52.4747754Z     💭 Reasoning: The page requires human verification before proceeding. Clicking the checkbox is the next logical step.
+2026-01-19T02:22:52.4749119Z     ➕ Injected AI step: click -> Verify you are human
+2026-01-19T02:22:52.4749510Z   ▶️ [STEP step_2_ai_1] CLICK: Verify you are human
+2026-01-19T02:22:52.4804228Z     🎯 Using AI-provided locator: input[type='checkbox']
+2026-01-19T02:22:52.4825602Z     🔍 Mining locators for: 'Verify you are human'
+2026-01-19T02:22:52.5162619Z     ✅ Found 1 verified locators
+2026-01-19T02:22:56.0669849Z     ✅ State transitioned.
+2026-01-19T02:22:57.5931511Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:22:57.5932157Z [DEBUG] Received response (Length: 213)
+2026-01-19T02:22:57.5933046Z     🤖 AI Next Step Suggestion: click -> Verify you are human
+2026-01-19T02:22:57.5933725Z     🧩 Suggested Locator: input[type='checkbox']
+2026-01-19T02:22:57.5934810Z     💭 Reasoning: The page requires human verification. Clicking the checkbox is the next logical step to proceed.
+2026-01-19T02:22:57.5936005Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T02:22:57.5936716Z   ▶️ [STEP step_3] CLICK: Cars
+2026-01-19T02:22:57.5995546Z     🔍 Mining locators for: 'Cars'
+2026-01-19T02:22:57.6281975Z     🧠 Consulting AI (Vision-First) to find 'Cars'...
+2026-01-19T02:22:57.6283353Z     🔍 Trying smart selectors for 'Cars'...
+2026-01-19T02:22:57.6508357Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:57.6509489Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:57.6510175Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Car Search
+2026-01-19T02:22:57.6560414Z     🔍 Mining locators for: 'Car Search'
+2026-01-19T02:22:57.6814178Z     🧠 Consulting AI (Vision-First) to find 'Car Search'...
+2026-01-19T02:22:57.6814913Z     🔍 Trying smart selectors for 'Car Search'...
+2026-01-19T02:22:57.7037493Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:57.7038816Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:57.7039691Z   ▶️ [STEP step_5] FILL: Pick up location
+2026-01-19T02:22:57.7088528Z     🔍 Mining locators for: 'Pick up location'
+2026-01-19T02:22:57.7441996Z     🧠 Consulting AI (Vision-First) to find 'Pick up location'...
+2026-01-19T02:22:57.7442884Z     🔍 Trying smart selectors for 'Pick up location'...
+2026-01-19T02:22:57.7660247Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:57.7661223Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:57.7661900Z   ▶️ [STEP step_6] FILL: London
+2026-01-19T02:22:57.7716214Z     🔍 Mining locators for: 'London'
+2026-01-19T02:22:57.7961104Z     🧠 Consulting AI (Vision-First) to find 'London'...
+2026-01-19T02:22:57.7961857Z     🔍 Trying smart selectors for 'London'...
+2026-01-19T02:22:57.8178327Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:57.8179518Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:57.8180157Z   ▶️ [STEP step_7] CLICK: Search
+2026-01-19T02:22:57.8229680Z     🔍 Mining locators for: 'Search'
+2026-01-19T02:22:57.8613484Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-19T02:22:57.8614700Z     🔍 Trying smart selectors for 'Search'...
+2026-01-19T02:22:57.8836829Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:57.8837441Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:57.8837856Z   ▶️ [STEP step_8] ASSERT_VISIBLE: Car Results
+2026-01-19T02:22:57.8887138Z     🔍 Mining locators for: 'Car Results'
+2026-01-19T02:22:57.9277570Z     🧠 Consulting AI (Vision-First) to find 'Car Results'...
+2026-01-19T02:22:57.9278442Z     🔍 Trying smart selectors for 'Car Results'...
+2026-01-19T02:22:57.9502359Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T02:22:57.9503017Z     ⚠️ Critical step failure: name 'time' is not defined
+2026-01-19T02:22:59.9879039Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_phptravels_demo/tests/generated_scenarios.json
+2026-01-19T02:22:59.9883310Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-19T02:22:59.9884037Z 
+2026-01-19T02:22:59.9884277Z ✅ Deep Exploration Complete.
+2026-01-19T02:28:37.2538132Z 
+2026-01-19T02:28:37.2539216Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-19T02:28:37.2539813Z 📍 Project: ci_phptravels_demo
+2026-01-19T02:28:37.2540119Z 🎬 Mode: Headless
+2026-01-19T02:28:37.2540249Z 
+2026-01-19T02:28:37.2540369Z --- Scenario: Explore Flight Booking ---
+2026-01-19T02:28:37.2540745Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:28:37.2541036Z     ✅ Step step_1 Passed.
+2026-01-19T02:28:37.2541332Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T02:28:37.2541632Z     ✅ Step step_2 Passed.
+2026-01-19T02:28:37.2541939Z   ▶️ [STEP step_2_ai_1] CLICK: Verify you are human
+2026-01-19T02:28:37.2542391Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T02:28:37.2542826Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T02:28:37.2543098Z   ▶️ [STEP step_3] CLICK: Flights
+2026-01-19T02:28:37.2543587Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:28:37.2543996Z Call log:
+2026-01-19T02:28:37.2544194Z   - waiting for locator("text=Flights")
+2026-01-19T02:28:37.2544450Z ...
+2026-01-19T02:28:37.2544770Z     🔧 [AUTO-HEAL] Re-mining page to find 'Flights'...
+2026-01-19T02:28:37.2545178Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:28:37.2545543Z [DEBUG] Received response (Length: 525)
+2026-01-19T02:28:37.2545932Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:28:37.2546620Z     ✨ AI successfully healed the step! New selector: iframe[title="Widget containing a Cloudflare security challenge"]
+2026-01-19T02:28:37.2547405Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:28:37.2547843Z Call log:
+2026-01-19T02:28:37.2548053Z   - waiting for locator("iframe[title=\"Wi...
+2026-01-19T02:28:37.2548438Z     🔧 [AUTO-HEAL] Re-mining page to find 'Flights'...
+2026-01-19T02:28:37.2549032Z [CACHE HIT] 6549c399... (hits: 1, misses: 1)
+2026-01-19T02:28:37.2549450Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:28:37.2550127Z     ✨ AI successfully healed the step! New selector: iframe[title="Widget containing a Cloudflare security challenge"]
+2026-01-19T02:28:37.2550897Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:28:37.2551323Z Call log:
+2026-01-19T02:28:37.2551524Z   - waiting for locator("iframe[title=\"Wi...
+2026-01-19T02:28:37.2551868Z     💀 Step step_3 failed after all retries.
+2026-01-19T02:28:37.2552286Z 🛑 Scenario 'Explore Flight Booking' aborted due to step failure.
+2026-01-19T02:28:37.2552560Z 
+2026-01-19T02:28:37.2552664Z --- Scenario: Explore Hotel Booking ---
+2026-01-19T02:28:37.2552988Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:28:37.2553636Z     ✅ Step step_1 Passed.
+2026-01-19T02:28:37.2553920Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T02:28:37.2554217Z     ✅ Step step_2 Passed.
+2026-01-19T02:28:37.2554666Z   ▶️ [STEP step_2_ai_1] CLICK: Verify you are human
+2026-01-19T02:28:37.2555116Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T02:28:37.2555503Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T02:28:37.2555765Z   ▶️ [STEP step_3] CLICK: Hotels
+2026-01-19T02:28:37.2556216Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:28:37.2556607Z Call log:
+2026-01-19T02:28:37.2556793Z   - waiting for locator("text=Hotels")
+2026-01-19T02:28:37.2557028Z ...
+2026-01-19T02:28:37.2557283Z     🔧 [AUTO-HEAL] Re-mining page to find 'Hotels'...
+2026-01-19T02:28:37.2557643Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:28:37.2557984Z [DEBUG] Received response (Length: 557)
+2026-01-19T02:28:37.2558362Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:28:37.2559231Z     ✨ AI successfully healed the step! New selector: iframe[title="Widget containing a Cloudflare security challenge"]
+2026-01-19T02:28:37.2559945Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:28:37.2560331Z Call log:
+2026-01-19T02:28:37.2560528Z   - waiting for locator("iframe[title=\"Wi...
+2026-01-19T02:28:37.2560876Z     🔧 [AUTO-HEAL] Re-mining page to find 'Hotels'...
+2026-01-19T02:28:37.2561177Z [CACHE HIT] 15022f15... (hits: 2, misses: 2)
+2026-01-19T02:28:37.2561533Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T02:28:37.2562143Z     ✨ AI successfully healed the step! New selector: iframe[title="Widget containing a Cloudflare security challenge"]
+2026-01-19T02:28:37.2562839Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:28:37.2563228Z Call log:
+2026-01-19T02:28:37.2563431Z   - waiting for locator("iframe[title=\"Wi...
+2026-01-19T02:28:37.2563746Z     💀 Step step_3 failed after all retries.
+2026-01-19T02:28:37.2564134Z 🛑 Scenario 'Explore Hotel Booking' aborted due to step failure.
+2026-01-19T02:28:37.2564388Z 
+2026-01-19T02:28:37.2564489Z --- Scenario: Explore Car Booking ---
+2026-01-19T02:28:37.2564792Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T02:28:37.2565161Z     ✅ Step step_1 Passed.
+2026-01-19T02:28:37.2565460Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T02:28:37.2565743Z     ✅ Step step_2 Passed.
+2026-01-19T02:28:37.2566031Z   ▶️ [STEP step_2_ai_1] CLICK: Verify you are human
+2026-01-19T02:28:37.2566458Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T02:28:37.2566840Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T02:28:37.2567095Z   ▶️ [STEP step_3] CLICK: Cars
+2026-01-19T02:28:37.2567531Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:28:37.2567942Z Call log:
+2026-01-19T02:28:37.2568124Z   - waiting for locator("text=Cars")
+2026-01-19T02:28:37.2568354Z ...
+2026-01-19T02:28:37.2568611Z     🔧 [AUTO-HEAL] Re-mining page to find 'Cars'...
+2026-01-19T02:28:37.2569780Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T02:28:37.2570359Z [DEBUG] Received response (Length: 38)
+2026-01-19T02:28:37.2571060Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T02:28:37.2573572Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:28:37.2574230Z Call log:
+2026-01-19T02:28:37.2574514Z   - waiting for locator("text=Cars")
+2026-01-19T02:28:37.2574875Z ...
+2026-01-19T02:28:37.2575312Z     🔧 [AUTO-HEAL] Re-mining page to find 'Cars'...
+2026-01-19T02:28:37.2575801Z [CACHE HIT] f0cd150a... (hits: 3, misses: 3)
+2026-01-19T02:28:37.2576469Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T02:28:37.2577692Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T02:28:37.2578190Z Call log:
+2026-01-19T02:28:37.2578383Z   - waiting for locator("text=Cars")
+2026-01-19T02:28:37.2579056Z ...
+2026-01-19T02:28:37.2579347Z     💀 Step step_3 failed after all retries.
+2026-01-19T02:28:37.2579753Z 🛑 Scenario 'Explore Car Booking' aborted due to step failure.
+2026-01-19T02:28:37.2580016Z 
+2026-01-19T02:28:37.2580117Z ============================================================
+2026-01-19T02:28:37.2580418Z 🎯 EXECUTION SUMMARY
+2026-01-19T02:28:37.2580636Z ============================================================
+2026-01-19T02:28:37.2580822Z 
+2026-01-19T02:28:37.2580923Z 📋 Scenario Overview:
+2026-01-19T02:28:37.2581168Z    • Total Scenarios Planned: 3
+2026-01-19T02:28:37.2581425Z    • Scenarios Executed: 3
+2026-01-19T02:28:37.2581673Z    • Total Steps Executed: 12
+2026-01-19T02:28:37.2581818Z 
+2026-01-19T02:28:37.2581905Z ✅ Results:
+2026-01-19T02:28:37.2582102Z    ❌ Failed: 3 (100%)
+2026-01-19T02:28:37.2582239Z 
+2026-01-19T02:28:37.2582342Z ⚠️  Failed Scenarios:
+2026-01-19T02:28:37.2582567Z    • Explore Flight Booking
+2026-01-19T02:28:37.2582803Z    • Explore Hotel Booking
+2026-01-19T02:28:37.2583051Z    • Explore Car Booking
+2026-01-19T02:28:37.2583192Z 
+2026-01-19T02:28:37.2583287Z ============================================================
+2026-01-19T02:28:37.2583472Z 
+2026-01-19T02:28:37.2583971Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_phptravels_demo/execution.json
+2026-01-19T02:28:37.3893656Z 
+2026-01-19T02:28:37.3894189Z [PHASE] Running Phase: DISCOVERY
+2026-01-19T02:28:37.3896474Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_phptravels_demo --url https://phptravels.com/demo/ --deep
+2026-01-19T02:28:37.3898526Z ✅ Phase 'discovery' completed successfully.
+2026-01-19T02:28:37.3899125Z 
+2026-01-19T02:28:37.3899258Z [PHASE] Running Phase: PLANNING
+2026-01-19T02:28:37.3901076Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_phptravels_demo --goal Explore travel booking --url https://phptravels.com/demo/ --deep
+2026-01-19T02:28:37.3902989Z ✅ Phase 'planning' completed successfully.
+2026-01-19T02:28:37.3903264Z 
+2026-01-19T02:28:37.3903393Z [PHASE] Running Phase: EXPLORATION
+2026-01-19T02:28:37.3904787Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_phptravels_demo
+2026-01-19T02:28:37.3906310Z ✅ Phase 'exploration' completed successfully.
+2026-01-19T02:28:37.3906816Z 📊 Exploration Discovery Success Rate: 13.0%
+2026-01-19T02:28:37.3907503Z ⚠️ Exploration failed to find stable locators for key steps. Execution might fail.
+2026-01-19T02:28:37.3907849Z 
+2026-01-19T02:28:37.3907953Z [PHASE] Running Phase: EXECUTION
+2026-01-19T02:28:37.3909114Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_phptravels_demo
+2026-01-19T02:28:37.3910217Z ✅ Phase 'execution' completed successfully.
+2026-01-19T02:28:37.3910420Z 
+2026-01-19T02:28:37.3910527Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-19T02:28:37.5216580Z ##[group]Run RESULT_FILE="projects/ci_phptravels_demo/execution.json"
+2026-01-19T02:28:37.5217096Z [36;1mRESULT_FILE="projects/ci_phptravels_demo/execution.json"[0m
+2026-01-19T02:28:37.5217450Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-19T02:28:37.5217783Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-19T02:28:37.5218419Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-19T02:28:37.5219068Z [36;1melse[0m
+2026-01-19T02:28:37.5219303Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-19T02:28:37.5219591Z [36;1m  exit 1[0m
+2026-01-19T02:28:37.5219772Z [36;1mfi[0m
+2026-01-19T02:28:37.5251512Z shell: /usr/bin/bash -e {0}
+2026-01-19T02:28:37.5251736Z env:
+2026-01-19T02:28:37.5251982Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:28:37.5252411Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:28:37.5252855Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:28:37.5253224Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:28:37.5253594Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:28:37.5253967Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:28:37.5254272Z ##[endgroup]
+2026-01-19T02:28:37.5308292Z ✅ Results generated successfully: projects/ci_phptravels_demo/execution.json
+2026-01-19T02:28:37.5335012Z 3
+2026-01-19T02:28:37.5401073Z ##[group]Run actions/upload-artifact@v4
+2026-01-19T02:28:37.5401367Z with:
+2026-01-19T02:28:37.5401580Z   name: phptravels_demo-execution-results
+2026-01-19T02:28:37.5402036Z   path: projects/ci_phptravels_demo/execution.json
+projects/ci_phptravels_demo/workflow.json
+
+2026-01-19T02:28:37.5402484Z   retention-days: 30
+2026-01-19T02:28:37.5402692Z   if-no-files-found: warn
+2026-01-19T02:28:37.5402913Z   compression-level: 6
+2026-01-19T02:28:37.5403117Z   overwrite: false
+2026-01-19T02:28:37.5403324Z   include-hidden-files: false
+2026-01-19T02:28:37.5403542Z env:
+2026-01-19T02:28:37.5403782Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:28:37.5404200Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T02:28:37.5404606Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:28:37.5404985Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:28:37.5405382Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T02:28:37.5405753Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T02:28:37.5406051Z ##[endgroup]
+2026-01-19T02:28:37.7627821Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-19T02:28:37.7632829Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_phptravels_demo. This will be the root directory of the artifact
+2026-01-19T02:28:37.7634211Z With the provided path, there will be 2 files uploaded
+2026-01-19T02:28:37.7639898Z Artifact name is valid!
+2026-01-19T02:28:37.7641554Z Root directory input is valid!
+2026-01-19T02:28:37.8789268Z Beginning upload of artifact content to blob storage
+2026-01-19T02:28:38.0028210Z Uploaded bytes 1579
+2026-01-19T02:28:38.0363753Z Finished uploading artifact content to blob storage!
+2026-01-19T02:28:38.0367385Z SHA256 digest of uploaded artifact zip is 07537f6fe8ffd2718932a9d38bc25a2b4a5e82c156b2458f8c2f7a0c4ebb7e35
+2026-01-19T02:28:38.0369679Z Finalizing artifact upload
+2026-01-19T02:28:38.1213465Z Artifact phptravels_demo-execution-results.zip successfully finalized. Artifact ID 5171779215
+2026-01-19T02:28:38.1215298Z Artifact phptravels_demo-execution-results has been successfully uploaded! Final size is 1579 bytes. Artifact ID is 5171779215
+2026-01-19T02:28:38.1221694Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21122730879/artifacts/5171779215
+2026-01-19T02:28:38.1350653Z Post job cleanup.
+2026-01-19T02:28:38.2900016Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-19T02:28:38.3054304Z Post job cleanup.
+2026-01-19T02:28:38.4046653Z [command]/usr/bin/git version
+2026-01-19T02:28:38.4083885Z git version 2.52.0
+2026-01-19T02:28:38.4127706Z Temporarily overriding HOME='/home/runner/work/_temp/976c7e11-4ff7-4c89-8914-54627a0d8e48' before making global git config changes
+2026-01-19T02:28:38.4129368Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T02:28:38.4142493Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T02:28:38.4179060Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T02:28:38.4217909Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T02:28:38.4462545Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T02:28:38.4486445Z http.https://github.com/.extraheader
+2026-01-19T02:28:38.4502310Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-19T02:28:38.4537149Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T02:28:38.4769455Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T02:28:38.4802529Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T02:28:38.5140965Z Cleaning up orphan processes
