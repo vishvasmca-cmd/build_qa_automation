@@ -18,8 +18,11 @@ from typing import Optional, Dict
 from playwright.async_api import Page
 import re
 
+# Debug mode - set to True to see detailed strategy attempts
+DEBUG_SMART_SELECTORS = True
 
-async def find_element_smart(page: Page, description: str) -> Optional[Dict]:
+
+async def find_element_smart(page: Page, description: str, debug: bool = None) -> Optional[Dict]:
     """
     Try deterministic element finding strategies before AI fallback.
     
@@ -28,6 +31,7 @@ async def find_element_smart(page: Page, description: str) -> Optional[Dict]:
     Args:
         page: Playwright Page object
         description: Human-readable element description (e.g., "Username", "Submit")
+        debug: Enable debug logging (defaults to DEBUG_SMART_SELECTORS global)
         
     Returns:
         {
@@ -37,6 +41,15 @@ async def find_element_smart(page: Page, description: str) -> Optional[Dict]:
             "count": 1
         } if unique match found, None otherwise (triggers AI fallback)
     """
+    
+    # Initialize debug mode
+    if debug is None:
+        debug = DEBUG_SMART_SELECTORS
+    
+    strategies_tried = 0
+    
+    if debug:
+        print(f"    🔍 [SMART] Searching for: '{description}' (trying 15+ strategies)")
     
     # Normalize description for matching
     desc_lower = description.lower().strip()
