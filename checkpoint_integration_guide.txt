@@ -1,0 +1,74 @@
+# Checkpoint Integration Points
+
+## Where to Save Checkpoints
+
+**After successful step execution** (line ~527):
+```python
+self.log(f"    ✅ State transitioned.", "green")
+
+# ADD HERE: Save checkpoint
+if self.enable_checkpoints and used_locator:
+    self.checkpoint_mgr.save_step_success(
+        scenario_name=scenario["name"],
+        step_index=i,
+        step_data=step,
+        locator=used_locator,
+        page_url=page.url
+    )
+    self.log(f"    💾 Checkpoint saved (step {i+1})", "grey")
+```
+
+## Where to Load/Resume
+
+**At scenario start** (line ~220):
+```python
+i = 0
+steps = scenario.get("steps", [])
+
+# ADD HERE: Check for checkpoint
+if self.enable_checkpoints:
+    resume_from = self.checkpoint_mgr.get_resume_point(scenario["name"])
+    
+    if resume_from > 0:
+        self.log(f"    📌 CHECKPOINT FOUND! Resuming from step {resume_from + 1}", "cyan")
+        
+        # Load proven locators
+        checkpoint = self.checkpoint_mgr.load_checkpoint(scenario["name"])
+        if checkpoint:
+            for completed in checkpoint["completed_steps"]:
+                idx = completed["index"]
+                if idx < len(steps):
+                    # Restore proven locator
+                    steps[idx]["locators"] = [{"value": completed["locator"], "priority": 0}]
+                    steps[idx]["skipped"] = True  # Mark as already done
+        
+        i = resume_from  # Start from failure point
+```
+
+## Where to Log Failures
+
+**After step failure** (multiple places):
+```python
+except Exception as e:
+    self.log(f"    ❌ Step failed: {e}", "red")
+    
+    # ADD HERE: Log failure
+    if self.enable_checkpoints:
+        self.checkpoint_mgr.log_failure(
+            scenario_name=scenario["name"],
+            step_index=i,
+            description=description,
+            locator=attempted_locator,
+            error=str(e),
+            method="smart-selector"  # or "ai-vision"
+        )
+```
+
+## Integration Status
+
+- [x] CheckpointManager created
+- [x] Integrated into __init__
+- [ ] Save after successful steps
+- [ ] Resume from checkpoint
+- [ ] Log failures
+- [ ] Test on Parabank

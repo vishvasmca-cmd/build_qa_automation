@@ -1,0 +1,915 @@
+﻿2026-01-19T04:25:00.1703533Z Current runner version: '2.331.0'
+2026-01-19T04:25:00.1726446Z ##[group]Runner Image Provisioner
+2026-01-19T04:25:00.1727257Z Hosted Compute Agent
+2026-01-19T04:25:00.1727891Z Version: 20251211.462
+2026-01-19T04:25:00.1728507Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-19T04:25:00.1729359Z Build Date: 2025-12-11T16:28:49Z
+2026-01-19T04:25:00.1730080Z Worker ID: {6c3ff2c7-8ead-42f3-b62e-fe5f027765eb}
+2026-01-19T04:25:00.1730885Z ##[endgroup]
+2026-01-19T04:25:00.1731408Z ##[group]Operating System
+2026-01-19T04:25:00.1731998Z Ubuntu
+2026-01-19T04:25:00.1732460Z 24.04.3
+2026-01-19T04:25:00.1732883Z LTS
+2026-01-19T04:25:00.1733392Z ##[endgroup]
+2026-01-19T04:25:00.1733921Z ##[group]Runner Image
+2026-01-19T04:25:00.1734434Z Image: ubuntu-24.04
+2026-01-19T04:25:00.1734997Z Version: 20260111.209.1
+2026-01-19T04:25:00.1736020Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-19T04:25:00.1737596Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-19T04:25:00.1738621Z ##[endgroup]
+2026-01-19T04:25:00.1740026Z ##[group]GITHUB_TOKEN Permissions
+2026-01-19T04:25:00.1741862Z Contents: read
+2026-01-19T04:25:00.1742418Z Metadata: read
+2026-01-19T04:25:00.1743059Z Packages: read
+2026-01-19T04:25:00.1743526Z ##[endgroup]
+2026-01-19T04:25:00.1745962Z Secret source: Actions
+2026-01-19T04:25:00.1746712Z Prepare workflow directory
+2026-01-19T04:25:00.2711501Z Prepare all required actions
+2026-01-19T04:25:00.2748825Z Getting action download info
+2026-01-19T04:25:00.6824485Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-19T04:25:00.7750136Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-19T04:25:00.8537541Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-19T04:25:01.1680041Z Complete job name: test-websites-deep (wordpress_demo, https://tastewp.com/new, Quick WordPress testing)
+2026-01-19T04:25:01.3758206Z ##[group]Run actions/checkout@v4
+2026-01-19T04:25:01.3759268Z with:
+2026-01-19T04:25:01.3759764Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T04:25:01.3760580Z   token: ***
+2026-01-19T04:25:01.3760969Z   ssh-strict: true
+2026-01-19T04:25:01.3761363Z   ssh-user: git
+2026-01-19T04:25:01.3761784Z   persist-credentials: true
+2026-01-19T04:25:01.3762254Z   clean: true
+2026-01-19T04:25:01.3762698Z   sparse-checkout-cone-mode: true
+2026-01-19T04:25:01.3763181Z   fetch-depth: 1
+2026-01-19T04:25:01.3763562Z   fetch-tags: false
+2026-01-19T04:25:01.3763957Z   show-progress: true
+2026-01-19T04:25:01.3764356Z   lfs: false
+2026-01-19T04:25:01.3764713Z   submodules: false
+2026-01-19T04:25:01.3765107Z   set-safe-directory: true
+2026-01-19T04:25:01.3765875Z ##[endgroup]
+2026-01-19T04:25:01.4884762Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T04:25:01.4886660Z ##[group]Getting Git version info
+2026-01-19T04:25:01.4887552Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T04:25:01.4888619Z [command]/usr/bin/git version
+2026-01-19T04:25:01.4954614Z git version 2.52.0
+2026-01-19T04:25:01.4982377Z ##[endgroup]
+2026-01-19T04:25:01.4999470Z Temporarily overriding HOME='/home/runner/work/_temp/0b0f82ad-b11e-4978-baeb-7f8772b1b180' before making global git config changes
+2026-01-19T04:25:01.5001844Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T04:25:01.5015313Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T04:25:01.5060063Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T04:25:01.5064227Z ##[group]Initializing the repository
+2026-01-19T04:25:01.5069496Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T04:25:01.5182843Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-19T04:25:01.5184588Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-19T04:25:01.5186009Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-19T04:25:01.5186925Z hint: call:
+2026-01-19T04:25:01.5187352Z hint:
+2026-01-19T04:25:01.5188180Z hint: 	git config --global init.defaultBranch <name>
+2026-01-19T04:25:01.5189382Z hint:
+2026-01-19T04:25:01.5190368Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-19T04:25:01.5191940Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-19T04:25:01.5193179Z hint:
+2026-01-19T04:25:01.5193856Z hint: 	git branch -m <name>
+2026-01-19T04:25:01.5194616Z hint:
+2026-01-19T04:25:01.5195588Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-19T04:25:01.5197432Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-19T04:25:01.5201840Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T04:25:01.5239296Z ##[endgroup]
+2026-01-19T04:25:01.5240494Z ##[group]Disabling automatic garbage collection
+2026-01-19T04:25:01.5244481Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-19T04:25:01.5275522Z ##[endgroup]
+2026-01-19T04:25:01.5276703Z ##[group]Setting up auth
+2026-01-19T04:25:01.5283816Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T04:25:01.5316908Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T04:25:01.5669919Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T04:25:01.5701605Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T04:25:01.5935937Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T04:25:01.5969572Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T04:25:01.6214233Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-19T04:25:01.6251517Z ##[endgroup]
+2026-01-19T04:25:01.6252285Z ##[group]Fetching the repository
+2026-01-19T04:25:01.6260347Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2f305d435d899f67f11ae5adc61ad536fdd999e8:refs/remotes/origin/main
+2026-01-19T04:25:02.8938451Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T04:25:02.8940074Z  * [new ref]         2f305d435d899f67f11ae5adc61ad536fdd999e8 -> origin/main
+2026-01-19T04:25:02.8970767Z ##[endgroup]
+2026-01-19T04:25:02.8971704Z ##[group]Determining the checkout info
+2026-01-19T04:25:02.8972677Z ##[endgroup]
+2026-01-19T04:25:02.8977648Z [command]/usr/bin/git sparse-checkout disable
+2026-01-19T04:25:02.9016784Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-19T04:25:02.9041653Z ##[group]Checking out the ref
+2026-01-19T04:25:02.9045382Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-19T04:25:03.0562376Z Switched to a new branch 'main'
+2026-01-19T04:25:03.0563467Z branch 'main' set up to track 'origin/main'.
+2026-01-19T04:25:03.0583820Z ##[endgroup]
+2026-01-19T04:25:03.0624064Z [command]/usr/bin/git log -1 --format=%H
+2026-01-19T04:25:03.0648022Z 2f305d435d899f67f11ae5adc61ad536fdd999e8
+2026-01-19T04:25:03.1706405Z ##[group]Run actions/setup-python@v5
+2026-01-19T04:25:03.1706830Z with:
+2026-01-19T04:25:03.1707075Z   python-version: 3.11
+2026-01-19T04:25:03.1707350Z   cache: pip
+2026-01-19T04:25:03.1707876Z   check-latest: false
+2026-01-19T04:25:03.1708434Z   token: ***
+2026-01-19T04:25:03.1708700Z   update-environment: true
+2026-01-19T04:25:03.1709001Z   allow-prereleases: false
+2026-01-19T04:25:03.1709694Z   freethreaded: false
+2026-01-19T04:25:03.1709970Z ##[endgroup]
+2026-01-19T04:25:03.3508348Z ##[group]Installed versions
+2026-01-19T04:25:03.3625721Z Successfully set up CPython (3.11.14)
+2026-01-19T04:25:03.3626618Z ##[endgroup]
+2026-01-19T04:25:03.4739539Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-19T04:25:03.8113679Z /home/runner/.cache/pip
+2026-01-19T04:25:04.1206230Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T04:25:05.3991333Z Received 8388608 of 254742636 (3.3%), 8.0 MBs/sec
+2026-01-19T04:25:06.3992979Z Received 134217728 of 254742636 (52.7%), 64.0 MBs/sec
+2026-01-19T04:25:07.3977878Z Received 254742636 of 254742636 (100.0%), 81.0 MBs/sec
+2026-01-19T04:25:07.3979021Z Cache Size: ~243 MB (254742636 B)
+2026-01-19T04:25:07.4111394Z [command]/usr/bin/tar -xf /home/runner/work/_temp/1d5ab0bd-5d78-4254-8707-9a75463b517c/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-19T04:25:07.8257681Z Cache restored successfully
+2026-01-19T04:25:07.8746071Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T04:25:07.9282455Z ##[group]Run pip install -r requirements.txt
+2026-01-19T04:25:07.9282894Z [36;1mpip install -r requirements.txt[0m
+2026-01-19T04:25:07.9283195Z [36;1mplaywright install chromium[0m
+2026-01-19T04:25:07.9321786Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:25:07.9322060Z env:
+2026-01-19T04:25:07.9322330Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:25:07.9322777Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:25:07.9323224Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:25:07.9323632Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:25:07.9324010Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:25:07.9324387Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:25:07.9324703Z ##[endgroup]
+2026-01-19T04:25:08.8520864Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-19T04:25:08.8537099Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-19T04:25:08.8693992Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-19T04:25:08.8708769Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-19T04:25:08.8961141Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-19T04:25:08.8975063Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-19T04:25:09.0717935Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-19T04:25:09.0735279Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-19T04:25:09.0990561Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-19T04:25:09.1004568Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-19T04:25:09.1141594Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-19T04:25:09.1154590Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-19T04:25:09.1493668Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-19T04:25:09.1507822Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-19T04:25:09.2043532Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-19T04:25:09.2057923Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-19T04:25:09.3976074Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-19T04:25:09.3991736Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-19T04:25:09.4764047Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-19T04:25:09.4778673Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-19T04:25:09.4934161Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-19T04:25:09.4947595Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-19T04:25:09.6129463Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-19T04:25:09.6145146Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-19T04:25:09.6314916Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-19T04:25:09.6328959Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-19T04:25:09.7107067Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-19T04:25:09.7123029Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-19T04:25:09.7270237Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-19T04:25:09.7283939Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T04:25:09.7550041Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-19T04:25:09.7568279Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-19T04:25:09.7755096Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-19T04:25:09.7769562Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-19T04:25:09.7962982Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:09.7975672Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-19T04:25:09.8291609Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:09.8304233Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-19T04:25:09.8517535Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:09.8530425Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-19T04:25:09.9922143Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:09.9936419Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-19T04:25:10.0195112Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:10.0208073Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-19T04:25:10.1047598Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:10.1062315Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-19T04:25:10.1208639Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:10.1222047Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-19T04:25:10.1297191Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:10.1310378Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-19T04:25:10.1590109Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:10.1602830Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-19T04:25:10.1764569Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:10.1776833Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-19T04:25:10.2028363Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:10.2041117Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-19T04:25:10.2168066Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:10.2180712Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-19T04:25:10.2279379Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:10.2292047Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-19T04:25:10.8723331Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:10.8739407Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-19T04:25:10.8864380Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:10.8877888Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-19T04:25:10.9576024Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:25:10.9592654Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T04:25:10.9862128Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-19T04:25:11.0213762Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-19T04:25:11.0230887Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-19T04:25:11.0246919Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-19T04:25:11.0263687Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-19T04:25:11.0280060Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-19T04:25:11.0293227Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-19T04:25:11.0309423Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-19T04:25:11.0323880Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-19T04:25:11.0387053Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-19T04:25:11.0404978Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-19T04:25:11.0418442Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-19T04:25:11.0431735Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-19T04:25:11.0445920Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-19T04:25:11.0459353Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-19T04:25:11.0472876Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-19T04:25:11.0489375Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-19T04:25:11.0517060Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-19T04:25:11.0530244Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-19T04:25:11.0543370Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-19T04:25:11.0557293Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-19T04:25:11.0571209Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-19T04:25:11.0584728Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-19T04:25:11.0603893Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-19T04:25:11.1064195Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-19T04:25:11.1194973Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-19T04:25:11.1222960Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-19T04:25:11.1236138Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-19T04:25:11.1250074Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-19T04:25:11.1263292Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-19T04:25:11.1276457Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-19T04:25:11.1290895Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-19T04:25:11.1303897Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-19T04:25:11.3321169Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-19T04:25:18.0983016Z 
+2026-01-19T04:25:18.1006189Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-19T04:25:18.7153231Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-19T04:25:18.8130538Z (node:2206) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T04:25:18.8132232Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T04:25:19.0214689Z |                                                                                |   0% of 164.7 MiB
+2026-01-19T04:25:19.1987421Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-19T04:25:19.3176309Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-19T04:25:19.4557514Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-19T04:25:19.6095738Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-19T04:25:19.7458794Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-19T04:25:19.8624752Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-19T04:25:19.9948547Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-19T04:25:20.1647252Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-19T04:25:20.3108492Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-19T04:25:20.4435722Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-19T04:25:22.8436399Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-19T04:25:22.8440388Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-19T04:25:22.9401276Z (node:2217) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T04:25:22.9402681Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T04:25:23.1308446Z |                                                                                |   0% of 2.3 MiB
+2026-01-19T04:25:23.2214904Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-19T04:25:23.2598786Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-19T04:25:23.2874060Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-19T04:25:23.3433739Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-19T04:25:23.3513786Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-19T04:25:23.3594549Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-19T04:25:23.3664544Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-19T04:25:23.3855112Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-19T04:25:23.3909921Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-19T04:25:23.4043860Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-19T04:25:23.4592466Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-19T04:25:23.4595709Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-19T04:25:23.5569839Z (node:2228) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T04:25:23.5571841Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T04:25:23.6519705Z |                                                                                |   0% of 109.7 MiB
+2026-01-19T04:25:23.7581768Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-19T04:25:23.8370123Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-19T04:25:23.9159674Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-19T04:25:24.0048686Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-19T04:25:24.0729824Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-19T04:25:24.1510501Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-19T04:25:24.2339550Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-19T04:25:24.3245149Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-19T04:25:24.4312199Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-19T04:25:24.5247265Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-19T04:25:26.3082224Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-19T04:25:26.3416952Z ##[group]Run mkdir -p projects/ci_wordpress_demo
+2026-01-19T04:25:26.3417392Z [36;1mmkdir -p projects/ci_wordpress_demo[0m
+2026-01-19T04:25:26.3417778Z [36;1mcat > projects/ci_wordpress_demo/config.json << 'EOF'[0m
+2026-01-19T04:25:26.3418101Z [36;1m{[0m
+2026-01-19T04:25:26.3418308Z [36;1m  "project_name": "ci_wordpress_demo",[0m
+2026-01-19T04:25:26.3418641Z [36;1m  "target_url": "https://tastewp.com/new",[0m
+2026-01-19T04:25:26.3418951Z [36;1m  "goal": "Quick WordPress testing",[0m
+2026-01-19T04:25:26.3419567Z [36;1m  "headless": true[0m
+2026-01-19T04:25:26.3419777Z [36;1m}[0m
+2026-01-19T04:25:26.3419942Z [36;1mEOF[0m
+2026-01-19T04:25:26.3454732Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:25:26.3454967Z env:
+2026-01-19T04:25:26.3455226Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:25:26.3455662Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:25:26.3456114Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:25:26.3456515Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:25:26.3456905Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:25:26.3457280Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:25:26.3457592Z ##[endgroup]
+2026-01-19T04:25:26.3622456Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-19T04:25:26.3622886Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-19T04:25:26.3623344Z [36;1mpython orchestrator.py --project projects/ci_wordpress_demo --deep --force[0m
+2026-01-19T04:25:26.3653168Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:25:26.3653391Z env:
+2026-01-19T04:25:26.3653643Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:25:26.3654065Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:25:26.3654502Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:25:26.3654871Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:25:26.3655415Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:25:26.3655791Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:25:26.3656267Z   GOOGLE_API_KEY: ***
+2026-01-19T04:25:26.3656490Z   PYTHONPATH: .
+2026-01-19T04:25:26.3656754Z ##[endgroup]
+2026-01-19T04:25:28.1034059Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-19T04:25:28.1034650Z 
+2026-01-19T04:25:28.1035483Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://tastewp.com/new (Workers: 3)
+2026-01-19T04:25:29.0958989Z   🔍 [Worker 0] Visiting (0): https://tastewp.com/new
+2026-01-19T04:25:31.0910314Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:31.0911031Z [DEBUG] Received response (Length: 212)
+2026-01-19T04:25:31.0911934Z   🔍 [Worker 1] Visiting (1): https://tastewp.com
+2026-01-19T04:25:31.0920577Z   🔍 [Worker 2] Visiting (1): https://tastewp.com/create/NMS/8.5/6.9/tastewp-default/twentytwentythree
+2026-01-19T04:25:35.9122841Z [CACHE HIT] 1f324102... (hits: 1, misses: 1)
+2026-01-19T04:25:35.9123573Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:35.9124264Z [DEBUG] Received response (Length: 278)
+2026-01-19T04:25:35.9124931Z   🔍 [Worker 0] Visiting (2): https://tastewp.com/blog
+2026-01-19T04:25:35.9132409Z   🔍 [Worker 2] Visiting (2): https://tastewp.com/blog/new-tastewp-module-for-teachers-and-students
+2026-01-19T04:25:35.9314923Z   🔍 [Worker 1] Visiting (2): https://tastewp.com/new/?pre-installed-theme-slug=neve
+2026-01-19T04:25:36.4747973Z [CACHE HIT] 1f324102... (hits: 2, misses: 2)
+2026-01-19T04:25:36.4749264Z   🔍 [Worker 1] Visiting (2): https://tastewp.com/premium-show
+2026-01-19T04:25:37.4583943Z [CACHE HIT] 343d93f5... (hits: 3, misses: 2)
+2026-01-19T04:25:37.4585667Z   🔍 [Worker 1] Visiting (2): https://tastewp.com/blog/the-tastewp-chrome-extension-is-live
+2026-01-19T04:25:40.8344286Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:40.8351205Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:40.8352203Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:40.8353084Z [DEBUG] Received response (Length: 163)
+2026-01-19T04:25:40.8354210Z   🔍 [Worker 1] Visiting (2): https://tastewp.com/blog/use-links-to-spin-up-a-site
+2026-01-19T04:25:40.8638359Z [DEBUG] Received response (Length: 256)
+2026-01-19T04:25:40.8639936Z   🔍 [Worker 2] Visiting (2): https://tastewp.com/blog/how-to-create-wordpress-product-demo
+2026-01-19T04:25:40.9897565Z [DEBUG] Received response (Length: 262)
+2026-01-19T04:25:40.9898733Z   🔍 [Worker 0] Visiting (2): https://tastewp.com/new/?pre-installed-plugin-slug=akismet
+2026-01-19T04:25:41.5066564Z [CACHE HIT] 1f324102... (hits: 4, misses: 5)
+2026-01-19T04:25:41.5067688Z   🔍 [Worker 0] Visiting (3): https://tastewp.com/create/NMS/8.5/6.9/tastewp-default/neve
+2026-01-19T04:25:41.8190176Z [CACHE HIT] 1f324102... (hits: 5, misses: 5)
+2026-01-19T04:25:41.8194754Z   🔍 [Worker 0] Visiting (3): https://tastewp.com/?open=login
+2026-01-19T04:25:43.0614448Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:43.0642564Z [DEBUG] Received response (Length: 375)
+2026-01-19T04:25:43.0674443Z   🔍 [Worker 2] Visiting (3): https://tastewp.com/?open=register
+2026-01-19T04:25:47.8513444Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:47.8515060Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:47.8515777Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:47.8516376Z [DEBUG] Received response (Length: 184)
+2026-01-19T04:25:47.8517430Z   🔍 [Worker 2] Visiting (3): https://blog.tastewp.com
+2026-01-19T04:25:47.9129714Z [DEBUG] Received response (Length: 173)
+2026-01-19T04:25:47.9131033Z   🔍 [Worker 0] Visiting (3): https://blog.tastewp.com/the-tastewp-chrome-extension-is-live
+2026-01-19T04:25:47.9731211Z [DEBUG] Received response (Length: 266)
+2026-01-19T04:25:47.9732723Z   🔍 [Worker 1] Visiting (3): https://tastewp.com/?open=setup
+2026-01-19T04:25:48.5134720Z [CACHE HIT] 56033909... (hits: 6, misses: 9)
+2026-01-19T04:25:48.5180771Z   🔍 [Worker 2] Visiting (3): https://blog.tastewp.com/new-features
+2026-01-19T04:25:49.0039321Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:49.0040248Z [CACHE HIT] a79b3b43... (hits: 7, misses: 10)
+2026-01-19T04:25:49.0041360Z   🔍 [Worker 0] Visiting (3): https://tastewp.com/?open=policy
+2026-01-19T04:25:49.7206326Z [DEBUG] Received response (Length: 257)
+2026-01-19T04:25:49.7207367Z   🔍 [Worker 1] Visiting (3): https://tastewp.com/dashboard
+2026-01-19T04:25:50.8218506Z [CACHE HIT] 84306fa7... (hits: 8, misses: 12)
+2026-01-19T04:25:50.8220867Z   🔍 [Worker 1] Visiting (3): https://blog.tastewp.com/new-tastewp-module-for-teachers-and-students
+2026-01-19T04:25:51.8691864Z [CACHE HIT] bf11cdf7... (hits: 9, misses: 12)
+2026-01-19T04:25:51.8693002Z   🔍 [Worker 1] Visiting (3): https://blog.tastewp.com/?open=login
+2026-01-19T04:25:52.4426245Z [CACHE HIT] 56033909... (hits: 10, misses: 12)
+2026-01-19T04:25:52.4429872Z   🔍 [Worker 1] Visiting (3): https://blog.tastewp.com/use-your-own-domain-on-tastewp
+2026-01-19T04:25:54.3844077Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:54.3844826Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:54.3845511Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:54.3846088Z [DEBUG] Received response (Length: 238)
+2026-01-19T04:25:54.3847117Z   🔍 [Worker 1] Visiting (3): https://blog.tastewp.com/welcome-to-the-tastewp-blog
+2026-01-19T04:25:54.4670725Z [DEBUG] Received response (Length: 294)
+2026-01-19T04:25:54.4672021Z   🔍 [Worker 2] Visiting (3): https://blog.tastewp.com/tastewp-launches-premium-offer
+2026-01-19T04:25:54.5966016Z [DEBUG] Received response (Length: 341)
+2026-01-19T04:25:54.5967181Z   🔍 [Worker 0] Visiting (3): https://blog.tastewp.com/weve-reached-1-million-sites
+2026-01-19T04:25:59.3290440Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:59.3291602Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:59.3292558Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:25:59.3293205Z [DEBUG] Received response (Length: 150)
+2026-01-19T04:25:59.3294433Z   🔍 [Worker 0] Visiting (3): https://blog.tastewp.com/how-to-create-wordpress-product-demo
+2026-01-19T04:25:59.3752391Z [DEBUG] Received response (Length: 224)
+2026-01-19T04:25:59.3753958Z   🔍 [Worker 2] Visiting (3): https://blog.tastewp.com/general
+2026-01-19T04:25:59.4310757Z [DEBUG] Received response (Length: 274)
+2026-01-19T04:25:59.4311997Z   🔍 [Worker 1] Visiting (3): https://blog.tastewp.com/news
+2026-01-19T04:26:00.3120483Z [CACHE HIT] 2a00e821... (hits: 11, misses: 16)
+2026-01-19T04:26:00.3123518Z   🔍 [Worker 0] Visiting (3): https://blog.tastewp.com/guides
+2026-01-19T04:26:01.3068737Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:26:01.3070789Z [DEBUG] Received response (Length: 249)
+2026-01-19T04:26:01.3072406Z   🔍 [Worker 2] Visiting (3): https://blog.tastewp.com/use-links-to-spin-up-a-site
+2026-01-19T04:26:02.4609504Z [CACHE HIT] 3abbcbe6... (hits: 12, misses: 19)
+2026-01-19T04:26:02.4610846Z   🔍 [Worker 2] Visiting (3): https://blog.tastewp.com/how-to-create-free-wordpress-staging-site
+2026-01-19T04:26:06.2382734Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:26:06.2390926Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:26:06.2391900Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:26:06.2392924Z [DEBUG] Received response (Length: 310)
+2026-01-19T04:26:06.2393870Z   🔍 [Worker 2] Visiting (3): https://tastewp.com/dashboard/recipes
+2026-01-19T04:26:06.2682209Z [DEBUG] Received response (Length: 334)
+2026-01-19T04:26:06.2684092Z   🔍 [Worker 0] Visiting (3): https://blog.tastewp.com/introducing-site-recipes-full-scale-demo-sites-on-tastewp
+2026-01-19T04:26:06.3181769Z [DEBUG] Received response (Length: 291)
+2026-01-19T04:26:06.3185796Z   🔍 [Worker 1] Visiting (3): https://tastewp.com/create/NMS/8.5/6.9/akismet/twentytwentythree
+2026-01-19T04:26:06.6488522Z [CACHE HIT] 1f324102... (hits: 13, misses: 20)
+2026-01-19T04:26:06.6492505Z   🔍 [Worker 1] Visiting (3): https://demo.tastewp.com/astra-bundle
+2026-01-19T04:26:07.4766898Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:26:07.4772637Z [CACHE HIT] 84306fa7... (hits: 14, misses: 21)
+2026-01-19T04:26:07.4773679Z   🔍 [Worker 2] Visiting (3): https://tastewp.com/recipe/SiteRecipeDemo
+2026-01-19T04:26:07.8026832Z [CACHE HIT] 1f324102... (hits: 15, misses: 21)
+2026-01-19T04:26:07.8028053Z   🔍 [Worker 2] Visiting (3): https://tastewp.com/dashboard/premium
+2026-01-19T04:26:07.9631392Z [CACHE HIT] 1f324102... (hits: 16, misses: 21)
+2026-01-19T04:26:07.9632008Z [DEBUG] Received response (Length: 259)
+2026-01-19T04:26:07.9643323Z   🔍 [Worker 0] Visiting (3): https://demo.tastewp.com/cdp-premium
+2026-01-19T04:26:08.0174829Z   🔍 [Worker 1] Visiting (3): https://demo.tastewp.com/akismet
+2026-01-19T04:26:12.7989291Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:26:12.7991081Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:26:12.7992361Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:26:12.7994182Z [DEBUG] Received response (Length: 168)
+2026-01-19T04:26:12.7995926Z   🔍 [Worker 0] Visiting (3): https://tastewp.com/new?pre-installed-plugin-slug=backup-migration&redirect=admin.php%3Fpage%3Dbackup-migration&ni=true
+2026-01-19T04:26:12.9021798Z [DEBUG] Received response (Length: 187)
+2026-01-19T04:26:12.9022665Z [DEBUG] Received response (Length: 168)
+2026-01-19T04:26:12.9023678Z   🔍 [Worker 2] Visiting (3): https://tastewp.com/new/?ni=true
+2026-01-19T04:26:12.9055868Z   🔍 [Worker 1] Visiting (3): https://tastewp.com/new/?pre-installed-theme-slug=twentytwentyone
+2026-01-19T04:26:18.0155777Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:26:18.0156649Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:26:18.0157472Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:26:18.0158132Z [DEBUG] Received response (Length: 154)
+2026-01-19T04:26:18.0158670Z [DEBUG] Received response (Length: 154)
+2026-01-19T04:26:18.0159365Z [DEBUG] Received response (Length: 154)
+2026-01-19T04:26:18.0160190Z ✅ Discovery Complete. Mapped 43 pages.
+2026-01-19T04:26:27.1888097Z 
+2026-01-19T04:26:27.1888820Z [PLAN] PLANNER: Planning goal -> 'Quick WordPress testing' (Deep Mode: True)
+2026-01-19T04:26:27.1889801Z 🗺️ [PLAN] Loaded Sitemap with 43 pages.
+2026-01-19T04:26:27.1890729Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-19T04:26:27.1891640Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:26:27.1891989Z [DEBUG] Received response (Length: 3550)
+2026-01-19T04:26:27.1892344Z ✅ Planner generated 4 scenarios. Workflow updated.
+2026-01-19T04:26:28.2275240Z 
+2026-01-19T04:26:28.2278542Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-19T04:26:28.2279754Z 📋 Found 4 scenarios to explore.
+2026-01-19T04:26:28.5992494Z 
+2026-01-19T04:26:28.5993247Z [1/4] Exploring Scenario: Create a new WordPress instance and verify its creation
+2026-01-19T04:26:28.5994553Z     🧠 Initialized exploration context for goal: 'Quick WordPress testing'
+2026-01-19T04:26:28.5995155Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:26:29.3905423Z     ✅ Navigated to https://tastewp.com/new
+2026-01-19T04:26:29.3906351Z   ▶️ [STEP step_2] ASSERT_VISIBLE: TasteWP loading page
+2026-01-19T04:26:29.4149862Z     🔍 Mining locators for: 'TasteWP loading page'
+2026-01-19T04:26:29.4512906Z     🧠 Consulting AI (Vision-First) to find 'TasteWP loading page'...
+2026-01-19T04:26:29.4534013Z     🔍 Trying smart selectors for 'TasteWP loading page'...
+2026-01-19T04:26:29.5149760Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:29.5150967Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:31.0882343Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:31.0882874Z [DEBUG] Received response (Length: 303)
+2026-01-19T04:26:31.0883997Z     💡 Expert Suggestion: The current page indicates a ban due to excessive requests. Navigating back to the TasteWP homepage might reset the state or provide a way to create a new instance.
+2026-01-19T04:26:31.0884880Z     🛠️ Executing corrective action: click -> 'TasteWP'
+2026-01-19T04:26:31.1208513Z     🔄 Retry 1/3 mining locators for 'TasteWP loading page'...
+2026-01-19T04:26:32.1496392Z     🧠 Consulting AI (Vision-First) to find 'TasteWP loading page'...
+2026-01-19T04:26:32.1497312Z     🔍 Trying smart selectors for 'TasteWP loading page'...
+2026-01-19T04:26:32.2430997Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:32.2432466Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:36.2653310Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:36.2653823Z [DEBUG] Received response (Length: 398)
+2026-01-19T04:26:36.2655277Z     💡 Expert Suggestion: The current page indicates a ban due to excessive requests. Navigating back to the previous page might allow the user to retry the action that led to the ban, or to access the main site and try a different approach to reach the 'TasteWP loading page'.
+2026-01-19T04:26:36.2656477Z     🛠️ Executing corrective action: go_back -> 'previous page'
+2026-01-19T04:26:36.2996062Z     🔄 Retry 2/3 mining locators for 'TasteWP loading page'...
+2026-01-19T04:26:37.3008840Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:26:37.3010679Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:26:37.3260511Z     🧠 Consulting AI (Vision-First) to find 'TasteWP loading page'...
+2026-01-19T04:26:37.3261047Z     🔍 Trying smart selectors for 'TasteWP loading page'...
+2026-01-19T04:26:37.3805304Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:37.3807106Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:41.0859900Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:41.0860721Z [DEBUG] Received response (Length: 277)
+2026-01-19T04:26:41.0861641Z     ⚠️ Skipping duplicate injection: TasteWP
+2026-01-19T04:26:41.0862685Z     🧠 Verifying step validity for 'TasteWP loading page' after no candidates found...
+2026-01-19T04:26:45.7522043Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:45.7522548Z [DEBUG] Received response (Length: 289)
+2026-01-19T04:26:45.7524426Z     🗑️ Step deemed INVALID: The page shows a 'BANNED' message, indicating that the IP address has been temporarily blocked due to excessive requests. The 'TasteWP loading page' is not present in this state, so it's not logical to try and interact with it.. Removing from workflow.
+2026-01-19T04:26:45.7525794Z     ⏭️ Skipping execution of invalid step: TasteWP loading page
+2026-01-19T04:26:45.7526193Z   ▶️ [STEP step_3] WAIT: 
+2026-01-19T04:26:50.7677847Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:26:52.7700882Z     ✅ State transitioned.
+2026-01-19T04:26:54.1681946Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:54.1682606Z [DEBUG] Received response (Length: 241)
+2026-01-19T04:26:54.1683809Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:26:54.1685768Z     💭 Reasoning: The page indicates a ban due to too many requests. The only action possible is to wait until the ban is lifted, as indicated by the countdown timer. There are no interactive elements to click or fill.
+2026-01-19T04:26:54.1687393Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-19T04:26:59.1833703Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:27:01.1856808Z     ✅ State transitioned.
+2026-01-19T04:27:02.8004012Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:27:02.8004716Z [DEBUG] Received response (Length: 204)
+2026-01-19T04:27:02.8005596Z     🤖 AI Next Step Suggestion: wait -> until ban is lifted
+2026-01-19T04:27:02.8006263Z     🧩 Suggested Locator: #counter
+2026-01-19T04:27:02.8007215Z     💭 Reasoning: The page indicates a ban. Waiting for the ban to be lifted is the only way to proceed.
+2026-01-19T04:27:02.8008227Z     ➕ Injected AI step: wait -> until ban is lifted
+2026-01-19T04:27:02.8008910Z   ▶️ [STEP step_4_ai_1] WAIT: until ban is lifted
+2026-01-19T04:27:02.8063004Z     🎯 Using AI-provided locator: #counter
+2026-01-19T04:27:02.8127445Z     ✅ Found 1 verified locators
+2026-01-19T04:27:05.8546578Z     ✅ State transitioned.
+2026-01-19T04:27:07.5085082Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:27:07.5085745Z [DEBUG] Received response (Length: 217)
+2026-01-19T04:27:07.5086612Z     🤖 AI Next Step Suggestion: wait -> until ban is lifted
+2026-01-19T04:27:07.5087272Z     🧩 Suggested Locator: #counter
+2026-01-19T04:27:07.5088252Z     💭 Reasoning: The page indicates a ban is in place. Waiting for the ban to be lifted is the only way to progress.
+2026-01-19T04:27:07.5089421Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T04:27:09.5444255Z 
+2026-01-19T04:27:09.5445268Z [2/4] Exploring Scenario: Create a new WordPress instance with a pre-installed theme
+2026-01-19T04:27:09.5446660Z     🧠 Initialized exploration context for goal: 'Quick WordPress testing'
+2026-01-19T04:27:09.5447401Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:27:10.3209029Z     ✅ Navigated to https://tastewp.com/new/?pre-installed-theme-slug=neve
+2026-01-19T04:27:10.3209932Z   ▶️ [STEP step_2] ASSERT_VISIBLE: TasteWP loading page
+2026-01-19T04:27:10.3438536Z     🔍 Mining locators for: 'TasteWP loading page'
+2026-01-19T04:27:10.3826959Z     🧠 Consulting AI (Vision-First) to find 'TasteWP loading page'...
+2026-01-19T04:27:10.3827929Z     🔍 Trying smart selectors for 'TasteWP loading page'...
+2026-01-19T04:27:10.4397905Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:27:10.4399950Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:27:12.8707316Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:27:12.8708434Z [DEBUG] Received response (Length: 252)
+2026-01-19T04:27:12.8711138Z     💡 Expert Suggestion: The current page indicates a ban, not the TasteWP loading page. Navigating to the main TasteWP site is necessary.
+2026-01-19T04:27:12.8713329Z     🛠️ Executing corrective action: click -> 'TasteWP'
+2026-01-19T04:27:12.9013965Z     🔄 Retry 1/3 mining locators for 'TasteWP loading page'...
+2026-01-19T04:27:13.9311398Z     🧠 Consulting AI (Vision-First) to find 'TasteWP loading page'...
+2026-01-19T04:27:13.9311931Z     🔍 Trying smart selectors for 'TasteWP loading page'...
+2026-01-19T04:27:13.9840177Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:27:13.9841502Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:27:17.5141059Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:27:17.5141547Z [DEBUG] Received response (Length: 278)
+2026-01-19T04:27:17.5142821Z     💡 Expert Suggestion: The page indicates a ban due to too many requests. The 'TasteWP loading page' cannot be accessed until the ban is lifted.
+2026-01-19T04:27:17.5143686Z     🛠️ Executing corrective action: wait -> 'Wait for ban to be removed'
+2026-01-19T04:27:17.5476946Z     🔄 Retry 2/3 mining locators for 'TasteWP loading page'...
+2026-01-19T04:27:18.5490353Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:27:18.5491805Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:27:18.5737070Z     🧠 Consulting AI (Vision-First) to find 'TasteWP loading page'...
+2026-01-19T04:27:18.5737929Z     🔍 Trying smart selectors for 'TasteWP loading page'...
+2026-01-19T04:27:18.6279869Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:27:18.6281611Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:27:22.6970424Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:27:22.6971196Z [DEBUG] Received response (Length: 252)
+2026-01-19T04:27:22.6972220Z     ⚠️ Skipping duplicate injection: TasteWP
+2026-01-19T04:27:22.6973198Z     🧠 Verifying step validity for 'TasteWP loading page' after no candidates found...
+2026-01-19T04:27:27.6923160Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:27:27.6923928Z [DEBUG] Received response (Length: 313)
+2026-01-19T04:27:27.6926670Z     🗑️ Step deemed INVALID: The page shows a 'BANNED' message, indicating that the IP address has been temporarily blocked due to too many requests. The 'TasteWP loading page' is not visible or accessible in this state. Therefore, it's not possible to locate or interact with it.. Removing from workflow.
+2026-01-19T04:27:27.6928395Z     ⏭️ Skipping execution of invalid step: TasteWP loading page
+2026-01-19T04:27:27.6928888Z   ▶️ [STEP step_3] WAIT: 
+2026-01-19T04:27:32.7082700Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:27:34.7105307Z     ✅ State transitioned.
+2026-01-19T04:27:36.1560143Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:27:36.1560722Z [DEBUG] Received response (Length: 294)
+2026-01-19T04:27:36.1561270Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:27:36.1562549Z     💭 Reasoning: The page indicates a ban due to too many requests. There are no actionable elements to interact with to achieve the goal of 'Quick WordPress testing'. Waiting for the ban to be lifted is the only option, but that's outside the scope of automated action.
+2026-01-19T04:27:36.1563705Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-19T04:27:41.1708682Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:27:43.1731436Z     ✅ State transitioned.
+2026-01-19T04:27:44.7172221Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:27:44.7172729Z [DEBUG] Received response (Length: 201)
+2026-01-19T04:27:44.7173308Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:27:44.7174595Z     💭 Reasoning: The page indicates a ban due to too many requests. The only action possible is to wait until the ban is lifted, which is outside the scope of automated testing.
+2026-01-19T04:27:46.7523641Z 
+2026-01-19T04:27:46.7524868Z [3/4] Exploring Scenario: Create a new WordPress instance with a pre-installed plugin
+2026-01-19T04:27:46.7526192Z     🧠 Initialized exploration context for goal: 'Quick WordPress testing'
+2026-01-19T04:27:46.7526965Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:27:47.8600156Z     ✅ Navigated to https://tastewp.com/new/?pre-installed-plugin-slug=akismet
+2026-01-19T04:27:47.8601020Z   ▶️ [STEP step_2] ASSERT_VISIBLE: TasteWP loading page
+2026-01-19T04:27:47.8838429Z     🔍 Mining locators for: 'TasteWP loading page'
+2026-01-19T04:27:47.9148813Z     🧠 Consulting AI (Vision-First) to find 'TasteWP loading page'...
+2026-01-19T04:27:47.9150458Z     🔍 Trying smart selectors for 'TasteWP loading page'...
+2026-01-19T04:27:47.9743730Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:27:47.9745515Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:27:49.5392730Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:27:49.5393408Z [DEBUG] Received response (Length: 252)
+2026-01-19T04:27:49.5394848Z     💡 Expert Suggestion: The current page indicates a ban, not the TasteWP loading page. Navigating to the main TasteWP site is necessary.
+2026-01-19T04:27:49.5395897Z     🛠️ Executing corrective action: click -> 'TasteWP'
+2026-01-19T04:27:49.5697704Z     🔄 Retry 1/3 mining locators for 'TasteWP loading page'...
+2026-01-19T04:27:50.5966752Z     🧠 Consulting AI (Vision-First) to find 'TasteWP loading page'...
+2026-01-19T04:27:50.5967667Z     🔍 Trying smart selectors for 'TasteWP loading page'...
+2026-01-19T04:27:50.6511126Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:27:50.6512879Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:27:54.6498155Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:27:54.6498757Z [DEBUG] Received response (Length: 290)
+2026-01-19T04:27:54.6499713Z     ⚠️ Skipping duplicate injection: TasteWP
+2026-01-19T04:27:54.6500234Z     🔄 Retry 2/3 mining locators for 'TasteWP loading page'...
+2026-01-19T04:27:55.6512138Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:27:55.6513225Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:27:55.6797421Z     🧠 Consulting AI (Vision-First) to find 'TasteWP loading page'...
+2026-01-19T04:27:55.6798017Z     🔍 Trying smart selectors for 'TasteWP loading page'...
+2026-01-19T04:27:55.7328683Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:27:55.7330590Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:27:59.6817288Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:27:59.6817709Z [DEBUG] Received response (Length: 333)
+2026-01-19T04:27:59.6818936Z     💡 Expert Suggestion: The current page indicates a ban due to excessive requests. Navigating back to the previous page might allow for a fresh start or a different approach to access the TasteWP loading page.
+2026-01-19T04:27:59.6820122Z     🛠️ Executing corrective action: go_back -> 'previous page'
+2026-01-19T04:27:59.7133987Z     🧠 Verifying step validity for 'TasteWP loading page' after no candidates found...
+2026-01-19T04:28:04.4383490Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:28:04.4384018Z [DEBUG] Received response (Length: 239)
+2026-01-19T04:28:04.4385549Z     🗑️ Step deemed INVALID: The page shows a 'BANNED' message, indicating that the IP address has been temporarily blocked due to too many requests. The 'TasteWP loading page' is not present in this state.. Removing from workflow.
+2026-01-19T04:28:04.4386639Z     ⏭️ Skipping execution of invalid step: TasteWP loading page
+2026-01-19T04:28:04.4387011Z   ▶️ [STEP step_3] WAIT: 
+2026-01-19T04:28:09.4543493Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:28:11.4566498Z     ✅ State transitioned.
+2026-01-19T04:28:12.8833418Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:28:12.8834008Z [DEBUG] Received response (Length: 256)
+2026-01-19T04:28:12.8834667Z     🤖 AI Next Step Suggestion: wait -> until ban is removed
+2026-01-19T04:28:12.8835101Z     🧩 Suggested Locator: #counter
+2026-01-19T04:28:12.8835968Z     💭 Reasoning: The page indicates a ban that will be removed in a certain number of seconds. Waiting for the ban to be removed is the next logical step.
+2026-01-19T04:28:12.8837170Z     ➕ Injected AI step: wait -> until ban is removed
+2026-01-19T04:28:12.8837630Z   ▶️ [STEP step_3_ai_1] WAIT: until ban is removed
+2026-01-19T04:28:12.8887860Z     🎯 Using AI-provided locator: #counter
+2026-01-19T04:28:12.8946366Z     ✅ Found 1 verified locators
+2026-01-19T04:28:15.9353562Z     ✅ State transitioned.
+2026-01-19T04:28:17.9506103Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:28:17.9506812Z [DEBUG] Received response (Length: 264)
+2026-01-19T04:28:17.9507741Z     🤖 AI Next Step Suggestion: wait -> until ban is removed
+2026-01-19T04:28:17.9508438Z     🧩 Suggested Locator: #counter
+2026-01-19T04:28:17.9510259Z     💭 Reasoning: The page indicates a ban is in place. The previous action was waiting, and we need to continue waiting until the ban is lifted before proceeding.
+2026-01-19T04:28:17.9511950Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T04:28:17.9512764Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-19T04:28:22.9675334Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:28:24.9698870Z     ✅ State transitioned.
+2026-01-19T04:28:26.6804022Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:28:26.6804656Z [DEBUG] Received response (Length: 257)
+2026-01-19T04:28:26.6805543Z     🤖 AI Next Step Suggestion: wait -> until ban is removed
+2026-01-19T04:28:26.6806175Z     🧩 Suggested Locator: #counter
+2026-01-19T04:28:26.6807730Z     💭 Reasoning: The page indicates a ban is in place and will be removed after a certain time. Waiting for the ban to be removed is the next logical step.
+2026-01-19T04:28:26.6809379Z     ➕ Injected AI step: wait -> until ban is removed
+2026-01-19T04:28:26.6809900Z   ▶️ [STEP step_4_ai_1] WAIT: until ban is removed
+2026-01-19T04:28:26.6864053Z     🎯 Using AI-provided locator: #counter
+2026-01-19T04:28:26.6918993Z     ✅ Found 1 verified locators
+2026-01-19T04:28:29.7170669Z     ✅ State transitioned.
+2026-01-19T04:28:31.4003270Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:28:31.4003816Z [DEBUG] Received response (Length: 257)
+2026-01-19T04:28:31.4004506Z     🤖 AI Next Step Suggestion: wait -> until ban is removed
+2026-01-19T04:28:31.4005040Z     🧩 Suggested Locator: #counter
+2026-01-19T04:28:31.4006027Z     💭 Reasoning: The page indicates a ban is in place and will be removed after a certain time. Waiting for the ban to be removed is the next logical step.
+2026-01-19T04:28:31.4007102Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T04:28:33.4361219Z 
+2026-01-19T04:28:33.4362265Z [4/4] Exploring Scenario: Navigate to the blog and verify the page title
+2026-01-19T04:28:33.4363631Z     🧠 Initialized exploration context for goal: 'Quick WordPress testing'
+2026-01-19T04:28:33.4364427Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:28:34.5227749Z     ✅ Navigated to https://tastewp.com/new
+2026-01-19T04:28:34.5228692Z   ▶️ [STEP step_2] ASSERT_VISIBLE: TasteWP loading page
+2026-01-19T04:28:34.5477331Z     🔍 Mining locators for: 'TasteWP loading page'
+2026-01-19T04:28:34.5795668Z     🧠 Consulting AI (Vision-First) to find 'TasteWP loading page'...
+2026-01-19T04:28:34.5796571Z     🔍 Trying smart selectors for 'TasteWP loading page'...
+2026-01-19T04:28:34.6380553Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:28:34.6382052Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:28:36.4215824Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:28:36.4216495Z [DEBUG] Received response (Length: 332)
+2026-01-19T04:28:36.4218540Z     💡 Expert Suggestion: The current page indicates a ban due to excessive requests. Navigating to the TasteWP homepage or a different section of the site might resolve this issue or provide access to the loading page.
+2026-01-19T04:28:36.4219898Z     🛠️ Executing corrective action: click -> 'TasteWP'
+2026-01-19T04:28:36.4521809Z     🔄 Retry 1/3 mining locators for 'TasteWP loading page'...
+2026-01-19T04:28:37.4784006Z     🧠 Consulting AI (Vision-First) to find 'TasteWP loading page'...
+2026-01-19T04:28:37.4785662Z     🔍 Trying smart selectors for 'TasteWP loading page'...
+2026-01-19T04:28:37.5341111Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:28:37.5342425Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:28:41.5482605Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:28:41.5483068Z [DEBUG] Received response (Length: 286)
+2026-01-19T04:28:41.5484274Z     💡 Expert Suggestion: The current page indicates a ban due to excessive requests. There is no 'TasteWP loading page' visible. The page needs to be unbanned before proceeding.
+2026-01-19T04:28:41.5485229Z     🛠️ Executing corrective action: none -> 'N/A'
+2026-01-19T04:28:41.5798267Z     🔄 Retry 2/3 mining locators for 'TasteWP loading page'...
+2026-01-19T04:28:42.5811190Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:28:42.5812271Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:28:42.6128556Z     🧠 Consulting AI (Vision-First) to find 'TasteWP loading page'...
+2026-01-19T04:28:42.6129315Z     🔍 Trying smart selectors for 'TasteWP loading page'...
+2026-01-19T04:28:42.6676646Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:28:42.6678391Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:28:46.6091533Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:28:46.6092202Z [DEBUG] Received response (Length: 249)
+2026-01-19T04:28:46.6093111Z     💡 Expert Suggestion: The page indicates a temporary ban. Waiting for the ban to be lifted might lead to the TasteWP loading page.
+2026-01-19T04:28:46.6093824Z     🛠️ Executing corrective action: wait -> '26 seconds'
+2026-01-19T04:28:46.6457493Z     🧠 Verifying step validity for 'TasteWP loading page' after no candidates found...
+2026-01-19T04:28:51.3703297Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:28:51.3703977Z [DEBUG] Received response (Length: 340)
+2026-01-19T04:28:51.3705729Z     🗑️ Step deemed INVALID: The screenshot shows a 'BANNED' page, indicating that the IP address has been temporarily blocked due to too many requests. There is no 'TasteWP loading page' visible or likely to exist in this state. Therefore, attempting to locate and interact with it is not logical or valid.. Removing from workflow.
+2026-01-19T04:28:51.3707518Z     ⏭️ Skipping execution of invalid step: TasteWP loading page
+2026-01-19T04:28:51.3707889Z   ▶️ [STEP step_3] NAVIGATE: 
+2026-01-19T04:28:53.4116351Z     ✅ Navigated to https://tastewp.com/blog
+2026-01-19T04:28:53.4117722Z   ▶️ [STEP step_4] ASSERT_VISIBLE: TasteWP Blog page
+2026-01-19T04:28:53.4363695Z     🔍 Mining locators for: 'TasteWP Blog page'
+2026-01-19T04:28:53.5179332Z     🧠 Consulting AI (Vision-First) to find 'TasteWP Blog page'...
+2026-01-19T04:28:53.5179930Z     🔍 Trying smart selectors for 'TasteWP Blog page'...
+2026-01-19T04:28:53.5807309Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:28:53.5809472Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:28:57.4782091Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:28:57.4782528Z [DEBUG] Received response (Length: 614)
+2026-01-19T04:28:57.4783181Z     🔄 Retry 1/3 mining locators for 'TasteWP Blog page'...
+2026-01-19T04:28:58.5493149Z     🧠 Consulting AI (Vision-First) to find 'TasteWP Blog page'...
+2026-01-19T04:28:58.5493674Z     🔍 Trying smart selectors for 'TasteWP Blog page'...
+2026-01-19T04:28:58.6092362Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:28:58.6093942Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:28:58.6100216Z [CACHE HIT] 67faee3d... (hits: 1, misses: 26)
+2026-01-19T04:28:58.6100901Z     🔄 Retry 2/3 mining locators for 'TasteWP Blog page'...
+2026-01-19T04:28:59.6113980Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:28:59.6115044Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:28:59.6826667Z     🧠 Consulting AI (Vision-First) to find 'TasteWP Blog page'...
+2026-01-19T04:28:59.6827634Z     🔍 Trying smart selectors for 'TasteWP Blog page'...
+2026-01-19T04:28:59.7413941Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:28:59.7415369Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:28:59.7419674Z [CACHE HIT] 67faee3d... (hits: 2, misses: 26)
+2026-01-19T04:28:59.7420455Z     🧠 Verifying step validity for 'TasteWP Blog page' after mining failure...
+2026-01-19T04:29:01.4380342Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:29:01.4380778Z [DEBUG] Received response (Length: 224)
+2026-01-19T04:29:01.4381394Z     🛠️ Self-Correction: Step is valid. Using new locator: h1
+2026-01-19T04:29:04.4825041Z     ✅ State transitioned.
+2026-01-19T04:29:06.3347014Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:29:06.3347698Z [DEBUG] Received response (Length: 190)
+2026-01-19T04:29:06.3348628Z     🤖 AI Next Step Suggestion: navigate -> https://tastewp.com/
+2026-01-19T04:29:06.3349836Z     💭 Reasoning: Navigating to the main TasteWP site to explore WordPress testing options.
+2026-01-19T04:29:06.3350786Z     ➕ Injected AI step: navigate -> https://tastewp.com/
+2026-01-19T04:29:06.3351317Z   ▶️ [STEP step_4_ai_1] NAVIGATE: https://tastewp.com/
+2026-01-19T04:29:07.1970336Z     ✅ Navigated to https://tastewp.com/
+2026-01-19T04:29:07.1971046Z   ▶️ [STEP step_5] ASSERT_TEXT: Blog page title
+2026-01-19T04:29:07.2214024Z     🔍 Mining locators for: 'Blog page title'
+2026-01-19T04:29:07.2619774Z     🧠 Consulting AI (Vision-First) to find 'Blog page title'...
+2026-01-19T04:29:07.2620290Z     🔍 Trying smart selectors for 'Blog page title'...
+2026-01-19T04:29:07.3193332Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:29:07.3195304Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:29:11.8288518Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:29:11.8289406Z [DEBUG] Received response (Length: 360)
+2026-01-19T04:29:11.8302998Z     💡 Expert Suggestion: The current page indicates a ban, and the 'Blog page title' is unlikely to be found here. Navigating to the 'Home' page is a standard starting point for WordPress sites, where the blog or a link to the blog is often located.
+2026-01-19T04:29:11.8305103Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-19T04:29:11.9662087Z     🔄 Retry 1/3 mining locators for 'Blog page title'...
+2026-01-19T04:29:13.0491491Z     🧠 Consulting AI (Vision-First) to find 'Blog page title'...
+2026-01-19T04:29:13.0492358Z     🔍 Trying smart selectors for 'Blog page title'...
+2026-01-19T04:29:13.1914904Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:29:13.1916980Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:29:16.4470244Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:29:16.4470966Z [DEBUG] Received response (Length: 211)
+2026-01-19T04:29:16.4471744Z     💡 Expert Suggestion: The 'Blog' link in the header likely leads to the blog page with the title.
+2026-01-19T04:29:16.4472317Z     🛠️ Executing corrective action: click -> 'Blog'
+2026-01-19T04:29:17.0958179Z     ✅ Executed corrective navigation
+2026-01-19T04:29:19.0972100Z     🔄 Retry 2/3 mining locators for 'Blog page title'...
+2026-01-19T04:29:20.0985325Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:29:20.0986814Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:29:20.1828328Z     🧠 Consulting AI (Vision-First) to find 'Blog page title'...
+2026-01-19T04:29:20.1829470Z     🔍 Trying smart selectors for 'Blog page title'...
+2026-01-19T04:29:20.3087870Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:29:20.3089755Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:29:21.8880862Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:29:21.8881567Z [DEBUG] Received response (Length: 266)
+2026-01-19T04:29:21.8882741Z     💡 Expert Suggestion: The 'Blog page title' is likely on the blog page, which can be accessed by clicking the 'Check out blog post' link.
+2026-01-19T04:29:21.8883636Z     🛠️ Executing corrective action: click -> 'Check out blog post'
+2026-01-19T04:29:22.5951194Z     ✅ Executed corrective navigation
+2026-01-19T04:29:24.5961622Z     🧠 Verifying step validity for 'Blog page title' after no candidates found...
+2026-01-19T04:29:26.5177310Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:29:26.5177846Z [DEBUG] Received response (Length: 206)
+2026-01-19T04:29:26.5179583Z     🗑️ Step deemed INVALID: The current page is the landing page (tastewp.com). There is no "Blog page title" element visible on this page. The task is therefore invalid.. Removing from workflow.
+2026-01-19T04:29:26.5180515Z     ⏭️ Skipping execution of invalid step: Blog page title
+2026-01-19T04:29:28.5650841Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo/tests/generated_scenarios.json
+2026-01-19T04:29:28.5654708Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-19T04:29:28.5655156Z 
+2026-01-19T04:29:28.5655368Z ✅ Deep Exploration Complete.
+2026-01-19T04:29:38.6816684Z 
+2026-01-19T04:29:38.6817560Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-19T04:29:38.6818053Z 📍 Project: ci_wordpress_demo
+2026-01-19T04:29:38.6818325Z 🎬 Mode: Headless
+2026-01-19T04:29:38.6818442Z 
+2026-01-19T04:29:38.6819306Z --- Scenario: Create a new WordPress instance and verify its creation ---
+2026-01-19T04:29:38.6819886Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:29:38.6820185Z     ✅ Step step_1 Passed.
+2026-01-19T04:29:38.6820446Z   ▶️ [STEP step_3] WAIT: Step step_3
+2026-01-19T04:29:38.6820899Z     ✅ Step step_3 Passed.
+2026-01-19T04:29:38.6821181Z   ▶️ [STEP step_4] ASSERT_URL: Step step_4
+2026-01-19T04:29:38.6821465Z     ✅ Step step_4 Passed.
+2026-01-19T04:29:38.6821742Z   ▶️ [STEP step_4_ai_1] WAIT: until ban is lifted
+2026-01-19T04:29:38.6822181Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T04:29:38.6822572Z     ✅ Step step_4_ai_1 Passed.
+2026-01-19T04:29:38.6823060Z ✅ Scenario 'Create a new WordPress instance and verify its creation' completed successfully!
+2026-01-19T04:29:38.6823433Z 
+2026-01-19T04:29:38.6823633Z --- Scenario: Create a new WordPress instance with a pre-installed theme ---
+2026-01-19T04:29:38.6824058Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:29:38.6824353Z     ✅ Step step_1 Passed.
+2026-01-19T04:29:38.6824597Z   ▶️ [STEP step_3] WAIT: Step step_3
+2026-01-19T04:29:38.6824861Z     ✅ Step step_3 Passed.
+2026-01-19T04:29:38.6825114Z   ▶️ [STEP step_4] ASSERT_URL: Step step_4
+2026-01-19T04:29:38.6825394Z     ✅ Step step_4 Passed.
+2026-01-19T04:29:38.6825850Z ✅ Scenario 'Create a new WordPress instance with a pre-installed theme' completed successfully!
+2026-01-19T04:29:38.6826230Z 
+2026-01-19T04:29:38.6826439Z --- Scenario: Create a new WordPress instance with a pre-installed plugin ---
+2026-01-19T04:29:38.6826865Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:29:38.6827141Z     ✅ Step step_1 Passed.
+2026-01-19T04:29:38.6827380Z   ▶️ [STEP step_3] WAIT: Step step_3
+2026-01-19T04:29:38.6827644Z     ✅ Step step_3 Passed.
+2026-01-19T04:29:38.6827921Z   ▶️ [STEP step_3_ai_1] WAIT: until ban is removed
+2026-01-19T04:29:38.6828346Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T04:29:38.6828742Z     ✅ Step step_3_ai_1 Passed.
+2026-01-19T04:29:38.6829012Z   ▶️ [STEP step_4] ASSERT_URL: Step step_4
+2026-01-19T04:29:38.6829682Z     ✅ Step step_4 Passed.
+2026-01-19T04:29:38.6829975Z   ▶️ [STEP step_4_ai_1] WAIT: until ban is removed
+2026-01-19T04:29:38.6830430Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T04:29:38.6830815Z     ✅ Step step_4_ai_1 Passed.
+2026-01-19T04:29:38.6831295Z ✅ Scenario 'Create a new WordPress instance with a pre-installed plugin' completed successfully!
+2026-01-19T04:29:38.6831682Z 
+2026-01-19T04:29:38.6831844Z --- Scenario: Navigate to the blog and verify the page title ---
+2026-01-19T04:29:38.6832224Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:29:38.6832502Z     ✅ Step step_1 Passed.
+2026-01-19T04:29:38.6832752Z   ▶️ [STEP step_3] NAVIGATE: Step step_3
+2026-01-19T04:29:38.6833021Z     ✅ Step step_3 Passed.
+2026-01-19T04:29:38.6833311Z   ▶️ [STEP step_4] ASSERT_VISIBLE: TasteWP Blog page
+2026-01-19T04:29:38.6833627Z     🎯 Using mined locator: h1
+2026-01-19T04:29:38.6833876Z     ✅ Step step_4 Passed.
+2026-01-19T04:29:38.6834185Z   ▶️ [STEP step_4_ai_1] NAVIGATE: https://tastewp.com/
+2026-01-19T04:29:38.6834513Z     ✅ Step step_4_ai_1 Passed.
+2026-01-19T04:29:38.6834938Z ✅ Scenario 'Navigate to the blog and verify the page title' completed successfully!
+2026-01-19T04:29:38.6835261Z 
+2026-01-19T04:29:38.6835366Z ============================================================
+2026-01-19T04:29:38.6835654Z 🎯 EXECUTION SUMMARY
+2026-01-19T04:29:38.6835868Z ============================================================
+2026-01-19T04:29:38.6836053Z 
+2026-01-19T04:29:38.6836158Z 📋 Scenario Overview:
+2026-01-19T04:29:38.6836397Z    • Total Scenarios Planned: 4
+2026-01-19T04:29:38.6836652Z    • Scenarios Executed: 4
+2026-01-19T04:29:38.6836904Z    • Total Steps Executed: 16
+2026-01-19T04:29:38.6837053Z 
+2026-01-19T04:29:38.6837140Z ✅ Results:
+2026-01-19T04:29:38.6837337Z    ✅ Passed: 4 (100%)
+2026-01-19T04:29:38.6837459Z 
+2026-01-19T04:29:38.6837715Z ============================================================
+2026-01-19T04:29:38.6837907Z 
+2026-01-19T04:29:38.6838396Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo/execution.json
+2026-01-19T04:29:38.8855117Z 
+2026-01-19T04:29:38.8855663Z [PHASE] Running Phase: DISCOVERY
+2026-01-19T04:29:38.8858096Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo --url https://tastewp.com/new --deep
+2026-01-19T04:29:38.8861233Z ✅ Phase 'discovery' completed successfully.
+2026-01-19T04:29:38.8861563Z 
+2026-01-19T04:29:38.8861708Z [PHASE] Running Phase: PLANNING
+2026-01-19T04:29:38.8863667Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo --goal Quick WordPress testing --url https://tastewp.com/new --deep
+2026-01-19T04:29:38.8865753Z ✅ Phase 'planning' completed successfully.
+2026-01-19T04:29:38.8866047Z 
+2026-01-19T04:29:38.8866195Z [PHASE] Running Phase: EXPLORATION
+2026-01-19T04:29:38.8867800Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo
+2026-01-19T04:29:38.8869663Z ✅ Phase 'exploration' completed successfully.
+2026-01-19T04:29:38.8870237Z 📊 Exploration Discovery Success Rate: 40.0%
+2026-01-19T04:29:38.8870988Z ⚠️ Exploration failed to find stable locators for key steps. Execution might fail.
+2026-01-19T04:29:38.8871520Z 
+2026-01-19T04:29:38.8871660Z [PHASE] Running Phase: EXECUTION
+2026-01-19T04:29:38.8873210Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo
+2026-01-19T04:29:38.8874867Z ✅ Phase 'execution' completed successfully.
+2026-01-19T04:29:38.8875176Z 
+2026-01-19T04:29:38.8875342Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-19T04:29:39.0462527Z ##[group]Run RESULT_FILE="projects/ci_wordpress_demo/execution.json"
+2026-01-19T04:29:39.0463060Z [36;1mRESULT_FILE="projects/ci_wordpress_demo/execution.json"[0m
+2026-01-19T04:29:39.0463417Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-19T04:29:39.0463753Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-19T04:29:39.0464201Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-19T04:29:39.0464576Z [36;1melse[0m
+2026-01-19T04:29:39.0464809Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-19T04:29:39.0465094Z [36;1m  exit 1[0m
+2026-01-19T04:29:39.0465291Z [36;1mfi[0m
+2026-01-19T04:29:39.0497596Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:29:39.0497831Z env:
+2026-01-19T04:29:39.0498076Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:29:39.0498508Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:29:39.0498969Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:29:39.0499595Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:29:39.0499963Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:29:39.0500336Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:29:39.0500642Z ##[endgroup]
+2026-01-19T04:29:39.0555769Z ✅ Results generated successfully: projects/ci_wordpress_demo/execution.json
+2026-01-19T04:29:39.0582611Z 4
+2026-01-19T04:29:39.0836093Z ##[group]Run actions/upload-artifact@v4
+2026-01-19T04:29:39.0836381Z with:
+2026-01-19T04:29:39.0836581Z   name: wordpress_demo-execution-results
+2026-01-19T04:29:39.0837233Z   path: projects/ci_wordpress_demo/execution.json
+projects/ci_wordpress_demo/workflow.json
+
+2026-01-19T04:29:39.0837673Z   retention-days: 30
+2026-01-19T04:29:39.0837881Z   if-no-files-found: warn
+2026-01-19T04:29:39.0838093Z   compression-level: 6
+2026-01-19T04:29:39.0838288Z   overwrite: false
+2026-01-19T04:29:39.0838484Z   include-hidden-files: false
+2026-01-19T04:29:39.0838694Z env:
+2026-01-19T04:29:39.0838928Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:29:39.0839503Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:29:39.0839910Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:29:39.0840273Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:29:39.0840671Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:29:39.0841041Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:29:39.0841343Z ##[endgroup]
+2026-01-19T04:29:39.3137098Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-19T04:29:39.3140596Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_wordpress_demo. This will be the root directory of the artifact
+2026-01-19T04:29:39.3142062Z With the provided path, there will be 2 files uploaded
+2026-01-19T04:29:39.3146861Z Artifact name is valid!
+2026-01-19T04:29:39.3147335Z Root directory input is valid!
+2026-01-19T04:29:39.5872602Z Beginning upload of artifact content to blob storage
+2026-01-19T04:29:39.8686979Z Uploaded bytes 1213
+2026-01-19T04:29:39.9418291Z Finished uploading artifact content to blob storage!
+2026-01-19T04:29:39.9421866Z SHA256 digest of uploaded artifact zip is e8669adf82734b303d07aaffef47055edbfec19750972b589b442bd67ff7fb52
+2026-01-19T04:29:39.9423811Z Finalizing artifact upload
+2026-01-19T04:29:40.0890298Z Artifact wordpress_demo-execution-results.zip successfully finalized. Artifact ID 5172442930
+2026-01-19T04:29:40.0891835Z Artifact wordpress_demo-execution-results has been successfully uploaded! Final size is 1213 bytes. Artifact ID is 5172442930
+2026-01-19T04:29:40.0899930Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21124435194/artifacts/5172442930
+2026-01-19T04:29:40.1221949Z Post job cleanup.
+2026-01-19T04:29:40.2787706Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-19T04:29:40.3240889Z Post job cleanup.
+2026-01-19T04:29:40.4274075Z [command]/usr/bin/git version
+2026-01-19T04:29:40.4317449Z git version 2.52.0
+2026-01-19T04:29:40.4365510Z Temporarily overriding HOME='/home/runner/work/_temp/441a0f33-14e7-4c9b-b3bc-1711cf838416' before making global git config changes
+2026-01-19T04:29:40.4366931Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T04:29:40.4386804Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T04:29:40.4429583Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T04:29:40.4468599Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T04:29:40.4756228Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T04:29:40.4784384Z http.https://github.com/.extraheader
+2026-01-19T04:29:40.4802284Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-19T04:29:40.4841750Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T04:29:40.5105975Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T04:29:40.5146590Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T04:29:40.5521217Z Cleaning up orphan processes

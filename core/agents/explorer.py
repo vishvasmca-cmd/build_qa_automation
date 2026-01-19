@@ -62,6 +62,11 @@ class ExplorerAgent:
         self.enable_element_cache = True  # Element caching to avoid redundant mining
         self.element_cache = {}  # Cache storage: {url: {timestamp, elements, screenshot}}
         self.cache_ttl = 10  # Cache time-to-live in seconds
+        
+        # Checkpoint & Resume System (ENABLED BY DEFAULT for 80% retry savings)
+        self.enable_checkpoints = True  # Save progress + learn from failures
+        from core.lib.checkpoint_manager import CheckpointManager
+        self.checkpoint_mgr = CheckpointManager(self.project_dir)
 
         if not os.path.exists(self.workflow_path):
              self.workflow = {
@@ -228,6 +233,26 @@ class ExplorerAgent:
         
         # Import parallel processing wrapper
         from core.agents.explorer_parallel_wrapper import process_batch_or_sequential
+        
+        # PHASE 2: Resume from Checkpoint (skip successful steps)
+        if self.enable_checkpoints:
+            resume_from = self.checkpoint_mgr.get_resume_point(scenario["name"])
+            
+            if resume_from > 0:
+                self.log(f"    📌 CHECKPOINT FOUND! Resuming from step {resume_from + 1} (skipping {resume_from} completed steps)", "cyan")
+                
+                # Load and restore proven locators
+                checkpoint = self.checkpoint_mgr.load_checkpoint(scenario["name"])
+                if checkpoint:
+                    for completed in checkpoint["completed_steps"]:
+                        idx = completed["index"]
+                        if idx < len(steps):
+                            # Restore proven locator
+                            steps[idx]["locators"] = [{"value": completed["locator"], "priority": 0}]
+                            steps[idx]["skipped"] = True  # Mark as already done
+                            self.log(f"    ✓ Restored step {idx + 1}: {completed['description']} (locator: {completed['locator']})", "grey")
+                
+                i = resume_from  # Jump to failure point
         
         while i < len(steps):
             # PARALLEL AI OPTIMIZATION: Try batching consecutive fills

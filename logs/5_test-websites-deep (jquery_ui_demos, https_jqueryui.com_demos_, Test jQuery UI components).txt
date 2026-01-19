@@ -1,0 +1,1384 @@
+﻿2026-01-19T04:30:50.6393242Z Current runner version: '2.331.0'
+2026-01-19T04:30:50.6416437Z ##[group]Runner Image Provisioner
+2026-01-19T04:30:50.6417368Z Hosted Compute Agent
+2026-01-19T04:30:50.6418512Z Version: 20251211.462
+2026-01-19T04:30:50.6419122Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-19T04:30:50.6419946Z Build Date: 2025-12-11T16:28:49Z
+2026-01-19T04:30:50.6420598Z Worker ID: {c7b72d93-f533-4457-9723-00ec8a55b9d6}
+2026-01-19T04:30:50.6421224Z ##[endgroup]
+2026-01-19T04:30:50.6421878Z ##[group]Operating System
+2026-01-19T04:30:50.6422408Z Ubuntu
+2026-01-19T04:30:50.6422859Z 24.04.3
+2026-01-19T04:30:50.6423379Z LTS
+2026-01-19T04:30:50.6423805Z ##[endgroup]
+2026-01-19T04:30:50.6424344Z ##[group]Runner Image
+2026-01-19T04:30:50.6425051Z Image: ubuntu-24.04
+2026-01-19T04:30:50.6425539Z Version: 20260111.209.1
+2026-01-19T04:30:50.6426546Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-19T04:30:50.6428536Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-19T04:30:50.6429610Z ##[endgroup]
+2026-01-19T04:30:50.6430744Z ##[group]GITHUB_TOKEN Permissions
+2026-01-19T04:30:50.6432530Z Contents: read
+2026-01-19T04:30:50.6433157Z Metadata: read
+2026-01-19T04:30:50.6433675Z Packages: read
+2026-01-19T04:30:50.6434137Z ##[endgroup]
+2026-01-19T04:30:50.6436606Z Secret source: Actions
+2026-01-19T04:30:50.6437317Z Prepare workflow directory
+2026-01-19T04:30:50.7528677Z Prepare all required actions
+2026-01-19T04:30:50.7583840Z Getting action download info
+2026-01-19T04:30:51.1103199Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-19T04:30:51.2396427Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-19T04:30:51.3223760Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-19T04:30:51.6334467Z Complete job name: test-websites-deep (jquery_ui_demos, https://jqueryui.com/demos/, Test jQuery UI components)
+2026-01-19T04:30:51.8319402Z ##[group]Run actions/checkout@v4
+2026-01-19T04:30:51.8320247Z with:
+2026-01-19T04:30:51.8320701Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T04:30:51.8321468Z   token: ***
+2026-01-19T04:30:51.8321847Z   ssh-strict: true
+2026-01-19T04:30:51.8322242Z   ssh-user: git
+2026-01-19T04:30:51.8322641Z   persist-credentials: true
+2026-01-19T04:30:51.8323078Z   clean: true
+2026-01-19T04:30:51.8323489Z   sparse-checkout-cone-mode: true
+2026-01-19T04:30:51.8323961Z   fetch-depth: 1
+2026-01-19T04:30:51.8324341Z   fetch-tags: false
+2026-01-19T04:30:51.8324730Z   show-progress: true
+2026-01-19T04:30:51.8325131Z   lfs: false
+2026-01-19T04:30:51.8325503Z   submodules: false
+2026-01-19T04:30:51.8325899Z   set-safe-directory: true
+2026-01-19T04:30:51.8326537Z ##[endgroup]
+2026-01-19T04:30:51.9394626Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T04:30:51.9396334Z ##[group]Getting Git version info
+2026-01-19T04:30:51.9397208Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T04:30:51.9398573Z [command]/usr/bin/git version
+2026-01-19T04:30:51.9465717Z git version 2.52.0
+2026-01-19T04:30:51.9491373Z ##[endgroup]
+2026-01-19T04:30:51.9505310Z Temporarily overriding HOME='/home/runner/work/_temp/c1e117c6-8dc0-47a4-b2a8-9add9b5d5fed' before making global git config changes
+2026-01-19T04:30:51.9506670Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T04:30:51.9518399Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T04:30:51.9554325Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T04:30:51.9557701Z ##[group]Initializing the repository
+2026-01-19T04:30:51.9561901Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T04:30:51.9644479Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-19T04:30:51.9646397Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-19T04:30:51.9648122Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-19T04:30:51.9649289Z hint: call:
+2026-01-19T04:30:51.9649870Z hint:
+2026-01-19T04:30:51.9650653Z hint: 	git config --global init.defaultBranch <name>
+2026-01-19T04:30:51.9651229Z hint:
+2026-01-19T04:30:51.9651768Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-19T04:30:51.9652691Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-19T04:30:51.9653387Z hint:
+2026-01-19T04:30:51.9653746Z hint: 	git branch -m <name>
+2026-01-19T04:30:51.9654472Z hint:
+2026-01-19T04:30:51.9655278Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-19T04:30:51.9656351Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-19T04:30:51.9660141Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T04:30:51.9692009Z ##[endgroup]
+2026-01-19T04:30:51.9693197Z ##[group]Disabling automatic garbage collection
+2026-01-19T04:30:51.9696805Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-19T04:30:51.9725070Z ##[endgroup]
+2026-01-19T04:30:51.9726277Z ##[group]Setting up auth
+2026-01-19T04:30:51.9732672Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T04:30:51.9763043Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T04:30:52.0081360Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T04:30:52.0111589Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T04:30:52.0326711Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T04:30:52.0357294Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T04:30:52.0583244Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-19T04:30:52.0616620Z ##[endgroup]
+2026-01-19T04:30:52.0618431Z ##[group]Fetching the repository
+2026-01-19T04:30:52.0626369Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2f305d435d899f67f11ae5adc61ad536fdd999e8:refs/remotes/origin/main
+2026-01-19T04:30:53.3459742Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T04:30:53.3462762Z  * [new ref]         2f305d435d899f67f11ae5adc61ad536fdd999e8 -> origin/main
+2026-01-19T04:30:53.3490360Z ##[endgroup]
+2026-01-19T04:30:53.3490939Z ##[group]Determining the checkout info
+2026-01-19T04:30:53.3493306Z ##[endgroup]
+2026-01-19T04:30:53.3499445Z [command]/usr/bin/git sparse-checkout disable
+2026-01-19T04:30:53.3539778Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-19T04:30:53.3565558Z ##[group]Checking out the ref
+2026-01-19T04:30:53.3570169Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-19T04:30:53.4986324Z Switched to a new branch 'main'
+2026-01-19T04:30:53.4987241Z branch 'main' set up to track 'origin/main'.
+2026-01-19T04:30:53.5005494Z ##[endgroup]
+2026-01-19T04:30:53.5042902Z [command]/usr/bin/git log -1 --format=%H
+2026-01-19T04:30:53.5064707Z 2f305d435d899f67f11ae5adc61ad536fdd999e8
+2026-01-19T04:30:53.6145391Z ##[group]Run actions/setup-python@v5
+2026-01-19T04:30:53.6145925Z with:
+2026-01-19T04:30:53.6146293Z   python-version: 3.11
+2026-01-19T04:30:53.6146835Z   cache: pip
+2026-01-19T04:30:53.6147399Z   check-latest: false
+2026-01-19T04:30:53.6148071Z   token: ***
+2026-01-19T04:30:53.6148428Z   update-environment: true
+2026-01-19T04:30:53.6148825Z   allow-prereleases: false
+2026-01-19T04:30:53.6149205Z   freethreaded: false
+2026-01-19T04:30:53.6149561Z ##[endgroup]
+2026-01-19T04:30:53.7854794Z ##[group]Installed versions
+2026-01-19T04:30:53.7953680Z Successfully set up CPython (3.11.14)
+2026-01-19T04:30:53.7954843Z ##[endgroup]
+2026-01-19T04:30:53.9099815Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-19T04:30:55.7188906Z /home/runner/.cache/pip
+2026-01-19T04:30:55.9382356Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T04:30:57.1150999Z Received 46137344 of 254742636 (18.1%), 44.0 MBs/sec
+2026-01-19T04:30:58.1162148Z Received 201326592 of 254742636 (79.0%), 96.0 MBs/sec
+2026-01-19T04:30:58.4861109Z Received 254742636 of 254742636 (100.0%), 102.5 MBs/sec
+2026-01-19T04:30:58.4868257Z Cache Size: ~243 MB (254742636 B)
+2026-01-19T04:30:58.4934659Z [command]/usr/bin/tar -xf /home/runner/work/_temp/0b7095c4-68a3-4ac4-bf0e-4cf97342587d/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-19T04:30:58.9114735Z Cache restored successfully
+2026-01-19T04:30:58.9615859Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T04:30:59.0170869Z ##[group]Run pip install -r requirements.txt
+2026-01-19T04:30:59.0171329Z [36;1mpip install -r requirements.txt[0m
+2026-01-19T04:30:59.0171624Z [36;1mplaywright install chromium[0m
+2026-01-19T04:30:59.0212080Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:30:59.0212350Z env:
+2026-01-19T04:30:59.0212628Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:30:59.0213099Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:30:59.0213541Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:30:59.0213947Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:30:59.0214342Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:30:59.0214725Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:30:59.0215042Z ##[endgroup]
+2026-01-19T04:31:00.2580157Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-19T04:31:00.2596166Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-19T04:31:00.2905590Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-19T04:31:00.2920340Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-19T04:31:00.3334219Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-19T04:31:00.3348518Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-19T04:31:00.5139565Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-19T04:31:00.5155537Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-19T04:31:00.5547186Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-19T04:31:00.5560455Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-19T04:31:00.5859828Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-19T04:31:00.5872342Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-19T04:31:00.6370884Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-19T04:31:00.6385793Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-19T04:31:00.7104578Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-19T04:31:00.7120507Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-19T04:31:00.9628915Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-19T04:31:00.9643423Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-19T04:31:01.0546291Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-19T04:31:01.0560504Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-19T04:31:01.0860160Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-19T04:31:01.0872895Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-19T04:31:01.2195472Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-19T04:31:01.2210490Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-19T04:31:01.2533131Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-19T04:31:01.2546347Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-19T04:31:01.3484692Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-19T04:31:01.3499875Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-19T04:31:01.3850951Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-19T04:31:01.3863897Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T04:31:01.4277467Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-19T04:31:01.4290289Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-19T04:31:01.4643445Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-19T04:31:01.4656673Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-19T04:31:01.4997734Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:01.5010482Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-19T04:31:01.5488743Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:01.5503118Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-19T04:31:01.5903316Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:01.5916193Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-19T04:31:01.7418477Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:01.7433004Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-19T04:31:01.7831004Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:01.7844806Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-19T04:31:01.8862228Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:01.8876868Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-19T04:31:01.9161394Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:01.9174750Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-19T04:31:01.9406108Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:01.9418871Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-19T04:31:01.9819847Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:01.9839894Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-19T04:31:02.0178826Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:02.0191892Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-19T04:31:02.0611550Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:02.0624523Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-19T04:31:02.0893521Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:02.0906329Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-19T04:31:02.1154002Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:02.1166580Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-19T04:31:02.7730604Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:02.7746061Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-19T04:31:02.8013907Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:02.8027274Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-19T04:31:02.8853977Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:31:02.8869060Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T04:31:02.9123395Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-19T04:31:02.9457301Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-19T04:31:02.9473760Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-19T04:31:02.9487015Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-19T04:31:02.9500644Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-19T04:31:02.9514468Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-19T04:31:02.9528254Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-19T04:31:02.9541538Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-19T04:31:02.9555891Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-19T04:31:02.9617914Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-19T04:31:02.9635715Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-19T04:31:02.9649584Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-19T04:31:02.9662748Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-19T04:31:02.9676975Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-19T04:31:02.9690693Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-19T04:31:02.9703826Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-19T04:31:02.9720153Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-19T04:31:02.9746831Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-19T04:31:02.9759933Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-19T04:31:02.9772973Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-19T04:31:02.9786628Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-19T04:31:02.9800498Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-19T04:31:02.9814101Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-19T04:31:02.9833036Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-19T04:31:03.0282489Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-19T04:31:03.0412025Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-19T04:31:03.0438222Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-19T04:31:03.0450812Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-19T04:31:03.0464598Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-19T04:31:03.0477771Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-19T04:31:03.0490450Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-19T04:31:03.0504260Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-19T04:31:03.0516880Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-19T04:31:03.2705578Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-19T04:31:09.9353417Z 
+2026-01-19T04:31:09.9377768Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-19T04:31:10.5113622Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-19T04:31:10.6062289Z (node:2189) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T04:31:10.6064117Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T04:31:10.7140279Z |                                                                                |   0% of 164.7 MiB
+2026-01-19T04:31:10.8659747Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-19T04:31:10.9478223Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-19T04:31:11.0263103Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-19T04:31:11.0824290Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-19T04:31:11.1416895Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-19T04:31:11.2006507Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-19T04:31:11.2594304Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-19T04:31:11.3250516Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-19T04:31:11.3979283Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-19T04:31:11.4595607Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-19T04:31:13.9175585Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-19T04:31:13.9179394Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-19T04:31:14.0156060Z (node:2200) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T04:31:14.0158029Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T04:31:14.1372528Z |                                                                                |   0% of 2.3 MiB
+2026-01-19T04:31:14.1773614Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-19T04:31:14.1955726Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-19T04:31:14.2059935Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-19T04:31:14.2130993Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-19T04:31:14.2185825Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-19T04:31:14.2241896Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-19T04:31:14.2279965Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-19T04:31:14.2318754Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-19T04:31:14.2354923Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-19T04:31:14.2374794Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-19T04:31:14.2983877Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-19T04:31:14.2989392Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-19T04:31:14.3936322Z (node:2211) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T04:31:14.3937992Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T04:31:14.5027863Z |                                                                                |   0% of 109.7 MiB
+2026-01-19T04:31:14.6313468Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-19T04:31:14.6895280Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-19T04:31:14.7401335Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-19T04:31:14.7870068Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-19T04:31:14.8350823Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-19T04:31:14.8744873Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-19T04:31:14.9130069Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-19T04:31:14.9672955Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-19T04:31:15.0114963Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-19T04:31:15.0493960Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-19T04:31:16.9258256Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-19T04:31:16.9646162Z ##[group]Run mkdir -p projects/ci_jquery_ui_demos
+2026-01-19T04:31:16.9646611Z [36;1mmkdir -p projects/ci_jquery_ui_demos[0m
+2026-01-19T04:31:16.9646990Z [36;1mcat > projects/ci_jquery_ui_demos/config.json << 'EOF'[0m
+2026-01-19T04:31:16.9647308Z [36;1m{[0m
+2026-01-19T04:31:16.9647728Z [36;1m  "project_name": "ci_jquery_ui_demos",[0m
+2026-01-19T04:31:16.9648167Z [36;1m  "target_url": "https://jqueryui.com/demos/",[0m
+2026-01-19T04:31:16.9648508Z [36;1m  "goal": "Test jQuery UI components",[0m
+2026-01-19T04:31:16.9648791Z [36;1m  "headless": true[0m
+2026-01-19T04:31:16.9649000Z [36;1m}[0m
+2026-01-19T04:31:16.9649160Z [36;1mEOF[0m
+2026-01-19T04:31:16.9682430Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:31:16.9682661Z env:
+2026-01-19T04:31:16.9682926Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:31:16.9683361Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:31:16.9683817Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:31:16.9684208Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:31:16.9684588Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:31:16.9684964Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:31:16.9685273Z ##[endgroup]
+2026-01-19T04:31:16.9851196Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-19T04:31:16.9851677Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-19T04:31:16.9852148Z [36;1mpython orchestrator.py --project projects/ci_jquery_ui_demos --deep --force[0m
+2026-01-19T04:31:16.9884891Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:31:16.9885132Z env:
+2026-01-19T04:31:16.9885387Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:31:16.9885825Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:31:16.9886249Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:31:16.9886628Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:31:16.9887180Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:31:16.9887752Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:31:16.9888261Z   GOOGLE_API_KEY: ***
+2026-01-19T04:31:16.9888506Z   PYTHONPATH: .
+2026-01-19T04:31:16.9888694Z ##[endgroup]
+2026-01-19T04:31:18.8842298Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-19T04:31:18.8842773Z 
+2026-01-19T04:31:18.8843400Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://jqueryui.com/demos/ (Workers: 3)
+2026-01-19T04:31:21.5325184Z   🔍 [Worker 0] Visiting (0): https://jqueryui.com/demos/
+2026-01-19T04:31:23.0600208Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:23.0600735Z [DEBUG] Received response (Length: 346)
+2026-01-19T04:31:23.0601374Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/animate
+2026-01-19T04:31:23.0612495Z   🔍 [Worker 2] Visiting (1): https://jqueryui.com/effect
+2026-01-19T04:31:23.0632709Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com/button
+2026-01-19T04:31:27.6682890Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:27.6684759Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:27.6685534Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:27.6686133Z [DEBUG] Received response (Length: 247)
+2026-01-19T04:31:27.6687054Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com/development
+2026-01-19T04:31:27.9065138Z [DEBUG] Received response (Length: 319)
+2026-01-19T04:31:27.9068732Z   🔍 [Worker 2] Visiting (1): https://jqueryui.com/autocomplete
+2026-01-19T04:31:27.9826444Z [DEBUG] Received response (Length: 373)
+2026-01-19T04:31:27.9827448Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/selectable
+2026-01-19T04:31:32.6918312Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:32.6919093Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:32.6919808Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:32.6920402Z [DEBUG] Received response (Length: 171)
+2026-01-19T04:31:32.6921308Z   🔍 [Worker 2] Visiting (1): https://jqueryui.com/tabs
+2026-01-19T04:31:32.7919256Z [DEBUG] Received response (Length: 236)
+2026-01-19T04:31:32.7920389Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/toggleClass
+2026-01-19T04:31:32.8395077Z [DEBUG] Received response (Length: 271)
+2026-01-19T04:31:32.8396526Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com/about
+2026-01-19T04:31:37.7476849Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:37.7477840Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:37.7478530Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:37.7479089Z [DEBUG] Received response (Length: 242)
+2026-01-19T04:31:37.7479995Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com/controlgroup
+2026-01-19T04:31:37.9513169Z [DEBUG] Received response (Length: 388)
+2026-01-19T04:31:37.9523029Z   🔍 [Worker 2] Visiting (1): https://jqueryui.com/download
+2026-01-19T04:31:38.0584544Z [DEBUG] Received response (Length: 369)
+2026-01-19T04:31:38.0586937Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/toggle
+2026-01-19T04:31:42.8557732Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:42.8560177Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:42.8561058Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:42.8561776Z [DEBUG] Received response (Length: 326)
+2026-01-19T04:31:42.8565350Z   🔍 [Worker 0] Visiting (1): https://api.jqueryui.com
+2026-01-19T04:31:43.0462837Z [DEBUG] Received response (Length: 249)
+2026-01-19T04:31:43.0469762Z   🔍 [Worker 2] Visiting (1): https://jqueryui.com/demos
+2026-01-19T04:31:43.3116250Z [DEBUG] Received response (Length: 241)
+2026-01-19T04:31:43.3123048Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/themeroller
+2026-01-19T04:31:43.4523004Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:43.4523750Z [CACHE HIT] 5da45cce... (hits: 1, misses: 14)
+2026-01-19T04:31:43.4524643Z   🔍 [Worker 2] Visiting (1): https://jqueryui.com/show
+2026-01-19T04:31:44.1351187Z [DEBUG] Received response (Length: 320)
+2026-01-19T04:31:44.1352247Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com/position
+2026-01-19T04:31:49.0544683Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:49.0551328Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:49.0552087Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:49.0552645Z [DEBUG] Received response (Length: 247)
+2026-01-19T04:31:49.0553501Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com/resizable
+2026-01-19T04:31:49.1378099Z [DEBUG] Received response (Length: 235)
+2026-01-19T04:31:49.1380882Z   🔍 [Worker 2] Visiting (1): https://jqueryui.com/addClass
+2026-01-19T04:31:49.2968480Z [DEBUG] Received response (Length: 390)
+2026-01-19T04:31:49.2969474Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/sortable
+2026-01-19T04:31:54.1129281Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:54.1131050Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:54.1131781Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:54.1132377Z [DEBUG] Received response (Length: 262)
+2026-01-19T04:31:54.1133270Z   🔍 [Worker 2] Visiting (1): https://jqueryui.com/progressbar
+2026-01-19T04:31:54.1430607Z [DEBUG] Received response (Length: 324)
+2026-01-19T04:31:54.1432036Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/slider
+2026-01-19T04:31:54.2591497Z [DEBUG] Received response (Length: 422)
+2026-01-19T04:31:54.2593298Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com/easing
+2026-01-19T04:31:58.9974172Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:58.9975003Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:58.9975688Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:31:58.9976270Z [DEBUG] Received response (Length: 175)
+2026-01-19T04:31:58.9977135Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com
+2026-01-19T04:31:59.1239794Z [DEBUG] Received response (Length: 282)
+2026-01-19T04:31:59.1243052Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/support
+2026-01-19T04:31:59.2905090Z [DEBUG] Received response (Length: 406)
+2026-01-19T04:31:59.2907071Z   🔍 [Worker 2] Visiting (1): https://jqueryui.com/datepicker
+2026-01-19T04:32:03.9551576Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:03.9553524Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:03.9554947Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:03.9556185Z [DEBUG] Received response (Length: 207)
+2026-01-19T04:32:03.9559338Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com/widget
+2026-01-19T04:32:04.1291732Z [DEBUG] Received response (Length: 325)
+2026-01-19T04:32:04.1298805Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/menu
+2026-01-19T04:32:04.1990492Z [DEBUG] Received response (Length: 255)
+2026-01-19T04:32:04.1992167Z   🔍 [Worker 2] Visiting (1): https://blog.jqueryui.com
+2026-01-19T04:32:09.1648185Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:09.1650424Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:09.1651248Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:09.1652098Z [DEBUG] Received response (Length: 265)
+2026-01-19T04:32:09.1653055Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com/checkboxradio
+2026-01-19T04:32:09.1838462Z [DEBUG] Received response (Length: 301)
+2026-01-19T04:32:09.1839057Z [DEBUG] Received response (Length: 340)
+2026-01-19T04:32:09.1840007Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/tooltip
+2026-01-19T04:32:09.1929204Z   🔍 [Worker 2] Visiting (1): https://jqueryui.com/hide
+2026-01-19T04:32:14.0661963Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:14.0662714Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:14.0663419Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:14.0663980Z [DEBUG] Received response (Length: 185)
+2026-01-19T04:32:14.0664883Z   🔍 [Worker 2] Visiting (1): https://jqueryui.com/droppable
+2026-01-19T04:32:14.0958530Z [DEBUG] Received response (Length: 355)
+2026-01-19T04:32:14.0962495Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/spinner
+2026-01-19T04:32:14.1323851Z [DEBUG] Received response (Length: 345)
+2026-01-19T04:32:14.1324980Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com/switchClass
+2026-01-19T04:32:19.0999147Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:19.1008793Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:19.1009800Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:19.1010585Z [DEBUG] Received response (Length: 299)
+2026-01-19T04:32:19.1011535Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/selectmenu
+2026-01-19T04:32:19.2438508Z [DEBUG] Received response (Length: 339)
+2026-01-19T04:32:19.2439303Z [DEBUG] Received response (Length: 288)
+2026-01-19T04:32:19.2444387Z   🔍 [Worker 2] Visiting (1): https://jqueryui.com/dialog
+2026-01-19T04:32:19.2476949Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com/removeClass
+2026-01-19T04:32:23.9516501Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:23.9518706Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:23.9519469Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:23.9520100Z [DEBUG] Received response (Length: 162)
+2026-01-19T04:32:23.9521024Z   🔍 [Worker 0] Visiting (1): https://jqueryui.com/accordion
+2026-01-19T04:32:23.9990842Z [DEBUG] Received response (Length: 243)
+2026-01-19T04:32:23.9991811Z   🔍 [Worker 1] Visiting (1): https://jqueryui.com/draggable
+2026-01-19T04:32:24.0995939Z [DEBUG] Received response (Length: 286)
+2026-01-19T04:32:24.0996957Z   🔍 [Worker 2] Visiting (2): https://api.jqueryui.com/button
+2026-01-19T04:32:25.1204752Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:25.1205584Z [DEBUG] Received response (Length: 288)
+2026-01-19T04:32:25.1206773Z   🔍 [Worker 0] Visiting (2): https://jqueryui.com/resources/demos/button/default.html
+2026-01-19T04:32:30.0806930Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:30.0808087Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:30.0808828Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:30.0809427Z [DEBUG] Received response (Length: 229)
+2026-01-19T04:32:30.0810473Z   🔍 [Worker 0] Visiting (2): https://jqueryui.com/resources/demos/button/icons.html
+2026-01-19T04:32:30.2963695Z [DEBUG] Received response (Length: 373)
+2026-01-19T04:32:30.2974840Z   🔍 [Worker 1] Visiting (2): https://jqueryui.com/resources/demos/effect/removeClass.html
+2026-01-19T04:32:30.3309289Z [DEBUG] Received response (Length: 306)
+2026-01-19T04:32:30.3312124Z   🔍 [Worker 2] Visiting (2): https://jqueryui.com/resources/demos/effect/toggleClass.html
+2026-01-19T04:32:35.1231724Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:35.1232685Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:35.1233512Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:35.1234111Z [DEBUG] Received response (Length: 198)
+2026-01-19T04:32:35.1235572Z   🔍 [Worker 2] Visiting (2): https://jqueryui.com/resources/demos/effect/show.html
+2026-01-19T04:32:35.1746926Z [DEBUG] Received response (Length: 283)
+2026-01-19T04:32:35.1748306Z   🔍 [Worker 1] Visiting (2): https://jqueryui.com/resources/demos/effect/toggle.html
+2026-01-19T04:32:35.2880345Z [DEBUG] Received response (Length: 298)
+2026-01-19T04:32:35.2882614Z   🔍 [Worker 0] Visiting (2): https://jqueryui.com/resources/demos/effect/animate.html
+2026-01-19T04:32:40.1231637Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:40.1234234Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:40.1235024Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:40.1235659Z [DEBUG] Received response (Length: 245)
+2026-01-19T04:32:40.1236593Z   🔍 [Worker 2] Visiting (2): https://api.jqueryui.com/effect
+2026-01-19T04:32:40.1494900Z [DEBUG] Received response (Length: 189)
+2026-01-19T04:32:40.1496512Z   🔍 [Worker 0] Visiting (2): https://jqueryui.com/resources/demos/effect/switchClass.html
+2026-01-19T04:32:40.1842334Z [DEBUG] Received response (Length: 258)
+2026-01-19T04:32:40.1844024Z   🔍 [Worker 1] Visiting (2): https://jqueryui.com/resources/demos/effect/addClass.html
+2026-01-19T04:32:45.2277938Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:45.2278749Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:45.2279547Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:45.2280259Z [DEBUG] Received response (Length: 161)
+2026-01-19T04:32:45.2280729Z [DEBUG] Received response (Length: 240)
+2026-01-19T04:32:45.2281161Z [DEBUG] Received response (Length: 296)
+2026-01-19T04:32:45.2281894Z ✅ Discovery Complete. Mapped 50 pages.
+2026-01-19T04:32:54.3426185Z 
+2026-01-19T04:32:54.3427086Z [PLAN] PLANNER: Planning goal -> 'Test jQuery UI components' (Deep Mode: True)
+2026-01-19T04:32:54.3428270Z 🗺️ [PLAN] Loaded Sitemap with 50 pages.
+2026-01-19T04:32:54.3429410Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-19T04:32:54.3430458Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:32:54.3430859Z [DEBUG] Received response (Length: 3745)
+2026-01-19T04:32:54.3431206Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-19T04:32:55.3585134Z 
+2026-01-19T04:32:55.3586300Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-19T04:32:55.3586850Z 📋 Found 3 scenarios to explore.
+2026-01-19T04:32:55.7178415Z 
+2026-01-19T04:32:55.7178953Z [1/3] Exploring Scenario: Verify jQuery UI Autocomplete Functionality
+2026-01-19T04:32:55.7179768Z     🧠 Initialized exploration context for goal: 'Test jQuery UI components'
+2026-01-19T04:32:55.7180222Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:32:56.5449042Z     ✅ Navigated to https://jqueryui.com/demos/
+2026-01-19T04:32:56.5449885Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-19T04:33:01.5763953Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:33:03.5787045Z     ✅ State transitioned.
+2026-01-19T04:33:05.3736335Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:33:05.3737048Z [DEBUG] Received response (Length: 262)
+2026-01-19T04:33:05.3738111Z     🤖 AI Next Step Suggestion: click -> Draggable
+2026-01-19T04:33:05.3738772Z     🧩 Suggested Locator: a[href='draggable/']
+2026-01-19T04:33:05.3740008Z     💭 Reasoning: To explore the jQuery UI components, I will start by clicking on the 'Draggable' link under the 'Interactions' section to navigate to the Draggable demo page.
+2026-01-19T04:33:05.3740778Z     ➕ Injected AI step: click -> Draggable
+2026-01-19T04:33:05.3741101Z   ▶️ [STEP step_2_ai_1] CLICK: Draggable
+2026-01-19T04:33:05.3804286Z     🎯 Using AI-provided locator: a[href='draggable/']
+2026-01-19T04:33:05.3827848Z     🔍 Mining locators for: 'Draggable'
+2026-01-19T04:33:05.4947016Z     ✅ Found 2 verified locators
+2026-01-19T04:33:09.0660835Z     ✅ State transitioned.
+2026-01-19T04:33:10.6656971Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:33:10.6658059Z [DEBUG] Received response (Length: 204)
+2026-01-19T04:33:10.6659494Z     🤖 AI Next Step Suggestion: click -> iframe
+2026-01-19T04:33:10.6660261Z     🧩 Suggested Locator: iframe
+2026-01-19T04:33:10.6661752Z     💭 Reasoning: The draggable functionality is within an iframe. Need to switch to the iframe to interact with the draggable element.
+2026-01-19T04:33:10.6663191Z     ➕ Injected AI step: click -> iframe
+2026-01-19T04:33:10.6663863Z   ▶️ [STEP step_2_ai_2] CLICK: iframe
+2026-01-19T04:33:10.6823223Z     🎯 Using AI-provided locator: iframe
+2026-01-19T04:33:10.6888275Z     ✅ Found 1 verified locators
+2026-01-19T04:33:14.7426362Z     ✅ State transitioned.
+2026-01-19T04:33:16.7336393Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:33:16.7337068Z [DEBUG] Received response (Length: 474)
+2026-01-19T04:33:16.7338050Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:33:16.7340293Z     💭 Reasoning: The current task is to test jQuery UI components, specifically the Draggable component. The last action was to click on the iframe, which likely contains the draggable element. The next step would be to interact with the draggable element within the iframe. However, this requires manual interaction (dragging the element), which cannot be automated with the available tools. Therefore, the exploration of this component is complete.
+2026-01-19T04:33:16.7342024Z   ▶️ [STEP step_3] CLICK: Autocomplete
+2026-01-19T04:33:16.7402086Z     🔍 Mining locators for: 'Autocomplete'
+2026-01-19T04:33:16.8265844Z     ✅ Found 2 verified locators
+2026-01-19T04:33:20.3800625Z     ✅ State transitioned.
+2026-01-19T04:33:22.2742991Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:33:22.2743717Z [DEBUG] Received response (Length: 215)
+2026-01-19T04:33:22.2744569Z     🤖 AI Next Step Suggestion: click -> iframe
+2026-01-19T04:33:22.2745227Z     🧩 Suggested Locator: iframe
+2026-01-19T04:33:22.2746460Z     💭 Reasoning: The page contains an iframe. Clicking it will allow interaction with the autocomplete widget inside the iframe.
+2026-01-19T04:33:22.2748088Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T04:33:22.2748840Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-19T04:33:27.3010492Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:33:29.3033640Z     ✅ State transitioned.
+2026-01-19T04:33:30.8088500Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:33:30.8090454Z [DEBUG] Received response (Length: 236)
+2026-01-19T04:33:30.8091410Z     🤖 AI Next Step Suggestion: click -> iframe
+2026-01-19T04:33:30.8092102Z     🧩 Suggested Locator: iframe
+2026-01-19T04:33:30.8093745Z     💭 Reasoning: The page contains an iframe, which likely contains the interactive Autocomplete example. Clicking the iframe will allow interaction with the example.
+2026-01-19T04:33:30.8094887Z     ➕ Injected AI step: click -> iframe
+2026-01-19T04:33:30.8095286Z   ▶️ [STEP step_4_ai_1] CLICK: iframe
+2026-01-19T04:33:30.8150851Z     🎯 Using AI-provided locator: iframe
+2026-01-19T04:33:30.8210170Z     ✅ Found 1 verified locators
+2026-01-19T04:33:34.8745386Z     ✅ State transitioned.
+2026-01-19T04:33:34.8816697Z     🔄 Revisited state detected (count: 1)
+2026-01-19T04:33:36.3884044Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:33:36.3885059Z [DEBUG] Received response (Length: 157)
+2026-01-19T04:33:36.3885863Z     🤖 AI Next Step Suggestion: click -> iframe
+2026-01-19T04:33:36.3886413Z     🧩 Suggested Locator: iframe
+2026-01-19T04:33:36.3887200Z     💭 Reasoning: Need to switch to the iframe to interact with the Autocomplete widget.
+2026-01-19T04:33:36.3888354Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T04:33:36.3888831Z   ▶️ [STEP step_5] FILL: Type into Autocomplete input
+2026-01-19T04:33:36.3944431Z     🔍 Mining locators for: 'Type into Autocomplete input'
+2026-01-19T04:33:36.4569349Z     🧠 Consulting AI (Vision-First) to find 'Type into Autocomplete input'...
+2026-01-19T04:33:36.4585379Z     🔍 Trying smart selectors for 'Type into Autocomplete input'...
+2026-01-19T04:33:36.5333761Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:33:36.5335599Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:33:41.6822379Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:33:41.6823029Z [DEBUG] Received response (Length: 363)
+2026-01-19T04:33:41.6823777Z     ⚠️ Critical step failure: 'priority'
+2026-01-19T04:33:41.6824476Z   ▶️ [STEP step_6] WAIT_FOR_ELEMENT: Autocomplete suggestion list
+2026-01-19T04:33:41.6873274Z     🔍 Mining locators for: 'Autocomplete suggestion list'
+2026-01-19T04:33:41.7565014Z     🧠 Consulting AI (Vision-First) to find 'Autocomplete suggestion list'...
+2026-01-19T04:33:41.7565999Z     🔍 Trying smart selectors for 'Autocomplete suggestion list'...
+2026-01-19T04:33:41.8233990Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:33:41.8235691Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:33:47.0328730Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:33:47.0329170Z [DEBUG] Received response (Length: 806)
+2026-01-19T04:33:47.0329811Z     🔄 Retry 1/3 mining locators for 'Autocomplete suggestion list'...
+2026-01-19T04:33:48.1053718Z     🧠 Consulting AI (Vision-First) to find 'Autocomplete suggestion list'...
+2026-01-19T04:33:48.1054432Z     🔍 Trying smart selectors for 'Autocomplete suggestion list'...
+2026-01-19T04:33:48.1663260Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:33:48.1664617Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:33:48.1669134Z [CACHE HIT] 755440f5... (hits: 1, misses: 8)
+2026-01-19T04:33:48.1669732Z     🔄 Retry 2/3 mining locators for 'Autocomplete suggestion list'...
+2026-01-19T04:33:49.1682668Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:33:49.1684599Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:33:49.2734204Z     🧠 Consulting AI (Vision-First) to find 'Autocomplete suggestion list'...
+2026-01-19T04:33:49.2735192Z     🔍 Trying smart selectors for 'Autocomplete suggestion list'...
+2026-01-19T04:33:49.3385661Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:33:49.3387378Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:33:49.3392202Z [CACHE HIT] 755440f5... (hits: 2, misses: 8)
+2026-01-19T04:33:49.3393204Z     🧠 Verifying step validity for 'Autocomplete suggestion list' after mining failure...
+2026-01-19T04:33:52.0059017Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:33:52.0059522Z [DEBUG] Received response (Length: 575)
+2026-01-19T04:33:52.0060407Z     🛠️ Self-Correction: Step is valid. Using new locator: #ui-id-1
+2026-01-19T04:33:57.5172470Z     ⚠️ Scroll into view failed for #ui-id-1. Proceeding anyway.
+2026-01-19T04:33:59.5195619Z     ✅ State transitioned.
+2026-01-19T04:33:59.5269240Z     🔄 Revisited state detected (count: 2)
+2026-01-19T04:34:01.2035932Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:34:01.2036592Z [DEBUG] Received response (Length: 319)
+2026-01-19T04:34:01.2037439Z     🤖 AI Next Step Suggestion: fill -> Tags input field
+2026-01-19T04:34:01.2038318Z     🧩 Suggested Locator: input[class='ui-autocomplete-input']
+2026-01-19T04:34:01.2039289Z     💭 Reasoning: To test the autocomplete functionality, we need to input some text into the 'Tags' input field within the iframe. Inputting 'a' will likely trigger the autocomplete suggestions.
+2026-01-19T04:34:01.2040418Z     ➕ Injected AI step: fill -> Tags input field
+2026-01-19T04:34:01.2040776Z   ▶️ [STEP step_6_ai_1] FILL: Tags input field
+2026-01-19T04:34:01.2098760Z     🎯 Using AI-provided locator: input[class='ui-autocomplete-input']
+2026-01-19T04:34:01.2116975Z     🔍 Mining locators for: 'Tags input field'
+2026-01-19T04:34:01.2715628Z     🧠 Consulting AI (Vision-First) to find 'Tags input field'...
+2026-01-19T04:34:01.2716209Z     🔍 Trying smart selectors for 'Tags input field'...
+2026-01-19T04:34:01.3342046Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:34:01.3343298Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:34:06.3706256Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:34:06.3706758Z [DEBUG] Received response (Length: 524)
+2026-01-19T04:34:06.3707865Z     🔄 Retry 1/3 mining locators for 'Tags input field'...
+2026-01-19T04:34:07.4383913Z     🧠 Consulting AI (Vision-First) to find 'Tags input field'...
+2026-01-19T04:34:07.4384861Z     🔍 Trying smart selectors for 'Tags input field'...
+2026-01-19T04:34:07.4995987Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:34:07.4997883Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:34:07.5040335Z [CACHE HIT] d5d6fad6... (hits: 3, misses: 11)
+2026-01-19T04:34:07.5041249Z     🔄 Retry 2/3 mining locators for 'Tags input field'...
+2026-01-19T04:34:08.5053778Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:34:08.5055128Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:34:08.5710973Z     🧠 Consulting AI (Vision-First) to find 'Tags input field'...
+2026-01-19T04:34:08.5711919Z     🔍 Trying smart selectors for 'Tags input field'...
+2026-01-19T04:34:08.6339553Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:34:08.6341016Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:34:08.6385929Z [CACHE HIT] d5d6fad6... (hits: 4, misses: 11)
+2026-01-19T04:34:08.6387063Z     🧠 Verifying step validity for 'Tags input field' after mining failure...
+2026-01-19T04:34:10.9733384Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:34:10.9733805Z [DEBUG] Received response (Length: 241)
+2026-01-19T04:34:10.9734485Z     🛠️ Self-Correction: Step is valid. Using new locator: input[title='Tags']
+2026-01-19T04:34:16.4854353Z     ⚠️ Scroll into view failed for input[title='Tags']. Proceeding anyway.
+2026-01-19T04:34:21.9879073Z     ⚠️ Action failed: Locator.click: Timeout 5000ms exceeded.
+2026-01-19T04:34:21.9879561Z Call log:
+2026-01-19T04:34:21.9879779Z ...
+2026-01-19T04:34:23.7554195Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:34:23.7554884Z [DEBUG] Received response (Length: 252)
+2026-01-19T04:34:23.7557236Z     ✨ AI Heal Reasoning: The input field next to the 'Tags:' label is the most suitable element for filling in tag values. It is a visible text input field, which aligns with the task of filling in data.
+2026-01-19T04:34:23.7559367Z     ✨ AI healed exploration action! New selector: input[type='text']
+2026-01-19T04:34:29.2626096Z     ⚠️ Scroll into view failed for input[type='text']. Proceeding anyway.
+2026-01-19T04:34:34.7644357Z   ▶️ [STEP step_7] ASSERT_VISIBLE: Autocomplete suggestion list
+2026-01-19T04:34:34.7703366Z     🔍 Mining locators for: 'Autocomplete suggestion list'
+2026-01-19T04:34:34.8706797Z     🧠 Consulting AI (Vision-First) to find 'Autocomplete suggestion list'...
+2026-01-19T04:34:34.8708424Z     🔍 Trying smart selectors for 'Autocomplete suggestion list'...
+2026-01-19T04:34:34.9341035Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:34:34.9342404Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:34:34.9346766Z [CACHE HIT] 755440f5... (hits: 5, misses: 13)
+2026-01-19T04:34:34.9347390Z     🔄 Retry 1/3 mining locators for 'Autocomplete suggestion list'...
+2026-01-19T04:34:36.0037735Z     🧠 Consulting AI (Vision-First) to find 'Autocomplete suggestion list'...
+2026-01-19T04:34:36.0038879Z     🔍 Trying smart selectors for 'Autocomplete suggestion list'...
+2026-01-19T04:34:36.0671990Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:34:36.0673297Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:34:36.0677452Z [CACHE HIT] 755440f5... (hits: 6, misses: 13)
+2026-01-19T04:34:36.0678263Z     🔄 Retry 2/3 mining locators for 'Autocomplete suggestion list'...
+2026-01-19T04:34:37.0681222Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:34:37.0682988Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:34:37.1365096Z     🧠 Consulting AI (Vision-First) to find 'Autocomplete suggestion list'...
+2026-01-19T04:34:37.1366094Z     🔍 Trying smart selectors for 'Autocomplete suggestion list'...
+2026-01-19T04:34:37.1975061Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:34:37.1976789Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:34:37.1980805Z [CACHE HIT] 755440f5... (hits: 7, misses: 13)
+2026-01-19T04:34:37.1981678Z     🧠 Verifying step validity for 'Autocomplete suggestion list' after mining failure...
+2026-01-19T04:34:37.1985348Z [CACHE HIT] 78c07251... (hits: 8, misses: 13)
+2026-01-19T04:34:37.1986113Z     🛠️ Self-Correction: Step is valid. Using new locator: #ui-id-1
+2026-01-19T04:34:42.7082404Z     ⚠️ Scroll into view failed for #ui-id-1. Proceeding anyway.
+2026-01-19T04:34:44.7105894Z     ✅ State transitioned.
+2026-01-19T04:34:44.7179079Z     🔄 Revisited state detected (count: 3)
+2026-01-19T04:34:44.7179700Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-19T04:34:46.7531318Z 
+2026-01-19T04:34:46.7532305Z [2/3] Exploring Scenario: Verify jQuery UI Datepicker Functionality
+2026-01-19T04:34:46.7540220Z     🧠 Initialized exploration context for goal: 'Test jQuery UI components'
+2026-01-19T04:34:46.7540888Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:34:47.6434444Z     ✅ Navigated to https://jqueryui.com/demos/
+2026-01-19T04:34:47.6434976Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-19T04:34:52.6702952Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:34:54.6725720Z     ✅ State transitioned.
+2026-01-19T04:34:54.7544711Z [CACHE HIT] df2e705a... (hits: 9, misses: 13)
+2026-01-19T04:34:54.7545458Z     🤖 AI Next Step Suggestion: click -> Draggable
+2026-01-19T04:34:54.7546236Z     🧩 Suggested Locator: a[href='draggable/']
+2026-01-19T04:34:54.7547088Z     💭 Reasoning: To explore the jQuery UI components, I will start by clicking on the 'Draggable' link under the 'Interactions' section to navigate to the Draggable demo page.
+2026-01-19T04:34:54.7548100Z     ➕ Injected AI step: click -> Draggable
+2026-01-19T04:34:54.7548435Z   ▶️ [STEP step_2_ai_1] CLICK: Draggable
+2026-01-19T04:34:54.7599079Z     🎯 Using AI-provided locator: a[href='draggable/']
+2026-01-19T04:34:54.7618381Z     🔍 Mining locators for: 'Draggable'
+2026-01-19T04:34:54.8783577Z     ✅ Found 2 verified locators
+2026-01-19T04:34:58.4414225Z     ✅ State transitioned.
+2026-01-19T04:34:58.5701695Z [CACHE HIT] 94ccf3b7... (hits: 10, misses: 13)
+2026-01-19T04:34:58.5702561Z     🤖 AI Next Step Suggestion: click -> iframe
+2026-01-19T04:34:58.5703025Z     🧩 Suggested Locator: iframe
+2026-01-19T04:34:58.5703690Z     💭 Reasoning: The draggable functionality is within an iframe. Need to switch to the iframe to interact with the draggable element.
+2026-01-19T04:34:58.5704328Z     ➕ Injected AI step: click -> iframe
+2026-01-19T04:34:58.5704646Z   ▶️ [STEP step_2_ai_2] CLICK: iframe
+2026-01-19T04:34:58.5864208Z     🎯 Using AI-provided locator: iframe
+2026-01-19T04:34:58.5928669Z     ✅ Found 1 verified locators
+2026-01-19T04:35:02.6519534Z     ✅ State transitioned.
+2026-01-19T04:35:02.7192554Z [CACHE HIT] 9135e2ea... (hits: 11, misses: 13)
+2026-01-19T04:35:02.7193482Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:35:02.7197139Z     💭 Reasoning: The current task is to test jQuery UI components, specifically the Draggable component. The last action was to click on the iframe, which likely contains the draggable element. The next step would be to interact with the draggable element within the iframe. However, this requires manual interaction (dragging the element), which cannot be automated with the available tools. Therefore, the exploration of this component is complete.
+2026-01-19T04:35:02.7200657Z   ▶️ [STEP step_3] CLICK: Datepicker
+2026-01-19T04:35:02.7249909Z     🔍 Mining locators for: 'Datepicker'
+2026-01-19T04:35:02.8224964Z     ✅ Found 2 verified locators
+2026-01-19T04:35:06.3744722Z     ✅ State transitioned.
+2026-01-19T04:35:08.2025223Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:35:08.2025894Z [DEBUG] Received response (Length: 212)
+2026-01-19T04:35:08.2026499Z     🤖 AI Next Step Suggestion: click -> iframe
+2026-01-19T04:35:08.2026837Z     🧩 Suggested Locator: iframe
+2026-01-19T04:35:08.2027811Z     💭 Reasoning: The datepicker example is within an iframe. Need to switch to the iframe context to interact with the datepicker input field.
+2026-01-19T04:35:08.2028696Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T04:35:08.2029127Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-19T04:35:13.2278258Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:35:15.2300381Z     ✅ State transitioned.
+2026-01-19T04:35:17.0417515Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:35:17.0418370Z [DEBUG] Received response (Length: 204)
+2026-01-19T04:35:17.0418963Z     🤖 AI Next Step Suggestion: click -> iframe
+2026-01-19T04:35:17.0419337Z     🧩 Suggested Locator: iframe
+2026-01-19T04:35:17.0420065Z     💭 Reasoning: The datepicker is inside an iframe. Need to switch to the iframe context to interact with the datepicker input field.
+2026-01-19T04:35:17.0420778Z     ➕ Injected AI step: click -> iframe
+2026-01-19T04:35:17.0421127Z   ▶️ [STEP step_4_ai_1] CLICK: iframe
+2026-01-19T04:35:17.0478214Z     🎯 Using AI-provided locator: iframe
+2026-01-19T04:35:17.0538514Z     ✅ Found 1 verified locators
+2026-01-19T04:35:21.1011241Z     ✅ State transitioned.
+2026-01-19T04:35:21.1081161Z     🔄 Revisited state detected (count: 1)
+2026-01-19T04:35:22.9146707Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:35:22.9147396Z [DEBUG] Received response (Length: 177)
+2026-01-19T04:35:22.9148723Z     🤖 AI Next Step Suggestion: click -> iframe
+2026-01-19T04:35:22.9149136Z     🧩 Suggested Locator: iframe
+2026-01-19T04:35:22.9149657Z     💭 Reasoning: Need to switch to the iframe to interact with the datepicker input field.
+2026-01-19T04:35:22.9150330Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T04:35:22.9150808Z   ▶️ [STEP step_5] CLICK: Open Datepicker
+2026-01-19T04:35:22.9205483Z     🔍 Mining locators for: 'Open Datepicker'
+2026-01-19T04:35:22.9859999Z     🧠 Consulting AI (Vision-First) to find 'Open Datepicker'...
+2026-01-19T04:35:22.9860521Z     🔍 Trying smart selectors for 'Open Datepicker'...
+2026-01-19T04:35:23.0940915Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:35:23.0942110Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:35:28.0751184Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:35:28.0751762Z [DEBUG] Received response (Length: 480)
+2026-01-19T04:35:28.0752361Z     🔄 Retry 1/3 mining locators for 'Open Datepicker'...
+2026-01-19T04:35:29.1515332Z     🧠 Consulting AI (Vision-First) to find 'Open Datepicker'...
+2026-01-19T04:35:29.1515847Z     🔍 Trying smart selectors for 'Open Datepicker'...
+2026-01-19T04:35:29.2061684Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:35:29.2063435Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:35:29.2125571Z [CACHE HIT] ae97bc78... (hits: 12, misses: 17)
+2026-01-19T04:35:29.2126375Z     🔄 Retry 2/3 mining locators for 'Open Datepicker'...
+2026-01-19T04:35:30.2139212Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:35:30.2140763Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:35:30.2842817Z     🧠 Consulting AI (Vision-First) to find 'Open Datepicker'...
+2026-01-19T04:35:30.2843530Z     🔍 Trying smart selectors for 'Open Datepicker'...
+2026-01-19T04:35:30.3375571Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:35:30.3377048Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:35:30.3440550Z [CACHE HIT] ae97bc78... (hits: 13, misses: 17)
+2026-01-19T04:35:30.3441335Z     🧠 Verifying step validity for 'Open Datepicker' after mining failure...
+2026-01-19T04:35:32.5449695Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:35:32.5450533Z [DEBUG] Received response (Length: 213)
+2026-01-19T04:35:32.5451630Z     🛠️ Self-Correction: Step is valid. Using new locator: #datepicker
+2026-01-19T04:35:38.0568456Z     ⚠️ Scroll into view failed for #datepicker. Proceeding anyway.
+2026-01-19T04:35:43.0591567Z     ⚠️ Action failed: Locator.bounding_box: Timeout 5000ms exceeded.
+2026-01-19T04:35:43.0592486Z Cal...
+2026-01-19T04:35:44.4149689Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:35:44.4150375Z [DEBUG] Received response (Length: 226)
+2026-01-19T04:35:44.4152169Z     ✨ AI Heal Reasoning: The input field next to 'Date:' is the most likely element to open the datepicker. It is a text input, which is commonly used for datepicker components.
+2026-01-19T04:35:44.4153698Z     ✨ AI healed exploration action! New selector: input[type='text']
+2026-01-19T04:35:49.9211439Z     ⚠️ Scroll into view failed for input[type='text']. Proceeding anyway.
+2026-01-19T04:35:54.9240863Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Datepicker calendar
+2026-01-19T04:35:54.9303320Z     🔍 Mining locators for: 'Datepicker calendar'
+2026-01-19T04:35:55.0004654Z     🧠 Consulting AI (Vision-First) to find 'Datepicker calendar'...
+2026-01-19T04:35:55.0006103Z     🔍 Trying smart selectors for 'Datepicker calendar'...
+2026-01-19T04:35:55.0543437Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:35:55.0545005Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:36:58.1665534Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:36:58.1666786Z [DEBUG] LLM Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.', 'status': 'RESOURCE_EXHAUSTED'}}
+2026-01-19T04:36:58.1668468Z ⚠️ 429 Rate Limit Hit. Cooling down for 60s...
+2026-01-19T04:36:58.1668861Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:36:58.1669233Z [DEBUG] Received response (Length: 682)
+2026-01-19T04:36:58.1669651Z     🔄 Retry 1/3 mining locators for 'Datepicker calendar'...
+2026-01-19T04:36:59.2309320Z     🧠 Consulting AI (Vision-First) to find 'Datepicker calendar'...
+2026-01-19T04:36:59.2310177Z     🔍 Trying smart selectors for 'Datepicker calendar'...
+2026-01-19T04:36:59.2857742Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:36:59.2859048Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:36:59.2863320Z [CACHE HIT] 37cacb9a... (hits: 14, misses: 21)
+2026-01-19T04:36:59.2864043Z     🔄 Retry 2/3 mining locators for 'Datepicker calendar'...
+2026-01-19T04:37:00.2877069Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:37:00.2878720Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:37:00.3979201Z     🧠 Consulting AI (Vision-First) to find 'Datepicker calendar'...
+2026-01-19T04:37:00.3980213Z     🔍 Trying smart selectors for 'Datepicker calendar'...
+2026-01-19T04:37:00.4537041Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:37:00.4538581Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:37:00.4542530Z [CACHE HIT] 37cacb9a... (hits: 15, misses: 21)
+2026-01-19T04:37:00.4543314Z     🧠 Verifying step validity for 'Datepicker calendar' after mining failure...
+2026-01-19T04:37:02.4777161Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:37:02.4777882Z [DEBUG] Received response (Length: 276)
+2026-01-19T04:37:02.4778585Z     🛠️ Self-Correction: Step is valid. Using new locator: #datepicker
+2026-01-19T04:37:07.9896148Z     ⚠️ Scroll into view failed for #datepicker. Proceeding anyway.
+2026-01-19T04:37:09.9918980Z     ✅ State transitioned.
+2026-01-19T04:37:09.9990000Z     🔄 Revisited state detected (count: 2)
+2026-01-19T04:37:11.4666658Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:37:11.4667397Z [DEBUG] Received response (Length: 229)
+2026-01-19T04:37:11.4668490Z     🤖 AI Next Step Suggestion: click -> Open Datepicker
+2026-01-19T04:37:11.4669231Z     🧩 Suggested Locator: #datepicker
+2026-01-19T04:37:11.4670553Z     💭 Reasoning: The previous attempt to open the datepicker failed. Trying again to ensure the datepicker is visible before interacting with it.
+2026-01-19T04:37:11.4671811Z     ➕ Injected AI step: click -> Open Datepicker
+2026-01-19T04:37:11.4672444Z   ▶️ [STEP step_6_ai_1] CLICK: Open Datepicker
+2026-01-19T04:37:11.4731629Z     🎯 Using AI-provided locator: #datepicker
+2026-01-19T04:37:11.4750440Z     🔍 Mining locators for: 'Open Datepicker'
+2026-01-19T04:37:11.5476796Z     🧠 Consulting AI (Vision-First) to find 'Open Datepicker'...
+2026-01-19T04:37:11.5477922Z     🔍 Trying smart selectors for 'Open Datepicker'...
+2026-01-19T04:37:11.6049813Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:37:11.6050888Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:37:11.6113393Z [CACHE HIT] ae97bc78... (hits: 16, misses: 23)
+2026-01-19T04:37:11.6114160Z     🔄 Retry 1/3 mining locators for 'Open Datepicker'...
+2026-01-19T04:37:12.6807017Z     🧠 Consulting AI (Vision-First) to find 'Open Datepicker'...
+2026-01-19T04:37:12.6807710Z     🔍 Trying smart selectors for 'Open Datepicker'...
+2026-01-19T04:37:12.7346905Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:37:12.7348531Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:37:12.7414749Z [CACHE HIT] ae97bc78... (hits: 17, misses: 23)
+2026-01-19T04:37:12.7415355Z     🔄 Retry 2/3 mining locators for 'Open Datepicker'...
+2026-01-19T04:37:13.7428576Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:37:13.7429766Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:37:13.8142504Z     🧠 Consulting AI (Vision-First) to find 'Open Datepicker'...
+2026-01-19T04:37:13.8143432Z     🔍 Trying smart selectors for 'Open Datepicker'...
+2026-01-19T04:37:13.8763532Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:37:13.8764813Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:37:13.8829035Z [CACHE HIT] ae97bc78... (hits: 18, misses: 23)
+2026-01-19T04:37:13.8829840Z     🧠 Verifying step validity for 'Open Datepicker' after mining failure...
+2026-01-19T04:37:13.8834065Z [CACHE HIT] 44b0a549... (hits: 19, misses: 23)
+2026-01-19T04:37:13.8834996Z     🛠️ Self-Correction: Step is valid. Using new locator: #datepicker
+2026-01-19T04:37:19.3951609Z     ⚠️ Scroll into view failed for #datepicker. Proceeding anyway.
+2026-01-19T04:37:24.3963400Z     ⚠️ Action failed: Locator.bounding_box: Timeout 5000ms exceeded.
+2026-01-19T04:37:24.3963822Z Cal...
+2026-01-19T04:37:24.4646299Z [CACHE HIT] 056d1e8f... (hits: 20, misses: 23)
+2026-01-19T04:37:24.4647795Z     ✨ AI Heal Reasoning: The input field next to 'Date:' is the most likely element to open the datepicker. It is a text input, which is commonly used for datepicker components.
+2026-01-19T04:37:24.4648693Z     ✨ AI healed exploration action! New selector: input[type='text']
+2026-01-19T04:37:29.9705029Z     ⚠️ Scroll into view failed for input[type='text']. Proceeding anyway.
+2026-01-19T04:37:34.9722567Z   ▶️ [STEP step_7] CLICK: Next
+2026-01-19T04:37:34.9783680Z     🔍 Mining locators for: 'Next'
+2026-01-19T04:37:35.0802810Z     🧠 Consulting AI (Vision-First) to find 'Next'...
+2026-01-19T04:37:35.0803554Z     🔍 Trying smart selectors for 'Next'...
+2026-01-19T04:37:35.1207207Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:37:35.1209074Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:37:36.7818531Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:37:36.7818993Z [DEBUG] Received response (Length: 295)
+2026-01-19T04:37:36.7820109Z     💡 Expert Suggestion: The 'Next' button is likely part of the datepicker's navigation, which might be enabled by clicking 'Display button bar' in the examples section.
+2026-01-19T04:37:36.7821070Z     🛠️ Executing corrective action: click -> 'Display button bar'
+2026-01-19T04:37:37.3729133Z     ✅ Executed corrective navigation
+2026-01-19T04:37:39.3760659Z     🔄 Retry 1/3 mining locators for 'Next'...
+2026-01-19T04:37:40.4466423Z     🧠 Consulting AI (Vision-First) to find 'Next'...
+2026-01-19T04:37:40.4467143Z     🔍 Trying smart selectors for 'Next'...
+2026-01-19T04:37:40.4898133Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:37:40.4899248Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:37:42.3629698Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:37:42.3630381Z [DEBUG] Received response (Length: 240)
+2026-01-19T04:37:42.3631658Z     💡 Expert Suggestion: The 'Next' button is likely within the datepicker when multiple months are displayed.
+2026-01-19T04:37:42.3632858Z     🛠️ Executing corrective action: click -> 'Display multiple months'
+2026-01-19T04:37:42.9500248Z     ✅ Executed corrective navigation
+2026-01-19T04:37:44.9528900Z     🔄 Retry 2/3 mining locators for 'Next'...
+2026-01-19T04:37:45.9542354Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:37:45.9543812Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:37:46.0298565Z     🧠 Consulting AI (Vision-First) to find 'Next'...
+2026-01-19T04:37:46.0299347Z     🔍 Trying smart selectors for 'Next'...
+2026-01-19T04:37:46.0734515Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:37:46.0735799Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:37:47.7248780Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:37:47.7249613Z [DEBUG] Received response (Length: 295)
+2026-01-19T04:37:47.7250349Z     ⚠️ Skipping duplicate injection: Display button bar
+2026-01-19T04:37:47.7250962Z     🧠 Verifying step validity for 'Next' after no candidates found...
+2026-01-19T04:37:52.9575010Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:37:52.9575733Z [DEBUG] Received response (Length: 403)
+2026-01-19T04:37:52.9578049Z     🗑️ Step deemed INVALID: The 'Next' button is part of the datepicker widget, which is not yet visible on the page. The page is currently displaying the initial state of the Datepicker demo, where the datepicker is not yet active. We need to first interact with the 'Date' input field to trigger the datepicker to appear before we can interact with the 'Next' button.. Removing from workflow.
+2026-01-19T04:37:52.9579590Z     ⏭️ Skipping execution of invalid step: Next
+2026-01-19T04:37:52.9579966Z   ▶️ [STEP step_8] ASSERT_VISIBLE: Datepicker calendar
+2026-01-19T04:37:52.9633257Z     🔍 Mining locators for: 'Datepicker calendar'
+2026-01-19T04:37:53.0292869Z     🧠 Consulting AI (Vision-First) to find 'Datepicker calendar'...
+2026-01-19T04:37:53.0293458Z     🔍 Trying smart selectors for 'Datepicker calendar'...
+2026-01-19T04:37:53.0848179Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:37:53.0849506Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:37:57.8443315Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:37:57.8443728Z [DEBUG] Received response (Length: 419)
+2026-01-19T04:37:57.8444322Z     🔄 Retry 1/3 mining locators for 'Datepicker calendar'...
+2026-01-19T04:37:58.9452392Z     🧠 Consulting AI (Vision-First) to find 'Datepicker calendar'...
+2026-01-19T04:37:58.9453351Z     🔍 Trying smart selectors for 'Datepicker calendar'...
+2026-01-19T04:37:58.9991002Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:37:58.9992708Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:37:59.0033639Z [CACHE HIT] 80d07b74... (hits: 21, misses: 28)
+2026-01-19T04:37:59.0034457Z     🔄 Retry 2/3 mining locators for 'Datepicker calendar'...
+2026-01-19T04:38:00.0047056Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:38:00.0048539Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:38:00.0618646Z     🧠 Consulting AI (Vision-First) to find 'Datepicker calendar'...
+2026-01-19T04:38:00.0619511Z     🔍 Trying smart selectors for 'Datepicker calendar'...
+2026-01-19T04:38:00.1146045Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:38:00.1147960Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:38:00.1188349Z [CACHE HIT] 80d07b74... (hits: 22, misses: 28)
+2026-01-19T04:38:00.1189191Z     🧠 Verifying step validity for 'Datepicker calendar' after mining failure...
+2026-01-19T04:38:02.5094109Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:38:02.5094980Z [DEBUG] Received response (Length: 313)
+2026-01-19T04:38:02.5098216Z     🗑️ Step deemed INVALID: The datepicker calendar is not visible on the page initially. It appears after interacting with the 'Date' input field or clicking on one of the examples on the right side of the page. Therefore, trying to locate the calendar at this stage is invalid.. Removing from workflow.
+2026-01-19T04:38:02.5100040Z     ⏭️ Skipping execution of invalid step: Datepicker calendar
+2026-01-19T04:38:04.5510573Z 
+2026-01-19T04:38:04.5511216Z [3/3] Exploring Scenario: Verify jQuery UI Draggable Functionality
+2026-01-19T04:38:04.5512530Z     🧠 Initialized exploration context for goal: 'Test jQuery UI components'
+2026-01-19T04:38:04.5513345Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:38:05.4453939Z     ✅ Navigated to https://jqueryui.com/demos/
+2026-01-19T04:38:05.4454832Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-19T04:38:10.4729776Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:38:12.4752826Z     ✅ State transitioned.
+2026-01-19T04:38:12.5652860Z [CACHE HIT] df2e705a... (hits: 23, misses: 29)
+2026-01-19T04:38:12.5653849Z     🤖 AI Next Step Suggestion: click -> Draggable
+2026-01-19T04:38:12.5654261Z     🧩 Suggested Locator: a[href='draggable/']
+2026-01-19T04:38:12.5655140Z     💭 Reasoning: To explore the jQuery UI components, I will start by clicking on the 'Draggable' link under the 'Interactions' section to navigate to the Draggable demo page.
+2026-01-19T04:38:12.5655964Z     ➕ Injected AI step: click -> Draggable
+2026-01-19T04:38:12.5656301Z   ▶️ [STEP step_2_ai_1] CLICK: Draggable
+2026-01-19T04:38:12.5706606Z     🎯 Using AI-provided locator: a[href='draggable/']
+2026-01-19T04:38:12.5726152Z     🔍 Mining locators for: 'Draggable'
+2026-01-19T04:38:12.6816100Z     ✅ Found 2 verified locators
+2026-01-19T04:38:16.2496469Z     ✅ State transitioned.
+2026-01-19T04:38:16.3289083Z [CACHE HIT] 94ccf3b7... (hits: 24, misses: 29)
+2026-01-19T04:38:16.3290135Z     🤖 AI Next Step Suggestion: click -> iframe
+2026-01-19T04:38:16.3290767Z     🧩 Suggested Locator: iframe
+2026-01-19T04:38:16.3292012Z     💭 Reasoning: The draggable functionality is within an iframe. Need to switch to the iframe to interact with the draggable element.
+2026-01-19T04:38:16.3293160Z     ➕ Injected AI step: click -> iframe
+2026-01-19T04:38:16.3293701Z   ▶️ [STEP step_2_ai_2] CLICK: iframe
+2026-01-19T04:38:16.3447452Z     🎯 Using AI-provided locator: iframe
+2026-01-19T04:38:16.3587214Z     ✅ Found 1 verified locators
+2026-01-19T04:38:20.4110672Z     ✅ State transitioned.
+2026-01-19T04:38:20.5285649Z [CACHE HIT] 9135e2ea... (hits: 25, misses: 29)
+2026-01-19T04:38:20.5286509Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:38:20.5289227Z     💭 Reasoning: The current task is to test jQuery UI components, specifically the Draggable component. The last action was to click on the iframe, which likely contains the draggable element. The next step would be to interact with the draggable element within the iframe. However, this requires manual interaction (dragging the element), which cannot be automated with the available tools. Therefore, the exploration of this component is complete.
+2026-01-19T04:38:20.5291044Z   ▶️ [STEP step_3] CLICK: Draggable
+2026-01-19T04:38:20.5339480Z     🔍 Mining locators for: 'Draggable'
+2026-01-19T04:38:20.6466786Z     ✅ Found 6 verified locators
+2026-01-19T04:38:24.1982305Z     ✅ State transitioned.
+2026-01-19T04:38:24.2073671Z     🔄 Revisited state detected (count: 1)
+2026-01-19T04:38:26.3632233Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:38:26.3632932Z [DEBUG] Received response (Length: 226)
+2026-01-19T04:38:26.3633770Z     🤖 AI Next Step Suggestion: click -> Default functionality
+2026-01-19T04:38:26.3634299Z     🧩 Suggested Locator: a[href$='default.html']
+2026-01-19T04:38:26.3635065Z     💭 Reasoning: To explore the basic draggable functionality, clicking on 'Default functionality' is the next logical step.
+2026-01-19T04:38:26.3635778Z     ➕ Injected AI step: click -> Default functionality
+2026-01-19T04:38:26.3636171Z   ▶️ [STEP step_3_ai_1] CLICK: Default functionality
+2026-01-19T04:38:26.3792374Z     🎯 Using AI-provided locator: a[href$='default.html']
+2026-01-19T04:38:26.3857495Z     ✅ Found 1 verified locators
+2026-01-19T04:38:30.4488558Z     ✅ State transitioned.
+2026-01-19T04:38:32.2378667Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:38:32.2379289Z [DEBUG] Received response (Length: 230)
+2026-01-19T04:38:32.2380162Z     🤖 AI Next Step Suggestion: click -> Auto-scroll
+2026-01-19T04:38:32.2380906Z     🧩 Suggested Locator: a[href$='draggable/#scroll']
+2026-01-19T04:38:32.2381730Z     💭 Reasoning: To explore different functionalities of the Draggable component, clicking on 'Auto-scroll' is the next logical step.
+2026-01-19T04:38:32.2382498Z     ➕ Injected AI step: click -> Auto-scroll
+2026-01-19T04:38:32.2382868Z   ▶️ [STEP step_3_ai_2] CLICK: Auto-scroll
+2026-01-19T04:38:32.2441770Z     🎯 Using AI-provided locator: a[href$='draggable/#scroll']
+2026-01-19T04:38:32.2461367Z     🔍 Mining locators for: 'Auto-scroll'
+2026-01-19T04:38:32.3300602Z     ✅ Found 2 verified locators
+2026-01-19T04:38:35.9001569Z     ✅ State transitioned.
+2026-01-19T04:38:37.7400403Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:38:37.7401114Z [DEBUG] Received response (Length: 262)
+2026-01-19T04:38:37.7401798Z     🤖 AI Next Step Suggestion: click -> Constrain movement
+2026-01-19T04:38:37.7402225Z     🧩 Suggested Locator: a:contains('Constrain movement')
+2026-01-19T04:38:37.7403008Z     💭 Reasoning: After testing 'Auto-scroll', it's logical to explore other examples provided on the page to comprehensively test the Draggable component.
+2026-01-19T04:38:37.7403781Z     ➕ Injected AI step: click -> Constrain movement
+2026-01-19T04:38:37.7404147Z   ▶️ [STEP step_3_ai_3] CLICK: Constrain movement
+2026-01-19T04:38:37.7468352Z     🎯 Using AI-provided locator: a:contains('Constrain movement')
+2026-01-19T04:38:37.7501621Z     🔍 Mining locators for: 'Constrain movement'
+2026-01-19T04:38:37.8787148Z     ✅ Found 2 verified locators
+2026-01-19T04:38:41.4331011Z     ✅ State transitioned.
+2026-01-19T04:38:43.2470450Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:38:43.2471251Z [DEBUG] Received response (Length: 202)
+2026-01-19T04:38:43.2471904Z     🤖 AI Next Step Suggestion: click -> Cursor style
+2026-01-19T04:38:43.2472381Z     🧩 Suggested Locator: a:contains('Cursor style')
+2026-01-19T04:38:43.2472998Z     💭 Reasoning: Navigating to the next example in the list to continue testing draggable functionalities.
+2026-01-19T04:38:43.2473683Z     ➕ Injected AI step: click -> Cursor style
+2026-01-19T04:38:43.2474395Z   ▶️ [STEP step_3_ai_4] CLICK: Cursor style
+2026-01-19T04:38:43.2535003Z     🎯 Using AI-provided locator: a:contains('Cursor style')
+2026-01-19T04:38:43.2558397Z     🔍 Mining locators for: 'Cursor style'
+2026-01-19T04:38:43.3448808Z     ✅ Found 2 verified locators
+2026-01-19T04:38:46.8993300Z     ✅ State transitioned.
+2026-01-19T04:38:48.6520535Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:38:48.6521280Z [DEBUG] Received response (Length: 187)
+2026-01-19T04:38:48.6522097Z     🤖 AI Next Step Suggestion: click -> Events
+2026-01-19T04:38:48.6522802Z     🧩 Suggested Locator: a:contains('Events')
+2026-01-19T04:38:48.6523963Z     💭 Reasoning: Navigating to the next example 'Events' to continue testing draggable functionalities.
+2026-01-19T04:38:48.6525069Z     ➕ Injected AI step: click -> Events
+2026-01-19T04:38:48.6525694Z   ▶️ [STEP step_3_ai_5] CLICK: Events
+2026-01-19T04:38:48.6589288Z     🎯 Using AI-provided locator: a:contains('Events')
+2026-01-19T04:38:48.6613731Z     🔍 Mining locators for: 'Events'
+2026-01-19T04:38:48.7654040Z     ✅ Found 2 verified locators
+2026-01-19T04:38:52.3319386Z     ✅ State transitioned.
+2026-01-19T04:38:54.1316846Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:38:54.1317500Z [DEBUG] Received response (Length: 232)
+2026-01-19T04:38:54.1318284Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:38:54.1319248Z     💭 Reasoning: The current page does not seem to be related to the goal of testing jQuery UI components. The page is about OpenJS Foundation events. Therefore, the goal is unlikely to be achieved from here.
+2026-01-19T04:38:54.1320101Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-19T04:38:59.1581646Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:39:01.1604668Z     ✅ State transitioned.
+2026-01-19T04:39:03.4893175Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:39:03.4894106Z [DEBUG] Received response (Length: 381)
+2026-01-19T04:39:03.4895411Z     🤖 AI Next Step Suggestion: navigate -> https://jqueryui.com/draggable/
+2026-01-19T04:39:03.4898769Z     💭 Reasoning: The goal is to test jQuery UI components, and the last few actions were related to draggable components. The current page is the OpenJS foundation events page, which is unrelated. Navigating back to the jQuery UI draggable page is the next logical step.
+2026-01-19T04:39:03.4901525Z     ➕ Injected AI step: navigate -> https://jqueryui.com/draggable/
+2026-01-19T04:39:03.4904356Z   ▶️ [STEP step_4_ai_1] NAVIGATE: https://jqueryui.com/draggable/
+2026-01-19T04:39:04.1465692Z     ✅ Navigated to https://jqueryui.com/draggable/
+2026-01-19T04:39:04.1466476Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Drag me around
+2026-01-19T04:39:04.1699828Z     🔍 Mining locators for: 'Drag me around'
+2026-01-19T04:39:04.2925826Z     🧠 Consulting AI (Vision-First) to find 'Drag me around'...
+2026-01-19T04:39:04.2926703Z     🔍 Trying smart selectors for 'Drag me around'...
+2026-01-19T04:39:04.3610808Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:39:04.3612174Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:40:12.5782180Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:40:12.5783375Z [DEBUG] LLM Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.', 'status': 'RESOURCE_EXHAUSTED'}}
+2026-01-19T04:40:12.5784684Z ⚠️ 429 Rate Limit Hit. Cooling down for 60s...
+2026-01-19T04:40:12.5785061Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:40:12.5785407Z [DEBUG] Received response (Length: 428)
+2026-01-19T04:40:12.5785771Z     🔄 Retry 1/3 mining locators for 'Drag me around'...
+2026-01-19T04:40:13.6400855Z     🧠 Consulting AI (Vision-First) to find 'Drag me around'...
+2026-01-19T04:40:13.6402099Z     🔍 Trying smart selectors for 'Drag me around'...
+2026-01-19T04:40:13.7055426Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:40:13.7057275Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:40:13.7062587Z [CACHE HIT] ee030cf6... (hits: 26, misses: 38)
+2026-01-19T04:40:13.7063219Z     🔄 Retry 2/3 mining locators for 'Drag me around'...
+2026-01-19T04:40:14.7075934Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:40:14.7077414Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:40:14.7735387Z     🧠 Consulting AI (Vision-First) to find 'Drag me around'...
+2026-01-19T04:40:14.7736256Z     🔍 Trying smart selectors for 'Drag me around'...
+2026-01-19T04:40:14.8388047Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:40:14.8390044Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:40:14.8395161Z [CACHE HIT] ee030cf6... (hits: 27, misses: 38)
+2026-01-19T04:40:14.8396197Z     🧠 Verifying step validity for 'Drag me around' after mining failure...
+2026-01-19T04:40:17.0218890Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:40:17.0219310Z [DEBUG] Received response (Length: 209)
+2026-01-19T04:40:17.0219945Z     🛠️ Self-Correction: Step is valid. Using new locator: #draggable
+2026-01-19T04:40:22.5340084Z     ⚠️ Scroll into view failed for #draggable. Proceeding anyway.
+2026-01-19T04:40:24.5363229Z     ✅ State transitioned.
+2026-01-19T04:40:24.5438870Z     🔄 Revisited state detected (count: 1)
+2026-01-19T04:40:26.0442773Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:40:26.0443423Z [DEBUG] Received response (Length: 278)
+2026-01-19T04:40:26.0444122Z     🤖 AI Next Step Suggestion: click -> Handles
+2026-01-19T04:40:26.0444526Z     🧩 Suggested Locator: a:contains('Handles')
+2026-01-19T04:40:26.0445586Z     💭 Reasoning: To explore different functionalities of the Draggable component, clicking on 'Handles' is a logical next step to see how the draggable element can be controlled using handles.
+2026-01-19T04:40:26.0446508Z     ➕ Injected AI step: click -> Handles
+2026-01-19T04:40:26.0446822Z   ▶️ [STEP step_5_ai_1] CLICK: Handles
+2026-01-19T04:40:26.0503450Z     🎯 Using AI-provided locator: a:contains('Handles')
+2026-01-19T04:40:26.0535465Z     🔍 Mining locators for: 'Handles'
+2026-01-19T04:40:26.1432812Z     ✅ Found 2 verified locators
+2026-01-19T04:40:29.7157506Z     ✅ State transitioned.
+2026-01-19T04:40:33.1641671Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:40:33.1642421Z [DEBUG] Received response (Length: 255)
+2026-01-19T04:40:33.1643340Z     🤖 AI Next Step Suggestion: click -> Default functionality
+2026-01-19T04:40:33.1644210Z     🧩 Suggested Locator: a:contains('Default functionality')
+2026-01-19T04:40:33.1645868Z     💭 Reasoning: To explore different functionalities of the Draggable component, clicking on 'Default functionality' is a logical next step.
+2026-01-19T04:40:33.1646641Z     ➕ Injected AI step: click -> Default functionality
+2026-01-19T04:40:33.1647061Z   ▶️ [STEP step_5_ai_2] CLICK: Default functionality
+2026-01-19T04:40:33.1703258Z     🎯 Using AI-provided locator: a:contains('Default functionality')
+2026-01-19T04:40:33.1726665Z     🔍 Mining locators for: 'Default functionality'
+2026-01-19T04:40:33.3146291Z     ✅ Found 2 verified locators
+2026-01-19T04:40:36.8777312Z     ✅ State transitioned.
+2026-01-19T04:40:36.8849569Z     🔄 Revisited state detected (count: 1)
+2026-01-19T04:40:38.4481357Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:40:38.4481838Z [DEBUG] Received response (Length: 238)
+2026-01-19T04:40:38.4482753Z     🤖 AI Next Step Suggestion: click -> Auto-scroll
+2026-01-19T04:40:38.4483286Z     🧩 Suggested Locator: #content > div.demo > div > ul > li:nth-child(2) > a
+2026-01-19T04:40:38.4484110Z     💭 Reasoning: To explore another example of the Draggable component, specifically the 'Auto-scroll' functionality.
+2026-01-19T04:40:38.4484764Z     ➕ Injected AI step: click -> Auto-scroll
+2026-01-19T04:40:38.4485140Z   ▶️ [STEP step_5_ai_3] CLICK: Auto-scroll
+2026-01-19T04:40:38.4540169Z     🎯 Using AI-provided locator: #content > div.demo > div > ul > li:nth-child(2) > a
+2026-01-19T04:40:38.4569677Z     🔍 Mining locators for: 'Auto-scroll'
+2026-01-19T04:40:38.5376361Z     ✅ Found 2 verified locators
+2026-01-19T04:40:42.0947980Z     ✅ State transitioned.
+2026-01-19T04:40:42.1024679Z     🔄 Revisited state detected (count: 2)
+2026-01-19T04:40:43.5623061Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:40:43.5623797Z [DEBUG] Received response (Length: 203)
+2026-01-19T04:40:43.5624784Z     🤖 AI Next Step Suggestion: click -> Constrain movement
+2026-01-19T04:40:43.5625735Z     🧩 Suggested Locator: a[href$='draggable/#constrain-movement']
+2026-01-19T04:40:43.5626916Z     💭 Reasoning: To explore another example of the Draggable component's functionality.
+2026-01-19T04:40:43.5628217Z     ➕ Injected AI step: click -> Constrain movement
+2026-01-19T04:40:43.5628981Z   ▶️ [STEP step_5_ai_4] CLICK: Constrain movement
+2026-01-19T04:40:43.5688498Z     🎯 Using AI-provided locator: a[href$='draggable/#constrain-movement']
+2026-01-19T04:40:43.5708180Z     🔍 Mining locators for: 'Constrain movement'
+2026-01-19T04:40:43.6536564Z     ✅ Found 2 verified locators
+2026-01-19T04:40:47.2266780Z     ✅ State transitioned.
+2026-01-19T04:40:47.2348290Z     🔄 Revisited state detected (count: 3)
+2026-01-19T04:40:47.2348989Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-19T04:40:47.2349443Z   ▶️ [STEP step_6] DRAGGABLE: Drag me around
+2026-01-19T04:40:47.2401227Z     🔍 Mining locators for: 'Drag me around'
+2026-01-19T04:40:47.3057104Z     🧠 Consulting AI (Vision-First) to find 'Drag me around'...
+2026-01-19T04:40:47.3058210Z     🔍 Trying smart selectors for 'Drag me around'...
+2026-01-19T04:40:47.3635521Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:40:47.3637327Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:40:50.2683773Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:40:50.2684404Z [DEBUG] Received response (Length: 580)
+2026-01-19T04:40:50.2685001Z     🔄 Retry 1/3 mining locators for 'Drag me around'...
+2026-01-19T04:40:51.3389448Z     🧠 Consulting AI (Vision-First) to find 'Drag me around'...
+2026-01-19T04:40:51.3391129Z     🔍 Trying smart selectors for 'Drag me around'...
+2026-01-19T04:40:51.4401915Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:40:51.4403249Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:40:51.4407925Z [CACHE HIT] c2a363a3... (hits: 28, misses: 44)
+2026-01-19T04:40:51.4408548Z     🔄 Retry 2/3 mining locators for 'Drag me around'...
+2026-01-19T04:40:52.4421702Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:40:52.4423007Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:40:52.5054593Z     🧠 Consulting AI (Vision-First) to find 'Drag me around'...
+2026-01-19T04:40:52.5055149Z     🔍 Trying smart selectors for 'Drag me around'...
+2026-01-19T04:40:52.5652360Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:40:52.5654503Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:40:52.5658252Z [CACHE HIT] c2a363a3... (hits: 29, misses: 44)
+2026-01-19T04:40:52.5659068Z     🧠 Verifying step validity for 'Drag me around' after mining failure...
+2026-01-19T04:40:54.6453525Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:40:54.6454285Z [DEBUG] Received response (Length: 338)
+2026-01-19T04:40:54.6456280Z     🗑️ Step deemed INVALID: The target element 'Drag me around' is not visible in the current view of the 'Constrain movement' example. The visible examples are 'I can be dragged only vertically', 'I can be dragged only horizontally', 'I'm contained within the box', and 'I'm contained within my parent'.. Removing from workflow.
+2026-01-19T04:40:54.6458166Z     ⏭️ Skipping execution of invalid step: Drag me around
+2026-01-19T04:40:54.6458651Z   ▶️ [STEP step_7] ASSERT_VISIBLE: Drag me around
+2026-01-19T04:40:54.6515738Z     🔍 Mining locators for: 'Drag me around'
+2026-01-19T04:40:54.7218317Z     🧠 Consulting AI (Vision-First) to find 'Drag me around'...
+2026-01-19T04:40:54.7219176Z     🔍 Trying smart selectors for 'Drag me around'...
+2026-01-19T04:40:54.7781486Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:40:54.7782851Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:40:54.7787821Z [CACHE HIT] c2a363a3... (hits: 30, misses: 45)
+2026-01-19T04:40:54.7788437Z     🔄 Retry 1/3 mining locators for 'Drag me around'...
+2026-01-19T04:40:55.8386411Z     🧠 Consulting AI (Vision-First) to find 'Drag me around'...
+2026-01-19T04:40:55.8387218Z     🔍 Trying smart selectors for 'Drag me around'...
+2026-01-19T04:40:55.8958386Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:40:55.8959537Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:40:55.8964177Z [CACHE HIT] c2a363a3... (hits: 31, misses: 45)
+2026-01-19T04:40:55.8964869Z     🔄 Retry 2/3 mining locators for 'Drag me around'...
+2026-01-19T04:40:56.8978560Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:40:56.8979914Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:40:56.9553476Z     🧠 Consulting AI (Vision-First) to find 'Drag me around'...
+2026-01-19T04:40:56.9554118Z     🔍 Trying smart selectors for 'Drag me around'...
+2026-01-19T04:40:57.0129922Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:40:57.0131779Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:40:57.0136296Z [CACHE HIT] c2a363a3... (hits: 32, misses: 45)
+2026-01-19T04:40:57.0136904Z     🧠 Verifying step validity for 'Drag me around' after mining failure...
+2026-01-19T04:40:57.0142180Z [CACHE HIT] 3b6d3466... (hits: 33, misses: 45)
+2026-01-19T04:40:57.0143934Z     🗑️ Step deemed INVALID: The target element 'Drag me around' is not visible in the current view of the 'Constrain movement' example. The visible examples are 'I can be dragged only vertically', 'I can be dragged only horizontally', 'I'm contained within the box', and 'I'm contained within my parent'.. Removing from workflow.
+2026-01-19T04:40:57.0145275Z     ⏭️ Skipping execution of invalid step: Drag me around
+2026-01-19T04:40:59.0487113Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_jquery_ui_demos/tests/generated_scenarios.json
+2026-01-19T04:40:59.0498603Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-19T04:40:59.0499073Z 
+2026-01-19T04:40:59.0499341Z ✅ Deep Exploration Complete.
+2026-01-19T04:44:28.9776731Z 
+2026-01-19T04:44:28.9777510Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-19T04:44:28.9779459Z 📍 Project: ci_jquery_ui_demos
+2026-01-19T04:44:28.9779886Z 🎬 Mode: Headless
+2026-01-19T04:44:28.9780068Z 
+2026-01-19T04:44:28.9780346Z --- Scenario: Verify jQuery UI Autocomplete Functionality ---
+2026-01-19T04:44:28.9781032Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:44:28.9781511Z     ✅ Step step_1 Passed.
+2026-01-19T04:44:28.9781933Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T04:44:28.9782379Z     ✅ Step step_2 Passed.
+2026-01-19T04:44:28.9782783Z   ▶️ [STEP step_2_ai_1] CLICK: Draggable
+2026-01-19T04:44:28.9783323Z     🎯 Using mined locator: role=link[name='Draggable']
+2026-01-19T04:44:28.9783831Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T04:44:28.9784253Z   ▶️ [STEP step_2_ai_2] CLICK: iframe
+2026-01-19T04:44:28.9784777Z     🎯 Using mined locator: iframe
+2026-01-19T04:44:28.9785205Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T04:44:28.9785633Z   ▶️ [STEP step_3] CLICK: Autocomplete
+2026-01-19T04:44:28.9786174Z     🎯 Using mined locator: role=link[name='Autocomplete']
+2026-01-19T04:44:28.9786707Z     ✅ Step step_3 Passed.
+2026-01-19T04:44:28.9787134Z   ▶️ [STEP step_4] ASSERT_URL: Step step_4
+2026-01-19T04:44:28.9787740Z     ✅ Step step_4 Passed.
+2026-01-19T04:44:28.9788172Z   ▶️ [STEP step_4_ai_1] CLICK: iframe
+2026-01-19T04:44:28.9788618Z     🎯 Using mined locator: iframe
+2026-01-19T04:44:28.9789038Z     ✅ Step step_4_ai_1 Passed.
+2026-01-19T04:44:28.9789538Z   ▶️ [STEP step_5] FILL: Type into Autocomplete input
+2026-01-19T04:44:28.9790488Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T04:44:28.9791202Z Call log:
+2026-01-19T04:44:28.9791485Z   - waiting for locator("tex...
+2026-01-19T04:44:28.9792116Z     🔧 [AUTO-HEAL] Re-mining page to find 'Type into Autocomplete input'...
+2026-01-19T04:44:28.9792797Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:44:28.9793341Z [DEBUG] Received response (Length: 563)
+2026-01-19T04:44:28.9793943Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T04:44:28.9794667Z     ✨ AI successfully healed the step! New selector: input[name='tags']
+2026-01-19T04:44:28.9795661Z     ❌ Attempt 2 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T04:44:28.9796399Z Call log:
+2026-01-19T04:44:28.9796681Z   - waiting for locator("inp...
+2026-01-19T04:44:28.9797307Z     🔧 [AUTO-HEAL] Re-mining page to find 'Type into Autocomplete input'...
+2026-01-19T04:44:28.9798038Z [CACHE HIT] 22a5c5f5... (hits: 1, misses: 1)
+2026-01-19T04:44:28.9798618Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T04:44:28.9799338Z     ✨ AI successfully healed the step! New selector: input[name='tags']
+2026-01-19T04:44:28.9800339Z     ❌ Attempt 3 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-19T04:44:28.9801051Z Call log:
+2026-01-19T04:44:28.9801312Z   - waiting for locator("inp...
+2026-01-19T04:44:28.9801977Z     💀 Step step_5 failed after all retries.
+2026-01-19T04:44:28.9802774Z 🛑 Scenario 'Verify jQuery UI Autocomplete Functionality' aborted due to step failure.
+2026-01-19T04:44:28.9803317Z 
+2026-01-19T04:44:28.9803551Z --- Scenario: Verify jQuery UI Datepicker Functionality ---
+2026-01-19T04:44:28.9804321Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:44:28.9804793Z     ✅ Step step_1 Passed.
+2026-01-19T04:44:28.9805209Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T04:44:28.9805650Z     ✅ Step step_2 Passed.
+2026-01-19T04:44:28.9806040Z   ▶️ [STEP step_2_ai_1] CLICK: Draggable
+2026-01-19T04:44:28.9806572Z     🎯 Using mined locator: role=link[name='Draggable']
+2026-01-19T04:44:28.9807085Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T04:44:28.9807497Z   ▶️ [STEP step_2_ai_2] CLICK: iframe
+2026-01-19T04:44:28.9808160Z     🎯 Using mined locator: iframe
+2026-01-19T04:44:28.9808594Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T04:44:28.9809008Z   ▶️ [STEP step_3] CLICK: Datepicker
+2026-01-19T04:44:28.9809552Z     🎯 Using mined locator: role=link[name='Datepicker']
+2026-01-19T04:44:28.9810049Z     ✅ Step step_3 Passed.
+2026-01-19T04:44:28.9810461Z   ▶️ [STEP step_4] ASSERT_URL: Step step_4
+2026-01-19T04:44:28.9810908Z     ✅ Step step_4 Passed.
+2026-01-19T04:44:28.9811303Z   ▶️ [STEP step_4_ai_1] CLICK: iframe
+2026-01-19T04:44:28.9811741Z     🎯 Using mined locator: iframe
+2026-01-19T04:44:28.9812159Z     ✅ Step step_4_ai_1 Passed.
+2026-01-19T04:44:28.9812583Z   ▶️ [STEP step_5] CLICK: Open Datepicker
+2026-01-19T04:44:28.9813220Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T04:44:28.9814150Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T04:44:28.9814815Z Call log:
+2026-01-19T04:44:28.9815233Z   - waiting for locator("text=Open Datepic...
+2026-01-19T04:44:28.9815837Z     🔧 [AUTO-HEAL] Re-mining page to find 'Open Datepicker'...
+2026-01-19T04:44:28.9816460Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:44:28.9817028Z [DEBUG] Received response (Length: 572)
+2026-01-19T04:44:28.9817743Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T04:44:28.9818406Z     ✨ AI successfully healed the step! New selector: #ui-id-7
+2026-01-19T04:44:28.9819258Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T04:44:28.9819897Z Call log:
+2026-01-19T04:44:28.9820179Z   - waiting for locator("#ui-id-7")
+2026-01-19T04:44:28.9820540Z ...
+2026-01-19T04:44:28.9820971Z     🔧 [AUTO-HEAL] Re-mining page to find 'Open Datepicker'...
+2026-01-19T04:44:28.9821482Z [CACHE HIT] 61a035c5... (hits: 2, misses: 2)
+2026-01-19T04:44:28.9822065Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T04:44:28.9822723Z     ✨ AI successfully healed the step! New selector: #ui-id-7
+2026-01-19T04:44:28.9825252Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T04:44:28.9825935Z Call log:
+2026-01-19T04:44:28.9826223Z   - waiting for locator("#ui-id-7")
+2026-01-19T04:44:28.9826597Z ...
+2026-01-19T04:44:28.9826955Z     💀 Step step_5 failed after all retries.
+2026-01-19T04:44:28.9827875Z 🛑 Scenario 'Verify jQuery UI Datepicker Functionality' aborted due to step failure.
+2026-01-19T04:44:28.9828427Z 
+2026-01-19T04:44:28.9828669Z --- Scenario: Verify jQuery UI Draggable Functionality ---
+2026-01-19T04:44:28.9829258Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:44:28.9829712Z     ✅ Step step_1 Passed.
+2026-01-19T04:44:28.9830149Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T04:44:28.9830598Z     ✅ Step step_2 Passed.
+2026-01-19T04:44:28.9831003Z   ▶️ [STEP step_2_ai_1] CLICK: Draggable
+2026-01-19T04:44:28.9831555Z     🎯 Using mined locator: role=link[name='Draggable']
+2026-01-19T04:44:28.9832079Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T04:44:28.9832502Z   ▶️ [STEP step_2_ai_2] CLICK: iframe
+2026-01-19T04:44:28.9832957Z     🎯 Using mined locator: iframe
+2026-01-19T04:44:28.9833607Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T04:44:28.9834020Z   ▶️ [STEP step_3] CLICK: Draggable
+2026-01-19T04:44:28.9834535Z     🎯 Using mined locator: role=link[name='Draggable']
+2026-01-19T04:44:28.9835034Z     ✅ Step step_3 Passed.
+2026-01-19T04:44:28.9835662Z   ▶️ [STEP step_3_ai_1] CLICK: Default functionality
+2026-01-19T04:44:28.9836240Z     🎯 Using mined locator: a[href$='default.html']
+2026-01-19T04:44:28.9836730Z     ✅ Step step_3_ai_1 Passed.
+2026-01-19T04:44:28.9837155Z   ▶️ [STEP step_3_ai_2] CLICK: Auto-scroll
+2026-01-19T04:44:28.9837862Z     🎯 Using mined locator: role=link[name='Auto-scroll']
+2026-01-19T04:44:28.9838389Z     ✅ Step step_3_ai_2 Passed.
+2026-01-19T04:44:28.9838828Z   ▶️ [STEP step_3_ai_3] CLICK: Constrain movement
+2026-01-19T04:44:28.9839434Z     🎯 Using mined locator: role=link[name='Constrain movement']
+2026-01-19T04:44:28.9839976Z     ✅ Step step_3_ai_3 Passed.
+2026-01-19T04:44:28.9840413Z   ▶️ [STEP step_3_ai_4] CLICK: Cursor style
+2026-01-19T04:44:28.9840989Z     🎯 Using mined locator: role=link[name='Cursor style']
+2026-01-19T04:44:28.9841482Z     ✅ Step step_3_ai_4 Passed.
+2026-01-19T04:44:28.9841878Z   ▶️ [STEP step_3_ai_5] CLICK: Events
+2026-01-19T04:44:28.9842372Z     🎯 Using mined locator: role=link[name='Events']
+2026-01-19T04:44:28.9842865Z     ✅ Step step_3_ai_5 Passed.
+2026-01-19T04:44:28.9843281Z   ▶️ [STEP step_4] ASSERT_URL: Step step_4
+2026-01-19T04:44:28.9843712Z     ✅ Step step_4 Passed.
+2026-01-19T04:44:28.9844235Z   ▶️ [STEP step_4_ai_1] NAVIGATE: https://jqueryui.com/draggable/
+2026-01-19T04:44:28.9844783Z     ✅ Step step_4_ai_1 Passed.
+2026-01-19T04:44:28.9845216Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Drag me around
+2026-01-19T04:44:28.9845885Z     ⚠️ Mined locators not found on page. Falling back to semantic search.
+2026-01-19T04:44:28.9846687Z     ❌ Attempt 1 failed (element_not_found): Locator expected to be visible
+2026-01-19T04:44:28.9847230Z Actual value: hidden 
+2026-01-19T04:44:28.9847707Z Call log:
+2026-01-19T04:44:28.9848001Z   - Expect "to_be_visible" with timeo...
+2026-01-19T04:44:28.9848594Z     🔧 [AUTO-HEAL] Re-mining page to find 'Drag me around'...
+2026-01-19T04:44:28.9849202Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:44:28.9849716Z [DEBUG] Received response (Length: 512)
+2026-01-19T04:44:28.9850302Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T04:44:28.9850985Z     ✨ AI successfully healed the step! New selector: div#draggable
+2026-01-19T04:44:28.9851735Z     ❌ Attempt 2 failed (element_not_found): Locator expected to be visible
+2026-01-19T04:44:28.9852275Z Actual value: None
+2026-01-19T04:44:28.9852582Z Error: element(s) not found 
+2026-01-19T04:44:28.9852917Z Call log:
+2026-01-19T04:44:28.9853176Z   - Expect ...
+2026-01-19T04:44:28.9853659Z     🔧 [AUTO-HEAL] Re-mining page to find 'Drag me around'...
+2026-01-19T04:44:28.9854155Z [CACHE HIT] 0c320107... (hits: 3, misses: 3)
+2026-01-19T04:44:28.9854731Z     ✨ AI successfully healed the step! Found 2 alternatives.
+2026-01-19T04:44:28.9855417Z     ✨ AI successfully healed the step! New selector: div#draggable
+2026-01-19T04:44:28.9856160Z     ❌ Attempt 3 failed (element_not_found): Locator expected to be visible
+2026-01-19T04:44:28.9856700Z Actual value: None
+2026-01-19T04:44:28.9856999Z Error: element(s) not found 
+2026-01-19T04:44:28.9857330Z Call log:
+2026-01-19T04:44:28.9857772Z   - Expect ...
+2026-01-19T04:44:28.9858156Z     💀 Step step_5 failed after all retries.
+2026-01-19T04:44:28.9858869Z 🛑 Scenario 'Verify jQuery UI Draggable Functionality' aborted due to step failure.
+2026-01-19T04:44:28.9859360Z 
+2026-01-19T04:44:28.9859501Z ============================================================
+2026-01-19T04:44:28.9859954Z 🎯 EXECUTION SUMMARY
+2026-01-19T04:44:28.9860269Z ============================================================
+2026-01-19T04:44:28.9860557Z 
+2026-01-19T04:44:28.9860720Z 📋 Scenario Overview:
+2026-01-19T04:44:28.9861097Z    • Total Scenarios Planned: 3
+2026-01-19T04:44:28.9861505Z    • Scenarios Executed: 3
+2026-01-19T04:44:28.9862094Z    • Total Steps Executed: 29
+2026-01-19T04:44:28.9862326Z 
+2026-01-19T04:44:28.9862463Z ✅ Results:
+2026-01-19T04:44:28.9862762Z    ❌ Failed: 3 (100%)
+2026-01-19T04:44:28.9862948Z 
+2026-01-19T04:44:28.9863106Z ⚠️  Failed Scenarios:
+2026-01-19T04:44:28.9863690Z    • Verify jQuery UI Autocomplete Functionality
+2026-01-19T04:44:28.9864230Z    • Verify jQuery UI Datepicker Functionality
+2026-01-19T04:44:28.9864739Z    • Verify jQuery UI Draggable Functionality
+2026-01-19T04:44:28.9865036Z 
+2026-01-19T04:44:28.9865181Z ============================================================
+2026-01-19T04:44:28.9865464Z 
+2026-01-19T04:44:28.9866238Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_jquery_ui_demos/execution.json
+2026-01-19T04:44:29.0931605Z 
+2026-01-19T04:44:29.0932173Z [PHASE] Running Phase: DISCOVERY
+2026-01-19T04:44:29.0934079Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_jquery_ui_demos --url https://jqueryui.com/demos/ --deep
+2026-01-19T04:44:29.0935921Z ✅ Phase 'discovery' completed successfully.
+2026-01-19T04:44:29.0936147Z 
+2026-01-19T04:44:29.0936269Z [PHASE] Running Phase: PLANNING
+2026-01-19T04:44:29.0938034Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_jquery_ui_demos --goal Test jQuery UI components --url https://jqueryui.com/demos/ --deep
+2026-01-19T04:44:29.0939531Z ✅ Phase 'planning' completed successfully.
+2026-01-19T04:44:29.0939756Z 
+2026-01-19T04:44:29.0939861Z [PHASE] Running Phase: EXPLORATION
+2026-01-19T04:44:29.0940978Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_jquery_ui_demos
+2026-01-19T04:44:29.0942180Z ✅ Phase 'exploration' completed successfully.
+2026-01-19T04:44:29.0942591Z 📊 Exploration Discovery Success Rate: 79.4%
+2026-01-19T04:44:29.0942810Z 
+2026-01-19T04:44:29.0942921Z [PHASE] Running Phase: EXECUTION
+2026-01-19T04:44:29.0943990Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_jquery_ui_demos
+2026-01-19T04:44:29.0945142Z ✅ Phase 'execution' completed successfully.
+2026-01-19T04:44:29.0945359Z 
+2026-01-19T04:44:29.0945471Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-19T04:44:29.1955558Z ##[group]Run RESULT_FILE="projects/ci_jquery_ui_demos/execution.json"
+2026-01-19T04:44:29.1956080Z [36;1mRESULT_FILE="projects/ci_jquery_ui_demos/execution.json"[0m
+2026-01-19T04:44:29.1956461Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-19T04:44:29.1956803Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-19T04:44:29.1957259Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-19T04:44:29.1957936Z [36;1melse[0m
+2026-01-19T04:44:29.1958184Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-19T04:44:29.1958468Z [36;1m  exit 1[0m
+2026-01-19T04:44:29.1958648Z [36;1mfi[0m
+2026-01-19T04:44:29.1990197Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:44:29.1990438Z env:
+2026-01-19T04:44:29.1990696Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:44:29.1991135Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:44:29.1991602Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:44:29.1991980Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:44:29.1992345Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:44:29.1992908Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:44:29.1993227Z ##[endgroup]
+2026-01-19T04:44:29.2044319Z ✅ Results generated successfully: projects/ci_jquery_ui_demos/execution.json
+2026-01-19T04:44:29.2070187Z 3
+2026-01-19T04:44:29.2308024Z ##[group]Run actions/upload-artifact@v4
+2026-01-19T04:44:29.2308324Z with:
+2026-01-19T04:44:29.2308527Z   name: jquery_ui_demos-execution-results
+2026-01-19T04:44:29.2308984Z   path: projects/ci_jquery_ui_demos/execution.json
+projects/ci_jquery_ui_demos/workflow.json
+
+2026-01-19T04:44:29.2309426Z   retention-days: 30
+2026-01-19T04:44:29.2309632Z   if-no-files-found: warn
+2026-01-19T04:44:29.2309854Z   compression-level: 6
+2026-01-19T04:44:29.2310059Z   overwrite: false
+2026-01-19T04:44:29.2310259Z   include-hidden-files: false
+2026-01-19T04:44:29.2310470Z env:
+2026-01-19T04:44:29.2310702Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:44:29.2311113Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:44:29.2311539Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:44:29.2311899Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:44:29.2312297Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:44:29.2312665Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:44:29.2312963Z ##[endgroup]
+2026-01-19T04:44:29.4444018Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-19T04:44:29.4448848Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_jquery_ui_demos. This will be the root directory of the artifact
+2026-01-19T04:44:29.4450318Z With the provided path, there will be 2 files uploaded
+2026-01-19T04:44:29.4455470Z Artifact name is valid!
+2026-01-19T04:44:29.4456882Z Root directory input is valid!
+2026-01-19T04:44:29.6864882Z Beginning upload of artifact content to blob storage
+2026-01-19T04:44:29.9158686Z Uploaded bytes 2578
+2026-01-19T04:44:29.9805672Z Finished uploading artifact content to blob storage!
+2026-01-19T04:44:29.9808850Z SHA256 digest of uploaded artifact zip is d1e2f0b0b3662d0d7a96780cd838ad5d0790e15d430eab9a20669a0e274a6ea5
+2026-01-19T04:44:29.9812221Z Finalizing artifact upload
+2026-01-19T04:44:30.1111716Z Artifact jquery_ui_demos-execution-results.zip successfully finalized. Artifact ID 5172534279
+2026-01-19T04:44:30.1113480Z Artifact jquery_ui_demos-execution-results has been successfully uploaded! Final size is 2578 bytes. Artifact ID is 5172534279
+2026-01-19T04:44:30.1121286Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21124435194/artifacts/5172534279
+2026-01-19T04:44:30.1459452Z Post job cleanup.
+2026-01-19T04:44:30.2982669Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-19T04:44:30.3405034Z Post job cleanup.
+2026-01-19T04:44:30.4365501Z [command]/usr/bin/git version
+2026-01-19T04:44:30.4406762Z git version 2.52.0
+2026-01-19T04:44:30.4451554Z Temporarily overriding HOME='/home/runner/work/_temp/197c7dab-a1cd-43b7-a785-d04f04810733' before making global git config changes
+2026-01-19T04:44:30.4454392Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T04:44:30.4458679Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T04:44:30.4497186Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T04:44:30.4532142Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T04:44:30.4790171Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T04:44:30.4815055Z http.https://github.com/.extraheader
+2026-01-19T04:44:30.4828336Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-19T04:44:30.4862939Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T04:44:30.5119414Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T04:44:30.5156402Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T04:44:30.5533773Z Cleaning up orphan processes

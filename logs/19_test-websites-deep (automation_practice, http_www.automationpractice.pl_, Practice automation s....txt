@@ -1,0 +1,915 @@
+﻿2026-01-19T04:24:20.0579697Z Current runner version: '2.331.0'
+2026-01-19T04:24:20.0604019Z ##[group]Runner Image Provisioner
+2026-01-19T04:24:20.0604835Z Hosted Compute Agent
+2026-01-19T04:24:20.0605550Z Version: 20251211.462
+2026-01-19T04:24:20.0606134Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-19T04:24:20.0606893Z Build Date: 2025-12-11T16:28:49Z
+2026-01-19T04:24:20.0607561Z Worker ID: {567ff358-364d-4bc5-9854-b9b65adc2bcf}
+2026-01-19T04:24:20.0608253Z ##[endgroup]
+2026-01-19T04:24:20.0608790Z ##[group]Operating System
+2026-01-19T04:24:20.0609343Z Ubuntu
+2026-01-19T04:24:20.0609837Z 24.04.3
+2026-01-19T04:24:20.0610300Z LTS
+2026-01-19T04:24:20.0610800Z ##[endgroup]
+2026-01-19T04:24:20.0611319Z ##[group]Runner Image
+2026-01-19T04:24:20.0612195Z Image: ubuntu-24.04
+2026-01-19T04:24:20.0612786Z Version: 20260111.209.1
+2026-01-19T04:24:20.0613818Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-19T04:24:20.0615345Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-19T04:24:20.0616392Z ##[endgroup]
+2026-01-19T04:24:20.0617448Z ##[group]GITHUB_TOKEN Permissions
+2026-01-19T04:24:20.0619374Z Contents: read
+2026-01-19T04:24:20.0619984Z Metadata: read
+2026-01-19T04:24:20.0620572Z Packages: read
+2026-01-19T04:24:20.0621066Z ##[endgroup]
+2026-01-19T04:24:20.0623495Z Secret source: Actions
+2026-01-19T04:24:20.0624205Z Prepare workflow directory
+2026-01-19T04:24:20.1982116Z Prepare all required actions
+2026-01-19T04:24:20.2019748Z Getting action download info
+2026-01-19T04:24:20.4986574Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-19T04:24:20.6107811Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-19T04:24:20.7896785Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-19T04:24:21.1595110Z Complete job name: test-websites-deep (automation_practice, http://www.automationpractice.pl/, Practice automation s...
+2026-01-19T04:24:21.4029086Z ##[group]Run actions/checkout@v4
+2026-01-19T04:24:21.4030224Z with:
+2026-01-19T04:24:21.4030825Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T04:24:21.4032241Z   token: ***
+2026-01-19T04:24:21.4032787Z   ssh-strict: true
+2026-01-19T04:24:21.4033312Z   ssh-user: git
+2026-01-19T04:24:21.4033846Z   persist-credentials: true
+2026-01-19T04:24:21.4034470Z   clean: true
+2026-01-19T04:24:21.4035015Z   sparse-checkout-cone-mode: true
+2026-01-19T04:24:21.4035724Z   fetch-depth: 1
+2026-01-19T04:24:21.4036255Z   fetch-tags: false
+2026-01-19T04:24:21.4036789Z   show-progress: true
+2026-01-19T04:24:21.4037329Z   lfs: false
+2026-01-19T04:24:21.4037816Z   submodules: false
+2026-01-19T04:24:21.4038368Z   set-safe-directory: true
+2026-01-19T04:24:21.4039271Z ##[endgroup]
+2026-01-19T04:24:21.5157711Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T04:24:21.5160178Z ##[group]Getting Git version info
+2026-01-19T04:24:21.5161740Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T04:24:21.5163807Z [command]/usr/bin/git version
+2026-01-19T04:24:21.5290485Z git version 2.52.0
+2026-01-19T04:24:21.5318530Z ##[endgroup]
+2026-01-19T04:24:21.5334715Z Temporarily overriding HOME='/home/runner/work/_temp/aebe376a-bf7f-488d-a58f-8c4d91c1a0a9' before making global git config changes
+2026-01-19T04:24:21.5337051Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T04:24:21.5348746Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T04:24:21.5393525Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T04:24:21.5397210Z ##[group]Initializing the repository
+2026-01-19T04:24:21.5401834Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T04:24:21.5516414Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-19T04:24:21.5520033Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-19T04:24:21.5522610Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-19T04:24:21.5523775Z hint: call:
+2026-01-19T04:24:21.5524325Z hint:
+2026-01-19T04:24:21.5525400Z hint: 	git config --global init.defaultBranch <name>
+2026-01-19T04:24:21.5526425Z hint:
+2026-01-19T04:24:21.5527641Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-19T04:24:21.5529731Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-19T04:24:21.5531478Z hint:
+2026-01-19T04:24:21.5532453Z hint: 	git branch -m <name>
+2026-01-19T04:24:21.5533482Z hint:
+2026-01-19T04:24:21.5534986Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-19T04:24:21.5537531Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-19T04:24:21.5540631Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T04:24:21.5575246Z ##[endgroup]
+2026-01-19T04:24:21.5576286Z ##[group]Disabling automatic garbage collection
+2026-01-19T04:24:21.5579629Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-19T04:24:21.5610131Z ##[endgroup]
+2026-01-19T04:24:21.5611054Z ##[group]Setting up auth
+2026-01-19T04:24:21.5617255Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T04:24:21.5649038Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T04:24:21.5987870Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T04:24:21.6019595Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T04:24:21.6253235Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T04:24:21.6285321Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T04:24:21.6534096Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-19T04:24:21.6572368Z ##[endgroup]
+2026-01-19T04:24:21.6574109Z ##[group]Fetching the repository
+2026-01-19T04:24:21.6583590Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2f305d435d899f67f11ae5adc61ad536fdd999e8:refs/remotes/origin/main
+2026-01-19T04:24:22.7007794Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T04:24:22.7010491Z  * [new ref]         2f305d435d899f67f11ae5adc61ad536fdd999e8 -> origin/main
+2026-01-19T04:24:22.7040763Z ##[endgroup]
+2026-01-19T04:24:22.7042447Z ##[group]Determining the checkout info
+2026-01-19T04:24:22.7043831Z ##[endgroup]
+2026-01-19T04:24:22.7047578Z [command]/usr/bin/git sparse-checkout disable
+2026-01-19T04:24:22.7090013Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-19T04:24:22.7118067Z ##[group]Checking out the ref
+2026-01-19T04:24:22.7120660Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-19T04:24:22.8568163Z Switched to a new branch 'main'
+2026-01-19T04:24:22.8570786Z branch 'main' set up to track 'origin/main'.
+2026-01-19T04:24:22.8591985Z ##[endgroup]
+2026-01-19T04:24:22.8636237Z [command]/usr/bin/git log -1 --format=%H
+2026-01-19T04:24:22.8661279Z 2f305d435d899f67f11ae5adc61ad536fdd999e8
+2026-01-19T04:24:23.0024485Z ##[group]Run actions/setup-python@v5
+2026-01-19T04:24:23.0025426Z with:
+2026-01-19T04:24:23.0026069Z   python-version: 3.11
+2026-01-19T04:24:23.0026800Z   cache: pip
+2026-01-19T04:24:23.0027815Z   check-latest: false
+2026-01-19T04:24:23.0028837Z   token: ***
+2026-01-19T04:24:23.0029528Z   update-environment: true
+2026-01-19T04:24:23.0030327Z   allow-prereleases: false
+2026-01-19T04:24:23.0031105Z   freethreaded: false
+2026-01-19T04:24:23.0031972Z ##[endgroup]
+2026-01-19T04:24:23.1745864Z ##[group]Installed versions
+2026-01-19T04:24:23.1858229Z Successfully set up CPython (3.11.14)
+2026-01-19T04:24:23.1860585Z ##[endgroup]
+2026-01-19T04:24:23.3293937Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-19T04:24:25.0909284Z /home/runner/.cache/pip
+2026-01-19T04:24:25.2283768Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T04:24:26.3392097Z Received 134217728 of 254742636 (52.7%), 127.7 MBs/sec
+2026-01-19T04:24:26.8628291Z Received 254742636 of 254742636 (100.0%), 159.2 MBs/sec
+2026-01-19T04:24:26.8629552Z Cache Size: ~243 MB (254742636 B)
+2026-01-19T04:24:26.8755493Z [command]/usr/bin/tar -xf /home/runner/work/_temp/8e5cbdf0-2894-40a3-b89c-fda59d5c9538/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-19T04:24:27.2764829Z Cache restored successfully
+2026-01-19T04:24:27.3253750Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T04:24:27.3651905Z ##[group]Run pip install -r requirements.txt
+2026-01-19T04:24:27.3652351Z [36;1mpip install -r requirements.txt[0m
+2026-01-19T04:24:27.3652654Z [36;1mplaywright install chromium[0m
+2026-01-19T04:24:27.3692340Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:24:27.3692612Z env:
+2026-01-19T04:24:27.3692882Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:24:27.3693353Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:24:27.3693813Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:24:27.3694234Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:24:27.3694626Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:24:27.3695028Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:24:27.3695350Z ##[endgroup]
+2026-01-19T04:24:28.7884869Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-19T04:24:28.7902812Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-19T04:24:28.8055814Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-19T04:24:28.8076070Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-19T04:24:28.8342561Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-19T04:24:28.8358400Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-19T04:24:29.0020108Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-19T04:24:29.0037818Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-19T04:24:29.0295079Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-19T04:24:29.0311059Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-19T04:24:29.0459150Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-19T04:24:29.0473554Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-19T04:24:29.0819170Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-19T04:24:29.0836052Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-19T04:24:29.1371373Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-19T04:24:29.1387777Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-19T04:24:29.3372829Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-19T04:24:29.3388680Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-19T04:24:29.4137940Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-19T04:24:29.4153782Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-19T04:24:29.4314472Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-19T04:24:29.4328307Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-19T04:24:29.5486889Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-19T04:24:29.5502753Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-19T04:24:29.5668194Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-19T04:24:29.5682782Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-19T04:24:29.6464993Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-19T04:24:29.6480823Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-19T04:24:29.6620020Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-19T04:24:29.6633712Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T04:24:29.6897789Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-19T04:24:29.6911955Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-19T04:24:29.7123444Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-19T04:24:29.7137069Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-19T04:24:29.7327178Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:29.7340671Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-19T04:24:29.7657726Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:29.7671019Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-19T04:24:29.7898627Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:29.7912279Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-19T04:24:29.9266425Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:29.9280500Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-19T04:24:29.9516572Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:29.9529434Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-19T04:24:30.0352125Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:30.0368273Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-19T04:24:30.0504918Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:30.0518173Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-19T04:24:30.0609422Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:30.0622895Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-19T04:24:30.0884530Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:30.0898236Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-19T04:24:30.1026847Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:30.1040164Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-19T04:24:30.1291195Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:30.1304603Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-19T04:24:30.1413032Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:30.1426507Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-19T04:24:30.1518688Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:30.1532272Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-19T04:24:30.7931914Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:30.7947777Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-19T04:24:30.8077385Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:30.8090925Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-19T04:24:30.8777882Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T04:24:30.8793662Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T04:24:30.9048509Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-19T04:24:30.9397179Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-19T04:24:30.9413379Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-19T04:24:30.9426061Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-19T04:24:30.9438667Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-19T04:24:30.9452489Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-19T04:24:30.9465541Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-19T04:24:30.9478621Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-19T04:24:30.9492374Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-19T04:24:30.9554840Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-19T04:24:30.9572062Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-19T04:24:30.9585709Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-19T04:24:30.9598620Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-19T04:24:30.9612597Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-19T04:24:30.9625615Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-19T04:24:30.9638764Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-19T04:24:30.9655222Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-19T04:24:30.9683215Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-19T04:24:30.9695819Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-19T04:24:30.9708548Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-19T04:24:30.9721851Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-19T04:24:30.9735029Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-19T04:24:30.9748095Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-19T04:24:30.9766442Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-19T04:24:31.0224717Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-19T04:24:31.0358675Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-19T04:24:31.0385553Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-19T04:24:31.0398226Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-19T04:24:31.0412493Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-19T04:24:31.0425267Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-19T04:24:31.0438374Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-19T04:24:31.0452423Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-19T04:24:31.0464866Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-19T04:24:31.2630134Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-19T04:24:38.0702179Z 
+2026-01-19T04:24:38.0725901Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-19T04:24:38.7832942Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-19T04:24:38.8825751Z (node:2200) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T04:24:38.8827266Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T04:24:38.9912970Z |                                                                                |   0% of 164.7 MiB
+2026-01-19T04:24:39.1689944Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-19T04:24:39.2888222Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-19T04:24:39.3956571Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-19T04:24:39.4990937Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-19T04:24:39.6157304Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-19T04:24:39.7265949Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-19T04:24:39.8246762Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-19T04:24:39.9248567Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-19T04:24:40.0285403Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-19T04:24:40.1345625Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-19T04:24:42.6351130Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-19T04:24:42.6355890Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-19T04:24:42.7328591Z (node:2211) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T04:24:42.7331025Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T04:24:42.8039283Z |                                                                                |   0% of 2.3 MiB
+2026-01-19T04:24:42.8090500Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-19T04:24:42.8115460Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-19T04:24:42.8135925Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-19T04:24:42.8165726Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-19T04:24:42.8187178Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-19T04:24:42.8200325Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-19T04:24:42.8215201Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-19T04:24:42.8230065Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-19T04:24:42.8255205Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-19T04:24:42.8289263Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-19T04:24:42.8855423Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-19T04:24:42.8859151Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-19T04:24:42.9848127Z (node:2222) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T04:24:42.9849998Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T04:24:43.0736055Z |                                                                                |   0% of 109.7 MiB
+2026-01-19T04:24:43.2267552Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-19T04:24:43.3102205Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-19T04:24:43.4050626Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-19T04:24:43.4982656Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-19T04:24:43.5844154Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-19T04:24:43.6766437Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-19T04:24:43.7830675Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-19T04:24:43.8803422Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-19T04:24:43.9675641Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-19T04:24:44.0614857Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-19T04:24:45.9443877Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-19T04:24:45.9776268Z ##[group]Run mkdir -p projects/ci_automation_practice
+2026-01-19T04:24:45.9776740Z [36;1mmkdir -p projects/ci_automation_practice[0m
+2026-01-19T04:24:45.9777147Z [36;1mcat > projects/ci_automation_practice/config.json << 'EOF'[0m
+2026-01-19T04:24:45.9777493Z [36;1m{[0m
+2026-01-19T04:24:45.9777731Z [36;1m  "project_name": "ci_automation_practice",[0m
+2026-01-19T04:24:45.9778118Z [36;1m  "target_url": "http://www.automationpractice.pl/",[0m
+2026-01-19T04:24:45.9778511Z [36;1m  "goal": "Practice automation scenarios",[0m
+2026-01-19T04:24:45.9778818Z [36;1m  "headless": true[0m
+2026-01-19T04:24:45.9779039Z [36;1m}[0m
+2026-01-19T04:24:45.9779216Z [36;1mEOF[0m
+2026-01-19T04:24:45.9811474Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:24:45.9811924Z env:
+2026-01-19T04:24:45.9812194Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:24:45.9812619Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:24:45.9813085Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:24:45.9813464Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:24:45.9813837Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:24:45.9814215Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:24:45.9814529Z ##[endgroup]
+2026-01-19T04:24:45.9981792Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-19T04:24:45.9982279Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-19T04:24:45.9982769Z [36;1mpython orchestrator.py --project projects/ci_automation_practice --deep --force[0m
+2026-01-19T04:24:46.0014517Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:24:46.0014755Z env:
+2026-01-19T04:24:46.0015015Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:24:46.0015438Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:24:46.0015871Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:24:46.0016260Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:24:46.0016819Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:24:46.0017204Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:24:46.0017892Z   GOOGLE_API_KEY: ***
+2026-01-19T04:24:46.0018140Z   PYTHONPATH: .
+2026-01-19T04:24:46.0018339Z ##[endgroup]
+2026-01-19T04:24:47.8647295Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-19T04:24:47.8647659Z 
+2026-01-19T04:24:47.8648175Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on http://www.automationpractice.pl/ (Workers: 3)
+2026-01-19T04:24:48.9472544Z   🔍 [Worker 0] Visiting (0): http://www.automationpractice.pl/
+2026-01-19T04:24:50.1756573Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:24:50.1757183Z [DEBUG] Received response (Length: 116)
+2026-01-19T04:24:50.1757735Z ✅ Discovery Complete. Mapped 1 pages.
+2026-01-19T04:24:58.6347304Z 
+2026-01-19T04:24:58.6348155Z [PLAN] PLANNER: Planning goal -> 'Practice automation scenarios' (Deep Mode: True)
+2026-01-19T04:24:58.6349047Z 🗺️ [PLAN] Loaded Sitemap with 1 pages.
+2026-01-19T04:24:58.6350271Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-19T04:24:58.6351385Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:24:58.6352130Z [DEBUG] Received response (Length: 3032)
+2026-01-19T04:24:58.6352593Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-19T04:24:59.6999619Z 
+2026-01-19T04:24:59.7000675Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-19T04:24:59.7001847Z 📋 Found 3 scenarios to explore.
+2026-01-19T04:25:00.0686676Z 
+2026-01-19T04:25:00.0687289Z [1/3] Exploring Scenario: Homepage Load and Contact Us Flow
+2026-01-19T04:25:00.0688372Z     🧠 Initialized exploration context for goal: 'Practice automation scenarios'
+2026-01-19T04:25:00.0689054Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:25:00.8648334Z     ✅ Navigated to http://www.automationpractice.pl/
+2026-01-19T04:25:00.8649573Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-19T04:25:05.8968193Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:25:07.8993867Z     ✅ State transitioned.
+2026-01-19T04:25:09.2078010Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:25:09.2078499Z [DEBUG] Received response (Length: 180)
+2026-01-19T04:25:09.2079045Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:25:09.2079822Z     💭 Reasoning: The page indicates that the request is being verified. There are no interactive elements to click. It is waiting for the server to respond.
+2026-01-19T04:25:09.2080527Z   ▶️ [STEP step_3] CLICK: Contact us
+2026-01-19T04:25:09.2142524Z     🔍 Mining locators for: 'Contact us'
+2026-01-19T04:25:09.2363480Z     🧠 Consulting AI (Vision-First) to find 'Contact us'...
+2026-01-19T04:25:09.2382327Z     🔍 Trying smart selectors for 'Contact us'...
+2026-01-19T04:25:09.2868593Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:09.2870259Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:14.1912039Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:25:14.1912913Z [DEBUG] Received response (Length: 265)
+2026-01-19T04:25:14.1914869Z     💡 Expert Suggestion: The 'Contact us' link is likely in the footer or header of the main website pages, starting with the homepage is a good approach.
+2026-01-19T04:25:14.1916080Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-19T04:25:14.2476515Z     🔄 Retry 1/3 mining locators for 'Contact us'...
+2026-01-19T04:25:15.3070741Z     🧠 Consulting AI (Vision-First) to find 'Contact us'...
+2026-01-19T04:25:15.3071699Z     🔍 Trying smart selectors for 'Contact us'...
+2026-01-19T04:25:15.3537468Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:15.3539666Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:15.3542260Z [CACHE HIT] b5257acb... (hits: 1, misses: 2)
+2026-01-19T04:25:15.3542808Z     ⚠️ Skipping duplicate injection: Home
+2026-01-19T04:25:15.3543393Z     🔄 Retry 2/3 mining locators for 'Contact us'...
+2026-01-19T04:25:16.3552762Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:25:16.3554364Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:25:16.3974612Z     🧠 Consulting AI (Vision-First) to find 'Contact us'...
+2026-01-19T04:25:16.3975393Z     🔍 Trying smart selectors for 'Contact us'...
+2026-01-19T04:25:16.4501941Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:16.4503217Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:16.4506357Z [CACHE HIT] b5257acb... (hits: 2, misses: 2)
+2026-01-19T04:25:16.4507063Z     ⚠️ Skipping duplicate injection: Home
+2026-01-19T04:25:16.4507690Z     🧠 Verifying step validity for 'Contact us' after no candidates found...
+2026-01-19T04:25:19.0578744Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:25:19.0579320Z [DEBUG] Received response (Length: 207)
+2026-01-19T04:25:19.0580622Z     🗑️ Step deemed INVALID: The screenshot shows a 'Please wait while your request is being verified...' message. The 'Contact us' element is not visible on this page state.. Removing from workflow.
+2026-01-19T04:25:19.0581834Z     ⏭️ Skipping execution of invalid step: Contact us
+2026-01-19T04:25:19.0582250Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Contact us
+2026-01-19T04:25:19.0642321Z     🔍 Mining locators for: 'Contact us'
+2026-01-19T04:25:19.0865028Z     🧠 Consulting AI (Vision-First) to find 'Contact us'...
+2026-01-19T04:25:19.0866722Z     🔍 Trying smart selectors for 'Contact us'...
+2026-01-19T04:25:19.1296090Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:19.1297741Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:19.1300461Z [CACHE HIT] b5257acb... (hits: 3, misses: 3)
+2026-01-19T04:25:19.1302244Z     💡 Expert Suggestion: The 'Contact us' link is likely in the footer or header of the main website pages, starting with the homepage is a good approach.
+2026-01-19T04:25:19.1303232Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-19T04:25:19.1622707Z     🔄 Retry 1/3 mining locators for 'Contact us'...
+2026-01-19T04:25:20.1870729Z     🧠 Consulting AI (Vision-First) to find 'Contact us'...
+2026-01-19T04:25:20.1871851Z     🔍 Trying smart selectors for 'Contact us'...
+2026-01-19T04:25:20.2298230Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:20.2300433Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:20.2302580Z [CACHE HIT] b5257acb... (hits: 4, misses: 3)
+2026-01-19T04:25:20.2303236Z     ⚠️ Skipping duplicate injection: Home
+2026-01-19T04:25:20.2303863Z     🔄 Retry 2/3 mining locators for 'Contact us'...
+2026-01-19T04:25:21.2319068Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:25:21.2320599Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:25:21.2635538Z     🧠 Consulting AI (Vision-First) to find 'Contact us'...
+2026-01-19T04:25:21.2636059Z     🔍 Trying smart selectors for 'Contact us'...
+2026-01-19T04:25:21.3158229Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:21.3159451Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:21.3163100Z [CACHE HIT] b5257acb... (hits: 5, misses: 3)
+2026-01-19T04:25:21.3163775Z     ⚠️ Skipping duplicate injection: Home
+2026-01-19T04:25:21.3164417Z     🧠 Verifying step validity for 'Contact us' after no candidates found...
+2026-01-19T04:25:21.3166791Z [CACHE HIT] 34bcd055... (hits: 6, misses: 3)
+2026-01-19T04:25:21.3168147Z     🗑️ Step deemed INVALID: The screenshot shows a 'Please wait while your request is being verified...' message. The 'Contact us' element is not visible on this page state.. Removing from workflow.
+2026-01-19T04:25:21.3169007Z     ⏭️ Skipping execution of invalid step: Contact us
+2026-01-19T04:25:23.3525838Z 
+2026-01-19T04:25:23.3526685Z [2/3] Exploring Scenario: Sign In and Create Account Flow
+2026-01-19T04:25:23.3527858Z     🧠 Initialized exploration context for goal: 'Practice automation scenarios'
+2026-01-19T04:25:23.3528539Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:25:24.1433077Z     ✅ Navigated to http://www.automationpractice.pl/
+2026-01-19T04:25:24.1433826Z   ▶️ [STEP step_2] CLICK: Sign in
+2026-01-19T04:25:24.1600178Z     🔍 Mining locators for: 'Sign in'
+2026-01-19T04:25:24.1972297Z     🧠 Consulting AI (Vision-First) to find 'Sign in'...
+2026-01-19T04:25:24.1973097Z     🔍 Trying smart selectors for 'Sign in'...
+2026-01-19T04:25:24.2417556Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:24.2418791Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:25.4897348Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:25:25.4897992Z [DEBUG] Received response (Length: 300)
+2026-01-19T04:25:25.4899213Z     💡 Expert Suggestion: The image shows a verification message, suggesting the user has already submitted information. A 'Sign in' button is likely on the Home page or a user account page.
+2026-01-19T04:25:25.4900150Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-19T04:25:25.5178066Z     🔄 Retry 1/3 mining locators for 'Sign in'...
+2026-01-19T04:25:26.5445472Z     🧠 Consulting AI (Vision-First) to find 'Sign in'...
+2026-01-19T04:25:26.5445936Z     🔍 Trying smart selectors for 'Sign in'...
+2026-01-19T04:25:26.5884975Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:26.5886687Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:26.5889569Z [CACHE HIT] d5bcdcf4... (hits: 7, misses: 4)
+2026-01-19T04:25:26.5890078Z     ⚠️ Skipping duplicate injection: Home
+2026-01-19T04:25:26.5890461Z     🔄 Retry 2/3 mining locators for 'Sign in'...
+2026-01-19T04:25:27.5904542Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:25:27.5905825Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:25:27.6145435Z     🧠 Consulting AI (Vision-First) to find 'Sign in'...
+2026-01-19T04:25:27.6146654Z     🔍 Trying smart selectors for 'Sign in'...
+2026-01-19T04:25:27.6569112Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:27.6570403Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:27.6573526Z [CACHE HIT] d5bcdcf4... (hits: 8, misses: 4)
+2026-01-19T04:25:27.6574214Z     ⚠️ Skipping duplicate injection: Home
+2026-01-19T04:25:27.6574795Z     🧠 Verifying step validity for 'Sign in' after no candidates found...
+2026-01-19T04:25:30.3118769Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:25:30.3119324Z [DEBUG] Received response (Length: 221)
+2026-01-19T04:25:30.3121729Z     🗑️ Step deemed INVALID: The page is displaying a 'Please wait while your request is being verified...' message. The 'Sign in' element is not visible on this page in its current state.. Removing from workflow.
+2026-01-19T04:25:30.3123183Z     ⏭️ Skipping execution of invalid step: Sign in
+2026-01-19T04:25:30.3123613Z   ▶️ [STEP step_3] ASSERT_VISIBLE: Authentication
+2026-01-19T04:25:30.3297975Z     🔍 Mining locators for: 'Authentication'
+2026-01-19T04:25:30.3634849Z     🧠 Consulting AI (Vision-First) to find 'Authentication'...
+2026-01-19T04:25:30.3635352Z     🔍 Trying smart selectors for 'Authentication'...
+2026-01-19T04:25:30.4010134Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:30.4011828Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:35.3294074Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:25:35.3295015Z [DEBUG] Received response (Length: 317)
+2026-01-19T04:25:35.3297587Z     💡 Expert Suggestion: The image shows a verification message, suggesting the user is in the process of authentication. The 'Account' section is the most likely place to manage authentication settings.
+2026-01-19T04:25:35.3299828Z     🛠️ Executing corrective action: click -> 'Account'
+2026-01-19T04:25:35.3802119Z     🔄 Retry 1/3 mining locators for 'Authentication'...
+2026-01-19T04:25:36.4035855Z     🧠 Consulting AI (Vision-First) to find 'Authentication'...
+2026-01-19T04:25:36.4036541Z     🔍 Trying smart selectors for 'Authentication'...
+2026-01-19T04:25:36.4412931Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:36.4414237Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:36.4417212Z [CACHE HIT] 5427d30d... (hits: 9, misses: 6)
+2026-01-19T04:25:36.4417926Z     ⚠️ Skipping duplicate injection: Account
+2026-01-19T04:25:36.4418347Z     🔄 Retry 2/3 mining locators for 'Authentication'...
+2026-01-19T04:25:37.4432093Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:25:37.4433487Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:25:37.4658884Z     🧠 Consulting AI (Vision-First) to find 'Authentication'...
+2026-01-19T04:25:37.4659369Z     🔍 Trying smart selectors for 'Authentication'...
+2026-01-19T04:25:37.5031927Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:37.5033181Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:37.5036109Z [CACHE HIT] 5427d30d... (hits: 10, misses: 6)
+2026-01-19T04:25:37.5036807Z     ⚠️ Skipping duplicate injection: Account
+2026-01-19T04:25:37.5037435Z     🧠 Verifying step validity for 'Authentication' after no candidates found...
+2026-01-19T04:25:40.3022898Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:25:40.3023683Z [DEBUG] Received response (Length: 278)
+2026-01-19T04:25:40.3025728Z     🗑️ Step deemed INVALID: The page is displaying a 'Please wait while your request is being verified...' message. The 'Authentication' element is not visible on this page in its current state. Therefore, it's not possible to interact with it.. Removing from workflow.
+2026-01-19T04:25:40.3027221Z     ⏭️ Skipping execution of invalid step: Authentication
+2026-01-19T04:25:40.3027687Z   ▶️ [STEP step_4] FILL: Email address
+2026-01-19T04:25:40.3188560Z     🔍 Mining locators for: 'Email address'
+2026-01-19T04:25:40.3466819Z     🧠 Consulting AI (Vision-First) to find 'Email address'...
+2026-01-19T04:25:40.3467651Z     🔍 Trying smart selectors for 'Email address'...
+2026-01-19T04:25:40.4023741Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:40.4025457Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:45.2598580Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:25:45.2599244Z [DEBUG] Received response (Length: 218)
+2026-01-19T04:25:45.2600114Z     💡 Expert Suggestion: The email address is likely located in the account settings or profile section.
+2026-01-19T04:25:45.2600714Z     🛠️ Executing corrective action: click -> 'Account'
+2026-01-19T04:25:45.3132857Z     🔄 Retry 1/3 mining locators for 'Email address'...
+2026-01-19T04:25:46.3370924Z     🧠 Consulting AI (Vision-First) to find 'Email address'...
+2026-01-19T04:25:46.3371424Z     🔍 Trying smart selectors for 'Email address'...
+2026-01-19T04:25:46.3850019Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:46.3851315Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:46.3853981Z [CACHE HIT] 2f735f43... (hits: 11, misses: 8)
+2026-01-19T04:25:46.3854737Z     ⚠️ Skipping duplicate injection: Account
+2026-01-19T04:25:46.3855223Z     🔄 Retry 2/3 mining locators for 'Email address'...
+2026-01-19T04:25:47.3868380Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:25:47.3869597Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:25:47.4113979Z     🧠 Consulting AI (Vision-First) to find 'Email address'...
+2026-01-19T04:25:47.4114480Z     🔍 Trying smart selectors for 'Email address'...
+2026-01-19T04:25:47.4587057Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:47.4588567Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:47.4590856Z [CACHE HIT] 2f735f43... (hits: 12, misses: 8)
+2026-01-19T04:25:47.4591418Z     ⚠️ Skipping duplicate injection: Account
+2026-01-19T04:25:47.4592693Z     🧠 Verifying step validity for 'Email address' after no candidates found...
+2026-01-19T04:25:50.2286170Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:25:50.2287293Z [DEBUG] Received response (Length: 203)
+2026-01-19T04:25:50.2289853Z     🗑️ Step deemed INVALID: The page is displaying a 'Please wait while your request is being verified...' message. There is no email address field visible on this page.. Removing from workflow.
+2026-01-19T04:25:50.2292413Z     ⏭️ Skipping execution of invalid step: Email address
+2026-01-19T04:25:50.2293326Z   ▶️ [STEP step_5] CLICK: Create an account
+2026-01-19T04:25:50.2467286Z     🔍 Mining locators for: 'Create an account'
+2026-01-19T04:25:50.2797887Z     🧠 Consulting AI (Vision-First) to find 'Create an account'...
+2026-01-19T04:25:50.2799672Z     🔍 Trying smart selectors for 'Create an account'...
+2026-01-19T04:25:50.3313662Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:50.3315283Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:55.6048939Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:25:55.6049704Z [DEBUG] Received response (Length: 347)
+2026-01-19T04:25:55.6052328Z     💡 Expert Suggestion: The current page displays a verification message, suggesting the user has already initiated an account creation process. A 'Create an account' button is likely located on the Home page or a similar landing page.
+2026-01-19T04:25:55.6054366Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-19T04:25:55.6463397Z     🔄 Retry 1/3 mining locators for 'Create an account'...
+2026-01-19T04:25:56.6703765Z     🧠 Consulting AI (Vision-First) to find 'Create an account'...
+2026-01-19T04:25:56.6704997Z     🔍 Trying smart selectors for 'Create an account'...
+2026-01-19T04:25:56.7176266Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:56.7178318Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:56.7180029Z [CACHE HIT] 7bf86335... (hits: 13, misses: 10)
+2026-01-19T04:25:56.7180634Z     ⚠️ Skipping duplicate injection: Home
+2026-01-19T04:25:56.7181263Z     🔄 Retry 2/3 mining locators for 'Create an account'...
+2026-01-19T04:25:57.7194586Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:25:57.7195834Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:25:57.7444663Z     🧠 Consulting AI (Vision-First) to find 'Create an account'...
+2026-01-19T04:25:57.7445204Z     🔍 Trying smart selectors for 'Create an account'...
+2026-01-19T04:25:57.7912335Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:25:57.7913689Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:25:57.7916351Z [CACHE HIT] 7bf86335... (hits: 14, misses: 10)
+2026-01-19T04:25:57.7916926Z     ⚠️ Skipping duplicate injection: Home
+2026-01-19T04:25:57.7917796Z     🧠 Verifying step validity for 'Create an account' after no candidates found...
+2026-01-19T04:26:00.7113883Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:00.7114755Z [DEBUG] Received response (Length: 332)
+2026-01-19T04:26:00.7117802Z     🗑️ Step deemed INVALID: The screenshot shows a 'Please wait while your request is being verified...' message, indicating that the page is loading or processing. The 'Create an account' element is likely not visible or interactable at this stage. Therefore, attempting to locate it is not valid.. Removing from workflow.
+2026-01-19T04:26:00.7120369Z     ⏭️ Skipping execution of invalid step: Create an account
+2026-01-19T04:26:00.7121136Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Your personal information
+2026-01-19T04:26:00.7273707Z     🔍 Mining locators for: 'Your personal information'
+2026-01-19T04:26:00.7618767Z     🧠 Consulting AI (Vision-First) to find 'Your personal information'...
+2026-01-19T04:26:00.7619759Z     🔍 Trying smart selectors for 'Your personal information'...
+2026-01-19T04:26:00.8154340Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:00.8156349Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:05.3191478Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:05.3192256Z [DEBUG] Received response (Length: 283)
+2026-01-19T04:26:05.3193390Z     💡 Expert Suggestion: The current page only displays a verification message. 'Your personal information' is likely located within the user's profile settings.
+2026-01-19T04:26:05.3194685Z     🛠️ Executing corrective action: none -> 'profile settings'
+2026-01-19T04:26:05.3627733Z     🔄 Retry 1/3 mining locators for 'Your personal information'...
+2026-01-19T04:26:06.3862505Z     🧠 Consulting AI (Vision-First) to find 'Your personal information'...
+2026-01-19T04:26:06.3863501Z     🔍 Trying smart selectors for 'Your personal information'...
+2026-01-19T04:26:06.4389044Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:06.4390893Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:06.4394344Z [CACHE HIT] d7be7efb... (hits: 15, misses: 12)
+2026-01-19T04:26:06.4394975Z     ⚠️ Skipping duplicate injection: profile settings
+2026-01-19T04:26:06.4395499Z     🔄 Retry 2/3 mining locators for 'Your personal information'...
+2026-01-19T04:26:07.4409116Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:26:07.4410598Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:26:07.4648227Z     🧠 Consulting AI (Vision-First) to find 'Your personal information'...
+2026-01-19T04:26:07.4649233Z     🔍 Trying smart selectors for 'Your personal information'...
+2026-01-19T04:26:07.5163708Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:07.5164930Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:07.5167941Z [CACHE HIT] d7be7efb... (hits: 16, misses: 12)
+2026-01-19T04:26:07.5168717Z     ⚠️ Skipping duplicate injection: profile settings
+2026-01-19T04:26:07.5169295Z     🧠 Verifying step validity for 'Your personal information' after no candidates found...
+2026-01-19T04:26:10.3669691Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:10.3670279Z [DEBUG] Received response (Length: 328)
+2026-01-19T04:26:10.3672796Z     🗑️ Step deemed INVALID: The page is displaying a 'Please wait while your request is being verified...' message. The 'Your personal information' element is not visible on this page in its current state. We need to wait for the page to load completely before attempting to locate the element.. Removing from workflow.
+2026-01-19T04:26:10.3674730Z     ⏭️ Skipping execution of invalid step: Your personal information
+2026-01-19T04:26:12.4016386Z 
+2026-01-19T04:26:12.4017191Z [3/3] Exploring Scenario: Search and Add to Cart Flow
+2026-01-19T04:26:12.4018164Z     🧠 Initialized exploration context for goal: 'Practice automation scenarios'
+2026-01-19T04:26:12.4018629Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:26:13.1856383Z     ✅ Navigated to http://www.automationpractice.pl/
+2026-01-19T04:26:13.1857131Z   ▶️ [STEP step_2] FILL: Search
+2026-01-19T04:26:13.2025256Z     🔍 Mining locators for: 'Search'
+2026-01-19T04:26:13.2303035Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-19T04:26:13.2303866Z     🔍 Trying smart selectors for 'Search'...
+2026-01-19T04:26:13.2693221Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:13.2694493Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:15.1034525Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:15.1034993Z [DEBUG] Received response (Length: 182)
+2026-01-19T04:26:15.1035657Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-19T04:26:15.1036170Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-19T04:26:15.1316829Z     🔄 Retry 1/3 mining locators for 'Search'...
+2026-01-19T04:26:16.1613421Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-19T04:26:16.1626413Z     🔍 Trying smart selectors for 'Search'...
+2026-01-19T04:26:16.1976434Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:16.1978309Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:16.1980470Z [CACHE HIT] d0485344... (hits: 17, misses: 14)
+2026-01-19T04:26:16.1981277Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:26:16.1982248Z     🔄 Retry 2/3 mining locators for 'Search'...
+2026-01-19T04:26:17.1995475Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:26:17.1996755Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:26:17.2282653Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-19T04:26:17.2283102Z     🔍 Trying smart selectors for 'Search'...
+2026-01-19T04:26:17.2630135Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:17.2631407Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:17.2634509Z [CACHE HIT] d0485344... (hits: 18, misses: 14)
+2026-01-19T04:26:17.2635225Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:26:17.2635751Z     🧠 Verifying step validity for 'Search' after no candidates found...
+2026-01-19T04:26:20.2001226Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:20.2002250Z [DEBUG] Received response (Length: 209)
+2026-01-19T04:26:20.2003764Z     🗑️ Step deemed INVALID: The page is showing a 'Please wait while your request is being verified...' message. The search element is not visible or accessible in this state.. Removing from workflow.
+2026-01-19T04:26:20.2004973Z     ⏭️ Skipping execution of invalid step: Search
+2026-01-19T04:26:20.2005482Z   ▶️ [STEP step_3] CLICK: Search
+2026-01-19T04:26:20.2161267Z     🔍 Mining locators for: 'Search'
+2026-01-19T04:26:20.2448877Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-19T04:26:20.2449874Z     🔍 Trying smart selectors for 'Search'...
+2026-01-19T04:26:20.2796097Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:20.2797901Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:20.2800233Z [CACHE HIT] d0485344... (hits: 19, misses: 15)
+2026-01-19T04:26:20.2801202Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-19T04:26:20.2802011Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-19T04:26:20.3097984Z     🔄 Retry 1/3 mining locators for 'Search'...
+2026-01-19T04:26:21.3333445Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-19T04:26:21.3334071Z     🔍 Trying smart selectors for 'Search'...
+2026-01-19T04:26:21.3692340Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:21.3693905Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:21.3696413Z [CACHE HIT] d0485344... (hits: 20, misses: 15)
+2026-01-19T04:26:21.3697225Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:26:21.3697781Z     🔄 Retry 2/3 mining locators for 'Search'...
+2026-01-19T04:26:22.3710889Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:26:22.3712528Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:26:22.3944293Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-19T04:26:22.3945193Z     🔍 Trying smart selectors for 'Search'...
+2026-01-19T04:26:22.4296354Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:22.4298187Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:22.4300648Z [CACHE HIT] d0485344... (hits: 21, misses: 15)
+2026-01-19T04:26:22.4301288Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:26:22.4302012Z     🧠 Verifying step validity for 'Search' after no candidates found...
+2026-01-19T04:26:22.4304460Z [CACHE HIT] 6dbd2ecc... (hits: 22, misses: 15)
+2026-01-19T04:26:22.4306068Z     🗑️ Step deemed INVALID: The page is showing a 'Please wait while your request is being verified...' message. The search element is not visible or accessible in this state.. Removing from workflow.
+2026-01-19T04:26:22.4307029Z     ⏭️ Skipping execution of invalid step: Search
+2026-01-19T04:26:22.4307411Z   ▶️ [STEP step_4] ASSERT_VISIBLE: SEARCH
+2026-01-19T04:26:22.4352819Z     🔍 Mining locators for: 'SEARCH'
+2026-01-19T04:26:22.4609547Z     🧠 Consulting AI (Vision-First) to find 'SEARCH'...
+2026-01-19T04:26:22.4610254Z     🔍 Trying smart selectors for 'SEARCH'...
+2026-01-19T04:26:22.4966125Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:22.4967728Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:25.2367334Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:25.2368407Z [DEBUG] Received response (Length: 182)
+2026-01-19T04:26:25.2369861Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-19T04:26:25.2371213Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-19T04:26:25.2946057Z     🔄 Retry 1/3 mining locators for 'SEARCH'...
+2026-01-19T04:26:26.3187252Z     🧠 Consulting AI (Vision-First) to find 'SEARCH'...
+2026-01-19T04:26:26.3187910Z     🔍 Trying smart selectors for 'SEARCH'...
+2026-01-19T04:26:26.3538044Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:26.3539339Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:26.3542213Z [CACHE HIT] 1d6f5164... (hits: 23, misses: 16)
+2026-01-19T04:26:26.3542934Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:26:26.3543539Z     🔄 Retry 2/3 mining locators for 'SEARCH'...
+2026-01-19T04:26:27.3556988Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:26:27.3558328Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:26:27.3799512Z     🧠 Consulting AI (Vision-First) to find 'SEARCH'...
+2026-01-19T04:26:27.3800273Z     🔍 Trying smart selectors for 'SEARCH'...
+2026-01-19T04:26:27.4149937Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:27.4151267Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:27.4154327Z [CACHE HIT] 1d6f5164... (hits: 24, misses: 16)
+2026-01-19T04:26:27.4155088Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:26:27.4155601Z     🧠 Verifying step validity for 'SEARCH' after no candidates found...
+2026-01-19T04:26:30.2066180Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:30.2066697Z [DEBUG] Received response (Length: 212)
+2026-01-19T04:26:30.2068006Z     🗑️ Step deemed INVALID: The page is displaying a 'Please wait while your request is being verified...' message. The search element is not visible or accessible in this state.. Removing from workflow.
+2026-01-19T04:26:30.2069033Z     ⏭️ Skipping execution of invalid step: SEARCH
+2026-01-19T04:26:30.2069441Z   ▶️ [STEP step_5] HOVER: Printed Dress
+2026-01-19T04:26:30.2238164Z     🔍 Mining locators for: 'Printed Dress'
+2026-01-19T04:26:30.2611922Z     🧠 Consulting AI (Vision-First) to find 'Printed Dress'...
+2026-01-19T04:26:30.2612883Z     🔍 Trying smart selectors for 'Printed Dress'...
+2026-01-19T04:26:30.3089093Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:30.3091845Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:35.1619881Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:35.1620424Z [DEBUG] Received response (Length: 182)
+2026-01-19T04:26:35.1621132Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-19T04:26:35.1621979Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-19T04:26:35.2104196Z     🔄 Retry 1/3 mining locators for 'Printed Dress'...
+2026-01-19T04:26:36.2343210Z     🧠 Consulting AI (Vision-First) to find 'Printed Dress'...
+2026-01-19T04:26:36.2344295Z     🔍 Trying smart selectors for 'Printed Dress'...
+2026-01-19T04:26:36.2821244Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:36.2823461Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:36.2826064Z [CACHE HIT] 6ea62ef8... (hits: 25, misses: 18)
+2026-01-19T04:26:36.2826657Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:26:36.2827158Z     🔄 Retry 2/3 mining locators for 'Printed Dress'...
+2026-01-19T04:26:37.2840132Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:26:37.2841393Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:26:37.3101182Z     🧠 Consulting AI (Vision-First) to find 'Printed Dress'...
+2026-01-19T04:26:37.3102082Z     🔍 Trying smart selectors for 'Printed Dress'...
+2026-01-19T04:26:37.3577245Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:37.3580861Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:37.3582473Z [CACHE HIT] 6ea62ef8... (hits: 26, misses: 18)
+2026-01-19T04:26:37.3583396Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:26:37.3584463Z     🧠 Verifying step validity for 'Printed Dress' after no candidates found...
+2026-01-19T04:26:40.2507648Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:40.2508450Z [DEBUG] Received response (Length: 264)
+2026-01-19T04:26:40.2510253Z     🗑️ Step deemed INVALID: The page is showing a 'Please wait while your request is being verified...' message. The 'Printed Dress' element is not visible on this page. Therefore, it's not possible to locate and interact with it.. Removing from workflow.
+2026-01-19T04:26:40.2512085Z     ⏭️ Skipping execution of invalid step: Printed Dress
+2026-01-19T04:26:40.2512637Z   ▶️ [STEP step_6] CLICK: Add to cart
+2026-01-19T04:26:40.2672688Z     🔍 Mining locators for: 'Add to cart'
+2026-01-19T04:26:40.2950365Z     🧠 Consulting AI (Vision-First) to find 'Add to cart'...
+2026-01-19T04:26:40.2950999Z     🔍 Trying smart selectors for 'Add to cart'...
+2026-01-19T04:26:40.3422160Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:40.3423841Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:45.1777924Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:45.1778574Z [DEBUG] Received response (Length: 182)
+2026-01-19T04:26:45.1779480Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-19T04:26:45.1780251Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-19T04:26:45.2270404Z     🔄 Retry 1/3 mining locators for 'Add to cart'...
+2026-01-19T04:26:46.2520188Z     🧠 Consulting AI (Vision-First) to find 'Add to cart'...
+2026-01-19T04:26:46.2521012Z     🔍 Trying smart selectors for 'Add to cart'...
+2026-01-19T04:26:46.3037037Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:46.3038115Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:46.3040831Z [CACHE HIT] 4bac8250... (hits: 27, misses: 20)
+2026-01-19T04:26:46.3041451Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:26:46.3042229Z     🔄 Retry 2/3 mining locators for 'Add to cart'...
+2026-01-19T04:26:47.3055602Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:26:47.3057077Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:26:47.3279792Z     🧠 Consulting AI (Vision-First) to find 'Add to cart'...
+2026-01-19T04:26:47.3280599Z     🔍 Trying smart selectors for 'Add to cart'...
+2026-01-19T04:26:47.3773246Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:47.3774941Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:47.3777809Z [CACHE HIT] 4bac8250... (hits: 28, misses: 20)
+2026-01-19T04:26:47.3778330Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:26:47.3779163Z     🧠 Verifying step validity for 'Add to cart' after no candidates found...
+2026-01-19T04:26:50.3300450Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:50.3301313Z [DEBUG] Received response (Length: 274)
+2026-01-19T04:26:50.3305252Z     🗑️ Step deemed INVALID: The page is displaying a 'Please wait while your request is being verified...' message. The 'Add to cart' button is not visible on this page in its current state. Therefore, it's not possible to interact with it.. Removing from workflow.
+2026-01-19T04:26:50.3308575Z     ⏭️ Skipping execution of invalid step: Add to cart
+2026-01-19T04:26:50.3309773Z   ▶️ [STEP step_7] WAIT_FOR_ELEMENT: Proceed to checkout
+2026-01-19T04:26:50.3478381Z     🔍 Mining locators for: 'Proceed to checkout'
+2026-01-19T04:26:50.3770961Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-19T04:26:50.3772098Z     🔍 Trying smart selectors for 'Proceed to checkout'...
+2026-01-19T04:26:50.4269820Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:50.4271070Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:55.3621867Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:26:55.3622754Z [DEBUG] Received response (Length: 291)
+2026-01-19T04:26:55.3624943Z     💡 Expert Suggestion: The page indicates that the request is being verified. We need to wait for this process to finish before proceeding to checkout.
+2026-01-19T04:26:55.3627233Z     🛠️ Executing corrective action: wait -> 'request verification to complete'
+2026-01-19T04:26:55.4102825Z     🔄 Retry 1/3 mining locators for 'Proceed to checkout'...
+2026-01-19T04:26:56.4345099Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-19T04:26:56.4346004Z     🔍 Trying smart selectors for 'Proceed to checkout'...
+2026-01-19T04:26:56.4825462Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:56.4826733Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:56.4830003Z [CACHE HIT] d1640613... (hits: 29, misses: 22)
+2026-01-19T04:26:56.4830759Z     ⚠️ Skipping duplicate injection: request verification to complete
+2026-01-19T04:26:56.4831828Z     🔄 Retry 2/3 mining locators for 'Proceed to checkout'...
+2026-01-19T04:26:57.4844437Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:26:57.4846189Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:26:57.5092242Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-19T04:26:57.5093099Z     🔍 Trying smart selectors for 'Proceed to checkout'...
+2026-01-19T04:26:57.5566085Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:26:57.5568072Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:26:57.5569898Z [CACHE HIT] d1640613... (hits: 30, misses: 22)
+2026-01-19T04:26:57.5570787Z     ⚠️ Skipping duplicate injection: request verification to complete
+2026-01-19T04:26:57.5571896Z     🧠 Verifying step validity for 'Proceed to checkout' after no candidates found...
+2026-01-19T04:27:00.4059872Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:27:00.4060993Z [DEBUG] Received response (Length: 275)
+2026-01-19T04:27:00.4064143Z     🗑️ Step deemed INVALID: The page is displaying a 'Please wait while your request is being verified...' message. The 'Proceed to checkout' button is not visible on this page in this state. Therefore, it's not possible to interact with it.. Removing from workflow.
+2026-01-19T04:27:00.4065995Z     ⏭️ Skipping execution of invalid step: Proceed to checkout
+2026-01-19T04:27:00.4066659Z   ▶️ [STEP step_8] ASSERT_VISIBLE: Proceed to checkout
+2026-01-19T04:27:00.4225409Z     🔍 Mining locators for: 'Proceed to checkout'
+2026-01-19T04:27:00.4607178Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-19T04:27:00.4608120Z     🔍 Trying smart selectors for 'Proceed to checkout'...
+2026-01-19T04:27:00.5099147Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:27:00.5100845Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:27:00.5103649Z [CACHE HIT] d1640613... (hits: 31, misses: 23)
+2026-01-19T04:27:00.5104759Z     💡 Expert Suggestion: The page indicates that the request is being verified. We need to wait for this process to finish before proceeding to checkout.
+2026-01-19T04:27:00.5105603Z     🛠️ Executing corrective action: wait -> 'request verification to complete'
+2026-01-19T04:27:00.5419856Z     🔄 Retry 1/3 mining locators for 'Proceed to checkout'...
+2026-01-19T04:27:01.5663691Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-19T04:27:01.5664609Z     🔍 Trying smart selectors for 'Proceed to checkout'...
+2026-01-19T04:27:01.6134738Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:27:01.6135947Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:27:01.6138898Z [CACHE HIT] d1640613... (hits: 32, misses: 23)
+2026-01-19T04:27:01.6140027Z     ⚠️ Skipping duplicate injection: request verification to complete
+2026-01-19T04:27:01.6140563Z     🔄 Retry 2/3 mining locators for 'Proceed to checkout'...
+2026-01-19T04:27:02.6153822Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:27:02.6154984Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:27:02.6419240Z     🧠 Consulting AI (Vision-First) to find 'Proceed to checkout'...
+2026-01-19T04:27:02.6420155Z     🔍 Trying smart selectors for 'Proceed to checkout'...
+2026-01-19T04:27:02.6895493Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:27:02.6898064Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:27:02.6900760Z [CACHE HIT] d1640613... (hits: 33, misses: 23)
+2026-01-19T04:27:02.6902233Z     ⚠️ Skipping duplicate injection: request verification to complete
+2026-01-19T04:27:02.6903858Z     🧠 Verifying step validity for 'Proceed to checkout' after no candidates found...
+2026-01-19T04:27:02.6905292Z [CACHE HIT] ec7aaa36... (hits: 34, misses: 23)
+2026-01-19T04:27:02.6907098Z     🗑️ Step deemed INVALID: The page is displaying a 'Please wait while your request is being verified...' message. The 'Proceed to checkout' button is not visible on this page in this state. Therefore, it's not possible to interact with it.. Removing from workflow.
+2026-01-19T04:27:02.6908564Z     ⏭️ Skipping execution of invalid step: Proceed to checkout
+2026-01-19T04:27:04.7257304Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice/tests/generated_scenarios.json
+2026-01-19T04:27:04.7259700Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-19T04:27:04.7260033Z 
+2026-01-19T04:27:04.7260177Z ✅ Deep Exploration Complete.
+2026-01-19T04:27:08.7048989Z 
+2026-01-19T04:27:08.7049943Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-19T04:27:08.7050604Z 📍 Project: ci_automation_practice
+2026-01-19T04:27:08.7051015Z 🎬 Mode: Headless
+2026-01-19T04:27:08.7051193Z 
+2026-01-19T04:27:08.7051408Z --- Scenario: Homepage Load and Contact Us Flow ---
+2026-01-19T04:27:08.7052301Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:27:08.7052775Z     ✅ Step step_1 Passed.
+2026-01-19T04:27:08.7053197Z   ▶️ [STEP step_2] ASSERT_URL: Step step_2
+2026-01-19T04:27:08.7053651Z     ✅ Step step_2 Passed.
+2026-01-19T04:27:08.7054238Z ✅ Scenario 'Homepage Load and Contact Us Flow' completed successfully!
+2026-01-19T04:27:08.7054682Z 
+2026-01-19T04:27:08.7054871Z --- Scenario: Sign In and Create Account Flow ---
+2026-01-19T04:27:08.7055398Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:27:08.7055882Z     ✅ Step step_1 Passed.
+2026-01-19T04:27:08.7056429Z ✅ Scenario 'Sign In and Create Account Flow' completed successfully!
+2026-01-19T04:27:08.7056833Z 
+2026-01-19T04:27:08.7057009Z --- Scenario: Search and Add to Cart Flow ---
+2026-01-19T04:27:08.7057524Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:27:08.7057973Z     ✅ Step step_1 Passed.
+2026-01-19T04:27:08.7058500Z ✅ Scenario 'Search and Add to Cart Flow' completed successfully!
+2026-01-19T04:27:08.7058877Z 
+2026-01-19T04:27:08.7059038Z ============================================================
+2026-01-19T04:27:08.7059490Z 🎯 EXECUTION SUMMARY
+2026-01-19T04:27:08.7059822Z ============================================================
+2026-01-19T04:27:08.7060117Z 
+2026-01-19T04:27:08.7060291Z 📋 Scenario Overview:
+2026-01-19T04:27:08.7060686Z    • Total Scenarios Planned: 3
+2026-01-19T04:27:08.7061092Z    • Scenarios Executed: 3
+2026-01-19T04:27:08.7061480Z    • Total Steps Executed: 4
+2026-01-19T04:27:08.7061970Z 
+2026-01-19T04:27:08.7062118Z ✅ Results:
+2026-01-19T04:27:08.7062434Z    ✅ Passed: 3 (100%)
+2026-01-19T04:27:08.7062620Z 
+2026-01-19T04:27:08.7062777Z ============================================================
+2026-01-19T04:27:08.7063077Z 
+2026-01-19T04:27:08.7064154Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice/execution.json
+2026-01-19T04:27:08.8607321Z 
+2026-01-19T04:27:08.8607799Z [PHASE] Running Phase: DISCOVERY
+2026-01-19T04:27:08.8609643Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice --url http://www.automationpractice.pl/ --deep
+2026-01-19T04:27:08.8611210Z ✅ Phase 'discovery' completed successfully.
+2026-01-19T04:27:08.8611439Z 
+2026-01-19T04:27:08.8611825Z [PHASE] Running Phase: PLANNING
+2026-01-19T04:27:08.8613568Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice --goal Practice automation scenarios --url http://www.automationpractice.pl/ --deep
+2026-01-19T04:27:08.8615066Z ✅ Phase 'planning' completed successfully.
+2026-01-19T04:27:08.8615286Z 
+2026-01-19T04:27:08.8615392Z [PHASE] Running Phase: EXPLORATION
+2026-01-19T04:27:08.8616473Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice
+2026-01-19T04:27:08.8617640Z ✅ Phase 'exploration' completed successfully.
+2026-01-19T04:27:08.8618043Z 📊 Exploration Discovery Success Rate: 0.0%
+2026-01-19T04:27:08.8618566Z ⚠️ Exploration failed to find stable locators for key steps. Execution might fail.
+2026-01-19T04:27:08.8618937Z 
+2026-01-19T04:27:08.8619041Z [PHASE] Running Phase: EXECUTION
+2026-01-19T04:27:08.8620101Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice
+2026-01-19T04:27:08.8621221Z ✅ Phase 'execution' completed successfully.
+2026-01-19T04:27:08.8621410Z 
+2026-01-19T04:27:08.8621718Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-19T04:27:08.9922553Z ##[group]Run RESULT_FILE="projects/ci_automation_practice/execution.json"
+2026-01-19T04:27:08.9923125Z [36;1mRESULT_FILE="projects/ci_automation_practice/execution.json"[0m
+2026-01-19T04:27:08.9923509Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-19T04:27:08.9923848Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-19T04:27:08.9924301Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-19T04:27:08.9924688Z [36;1melse[0m
+2026-01-19T04:27:08.9924932Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-19T04:27:08.9925209Z [36;1m  exit 1[0m
+2026-01-19T04:27:08.9925399Z [36;1mfi[0m
+2026-01-19T04:27:08.9957672Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:27:08.9957914Z env:
+2026-01-19T04:27:08.9958171Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:27:08.9958595Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:27:08.9959048Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:27:08.9959431Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:27:08.9959827Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:27:08.9960209Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:27:08.9960524Z ##[endgroup]
+2026-01-19T04:27:09.0018774Z ✅ Results generated successfully: projects/ci_automation_practice/execution.json
+2026-01-19T04:27:09.0044948Z 3
+2026-01-19T04:27:09.0287760Z ##[group]Run actions/upload-artifact@v4
+2026-01-19T04:27:09.0288061Z with:
+2026-01-19T04:27:09.0288356Z   name: automation_practice-execution-results
+2026-01-19T04:27:09.0288879Z   path: projects/ci_automation_practice/execution.json
+projects/ci_automation_practice/workflow.json
+
+2026-01-19T04:27:09.0289353Z   retention-days: 30
+2026-01-19T04:27:09.0289569Z   if-no-files-found: warn
+2026-01-19T04:27:09.0289791Z   compression-level: 6
+2026-01-19T04:27:09.0290000Z   overwrite: false
+2026-01-19T04:27:09.0290211Z   include-hidden-files: false
+2026-01-19T04:27:09.0290435Z env:
+2026-01-19T04:27:09.0290672Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:27:09.0291081Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:27:09.0291487Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:27:09.0292190Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:27:09.0292823Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:27:09.0293202Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:27:09.0293516Z ##[endgroup]
+2026-01-19T04:27:09.2552858Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-19T04:27:09.2556879Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_automation_practice. This will be the root directory of the artifact
+2026-01-19T04:27:09.2557977Z With the provided path, there will be 2 files uploaded
+2026-01-19T04:27:09.2563503Z Artifact name is valid!
+2026-01-19T04:27:09.2564918Z Root directory input is valid!
+2026-01-19T04:27:09.4132211Z Beginning upload of artifact content to blob storage
+2026-01-19T04:27:09.5517909Z Uploaded bytes 821
+2026-01-19T04:27:09.5891206Z Finished uploading artifact content to blob storage!
+2026-01-19T04:27:09.5894593Z SHA256 digest of uploaded artifact zip is 788cb406cc7a9c76c093eccdafd7599eeddeb6a6c65f8b416f1e7f0f60fc06a1
+2026-01-19T04:27:09.5896796Z Finalizing artifact upload
+2026-01-19T04:27:09.6902408Z Artifact automation_practice-execution-results.zip successfully finalized. Artifact ID 5172426114
+2026-01-19T04:27:09.6903949Z Artifact automation_practice-execution-results has been successfully uploaded! Final size is 821 bytes. Artifact ID is 5172426114
+2026-01-19T04:27:09.6911095Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21124435194/artifacts/5172426114
+2026-01-19T04:27:09.7253572Z Post job cleanup.
+2026-01-19T04:27:09.8818400Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-19T04:27:09.9287647Z Post job cleanup.
+2026-01-19T04:27:10.0248741Z [command]/usr/bin/git version
+2026-01-19T04:27:10.0289656Z git version 2.52.0
+2026-01-19T04:27:10.0334894Z Temporarily overriding HOME='/home/runner/work/_temp/8e5a865c-3908-4954-aff5-cc97a1aac5c2' before making global git config changes
+2026-01-19T04:27:10.0336696Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T04:27:10.0342486Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T04:27:10.0389720Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T04:27:10.0427735Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T04:27:10.0690912Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T04:27:10.0719203Z http.https://github.com/.extraheader
+2026-01-19T04:27:10.0737197Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-19T04:27:10.0774252Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T04:27:10.1025177Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T04:27:10.1061053Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T04:27:10.1435424Z Cleaning up orphan processes

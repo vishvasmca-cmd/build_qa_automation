@@ -1,403 +1,514 @@
-﻿2026-01-19T02:29:01.1333370Z ##[group]Run # Use --deep for comprehensive regression suite
-2026-01-19T02:29:01.1333827Z [36;1m# Use --deep for comprehensive regression suite[0m
-2026-01-19T02:29:01.1334316Z [36;1mpython orchestrator.py --project projects/ci_saucedemo_locked --deep --force[0m
-2026-01-19T02:29:01.1363016Z shell: /usr/bin/bash -e {0}
-2026-01-19T02:29:01.1363253Z env:
-2026-01-19T02:29:01.1363507Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
-2026-01-19T02:29:01.1363941Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
-2026-01-19T02:29:01.1364359Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
-2026-01-19T02:29:01.1364729Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
-2026-01-19T02:29:01.1365099Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
-2026-01-19T02:29:01.1365654Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
-2026-01-19T02:29:01.1366122Z   GOOGLE_API_KEY: ***
-2026-01-19T02:29:01.1366322Z   PYTHONPATH: .
-2026-01-19T02:29:01.1366536Z ##[endgroup]
-2026-01-19T02:29:02.8857064Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
-2026-01-19T02:29:02.8857597Z 
-2026-01-19T02:29:02.8858259Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://www.saucedemo.com/ (Workers: 3)
-2026-01-19T02:29:04.4340473Z   🔍 [Worker 0] Visiting (0): https://www.saucedemo.com/
-2026-01-19T02:29:04.8291930Z [CACHE HIT] 474f9e14... (hits: 1, misses: 0)
-2026-01-19T02:29:04.8292875Z ✅ Discovery Complete. Mapped 1 pages.
-2026-01-19T02:29:10.4250844Z 
-2026-01-19T02:29:10.4251825Z [PLAN] PLANNER: Planning goal -> 'Test locked user scenarios' (Deep Mode: True)
-2026-01-19T02:29:10.4252534Z 🗺️ [PLAN] Loaded Sitemap with 1 pages.
-2026-01-19T02:29:10.4253454Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
-2026-01-19T02:29:10.4254351Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
-2026-01-19T02:29:10.4254740Z [DEBUG] Received response (Length: 3351)
-2026-01-19T02:29:10.4255092Z ✅ Planner generated 3 scenarios. Workflow updated.
-2026-01-19T02:29:11.4722232Z 
-2026-01-19T02:29:11.4723358Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
-2026-01-19T02:29:11.4723902Z 📋 Found 3 scenarios to explore.
-2026-01-19T02:29:11.8359752Z 
-2026-01-19T02:29:11.8360321Z [1/3] Exploring Scenario: Locked Out User Login Attempt
-2026-01-19T02:29:11.8362909Z     🧠 Initialized exploration context for goal: 'Test locked user scenarios'
-2026-01-19T02:29:11.8363566Z   ▶️ [STEP step_1] NAVIGATE: 
-2026-01-19T02:29:12.5149920Z     ✅ Navigated to https://www.saucedemo.com/
-2026-01-19T02:29:12.5150485Z   ▶️ [STEP step_2] FILL: Username
-2026-01-19T02:29:12.5327292Z     🔍 Mining locators for: 'Username'
-2026-01-19T02:29:12.6027024Z     ✅ Found 5 verified locators
-2026-01-19T02:29:19.1204429Z     ✅ State transitioned.
-2026-01-19T02:29:20.8138441Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:29:20.8140750Z [DEBUG] Received response (Length: 220)
-2026-01-19T02:29:20.8141830Z     🤖 AI Next Step Suggestion: fill -> Password
-2026-01-19T02:29:20.8142422Z     🧩 Suggested Locator: #password
-2026-01-19T02:29:20.8143491Z     💭 Reasoning: The username has been filled. Now, fill the password field with the correct password to attempt login.
-2026-01-19T02:29:20.8144507Z     ➕ Injected AI step: fill -> Password
-2026-01-19T02:29:20.8145072Z   ▶️ [STEP step_2_ai_1] FILL: Password
-2026-01-19T02:29:20.8208323Z     🎯 Using AI-provided locator: #password
-2026-01-19T02:29:20.8268550Z     ✅ Found 1 verified locators
-2026-01-19T02:29:27.5816704Z     ✅ State transitioned.
-2026-01-19T02:29:29.1107713Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:29:29.1108187Z [DEBUG] Received response (Length: 194)
-2026-01-19T02:29:29.1108916Z     🤖 AI Next Step Suggestion: click -> login-button
-2026-01-19T02:29:29.1114107Z     🧩 Suggested Locator: input[id='login-button']
-2026-01-19T02:29:29.1115157Z     💭 Reasoning: Now that username and password are filled, click the login button to attempt login.
-2026-01-19T02:29:29.1116461Z     ➕ Injected AI step: click -> login-button
-2026-01-19T02:29:29.1117057Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
-2026-01-19T02:29:29.1175757Z     🎯 Using AI-provided locator: input[id='login-button']
-2026-01-19T02:29:29.1232057Z     ✅ Found 1 verified locators
-2026-01-19T02:29:33.1741557Z     ✅ State transitioned.
-2026-01-19T02:29:34.7644718Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:29:34.7645395Z [DEBUG] Received response (Length: 180)
-2026-01-19T02:29:34.7646147Z     🤖 AI Next Step Suggestion: done -> N/A
-2026-01-19T02:29:34.7647545Z     💭 Reasoning: The user is locked, and there are no options to unlock the user from this page. The goal is achieved by verifying the locked user scenario.
-2026-01-19T02:29:34.7649242Z   ▶️ [STEP step_3] FILL: Password
-2026-01-19T02:29:34.7703544Z     🔍 Mining locators for: 'Password'
-2026-01-19T02:29:34.8306992Z     ✅ Found 5 verified locators
-2026-01-19T02:29:40.0947174Z     ✅ State transitioned.
-2026-01-19T02:29:41.4949401Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:29:41.4950096Z [DEBUG] Received response (Length: 241)
-2026-01-19T02:29:41.4950623Z     🤖 AI Next Step Suggestion: done -> N/A
-2026-01-19T02:29:41.4951832Z     💭 Reasoning: The page indicates that the user is locked out. There are no further actions to take on this page to achieve the goal of testing locked user scenarios. The test has confirmed the locked user scenario.
-2026-01-19T02:29:41.4952734Z   ▶️ [STEP step_4] CLICK: Login
-2026-01-19T02:29:41.5010526Z     🔍 Mining locators for: 'Login'
-2026-01-19T02:29:41.5422400Z     🧠 Consulting AI (Vision-First) to find 'Login'...
-2026-01-19T02:29:41.5433869Z     🔍 Trying smart selectors for 'Login'...
-2026-01-19T02:29:41.5565296Z     ✅ Smart selector found 'Login' via name (confidence: 0.88)
-2026-01-19T02:29:41.5605416Z     ✅ Found 1 verified locators
-2026-01-19T02:29:45.6225132Z     ✅ State transitioned.
-2026-01-19T02:29:45.6272982Z     🔄 Revisited state detected (count: 1)
-2026-01-19T02:29:46.8422722Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:29:46.8423582Z [DEBUG] Received response (Length: 180)
-2026-01-19T02:29:46.8424488Z     🤖 AI Next Step Suggestion: done -> N/A
-2026-01-19T02:29:46.8426199Z     💭 Reasoning: The user is locked, and there are no options to unlock the user from this page. The goal is achieved by verifying the locked user scenario.
-2026-01-19T02:29:46.8427804Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Epic sadface: Sorry, this user has been locked out.
-2026-01-19T02:29:46.8484867Z     🔍 Mining locators for: 'Epic sadface: Sorry, this user has been locked out.'
-2026-01-19T02:29:46.8955558Z     ✅ Found 1 verified locators
-2026-01-19T02:29:49.4283735Z     ✅ State transitioned.
-2026-01-19T02:29:49.4328504Z     🔄 Revisited state detected (count: 2)
-2026-01-19T02:29:51.7792389Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:29:51.7793145Z [DEBUG] Received response (Length: 248)
-2026-01-19T02:29:51.7793810Z     🤖 AI Next Step Suggestion: done -> N/A
-2026-01-19T02:29:51.7795118Z     💭 Reasoning: The goal is to test locked user scenarios, and the application is already displaying the message indicating that the user is locked out. There are no further actions to take on this page to achieve the goal.
-2026-01-19T02:29:53.8147023Z 
-2026-01-19T02:29:53.8148037Z [2/3] Exploring Scenario: Standard User Login and Logout
-2026-01-19T02:29:53.8149930Z     🧠 Initialized exploration context for goal: 'Test locked user scenarios'
-2026-01-19T02:29:53.8150690Z   ▶️ [STEP step_1] NAVIGATE: 
-2026-01-19T02:29:54.4975349Z     ✅ Navigated to https://www.saucedemo.com/
-2026-01-19T02:29:54.4975819Z   ▶️ [STEP step_2] FILL: Username
-2026-01-19T02:29:54.5133607Z     🔍 Mining locators for: 'Username'
-2026-01-19T02:29:54.5816543Z     ✅ Found 5 verified locators
-2026-01-19T02:30:00.2837796Z     ✅ State transitioned.
-2026-01-19T02:30:01.8102153Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:30:01.8102828Z [DEBUG] Received response (Length: 219)
-2026-01-19T02:30:01.8103598Z     🤖 AI Next Step Suggestion: fill -> Password
-2026-01-19T02:30:01.8104169Z     🧩 Suggested Locator: #password
-2026-01-19T02:30:01.8105185Z     💭 Reasoning: Need to fill the password field to attempt login. The password for all users is provided on the page.
-2026-01-19T02:30:01.8106150Z     ➕ Injected AI step: fill -> Password
-2026-01-19T02:30:01.8106685Z   ▶️ [STEP step_2_ai_1] FILL: Password
-2026-01-19T02:30:01.8162031Z     🎯 Using AI-provided locator: #password
-2026-01-19T02:30:01.8218832Z     ✅ Found 1 verified locators
-2026-01-19T02:30:07.6608756Z     ✅ State transitioned.
-2026-01-19T02:30:09.0858118Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:30:09.0859034Z [DEBUG] Received response (Length: 194)
-2026-01-19T02:30:09.0860005Z     🤖 AI Next Step Suggestion: click -> login-button
-2026-01-19T02:30:09.0860912Z     🧩 Suggested Locator: input[id='login-button']
-2026-01-19T02:30:09.0862469Z     💭 Reasoning: Now that username and password are filled, click the login button to attempt login.
-2026-01-19T02:30:09.0863638Z     ➕ Injected AI step: click -> login-button
-2026-01-19T02:30:09.0864373Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
-2026-01-19T02:30:09.0917011Z     🎯 Using AI-provided locator: input[id='login-button']
-2026-01-19T02:30:09.0981369Z     ✅ Found 1 verified locators
-2026-01-19T02:30:13.1680604Z     ✅ State transitioned.
-2026-01-19T02:30:14.6962096Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:30:14.6962649Z [DEBUG] Received response (Length: 182)
-2026-01-19T02:30:14.6963160Z     🤖 AI Next Step Suggestion: done -> N/A
-2026-01-19T02:30:14.6963963Z     💭 Reasoning: The locked user is already logged in and on the inventory page. There is nothing more to do to test the locked user scenario from this point.
-2026-01-19T02:30:14.6965839Z   ▶️ [STEP step_3] FILL: Password
-2026-01-19T02:30:14.7017021Z     🔍 Mining locators for: 'Password'
-2026-01-19T02:30:14.7425096Z     🧠 Consulting AI (Vision-First) to find 'Password'...
-2026-01-19T02:30:14.7425599Z     🔍 Trying smart selectors for 'Password'...
-2026-01-19T02:30:14.7648221Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T02:30:14.7649097Z     ⚠️ Critical step failure: name 'time' is not defined
-2026-01-19T02:30:14.7649459Z   ▶️ [STEP step_4] CLICK: Login
-2026-01-19T02:30:14.7696042Z     🔍 Mining locators for: 'Login'
-2026-01-19T02:30:14.8082768Z     🧠 Consulting AI (Vision-First) to find 'Login'...
-2026-01-19T02:30:14.8083559Z     🔍 Trying smart selectors for 'Login'...
-2026-01-19T02:30:14.8302785Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T02:30:14.8303728Z     ⚠️ Critical step failure: name 'time' is not defined
-2026-01-19T02:30:14.8304373Z   ▶️ [STEP step_5] ASSERT_URL: 
-2026-01-19T02:30:19.8445315Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
-2026-01-19T02:30:21.8468275Z     ✅ State transitioned.
-2026-01-19T02:30:23.2871167Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:30:23.2871686Z [DEBUG] Received response (Length: 214)
-2026-01-19T02:30:23.2872223Z     🤖 AI Next Step Suggestion: done -> N/A
-2026-01-19T02:30:23.2873172Z     💭 Reasoning: The user is already logged in and on the inventory page. The goal was to test locked user scenarios, which is not achievable from this page. Therefore, the task is complete.
-2026-01-19T02:30:23.2874030Z   ▶️ [STEP step_6] CLICK: Open Menu
-2026-01-19T02:30:23.2925990Z     🔍 Mining locators for: 'Open Menu'
-2026-01-19T02:30:23.3407960Z     ✅ Found 3 verified locators
-2026-01-19T02:30:26.8937044Z     ✅ State transitioned.
-2026-01-19T02:30:28.4719262Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:30:28.4720015Z [DEBUG] Received response (Length: 242)
-2026-01-19T02:30:28.4720945Z     🤖 AI Next Step Suggestion: click -> Logout
-2026-01-19T02:30:28.4722504Z     🧩 Suggested Locator: a[id='logout_sidebar_link']
-2026-01-19T02:30:28.4723822Z     💭 Reasoning: The goal is to test locked user scenarios. After logging in, the next step is to log out to prepare for testing locked user scenarios.
-2026-01-19T02:30:28.4724660Z     ➕ Injected AI step: click -> Logout
-2026-01-19T02:30:28.4725057Z   ▶️ [STEP step_6_ai_1] CLICK: Logout
-2026-01-19T02:30:28.4778450Z     🎯 Using AI-provided locator: a[id='logout_sidebar_link']
-2026-01-19T02:30:28.4844166Z     ✅ Found 1 verified locators
-2026-01-19T02:30:32.5292201Z     ✅ State transitioned.
-2026-01-19T02:30:34.1241470Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:30:34.1242513Z [DEBUG] Received response (Length: 214)
-2026-01-19T02:30:34.1243269Z     🤖 AI Next Step Suggestion: fill -> Username
-2026-01-19T02:30:34.1243828Z     🧩 Suggested Locator: #user-name
-2026-01-19T02:30:34.1244755Z     💭 Reasoning: To test the locked user scenario, we need to fill the username field with 'locked_out_user'.
-2026-01-19T02:30:34.1245659Z     ➕ Injected AI step: fill -> Username
-2026-01-19T02:30:34.1245987Z   ▶️ [STEP step_6_ai_2] FILL: Username
-2026-01-19T02:30:34.1296483Z     🎯 Using AI-provided locator: #user-name
-2026-01-19T02:30:34.1348153Z     ✅ Found 1 verified locators
-2026-01-19T02:30:41.0806971Z     ✅ State transitioned.
-2026-01-19T02:30:42.4922462Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:30:42.4923213Z [DEBUG] Received response (Length: 224)
-2026-01-19T02:30:42.4924051Z     🤖 AI Next Step Suggestion: fill -> Password
-2026-01-19T02:30:42.4924637Z     🧩 Suggested Locator: #password
-2026-01-19T02:30:42.4925709Z     💭 Reasoning: The username is already filled. Now filling the password field with the correct password to attempt login.
-2026-01-19T02:30:42.4926831Z     ➕ Injected AI step: fill -> Password
-2026-01-19T02:30:42.4927388Z   ▶️ [STEP step_6_ai_3] FILL: Password
-2026-01-19T02:30:42.4979401Z     🎯 Using AI-provided locator: #password
-2026-01-19T02:30:42.5033198Z     ✅ Found 1 verified locators
-2026-01-19T02:30:48.2125937Z     ✅ State transitioned.
-2026-01-19T02:30:49.5515277Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:30:49.5516108Z [DEBUG] Received response (Length: 246)
-2026-01-19T02:30:49.5516901Z     🤖 AI Next Step Suggestion: click -> login-button
-2026-01-19T02:30:49.5517573Z     🧩 Suggested Locator: input[id='login-button']
-2026-01-19T02:30:49.5518834Z     💭 Reasoning: Now that the username and password have been entered, the next step is to click the login button to attempt to log in.
-2026-01-19T02:30:49.5519966Z     ➕ Injected AI step: click -> login-button
-2026-01-19T02:30:49.5520532Z   ▶️ [STEP step_6_ai_4] CLICK: login-button
-2026-01-19T02:30:49.5573858Z     🎯 Using AI-provided locator: input[id='login-button']
-2026-01-19T02:30:49.5630112Z     ✅ Found 1 verified locators
-2026-01-19T02:30:53.6167697Z     ✅ State transitioned.
-2026-01-19T02:30:55.1024585Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:30:55.1025150Z [DEBUG] Received response (Length: 283)
-2026-01-19T02:30:55.1025719Z     🤖 AI Next Step Suggestion: done -> N/A
-2026-01-19T02:30:55.1026873Z     💭 Reasoning: The user is locked, and the page indicates this with the message 'Epic sadface: Sorry, this user has been locked out.' There are no actions available to unlock the user from this page. The goal to test locked user scenarios has been achieved.
-2026-01-19T02:30:55.1028006Z   ▶️ [STEP step_7] CLICK: Logout
-2026-01-19T02:30:55.1081857Z     🔍 Mining locators for: 'Logout'
-2026-01-19T02:30:55.1386901Z     🧠 Consulting AI (Vision-First) to find 'Logout'...
-2026-01-19T02:30:55.1387686Z     🔍 Trying smart selectors for 'Logout'...
-2026-01-19T02:30:55.1604224Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T02:30:55.1612669Z     ⚠️ Critical step failure: name 'time' is not defined
-2026-01-19T02:30:55.1613288Z   ▶️ [STEP step_8] ASSERT_URL: 
-2026-01-19T02:31:00.1747124Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
-2026-01-19T02:31:02.1764541Z     ✅ State transitioned.
-2026-01-19T02:31:03.6881973Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:31:03.6882572Z [DEBUG] Received response (Length: 335)
-2026-01-19T02:31:03.6883271Z     🤖 AI Next Step Suggestion: click -> login-button
-2026-01-19T02:31:03.6883659Z     🧩 Suggested Locator: #login-button
-2026-01-19T02:31:03.6884733Z     💭 Reasoning: The page shows the locked out message. To re-test the locked user scenario, we need to attempt to login again after logging out. Clicking the login button will attempt to log in with the previously entered credentials.
-2026-01-19T02:31:03.6886149Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
-2026-01-19T02:31:05.7235087Z 
-2026-01-19T02:31:05.7235832Z [3/3] Exploring Scenario: Problem User Login and Inventory Check
-2026-01-19T02:31:05.7237008Z     🧠 Initialized exploration context for goal: 'Test locked user scenarios'
-2026-01-19T02:31:05.7237899Z   ▶️ [STEP step_1] NAVIGATE: 
-2026-01-19T02:31:06.3993994Z     ✅ Navigated to https://www.saucedemo.com/
-2026-01-19T02:31:06.3994714Z   ▶️ [STEP step_2] FILL: Username
-2026-01-19T02:31:06.4155288Z     🔍 Mining locators for: 'Username'
-2026-01-19T02:31:06.4812170Z     ✅ Found 5 verified locators
-2026-01-19T02:31:12.5872121Z     ✅ State transitioned.
-2026-01-19T02:31:14.3373274Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:31:14.3374002Z [DEBUG] Received response (Length: 219)
-2026-01-19T02:31:14.3374779Z     🤖 AI Next Step Suggestion: fill -> Password
-2026-01-19T02:31:14.3375387Z     🧩 Suggested Locator: #password
-2026-01-19T02:31:14.3376543Z     💭 Reasoning: Need to fill the password field to attempt login. The password for all users is provided on the page.
-2026-01-19T02:31:14.3377536Z     ➕ Injected AI step: fill -> Password
-2026-01-19T02:31:14.3378067Z   ▶️ [STEP step_2_ai_1] FILL: Password
-2026-01-19T02:31:14.3429173Z     🎯 Using AI-provided locator: #password
-2026-01-19T02:31:14.3489990Z     ✅ Found 1 verified locators
-2026-01-19T02:31:20.0403951Z     ✅ State transitioned.
-2026-01-19T02:31:21.4854948Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:31:21.4855711Z [DEBUG] Received response (Length: 229)
-2026-01-19T02:31:21.4856540Z     🤖 AI Next Step Suggestion: click -> login-button
-2026-01-19T02:31:21.4857224Z     🧩 Suggested Locator: input[id='login-button']
-2026-01-19T02:31:21.4858479Z     💭 Reasoning: Now that the username and password fields are filled, the next step is to click the login button to attempt to log in.
-2026-01-19T02:31:21.4859613Z     ➕ Injected AI step: click -> login-button
-2026-01-19T02:31:21.4860220Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
-2026-01-19T02:31:21.4916192Z     🎯 Using AI-provided locator: input[id='login-button']
-2026-01-19T02:31:21.4974938Z     ✅ Found 1 verified locators
-2026-01-19T02:31:25.5619109Z     ✅ State transitioned.
-2026-01-19T02:31:26.9065158Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:31:26.9065658Z [DEBUG] Received response (Length: 194)
-2026-01-19T02:31:26.9066340Z     🤖 AI Next Step Suggestion: done -> N/A
-2026-01-19T02:31:26.9067181Z     💭 Reasoning: The user has successfully logged in. The goal is to test locked user scenarios, which cannot be achieved from this page. Therefore, the task is complete.
-2026-01-19T02:31:26.9067949Z   ▶️ [STEP step_3] FILL: Password
-2026-01-19T02:31:26.9122542Z     🔍 Mining locators for: 'Password'
-2026-01-19T02:31:26.9482717Z     🧠 Consulting AI (Vision-First) to find 'Password'...
-2026-01-19T02:31:26.9483214Z     🔍 Trying smart selectors for 'Password'...
-2026-01-19T02:31:26.9709291Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T02:31:26.9710243Z     ⚠️ Critical step failure: name 'time' is not defined
-2026-01-19T02:31:26.9733156Z   ▶️ [STEP step_4] CLICK: Login
-2026-01-19T02:31:26.9766840Z     🔍 Mining locators for: 'Login'
-2026-01-19T02:31:27.0224288Z     🧠 Consulting AI (Vision-First) to find 'Login'...
-2026-01-19T02:31:27.0224878Z     🔍 Trying smart selectors for 'Login'...
-2026-01-19T02:31:27.0436492Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T02:31:27.0437343Z     ⚠️ Critical step failure: name 'time' is not defined
-2026-01-19T02:31:27.0437808Z   ▶️ [STEP step_5] ASSERT_URL: 
-2026-01-19T02:31:32.0582765Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
-2026-01-19T02:31:34.0605752Z     ✅ State transitioned.
-2026-01-19T02:31:35.8402296Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:31:35.8402984Z [DEBUG] Received response (Length: 298)
-2026-01-19T02:31:35.8403754Z     🤖 AI Next Step Suggestion: done -> N/A
-2026-01-19T02:31:35.8405759Z     💭 Reasoning: The user has successfully logged in. The goal was to test locked user scenarios, and the current page indicates a successful login. Since the locked user scenario would have prevented login, this test is not applicable here. Therefore, the goal is complete.
-2026-01-19T02:31:35.8407045Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Sauce Labs Backpack
-2026-01-19T02:31:35.8459565Z     🔍 Mining locators for: 'Sauce Labs Backpack'
-2026-01-19T02:31:35.9208777Z     ✅ Found 4 verified locators
-2026-01-19T02:31:38.4570904Z     ✅ State transitioned.
-2026-01-19T02:31:38.4630613Z     🔄 Revisited state detected (count: 1)
-2026-01-19T02:31:40.4185906Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:31:40.4186352Z [DEBUG] Received response (Length: 214)
-2026-01-19T02:31:40.4186895Z     🤖 AI Next Step Suggestion: done -> N/A
-2026-01-19T02:31:40.4187807Z     💭 Reasoning: The user is already logged in and on the inventory page. The goal is to test locked user scenarios, which cannot be achieved from this page. Therefore, the task is complete.
-2026-01-19T02:31:42.4561841Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked/tests/generated_scenarios.json
-2026-01-19T02:31:42.4569700Z 🔄 Updated workflow.json with discovered steps and locators.
-2026-01-19T02:31:42.4570138Z 
-2026-01-19T02:31:42.4570366Z ✅ Deep Exploration Complete.
-2026-01-19T02:33:38.9793934Z 
-2026-01-19T02:33:38.9794720Z 🚀 [EXECUTE] Starting Automation Execution Engine
-2026-01-19T02:33:38.9795356Z 📍 Project: ci_saucedemo_locked
-2026-01-19T02:33:38.9795627Z 🎬 Mode: Headless
-2026-01-19T02:33:38.9795860Z 
-2026-01-19T02:33:38.9796081Z --- Scenario: Locked Out User Login Attempt ---
-2026-01-19T02:33:38.9796732Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
-2026-01-19T02:33:38.9797267Z     ✅ Step step_1 Passed.
-2026-01-19T02:33:38.9797712Z   ▶️ [STEP step_2] FILL: Username
-2026-01-19T02:33:38.9798332Z     🎯 Using mined locator: role=textbox[name='Username']
-2026-01-19T02:33:38.9798903Z     ✅ Step step_2 Passed.
-2026-01-19T02:33:38.9799334Z   ▶️ [STEP step_2_ai_1] FILL: Password
-2026-01-19T02:33:38.9799708Z     🎯 Using mined locator: #password
-2026-01-19T02:33:38.9800018Z     ✅ Step step_2_ai_1 Passed.
-2026-01-19T02:33:38.9800302Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
-2026-01-19T02:33:38.9800647Z     🎯 Using mined locator: input[id='login-button']
-2026-01-19T02:33:38.9800964Z     ✅ Step step_2_ai_2 Passed.
-2026-01-19T02:33:38.9801592Z   ▶️ [STEP step_3] FILL: Password
-2026-01-19T02:33:38.9801935Z     🎯 Using mined locator: role=textbox[name='Password']
-2026-01-19T02:33:38.9802256Z     ✅ Step step_3 Passed.
-2026-01-19T02:33:38.9802502Z   ▶️ [STEP step_4] CLICK: Login
-2026-01-19T02:33:38.9802781Z     🎯 Using mined locator: [name*='login']
-2026-01-19T02:33:38.9803070Z     ✅ Step step_4 Passed.
-2026-01-19T02:33:38.9803490Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Epic sadface: Sorry, this user has been locked out.
-2026-01-19T02:33:38.9804427Z     🎯 Using mined locator: text='Epic sadface: Sorry, this user has been locked out.'
-2026-01-19T02:33:38.9804852Z     ✅ Step step_5 Passed.
-2026-01-19T02:33:38.9805209Z ✅ Scenario 'Locked Out User Login Attempt' completed successfully!
-2026-01-19T02:33:38.9805627Z 
-2026-01-19T02:33:38.9805750Z --- Scenario: Standard User Login and Logout ---
-2026-01-19T02:33:38.9806091Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
-2026-01-19T02:33:38.9806380Z     ✅ Step step_1 Passed.
-2026-01-19T02:33:38.9806626Z   ▶️ [STEP step_2] FILL: Username
-2026-01-19T02:33:38.9806949Z     🎯 Using mined locator: role=textbox[name='Username']
-2026-01-19T02:33:38.9807266Z     ✅ Step step_2 Passed.
-2026-01-19T02:33:38.9807543Z   ▶️ [STEP step_2_ai_1] FILL: Password
-2026-01-19T02:33:38.9807838Z     🎯 Using mined locator: #password
-2026-01-19T02:33:38.9808115Z     ✅ Step step_2_ai_1 Passed.
-2026-01-19T02:33:38.9808387Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
-2026-01-19T02:33:38.9808734Z     🎯 Using mined locator: input[id='login-button']
-2026-01-19T02:33:38.9809052Z     ✅ Step step_2_ai_2 Passed.
-2026-01-19T02:33:38.9809306Z   ▶️ [STEP step_3] FILL: Password
-2026-01-19T02:33:38.9809837Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
-2026-01-19T02:33:38.9810304Z Call log:
-2026-01-19T02:33:38.9810484Z   - waiting for locator("tex...
-2026-01-19T02:33:38.9810822Z     🔧 [AUTO-HEAL] Re-mining page to find 'Password'...
-2026-01-19T02:33:38.9811424Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:33:38.9811788Z [DEBUG] Received response (Length: 38)
-2026-01-19T02:33:38.9812189Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
-2026-01-19T02:33:38.9812824Z     ❌ Attempt 2 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
-2026-01-19T02:33:38.9813282Z Call log:
-2026-01-19T02:33:38.9813464Z   - waiting for locator("tex...
-2026-01-19T02:33:38.9813797Z     🔧 [AUTO-HEAL] Re-mining page to find 'Password'...
-2026-01-19T02:33:38.9814115Z [CACHE HIT] 4a9f819c... (hits: 1, misses: 1)
-2026-01-19T02:33:38.9814517Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
-2026-01-19T02:33:38.9815142Z     ❌ Attempt 3 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
-2026-01-19T02:33:38.9815590Z Call log:
-2026-01-19T02:33:38.9815765Z   - waiting for locator("tex...
-2026-01-19T02:33:38.9816049Z     💀 Step step_3 failed after all retries.
-2026-01-19T02:33:38.9816480Z 🛑 Scenario 'Standard User Login and Logout' aborted due to step failure.
-2026-01-19T02:33:38.9816765Z 
-2026-01-19T02:33:38.9816908Z --- Scenario: Problem User Login and Inventory Check ---
-2026-01-19T02:33:38.9817262Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
-2026-01-19T02:33:38.9817549Z     ✅ Step step_1 Passed.
-2026-01-19T02:33:38.9817801Z   ▶️ [STEP step_2] FILL: Username
-2026-01-19T02:33:38.9818128Z     🎯 Using mined locator: role=textbox[name='Username']
-2026-01-19T02:33:38.9818459Z     ✅ Step step_2 Passed.
-2026-01-19T02:33:38.9818713Z   ▶️ [STEP step_2_ai_1] FILL: Password
-2026-01-19T02:33:38.9819008Z     🎯 Using mined locator: #password
-2026-01-19T02:33:38.9819289Z     ✅ Step step_2_ai_1 Passed.
-2026-01-19T02:33:38.9819641Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
-2026-01-19T02:33:38.9820009Z     🎯 Using mined locator: input[id='login-button']
-2026-01-19T02:33:38.9820327Z     ✅ Step step_2_ai_2 Passed.
-2026-01-19T02:33:38.9820586Z   ▶️ [STEP step_3] FILL: Password
-2026-01-19T02:33:38.9821427Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
-2026-01-19T02:33:38.9821913Z Call log:
-2026-01-19T02:33:38.9822097Z   - waiting for locator("tex...
-2026-01-19T02:33:38.9822436Z     🔧 [AUTO-HEAL] Re-mining page to find 'Password'...
-2026-01-19T02:33:38.9822807Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T02:33:38.9823150Z [DEBUG] Received response (Length: 38)
-2026-01-19T02:33:38.9823713Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
-2026-01-19T02:33:38.9824343Z     ❌ Attempt 2 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
-2026-01-19T02:33:38.9824916Z Call log:
-2026-01-19T02:33:38.9825090Z   - waiting for locator("tex...
-2026-01-19T02:33:38.9825405Z     🔧 [AUTO-HEAL] Re-mining page to find 'Password'...
-2026-01-19T02:33:38.9826041Z [CACHE HIT] ccd52d72... (hits: 2, misses: 2)
-2026-01-19T02:33:38.9826755Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
-2026-01-19T02:33:38.9827784Z     ❌ Attempt 3 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
-2026-01-19T02:33:38.9828524Z Call log:
-2026-01-19T02:33:38.9828804Z   - waiting for locator("tex...
-2026-01-19T02:33:38.9829294Z     💀 Step step_3 failed after all retries.
-2026-01-19T02:33:38.9829778Z 🛑 Scenario 'Problem User Login and Inventory Check' aborted due to step failure.
-2026-01-19T02:33:38.9830115Z 
-2026-01-19T02:33:38.9830218Z ============================================================
-2026-01-19T02:33:38.9830520Z 🎯 EXECUTION SUMMARY
-2026-01-19T02:33:38.9830740Z ============================================================
-2026-01-19T02:33:38.9830945Z 
-2026-01-19T02:33:38.9831463Z 📋 Scenario Overview:
-2026-01-19T02:33:38.9831827Z    • Total Scenarios Planned: 3
-2026-01-19T02:33:38.9832088Z    • Scenarios Executed: 3
-2026-01-19T02:33:38.9832486Z    • Total Steps Executed: 17
-2026-01-19T02:33:38.9832644Z 
-2026-01-19T02:33:38.9832732Z ✅ Results:
-2026-01-19T02:33:38.9832928Z    ✅ Passed: 1 (33%)
-2026-01-19T02:33:38.9833139Z    ❌ Failed: 2 (66%)
-2026-01-19T02:33:38.9833255Z 
-2026-01-19T02:33:38.9833356Z ⚠️  Failed Scenarios:
-2026-01-19T02:33:38.9833596Z    • Standard User Login and Logout
-2026-01-19T02:33:38.9833891Z    • Problem User Login and Inventory Check
-2026-01-19T02:33:38.9834076Z 
-2026-01-19T02:33:38.9834172Z ============================================================
-2026-01-19T02:33:38.9834382Z 
-2026-01-19T02:33:38.9834899Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked/execution.json
-2026-01-19T02:33:39.1038955Z 
-2026-01-19T02:33:39.1039728Z [PHASE] Running Phase: DISCOVERY
-2026-01-19T02:33:39.1041833Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked --url https://www.saucedemo.com/ --deep
-2026-01-19T02:33:39.1043457Z ✅ Phase 'discovery' completed successfully.
-2026-01-19T02:33:39.1043672Z 
-2026-01-19T02:33:39.1043772Z [PHASE] Running Phase: PLANNING
-2026-01-19T02:33:39.1044995Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked --goal Test locked user scenarios --url https://www.saucedemo.com/ --deep
-2026-01-19T02:33:39.1046320Z ✅ Phase 'planning' completed successfully.
-2026-01-19T02:33:39.1046521Z 
-2026-01-19T02:33:39.1046615Z [PHASE] Running Phase: EXPLORATION
-2026-01-19T02:33:39.1047579Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked
-2026-01-19T02:33:39.1048616Z ✅ Phase 'exploration' completed successfully.
-2026-01-19T02:33:39.1048989Z 📊 Exploration Discovery Success Rate: 69.2%
-2026-01-19T02:33:39.1049180Z 
-2026-01-19T02:33:39.1049268Z [PHASE] Running Phase: EXECUTION
-2026-01-19T02:33:39.1050195Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked
-2026-01-19T02:33:39.1051747Z ✅ Phase 'execution' completed successfully.
-2026-01-19T02:33:39.1051942Z 
-2026-01-19T02:33:39.1052047Z [DONE] Pipeline Execution Finished! [DONE]
+﻿2026-01-19T04:19:26.8660070Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-19T04:19:26.8660540Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-19T04:19:26.8661032Z [36;1mpython orchestrator.py --project projects/ci_saucedemo_locked --deep --force[0m
+2026-01-19T04:19:26.8692200Z shell: /usr/bin/bash -e {0}
+2026-01-19T04:19:26.8692439Z env:
+2026-01-19T04:19:26.8692700Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:19:26.8693138Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T04:19:26.8693555Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:19:26.8693919Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:19:26.8694311Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T04:19:26.8694707Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T04:19:26.8695427Z   GOOGLE_API_KEY: ***
+2026-01-19T04:19:26.8695640Z   PYTHONPATH: .
+2026-01-19T04:19:26.8695861Z ##[endgroup]
+2026-01-19T04:19:28.7849799Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-19T04:19:28.7850346Z 
+2026-01-19T04:19:28.7850975Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://www.saucedemo.com/ (Workers: 3)
+2026-01-19T04:19:30.5875023Z   🔍 [Worker 0] Visiting (0): https://www.saucedemo.com/
+2026-01-19T04:19:30.8780530Z [CACHE HIT] 474f9e14... (hits: 1, misses: 0)
+2026-01-19T04:19:30.8781542Z ✅ Discovery Complete. Mapped 1 pages.
+2026-01-19T04:19:36.5392759Z 
+2026-01-19T04:19:36.5393424Z [PLAN] PLANNER: Planning goal -> 'Test locked user scenarios' (Deep Mode: True)
+2026-01-19T04:19:36.5394221Z 🗺️ [PLAN] Loaded Sitemap with 1 pages.
+2026-01-19T04:19:36.5395260Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-19T04:19:36.5396199Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T04:19:36.5396578Z [DEBUG] Received response (Length: 3351)
+2026-01-19T04:19:36.5396932Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-19T04:19:37.5616023Z 
+2026-01-19T04:19:37.5617160Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-19T04:19:37.5618031Z 📋 Found 3 scenarios to explore.
+2026-01-19T04:19:37.9256147Z 
+2026-01-19T04:19:37.9257168Z [1/3] Exploring Scenario: Locked Out User Login Attempt
+2026-01-19T04:19:37.9258782Z     🧠 Initialized exploration context for goal: 'Test locked user scenarios'
+2026-01-19T04:19:37.9259902Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:19:38.5955285Z     ✅ Navigated to https://www.saucedemo.com/
+2026-01-19T04:19:38.5955985Z   ▶️ [STEP step_2] FILL: Username
+2026-01-19T04:19:38.6133809Z     🔍 Mining locators for: 'Username'
+2026-01-19T04:19:38.6724707Z     ✅ Found 5 verified locators
+2026-01-19T04:19:45.2431248Z     ✅ State transitioned.
+2026-01-19T04:19:46.8326100Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:19:46.8327196Z [DEBUG] Received response (Length: 220)
+2026-01-19T04:19:46.8328239Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T04:19:46.8329283Z     🧩 Suggested Locator: #password
+2026-01-19T04:19:46.8330751Z     💭 Reasoning: The username has been filled. Now, fill the password field with the correct password to attempt login.
+2026-01-19T04:19:46.8332159Z     ➕ Injected AI step: fill -> Password
+2026-01-19T04:19:46.8332892Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T04:19:46.8391391Z     🎯 Using AI-provided locator: #password
+2026-01-19T04:19:46.8448219Z     ✅ Found 1 verified locators
+2026-01-19T04:19:52.9311087Z     ✅ State transitioned.
+2026-01-19T04:19:54.4614335Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:19:54.4615108Z [DEBUG] Received response (Length: 194)
+2026-01-19T04:19:54.4615843Z     🤖 AI Next Step Suggestion: click -> login-button
+2026-01-19T04:19:54.4616570Z     🧩 Suggested Locator: input[id='login-button']
+2026-01-19T04:19:54.4617367Z     💭 Reasoning: Now that username and password are filled, click the login button to attempt login.
+2026-01-19T04:19:54.4618661Z     ➕ Injected AI step: click -> login-button
+2026-01-19T04:19:54.4619138Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
+2026-01-19T04:19:54.4683322Z     🎯 Using AI-provided locator: input[id='login-button']
+2026-01-19T04:19:54.4743086Z     ✅ Found 1 verified locators
+2026-01-19T04:19:58.5243149Z     ✅ State transitioned.
+2026-01-19T04:20:00.1202588Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:20:00.1203290Z [DEBUG] Received response (Length: 152)
+2026-01-19T04:20:00.1204063Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:20:00.1205202Z     💭 Reasoning: The user is locked, and there are no actions available to unlock the user from this page. The goal is achieved.
+2026-01-19T04:20:00.1206401Z   ▶️ [STEP step_3] FILL: Password
+2026-01-19T04:20:00.1260962Z     🔍 Mining locators for: 'Password'
+2026-01-19T04:20:00.1832507Z     ✅ Found 5 verified locators
+2026-01-19T04:20:05.9444565Z     ✅ State transitioned.
+2026-01-19T04:20:07.4925301Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:20:07.4925878Z [DEBUG] Received response (Length: 142)
+2026-01-19T04:20:07.4926431Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:20:07.4927091Z     💭 Reasoning: The user is locked, and there are no options to unlock the user from this page. The goal is achieved.
+2026-01-19T04:20:07.4927686Z   ▶️ [STEP step_4] CLICK: Login
+2026-01-19T04:20:07.4986331Z     🔍 Mining locators for: 'Login'
+2026-01-19T04:20:07.5279870Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-19T04:20:07.5302023Z     🔍 Trying smart selectors for 'Login'...
+2026-01-19T04:20:07.5434106Z     ✅ Smart selector found 'Login' via name (confidence: 0.88)
+2026-01-19T04:20:07.5473181Z     ✅ Found 1 verified locators
+2026-01-19T04:20:11.6032754Z     ✅ State transitioned.
+2026-01-19T04:20:11.6080303Z     🔄 Revisited state detected (count: 1)
+2026-01-19T04:20:12.8026713Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:20:12.8027659Z [DEBUG] Received response (Length: 180)
+2026-01-19T04:20:12.8028874Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:20:12.8030979Z     💭 Reasoning: The user is locked, and there are no options to unlock the user from this page. The goal is achieved by verifying the locked user scenario.
+2026-01-19T04:20:12.8033328Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Epic sadface: Sorry, this user has been locked out.
+2026-01-19T04:20:12.8088288Z     🔍 Mining locators for: 'Epic sadface: Sorry, this user has been locked out.'
+2026-01-19T04:20:12.8497171Z     ✅ Found 1 verified locators
+2026-01-19T04:20:15.3818008Z     ✅ State transitioned.
+2026-01-19T04:20:15.3865492Z     🔄 Revisited state detected (count: 2)
+2026-01-19T04:20:17.8888890Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:20:17.8889588Z [DEBUG] Received response (Length: 248)
+2026-01-19T04:20:17.8890395Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:20:17.8891990Z     💭 Reasoning: The goal is to test locked user scenarios, and the application is already displaying the message indicating that the user is locked out. There are no further actions to take on this page to achieve the goal.
+2026-01-19T04:20:19.9249926Z 
+2026-01-19T04:20:19.9250867Z [2/3] Exploring Scenario: Standard User Login and Logout
+2026-01-19T04:20:19.9252163Z     🧠 Initialized exploration context for goal: 'Test locked user scenarios'
+2026-01-19T04:20:19.9252947Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:20:20.5997047Z     ✅ Navigated to https://www.saucedemo.com/
+2026-01-19T04:20:20.5997738Z   ▶️ [STEP step_2] FILL: Username
+2026-01-19T04:20:20.6156909Z     🔍 Mining locators for: 'Username'
+2026-01-19T04:20:20.6682632Z     ✅ Found 5 verified locators
+2026-01-19T04:20:27.1083755Z     ✅ State transitioned.
+2026-01-19T04:20:28.5427283Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:20:28.5428127Z [DEBUG] Received response (Length: 219)
+2026-01-19T04:20:28.5429311Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T04:20:28.5429827Z     🧩 Suggested Locator: #password
+2026-01-19T04:20:28.5430682Z     💭 Reasoning: Need to fill the password field to attempt login. The password for all users is provided on the page.
+2026-01-19T04:20:28.5431409Z     ➕ Injected AI step: fill -> Password
+2026-01-19T04:20:28.5431797Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T04:20:28.5484193Z     🎯 Using AI-provided locator: #password
+2026-01-19T04:20:28.5538395Z     ✅ Found 1 verified locators
+2026-01-19T04:20:35.4121260Z     ✅ State transitioned.
+2026-01-19T04:20:37.2420326Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:20:37.2421065Z [DEBUG] Received response (Length: 194)
+2026-01-19T04:20:37.2421898Z     🤖 AI Next Step Suggestion: click -> login-button
+2026-01-19T04:20:37.2423016Z     🧩 Suggested Locator: input[id='login-button']
+2026-01-19T04:20:37.2424034Z     💭 Reasoning: Now that username and password are filled, click the login button to attempt login.
+2026-01-19T04:20:37.2424966Z     ➕ Injected AI step: click -> login-button
+2026-01-19T04:20:37.2425528Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
+2026-01-19T04:20:37.2479064Z     🎯 Using AI-provided locator: input[id='login-button']
+2026-01-19T04:20:37.2541807Z     ✅ Found 1 verified locators
+2026-01-19T04:20:41.3397108Z     ✅ State transitioned.
+2026-01-19T04:20:42.8421339Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:20:42.8421831Z [DEBUG] Received response (Length: 182)
+2026-01-19T04:20:42.8422376Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:20:42.8423192Z     💭 Reasoning: The locked user is already logged in and on the inventory page. There is nothing more to do to test the locked user scenario from this point.
+2026-01-19T04:20:42.8423967Z   ▶️ [STEP step_3] FILL: Password
+2026-01-19T04:20:42.8478961Z     🔍 Mining locators for: 'Password'
+2026-01-19T04:20:42.8847205Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-19T04:20:42.8847717Z     🔍 Trying smart selectors for 'Password'...
+2026-01-19T04:20:42.9248633Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:20:42.9250717Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:20:47.9006295Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:20:47.9007048Z [DEBUG] Received response (Length: 279)
+2026-01-19T04:20:47.9009183Z     💡 Expert Suggestion: The 'Password' field is likely located in the user profile or settings, which might be accessible through the 'Products' or a similar menu.
+2026-01-19T04:20:47.9010332Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-19T04:20:48.4562125Z     ✅ Executed corrective navigation
+2026-01-19T04:20:50.4586208Z     🔄 Retry 1/3 mining locators for 'Password'...
+2026-01-19T04:20:51.4973979Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-19T04:20:51.4974769Z     🔍 Trying smart selectors for 'Password'...
+2026-01-19T04:20:51.5342992Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:20:51.5344381Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:20:51.5349446Z [CACHE HIT] 5c35f49d... (hits: 1, misses: 10)
+2026-01-19T04:20:51.5350100Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:20:51.5350492Z     🔄 Retry 2/3 mining locators for 'Password'...
+2026-01-19T04:20:52.5361758Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:20:52.5363390Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:20:52.5787829Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-19T04:20:52.5788628Z     🔍 Trying smart selectors for 'Password'...
+2026-01-19T04:20:52.6157922Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:20:52.6160885Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:20:52.6167262Z [CACHE HIT] 5c35f49d... (hits: 2, misses: 10)
+2026-01-19T04:20:52.6168104Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:20:52.6169806Z     🧠 Verifying step validity for 'Password' after no candidates found...
+2026-01-19T04:20:54.4702246Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:20:54.4703073Z [DEBUG] Received response (Length: 249)
+2026-01-19T04:20:54.4704783Z     🗑️ Step deemed INVALID: The current page (inventory.html) displays a list of products. The element 'Password' is not present on this page. It is likely that the intended interaction target was on the login page.. Removing from workflow.
+2026-01-19T04:20:54.4706714Z     ⏭️ Skipping execution of invalid step: Password
+2026-01-19T04:20:54.4707143Z   ▶️ [STEP step_4] CLICK: Login
+2026-01-19T04:20:54.4759436Z     🔍 Mining locators for: 'Login'
+2026-01-19T04:20:54.5115219Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-19T04:20:54.5116125Z     🔍 Trying smart selectors for 'Login'...
+2026-01-19T04:20:54.5487597Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:20:54.5489790Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:20:59.0273222Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:20:59.0273868Z [DEBUG] Received response (Length: 299)
+2026-01-19T04:20:59.0275524Z     💡 Expert Suggestion: The login functionality is typically found within the user account or settings section, which is often accessible through a menu button.
+2026-01-19T04:20:59.0277185Z     🛠️ Executing corrective action: click -> 'the menu button on the top left'
+2026-01-19T04:20:59.0702151Z     🔄 Retry 1/3 mining locators for 'Login'...
+2026-01-19T04:21:00.1111339Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-19T04:21:00.1112129Z     🔍 Trying smart selectors for 'Login'...
+2026-01-19T04:21:00.1483673Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:21:00.1485400Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:21:00.1491355Z [CACHE HIT] 708ddf2c... (hits: 3, misses: 12)
+2026-01-19T04:21:00.1491913Z     ⚠️ Skipping duplicate injection: the menu button on the top left
+2026-01-19T04:21:00.1492383Z     🔄 Retry 2/3 mining locators for 'Login'...
+2026-01-19T04:21:01.1505870Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:21:01.1507000Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:21:01.1980947Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-19T04:21:01.1981448Z     🔍 Trying smart selectors for 'Login'...
+2026-01-19T04:21:01.2367239Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:21:01.2368725Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:21:01.2373483Z [CACHE HIT] 708ddf2c... (hits: 4, misses: 12)
+2026-01-19T04:21:01.2374336Z     ⚠️ Skipping duplicate injection: the menu button on the top left
+2026-01-19T04:21:01.2374886Z     🧠 Verifying step validity for 'Login' after no candidates found...
+2026-01-19T04:21:04.0160023Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:21:04.0160628Z [DEBUG] Received response (Length: 286)
+2026-01-19T04:21:04.0162225Z     🗑️ Step deemed INVALID: The current page is the inventory page, which displays a list of products. The 'Login' button is only present on the login page. Therefore, attempting to locate and interact with 'Login' on this page is not logical or valid.. Removing from workflow.
+2026-01-19T04:21:04.0163783Z     ⏭️ Skipping execution of invalid step: Login
+2026-01-19T04:21:04.0164160Z   ▶️ [STEP step_5] ASSERT_URL: 
+2026-01-19T04:21:09.0313803Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:21:11.0336573Z     ✅ State transitioned.
+2026-01-19T04:21:12.6596377Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:21:12.6596992Z [DEBUG] Received response (Length: 214)
+2026-01-19T04:21:12.6597562Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:21:12.6598824Z     💭 Reasoning: The user is already logged in and on the inventory page. The goal was to test locked user scenarios, which is not achievable from this page. Therefore, the task is complete.
+2026-01-19T04:21:12.6600071Z   ▶️ [STEP step_6] CLICK: Open Menu
+2026-01-19T04:21:12.6654391Z     🔍 Mining locators for: 'Open Menu'
+2026-01-19T04:21:12.7152020Z     ✅ Found 3 verified locators
+2026-01-19T04:21:16.2648272Z     ✅ State transitioned.
+2026-01-19T04:21:17.9378285Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:21:17.9379322Z [DEBUG] Received response (Length: 242)
+2026-01-19T04:21:17.9380283Z     🤖 AI Next Step Suggestion: click -> Logout
+2026-01-19T04:21:17.9381051Z     🧩 Suggested Locator: a[id='logout_sidebar_link']
+2026-01-19T04:21:17.9382887Z     💭 Reasoning: The goal is to test locked user scenarios. After logging in, the next step is to log out to prepare for testing locked user scenarios.
+2026-01-19T04:21:17.9384513Z     ➕ Injected AI step: click -> Logout
+2026-01-19T04:21:17.9385249Z   ▶️ [STEP step_6_ai_1] CLICK: Logout
+2026-01-19T04:21:17.9438313Z     🎯 Using AI-provided locator: a[id='logout_sidebar_link']
+2026-01-19T04:21:17.9494307Z     ✅ Found 1 verified locators
+2026-01-19T04:21:21.9997485Z     ✅ State transitioned.
+2026-01-19T04:21:23.4452634Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:21:23.4453558Z [DEBUG] Received response (Length: 214)
+2026-01-19T04:21:23.4454497Z     🤖 AI Next Step Suggestion: fill -> Username
+2026-01-19T04:21:23.4455304Z     🧩 Suggested Locator: #user-name
+2026-01-19T04:21:23.4456820Z     💭 Reasoning: To test the locked user scenario, we need to fill the username field with 'locked_out_user'.
+2026-01-19T04:21:23.4458257Z     ➕ Injected AI step: fill -> Username
+2026-01-19T04:21:23.4459427Z   ▶️ [STEP step_6_ai_2] FILL: Username
+2026-01-19T04:21:23.4513427Z     🎯 Using AI-provided locator: #user-name
+2026-01-19T04:21:23.4568702Z     ✅ Found 1 verified locators
+2026-01-19T04:21:29.5065559Z     ✅ State transitioned.
+2026-01-19T04:21:31.4806067Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:21:31.4807417Z [DEBUG] Received response (Length: 235)
+2026-01-19T04:21:31.4809186Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T04:21:31.4810308Z     🧩 Suggested Locator: #password
+2026-01-19T04:21:31.4812116Z     💭 Reasoning: The username has been filled. Now, fill the password field with the correct password 'secret_sauce' to attempt login.
+2026-01-19T04:21:31.4813796Z     ➕ Injected AI step: fill -> Password
+2026-01-19T04:21:31.4814607Z   ▶️ [STEP step_6_ai_3] FILL: Password
+2026-01-19T04:21:31.4868613Z     🎯 Using AI-provided locator: #password
+2026-01-19T04:21:31.4923754Z     ✅ Found 1 verified locators
+2026-01-19T04:21:37.9694320Z     ✅ State transitioned.
+2026-01-19T04:21:39.2735530Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:21:39.2736375Z [DEBUG] Received response (Length: 246)
+2026-01-19T04:21:39.2737184Z     🤖 AI Next Step Suggestion: click -> login-button
+2026-01-19T04:21:39.2737871Z     🧩 Suggested Locator: input[id='login-button']
+2026-01-19T04:21:39.2739056Z     💭 Reasoning: Now that the username and password have been entered, the next step is to click the login button to attempt to log in.
+2026-01-19T04:21:39.2740061Z     ➕ Injected AI step: click -> login-button
+2026-01-19T04:21:39.2740421Z   ▶️ [STEP step_6_ai_4] CLICK: login-button
+2026-01-19T04:21:39.2792811Z     🎯 Using AI-provided locator: input[id='login-button']
+2026-01-19T04:21:39.2846482Z     ✅ Found 1 verified locators
+2026-01-19T04:21:43.3382336Z     ✅ State transitioned.
+2026-01-19T04:21:44.7525963Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:21:44.7526655Z [DEBUG] Received response (Length: 283)
+2026-01-19T04:21:44.7527357Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:21:44.7528895Z     💭 Reasoning: The user is locked, and the page indicates this with the message 'Epic sadface: Sorry, this user has been locked out.' There are no actions available to unlock the user from this page. The goal to test locked user scenarios has been achieved.
+2026-01-19T04:21:44.7530232Z   ▶️ [STEP step_7] CLICK: Logout
+2026-01-19T04:21:44.7583725Z     🔍 Mining locators for: 'Logout'
+2026-01-19T04:21:44.7916306Z     🧠 Consulting AI (Vision-First) to find 'Logout'...
+2026-01-19T04:21:44.7916980Z     🔍 Trying smart selectors for 'Logout'...
+2026-01-19T04:21:44.8284605Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:21:44.8287194Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:21:49.6486457Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:21:49.6487246Z [DEBUG] Received response (Length: 193)
+2026-01-19T04:21:49.6488099Z     💡 Expert Suggestion: After logging in, the logout button should be available.
+2026-01-19T04:21:49.6489087Z     🛠️ Executing corrective action: click -> 'Login'
+2026-01-19T04:21:49.6920165Z     🔄 Retry 1/3 mining locators for 'Logout'...
+2026-01-19T04:21:50.7254846Z     🧠 Consulting AI (Vision-First) to find 'Logout'...
+2026-01-19T04:21:50.7255610Z     🔍 Trying smart selectors for 'Logout'...
+2026-01-19T04:21:50.7675184Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:21:50.7676471Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:21:50.7679554Z [CACHE HIT] d2cb08cd... (hits: 5, misses: 20)
+2026-01-19T04:21:50.7680183Z     ⚠️ Skipping duplicate injection: Login
+2026-01-19T04:21:50.7680823Z     🔄 Retry 2/3 mining locators for 'Logout'...
+2026-01-19T04:21:51.7694045Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:21:51.7695237Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:21:51.8078998Z     🧠 Consulting AI (Vision-First) to find 'Logout'...
+2026-01-19T04:21:51.8079527Z     🔍 Trying smart selectors for 'Logout'...
+2026-01-19T04:21:51.8434880Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:21:51.8451063Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:21:51.8452225Z [CACHE HIT] d2cb08cd... (hits: 6, misses: 20)
+2026-01-19T04:21:51.8452774Z     ⚠️ Skipping duplicate injection: Login
+2026-01-19T04:21:51.8453407Z     🧠 Verifying step validity for 'Logout' after no candidates found...
+2026-01-19T04:21:55.2109795Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:21:55.2111096Z [DEBUG] Received response (Length: 274)
+2026-01-19T04:21:55.2115526Z     🗑️ Step deemed INVALID: The current page is the login page, and the user is locked out. The 'Logout' option is only available after a successful login. Therefore, attempting to locate and interact with 'Logout' at this stage is invalid.. Removing from workflow.
+2026-01-19T04:21:55.2119509Z     ⏭️ Skipping execution of invalid step: Logout
+2026-01-19T04:21:55.2120734Z   ▶️ [STEP step_8] ASSERT_URL: 
+2026-01-19T04:22:00.2267667Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:22:02.2290658Z     ✅ State transitioned.
+2026-01-19T04:22:03.6625695Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:22:03.6626240Z [DEBUG] Received response (Length: 335)
+2026-01-19T04:22:03.6626960Z     🤖 AI Next Step Suggestion: click -> login-button
+2026-01-19T04:22:03.6627465Z     🧩 Suggested Locator: #login-button
+2026-01-19T04:22:03.6628860Z     💭 Reasoning: The page shows the locked out message. To re-test the locked user scenario, we need to attempt to login again after logging out. Clicking the login button will attempt to log in with the previously entered credentials.
+2026-01-19T04:22:03.6630219Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
+2026-01-19T04:22:05.7143585Z 
+2026-01-19T04:22:05.7144309Z [3/3] Exploring Scenario: Problem User Login and Inventory Check
+2026-01-19T04:22:05.7145561Z     🧠 Initialized exploration context for goal: 'Test locked user scenarios'
+2026-01-19T04:22:05.7146357Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T04:22:06.3746765Z     ✅ Navigated to https://www.saucedemo.com/
+2026-01-19T04:22:06.3747800Z   ▶️ [STEP step_2] FILL: Username
+2026-01-19T04:22:06.3920275Z     🔍 Mining locators for: 'Username'
+2026-01-19T04:22:06.4473453Z     ✅ Found 5 verified locators
+2026-01-19T04:22:11.6583274Z     ✅ State transitioned.
+2026-01-19T04:22:13.2441102Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:22:13.2441915Z [DEBUG] Received response (Length: 240)
+2026-01-19T04:22:13.2442935Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-19T04:22:13.2443661Z     🧩 Suggested Locator: #password
+2026-01-19T04:22:13.2445158Z     💭 Reasoning: The password field is visible and needs to be filled to attempt login. The password for all users is provided on the page.
+2026-01-19T04:22:13.2446641Z     ➕ Injected AI step: fill -> Password
+2026-01-19T04:22:13.2447332Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T04:22:13.2497833Z     🎯 Using AI-provided locator: #password
+2026-01-19T04:22:13.2551765Z     ✅ Found 1 verified locators
+2026-01-19T04:22:20.0629543Z     ✅ State transitioned.
+2026-01-19T04:22:21.7835385Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:22:21.7836147Z [DEBUG] Received response (Length: 229)
+2026-01-19T04:22:21.7837006Z     🤖 AI Next Step Suggestion: click -> login-button
+2026-01-19T04:22:21.7837685Z     🧩 Suggested Locator: input[id='login-button']
+2026-01-19T04:22:21.7839168Z     💭 Reasoning: Now that the username and password fields are filled, the next step is to click the login button to attempt to log in.
+2026-01-19T04:22:21.7840323Z     ➕ Injected AI step: click -> login-button
+2026-01-19T04:22:21.7840747Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
+2026-01-19T04:22:21.7895047Z     🎯 Using AI-provided locator: input[id='login-button']
+2026-01-19T04:22:21.7951373Z     ✅ Found 1 verified locators
+2026-01-19T04:22:25.8633500Z     ✅ State transitioned.
+2026-01-19T04:22:27.3429121Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:22:27.3429631Z [DEBUG] Received response (Length: 194)
+2026-01-19T04:22:27.3430172Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:22:27.3431044Z     💭 Reasoning: The user has successfully logged in. The goal is to test locked user scenarios, which cannot be achieved from this page. Therefore, the task is complete.
+2026-01-19T04:22:27.3431841Z   ▶️ [STEP step_3] FILL: Password
+2026-01-19T04:22:27.3484444Z     🔍 Mining locators for: 'Password'
+2026-01-19T04:22:27.3844528Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-19T04:22:27.3845121Z     🔍 Trying smart selectors for 'Password'...
+2026-01-19T04:22:27.4224582Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:22:27.4227405Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:22:32.3176493Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:22:32.3177417Z [DEBUG] Received response (Length: 296)
+2026-01-19T04:22:32.3180268Z     💡 Expert Suggestion: The 'Password' field is likely located on the login or account settings page, which might be accessible through the 'Products' page via a user icon or menu.
+2026-01-19T04:22:32.3181959Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-19T04:22:32.8714324Z     ✅ Executed corrective navigation
+2026-01-19T04:22:34.8738077Z     🔄 Retry 1/3 mining locators for 'Password'...
+2026-01-19T04:22:35.9122819Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-19T04:22:35.9123665Z     🔍 Trying smart selectors for 'Password'...
+2026-01-19T04:22:35.9503316Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:22:35.9504776Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:22:35.9510068Z [CACHE HIT] 6b70ac1a... (hits: 7, misses: 26)
+2026-01-19T04:22:35.9510757Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:22:35.9511402Z     🔄 Retry 2/3 mining locators for 'Password'...
+2026-01-19T04:22:36.9524518Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:22:36.9526083Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:22:36.9905588Z     🧠 Consulting AI (Vision-First) to find 'Password'...
+2026-01-19T04:22:36.9906261Z     🔍 Trying smart selectors for 'Password'...
+2026-01-19T04:22:37.0279957Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:22:37.0282547Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:22:37.0289632Z [CACHE HIT] 6b70ac1a... (hits: 8, misses: 26)
+2026-01-19T04:22:37.0290287Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:22:37.0291287Z     🧠 Verifying step validity for 'Password' after no candidates found...
+2026-01-19T04:22:38.4444708Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:22:38.4445514Z [DEBUG] Received response (Length: 324)
+2026-01-19T04:22:38.4447522Z     🗑️ Step deemed INVALID: The current page is the inventory page, which displays a list of products. The 'Password' element is not present on this page. It is likely that the user is trying to interact with the password field on the login page, but the current page is the inventory page.. Removing from workflow.
+2026-01-19T04:22:38.4449111Z     ⏭️ Skipping execution of invalid step: Password
+2026-01-19T04:22:38.4449495Z   ▶️ [STEP step_4] CLICK: Login
+2026-01-19T04:22:38.4500736Z     🔍 Mining locators for: 'Login'
+2026-01-19T04:22:38.4920270Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-19T04:22:38.4920800Z     🔍 Trying smart selectors for 'Login'...
+2026-01-19T04:22:38.5305265Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:22:38.5307809Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:22:43.7805914Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:22:43.7806911Z [DEBUG] Received response (Length: 293)
+2026-01-19T04:22:43.7809805Z     💡 Expert Suggestion: The 'Login' button is not visible on the current page. It is likely accessible from the main menu, which can be opened by clicking the 'Products' button.
+2026-01-19T04:22:43.7812148Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-19T04:22:44.3349950Z     ✅ Executed corrective navigation
+2026-01-19T04:22:46.3372755Z     🔄 Retry 1/3 mining locators for 'Login'...
+2026-01-19T04:22:47.3774110Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-19T04:22:47.3775016Z     🔍 Trying smart selectors for 'Login'...
+2026-01-19T04:22:47.4610228Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:22:47.4612104Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:22:47.4618707Z [CACHE HIT] b90d5a8d... (hits: 9, misses: 28)
+2026-01-19T04:22:47.4619375Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:22:47.4619993Z     🔄 Retry 2/3 mining locators for 'Login'...
+2026-01-19T04:22:48.4633405Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T04:22:48.4634883Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
+2026-01-19T04:22:48.5082954Z     🧠 Consulting AI (Vision-First) to find 'Login'...
+2026-01-19T04:22:48.5083432Z     🔍 Trying smart selectors for 'Login'...
+2026-01-19T04:22:48.5476675Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T04:22:48.5479077Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-19T04:22:48.5485058Z [CACHE HIT] b90d5a8d... (hits: 10, misses: 28)
+2026-01-19T04:22:48.5485714Z     ⚠️ Skipping duplicate injection: Products
+2026-01-19T04:22:48.5486616Z     🧠 Verifying step validity for 'Login' after no candidates found...
+2026-01-19T04:22:50.0062606Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:22:50.0063504Z [DEBUG] Received response (Length: 275)
+2026-01-19T04:22:50.0067044Z     🗑️ Step deemed INVALID: The current page is the inventory page, which displays the list of products. The 'Login' button is only present on the login page. Therefore, attempting to locate and interact with 'Login' on this page is invalid.. Removing from workflow.
+2026-01-19T04:22:50.0070376Z     ⏭️ Skipping execution of invalid step: Login
+2026-01-19T04:22:50.0071243Z   ▶️ [STEP step_5] ASSERT_URL: 
+2026-01-19T04:22:55.0222986Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T04:22:57.0245419Z     ✅ State transitioned.
+2026-01-19T04:22:58.5579108Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:22:58.5579998Z [DEBUG] Received response (Length: 298)
+2026-01-19T04:22:58.5580951Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:22:58.5584229Z     💭 Reasoning: The user has successfully logged in. The goal was to test locked user scenarios, and the current page indicates a successful login. Since the locked user scenario would have prevented login, this test is not applicable here. Therefore, the goal is complete.
+2026-01-19T04:22:58.5587134Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Sauce Labs Backpack
+2026-01-19T04:22:58.5640590Z     🔍 Mining locators for: 'Sauce Labs Backpack'
+2026-01-19T04:22:58.6330698Z     ✅ Found 4 verified locators
+2026-01-19T04:23:01.1752283Z     ✅ State transitioned.
+2026-01-19T04:23:01.1820801Z     🔄 Revisited state detected (count: 1)
+2026-01-19T04:23:03.3704377Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T04:23:03.3705009Z [DEBUG] Received response (Length: 214)
+2026-01-19T04:23:03.3705671Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T04:23:03.3706958Z     💭 Reasoning: The user is already logged in and on the inventory page. The goal is to test locked user scenarios, which cannot be achieved from this page. Therefore, the task is complete.
+2026-01-19T04:23:05.4055146Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked/tests/generated_scenarios.json
+2026-01-19T04:23:05.4063660Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-19T04:23:05.4064461Z 
+2026-01-19T04:23:05.4064739Z ✅ Deep Exploration Complete.
+2026-01-19T04:24:14.9163268Z 
+2026-01-19T04:24:14.9164439Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-19T04:24:14.9165057Z 📍 Project: ci_saucedemo_locked
+2026-01-19T04:24:14.9165454Z 🎬 Mode: Headless
+2026-01-19T04:24:14.9165637Z 
+2026-01-19T04:24:14.9165843Z --- Scenario: Locked Out User Login Attempt ---
+2026-01-19T04:24:14.9166451Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:24:14.9166913Z     ✅ Step step_1 Passed.
+2026-01-19T04:24:14.9167308Z   ▶️ [STEP step_2] FILL: Username
+2026-01-19T04:24:14.9167839Z     🎯 Using mined locator: role=textbox[name='Username']
+2026-01-19T04:24:14.9168385Z     ✅ Step step_2 Passed.
+2026-01-19T04:24:14.9169076Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T04:24:14.9169546Z     🎯 Using mined locator: #password
+2026-01-19T04:24:14.9169986Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T04:24:14.9170410Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
+2026-01-19T04:24:14.9170975Z     🎯 Using mined locator: input[id='login-button']
+2026-01-19T04:24:14.9171474Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T04:24:14.9171887Z   ▶️ [STEP step_3] FILL: Password
+2026-01-19T04:24:14.9172396Z     🎯 Using mined locator: role=textbox[name='Password']
+2026-01-19T04:24:14.9172949Z     ✅ Step step_3 Passed.
+2026-01-19T04:24:14.9173322Z   ▶️ [STEP step_4] CLICK: Login
+2026-01-19T04:24:14.9173759Z     🎯 Using mined locator: [name*='login']
+2026-01-19T04:24:14.9174194Z     ✅ Step step_4 Passed.
+2026-01-19T04:24:14.9174832Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Epic sadface: Sorry, this user has been locked out.
+2026-01-19T04:24:14.9175727Z     🎯 Using mined locator: text='Epic sadface: Sorry, this user has been locked out.'
+2026-01-19T04:24:14.9176370Z     ✅ Step step_5 Passed.
+2026-01-19T04:24:14.9176903Z ✅ Scenario 'Locked Out User Login Attempt' completed successfully!
+2026-01-19T04:24:14.9177314Z 
+2026-01-19T04:24:14.9177492Z --- Scenario: Standard User Login and Logout ---
+2026-01-19T04:24:14.9178022Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:24:14.9178946Z     ✅ Step step_1 Passed.
+2026-01-19T04:24:14.9179382Z   ▶️ [STEP step_2] FILL: Username
+2026-01-19T04:24:14.9179875Z     🎯 Using mined locator: role=textbox[name='Username']
+2026-01-19T04:24:14.9180372Z     ✅ Step step_2 Passed.
+2026-01-19T04:24:14.9180764Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T04:24:14.9181216Z     🎯 Using mined locator: #password
+2026-01-19T04:24:14.9181643Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T04:24:14.9182077Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
+2026-01-19T04:24:14.9182604Z     🎯 Using mined locator: input[id='login-button']
+2026-01-19T04:24:14.9183083Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T04:24:14.9183512Z   ▶️ [STEP step_5] ASSERT_URL: Step step_5
+2026-01-19T04:24:14.9183946Z     ✅ Step step_5 Passed.
+2026-01-19T04:24:14.9184334Z   ▶️ [STEP step_6] CLICK: Open Menu
+2026-01-19T04:24:14.9184848Z     🎯 Using mined locator: role=button[name='Open Menu']
+2026-01-19T04:24:14.9185341Z     ✅ Step step_6 Passed.
+2026-01-19T04:24:14.9185729Z   ▶️ [STEP step_6_ai_1] CLICK: Logout
+2026-01-19T04:24:14.9186248Z     🎯 Using mined locator: a[id='logout_sidebar_link']
+2026-01-19T04:24:14.9186749Z     ✅ Step step_6_ai_1 Passed.
+2026-01-19T04:24:14.9187140Z   ▶️ [STEP step_6_ai_2] FILL: Username
+2026-01-19T04:24:14.9187577Z     🎯 Using mined locator: #user-name
+2026-01-19T04:24:14.9188007Z     ✅ Step step_6_ai_2 Passed.
+2026-01-19T04:24:14.9188409Z   ▶️ [STEP step_6_ai_3] FILL: Password
+2026-01-19T04:24:14.9189061Z     🎯 Using mined locator: #password
+2026-01-19T04:24:14.9189496Z     ✅ Step step_6_ai_3 Passed.
+2026-01-19T04:24:14.9189900Z   ▶️ [STEP step_6_ai_4] CLICK: login-button
+2026-01-19T04:24:14.9190409Z     🎯 Using mined locator: input[id='login-button']
+2026-01-19T04:24:14.9190908Z     ✅ Step step_6_ai_4 Passed.
+2026-01-19T04:24:14.9191322Z   ▶️ [STEP step_8] ASSERT_URL: Step step_8
+2026-01-19T04:24:14.9191770Z     ✅ Step step_8 Passed.
+2026-01-19T04:24:14.9192624Z ✅ Scenario 'Standard User Login and Logout' completed successfully!
+2026-01-19T04:24:14.9193045Z 
+2026-01-19T04:24:14.9193262Z --- Scenario: Problem User Login and Inventory Check ---
+2026-01-19T04:24:14.9194042Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
+2026-01-19T04:24:14.9194467Z     ✅ Step step_1 Passed.
+2026-01-19T04:24:14.9194846Z   ▶️ [STEP step_2] FILL: Username
+2026-01-19T04:24:14.9195342Z     🎯 Using mined locator: role=textbox[name='Username']
+2026-01-19T04:24:14.9195828Z     ✅ Step step_2 Passed.
+2026-01-19T04:24:14.9196218Z   ▶️ [STEP step_2_ai_1] FILL: Password
+2026-01-19T04:24:14.9196658Z     🎯 Using mined locator: #password
+2026-01-19T04:24:14.9197107Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T04:24:14.9197546Z   ▶️ [STEP step_2_ai_2] CLICK: login-button
+2026-01-19T04:24:14.9198059Z     🎯 Using mined locator: input[id='login-button']
+2026-01-19T04:24:14.9198688Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T04:24:14.9199122Z   ▶️ [STEP step_5] ASSERT_URL: Step step_5
+2026-01-19T04:24:14.9199574Z     ✅ Step step_5 Passed.
+2026-01-19T04:24:14.9200020Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Sauce Labs Backpack
+2026-01-19T04:24:14.9200652Z     🎯 Using mined locator: role=link[name='Sauce Labs Backpack']
+2026-01-19T04:24:14.9201205Z     ✅ Step step_6 Passed.
+2026-01-19T04:24:14.9201804Z ✅ Scenario 'Problem User Login and Inventory Check' completed successfully!
+2026-01-19T04:24:14.9202257Z 
+2026-01-19T04:24:14.9202413Z ============================================================
+2026-01-19T04:24:14.9202857Z 🎯 EXECUTION SUMMARY
+2026-01-19T04:24:14.9203177Z ============================================================
+2026-01-19T04:24:14.9203483Z 
+2026-01-19T04:24:14.9203637Z 📋 Scenario Overview:
+2026-01-19T04:24:14.9204003Z    • Total Scenarios Planned: 3
+2026-01-19T04:24:14.9204385Z    • Scenarios Executed: 3
+2026-01-19T04:24:14.9204766Z    • Total Steps Executed: 24
+2026-01-19T04:24:14.9204992Z 
+2026-01-19T04:24:14.9205126Z ✅ Results:
+2026-01-19T04:24:14.9205424Z    ✅ Passed: 3 (100%)
+2026-01-19T04:24:14.9205624Z 
+2026-01-19T04:24:14.9205765Z ============================================================
+2026-01-19T04:24:14.9206052Z 
+2026-01-19T04:24:14.9206831Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked/execution.json
+2026-01-19T04:24:15.0347827Z 
+2026-01-19T04:24:15.0348354Z [PHASE] Running Phase: DISCOVERY
+2026-01-19T04:24:15.0350572Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked --url https://www.saucedemo.com/ --deep
+2026-01-19T04:24:15.0352777Z ✅ Phase 'discovery' completed successfully.
+2026-01-19T04:24:15.0353091Z 
+2026-01-19T04:24:15.0353234Z [PHASE] Running Phase: PLANNING
+2026-01-19T04:24:15.0355211Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked --goal Test locked user scenarios --url https://www.saucedemo.com/ --deep
+2026-01-19T04:24:15.0357326Z ✅ Phase 'planning' completed successfully.
+2026-01-19T04:24:15.0357627Z 
+2026-01-19T04:24:15.0357764Z [PHASE] Running Phase: EXPLORATION
+2026-01-19T04:24:15.0359409Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked
+2026-01-19T04:24:15.0361035Z ✅ Phase 'exploration' completed successfully.
+2026-01-19T04:24:15.0361598Z 📊 Exploration Discovery Success Rate: 85.7%
+2026-01-19T04:24:15.0361908Z 
+2026-01-19T04:24:15.0362042Z [PHASE] Running Phase: EXECUTION
+2026-01-19T04:24:15.0363518Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_saucedemo_locked
+2026-01-19T04:24:15.0365418Z ✅ Phase 'execution' completed successfully.
+2026-01-19T04:24:15.0365914Z 
+2026-01-19T04:24:15.0366082Z [DONE] Pipeline Execution Finished! [DONE]
