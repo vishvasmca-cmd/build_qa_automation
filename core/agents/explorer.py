@@ -870,6 +870,61 @@ class ExplorerAgent:
         
         return batches
     
+    async def _get_cached_or_mine_elements(self, page: Page, description: str = "element mining") -> Dict:
+        """
+        Get elements from cache if fresh, otherwise mine and cache.
+        FALLBACK: On any error, falls back to fresh mining
+        """
+        if not self.enable_element_cache:
+            from core.agents.miner import analyze_page
+            return await analyze_page(page, page.url, description)
+        
+        url = page.url
+        now = time.time()
+        
+        try:
+            # Check cache
+            if url in self.element_cache:
+                cached = self.element_cache[url]
+                age = now - cached["timestamp"]
+                
+                if age < self.cache_ttl:
+                    self.log(f"    ⚡ Cache HIT (age: {age:.1f}s)", "cyan")
+                    self.metrics.record_cache_event("hit")
+                    return {
+                        "elements": cached["elements"],
+                        "screenshot": cached["screenshot"]
+                    }
+                else:
+                    self.metrics.record_cache_event("invalidation")
+            
+            # Cache miss - mine fresh
+            self.metrics.record_cache_event("miss")
+            from core.agents.miner import analyze_page
+            mindmap = await analyze_page(page, page.url, description)
+            
+            # Update cache
+            self.element_cache[url] = {
+                "timestamp": now,
+                "elements": mindmap.get("elements", []),
+                "screenshot": mindmap.get("screenshot")
+            }
+            
+            return mindmap
+            
+        except Exception as e:
+            # FALLBACK: Always mine fresh on error
+            self.log(f"    ⚠️ Cache error: {e}. Falling back to fresh mining", "yellow")
+            from core.agents.miner import analyze_page
+            return await analyze_page(page, page.url, description)
+    
+    def _invalidate_cache(self, url: str = None):
+        """Invalidate cache (called after navigation)"""
+        if url and url in self.element_cache:
+            del self.element_cache[url]
+        elif not url:
+            self.element_cache.clear()
+    
     async def _mine_locators_batch(self, page: Page, steps: List[Dict], scenario_name: str) -> Dict[int, List[Dict]]:
         """
         Mine locators for multiple steps in parallel using asyncio.gather.
