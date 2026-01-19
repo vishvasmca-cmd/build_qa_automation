@@ -224,9 +224,12 @@ class ExplorerAgent:
         # Initialize exploration context on first call (depth 0)
         if depth == 0:
             goal = self.workflow.get("goal", "Complete scenario")
+            # 🐛 FIX Bug #4: Use scenario-specific goal instead of global goal
+            scenario_goal = scenario.get("description") or scenario.get("name") or goal
             base_url = self.workflow.get("base_url", "")
-            self.exploration_context = ExplorationContext(goal, base_url)
-            self.log(f"    🧠 Initialized exploration context for goal: '{goal}'", "cyan")
+            self.exploration_context = ExplorationContext(scenario_goal, base_url)
+            self.log(f"    🧠 Initialized exploration context for goal: '{scenario_goal}'", "cyan")
+            self.log(f"    🎯 Scenario: {scenario.get('name')}", "grey")
 
         i = 0
         steps = scenario.get("steps", [])

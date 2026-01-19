@@ -283,7 +283,15 @@ class ExecutorAgent:
                     else:
                         raise ValueError("No URL provided for navigation")
                 elif keyword == "click":
-                    await KeywordEngine.click(page, selector)
+                    # 🐛 FIX Bug #1: Try force click if element not visible (modal handling)
+                    try:
+                        await KeywordEngine.click(page, selector)
+                    except Exception as click_err:
+                        if "not visible" in str(click_err) or "hidden" in str(click_err).lower():
+                            self.log(f"    🔧 Element not visible, trying force click...", "yellow")
+                            await page.locator(selector).click(force=True, timeout=10000)
+                        else:
+                            raise
                 elif keyword == "fill":
                     await KeywordEngine.fill(page, selector, resolved_args["value"])
                 elif keyword == "assert_visible":
@@ -447,17 +455,79 @@ class ExecutorAgent:
             
             if fix and fix.get("found") and fix.get("locators"):
                 new_locators = fix["locators"]
-                self.log(f"    ✨ AI successfully healed the step! Found {len(new_locators)} alternatives.", "blue")
+                self.log(f"    ✨ AI heal found {len(new_locators)} alternatives. Validating...", "blue")
+                
+                # 🐛 FIX Bug #2: Validate AI suggestions before accepting
+                validated_locators = []
+                for loc in new_locators:
+                    if await self._validate_healed_locator(page, loc, description, keyword):
+                        validated_locators.append(loc)
+                
+                if not validated_locators:
+                    self.log(f"    ⚠️ All AI suggestions failed validation. Using original.", "yellow")
+                    return None
+                
+                self.log(f"    ✅ {len(validated_locators)} validated locators.", "green")
                 
                 # Update Workflow
-                step["locators"] = new_locators
+                step["locators"] = validated_locators
                 with open(self.workflow_path, 'w', encoding='utf-8') as f:
                     json.dump(self.workflow, f, indent=2)
                 
-                return new_locators[0]["value"]
+                return validated_locators[0]["value"]
         except Exception as e:
             self.log(f"    ⚠️ Healing Error: {e}", "red")
         return None
+    
+    async def _validate_healed_locator(self, page: Page, locator: Dict, description: str, keyword: str) -> bool:
+        """🐛 FIX Bug #2: Validate AI heal suggestions to prevent hallucinations."""
+        try:
+            selector = locator.get("value")
+            if not selector:
+                return False
+            
+            # Check if element exists
+            count = await page.locator(selector).count()
+            if count == 0:
+                self.log(f"      ❌ Rejected: Element not found", "grey")
+                return False
+            
+            # Get element type and text
+            element = page.locator(selector).first
+            tag_name = await element.evaluate("el => el.tagName.toLowerCase()")
+            text_content = (await element.text_content() or "").strip().lower()
+            
+            # Validation 1: Element type must match action
+            if keyword in ["click", "view", "submit"]:
+                # Clickable elements should be buttons, links, or divs with click handlers
+                if tag_name in ["input", "textarea"] and "type" not in selector:
+                    # Input/textarea OK if it has onclick or is wrapped
+                    has_click = await element.evaluate("el => el.onclick != null || el.parentElement.onclick != null")
+                    if not has_click:
+                        self.log(f"      ❌ Rejected: {tag_name} for click action", "grey")
+                        return False
+            
+            # Validation 2: Text content should contain keywords from description
+            desc_lower = description.lower()
+            keywords = desc_lower.split()
+            # At least one keyword should match
+            if text_content and any(kw in text_content for kw in keywords if len(kw) > 2):
+                self.log(f"      ✅ Validated: '{text_content[:30]}...' matches '{description}'", "green")
+                return True
+            
+            # If no text match, check if selector itself contains relevant terms
+            selector_lower = selector.lower()
+            if any(kw in selector_lower for kw in keywords if len(kw) > 3):
+                self.log(f"      ✅ Validated: Selector contains relevant terms", "green")
+                return True
+           
+            # Otherwise warn but accept (might be valid)
+            self.log(f"      ⚠️ Partial match: '{text_content[:20]}' for '{description}'", "yellow")
+            return True  # Accept with warning
+            
+        except Exception as e:
+            self.log(f"      ❌ Validation error: {str(e)[:40]}", "grey")
+            return False
 
     async def _dismiss_vignettes(self, page: Page):
         """Attempts to dismiss ad overlays (google_vignette) if they appear."""

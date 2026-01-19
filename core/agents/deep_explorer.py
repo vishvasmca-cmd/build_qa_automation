@@ -78,6 +78,12 @@ class DeepExplorerAgent:
         for loc in locators:
             selector = loc.get("value", "")
             confidence = loc.get("confidence", 0.0)
+            
+            # 🐛 FIX Bug #5: Assign default confidence if missing or zero
+            if confidence == 0.0:
+                confidence = self._assign_default_confidence(selector)
+                loc["confidence"] = confidence
+            
             method = loc.get("method", "")
             
             # Rule 1: Minimum confidence threshold
@@ -130,6 +136,38 @@ class DeepExplorerAgent:
         top_locators = robust_locators[:3]
         self.perf_stats["total_robust_locators_saved"] += len(top_locators)
         return top_locators
+    
+    def _assign_default_confidence(self, selector: str) -> float:
+        """🐛 FIX Bug #5: Assign confidence based on selector type when missing."""
+        # Semantic selectors: High confidence
+        if "data-testid" in selector or "data-test" in selector:
+            return 0.9
+        elif "aria-label" in selector:
+            return 0.85
+        elif selector.startswith("#") or ("[id=" in selector and "nth-child" not in selector):
+            return 0.85
+        
+        # Attribute-based: Medium-high
+        elif "data-" in selector:
+            return 0.80
+        elif "[name=" in selector:
+            return 0.75
+        
+        # Text-based: Medium (depends on uniqueness, assume OK)
+        elif selector.startswith("text=") or "has-text" in selector or ":has-text" in selector:
+            return 0.70
+        
+        # Role-based: Medium
+        elif selector.startswith("role="):
+            return 0.70
+        
+        # Href-based: Medium
+        elif "[href" in selector:
+            return 0.70
+        
+        # Generic selectors: Low but not zero
+        else:
+            return 0.60
 
     async def run(self):
         self.log("\n🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration", "magenta")
