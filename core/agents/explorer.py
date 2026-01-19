@@ -219,7 +219,28 @@ class ExplorerAgent:
 
         i = 0
         steps = scenario.get("steps", [])
+        
+        # Import parallel processing wrapper
+        from core.agents.explorer_parallel_wrapper import process_batch_or_sequential
+        
         while i < len(steps):
+            # PARALLEL AI OPTIMIZATION: Try batching consecutive fills
+            try:
+                processed_count, used_batch = await process_batch_or_sequential(
+                    self, page, steps, scenario, i
+                )
+                
+                if used_batch:
+                    # Batch processed N steps - skip ahead
+                    i += processed_count
+                    continue
+                # Else: Fall through to sequential processing below
+                
+            except Exception as e:
+                # ULTIMATE FALLBACK: On wrapper error, proceed sequentially
+                self.log(f"    ⚠️ Batch wrapper error: {e}. Using sequential", "yellow")
+            
+            # Original sequential processing (fallback path)
             step = steps[i]
             if step.get("skipped"): 
                 i += 1
