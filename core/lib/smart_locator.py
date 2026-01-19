@@ -68,7 +68,7 @@ async def find_element_smart(page: Page, description: str) -> Optional[Dict]:
             count = await page.locator(selector).count()
             if count == 1:
                 return {
-                    \"selector\": selector,
+                    "selector": selector,
                     "confidence": 0.93,
                     "method": f"role-{role}-partial",
                     "count": 1
