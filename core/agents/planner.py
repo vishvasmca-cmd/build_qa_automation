@@ -44,6 +44,34 @@ class PlannerAgent:
             "base_url": "",
             "scenarios": []
         }
+    
+    def _parse_sitemap(self, sitemap: List[Dict]) -> Dict:
+        """Parse sitemap into structured knowledge."""
+        knowledge = {"pages_by_type": {}, "user_flows": [], "form_endpoints": []}
+        for page in sitemap:
+            page_type = page.get("page_type", "other")
+            if page_type not in knowledge["pages_by_type"]:
+                knowledge["pages_by_type"][page_type] = []
+            knowledge["pages_by_type"][page_type].append(page)
+        if "product_detail" in knowledge["pages_by_type"]:
+            knowledge["user_flows"].append({"name": "E-commerce Shopping Flow", "type": "ecommerce"})
+        for page in sitemap:
+            if page.get("forms"):
+                knowledge["form_endpoints"].append(page)
+        return knowledge
+    
+    def _generate_test_data(self, field: Dict) -> str:
+        """Generate test data for field types."""
+        field_type = field.get("type", "text").lower()
+        field_name = (field.get("name") or "").lower()
+        if field_type == "email" or "email" in field_name:
+            return "{random_email}"
+        elif "phone" in field_name:
+            return "{random_phone}"
+        elif "name" in field_name:
+            return "{random_name}"
+        else:
+            return f"Test {field.get('name', 'value')}"
 
     async def plan_goal(self, goal: str, base_url: str = None, deep_mode: bool = False):
         print(colored(f"\n[PLAN] PLANNER: Planning goal -> '{goal}' (Deep Mode: {deep_mode})", "cyan", attrs=["bold"]))
@@ -57,11 +85,17 @@ class PlannerAgent:
         
         # Load Sitemap if available
         sitemap_text = "No sitemap available."
+        knowledge = {"pages_by_type": {}, "user_flows": [], "form_endpoints": []}
+        
         if os.path.exists(self.sitemap_path):
             with open(self.sitemap_path, 'r', encoding='utf-8') as f:
                 sitemap = json.load(f)
                 sitemap_text = json.dumps(sitemap, indent=2)
+                # ✅ Parse structured sitemap
+                knowledge = self._parse_sitemap(sitemap)
             print(colored(f"🗺️ [PLAN] Loaded Sitemap with {len(sitemap)} pages.", "cyan"))
+            print(colored(f"📊 [KNOWLEDGE] Page types: {list(knowledge['pages_by_type'].keys())}", "cyan"))
+            print(colored(f"🔄 [KNOWLEDGE] Flows: {len(knowledge['user_flows'])}, Forms: {len(knowledge['form_endpoints'])}", "cyan"))
 
         # Detect Domain and get Persona
         domain = DomainExpert.detect_domain(url, landmarks_text, goal)
