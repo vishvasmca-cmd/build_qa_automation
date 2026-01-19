@@ -682,6 +682,16 @@ class ExplorerAgent:
                     )
                     
                     if next_suggestion and next_suggestion.get("action") != "done":
+                        # 🐛 FIX P1: Page-aware AI filtering
+                        if not self._is_suggestion_relevant(next_suggestion, page, scenario):
+                            self.log(
+                                f"    ⚠️ AI suggestion '{next_suggestion.get('action')} -> {next_suggestion.get('target')}' "
+                                f"not relevant for current page/scenario. Skipping.",
+                                "yellow"
+                            )
+                            i += 1
+                            continue
+                        
                         # ---- Enhanced Loop Detection with State Change Awareness ----
                         cur_tuple = (next_suggestion.get("action"), next_suggestion.get("target"))
                         prev_url = getattr(self, "_prev_url_for_loop_check", None)
@@ -1471,6 +1481,55 @@ class ExplorerAgent:
             self.log(f"    ⚠️ AI Step Verification Error: {e}", "red")
             
         return {"is_valid": True, "new_locator": None, "reason": "Error during verification"}
+    
+    def _is_suggestion_relevant(self, suggestion: Dict, page: Page, scenario: Dict) -> bool:
+        """🐛 FIX P1: Validate AI suggestion relevance to current page and scenario."""
+        try:
+            action = suggestion.get("action", "").lower()
+            target = (suggestion.get("target") or "").lower()
+            
+            # Get scenario context
+            scenario_name = (scenario.get("name") or "").lower()
+            scenario_desc = (scenario.get("description") or "").lower()
+            scenario_context = scenario_name + " " + scenario_desc
+            
+            # Get current URL to infer page type
+            current_url = page.url.lower()
+            
+            # Rule 1: Don't suggest product/cart actions on contact pages
+            if any(word in current_url for word in ["contact", "contact_us", "contactus"]):
+                if any(word in target for word in ["product", "cart", "checkout", "add to cart", "view product"]):
+                    self.log(f"      ❌ Rejected: Product action '{target}' on contact page", "grey")
+                    return False
+            
+            # Rule 2: Don't suggest contact actions on product/cart pages  
+            if any(word in current_url for word in ["product", "cart", "checkout"]):
+                if "contact" in scenario_context and "contact" in target and "product" not in scenario_context:
+                    self.log(f"      ❌ Rejected: Contact action '{target}' when scenario is about products", "grey")
+                    return False
+            
+            # Rule 3: Don't suggest login actions if scenario is not about authentication
+            if "login" in target or "sign in" in target or "register" in target:
+                if not any(word in scenario_context for word in ["login", "sign", "register", "auth", "account"]):
+                    # Allow login if it's needed for checkout though
+                    if not any(word in scenario_context for word in ["checkout", "purchase", "order"]):
+                        self.log(f"      ❌ Rejected: Login action '{target}' not relevant to scenario", "grey")
+                        return False
+            
+            # Rule 4: Scenario-specific validation
+            if "contact" in scenario_context and "form" in scenario_context:
+                # Contact form scenario - should focus on form filling
+                if any(word in target for word in ["product", "cart", "checkout"]):
+                    self.log(f"      ❌ Rejected: '{target}' not relevant for contact form scenario", "grey")
+                    return False
+            
+            # All checks passed
+            return True
+            
+        except Exception as e:
+            self.log(f"      ⚠️ Error validating suggestion relevance: {e}", "grey")
+            return True  # Accept if validation fails
+
 
 async def main():
     parser = argparse.ArgumentParser(description="AI Explorer Agent")
