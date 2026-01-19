@@ -1,0 +1,165 @@
+name: CI - Edge Cases - 5 Challenging Websites
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-edge-cases:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    
+    strategy:
+      fail-fast: false
+      max-parallel: 2  # Run 2 at a time to avoid rate limits
+      matrix:
+        website:
+          # 5 Challenging Edge Case Websites
+          
+          # 1. Modern SPA with Dynamic Content
+          - name: react_shopping_cart
+            url: "https://react-shopping-cart-67954.firebaseapp.com/"
+            goal: "Browse products by category 'All', add 2 items to cart, verify cart shows correct total"
+            
+          # 2. Complex E-commerce with Variants
+          - name: magento_demo
+            url: "https://magento.softwaretestingboard.com/"
+            goal: "Search for 'jacket', select FIRST product, choose size 'M', choose color, add to cart, verify cart"
+            
+          # 3. SaaS Application with Multi-Step Forms
+          - name: salesforce_trailhead
+            url: "https://trailhead.salesforce.com/"
+            goal: "Navigate to 'Learn', search for 'admin', click FIRST result, verify module details visible"
+            
+          # 4. Interactive Dashboard with Charts
+          - name: grafana_play
+            url: "https://play.grafana.org/d/000000012/grafana-play-home"
+            goal: "Explore dashboard panels, click different visualizations, verify data displays"
+            
+          # 5. Heavy JavaScript SPA
+          - name: todomvc_react
+            url: "https://todomvc.com/examples/react/"
+            goal: "Add 3 todos with text 'Task 1', 'Task 2', 'Task 3', mark Task 1 as complete, verify 2 active items"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Create project config
+        run: |
+          mkdir -p projects/edge_${{ matrix.website.name }}
+          cat > projects/edge_${{ matrix.website.name }}/config.json << 'EOF'
+          {
+            "project_name": "edge_${{ matrix.website.name }}",
+            "target_url": "${{ matrix.website.url }}",
+            "goal": "${{ matrix.website.goal }}",
+            "headless": true
+          }
+          EOF
+
+      - name: Run Deep Explorer (Edge Case Testing)
+        id: explorer
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          PYTHONPATH: .
+        run: |
+          echo "🧪 Testing Edge Case: ${{ matrix.website.name }}"
+          echo "🎯 Goal: ${{ matrix.website.goal }}"
+          echo ""
+          # Use --deep for comprehensive testing
+          python orchestrator.py --project projects/edge_${{ matrix.website.name }} --deep --force
+        continue-on-error: true
+
+      - name: Analyze Results
+        id: analyze
+        run: |
+          RESULT_FILE="projects/edge_${{ matrix.website.name }}/execution.json"
+          WORKFLOW_FILE="projects/edge_${{ matrix.website.name }}/workflow.json"
+          
+          echo "## 📊 Results for ${{ matrix.website.name }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f "$RESULT_FILE" ]; then
+            echo "✅ Execution completed" >> $GITHUB_STEP_SUMMARY
+            
+            # Extract metrics
+            TOTAL=$(jq -r '.scenarios | length' "$RESULT_FILE" 2>/dev/null || echo "0")
+            PASSED=$(jq -r '[.scenarios[] | select(.status=="passed")] | length' "$RESULT_FILE" 2>/dev/null || echo "0")
+            
+            echo "- **Scenarios:** ${TOTAL}" >> $GITHUB_STEP_SUMMARY
+            echo "- **Passed:** ${PASSED}" >> $GITHUB_STEP_SUMMARY
+            echo "- **Success Rate:** $((PASSED * 100 / TOTAL))%" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            
+            # Show scenarios generated
+            if [ -f "$WORKFLOW_FILE" ]; then
+              SCENARIO_COUNT=$(jq -r '.scenarios | length' "$WORKFLOW_FILE" 2>/dev/null || echo "0")
+              echo "📋 **Generated Scenarios:** ${SCENARIO_COUNT}" >> $GITHUB_STEP_SUMMARY
+              jq -r '.scenarios[] | "  - \(.name)"' "$WORKFLOW_FILE" 2>/dev/null >> $GITHUB_STEP_SUMMARY || true
+            fi
+          else
+            echo "❌ No execution results found" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+      - name: Upload execution results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edge-${{ matrix.website.name }}-results
+          path: |
+            projects/edge_${{ matrix.website.name }}/execution.json
+            projects/edge_${{ matrix.website.name }}/workflow.json
+            projects/edge_${{ matrix.website.name }}/sitemap.json
+          retention-days: 30
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edge-${{ matrix.website.name }}-failure-logs
+          path: |
+            projects/edge_${{ matrix.website.name }}/*.log
+            projects/edge_${{ matrix.website.name }}/.checkpoint.json
+          retention-days: 7
+
+  summary:
+    runs-on: ubuntu-latest
+    needs: test-edge-cases
+    if: always()
+    
+    steps:
+      - name: Edge Case Test Summary
+        run: |
+          echo "## 🧪 Edge Case Testing - Final Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Test Coverage" >> $GITHUB_STEP_SUMMARY
+          echo "- 🔄 **Modern SPA:** React Shopping Cart" >> $GITHUB_STEP_SUMMARY
+          echo "- 🎨 **Complex Variants:** Magento Demo" >> $GITHUB_STEP_SUMMARY
+          echo "- 📚 **SaaS Platform:** Salesforce Trailhead" >> $GITHUB_STEP_SUMMARY
+          echo "- 📊 **Dashboards:** Grafana Play" >> $GITHUB_STEP_SUMMARY
+          echo "- ⚡ **Heavy JS:** TodoMVC React" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Purpose" >> $GITHUB_STEP_SUMMARY
+          echo "These edge cases test:" >> $GITHUB_STEP_SUMMARY
+          echo "- Dynamic content loading" >> $GITHUB_STEP_SUMMARY
+          echo "- Product variants & options" >> $GITHUB_STEP_SUMMARY
+          echo "- Multi-step user flows" >> $GITHUB_STEP_SUMMARY
+          echo "- Interactive visualizations" >> $GITHUB_STEP_SUMMARY
+          echo "- State management in SPAs" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Overall Status:** ${{ needs.test-edge-cases.result }}" >> $GITHUB_STEP_SUMMARY
