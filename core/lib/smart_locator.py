@@ -420,24 +420,65 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
                             "count": 1
                         }
     
-    # Strategy 13: Proximity-Based
+    # Strategy 13: Proximity-Based (ENHANCED - Multi-level + Multiple Element Types)
     try:
         text_selector = f"text={description}"
         text_count = await page.locator(text_selector).count()
+        
         if text_count == 1:
-            for proximity_selector in [
-                f"text={description} + input",
-                f"text={description} ~ input",
-                f"text={description} >> xpath=.. >> input",
-            ]:
-                count = await page.locator(proximity_selector).count()
-                if count == 1:
-                    return {
-                        "selector": proximity_selector,
-                        "confidence": 0.80,
-                        "method": "proximity",
-                        "count": 1
-                    }
+            # Define element types to try (in priority order)
+            element_types = ["input", "select", "textarea", "button"]
+            
+            # Define proximity patterns with confidence levels
+            proximity_patterns = [
+                # Adjacent sibling (highest confidence - immediate neighbor)
+                {
+                    "pattern": "text={description} + {element}",
+                    "confidence": 0.82,
+                    "method": "proximity-adjacent"
+                },
+                # General sibling (any following sibling)
+                {
+                    "pattern": "text={description} ~ {element}",
+                    "confidence": 0.78,
+                    "method": "proximity-sibling"
+                },
+                # One parent level (most common)
+                {
+                    "pattern": "text={description} >> xpath=.. >> {element}",
+                    "confidence": 0.80,
+                    "method": "proximity-parent-1"
+                },
+                # Two parent levels (grandparent)
+                {
+                    "pattern": "text={description} >> xpath=.. >> xpath=.. >> {element}",
+                    "confidence": 0.75,
+                    "method": "proximity-parent-2"
+                },
+                # Three parent levels (great-grandparent)
+                {
+                    "pattern": "text={description} >> xpath=.. >> xpath=.. >> xpath=.. >> {element}",
+                    "confidence": 0.70,
+                    "method": "proximity-parent-3"
+                },
+            ]
+            
+            # Try each pattern with each element type
+            for element_type in element_types:
+                for pattern_config in proximity_patterns:
+                    selector = pattern_config["pattern"].format(
+                        description=description,
+                        element=element_type
+                    )
+                    count = await page.locator(selector).count()
+                    
+                    if count == 1:
+                        return {
+                            "selector": selector,
+                            "confidence": pattern_config["confidence"],
+                            "method": pattern_config["method"],
+                            "count": 1
+                        }
     except Exception:
         pass
     

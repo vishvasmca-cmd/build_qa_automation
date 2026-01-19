@@ -40,6 +40,18 @@ class DeepExplorerAgent:
         # Re-use the underlying Explorer for execution logic
         self.explorer = ExplorerAgent(project_dir, headed=self.headed, shallow=False)
         self.generated_scenarios = []
+        
+        # ✅ Performance tracking
+        self.perf_stats = {
+            "total_locators_mined": 0,
+            "total_locators_filtered_out": 0,
+            "total_robust_locators_saved": 0,
+            "filtering_reasons": {
+                "low_confidence": 0,
+                "positional": 0,
+                "state_dependent": 0
+            }
+        }
 
     def log(self, msg: str, color: Optional[str] = None):
         if color:
@@ -49,6 +61,75 @@ class DeepExplorerAgent:
             
         with open(self.debug_log, 'a', encoding='utf-8') as f:
             f.write(f"[{datetime.now().isoformat()}] {msg}\n")
+    
+    def _filter_robust_locators(self, locators: List[Dict]) -> List[Dict]:
+        """
+        Filter out brittle/positional selectors that break across runs.
+        Only keep semantic, stable selectors with high confidence.
+        
+        This creates the "golden path" - validated locators that work 100%.
+        """
+        if not locators:
+            return []
+        
+        robust_locators = []
+        self.perf_stats["total_locators_mined"] += len(locators)
+        
+        for loc in locators:
+            selector = loc.get("value", "")
+            confidence = loc.get("confidence", 0.0)
+            method = loc.get("method", "")
+            
+            # Rule 1: Minimum confidence threshold
+            if confidence < 0.75:
+                self.perf_stats["total_locators_filtered_out"] += 1
+                self.perf_stats["filtering_reasons"]["low_confidence"] += 1
+                self.log(f"      ⚠️ Skipping low-confidence locator ({confidence:.2f}): {selector[:50]}...", "yellow")
+                continue
+            
+            # Rule 2: NEVER use positional selectors (too brittle)
+            if any(pattern in selector for pattern in ["nth-child", ":nth-of-type", "nth-last-child", ":nth("]):
+                self.perf_stats["total_locators_filtered_out"] += 1
+                self.perf_stats["filtering_reasons"]["positional"] += 1
+                self.log(f"      ⚠️ Skipping positional locator: {selector[:50]}...", "yellow")
+                continue
+            
+            # Rule 3: Avoid state-dependent selectors
+            if ":visible" in selector or ":hidden" in selector:
+                self.perf_stats["total_locators_filtered_out"] += 1
+                self.perf_stats["filtering_reasons"]["state_dependent"] += 1
+                self.log(f"      ⚠️ Skipping state-dependent locator: {selector[:50]}...", "yellow")
+                continue
+            
+            # Rule 4: Calculate stability score (prefer semantic selectors)
+            stability_score = confidence
+            
+            if "data-testid" in selector or "data-test" in selector:
+                stability_score += 0.15  # Boost test IDs
+            elif "id=" in selector and "id*=" not in selector:
+                stability_score += 0.10  # Boost exact IDs
+            elif "aria-label" in selector:
+                stability_score += 0.08  # Boost ARIA
+            elif "role=" in selector:
+                stability_score += 0.05  # Boost roles
+            
+            # Slight penalty for xpath (less maintainable)
+            if "xpath" in selector.lower():
+                stability_score -= 0.03
+            
+            # Add stability score to locator
+            loc["stability_score"] = min(stability_score, 1.0)
+            
+            robust_locators.append(loc)
+            self.log(f"      ✅ Kept robust locator ({stability_score:.2f}): {selector[:50]}...", "green")
+        
+        # Sort by stability score (highest first)
+        robust_locators.sort(key=lambda x: x.get("stability_score", 0), reverse=True)
+        
+        # Return top 3 most stable locators
+        top_locators = robust_locators[:3]
+        self.perf_stats["total_robust_locators_saved"] += len(top_locators)
+        return top_locators
 
     async def run(self):
         self.log("\n🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration", "magenta")
@@ -166,34 +247,119 @@ class DeepExplorerAgent:
                     workflow_update = json.load(f)
         
         # Map generated scenarios to workflow.json
-        new_scenarios_map = {s["id"]: s["steps"] for s in self.generated_scenarios if "id" in s}
+        new_scenarios_map = {s["id"]: s for s in self.generated_scenarios if "id" in s}
         for s in self.generated_scenarios:
-            if "id" not in s: new_scenarios_map[s["name"]] = s["steps"]
+            if "id" not in s: 
+                new_scenarios_map[s["name"]] = s
         
         for i, existing in enumerate(workflow_update.get("scenarios", [])):
             sid = existing.get("id")
             name = existing.get("name")
             
-            steps_source = None
+            scenario_source = None
             if sid in new_scenarios_map:
-                steps_source = new_scenarios_map[sid]
+                scenario_source = new_scenarios_map[sid]
             elif name in new_scenarios_map:
-                steps_source = new_scenarios_map[name]
+                scenario_source = new_scenarios_map[name]
                 
-            if steps_source:
+            if scenario_source:
+                # Update scenario metadata
+                if "name" in scenario_source:
+                    existing["name"] = scenario_source["name"]
+                if "description" in scenario_source:
+                    existing["description"] = scenario_source["description"]
+                
+                # ✅ CRITICAL: Save validated locators to workflow for executor
                 sanitized_steps = []
+                steps_source = scenario_source.get("steps", [])
+                
+                self.log(f"\n📝 Processing scenario '{existing.get('name')}' with {len(steps_source)} steps", "cyan")
+                
                 for idx, step in enumerate(steps_source):
                     new_step = step.copy()
+                    
+                    # Normalize args vs arguments
                     if "arguments" in new_step and "args" not in new_step:
                          new_step["args"] = new_step.pop("arguments")
+                    
+                    # Ensure step has ID
                     if "id" not in new_step:
-                        new_step["id"] = f"step_{idx+1}"
+                        new_step["id"] = f"step_{idx}"
+                    
+                    # ✅ CRITICAL: Filter and save only robust locators
+                    mined_locators = step.get("locators", [])
+                    if mined_locators:
+                        self.log(f"  🔍 Step {idx} ({new_step.get('keyword')}): Found {len(mined_locators)} mined locators", "white")
+                        robust_locators = self._filter_robust_locators(mined_locators)
+                        
+                        if robust_locators:
+                            new_step["locators"] = robust_locators
+                            self.log(f"  💾 Saved {len(robust_locators)} robust locators (top stability: {robust_locators[0].get('stability_score', 0):.2f})", "green")
+                        else:
+                            self.log(f"  ⚠️  No robust locators passed filtering. Executor will use fallback strategies.", "yellow")
+                            # Don't add empty locators array
+                            if "locators" in new_step:
+                                del new_step["locators"]
+                    else:
+                        # No locators found during exploration
+                        if "locators" in new_step:
+                            del new_step["locators"]
+                    
                     sanitized_steps.append(new_step)
+                
                 workflow_update["scenarios"][i]["steps"] = sanitized_steps
+                self.log(f"✅ Updated scenario '{existing.get('name')}' with {len(sanitized_steps)} validated steps","green")
         
         with open(self.workflow_path, "w", encoding="utf-8") as f:
             json.dump(workflow_update, f, indent=2)
         self.log(f"🔄 Updated workflow.json with discovered steps and locators.", "cyan")
+        
+        # ✅ Print Performance Summary
+        self._print_performance_summary()
+    
+    def _print_performance_summary(self):
+        """Print explorer performance metrics."""
+        self.log("\n" + "="*60, "blue")
+        self.log("📊 EXPLORER PERFORMANCE SUMMARY", "blue", attrs=["bold"])
+        self.log("="*60, "blue")
+        
+        total_mined = self.perf_stats["total_locators_mined"]
+        total_filtered = self.perf_stats["total_locators_filtered_out"]
+        total_saved = self.perf_stats["total_robust_locators_saved"]
+        
+        if total_mined > 0:
+            saved_rate = (total_saved / total_mined) * 100
+            filtered_rate = (total_filtered / total_mined) * 100
+        else:
+            saved_rate = 0
+            filtered_rate = 0
+        
+        self.log(f"\n🔍 Locator Mining:", "cyan")
+        self.log(f"   • Total Locators Mined: {total_mined}")
+        self.log(f"   • Filtered Out (Brittle): {total_filtered} ({filtered_rate:.1f}%)", "yellow")
+        self.log(f"   • Saved to Golden Path: {total_saved} ({saved_rate:.1f}%)", "green")
+        
+        if total_filtered > 0:
+            reasons = self.perf_stats["filtering_reasons"]
+            self.log(f"\n⚠️  Filtering Breakdown:", "yellow")
+            if reasons["low_confidence"] > 0:
+                self.log(f"   • Low Confidence (<0.75): {reasons['low_confidence']}")
+            if reasons["positional"] > 0:
+                self.log(f"   • Positional Selectors: {reasons['positional']}")
+            if reasons["state_dependent"] > 0:
+                self.log(f"   • State-Dependent: {reasons['state_dependent']}")
+        
+        self.log(f"\n✅ Golden Path Quality:", "green")
+        if saved_rate >= 70:
+            self.log(f"   🌟 EXCELLENT - {saved_rate:.1f}% of mined locators are robust!")
+        elif saved_rate >= 50:
+            self.log(f"   ✅ GOOD - {saved_rate:.1f}% of mined locators are robust.")
+        elif saved_rate >= 30:
+            self.log(f"   ⚠️  FAIR - Only {saved_rate:.1f}% of mined locators are robust.")
+        else:
+            self.log(f"   ❌ POOR - Only {saved_rate:.1f}% of mined locators are robust. Site may have weak semantic HTML.", "red")
+        
+        self.log("\n" + "="*60, "blue")
 
 async def main():
     parser = argparse.ArgumentParser(description="Deep Explorer Agent")

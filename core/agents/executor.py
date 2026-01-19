@@ -66,6 +66,18 @@ class ExecutorAgent:
             "start_time": datetime.now().isoformat(),
             "scenarios": []
         }
+        
+        # ✅ Performance tracking (Explorer vs Executor comparison)
+        self.perf_stats = {
+            "total_steps": 0,
+            "first_attempt_success": 0,
+            "required_healing": 0,
+            "final_failures": 0,
+            "golden_path_hits": 0,  # Steps where mined locator worked
+            "golden_path_misses": 0,  # Steps where mined locator failed
+            "fallback_used": 0,  # Steps with no mined locators
+            "locator_methods_used": {}
+        }
 
     def log(self, msg: str, color: Optional[str] = None, attrs: Optional[List[str]] = None):
         """Unified logging to console (with color) and debug file."""
@@ -101,11 +113,11 @@ class ExecutorAgent:
                 }
                 
                 try:
-                    for step in scenario.get("steps", []):
+                    for step_idx, step in enumerate(scenario.get("steps", [])):
                         # Dismiss overlays/ads before each step
                         await self._dismiss_vignettes(page)
                         
-                        step_result = await self.execute_step(page, step, scenario["name"])
+                        step_result = await self.execute_step(page, step, scenario["name"], step_idx)
                         scenario_result["steps"].append(step_result)
                         
                         if step_result["status"] == "failed":
@@ -167,41 +179,85 @@ class ExecutorAgent:
             
             self.log("\n" + "="*60, "blue")
             self.log(f"\n🏁 Execution Finished. Report: {self.execution_path}", "green", attrs=["bold"])
+            
+            # ✅ Print Performance Comparison
+            self._print_performance_summary()
 
-    async def execute_step(self, page: Page, step: Dict, scenario_name: str) -> Dict:
+    async def execute_step(self, page: Page, step: Dict, scenario_name: str, step_index: int = 0) -> Dict:
         keyword = step["keyword"]
         # Compatibility handling: args vs arguments
         args = step.get("args") or step.get("arguments", {})
         locators = step.get("locators", [])
-        step_id = step.get("id") # Use get() to enable fallback if missing
-        if not step_id:
-             step_id = "unknown"
         
-        description = args.get("description") or f"Step {step_id}"
-        self.log(f"  ▶️ [STEP {step_id}] {keyword.upper()}: {description}", "white")
+        # ✅ Better step ID handling
+        step_id = step.get("id") or f"step_{step_index}"
+        
+        description = args.get("description") or f"{keyword.upper()}"
+        self.log(f"  ▶️  [STEP {step_id}] {keyword.upper()}: {description}", "white")
         
         # 1. Resolve Dynamic Data
         resolved_args = {k: DataGenerator.resolve(v) for k, v in args.items()}
         
-        # 2. Extract best selector from mined locators
+        # 2. ✅ Enhanced: Extract best selector from mined locators using stability score
         best_selector = None
         if locators:
-            # Sort candidates by priority (lower is better)
-            candidate_selectors = sorted(locators, key=lambda x: x.get("priority", 5))
+            # Sort by stability_score (if exists, from exploration) or confidence
+            candidate_selectors = sorted(
+                locators,
+                key=lambda x: (
+                    x.get("stability_score", x.get("confidence", 0)),  # Primary: stability/confidence
+                    -x.get("priority", 5)  # Secondary: priority (lower is better, so negate)
+                ),
+                reverse=True  # Higher stability/confidence first
+            )
             
-            # Simple validation loop
-            for candidate in candidate_selectors:
+            self.log(f"    🔍 Trying {len(candidate_selectors)} validated locators from golden path...", "cyan")
+            
+            # ✅ Try each validated locator with detailed logging
+            for idx, candidate in enumerate(candidate_selectors):
                 sel_value = candidate["value"]
+                method = candidate.get("method", "unknown")
+                confidence = candidate.get("confidence", 0.0)
+                stability = candidate.get("stability_score", confidence)
+                
                 try:
-                    if await page.locator(sel_value).count() > 0:
+                    count = await page.locator(sel_value).count()
+                    if count == 1:
                         best_selector = sel_value
-                        self.log(f"    🎯 Using mined locator: {best_selector}", "cyan")
+                        self.log(
+                            f"    ✅ SUCCESS! Locator #{idx+1}: {sel_value[:60]}... "
+                            f"(method: {method}, stability: {stability:.2f})",
+                            "green"
+                        )
                         break
-                except:
+                    elif count > 1:
+                        self.log(
+                            f"    ⚠️  Locator #{idx+1} matched {count} elements (need exactly 1): {sel_value[:40]}...",
+                            "yellow"
+                        )
+                    elif count == 0:
+                        self.log(
+                            f"    ❌ Locator #{idx+1} found 0 elements: {sel_value[:40]}...",
+                            "grey"
+                        )
+                except Exception as e:
+                    self.log(
+                        f"    ⚠️  Locator #{idx+1} error: {str(e)[:50]}...",
+                        "grey"
+                    )
                     continue
             
             if not best_selector:
-                self.log("    ⚠️ Mined locators not found on page. Falling back to semantic search.", "yellow")
+                self.log("    ⚠️  All golden path locators failed. Will try text-based fallback.", "yellow")
+                self.perf_stats["golden_path_misses"] += 1
+            else:
+                self.perf_stats["golden_path_hits"] += 1
+        else:
+            # No mined locators - using fallback from start
+            self.perf_stats["fallback_used"] += 1
+        
+        # Track total steps
+        self.perf_stats["total_steps"] += 1
 
         # 3. Execution with AI Healing Loop
         for attempt in range(self.max_retries):
@@ -239,6 +295,9 @@ class ExecutorAgent:
                 # ... other keywords mapping ...
                 
                 self.log(f"    ✅ Step {step_id} Passed.", "green")
+                # ✅ Track first-attempt success
+                if attempt == 0:
+                    self.perf_stats["first_attempt_success"] += 1
                 return {"id": step_id, "status": "passed", "attempt": attempt + 1}
                 
             except Exception as e:
@@ -249,10 +308,15 @@ class ExecutorAgent:
                 if attempt == self.max_retries - 1:
                     self.log(f"    💀 Step {step_id} failed after all retries.", "red", attrs=["bold"])
                     self.failure_kb.record_failure(scenario_name, step_id, description, str(e))
+                    # ✅ Track final failure
+                    self.perf_stats["final_failures"] += 1
                     return {"id": step_id, "status": "failed", "error": str(e), "error_type": error_type.value}
                 
                 # --- AI HEALING TRIGGER ---
                 self.log(f"    🔧 [AUTO-HEAL] Re-mining page to find '{description}'...", "magenta")
+                # ✅ Track healing attempt
+                self.perf_stats["required_healing"] += 1
+                
                 # Capture fresh mindmap
                 description = resolved_args.get("description") or keyword
                 new_selector = await self.heal_step(page, step, description, scenario_name, keyword)
@@ -263,6 +327,74 @@ class ExecutorAgent:
                 else:
                     self.log("    ❌ AI could not re-locate the element. Waiting 1s before next retry.", "yellow")
                     await asyncio.sleep(1)
+    
+    def _print_performance_summary(self):
+        """Print executor performance metrics and compare with golden path expectations."""
+        self.log("\n" + "="*60, "blue")
+        self.log("📊 EXECUTOR PERFORMANCE SUMMARY", "blue", attrs=["bold"])
+        self.log("="*60, "blue")
+        
+        total = self.perf_stats["total_steps"]
+        first_success = self.perf_stats["first_attempt_success"]
+        healing = self.perf_stats["required_healing"]
+        failures = self.perf_stats["final_failures"]
+        
+        golden_hits = self.perf_stats["golden_path_hits"]
+        golden_misses = self.perf_stats["golden_path_misses"]
+        fallback = self.perf_stats["fallback_used"]
+        
+        if total > 0:
+            first_success_rate = (first_success / total) * 100
+            healing_rate = (healing / total) * 100
+            failure_rate = (failures / total) * 100
+        else:
+            first_success_rate = 0
+            healing_rate = 0
+            failure_rate = 0
+        
+        # Golden Path Effectiveness
+        golden_total = golden_hits + golden_misses
+        if golden_total > 0:
+            golden_hit_rate = (golden_hits / golden_total) * 100
+        else:
+            golden_hit_rate = 0
+        
+        self.log(f"\n🎯 Execution Results:", "cyan")
+        self.log(f"   • Total Steps: {total}")
+        self.log(f"   • First-Attempt Success: {first_success} ({first_success_rate:.1f}%)", "green" if first_success_rate >= 90 else "yellow")
+        self.log(f"   • Required AI Healing: {healing} ({healing_rate:.1f}%)", "yellow" if healing > 0 else "green")
+        self.log(f"   • Final Failures: {failures} ({failure_rate:.1f}%)", "red" if failures > 0 else "green")
+        
+        self.log(f"\n🛤️  Golden Path Effectiveness:", "cyan")
+        self.log(f"   • Steps with Mined Locators: {golden_total}")
+        self.log(f"   • Golden Path Hits: {golden_hits} ({golden_hit_rate:.1f}%)", "green" if golden_hit_rate >= 90 else "yellow")
+        self.log(f"   • Golden Path Misses: {golden_misses}", "yellow" if golden_misses > 0 else "green")
+        self.log(f"   • Fallback Used (No Locators): {fallback}", "yellow" if fallback > 0 else "green")
+        
+        # Overall Assessment
+        self.log(f"\n📈 Overall Assessment:", "cyan")
+        if first_success_rate >= 90 and golden_hit_rate >= 90:
+            self.log(f"   🌟 EXCELLENT! Golden path is working perfectly.", "green")
+        elif first_success_rate >= 75 and golden_hit_rate >= 75:
+            self.log(f"   ✅ GOOD! Most steps following golden path successfully.", "green")
+        elif first_success_rate >= 60 and golden_hit_rate >= 60:
+            self.log(f"   ⚠️  FAIR. Golden path needs improvement.", "yellow")
+        else:
+            self.log(f"   ❌ POOR. Golden path is not effective. Explorer may need better locator mining.", "red")
+        
+        # Comparison with target
+        self.log(f"\n🎯 vs Target (100% Flawless):", "cyan")
+        if first_success_rate >= 100:
+            self.log(f"   ✅ TARGET ACHIEVED! 100% first-attempt success!", "green")
+        else:
+            gap = 100 - first_success_rate
+            self.log(f"   📊 Gap: {gap:.1f}% from target", "yellow" if gap <= 25 else "red")
+            if golden_misses > 0:
+                self.log(f"   💡 Recommendation: Review {golden_misses} golden path misses", "cyan")
+            if fallback > 0:
+                self.log(f"   💡 Recommendation: Explorer needs to mine locators for {fallback} steps", "cyan")
+        
+        self.log("\n" + "="*60, "blue")
 
     async def heal_step(self, page: Page, step: Dict, description: str, scenario_name: str = "", keyword: str = "") -> Optional[str]:
         """Vision-centric healing when execution fails. Returns the best new selector."""
