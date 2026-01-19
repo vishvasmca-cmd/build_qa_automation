@@ -87,7 +87,8 @@ class DeepExplorerAgent:
             method = loc.get("method", "")
             
             # Rule 1: Minimum confidence threshold
-            if confidence < 0.75:
+            # 🐛 FIX: Lowered from 0.75 to 0.65 to accept generic selectors (0.60)
+            if confidence < 0.65:
                 self.perf_stats["total_locators_filtered_out"] += 1
                 self.perf_stats["filtering_reasons"]["low_confidence"] += 1
                 self.log(f"      ⚠️ Skipping low-confidence locator ({confidence:.2f}): {selector[:50]}...", "yellow")

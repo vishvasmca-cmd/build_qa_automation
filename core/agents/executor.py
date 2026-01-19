@@ -222,6 +222,8 @@ class ExecutorAgent:
                 
                 try:
                     count = await page.locator(sel_value).count()
+                    
+                    # 🐛 FIX Bug #3: Validate uniqueness (exactly 1 match)
                     if count == 1:
                         best_selector = sel_value
                         self.log(
@@ -235,6 +237,18 @@ class ExecutorAgent:
                             f"    ⚠️  Locator #{idx+1} matched {count} elements (need exactly 1): {sel_value[:40]}...",
                             "yellow"
                         )
+                        # 🐛 FIX Bug #3: Try making it more specific
+                        if count == 2:
+                            # Try .first
+                            specific_selector = f"({sel_value}).first"
+                            try:
+                                specific_count = await page.locator(specific_selector).count()
+                                if specific_count == 1:
+                                    best_selector = specific_selector
+                                    self.log(f"    🔧 Made specific: {specific_selector[:40]}...", "cyan")
+                                    break
+                            except:
+                                pass
                     elif count == 0:
                         self.log(
                             f"    ❌ Locator #{idx+1} found 0 elements: {sel_value[:40]}...",
