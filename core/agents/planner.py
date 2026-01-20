@@ -81,7 +81,7 @@ class PlannerAgent:
     
     def _create_fallback_workflow(self, goal: str, base_url: str) -> dict:
         """Create a simple fallback workflow when LLM fails to parse."""
-        print(colored(f"   \ud83d\udd27 Creating simple fallback scenario from goal: {goal[:50]}...\", \"yellow\"))
+        print(colored(f"   🔧 Creating simple fallback scenario from goal: {goal[:50]}...", "yellow"))
         
         # Parse goal for basic keywords
         goal_lower = goal.lower()
