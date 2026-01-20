@@ -31,7 +31,13 @@ class PlannerAgent:
         self.llm = SafeLLM(
             model="gemini-2.0-flash",
             temperature=0.0,
-            model_kwargs={"response_mime_type": "application/json"}
+            model_kwargs={
+                "response_mime_type": "application/json",
+                # 🔧 FIX: Limit output tokens to prevent parsing failures
+                # Normal: 2000 tokens = ~1-2 scenarios
+                # Deep mode will override to 4000 in plan_goal()
+                "max_output_tokens": 2000
+            }
         )
 
     def _load_workflow(self) -> Dict:

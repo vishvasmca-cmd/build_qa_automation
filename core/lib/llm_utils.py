@@ -61,12 +61,17 @@ class SafeLLM:
         self.model_name = model
         self.temperature = temperature
         
-        # Capture model_kwargs (like response_mime_type)
+        # Capture model_kwargs (like response_mime_type, max_output_tokens)
         self.config = {"temperature": temperature}
         if "model_kwargs" in kwargs:
             self.config.update(kwargs["model_kwargs"])
         elif "response_mime_type" in kwargs:
              self.config["response_mime_type"] = kwargs["response_mime_type"]
+        
+        # 🔧 FIX: Add default max_output_tokens if not specified
+        # Prevents overly large responses that cause JSON parsing failures
+        if "max_output_tokens" not in self.config:
+            self.config["max_output_tokens"] = 4096  # Reasonable default
         
         # Initialize LLM cache
         self.cache = LLMCache()
