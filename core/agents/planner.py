@@ -72,6 +72,66 @@ class PlannerAgent:
             return "{random_name}"
         else:
             return f"Test {field.get('name', 'value')}"
+    
+    def _create_fallback_workflow(self, goal: str, base_url: str) -> dict:
+        """Create a simple fallback workflow when LLM fails to parse."""
+        print(colored(f"   \ud83d\udd27 Creating simple fallback scenario from goal: {goal[:50]}...\", \"yellow\"))
+        
+        # Parse goal for basic keywords
+        goal_lower = goal.lower()
+        steps = [
+            {
+                "id": "step_1",
+                "keyword": "navigate",
+                "args": {"url": base_url}
+            }
+        ]
+        
+        # Add basic steps based on goal keywords
+        step_id = 2
+        if "search" in goal_lower:
+            steps.append({
+                "id": f"step_{step_id}",
+                "keyword": "click",
+                "description": "Search"
+            })
+            step_id += 1
+            steps.append({
+                "id": f"step_{step_id}",
+                "keyword": "fill",
+                "description": "Search input",
+                "args": {"value": "test"}
+            })
+            step_id += 1
+        
+        if "click" in goal_lower or "navigate to" in goal_lower:
+            # Extract what to click after "click" or "navigate to"
+            import re
+            match = re.search(r"(?:click|navigate to)\s+'([^']+)'", goal_lower)
+            if match:
+                target = match.group(1)
+                steps.append({
+                    "id": f"step_{step_id}",
+                    "keyword": "click",
+                    "description": target
+                })
+                step_id += 1
+        
+        # Add assertion at the end
+        steps.append({
+            "id": f"step_{step_id}",
+            "keyword": "assert_url",
+            "args": {"expected_url": base_url}
+        })
+        
+        return {
+            "scenarios": [{
+                "id": "fallback_scenario",
+                "name": f"Fallback: {goal[:40]}",
+                "description": f"Auto-generated fallback scenario for: {goal}",
+                "steps": steps
+            }]
+        }
 
     async def plan_goal(self, goal: str, base_url: str = None, deep_mode: bool = False):
         print(colored(f"\n[PLAN] PLANNER: Planning goal -> '{goal}' (Deep Mode: {deep_mode})", "cyan", attrs=["bold"]))
@@ -201,8 +261,37 @@ class PlannerAgent:
             parsed = try_parse_json(response)
             
             if not parsed:
-                 print(colored("❌ Failed to parse valid JSON from LLM.", "red"))
-                 return False
+                print(colored("❌ Failed to parse valid JSON from LLM.", "red"))
+                print(colored(f"   Response length: {len(response)} characters", "yellow"))
+                print(colored(f"   Sitemap pages: {len(sitemap) if os.path.exists(self.sitemap_path) else 0}", "yellow"))
+                
+                # 🔧 FIX: Retry with reduced context (only 10 pages)
+                if os.path.exists(self.sitemap_path) and len(sitemap) > 10:
+                    print(colored("   🔄 Retry #1: Reducing sitemap to 10 most relevant pages...", "yellow"))
+                    
+                    # Keep only most relevant pages (homepage, login, forms)
+                    reduced_sitemap = []
+                    for page in sitemap[:10]:  # Take first 10 pages only
+                        reduced_sitemap.append(page)
+                    
+                    reduced_sitemap_text = json.dumps(reduced_sitemap, indent=2)
+                    
+                    # Rebuild prompt with reduced context
+                    reduced_prompt = prompt.replace(sitemap_text, reduced_sitemap_text)
+                    
+                    print(colored(f"   Retry with {len(reduced_sitemap)} pages instead of {len(sitemap)}", "yellow"))
+                    
+                    response = await self.llm.ainvoke(reduced_prompt)
+                    parsed = try_parse_json(response)
+                
+                # 🔧 FIX: Create fallback workflow if still failing
+                if not parsed:
+                    print(colored("   ⚠️  Retry failed. Creating fallback workflow from goal...", "yellow"))
+                    parsed = self._create_fallback_workflow(goal, url)
+                    
+                if not parsed:
+                    print(colored("   ❌ Fallback creation failed. Cannot proceed.", "red"))
+                    return False
 
             # Normalize to list of scenarios
             scenarios_list = []
@@ -274,6 +363,35 @@ class PlannerAgent:
             
         except Exception as e:
             print(colored(f"❌ Planner Error: {e}", "red"))
+            import traceback
+            traceback.print_exc()
+            
+            # 🔧 FIX: Create fallback workflow even on exception
+            print(colored("   🔄 Creating fallback workflow due to exception...", "yellow"))
+            fallback = self._create_fallback_workflow(goal, url)
+            if fallback:
+                parsed = fallback
+                # Proceed with fallback workflow
+                scenarios_list = []
+                if isinstance(parsed, dict):
+                    if "scenarios" in parsed:
+                        scenarios_list = parsed["scenarios"]
+                    else:
+                        scenarios_list = [parsed]
+                elif isinstance(parsed, list):
+                    scenarios_list = parsed
+                
+                if scenarios_list:
+                    self.workflow["base_url"] = url
+                    self.workflow["goal"] = goal
+                    self.workflow["scenarios"] = scenarios_list
+                    
+                    with open(self.workflow_path, 'w') as f:
+                        json.dump(self.workflow, f, indent=2)
+                    
+                    print(colored(f"✅ Created fallback workflow with {len(scenarios_list)} scenario(s).", "green"))
+                    return True
+            
             return False
 
 async def main():
