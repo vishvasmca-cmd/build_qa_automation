@@ -347,9 +347,23 @@ class DeepExplorerAgent:
                 sanitized_steps = []
                 steps_source = scenario_source.get("steps", [])
                 
-                self.log(f"\n📝 Processing scenario '{existing.get('name')}' with {len(steps_source)} steps", "cyan")
+                # 🐛 FIX: Filter out AI-injected steps that were marked as invalid/skipped
+                filtered_steps = []
+                for step in steps_source:
+                    step_id = step.get("id", "")
+                    is_ai_step = "_ai_" in str(step_id)
+                    is_skipped = step.get("skipped", False)
+                    is_invalid = step.get("invalid", False)
+                    
+                    if is_ai_step and (is_skipped or is_invalid):
+                        self.log(f"    🗑️ Filtered AI step '{step_id}' (skipped={is_skipped}, invalid={is_invalid})", "grey")
+                        continue
+                    
+                    filtered_steps.append(step)
                 
-                for idx, step in enumerate(steps_source):
+                self.log(f"\n📝 Processing scenario '{existing.get('name')}' with {len(filtered_steps)} steps (filtered {len(steps_source) - len(filtered_steps)} invalid AI steps)", "cyan")
+                
+                for idx, step in enumerate(filtered_steps):
                     new_step = step.copy()
                     
                     # Normalize args vs arguments

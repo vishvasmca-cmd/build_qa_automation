@@ -55,6 +55,7 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
     # Normalize description for matching
     desc_lower = description.lower().strip()
     desc_clean = re.sub(r'[^a-z0-9\s]', '', desc_lower)  # Remove special chars
+    desc_with_separators = description.lower().strip()  # Keep underscores/dashes for technical IDs
     
     # === CRITICAL FIX: Detect CSS selectors to avoid parsing errors ===
     is_css_selector = (
@@ -69,6 +70,22 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
     
     # === STRATEGIES ===
     
+    # Strategy 0: Try description as-is (for technical IDs like "shopping_cart_container")
+    if not is_css_selector and ('_' in description or '-' in description):
+        # Looks like a technical ID/class, try it directly
+        for prefix in ['#', '.', '']:
+            sel = f"{prefix}{desc_with_separators}"
+            try:
+                count = await page.locator(sel).count()
+                if debug:
+                    prefix_label = prefix if prefix else 'tag'
+                    print(f"      [0] as-is-{prefix_label}: '{sel}' → {count} matches")
+                if count == 1:
+                    candidates.append({"selector": sel, "confidence": 0.95, "method": f"as-is-{prefix or 'tag'}", "count": 1})
+            except Exception as e:
+                if debug:
+                    print(f"      [0] as-is: ERROR - {str(e)[:50]}")
+    
     # Strategy 1 & 2: Role Locators and generic ordinals
     if not is_css_selector:
         # Ordinal generic
@@ -76,14 +93,19 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
         if ordinal_selector:
             try:
                 base_part = ordinal_selector.split(" >> ")[0]
-                if await page.locator(base_part).count() >= 1:
+                count = await page.locator(base_part).count()
+                if debug:
+                    print(f"      [1] ordinal-generic: '{ordinal_selector}' → {count} matches")
+                if count >= 1:
                     candidates.append({
                         "selector": ordinal_selector,
                         "confidence": 0.88,
                         "method": "ordinal-generic",
                         "count": 1
                     })
-            except: pass
+            except Exception as e:
+                if debug:
+                    print(f"      [1] ordinal-generic: ERROR - {str(e)[:50]}")
             
         # Role mappings
         role_mappings = {
@@ -95,12 +117,27 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
             if any(kw in desc_lower for kw in keywords):
                 # Exact
                 sel = f"role={role}[name='{description}' i]"
-                if await page.locator(sel).count() == 1:
-                    candidates.append({"selector": sel, "confidence": 0.96, "method": f"role-{role}-exact", "count": 1})
+                try:
+                    count = await page.locator(sel).count()
+                    if debug:
+                        print(f"      [2] role-{role}-exact: '{sel}' → {count} matches")
+                    if count == 1:
+                        candidates.append({"selector": sel, "confidence": 0.96, "method": f"role-{role}-exact", "count": 1})
+                except Exception as e:
+                    if debug:
+                        print(f"      [2] role-{role}-exact: ERROR - {str(e)[:50]}")
+                
                 # Partial
                 sel = f"role={role}[name*='{description}' i]"
-                if await page.locator(sel).count() == 1:
-                    candidates.append({"selector": sel, "confidence": 0.93, "method": f"role-{role}-partial", "count": 1})
+                try:
+                    count = await page.locator(sel).count()
+                    if debug:
+                        print(f"      [3] role-{role}-partial: '{sel}' → {count} matches")
+                    if count == 1:
+                        candidates.append({"selector": sel, "confidence": 0.93, "method": f"role-{role}-partial", "count": 1})
+                except Exception as e:
+                    if debug:
+                        print(f"      [3] role-{role}-partial: ERROR - {str(e)[:50]}")
     
     # Strategy 3: Hardcoded e-commerce first-item (legacy)
     if any(kw in desc_lower for kw in ["first", "product", "item"]):
@@ -109,22 +146,32 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
              ".product:first-of-type button", "[data-index='0'] button"
         ]
         for sel in ecommerce_selectors:
-            if await page.locator(sel).count() == 1:
+            count = await page.locator(sel).count()
+            if debug:
+                print(f"      [4] ecommerce-first-item: '{sel}' → {count} matches")
+            if count == 1:
                 candidates.append({"selector": sel, "confidence": 0.90, "method": "ecommerce-first-item", "count": 1})
                 
     # Strategy 4: data-testid
     for attr in ["data-testid", "data-test"]:
         # Exact
         sel = f"[{attr}='{desc_clean}']"
-        if await page.locator(sel).count() == 1:
+        count = await page.locator(sel).count()
+        if debug:
+            print(f"      [5] {attr}-exact: '{sel}' → {count} matches")
+        if count == 1:
             candidates.append({"selector": sel, "confidence": 0.98, "method": f"{attr}-exact", "count": 1})
         # Partial
         sel = f"[{attr}*='{desc_clean}']"
-        if await page.locator(sel).count() == 1:
+        count = await page.locator(sel).count()
+        if debug:
+            print(f"      [6] {attr}-partial: '{sel}' → {count} matches")
+        if count == 1:
             candidates.append({"selector": sel, "confidence": 0.95, "method": f"{attr}-partial", "count": 1})
 
     # Strategy 5: ID exact/partial
     id_variations = [
+        desc_with_separators,  # Try original with underscores/dashes first
         desc_clean.replace(' ', '_'),
         desc_clean.replace(' ', '-'),
         desc_clean.replace(' ', ''),
@@ -133,16 +180,24 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
     for id_var in id_variations:
         if id_var:
             sel = f"#{id_var}"
-            if await page.locator(sel).count() == 1:
+            count = await page.locator(sel).count()
+            if debug:
+                print(f"      [7] id-exact: '{sel}' → {count} matches")
+            if count == 1:
                 candidates.append({"selector": sel, "confidence": 0.92, "method": "id-exact", "count": 1})
                 
     sel = f"[id*='{desc_clean}']"
     count = await page.locator(sel).count()
+    if debug:
+        print(f"      [8] id-partial: '{sel}' → {count} matches")
     if count == 1:
         candidates.append({"selector": sel, "confidence": 0.85, "method": "id-partial", "count": 1})
     elif count > 1:
         sel_vis = f"{sel}:visible"
-        if await page.locator(sel_vis).count() == 1:
+        count_vis = await page.locator(sel_vis).count()
+        if debug:
+            print(f"      [9] id-partial-visible: '{sel_vis}' → {count_vis} matches")
+        if count_vis == 1:
              candidates.append({"selector": sel_vis, "confidence": 0.88, "method": "id-partial-visible", "count": 1})
              
     # Strategy 6: Context Containers
@@ -161,11 +216,16 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
     for attr, conf in attr_map.items():
         sel = f"[{attr}*='{desc_clean}' i]" if attr == "name" else f"[{attr}*='{description}' i]"
         count = await page.locator(sel).count()
+        if debug:
+            print(f"      [10] {attr}: '{sel}' → {count} matches")
         if count == 1:
             candidates.append({"selector": sel, "confidence": conf, "method": attr, "count": 1})
         elif count > 1:
             sel_vis = f"{sel}:visible"
-            if await page.locator(sel_vis).count() == 1:
+            count_vis = await page.locator(sel_vis).count()
+            if debug:
+                print(f"      [11] {attr}-visible: '{sel_vis}' → {count_vis} matches")
+            if count_vis == 1:
                 candidates.append({"selector": sel_vis, "confidence": conf - 0.02, "method": f"{attr}-visible", "count": 1})
 
     # Strategy 10: Label association
@@ -188,13 +248,20 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
         try:
             sel = f"{tag}:text-is('{description}')"
             count = await page.locator(sel).count()
+            if debug:
+                print(f"      [12] {tag}-text-is: '{sel}' → {count} matches")
             if count == 1:
                 candidates.append({"selector": sel, "confidence": 0.88, "method": f"{tag}-text-is", "count": 1})
             elif count > 1:
                 sel_vis = f"{sel}:visible"
-                if await page.locator(sel_vis).count() == 1:
+                count_vis = await page.locator(sel_vis).count()
+                if debug:
+                    print(f"      [13] {tag}-text-is-visible: '{sel_vis}' → {count_vis} matches")
+                if count_vis == 1:
                     candidates.append({"selector": sel_vis, "confidence": 0.86, "method": f"{tag}-text-is-visible", "count": 1})
-        except: pass
+        except Exception as e:
+            if debug:
+                print(f"      [12] {tag}-text-is: ERROR - {str(e)[:50]}")
         
     # Strategy 11c: Exact placeholder/name
     try:

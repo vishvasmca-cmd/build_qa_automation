@@ -774,6 +774,18 @@ class ExplorerAgent:
                             is_duplicate = False 
                             
                             if not is_duplicate:
+                                # 🐛 FIX: Validate that target element exists before injecting
+                                can_inject = await self._validate_ai_step_target(page, next_suggestion)
+                                
+                                if not can_inject:
+                                    self.log(
+                                        f"    ⚠️ Skipping AI step '{next_suggestion['action']} -> {next_suggestion.get('target')}': "
+                                        f"Target element not found in current page state (likely moved to next page).",
+                                        "yellow"
+                                    )
+                                    i += 1
+                                    continue
+                                
                                 # Inject AI-suggested step with clean ID
                                 if "_ai_" in str(step_id):
                                     parts = str(step_id).split("_ai_")
@@ -1666,6 +1678,51 @@ class ExplorerAgent:
         except Exception as e:
             self.log(f"      ⚠️ Error validating suggestion relevance: {e}", "grey")
             return True  # Accept if validation fails
+
+    async def _validate_ai_step_target(self, page: Page, suggestion: Dict) -> bool:
+        """
+        🐛 FIX: Validate that the target element for an AI-suggested step exists in the current page.
+        
+        This prevents injecting steps that target elements from previous pages 
+        (e.g., login form fields after already logged in).
+        
+        Returns:
+            bool: True if the element exists and step can be injected, False otherwise
+        """
+        action = suggestion.get("action", "")
+        target = suggestion.get("target", "")
+        locator_hint = suggestion.get("locator", "")
+        
+        # Skip validation for navigation and assert steps
+        if action in ["navigate", "assert_url", "assert_visible", "screenshot", "done"]:
+            return True
+        
+        # For fill/click actions, verify the element exists
+        if action in ["fill", "click", "press"]:
+            if not locator_hint:
+                # No locator provided - allow fallback mining
+                return True
+            
+            try:
+                # Check if the AI-suggested locator exists
+                count = await page.locator(locator_hint).count()
+                if count == 0:
+                    self.log(f"    🔍 AI suggested locator '{locator_hint}' not found (0 elements)", "grey")
+                    return False
+                elif count > 1:
+                    self.log(f"    🔍 AI suggested locator '{locator_hint}' matched {count} elements (ambiguous)", "grey")
+                    # Still allow - mining will refine it
+                    return True
+                else:
+                    self.log(f"    ✓ AI suggested locator '{locator_hint}' validated (1 element found)", "grey")
+                    return True
+            except Exception as e:
+                # Locator syntax error or page closed
+                self.log(f"    ⚠️ Error validating AI locator: {str(e)[:50]}", "grey")
+                return False
+        
+        # For other actions, allow injection
+        return True
 
 
 async def main():

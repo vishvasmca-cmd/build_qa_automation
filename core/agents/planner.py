@@ -54,14 +54,18 @@ class PlannerAgent:
     def _parse_sitemap(self, sitemap: List[Dict]) -> Dict:
         """Parse sitemap into structured knowledge."""
         knowledge = {"pages_by_type": {}, "user_flows": [], "form_endpoints": []}
-        for page in sitemap:
+        
+        # Filter out unknown pages
+        useful_pages = [page for page in sitemap if page.get("page_type") != "unknown"]
+        
+        for page in useful_pages:
             page_type = page.get("page_type", "other")
             if page_type not in knowledge["pages_by_type"]:
                 knowledge["pages_by_type"][page_type] = []
             knowledge["pages_by_type"][page_type].append(page)
         if "product_detail" in knowledge["pages_by_type"]:
             knowledge["user_flows"].append({"name": "E-commerce Shopping Flow", "type": "ecommerce"})
-        for page in sitemap:
+        for page in useful_pages:
             if page.get("forms"):
                 knowledge["form_endpoints"].append(page)
         return knowledge
@@ -247,6 +251,13 @@ class PlannerAgent:
         - Step 1 MUST be: navigate("{url}")
         - DO NOT use placeholder URLs like "example.com", "banking application", or "application homepage"
         - ONLY use the actual base URL: {url}
+        
+        **DESCRIPTION QUALITY RULES:**
+        - ✅ GOOD: Use user-facing text like "Cart", "Login", "Search", "Add to Cart"
+        - ❌ BAD: Do NOT use technical IDs like "shopping_cart_container", "btn_login", "search_input"
+        - ✅ GOOD: "Continue", "Checkout", "Submit"
+        - ❌ BAD: "continue_button", "checkout-btn", "submit_form"
+        - The "description" field should be what a user SEES, not what developers NAME elements
         
         **RESPONSE FORMAT (JSON):**
         Use "args" (not "arguments") for parameters.
