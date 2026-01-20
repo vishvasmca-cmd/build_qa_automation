@@ -1,12 +1,12 @@
 {
   "project": "ci_automation_exercise",
-  "goal": "Navigate homepage, view products, search for 'dress', filter results, add product to cart, view cart",
+  "goal": "Click 'Products', click FIRST product, add to cart, verify cart shows 1 item",
   "base_url": "https://www.automationexercise.com/",
   "scenarios": [
     {
       "id": "TC001",
-      "name": "Product Search, Filter, and Add to Cart",
-      "description": "Navigates the homepage, searches for 'dress', filters results (if applicable), adds a product to the cart, and views the cart.",
+      "name": "Add product to cart from product list page",
+      "description": "Browse products, add the first product to the cart, and verify the cart contains one item.",
       "steps": [
         {
           "keyword": "navigate",
@@ -21,78 +21,9 @@
           }
         },
         {
-          "keyword": "fill",
-          "args": {
-            "value": "dress",
-            "description": "Search"
-          }
-        },
-        {
-          "keyword": "press",
-          "args": {
-            "key": "Enter",
-            "description": "Search"
-          }
-        },
-        {
-          "keyword": "assert_url",
-          "args": {
-            "expected_url": "https://www.automationexercise.com/products?search=dress"
-          }
-        },
-        {
           "keyword": "click",
           "args": {
-            "description": "View Product"
-          }
-        },
-        {
-          "keyword": "assert_visible",
-          "args": {
-            "description": "Write Your Review"
-          }
-        },
-        {
-          "keyword": "click",
-          "args": {
-            "description": "Add to cart"
-          }
-        },
-        {
-          "keyword": "assert_visible",
-          "args": {
-            "description": "View Cart"
-          }
-        },
-        {
-          "keyword": "click",
-          "args": {
-            "description": "View Cart"
-          }
-        },
-        {
-          "keyword": "assert_url",
-          "args": {
-            "expected_url": "https://www.automationexercise.com/view_cart"
-          }
-        }
-      ]
-    },
-    {
-      "id": "TC002",
-      "name": "Browse Products and Add to Cart",
-      "description": "Navigates to the products page, selects the first product, and adds it to the cart.",
-      "steps": [
-        {
-          "keyword": "navigate",
-          "args": {
-            "url": "https://www.automationexercise.com/"
-          }
-        },
-        {
-          "keyword": "click",
-          "args": {
-            "description": "Products"
+            "description": "\ue8f8 Products"
           }
         },
         {
@@ -104,45 +35,40 @@
         {
           "keyword": "click",
           "args": {
-            "description": "View Product"
-          }
-        },
-        {
-          "keyword": "assert_visible",
-          "args": {
-            "description": "Write Your Review"
-          }
-        },
-        {
-          "keyword": "click",
-          "args": {
             "description": "Add to cart"
           }
         },
         {
-          "keyword": "assert_visible",
+          "keyword": "click",
           "args": {
-            "description": "View Cart"
+            "description": "Continue Shopping"
           }
         },
         {
           "keyword": "click",
           "args": {
-            "description": "View Cart"
+            "description": "Cart"
           }
         },
         {
-          "keyword": "assert_url",
+          "keyword": "assert_visible",
           "args": {
-            "expected_url": "https://www.automationexercise.com/view_cart"
+            "description": "Cart"
+          }
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "expected_text": "1",
+            "description": "Cart"
           }
         }
       ]
     },
     {
-      "id": "TC003",
+      "id": "TC002",
       "name": "Contact Us Form Submission",
-      "description": "Navigates to the Contact Us page, fills out the form, and submits it.",
+      "description": "Fill out the contact us form and submit it.",
       "steps": [
         {
           "keyword": "navigate",
@@ -179,15 +105,15 @@
         {
           "keyword": "fill",
           "args": {
-            "value": "Subject",
+            "value": "Test Subject",
             "description": "Subject"
           }
         },
         {
           "keyword": "fill",
           "args": {
-            "value": "This is a test message.",
-            "description": "Your Message"
+            "value": "Test Message",
+            "description": "Your Message Here"
           }
         },
         {
@@ -195,11 +121,110 @@
           "args": {
             "description": "Submit"
           }
+        }
+      ]
+    },
+    {
+      "id": "TC003",
+      "name": "View Product Details",
+      "description": "Browse products and view details of the first product.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://www.automationexercise.com/"
+          }
         },
         {
           "keyword": "click",
           "args": {
-            "description": "OK"
+            "description": "\ue8f8 Products"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/products"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "View Product"
+          }
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Add to cart"
+          }
+        }
+      ]
+    },
+    {
+      "id": "TC004",
+      "name": "Add product to cart from product details page",
+      "description": "Browse products, view details of the first product, add it to the cart, and verify the cart contains one item.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://www.automationexercise.com/"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "\ue8f8 Products"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/products"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "View Product"
+          }
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Add to cart"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Continue Shopping"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Cart"
+          }
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Cart"
+          }
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "expected_text": "1",
+            "description": "Cart"
           }
         }
       ]

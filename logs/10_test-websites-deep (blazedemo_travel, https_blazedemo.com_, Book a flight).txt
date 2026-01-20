@@ -1,0 +1,1224 @@
+﻿2026-01-20T00:02:41.9359572Z Current runner version: '2.331.0'
+2026-01-20T00:02:41.9383706Z ##[group]Runner Image Provisioner
+2026-01-20T00:02:41.9384749Z Hosted Compute Agent
+2026-01-20T00:02:41.9385343Z Version: 20251211.462
+2026-01-20T00:02:41.9385998Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-20T00:02:41.9386796Z Build Date: 2025-12-11T16:28:49Z
+2026-01-20T00:02:41.9387451Z Worker ID: {dcc396f2-da05-4355-a751-b69f01f0b5de}
+2026-01-20T00:02:41.9388181Z ##[endgroup]
+2026-01-20T00:02:41.9388772Z ##[group]Operating System
+2026-01-20T00:02:41.9389352Z Ubuntu
+2026-01-20T00:02:41.9389838Z 24.04.3
+2026-01-20T00:02:41.9390273Z LTS
+2026-01-20T00:02:41.9390998Z ##[endgroup]
+2026-01-20T00:02:41.9391541Z ##[group]Runner Image
+2026-01-20T00:02:41.9392043Z Image: ubuntu-24.04
+2026-01-20T00:02:41.9392658Z Version: 20260111.209.1
+2026-01-20T00:02:41.9393679Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-20T00:02:41.9395248Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-20T00:02:41.9396269Z ##[endgroup]
+2026-01-20T00:02:41.9397412Z ##[group]GITHUB_TOKEN Permissions
+2026-01-20T00:02:41.9399211Z Contents: read
+2026-01-20T00:02:41.9399795Z Metadata: read
+2026-01-20T00:02:41.9400429Z Packages: read
+2026-01-20T00:02:41.9401203Z ##[endgroup]
+2026-01-20T00:02:41.9403687Z Secret source: Actions
+2026-01-20T00:02:41.9404507Z Prepare workflow directory
+2026-01-20T00:02:41.9789830Z Prepare all required actions
+2026-01-20T00:02:41.9827608Z Getting action download info
+2026-01-20T00:02:42.3535514Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-20T00:02:42.4938177Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-20T00:02:42.5774662Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-20T00:02:42.8037640Z Complete job name: test-websites-deep (blazedemo_travel, https://blazedemo.com/, Book a flight)
+2026-01-20T00:02:42.8788423Z ##[group]Run actions/checkout@v4
+2026-01-20T00:02:42.8789371Z with:
+2026-01-20T00:02:42.8789887Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-20T00:02:42.8790952Z   token: ***
+2026-01-20T00:02:42.8791405Z   ssh-strict: true
+2026-01-20T00:02:42.8791843Z   ssh-user: git
+2026-01-20T00:02:42.8792288Z   persist-credentials: true
+2026-01-20T00:02:42.8792780Z   clean: true
+2026-01-20T00:02:42.8793231Z   sparse-checkout-cone-mode: true
+2026-01-20T00:02:42.8793757Z   fetch-depth: 1
+2026-01-20T00:02:42.8794187Z   fetch-tags: false
+2026-01-20T00:02:42.8794639Z   show-progress: true
+2026-01-20T00:02:42.8795081Z   lfs: false
+2026-01-20T00:02:42.8795498Z   submodules: false
+2026-01-20T00:02:42.8796003Z   set-safe-directory: true
+2026-01-20T00:02:42.8796765Z ##[endgroup]
+2026-01-20T00:02:42.9960222Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-20T00:02:42.9963501Z ##[group]Getting Git version info
+2026-01-20T00:02:42.9965215Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-20T00:02:42.9967438Z [command]/usr/bin/git version
+2026-01-20T00:02:43.0015556Z git version 2.52.0
+2026-01-20T00:02:43.0043761Z ##[endgroup]
+2026-01-20T00:02:43.0070051Z Temporarily overriding HOME='/home/runner/work/_temp/e61c828e-1509-4887-9766-553489737965' before making global git config changes
+2026-01-20T00:02:43.0073146Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-20T00:02:43.0076256Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-20T00:02:43.0126384Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-20T00:02:43.0131023Z ##[group]Initializing the repository
+2026-01-20T00:02:43.0137497Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-20T00:02:43.0271431Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-20T00:02:43.0273929Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-20T00:02:43.0275882Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-20T00:02:43.0277315Z hint: call:
+2026-01-20T00:02:43.0278064Z hint:
+2026-01-20T00:02:43.0279141Z hint: 	git config --global init.defaultBranch <name>
+2026-01-20T00:02:43.0280374Z hint:
+2026-01-20T00:02:43.0281783Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-20T00:02:43.0283652Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-20T00:02:43.0285161Z hint:
+2026-01-20T00:02:43.0285993Z hint: 	git branch -m <name>
+2026-01-20T00:02:43.0286945Z hint:
+2026-01-20T00:02:43.0288207Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-20T00:02:43.0290517Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-20T00:02:43.0294549Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-20T00:02:43.0328969Z ##[endgroup]
+2026-01-20T00:02:43.0329764Z ##[group]Disabling automatic garbage collection
+2026-01-20T00:02:43.0333210Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-20T00:02:43.0363077Z ##[endgroup]
+2026-01-20T00:02:43.0363804Z ##[group]Setting up auth
+2026-01-20T00:02:43.0370011Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-20T00:02:43.0401132Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-20T00:02:43.0763349Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-20T00:02:43.0793748Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-20T00:02:43.1016345Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-20T00:02:43.1050769Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-20T00:02:43.1278509Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-20T00:02:43.1312992Z ##[endgroup]
+2026-01-20T00:02:43.1314451Z ##[group]Fetching the repository
+2026-01-20T00:02:43.1323033Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +d25504decfc404871c7c3bd5ac186d61498b2813:refs/remotes/origin/main
+2026-01-20T00:02:44.4611994Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-20T00:02:44.4613956Z  * [new ref]         d25504decfc404871c7c3bd5ac186d61498b2813 -> origin/main
+2026-01-20T00:02:44.4646326Z ##[endgroup]
+2026-01-20T00:02:44.4648258Z ##[group]Determining the checkout info
+2026-01-20T00:02:44.4650893Z ##[endgroup]
+2026-01-20T00:02:44.4654779Z [command]/usr/bin/git sparse-checkout disable
+2026-01-20T00:02:44.4699610Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-20T00:02:44.4728151Z ##[group]Checking out the ref
+2026-01-20T00:02:44.4732186Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-20T00:02:44.6307173Z Switched to a new branch 'main'
+2026-01-20T00:02:44.6308954Z branch 'main' set up to track 'origin/main'.
+2026-01-20T00:02:44.6329198Z ##[endgroup]
+2026-01-20T00:02:44.6368894Z [command]/usr/bin/git log -1 --format=%H
+2026-01-20T00:02:44.6391563Z d25504decfc404871c7c3bd5ac186d61498b2813
+2026-01-20T00:02:44.6728226Z ##[group]Run actions/setup-python@v5
+2026-01-20T00:02:44.6729441Z with:
+2026-01-20T00:02:44.6730256Z   python-version: 3.11
+2026-01-20T00:02:44.6731352Z   cache: pip
+2026-01-20T00:02:44.6732199Z   check-latest: false
+2026-01-20T00:02:44.6733694Z   token: ***
+2026-01-20T00:02:44.6734585Z   update-environment: true
+2026-01-20T00:02:44.6735646Z   allow-prereleases: false
+2026-01-20T00:02:44.6736710Z   freethreaded: false
+2026-01-20T00:02:44.6737632Z ##[endgroup]
+2026-01-20T00:02:44.8432125Z ##[group]Installed versions
+2026-01-20T00:02:44.8545639Z Successfully set up CPython (3.11.14)
+2026-01-20T00:02:44.8548650Z ##[endgroup]
+2026-01-20T00:02:44.9827071Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-20T00:02:46.5494926Z /home/runner/.cache/pip
+2026-01-20T00:02:46.7676248Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-20T00:02:48.0043902Z Received 37748736 of 254742636 (14.8%), 35.9 MBs/sec
+2026-01-20T00:02:49.0055349Z Received 180355072 of 254742636 (70.8%), 85.8 MBs/sec
+2026-01-20T00:02:49.4549193Z Received 254742636 of 254742636 (100.0%), 99.0 MBs/sec
+2026-01-20T00:02:49.4549857Z Cache Size: ~243 MB (254742636 B)
+2026-01-20T00:02:49.4664757Z [command]/usr/bin/tar -xf /home/runner/work/_temp/26a449c9-acd2-49d8-befb-86ee3a31a474/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-20T00:02:49.8260310Z Cache restored successfully
+2026-01-20T00:02:49.8752970Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-20T00:02:49.8982698Z ##[group]Run pip install -r requirements.txt
+2026-01-20T00:02:49.8983117Z [36;1mpip install -r requirements.txt[0m
+2026-01-20T00:02:49.8983416Z [36;1mplaywright install chromium[0m
+2026-01-20T00:02:49.9022779Z shell: /usr/bin/bash -e {0}
+2026-01-20T00:02:49.9023035Z env:
+2026-01-20T00:02:49.9023301Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:02:49.9023739Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-20T00:02:49.9024158Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:02:49.9024542Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:02:49.9024916Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:02:49.9025289Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-20T00:02:49.9025598Z ##[endgroup]
+2026-01-20T00:02:51.0101442Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-20T00:02:51.0119393Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-20T00:02:51.0433413Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-20T00:02:51.0448842Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-20T00:02:51.0862393Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-20T00:02:51.0877837Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-20T00:02:51.3571463Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-20T00:02:51.3589376Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-20T00:02:51.3985346Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-20T00:02:51.4000384Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-20T00:02:51.4325148Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-20T00:02:51.4340872Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-20T00:02:51.4840124Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-20T00:02:51.4857693Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-20T00:02:51.5588757Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-20T00:02:51.5606858Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-20T00:02:51.7682010Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-20T00:02:51.7697458Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-20T00:02:51.8611752Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-20T00:02:51.8627504Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-20T00:02:51.8940251Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-20T00:02:51.8954567Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-20T00:02:52.0291247Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-20T00:02:52.0308630Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-20T00:02:52.0645140Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-20T00:02:52.0659175Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-20T00:02:52.1622172Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-20T00:02:52.1637774Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-20T00:02:52.1936356Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-20T00:02:52.1950182Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-20T00:02:52.2369587Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-20T00:02:52.2389941Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-20T00:02:52.2741998Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-20T00:02:52.2755750Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-20T00:02:52.3107165Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.3121094Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-20T00:02:52.3646382Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.3660929Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-20T00:02:52.4054424Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.4068411Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-20T00:02:52.5633885Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.5648684Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-20T00:02:52.6053194Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.6066987Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-20T00:02:52.7059700Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.7076277Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-20T00:02:52.7362026Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.7377968Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-20T00:02:52.7617096Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.7631312Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-20T00:02:52.8046121Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.8059248Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-20T00:02:52.8351023Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.8364908Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-20T00:02:52.8783052Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.8797145Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-20T00:02:52.9085909Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.9099155Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-20T00:02:52.9356569Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:52.9369754Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-20T00:02:53.5916612Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:53.5932168Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-20T00:02:53.6212501Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:53.6226639Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-20T00:02:53.7082483Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:02:53.7097825Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-20T00:02:53.7371659Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-20T00:02:53.7714268Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-20T00:02:53.7731638Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-20T00:02:53.7745381Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-20T00:02:53.7758583Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-20T00:02:53.7772926Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-20T00:02:53.7786452Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-20T00:02:53.7799446Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-20T00:02:53.7813562Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-20T00:02:53.7875085Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-20T00:02:53.7892508Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-20T00:02:53.7905737Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-20T00:02:53.7918644Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-20T00:02:53.7932774Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-20T00:02:53.7945499Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-20T00:02:53.7958401Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-20T00:02:53.7974276Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-20T00:02:53.8000475Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-20T00:02:53.8013441Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-20T00:02:53.8026251Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-20T00:02:53.8039641Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-20T00:02:53.8053006Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-20T00:02:53.8065883Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-20T00:02:53.8083925Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-20T00:02:53.8531894Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-20T00:02:53.8662528Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-20T00:02:53.8689916Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-20T00:02:53.8703755Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-20T00:02:53.8717587Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-20T00:02:53.8730842Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-20T00:02:53.8744284Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-20T00:02:53.8757935Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-20T00:02:53.8770518Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-20T00:02:54.0909207Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-20T00:03:00.7653104Z 
+2026-01-20T00:03:00.7675180Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-20T00:03:01.3746415Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-20T00:03:01.4701627Z (node:2187) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-20T00:03:01.4703122Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-20T00:03:01.5865012Z |                                                                                |   0% of 164.7 MiB
+2026-01-20T00:03:01.7551235Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-20T00:03:01.8400095Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-20T00:03:01.9155240Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-20T00:03:01.9783117Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-20T00:03:02.0415421Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-20T00:03:02.1061069Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-20T00:03:02.1644292Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-20T00:03:02.2159422Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-20T00:03:02.2722142Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-20T00:03:02.3379703Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-20T00:03:04.8076639Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-20T00:03:04.8082010Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-20T00:03:04.9058952Z (node:2198) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-20T00:03:04.9060268Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-20T00:03:05.0053904Z |                                                                                |   0% of 2.3 MiB
+2026-01-20T00:03:05.0457700Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-20T00:03:05.0621726Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-20T00:03:05.0742124Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-20T00:03:05.0787451Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-20T00:03:05.0822428Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-20T00:03:05.0913211Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-20T00:03:05.0936717Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-20T00:03:05.0957917Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-20T00:03:05.0979755Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-20T00:03:05.0992119Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-20T00:03:05.1557901Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-20T00:03:05.1561437Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-20T00:03:05.2512207Z (node:2209) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-20T00:03:05.2513513Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-20T00:03:05.3589315Z |                                                                                |   0% of 109.7 MiB
+2026-01-20T00:03:05.4896092Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-20T00:03:05.5511763Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-20T00:03:05.5965976Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-20T00:03:05.6449465Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-20T00:03:05.6956865Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-20T00:03:05.7402676Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-20T00:03:05.7830374Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-20T00:03:05.8205443Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-20T00:03:05.8601952Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-20T00:03:05.8976352Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-20T00:03:07.7532880Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-20T00:03:07.7773921Z ##[group]Run mkdir -p projects/ci_blazedemo_travel
+2026-01-20T00:03:07.7774377Z [36;1mmkdir -p projects/ci_blazedemo_travel[0m
+2026-01-20T00:03:07.7774775Z [36;1mcat > projects/ci_blazedemo_travel/config.json << 'EOF'[0m
+2026-01-20T00:03:07.7775112Z [36;1m{[0m
+2026-01-20T00:03:07.7775339Z [36;1m  "project_name": "ci_blazedemo_travel",[0m
+2026-01-20T00:03:07.7775682Z [36;1m  "target_url": "https://blazedemo.com/",[0m
+2026-01-20T00:03:07.7775989Z [36;1m  "goal": "Book a flight",[0m
+2026-01-20T00:03:07.7776240Z [36;1m  "headless": true[0m
+2026-01-20T00:03:07.7776457Z [36;1m}[0m
+2026-01-20T00:03:07.7776625Z [36;1mEOF[0m
+2026-01-20T00:03:07.7808560Z shell: /usr/bin/bash -e {0}
+2026-01-20T00:03:07.7808807Z env:
+2026-01-20T00:03:07.7809064Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:03:07.7809503Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-20T00:03:07.7809961Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:03:07.7810334Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:03:07.7810846Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:03:07.7811226Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-20T00:03:07.7811540Z ##[endgroup]
+2026-01-20T00:03:07.7919611Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-20T00:03:07.7920111Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-20T00:03:07.7920823Z [36;1mpython orchestrator.py --project projects/ci_blazedemo_travel --deep --force[0m
+2026-01-20T00:03:07.7951700Z shell: /usr/bin/bash -e {0}
+2026-01-20T00:03:07.7951942Z env:
+2026-01-20T00:03:07.7952206Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:03:07.7952644Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-20T00:03:07.7953069Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:03:07.7953446Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:03:07.7953984Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:03:07.7954357Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-20T00:03:07.7954862Z   GOOGLE_API_KEY: ***
+2026-01-20T00:03:07.7955103Z   PYTHONPATH: .
+2026-01-20T00:03:07.7955291Z ##[endgroup]
+2026-01-20T00:03:09.6888994Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-20T00:03:09.6889530Z 
+2026-01-20T00:03:09.6890176Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://blazedemo.com/ (Workers: 3)
+2026-01-20T00:03:10.9980435Z   🔍 [Worker 0] Visiting (0): https://blazedemo.com/
+2026-01-20T00:03:12.8641161Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-20T00:03:12.8642040Z [DEBUG] Received response (Length: 182)
+2026-01-20T00:03:12.8643165Z   🔍 [Worker 1] Visiting (1): https://blazedemo.com/vacation.html
+2026-01-20T00:03:12.8651249Z   🔍 [Worker 2] Visiting (1): https://blazedemo.com/home
+2026-01-20T00:03:12.8673150Z   🔍 [Worker 0] Visiting (1): https://blazedemo.com/index.php
+2026-01-20T00:03:17.9254799Z [CACHE HIT] fd8b1a4c... (hits: 1, misses: 1)
+2026-01-20T00:03:17.9255487Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-20T00:03:17.9256265Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-20T00:03:17.9256830Z [DEBUG] Received response (Length: 154)
+2026-01-20T00:03:17.9257277Z [DEBUG] Received response (Length: 213)
+2026-01-20T00:03:17.9258198Z   🔍 [Worker 0] Visiting (2): https://blazedemo.com/register
+2026-01-20T00:03:17.9276967Z   🔍 [Worker 1] Visiting (2): https://blazedemo.com/login
+2026-01-20T00:03:17.9288194Z   🔍 [Worker 2] Visiting (2): https://blazedemo.com/password/reset
+2026-01-20T00:03:18.3799133Z [CACHE HIT] 6403e8b6... (hits: 2, misses: 4)
+2026-01-20T00:03:18.3800166Z   🔍 [Worker 1] Visiting (2): https://blazedemo.com
+2026-01-20T00:03:22.8283039Z [CACHE HIT] fd8b1a4c... (hits: 3, misses: 5)
+2026-01-20T00:03:22.8283782Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-20T00:03:22.8284653Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-20T00:03:22.8285336Z [DEBUG] Received response (Length: 87)
+2026-01-20T00:03:22.8285854Z [DEBUG] Received response (Length: 215)
+2026-01-20T00:03:22.8286705Z ✅ Discovery Complete. Mapped 8 pages.
+2026-01-20T00:03:31.3832953Z 
+2026-01-20T00:03:31.3833557Z [PLAN] PLANNER: Planning goal -> 'Book a flight' (Deep Mode: True)
+2026-01-20T00:03:31.3834281Z 🗺️ [PLAN] Loaded Sitemap with 8 pages.
+2026-01-20T00:03:31.3834725Z 📊 [KNOWLEDGE] Page types: ['homepage', 'unknown', 'login']
+2026-01-20T00:03:31.3835142Z 🔄 [KNOWLEDGE] Flows: 0, Forms: 7
+2026-01-20T00:03:31.3836167Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-20T00:03:31.3837161Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-20T00:03:31.3837569Z [DEBUG] Received response (Length: 2918)
+2026-01-20T00:03:31.3838001Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-20T00:03:32.4365191Z 
+2026-01-20T00:03:32.4366185Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-20T00:03:32.4367571Z 📋 Found 3 scenarios to explore.
+2026-01-20T00:03:32.8057449Z 
+2026-01-20T00:03:32.8058221Z [1/3] Exploring Scenario: Book a flight from Paris to London
+2026-01-20T00:03:32.8059799Z     🧠 Initialized exploration context for goal: 'This scenario covers the main user flow of booking a flight from Paris to London.'
+2026-01-20T00:03:32.8061179Z     🎯 Scenario: Book a flight from Paris to London
+2026-01-20T00:03:32.8068315Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-20T00:03:34.5214095Z     ✅ Navigated to https://blazedemo.com/
+2026-01-20T00:03:34.5214984Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-20T00:03:39.5537550Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-20T00:03:41.5559958Z     ✅ State transitioned.
+2026-01-20T00:03:42.9992364Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:03:42.9993393Z [DEBUG] Received response (Length: 225)
+2026-01-20T00:03:42.9994238Z     🤖 AI Next Step Suggestion: fill -> departure city
+2026-01-20T00:03:42.9994917Z     🧩 Suggested Locator: select[name='fromPort']
+2026-01-20T00:03:42.9995555Z     💭 Reasoning: The goal is to book a flight from Paris to London. Need to select Paris as the departure city.
+2026-01-20T00:03:42.9996136Z     ➕ Injected AI step: fill -> departure city
+2026-01-20T00:03:42.9996487Z   ▶️ [STEP step_2_ai_1] FILL: departure city
+2026-01-20T00:03:43.0058978Z     🎯 Using AI-provided locator: select[name='fromPort']
+2026-01-20T00:03:43.0132737Z     ✅ Found 1 verified locators
+2026-01-20T00:03:48.4827955Z     ✅ State transitioned.
+2026-01-20T00:03:50.1294550Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:03:50.1295314Z [DEBUG] Received response (Length: 320)
+2026-01-20T00:03:50.1296253Z     🤖 AI Next Step Suggestion: fill -> destination city
+2026-01-20T00:03:50.1297028Z     🧩 Suggested Locator: select[name='toPort']
+2026-01-20T00:03:50.1299258Z     💭 Reasoning: The goal is to book a flight from Paris to London. The departure city (Paris) has already been selected. Now, the destination city (London) needs to be selected from the 'toPort' dropdown.
+2026-01-20T00:03:50.1301556Z     ➕ Injected AI step: fill -> destination city
+2026-01-20T00:03:50.1302348Z   ▶️ [STEP step_2_ai_2] FILL: destination city
+2026-01-20T00:03:50.1361078Z     🎯 Using AI-provided locator: select[name='toPort']
+2026-01-20T00:03:50.1427334Z     ✅ Found 1 verified locators
+2026-01-20T00:03:56.0423424Z     ✅ State transitioned.
+2026-01-20T00:03:57.5948202Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:03:57.5948888Z [DEBUG] Received response (Length: 247)
+2026-01-20T00:03:57.5949671Z     🤖 AI Next Step Suggestion: click -> input
+2026-01-20T00:03:57.5951335Z     💭 Reasoning: After selecting the departure and destination cities, the next logical step is to find flights. The input element is likely a 'Find Flights' button.
+2026-01-20T00:03:57.5952714Z     ➕ Injected AI step: click -> input
+2026-01-20T00:03:57.5953047Z   ▶️ [STEP step_2_ai_3] CLICK: input
+2026-01-20T00:03:57.6010971Z     🔍 Mining locators for: 'input'
+2026-01-20T00:03:57.6415537Z     🧠 Consulting AI (Vision-First) to find 'input'...
+2026-01-20T00:03:57.6447287Z     🔍 Trying smart selectors for 'input'...
+2026-01-20T00:03:57.7301409Z     🔍 [SMART] Searching for: 'input' (trying 15+ strategies)
+2026-01-20T00:03:57.7302615Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:03:57.7304723Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:04:02.4699540Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:02.4700200Z [DEBUG] Received response (Length: 308)
+2026-01-20T00:04:02.4701979Z     💡 Expert Suggestion: The current page only allows selecting departure and destination cities. An input field for booking a flight is likely on the 'home' page or a dedicated 'book flight' page.
+2026-01-20T00:04:02.4703187Z     🛠️ Executing corrective action: click -> 'home'
+2026-01-20T00:04:04.5236425Z     ✅ Executed corrective navigation
+2026-01-20T00:04:06.5253877Z     🔄 Retry 1/3 mining locators for 'input'...
+2026-01-20T00:04:07.5654736Z     🧠 Consulting AI (Vision-First) to find 'input'...
+2026-01-20T00:04:07.5655466Z     🔍 Trying smart selectors for 'input'...
+2026-01-20T00:04:07.6547441Z     🔍 [SMART] Searching for: 'input' (trying 15+ strategies)
+2026-01-20T00:04:07.6548370Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:07.6549346Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:04:09.8374439Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:09.8377530Z [DEBUG] Received response (Length: 565)
+2026-01-20T00:04:09.8378314Z     ⚠️ Critical step failure: 'priority'
+2026-01-20T00:04:09.8378901Z   ▶️ [STEP step_3] SELECT: fromPort
+2026-01-20T00:04:09.8425321Z     🔍 Mining locators for: 'fromPort'
+2026-01-20T00:04:09.8815574Z     🧠 Consulting AI (Vision-First) to find 'fromPort'...
+2026-01-20T00:04:09.8816359Z     🔍 Trying smart selectors for 'fromPort'...
+2026-01-20T00:04:09.9625443Z     🔍 [SMART] Searching for: 'fromPort' (trying 15+ strategies)
+2026-01-20T00:04:09.9626398Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:09.9628276Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:04:13.9583783Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:13.9584788Z [DEBUG] Received response (Length: 254)
+2026-01-20T00:04:13.9587012Z     💡 Expert Suggestion: The 'fromPort' is not visible on the login page. It is likely on the registration page or a page after logging in.
+2026-01-20T00:04:13.9589016Z     🛠️ Executing corrective action: click -> 'Register'
+2026-01-20T00:04:15.0086374Z     ✅ Executed corrective navigation
+2026-01-20T00:04:17.0111722Z     🔄 Retry 1/3 mining locators for 'fromPort'...
+2026-01-20T00:04:18.0467643Z     🧠 Consulting AI (Vision-First) to find 'fromPort'...
+2026-01-20T00:04:18.0468362Z     🔍 Trying smart selectors for 'fromPort'...
+2026-01-20T00:04:18.1386723Z     🔍 [SMART] Searching for: 'fromPort' (trying 15+ strategies)
+2026-01-20T00:04:18.1387747Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:18.1389404Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:04:19.4582245Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:19.4582998Z [DEBUG] Received response (Length: 229)
+2026-01-20T00:04:19.4584298Z     💡 Expert Suggestion: The 'fromPort' is part of the flight booking process, which usually starts after logging in.
+2026-01-20T00:04:19.4585226Z     🛠️ Executing corrective action: click -> 'Login'
+2026-01-20T00:04:21.4291114Z     ✅ Executed corrective navigation
+2026-01-20T00:04:23.4314469Z     🔄 Retry 2/3 mining locators for 'fromPort'...
+2026-01-20T00:04:24.4328121Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:04:24.4635301Z     🧠 Consulting AI (Vision-First) to find 'fromPort'...
+2026-01-20T00:04:24.4635946Z     🔍 Trying smart selectors for 'fromPort'...
+2026-01-20T00:04:24.5537425Z     🔍 [SMART] Searching for: 'fromPort' (trying 15+ strategies)
+2026-01-20T00:04:24.5538314Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:24.5540126Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:04:25.9614203Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:25.9617311Z [DEBUG] Received response (Length: 254)
+2026-01-20T00:04:25.9617990Z     ⚠️ Skipping duplicate injection: Register
+2026-01-20T00:04:25.9618483Z     🧠 Verifying step validity for 'fromPort' after no candidates found...
+2026-01-20T00:04:31.1723810Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:31.1724566Z [DEBUG] Received response (Length: 275)
+2026-01-20T00:04:31.1727424Z     🗑️ Step deemed INVALID: The current page is the login page. The 'fromPort' element, which is a dropdown for selecting a departure city, is not present on this page. It appears on the flight selection page after logging in or registering.. Removing from workflow.
+2026-01-20T00:04:31.1730011Z     ⏭️ Skipping execution of invalid step: fromPort
+2026-01-20T00:04:31.1731333Z   ▶️ [STEP step_4] SELECT: toPort
+2026-01-20T00:04:31.1784175Z     🔍 Mining locators for: 'toPort'
+2026-01-20T00:04:31.2137306Z     🧠 Consulting AI (Vision-First) to find 'toPort'...
+2026-01-20T00:04:31.2138125Z     🔍 Trying smart selectors for 'toPort'...
+2026-01-20T00:04:31.2921566Z     🔍 [SMART] Searching for: 'toPort' (trying 15+ strategies)
+2026-01-20T00:04:31.2922489Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:31.2923686Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:04:36.0343879Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:36.0344423Z [DEBUG] Received response (Length: 343)
+2026-01-20T00:04:36.0346540Z     💡 Expert Suggestion: The 'toPort' field is not visible on the login page. It is likely on the registration page or a page accessible after logging in. Navigating to the registration page might reveal the flight booking form.
+2026-01-20T00:04:36.0347961Z     🛠️ Executing corrective action: click -> 'Register'
+2026-01-20T00:04:38.0402224Z     ✅ Executed corrective navigation
+2026-01-20T00:04:40.0425593Z     🔄 Retry 1/3 mining locators for 'toPort'...
+2026-01-20T00:04:41.0799852Z     🧠 Consulting AI (Vision-First) to find 'toPort'...
+2026-01-20T00:04:41.0800525Z     🔍 Trying smart selectors for 'toPort'...
+2026-01-20T00:04:41.1705521Z     🔍 [SMART] Searching for: 'toPort' (trying 15+ strategies)
+2026-01-20T00:04:41.1706469Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:41.1708150Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:04:42.8823096Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:42.8823626Z [DEBUG] Received response (Length: 227)
+2026-01-20T00:04:42.8824508Z     💡 Expert Suggestion: The 'toPort' is part of the flight booking process, which usually starts after logging in.
+2026-01-20T00:04:42.8825144Z     🛠️ Executing corrective action: click -> 'Login'
+2026-01-20T00:04:44.2670042Z     ✅ Executed corrective navigation
+2026-01-20T00:04:46.2702636Z     🔄 Retry 2/3 mining locators for 'toPort'...
+2026-01-20T00:04:47.2716595Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:04:47.3124408Z     🧠 Consulting AI (Vision-First) to find 'toPort'...
+2026-01-20T00:04:47.3125201Z     🔍 Trying smart selectors for 'toPort'...
+2026-01-20T00:04:47.3986383Z     🔍 [SMART] Searching for: 'toPort' (trying 15+ strategies)
+2026-01-20T00:04:47.3987429Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:47.3989441Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:04:47.3991727Z [CACHE HIT] 020046ad... (hits: 1, misses: 11)
+2026-01-20T00:04:47.3992351Z     ⚠️ Skipping duplicate injection: Register
+2026-01-20T00:04:47.3993359Z     🧠 Verifying step validity for 'toPort' after no candidates found...
+2026-01-20T00:04:48.7297645Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:48.7298335Z [DEBUG] Received response (Length: 251)
+2026-01-20T00:04:48.7299813Z     🗑️ Step deemed INVALID: The current page is the login page. The 'toPort' element is part of the flight booking form, which is not present on this page. Therefore, attempting to interact with 'toPort' is not valid.. Removing from workflow.
+2026-01-20T00:04:48.7301167Z     ⏭️ Skipping execution of invalid step: toPort
+2026-01-20T00:04:48.7301514Z   ▶️ [STEP step_5] CLICK: Find Flights
+2026-01-20T00:04:48.7353501Z     🔍 Mining locators for: 'Find Flights'
+2026-01-20T00:04:48.7629445Z     🧠 Consulting AI (Vision-First) to find 'Find Flights'...
+2026-01-20T00:04:48.7630333Z     🔍 Trying smart selectors for 'Find Flights'...
+2026-01-20T00:04:48.8552644Z     🔍 [SMART] Searching for: 'Find Flights' (trying 15+ strategies)
+2026-01-20T00:04:48.8553702Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:48.8554719Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:04:53.6991750Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:53.6992544Z [DEBUG] Received response (Length: 286)
+2026-01-20T00:04:53.6994643Z     💡 Expert Suggestion: The 'Find Flights' functionality is likely available after registering or logging in. Since we are on the login page, let's try registering first.
+2026-01-20T00:04:53.6996400Z     🛠️ Executing corrective action: click -> 'Register'
+2026-01-20T00:04:55.2888093Z     ✅ Executed corrective navigation
+2026-01-20T00:04:57.2912080Z     🔄 Retry 1/3 mining locators for 'Find Flights'...
+2026-01-20T00:04:58.3302104Z     🧠 Consulting AI (Vision-First) to find 'Find Flights'...
+2026-01-20T00:04:58.3302943Z     🔍 Trying smart selectors for 'Find Flights'...
+2026-01-20T00:04:58.4290241Z     🔍 [SMART] Searching for: 'Find Flights' (trying 15+ strategies)
+2026-01-20T00:04:58.4291335Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:58.4292297Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:04:59.5972564Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:59.5973280Z [DEBUG] Received response (Length: 207)
+2026-01-20T00:04:59.5974501Z     💡 Expert Suggestion: The 'Find Flights' functionality is likely available after logging in.
+2026-01-20T00:04:59.5975562Z     🛠️ Executing corrective action: click -> 'Login'
+2026-01-20T00:05:00.4314224Z     ✅ Executed corrective navigation
+2026-01-20T00:05:02.4347049Z     🔄 Retry 2/3 mining locators for 'Find Flights'...
+2026-01-20T00:05:03.4360205Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:05:03.4790072Z     🧠 Consulting AI (Vision-First) to find 'Find Flights'...
+2026-01-20T00:05:03.4791199Z     🔍 Trying smart selectors for 'Find Flights'...
+2026-01-20T00:05:03.5767183Z     🔍 [SMART] Searching for: 'Find Flights' (trying 15+ strategies)
+2026-01-20T00:05:03.5768228Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:05:03.5769204Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:05:03.5771990Z [CACHE HIT] a1a8cb95... (hits: 2, misses: 14)
+2026-01-20T00:05:03.5772622Z     ⚠️ Skipping duplicate injection: Register
+2026-01-20T00:05:03.5773251Z     🧠 Verifying step validity for 'Find Flights' after no candidates found...
+2026-01-20T00:05:04.8570292Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:05:04.8571159Z [DEBUG] Received response (Length: 146)
+2026-01-20T00:05:04.8572930Z     🗑️ Step deemed INVALID: The 'Find Flights' button is not present on the login page. We need to log in first.. Removing from workflow.
+2026-01-20T00:05:04.8574417Z     ⏭️ Skipping execution of invalid step: Find Flights
+2026-01-20T00:05:04.8575146Z   ▶️ [STEP step_6] ASSERT_URL: 
+2026-01-20T00:05:09.8731318Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-20T00:05:11.8753525Z     ✅ State transitioned.
+2026-01-20T00:05:13.1465764Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:05:13.1466544Z [DEBUG] Received response (Length: 168)
+2026-01-20T00:05:13.1467389Z     🤖 AI Next Step Suggestion: fill -> E-Mail Address
+2026-01-20T00:05:13.1468132Z     🧩 Suggested Locator: #email
+2026-01-20T00:05:13.1468917Z     💭 Reasoning: Need to fill in the email address to login.
+2026-01-20T00:05:13.1470151Z     ➕ Injected AI step: fill -> E-Mail Address
+2026-01-20T00:05:13.1471125Z   ▶️ [STEP step_6_ai_1] FILL: E-Mail Address
+2026-01-20T00:05:13.1524588Z     🎯 Using AI-provided locator: #email
+2026-01-20T00:05:13.1580112Z     ✅ Found 1 verified locators
+2026-01-20T00:05:20.3589853Z     ✅ State transitioned.
+2026-01-20T00:05:21.9064938Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:05:21.9065699Z [DEBUG] Received response (Length: 187)
+2026-01-20T00:05:21.9066567Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-20T00:05:21.9067225Z     🧩 Suggested Locator: #password
+2026-01-20T00:05:21.9068301Z     💭 Reasoning: The email is already filled, now filling the password field to attempt login.
+2026-01-20T00:05:21.9069347Z     ➕ Injected AI step: fill -> Password
+2026-01-20T00:05:21.9070003Z   ▶️ [STEP step_6_ai_2] FILL: Password
+2026-01-20T00:05:21.9129412Z     🎯 Using AI-provided locator: #password
+2026-01-20T00:05:21.9191178Z     ✅ Found 1 verified locators
+2026-01-20T00:05:27.5603483Z     ✅ State transitioned.
+2026-01-20T00:05:29.0395443Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:05:29.0395990Z [DEBUG] Received response (Length: 225)
+2026-01-20T00:05:29.0396739Z     🤖 AI Next Step Suggestion: click -> Login
+2026-01-20T00:05:29.0397095Z     🧩 Suggested Locator: button
+2026-01-20T00:05:29.0397774Z     💭 Reasoning: The email and password fields have been filled. Clicking the 'Login' button is the next logical step to attempt to log in.
+2026-01-20T00:05:29.0398520Z       ❌ Rejected: Login action 'login' not relevant to scenario
+2026-01-20T00:05:29.0399073Z     ⚠️ AI suggestion 'click -> Login' not relevant for current page/scenario. Skipping.
+2026-01-20T00:05:31.0738999Z 
+2026-01-20T00:05:31.0740488Z [2/3] Exploring Scenario: Book a flight from Boston to New York
+2026-01-20T00:05:31.0743746Z     🧠 Initialized exploration context for goal: 'This scenario covers the main user flow of booking a flight from Boston to New York.'
+2026-01-20T00:05:31.0745029Z     🎯 Scenario: Book a flight from Boston to New York
+2026-01-20T00:05:31.0746862Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-20T00:05:33.8905655Z     ✅ Navigated to https://blazedemo.com/
+2026-01-20T00:05:33.8906351Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-20T00:05:38.9196625Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-20T00:05:40.9219486Z     ✅ State transitioned.
+2026-01-20T00:05:42.3822267Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:05:42.3823040Z [DEBUG] Received response (Length: 230)
+2026-01-20T00:05:42.3823976Z     🤖 AI Next Step Suggestion: fill -> departure city
+2026-01-20T00:05:42.3824784Z     🧩 Suggested Locator: select[name='fromPort']
+2026-01-20T00:05:42.3825949Z     💭 Reasoning: The goal is to book a flight from Boston to New York. Need to select Boston as the departure city.
+2026-01-20T00:05:42.3826955Z     ➕ Injected AI step: fill -> departure city
+2026-01-20T00:05:42.3827567Z   ▶️ [STEP step_2_ai_1] FILL: departure city
+2026-01-20T00:05:42.3888550Z     🎯 Using AI-provided locator: select[name='fromPort']
+2026-01-20T00:05:42.3959358Z     ✅ Found 1 verified locators
+2026-01-20T00:05:48.0860142Z     ✅ State transitioned.
+2026-01-20T00:05:49.6877208Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:05:49.6877970Z [DEBUG] Received response (Length: 300)
+2026-01-20T00:05:49.6878853Z     🤖 AI Next Step Suggestion: fill -> destination city
+2026-01-20T00:05:49.6879398Z     🧩 Suggested Locator: select[name='toPort']
+2026-01-20T00:05:49.6880482Z     💭 Reasoning: The next step is to select the destination city. The goal is to book a flight from Boston to New York, so I should select New York from the destination city dropdown.
+2026-01-20T00:05:49.6881675Z     ➕ Injected AI step: fill -> destination city
+2026-01-20T00:05:49.6882091Z   ▶️ [STEP step_2_ai_2] FILL: destination city
+2026-01-20T00:05:49.6936989Z     🎯 Using AI-provided locator: select[name='toPort']
+2026-01-20T00:05:49.6994127Z     ✅ Found 1 verified locators
+2026-01-20T00:05:55.2219257Z     ✅ State transitioned.
+2026-01-20T00:05:56.7250069Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:05:56.7251046Z [DEBUG] Received response (Length: 194)
+2026-01-20T00:05:56.7252053Z     🤖 AI Next Step Suggestion: click -> input
+2026-01-20T00:05:56.7253493Z     💭 Reasoning: After selecting the departure and destination cities, the next logical step is to find flights.
+2026-01-20T00:05:56.7254558Z     ➕ Injected AI step: click -> input
+2026-01-20T00:05:56.7255130Z   ▶️ [STEP step_2_ai_3] CLICK: input
+2026-01-20T00:05:56.7311347Z     🔍 Mining locators for: 'input'
+2026-01-20T00:05:56.7705373Z     🧠 Consulting AI (Vision-First) to find 'input'...
+2026-01-20T00:05:56.7706160Z     🔍 Trying smart selectors for 'input'...
+2026-01-20T00:05:56.8513998Z     🔍 [SMART] Searching for: 'input' (trying 15+ strategies)
+2026-01-20T00:05:56.8514890Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:05:56.8516182Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:06:01.6428471Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:06:01.6429165Z [DEBUG] Received response (Length: 262)
+2026-01-20T00:06:01.6431340Z     💡 Expert Suggestion: The current page only allows selecting from existing options. Navigating to the 'home' page might reveal a search input field.
+2026-01-20T00:06:01.6433076Z     🛠️ Executing corrective action: click -> 'home'
+2026-01-20T00:06:02.9838970Z     ✅ Executed corrective navigation
+2026-01-20T00:06:04.9857498Z     🔄 Retry 1/3 mining locators for 'input'...
+2026-01-20T00:06:06.0276324Z     🧠 Consulting AI (Vision-First) to find 'input'...
+2026-01-20T00:06:06.0277116Z     🔍 Trying smart selectors for 'input'...
+2026-01-20T00:06:06.1175293Z     🔍 [SMART] Searching for: 'input' (trying 15+ strategies)
+2026-01-20T00:06:06.1176306Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:06:06.1177320Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:06:07.8555399Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:06:07.8555897Z [DEBUG] Received response (Length: 307)
+2026-01-20T00:06:07.8556499Z     🔄 Retry 2/3 mining locators for 'input'...
+2026-01-20T00:06:08.8567934Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:06:08.8928955Z     🧠 Consulting AI (Vision-First) to find 'input'...
+2026-01-20T00:06:08.8929402Z     🔍 Trying smart selectors for 'input'...
+2026-01-20T00:06:08.9712952Z     🔍 [SMART] Searching for: 'input' (trying 15+ strategies)
+2026-01-20T00:06:08.9713878Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:06:08.9714908Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:06:08.9718040Z [CACHE HIT] 9ddef935... (hits: 3, misses: 23)
+2026-01-20T00:06:08.9718969Z     🧠 Verifying step validity for 'input' after mining failure...
+2026-01-20T00:06:12.4904952Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:06:12.4905951Z [DEBUG] Received response (Length: 199)
+2026-01-20T00:06:12.4907340Z     🛠️ Self-Correction: Step is valid. Using new locator: input[id='email']
+2026-01-20T00:06:16.5508015Z     ✅ State transitioned.
+2026-01-20T00:06:17.8933042Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:06:17.8933544Z [DEBUG] Received response (Length: 205)
+2026-01-20T00:06:17.8934264Z     🤖 AI Next Step Suggestion: fill -> E-Mail Address
+2026-01-20T00:06:17.8934770Z     🧩 Suggested Locator: #email
+2026-01-20T00:06:17.8935288Z     💭 Reasoning: The page is a login page, and the email field is visible and needs to be filled.
+2026-01-20T00:06:17.8935814Z     ➕ Injected AI step: fill -> E-Mail Address
+2026-01-20T00:06:17.8936160Z   ▶️ [STEP step_2_ai_4] FILL: E-Mail Address
+2026-01-20T00:06:17.8992696Z     🎯 Using AI-provided locator: #email
+2026-01-20T00:06:17.9049962Z     ✅ Found 1 verified locators
+2026-01-20T00:06:24.6805551Z     ✅ State transitioned.
+2026-01-20T00:06:26.3419564Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:06:26.3420240Z [DEBUG] Received response (Length: 204)
+2026-01-20T00:06:26.3421304Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-20T00:06:26.3421910Z     🧩 Suggested Locator: #password
+2026-01-20T00:06:26.3422624Z     💭 Reasoning: The email address is already filled. Now filling the password field to proceed with login.
+2026-01-20T00:06:26.3423174Z     ➕ Injected AI step: fill -> Password
+2026-01-20T00:06:26.3423509Z   ▶️ [STEP step_2_ai_5] FILL: Password
+2026-01-20T00:06:26.3484114Z     🎯 Using AI-provided locator: #password
+2026-01-20T00:06:26.3541391Z     ✅ Found 1 verified locators
+2026-01-20T00:06:31.9526728Z     ✅ State transitioned.
+2026-01-20T00:06:33.3595581Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:06:33.3596320Z [DEBUG] Received response (Length: 205)
+2026-01-20T00:06:33.3597196Z     🤖 AI Next Step Suggestion: click -> Login
+2026-01-20T00:06:33.3597829Z     🧩 Suggested Locator: button
+2026-01-20T00:06:33.3599179Z     💭 Reasoning: The email and password fields are filled, so the next logical step is to click the 'Login' button to attempt to log in.
+2026-01-20T00:06:33.3600847Z       ❌ Rejected: Login action 'login' not relevant to scenario
+2026-01-20T00:06:33.3601863Z     ⚠️ AI suggestion 'click -> Login' not relevant for current page/scenario. Skipping.
+2026-01-20T00:06:33.3602469Z   ▶️ [STEP step_3] SELECT: fromPort
+2026-01-20T00:06:33.3654786Z     🔍 Mining locators for: 'fromPort'
+2026-01-20T00:06:33.3921636Z     🧠 Consulting AI (Vision-First) to find 'fromPort'...
+2026-01-20T00:06:33.3923656Z     🔍 Trying smart selectors for 'fromPort'...
+2026-01-20T00:06:33.4719097Z     🔍 [SMART] Searching for: 'fromPort' (trying 15+ strategies)
+2026-01-20T00:06:33.4720166Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:06:33.4722209Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:06:38.3615619Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:06:38.3616564Z [DEBUG] Received response (Length: 289)
+2026-01-20T00:06:38.3618837Z     💡 Expert Suggestion: The 'fromPort' and 'toPort' fields are not visible on the login page. They are likely on the registration page or a page accessible after logging in.
+2026-01-20T00:06:38.3621113Z     🛠️ Executing corrective action: click -> 'Register'
+2026-01-20T00:06:39.3775838Z     ✅ Executed corrective navigation
+2026-01-20T00:06:41.3808181Z     🔄 Retry 1/3 mining locators for 'fromPort'...
+2026-01-20T00:06:42.4251359Z     🧠 Consulting AI (Vision-First) to find 'fromPort'...
+2026-01-20T00:06:42.4252176Z     🔍 Trying smart selectors for 'fromPort'...
+2026-01-20T00:06:42.5149926Z     🔍 [SMART] Searching for: 'fromPort' (trying 15+ strategies)
+2026-01-20T00:06:42.5150813Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:06:42.5151775Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:06:42.5153825Z [CACHE HIT] f67abec6... (hits: 4, misses: 28)
+2026-01-20T00:06:42.5155033Z     💡 Expert Suggestion: The 'fromPort' is part of the flight booking process, which usually starts after logging in.
+2026-01-20T00:06:42.5156205Z     🛠️ Executing corrective action: click -> 'Login'
+2026-01-20T00:06:43.5986167Z     ✅ Executed corrective navigation
+2026-01-20T00:06:45.6009316Z     🔄 Retry 2/3 mining locators for 'fromPort'...
+2026-01-20T00:06:46.6022205Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:06:46.6417564Z     🧠 Consulting AI (Vision-First) to find 'fromPort'...
+2026-01-20T00:06:46.6418348Z     🔍 Trying smart selectors for 'fromPort'...
+2026-01-20T00:06:46.7298413Z     🔍 [SMART] Searching for: 'fromPort' (trying 15+ strategies)
+2026-01-20T00:06:46.7299441Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:06:46.7301352Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:06:46.7302986Z [CACHE HIT] 59e3814f... (hits: 5, misses: 28)
+2026-01-20T00:06:46.7303628Z     ⚠️ Skipping duplicate injection: Register
+2026-01-20T00:06:46.7304318Z     🧠 Verifying step validity for 'fromPort' after no candidates found...
+2026-01-20T00:06:46.7307381Z [CACHE HIT] fa88209c... (hits: 6, misses: 28)
+2026-01-20T00:06:46.7309370Z     🗑️ Step deemed INVALID: The current page is the login page. The 'fromPort' element, which is a dropdown for selecting a departure city, is not present on this page. It appears on the flight selection page after logging in or registering.. Removing from workflow.
+2026-01-20T00:06:46.7310794Z     ⏭️ Skipping execution of invalid step: fromPort
+2026-01-20T00:06:46.7311151Z   ▶️ [STEP step_4] SELECT: toPort
+2026-01-20T00:06:46.7373569Z     🔍 Mining locators for: 'toPort'
+2026-01-20T00:06:46.7744670Z     🧠 Consulting AI (Vision-First) to find 'toPort'...
+2026-01-20T00:06:46.7745389Z     🔍 Trying smart selectors for 'toPort'...
+2026-01-20T00:06:46.8521787Z     🔍 [SMART] Searching for: 'toPort' (trying 15+ strategies)
+2026-01-20T00:06:46.8522892Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:06:46.8524662Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:06:46.8526332Z [CACHE HIT] 020046ad... (hits: 7, misses: 28)
+2026-01-20T00:06:46.8527845Z     💡 Expert Suggestion: The 'toPort' field is not visible on the login page. It is likely on the registration page or a page accessible after logging in. Navigating to the registration page might reveal the flight booking form.
+2026-01-20T00:06:46.8529003Z     🛠️ Executing corrective action: click -> 'Register'
+2026-01-20T00:06:47.8539001Z     ✅ Executed corrective navigation
+2026-01-20T00:06:49.8570961Z     🔄 Retry 1/3 mining locators for 'toPort'...
+2026-01-20T00:06:50.8920253Z     🧠 Consulting AI (Vision-First) to find 'toPort'...
+2026-01-20T00:06:50.8920913Z     🔍 Trying smart selectors for 'toPort'...
+2026-01-20T00:06:50.9808000Z     🔍 [SMART] Searching for: 'toPort' (trying 15+ strategies)
+2026-01-20T00:06:50.9809159Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:06:50.9811207Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:06:50.9827493Z [CACHE HIT] 72051ed2... (hits: 8, misses: 28)
+2026-01-20T00:06:50.9828716Z     💡 Expert Suggestion: The 'toPort' is part of the flight booking process, which usually starts after logging in.
+2026-01-20T00:06:50.9829371Z     🛠️ Executing corrective action: click -> 'Login'
+2026-01-20T00:06:52.0084753Z     ✅ Executed corrective navigation
+2026-01-20T00:06:54.0116248Z     🔄 Retry 2/3 mining locators for 'toPort'...
+2026-01-20T00:06:55.0130037Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:06:55.0580391Z     🧠 Consulting AI (Vision-First) to find 'toPort'...
+2026-01-20T00:06:55.0581396Z     🔍 Trying smart selectors for 'toPort'...
+2026-01-20T00:06:55.1475302Z     🔍 [SMART] Searching for: 'toPort' (trying 15+ strategies)
+2026-01-20T00:06:55.1476230Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:06:55.1478552Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:06:55.1480876Z [CACHE HIT] 020046ad... (hits: 9, misses: 28)
+2026-01-20T00:06:55.1481660Z     ⚠️ Skipping duplicate injection: Register
+2026-01-20T00:06:55.1483089Z     🧠 Verifying step validity for 'toPort' after no candidates found...
+2026-01-20T00:06:55.1486266Z [CACHE HIT] 385524aa... (hits: 10, misses: 28)
+2026-01-20T00:06:55.1488972Z     🗑️ Step deemed INVALID: The current page is the login page. The 'toPort' element is part of the flight booking form, which is not present on this page. Therefore, attempting to interact with 'toPort' is not valid.. Removing from workflow.
+2026-01-20T00:06:55.1491784Z     ⏭️ Skipping execution of invalid step: toPort
+2026-01-20T00:06:55.1492566Z   ▶️ [STEP step_5] CLICK: Find Flights
+2026-01-20T00:06:55.1543990Z     🔍 Mining locators for: 'Find Flights'
+2026-01-20T00:06:55.1913088Z     🧠 Consulting AI (Vision-First) to find 'Find Flights'...
+2026-01-20T00:06:55.1913953Z     🔍 Trying smart selectors for 'Find Flights'...
+2026-01-20T00:06:55.2820528Z     🔍 [SMART] Searching for: 'Find Flights' (trying 15+ strategies)
+2026-01-20T00:06:55.2821876Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:06:55.2823554Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:06:55.2827234Z [CACHE HIT] a1a8cb95... (hits: 11, misses: 28)
+2026-01-20T00:06:55.2828923Z     💡 Expert Suggestion: The 'Find Flights' functionality is likely available after registering or logging in. Since we are on the login page, let's try registering first.
+2026-01-20T00:06:55.2830458Z     🛠️ Executing corrective action: click -> 'Register'
+2026-01-20T00:06:56.6160294Z     ✅ Executed corrective navigation
+2026-01-20T00:06:58.6192962Z     🔄 Retry 1/3 mining locators for 'Find Flights'...
+2026-01-20T00:06:59.6577598Z     🧠 Consulting AI (Vision-First) to find 'Find Flights'...
+2026-01-20T00:06:59.6578420Z     🔍 Trying smart selectors for 'Find Flights'...
+2026-01-20T00:06:59.7563919Z     🔍 [SMART] Searching for: 'Find Flights' (trying 15+ strategies)
+2026-01-20T00:06:59.7564752Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:06:59.7565689Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:06:59.7568242Z [CACHE HIT] 15526733... (hits: 12, misses: 28)
+2026-01-20T00:06:59.7569366Z     💡 Expert Suggestion: The 'Find Flights' functionality is likely available after logging in.
+2026-01-20T00:06:59.7570398Z     🛠️ Executing corrective action: click -> 'Login'
+2026-01-20T00:07:01.0979151Z     ✅ Executed corrective navigation
+2026-01-20T00:07:03.1004113Z     🔄 Retry 2/3 mining locators for 'Find Flights'...
+2026-01-20T00:07:04.1017460Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:07:04.1410983Z     🧠 Consulting AI (Vision-First) to find 'Find Flights'...
+2026-01-20T00:07:04.1412199Z     🔍 Trying smart selectors for 'Find Flights'...
+2026-01-20T00:07:04.2452709Z     🔍 [SMART] Searching for: 'Find Flights' (trying 15+ strategies)
+2026-01-20T00:07:04.2453932Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:07:04.2456020Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:07:04.2457495Z [CACHE HIT] a1a8cb95... (hits: 13, misses: 28)
+2026-01-20T00:07:04.2458149Z     ⚠️ Skipping duplicate injection: Register
+2026-01-20T00:07:04.2459175Z     🧠 Verifying step validity for 'Find Flights' after no candidates found...
+2026-01-20T00:07:04.2461861Z [CACHE HIT] aa705872... (hits: 14, misses: 28)
+2026-01-20T00:07:04.2463123Z     🗑️ Step deemed INVALID: The 'Find Flights' button is not present on the login page. We need to log in first.. Removing from workflow.
+2026-01-20T00:07:04.2464066Z     ⏭️ Skipping execution of invalid step: Find Flights
+2026-01-20T00:07:04.2464525Z   ▶️ [STEP step_6] ASSERT_URL: 
+2026-01-20T00:07:09.2615641Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-20T00:07:11.2638735Z     ✅ State transitioned.
+2026-01-20T00:07:12.5950478Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:07:12.5951605Z [DEBUG] Received response (Length: 224)
+2026-01-20T00:07:12.5952553Z     🤖 AI Next Step Suggestion: click -> Login
+2026-01-20T00:07:12.5953547Z     💭 Reasoning: Now that the email and password fields are filled, the next logical step is to click the 'Login' button to attempt to log in.
+2026-01-20T00:07:12.5954369Z       ❌ Rejected: Login action 'login' not relevant to scenario
+2026-01-20T00:07:12.5954974Z     ⚠️ AI suggestion 'click -> Login' not relevant for current page/scenario. Skipping.
+2026-01-20T00:07:14.6439330Z 
+2026-01-20T00:07:14.6440110Z [3/3] Exploring Scenario: Navigate to vacation page
+2026-01-20T00:07:14.6441679Z     🧠 Initialized exploration context for goal: 'This scenario covers navigating to the vacation page.'
+2026-01-20T00:07:14.6442850Z     🎯 Scenario: Navigate to vacation page
+2026-01-20T00:07:14.6444048Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-20T00:07:16.6510292Z     ✅ Navigated to https://blazedemo.com/
+2026-01-20T00:07:16.6511183Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-20T00:07:21.6791956Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-20T00:07:23.6804086Z     ✅ State transitioned.
+2026-01-20T00:07:25.1931152Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:07:25.1931792Z [DEBUG] Received response (Length: 225)
+2026-01-20T00:07:25.1933081Z     🤖 AI Next Step Suggestion: click -> Find Flights
+2026-01-20T00:07:25.1934378Z     💭 Reasoning: Now that the departure and destination cities are selected, clicking 'Find Flights' will display the available flights.
+2026-01-20T00:07:25.1935468Z     ➕ Injected AI step: click -> Find Flights
+2026-01-20T00:07:25.1935818Z   ▶️ [STEP step_2_ai_1] CLICK: Find Flights
+2026-01-20T00:07:25.1991925Z     🔍 Mining locators for: 'Find Flights'
+2026-01-20T00:07:25.2407652Z     🧠 Consulting AI (Vision-First) to find 'Find Flights'...
+2026-01-20T00:07:25.2408406Z     🔍 Trying smart selectors for 'Find Flights'...
+2026-01-20T00:07:25.2884825Z     🔍 [SMART] Searching for: 'Find Flights' (trying 15+ strategies)
+2026-01-20T00:07:25.2885899Z     ✅ Smart selector found 'Find Flights' via button-text-is (confidence: 0.88)
+2026-01-20T00:07:25.2926433Z     ✅ Found 1 verified locators
+2026-01-20T00:07:28.8457403Z     ✅ State transitioned.
+2026-01-20T00:07:30.2721913Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:07:30.2722775Z [DEBUG] Received response (Length: 194)
+2026-01-20T00:07:30.2723994Z     🤖 AI Next Step Suggestion: click -> Choose This Flight
+2026-01-20T00:07:30.2724846Z     💭 Reasoning: The next step is to choose a flight from the list to continue the booking process.
+2026-01-20T00:07:30.2725656Z     ➕ Injected AI step: click -> Choose This Flight
+2026-01-20T00:07:30.2726041Z   ▶️ [STEP step_2_ai_2] CLICK: Choose This Flight
+2026-01-20T00:07:30.2881949Z     🔍 Mining locators for: 'Choose This Flight'
+2026-01-20T00:07:30.3248321Z     🧠 Consulting AI (Vision-First) to find 'Choose This Flight'...
+2026-01-20T00:07:30.3249273Z     🔍 Trying smart selectors for 'Choose This Flight'...
+2026-01-20T00:07:30.4230936Z     🔍 [SMART] Searching for: 'Choose This Flight' (trying 15+ strategies)
+2026-01-20T00:07:30.4231812Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:07:30.4232762Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:07:36.6321062Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:07:36.6321596Z [DEBUG] Received response (Length: 536)
+2026-01-20T00:07:36.6322211Z     ⚠️ Critical step failure: 'priority'
+2026-01-20T00:07:36.6322761Z   ▶️ [STEP step_3] CLICK: destination of the week! The Beach!
+2026-01-20T00:07:36.6376744Z     🔍 Mining locators for: 'destination of the week! The Beach!'
+2026-01-20T00:07:36.6743671Z     🧠 Consulting AI (Vision-First) to find 'destination of the week! The Beach!'...
+2026-01-20T00:07:36.6744315Z     🔍 Trying smart selectors for 'destination of the week! The Beach!'...
+2026-01-20T00:07:36.7808957Z     🔍 [SMART] Searching for: 'destination of the week! The Beach!' (trying 15+ strategies)
+2026-01-20T00:07:36.7810355Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:07:36.7812547Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:07:40.2915537Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:07:40.2916059Z [DEBUG] Received response (Length: 248)
+2026-01-20T00:07:40.2917022Z     💡 Expert Suggestion: The target 'destination of the week! The Beach!' is likely on the home page or a page linked from the home page.
+2026-01-20T00:07:40.2917763Z     🛠️ Executing corrective action: click -> 'home'
+2026-01-20T00:07:41.8897885Z     ✅ Executed corrective navigation
+2026-01-20T00:07:43.8929255Z     🔄 Retry 1/3 mining locators for 'destination of the week! The Beach!'...
+2026-01-20T00:07:44.9386748Z     🧠 Consulting AI (Vision-First) to find 'destination of the week! The Beach!'...
+2026-01-20T00:07:44.9387813Z     🔍 Trying smart selectors for 'destination of the week! The Beach!'...
+2026-01-20T00:07:45.0590475Z     🔍 [SMART] Searching for: 'destination of the week! The Beach!' (trying 15+ strategies)
+2026-01-20T00:07:45.0591759Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:07:45.0592750Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:07:46.6178351Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:07:46.6178845Z [DEBUG] Received response (Length: 245)
+2026-01-20T00:07:46.6179847Z     💡 Expert Suggestion: The 'destination of the week' is likely on the registration page or a page accessible after registration.
+2026-01-20T00:07:46.6180858Z     🛠️ Executing corrective action: click -> 'Register'
+2026-01-20T00:07:47.5666648Z     ✅ Executed corrective navigation
+2026-01-20T00:07:49.5684796Z     🔄 Retry 2/3 mining locators for 'destination of the week! The Beach!'...
+2026-01-20T00:07:50.5697636Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:07:50.6057384Z     🧠 Consulting AI (Vision-First) to find 'destination of the week! The Beach!'...
+2026-01-20T00:07:50.6058758Z     🔍 Trying smart selectors for 'destination of the week! The Beach!'...
+2026-01-20T00:07:50.7280211Z     🔍 [SMART] Searching for: 'destination of the week! The Beach!' (trying 15+ strategies)
+2026-01-20T00:07:50.7282100Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:07:50.7283601Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:07:52.0118900Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:07:52.0119616Z [DEBUG] Received response (Length: 211)
+2026-01-20T00:07:52.0121043Z     💡 Expert Suggestion: The 'destination of the week' is likely on the main page after logging in.
+2026-01-20T00:07:52.0122433Z     🛠️ Executing corrective action: click -> 'Login'
+2026-01-20T00:07:52.9679830Z     ✅ Executed corrective navigation
+2026-01-20T00:07:54.9712431Z     🧠 Verifying step validity for 'destination of the week! The Beach!' after no candidates found...
+2026-01-20T00:07:56.9402669Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:07:56.9403481Z [DEBUG] Received response (Length: 164)
+2026-01-20T00:07:56.9405514Z     🗑️ Step deemed INVALID: "destination of the week! The Beach!" does not exist on the register page. We are on the wrong page.. Removing from workflow.
+2026-01-20T00:07:56.9407530Z     ⏭️ Skipping execution of invalid step: destination of the week! The Beach!
+2026-01-20T00:07:56.9408573Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-20T00:08:01.9669219Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-20T00:08:03.9684513Z     ✅ State transitioned.
+2026-01-20T00:08:05.3459104Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:08:05.3459728Z [DEBUG] Received response (Length: 181)
+2026-01-20T00:08:05.3460454Z     🤖 AI Next Step Suggestion: fill -> E-Mail Address
+2026-01-20T00:08:05.3461151Z     🧩 Suggested Locator: #email
+2026-01-20T00:08:05.3461639Z     💭 Reasoning: Need to fill in the email address to proceed with login.
+2026-01-20T00:08:05.3462087Z     ➕ Injected AI step: fill -> E-Mail Address
+2026-01-20T00:08:05.3462450Z   ▶️ [STEP step_4_ai_1] FILL: E-Mail Address
+2026-01-20T00:08:05.3516901Z     🎯 Using AI-provided locator: #email
+2026-01-20T00:08:05.3576118Z     ✅ Found 1 verified locators
+2026-01-20T00:08:11.2391220Z     ✅ State transitioned.
+2026-01-20T00:08:12.7328033Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:08:12.7328795Z [DEBUG] Received response (Length: 179)
+2026-01-20T00:08:12.7329787Z     🤖 AI Next Step Suggestion: fill -> Password
+2026-01-20T00:08:12.7330432Z     🧩 Suggested Locator: #password
+2026-01-20T00:08:12.7331374Z     💭 Reasoning: The email is filled, now filling the password field to attempt login.
+2026-01-20T00:08:12.7331958Z     ➕ Injected AI step: fill -> Password
+2026-01-20T00:08:12.7332366Z   ▶️ [STEP step_4_ai_2] FILL: Password
+2026-01-20T00:08:12.7384161Z     🎯 Using AI-provided locator: #password
+2026-01-20T00:08:12.7438324Z     ✅ Found 1 verified locators
+2026-01-20T00:08:18.2999798Z     ✅ State transitioned.
+2026-01-20T00:08:19.9507445Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:08:19.9508348Z [DEBUG] Received response (Length: 221)
+2026-01-20T00:08:19.9509432Z     🤖 AI Next Step Suggestion: click -> Login
+2026-01-20T00:08:19.9510901Z     💭 Reasoning: The email and password fields have been filled. Clicking the 'Login' button is the next logical step to attempt to log in.
+2026-01-20T00:08:19.9511862Z       ❌ Rejected: Login action 'login' not relevant to scenario
+2026-01-20T00:08:19.9512550Z     ⚠️ AI suggestion 'click -> Login' not relevant for current page/scenario. Skipping.
+2026-01-20T00:08:21.9806466Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_blazedemo_travel/tests/generated_scenarios.json
+2026-01-20T00:08:21.9807963Z 
+2026-01-20T00:08:21.9808521Z 📝 Processing scenario 'Book a flight from Paris to London' with 8 steps
+2026-01-20T00:08:21.9809385Z   🔍 Step 2 (fill): Found 1 mined locators
+2026-01-20T00:08:21.9810142Z       ✅ Kept robust locator (0.95): select[name='fromPort']...
+2026-01-20T00:08:21.9811195Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:08:21.9811911Z   🔍 Step 3 (fill): Found 1 mined locators
+2026-01-20T00:08:21.9812636Z       ✅ Kept robust locator (0.95): select[name='toPort']...
+2026-01-20T00:08:21.9813420Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:08:21.9814092Z   🔍 Step 6 (fill): Found 1 mined locators
+2026-01-20T00:08:21.9814727Z       ✅ Kept robust locator (0.95): #email...
+2026-01-20T00:08:21.9815399Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:08:21.9816054Z   🔍 Step 7 (fill): Found 1 mined locators
+2026-01-20T00:08:21.9816705Z       ✅ Kept robust locator (0.95): #password...
+2026-01-20T00:08:21.9817402Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:08:21.9819875Z ✅ Updated scenario 'Book a flight from Paris to London' with 8 validated steps
+2026-01-20T00:08:21.9820467Z 
+2026-01-20T00:08:21.9821181Z 📝 Processing scenario 'Book a flight from Boston to New York' with 8 steps
+2026-01-20T00:08:21.9822010Z   🔍 Step 2 (fill): Found 1 mined locators
+2026-01-20T00:08:21.9822702Z       ✅ Kept robust locator (0.95): select[name='fromPort']...
+2026-01-20T00:08:21.9823450Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:08:21.9824094Z   🔍 Step 3 (fill): Found 1 mined locators
+2026-01-20T00:08:21.9824729Z       ✅ Kept robust locator (0.95): select[name='toPort']...
+2026-01-20T00:08:21.9825272Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:08:21.9825617Z   🔍 Step 4 (click): Found 1 mined locators
+2026-01-20T00:08:21.9825991Z       ✅ Kept robust locator (1.00): input[id='email']...
+2026-01-20T00:08:21.9826364Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-20T00:08:21.9826696Z   🔍 Step 5 (fill): Found 1 mined locators
+2026-01-20T00:08:21.9827030Z       ✅ Kept robust locator (0.95): #email...
+2026-01-20T00:08:21.9827373Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:08:21.9827707Z   🔍 Step 6 (fill): Found 1 mined locators
+2026-01-20T00:08:21.9828035Z       ✅ Kept robust locator (0.95): #password...
+2026-01-20T00:08:21.9828386Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:08:21.9829271Z ✅ Updated scenario 'Book a flight from Boston to New York' with 8 validated steps
+2026-01-20T00:08:21.9829837Z 
+2026-01-20T00:08:21.9830263Z 📝 Processing scenario 'Navigate to vacation page' with 7 steps
+2026-01-20T00:08:21.9831131Z   🔍 Step 2 (click): Found 1 mined locators
+2026-01-20T00:08:21.9831933Z       ✅ Kept robust locator (0.88): input[type='submit']:text-is('Find Flights')...
+2026-01-20T00:08:21.9832763Z   💾 Saved 1 robust locators (top stability: 0.88)
+2026-01-20T00:08:21.9833355Z   🔍 Step 5 (fill): Found 1 mined locators
+2026-01-20T00:08:21.9833922Z       ✅ Kept robust locator (0.95): #email...
+2026-01-20T00:08:21.9834504Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:08:21.9835177Z   🔍 Step 6 (fill): Found 1 mined locators
+2026-01-20T00:08:21.9836097Z       ✅ Kept robust locator (0.95): #password...
+2026-01-20T00:08:21.9836844Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:08:21.9837708Z ✅ Updated scenario 'Navigate to vacation page' with 7 validated steps
+2026-01-20T00:08:21.9838707Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-20T00:08:21.9839201Z 
+2026-01-20T00:08:21.9839390Z ============================================================
+2026-01-20T00:08:21.9840040Z 📊 EXPLORER PERFORMANCE SUMMARY
+2026-01-20T00:08:21.9840736Z ============================================================
+2026-01-20T00:08:21.9841110Z 
+2026-01-20T00:08:21.9841323Z 🔍 Locator Mining:
+2026-01-20T00:08:21.9841790Z    • Total Locators Mined: 12
+2026-01-20T00:08:21.9842316Z    • Filtered Out (Brittle): 0 (0.0%)
+2026-01-20T00:08:21.9843124Z    • Saved to Golden Path: 12 (100.0%)
+2026-01-20T00:08:21.9843476Z 
+2026-01-20T00:08:21.9843717Z ✅ Golden Path Quality:
+2026-01-20T00:08:21.9844119Z    🌟 EXCELLENT - 100.0% of mined locators are robust!
+2026-01-20T00:08:21.9844352Z 
+2026-01-20T00:08:21.9844470Z ============================================================
+2026-01-20T00:08:21.9844662Z 
+2026-01-20T00:08:21.9844793Z ✅ Deep Exploration Complete.
+2026-01-20T00:12:09.8386519Z 
+2026-01-20T00:12:09.8387288Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-20T00:12:09.8388008Z 📍 Project: ci_blazedemo_travel
+2026-01-20T00:12:09.8388461Z 🎬 Mode: Headless
+2026-01-20T00:12:09.8388670Z 
+2026-01-20T00:12:09.8388910Z --- Scenario: Book a flight from Paris to London ---
+2026-01-20T00:12:09.8389390Z   ▶️  [STEP step_1] NAVIGATE: NAVIGATE
+2026-01-20T00:12:09.8389693Z     ✅ Step step_1 Passed.
+2026-01-20T00:12:09.8389968Z   ▶️  [STEP step_2] ASSERT_URL: ASSERT_URL
+2026-01-20T00:12:09.8390259Z     ✅ Step step_2 Passed.
+2026-01-20T00:12:09.8390782Z   ▶️  [STEP step_2_ai_1] FILL: departure city
+2026-01-20T00:12:09.8391218Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:12:09.8391733Z     ✅ SUCCESS! Locator #1: select[name='fromPort']... (method: unknown, stability: 0.95)
+2026-01-20T00:12:09.8392188Z     ✅ Step step_2_ai_1 Passed.
+2026-01-20T00:12:09.8392495Z   ▶️  [STEP step_2_ai_2] FILL: destination city
+2026-01-20T00:12:09.8392863Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:12:09.8393338Z     ✅ SUCCESS! Locator #1: select[name='toPort']... (method: unknown, stability: 0.95)
+2026-01-20T00:12:09.8393751Z     ✅ Step step_2_ai_2 Passed.
+2026-01-20T00:12:09.8394025Z   ▶️  [STEP step_2_ai_3] CLICK: input
+2026-01-20T00:12:09.8394503Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-20T00:12:09.8394919Z Call log:
+2026-01-20T00:12:09.8395104Z   - waiting for locator("text=input")
+2026-01-20T00:12:09.8395546Z ...
+2026-01-20T00:12:09.8396171Z     🔧 [AUTO-HEAL] Re-mining page to find 'input'...
+2026-01-20T00:12:09.8396956Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:12:09.8397575Z [DEBUG] Received response (Length: 475)
+2026-01-20T00:12:09.8398237Z     ✨ AI heal found 2 alternatives. Validating...
+2026-01-20T00:12:09.8398893Z       ✅ Validated: Selector contains relevant terms
+2026-01-20T00:12:09.8399500Z       ❌ Rejected: Element not found
+2026-01-20T00:12:09.8399990Z     ✅ 1 validated locators.
+2026-01-20T00:12:09.8400918Z     ✨ AI successfully healed the step! New selector: input[type='submit']
+2026-01-20T00:12:09.8401641Z     ✅ Step step_2_ai_3 Passed.
+2026-01-20T00:12:09.8402135Z   ▶️  [STEP step_6] ASSERT_URL: ASSERT_URL
+2026-01-20T00:12:09.8402642Z     ✅ Step step_6 Passed.
+2026-01-20T00:12:09.8403120Z   ▶️  [STEP step_6_ai_1] FILL: E-Mail Address
+2026-01-20T00:12:09.8403751Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:12:09.8404349Z     ❌ Locator #1 found 0 elements: #email...
+2026-01-20T00:12:09.8405067Z     ⚠️  All golden path locators failed. Will try text-based fallback.
+2026-01-20T00:12:09.8406172Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-20T00:12:09.8406995Z Call log:
+2026-01-20T00:12:09.8407609Z   - waiting for locator("tex...
+2026-01-20T00:12:09.8408262Z     🔧 [AUTO-HEAL] Re-mining page to find 'E-Mail Address'...
+2026-01-20T00:12:09.8408974Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:12:09.8409604Z [DEBUG] Received response (Length: 549)
+2026-01-20T00:12:09.8410208Z     ✨ AI heal found 2 alternatives. Validating...
+2026-01-20T00:12:09.8411026Z       ❌ Rejected: No match for 'E-Mail Address'
+2026-01-20T00:12:09.8411542Z       ❌ Rejected: No match for 'E-Mail Address'
+2026-01-20T00:12:09.8411935Z     ⚠️ All AI suggestions failed validation. Using original.
+2026-01-20T00:12:09.8412393Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-20T00:12:09.8413243Z     ❌ Attempt 2 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-20T00:12:09.8413695Z Call log:
+2026-01-20T00:12:09.8413891Z   - waiting for locator("tex...
+2026-01-20T00:12:09.8414252Z     🔧 [AUTO-HEAL] Re-mining page to find 'E-Mail Address'...
+2026-01-20T00:12:09.8414588Z [CACHE HIT] 965bbe7e... (hits: 1, misses: 2)
+2026-01-20T00:12:09.8414988Z     ✨ AI heal found 2 alternatives. Validating...
+2026-01-20T00:12:09.8415333Z       ❌ Rejected: No match for 'E-Mail Address'
+2026-01-20T00:12:09.8415660Z       ❌ Rejected: No match for 'E-Mail Address'
+2026-01-20T00:12:09.8416030Z     ⚠️ All AI suggestions failed validation. Using original.
+2026-01-20T00:12:09.8416472Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-20T00:12:09.8417082Z     ❌ Attempt 3 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-20T00:12:09.8417546Z Call log:
+2026-01-20T00:12:09.8417735Z   - waiting for locator("tex...
+2026-01-20T00:12:09.8418163Z     💀 Step step_6_ai_1 failed after all retries.
+2026-01-20T00:12:09.8418974Z 🛑 Scenario 'Book a flight from Paris to London' aborted due to step failure.
+2026-01-20T00:12:09.8419523Z 
+2026-01-20T00:12:09.8419769Z --- Scenario: Book a flight from Boston to New York ---
+2026-01-20T00:12:09.8420388Z   ▶️  [STEP step_1] NAVIGATE: NAVIGATE
+2026-01-20T00:12:09.8421085Z     ✅ Step step_1 Passed.
+2026-01-20T00:12:09.8421645Z   ▶️  [STEP step_2] ASSERT_URL: ASSERT_URL
+2026-01-20T00:12:09.8422184Z     ✅ Step step_2 Passed.
+2026-01-20T00:12:09.8422660Z   ▶️  [STEP step_2_ai_1] FILL: departure city
+2026-01-20T00:12:09.8423288Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:12:09.8424166Z     ✅ SUCCESS! Locator #1: select[name='fromPort']... (method: unknown, stability: 0.95)
+2026-01-20T00:12:09.8424941Z     ✅ Step step_2_ai_1 Passed.
+2026-01-20T00:12:09.8425455Z   ▶️  [STEP step_2_ai_2] FILL: destination city
+2026-01-20T00:12:09.8426093Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:12:09.8426966Z     ✅ SUCCESS! Locator #1: select[name='toPort']... (method: unknown, stability: 0.95)
+2026-01-20T00:12:09.8427720Z     ✅ Step step_2_ai_2 Passed.
+2026-01-20T00:12:09.8428212Z   ▶️  [STEP step_2_ai_3] CLICK: input
+2026-01-20T00:12:09.8428802Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:12:09.8429467Z     ❌ Locator #1 found 0 elements: input[id='email']...
+2026-01-20T00:12:09.8430229Z     ⚠️  All golden path locators failed. Will try text-based fallback.
+2026-01-20T00:12:09.8431417Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-20T00:12:09.8433575Z Call log:
+2026-01-20T00:12:09.8433914Z   - waiting for locator("text=input")
+2026-01-20T00:12:09.8434355Z ...
+2026-01-20T00:12:09.8434837Z     🔧 [AUTO-HEAL] Re-mining page to find 'input'...
+2026-01-20T00:12:09.8435511Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:12:09.8436148Z [DEBUG] Received response (Length: 626)
+2026-01-20T00:12:09.8436760Z     ✨ AI heal found 2 alternatives. Validating...
+2026-01-20T00:12:09.8437383Z       ✅ Validated: Selector contains relevant terms
+2026-01-20T00:12:09.8437938Z       ❌ Rejected: Element not found
+2026-01-20T00:12:09.8438583Z     ✅ 1 validated locators.
+2026-01-20T00:12:09.8439239Z     ✨ AI successfully healed the step! New selector: input[type='submit']
+2026-01-20T00:12:09.8439902Z     ✅ Step step_2_ai_3 Passed.
+2026-01-20T00:12:09.8440382Z   ▶️  [STEP step_2_ai_4] FILL: E-Mail Address
+2026-01-20T00:12:09.8441170Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:12:09.8441765Z     ❌ Locator #1 found 0 elements: #email...
+2026-01-20T00:12:09.8442442Z     ⚠️  All golden path locators failed. Will try text-based fallback.
+2026-01-20T00:12:09.8443496Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-20T00:12:09.8444271Z Call log:
+2026-01-20T00:12:09.8444570Z   - waiting for locator("tex...
+2026-01-20T00:12:09.8445341Z     🔧 [AUTO-HEAL] Re-mining page to find 'E-Mail Address'...
+2026-01-20T00:12:09.8445990Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:12:09.8446583Z [DEBUG] Received response (Length: 38)
+2026-01-20T00:12:09.8447312Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-20T00:12:09.8448361Z     ❌ Attempt 2 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-20T00:12:09.8449130Z Call log:
+2026-01-20T00:12:09.8449426Z   - waiting for locator("tex...
+2026-01-20T00:12:09.8450003Z     🔧 [AUTO-HEAL] Re-mining page to find 'E-Mail Address'...
+2026-01-20T00:12:09.8450709Z [CACHE HIT] 50c2e490... (hits: 2, misses: 4)
+2026-01-20T00:12:09.8451433Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-20T00:12:09.8452510Z     ❌ Attempt 3 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-20T00:12:09.8453326Z Call log:
+2026-01-20T00:12:09.8453643Z   - waiting for locator("tex...
+2026-01-20T00:12:09.8454157Z     💀 Step step_2_ai_4 failed after all retries.
+2026-01-20T00:12:09.8454944Z 🛑 Scenario 'Book a flight from Boston to New York' aborted due to step failure.
+2026-01-20T00:12:09.8455516Z 
+2026-01-20T00:12:09.8455700Z --- Scenario: Navigate to vacation page ---
+2026-01-20T00:12:09.8456268Z   ▶️  [STEP step_1] NAVIGATE: NAVIGATE
+2026-01-20T00:12:09.8456767Z     ✅ Step step_1 Passed.
+2026-01-20T00:12:09.8457234Z   ▶️  [STEP step_2] ASSERT_URL: ASSERT_URL
+2026-01-20T00:12:09.8457738Z     ✅ Step step_2 Passed.
+2026-01-20T00:12:09.8458179Z   ▶️  [STEP step_2_ai_1] CLICK: Find Flights
+2026-01-20T00:12:09.8458764Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:12:09.8459757Z     ✅ SUCCESS! Locator #1: input[type='submit']:text-is('Find Flights')... (method: unknown, stability: 0.88)
+2026-01-20T00:12:09.8460863Z     ✅ Step step_2_ai_1 Passed.
+2026-01-20T00:12:09.8461410Z   ▶️  [STEP step_2_ai_2] CLICK: Choose This Flight
+2026-01-20T00:12:09.8461986Z     ✅ Step step_2_ai_2 Passed.
+2026-01-20T00:12:09.8462474Z   ▶️  [STEP step_4] ASSERT_URL: ASSERT_URL
+2026-01-20T00:12:09.8462975Z     ✅ Step step_4 Passed.
+2026-01-20T00:12:09.8463466Z   ▶️  [STEP step_4_ai_1] FILL: E-Mail Address
+2026-01-20T00:12:09.8464088Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:12:09.8464687Z     ❌ Locator #1 found 0 elements: #email...
+2026-01-20T00:12:09.8465371Z     ⚠️  All golden path locators failed. Will try text-based fallback.
+2026-01-20T00:12:09.8466494Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-20T00:12:09.8467315Z Call log:
+2026-01-20T00:12:09.8467633Z   - waiting for locator("tex...
+2026-01-20T00:12:09.8468261Z     🔧 [AUTO-HEAL] Re-mining page to find 'E-Mail Address'...
+2026-01-20T00:12:09.8468965Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:12:09.8469580Z [DEBUG] Received response (Length: 671)
+2026-01-20T00:12:09.8470337Z     ✨ AI heal found 2 alternatives. Validating...
+2026-01-20T00:12:09.8471035Z       ❌ Rejected: Element not found
+2026-01-20T00:12:09.8471533Z       ❌ Rejected: Element not found
+2026-01-20T00:12:09.8472332Z     ⚠️ All AI suggestions failed validation. Using original.
+2026-01-20T00:12:09.8473153Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-20T00:12:09.8474279Z     ❌ Attempt 2 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-20T00:12:09.8475093Z Call log:
+2026-01-20T00:12:09.8475402Z   - waiting for locator("tex...
+2026-01-20T00:12:09.8476011Z     🔧 [AUTO-HEAL] Re-mining page to find 'E-Mail Address'...
+2026-01-20T00:12:09.8476581Z [CACHE HIT] 49b453f2... (hits: 3, misses: 5)
+2026-01-20T00:12:09.8477184Z     ✨ AI heal found 2 alternatives. Validating...
+2026-01-20T00:12:09.8477721Z       ❌ Rejected: Element not found
+2026-01-20T00:12:09.8478244Z       ❌ Rejected: Element not found
+2026-01-20T00:12:09.8478834Z     ⚠️ All AI suggestions failed validation. Using original.
+2026-01-20T00:12:09.8479586Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-20T00:12:09.8480824Z     ❌ Attempt 3 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-20T00:12:09.8481644Z Call log:
+2026-01-20T00:12:09.8481976Z   - waiting for locator("tex...
+2026-01-20T00:12:09.8482397Z     💀 Step step_4_ai_1 failed after all retries.
+2026-01-20T00:12:09.8482823Z 🛑 Scenario 'Navigate to vacation page' aborted due to step failure.
+2026-01-20T00:12:09.8483097Z 
+2026-01-20T00:12:09.8483201Z ============================================================
+2026-01-20T00:12:09.8483510Z 🎯 EXECUTION SUMMARY
+2026-01-20T00:12:09.8492440Z ============================================================
+2026-01-20T00:12:09.8492863Z 
+2026-01-20T00:12:09.8493112Z 📋 Scenario Overview:
+2026-01-20T00:12:09.8493525Z    • Total Scenarios Planned: 3
+2026-01-20T00:12:09.8493996Z    • Scenarios Executed: 3
+2026-01-20T00:12:09.8494413Z    • Total Steps Executed: 19
+2026-01-20T00:12:09.8494659Z 
+2026-01-20T00:12:09.8494807Z ✅ Results:
+2026-01-20T00:12:09.8495123Z    ❌ Failed: 3 (100%)
+2026-01-20T00:12:09.8495339Z 
+2026-01-20T00:12:09.8495520Z ⚠️  Failed Scenarios:
+2026-01-20T00:12:09.8495937Z    • Book a flight from Paris to London
+2026-01-20T00:12:09.8496432Z    • Book a flight from Boston to New York
+2026-01-20T00:12:09.8497197Z    • Navigate to vacation page
+2026-01-20T00:12:09.8497494Z 
+2026-01-20T00:12:09.8497736Z ============================================================
+2026-01-20T00:12:09.8498108Z 
+2026-01-20T00:12:09.8498997Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_blazedemo_travel/execution.json
+2026-01-20T00:12:09.8499956Z 
+2026-01-20T00:12:09.8500230Z ============================================================
+2026-01-20T00:12:09.8501216Z 📊 EXECUTOR PERFORMANCE SUMMARY
+2026-01-20T00:12:09.8501790Z ============================================================
+2026-01-20T00:12:09.8502276Z 
+2026-01-20T00:12:09.8502508Z 🎯 Execution Results:
+2026-01-20T00:12:09.8503012Z    • Total Steps: 19
+2026-01-20T00:12:09.8560918Z    • First-Attempt Success: 14 (73.7%)
+2026-01-20T00:12:09.8561448Z    • Required AI Healing: 8 (42.1%)
+2026-01-20T00:12:09.8561901Z    • Final Failures: 3 (15.8%)
+2026-01-20T00:12:09.8562140Z 
+2026-01-20T00:12:09.8562333Z 🛤️  Golden Path Effectiveness:
+2026-01-20T00:12:09.8562759Z    • Steps with Mined Locators: 9
+2026-01-20T00:12:09.8563189Z    • Golden Path Hits: 5 (55.6%)
+2026-01-20T00:12:09.8563592Z    • Golden Path Misses: 4
+2026-01-20T00:12:09.8564001Z    • Fallback Used (No Locators): 10
+2026-01-20T00:12:09.8564278Z 
+2026-01-20T00:12:09.8564453Z 📈 Overall Assessment:
+2026-01-20T00:12:09.8565083Z    ❌ POOR. Golden path is not effective. Explorer may need better locator mining.
+2026-01-20T00:12:09.8565584Z 
+2026-01-20T00:12:09.8565774Z 🎯 vs Target (100% Flawless):
+2026-01-20T00:12:09.8566504Z    📊 Gap: 26.3% from target
+2026-01-20T00:12:09.8566962Z    💡 Recommendation: Review 4 golden path misses
+2026-01-20T00:12:09.8567632Z    💡 Recommendation: Explorer needs to mine locators for 10 steps
+2026-01-20T00:12:09.8568034Z 
+2026-01-20T00:12:09.8568347Z ============================================================
+2026-01-20T00:12:09.9533813Z 
+2026-01-20T00:12:09.9534253Z [PHASE] Running Phase: DISCOVERY
+2026-01-20T00:12:09.9535584Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_blazedemo_travel --url https://blazedemo.com/ --deep
+2026-01-20T00:12:09.9536961Z ✅ Phase 'discovery' completed successfully.
+2026-01-20T00:12:09.9537174Z 
+2026-01-20T00:12:09.9537273Z [PHASE] Running Phase: PLANNING
+2026-01-20T00:12:09.9538427Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_blazedemo_travel --goal Book a flight --url https://blazedemo.com/ --deep
+2026-01-20T00:12:09.9539690Z ✅ Phase 'planning' completed successfully.
+2026-01-20T00:12:09.9539888Z 
+2026-01-20T00:12:09.9539984Z [PHASE] Running Phase: EXPLORATION
+2026-01-20T00:12:09.9541243Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_blazedemo_travel
+2026-01-20T00:12:09.9542360Z ✅ Phase 'exploration' completed successfully.
+2026-01-20T00:12:09.9542750Z 📊 Exploration Discovery Success Rate: 60.0%
+2026-01-20T00:12:09.9542947Z 
+2026-01-20T00:12:09.9543046Z [PHASE] Running Phase: EXECUTION
+2026-01-20T00:12:09.9544020Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_blazedemo_travel
+2026-01-20T00:12:09.9545073Z ✅ Phase 'execution' completed successfully.
+2026-01-20T00:12:09.9545274Z 
+2026-01-20T00:12:09.9545389Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-20T00:12:10.0495428Z ##[group]Run RESULT_FILE="projects/ci_blazedemo_travel/execution.json"
+2026-01-20T00:12:10.0495987Z [36;1mRESULT_FILE="projects/ci_blazedemo_travel/execution.json"[0m
+2026-01-20T00:12:10.0496359Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-20T00:12:10.0496711Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-20T00:12:10.0497169Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-20T00:12:10.0497535Z [36;1melse[0m
+2026-01-20T00:12:10.0497779Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-20T00:12:10.0498072Z [36;1m  exit 1[0m
+2026-01-20T00:12:10.0498265Z [36;1mfi[0m
+2026-01-20T00:12:10.0529617Z shell: /usr/bin/bash -e {0}
+2026-01-20T00:12:10.0529860Z env:
+2026-01-20T00:12:10.0530120Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:12:10.0530558Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-20T00:12:10.0531271Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:12:10.0531649Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:12:10.0532019Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:12:10.0532424Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-20T00:12:10.0532753Z ##[endgroup]
+2026-01-20T00:12:10.0585283Z ✅ Results generated successfully: projects/ci_blazedemo_travel/execution.json
+2026-01-20T00:12:10.0611319Z 3
+2026-01-20T00:12:10.0676002Z ##[group]Run actions/upload-artifact@v4
+2026-01-20T00:12:10.0676285Z with:
+2026-01-20T00:12:10.0676496Z   name: blazedemo_travel-execution-results
+2026-01-20T00:12:10.0676958Z   path: projects/ci_blazedemo_travel/execution.json
+projects/ci_blazedemo_travel/workflow.json
+
+2026-01-20T00:12:10.0677576Z   retention-days: 30
+2026-01-20T00:12:10.0677791Z   if-no-files-found: warn
+2026-01-20T00:12:10.0678015Z   compression-level: 6
+2026-01-20T00:12:10.0678217Z   overwrite: false
+2026-01-20T00:12:10.0678427Z   include-hidden-files: false
+2026-01-20T00:12:10.0678655Z env:
+2026-01-20T00:12:10.0678902Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:12:10.0679339Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-20T00:12:10.0679767Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:12:10.0680143Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:12:10.0680548Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:12:10.0681348Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-20T00:12:10.0681666Z ##[endgroup]
+2026-01-20T00:12:10.2833089Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-20T00:12:10.2837613Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_blazedemo_travel. This will be the root directory of the artifact
+2026-01-20T00:12:10.2839462Z With the provided path, there will be 2 files uploaded
+2026-01-20T00:12:10.2846072Z Artifact name is valid!
+2026-01-20T00:12:10.2847525Z Root directory input is valid!
+2026-01-20T00:12:10.4845355Z Beginning upload of artifact content to blob storage
+2026-01-20T00:12:10.7165042Z Uploaded bytes 1557
+2026-01-20T00:12:10.7790539Z Finished uploading artifact content to blob storage!
+2026-01-20T00:12:10.7793883Z SHA256 digest of uploaded artifact zip is ca3cb7db25d874feacafd0ce979a0d873c5cd3f7147640dba7cedf00b1b3cbdf
+2026-01-20T00:12:10.7795940Z Finalizing artifact upload
+2026-01-20T00:12:10.8783280Z Artifact blazedemo_travel-execution-results.zip successfully finalized. Artifact ID 5183161531
+2026-01-20T00:12:10.8784959Z Artifact blazedemo_travel-execution-results has been successfully uploaded! Final size is 1557 bytes. Artifact ID is 5183161531
+2026-01-20T00:12:10.8791639Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21154472744/artifacts/5183161531
+2026-01-20T00:12:10.8921130Z Post job cleanup.
+2026-01-20T00:12:11.0426315Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-20T00:12:11.0537616Z Post job cleanup.
+2026-01-20T00:12:11.1495367Z [command]/usr/bin/git version
+2026-01-20T00:12:11.1548043Z git version 2.52.0
+2026-01-20T00:12:11.1609627Z Temporarily overriding HOME='/home/runner/work/_temp/1fa28d35-813a-4fe6-9feb-3d45372bbe28' before making global git config changes
+2026-01-20T00:12:11.1611235Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-20T00:12:11.1623839Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-20T00:12:11.1661106Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-20T00:12:11.1696721Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-20T00:12:11.1954135Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-20T00:12:11.1977194Z http.https://github.com/.extraheader
+2026-01-20T00:12:11.1994524Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-20T00:12:11.2029757Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-20T00:12:11.2277364Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-20T00:12:11.2311852Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-20T00:12:11.2678815Z Cleaning up orphan processes

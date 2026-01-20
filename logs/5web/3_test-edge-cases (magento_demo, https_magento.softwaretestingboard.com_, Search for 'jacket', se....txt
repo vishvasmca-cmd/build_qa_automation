@@ -1,0 +1,1188 @@
+﻿2026-01-20T00:00:18.4455525Z Current runner version: '2.331.0'
+2026-01-20T00:00:18.4479951Z ##[group]Runner Image Provisioner
+2026-01-20T00:00:18.4480762Z Hosted Compute Agent
+2026-01-20T00:00:18.4481277Z Version: 20251211.462
+2026-01-20T00:00:18.4481916Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-20T00:00:18.4482585Z Build Date: 2025-12-11T16:28:49Z
+2026-01-20T00:00:18.4483254Z Worker ID: {a4f73ffc-3d6b-4125-9cff-480b30c6b8c9}
+2026-01-20T00:00:18.4484025Z ##[endgroup]
+2026-01-20T00:00:18.4484532Z ##[group]Operating System
+2026-01-20T00:00:18.4485070Z Ubuntu
+2026-01-20T00:00:18.4485559Z 24.04.3
+2026-01-20T00:00:18.4485996Z LTS
+2026-01-20T00:00:18.4486498Z ##[endgroup]
+2026-01-20T00:00:18.4487022Z ##[group]Runner Image
+2026-01-20T00:00:18.4487572Z Image: ubuntu-24.04
+2026-01-20T00:00:18.4488064Z Version: 20260111.209.1
+2026-01-20T00:00:18.4489672Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-20T00:00:18.4492197Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-20T00:00:18.4493502Z ##[endgroup]
+2026-01-20T00:00:18.4494560Z ##[group]GITHUB_TOKEN Permissions
+2026-01-20T00:00:18.4496692Z Contents: read
+2026-01-20T00:00:18.4497247Z Metadata: read
+2026-01-20T00:00:18.4497695Z Packages: read
+2026-01-20T00:00:18.4498594Z ##[endgroup]
+2026-01-20T00:00:18.4500566Z Secret source: Actions
+2026-01-20T00:00:18.4501641Z Prepare workflow directory
+2026-01-20T00:00:18.4814170Z Prepare all required actions
+2026-01-20T00:00:18.4850767Z Getting action download info
+2026-01-20T00:00:18.7726833Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-20T00:00:18.8831277Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-20T00:00:19.0193728Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-20T00:00:19.2403172Z Complete job name: test-edge-cases (magento_demo, https://magento.softwaretestingboard.com/, Search for 'jacket', se...
+2026-01-20T00:00:19.3079851Z ##[group]Run actions/checkout@v4
+2026-01-20T00:00:19.3080672Z with:
+2026-01-20T00:00:19.3081113Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-20T00:00:19.3081836Z   token: ***
+2026-01-20T00:00:19.3082212Z   ssh-strict: true
+2026-01-20T00:00:19.3082589Z   ssh-user: git
+2026-01-20T00:00:19.3082989Z   persist-credentials: true
+2026-01-20T00:00:19.3083424Z   clean: true
+2026-01-20T00:00:19.3083808Z   sparse-checkout-cone-mode: true
+2026-01-20T00:00:19.3084277Z   fetch-depth: 1
+2026-01-20T00:00:19.3084646Z   fetch-tags: false
+2026-01-20T00:00:19.3085039Z   show-progress: true
+2026-01-20T00:00:19.3085433Z   lfs: false
+2026-01-20T00:00:19.3085791Z   submodules: false
+2026-01-20T00:00:19.3086193Z   set-safe-directory: true
+2026-01-20T00:00:19.3086986Z ##[endgroup]
+2026-01-20T00:00:19.4186308Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-20T00:00:19.4188068Z ##[group]Getting Git version info
+2026-01-20T00:00:19.4189176Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-20T00:00:19.4190781Z [command]/usr/bin/git version
+2026-01-20T00:00:19.4280539Z git version 2.52.0
+2026-01-20T00:00:19.4307408Z ##[endgroup]
+2026-01-20T00:00:19.4322849Z Temporarily overriding HOME='/home/runner/work/_temp/25a85502-8821-410e-877a-430b7e454515' before making global git config changes
+2026-01-20T00:00:19.4325214Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-20T00:00:19.4336241Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-20T00:00:19.4375093Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-20T00:00:19.4378938Z ##[group]Initializing the repository
+2026-01-20T00:00:19.4384079Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-20T00:00:19.4494167Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-20T00:00:19.4496277Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-20T00:00:19.4497974Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-20T00:00:19.4499312Z hint: call:
+2026-01-20T00:00:19.4499890Z hint:
+2026-01-20T00:00:19.4500628Z hint: 	git config --global init.defaultBranch <name>
+2026-01-20T00:00:19.4501665Z hint:
+2026-01-20T00:00:19.4502682Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-20T00:00:19.4504320Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-20T00:00:19.4505702Z hint:
+2026-01-20T00:00:19.4506434Z hint: 	git branch -m <name>
+2026-01-20T00:00:19.4507203Z hint:
+2026-01-20T00:00:19.4508413Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-20T00:00:19.4510401Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-20T00:00:19.4513900Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-20T00:00:19.4549585Z ##[endgroup]
+2026-01-20T00:00:19.4550828Z ##[group]Disabling automatic garbage collection
+2026-01-20T00:00:19.4554626Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-20T00:00:19.4585398Z ##[endgroup]
+2026-01-20T00:00:19.4586620Z ##[group]Setting up auth
+2026-01-20T00:00:19.4593224Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-20T00:00:19.4625674Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-20T00:00:19.5025013Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-20T00:00:19.5053589Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-20T00:00:19.5270812Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-20T00:00:19.5299035Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-20T00:00:19.5524639Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-20T00:00:19.5557939Z ##[endgroup]
+2026-01-20T00:00:19.5559174Z ##[group]Fetching the repository
+2026-01-20T00:00:19.5566479Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +5a677122f89898e32026444dee4d4fdc35502b0f:refs/remotes/origin/main
+2026-01-20T00:00:20.5884845Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-20T00:00:20.5887071Z  * [new ref]         5a677122f89898e32026444dee4d4fdc35502b0f -> origin/main
+2026-01-20T00:00:20.5944513Z ##[endgroup]
+2026-01-20T00:00:20.5945809Z ##[group]Determining the checkout info
+2026-01-20T00:00:20.5947755Z ##[endgroup]
+2026-01-20T00:00:20.5951488Z [command]/usr/bin/git sparse-checkout disable
+2026-01-20T00:00:20.5992336Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-20T00:00:20.6017349Z ##[group]Checking out the ref
+2026-01-20T00:00:20.6020265Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-20T00:00:20.7604647Z Switched to a new branch 'main'
+2026-01-20T00:00:20.7606393Z branch 'main' set up to track 'origin/main'.
+2026-01-20T00:00:20.7626550Z ##[endgroup]
+2026-01-20T00:00:20.7664673Z [command]/usr/bin/git log -1 --format=%H
+2026-01-20T00:00:20.7686178Z 5a677122f89898e32026444dee4d4fdc35502b0f
+2026-01-20T00:00:20.7920047Z ##[group]Run actions/setup-python@v5
+2026-01-20T00:00:20.7920408Z with:
+2026-01-20T00:00:20.7920627Z   python-version: 3.11
+2026-01-20T00:00:20.7920868Z   cache: pip
+2026-01-20T00:00:20.7921299Z   check-latest: false
+2026-01-20T00:00:20.7921676Z   token: ***
+2026-01-20T00:00:20.7921904Z   update-environment: true
+2026-01-20T00:00:20.7922169Z   allow-prereleases: false
+2026-01-20T00:00:20.7922427Z   freethreaded: false
+2026-01-20T00:00:20.7922650Z ##[endgroup]
+2026-01-20T00:00:20.9554756Z ##[group]Installed versions
+2026-01-20T00:00:20.9667168Z Successfully set up CPython (3.11.14)
+2026-01-20T00:00:20.9668125Z ##[endgroup]
+2026-01-20T00:00:21.0888340Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-20T00:00:21.4171220Z /home/runner/.cache/pip
+2026-01-20T00:00:21.5245054Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-20T00:00:22.5797194Z Received 246354028 of 254742636 (96.7%), 234.7 MBs/sec
+2026-01-20T00:00:22.6792711Z Received 254742636 of 254742636 (100.0%), 220.7 MBs/sec
+2026-01-20T00:00:22.6794152Z Cache Size: ~243 MB (254742636 B)
+2026-01-20T00:00:22.6833195Z [command]/usr/bin/tar -xf /home/runner/work/_temp/ab5e0a85-cc47-42a5-9b82-acbbf891053b/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-20T00:00:23.0746152Z Cache restored successfully
+2026-01-20T00:00:23.1281259Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-20T00:00:23.1543446Z ##[group]Run pip install -r requirements.txt
+2026-01-20T00:00:23.1543866Z [36;1mpip install -r requirements.txt[0m
+2026-01-20T00:00:23.1544156Z [36;1mplaywright install chromium[0m
+2026-01-20T00:00:23.1582706Z shell: /usr/bin/bash -e {0}
+2026-01-20T00:00:23.1582974Z env:
+2026-01-20T00:00:23.1583226Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:00:23.1583680Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-20T00:00:23.1584113Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:00:23.1584492Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:00:23.1584862Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:00:23.1585232Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-20T00:00:23.1585535Z ##[endgroup]
+2026-01-20T00:00:23.8651600Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-20T00:00:23.8667875Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-20T00:00:23.8860598Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-20T00:00:23.8874889Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-20T00:00:23.9173196Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-20T00:00:23.9186911Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-20T00:00:24.1334839Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-20T00:00:24.1352936Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-20T00:00:24.1649122Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-20T00:00:24.1663272Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-20T00:00:24.1845663Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-20T00:00:24.1860326Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-20T00:00:24.2238741Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-20T00:00:24.2253061Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-20T00:00:24.2809543Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-20T00:00:24.2823391Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-20T00:00:24.4759997Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-20T00:00:24.4774652Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-20T00:00:24.5557775Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-20T00:00:24.5571538Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-20T00:00:24.5746733Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-20T00:00:24.5759909Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-20T00:00:24.7019524Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-20T00:00:24.7034030Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-20T00:00:24.7241162Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-20T00:00:24.7256128Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-20T00:00:24.8095248Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-20T00:00:24.8109368Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-20T00:00:24.8286755Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-20T00:00:24.8300348Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-20T00:00:24.8604903Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-20T00:00:24.8622527Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-20T00:00:24.8868462Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-20T00:00:24.8882081Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-20T00:00:24.9102554Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:24.9115882Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-20T00:00:24.9614867Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:24.9628589Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-20T00:00:24.9904297Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:24.9917862Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-20T00:00:25.1328973Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:25.1343763Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-20T00:00:25.1636779Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:25.1650628Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-20T00:00:25.2497391Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:25.2512023Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-20T00:00:25.2674193Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:25.2687627Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-20T00:00:25.2801191Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:25.2814572Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-20T00:00:25.3102873Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:25.3116145Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-20T00:00:25.3301095Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:25.3314332Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-20T00:00:25.3623502Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:25.3636718Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-20T00:00:25.3806480Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:25.3820558Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-20T00:00:25.3967904Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:25.3981530Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-20T00:00:26.0482750Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:26.0498891Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-20T00:00:26.0655195Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:26.0668871Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-20T00:00:26.1323260Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-20T00:00:26.1337830Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-20T00:00:26.1605435Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-20T00:00:26.1943510Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-20T00:00:26.1960277Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-20T00:00:26.1972907Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-20T00:00:26.1986353Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-20T00:00:26.1999934Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-20T00:00:26.2012970Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-20T00:00:26.2025886Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-20T00:00:26.2039885Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-20T00:00:26.2100644Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-20T00:00:26.2117732Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-20T00:00:26.2131945Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-20T00:00:26.2144684Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-20T00:00:26.2158706Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-20T00:00:26.2171859Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-20T00:00:26.2184799Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-20T00:00:26.2200960Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-20T00:00:26.2227317Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-20T00:00:26.2240408Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-20T00:00:26.2253159Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-20T00:00:26.2266489Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-20T00:00:26.2279966Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-20T00:00:26.2292751Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-20T00:00:26.2311187Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-20T00:00:26.2759844Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-20T00:00:26.2888744Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-20T00:00:26.2915100Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-20T00:00:26.2928028Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-20T00:00:26.2941818Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-20T00:00:26.2954383Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-20T00:00:26.2967506Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-20T00:00:26.2981647Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-20T00:00:26.2994453Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-20T00:00:26.5002337Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-20T00:00:33.2413851Z 
+2026-01-20T00:00:33.2436380Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-20T00:00:33.8011133Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-20T00:00:33.8961953Z (node:2248) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-20T00:00:33.8963088Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-20T00:00:33.9929143Z |                                                                                |   0% of 164.7 MiB
+2026-01-20T00:00:34.1124715Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-20T00:00:34.1884635Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-20T00:00:34.2567347Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-20T00:00:34.3166642Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-20T00:00:34.3820177Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-20T00:00:34.4402053Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-20T00:00:34.4937263Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-20T00:00:34.5464583Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-20T00:00:34.6151504Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-20T00:00:34.6815338Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-20T00:00:37.1091669Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-20T00:00:37.1095902Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-20T00:00:37.2036920Z (node:2259) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-20T00:00:37.2039371Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-20T00:00:37.3207524Z |                                                                                |   0% of 2.3 MiB
+2026-01-20T00:00:37.3527765Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-20T00:00:37.3980725Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-20T00:00:37.4385101Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-20T00:00:37.4651440Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-20T00:00:37.4785056Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-20T00:00:37.5032746Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-20T00:00:37.5123068Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-20T00:00:37.5464693Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-20T00:00:37.5626618Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-20T00:00:37.5714169Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-20T00:00:37.6270059Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-20T00:00:37.6278355Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-20T00:00:37.7217271Z (node:2270) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-20T00:00:37.7218587Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-20T00:00:37.7936004Z |                                                                                |   0% of 109.7 MiB
+2026-01-20T00:00:37.8874601Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-20T00:00:37.9450694Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-20T00:00:37.9856994Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-20T00:00:38.0311285Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-20T00:00:38.0811707Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-20T00:00:38.1201824Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-20T00:00:38.1612917Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-20T00:00:38.2030931Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-20T00:00:38.2409519Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-20T00:00:38.2759113Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-20T00:00:40.0665386Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-20T00:00:40.0896514Z ##[group]Run mkdir -p projects/edge_magento_demo
+2026-01-20T00:00:40.0896929Z [36;1mmkdir -p projects/edge_magento_demo[0m
+2026-01-20T00:00:40.0897322Z [36;1mcat > projects/edge_magento_demo/config.json << 'EOF'[0m
+2026-01-20T00:00:40.0897645Z [36;1m{[0m
+2026-01-20T00:00:40.0897852Z [36;1m  "project_name": "edge_magento_demo",[0m
+2026-01-20T00:00:40.0898555Z [36;1m  "target_url": "https://magento.softwaretestingboard.com/",[0m
+2026-01-20T00:00:40.0899419Z [36;1m  "goal": "Search for 'jacket', select FIRST product, choose size 'M', choose color, add to cart, verify cart",[0m
+2026-01-20T00:00:40.0900067Z [36;1m  "headless": true[0m
+2026-01-20T00:00:40.0900277Z [36;1m}[0m
+2026-01-20T00:00:40.0900435Z [36;1mEOF[0m
+2026-01-20T00:00:40.0934098Z shell: /usr/bin/bash -e {0}
+2026-01-20T00:00:40.0934334Z env:
+2026-01-20T00:00:40.0934585Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:00:40.0935036Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-20T00:00:40.0935458Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:00:40.0935827Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:00:40.0936184Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:00:40.0936547Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-20T00:00:40.0936846Z ##[endgroup]
+2026-01-20T00:00:40.1045838Z ##[group]Run echo "🧪 Testing Edge Case: magento_demo"
+2026-01-20T00:00:40.1046233Z [36;1mecho "🧪 Testing Edge Case: magento_demo"[0m
+2026-01-20T00:00:40.1046781Z [36;1mecho "🎯 Goal: Search for 'jacket', select FIRST product, choose size 'M', choose color, add to cart, verify cart"[0m
+2026-01-20T00:00:40.1047285Z [36;1mecho ""[0m
+2026-01-20T00:00:40.1047515Z [36;1m# Use --deep for comprehensive testing[0m
+2026-01-20T00:00:40.1047941Z [36;1mpython orchestrator.py --project projects/edge_magento_demo --deep --force[0m
+2026-01-20T00:00:40.1079213Z shell: /usr/bin/bash -e {0}
+2026-01-20T00:00:40.1079438Z env:
+2026-01-20T00:00:40.1079700Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:00:40.1080312Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-20T00:00:40.1080738Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:00:40.1081120Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:00:40.1081514Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:00:40.1081880Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-20T00:00:40.1082334Z   GOOGLE_API_KEY: ***
+2026-01-20T00:00:40.1082533Z   PYTHONPATH: .
+2026-01-20T00:00:40.1082707Z ##[endgroup]
+2026-01-20T00:00:40.1132993Z 🧪 Testing Edge Case: magento_demo
+2026-01-20T00:00:40.1133975Z 🎯 Goal: Search for 'jacket', select FIRST product, choose size 'M', choose color, add to cart, verify cart
+2026-01-20T00:00:40.1134629Z 
+2026-01-20T00:00:41.8249397Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-20T00:00:41.8249764Z 
+2026-01-20T00:00:41.8250335Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://magento.softwaretestingboard.com/ (Workers: 3)
+2026-01-20T00:00:42.2562446Z   🔍 [Worker 0] Visiting (0): https://magento.softwaretestingboard.com/
+2026-01-20T00:00:43.5719950Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-20T00:00:43.5720711Z [DEBUG] Received response (Length: 305)
+2026-01-20T00:00:43.5721550Z ✅ Discovery Complete. Mapped 1 pages.
+2026-01-20T00:00:54.9131129Z 
+2026-01-20T00:00:54.9132252Z [PLAN] PLANNER: Planning goal -> 'Search for 'jacket', select FIRST product, choose size 'M', choose color, add to cart, verify cart' (Deep Mode: True)
+2026-01-20T00:00:54.9133570Z 🗺️ [PLAN] Loaded Sitemap with 1 pages.
+2026-01-20T00:00:54.9134079Z 📊 [KNOWLEDGE] Page types: ['homepage']
+2026-01-20T00:00:54.9134544Z 🔄 [KNOWLEDGE] Flows: 0, Forms: 0
+2026-01-20T00:00:54.9135615Z 🎭 [EXPERT] Detected Domain: ECOMMERCE. Persona: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability
+2026-01-20T00:00:54.9136723Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-20T00:00:54.9137245Z [DEBUG] Received response (Length: 4521)
+2026-01-20T00:00:54.9137786Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-20T00:00:55.9157675Z 
+2026-01-20T00:00:55.9158841Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-20T00:00:55.9159563Z 📋 Found 3 scenarios to explore.
+2026-01-20T00:00:56.2742037Z 
+2026-01-20T00:00:56.2742848Z [1/3] Exploring Scenario: Search, Add to Cart, and Verify Cart
+2026-01-20T00:00:56.2744878Z     🧠 Initialized exploration context for goal: 'This scenario covers the main user flow of searching for a product, selecting the first product, adding it to the cart, and verifying the cart contents.'
+2026-01-20T00:00:56.2746515Z     🎯 Scenario: Search, Add to Cart, and Verify Cart
+2026-01-20T00:00:56.2754072Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-20T00:00:56.9395648Z     ✅ Navigated to https://magento.softwaretestingboard.com/
+2026-01-20T00:00:56.9396480Z   ▶️ [STEP step_2] FILL: Search
+2026-01-20T00:00:56.9572202Z     🔍 Mining locators for: 'Search'
+2026-01-20T00:00:57.0082904Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-20T00:00:57.0113524Z     🔍 Trying smart selectors for 'Search'...
+2026-01-20T00:00:57.1370941Z     🔍 [SMART] Searching for: 'Search' (trying 15+ strategies)
+2026-01-20T00:00:57.1371704Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:00:57.1373892Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:00:58.8824060Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:00:58.8825173Z [DEBUG] Received response (Length: 276)
+2026-01-20T00:00:58.8826345Z     💡 Expert Suggestion: Search bar is likely on the Products page. The current page shows an SSL certificate error and does not contain any e-commerce elements.
+2026-01-20T00:00:58.8827555Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-20T00:00:58.9274845Z     🔄 Retry 1/3 mining locators for 'Search'...
+2026-01-20T00:00:59.9621440Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-20T00:00:59.9622204Z     🔍 Trying smart selectors for 'Search'...
+2026-01-20T00:01:00.0475671Z     🔍 [SMART] Searching for: 'Search' (trying 15+ strategies)
+2026-01-20T00:01:00.0476597Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:00.0480321Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:00.0482657Z [CACHE HIT] 08829b19... (hits: 1, misses: 1)
+2026-01-20T00:01:00.0483286Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:01:00.0483740Z     🔄 Retry 2/3 mining locators for 'Search'...
+2026-01-20T00:01:01.0492138Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:01:01.0841983Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-20T00:01:01.0842730Z     🔍 Trying smart selectors for 'Search'...
+2026-01-20T00:01:01.1686883Z     🔍 [SMART] Searching for: 'Search' (trying 15+ strategies)
+2026-01-20T00:01:01.1687614Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:01.1691469Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:01.1694041Z [CACHE HIT] 08829b19... (hits: 2, misses: 1)
+2026-01-20T00:01:01.1694652Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:01:01.1695394Z     🧠 Verifying step validity for 'Search' after no candidates found...
+2026-01-20T00:01:03.7837015Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:01:03.7837847Z [DEBUG] Received response (Length: 191)
+2026-01-20T00:01:03.7840305Z     🗑️ Step deemed INVALID: The page is showing an 'Invalid SSL certificate' error. The website is not accessible, so the 'Search' element cannot be located.. Removing from workflow.
+2026-01-20T00:01:03.7842289Z     ⏭️ Skipping execution of invalid step: Search
+2026-01-20T00:01:03.7843058Z   ▶️ [STEP step_3] PRESS: Search
+2026-01-20T00:01:03.7901634Z     🔍 Mining locators for: 'Search'
+2026-01-20T00:01:03.8241783Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-20T00:01:03.8242543Z     🔍 Trying smart selectors for 'Search'...
+2026-01-20T00:01:03.9070612Z     🔍 [SMART] Searching for: 'Search' (trying 15+ strategies)
+2026-01-20T00:01:03.9071564Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:03.9073651Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:03.9077397Z [CACHE HIT] 08829b19... (hits: 3, misses: 2)
+2026-01-20T00:01:03.9079078Z     💡 Expert Suggestion: Search bar is likely on the Products page. The current page shows an SSL certificate error and does not contain any e-commerce elements.
+2026-01-20T00:01:03.9080476Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-20T00:01:03.9465973Z     🔄 Retry 1/3 mining locators for 'Search'...
+2026-01-20T00:01:04.9815987Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-20T00:01:04.9816732Z     🔍 Trying smart selectors for 'Search'...
+2026-01-20T00:01:05.0648815Z     🔍 [SMART] Searching for: 'Search' (trying 15+ strategies)
+2026-01-20T00:01:05.0649558Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:05.0652081Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:05.0654785Z [CACHE HIT] 08829b19... (hits: 4, misses: 2)
+2026-01-20T00:01:05.0655407Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:01:05.0655785Z     🔄 Retry 2/3 mining locators for 'Search'...
+2026-01-20T00:01:06.0669067Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:01:06.1058083Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-20T00:01:06.1058753Z     🔍 Trying smart selectors for 'Search'...
+2026-01-20T00:01:06.1853008Z     🔍 [SMART] Searching for: 'Search' (trying 15+ strategies)
+2026-01-20T00:01:06.1853963Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:06.1856080Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:06.1859091Z [CACHE HIT] 08829b19... (hits: 5, misses: 2)
+2026-01-20T00:01:06.1859728Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:01:06.1860182Z     🧠 Verifying step validity for 'Search' after no candidates found...
+2026-01-20T00:01:06.1864492Z [CACHE HIT] 9d5841e2... (hits: 6, misses: 2)
+2026-01-20T00:01:06.1865724Z     🗑️ Step deemed INVALID: The page is showing an 'Invalid SSL certificate' error. The website is not accessible, so the 'Search' element cannot be located.. Removing from workflow.
+2026-01-20T00:01:06.1866552Z     ⏭️ Skipping execution of invalid step: Search
+2026-01-20T00:01:06.1866995Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-20T00:01:11.2018504Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-20T00:01:13.2041524Z     ✅ State transitioned.
+2026-01-20T00:01:14.5369026Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:01:14.5370429Z [DEBUG] Received response (Length: 202)
+2026-01-20T00:01:14.5371450Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-20T00:01:14.5373685Z     💭 Reasoning: The page is showing an SSL certificate error, which prevents further interaction with the website. The automation cannot proceed until the SSL issue is resolved.
+2026-01-20T00:01:14.5375696Z   ▶️ [STEP step_5] CLICK: First product in the list
+2026-01-20T00:01:14.5429356Z     🔍 Mining locators for: 'First product in the list'
+2026-01-20T00:01:14.5775088Z     🧠 Consulting AI (Vision-First) to find 'First product in the list'...
+2026-01-20T00:01:14.5776059Z     🔍 Trying smart selectors for 'First product in the list'...
+2026-01-20T00:01:14.6906725Z     🔍 [SMART] Searching for: 'First product in the list' (trying 15+ strategies)
+2026-01-20T00:01:14.6907802Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:14.6911119Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:19.9853984Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:01:19.9854769Z [DEBUG] Received response (Length: 343)
+2026-01-20T00:01:19.9856347Z     💡 Expert Suggestion: The current page shows an SSL certificate error, not the e-commerce site. Navigating to 'Products' is a placeholder; the actual navigation depends on the site's structure after the SSL issue is resolved.
+2026-01-20T00:01:19.9857618Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-20T00:01:20.0244343Z     🔄 Retry 1/3 mining locators for 'First product in the list'...
+2026-01-20T00:01:21.0604858Z     🧠 Consulting AI (Vision-First) to find 'First product in the list'...
+2026-01-20T00:01:21.0605419Z     🔍 Trying smart selectors for 'First product in the list'...
+2026-01-20T00:01:21.1788019Z     🔍 [SMART] Searching for: 'First product in the list' (trying 15+ strategies)
+2026-01-20T00:01:21.1789308Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:21.1793124Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:21.1795967Z [CACHE HIT] e52ef6da... (hits: 7, misses: 4)
+2026-01-20T00:01:21.1796382Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:01:21.1796840Z     🔄 Retry 2/3 mining locators for 'First product in the list'...
+2026-01-20T00:01:22.1808574Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:01:22.2231046Z     🧠 Consulting AI (Vision-First) to find 'First product in the list'...
+2026-01-20T00:01:22.2231943Z     🔍 Trying smart selectors for 'First product in the list'...
+2026-01-20T00:01:22.3349542Z     🔍 [SMART] Searching for: 'First product in the list' (trying 15+ strategies)
+2026-01-20T00:01:22.3350572Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:22.3354918Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:22.3358367Z [CACHE HIT] e52ef6da... (hits: 8, misses: 4)
+2026-01-20T00:01:22.3359073Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:01:22.3359959Z     🧠 Verifying step validity for 'First product in the list' after no candidates found...
+2026-01-20T00:01:24.5031595Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:01:24.5032233Z [DEBUG] Received response (Length: 245)
+2026-01-20T00:01:24.5033517Z     🗑️ Step deemed INVALID: The page shows an 'Invalid SSL certificate' error. The website is not accessible, so there are no products to select. Therefore, finding the 'First product in the list' is impossible.. Removing from workflow.
+2026-01-20T00:01:24.5034869Z     ⏭️ Skipping execution of invalid step: First product in the list
+2026-01-20T00:01:24.5035303Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Product details page
+2026-01-20T00:01:24.5087967Z     🔍 Mining locators for: 'Product details page'
+2026-01-20T00:01:24.5422846Z     🧠 Consulting AI (Vision-First) to find 'Product details page'...
+2026-01-20T00:01:24.5423458Z     🔍 Trying smart selectors for 'Product details page'...
+2026-01-20T00:01:24.6514998Z     🔍 [SMART] Searching for: 'Product details page' (trying 15+ strategies)
+2026-01-20T00:01:24.6516028Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:24.6518091Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:29.6489471Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:01:29.6490121Z [DEBUG] Received response (Length: 275)
+2026-01-20T00:01:29.6492571Z     💡 Expert Suggestion: The current page is an error page. Navigating to the 'Products' page is necessary to initiate the search and product selection process.
+2026-01-20T00:01:29.6494113Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-20T00:01:29.6886751Z     🔄 Retry 1/3 mining locators for 'Product details page'...
+2026-01-20T00:01:30.7243627Z     🧠 Consulting AI (Vision-First) to find 'Product details page'...
+2026-01-20T00:01:30.7244565Z     🔍 Trying smart selectors for 'Product details page'...
+2026-01-20T00:01:30.8326457Z     🔍 [SMART] Searching for: 'Product details page' (trying 15+ strategies)
+2026-01-20T00:01:30.8327322Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:30.8329810Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:30.8331855Z [CACHE HIT] 85cdece1... (hits: 9, misses: 6)
+2026-01-20T00:01:30.8332429Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:01:30.8332957Z     🔄 Retry 2/3 mining locators for 'Product details page'...
+2026-01-20T00:01:31.8345840Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:01:31.8716792Z     🧠 Consulting AI (Vision-First) to find 'Product details page'...
+2026-01-20T00:01:31.8717642Z     🔍 Trying smart selectors for 'Product details page'...
+2026-01-20T00:01:31.9768842Z     🔍 [SMART] Searching for: 'Product details page' (trying 15+ strategies)
+2026-01-20T00:01:31.9770406Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:31.9772749Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:31.9776164Z [CACHE HIT] 85cdece1... (hits: 10, misses: 6)
+2026-01-20T00:01:31.9776868Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:01:31.9777513Z     🧠 Verifying step validity for 'Product details page' after no candidates found...
+2026-01-20T00:01:34.4650817Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:01:34.4651827Z [DEBUG] Received response (Length: 208)
+2026-01-20T00:01:34.4653868Z     🗑️ Step deemed INVALID: The current page shows an 'Invalid SSL certificate' error. We cannot interact with the product details page because the website is not accessible.. Removing from workflow.
+2026-01-20T00:01:34.4655657Z     ⏭️ Skipping execution of invalid step: Product details page
+2026-01-20T00:01:34.4656335Z   ▶️ [STEP step_7] SELECT: Size
+2026-01-20T00:01:34.4707007Z     🔍 Mining locators for: 'Size'
+2026-01-20T00:01:34.5066518Z     🧠 Consulting AI (Vision-First) to find 'Size'...
+2026-01-20T00:01:34.5066980Z     🔍 Trying smart selectors for 'Size'...
+2026-01-20T00:01:34.5806781Z     🔍 [SMART] Searching for: 'Size' (trying 15+ strategies)
+2026-01-20T00:01:34.5807705Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:34.5810195Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:39.6066855Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:01:39.6067513Z [DEBUG] Received response (Length: 295)
+2026-01-20T00:01:39.6069334Z     💡 Expert Suggestion: The page shows an SSL certificate error, and the content is not the e-commerce site. Refreshing the page might resolve the issue.
+2026-01-20T00:01:39.6070977Z     🛠️ Executing corrective action: click -> 'Please try again in a few minutes.'
+2026-01-20T00:01:40.1595505Z     ✅ Executed corrective navigation
+2026-01-20T00:01:42.1619104Z     🔄 Retry 1/3 mining locators for 'Size'...
+2026-01-20T00:01:43.1972167Z     🧠 Consulting AI (Vision-First) to find 'Size'...
+2026-01-20T00:01:43.1972934Z     🔍 Trying smart selectors for 'Size'...
+2026-01-20T00:01:43.2712872Z     🔍 [SMART] Searching for: 'Size' (trying 15+ strategies)
+2026-01-20T00:01:43.2713857Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:43.2715948Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:43.2718841Z [CACHE HIT] 4431fc58... (hits: 11, misses: 8)
+2026-01-20T00:01:43.2719439Z     ⚠️ Skipping duplicate injection: Please try again in a few minutes.
+2026-01-20T00:01:43.2719864Z     🔄 Retry 2/3 mining locators for 'Size'...
+2026-01-20T00:01:44.2732154Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:01:44.3065823Z     🧠 Consulting AI (Vision-First) to find 'Size'...
+2026-01-20T00:01:44.3066537Z     🔍 Trying smart selectors for 'Size'...
+2026-01-20T00:01:44.3801388Z     🔍 [SMART] Searching for: 'Size' (trying 15+ strategies)
+2026-01-20T00:01:44.3802206Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:44.3804545Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:44.3806762Z [CACHE HIT] 4431fc58... (hits: 12, misses: 8)
+2026-01-20T00:01:44.3807587Z     ⚠️ Skipping duplicate injection: Please try again in a few minutes.
+2026-01-20T00:01:44.3808101Z     🧠 Verifying step validity for 'Size' after no candidates found...
+2026-01-20T00:01:54.5294394Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:01:54.5295095Z [DEBUG] Received response (Length: 208)
+2026-01-20T00:01:54.5296861Z     🗑️ Step deemed INVALID: The page shows an 'Invalid SSL certificate' error. The website is not accessible, so the 'Size' element cannot be found. We are on the wrong page.. Removing from workflow.
+2026-01-20T00:01:54.5298079Z     ⏭️ Skipping execution of invalid step: Size
+2026-01-20T00:01:54.5298710Z   ▶️ [STEP step_8] CLICK: Color
+2026-01-20T00:01:54.5351549Z     🔍 Mining locators for: 'Color'
+2026-01-20T00:01:54.5715358Z     🧠 Consulting AI (Vision-First) to find 'Color'...
+2026-01-20T00:01:54.5716032Z     🔍 Trying smart selectors for 'Color'...
+2026-01-20T00:01:54.6462066Z     🔍 [SMART] Searching for: 'Color' (trying 15+ strategies)
+2026-01-20T00:01:54.6463055Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:54.6465134Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:55.9621148Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:01:55.9621826Z [DEBUG] Received response (Length: 257)
+2026-01-20T00:01:55.9623376Z     💡 Expert Suggestion: The current page is an error page. Navigating to the 'Products' page is necessary to find product details like color.
+2026-01-20T00:01:55.9624752Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-20T00:01:56.0040253Z     🔄 Retry 1/3 mining locators for 'Color'...
+2026-01-20T00:01:57.0392764Z     🧠 Consulting AI (Vision-First) to find 'Color'...
+2026-01-20T00:01:57.0393197Z     🔍 Trying smart selectors for 'Color'...
+2026-01-20T00:01:57.1117303Z     🔍 [SMART] Searching for: 'Color' (trying 15+ strategies)
+2026-01-20T00:01:57.1118481Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:57.1120715Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:57.1123549Z [CACHE HIT] 5f2e9128... (hits: 13, misses: 10)
+2026-01-20T00:01:57.1124238Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:01:57.1124583Z     🔄 Retry 2/3 mining locators for 'Color'...
+2026-01-20T00:01:58.1135912Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:01:58.1543446Z     🧠 Consulting AI (Vision-First) to find 'Color'...
+2026-01-20T00:01:58.1544518Z     🔍 Trying smart selectors for 'Color'...
+2026-01-20T00:01:58.2275442Z     🔍 [SMART] Searching for: 'Color' (trying 15+ strategies)
+2026-01-20T00:01:58.2276306Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:01:58.2278495Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:01:58.2281108Z [CACHE HIT] 5f2e9128... (hits: 14, misses: 10)
+2026-01-20T00:01:58.2281785Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:01:58.2282342Z     🧠 Verifying step validity for 'Color' after no candidates found...
+2026-01-20T00:02:01.0679494Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:02:01.0680325Z [DEBUG] Received response (Length: 221)
+2026-01-20T00:02:01.0682817Z     🗑️ Step deemed INVALID: The page is showing an SSL certificate error. We cannot interact with the website, so the 'Color' element is not accessible. Therefore, this step is not valid.. Removing from workflow.
+2026-01-20T00:02:01.0685009Z     ⏭️ Skipping execution of invalid step: Color
+2026-01-20T00:02:01.0685772Z   ▶️ [STEP step_9] CLICK: Add to Cart
+2026-01-20T00:02:01.0741552Z     🔍 Mining locators for: 'Add to Cart'
+2026-01-20T00:02:01.1075521Z     🧠 Consulting AI (Vision-First) to find 'Add to Cart'...
+2026-01-20T00:02:01.1076354Z     🔍 Trying smart selectors for 'Add to Cart'...
+2026-01-20T00:02:01.2120117Z     🔍 [SMART] Searching for: 'Add to Cart' (trying 15+ strategies)
+2026-01-20T00:02:01.2121016Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:01.2124977Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:06.2602752Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:02:06.2603412Z [DEBUG] Received response (Length: 299)
+2026-01-20T00:02:06.2605111Z     💡 Expert Suggestion: The page shows an SSL certificate error, and there is no 'Add to Cart' button. Suggesting to try again in a few minutes as the page suggests.
+2026-01-20T00:02:06.2606785Z     🛠️ Executing corrective action: click -> 'Try again in a few minutes'
+2026-01-20T00:02:06.8136516Z     ✅ Executed corrective navigation
+2026-01-20T00:02:08.8159777Z     🔄 Retry 1/3 mining locators for 'Add to Cart'...
+2026-01-20T00:02:09.8537389Z     🧠 Consulting AI (Vision-First) to find 'Add to Cart'...
+2026-01-20T00:02:09.8538028Z     🔍 Trying smart selectors for 'Add to Cart'...
+2026-01-20T00:02:09.9557189Z     🔍 [SMART] Searching for: 'Add to Cart' (trying 15+ strategies)
+2026-01-20T00:02:09.9574662Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:09.9577222Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:09.9579448Z [CACHE HIT] 6052eb56... (hits: 15, misses: 12)
+2026-01-20T00:02:09.9580028Z     ⚠️ Skipping duplicate injection: Try again in a few minutes
+2026-01-20T00:02:09.9580455Z     🔄 Retry 2/3 mining locators for 'Add to Cart'...
+2026-01-20T00:02:10.9576522Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:02:10.9909370Z     🧠 Consulting AI (Vision-First) to find 'Add to Cart'...
+2026-01-20T00:02:10.9909904Z     🔍 Trying smart selectors for 'Add to Cart'...
+2026-01-20T00:02:11.0918444Z     🔍 [SMART] Searching for: 'Add to Cart' (trying 15+ strategies)
+2026-01-20T00:02:11.0919427Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:11.0921759Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:11.0924374Z [CACHE HIT] 6052eb56... (hits: 16, misses: 12)
+2026-01-20T00:02:11.0925147Z     ⚠️ Skipping duplicate injection: Try again in a few minutes
+2026-01-20T00:02:12.4027588Z     🧠 Verifying step validity for 'Add to Cart' after no candidates found...
+2026-01-20T00:02:12.4028624Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:02:12.4029318Z [DEBUG] Received response (Length: 234)
+2026-01-20T00:02:12.4031256Z     🗑️ Step deemed INVALID: The page shows an 'Invalid SSL certificate' error. The 'Add to Cart' button is not visible or accessible on this error page. Therefore, interacting with it is not possible.. Removing from workflow.
+2026-01-20T00:02:12.4033023Z     ⏭️ Skipping execution of invalid step: Add to Cart
+2026-01-20T00:02:12.4033680Z   ▶️ [STEP step_10] ASSERT_VISIBLE: Shopping Cart
+2026-01-20T00:02:12.4086755Z     🔍 Mining locators for: 'Shopping Cart'
+2026-01-20T00:02:12.4401628Z     🧠 Consulting AI (Vision-First) to find 'Shopping Cart'...
+2026-01-20T00:02:12.4402249Z     🔍 Trying smart selectors for 'Shopping Cart'...
+2026-01-20T00:02:12.5287867Z     🔍 [SMART] Searching for: 'Shopping Cart' (trying 15+ strategies)
+2026-01-20T00:02:12.5288846Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:12.5290908Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:17.3917706Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:02:17.3918508Z [DEBUG] Received response (Length: 306)
+2026-01-20T00:02:17.3919680Z     💡 Expert Suggestion: The page shows an SSL certificate error. The shopping cart cannot be accessed until the error is resolved. Suggesting to try again in a few minutes.
+2026-01-20T00:02:17.3920670Z     🛠️ Executing corrective action: click -> 'Try again in a few minutes'
+2026-01-20T00:02:17.9457125Z     ✅ Executed corrective navigation
+2026-01-20T00:02:19.9480745Z     🔄 Retry 1/3 mining locators for 'Shopping Cart'...
+2026-01-20T00:02:20.9864049Z     🧠 Consulting AI (Vision-First) to find 'Shopping Cart'...
+2026-01-20T00:02:20.9864959Z     🔍 Trying smart selectors for 'Shopping Cart'...
+2026-01-20T00:02:21.0747523Z     🔍 [SMART] Searching for: 'Shopping Cart' (trying 15+ strategies)
+2026-01-20T00:02:21.0748726Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:21.0753575Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:21.0755856Z [CACHE HIT] 073a9d01... (hits: 17, misses: 14)
+2026-01-20T00:02:21.0756315Z     ⚠️ Skipping duplicate injection: Try again in a few minutes
+2026-01-20T00:02:21.0756748Z     🔄 Retry 2/3 mining locators for 'Shopping Cart'...
+2026-01-20T00:02:22.0768744Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:02:22.1449155Z     🧠 Consulting AI (Vision-First) to find 'Shopping Cart'...
+2026-01-20T00:02:22.1449747Z     🔍 Trying smart selectors for 'Shopping Cart'...
+2026-01-20T00:02:22.2316858Z     🔍 [SMART] Searching for: 'Shopping Cart' (trying 15+ strategies)
+2026-01-20T00:02:22.2317705Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:22.2321875Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:22.2324540Z [CACHE HIT] 073a9d01... (hits: 18, misses: 14)
+2026-01-20T00:02:22.2325260Z     ⚠️ Skipping duplicate injection: Try again in a few minutes
+2026-01-20T00:02:22.2326114Z     🧠 Verifying step validity for 'Shopping Cart' after no candidates found...
+2026-01-20T00:02:23.4174450Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:02:23.4175062Z [DEBUG] Received response (Length: 228)
+2026-01-20T00:02:23.4176587Z     🗑️ Step deemed INVALID: The page shows an 'Invalid SSL certificate' error. The website is not accessible, so the 'Shopping Cart' element cannot be located. Therefore, this step is not valid.. Removing from workflow.
+2026-01-20T00:02:23.4177839Z     ⏭️ Skipping execution of invalid step: Shopping Cart
+2026-01-20T00:02:23.4178492Z   ▶️ [STEP step_11] CLICK: Shopping Cart
+2026-01-20T00:02:23.4227864Z     🔍 Mining locators for: 'Shopping Cart'
+2026-01-20T00:02:23.4550102Z     🧠 Consulting AI (Vision-First) to find 'Shopping Cart'...
+2026-01-20T00:02:23.4550602Z     🔍 Trying smart selectors for 'Shopping Cart'...
+2026-01-20T00:02:23.5412215Z     🔍 [SMART] Searching for: 'Shopping Cart' (trying 15+ strategies)
+2026-01-20T00:02:23.5412934Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:23.5416618Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:23.5419177Z [CACHE HIT] 073a9d01... (hits: 19, misses: 15)
+2026-01-20T00:02:23.5420043Z     💡 Expert Suggestion: The page shows an SSL certificate error. The shopping cart cannot be accessed until the error is resolved. Suggesting to try again in a few minutes.
+2026-01-20T00:02:23.5422703Z     🛠️ Executing corrective action: click -> 'Try again in a few minutes'
+2026-01-20T00:02:24.0901697Z     ✅ Executed corrective navigation
+2026-01-20T00:02:26.0925287Z     🔄 Retry 1/3 mining locators for 'Shopping Cart'...
+2026-01-20T00:02:27.1278108Z     🧠 Consulting AI (Vision-First) to find 'Shopping Cart'...
+2026-01-20T00:02:27.1278908Z     🔍 Trying smart selectors for 'Shopping Cart'...
+2026-01-20T00:02:27.2142337Z     🔍 [SMART] Searching for: 'Shopping Cart' (trying 15+ strategies)
+2026-01-20T00:02:27.2145201Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:27.2148591Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:27.2151076Z [CACHE HIT] 073a9d01... (hits: 20, misses: 15)
+2026-01-20T00:02:27.2151544Z     ⚠️ Skipping duplicate injection: Try again in a few minutes
+2026-01-20T00:02:27.2151995Z     🔄 Retry 2/3 mining locators for 'Shopping Cart'...
+2026-01-20T00:02:28.2161709Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:02:28.2535474Z     🧠 Consulting AI (Vision-First) to find 'Shopping Cart'...
+2026-01-20T00:02:28.2536288Z     🔍 Trying smart selectors for 'Shopping Cart'...
+2026-01-20T00:02:28.3385598Z     🔍 [SMART] Searching for: 'Shopping Cart' (trying 15+ strategies)
+2026-01-20T00:02:28.3386462Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:28.3389031Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:28.3391123Z [CACHE HIT] 073a9d01... (hits: 21, misses: 15)
+2026-01-20T00:02:28.3391778Z     ⚠️ Skipping duplicate injection: Try again in a few minutes
+2026-01-20T00:02:28.3392292Z     🧠 Verifying step validity for 'Shopping Cart' after no candidates found...
+2026-01-20T00:02:28.3395360Z [CACHE HIT] 6d4697f8... (hits: 22, misses: 15)
+2026-01-20T00:02:28.3397080Z     🗑️ Step deemed INVALID: The page shows an 'Invalid SSL certificate' error. The website is not accessible, so the 'Shopping Cart' element cannot be located. Therefore, this step is not valid.. Removing from workflow.
+2026-01-20T00:02:28.3398839Z     ⏭️ Skipping execution of invalid step: Shopping Cart
+2026-01-20T00:02:28.3399238Z   ▶️ [STEP step_12] ASSERT_URL: 
+2026-01-20T00:02:33.3535640Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-20T00:02:35.3559000Z     ✅ State transitioned.
+2026-01-20T00:02:35.3611571Z     🔄 Revisited state detected (count: 1)
+2026-01-20T00:02:36.6262151Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:02:36.6262842Z [DEBUG] Received response (Length: 170)
+2026-01-20T00:02:36.6263585Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-20T00:02:36.6264895Z     💭 Reasoning: The website has an invalid SSL certificate, preventing further automated interaction. The goal cannot be achieved from this page.
+2026-01-20T00:02:36.6265903Z   ▶️ [STEP step_13] ASSERT_VISIBLE: Product in cart
+2026-01-20T00:02:36.6315661Z     🔍 Mining locators for: 'Product in cart'
+2026-01-20T00:02:36.6698516Z     🧠 Consulting AI (Vision-First) to find 'Product in cart'...
+2026-01-20T00:02:36.6699314Z     🔍 Trying smart selectors for 'Product in cart'...
+2026-01-20T00:02:36.7645366Z     🔍 [SMART] Searching for: 'Product in cart' (trying 15+ strategies)
+2026-01-20T00:02:36.7646298Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:36.7648858Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:41.7777789Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:02:41.7778399Z [DEBUG] Received response (Length: 288)
+2026-01-20T00:02:41.7779461Z     💡 Expert Suggestion: The current page shows an SSL certificate error, not the e-commerce site. Navigating to 'Products' (or the main site) is necessary to find the cart.
+2026-01-20T00:02:41.7780325Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-20T00:02:41.8188106Z     🔄 Retry 1/3 mining locators for 'Product in cart'...
+2026-01-20T00:02:42.8527924Z     🧠 Consulting AI (Vision-First) to find 'Product in cart'...
+2026-01-20T00:02:42.8528753Z     🔍 Trying smart selectors for 'Product in cart'...
+2026-01-20T00:02:42.9495275Z     🔍 [SMART] Searching for: 'Product in cart' (trying 15+ strategies)
+2026-01-20T00:02:42.9496222Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:42.9499340Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:42.9501844Z [CACHE HIT] ac9080ef... (hits: 23, misses: 17)
+2026-01-20T00:02:42.9502435Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:02:42.9503068Z     🔄 Retry 2/3 mining locators for 'Product in cart'...
+2026-01-20T00:02:43.9514558Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:02:43.9861420Z     🧠 Consulting AI (Vision-First) to find 'Product in cart'...
+2026-01-20T00:02:43.9862280Z     🔍 Trying smart selectors for 'Product in cart'...
+2026-01-20T00:02:44.0825023Z     🔍 [SMART] Searching for: 'Product in cart' (trying 15+ strategies)
+2026-01-20T00:02:44.0825871Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:44.0827915Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:44.0831064Z [CACHE HIT] ac9080ef... (hits: 24, misses: 17)
+2026-01-20T00:02:44.0831475Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:02:44.0831979Z     🧠 Verifying step validity for 'Product in cart' after no candidates found...
+2026-01-20T00:02:46.6386671Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:02:46.6387316Z [DEBUG] Received response (Length: 252)
+2026-01-20T00:02:46.6389162Z     🗑️ Step deemed INVALID: The page shows an 'Invalid SSL certificate' error. The website is not accessible, so we cannot interact with any elements, including the 'Product in cart'. Therefore, this step is not valid.. Removing from workflow.
+2026-01-20T00:02:46.6390379Z     ⏭️ Skipping execution of invalid step: Product in cart
+2026-01-20T00:02:48.6733886Z 
+2026-01-20T00:02:48.6735891Z [2/3] Exploring Scenario: Contact Us Flow
+2026-01-20T00:02:48.6738514Z     🧠 Initialized exploration context for goal: 'This scenario tests the Contact Us form submission.'
+2026-01-20T00:02:48.6739680Z     🎯 Scenario: Contact Us Flow
+2026-01-20T00:02:48.6740624Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-20T00:02:49.6423676Z     ✅ Navigated to https://magento.softwaretestingboard.com/
+2026-01-20T00:02:49.6424292Z   ▶️ [STEP step_2] CLICK: Contact Us
+2026-01-20T00:02:49.6587010Z     🔍 Mining locators for: 'Contact Us'
+2026-01-20T00:02:49.7034242Z     🧠 Consulting AI (Vision-First) to find 'Contact Us'...
+2026-01-20T00:02:49.7034987Z     🔍 Trying smart selectors for 'Contact Us'...
+2026-01-20T00:02:49.7859136Z     🔍 [SMART] Searching for: 'Contact Us' (trying 15+ strategies)
+2026-01-20T00:02:49.7859950Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:49.7863238Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:51.9786538Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:02:51.9786972Z [DEBUG] Received response (Length: 278)
+2026-01-20T00:02:51.9788004Z     💡 Expert Suggestion: The page shows an SSL certificate error. Clicking the link to cloudflare.com might lead to contact information or support resources.
+2026-01-20T00:02:51.9789156Z     🛠️ Executing corrective action: click -> 'cloudflare.com'
+2026-01-20T00:02:52.5342475Z     ✅ Executed corrective navigation
+2026-01-20T00:02:54.5351349Z     🔄 Retry 1/3 mining locators for 'Contact Us'...
+2026-01-20T00:02:55.5711711Z     🧠 Consulting AI (Vision-First) to find 'Contact Us'...
+2026-01-20T00:02:55.5712444Z     🔍 Trying smart selectors for 'Contact Us'...
+2026-01-20T00:02:55.6485118Z     🔍 [SMART] Searching for: 'Contact Us' (trying 15+ strategies)
+2026-01-20T00:02:55.6486031Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:55.6489393Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:57.2603637Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:02:57.2604277Z [DEBUG] Received response (Length: 304)
+2026-01-20T00:02:57.2605082Z     ⚠️ Skipping duplicate injection: cloudflare.com
+2026-01-20T00:02:57.2605715Z     🔄 Retry 2/3 mining locators for 'Contact Us'...
+2026-01-20T00:02:58.2617299Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:02:58.2955229Z     🧠 Consulting AI (Vision-First) to find 'Contact Us'...
+2026-01-20T00:02:58.2955699Z     🔍 Trying smart selectors for 'Contact Us'...
+2026-01-20T00:02:58.3745522Z     🔍 [SMART] Searching for: 'Contact Us' (trying 15+ strategies)
+2026-01-20T00:02:58.3746428Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:02:58.3748879Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:02:58.3750931Z [CACHE HIT] 2503f04a... (hits: 25, misses: 20)
+2026-01-20T00:02:58.3751543Z     ⚠️ Skipping duplicate injection: cloudflare.com
+2026-01-20T00:02:58.3752099Z     🧠 Verifying step validity for 'Contact Us' after no candidates found...
+2026-01-20T00:03:02.3213385Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:03:02.3214264Z [DEBUG] Received response (Length: 220)
+2026-01-20T00:03:02.3215664Z     🗑️ Step deemed INVALID: The current page shows an SSL certificate error. The 'Contact Us' element is not visible on this error page. Therefore, it's not possible to interact with it.. Removing from workflow.
+2026-01-20T00:03:02.3216643Z     ⏭️ Skipping execution of invalid step: Contact Us
+2026-01-20T00:03:02.3216982Z   ▶️ [STEP step_3] ASSERT_URL: 
+2026-01-20T00:03:07.3372204Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-20T00:03:09.3394667Z     ✅ State transitioned.
+2026-01-20T00:03:10.5675608Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:03:10.5676244Z [DEBUG] Received response (Length: 151)
+2026-01-20T00:03:10.5676840Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-20T00:03:10.5677534Z     💭 Reasoning: The website has an invalid SSL certificate and cannot be accessed. The goal cannot be achieved from this page.
+2026-01-20T00:03:10.5678372Z     ⚡ PARALLEL MODE: Batching 3 fill steps
+2026-01-20T00:03:10.5678716Z     ⚡ Batch mining 3 fields in parallel...
+2026-01-20T00:03:10.6016320Z     🔍 Trying smart selectors for 'Name'...
+2026-01-20T00:03:10.6023300Z     🔍 [SMART] Searching for: 'Name' (trying 15+ strategies)
+2026-01-20T00:03:10.6024001Z     🔍 Trying smart selectors for 'Email'...
+2026-01-20T00:03:10.6031664Z     🔍 [SMART] Searching for: 'Email' (trying 15+ strategies)
+2026-01-20T00:03:10.6032420Z     🔍 Trying smart selectors for 'Comment'...
+2026-01-20T00:03:10.7307178Z     🔍 [SMART] Searching for: 'Comment' (trying 15+ strategies)
+2026-01-20T00:03:10.7308519Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:03:10.7314533Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:03:10.7352526Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:03:10.7355778Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:03:10.7702766Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:03:10.7705266Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:03:39.0497919Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:03:39.0498829Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:03:39.0499496Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:03:39.0500036Z [DEBUG] Received response (Length: 267)
+2026-01-20T00:03:39.0500484Z [DEBUG] Received response (Length: 274)
+2026-01-20T00:03:39.0500955Z [DEBUG] Received response (Length: 319)
+2026-01-20T00:03:39.0501652Z     ✅ Batch mined 'Name' (1 locators)
+2026-01-20T00:03:39.0502110Z     ✅ Batch mined 'Email' (1 locators)
+2026-01-20T00:03:39.0502712Z     ✅ Batch mined 'Comment' (1 locators)
+2026-01-20T00:03:39.0503022Z     ✅ Batch mined 3/3 steps successfully
+2026-01-20T00:03:39.0503337Z   ▶️ [STEP step_7] CLICK: Submit
+2026-01-20T00:03:39.0561296Z     🔍 Mining locators for: 'Submit'
+2026-01-20T00:03:39.0918107Z     🧠 Consulting AI (Vision-First) to find 'Submit'...
+2026-01-20T00:03:39.0918861Z     🔍 Trying smart selectors for 'Submit'...
+2026-01-20T00:03:39.1719460Z     🔍 [SMART] Searching for: 'Submit' (trying 15+ strategies)
+2026-01-20T00:03:39.1720375Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:03:39.1722428Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:03:40.6605656Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:03:40.6606462Z [DEBUG] Received response (Length: 260)
+2026-01-20T00:03:40.6608451Z     💡 Expert Suggestion: The page shows an SSL certificate error. There is no 'Submit' button. The user should try again later.
+2026-01-20T00:03:40.6610068Z     🛠️ Executing corrective action: click -> 'Try again in a few minutes'
+2026-01-20T00:03:41.2125552Z     ✅ Executed corrective navigation
+2026-01-20T00:03:43.2148682Z     🔄 Retry 1/3 mining locators for 'Submit'...
+2026-01-20T00:03:44.2513935Z     🧠 Consulting AI (Vision-First) to find 'Submit'...
+2026-01-20T00:03:44.2514387Z     🔍 Trying smart selectors for 'Submit'...
+2026-01-20T00:03:44.3277128Z     🔍 [SMART] Searching for: 'Submit' (trying 15+ strategies)
+2026-01-20T00:03:44.3278060Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:03:44.3282076Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:03:45.9123528Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:03:45.9124347Z [DEBUG] Received response (Length: 267)
+2026-01-20T00:03:45.9126001Z     💡 Expert Suggestion: The page shows an SSL certificate error. There is no 'Submit' button. Suggesting to refresh the page.
+2026-01-20T00:03:45.9127663Z     🛠️ Executing corrective action: click -> 'Please try again in a few minutes.'
+2026-01-20T00:03:46.4613469Z     ✅ Executed corrective navigation
+2026-01-20T00:03:48.4636556Z     🔄 Retry 2/3 mining locators for 'Submit'...
+2026-01-20T00:03:49.4649831Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:03:49.5365511Z     🧠 Consulting AI (Vision-First) to find 'Submit'...
+2026-01-20T00:03:49.5366273Z     🔍 Trying smart selectors for 'Submit'...
+2026-01-20T00:03:49.6124386Z     🔍 [SMART] Searching for: 'Submit' (trying 15+ strategies)
+2026-01-20T00:03:49.6125297Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:03:49.6127678Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:03:49.6130799Z [CACHE HIT] 35eac0d9... (hits: 26, misses: 27)
+2026-01-20T00:03:49.6131865Z     ⚠️ Skipping duplicate injection: Please try again in a few minutes.
+2026-01-20T00:03:49.6132757Z     🧠 Verifying step validity for 'Submit' after no candidates found...
+2026-01-20T00:03:50.8424777Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:03:50.8425389Z [DEBUG] Received response (Length: 223)
+2026-01-20T00:03:50.8426711Z     🗑️ Step deemed INVALID: The page shows an "Invalid SSL certificate" error. The website is not accessible, and therefore, the 'Submit' button cannot be found. We are on the wrong page.. Removing from workflow.
+2026-01-20T00:03:50.8427676Z     ⏭️ Skipping execution of invalid step: Submit
+2026-01-20T00:03:50.8428042Z   ▶️ [STEP step_8] ASSERT_VISIBLE: Success message
+2026-01-20T00:03:50.8482359Z     🔍 Mining locators for: 'Success message'
+2026-01-20T00:03:50.8837224Z     🧠 Consulting AI (Vision-First) to find 'Success message'...
+2026-01-20T00:03:50.8837719Z     🔍 Trying smart selectors for 'Success message'...
+2026-01-20T00:03:50.9699946Z     🔍 [SMART] Searching for: 'Success message' (trying 15+ strategies)
+2026-01-20T00:03:50.9700831Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:03:50.9703306Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:03:56.2969486Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:03:56.2970144Z [DEBUG] Received response (Length: 281)
+2026-01-20T00:03:56.2971534Z     💡 Expert Suggestion: The page shows an SSL certificate error. There is no success message on this page. The user should try again later.
+2026-01-20T00:03:56.2972730Z     🛠️ Executing corrective action: click -> 'Please try again in a few minutes.'
+2026-01-20T00:03:56.8473039Z     ✅ Executed corrective navigation
+2026-01-20T00:03:58.8496377Z     🔄 Retry 1/3 mining locators for 'Success message'...
+2026-01-20T00:03:59.8852959Z     🧠 Consulting AI (Vision-First) to find 'Success message'...
+2026-01-20T00:03:59.8853822Z     🔍 Trying smart selectors for 'Success message'...
+2026-01-20T00:03:59.9731004Z     🔍 [SMART] Searching for: 'Success message' (trying 15+ strategies)
+2026-01-20T00:03:59.9732019Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:03:59.9735459Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:03:59.9737900Z [CACHE HIT] 9fed962e... (hits: 27, misses: 29)
+2026-01-20T00:03:59.9738829Z     ⚠️ Skipping duplicate injection: Please try again in a few minutes.
+2026-01-20T00:03:59.9739924Z     🔄 Retry 2/3 mining locators for 'Success message'...
+2026-01-20T00:04:00.9751051Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:04:01.0103707Z     🧠 Consulting AI (Vision-First) to find 'Success message'...
+2026-01-20T00:04:01.0104202Z     🔍 Trying smart selectors for 'Success message'...
+2026-01-20T00:04:01.0967374Z     🔍 [SMART] Searching for: 'Success message' (trying 15+ strategies)
+2026-01-20T00:04:01.0968516Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:01.0970846Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:04:01.0974101Z [CACHE HIT] 9fed962e... (hits: 28, misses: 29)
+2026-01-20T00:04:01.0974598Z     ⚠️ Skipping duplicate injection: Please try again in a few minutes.
+2026-01-20T00:04:01.0975141Z     🧠 Verifying step validity for 'Success message' after no candidates found...
+2026-01-20T00:04:02.3425351Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:02.3425888Z [DEBUG] Received response (Length: 223)
+2026-01-20T00:04:02.3427269Z     🗑️ Step deemed INVALID: The current page shows an 'Invalid SSL certificate' error. The website is not accessible, so there is no success message to interact with. The step is not valid.. Removing from workflow.
+2026-01-20T00:04:02.3428631Z     ⏭️ Skipping execution of invalid step: Success message
+2026-01-20T00:04:04.3795300Z 
+2026-01-20T00:04:04.3796360Z [3/3] Exploring Scenario: Search for non existing product
+2026-01-20T00:04:04.3798090Z     🧠 Initialized exploration context for goal: 'This scenario tests the search functionality for a non-existing product.'
+2026-01-20T00:04:04.3799692Z     🎯 Scenario: Search for non existing product
+2026-01-20T00:04:04.3801804Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-20T00:04:05.1097596Z     ✅ Navigated to https://magento.softwaretestingboard.com/
+2026-01-20T00:04:05.1098574Z   ▶️ [STEP step_2] FILL: Search
+2026-01-20T00:04:05.1261668Z     🔍 Mining locators for: 'Search'
+2026-01-20T00:04:05.1667078Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-20T00:04:05.1667699Z     🔍 Trying smart selectors for 'Search'...
+2026-01-20T00:04:05.2523934Z     🔍 [SMART] Searching for: 'Search' (trying 15+ strategies)
+2026-01-20T00:04:05.2525047Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:05.2529167Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:04:07.6035394Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:07.6035840Z [DEBUG] Received response (Length: 249)
+2026-01-20T00:04:07.6036778Z     💡 Expert Suggestion: The page shows an SSL certificate error. There is no search bar on this error page. Suggesting to try again.
+2026-01-20T00:04:07.6037564Z     🛠️ Executing corrective action: click -> 'Try again'
+2026-01-20T00:04:08.1604798Z     ✅ Executed corrective navigation
+2026-01-20T00:04:10.1627679Z     🔄 Retry 1/3 mining locators for 'Search'...
+2026-01-20T00:04:11.2015000Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-20T00:04:11.2015435Z     🔍 Trying smart selectors for 'Search'...
+2026-01-20T00:04:11.2826563Z     🔍 [SMART] Searching for: 'Search' (trying 15+ strategies)
+2026-01-20T00:04:11.2827727Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:11.2830047Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:04:11.2832953Z [CACHE HIT] 93ae602f... (hits: 29, misses: 31)
+2026-01-20T00:04:11.2833348Z     ⚠️ Skipping duplicate injection: Try again
+2026-01-20T00:04:11.2833927Z     🔄 Retry 2/3 mining locators for 'Search'...
+2026-01-20T00:04:12.2845969Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:04:12.3196540Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-20T00:04:12.3197333Z     🔍 Trying smart selectors for 'Search'...
+2026-01-20T00:04:12.3982276Z     🔍 [SMART] Searching for: 'Search' (trying 15+ strategies)
+2026-01-20T00:04:12.3983303Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:12.3985671Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:04:12.3988603Z [CACHE HIT] 93ae602f... (hits: 30, misses: 31)
+2026-01-20T00:04:12.3989295Z     ⚠️ Skipping duplicate injection: Try again
+2026-01-20T00:04:12.3989973Z     🧠 Verifying step validity for 'Search' after no candidates found...
+2026-01-20T00:04:13.8050776Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:13.8051463Z [DEBUG] Received response (Length: 193)
+2026-01-20T00:04:13.8053322Z     🗑️ Step deemed INVALID: The page shows an 'Invalid SSL certificate' error. The search bar is not visible on this error page, so we cannot interact with it.. Removing from workflow.
+2026-01-20T00:04:13.8054970Z     ⏭️ Skipping execution of invalid step: Search
+2026-01-20T00:04:13.8055617Z   ▶️ [STEP step_3] PRESS: Search
+2026-01-20T00:04:13.8109380Z     🔍 Mining locators for: 'Search'
+2026-01-20T00:04:13.8488057Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-20T00:04:13.8489027Z     🔍 Trying smart selectors for 'Search'...
+2026-01-20T00:04:13.9278007Z     🔍 [SMART] Searching for: 'Search' (trying 15+ strategies)
+2026-01-20T00:04:13.9279149Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:13.9281498Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:04:13.9283964Z [CACHE HIT] 93ae602f... (hits: 31, misses: 32)
+2026-01-20T00:04:13.9285308Z     💡 Expert Suggestion: The page shows an SSL certificate error. There is no search bar on this error page. Suggesting to try again.
+2026-01-20T00:04:13.9286524Z     🛠️ Executing corrective action: click -> 'Try again'
+2026-01-20T00:04:14.4750629Z     ✅ Executed corrective navigation
+2026-01-20T00:04:16.4773835Z     🔄 Retry 1/3 mining locators for 'Search'...
+2026-01-20T00:04:17.5150675Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-20T00:04:17.5151288Z     🔍 Trying smart selectors for 'Search'...
+2026-01-20T00:04:17.5941189Z     🔍 [SMART] Searching for: 'Search' (trying 15+ strategies)
+2026-01-20T00:04:17.5942161Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:17.5944378Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:04:17.5947094Z [CACHE HIT] 93ae602f... (hits: 32, misses: 32)
+2026-01-20T00:04:17.5947794Z     ⚠️ Skipping duplicate injection: Try again
+2026-01-20T00:04:17.5948133Z     🔄 Retry 2/3 mining locators for 'Search'...
+2026-01-20T00:04:18.5960943Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:04:18.6318971Z     🧠 Consulting AI (Vision-First) to find 'Search'...
+2026-01-20T00:04:18.6319721Z     🔍 Trying smart selectors for 'Search'...
+2026-01-20T00:04:18.7105063Z     🔍 [SMART] Searching for: 'Search' (trying 15+ strategies)
+2026-01-20T00:04:18.7106029Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:18.7108535Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:04:18.7111604Z [CACHE HIT] 93ae602f... (hits: 33, misses: 32)
+2026-01-20T00:04:18.7112015Z     ⚠️ Skipping duplicate injection: Try again
+2026-01-20T00:04:18.7112589Z     🧠 Verifying step validity for 'Search' after no candidates found...
+2026-01-20T00:04:18.7114988Z [CACHE HIT] 38bc16fc... (hits: 34, misses: 32)
+2026-01-20T00:04:18.7116623Z     🗑️ Step deemed INVALID: The page shows an 'Invalid SSL certificate' error. The search bar is not visible on this error page, so we cannot interact with it.. Removing from workflow.
+2026-01-20T00:04:18.7118066Z     ⏭️ Skipping execution of invalid step: Search
+2026-01-20T00:04:18.7118864Z   ▶️ [STEP step_4] ASSERT_URL: 
+2026-01-20T00:04:23.7257787Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-20T00:04:25.7280907Z     ✅ State transitioned.
+2026-01-20T00:04:27.5926216Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:27.5926996Z [DEBUG] Received response (Length: 183)
+2026-01-20T00:04:27.5927914Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-20T00:04:27.5929767Z     💭 Reasoning: The page is showing an SSL certificate error, which prevents further interaction with the website. The goal cannot be achieved from this page.
+2026-01-20T00:04:27.5930948Z   ▶️ [STEP step_5] ASSERT_VISIBLE: No results found
+2026-01-20T00:04:27.5981015Z     🔍 Mining locators for: 'No results found'
+2026-01-20T00:04:27.6325973Z     🧠 Consulting AI (Vision-First) to find 'No results found'...
+2026-01-20T00:04:27.6326514Z     🔍 Trying smart selectors for 'No results found'...
+2026-01-20T00:04:27.7182719Z     🔍 [SMART] Searching for: 'No results found' (trying 15+ strategies)
+2026-01-20T00:04:27.7183760Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:27.7186150Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:04:32.0898824Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:32.0899259Z [DEBUG] Received response (Length: 182)
+2026-01-20T00:04:32.0899864Z     💡 Expert Suggestion: Search bar is likely on the Products page.
+2026-01-20T00:04:32.0900333Z     🛠️ Executing corrective action: click -> 'Products'
+2026-01-20T00:04:32.1309193Z     🔄 Retry 1/3 mining locators for 'No results found'...
+2026-01-20T00:04:33.1715284Z     🧠 Consulting AI (Vision-First) to find 'No results found'...
+2026-01-20T00:04:33.1716160Z     🔍 Trying smart selectors for 'No results found'...
+2026-01-20T00:04:33.2620373Z     🔍 [SMART] Searching for: 'No results found' (trying 15+ strategies)
+2026-01-20T00:04:33.2622008Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:33.2626100Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:04:33.2630145Z [CACHE HIT] feb63cb1... (hits: 35, misses: 34)
+2026-01-20T00:04:33.2630579Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:04:33.2630959Z     🔄 Retry 2/3 mining locators for 'No results found'...
+2026-01-20T00:04:34.2641680Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:04:34.2992377Z     🧠 Consulting AI (Vision-First) to find 'No results found'...
+2026-01-20T00:04:34.2993015Z     🔍 Trying smart selectors for 'No results found'...
+2026-01-20T00:04:34.3837156Z     🔍 [SMART] Searching for: 'No results found' (trying 15+ strategies)
+2026-01-20T00:04:34.3838467Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:04:34.3841314Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-20T00:04:34.3844023Z [CACHE HIT] feb63cb1... (hits: 36, misses: 34)
+2026-01-20T00:04:34.3844444Z     ⚠️ Skipping duplicate injection: Products
+2026-01-20T00:04:34.3845103Z     🧠 Verifying step validity for 'No results found' after no candidates found...
+2026-01-20T00:04:37.1173437Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:04:37.1174287Z [DEBUG] Received response (Length: 245)
+2026-01-20T00:04:37.1176260Z     🗑️ Step deemed INVALID: The page shows an 'Invalid SSL certificate' error. The 'No results found' element is not present on this error page. Therefore, attempting to locate and interact with it is not valid.. Removing from workflow.
+2026-01-20T00:04:37.1177825Z     ⏭️ Skipping execution of invalid step: No results found
+2026-01-20T00:04:39.1503162Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/edge_magento_demo/tests/generated_scenarios.json
+2026-01-20T00:04:39.1505245Z 
+2026-01-20T00:04:39.1505820Z 📝 Processing scenario 'Search, Add to Cart, and Verify Cart' with 3 steps
+2026-01-20T00:04:39.1506829Z ✅ Updated scenario 'Search, Add to Cart, and Verify Cart' with 3 validated steps
+2026-01-20T00:04:39.1509456Z 
+2026-01-20T00:04:39.1509869Z 📝 Processing scenario 'Contact Us Flow' with 5 steps
+2026-01-20T00:04:39.1510551Z   🔍 Step 2 (fill): Found 1 mined locators
+2026-01-20T00:04:39.1511141Z       ⚠️ Skipping low-confidence locator (0.60): ...
+2026-01-20T00:04:39.1511968Z   ⚠️  No robust locators passed filtering. Executor will use fallback strategies.
+2026-01-20T00:04:39.1513047Z   🔍 Step 3 (fill): Found 1 mined locators
+2026-01-20T00:04:39.1513664Z       ⚠️ Skipping low-confidence locator (0.60): ...
+2026-01-20T00:04:39.1514512Z   ⚠️  No robust locators passed filtering. Executor will use fallback strategies.
+2026-01-20T00:04:39.1515279Z   🔍 Step 4 (fill): Found 1 mined locators
+2026-01-20T00:04:39.1515853Z       ⚠️ Skipping low-confidence locator (0.60): ...
+2026-01-20T00:04:39.1516648Z   ⚠️  No robust locators passed filtering. Executor will use fallback strategies.
+2026-01-20T00:04:39.1518989Z ✅ Updated scenario 'Contact Us Flow' with 5 validated steps
+2026-01-20T00:04:39.1519449Z 
+2026-01-20T00:04:39.1519941Z 📝 Processing scenario 'Search for non existing product' with 2 steps
+2026-01-20T00:04:39.1521237Z ✅ Updated scenario 'Search for non existing product' with 2 validated steps
+2026-01-20T00:04:39.1522131Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-20T00:04:39.1522568Z 
+2026-01-20T00:04:39.1522765Z ============================================================
+2026-01-20T00:04:39.1523328Z 📊 EXPLORER PERFORMANCE SUMMARY
+2026-01-20T00:04:39.1523747Z ============================================================
+2026-01-20T00:04:39.1524065Z 
+2026-01-20T00:04:39.1524176Z 🔍 Locator Mining:
+2026-01-20T00:04:39.1524431Z    • Total Locators Mined: 3
+2026-01-20T00:04:39.1524821Z    • Filtered Out (Brittle): 3 (100.0%)
+2026-01-20T00:04:39.1525355Z    • Saved to Golden Path: 0 (0.0%)
+2026-01-20T00:04:39.1525646Z 
+2026-01-20T00:04:39.1525848Z ⚠️  Filtering Breakdown:
+2026-01-20T00:04:39.1526289Z    • Low Confidence (<0.75): 3
+2026-01-20T00:04:39.1526552Z 
+2026-01-20T00:04:39.1526744Z ✅ Golden Path Quality:
+2026-01-20T00:04:39.1527465Z    ❌ POOR - Only 0.0% of mined locators are robust. Site may have weak semantic HTML.
+2026-01-20T00:04:39.1528033Z 
+2026-01-20T00:04:39.1528454Z ============================================================
+2026-01-20T00:04:39.1528792Z 
+2026-01-20T00:04:39.1530385Z ✅ Deep Exploration Complete.
+2026-01-20T00:05:22.8262192Z 
+2026-01-20T00:05:22.8263017Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-20T00:05:22.8263580Z 📍 Project: edge_magento_demo
+2026-01-20T00:05:22.8264052Z 🎬 Mode: Headless
+2026-01-20T00:05:22.8264258Z 
+2026-01-20T00:05:22.8264497Z --- Scenario: Search, Add to Cart, and Verify Cart ---
+2026-01-20T00:05:22.8265171Z   ▶️  [STEP step_1] NAVIGATE: NAVIGATE
+2026-01-20T00:05:22.8265700Z     ✅ Step step_1 Passed.
+2026-01-20T00:05:22.8266150Z   ▶️  [STEP step_4] ASSERT_URL: ASSERT_URL
+2026-01-20T00:05:22.8266633Z     ✅ Step step_4 Passed.
+2026-01-20T00:05:22.8267075Z   ▶️  [STEP step_12] ASSERT_URL: ASSERT_URL
+2026-01-20T00:05:22.8267556Z     ✅ Step step_12 Passed.
+2026-01-20T00:05:22.8268112Z ✅ Scenario 'Search, Add to Cart, and Verify Cart' completed successfully!
+2026-01-20T00:05:22.8268978Z 
+2026-01-20T00:05:22.8269079Z --- Scenario: Contact Us Flow ---
+2026-01-20T00:05:22.8269403Z   ▶️  [STEP step_1] NAVIGATE: NAVIGATE
+2026-01-20T00:05:22.8269681Z     ✅ Step step_1 Passed.
+2026-01-20T00:05:22.8269948Z   ▶️  [STEP step_3] ASSERT_URL: ASSERT_URL
+2026-01-20T00:05:22.8270222Z     ✅ Step step_3 Passed.
+2026-01-20T00:05:22.8270466Z   ▶️  [STEP step_4] FILL: Name
+2026-01-20T00:05:22.8270705Z     ✅ Step step_4 Passed.
+2026-01-20T00:05:22.8270935Z   ▶️  [STEP step_5] FILL: Email
+2026-01-20T00:05:22.8271437Z     ❌ Attempt 1 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-20T00:05:22.8271873Z Call log:
+2026-01-20T00:05:22.8272049Z   - waiting for locator("tex...
+2026-01-20T00:05:22.8272366Z     🔧 [AUTO-HEAL] Re-mining page to find 'Email'...
+2026-01-20T00:05:22.8272737Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:05:22.8273353Z [DEBUG] Received response (Length: 38)
+2026-01-20T00:05:22.8273745Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-20T00:05:22.8274344Z     ❌ Attempt 2 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-20T00:05:22.8274927Z Call log:
+2026-01-20T00:05:22.8275108Z   - waiting for locator("tex...
+2026-01-20T00:05:22.8275416Z     🔧 [AUTO-HEAL] Re-mining page to find 'Email'...
+2026-01-20T00:05:22.8275739Z [CACHE HIT] e3222f5c... (hits: 1, misses: 1)
+2026-01-20T00:05:22.8276133Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-20T00:05:22.8276721Z     ❌ Attempt 3 failed (element_not_found): Locator.scroll_into_view_if_needed: Timeout 10000ms exceeded.
+2026-01-20T00:05:22.8277149Z Call log:
+2026-01-20T00:05:22.8277316Z   - waiting for locator("tex...
+2026-01-20T00:05:22.8277591Z     💀 Step step_5 failed after all retries.
+2026-01-20T00:05:22.8277949Z 🛑 Scenario 'Contact Us Flow' aborted due to step failure.
+2026-01-20T00:05:22.8278429Z 
+2026-01-20T00:05:22.8278641Z --- Scenario: Search for non existing product ---
+2026-01-20T00:05:22.8279061Z   ▶️  [STEP step_1] NAVIGATE: NAVIGATE
+2026-01-20T00:05:22.8279335Z     ✅ Step step_1 Passed.
+2026-01-20T00:05:22.8279593Z   ▶️  [STEP step_4] ASSERT_URL: ASSERT_URL
+2026-01-20T00:05:22.8279867Z     ✅ Step step_4 Passed.
+2026-01-20T00:05:22.8280214Z ✅ Scenario 'Search for non existing product' completed successfully!
+2026-01-20T00:05:22.8280476Z 
+2026-01-20T00:05:22.8280577Z ============================================================
+2026-01-20T00:05:22.8280861Z 🎯 EXECUTION SUMMARY
+2026-01-20T00:05:22.8281064Z ============================================================
+2026-01-20T00:05:22.8281250Z 
+2026-01-20T00:05:22.8281347Z 📋 Scenario Overview:
+2026-01-20T00:05:22.8281580Z    • Total Scenarios Planned: 3
+2026-01-20T00:05:22.8281829Z    • Scenarios Executed: 3
+2026-01-20T00:05:22.8282065Z    • Total Steps Executed: 9
+2026-01-20T00:05:22.8282205Z 
+2026-01-20T00:05:22.8282300Z ✅ Results:
+2026-01-20T00:05:22.8282487Z    ✅ Passed: 2 (66%)
+2026-01-20T00:05:22.8282692Z    ❌ Failed: 1 (33%)
+2026-01-20T00:05:22.8282801Z 
+2026-01-20T00:05:22.8282902Z ⚠️  Failed Scenarios:
+2026-01-20T00:05:22.8283102Z    • Contact Us Flow
+2026-01-20T00:05:22.8283215Z 
+2026-01-20T00:05:22.8283313Z ============================================================
+2026-01-20T00:05:22.8283492Z 
+2026-01-20T00:05:22.8283984Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/edge_magento_demo/execution.json
+2026-01-20T00:05:22.8284462Z 
+2026-01-20T00:05:22.8284556Z ============================================================
+2026-01-20T00:05:22.8284853Z 📊 EXECUTOR PERFORMANCE SUMMARY
+2026-01-20T00:05:22.8285082Z ============================================================
+2026-01-20T00:05:22.8285263Z 
+2026-01-20T00:05:22.8285361Z 🎯 Execution Results:
+2026-01-20T00:05:22.8285573Z    • Total Steps: 9
+2026-01-20T00:05:22.8285806Z    • First-Attempt Success: 8 (88.9%)
+2026-01-20T00:05:22.8286091Z    • Required AI Healing: 2 (22.2%)
+2026-01-20T00:05:22.8286357Z    • Final Failures: 1 (11.1%)
+2026-01-20T00:05:22.8286513Z 
+2026-01-20T00:05:22.8286630Z 🛤️  Golden Path Effectiveness:
+2026-01-20T00:05:22.8286983Z    • Steps with Mined Locators: 0
+2026-01-20T00:05:22.8287249Z    • Golden Path Hits: 0 (0.0%)
+2026-01-20T00:05:22.8287483Z    • Golden Path Misses: 0
+2026-01-20T00:05:22.8287727Z    • Fallback Used (No Locators): 9
+2026-01-20T00:05:22.8287884Z 
+2026-01-20T00:05:22.8287984Z 📈 Overall Assessment:
+2026-01-20T00:05:22.8288724Z    ❌ POOR. Golden path is not effective. Explorer may need better locator mining.
+2026-01-20T00:05:22.8289229Z 
+2026-01-20T00:05:22.8289424Z 🎯 vs Target (100% Flawless):
+2026-01-20T00:05:22.8289838Z    📊 Gap: 11.1% from target
+2026-01-20T00:05:22.8290294Z    💡 Recommendation: Explorer needs to mine locators for 9 steps
+2026-01-20T00:05:22.8290542Z 
+2026-01-20T00:05:22.8290643Z ============================================================
+2026-01-20T00:05:22.9298090Z 
+2026-01-20T00:05:22.9298868Z [PHASE] Running Phase: DISCOVERY
+2026-01-20T00:05:22.9301298Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/edge_magento_demo --url https://magento.softwaretestingboard.com/ --deep
+2026-01-20T00:05:22.9303113Z ✅ Phase 'discovery' completed successfully.
+2026-01-20T00:05:22.9303319Z 
+2026-01-20T00:05:22.9303416Z [PHASE] Running Phase: PLANNING
+2026-01-20T00:05:22.9305875Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/edge_magento_demo --goal Search for 'jacket', select FIRST product, choose size 'M', choose color, add to cart, verify cart --url https://magento.softwaretestingboard.com/ --deep
+2026-01-20T00:05:22.9308372Z ✅ Phase 'planning' completed successfully.
+2026-01-20T00:05:22.9308638Z 
+2026-01-20T00:05:22.9308734Z [PHASE] Running Phase: EXPLORATION
+2026-01-20T00:05:22.9309698Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/edge_magento_demo
+2026-01-20T00:05:22.9310744Z ✅ Phase 'exploration' completed successfully.
+2026-01-20T00:05:22.9311110Z 📊 Exploration Discovery Success Rate: 0.0%
+2026-01-20T00:05:22.9311575Z ⚠️ Exploration failed to find stable locators for key steps. Execution might fail.
+2026-01-20T00:05:22.9311896Z 
+2026-01-20T00:05:22.9311985Z [PHASE] Running Phase: EXECUTION
+2026-01-20T00:05:22.9312892Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/edge_magento_demo
+2026-01-20T00:05:22.9313881Z ✅ Phase 'execution' completed successfully.
+2026-01-20T00:05:22.9314060Z 
+2026-01-20T00:05:22.9314162Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-20T00:05:23.0163255Z ##[group]Run RESULT_FILE="projects/edge_magento_demo/execution.json"
+2026-01-20T00:05:23.0163793Z [36;1mRESULT_FILE="projects/edge_magento_demo/execution.json"[0m
+2026-01-20T00:05:23.0164209Z [36;1mWORKFLOW_FILE="projects/edge_magento_demo/workflow.json"[0m
+2026-01-20T00:05:23.0164524Z [36;1m[0m
+2026-01-20T00:05:23.0164794Z [36;1mecho "## 📊 Results for magento_demo" >> $GITHUB_STEP_SUMMARY[0m
+2026-01-20T00:05:23.0165149Z [36;1mecho "" >> $GITHUB_STEP_SUMMARY[0m
+2026-01-20T00:05:23.0165383Z [36;1m[0m
+2026-01-20T00:05:23.0165555Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-20T00:05:23.0165884Z [36;1m  echo "✅ Execution completed" >> $GITHUB_STEP_SUMMARY[0m
+2026-01-20T00:05:23.0166187Z [36;1m  [0m
+2026-01-20T00:05:23.0166362Z [36;1m  # Extract metrics[0m
+2026-01-20T00:05:23.0166710Z [36;1m  TOTAL=$(jq -r '.scenarios | length' "$RESULT_FILE" 2>/dev/null || echo "0")[0m
+2026-01-20T00:05:23.0167333Z [36;1m  PASSED=$(jq -r '[.scenarios[] | select(.status=="passed")] | length' "$RESULT_FILE" 2>/dev/null || echo "0")[0m
+2026-01-20T00:05:23.0167787Z [36;1m  [0m
+2026-01-20T00:05:23.0168023Z [36;1m  echo "- **Scenarios:** ${TOTAL}" >> $GITHUB_STEP_SUMMARY[0m
+2026-01-20T00:05:23.0168663Z [36;1m  echo "- **Passed:** ${PASSED}" >> $GITHUB_STEP_SUMMARY[0m
+2026-01-20T00:05:23.0169091Z [36;1m  echo "- **Success Rate:** $((PASSED * 100 / TOTAL))%" >> $GITHUB_STEP_SUMMARY[0m
+2026-01-20T00:05:23.0169472Z [36;1m  echo "" >> $GITHUB_STEP_SUMMARY[0m
+2026-01-20T00:05:23.0169706Z [36;1m  [0m
+2026-01-20T00:05:23.0169883Z [36;1m  # Show scenarios generated[0m
+2026-01-20T00:05:23.0170135Z [36;1m  if [ -f "$WORKFLOW_FILE" ]; then[0m
+2026-01-20T00:05:23.0170540Z [36;1m    SCENARIO_COUNT=$(jq -r '.scenarios | length' "$WORKFLOW_FILE" 2>/dev/null || echo "0")[0m
+2026-01-20T00:05:23.0171300Z [36;1m    echo "📋 **Generated Scenarios:** ${SCENARIO_COUNT}" >> $GITHUB_STEP_SUMMARY[0m
+2026-01-20T00:05:23.0171884Z [36;1m    jq -r '.scenarios[] | "  - \(.name)"' "$WORKFLOW_FILE" 2>/dev/null >> $GITHUB_STEP_SUMMARY || true[0m
+2026-01-20T00:05:23.0172299Z [36;1m  fi[0m
+2026-01-20T00:05:23.0172465Z [36;1melse[0m
+2026-01-20T00:05:23.0172716Z [36;1m  echo "❌ No execution results found" >> $GITHUB_STEP_SUMMARY[0m
+2026-01-20T00:05:23.0173026Z [36;1m  exit 1[0m
+2026-01-20T00:05:23.0173195Z [36;1mfi[0m
+2026-01-20T00:05:23.0205294Z shell: /usr/bin/bash -e {0}
+2026-01-20T00:05:23.0205521Z env:
+2026-01-20T00:05:23.0205765Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:05:23.0206187Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-20T00:05:23.0206613Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:05:23.0206992Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:05:23.0207359Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:05:23.0207726Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-20T00:05:23.0208028Z ##[endgroup]
+2026-01-20T00:05:23.0496467Z ##[group]Run actions/upload-artifact@v4
+2026-01-20T00:05:23.0496737Z with:
+2026-01-20T00:05:23.0496918Z   name: edge-magento_demo-results
+2026-01-20T00:05:23.0497469Z   path: projects/edge_magento_demo/execution.json
+projects/edge_magento_demo/workflow.json
+projects/edge_magento_demo/sitemap.json
+
+2026-01-20T00:05:23.0498027Z   retention-days: 30
+2026-01-20T00:05:23.0498496Z   if-no-files-found: warn
+2026-01-20T00:05:23.0498720Z   compression-level: 6
+2026-01-20T00:05:23.0498911Z   overwrite: false
+2026-01-20T00:05:23.0499095Z   include-hidden-files: false
+2026-01-20T00:05:23.0499305Z env:
+2026-01-20T00:05:23.0499526Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:05:23.0499926Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-20T00:05:23.0500332Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:05:23.0500680Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:05:23.0501056Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:05:23.0501407Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-20T00:05:23.0501699Z ##[endgroup]
+2026-01-20T00:05:23.2656422Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-20T00:05:23.2662380Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/edge_magento_demo. This will be the root directory of the artifact
+2026-01-20T00:05:23.2663144Z With the provided path, there will be 3 files uploaded
+2026-01-20T00:05:23.2667421Z Artifact name is valid!
+2026-01-20T00:05:23.2669539Z Root directory input is valid!
+2026-01-20T00:05:23.3586481Z Beginning upload of artifact content to blob storage
+2026-01-20T00:05:23.4021618Z Uploaded bytes 1891
+2026-01-20T00:05:23.4156990Z Finished uploading artifact content to blob storage!
+2026-01-20T00:05:23.4160669Z SHA256 digest of uploaded artifact zip is 96e316158245c08a579399fb72cb3846ab11325a660974ba783db78398da4844
+2026-01-20T00:05:23.4162133Z Finalizing artifact upload
+2026-01-20T00:05:23.5230287Z Artifact edge-magento_demo-results.zip successfully finalized. Artifact ID 5183122551
+2026-01-20T00:05:23.5231879Z Artifact edge-magento_demo-results has been successfully uploaded! Final size is 1891 bytes. Artifact ID is 5183122551
+2026-01-20T00:05:23.5239257Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21154782266/artifacts/5183122551
+2026-01-20T00:05:23.5374233Z Post job cleanup.
+2026-01-20T00:05:23.6889304Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-20T00:05:23.7014750Z Post job cleanup.
+2026-01-20T00:05:23.7977352Z [command]/usr/bin/git version
+2026-01-20T00:05:23.8014440Z git version 2.52.0
+2026-01-20T00:05:23.8056602Z Temporarily overriding HOME='/home/runner/work/_temp/fa55b4b0-b5eb-42e9-b5d2-edb2d2ba5eca' before making global git config changes
+2026-01-20T00:05:23.8057756Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-20T00:05:23.8068967Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-20T00:05:23.8102267Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-20T00:05:23.8136728Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-20T00:05:23.8366934Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-20T00:05:23.8387474Z http.https://github.com/.extraheader
+2026-01-20T00:05:23.8404406Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-20T00:05:23.8443037Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-20T00:05:23.8685762Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-20T00:05:23.8717574Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-20T00:05:23.9076817Z Cleaning up orphan processes

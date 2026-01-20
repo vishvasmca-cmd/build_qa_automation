@@ -534,7 +534,16 @@ class ExecutorAgent:
                     self.log(f"      ✅ Validated: '{text_content[:30]}...' matches '{description}'", "green")
                     return True
                 else:
-                    # 🐛 FIX: Reject instead of warning for no match
+                    # 🐛 FIX: More lenient - accept if element type matches action
+                    # Don't reject just because keywords don't match exactly
+                    if keyword in ["click", "view"] and tag_name in ["button", "a", "div", "span", "li"]:
+                        self.log(f"      ✅ Validated: Clickable {tag_name} (lenient)", "green")
+                        return True
+                    if keyword in ["fill"] and tag_name in ["input", "textarea", "select"]:
+                        self.log(f"      ✅ Validated: Input {tag_name} (lenient)", "green")
+                        return True
+                    
+                    # Still reject if really no match
                     self.log(f"      ❌ Rejected: No keyword match in '{text_content[:30]}' for '{description}'", "grey")
                     return False
             

@@ -1516,13 +1516,15 @@ class ExplorerAgent:
                     self.log(f"      ❌ Rejected: Contact action '{target}' when scenario is about products", "grey")
                     return False
             
-            # Rule 3: Don't suggest login actions if scenario is not about authentication
+            # Rule 3: Don't suggest login actions if scenario is explicitly non-auth
             if "login" in target or "sign in" in target or "register" in target:
-                if not any(word in scenario_context for word in ["login", "sign", "register", "auth", "account"]):
-                    # Allow login if it's needed for checkout though
-                    if not any(word in scenario_context for word in ["checkout", "purchase", "order"]):
-                        self.log(f"      ❌ Rejected: Login action '{target}' not relevant to scenario", "grey")
-                        return False
+                # 🐛 FIX: Be more specific - only reject for clearly non-auth scenarios
+                scenario_lower = scenario_context.lower()
+                if any(word in scenario_lower for word in ["contact", "about us", "browse", "view", "search only"]):
+                    # These scenarios explicitly don't need login
+                    self.log(f"      ❌ Rejected: Login action '{target}' not relevant to scenario", "grey")
+                    return False
+                # Otherwise allow - scenario might need login even if not explicitly mentioned
             
             # Rule 4: Scenario-specific validation
             if "contact" in scenario_context and "form" in scenario_context:

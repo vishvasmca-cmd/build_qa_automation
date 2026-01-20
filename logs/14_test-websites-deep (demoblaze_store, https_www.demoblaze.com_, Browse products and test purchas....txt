@@ -1,0 +1,1913 @@
+﻿2026-01-19T23:42:07.0607197Z Current runner version: '2.331.0'
+2026-01-19T23:42:07.0632284Z ##[group]Runner Image Provisioner
+2026-01-19T23:42:07.0633110Z Hosted Compute Agent
+2026-01-19T23:42:07.0633674Z Version: 20251211.462
+2026-01-19T23:42:07.0634308Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+2026-01-19T23:42:07.0635087Z Build Date: 2025-12-11T16:28:49Z
+2026-01-19T23:42:07.0635752Z Worker ID: {97591ab7-9963-4e87-84e1-6157995e8bf3}
+2026-01-19T23:42:07.0636446Z ##[endgroup]
+2026-01-19T23:42:07.0637061Z ##[group]Operating System
+2026-01-19T23:42:07.0637588Z Ubuntu
+2026-01-19T23:42:07.0638105Z 24.04.3
+2026-01-19T23:42:07.0638629Z LTS
+2026-01-19T23:42:07.0639072Z ##[endgroup]
+2026-01-19T23:42:07.0639612Z ##[group]Runner Image
+2026-01-19T23:42:07.0640321Z Image: ubuntu-24.04
+2026-01-19T23:42:07.0640816Z Version: 20260111.209.1
+2026-01-19T23:42:07.0641891Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260111.209/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-19T23:42:07.0643468Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260111.209
+2026-01-19T23:42:07.0644553Z ##[endgroup]
+2026-01-19T23:42:07.0645633Z ##[group]GITHUB_TOKEN Permissions
+2026-01-19T23:42:07.0647959Z Contents: read
+2026-01-19T23:42:07.0648527Z Metadata: read
+2026-01-19T23:42:07.0649045Z Packages: read
+2026-01-19T23:42:07.0649509Z ##[endgroup]
+2026-01-19T23:42:07.0652007Z Secret source: Actions
+2026-01-19T23:42:07.0653030Z Prepare workflow directory
+2026-01-19T23:42:07.0993401Z Prepare all required actions
+2026-01-19T23:42:07.1033677Z Getting action download info
+2026-01-19T23:42:07.4473381Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-19T23:42:07.5657179Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-19T23:42:07.6482406Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-19T23:42:07.8943489Z Complete job name: test-websites-deep (demoblaze_store, https://www.demoblaze.com/, Browse products and test purchas...
+2026-01-19T23:42:07.9709817Z ##[group]Run actions/checkout@v4
+2026-01-19T23:42:07.9711200Z with:
+2026-01-19T23:42:07.9711740Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T23:42:07.9712548Z   token: ***
+2026-01-19T23:42:07.9712985Z   ssh-strict: true
+2026-01-19T23:42:07.9713435Z   ssh-user: git
+2026-01-19T23:42:07.9713885Z   persist-credentials: true
+2026-01-19T23:42:07.9714380Z   clean: true
+2026-01-19T23:42:07.9714828Z   sparse-checkout-cone-mode: true
+2026-01-19T23:42:07.9715372Z   fetch-depth: 1
+2026-01-19T23:42:07.9715823Z   fetch-tags: false
+2026-01-19T23:42:07.9716280Z   show-progress: true
+2026-01-19T23:42:07.9716750Z   lfs: false
+2026-01-19T23:42:07.9717176Z   submodules: false
+2026-01-19T23:42:07.9717651Z   set-safe-directory: true
+2026-01-19T23:42:07.9718455Z ##[endgroup]
+2026-01-19T23:42:08.0956127Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-19T23:42:08.0959276Z ##[group]Getting Git version info
+2026-01-19T23:42:08.0961245Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T23:42:08.0963451Z [command]/usr/bin/git version
+2026-01-19T23:42:08.1088528Z git version 2.52.0
+2026-01-19T23:42:08.1117006Z ##[endgroup]
+2026-01-19T23:42:08.1132358Z Temporarily overriding HOME='/home/runner/work/_temp/f3d26c07-d3fa-4ad2-98e7-781f1ba43f12' before making global git config changes
+2026-01-19T23:42:08.1135223Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T23:42:08.1147183Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T23:42:08.1193119Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-19T23:42:08.1196401Z ##[group]Initializing the repository
+2026-01-19T23:42:08.1201020Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T23:42:08.1320697Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-19T23:42:08.1323077Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-19T23:42:08.1324885Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-19T23:42:08.1326305Z hint: call:
+2026-01-19T23:42:08.1327007Z hint:
+2026-01-19T23:42:08.1327883Z hint: 	git config --global init.defaultBranch <name>
+2026-01-19T23:42:08.1329091Z hint:
+2026-01-19T23:42:08.1330335Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-19T23:42:08.1332066Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-19T23:42:08.1333552Z hint:
+2026-01-19T23:42:08.1334212Z hint: 	git branch -m <name>
+2026-01-19T23:42:08.1335033Z hint:
+2026-01-19T23:42:08.1336193Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-19T23:42:08.1338201Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-19T23:42:08.1341449Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T23:42:08.1374433Z ##[endgroup]
+2026-01-19T23:42:08.1375252Z ##[group]Disabling automatic garbage collection
+2026-01-19T23:42:08.1378519Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-19T23:42:08.1407088Z ##[endgroup]
+2026-01-19T23:42:08.1407845Z ##[group]Setting up auth
+2026-01-19T23:42:08.1414041Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T23:42:08.1444979Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T23:42:08.1804919Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T23:42:08.1840601Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T23:42:08.2074678Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T23:42:08.2107820Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T23:42:08.2344161Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-19T23:42:08.2378782Z ##[endgroup]
+2026-01-19T23:42:08.2379870Z ##[group]Fetching the repository
+2026-01-19T23:42:08.2387827Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +d25504decfc404871c7c3bd5ac186d61498b2813:refs/remotes/origin/main
+2026-01-19T23:42:09.3472117Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-19T23:42:09.3473670Z  * [new ref]         d25504decfc404871c7c3bd5ac186d61498b2813 -> origin/main
+2026-01-19T23:42:09.3561367Z ##[endgroup]
+2026-01-19T23:42:09.3563320Z ##[group]Determining the checkout info
+2026-01-19T23:42:09.3564933Z ##[endgroup]
+2026-01-19T23:42:09.3568203Z [command]/usr/bin/git sparse-checkout disable
+2026-01-19T23:42:09.3609414Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-19T23:42:09.3637774Z ##[group]Checking out the ref
+2026-01-19T23:42:09.3641546Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-19T23:42:09.5200365Z Switched to a new branch 'main'
+2026-01-19T23:42:09.5202145Z branch 'main' set up to track 'origin/main'.
+2026-01-19T23:42:09.5220802Z ##[endgroup]
+2026-01-19T23:42:09.5259169Z [command]/usr/bin/git log -1 --format=%H
+2026-01-19T23:42:09.5281058Z d25504decfc404871c7c3bd5ac186d61498b2813
+2026-01-19T23:42:09.5515039Z ##[group]Run actions/setup-python@v5
+2026-01-19T23:42:09.5515391Z with:
+2026-01-19T23:42:09.5515626Z   python-version: 3.11
+2026-01-19T23:42:09.5515867Z   cache: pip
+2026-01-19T23:42:09.5516383Z   check-latest: false
+2026-01-19T23:42:09.5516776Z   token: ***
+2026-01-19T23:42:09.5517007Z   update-environment: true
+2026-01-19T23:42:09.5517281Z   allow-prereleases: false
+2026-01-19T23:42:09.5517542Z   freethreaded: false
+2026-01-19T23:42:09.5517776Z ##[endgroup]
+2026-01-19T23:42:09.7207163Z ##[group]Installed versions
+2026-01-19T23:42:09.7335560Z Successfully set up CPython (3.11.14)
+2026-01-19T23:42:09.7336571Z ##[endgroup]
+2026-01-19T23:42:09.8614800Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-19T23:42:10.5729095Z /home/runner/.cache/pip
+2026-01-19T23:42:10.7367736Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T23:42:11.8369875Z Received 134217728 of 254742636 (52.7%), 128.0 MBs/sec
+2026-01-19T23:42:12.3826406Z Received 254742636 of 254742636 (100.0%), 157.1 MBs/sec
+2026-01-19T23:42:12.3827810Z Cache Size: ~243 MB (254742636 B)
+2026-01-19T23:42:12.3951826Z [command]/usr/bin/tar -xf /home/runner/work/_temp/505c4e30-d2b5-46c5-a8a4-0745a08f7832/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-19T23:42:12.8309691Z Cache restored successfully
+2026-01-19T23:42:12.8799511Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-19T23:42:12.9019624Z ##[group]Run pip install -r requirements.txt
+2026-01-19T23:42:12.9020255Z [36;1mpip install -r requirements.txt[0m
+2026-01-19T23:42:12.9020741Z [36;1mplaywright install chromium[0m
+2026-01-19T23:42:12.9060001Z shell: /usr/bin/bash -e {0}
+2026-01-19T23:42:12.9060544Z env:
+2026-01-19T23:42:12.9060809Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:42:12.9061267Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T23:42:12.9061692Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:42:12.9062093Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:42:12.9062464Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:42:12.9062835Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T23:42:12.9063135Z ##[endgroup]
+2026-01-19T23:42:14.0620978Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-19T23:42:14.0636967Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-19T23:42:14.0790586Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-19T23:42:14.0804645Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-19T23:42:14.1055056Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-19T23:42:14.1068362Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-19T23:42:14.3007692Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-19T23:42:14.3024724Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-19T23:42:14.3268870Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-19T23:42:14.3282582Z   Using cached google_genai-1.59.0-py3-none-any.whl.metadata (53 kB)
+2026-01-19T23:42:14.3443338Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-19T23:42:14.3456703Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-19T23:42:14.3827489Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-19T23:42:14.3841327Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-19T23:42:14.4355392Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-19T23:42:14.4369257Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-19T23:42:14.6232502Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-19T23:42:14.6247439Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-19T23:42:14.6986314Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-19T23:42:14.6999670Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-19T23:42:14.7144699Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-19T23:42:14.7163565Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-19T23:42:14.8326585Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-19T23:42:14.8341551Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-19T23:42:14.8509885Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-19T23:42:14.8523245Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-19T23:42:14.9288216Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-19T23:42:14.9303047Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-19T23:42:14.9440683Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-19T23:42:14.9454364Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T23:42:14.9713176Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-19T23:42:14.9726272Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-19T23:42:14.9911737Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-19T23:42:14.9924962Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-19T23:42:15.0101729Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.0114912Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-19T23:42:15.0425077Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.0437550Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-19T23:42:15.0942685Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.0955466Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-19T23:42:15.2309824Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.2324275Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-19T23:42:15.2553703Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.2566371Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-19T23:42:15.3394734Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.3408100Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-19T23:42:15.3527058Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.3539389Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-19T23:42:15.3617219Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.3629853Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-19T23:42:15.3866786Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.3879165Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-19T23:42:15.4004203Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.4017310Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-19T23:42:15.4274568Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.4287684Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-19T23:42:15.4413643Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.4426871Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-19T23:42:15.4515470Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:15.4528629Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-19T23:42:16.0880385Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:16.0895814Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-19T23:42:16.1007348Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:16.1019770Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-19T23:42:16.1642725Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-19T23:42:16.1658001Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-19T23:42:16.1908049Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-19T23:42:16.2251148Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-19T23:42:16.2267140Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-19T23:42:16.2279842Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-19T23:42:16.2292463Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-19T23:42:16.2305891Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-19T23:42:16.2319490Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-19T23:42:16.2332667Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-19T23:42:16.2347376Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-19T23:42:16.2409301Z Using cached google_genai-1.59.0-py3-none-any.whl (719 kB)
+2026-01-19T23:42:16.2433705Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-19T23:42:16.2454275Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-19T23:42:16.2469335Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-19T23:42:16.2483899Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-19T23:42:16.2496863Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-19T23:42:16.2510011Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-19T23:42:16.2527760Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-19T23:42:16.2554756Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-19T23:42:16.2567551Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-19T23:42:16.2580505Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-19T23:42:16.2593889Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-19T23:42:16.2607105Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-19T23:42:16.2619996Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-19T23:42:16.2638787Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-19T23:42:16.3096187Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-19T23:42:16.3226968Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-19T23:42:16.3254542Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-19T23:42:16.3267404Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-19T23:42:16.3281387Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-19T23:42:16.3294347Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-19T23:42:16.3307670Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-19T23:42:16.3322026Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-19T23:42:16.3334964Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-19T23:42:16.5456857Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-19T23:42:23.3079843Z 
+2026-01-19T23:42:23.3103989Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.59.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-19T23:42:23.8830773Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-19T23:42:23.9779688Z (node:2191) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T23:42:23.9781460Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T23:42:24.1709767Z |                                                                                |   0% of 164.7 MiB
+2026-01-19T23:42:24.8409735Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-19T23:42:24.9838289Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-19T23:42:25.1171401Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-19T23:42:25.2780643Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-19T23:42:25.4033017Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-19T23:42:25.5313211Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-19T23:42:25.6618135Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-19T23:42:25.7832954Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-19T23:42:25.9088363Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-19T23:42:26.0326183Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-19T23:42:28.4481566Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-19T23:42:28.4486919Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-19T23:42:28.5464862Z (node:2202) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T23:42:28.5467363Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T23:42:28.5832217Z |                                                                                |   0% of 2.3 MiB
+2026-01-19T23:42:28.5899508Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-19T23:42:28.5925389Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-19T23:42:28.5937903Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-19T23:42:28.5952377Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-19T23:42:28.5966895Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-19T23:42:28.5985616Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-19T23:42:28.6002485Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-19T23:42:28.6016822Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-19T23:42:28.6032820Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-19T23:42:28.6044520Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-19T23:42:28.6618091Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-19T23:42:28.6619825Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-19T23:42:28.7580287Z (node:2213) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-19T23:42:28.7581992Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-19T23:42:28.8476134Z |                                                                                |   0% of 109.7 MiB
+2026-01-19T23:42:28.9440372Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-19T23:42:29.0177631Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-19T23:42:29.1045259Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-19T23:42:29.1617745Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-19T23:42:29.2181344Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-19T23:42:29.2820473Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-19T23:42:29.3425361Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-19T23:42:29.4027637Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-19T23:42:29.4743473Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-19T23:42:29.5341784Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-19T23:42:31.3163487Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-19T23:42:31.3392776Z ##[group]Run mkdir -p projects/ci_demoblaze_store
+2026-01-19T23:42:31.3393204Z [36;1mmkdir -p projects/ci_demoblaze_store[0m
+2026-01-19T23:42:31.3393610Z [36;1mcat > projects/ci_demoblaze_store/config.json << 'EOF'[0m
+2026-01-19T23:42:31.3393931Z [36;1m{[0m
+2026-01-19T23:42:31.3394137Z [36;1m  "project_name": "ci_demoblaze_store",[0m
+2026-01-19T23:42:31.3394475Z [36;1m  "target_url": "https://www.demoblaze.com/",[0m
+2026-01-19T23:42:31.3394845Z [36;1m  "goal": "Browse products and test purchase flow",[0m
+2026-01-19T23:42:31.3395151Z [36;1m  "headless": true[0m
+2026-01-19T23:42:31.3395359Z [36;1m}[0m
+2026-01-19T23:42:31.3395523Z [36;1mEOF[0m
+2026-01-19T23:42:31.3427481Z shell: /usr/bin/bash -e {0}
+2026-01-19T23:42:31.3427722Z env:
+2026-01-19T23:42:31.3427977Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:42:31.3428418Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T23:42:31.3428893Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:42:31.3429275Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:42:31.3429658Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:42:31.3430258Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T23:42:31.3430597Z ##[endgroup]
+2026-01-19T23:42:31.3796537Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-19T23:42:31.3797144Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-19T23:42:31.3797715Z [36;1mpython orchestrator.py --project projects/ci_demoblaze_store --deep --force[0m
+2026-01-19T23:42:31.3830488Z shell: /usr/bin/bash -e {0}
+2026-01-19T23:42:31.3830740Z env:
+2026-01-19T23:42:31.3831008Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:42:31.3831482Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T23:42:31.3831941Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:42:31.3832351Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:42:31.3832761Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:42:31.3833373Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T23:42:31.3833904Z   GOOGLE_API_KEY: ***
+2026-01-19T23:42:31.3834156Z   PYTHONPATH: .
+2026-01-19T23:42:31.3834352Z ##[endgroup]
+2026-01-19T23:42:33.3353644Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-19T23:42:33.3354157Z 
+2026-01-19T23:42:33.3354908Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://www.demoblaze.com/ (Workers: 3)
+2026-01-19T23:42:34.9268563Z   🔍 [Worker 0] Visiting (0): https://www.demoblaze.com/
+2026-01-19T23:42:36.1534854Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T23:42:36.1535534Z [DEBUG] Received response (Length: 303)
+2026-01-19T23:42:36.1536237Z   🔍 [Worker 1] Visiting (1): https://www.demoblaze.com/cart.html
+2026-01-19T23:42:36.1559850Z   🔍 [Worker 2] Visiting (1): https://www.demoblaze.com/index.html
+2026-01-19T23:42:36.1563771Z   🔍 [Worker 0] Visiting (1): https://www.demoblaze.com
+2026-01-19T23:42:41.2992561Z [CACHE HIT] 8ee35b98... (hits: 1, misses: 3)
+2026-01-19T23:42:41.2993270Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T23:42:41.2994078Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T23:42:41.2994738Z [DEBUG] Received response (Length: 221)
+2026-01-19T23:42:41.2995232Z [DEBUG] Received response (Length: 417)
+2026-01-19T23:42:41.2996048Z ✅ Discovery Complete. Mapped 4 pages.
+2026-01-19T23:42:54.3560842Z 
+2026-01-19T23:42:54.3561626Z [PLAN] PLANNER: Planning goal -> 'Browse products and test purchase flow' (Deep Mode: True)
+2026-01-19T23:42:54.3562508Z 🗺️ [PLAN] Loaded Sitemap with 4 pages.
+2026-01-19T23:42:54.3562921Z 📊 [KNOWLEDGE] Page types: ['homepage', 'unknown', 'cart']
+2026-01-19T23:42:54.3563299Z 🔄 [KNOWLEDGE] Flows: 0, Forms: 4
+2026-01-19T23:42:54.3564023Z 🎭 [EXPERT] Detected Domain: ECOMMERCE. Persona: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability
+2026-01-19T23:42:54.3564786Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-19T23:42:54.3565142Z [DEBUG] Received response (Length: 5830)
+2026-01-19T23:42:54.3565528Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-19T23:42:55.4109951Z 
+2026-01-19T23:42:55.4111450Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-19T23:42:55.4112610Z 📋 Found 3 scenarios to explore.
+2026-01-19T23:42:55.7737282Z 
+2026-01-19T23:42:55.7737912Z [1/3] Exploring Scenario: Browse, Add to Cart, and Purchase Flow
+2026-01-19T23:42:55.7739768Z     🧠 Initialized exploration context for goal: 'This scenario tests the main user flow of browsing products, adding an item to the cart, and completing the purchase.'
+2026-01-19T23:42:55.7741436Z     🎯 Scenario: Browse, Add to Cart, and Purchase Flow
+2026-01-19T23:42:55.7750712Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T23:42:56.4960385Z     ✅ Navigated to https://www.demoblaze.com/
+2026-01-19T23:42:56.4961491Z   ▶️ [STEP step_2] ASSERT_URL: 
+2026-01-19T23:43:02.0319092Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T23:43:04.0341930Z     ✅ State transitioned.
+2026-01-19T23:43:05.7853240Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:43:05.7853682Z [DEBUG] Received response (Length: 284)
+2026-01-19T23:43:05.7854396Z     🤖 AI Next Step Suggestion: click -> Samsung galaxy s6
+2026-01-19T23:43:05.7854968Z     🧩 Suggested Locator: a:contains('Samsung galaxy s6')
+2026-01-19T23:43:05.7855840Z     💭 Reasoning: The goal is to browse products and test the purchase flow. Clicking on the first available product 'Samsung galaxy s6' will navigate to the product details page.
+2026-01-19T23:43:05.7856607Z     ➕ Injected AI step: click -> Samsung galaxy s6
+2026-01-19T23:43:05.7856969Z   ▶️ [STEP step_2_ai_1] CLICK: Samsung galaxy s6
+2026-01-19T23:43:05.7928447Z     🎯 Using AI-provided locator: a:contains('Samsung galaxy s6')
+2026-01-19T23:43:05.7967233Z     🔍 Mining locators for: 'Samsung galaxy s6'
+2026-01-19T23:43:05.8871740Z     ✅ Found 4 verified locators
+2026-01-19T23:43:09.4428875Z     ✅ State transitioned.
+2026-01-19T23:43:10.8329369Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:43:10.8330553Z [DEBUG] Received response (Length: 187)
+2026-01-19T23:43:10.8331651Z     🤖 AI Next Step Suggestion: click -> Add to cart
+2026-01-19T23:43:10.8333019Z     💭 Reasoning: Now that we are on the product page, the next step is to add the item to the cart.
+2026-01-19T23:43:10.8334410Z     ➕ Injected AI step: click -> Add to cart
+2026-01-19T23:43:10.8335271Z   ▶️ [STEP step_2_ai_2] CLICK: Add to cart
+2026-01-19T23:43:10.8484365Z     🔍 Mining locators for: 'Add to cart'
+2026-01-19T23:43:10.8945487Z     ✅ Found 2 verified locators
+2026-01-19T23:43:14.4713388Z     ✅ State transitioned.
+2026-01-19T23:43:15.7414244Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:43:15.7414885Z [DEBUG] Received response (Length: 186)
+2026-01-19T23:43:15.7415736Z     🤖 AI Next Step Suggestion: click -> Cart
+2026-01-19T23:43:15.7416198Z     🧩 Suggested Locator: #cartur
+2026-01-19T23:43:15.7416801Z     💭 Reasoning: The item has been added to the cart. The next step is to view the cart to proceed with the purchase.
+2026-01-19T23:43:15.7417354Z     ➕ Injected AI step: click -> Cart
+2026-01-19T23:43:15.7417655Z   ▶️ [STEP step_2_ai_3] CLICK: Cart
+2026-01-19T23:43:15.7477136Z     🎯 Using AI-provided locator: #cartur
+2026-01-19T23:43:15.7536738Z     ✅ Found 1 verified locators
+2026-01-19T23:43:19.8056594Z     ✅ State transitioned.
+2026-01-19T23:43:21.2361088Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:43:21.2361954Z [DEBUG] Received response (Length: 156)
+2026-01-19T23:43:21.2362999Z     🤖 AI Next Step Suggestion: click -> Place Order
+2026-01-19T23:43:21.2363766Z     🧩 Suggested Locator: button
+2026-01-19T23:43:21.2364909Z     💭 Reasoning: The item is in the cart, so the next step is to place the order.
+2026-01-19T23:43:21.2366073Z     ➕ Injected AI step: click -> Place Order
+2026-01-19T23:43:21.2366962Z   ▶️ [STEP step_2_ai_4] CLICK: Place Order
+2026-01-19T23:43:21.2514094Z     🎯 Using AI-provided locator: button
+2026-01-19T23:43:21.2534517Z     🔍 Mining locators for: 'Place Order'
+2026-01-19T23:43:21.3108304Z     ✅ Found 2 verified locators
+2026-01-19T23:43:24.8864801Z     ✅ State transitioned.
+2026-01-19T23:43:26.5453296Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:43:26.5453940Z [DEBUG] Received response (Length: 230)
+2026-01-19T23:43:26.5454729Z     🤖 AI Next Step Suggestion: fill -> Name:
+2026-01-19T23:43:26.5455277Z     🧩 Suggested Locator: input[id='name']
+2026-01-19T23:43:26.5455948Z     💭 Reasoning: The 'Place order' form is open, and the 'Name' field is visible and needs to be filled to proceed with the purchase.
+2026-01-19T23:43:26.5456547Z     ➕ Injected AI step: fill -> Name:
+2026-01-19T23:43:26.5456844Z   ▶️ [STEP step_2_ai_5] FILL: Name:
+2026-01-19T23:43:26.5521561Z     🎯 Using AI-provided locator: input[id='name']
+2026-01-19T23:43:26.5584343Z     ✅ Found 1 verified locators
+2026-01-19T23:43:32.0493334Z     ✅ State transitioned.
+2026-01-19T23:43:33.6235797Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:43:33.6236828Z [DEBUG] Received response (Length: 218)
+2026-01-19T23:43:33.6237666Z     🤖 AI Next Step Suggestion: fill -> Country:
+2026-01-19T23:43:33.6238363Z     🧩 Suggested Locator: input[id='country']
+2026-01-19T23:43:33.6239444Z     💭 Reasoning: The 'Place Order' form is open and requires filling the country field to proceed with the purchase.
+2026-01-19T23:43:33.6240702Z     ➕ Injected AI step: fill -> Country:
+2026-01-19T23:43:33.6241301Z   ▶️ [STEP step_2_ai_6] FILL: Country:
+2026-01-19T23:43:33.6301347Z     🎯 Using AI-provided locator: input[id='country']
+2026-01-19T23:43:33.6363029Z     ✅ Found 1 verified locators
+2026-01-19T23:43:38.9422786Z     ✅ State transitioned.
+2026-01-19T23:43:40.6502185Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:43:40.6503212Z [DEBUG] Received response (Length: 225)
+2026-01-19T23:43:40.6503965Z     🤖 AI Next Step Suggestion: fill -> City:
+2026-01-19T23:43:40.6504519Z     🧩 Suggested Locator: input[id='city']
+2026-01-19T23:43:40.6505551Z     💭 Reasoning: The 'Place Order' form is partially filled. Filling the city is the next logical step to complete the form.
+2026-01-19T23:43:40.6506606Z     ➕ Injected AI step: fill -> City:
+2026-01-19T23:43:40.6507174Z   ▶️ [STEP step_2_ai_7] FILL: City:
+2026-01-19T23:43:40.6563535Z     🎯 Using AI-provided locator: input[id='city']
+2026-01-19T23:43:40.6621909Z     ✅ Found 1 verified locators
+2026-01-19T23:43:46.7378894Z     ✅ State transitioned.
+2026-01-19T23:43:48.2830638Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:43:48.2831382Z [DEBUG] Received response (Length: 209)
+2026-01-19T23:43:48.2832319Z     🤖 AI Next Step Suggestion: fill -> Credit card:
+2026-01-19T23:43:48.2833043Z     🧩 Suggested Locator: input[id='card']
+2026-01-19T23:43:48.2834266Z     💭 Reasoning: The 'Place Order' form is partially filled. The next field is 'Credit card'.
+2026-01-19T23:43:48.2835445Z     ➕ Injected AI step: fill -> Credit card:
+2026-01-19T23:43:48.2836213Z   ▶️ [STEP step_2_ai_8] FILL: Credit card:
+2026-01-19T23:43:48.2894545Z     🎯 Using AI-provided locator: input[id='card']
+2026-01-19T23:43:48.2958236Z     ✅ Found 1 verified locators
+2026-01-19T23:43:55.5463315Z     ✅ State transitioned.
+2026-01-19T23:43:57.3073180Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:43:57.3073768Z [DEBUG] Received response (Length: 186)
+2026-01-19T23:43:57.3074441Z     🤖 AI Next Step Suggestion: fill -> Month:
+2026-01-19T23:43:57.3074874Z     🧩 Suggested Locator: input[id='month']
+2026-01-19T23:43:57.3075503Z     💭 Reasoning: The month field is visible and needs to be filled to complete the order.
+2026-01-19T23:43:57.3075975Z     ➕ Injected AI step: fill -> Month:
+2026-01-19T23:43:57.3076284Z   ▶️ [STEP step_2_ai_9] FILL: Month:
+2026-01-19T23:43:57.3137751Z     🎯 Using AI-provided locator: input[id='month']
+2026-01-19T23:43:57.3198311Z     ✅ Found 1 verified locators
+2026-01-19T23:44:02.6634295Z     ✅ State transitioned.
+2026-01-19T23:44:04.2745930Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:44:04.2746693Z [DEBUG] Received response (Length: 199)
+2026-01-19T23:44:04.2747528Z     🤖 AI Next Step Suggestion: fill -> Year:
+2026-01-19T23:44:04.2747989Z     🧩 Suggested Locator: input[id='year']
+2026-01-19T23:44:04.2748735Z     💭 Reasoning: The 'Place order' form is almost complete. The next step is to fill the 'Year' field.
+2026-01-19T23:44:04.2749443Z     ➕ Injected AI step: fill -> Year:
+2026-01-19T23:44:04.2749862Z   ▶️ [STEP step_2_ai_10] FILL: Year:
+2026-01-19T23:44:04.2806099Z     🎯 Using AI-provided locator: input[id='year']
+2026-01-19T23:44:04.2863216Z     ✅ Found 1 verified locators
+2026-01-19T23:44:09.6768815Z     ✅ State transitioned.
+2026-01-19T23:44:11.4312698Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:44:11.4313364Z [DEBUG] Received response (Length: 183)
+2026-01-19T23:44:11.4314232Z     🤖 AI Next Step Suggestion: click -> Purchase
+2026-01-19T23:44:11.4316639Z     🧩 Suggested Locator: button:contains('Purchase')
+2026-01-19T23:44:11.4317470Z     💭 Reasoning: The form is complete, so click the 'Purchase' button to submit the order.
+2026-01-19T23:44:11.4318020Z     ➕ Injected AI step: click -> Purchase
+2026-01-19T23:44:11.4318384Z   ▶️ [STEP step_2_ai_11] CLICK: Purchase
+2026-01-19T23:44:11.4372996Z     🎯 Using AI-provided locator: button:contains('Purchase')
+2026-01-19T23:44:11.4397962Z     🔍 Mining locators for: 'Purchase'
+2026-01-19T23:44:11.4922225Z     ✅ Found 2 verified locators
+2026-01-19T23:44:15.0536163Z     ✅ State transitioned.
+2026-01-19T23:44:16.8020530Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:44:16.8021254Z [DEBUG] Received response (Length: 216)
+2026-01-19T23:44:16.8022116Z     🤖 AI Next Step Suggestion: click -> OK
+2026-01-19T23:44:16.8022960Z     🧩 Suggested Locator: button:contains('OK')
+2026-01-19T23:44:16.8024080Z     💭 Reasoning: The purchase is complete, and the 'Thank you' message is displayed. Clicking 'OK' will close the confirmation message.
+2026-01-19T23:44:16.8024972Z     ➕ Injected AI step: click -> OK
+2026-01-19T23:44:16.8025317Z   ▶️ [STEP step_2_ai_12] CLICK: OK
+2026-01-19T23:44:16.8079577Z     🎯 Using AI-provided locator: button:contains('OK')
+2026-01-19T23:44:16.8104502Z     🔍 Mining locators for: 'OK'
+2026-01-19T23:44:16.8763501Z     ✅ Found 2 verified locators
+2026-01-19T23:44:20.4386216Z     ✅ State transitioned.
+2026-01-19T23:44:21.9042591Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:44:21.9043273Z [DEBUG] Received response (Length: 284)
+2026-01-19T23:44:21.9044167Z     🤖 AI Next Step Suggestion: click -> Samsung galaxy s6
+2026-01-19T23:44:21.9045804Z     💭 Reasoning: The goal is to browse products and test the purchase flow. Clicking on the first product available will allow us to add it to the cart and proceed with the checkout process.
+2026-01-19T23:44:21.9047287Z     ➕ Injected AI step: click -> Samsung galaxy s6
+2026-01-19T23:44:21.9047938Z   ▶️ [STEP step_2_ai_13] CLICK: Samsung galaxy s6
+2026-01-19T23:44:21.9191177Z     🔍 Mining locators for: 'Samsung galaxy s6'
+2026-01-19T23:44:22.0433795Z     ✅ Found 4 verified locators
+2026-01-19T23:44:25.5996037Z     ✅ State transitioned.
+2026-01-19T23:44:25.6098481Z     🔄 Revisited state detected (count: 1)
+2026-01-19T23:44:27.1871476Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:44:27.1872250Z [DEBUG] Received response (Length: 266)
+2026-01-19T23:44:27.1873180Z     🤖 AI Next Step Suggestion: click -> Add to cart
+2026-01-19T23:44:27.1875128Z     💭 Reasoning: The goal is to add an item to the cart and complete the purchase. The current page is a product page, so the next logical step is to add the product to the cart.
+2026-01-19T23:44:27.1876979Z     ➕ Injected AI step: click -> Add to cart
+2026-01-19T23:44:27.1877772Z   ▶️ [STEP step_2_ai_14] CLICK: Add to cart
+2026-01-19T23:44:27.2024413Z     🔍 Mining locators for: 'Add to cart'
+2026-01-19T23:44:27.2571349Z     ✅ Found 2 verified locators
+2026-01-19T23:44:30.8334259Z     ✅ State transitioned.
+2026-01-19T23:44:30.8412555Z     🔄 Revisited state detected (count: 2)
+2026-01-19T23:44:32.2251438Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:44:32.2252126Z [DEBUG] Received response (Length: 198)
+2026-01-19T23:44:32.2252998Z     🤖 AI Next Step Suggestion: click -> Cart
+2026-01-19T23:44:32.2253434Z     🧩 Suggested Locator: #cartur
+2026-01-19T23:44:32.2254144Z     💭 Reasoning: The last action was adding the item to the cart. Now we should proceed to the cart to checkout.
+2026-01-19T23:44:32.2254835Z     ➕ Injected AI step: click -> Cart
+2026-01-19T23:44:32.2255216Z   ▶️ [STEP step_2_ai_15] CLICK: Cart
+2026-01-19T23:44:32.2318969Z     🎯 Using AI-provided locator: #cartur
+2026-01-19T23:44:32.2372115Z     ✅ Found 1 verified locators
+2026-01-19T23:44:36.2832070Z     ✅ State transitioned.
+2026-01-19T23:44:36.2947191Z     🔄 Revisited state detected (count: 3)
+2026-01-19T23:44:36.2948430Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-19T23:44:36.2949048Z   ▶️ [STEP step_3] CLICK: Phones
+2026-01-19T23:44:36.3098162Z     🔍 Mining locators for: 'Phones'
+2026-01-19T23:44:36.3774777Z     🧠 Consulting AI (Vision-First) to find 'Phones'...
+2026-01-19T23:44:36.3803988Z     🔍 Trying smart selectors for 'Phones'...
+2026-01-19T23:44:36.4688478Z     🔍 [SMART] Searching for: 'Phones' (trying 15+ strategies)
+2026-01-19T23:44:36.4689074Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:44:36.4692765Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:44:37.8334460Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:44:37.8335001Z [DEBUG] Received response (Length: 287)
+2026-01-19T23:44:37.8336536Z     💡 Expert Suggestion: The current page displays products directly. A search bar or a category listing for 'Phones' is likely on the Home page or a dedicated 'Products' page.
+2026-01-19T23:44:37.8337931Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-19T23:44:38.4200562Z     ✅ Executed corrective navigation
+2026-01-19T23:44:40.4223062Z     🔄 Retry 1/3 mining locators for 'Phones'...
+2026-01-19T23:44:41.5230968Z     ✅ Found 3 verified locators
+2026-01-19T23:44:45.0837488Z     ✅ State transitioned.
+2026-01-19T23:44:46.7485393Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:44:46.7486135Z [DEBUG] Received response (Length: 293)
+2026-01-19T23:44:46.7487182Z     🤖 AI Next Step Suggestion: navigate -> https://www.demoblaze.com/cart.html
+2026-01-19T23:44:46.7488374Z     💭 Reasoning: The cart page was revisited, and the goal is to complete the purchase flow. Navigating to the cart is the next logical step to proceed with the checkout process.
+2026-01-19T23:44:46.7489418Z     ➕ Injected AI step: navigate -> https://www.demoblaze.com/cart.html
+2026-01-19T23:44:46.7490019Z   ▶️ [STEP step_3_ai_1] NAVIGATE: https://www.demoblaze.com/cart.html
+2026-01-19T23:44:47.3225567Z     ✅ Navigated to https://www.demoblaze.com/cart.html
+2026-01-19T23:44:47.3226580Z   ▶️ [STEP step_4] ASSERT_VISIBLE: Samsung galaxy s6
+2026-01-19T23:44:47.3387683Z     🔍 Mining locators for: 'Samsung galaxy s6'
+2026-01-19T23:44:47.3943564Z     🧠 Consulting AI (Vision-First) to find 'Samsung galaxy s6'...
+2026-01-19T23:44:47.3944445Z     🔍 Trying smart selectors for 'Samsung galaxy s6'...
+2026-01-19T23:44:47.5490242Z     🔍 [SMART] Searching for: 'Samsung galaxy s6' (trying 15+ strategies)
+2026-01-19T23:44:47.5491178Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:44:47.5493263Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:44:52.1785607Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:44:52.1786004Z [DEBUG] Received response (Length: 359)
+2026-01-19T23:44:52.1786603Z     🔄 Retry 1/3 mining locators for 'Samsung galaxy s6'...
+2026-01-19T23:44:53.2274090Z     🧠 Consulting AI (Vision-First) to find 'Samsung galaxy s6'...
+2026-01-19T23:44:53.2274841Z     🔍 Trying smart selectors for 'Samsung galaxy s6'...
+2026-01-19T23:44:53.3863380Z     🔍 [SMART] Searching for: 'Samsung galaxy s6' (trying 15+ strategies)
+2026-01-19T23:44:53.3865504Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:44:53.3867630Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:44:57.0793582Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:44:57.0794058Z [DEBUG] Received response (Length: 478)
+2026-01-19T23:44:57.0794681Z     🔄 Retry 2/3 mining locators for 'Samsung galaxy s6'...
+2026-01-19T23:44:58.0789293Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T23:44:58.1260904Z     🧠 Consulting AI (Vision-First) to find 'Samsung galaxy s6'...
+2026-01-19T23:44:58.1261455Z     🔍 Trying smart selectors for 'Samsung galaxy s6'...
+2026-01-19T23:44:58.2874371Z     🔍 [SMART] Searching for: 'Samsung galaxy s6' (trying 15+ strategies)
+2026-01-19T23:44:58.2875278Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:44:58.2877983Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:44:58.2881025Z [CACHE HIT] 4b1834d2... (hits: 1, misses: 19)
+2026-01-19T23:44:58.2881843Z     🧠 Verifying step validity for 'Samsung galaxy s6' after mining failure...
+2026-01-19T23:45:01.3778568Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:45:01.3779082Z [DEBUG] Received response (Length: 195)
+2026-01-19T23:45:01.3779847Z     🛠️ Self-Correction: Step is valid. Using new locator: td:nth-child(2)
+2026-01-19T23:45:04.4134293Z     ✅ State transitioned.
+2026-01-19T23:45:06.5036663Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:45:06.5037413Z [DEBUG] Received response (Length: 156)
+2026-01-19T23:45:06.5038341Z     🤖 AI Next Step Suggestion: click -> Place Order
+2026-01-19T23:45:06.5038996Z     🧩 Suggested Locator: button
+2026-01-19T23:45:06.5039540Z     💭 Reasoning: The item is in the cart, so the next step is to place the order.
+2026-01-19T23:45:06.5040371Z     ➕ Injected AI step: click -> Place Order
+2026-01-19T23:45:06.5040803Z   ▶️ [STEP step_4_ai_1] CLICK: Place Order
+2026-01-19T23:45:06.5095290Z     🎯 Using AI-provided locator: button
+2026-01-19T23:45:06.5113448Z     🔍 Mining locators for: 'Place Order'
+2026-01-19T23:45:06.5712205Z     ✅ Found 2 verified locators
+2026-01-19T23:45:10.1180575Z     ✅ State transitioned.
+2026-01-19T23:45:10.1266674Z     🔄 Revisited state detected (count: 1)
+2026-01-19T23:45:11.5589901Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:45:11.5590670Z [DEBUG] Received response (Length: 224)
+2026-01-19T23:45:11.5591331Z     🤖 AI Next Step Suggestion: fill -> Name:
+2026-01-19T23:45:11.5591814Z     🧩 Suggested Locator: input#name
+2026-01-19T23:45:11.5592943Z     💭 Reasoning: The 'Place order' form is open, and the 'Name' field is visible and needs to be filled to proceed with the purchase.
+2026-01-19T23:45:11.5593983Z     ➕ Injected AI step: fill -> Name:
+2026-01-19T23:45:11.5594493Z   ▶️ [STEP step_4_ai_2] FILL: Name:
+2026-01-19T23:45:11.5651428Z     🎯 Using AI-provided locator: input#name
+2026-01-19T23:45:11.5709997Z     ✅ Found 1 verified locators
+2026-01-19T23:45:17.1977268Z     ✅ State transitioned.
+2026-01-19T23:45:17.2069531Z     🔄 Revisited state detected (count: 2)
+2026-01-19T23:45:18.5002432Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:45:18.5003141Z [DEBUG] Received response (Length: 155)
+2026-01-19T23:45:18.5003987Z     🤖 AI Next Step Suggestion: fill -> Country:
+2026-01-19T23:45:18.5004584Z     🧩 Suggested Locator: #country
+2026-01-19T23:45:18.5005341Z     💭 Reasoning: Filling the country field to complete the form.
+2026-01-19T23:45:18.5006112Z     ➕ Injected AI step: fill -> Country:
+2026-01-19T23:45:18.5006721Z   ▶️ [STEP step_4_ai_3] FILL: Country:
+2026-01-19T23:45:18.5072573Z     🎯 Using AI-provided locator: #country
+2026-01-19T23:45:18.5127709Z     ✅ Found 1 verified locators
+2026-01-19T23:45:23.9712407Z     ✅ State transitioned.
+2026-01-19T23:45:23.9797361Z     🔄 Revisited state detected (count: 3)
+2026-01-19T23:45:23.9798000Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-19T23:45:23.9798493Z   ▶️ [STEP step_5] CLICK: Samsung galaxy s6
+2026-01-19T23:45:23.9848713Z     🔍 Mining locators for: 'Samsung galaxy s6'
+2026-01-19T23:45:24.0267034Z     🧠 Consulting AI (Vision-First) to find 'Samsung galaxy s6'...
+2026-01-19T23:45:24.0267908Z     🔍 Trying smart selectors for 'Samsung galaxy s6'...
+2026-01-19T23:45:24.1872568Z     🔍 [SMART] Searching for: 'Samsung galaxy s6' (trying 15+ strategies)
+2026-01-19T23:45:24.1873668Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:45:24.1876671Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:45:26.3876693Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:45:26.3877992Z [DEBUG] Received response (Length: 565)
+2026-01-19T23:45:26.3878898Z     🔄 Retry 1/3 mining locators for 'Samsung galaxy s6'...
+2026-01-19T23:45:27.4440283Z     🧠 Consulting AI (Vision-First) to find 'Samsung galaxy s6'...
+2026-01-19T23:45:27.4441218Z     🔍 Trying smart selectors for 'Samsung galaxy s6'...
+2026-01-19T23:45:27.6012399Z     🔍 [SMART] Searching for: 'Samsung galaxy s6' (trying 15+ strategies)
+2026-01-19T23:45:27.6013311Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:45:27.6015340Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:45:27.6018113Z [CACHE HIT] 68425f1c... (hits: 2, misses: 24)
+2026-01-19T23:45:27.6018572Z     🔄 Retry 2/3 mining locators for 'Samsung galaxy s6'...
+2026-01-19T23:45:28.6031600Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T23:45:28.6597580Z     🧠 Consulting AI (Vision-First) to find 'Samsung galaxy s6'...
+2026-01-19T23:45:28.6598462Z     🔍 Trying smart selectors for 'Samsung galaxy s6'...
+2026-01-19T23:45:28.8121585Z     🔍 [SMART] Searching for: 'Samsung galaxy s6' (trying 15+ strategies)
+2026-01-19T23:45:28.8122766Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:45:28.8126737Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:45:28.8129825Z [CACHE HIT] 68425f1c... (hits: 3, misses: 24)
+2026-01-19T23:45:28.8130596Z     🧠 Verifying step validity for 'Samsung galaxy s6' after mining failure...
+2026-01-19T23:45:30.5179955Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:45:30.5180822Z [DEBUG] Received response (Length: 179)
+2026-01-19T23:45:30.5181609Z     🛠️ Self-Correction: Step is valid. Using new locator: a[href*='prod.html?idp_=3']
+2026-01-19T23:45:36.0293145Z     ⚠️ Scroll into view failed for a[href*='prod.html?idp_=3']. Proceeding anyway.
+2026-01-19T23:45:41.0306329Z     ⚠️ Action failed: Locator.bounding_box: Timeout 5000ms exceeded.
+2026-01-19T23:45:41.0306852Z Cal...
+2026-01-19T23:45:42.2256750Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:45:42.2257280Z [DEBUG] Received response (Length: 174)
+2026-01-19T23:45:42.2258215Z     ✨ AI Heal Reasoning: The element 'Samsung galaxy s6' is visible and clickable. It matches the requested text exactly.
+2026-01-19T23:45:42.2259014Z     ✨ AI healed exploration action! New selector: text=Samsung galaxy s6
+2026-01-19T23:45:45.7643164Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Add to cart
+2026-01-19T23:45:45.7720991Z     🔍 Mining locators for: 'Add to cart'
+2026-01-19T23:45:45.8085193Z     🧠 Consulting AI (Vision-First) to find 'Add to cart'...
+2026-01-19T23:45:45.8085731Z     🔍 Trying smart selectors for 'Add to cart'...
+2026-01-19T23:45:45.9191239Z     🔍 [SMART] Searching for: 'Add to cart' (trying 15+ strategies)
+2026-01-19T23:45:45.9192026Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:45:45.9194244Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:45:47.6138385Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:45:47.6139235Z [DEBUG] Received response (Length: 243)
+2026-01-19T23:45:47.6141185Z     💡 Expert Suggestion: The current page is the cart. Need to navigate to the home page to find products and 'Add to cart' buttons.
+2026-01-19T23:45:47.6142489Z     🛠️ Executing corrective action: click -> 'Home'
+2026-01-19T23:45:48.2002458Z     ✅ Executed corrective navigation
+2026-01-19T23:45:50.2026269Z     🔄 Retry 1/3 mining locators for 'Add to cart'...
+2026-01-19T23:45:51.3262663Z     🧠 Consulting AI (Vision-First) to find 'Add to cart'...
+2026-01-19T23:45:51.3263454Z     🔍 Trying smart selectors for 'Add to cart'...
+2026-01-19T23:45:51.4611167Z     🔍 [SMART] Searching for: 'Add to cart' (trying 15+ strategies)
+2026-01-19T23:45:51.4612221Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:45:51.4615914Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:45:58.3818711Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:45:58.3819550Z [DEBUG] Received response (Length: 230)
+2026-01-19T23:45:58.3820919Z     ⚠️ Skipping duplicate injection: Samsung galaxy s6
+2026-01-19T23:45:58.3821749Z     🔄 Retry 2/3 mining locators for 'Add to cart'...
+2026-01-19T23:45:59.3832389Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T23:45:59.4423314Z     🧠 Consulting AI (Vision-First) to find 'Add to cart'...
+2026-01-19T23:45:59.4424558Z     🔍 Trying smart selectors for 'Add to cart'...
+2026-01-19T23:45:59.5570008Z     🔍 [SMART] Searching for: 'Add to cart' (trying 15+ strategies)
+2026-01-19T23:45:59.5571403Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:45:59.5574958Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:46:01.1301319Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:46:01.1302213Z [DEBUG] Received response (Length: 212)
+2026-01-19T23:46:01.1303216Z     ⚠️ Skipping duplicate injection: Samsung galaxy s6
+2026-01-19T23:46:01.1304305Z     🧠 Verifying step validity for 'Add to cart' after no candidates found...
+2026-01-19T23:46:06.3389254Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:46:06.3389871Z [DEBUG] Received response (Length: 285)
+2026-01-19T23:46:06.3391502Z     🗑️ Step deemed INVALID: The 'Add to cart' button is not visible on the home page. To add a product to the cart, you first need to select a specific product, which will take you to the product details page where the 'Add to cart' button is located.. Removing from workflow.
+2026-01-19T23:46:06.3392642Z     ⏭️ Skipping execution of invalid step: Add to cart
+2026-01-19T23:46:06.3392993Z   ▶️ [STEP step_7] CLICK: Add to cart
+2026-01-19T23:46:06.3447179Z     🔍 Mining locators for: 'Add to cart'
+2026-01-19T23:46:06.4088275Z     🧠 Consulting AI (Vision-First) to find 'Add to cart'...
+2026-01-19T23:46:06.4088815Z     🔍 Trying smart selectors for 'Add to cart'...
+2026-01-19T23:46:06.5263034Z     🔍 [SMART] Searching for: 'Add to cart' (trying 15+ strategies)
+2026-01-19T23:46:06.5263969Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:46:06.5266868Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:46:06.5269280Z [CACHE HIT] f809e0c6... (hits: 4, misses: 30)
+2026-01-19T23:46:06.5270424Z     💡 Expert Suggestion: Need to click on a product to view its details and find the 'Add to cart' button.
+2026-01-19T23:46:06.5271469Z     🛠️ Executing corrective action: click -> 'Samsung galaxy s6'
+2026-01-19T23:46:07.1047855Z     ✅ Executed corrective navigation
+2026-01-19T23:46:09.1070857Z     🔄 Retry 1/3 mining locators for 'Add to cart'...
+2026-01-19T23:46:10.1762626Z     🧠 Consulting AI (Vision-First) to find 'Add to cart'...
+2026-01-19T23:46:10.1763433Z     🔍 Trying smart selectors for 'Add to cart'...
+2026-01-19T23:46:10.2947788Z     🔍 [SMART] Searching for: 'Add to cart' (trying 15+ strategies)
+2026-01-19T23:46:10.2948685Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:46:10.2952358Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:46:11.5349903Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:46:11.5350963Z [DEBUG] Received response (Length: 266)
+2026-01-19T23:46:11.5351562Z     ⚠️ Skipping duplicate injection: Samsung galaxy s6
+2026-01-19T23:46:11.5351975Z     🔄 Retry 2/3 mining locators for 'Add to cart'...
+2026-01-19T23:46:12.5363277Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-19T23:46:12.5916741Z     🧠 Consulting AI (Vision-First) to find 'Add to cart'...
+2026-01-19T23:46:12.5917397Z     🔍 Trying smart selectors for 'Add to cart'...
+2026-01-19T23:46:12.7068070Z     🔍 [SMART] Searching for: 'Add to cart' (trying 15+ strategies)
+2026-01-19T23:46:12.7069042Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:46:12.7072349Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:46:12.7074618Z [CACHE HIT] 31013637... (hits: 5, misses: 31)
+2026-01-19T23:46:12.7075247Z     ⚠️ Skipping duplicate injection: Samsung galaxy s6
+2026-01-19T23:46:12.7076054Z     🧠 Verifying step validity for 'Add to cart' after no candidates found...
+2026-01-19T23:46:16.5884484Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:46:16.5885162Z [DEBUG] Received response (Length: 258)
+2026-01-19T23:46:16.5887634Z     🗑️ Step deemed INVALID: The 'Add to cart' button is not visible on the product listing page. We need to click on a specific product first to navigate to the product details page where the 'Add to cart' button is located.. Removing from workflow.
+2026-01-19T23:46:16.5889053Z     ⏭️ Skipping execution of invalid step: Add to cart
+2026-01-19T23:46:16.5889460Z   ▶️ [STEP step_8] WAIT: 
+2026-01-19T23:46:22.1077022Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T23:46:24.1100635Z     ✅ State transitioned.
+2026-01-19T23:46:25.5477369Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:46:25.5478104Z [DEBUG] Received response (Length: 235)
+2026-01-19T23:46:25.5479015Z     🤖 AI Next Step Suggestion: click -> Samsung galaxy s6
+2026-01-19T23:46:25.5479862Z     🧩 Suggested Locator: a[href*='prod.html?idp_=3']
+2026-01-19T23:46:25.5481715Z     💭 Reasoning: The previous attempt to click 'Samsung galaxy s6' failed. Trying again to select the product and add it to the cart.
+2026-01-19T23:46:25.5483047Z     ➕ Injected AI step: click -> Samsung galaxy s6
+2026-01-19T23:46:25.5483668Z   ▶️ [STEP step_8_ai_1] CLICK: Samsung galaxy s6
+2026-01-19T23:46:25.5540340Z     🎯 Using AI-provided locator: a[href*='prod.html?idp_=3']
+2026-01-19T23:46:25.5601021Z     ✅ Found 1 verified locators
+2026-01-19T23:46:29.6116369Z     ✅ State transitioned.
+2026-01-19T23:46:31.1968142Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:46:31.1968576Z [DEBUG] Received response (Length: 275)
+2026-01-19T23:46:31.1969303Z     🤖 AI Next Step Suggestion: click -> Add to cart
+2026-01-19T23:46:31.1969737Z     🧩 Suggested Locator: a
+2026-01-19T23:46:31.1970857Z     💭 Reasoning: The goal is to add an item to the cart and complete the purchase. The current page is a product page, and the 'Add to cart' button is visible. Clicking it will add the product to the cart.
+2026-01-19T23:46:31.1971698Z     ➕ Injected AI step: click -> Add to cart
+2026-01-19T23:46:31.1972028Z   ▶️ [STEP step_8_ai_2] CLICK: Add to cart
+2026-01-19T23:46:31.2123923Z     🎯 Using AI-provided locator: a
+2026-01-19T23:46:31.2689678Z     ✅ Found 1 verified locators
+2026-01-19T23:46:35.3293232Z     ✅ State transitioned.
+2026-01-19T23:46:35.3409144Z     🔄 Revisited state detected (count: 1)
+2026-01-19T23:46:36.7766770Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:46:36.7767550Z [DEBUG] Received response (Length: 273)
+2026-01-19T23:46:36.7768825Z     🤖 AI Next Step Suggestion: click -> Nokia lumia 1520
+2026-01-19T23:46:36.7769619Z     🧩 Suggested Locator: a[href*='prod.html?idp_=2']
+2026-01-19T23:46:36.7771366Z     💭 Reasoning: The previous attempt to add 'Samsung galaxy s6' failed. Trying to add a different product to the cart. Selecting the first available product from the list.
+2026-01-19T23:46:36.7772351Z     ➕ Injected AI step: click -> Nokia lumia 1520
+2026-01-19T23:46:36.7772793Z   ▶️ [STEP step_8_ai_3] CLICK: Nokia lumia 1520
+2026-01-19T23:46:36.7924316Z     🎯 Using AI-provided locator: a[href*='prod.html?idp_=2']
+2026-01-19T23:46:36.7982615Z     ✅ Found 1 verified locators
+2026-01-19T23:46:40.8615312Z     ✅ State transitioned.
+2026-01-19T23:46:42.4218904Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:46:42.4219585Z [DEBUG] Received response (Length: 275)
+2026-01-19T23:46:42.4220586Z     🤖 AI Next Step Suggestion: click -> Add to cart
+2026-01-19T23:46:42.4221205Z     🧩 Suggested Locator: a
+2026-01-19T23:46:42.4222230Z     💭 Reasoning: The goal is to add an item to the cart and complete the purchase. The current page is a product page, and the 'Add to cart' button is visible. Clicking it will add the product to the cart.
+2026-01-19T23:46:42.4223053Z     ➕ Injected AI step: click -> Add to cart
+2026-01-19T23:46:42.4223382Z   ▶️ [STEP step_8_ai_4] CLICK: Add to cart
+2026-01-19T23:46:42.4371869Z     🎯 Using AI-provided locator: a
+2026-01-19T23:46:42.4431569Z     ✅ Found 1 verified locators
+2026-01-19T23:46:46.4956105Z     ✅ State transitioned.
+2026-01-19T23:46:46.5068337Z     🔄 Revisited state detected (count: 1)
+2026-01-19T23:46:47.9985081Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:46:47.9985722Z [DEBUG] Received response (Length: 208)
+2026-01-19T23:46:47.9986555Z     🤖 AI Next Step Suggestion: click -> Cart
+2026-01-19T23:46:47.9987114Z     🧩 Suggested Locator: a[href='cart.html']
+2026-01-19T23:46:47.9988211Z     💭 Reasoning: Since we have added items to the cart, the next logical step is to view the cart to proceed with the purchase.
+2026-01-19T23:46:47.9989214Z     ➕ Injected AI step: click -> Cart
+2026-01-19T23:46:47.9989714Z   ▶️ [STEP step_8_ai_5] CLICK: Cart
+2026-01-19T23:46:48.0147313Z     🎯 Using AI-provided locator: a[href='cart.html']
+2026-01-19T23:46:48.0211968Z     ✅ Found 1 verified locators
+2026-01-19T23:46:52.0824054Z     ✅ State transitioned.
+2026-01-19T23:46:52.0933955Z     🔄 Revisited state detected (count: 2)
+2026-01-19T23:46:53.5717786Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:46:53.5718521Z [DEBUG] Received response (Length: 266)
+2026-01-19T23:46:53.5719425Z     🤖 AI Next Step Suggestion: click -> Place Order
+2026-01-19T23:46:53.5720431Z     🧩 Suggested Locator: button:contains('Place Order')
+2026-01-19T23:46:53.5722380Z     💭 Reasoning: The cart has items, and the goal is to complete the purchase flow. Clicking 'Place Order' is the next logical step to proceed to the checkout process.
+2026-01-19T23:46:53.5724049Z     ➕ Injected AI step: click -> Place Order
+2026-01-19T23:46:53.5724761Z   ▶️ [STEP step_8_ai_6] CLICK: Place Order
+2026-01-19T23:46:53.5785322Z     🎯 Using AI-provided locator: button:contains('Place Order')
+2026-01-19T23:46:53.5809731Z     🔍 Mining locators for: 'Place Order'
+2026-01-19T23:46:53.6365972Z     ✅ Found 2 verified locators
+2026-01-19T23:46:57.2112737Z     ✅ State transitioned.
+2026-01-19T23:46:57.2196198Z     🔄 Revisited state detected (count: 3)
+2026-01-19T23:46:57.2196910Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-19T23:46:57.2197402Z   ▶️ [STEP step_9] CLICK: Cart
+2026-01-19T23:46:57.2254753Z     🔍 Mining locators for: 'Cart'
+2026-01-19T23:46:57.2994350Z     ✅ Found 2 verified locators
+2026-01-19T23:47:00.8440425Z     ✅ State transitioned.
+2026-01-19T23:47:02.3595217Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:47:02.3596143Z [DEBUG] Received response (Length: 181)
+2026-01-19T23:47:02.3597581Z     🤖 AI Next Step Suggestion: click -> Place Order
+2026-01-19T23:47:02.3598397Z     🧩 Suggested Locator: button
+2026-01-19T23:47:02.3599719Z     💭 Reasoning: The cart has items, and the next step is to place the order to proceed with the purchase.
+2026-01-19T23:47:02.3601678Z     🔄 Same AI suggestion but state changed (URL or DOM). Resetting loop counter.
+2026-01-19T23:47:02.3602819Z     ➕ Injected AI step: click -> Place Order
+2026-01-19T23:47:02.3603633Z   ▶️ [STEP step_9_ai_1] CLICK: Place Order
+2026-01-19T23:47:02.3660817Z     🎯 Using AI-provided locator: button
+2026-01-19T23:47:02.3681061Z     🔍 Mining locators for: 'Place Order'
+2026-01-19T23:47:02.4151119Z     ✅ Found 2 verified locators
+2026-01-19T23:47:05.9615398Z     ✅ State transitioned.
+2026-01-19T23:47:07.3017932Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:47:07.3018477Z [DEBUG] Received response (Length: 210)
+2026-01-19T23:47:07.3019032Z     🤖 AI Next Step Suggestion: fill -> Name:
+2026-01-19T23:47:07.3019404Z     🧩 Suggested Locator: input[id='name']
+2026-01-19T23:47:07.3021352Z     💭 Reasoning: The 'Place Order' form is open and needs to be filled. Filling the name field is the first step.
+2026-01-19T23:47:07.3022044Z     ➕ Injected AI step: fill -> Name:
+2026-01-19T23:47:07.3022355Z   ▶️ [STEP step_9_ai_2] FILL: Name:
+2026-01-19T23:47:07.3080685Z     🎯 Using AI-provided locator: input[id='name']
+2026-01-19T23:47:07.3140422Z     ✅ Found 1 verified locators
+2026-01-19T23:47:12.9375932Z     ✅ State transitioned.
+2026-01-19T23:47:12.9468841Z     🔄 Revisited state detected (count: 1)
+2026-01-19T23:47:14.2563361Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:47:14.2564099Z [DEBUG] Received response (Length: 192)
+2026-01-19T23:47:14.2565009Z     🤖 AI Next Step Suggestion: fill -> Country:
+2026-01-19T23:47:14.2565674Z     🧩 Suggested Locator: input[id='country']
+2026-01-19T23:47:14.2566770Z     💭 Reasoning: Filling the country field in the order form to proceed with the purchase.
+2026-01-19T23:47:14.2567813Z     ➕ Injected AI step: fill -> Country:
+2026-01-19T23:47:14.2568476Z   ▶️ [STEP step_9_ai_3] FILL: Country:
+2026-01-19T23:47:14.2626468Z     🎯 Using AI-provided locator: input[id='country']
+2026-01-19T23:47:14.2687159Z     ✅ Found 1 verified locators
+2026-01-19T23:47:19.6167667Z     ✅ State transitioned.
+2026-01-19T23:47:19.6264726Z     🔄 Revisited state detected (count: 2)
+2026-01-19T23:47:20.9881579Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:47:20.9882261Z [DEBUG] Received response (Length: 158)
+2026-01-19T23:47:20.9883073Z     🤖 AI Next Step Suggestion: fill -> City:
+2026-01-19T23:47:20.9883662Z     🧩 Suggested Locator: input[id='city']
+2026-01-19T23:47:20.9884322Z     💭 Reasoning: Filling the city field to complete the form.
+2026-01-19T23:47:20.9884835Z     ➕ Injected AI step: fill -> City:
+2026-01-19T23:47:20.9885169Z   ▶️ [STEP step_9_ai_4] FILL: City:
+2026-01-19T23:47:20.9947421Z     🎯 Using AI-provided locator: input[id='city']
+2026-01-19T23:47:21.0003638Z     ✅ Found 1 verified locators
+2026-01-19T23:47:26.3323516Z     ✅ State transitioned.
+2026-01-19T23:47:27.8637218Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:47:27.8637898Z [DEBUG] Received response (Length: 187)
+2026-01-19T23:47:27.8638709Z     🤖 AI Next Step Suggestion: fill -> Credit card:
+2026-01-19T23:47:27.8639296Z     🧩 Suggested Locator: input[id='card']
+2026-01-19T23:47:27.8639805Z     💭 Reasoning: Filling the credit card field to complete the purchase form.
+2026-01-19T23:47:27.8640503Z     ➕ Injected AI step: fill -> Credit card:
+2026-01-19T23:47:27.8640849Z   ▶️ [STEP step_9_ai_5] FILL: Credit card:
+2026-01-19T23:47:27.8699251Z     🎯 Using AI-provided locator: input[id='card']
+2026-01-19T23:47:27.8755123Z     ✅ Found 1 verified locators
+2026-01-19T23:47:33.5326930Z     ✅ State transitioned.
+2026-01-19T23:47:35.1734979Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:47:35.1736188Z [DEBUG] Received response (Length: 168)
+2026-01-19T23:47:35.1737138Z     🤖 AI Next Step Suggestion: fill -> Month:
+2026-01-19T23:47:35.1738008Z     🧩 Suggested Locator: input[id='month']
+2026-01-19T23:47:35.1739122Z     💭 Reasoning: Filling the month field to complete the purchase form.
+2026-01-19T23:47:35.1740463Z     ➕ Injected AI step: fill -> Month:
+2026-01-19T23:47:35.1741263Z   ▶️ [STEP step_9_ai_6] FILL: Month:
+2026-01-19T23:47:35.1800924Z     🎯 Using AI-provided locator: input[id='month']
+2026-01-19T23:47:35.1856305Z     ✅ Found 1 verified locators
+2026-01-19T23:47:40.3883488Z     ✅ State transitioned.
+2026-01-19T23:47:42.4026015Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:47:42.4026897Z [DEBUG] Received response (Length: 188)
+2026-01-19T23:47:42.4027884Z     🤖 AI Next Step Suggestion: fill -> Year:
+2026-01-19T23:47:42.4028634Z     🧩 Suggested Locator: #year
+2026-01-19T23:47:42.4029991Z     💭 Reasoning: The 'Place order' form is almost complete. Filling the year is the next logical step.
+2026-01-19T23:47:42.4031337Z     ➕ Injected AI step: fill -> Year:
+2026-01-19T23:47:42.4031898Z   ▶️ [STEP step_9_ai_7] FILL: Year:
+2026-01-19T23:47:42.4087748Z     🎯 Using AI-provided locator: #year
+2026-01-19T23:47:42.4145516Z     ✅ Found 1 verified locators
+2026-01-19T23:47:48.0013873Z     ✅ State transitioned.
+2026-01-19T23:47:49.6797066Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:47:49.6798004Z [DEBUG] Received response (Length: 222)
+2026-01-19T23:47:49.6799013Z     🤖 AI Next Step Suggestion: click -> Purchase
+2026-01-19T23:47:49.6799916Z     🧩 Suggested Locator: button:contains('Purchase')
+2026-01-19T23:47:49.6801899Z     💭 Reasoning: All the required fields in the 'Place order' form have been filled. Clicking 'Purchase' will complete the order.
+2026-01-19T23:47:49.6803388Z     ➕ Injected AI step: click -> Purchase
+2026-01-19T23:47:49.6804118Z   ▶️ [STEP step_9_ai_8] CLICK: Purchase
+2026-01-19T23:47:49.6863082Z     🎯 Using AI-provided locator: button:contains('Purchase')
+2026-01-19T23:47:49.6887382Z     🔍 Mining locators for: 'Purchase'
+2026-01-19T23:47:49.7497920Z     ✅ Found 2 verified locators
+2026-01-19T23:47:53.3124861Z     ✅ State transitioned.
+2026-01-19T23:47:55.0117730Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:47:55.0118297Z [DEBUG] Received response (Length: 201)
+2026-01-19T23:47:55.0118978Z     🤖 AI Next Step Suggestion: click -> OK
+2026-01-19T23:47:55.0119321Z     🧩 Suggested Locator: button
+2026-01-19T23:47:55.0119987Z     💭 Reasoning: The purchase is complete, and the 'Thank you' message is displayed. Clicking 'OK' will close the confirmation message.
+2026-01-19T23:47:55.0120768Z     ➕ Injected AI step: click -> OK
+2026-01-19T23:47:55.0121065Z   ▶️ [STEP step_9_ai_9] CLICK: OK
+2026-01-19T23:47:55.0184989Z     🎯 Using AI-provided locator: button
+2026-01-19T23:47:55.0203173Z     🔍 Mining locators for: 'OK'
+2026-01-19T23:47:55.0843950Z     ✅ Found 2 verified locators
+2026-01-19T23:47:58.6473228Z     ✅ State transitioned.
+2026-01-19T23:47:58.6593353Z     🔄 Revisited state detected (count: 1)
+2026-01-19T23:48:00.1264170Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:48:00.1264918Z [DEBUG] Received response (Length: 300)
+2026-01-19T23:48:00.1265833Z     🤖 AI Next Step Suggestion: click -> Samsung galaxy s6
+2026-01-19T23:48:00.1266542Z     🧩 Suggested Locator: a[href*='prod.html?idp_=3']
+2026-01-19T23:48:00.1268381Z     💭 Reasoning: The goal is to browse products and test the purchase flow. The previous attempt to add 'Samsung galaxy s6' failed. Clicking on the product will navigate to the product details page.
+2026-01-19T23:48:00.1270260Z     ➕ Injected AI step: click -> Samsung galaxy s6
+2026-01-19T23:48:00.1270959Z   ▶️ [STEP step_9_ai_10] CLICK: Samsung galaxy s6
+2026-01-19T23:48:00.1430307Z     🎯 Using AI-provided locator: a[href*='prod.html?idp_=3']
+2026-01-19T23:48:00.1491598Z     ✅ Found 1 verified locators
+2026-01-19T23:48:04.2089735Z     ✅ State transitioned.
+2026-01-19T23:48:04.2211804Z     🔄 Revisited state detected (count: 2)
+2026-01-19T23:48:05.8538486Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:48:05.8539006Z [DEBUG] Received response (Length: 218)
+2026-01-19T23:48:05.8539905Z     🤖 AI Next Step Suggestion: click -> Add to cart
+2026-01-19T23:48:05.8540585Z     🧩 Suggested Locator: a
+2026-01-19T23:48:05.8541373Z     💭 Reasoning: The goal is to add an item to the cart and complete the purchase. The 'Add to cart' button is visible and has not been clicked yet.
+2026-01-19T23:48:05.8542331Z     ➕ Injected AI step: click -> Add to cart
+2026-01-19T23:48:05.8542715Z   ▶️ [STEP step_9_ai_11] CLICK: Add to cart
+2026-01-19T23:48:05.8596833Z     🎯 Using AI-provided locator: a
+2026-01-19T23:48:05.8654112Z     ✅ Found 1 verified locators
+2026-01-19T23:48:09.9236858Z     ✅ State transitioned.
+2026-01-19T23:48:09.9345522Z     🔄 Revisited state detected (count: 3)
+2026-01-19T23:48:09.9346349Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-19T23:48:09.9347040Z   ▶️ [STEP step_10] ASSERT_URL: 
+2026-01-19T23:48:15.4631541Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T23:48:17.4654401Z     ✅ State transitioned.
+2026-01-19T23:48:17.4755189Z     🔄 Revisited state detected (count: 4)
+2026-01-19T23:48:17.4755977Z     ⚠️ Too many revisits (4). Stopping AI step injection to prevent loops.
+2026-01-19T23:48:17.4756425Z   ▶️ [STEP step_11] CLICK: Place Order
+2026-01-19T23:48:17.4808571Z     🔍 Mining locators for: 'Place Order'
+2026-01-19T23:48:17.5535270Z     🧠 Consulting AI (Vision-First) to find 'Place Order'...
+2026-01-19T23:48:17.5536078Z     🔍 Trying smart selectors for 'Place Order'...
+2026-01-19T23:48:17.6536159Z     🔍 [SMART] Searching for: 'Place Order' (trying 15+ strategies)
+2026-01-19T23:48:17.6536954Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:48:17.6540677Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:48:19.2617573Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:48:19.2618334Z [DEBUG] Received response (Length: 270)
+2026-01-19T23:48:19.2620674Z     💡 Expert Suggestion: "Place Order" is typically found in the cart or checkout page. Navigating to the cart is the next logical step in the purchase flow.
+2026-01-19T23:48:19.2622476Z     🛠️ Executing corrective action: click -> 'Cart'
+2026-01-19T23:48:19.8631768Z     ✅ Executed corrective navigation
+2026-01-19T23:48:21.8655469Z     🔄 Retry 1/3 mining locators for 'Place Order'...
+2026-01-19T23:48:22.9558316Z     ✅ Found 2 verified locators
+2026-01-19T23:48:26.5251408Z     ✅ State transitioned.
+2026-01-19T23:48:28.2639100Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:48:28.2639842Z [DEBUG] Received response (Length: 219)
+2026-01-19T23:48:28.2640902Z     🤖 AI Next Step Suggestion: fill -> Name:
+2026-01-19T23:48:28.2641529Z     🧩 Suggested Locator: input[id='name']
+2026-01-19T23:48:28.2642739Z     💭 Reasoning: The 'Place Order' form is open and needs to be filled. Filling the 'Name' field is the next logical step.
+2026-01-19T23:48:28.2643998Z     ➕ Injected AI step: fill -> Name:
+2026-01-19T23:48:28.2644667Z     ⚡ PARALLEL MODE: Batching 5 fill steps
+2026-01-19T23:48:28.2645294Z     ⚡ Batch mining 5 fields in parallel...
+2026-01-19T23:48:28.3190971Z     🔍 Trying smart selectors for 'Name:'...
+2026-01-19T23:48:28.3196972Z     🔍 [SMART] Searching for: 'Name:' (trying 15+ strategies)
+2026-01-19T23:48:28.3197730Z     🔍 Trying smart selectors for 'Name'...
+2026-01-19T23:48:28.3248757Z     🔍 [SMART] Searching for: 'Name' (trying 15+ strategies)
+2026-01-19T23:48:28.3249723Z     ✅ Smart selector found 'Name:' via role-textbox-partial (confidence: 0.93)
+2026-01-19T23:48:28.3259715Z     ✅ Smart selector found 'Name' via role-textbox-partial (confidence: 0.93)
+2026-01-19T23:48:28.3260639Z     ✅ Batch mined 'Name:' (1 locators)
+2026-01-19T23:48:28.3261145Z     ✅ Batch mined 'Name' (1 locators)
+2026-01-19T23:48:28.3261640Z     ✅ Batch mined 'Country' (3 locators)
+2026-01-19T23:48:28.3262123Z     ✅ Batch mined 'City' (3 locators)
+2026-01-19T23:48:28.3262620Z     ✅ Batch mined 'Credit card' (3 locators)
+2026-01-19T23:48:28.3263136Z     ✅ Batch mined 5/5 steps successfully
+2026-01-19T23:48:28.3263659Z     ⚡ PARALLEL MODE: Batching 2 fill steps
+2026-01-19T23:48:28.3264193Z     ⚡ Batch mining 2 fields in parallel...
+2026-01-19T23:48:28.3684664Z     ✅ Batch mined 'Month' (3 locators)
+2026-01-19T23:48:28.3685266Z     ✅ Batch mined 'Year' (3 locators)
+2026-01-19T23:48:28.3685828Z     ✅ Batch mined 2/2 steps successfully
+2026-01-19T23:48:28.3686358Z   ▶️ [STEP step_18] CLICK: Purchase
+2026-01-19T23:48:28.3738165Z     🔍 Mining locators for: 'Purchase'
+2026-01-19T23:48:28.4293658Z     ✅ Found 2 verified locators
+2026-01-19T23:48:31.9737007Z     ✅ State transitioned.
+2026-01-19T23:48:33.6494752Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:48:33.6495632Z [DEBUG] Received response (Length: 219)
+2026-01-19T23:48:33.6496512Z     🤖 AI Next Step Suggestion: fill -> Name:
+2026-01-19T23:48:33.6496972Z     🧩 Suggested Locator: input[id='name']
+2026-01-19T23:48:33.6497803Z     💭 Reasoning: The 'Place order' form is open and needs to be filled. Filling the 'Name' field is the next logical step.
+2026-01-19T23:48:33.6498753Z     🔄 Same AI suggestion but state changed (URL or DOM). Resetting loop counter.
+2026-01-19T23:48:33.6499381Z     ➕ Injected AI step: fill -> Name:
+2026-01-19T23:48:33.6499781Z   ▶️ [STEP step_18_ai_1] FILL: Name:
+2026-01-19T23:48:33.6552306Z     🎯 Using AI-provided locator: input[id='name']
+2026-01-19T23:48:33.6608048Z     ✅ Found 1 verified locators
+2026-01-19T23:48:39.2625224Z     ✅ State transitioned.
+2026-01-19T23:48:41.0352487Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:48:41.0353141Z [DEBUG] Received response (Length: 210)
+2026-01-19T23:48:41.0353936Z     🤖 AI Next Step Suggestion: fill -> Country:
+2026-01-19T23:48:41.0354514Z     🧩 Suggested Locator: input[id='country']
+2026-01-19T23:48:41.0355086Z     💭 Reasoning: The 'Place Order' form is open and needs to be filled. The next logical field is 'Country'.
+2026-01-19T23:48:41.0355611Z     ➕ Injected AI step: fill -> Country:
+2026-01-19T23:48:41.0355929Z   ▶️ [STEP step_18_ai_2] FILL: Country:
+2026-01-19T23:48:41.0415268Z     🎯 Using AI-provided locator: input[id='country']
+2026-01-19T23:48:41.0471912Z     ✅ Found 1 verified locators
+2026-01-19T23:48:46.4251592Z     ✅ State transitioned.
+2026-01-19T23:48:47.9010015Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:48:47.9011144Z [DEBUG] Received response (Length: 225)
+2026-01-19T23:48:47.9011948Z     🤖 AI Next Step Suggestion: fill -> City:
+2026-01-19T23:48:47.9012501Z     🧩 Suggested Locator: input[id='city']
+2026-01-19T23:48:47.9013544Z     💭 Reasoning: The 'Place Order' form is open and needs to be completed. Filling the city field is the next logical step.
+2026-01-19T23:48:47.9014526Z     ➕ Injected AI step: fill -> City:
+2026-01-19T23:48:47.9014865Z   ▶️ [STEP step_18_ai_3] FILL: City:
+2026-01-19T23:48:47.9070387Z     🎯 Using AI-provided locator: input[id='city']
+2026-01-19T23:48:47.9124775Z     ✅ Found 1 verified locators
+2026-01-19T23:48:53.8098680Z     ✅ State transitioned.
+2026-01-19T23:48:55.1502163Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:48:55.1502977Z [DEBUG] Received response (Length: 217)
+2026-01-19T23:48:55.1503796Z     🤖 AI Next Step Suggestion: fill -> Credit card:
+2026-01-19T23:48:55.1504261Z     🧩 Suggested Locator: input[id='card']
+2026-01-19T23:48:55.1504956Z     💭 Reasoning: The purchase form is not complete. Filling the credit card field is the next logical step.
+2026-01-19T23:48:55.1505591Z     ➕ Injected AI step: fill -> Credit card:
+2026-01-19T23:48:55.1505963Z   ▶️ [STEP step_18_ai_4] FILL: Credit card:
+2026-01-19T23:48:55.1562584Z     🎯 Using AI-provided locator: input[id='card']
+2026-01-19T23:48:55.1619858Z     ✅ Found 1 verified locators
+2026-01-19T23:49:01.0632054Z     ✅ State transitioned.
+2026-01-19T23:49:02.4757291Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:49:02.4758052Z [DEBUG] Received response (Length: 194)
+2026-01-19T23:49:02.4758924Z     🤖 AI Next Step Suggestion: fill -> Month:
+2026-01-19T23:49:02.4759528Z     🧩 Suggested Locator: input[id='month']
+2026-01-19T23:49:02.4760899Z     💭 Reasoning: The month field is visible and needs to be filled to complete the purchase form.
+2026-01-19T23:49:02.4761923Z     ➕ Injected AI step: fill -> Month:
+2026-01-19T23:49:02.4762548Z   ▶️ [STEP step_18_ai_5] FILL: Month:
+2026-01-19T23:49:02.4818225Z     🎯 Using AI-provided locator: input[id='month']
+2026-01-19T23:49:02.4874685Z     ✅ Found 1 verified locators
+2026-01-19T23:49:07.7700012Z     ✅ State transitioned.
+2026-01-19T23:49:09.2980631Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:49:09.2981204Z [DEBUG] Received response (Length: 207)
+2026-01-19T23:49:09.2982000Z     🤖 AI Next Step Suggestion: fill -> Year:
+2026-01-19T23:49:09.2982462Z     🧩 Suggested Locator: input[id='year']
+2026-01-19T23:49:09.2983211Z     💭 Reasoning: The 'Place Order' form is almost complete. The next logical step is to fill the 'Year' field.
+2026-01-19T23:49:09.2983891Z     ➕ Injected AI step: fill -> Year:
+2026-01-19T23:49:09.2984299Z   ▶️ [STEP step_18_ai_6] FILL: Year:
+2026-01-19T23:49:09.3044021Z     🎯 Using AI-provided locator: input[id='year']
+2026-01-19T23:49:09.3098922Z     ✅ Found 1 verified locators
+2026-01-19T23:49:14.6092287Z     ✅ State transitioned.
+2026-01-19T23:49:16.0431513Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:49:16.0432508Z [DEBUG] Received response (Length: 216)
+2026-01-19T23:49:16.0433692Z     🤖 AI Next Step Suggestion: click -> Purchase
+2026-01-19T23:49:16.0434531Z     🧩 Suggested Locator: button:contains('Purchase')
+2026-01-19T23:49:16.0436122Z     💭 Reasoning: All the required fields in the 'Place order' form are filled. Clicking 'Purchase' will complete the order.
+2026-01-19T23:49:16.0437534Z     ➕ Injected AI step: click -> Purchase
+2026-01-19T23:49:16.0438276Z   ▶️ [STEP step_18_ai_7] CLICK: Purchase
+2026-01-19T23:49:16.0496950Z     🎯 Using AI-provided locator: button:contains('Purchase')
+2026-01-19T23:49:16.0520726Z     🔍 Mining locators for: 'Purchase'
+2026-01-19T23:49:16.1128162Z     ✅ Found 2 verified locators
+2026-01-19T23:49:19.6732196Z     ✅ State transitioned.
+2026-01-19T23:49:21.2490460Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:49:21.2490885Z [DEBUG] Received response (Length: 201)
+2026-01-19T23:49:21.2491679Z     🤖 AI Next Step Suggestion: click -> OK
+2026-01-19T23:49:21.2492005Z     🧩 Suggested Locator: button
+2026-01-19T23:49:21.2492650Z     💭 Reasoning: The purchase is complete, and the 'Thank you' message is displayed. Clicking 'OK' will close the confirmation message.
+2026-01-19T23:49:21.2493267Z     ➕ Injected AI step: click -> OK
+2026-01-19T23:49:21.2493565Z   ▶️ [STEP step_18_ai_8] CLICK: OK
+2026-01-19T23:49:21.2548397Z     🎯 Using AI-provided locator: button
+2026-01-19T23:49:21.2568041Z     🔍 Mining locators for: 'OK'
+2026-01-19T23:49:21.3134617Z     ✅ Found 2 verified locators
+2026-01-19T23:49:24.8760352Z     ✅ State transitioned.
+2026-01-19T23:49:24.8876810Z     🔄 Revisited state detected (count: 1)
+2026-01-19T23:49:26.3479950Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:49:26.3481056Z [DEBUG] Received response (Length: 269)
+2026-01-19T23:49:26.3481883Z     🤖 AI Next Step Suggestion: click -> Samsung galaxy s6
+2026-01-19T23:49:26.3482355Z     🧩 Suggested Locator: a[href*='prod.html?idp_=3']
+2026-01-19T23:49:26.3483225Z     💭 Reasoning: The goal is to browse products and test the purchase flow. The previous attempt to add 'Samsung galaxy s6' failed. Trying again to select the product.
+2026-01-19T23:49:26.3484000Z     ➕ Injected AI step: click -> Samsung galaxy s6
+2026-01-19T23:49:26.3484369Z   ▶️ [STEP step_18_ai_9] CLICK: Samsung galaxy s6
+2026-01-19T23:49:26.3635191Z     🎯 Using AI-provided locator: a[href*='prod.html?idp_=3']
+2026-01-19T23:49:26.3696842Z     ✅ Found 1 verified locators
+2026-01-19T23:49:30.4211772Z     ✅ State transitioned.
+2026-01-19T23:49:30.4320949Z     🔄 Revisited state detected (count: 2)
+2026-01-19T23:49:32.1828948Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:49:32.1829646Z [DEBUG] Received response (Length: 272)
+2026-01-19T23:49:32.1830635Z     🤖 AI Next Step Suggestion: click -> Add to cart
+2026-01-19T23:49:32.1831270Z     🧩 Suggested Locator: a:contains('Add to cart')
+2026-01-19T23:49:32.1832724Z     💭 Reasoning: The goal is to add an item to the cart and complete the purchase. The current page is a product page, so the next logical step is to add the product to the cart.
+2026-01-19T23:49:32.1833898Z     ➕ Injected AI step: click -> Add to cart
+2026-01-19T23:49:32.1834248Z   ▶️ [STEP step_18_ai_10] CLICK: Add to cart
+2026-01-19T23:49:32.1887546Z     🎯 Using AI-provided locator: a:contains('Add to cart')
+2026-01-19T23:49:32.1914071Z     🔍 Mining locators for: 'Add to cart'
+2026-01-19T23:49:32.2465516Z     ✅ Found 2 verified locators
+2026-01-19T23:49:35.8201094Z     ✅ State transitioned.
+2026-01-19T23:49:37.5029167Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:49:37.5029968Z [DEBUG] Received response (Length: 298)
+2026-01-19T23:49:37.5031184Z     🤖 AI Next Step Suggestion: click -> Add to cart
+2026-01-19T23:49:37.5031862Z     🧩 Suggested Locator: a
+2026-01-19T23:49:37.5034177Z     💭 Reasoning: The goal is to add an item to the cart and complete the purchase. The 'Add to cart' button is visible and has not been clicked in the last 2 steps. Clicking it will add the current product (Nexus 6) to the cart.
+2026-01-19T23:49:37.5036714Z     🔄 Same AI suggestion but state changed (URL or DOM). Resetting loop counter.
+2026-01-19T23:49:37.5038078Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'add to cart')
+2026-01-19T23:49:37.5038885Z   ▶️ [STEP step_19] WAIT: 
+2026-01-19T23:49:43.0204336Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T23:49:45.0227553Z     ✅ State transitioned.
+2026-01-19T23:49:45.0307152Z     🔄 Revisited state detected (count: 1)
+2026-01-19T23:49:46.4878334Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:49:46.4879080Z [DEBUG] Received response (Length: 304)
+2026-01-19T23:49:46.4879901Z     🤖 AI Next Step Suggestion: click -> Add to cart
+2026-01-19T23:49:46.4880817Z     🧩 Suggested Locator: a[href*='cart.html']
+2026-01-19T23:49:46.4883177Z     💭 Reasoning: The goal is to add an item to the cart and proceed to checkout. The 'Add to cart' button is visible and available on the product page. Clicking it will add the current product (Nexus 6) to the cart.
+2026-01-19T23:49:46.4885441Z ⚠️ Loop detected: same AI suggestion repeated 2 times without state change. Moving to next step.
+2026-01-19T23:49:46.4886605Z   ▶️ [STEP step_20] ASSERT_VISIBLE: Thank you for your purchase!
+2026-01-19T23:49:46.4941837Z     🔍 Mining locators for: 'Thank you for your purchase!'
+2026-01-19T23:49:46.5303568Z     🧠 Consulting AI (Vision-First) to find 'Thank you for your purchase!'...
+2026-01-19T23:49:46.5304640Z     🔍 Trying smart selectors for 'Thank you for your purchase!'...
+2026-01-19T23:49:46.6194044Z     🔍 [SMART] Searching for: 'Thank you for your purchase!' (trying 15+ strategies)
+2026-01-19T23:49:46.6195249Z     ✅ Smart selector found 'Thank you for your purchase!' via fuzzy-token (confidence: 0.75)
+2026-01-19T23:49:46.6240522Z     ✅ Found 1 verified locators
+2026-01-19T23:49:52.6356572Z     ⚠️ Scroll into view failed for textarea[name*='for' i], textarea[id*='for' i], textarea[class*='for' i]. Proceeding anyway.
+2026-01-19T23:49:54.6379308Z     ✅ State transitioned.
+2026-01-19T23:49:54.6463047Z     🔄 Revisited state detected (count: 2)
+2026-01-19T23:49:56.1131462Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:49:56.1132006Z [DEBUG] Received response (Length: 279)
+2026-01-19T23:49:56.1132814Z     🤖 AI Next Step Suggestion: click -> Add to cart
+2026-01-19T23:49:56.1133411Z     🧩 Suggested Locator: a:contains('Add to cart')
+2026-01-19T23:49:56.1134536Z     💭 Reasoning: The goal is to add an item to the cart and complete the purchase. The 'Add to cart' button is visible on the product page. Clicking it will add the product to the cart.
+2026-01-19T23:49:56.1135564Z     ➕ Injected AI step: click -> Add to cart
+2026-01-19T23:49:56.1135975Z   ▶️ [STEP step_20_ai_1] CLICK: Add to cart
+2026-01-19T23:49:56.1201569Z     🎯 Using AI-provided locator: a:contains('Add to cart')
+2026-01-19T23:49:56.1225615Z     🔍 Mining locators for: 'Add to cart'
+2026-01-19T23:49:56.1766401Z     ✅ Found 2 verified locators
+2026-01-19T23:49:59.7195100Z     ✅ State transitioned.
+2026-01-19T23:49:59.7284196Z     🔄 Revisited state detected (count: 3)
+2026-01-19T23:49:59.7284820Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-19T23:50:01.7698557Z 
+2026-01-19T23:50:01.7699223Z [2/3] Exploring Scenario: Contact Us Form Submission
+2026-01-19T23:50:01.7702475Z     🧠 Initialized exploration context for goal: 'This scenario tests the submission of the Contact Us form.'
+2026-01-19T23:50:01.7703647Z     🎯 Scenario: Contact Us Form Submission
+2026-01-19T23:50:01.7704320Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T23:50:02.4795735Z     ✅ Navigated to https://www.demoblaze.com/
+2026-01-19T23:50:02.4797028Z   ▶️ [STEP step_2] CLICK: Contact
+2026-01-19T23:50:02.4966991Z     🔍 Mining locators for: 'Contact'
+2026-01-19T23:50:02.6003017Z     ✅ Found 2 verified locators
+2026-01-19T23:50:06.1755842Z     ✅ State transitioned.
+2026-01-19T23:50:07.6193180Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:50:07.6194003Z [DEBUG] Received response (Length: 216)
+2026-01-19T23:50:07.6195073Z     🤖 AI Next Step Suggestion: fill -> Contact Email:
+2026-01-19T23:50:07.6195917Z     🧩 Suggested Locator: input#recipient-email
+2026-01-19T23:50:07.6197147Z     💭 Reasoning: The Contact Us form is open, and the first field to fill is 'Contact Email'.
+2026-01-19T23:50:07.6198460Z     ➕ Injected AI step: fill -> Contact Email:
+2026-01-19T23:50:07.6199328Z     ⚡ PARALLEL MODE: Batching 4 fill steps
+2026-01-19T23:50:07.6200384Z     ⚡ Batch mining 4 fields in parallel...
+2026-01-19T23:50:07.6832169Z     🔍 Trying smart selectors for 'recipient-email'...
+2026-01-19T23:50:07.6838427Z     🔍 [SMART] Searching for: 'recipient-email' (trying 15+ strategies)
+2026-01-19T23:50:07.6839262Z     🔍 Trying smart selectors for 'recipient-name'...
+2026-01-19T23:50:07.6847810Z     🔍 [SMART] Searching for: 'recipient-name' (trying 15+ strategies)
+2026-01-19T23:50:07.6848971Z     🔍 Trying smart selectors for 'message-text'...
+2026-01-19T23:50:07.8243815Z     🔍 [SMART] Searching for: 'message-text' (trying 15+ strategies)
+2026-01-19T23:50:07.8244820Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:50:07.8247815Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:50:07.8274866Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:50:07.8278907Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:50:07.8285985Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:50:07.8289699Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:50:25.3587762Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:50:25.3588477Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:50:25.3589181Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:50:25.3589606Z [DEBUG] Received response (Length: 352)
+2026-01-19T23:50:25.3589923Z [DEBUG] Received response (Length: 373)
+2026-01-19T23:50:25.3590431Z [DEBUG] Received response (Length: 353)
+2026-01-19T23:50:25.3591010Z     ✅ Batch mined 'Contact Email:' (3 locators)
+2026-01-19T23:50:25.3591437Z     ✅ Batch mined 'recipient-email' (2 locators)
+2026-01-19T23:50:25.3591857Z     ✅ Batch mined 'recipient-name' (2 locators)
+2026-01-19T23:50:25.3592246Z     ✅ Batch mined 'message-text' (3 locators)
+2026-01-19T23:50:25.3592631Z     ✅ Batch mined 4/4 steps successfully
+2026-01-19T23:50:25.3592998Z   ▶️ [STEP step_6] CLICK: Send message
+2026-01-19T23:50:25.3647012Z     🔍 Mining locators for: 'Send message'
+2026-01-19T23:50:25.4300441Z     ✅ Found 2 verified locators
+2026-01-19T23:50:28.9860953Z     ✅ State transitioned.
+2026-01-19T23:50:30.1489175Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:50:30.1489816Z [DEBUG] Received response (Length: 147)
+2026-01-19T23:50:30.1490727Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-19T23:50:30.1491635Z     💭 Reasoning: The goal was to test the Contact Us form submission, which has been completed based on the action history.
+2026-01-19T23:50:30.1492437Z   ▶️ [STEP step_7] WAIT: 
+2026-01-19T23:50:35.6764609Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T23:50:37.6786788Z     ✅ State transitioned.
+2026-01-19T23:50:39.3141427Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:50:39.3142676Z [DEBUG] Received response (Length: 303)
+2026-01-19T23:50:39.3143723Z     🤖 AI Next Step Suggestion: click -> Samsung galaxy s6
+2026-01-19T23:50:39.3144464Z     🧩 Suggested Locator: a
+2026-01-19T23:50:39.3146083Z     💭 Reasoning: The overall goal is to browse products and test purchase flow. Clicking on the first available product (Samsung galaxy s6) will navigate to the product details page, which is the next step in the purchase flow.
+2026-01-19T23:50:39.3147470Z     ➕ Injected AI step: click -> Samsung galaxy s6
+2026-01-19T23:50:39.3147969Z   ▶️ [STEP step_7_ai_1] CLICK: Samsung galaxy s6
+2026-01-19T23:50:39.3203176Z     🎯 Using AI-provided locator: a
+2026-01-19T23:50:39.3273663Z     ✅ Found 1 verified locators
+2026-01-19T23:50:43.3672504Z     ✅ State transitioned.
+2026-01-19T23:50:45.0122661Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:50:45.0123267Z [DEBUG] Received response (Length: 308)
+2026-01-19T23:50:45.0124077Z     🤖 AI Next Step Suggestion: click -> Home
+2026-01-19T23:50:45.0124689Z     🧩 Suggested Locator: a:contains('Home')
+2026-01-19T23:50:45.0126470Z     💭 Reasoning: The previous goal was to submit the contact us form. Now, the overall goal is to browse products and test purchase flow. Clicking 'Home' will bring us back to the product listing page to start the purchase flow.
+2026-01-19T23:50:45.0128139Z     ➕ Injected AI step: click -> Home
+2026-01-19T23:50:45.0128661Z   ▶️ [STEP step_7_ai_2] CLICK: Home
+2026-01-19T23:50:45.0265025Z     🎯 Using AI-provided locator: a:contains('Home')
+2026-01-19T23:50:45.0295823Z     🔍 Mining locators for: 'Home'
+2026-01-19T23:50:45.0968152Z     ✅ Found 2 verified locators
+2026-01-19T23:50:48.6519428Z     ✅ State transitioned.
+2026-01-19T23:50:48.6628851Z     🔄 Revisited state detected (count: 1)
+2026-01-19T23:50:50.2626418Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:50:50.2627113Z [DEBUG] Received response (Length: 288)
+2026-01-19T23:50:50.2628094Z     🤖 AI Next Step Suggestion: click -> Samsung galaxy s6
+2026-01-19T23:50:50.2628955Z     🧩 Suggested Locator: a:contains('Samsung galaxy s6')
+2026-01-19T23:50:50.2631032Z     💭 Reasoning: The overall goal is to browse products and test purchase flow. Clicking on the first available product 'Samsung galaxy s6' will navigate to the product details page.
+2026-01-19T23:50:50.2632719Z     ➕ Injected AI step: click -> Samsung galaxy s6
+2026-01-19T23:50:50.2633304Z   ▶️ [STEP step_7_ai_3] CLICK: Samsung galaxy s6
+2026-01-19T23:50:50.2781888Z     🎯 Using AI-provided locator: a:contains('Samsung galaxy s6')
+2026-01-19T23:50:50.2804759Z     🔍 Mining locators for: 'Samsung galaxy s6'
+2026-01-19T23:50:50.3637648Z     ✅ Found 4 verified locators
+2026-01-19T23:50:53.9345088Z     ✅ State transitioned.
+2026-01-19T23:50:55.3718476Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:50:55.3719114Z [DEBUG] Received response (Length: 252)
+2026-01-19T23:50:55.3719937Z     🤖 AI Next Step Suggestion: click -> Add to cart
+2026-01-19T23:50:55.3721098Z     💭 Reasoning: The goal is to browse products and test purchase flow. The current page is a product page. The next logical step is to add the product to the cart.
+2026-01-19T23:50:55.3721934Z       ❌ Rejected: 'add to cart' not relevant for contact form scenario
+2026-01-19T23:50:55.3722506Z     ⚠️ AI suggestion 'click -> Add to cart' not relevant for current page/scenario. Skipping.
+2026-01-19T23:50:57.4059938Z 
+2026-01-19T23:50:57.4060978Z [3/3] Exploring Scenario: Sign Up and Log In
+2026-01-19T23:50:57.4062636Z     🧠 Initialized exploration context for goal: 'This scenario tests the sign-up and log-in functionality.'
+2026-01-19T23:50:57.4063606Z     🎯 Scenario: Sign Up and Log In
+2026-01-19T23:50:57.4064096Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-19T23:50:58.1439422Z     ✅ Navigated to https://www.demoblaze.com/
+2026-01-19T23:50:58.1440890Z   ▶️ [STEP step_2] CLICK: Sign up
+2026-01-19T23:50:58.1619125Z     🔍 Mining locators for: 'Sign up'
+2026-01-19T23:50:58.2547846Z     ✅ Found 2 verified locators
+2026-01-19T23:51:01.8253310Z     ✅ State transitioned.
+2026-01-19T23:51:03.6246990Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:51:03.6248216Z [DEBUG] Received response (Length: 202)
+2026-01-19T23:51:03.6249316Z     🤖 AI Next Step Suggestion: fill -> Username:
+2026-01-19T23:51:03.6250018Z     🧩 Suggested Locator: input#sign-username
+2026-01-19T23:51:03.6251449Z     💭 Reasoning: The sign-up form is open, and the next step is to fill in the username field.
+2026-01-19T23:51:03.6252556Z     ➕ Injected AI step: fill -> Username:
+2026-01-19T23:51:03.6253248Z     ⚡ PARALLEL MODE: Batching 3 fill steps
+2026-01-19T23:51:03.6253921Z     ⚡ Batch mining 3 fields in parallel...
+2026-01-19T23:51:03.7324966Z     🔍 Trying smart selectors for 'sign-username'...
+2026-01-19T23:51:03.7330893Z     🔍 [SMART] Searching for: 'sign-username' (trying 15+ strategies)
+2026-01-19T23:51:03.7331893Z     🔍 Trying smart selectors for 'sign-password'...
+2026-01-19T23:51:03.8343870Z     🔍 [SMART] Searching for: 'sign-password' (trying 15+ strategies)
+2026-01-19T23:51:03.8344935Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:51:03.8348963Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:51:03.8352534Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-19T23:51:03.8355050Z     🧠 [EXPERT] Strategy: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.
+2026-01-19T23:51:08.6442117Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:51:08.6443129Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:51:08.6443904Z [DEBUG] Received response (Length: 346)
+2026-01-19T23:51:08.6444596Z [DEBUG] Received response (Length: 449)
+2026-01-19T23:51:08.6445808Z     ✅ Batch mined 'Username:' (3 locators)
+2026-01-19T23:51:08.6446661Z     ✅ Batch mined 'sign-username' (2 locators)
+2026-01-19T23:51:08.6447534Z     ✅ Batch mined 'sign-password' (2 locators)
+2026-01-19T23:51:08.6448419Z     ✅ Batch mined 3/3 steps successfully
+2026-01-19T23:51:08.6449199Z   ▶️ [STEP step_5] CLICK: Sign up
+2026-01-19T23:51:08.6504612Z     🔍 Mining locators for: 'Sign up'
+2026-01-19T23:51:08.7491748Z     ✅ Found 4 verified locators
+2026-01-19T23:51:12.3171748Z     ✅ State transitioned.
+2026-01-19T23:51:14.1236943Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:51:14.1237949Z [DEBUG] Received response (Length: 210)
+2026-01-19T23:51:14.1239016Z     🤖 AI Next Step Suggestion: fill -> Username:
+2026-01-19T23:51:14.1239909Z     🧩 Suggested Locator: input#sign-username
+2026-01-19T23:51:14.1241491Z     💭 Reasoning: The sign-up form is open, and the next logical step is to fill in the username field.
+2026-01-19T23:51:14.1242792Z     🔄 Same AI suggestion but state changed (URL or DOM). Resetting loop counter.
+2026-01-19T23:51:14.1243466Z     ➕ Injected AI step: fill -> Username:
+2026-01-19T23:51:14.1243938Z   ▶️ [STEP step_5_ai_1] FILL: Username:
+2026-01-19T23:51:14.1297822Z     🎯 Using AI-provided locator: input#sign-username
+2026-01-19T23:51:14.1361760Z     ✅ Found 1 verified locators
+2026-01-19T23:51:19.7346261Z     ✅ State transitioned.
+2026-01-19T23:51:21.2511602Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:51:21.2512936Z [DEBUG] Received response (Length: 214)
+2026-01-19T23:51:21.2514046Z     🤖 AI Next Step Suggestion: fill -> Password:
+2026-01-19T23:51:21.2515173Z     🧩 Suggested Locator: #sign-password
+2026-01-19T23:51:21.2516651Z     💭 Reasoning: The username field is filled, now filling the password field to complete the sign-up form.
+2026-01-19T23:51:21.2518037Z     ➕ Injected AI step: fill -> Password:
+2026-01-19T23:51:21.2518640Z   ▶️ [STEP step_5_ai_2] FILL: Password:
+2026-01-19T23:51:21.2572144Z     🎯 Using AI-provided locator: #sign-password
+2026-01-19T23:51:21.2630344Z     ✅ Found 1 verified locators
+2026-01-19T23:51:28.0682226Z     ✅ State transitioned.
+2026-01-19T23:51:29.7371575Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:51:29.7372614Z [DEBUG] Received response (Length: 171)
+2026-01-19T23:51:29.7373761Z     🤖 AI Next Step Suggestion: click -> Sign up
+2026-01-19T23:51:29.7375148Z     💭 Reasoning: The sign-up form is complete. Clicking 'Sign up' will submit the form.
+2026-01-19T23:51:29.7376471Z     ➕ Injected AI step: click -> Sign up
+2026-01-19T23:51:29.7377116Z   ▶️ [STEP step_5_ai_3] CLICK: Sign up
+2026-01-19T23:51:29.7431214Z     🔍 Mining locators for: 'Sign up'
+2026-01-19T23:51:29.8336060Z     ✅ Found 4 verified locators
+2026-01-19T23:51:33.3997457Z     ✅ State transitioned.
+2026-01-19T23:51:33.4094180Z     🔄 Revisited state detected (count: 1)
+2026-01-19T23:51:34.8547659Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:51:34.8548548Z [DEBUG] Received response (Length: 221)
+2026-01-19T23:51:34.8549607Z     🤖 AI Next Step Suggestion: click -> Sign up
+2026-01-19T23:51:34.8550763Z     🧩 Suggested Locator: button.btn.btn-primary
+2026-01-19T23:51:34.8552693Z     💭 Reasoning: The username and password fields are filled, so the next step is to submit the form by clicking the 'Sign up' button.
+2026-01-19T23:51:34.8555013Z ⚠️ Loop detected: same AI suggestion repeated 2 times without state change. Moving to next step.
+2026-01-19T23:51:34.8556379Z   ▶️ [STEP step_6] WAIT: 
+2026-01-19T23:51:40.3719081Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T23:51:42.3741009Z     ✅ State transitioned.
+2026-01-19T23:51:42.3835611Z     🔄 Revisited state detected (count: 2)
+2026-01-19T23:51:43.9214463Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:51:43.9215405Z [DEBUG] Received response (Length: 201)
+2026-01-19T23:51:43.9216456Z     🤖 AI Next Step Suggestion: click -> Sign up
+2026-01-19T23:51:43.9218025Z     💭 Reasoning: The sign-up form is complete, and the 'Sign up' button is visible. Clicking it will submit the form.
+2026-01-19T23:51:43.9219238Z     ➕ Injected AI step: click -> Sign up
+2026-01-19T23:51:43.9219665Z   ▶️ [STEP step_6_ai_1] CLICK: Sign up
+2026-01-19T23:51:43.9272608Z     🔍 Mining locators for: 'Sign up'
+2026-01-19T23:51:44.0191547Z     ✅ Found 4 verified locators
+2026-01-19T23:51:47.5816153Z     ✅ State transitioned.
+2026-01-19T23:51:47.5907592Z     🔄 Revisited state detected (count: 3)
+2026-01-19T23:51:47.5908457Z     ⚠️ Too many revisits (3). Stopping AI step injection to prevent loops.
+2026-01-19T23:51:47.5909243Z   ▶️ [STEP step_7] CLICK: Log in
+2026-01-19T23:51:47.6027173Z     🔍 Mining locators for: 'Log in'
+2026-01-19T23:51:47.6756432Z     ✅ Found 2 verified locators
+2026-01-19T23:51:51.2367003Z     ✅ State transitioned.
+2026-01-19T23:51:51.2463000Z     🔄 Revisited state detected (count: 4)
+2026-01-19T23:51:51.2464145Z     ⚠️ Too many revisits (4). Stopping AI step injection to prevent loops.
+2026-01-19T23:51:51.2464908Z     ⚡ PARALLEL MODE: Batching 2 fill steps
+2026-01-19T23:51:51.2465462Z     ⚡ Batch mining 2 fields in parallel...
+2026-01-19T23:51:51.3122285Z     🔍 Trying smart selectors for 'loginusername'...
+2026-01-19T23:51:51.3128725Z     🔍 [SMART] Searching for: 'loginusername' (trying 15+ strategies)
+2026-01-19T23:51:51.3130395Z     🔍 Trying smart selectors for 'loginpassword'...
+2026-01-19T23:51:51.3366021Z     🔍 [SMART] Searching for: 'loginpassword' (trying 15+ strategies)
+2026-01-19T23:51:51.3366967Z     ✅ Smart selector found 'loginusername' via id-exact (confidence: 0.92)
+2026-01-19T23:51:51.3374394Z     ✅ Smart selector found 'loginpassword' via id-exact (confidence: 0.92)
+2026-01-19T23:51:51.3375371Z     ✅ Batch mined 'loginusername' (1 locators)
+2026-01-19T23:51:51.3375995Z     ✅ Batch mined 'loginpassword' (1 locators)
+2026-01-19T23:51:51.3376410Z     ✅ Batch mined 2/2 steps successfully
+2026-01-19T23:51:51.3376796Z   ▶️ [STEP step_10] CLICK: Log in
+2026-01-19T23:51:51.3426404Z     🔍 Mining locators for: 'Log in'
+2026-01-19T23:51:51.4088514Z     ✅ Found 2 verified locators
+2026-01-19T23:51:54.9632577Z     ✅ State transitioned.
+2026-01-19T23:51:54.9719372Z     🔄 Revisited state detected (count: 5)
+2026-01-19T23:51:54.9720306Z     ⚠️ Too many revisits (5). Stopping AI step injection to prevent loops.
+2026-01-19T23:51:54.9720845Z   ▶️ [STEP step_11] WAIT: 
+2026-01-19T23:52:00.4880588Z     ⚠️ Scroll into view failed for text=None. Proceeding anyway.
+2026-01-19T23:52:02.4903769Z     ✅ State transitioned.
+2026-01-19T23:52:02.4990989Z     🔄 Revisited state detected (count: 6)
+2026-01-19T23:52:02.4992025Z     ⚠️ Too many revisits (6). Stopping AI step injection to prevent loops.
+2026-01-19T23:52:04.5370289Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoblaze_store/tests/generated_scenarios.json
+2026-01-19T23:52:04.5371239Z 
+2026-01-19T23:52:04.5371578Z 📝 Processing scenario 'Browse, Add to Cart, and Purchase Flow' with 66 steps
+2026-01-19T23:52:04.5372138Z   🔍 Step 2 (click): Found 4 mined locators
+2026-01-19T23:52:04.5372661Z       ✅ Kept robust locator (0.80): role=link[name='Samsung galaxy s6']...
+2026-01-19T23:52:04.5373204Z       ✅ Kept robust locator (0.85): #article...
+2026-01-19T23:52:04.5373691Z       ✅ Kept robust locator (0.70): text='Samsung galaxy s6'...
+2026-01-19T23:52:04.5374365Z       ✅ Kept robust locator (0.70): text=The Samsung Galaxy S6 is powered by 1.5GHz oc...
+2026-01-19T23:52:04.5375041Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5375460Z   🔍 Step 3 (click): Found 2 mined locators
+2026-01-19T23:52:04.5375999Z       ✅ Kept robust locator (0.80): role=link[name='Add to cart']...
+2026-01-19T23:52:04.5376539Z       ✅ Kept robust locator (0.70): text='Add to cart'...
+2026-01-19T23:52:04.5377006Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5377426Z   🔍 Step 4 (click): Found 1 mined locators
+2026-01-19T23:52:04.5377831Z       ✅ Kept robust locator (0.95): #cartur...
+2026-01-19T23:52:04.5378282Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5378717Z   🔍 Step 5 (click): Found 2 mined locators
+2026-01-19T23:52:04.5379213Z       ✅ Kept robust locator (0.80): role=button[name='Place Order']...
+2026-01-19T23:52:04.5379801Z       ✅ Kept robust locator (0.70): text='Place Order'...
+2026-01-19T23:52:04.5380447Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5380895Z   🔍 Step 6 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5381329Z       ✅ Kept robust locator (1.05): input[id='name']...
+2026-01-19T23:52:04.5381802Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5382228Z   🔍 Step 7 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5382678Z       ✅ Kept robust locator (1.05): input[id='country']...
+2026-01-19T23:52:04.5383168Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5383601Z   🔍 Step 8 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5384041Z       ✅ Kept robust locator (1.05): input[id='city']...
+2026-01-19T23:52:04.5384495Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5384909Z   🔍 Step 9 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5385331Z       ✅ Kept robust locator (1.05): input[id='card']...
+2026-01-19T23:52:04.5385771Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5386234Z   🔍 Step 10 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5386979Z       ✅ Kept robust locator (1.05): input[id='month']...
+2026-01-19T23:52:04.5387427Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5388089Z   🔍 Step 11 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5388532Z       ✅ Kept robust locator (1.05): input[id='year']...
+2026-01-19T23:52:04.5388974Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5389396Z   🔍 Step 12 (click): Found 2 mined locators
+2026-01-19T23:52:04.5389883Z       ✅ Kept robust locator (0.80): role=button[name='Purchase']...
+2026-01-19T23:52:04.5390780Z       ✅ Kept robust locator (0.70): text='Purchase'...
+2026-01-19T23:52:04.5391306Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5391778Z   🔍 Step 13 (click): Found 2 mined locators
+2026-01-19T23:52:04.5392273Z       ✅ Kept robust locator (0.80): role=button[name='OK']...
+2026-01-19T23:52:04.5392779Z       ✅ Kept robust locator (0.70): text='OK'...
+2026-01-19T23:52:04.5393311Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5393774Z   🔍 Step 14 (click): Found 4 mined locators
+2026-01-19T23:52:04.5394367Z       ✅ Kept robust locator (0.80): role=link[name='Samsung galaxy s6']...
+2026-01-19T23:52:04.5394931Z       ✅ Kept robust locator (0.85): #article...
+2026-01-19T23:52:04.5395477Z       ✅ Kept robust locator (0.70): text='Samsung galaxy s6'...
+2026-01-19T23:52:04.5396141Z       ✅ Kept robust locator (0.70): text=The Samsung Galaxy S6 is powered by 1.5GHz oc...
+2026-01-19T23:52:04.5396800Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5397291Z   🔍 Step 15 (click): Found 2 mined locators
+2026-01-19T23:52:04.5397880Z       ✅ Kept robust locator (0.80): role=link[name='Add to cart']...
+2026-01-19T23:52:04.5398484Z       ✅ Kept robust locator (0.70): text='Add to cart'...
+2026-01-19T23:52:04.5398972Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5399514Z   🔍 Step 16 (click): Found 1 mined locators
+2026-01-19T23:52:04.5399963Z       ✅ Kept robust locator (0.95): #cartur...
+2026-01-19T23:52:04.5400509Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5400954Z   🔍 Step 17 (click): Found 3 mined locators
+2026-01-19T23:52:04.5401531Z       ✅ Kept robust locator (0.80): role=link[name='Phones']...
+2026-01-19T23:52:04.5402038Z       ✅ Kept robust locator (0.70): text='Phones'...
+2026-01-19T23:52:04.5402560Z       ✅ Kept robust locator (0.85): #itemc...
+2026-01-19T23:52:04.5403028Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5403519Z   🔍 Step 19 (assert_visible): Found 1 mined locators
+2026-01-19T23:52:04.5404089Z       ⚠️ Skipping positional locator: td:nth-child(2)...
+2026-01-19T23:52:04.5405008Z   ⚠️  No robust locators passed filtering. Executor will use fallback strategies.
+2026-01-19T23:52:04.5405669Z   🔍 Step 20 (click): Found 2 mined locators
+2026-01-19T23:52:04.5406240Z       ✅ Kept robust locator (0.80): role=button[name='Place Order']...
+2026-01-19T23:52:04.5406887Z       ✅ Kept robust locator (0.70): text='Place Order'...
+2026-01-19T23:52:04.5407392Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5407921Z   🔍 Step 21 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5408410Z       ✅ Kept robust locator (0.95): input#name...
+2026-01-19T23:52:04.5408906Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5409454Z   🔍 Step 22 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5409879Z       ✅ Kept robust locator (0.95): #country...
+2026-01-19T23:52:04.5410435Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5410850Z   🔍 Step 23 (click): Found 1 mined locators
+2026-01-19T23:52:04.5411322Z       ✅ Kept robust locator (0.90): a[href*='prod.html?idp_=3']...
+2026-01-19T23:52:04.5411863Z   💾 Saved 1 robust locators (top stability: 0.90)
+2026-01-19T23:52:04.5412278Z   🔍 Step 25 (click): Found 1 mined locators
+2026-01-19T23:52:04.5414428Z       ✅ Kept robust locator (0.95): a[href*='prod.html?idp_=3']...
+2026-01-19T23:52:04.5415320Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5415872Z   🔍 Step 26 (click): Found 1 mined locators
+2026-01-19T23:52:04.5416381Z       ✅ Kept robust locator (0.95): a...
+2026-01-19T23:52:04.5417123Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5417688Z   🔍 Step 27 (click): Found 1 mined locators
+2026-01-19T23:52:04.5418329Z       ✅ Kept robust locator (0.95): a[href*='prod.html?idp_=2']...
+2026-01-19T23:52:04.5418956Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5419415Z   🔍 Step 28 (click): Found 1 mined locators
+2026-01-19T23:52:04.5419847Z       ✅ Kept robust locator (0.95): a...
+2026-01-19T23:52:04.5420499Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5420970Z   🔍 Step 29 (click): Found 1 mined locators
+2026-01-19T23:52:04.5421497Z       ✅ Kept robust locator (0.95): a[href='cart.html']...
+2026-01-19T23:52:04.5421957Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5422432Z   🔍 Step 30 (click): Found 2 mined locators
+2026-01-19T23:52:04.5422969Z       ✅ Kept robust locator (0.80): role=button[name='Place Order']...
+2026-01-19T23:52:04.5423533Z       ✅ Kept robust locator (0.70): text='Place Order'...
+2026-01-19T23:52:04.5424039Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5424524Z   🔍 Step 31 (click): Found 2 mined locators
+2026-01-19T23:52:04.5425014Z       ✅ Kept robust locator (0.80): role=link[name='Cart']...
+2026-01-19T23:52:04.5425460Z       ✅ Kept robust locator (0.70): text='Cart'...
+2026-01-19T23:52:04.5425889Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5426303Z   🔍 Step 32 (click): Found 2 mined locators
+2026-01-19T23:52:04.5426805Z       ✅ Kept robust locator (0.80): role=button[name='Place Order']...
+2026-01-19T23:52:04.5427363Z       ✅ Kept robust locator (0.70): text='Place Order'...
+2026-01-19T23:52:04.5427801Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5428283Z   🔍 Step 33 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5428739Z       ✅ Kept robust locator (1.05): input[id='name']...
+2026-01-19T23:52:04.5429175Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5429589Z   🔍 Step 34 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5430199Z       ✅ Kept robust locator (1.05): input[id='country']...
+2026-01-19T23:52:04.5430693Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5431093Z   🔍 Step 35 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5431522Z       ✅ Kept robust locator (1.05): input[id='city']...
+2026-01-19T23:52:04.5431959Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5432364Z   🔍 Step 36 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5432776Z       ✅ Kept robust locator (1.05): input[id='card']...
+2026-01-19T23:52:04.5433212Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5433628Z   🔍 Step 37 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5434106Z       ✅ Kept robust locator (1.05): input[id='month']...
+2026-01-19T23:52:04.5434549Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5434961Z   🔍 Step 38 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5435560Z       ✅ Kept robust locator (0.95): #year...
+2026-01-19T23:52:04.5436044Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5436467Z   🔍 Step 39 (click): Found 2 mined locators
+2026-01-19T23:52:04.5437001Z       ✅ Kept robust locator (0.80): role=button[name='Purchase']...
+2026-01-19T23:52:04.5437509Z       ✅ Kept robust locator (0.70): text='Purchase'...
+2026-01-19T23:52:04.5437973Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5438436Z   🔍 Step 40 (click): Found 2 mined locators
+2026-01-19T23:52:04.5438888Z       ✅ Kept robust locator (0.80): role=button[name='OK']...
+2026-01-19T23:52:04.5439341Z       ✅ Kept robust locator (0.70): text='OK'...
+2026-01-19T23:52:04.5439785Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5440600Z   🔍 Step 41 (click): Found 1 mined locators
+2026-01-19T23:52:04.5441072Z       ✅ Kept robust locator (0.95): a[href*='prod.html?idp_=3']...
+2026-01-19T23:52:04.5441608Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5442054Z   🔍 Step 42 (click): Found 1 mined locators
+2026-01-19T23:52:04.5442442Z       ✅ Kept robust locator (0.95): a...
+2026-01-19T23:52:04.5442857Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5443276Z   🔍 Step 44 (click): Found 2 mined locators
+2026-01-19T23:52:04.5443782Z       ✅ Kept robust locator (0.80): role=button[name='Place Order']...
+2026-01-19T23:52:04.5444314Z       ✅ Kept robust locator (0.70): text='Place Order'...
+2026-01-19T23:52:04.5444751Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5445206Z   🔍 Step 45 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5445688Z       ✅ Kept robust locator (0.98): role=textbox[name*='Name:' i]...
+2026-01-19T23:52:04.5446188Z   💾 Saved 1 robust locators (top stability: 0.98)
+2026-01-19T23:52:04.5446601Z   🔍 Step 46 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5447101Z       ✅ Kept robust locator (0.98): role=textbox[name*='Name' i]...
+2026-01-19T23:52:04.5447592Z   💾 Saved 1 robust locators (top stability: 0.98)
+2026-01-19T23:52:04.5447998Z   🔍 Step 47 (fill): Found 3 mined locators
+2026-01-19T23:52:04.5448520Z       ✅ Kept robust locator (0.80): role=textbox[name='Country:']...
+2026-01-19T23:52:04.5449005Z       ✅ Kept robust locator (0.70): text=Country:...
+2026-01-19T23:52:04.5449420Z       ✅ Kept robust locator (0.85): #country...
+2026-01-19T23:52:04.5449885Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5450478Z   🔍 Step 48 (fill): Found 3 mined locators
+2026-01-19T23:52:04.5450916Z       ✅ Kept robust locator (0.80): role=textbox[name='City:']...
+2026-01-19T23:52:04.5451388Z       ✅ Kept robust locator (0.70): text=City:...
+2026-01-19T23:52:04.5451791Z       ✅ Kept robust locator (0.85): #city...
+2026-01-19T23:52:04.5452205Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5452631Z   🔍 Step 49 (fill): Found 3 mined locators
+2026-01-19T23:52:04.5453180Z       ✅ Kept robust locator (0.80): role=textbox[name='Credit card:']...
+2026-01-19T23:52:04.5453688Z       ✅ Kept robust locator (0.70): text=Credit card:...
+2026-01-19T23:52:04.5454120Z       ✅ Kept robust locator (0.85): #card...
+2026-01-19T23:52:04.5454532Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5454972Z   🔍 Step 50 (fill): Found 3 mined locators
+2026-01-19T23:52:04.5455445Z       ✅ Kept robust locator (0.80): role=textbox[name='Month:']...
+2026-01-19T23:52:04.5455905Z       ✅ Kept robust locator (0.70): text=Month:...
+2026-01-19T23:52:04.5456299Z       ✅ Kept robust locator (0.85): #month...
+2026-01-19T23:52:04.5456703Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5457119Z   🔍 Step 51 (fill): Found 3 mined locators
+2026-01-19T23:52:04.5457633Z       ✅ Kept robust locator (0.80): role=textbox[name='Year:']...
+2026-01-19T23:52:04.5458102Z       ✅ Kept robust locator (0.70): text=Year:...
+2026-01-19T23:52:04.5458517Z       ✅ Kept robust locator (0.85): #year...
+2026-01-19T23:52:04.5459146Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5459594Z   🔍 Step 52 (click): Found 2 mined locators
+2026-01-19T23:52:04.5460279Z       ✅ Kept robust locator (0.80): role=button[name='Purchase']...
+2026-01-19T23:52:04.5460805Z       ✅ Kept robust locator (0.70): text='Purchase'...
+2026-01-19T23:52:04.5461250Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5461656Z   🔍 Step 53 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5462081Z       ✅ Kept robust locator (1.05): input[id='name']...
+2026-01-19T23:52:04.5462514Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5462961Z   🔍 Step 54 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5463438Z       ✅ Kept robust locator (1.05): input[id='country']...
+2026-01-19T23:52:04.5464136Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5464541Z   🔍 Step 55 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5464976Z       ✅ Kept robust locator (1.05): input[id='city']...
+2026-01-19T23:52:04.5465411Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5465851Z   🔍 Step 56 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5466308Z       ✅ Kept robust locator (1.05): input[id='card']...
+2026-01-19T23:52:04.5466736Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5467141Z   🔍 Step 57 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5467563Z       ✅ Kept robust locator (1.05): input[id='month']...
+2026-01-19T23:52:04.5468013Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5468433Z   🔍 Step 58 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5468896Z       ✅ Kept robust locator (1.05): input[id='year']...
+2026-01-19T23:52:04.5469324Z   💾 Saved 1 robust locators (top stability: 1.00)
+2026-01-19T23:52:04.5471011Z   🔍 Step 59 (click): Found 2 mined locators
+2026-01-19T23:52:04.5471618Z       ✅ Kept robust locator (0.80): role=button[name='Purchase']...
+2026-01-19T23:52:04.5472180Z       ✅ Kept robust locator (0.70): text='Purchase'...
+2026-01-19T23:52:04.5472749Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5473198Z   🔍 Step 60 (click): Found 2 mined locators
+2026-01-19T23:52:04.5473710Z       ✅ Kept robust locator (0.80): role=button[name='OK']...
+2026-01-19T23:52:04.5474266Z       ✅ Kept robust locator (0.70): text='OK'...
+2026-01-19T23:52:04.5474764Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5475279Z   🔍 Step 61 (click): Found 1 mined locators
+2026-01-19T23:52:04.5475814Z       ✅ Kept robust locator (0.95): a[href*='prod.html?idp_=3']...
+2026-01-19T23:52:04.5476388Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5476850Z   🔍 Step 62 (click): Found 2 mined locators
+2026-01-19T23:52:04.5477897Z       ✅ Kept robust locator (0.80): role=link[name='Add to cart']...
+2026-01-19T23:52:04.5478536Z       ✅ Kept robust locator (0.70): text='Add to cart'...
+2026-01-19T23:52:04.5479020Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5479604Z   🔍 Step 64 (assert_visible): Found 1 mined locators
+2026-01-19T23:52:04.5480459Z       ✅ Kept robust locator (0.75): textarea[name*='for' i], textarea[id*='for' i], te...
+2026-01-19T23:52:04.5481128Z   💾 Saved 1 robust locators (top stability: 0.75)
+2026-01-19T23:52:04.5481635Z   🔍 Step 65 (click): Found 2 mined locators
+2026-01-19T23:52:04.5482199Z       ✅ Kept robust locator (0.80): role=link[name='Add to cart']...
+2026-01-19T23:52:04.5482806Z       ✅ Kept robust locator (0.70): text='Add to cart'...
+2026-01-19T23:52:04.5483304Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5483994Z ✅ Updated scenario 'Browse, Add to Cart, and Purchase Flow' with 66 validated steps
+2026-01-19T23:52:04.5484440Z 
+2026-01-19T23:52:04.5484792Z 📝 Processing scenario 'Contact Us Form Submission' with 11 steps
+2026-01-19T23:52:04.5485350Z   🔍 Step 1 (click): Found 2 mined locators
+2026-01-19T23:52:04.5486119Z       ✅ Kept robust locator (0.80): role=link[name='Contact']...
+2026-01-19T23:52:04.5486732Z       ✅ Kept robust locator (0.70): text='Contact'...
+2026-01-19T23:52:04.5487280Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5487738Z   🔍 Step 2 (fill): Found 3 mined locators
+2026-01-19T23:52:04.5488342Z       ✅ Kept robust locator (0.80): role=textbox[name='Contact Email:']...
+2026-01-19T23:52:04.5488954Z       ✅ Kept robust locator (0.70): text='Contact Email:'...
+2026-01-19T23:52:04.5489499Z       ✅ Kept robust locator (0.85): #recipient-name...
+2026-01-19T23:52:04.5489987Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5490537Z   🔍 Step 3 (fill): Found 2 mined locators
+2026-01-19T23:52:04.5490958Z       ✅ Kept robust locator (0.90): ...
+2026-01-19T23:52:04.5491394Z       ✅ Kept robust locator (0.70): ...
+2026-01-19T23:52:04.5492075Z   💾 Saved 2 robust locators (top stability: 0.90)
+2026-01-19T23:52:04.5492438Z   🔍 Step 4 (fill): Found 2 mined locators
+2026-01-19T23:52:04.5492749Z       ✅ Kept robust locator (0.90): ...
+2026-01-19T23:52:04.5493029Z       ✅ Kept robust locator (0.70): ...
+2026-01-19T23:52:04.5493341Z   💾 Saved 2 robust locators (top stability: 0.90)
+2026-01-19T23:52:04.5493664Z   🔍 Step 5 (fill): Found 3 mined locators
+2026-01-19T23:52:04.5493974Z       ✅ Kept robust locator (0.90): textarea...
+2026-01-19T23:52:04.5494338Z       ✅ Kept robust locator (0.70): textarea[placeholder]...
+2026-01-19T23:52:04.5494801Z       ⚠️ Skipping low-confidence locator (0.60): textarea:nth-of-type(1)...
+2026-01-19T23:52:04.5495237Z   💾 Saved 2 robust locators (top stability: 0.90)
+2026-01-19T23:52:04.5495569Z   🔍 Step 6 (click): Found 2 mined locators
+2026-01-19T23:52:04.5495958Z       ✅ Kept robust locator (0.80): role=button[name='Send message']...
+2026-01-19T23:52:04.5496389Z       ✅ Kept robust locator (0.70): text='Send message'...
+2026-01-19T23:52:04.5496775Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5497107Z   🔍 Step 8 (click): Found 1 mined locators
+2026-01-19T23:52:04.5497447Z       ✅ Kept robust locator (0.95): a...
+2026-01-19T23:52:04.5497772Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5498087Z   🔍 Step 9 (click): Found 2 mined locators
+2026-01-19T23:52:04.5498469Z       ✅ Kept robust locator (0.80): role=link[name='Home (current)']...
+2026-01-19T23:52:04.5498891Z       ✅ Kept robust locator (0.70): text=Home (current)...
+2026-01-19T23:52:04.5499251Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5499573Z   🔍 Step 10 (click): Found 4 mined locators
+2026-01-19T23:52:04.5499969Z       ✅ Kept robust locator (0.80): role=link[name='Samsung galaxy s6']...
+2026-01-19T23:52:04.5500570Z       ✅ Kept robust locator (0.85): #article...
+2026-01-19T23:52:04.5500936Z       ✅ Kept robust locator (0.70): text='Samsung galaxy s6'...
+2026-01-19T23:52:04.5501434Z       ✅ Kept robust locator (0.70): text=The Samsung Galaxy S6 is powered by 1.5GHz oc...
+2026-01-19T23:52:04.5501890Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5502328Z ✅ Updated scenario 'Contact Us Form Submission' with 11 validated steps
+2026-01-19T23:52:04.5502600Z 
+2026-01-19T23:52:04.5502790Z 📝 Processing scenario 'Sign Up and Log In' with 16 steps
+2026-01-19T23:52:04.5503138Z   🔍 Step 1 (click): Found 2 mined locators
+2026-01-19T23:52:04.5503499Z       ✅ Kept robust locator (0.80): role=link[name='Sign up']...
+2026-01-19T23:52:04.5503880Z       ✅ Kept robust locator (0.70): text='Sign up'...
+2026-01-19T23:52:04.5504223Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5504545Z   🔍 Step 2 (fill): Found 3 mined locators
+2026-01-19T23:52:04.5504918Z       ✅ Kept robust locator (0.80): role=textbox[name='Username:']...
+2026-01-19T23:52:04.5505320Z       ✅ Kept robust locator (0.70): text='Username:'...
+2026-01-19T23:52:04.5505682Z       ✅ Kept robust locator (0.85): #sign-username...
+2026-01-19T23:52:04.5506027Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5506353Z   🔍 Step 3 (fill): Found 2 mined locators
+2026-01-19T23:52:04.5506796Z       ✅ Kept robust locator (0.90): ...
+2026-01-19T23:52:04.5507092Z       ✅ Kept robust locator (0.70): ...
+2026-01-19T23:52:04.5507403Z   💾 Saved 2 robust locators (top stability: 0.90)
+2026-01-19T23:52:04.5507722Z   🔍 Step 4 (fill): Found 2 mined locators
+2026-01-19T23:52:04.5508008Z       ✅ Kept robust locator (0.90): ...
+2026-01-19T23:52:04.5508283Z       ✅ Kept robust locator (0.70): ...
+2026-01-19T23:52:04.5508591Z   💾 Saved 2 robust locators (top stability: 0.90)
+2026-01-19T23:52:04.5508920Z   🔍 Step 5 (click): Found 4 mined locators
+2026-01-19T23:52:04.5509284Z       ✅ Kept robust locator (0.80): role=button[name='Sign up']...
+2026-01-19T23:52:04.5509707Z       ✅ Kept robust locator (0.80): role=link[name='Sign up']...
+2026-01-19T23:52:04.5510364Z       ✅ Kept robust locator (0.70): text='Sign up'...
+2026-01-19T23:52:04.5510729Z       ✅ Kept robust locator (0.85): #signInModalLabel...
+2026-01-19T23:52:04.5511089Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5511413Z   🔍 Step 6 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5511755Z       ✅ Kept robust locator (0.95): input#sign-username...
+2026-01-19T23:52:04.5512113Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5512428Z   🔍 Step 7 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5512751Z       ✅ Kept robust locator (0.95): #sign-password...
+2026-01-19T23:52:04.5513103Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-19T23:52:04.5513428Z   🔍 Step 8 (click): Found 4 mined locators
+2026-01-19T23:52:04.5513800Z       ✅ Kept robust locator (0.80): role=button[name='Sign up']...
+2026-01-19T23:52:04.5514208Z       ✅ Kept robust locator (0.80): role=link[name='Sign up']...
+2026-01-19T23:52:04.5514581Z       ✅ Kept robust locator (0.70): text='Sign up'...
+2026-01-19T23:52:04.5514948Z       ✅ Kept robust locator (0.85): #signInModalLabel...
+2026-01-19T23:52:04.5515306Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5515646Z   🔍 Step 10 (click): Found 4 mined locators
+2026-01-19T23:52:04.5516029Z       ✅ Kept robust locator (0.80): role=button[name='Sign up']...
+2026-01-19T23:52:04.5516449Z       ✅ Kept robust locator (0.80): role=link[name='Sign up']...
+2026-01-19T23:52:04.5516830Z       ✅ Kept robust locator (0.70): text='Sign up'...
+2026-01-19T23:52:04.5517191Z       ✅ Kept robust locator (0.85): #signInModalLabel...
+2026-01-19T23:52:04.5517543Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-19T23:52:04.5518034Z   🔍 Step 11 (click): Found 2 mined locators
+2026-01-19T23:52:04.5518671Z       ✅ Kept robust locator (0.80): role=link[name='Log in']...
+2026-01-19T23:52:04.5519282Z       ✅ Kept robust locator (0.70): text='Log in'...
+2026-01-19T23:52:04.5519850Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5520452Z   🔍 Step 12 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5520942Z       ✅ Kept robust locator (0.92): #loginusername...
+2026-01-19T23:52:04.5521593Z   💾 Saved 1 robust locators (top stability: 0.92)
+2026-01-19T23:52:04.5522094Z   🔍 Step 13 (fill): Found 1 mined locators
+2026-01-19T23:52:04.5522631Z       ✅ Kept robust locator (0.92): #loginpassword...
+2026-01-19T23:52:04.5523131Z   💾 Saved 1 robust locators (top stability: 0.92)
+2026-01-19T23:52:04.5523555Z   🔍 Step 14 (click): Found 2 mined locators
+2026-01-19T23:52:04.5523916Z       ✅ Kept robust locator (0.80): role=link[name='Log in']...
+2026-01-19T23:52:04.5524425Z       ✅ Kept robust locator (0.70): text='Log in'...
+2026-01-19T23:52:04.5525049Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-19T23:52:04.5525776Z ✅ Updated scenario 'Sign Up and Log In' with 16 validated steps
+2026-01-19T23:52:04.5526628Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-19T23:52:04.5527360Z 
+2026-01-19T23:52:04.5527557Z ============================================================
+2026-01-19T23:52:04.5528194Z 📊 EXPLORER PERFORMANCE SUMMARY
+2026-01-19T23:52:04.5528909Z ============================================================
+2026-01-19T23:52:04.5529286Z 
+2026-01-19T23:52:04.5529520Z 🔍 Locator Mining:
+2026-01-19T23:52:04.5529962Z    • Total Locators Mined: 145
+2026-01-19T23:52:04.5530660Z    • Filtered Out (Brittle): 2 (1.4%)
+2026-01-19T23:52:04.5531210Z    • Saved to Golden Path: 137 (94.5%)
+2026-01-19T23:52:04.5531526Z 
+2026-01-19T23:52:04.5531750Z ⚠️  Filtering Breakdown:
+2026-01-19T23:52:04.5532229Z    • Low Confidence (<0.75): 1
+2026-01-19T23:52:04.5532708Z    • Positional Selectors: 1
+2026-01-19T23:52:04.5532974Z 
+2026-01-19T23:52:04.5533173Z ✅ Golden Path Quality:
+2026-01-19T23:52:04.5533576Z    🌟 EXCELLENT - 94.5% of mined locators are robust!
+2026-01-19T23:52:04.5533795Z 
+2026-01-19T23:52:04.5533901Z ============================================================
+2026-01-19T23:52:04.5534113Z 
+2026-01-19T23:52:04.5534238Z ✅ Deep Exploration Complete.
+2026-01-19T23:54:59.8405882Z 
+2026-01-19T23:54:59.8406719Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-19T23:54:59.8407390Z 📍 Project: ci_demoblaze_store
+2026-01-19T23:54:59.8407927Z 🎬 Mode: Headless
+2026-01-19T23:54:59.8408142Z 
+2026-01-19T23:54:59.8408417Z --- Scenario: Browse, Add to Cart, and Purchase Flow ---
+2026-01-19T23:54:59.8409174Z   ▶️  [STEP step_1] NAVIGATE: NAVIGATE
+2026-01-19T23:54:59.8409722Z     ✅ Step step_1 Passed.
+2026-01-19T23:54:59.8410520Z   ▶️  [STEP step_2] ASSERT_URL: ASSERT_URL
+2026-01-19T23:54:59.8411013Z     ✅ Step step_2 Passed.
+2026-01-19T23:54:59.8411512Z   ▶️  [STEP step_2_ai_1] CLICK: Samsung galaxy s6
+2026-01-19T23:54:59.8412129Z     🔍 Trying 3 validated locators from golden path...
+2026-01-19T23:54:59.8413023Z     ⚠️  Locator #1 matched 9 elements (need exactly 1): #article...
+2026-01-19T23:54:59.8414028Z     ✅ SUCCESS! Locator #2: role=link[name='Samsung galaxy s6']... (method: unknown, stability: 0.80)
+2026-01-19T23:54:59.8414935Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T23:54:59.8415401Z   ▶️  [STEP step_2_ai_2] CLICK: Add to cart
+2026-01-19T23:54:59.8416006Z     🔍 Trying 2 validated locators from golden path...
+2026-01-19T23:54:59.8416950Z     ✅ SUCCESS! Locator #1: role=link[name='Add to cart']... (method: unknown, stability: 0.80)
+2026-01-19T23:54:59.8417718Z     ✅ Step step_2_ai_2 Passed.
+2026-01-19T23:54:59.8418183Z   ▶️  [STEP step_2_ai_3] CLICK: Cart
+2026-01-19T23:54:59.8418732Z     🔍 Trying 1 validated locators from golden path...
+2026-01-19T23:54:59.8419451Z     ✅ SUCCESS! Locator #1: #cartur... (method: unknown, stability: 0.95)
+2026-01-19T23:54:59.8420252Z     ✅ Step step_2_ai_3 Passed.
+2026-01-19T23:54:59.8420743Z   ▶️  [STEP step_2_ai_4] CLICK: Place Order
+2026-01-19T23:54:59.8421328Z     🔍 Trying 2 validated locators from golden path...
+2026-01-19T23:54:59.8422185Z     ✅ SUCCESS! Locator #1: role=button[name='Place Order']... (method: unknown, stability: 0.80)
+2026-01-19T23:54:59.8423003Z     ✅ Step step_2_ai_4 Passed.
+2026-01-19T23:54:59.8423463Z   ▶️  [STEP step_2_ai_5] FILL: Name:
+2026-01-19T23:54:59.8424030Z     🔍 Trying 1 validated locators from golden path...
+2026-01-19T23:54:59.8424820Z     ✅ SUCCESS! Locator #1: input[id='name']... (method: unknown, stability: 1.00)
+2026-01-19T23:54:59.8425513Z     ✅ Step step_2_ai_5 Passed.
+2026-01-19T23:54:59.8425871Z   ▶️  [STEP step_2_ai_6] FILL: Country:
+2026-01-19T23:54:59.8426257Z     🔍 Trying 1 validated locators from golden path...
+2026-01-19T23:54:59.8426721Z     ✅ SUCCESS! Locator #1: input[id='country']... (method: unknown, stability: 1.00)
+2026-01-19T23:54:59.8427150Z     ✅ Step step_2_ai_6 Passed.
+2026-01-19T23:54:59.8427416Z   ▶️  [STEP step_2_ai_7] FILL: City:
+2026-01-19T23:54:59.8427750Z     🔍 Trying 1 validated locators from golden path...
+2026-01-19T23:54:59.8428213Z     ✅ SUCCESS! Locator #1: input[id='city']... (method: unknown, stability: 1.00)
+2026-01-19T23:54:59.8428613Z     ✅ Step step_2_ai_7 Passed.
+2026-01-19T23:54:59.8429154Z   ▶️  [STEP step_2_ai_8] FILL: Credit card:
+2026-01-19T23:54:59.8429498Z     🔍 Trying 1 validated locators from golden path...
+2026-01-19T23:54:59.8431341Z     ✅ SUCCESS! Locator #1: input[id='card']... (method: unknown, stability: 1.00)
+2026-01-19T23:54:59.8431840Z     ✅ Step step_2_ai_8 Passed.
+2026-01-19T23:54:59.8432125Z   ▶️  [STEP step_2_ai_9] FILL: Month:
+2026-01-19T23:54:59.8432456Z     🔍 Trying 1 validated locators from golden path...
+2026-01-19T23:54:59.8432912Z     ✅ SUCCESS! Locator #1: input[id='month']... (method: unknown, stability: 1.00)
+2026-01-19T23:54:59.8433322Z     ✅ Step step_2_ai_9 Passed.
+2026-01-19T23:54:59.8433590Z   ▶️  [STEP step_2_ai_10] FILL: Year:
+2026-01-19T23:54:59.8433909Z     🔍 Trying 1 validated locators from golden path...
+2026-01-19T23:54:59.8434353Z     ✅ SUCCESS! Locator #1: input[id='year']... (method: unknown, stability: 1.00)
+2026-01-19T23:54:59.8434751Z     ✅ Step step_2_ai_10 Passed.
+2026-01-19T23:54:59.8435026Z   ▶️  [STEP step_2_ai_11] CLICK: Purchase
+2026-01-19T23:54:59.8435368Z     🔍 Trying 2 validated locators from golden path...
+2026-01-19T23:54:59.8435871Z     ✅ SUCCESS! Locator #1: role=button[name='Purchase']... (method: unknown, stability: 0.80)
+2026-01-19T23:54:59.8436326Z     ✅ Step step_2_ai_11 Passed.
+2026-01-19T23:54:59.8436593Z   ▶️  [STEP step_2_ai_12] CLICK: OK
+2026-01-19T23:54:59.8436914Z     🔍 Trying 2 validated locators from golden path...
+2026-01-19T23:54:59.8437388Z     ✅ SUCCESS! Locator #1: role=button[name='OK']... (method: unknown, stability: 0.80)
+2026-01-19T23:54:59.8437808Z     ✅ Step step_2_ai_12 Passed.
+2026-01-19T23:54:59.8438104Z   ▶️  [STEP step_2_ai_13] CLICK: Samsung galaxy s6
+2026-01-19T23:54:59.8438475Z     🔍 Trying 3 validated locators from golden path...
+2026-01-19T23:54:59.8438878Z     ⚠️  Locator #1 matched 9 elements (need exactly 1): #article...
+2026-01-19T23:54:59.8439434Z     ✅ SUCCESS! Locator #2: role=link[name='Samsung galaxy s6']... (method: unknown, stability: 0.80)
+2026-01-19T23:54:59.8439901Z     ✅ Step step_2_ai_13 Passed.
+2026-01-19T23:54:59.8440408Z   ▶️  [STEP step_2_ai_14] CLICK: Add to cart
+2026-01-19T23:54:59.8440745Z     🔍 Trying 2 validated locators from golden path...
+2026-01-19T23:54:59.8441259Z     ✅ SUCCESS! Locator #1: role=link[name='Add to cart']... (method: unknown, stability: 0.80)
+2026-01-19T23:54:59.8441700Z     ✅ Step step_2_ai_14 Passed.
+2026-01-19T23:54:59.8441967Z   ▶️  [STEP step_2_ai_15] CLICK: Cart
+2026-01-19T23:54:59.8442295Z     🔍 Trying 1 validated locators from golden path...
+2026-01-19T23:54:59.8442714Z     ✅ SUCCESS! Locator #1: #cartur... (method: unknown, stability: 0.95)
+2026-01-19T23:54:59.8443079Z     ✅ Step step_2_ai_15 Passed.
+2026-01-19T23:54:59.8443338Z   ▶️  [STEP step_3] CLICK: Phones
+2026-01-19T23:54:59.8443647Z     🔍 Trying 3 validated locators from golden path...
+2026-01-19T23:54:59.8453924Z     ❌ Locator #1 found 0 elements: #itemc...
+2026-01-19T23:54:59.8454621Z     ❌ Locator #2 found 0 elements: role=link[name='Phones']...
+2026-01-19T23:54:59.8455068Z     ❌ Locator #3 found 0 elements: text='Phones'...
+2026-01-19T23:54:59.8455507Z     ⚠️  All golden path locators failed. Will try text-based fallback.
+2026-01-19T23:54:59.8456085Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T23:54:59.8456499Z Call log:
+2026-01-19T23:54:59.8456694Z   - waiting for locator("text=Phones")
+2026-01-19T23:54:59.8456935Z ...
+2026-01-19T23:54:59.8457219Z     🔧 [AUTO-HEAL] Re-mining page to find 'Phones'...
+2026-01-19T23:54:59.8457599Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:54:59.8457940Z [DEBUG] Received response (Length: 427)
+2026-01-19T23:54:59.8458272Z     ✨ AI heal found 2 alternatives. Validating...
+2026-01-19T23:54:59.8458595Z       ❌ Rejected: Element not found
+2026-01-19T23:54:59.8458959Z       ❌ Validation error: Locator.count: SyntaxError: Failed to ex
+2026-01-19T23:54:59.8459388Z     ⚠️ All AI suggestions failed validation. Using original.
+2026-01-19T23:54:59.8460302Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T23:54:59.8460887Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T23:54:59.8461301Z Call log:
+2026-01-19T23:54:59.8461645Z   - waiting for locator("text=Phones")
+2026-01-19T23:54:59.8461888Z ...
+2026-01-19T23:54:59.8462148Z     🔧 [AUTO-HEAL] Re-mining page to find 'Phones'...
+2026-01-19T23:54:59.8462525Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-19T23:54:59.8462867Z [DEBUG] Received response (Length: 472)
+2026-01-19T23:54:59.8463183Z     ✨ AI heal found 2 alternatives. Validating...
+2026-01-19T23:54:59.8463499Z       ❌ Rejected: Element not found
+2026-01-19T23:54:59.8463773Z       ❌ Rejected: Element not found
+2026-01-19T23:54:59.8464111Z     ⚠️ All AI suggestions failed validation. Using original.
+2026-01-19T23:54:59.8464550Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-19T23:54:59.8465120Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-19T23:54:59.8465531Z Call log:
+2026-01-19T23:54:59.8465715Z   - waiting for locator("text=Phones")
+2026-01-19T23:54:59.8465952Z ...
+2026-01-19T23:54:59.8466185Z     💀 Step step_3 failed after all retries.
+2026-01-19T23:54:59.8466637Z 🛑 Scenario 'Browse, Add to Cart, and Purchase Flow' aborted due to step failure.
+2026-01-19T23:54:59.8466947Z 
+2026-01-19T23:54:59.8467057Z --- Scenario: Contact Us Form Submission ---
+2026-01-19T23:54:59.8467374Z   ▶️  [STEP step_1] NAVIGATE: NAVIGATE
+2026-01-19T23:54:59.8467655Z     ✅ Step step_1 Passed.
+2026-01-19T23:54:59.8467909Z   ▶️  [STEP step_2] CLICK: Contact
+2026-01-19T23:54:59.8468231Z     🔍 Trying 2 validated locators from golden path...
+2026-01-19T23:54:59.8468724Z     ✅ SUCCESS! Locator #1: role=link[name='Contact']... (method: unknown, stability: 0.80)
+2026-01-19T23:54:59.8469146Z     ✅ Step step_2 Passed.
+2026-01-19T23:54:59.8469415Z   ▶️  [STEP step_2_ai_1] FILL: Contact Email:
+2026-01-19T23:54:59.8469764Z     🔍 Trying 3 validated locators from golden path...
+2026-01-19T23:54:59.8470543Z     ✅ SUCCESS! Locator #1: #recipient-name... (method: unknown, stability: 0.85)
+2026-01-19T23:54:59.8471217Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T23:54:59.8471683Z   ▶️  [STEP step_3] FILL: recipient-email
+2026-01-19T23:54:59.8472258Z     🔍 Trying 2 validated locators from golden path...
+2026-01-19T23:54:59.8472659Z 💥 Fatal scenario error: 'value'
+2026-01-19T23:54:59.8472820Z 
+2026-01-19T23:54:59.8472913Z --- Scenario: Sign Up and Log In ---
+2026-01-19T23:54:59.8473204Z   ▶️  [STEP step_1] NAVIGATE: NAVIGATE
+2026-01-19T23:54:59.8473476Z     ✅ Step step_1 Passed.
+2026-01-19T23:54:59.8473722Z   ▶️  [STEP step_2] CLICK: Sign up
+2026-01-19T23:54:59.8474040Z     🔍 Trying 2 validated locators from golden path...
+2026-01-19T23:54:59.8474523Z     ✅ SUCCESS! Locator #1: role=link[name='Sign up']... (method: unknown, stability: 0.80)
+2026-01-19T23:54:59.8474949Z     ✅ Step step_2 Passed.
+2026-01-19T23:54:59.8475216Z   ▶️  [STEP step_2_ai_1] FILL: Username:
+2026-01-19T23:54:59.8475546Z     🔍 Trying 3 validated locators from golden path...
+2026-01-19T23:54:59.8476002Z     ✅ SUCCESS! Locator #1: #sign-username... (method: unknown, stability: 0.85)
+2026-01-19T23:54:59.8476401Z     ✅ Step step_2_ai_1 Passed.
+2026-01-19T23:54:59.8476665Z   ▶️  [STEP step_3] FILL: sign-username
+2026-01-19T23:54:59.8476998Z     🔍 Trying 2 validated locators from golden path...
+2026-01-19T23:54:59.8477315Z 💥 Fatal scenario error: 'value'
+2026-01-19T23:54:59.8477467Z 
+2026-01-19T23:54:59.8477570Z ============================================================
+2026-01-19T23:54:59.8477859Z 🎯 EXECUTION SUMMARY
+2026-01-19T23:54:59.8478064Z ============================================================
+2026-01-19T23:54:59.8478250Z 
+2026-01-19T23:54:59.8478351Z 📋 Scenario Overview:
+2026-01-19T23:54:59.8478592Z    • Total Scenarios Planned: 3
+2026-01-19T23:54:59.8478853Z    • Scenarios Executed: 3
+2026-01-19T23:54:59.8479096Z    • Total Steps Executed: 24
+2026-01-19T23:54:59.8479409Z 
+2026-01-19T23:54:59.8479501Z ✅ Results:
+2026-01-19T23:54:59.8479700Z    ❌ Failed: 3 (100%)
+2026-01-19T23:54:59.8479820Z 
+2026-01-19T23:54:59.8479925Z ⚠️  Failed Scenarios:
+2026-01-19T23:54:59.8480565Z    • Browse, Add to Cart, and Purchase Flow
+2026-01-19T23:54:59.8480874Z    • Contact Us Form Submission
+2026-01-19T23:54:59.8481102Z      Error: 'value'...
+2026-01-19T23:54:59.8481325Z    • Sign Up and Log In
+2026-01-19T23:54:59.8481518Z      Error: 'value'...
+2026-01-19T23:54:59.8481640Z 
+2026-01-19T23:54:59.8481734Z ============================================================
+2026-01-19T23:54:59.8481924Z 
+2026-01-19T23:54:59.8482407Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoblaze_store/execution.json
+2026-01-19T23:54:59.8482990Z 
+2026-01-19T23:54:59.8483156Z ============================================================
+2026-01-19T23:54:59.8483717Z 📊 EXECUTOR PERFORMANCE SUMMARY
+2026-01-19T23:54:59.8484132Z ============================================================
+2026-01-19T23:54:59.8484325Z 
+2026-01-19T23:54:59.8484437Z 🎯 Execution Results:
+2026-01-19T23:54:59.8484664Z    • Total Steps: 24
+2026-01-19T23:54:59.8485001Z    • First-Attempt Success: 23 (95.8%)
+2026-01-19T23:54:59.8485531Z    • Required AI Healing: 2 (8.3%)
+2026-01-19T23:54:59.8485985Z    • Final Failures: 1 (4.2%)
+2026-01-19T23:54:59.8486255Z 
+2026-01-19T23:54:59.8486483Z 🛤️  Golden Path Effectiveness:
+2026-01-19T23:54:59.8486768Z    • Steps with Mined Locators: 20
+2026-01-19T23:54:59.8487040Z    • Golden Path Hits: 19 (95.0%)
+2026-01-19T23:54:59.8487296Z    • Golden Path Misses: 1
+2026-01-19T23:54:59.8487556Z    • Fallback Used (No Locators): 4
+2026-01-19T23:54:59.8487722Z 
+2026-01-19T23:54:59.8493719Z 📈 Overall Assessment:
+2026-01-19T23:54:59.8494245Z    🌟 EXCELLENT! Golden path is working perfectly.
+2026-01-19T23:54:59.8494536Z 
+2026-01-19T23:54:59.8494665Z 🎯 vs Target (100% Flawless):
+2026-01-19T23:54:59.8494920Z    📊 Gap: 4.2% from target
+2026-01-19T23:54:59.8495255Z    💡 Recommendation: Review 1 golden path misses
+2026-01-19T23:54:59.8495684Z    💡 Recommendation: Explorer needs to mine locators for 4 steps
+2026-01-19T23:54:59.8495937Z 
+2026-01-19T23:54:59.8496052Z ============================================================
+2026-01-19T23:54:59.9573791Z 
+2026-01-19T23:54:59.9574542Z [PHASE] Running Phase: DISCOVERY
+2026-01-19T23:54:59.9576500Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoblaze_store --url https://www.demoblaze.com/ --deep
+2026-01-19T23:54:59.9581157Z ✅ Phase 'discovery' completed successfully.
+2026-01-19T23:54:59.9581489Z 
+2026-01-19T23:54:59.9581641Z [PHASE] Running Phase: PLANNING
+2026-01-19T23:54:59.9583667Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoblaze_store --goal Browse products and test purchase flow --url https://www.demoblaze.com/ --deep
+2026-01-19T23:54:59.9585860Z ✅ Phase 'planning' completed successfully.
+2026-01-19T23:54:59.9586151Z 
+2026-01-19T23:54:59.9586286Z [PHASE] Running Phase: EXPLORATION
+2026-01-19T23:54:59.9587780Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoblaze_store
+2026-01-19T23:54:59.9589427Z ✅ Phase 'exploration' completed successfully.
+2026-01-19T23:54:59.9589976Z 📊 Exploration Discovery Success Rate: 91.0%
+2026-01-19T23:54:59.9590410Z 
+2026-01-19T23:54:59.9590541Z [PHASE] Running Phase: EXECUTION
+2026-01-19T23:54:59.9591983Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoblaze_store
+2026-01-19T23:54:59.9593944Z ✅ Phase 'execution' completed successfully.
+2026-01-19T23:54:59.9594444Z 
+2026-01-19T23:54:59.9594612Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-19T23:55:00.0580665Z ##[group]Run RESULT_FILE="projects/ci_demoblaze_store/execution.json"
+2026-01-19T23:55:00.0581310Z [36;1mRESULT_FILE="projects/ci_demoblaze_store/execution.json"[0m
+2026-01-19T23:55:00.0581776Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-19T23:55:00.0582201Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-19T23:55:00.0582775Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-19T23:55:00.0583257Z [36;1melse[0m
+2026-01-19T23:55:00.0583553Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-19T23:55:00.0583914Z [36;1m  exit 1[0m
+2026-01-19T23:55:00.0584138Z [36;1mfi[0m
+2026-01-19T23:55:00.0615522Z shell: /usr/bin/bash -e {0}
+2026-01-19T23:55:00.0615797Z env:
+2026-01-19T23:55:00.0616101Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:55:00.0616643Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T23:55:00.0617205Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:55:00.0617685Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:55:00.0618164Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:55:00.0618643Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T23:55:00.0619037Z ##[endgroup]
+2026-01-19T23:55:00.0673195Z ✅ Results generated successfully: projects/ci_demoblaze_store/execution.json
+2026-01-19T23:55:00.0701778Z 3
+2026-01-19T23:55:00.0766098Z ##[group]Run actions/upload-artifact@v4
+2026-01-19T23:55:00.0766385Z with:
+2026-01-19T23:55:00.0766594Z   name: demoblaze_store-execution-results
+2026-01-19T23:55:00.0767056Z   path: projects/ci_demoblaze_store/execution.json
+projects/ci_demoblaze_store/workflow.json
+
+2026-01-19T23:55:00.0767527Z   retention-days: 30
+2026-01-19T23:55:00.0767737Z   if-no-files-found: warn
+2026-01-19T23:55:00.0767962Z   compression-level: 6
+2026-01-19T23:55:00.0768162Z   overwrite: false
+2026-01-19T23:55:00.0768363Z   include-hidden-files: false
+2026-01-19T23:55:00.0768583Z env:
+2026-01-19T23:55:00.0768819Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:55:00.0769231Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-19T23:55:00.0769651Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:55:00.0770248Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:55:00.0770660Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-19T23:55:00.0771033Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-19T23:55:00.0771344Z ##[endgroup]
+2026-01-19T23:55:00.3126088Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-19T23:55:00.3131340Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_demoblaze_store. This will be the root directory of the artifact
+2026-01-19T23:55:00.3132728Z With the provided path, there will be 2 files uploaded
+2026-01-19T23:55:00.3138210Z Artifact name is valid!
+2026-01-19T23:55:00.3139497Z Root directory input is valid!
+2026-01-19T23:55:00.4335701Z Beginning upload of artifact content to blob storage
+2026-01-19T23:55:00.5470002Z Uploaded bytes 3514
+2026-01-19T23:55:00.5793209Z Finished uploading artifact content to blob storage!
+2026-01-19T23:55:00.5797273Z SHA256 digest of uploaded artifact zip is abed4deab8a1ecf78d9d39a0b687ed85515745f51722d901f156185601a710ff
+2026-01-19T23:55:00.5800323Z Finalizing artifact upload
+2026-01-19T23:55:00.6798491Z Artifact demoblaze_store-execution-results.zip successfully finalized. Artifact ID 5183067360
+2026-01-19T23:55:00.6799962Z Artifact demoblaze_store-execution-results has been successfully uploaded! Final size is 3514 bytes. Artifact ID is 5183067360
+2026-01-19T23:55:00.6807192Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21154472744/artifacts/5183067360
+2026-01-19T23:55:00.6933956Z Post job cleanup.
+2026-01-19T23:55:00.8464878Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-19T23:55:00.8574680Z Post job cleanup.
+2026-01-19T23:55:00.9509133Z [command]/usr/bin/git version
+2026-01-19T23:55:00.9550294Z git version 2.52.0
+2026-01-19T23:55:00.9594515Z Temporarily overriding HOME='/home/runner/work/_temp/04267bab-0b02-4904-a3c5-9341f2df6614' before making global git config changes
+2026-01-19T23:55:00.9595910Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-19T23:55:00.9608843Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-19T23:55:00.9645057Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-19T23:55:00.9679142Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-19T23:55:00.9928976Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-19T23:55:00.9951945Z http.https://github.com/.extraheader
+2026-01-19T23:55:00.9964592Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-19T23:55:00.9997017Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-19T23:55:01.0238013Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-19T23:55:01.0271278Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-19T23:55:01.0653857Z Cleaning up orphan processes

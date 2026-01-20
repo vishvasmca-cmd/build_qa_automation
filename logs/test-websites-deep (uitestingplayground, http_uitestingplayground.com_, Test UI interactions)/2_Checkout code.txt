@@ -1,72 +1,72 @@
-﻿2026-01-19T04:24:41.2759677Z ##[group]Run actions/checkout@v4
-2026-01-19T04:24:41.2760575Z with:
-2026-01-19T04:24:41.2761201Z   repository: vishvasmca-cmd/build_qa_automation
-2026-01-19T04:24:41.2761988Z   token: ***
-2026-01-19T04:24:41.2762364Z   ssh-strict: true
-2026-01-19T04:24:41.2762754Z   ssh-user: git
-2026-01-19T04:24:41.2763145Z   persist-credentials: true
-2026-01-19T04:24:41.2763585Z   clean: true
-2026-01-19T04:24:41.2763973Z   sparse-checkout-cone-mode: true
-2026-01-19T04:24:41.2764441Z   fetch-depth: 1
-2026-01-19T04:24:41.2764821Z   fetch-tags: false
-2026-01-19T04:24:41.2765210Z   show-progress: true
-2026-01-19T04:24:41.2765598Z   lfs: false
-2026-01-19T04:24:41.2765949Z   submodules: false
-2026-01-19T04:24:41.2766345Z   set-safe-directory: true
-2026-01-19T04:24:41.2767015Z ##[endgroup]
-2026-01-19T04:24:41.3864662Z Syncing repository: vishvasmca-cmd/build_qa_automation
-2026-01-19T04:24:41.3866628Z ##[group]Getting Git version info
-2026-01-19T04:24:41.3867486Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
-2026-01-19T04:24:41.3868588Z [command]/usr/bin/git version
-2026-01-19T04:24:41.3923591Z git version 2.52.0
-2026-01-19T04:24:41.3950132Z ##[endgroup]
-2026-01-19T04:24:41.3965946Z Temporarily overriding HOME='/home/runner/work/_temp/66312a48-e2ee-4b88-8083-cb3af91c980b' before making global git config changes
-2026-01-19T04:24:41.3967816Z Adding repository directory to the temporary git global config as a safe directory
-2026-01-19T04:24:41.3979762Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
-2026-01-19T04:24:41.4020133Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
-2026-01-19T04:24:41.4024036Z ##[group]Initializing the repository
-2026-01-19T04:24:41.4028135Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
-2026-01-19T04:24:41.4115533Z hint: Using 'master' as the name for the initial branch. This default branch name
-2026-01-19T04:24:41.4117410Z hint: will change to "main" in Git 3.0. To configure the initial branch name
-2026-01-19T04:24:41.4118923Z hint: to use in all of your new repositories, which will suppress this warning,
-2026-01-19T04:24:41.4120502Z hint: call:
-2026-01-19T04:24:41.4121179Z hint:
-2026-01-19T04:24:41.4121861Z hint: 	git config --global init.defaultBranch <name>
-2026-01-19T04:24:41.4122711Z hint:
-2026-01-19T04:24:41.4123500Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
-2026-01-19T04:24:41.4124973Z hint: 'development'. The just-created branch can be renamed via this command:
-2026-01-19T04:24:41.4126118Z hint:
-2026-01-19T04:24:41.4126624Z hint: 	git branch -m <name>
-2026-01-19T04:24:41.4127108Z hint:
-2026-01-19T04:24:41.4127762Z hint: Disable this message with "git config set advice.defaultBranchName false"
-2026-01-19T04:24:41.4129032Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
-2026-01-19T04:24:41.4131924Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
-2026-01-19T04:24:41.4166099Z ##[endgroup]
-2026-01-19T04:24:41.4166863Z ##[group]Disabling automatic garbage collection
-2026-01-19T04:24:41.4170405Z [command]/usr/bin/git config --local gc.auto 0
-2026-01-19T04:24:41.4198968Z ##[endgroup]
-2026-01-19T04:24:41.4199651Z ##[group]Setting up auth
-2026-01-19T04:24:41.4206650Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-01-19T04:24:41.4236660Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-01-19T04:24:41.4571143Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-01-19T04:24:41.4606063Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-01-19T04:24:41.4833857Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-01-19T04:24:41.4866369Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-01-19T04:24:41.5106134Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
-2026-01-19T04:24:41.5141275Z ##[endgroup]
-2026-01-19T04:24:41.5142095Z ##[group]Fetching the repository
-2026-01-19T04:24:41.5150060Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2f305d435d899f67f11ae5adc61ad536fdd999e8:refs/remotes/origin/main
-2026-01-19T04:24:42.7309076Z From https://github.com/vishvasmca-cmd/build_qa_automation
-2026-01-19T04:24:42.7311753Z  * [new ref]         2f305d435d899f67f11ae5adc61ad536fdd999e8 -> origin/main
-2026-01-19T04:24:42.7342538Z ##[endgroup]
-2026-01-19T04:24:42.7343424Z ##[group]Determining the checkout info
-2026-01-19T04:24:42.7344543Z ##[endgroup]
-2026-01-19T04:24:42.7349518Z [command]/usr/bin/git sparse-checkout disable
-2026-01-19T04:24:42.7389614Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
-2026-01-19T04:24:42.7414858Z ##[group]Checking out the ref
-2026-01-19T04:24:42.7418457Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
-2026-01-19T04:24:42.8858226Z Switched to a new branch 'main'
-2026-01-19T04:24:42.8859059Z branch 'main' set up to track 'origin/main'.
-2026-01-19T04:24:42.8875940Z ##[endgroup]
-2026-01-19T04:24:42.8915434Z [command]/usr/bin/git log -1 --format=%H
-2026-01-19T04:24:42.8939578Z 2f305d435d899f67f11ae5adc61ad536fdd999e8
+﻿2026-01-20T00:07:29.6342233Z ##[group]Run actions/checkout@v4
+2026-01-20T00:07:29.6343139Z with:
+2026-01-20T00:07:29.6343648Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-20T00:07:29.6344428Z   token: ***
+2026-01-20T00:07:29.6344852Z   ssh-strict: true
+2026-01-20T00:07:29.6345279Z   ssh-user: git
+2026-01-20T00:07:29.6345712Z   persist-credentials: true
+2026-01-20T00:07:29.6346191Z   clean: true
+2026-01-20T00:07:29.6346621Z   sparse-checkout-cone-mode: true
+2026-01-20T00:07:29.6347150Z   fetch-depth: 1
+2026-01-20T00:07:29.6347570Z   fetch-tags: false
+2026-01-20T00:07:29.6348017Z   show-progress: true
+2026-01-20T00:07:29.6348481Z   lfs: false
+2026-01-20T00:07:29.6348871Z   submodules: false
+2026-01-20T00:07:29.6349364Z   set-safe-directory: true
+2026-01-20T00:07:29.6350264Z ##[endgroup]
+2026-01-20T00:07:29.7400846Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-20T00:07:29.7402784Z ##[group]Getting Git version info
+2026-01-20T00:07:29.7403713Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-20T00:07:29.7404933Z [command]/usr/bin/git version
+2026-01-20T00:07:29.8638547Z git version 2.52.0
+2026-01-20T00:07:29.8666202Z ##[endgroup]
+2026-01-20T00:07:29.8686463Z Temporarily overriding HOME='/home/runner/work/_temp/34637aeb-fba7-4b74-b9ed-da47c78bf580' before making global git config changes
+2026-01-20T00:07:29.8688147Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-20T00:07:29.8692027Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-20T00:07:29.8780076Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-20T00:07:29.8783555Z ##[group]Initializing the repository
+2026-01-20T00:07:29.8787353Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-20T00:07:29.9390511Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-20T00:07:29.9391983Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-20T00:07:29.9393002Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-20T00:07:29.9393774Z hint: call:
+2026-01-20T00:07:29.9394158Z hint:
+2026-01-20T00:07:29.9394700Z hint: 	git config --global init.defaultBranch <name>
+2026-01-20T00:07:29.9395338Z hint:
+2026-01-20T00:07:29.9395925Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-20T00:07:29.9396931Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-20T00:07:29.9397718Z hint:
+2026-01-20T00:07:29.9398113Z hint: 	git branch -m <name>
+2026-01-20T00:07:29.9398608Z hint:
+2026-01-20T00:07:29.9444517Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-20T00:07:29.9446566Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-20T00:07:29.9457561Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-20T00:07:29.9551048Z ##[endgroup]
+2026-01-20T00:07:29.9551860Z ##[group]Disabling automatic garbage collection
+2026-01-20T00:07:29.9554836Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-20T00:07:29.9582125Z ##[endgroup]
+2026-01-20T00:07:29.9582857Z ##[group]Setting up auth
+2026-01-20T00:07:29.9588798Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-20T00:07:29.9618377Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-20T00:07:30.1625165Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-20T00:07:30.1654602Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-20T00:07:30.1871191Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-20T00:07:30.1901439Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-20T00:07:30.2118986Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-20T00:07:30.2153043Z ##[endgroup]
+2026-01-20T00:07:30.2154927Z ##[group]Fetching the repository
+2026-01-20T00:07:30.2161824Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +d25504decfc404871c7c3bd5ac186d61498b2813:refs/remotes/origin/main
+2026-01-20T00:07:31.3392459Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-20T00:07:31.3393232Z  * [new ref]         d25504decfc404871c7c3bd5ac186d61498b2813 -> origin/main
+2026-01-20T00:07:31.3478662Z ##[endgroup]
+2026-01-20T00:07:31.3479083Z ##[group]Determining the checkout info
+2026-01-20T00:07:31.3481818Z ##[endgroup]
+2026-01-20T00:07:31.3486912Z [command]/usr/bin/git sparse-checkout disable
+2026-01-20T00:07:31.3583460Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-20T00:07:31.3607304Z ##[group]Checking out the ref
+2026-01-20T00:07:31.3611386Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-20T00:07:31.5212325Z Switched to a new branch 'main'
+2026-01-20T00:07:31.5214122Z branch 'main' set up to track 'origin/main'.
+2026-01-20T00:07:31.5233112Z ##[endgroup]
+2026-01-20T00:07:31.5271305Z [command]/usr/bin/git log -1 --format=%H
+2026-01-20T00:07:31.5293703Z d25504decfc404871c7c3bd5ac186d61498b2813

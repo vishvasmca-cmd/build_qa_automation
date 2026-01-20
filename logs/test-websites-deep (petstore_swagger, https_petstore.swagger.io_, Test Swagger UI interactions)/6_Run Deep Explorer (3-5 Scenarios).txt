@@ -1,628 +1,1327 @@
-﻿2026-01-19T04:27:36.6296313Z ##[group]Run # Use --deep for comprehensive regression suite
-2026-01-19T04:27:36.6296805Z [36;1m# Use --deep for comprehensive regression suite[0m
-2026-01-19T04:27:36.6297431Z [36;1mpython orchestrator.py --project projects/ci_petstore_swagger --deep --force[0m
-2026-01-19T04:27:36.6328537Z shell: /usr/bin/bash -e {0}
-2026-01-19T04:27:36.6328782Z env:
-2026-01-19T04:27:36.6329032Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
-2026-01-19T04:27:36.6329459Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
-2026-01-19T04:27:36.6329870Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
-2026-01-19T04:27:36.6330237Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
-2026-01-19T04:27:36.6330599Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
-2026-01-19T04:27:36.6331143Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
-2026-01-19T04:27:36.6331778Z   GOOGLE_API_KEY: ***
-2026-01-19T04:27:36.6331995Z   PYTHONPATH: .
-2026-01-19T04:27:36.6332228Z ##[endgroup]
-2026-01-19T04:27:38.3599170Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
-2026-01-19T04:27:38.3599752Z 
-2026-01-19T04:27:38.3600303Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://petstore.swagger.io/ (Workers: 3)
-2026-01-19T04:27:39.7070758Z   🔍 [Worker 0] Visiting (0): https://petstore.swagger.io/
-2026-01-19T04:27:41.0225082Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
-2026-01-19T04:27:41.0225874Z [DEBUG] Received response (Length: 145)
-2026-01-19T04:27:41.0226714Z ✅ Discovery Complete. Mapped 1 pages.
-2026-01-19T04:27:50.4584151Z 
-2026-01-19T04:27:50.4584845Z [PLAN] PLANNER: Planning goal -> 'Test Swagger UI interactions' (Deep Mode: True)
-2026-01-19T04:27:50.4585687Z 🗺️ [PLAN] Loaded Sitemap with 1 pages.
-2026-01-19T04:27:50.4586852Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
-2026-01-19T04:27:50.4588313Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
-2026-01-19T04:27:50.4588841Z [DEBUG] Received response (Length: 3122)
-2026-01-19T04:27:50.4589271Z ✅ Planner generated 3 scenarios. Workflow updated.
-2026-01-19T04:27:51.4778005Z 
-2026-01-19T04:27:51.4779026Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
-2026-01-19T04:27:51.4779859Z 📋 Found 3 scenarios to explore.
-2026-01-19T04:27:51.8421223Z 
-2026-01-19T04:27:51.8421967Z [1/3] Exploring Scenario: Explore Petstore API Documentation
-2026-01-19T04:27:51.8422833Z     🧠 Initialized exploration context for goal: 'Test Swagger UI interactions'
-2026-01-19T04:27:51.8423294Z   ▶️ [STEP step_1] NAVIGATE: 
-2026-01-19T04:27:52.7303849Z     ✅ Navigated to https://petstore.swagger.io/
-2026-01-19T04:27:52.7304430Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Swagger Petstore
-2026-01-19T04:27:52.7555496Z     🔍 Mining locators for: 'Swagger Petstore'
-2026-01-19T04:27:52.9399953Z     ✅ Found 1 verified locators
-2026-01-19T04:27:55.5007411Z     ✅ State transitioned.
-2026-01-19T04:27:57.5371624Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:27:57.5372332Z [DEBUG] Received response (Length: 255)
-2026-01-19T04:27:57.5373185Z     🤖 AI Next Step Suggestion: click -> Find out more
-2026-01-19T04:27:57.5373886Z     🧩 Suggested Locator: #operations-tag-pet > div > a
-2026-01-19T04:27:57.5374769Z     💭 Reasoning: To explore the 'pet' operations in Swagger UI, clicking 'Find out more' next to 'pet Everything about your Pets' is the logical next step.
-2026-01-19T04:27:57.5375464Z     ➕ Injected AI step: click -> Find out more
-2026-01-19T04:27:57.5375817Z   ▶️ [STEP step_2_ai_1] CLICK: Find out more
-2026-01-19T04:27:57.5443195Z     🎯 Using AI-provided locator: #operations-tag-pet > div > a
-2026-01-19T04:27:57.5471214Z     🔍 Mining locators for: 'Find out more'
-2026-01-19T04:27:57.7141256Z     ✅ Found 4 verified locators
-2026-01-19T04:28:01.8012621Z     ✅ State transitioned.
-2026-01-19T04:28:03.3450910Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:28:03.3451987Z [DEBUG] Received response (Length: 194)
-2026-01-19T04:28:03.3452729Z     🤖 AI Next Step Suggestion: click -> Explore
-2026-01-19T04:28:03.3453709Z     💭 Reasoning: To explore the swagger UI interactions, clicking the explore button is the next logical step.
-2026-01-19T04:28:03.3454589Z     ➕ Injected AI step: click -> Explore
-2026-01-19T04:28:03.3455107Z   ▶️ [STEP step_2_ai_2] CLICK: Explore
-2026-01-19T04:28:03.3508043Z     🔍 Mining locators for: 'Explore'
-2026-01-19T04:28:03.3895346Z     ✅ Found 2 verified locators
-2026-01-19T04:28:06.9419198Z     ✅ State transitioned.
-2026-01-19T04:28:08.3192283Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:28:08.3193363Z [DEBUG] Received response (Length: 180)
-2026-01-19T04:28:08.3194117Z     🤖 AI Next Step Suggestion: click -> ALLOW ALL COOKIES
-2026-01-19T04:28:08.3194586Z     🧩 Suggested Locator: button
-2026-01-19T04:28:08.3195217Z     💭 Reasoning: To dismiss the cookie banner and proceed with testing the Swagger UI interactions.
-2026-01-19T04:28:08.3195912Z     ➕ Injected AI step: click -> ALLOW ALL COOKIES
-2026-01-19T04:28:08.3196370Z   ▶️ [STEP step_2_ai_3] CLICK: ALLOW ALL COOKIES
-2026-01-19T04:28:08.3250722Z     🎯 Using AI-provided locator: button
-2026-01-19T04:28:08.3307320Z     ✅ Found 1 verified locators
-2026-01-19T04:28:12.4005551Z     ✅ State transitioned.
-2026-01-19T04:28:14.3175085Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:28:14.3175732Z [DEBUG] Received response (Length: 343)
-2026-01-19T04:28:14.3176444Z     🤖 AI Next Step Suggestion: click -> ALLOW ALL COOKIES
-2026-01-19T04:28:14.3176891Z     🧩 Suggested Locator: button:nth-of-type(2)
-2026-01-19T04:28:14.3178508Z     💭 Reasoning: The cookie popup is still visible. Although we clicked 'ALLOW ALL COOKIES' before, it seems it didn't close the popup. Clicking it again to ensure the popup is dismissed and we can proceed with testing the Swagger UI interactions.
-2026-01-19T04:28:14.3179743Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
-2026-01-19T04:28:14.3180211Z   ▶️ [STEP step_3] ASSERT_VISIBLE: OpenAPI definition
-2026-01-19T04:28:14.3240524Z     🔍 Mining locators for: 'OpenAPI definition'
-2026-01-19T04:28:14.3808173Z     🧠 Consulting AI (Vision-First) to find 'OpenAPI definition'...
-2026-01-19T04:28:14.3825194Z     🔍 Trying smart selectors for 'OpenAPI definition'...
-2026-01-19T04:28:14.4468063Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:14.4469515Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:28:18.9537813Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:28:18.9538274Z [DEBUG] Received response (Length: 279)
-2026-01-19T04:28:18.9539277Z     💡 Expert Suggestion: The 'OpenAPI definition' is likely accessible through the main application interface, which can be reached by clicking the 'Explore' button.
-2026-01-19T04:28:18.9540107Z     🛠️ Executing corrective action: click -> 'Explore'
-2026-01-19T04:28:19.5382522Z     ✅ Executed corrective navigation
-2026-01-19T04:28:21.5405800Z     🔄 Retry 1/3 mining locators for 'OpenAPI definition'...
-2026-01-19T04:28:22.5973102Z     🧠 Consulting AI (Vision-First) to find 'OpenAPI definition'...
-2026-01-19T04:28:22.5974073Z     🔍 Trying smart selectors for 'OpenAPI definition'...
-2026-01-19T04:28:22.6608067Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:22.6609457Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:28:22.6613607Z [CACHE HIT] 9da339c8... (hits: 1, misses: 5)
-2026-01-19T04:28:22.6614296Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:28:22.6614730Z     🔄 Retry 2/3 mining locators for 'OpenAPI definition'...
-2026-01-19T04:28:23.6627901Z     🗑️ Invalidating stale AI cache (retry 2)...
-2026-01-19T04:28:23.6629902Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
-2026-01-19T04:28:23.7135255Z     🧠 Consulting AI (Vision-First) to find 'OpenAPI definition'...
-2026-01-19T04:28:23.7136203Z     🔍 Trying smart selectors for 'OpenAPI definition'...
-2026-01-19T04:28:23.7763676Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:23.7765085Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:28:23.7769341Z [CACHE HIT] 9da339c8... (hits: 2, misses: 5)
-2026-01-19T04:28:23.7770579Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:28:23.7771091Z     🧠 Verifying step validity for 'OpenAPI definition' after no candidates found...
-2026-01-19T04:28:25.1160787Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:28:25.1161644Z [DEBUG] Received response (Length: 221)
-2026-01-19T04:28:25.1164287Z     🗑️ Step deemed INVALID: The current page shows a cookie consent popup. The target element 'OpenAPI definition' is not visible in this state. We need to dismiss the cookie popup first.. Removing from workflow.
-2026-01-19T04:28:25.1166642Z     ⏭️ Skipping execution of invalid step: OpenAPI definition
-2026-01-19T04:28:25.1167750Z   ▶️ [STEP step_4] CLICK: Pet
-2026-01-19T04:28:25.1230177Z     🔍 Mining locators for: 'Pet'
-2026-01-19T04:28:25.1634450Z     🧠 Consulting AI (Vision-First) to find 'Pet'...
-2026-01-19T04:28:25.1635251Z     🔍 Trying smart selectors for 'Pet'...
-2026-01-19T04:28:25.2384894Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:25.2386154Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:28:30.1128089Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:28:30.1128767Z [DEBUG] Received response (Length: 277)
-2026-01-19T04:28:30.1130365Z     💡 Expert Suggestion: The 'Pet' functionality is likely within the main application, accessible after closing the cookie settings and exploring the application.
-2026-01-19T04:28:30.1131383Z     🛠️ Executing corrective action: click -> 'Explore'
-2026-01-19T04:28:30.6853865Z     ✅ Executed corrective navigation
-2026-01-19T04:28:32.6876641Z     🔄 Retry 1/3 mining locators for 'Pet'...
-2026-01-19T04:28:33.7463214Z     🧠 Consulting AI (Vision-First) to find 'Pet'...
-2026-01-19T04:28:33.7463692Z     🔍 Trying smart selectors for 'Pet'...
-2026-01-19T04:28:33.8092698Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:33.8093974Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:28:33.8097859Z [CACHE HIT] 42e216c2... (hits: 3, misses: 7)
-2026-01-19T04:28:33.8098526Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:28:33.8098891Z     🔄 Retry 2/3 mining locators for 'Pet'...
-2026-01-19T04:28:34.8111802Z     🗑️ Invalidating stale AI cache (retry 2)...
-2026-01-19T04:28:34.8112795Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
-2026-01-19T04:28:34.8640673Z     🧠 Consulting AI (Vision-First) to find 'Pet'...
-2026-01-19T04:28:34.8641451Z     🔍 Trying smart selectors for 'Pet'...
-2026-01-19T04:28:34.9472781Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:34.9474154Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:28:34.9481314Z [CACHE HIT] 42e216c2... (hits: 4, misses: 7)
-2026-01-19T04:28:34.9482034Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:28:34.9483203Z     🧠 Verifying step validity for 'Pet' after no candidates found...
-2026-01-19T04:28:36.2160535Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:28:36.2161240Z [DEBUG] Received response (Length: 213)
-2026-01-19T04:28:36.2163206Z     🗑️ Step deemed INVALID: The screenshot shows a cookie consent dialog. The 'Pet' element is not visible or accessible in this state. We need to dismiss the cookie dialog first.. Removing from workflow.
-2026-01-19T04:28:36.2164775Z     ⏭️ Skipping execution of invalid step: Pet
-2026-01-19T04:28:36.2165346Z   ▶️ [STEP step_5] ASSERT_VISIBLE: addPet
-2026-01-19T04:28:36.2227660Z     🔍 Mining locators for: 'addPet'
-2026-01-19T04:28:36.2621333Z     🧠 Consulting AI (Vision-First) to find 'addPet'...
-2026-01-19T04:28:36.2622175Z     🔍 Trying smart selectors for 'addPet'...
-2026-01-19T04:28:36.3064781Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:36.3066761Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:28:41.3428718Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:28:41.3429438Z [DEBUG] Received response (Length: 381)
-2026-01-19T04:28:41.3431705Z     💡 Expert Suggestion: The 'addPet' functionality is likely within the main application, which is accessible after dismissing the cookie banner and navigating to the main application view. Clicking 'Explore' might lead to the Swagger UI where 'addPet' can be found.
-2026-01-19T04:28:41.3433167Z     🛠️ Executing corrective action: click -> 'Explore'
-2026-01-19T04:28:41.9160889Z     ✅ Executed corrective navigation
-2026-01-19T04:28:43.9184533Z     🔄 Retry 1/3 mining locators for 'addPet'...
-2026-01-19T04:28:44.9628148Z     🧠 Consulting AI (Vision-First) to find 'addPet'...
-2026-01-19T04:28:44.9629098Z     🔍 Trying smart selectors for 'addPet'...
-2026-01-19T04:28:45.0069828Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:45.0072204Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:28:45.0075407Z [CACHE HIT] 83e8c10d... (hits: 5, misses: 9)
-2026-01-19T04:28:45.0076005Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:28:45.0076985Z     🔄 Retry 2/3 mining locators for 'addPet'...
-2026-01-19T04:28:46.0089835Z     🗑️ Invalidating stale AI cache (retry 2)...
-2026-01-19T04:28:46.0091439Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
-2026-01-19T04:28:46.0706240Z     🧠 Consulting AI (Vision-First) to find 'addPet'...
-2026-01-19T04:28:46.0707112Z     🔍 Trying smart selectors for 'addPet'...
-2026-01-19T04:28:46.1166327Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:46.1168361Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:28:46.1171798Z [CACHE HIT] 83e8c10d... (hits: 6, misses: 9)
-2026-01-19T04:28:46.1172427Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:28:46.1173201Z     🧠 Verifying step validity for 'addPet' after no candidates found...
-2026-01-19T04:28:47.2863955Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:28:47.2864702Z [DEBUG] Received response (Length: 271)
-2026-01-19T04:28:47.2867713Z     🗑️ Step deemed INVALID: The screenshot shows a cookie consent popup. The 'addPet' element is part of the Swagger UI, which is not visible in the screenshot. Therefore, it's not possible to interact with 'addPet' in the current state.. Removing from workflow.
-2026-01-19T04:28:47.2869214Z     ⏭️ Skipping execution of invalid step: addPet
-2026-01-19T04:28:47.2869629Z   ▶️ [STEP step_6] CLICK: Order
-2026-01-19T04:28:47.2927018Z     🔍 Mining locators for: 'Order'
-2026-01-19T04:28:47.3454851Z     🧠 Consulting AI (Vision-First) to find 'Order'...
-2026-01-19T04:28:47.3455555Z     🔍 Trying smart selectors for 'Order'...
-2026-01-19T04:28:47.3903315Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:47.3904633Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:28:52.5320915Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:28:52.5321613Z [DEBUG] Received response (Length: 269)
-2026-01-19T04:28:52.5323303Z     💡 Expert Suggestion: The 'Order' functionality is likely within the main application, accessible after clicking 'Explore' to dismiss the cookie notice.
-2026-01-19T04:28:52.5325156Z     🛠️ Executing corrective action: click -> 'Explore'
-2026-01-19T04:28:53.1209411Z     ✅ Executed corrective navigation
-2026-01-19T04:28:55.1232491Z     🔄 Retry 1/3 mining locators for 'Order'...
-2026-01-19T04:28:56.1788056Z     🧠 Consulting AI (Vision-First) to find 'Order'...
-2026-01-19T04:28:56.1788566Z     🔍 Trying smart selectors for 'Order'...
-2026-01-19T04:28:56.2229275Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:56.2230825Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:28:56.2235630Z [CACHE HIT] bb842cf4... (hits: 7, misses: 11)
-2026-01-19T04:28:56.2236075Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:28:56.2236437Z     🔄 Retry 2/3 mining locators for 'Order'...
-2026-01-19T04:28:57.2249888Z     🗑️ Invalidating stale AI cache (retry 2)...
-2026-01-19T04:28:57.2252039Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
-2026-01-19T04:28:57.2787768Z     🧠 Consulting AI (Vision-First) to find 'Order'...
-2026-01-19T04:28:57.2788629Z     🔍 Trying smart selectors for 'Order'...
-2026-01-19T04:28:57.3211380Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:57.3213065Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:28:57.3217222Z [CACHE HIT] bb842cf4... (hits: 8, misses: 11)
-2026-01-19T04:28:57.3217938Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:28:57.3218568Z     🧠 Verifying step validity for 'Order' after no candidates found...
-2026-01-19T04:28:58.6315802Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:28:58.6316554Z [DEBUG] Received response (Length: 249)
-2026-01-19T04:28:58.6319396Z     🗑️ Step deemed INVALID: The screenshot shows a cookie consent popup. The 'Order' element is part of the Swagger Petstore API definition and is not visible on this page. We need to dismiss the cookie popup first.. Removing from workflow.
-2026-01-19T04:28:58.6321580Z     ⏭️ Skipping execution of invalid step: Order
-2026-01-19T04:28:58.6322271Z   ▶️ [STEP step_7] ASSERT_VISIBLE: placeOrder
-2026-01-19T04:28:58.6381647Z     🔍 Mining locators for: 'placeOrder'
-2026-01-19T04:28:58.6785745Z     🧠 Consulting AI (Vision-First) to find 'placeOrder'...
-2026-01-19T04:28:58.6786277Z     🔍 Trying smart selectors for 'placeOrder'...
-2026-01-19T04:28:58.7218460Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:28:58.7220253Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:29:03.5518822Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:29:03.5519372Z [DEBUG] Received response (Length: 264)
-2026-01-19T04:29:03.5520433Z     💡 Expert Suggestion: The current page is a cookie settings popup. 'placeOrder' functionality is likely found after exploring the main application.
-2026-01-19T04:29:03.5521514Z     🛠️ Executing corrective action: click -> 'Explore'
-2026-01-19T04:29:04.1346250Z     ✅ Executed corrective navigation
-2026-01-19T04:29:06.1369750Z     🔄 Retry 1/3 mining locators for 'placeOrder'...
-2026-01-19T04:29:07.1952824Z     🧠 Consulting AI (Vision-First) to find 'placeOrder'...
-2026-01-19T04:29:07.1953336Z     🔍 Trying smart selectors for 'placeOrder'...
-2026-01-19T04:29:07.2399736Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:29:07.2401212Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:29:07.2404941Z [CACHE HIT] ee4a5db4... (hits: 9, misses: 13)
-2026-01-19T04:29:07.2405472Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:29:07.2405899Z     🔄 Retry 2/3 mining locators for 'placeOrder'...
-2026-01-19T04:29:08.2419925Z     🗑️ Invalidating stale AI cache (retry 2)...
-2026-01-19T04:29:08.2421904Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
-2026-01-19T04:29:08.2948960Z     🧠 Consulting AI (Vision-First) to find 'placeOrder'...
-2026-01-19T04:29:08.2949893Z     🔍 Trying smart selectors for 'placeOrder'...
-2026-01-19T04:29:08.3374258Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:29:08.3375639Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:29:08.3379597Z [CACHE HIT] ee4a5db4... (hits: 10, misses: 13)
-2026-01-19T04:29:08.3380303Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:29:08.3381001Z     🧠 Verifying step validity for 'placeOrder' after no candidates found...
-2026-01-19T04:29:09.6273146Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:29:09.6273632Z [DEBUG] Received response (Length: 300)
-2026-01-19T04:29:09.6275229Z     🗑️ Step deemed INVALID: The screenshot shows a cookie consent popup. The 'placeOrder' element is part of the Swagger UI for the Petstore API, which is not visible in the screenshot. Therefore, it's not possible to interact with 'placeOrder' in the current state.. Removing from workflow.
-2026-01-19T04:29:09.6276422Z     ⏭️ Skipping execution of invalid step: placeOrder
-2026-01-19T04:29:11.6625351Z 
-2026-01-19T04:29:11.6625982Z [2/3] Exploring Scenario: Expand and Collapse Pet API
-2026-01-19T04:29:11.6627111Z     🧠 Initialized exploration context for goal: 'Test Swagger UI interactions'
-2026-01-19T04:29:11.6628060Z   ▶️ [STEP step_1] NAVIGATE: 
-2026-01-19T04:29:12.5613754Z     ✅ Navigated to https://petstore.swagger.io/
-2026-01-19T04:29:12.5614751Z   ▶️ [STEP step_2] CLICK: Pet
-2026-01-19T04:29:12.5799661Z     🔍 Mining locators for: 'Pet'
-2026-01-19T04:29:13.0651266Z     ✅ Found 18 verified locators
-2026-01-19T04:29:16.6950748Z     ✅ State transitioned.
-2026-01-19T04:29:18.2874308Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:29:18.2875070Z [DEBUG] Received response (Length: 273)
-2026-01-19T04:29:18.2876068Z     🤖 AI Next Step Suggestion: click -> POST /pet Add a new pet to the store
-2026-01-19T04:29:18.2876909Z     🧩 Suggested Locator: button
-2026-01-19T04:29:18.2878611Z     💭 Reasoning: To explore the 'pet' operations, I should click on one of the available operations. 'POST /pet Add a new pet to the store' seems like a good starting point.
-2026-01-19T04:29:18.2880080Z     ➕ Injected AI step: click -> POST /pet Add a new pet to the store
-2026-01-19T04:29:18.2880929Z   ▶️ [STEP step_2_ai_1] CLICK: POST /pet Add a new pet to the store
-2026-01-19T04:29:18.2937918Z     🎯 Using AI-provided locator: button
-2026-01-19T04:29:18.2996002Z     ✅ Found 1 verified locators
-2026-01-19T04:29:22.3622620Z     ✅ State transitioned.
-2026-01-19T04:29:24.4806682Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:29:24.4807815Z [DEBUG] Received response (Length: 240)
-2026-01-19T04:29:24.4808417Z     🤖 AI Next Step Suggestion: click -> ALLOW ALL COOKIES
-2026-01-19T04:29:24.4808783Z     🧩 Suggested Locator: #ch2-c-bdr-1
-2026-01-19T04:29:24.4809517Z     💭 Reasoning: The cookie settings popup is obscuring the page. Clicking 'ALLOW ALL COOKIES' will dismiss it and allow interaction with the Swagger UI.
-2026-01-19T04:29:24.4810216Z     ➕ Injected AI step: click -> ALLOW ALL COOKIES
-2026-01-19T04:29:24.4810579Z   ▶️ [STEP step_2_ai_2] CLICK: ALLOW ALL COOKIES
-2026-01-19T04:29:24.4877075Z     🎯 Using AI-provided locator: #ch2-c-bdr-1
-2026-01-19T04:29:24.4896228Z     🔍 Mining locators for: 'ALLOW ALL COOKIES'
-2026-01-19T04:29:24.6120139Z     🔄 Retry 1/3 mining locators for 'ALLOW ALL COOKIES'...
-2026-01-19T04:29:25.7266137Z     🔄 Retry 2/3 mining locators for 'ALLOW ALL COOKIES'...
-2026-01-19T04:29:26.7279234Z     🗑️ Invalidating stale AI cache (retry 2)...
-2026-01-19T04:29:26.7281008Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
-2026-01-19T04:29:26.8933421Z     🧠 Verifying step validity for 'ALLOW ALL COOKIES' after mining failure...
-2026-01-19T04:29:29.2541032Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:29:29.2541713Z [DEBUG] Received response (Length: 286)
-2026-01-19T04:29:29.2542751Z     🛠️ Self-Correction: Step is valid. Using new locator: button:has-text('ALLOW ALL COOKIES')
-2026-01-19T04:29:34.7667272Z     ⚠️ Scroll into view failed for button:has-text('ALLOW ALL COOKIES'). Proceeding anyway.
-2026-01-19T04:29:35.2805948Z     ⚠️ Action failed: Locator.click: Element is not visible
-2026-01-19T04:29:35.2806551Z Call log:
-2026-01-19T04:29:35.2806877Z   ...
-2026-01-19T04:29:36.5948571Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:29:36.5949315Z [DEBUG] Received response (Length: 188)
-2026-01-19T04:29:36.5950261Z     ✨ AI Heal Reasoning: The text 'ALLOW ALL COOKIES' is visible and clickable. It is the most direct way to interact with the element.
-2026-01-19T04:29:36.5951104Z     ✨ AI healed exploration action! New selector: text=ALLOW ALL COOKIES
-2026-01-19T04:29:42.1033933Z     ⚠️ Scroll into view failed for text=ALLOW ALL COOKIES. Proceeding anyway.
-2026-01-19T04:29:42.6234506Z   ▶️ [STEP step_3] ASSERT_VISIBLE: addPet
-2026-01-19T04:29:42.6299959Z     🔍 Mining locators for: 'addPet'
-2026-01-19T04:29:42.7798147Z     🧠 Consulting AI (Vision-First) to find 'addPet'...
-2026-01-19T04:29:42.7798650Z     🔍 Trying smart selectors for 'addPet'...
-2026-01-19T04:29:42.8299722Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:29:42.8301066Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:29:44.9148055Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:29:44.9148814Z [DEBUG] Received response (Length: 471)
-2026-01-19T04:29:44.9149603Z     ⚠️ Critical step failure: 'priority'
-2026-01-19T04:29:44.9150181Z   ▶️ [STEP step_4] CLICK: Pet
-2026-01-19T04:29:44.9207041Z     🔍 Mining locators for: 'Pet'
-2026-01-19T04:29:45.4839469Z     ✅ Found 16 verified locators
-2026-01-19T04:29:49.0381906Z     ✅ State transitioned.
-2026-01-19T04:29:50.4553307Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:29:50.4554033Z [DEBUG] Received response (Length: 228)
-2026-01-19T04:29:50.4554902Z     🤖 AI Next Step Suggestion: click -> ALLOW ALL COOKIES
-2026-01-19T04:29:50.4555691Z     🧩 Suggested Locator: button:has-text('ALLOW ALL COOKIES')
-2026-01-19T04:29:50.4556864Z     💭 Reasoning: The previous attempt to click 'ALLOW ALL COOKIES' failed. Trying again to dismiss the cookie banner.
-2026-01-19T04:29:50.4558664Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
-2026-01-19T04:29:50.4559467Z   ▶️ [STEP step_5] ASSERT_VISIBLE: Operations
-2026-01-19T04:29:50.4622793Z     🔍 Mining locators for: 'Operations'
-2026-01-19T04:29:50.5774118Z     ✅ Found 1 verified locators
-2026-01-19T04:29:53.6109848Z     ✅ State transitioned.
-2026-01-19T04:29:53.6228586Z     🔄 Revisited state detected (count: 1)
-2026-01-19T04:29:55.7671431Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:29:55.7672158Z [DEBUG] Received response (Length: 281)
-2026-01-19T04:29:55.7673018Z     🤖 AI Next Step Suggestion: click -> SAVE SETTINGS
-2026-01-19T04:29:55.7673821Z     🧩 Suggested Locator: button:has-text('SAVE SETTINGS')
-2026-01-19T04:29:55.7675424Z     💭 Reasoning: The cookie settings popup is blocking interaction with the page. Clicking 'SAVE SETTINGS' will close the popup and allow further interaction with the Swagger UI.
-2026-01-19T04:29:55.7676850Z     ➕ Injected AI step: click -> SAVE SETTINGS
-2026-01-19T04:29:55.7677737Z   ▶️ [STEP step_5_ai_1] CLICK: SAVE SETTINGS
-2026-01-19T04:29:55.7739320Z     🎯 Using AI-provided locator: button:has-text('SAVE SETTINGS')
-2026-01-19T04:29:55.7815557Z     ✅ Found 1 verified locators
-2026-01-19T04:29:59.3384292Z     ✅ State transitioned.
-2026-01-19T04:30:01.1338464Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:30:01.1339313Z [DEBUG] Received response (Length: 183)
-2026-01-19T04:30:01.1340119Z     🤖 AI Next Step Suggestion: click -> store Access to Petstore orders
-2026-01-19T04:30:01.1340658Z     🧩 Suggested Locator: #operations-tag-store
-2026-01-19T04:30:01.1341175Z     💭 Reasoning: Navigating to the 'store' operations to explore the API.
-2026-01-19T04:30:01.1341767Z     ➕ Injected AI step: click -> store Access to Petstore orders
-2026-01-19T04:30:01.1342294Z   ▶️ [STEP step_5_ai_2] CLICK: store Access to Petstore orders
-2026-01-19T04:30:01.1404456Z     🎯 Using AI-provided locator: #operations-tag-store
-2026-01-19T04:30:01.1464716Z     ✅ Found 1 verified locators
-2026-01-19T04:30:05.2231363Z     ✅ State transitioned.
-2026-01-19T04:30:06.7155268Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:30:06.7156215Z [DEBUG] Received response (Length: 255)
-2026-01-19T04:30:06.7157289Z     🤖 AI Next Step Suggestion: click -> Explore
-2026-01-19T04:30:06.7158391Z     🧩 Suggested Locator: button:has-text('Explore')
-2026-01-19T04:30:06.7160237Z     💭 Reasoning: The current page shows an input field and an 'Explore' button. Clicking 'Explore' will load the swagger definition from the URL in the input field.
-2026-01-19T04:30:06.7161841Z     ➕ Injected AI step: click -> Explore
-2026-01-19T04:30:06.7162520Z   ▶️ [STEP step_5_ai_3] CLICK: Explore
-2026-01-19T04:30:06.7220538Z     🎯 Using AI-provided locator: button:has-text('Explore')
-2026-01-19T04:30:06.7283169Z     ✅ Found 1 verified locators
-2026-01-19T04:30:10.2842074Z     ✅ State transitioned.
-2026-01-19T04:30:10.2933431Z     🔄 Revisited state detected (count: 1)
-2026-01-19T04:30:11.5969964Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:30:11.5970656Z [DEBUG] Received response (Length: 277)
-2026-01-19T04:30:11.5971437Z     🤖 AI Next Step Suggestion: click -> Explore
-2026-01-19T04:30:11.5971972Z     🧩 Suggested Locator: button:has-text('Explore')
-2026-01-19T04:30:11.5972891Z     💭 Reasoning: The 'Explore' button is visible and clicking it will likely load the swagger definition from the URL in the input field, allowing us to interact with the API definition.
-2026-01-19T04:30:11.5973822Z ⚠️ Loop detected: same AI suggestion repeated 2 times. Moving to next step.
-2026-01-19T04:30:13.6378581Z 
-2026-01-19T04:30:13.6379428Z [3/3] Exploring Scenario: Try Out a GET Operation
-2026-01-19T04:30:13.6380775Z     🧠 Initialized exploration context for goal: 'Test Swagger UI interactions'
-2026-01-19T04:30:13.6383198Z   ▶️ [STEP step_1] NAVIGATE: 
-2026-01-19T04:30:14.5963681Z     ✅ Navigated to https://petstore.swagger.io/
-2026-01-19T04:30:14.5964850Z   ▶️ [STEP step_2] CLICK: Pet
-2026-01-19T04:30:14.6421156Z     🔍 Mining locators for: 'Pet'
-2026-01-19T04:30:15.0586185Z     ✅ Found 18 verified locators
-2026-01-19T04:30:18.6920596Z     ✅ State transitioned.
-2026-01-19T04:30:20.7061442Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:30:20.7062193Z [DEBUG] Received response (Length: 356)
-2026-01-19T04:30:20.7063099Z     🤖 AI Next Step Suggestion: done -> N/A
-2026-01-19T04:30:20.7066169Z     💭 Reasoning: The page is showing the documentation for the Pet API. The goal is to test Swagger UI interactions. Since the last action was clicking on 'Pet', and the current page shows the documentation for the Pet API, there are no further actions to take on this page to progress towards the goal. Therefore, the task is done.
-2026-01-19T04:30:20.7069014Z   ▶️ [STEP step_3] CLICK: findPetsByStatus
-2026-01-19T04:30:20.7124260Z     🔍 Mining locators for: 'findPetsByStatus'
-2026-01-19T04:30:20.8275511Z     🧠 Consulting AI (Vision-First) to find 'findPetsByStatus'...
-2026-01-19T04:30:20.8276439Z     🔍 Trying smart selectors for 'findPetsByStatus'...
-2026-01-19T04:30:20.8788067Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:30:20.8789423Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:30:25.2290227Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:30:25.2291034Z [DEBUG] Received response (Length: 251)
-2026-01-19T04:30:25.2292831Z     💡 Expert Suggestion: "findPetsByStatus" is likely under the 'pet' section, which can be accessed by clicking 'Find out more'.
-2026-01-19T04:30:25.2294496Z     🛠️ Executing corrective action: click -> 'Find out more'
-2026-01-19T04:30:25.8722826Z     ✅ Executed corrective navigation
-2026-01-19T04:30:27.8745322Z     🔄 Retry 1/3 mining locators for 'findPetsByStatus'...
-2026-01-19T04:30:28.9072093Z     🧠 Consulting AI (Vision-First) to find 'findPetsByStatus'...
-2026-01-19T04:30:28.9073023Z     🔍 Trying smart selectors for 'findPetsByStatus'...
-2026-01-19T04:30:28.9435998Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:30:28.9437414Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:30:30.4861068Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:30:30.4861614Z [DEBUG] Received response (Length: 298)
-2026-01-19T04:30:30.4862905Z     💡 Expert Suggestion: "findPetsByStatus" is not visible on the current page. Clicking 'Explore' might load the Swagger UI with the API definitions, including "findPetsByStatus".
-2026-01-19T04:30:30.4863959Z     🛠️ Executing corrective action: click -> 'Explore'
-2026-01-19T04:30:31.0524750Z     ✅ Executed corrective navigation
-2026-01-19T04:30:33.0548058Z     🔄 Retry 2/3 mining locators for 'findPetsByStatus'...
-2026-01-19T04:30:34.0560903Z     🗑️ Invalidating stale AI cache (retry 2)...
-2026-01-19T04:30:34.0562339Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
-2026-01-19T04:30:34.0915194Z     🧠 Consulting AI (Vision-First) to find 'findPetsByStatus'...
-2026-01-19T04:30:34.0916065Z     🔍 Trying smart selectors for 'findPetsByStatus'...
-2026-01-19T04:30:34.1349871Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:30:34.1351173Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:30:35.8195301Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:30:35.8195901Z [DEBUG] Received response (Length: 313)
-2026-01-19T04:30:35.8196513Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:30:35.8197136Z     🧠 Verifying step validity for 'findPetsByStatus' after no candidates found...
-2026-01-19T04:30:40.4243784Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:30:40.4244299Z [DEBUG] Received response (Length: 325)
-2026-01-19T04:30:40.4246268Z     🗑️ Step deemed INVALID: The page is displaying the swagger.json file content, not the interactive Swagger UI. The 'findPetsByStatus' element is part of the interactive UI, which is not rendered on this page. The error message 'Could not render BaseLayout, see the console' confirms this.. Removing from workflow.
-2026-01-19T04:30:40.4251151Z     ⏭️ Skipping execution of invalid step: findPetsByStatus
-2026-01-19T04:30:40.4251861Z   ▶️ [STEP step_4] CLICK: Try it out
-2026-01-19T04:30:40.4313966Z     🔍 Mining locators for: 'Try it out'
-2026-01-19T04:30:40.4728161Z     🧠 Consulting AI (Vision-First) to find 'Try it out'...
-2026-01-19T04:30:40.4729030Z     🔍 Trying smart selectors for 'Try it out'...
-2026-01-19T04:30:40.5207018Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:30:40.5208924Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:30:45.3892003Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:30:45.3892856Z [DEBUG] Received response (Length: 220)
-2026-01-19T04:30:45.3894297Z     💡 Expert Suggestion: Clicking 'Explore' might reveal the interactive elements, including 'Try it out'.
-2026-01-19T04:30:45.3895569Z     🛠️ Executing corrective action: click -> 'Explore'
-2026-01-19T04:30:45.9577410Z     ✅ Executed corrective navigation
-2026-01-19T04:30:47.9600979Z     🔄 Retry 1/3 mining locators for 'Try it out'...
-2026-01-19T04:30:49.0054207Z     🧠 Consulting AI (Vision-First) to find 'Try it out'...
-2026-01-19T04:30:49.0054994Z     🔍 Trying smart selectors for 'Try it out'...
-2026-01-19T04:30:49.1039326Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:30:49.1041251Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:30:50.4213067Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:30:50.4213560Z [DEBUG] Received response (Length: 298)
-2026-01-19T04:30:50.4214124Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:30:50.4214554Z     🔄 Retry 2/3 mining locators for 'Try it out'...
-2026-01-19T04:30:51.4226669Z     🗑️ Invalidating stale AI cache (retry 2)...
-2026-01-19T04:30:51.4228168Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
-2026-01-19T04:30:51.4553948Z     🧠 Consulting AI (Vision-First) to find 'Try it out'...
-2026-01-19T04:30:51.4554741Z     🔍 Trying smart selectors for 'Try it out'...
-2026-01-19T04:30:51.5029068Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:30:51.5030942Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:30:51.5033597Z [CACHE HIT] f671991d... (hits: 11, misses: 31)
-2026-01-19T04:30:51.5034249Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:30:51.5035046Z     🧠 Verifying step validity for 'Try it out' after no candidates found...
-2026-01-19T04:30:55.4683179Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:30:55.4683887Z [DEBUG] Received response (Length: 301)
-2026-01-19T04:30:55.4686487Z     🗑️ Step deemed INVALID: The page failed to render correctly, displaying 'Could not render BaseLayout, see the console.' Therefore, the 'Try it out' button is not visible or accessible in the current state. We are likely on the wrong page or the page has an error.. Removing from workflow.
-2026-01-19T04:30:55.4688328Z     ⏭️ Skipping execution of invalid step: Try it out
-2026-01-19T04:30:55.4690997Z   ▶️ [STEP step_5] FILL: status
-2026-01-19T04:30:55.4737363Z     🔍 Mining locators for: 'status'
-2026-01-19T04:30:55.5052015Z     🧠 Consulting AI (Vision-First) to find 'status'...
-2026-01-19T04:30:55.5052748Z     🔍 Trying smart selectors for 'status'...
-2026-01-19T04:30:55.5424779Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:30:55.5426590Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:31:00.2698500Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:31:00.2699219Z [DEBUG] Received response (Length: 219)
-2026-01-19T04:31:00.2700169Z     💡 Expert Suggestion: The 'status' information is likely available after exploring the API definition.
-2026-01-19T04:31:00.2700877Z     🛠️ Executing corrective action: click -> 'Explore'
-2026-01-19T04:31:00.8213558Z     ✅ Executed corrective navigation
-2026-01-19T04:31:02.8236685Z     🔄 Retry 1/3 mining locators for 'status'...
-2026-01-19T04:31:03.8559176Z     🧠 Consulting AI (Vision-First) to find 'status'...
-2026-01-19T04:31:03.8560006Z     🔍 Trying smart selectors for 'status'...
-2026-01-19T04:31:03.8913793Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:31:03.8915138Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:31:03.8919104Z [CACHE HIT] 8fbe18cf... (hits: 12, misses: 33)
-2026-01-19T04:31:03.8919776Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:31:03.8920157Z     🔄 Retry 2/3 mining locators for 'status'...
-2026-01-19T04:31:04.8933387Z     🗑️ Invalidating stale AI cache (retry 2)...
-2026-01-19T04:31:04.8934730Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
-2026-01-19T04:31:04.9214018Z     🧠 Consulting AI (Vision-First) to find 'status'...
-2026-01-19T04:31:04.9216002Z     🔍 Trying smart selectors for 'status'...
-2026-01-19T04:31:04.9586012Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:31:04.9587363Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:31:04.9590823Z [CACHE HIT] 8fbe18cf... (hits: 13, misses: 33)
-2026-01-19T04:31:04.9591545Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:31:04.9592080Z     🧠 Verifying step validity for 'status' after no candidates found...
-2026-01-19T04:31:06.1399371Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:31:06.1399870Z [DEBUG] Received response (Length: 247)
-2026-01-19T04:31:06.1401184Z     🗑️ Step deemed INVALID: The page failed to render correctly, displaying 'Could not render BaseLayout, see the console.' Therefore, the element 'status' is likely not present or accessible in the current state.. Removing from workflow.
-2026-01-19T04:31:06.1402244Z     ⏭️ Skipping execution of invalid step: status
-2026-01-19T04:31:06.1402579Z   ▶️ [STEP step_6] CLICK: Execute
-2026-01-19T04:31:06.1454217Z     🔍 Mining locators for: 'Execute'
-2026-01-19T04:31:06.1881958Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
-2026-01-19T04:31:06.1882721Z     🔍 Trying smart selectors for 'Execute'...
-2026-01-19T04:31:06.2249261Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:31:06.2251111Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:32:11.9834093Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:32:11.9836813Z [DEBUG] LLM Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.', 'status': 'RESOURCE_EXHAUSTED'}}
-2026-01-19T04:32:11.9839503Z ⚠️ 429 Rate Limit Hit. Cooling down for 60s...
-2026-01-19T04:32:11.9840133Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:32:11.9840750Z [DEBUG] Received response (Length: 215)
-2026-01-19T04:32:11.9841310Z     💡 Expert Suggestion: Clicking 'Explore' might reveal the API operations and the 'Execute' button.
-2026-01-19T04:32:11.9841884Z     🛠️ Executing corrective action: click -> 'Explore'
-2026-01-19T04:32:12.5530011Z     ✅ Executed corrective navigation
-2026-01-19T04:32:14.5553530Z     🔄 Retry 1/3 mining locators for 'Execute'...
-2026-01-19T04:32:15.5853844Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
-2026-01-19T04:32:15.5854602Z     🔍 Trying smart selectors for 'Execute'...
-2026-01-19T04:32:15.6239101Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:32:15.6240929Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:32:15.6245041Z [CACHE HIT] b47f9452... (hits: 14, misses: 36)
-2026-01-19T04:32:15.6245813Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:32:15.6246389Z     🔄 Retry 2/3 mining locators for 'Execute'...
-2026-01-19T04:32:16.6260056Z     🗑️ Invalidating stale AI cache (retry 2)...
-2026-01-19T04:32:16.6261422Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
-2026-01-19T04:32:16.6692141Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
-2026-01-19T04:32:16.6692905Z     🔍 Trying smart selectors for 'Execute'...
-2026-01-19T04:32:16.7059874Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:32:16.7062081Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:32:16.7065561Z [CACHE HIT] b47f9452... (hits: 15, misses: 36)
-2026-01-19T04:32:16.7066157Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:32:16.7067048Z     🧠 Verifying step validity for 'Execute' after no candidates found...
-2026-01-19T04:32:18.2514258Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:32:18.2514720Z [DEBUG] Received response (Length: 387)
-2026-01-19T04:32:18.2516506Z     🗑️ Step deemed INVALID: The page is displaying the raw swagger.json file. The Swagger UI is not rendering correctly, as indicated by the "Could not render BaseLayout" message. Therefore, the 'Execute' button, which is part of the interactive Swagger UI, is not present on this page. We are on the wrong page or the page is not rendering correctly.. Removing from workflow.
-2026-01-19T04:32:18.2518222Z     ⏭️ Skipping execution of invalid step: Execute
-2026-01-19T04:32:18.2518610Z   ▶️ [STEP step_7] ASSERT_VISIBLE: Server response
-2026-01-19T04:32:18.2568874Z     🔍 Mining locators for: 'Server response'
-2026-01-19T04:32:18.2852260Z     🧠 Consulting AI (Vision-First) to find 'Server response'...
-2026-01-19T04:32:18.2853097Z     🔍 Trying smart selectors for 'Server response'...
-2026-01-19T04:32:18.3335026Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:32:18.3336336Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:32:23.0107759Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:32:23.0108518Z [DEBUG] Received response (Length: 232)
-2026-01-19T04:32:23.0110135Z     💡 Expert Suggestion: Clicking 'Explore' might load the API documentation where 'Server response' would be visible.
-2026-01-19T04:32:23.0111547Z     🛠️ Executing corrective action: click -> 'Explore'
-2026-01-19T04:32:23.5676379Z     ✅ Executed corrective navigation
-2026-01-19T04:32:25.5699448Z     🔄 Retry 1/3 mining locators for 'Server response'...
-2026-01-19T04:32:26.6015266Z     🧠 Consulting AI (Vision-First) to find 'Server response'...
-2026-01-19T04:32:26.6016175Z     🔍 Trying smart selectors for 'Server response'...
-2026-01-19T04:32:26.6494054Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:32:26.6495368Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:32:26.6498892Z [CACHE HIT] 22216a33... (hits: 16, misses: 38)
-2026-01-19T04:32:26.6499483Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:32:26.6500079Z     🔄 Retry 2/3 mining locators for 'Server response'...
-2026-01-19T04:32:27.6513510Z     🗑️ Invalidating stale AI cache (retry 2)...
-2026-01-19T04:32:27.6515137Z     ⚠️ Cache invalidation warning: No module named 'core.agents.domain_expert'
-2026-01-19T04:32:27.6859780Z     🧠 Consulting AI (Vision-First) to find 'Server response'...
-2026-01-19T04:32:27.6860636Z     🔍 Trying smart selectors for 'Server response'...
-2026-01-19T04:32:27.7355179Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
-2026-01-19T04:32:27.7356586Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
-2026-01-19T04:32:27.7361219Z [CACHE HIT] 22216a33... (hits: 17, misses: 38)
-2026-01-19T04:32:27.7361930Z     ⚠️ Skipping duplicate injection: Explore
-2026-01-19T04:32:27.7362407Z     🧠 Verifying step validity for 'Server response' after no candidates found...
-2026-01-19T04:32:29.1181346Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:32:29.1181864Z [DEBUG] Received response (Length: 363)
-2026-01-19T04:32:29.1183696Z     🗑️ Step deemed INVALID: The page displays 'Could not render BaseLayout, see the console.' This indicates a problem with rendering the Swagger UI. Therefore, 'Server response' is unlikely to be present or accessible in a meaningful way. It's not logical to interact with something that might not exist or be properly rendered.. Removing from workflow.
-2026-01-19T04:32:29.1185243Z     ⏭️ Skipping execution of invalid step: Server response
-2026-01-19T04:32:31.1519972Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_petstore_swagger/tests/generated_scenarios.json
-2026-01-19T04:32:31.1529072Z 🔄 Updated workflow.json with discovered steps and locators.
-2026-01-19T04:32:31.1529526Z 
-2026-01-19T04:32:31.1529746Z ✅ Deep Exploration Complete.
-2026-01-19T04:34:01.0362419Z 
-2026-01-19T04:34:01.0363397Z 🚀 [EXECUTE] Starting Automation Execution Engine
-2026-01-19T04:34:01.0364033Z 📍 Project: ci_petstore_swagger
-2026-01-19T04:34:01.0364439Z 🎬 Mode: Headless
-2026-01-19T04:34:01.0364620Z 
-2026-01-19T04:34:01.0364845Z --- Scenario: Explore Petstore API Documentation ---
-2026-01-19T04:34:01.0365508Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
-2026-01-19T04:34:01.0365988Z     ✅ Step step_1 Passed.
-2026-01-19T04:34:01.0366445Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Swagger Petstore
-2026-01-19T04:34:01.0367086Z     🎯 Using mined locator: text=Swagger Petstore 1.0.7 OAS 2.0
-2026-01-19T04:34:01.0368444Z     ✅ Step step_2 Passed.
-2026-01-19T04:34:01.0368882Z   ▶️ [STEP step_2_ai_1] CLICK: Find out more
-2026-01-19T04:34:01.0369386Z     🎯 Using mined locator: #operations-tag-pet
-2026-01-19T04:34:01.0369865Z     ✅ Step step_2_ai_1 Passed.
-2026-01-19T04:34:01.0370281Z   ▶️ [STEP step_2_ai_2] CLICK: Explore
-2026-01-19T04:34:01.0370805Z     🎯 Using mined locator: role=button[name='Explore']
-2026-01-19T04:34:01.0371311Z     ✅ Step step_2_ai_2 Passed.
-2026-01-19T04:34:01.0371761Z   ▶️ [STEP step_2_ai_3] CLICK: ALLOW ALL COOKIES
-2026-01-19T04:34:01.0372236Z     🎯 Using mined locator: button
-2026-01-19T04:34:01.0372637Z     ✅ Step step_2_ai_3 Passed.
-2026-01-19T04:34:01.0373252Z ✅ Scenario 'Explore Petstore API Documentation' completed successfully!
-2026-01-19T04:34:01.0373971Z 
-2026-01-19T04:34:01.0374158Z --- Scenario: Expand and Collapse Pet API ---
-2026-01-19T04:34:01.0374660Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
-2026-01-19T04:34:01.0375103Z     ✅ Step step_1 Passed.
-2026-01-19T04:34:01.0375496Z   ▶️ [STEP step_2] CLICK: Pet
-2026-01-19T04:34:01.0376204Z     🎯 Using mined locator: role=button[name='POST /pet/{petId}/uploadImage uploads an image']
-2026-01-19T04:34:01.0376876Z     ✅ Step step_2 Passed.
-2026-01-19T04:34:01.0377378Z   ▶️ [STEP step_2_ai_1] CLICK: POST /pet Add a new pet to the store
-2026-01-19T04:34:01.0378120Z     🎯 Using mined locator: button
-2026-01-19T04:34:01.0378533Z     ✅ Step step_2_ai_1 Passed.
-2026-01-19T04:34:01.0378975Z   ▶️ [STEP step_2_ai_2] CLICK: ALLOW ALL COOKIES
-2026-01-19T04:34:01.0379554Z     🎯 Using mined locator: button:has-text('ALLOW ALL COOKIES')
-2026-01-19T04:34:01.0380358Z     ❌ Attempt 1 failed (element_not_found): Locator.click: Timeout 10000ms exceeded.
-2026-01-19T04:34:01.0380967Z Call log:
-2026-01-19T04:34:01.0381332Z   - waiting for locator("button:has-text('ALLOW A...
-2026-01-19T04:34:01.0381974Z     🔧 [AUTO-HEAL] Re-mining page to find 'ALLOW ALL COOKIES'...
-2026-01-19T04:34:01.0382583Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:34:01.0383128Z [DEBUG] Received response (Length: 504)
-2026-01-19T04:34:01.0383683Z     ✨ AI successfully healed the step! Found 2 alternatives.
-2026-01-19T04:34:01.0384480Z     ✨ AI successfully healed the step! New selector: button:has-text('ALLOW ALL COOKIES')
-2026-01-19T04:34:01.0385425Z     ❌ Attempt 2 failed (element_not_found): Locator.click: Timeout 10000ms exceeded.
-2026-01-19T04:34:01.0385998Z Call log:
-2026-01-19T04:34:01.0386326Z   - waiting for locator("button:has-text('ALLOW A...
-2026-01-19T04:34:01.0386962Z     🔧 [AUTO-HEAL] Re-mining page to find 'ALLOW ALL COOKIES'...
-2026-01-19T04:34:01.0387904Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
-2026-01-19T04:34:01.0388445Z [DEBUG] Received response (Length: 1076)
-2026-01-19T04:34:01.0389059Z     ✨ AI successfully healed the step! Found 3 alternatives.
-2026-01-19T04:34:01.0390354Z     ✨ AI successfully healed the step! New selector: body > div.sc-iAyFgw.dYgiet > div > div > div > div.sc-jTzLtm.hqaXwH > div.sc-kgAjT.fEaFvd > button.sc-eCImvq.hKzRnL
-2026-01-19T04:34:01.0391769Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
-2026-01-19T04:34:01.0392401Z Call log:
-2026-01-19T04:34:01.0392694Z   - waiting for locator("body > div.sc-iAy...
-2026-01-19T04:34:01.0393232Z     💀 Step step_2_ai_2 failed after all retries.
-2026-01-19T04:34:01.0393883Z 🛑 Scenario 'Expand and Collapse Pet API' aborted due to step failure.
-2026-01-19T04:34:01.0394313Z 
-2026-01-19T04:34:01.0394464Z --- Scenario: Try Out a GET Operation ---
-2026-01-19T04:34:01.0394950Z   ▶️ [STEP step_1] NAVIGATE: Step step_1
-2026-01-19T04:34:01.0395381Z     ✅ Step step_1 Passed.
-2026-01-19T04:34:01.0395758Z   ▶️ [STEP step_2] CLICK: Pet
-2026-01-19T04:34:01.0396469Z     🎯 Using mined locator: role=button[name='POST /pet/{petId}/uploadImage uploads an image']
-2026-01-19T04:34:01.0397176Z     ✅ Step step_2 Passed.
-2026-01-19T04:34:01.0397842Z ✅ Scenario 'Try Out a GET Operation' completed successfully!
-2026-01-19T04:34:01.0398462Z 
-2026-01-19T04:34:01.0398610Z ============================================================
-2026-01-19T04:34:01.0399073Z 🎯 EXECUTION SUMMARY
-2026-01-19T04:34:01.0399398Z ============================================================
-2026-01-19T04:34:01.0399691Z 
-2026-01-19T04:34:01.0399842Z 📋 Scenario Overview:
-2026-01-19T04:34:01.0400206Z    • Total Scenarios Planned: 3
-2026-01-19T04:34:01.0400602Z    • Scenarios Executed: 3
-2026-01-19T04:34:01.0400986Z    • Total Steps Executed: 11
-2026-01-19T04:34:01.0401279Z 
-2026-01-19T04:34:01.0401418Z ✅ Results:
-2026-01-19T04:34:01.0401743Z    ✅ Passed: 2 (66%)
-2026-01-19T04:34:01.0402079Z    ❌ Failed: 1 (33%)
-2026-01-19T04:34:01.0402256Z 
-2026-01-19T04:34:01.0402409Z ⚠️  Failed Scenarios:
-2026-01-19T04:34:01.0402985Z    • Expand and Collapse Pet API
-2026-01-19T04:34:01.0403230Z 
-2026-01-19T04:34:01.0403376Z ============================================================
-2026-01-19T04:34:01.0403660Z 
-2026-01-19T04:34:01.0404424Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_petstore_swagger/execution.json
-2026-01-19T04:34:01.1612587Z 
-2026-01-19T04:34:01.1614991Z [PHASE] Running Phase: DISCOVERY
-2026-01-19T04:34:01.1617011Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_petstore_swagger --url https://petstore.swagger.io/ --deep
-2026-01-19T04:34:01.1619434Z ✅ Phase 'discovery' completed successfully.
-2026-01-19T04:34:01.1619755Z 
-2026-01-19T04:34:01.1619890Z [PHASE] Running Phase: PLANNING
-2026-01-19T04:34:01.1621823Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_petstore_swagger --goal Test Swagger UI interactions --url https://petstore.swagger.io/ --deep
-2026-01-19T04:34:01.1623929Z ✅ Phase 'planning' completed successfully.
-2026-01-19T04:34:01.1624220Z 
-2026-01-19T04:34:01.1624359Z [PHASE] Running Phase: EXPLORATION
-2026-01-19T04:34:01.1625882Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_petstore_swagger
-2026-01-19T04:34:01.1627685Z ✅ Phase 'exploration' completed successfully.
-2026-01-19T04:34:01.1628258Z 📊 Exploration Discovery Success Rate: 92.9%
-2026-01-19T04:34:01.1628552Z 
-2026-01-19T04:34:01.1628689Z [PHASE] Running Phase: EXECUTION
-2026-01-19T04:34:01.1630137Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_petstore_swagger
-2026-01-19T04:34:01.1631726Z ✅ Phase 'execution' completed successfully.
-2026-01-19T04:34:01.1632021Z 
-2026-01-19T04:34:01.1632173Z [DONE] Pipeline Execution Finished! [DONE]
+﻿2026-01-20T00:15:45.2285881Z ##[group]Run # Use --deep for comprehensive regression suite
+2026-01-20T00:15:45.2286566Z [36;1m# Use --deep for comprehensive regression suite[0m
+2026-01-20T00:15:45.2287032Z [36;1mpython orchestrator.py --project projects/ci_petstore_swagger --deep --force[0m
+2026-01-20T00:15:45.2318130Z shell: /usr/bin/bash -e {0}
+2026-01-20T00:15:45.2318366Z env:
+2026-01-20T00:15:45.2318618Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:15:45.2319053Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-20T00:15:45.2319482Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:15:45.2319858Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:15:45.2320221Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-20T00:15:45.2320779Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-20T00:15:45.2321297Z   GOOGLE_API_KEY: ***
+2026-01-20T00:15:45.2321509Z   PYTHONPATH: .
+2026-01-20T00:15:45.2321720Z ##[endgroup]
+2026-01-20T00:15:46.9672282Z 🚀 [DEEP] Extensive mapping enabled (Depth: 3, Pages: 50)
+2026-01-20T00:15:46.9672826Z 
+2026-01-20T00:15:46.9673497Z 🗺️ [DISCOVERY] Starting Parallel Semantic Crawl on https://petstore.swagger.io/ (Workers: 3)
+2026-01-20T00:15:47.6950880Z   🔍 [Worker 0] Visiting (0): https://petstore.swagger.io/
+2026-01-20T00:15:49.2843026Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-20T00:15:49.2843728Z [DEBUG] Received response (Length: 145)
+2026-01-20T00:15:49.2844284Z ✅ Discovery Complete. Mapped 1 pages.
+2026-01-20T00:16:01.2617182Z 
+2026-01-20T00:16:01.2617906Z [PLAN] PLANNER: Planning goal -> 'Test Swagger UI interactions' (Deep Mode: True)
+2026-01-20T00:16:01.2618712Z 🗺️ [PLAN] Loaded Sitemap with 1 pages.
+2026-01-20T00:16:01.2619062Z 📊 [KNOWLEDGE] Page types: ['homepage']
+2026-01-20T00:16:01.2619359Z 🔄 [KNOWLEDGE] Flows: 0, Forms: 0
+2026-01-20T00:16:01.2620234Z 🎭 [EXPERT] Detected Domain: GENERAL. Persona: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation
+2026-01-20T00:16:01.2621101Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 1
+2026-01-20T00:16:01.2621450Z [DEBUG] Received response (Length: 4981)
+2026-01-20T00:16:01.2621795Z ✅ Planner generated 3 scenarios. Workflow updated.
+2026-01-20T00:16:02.2700806Z 
+2026-01-20T00:16:02.2701931Z 🕵️ [DEEP EXPLORER] Starting Multi-Scenario Exploration
+2026-01-20T00:16:02.2702520Z 📋 Found 3 scenarios to explore.
+2026-01-20T00:16:02.6346806Z 
+2026-01-20T00:16:02.6347477Z [1/3] Exploring Scenario: Explore Swagger UI - Pet Operations
+2026-01-20T00:16:02.6348932Z     🧠 Initialized exploration context for goal: 'Verify basic interactions with the Pet operations in Swagger UI.'
+2026-01-20T00:16:02.6350090Z     🎯 Scenario: Explore Swagger UI - Pet Operations
+2026-01-20T00:16:02.6358378Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-20T00:16:03.6054094Z     ✅ Navigated to https://petstore.swagger.io/
+2026-01-20T00:16:03.6055457Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Swagger UI
+2026-01-20T00:16:03.6256921Z     🔍 Mining locators for: 'Swagger UI'
+2026-01-20T00:16:03.7925131Z     🧠 Consulting AI (Vision-First) to find 'Swagger UI'...
+2026-01-20T00:16:03.7953869Z     🔍 Trying smart selectors for 'Swagger UI'...
+2026-01-20T00:16:03.8105446Z     🔍 [SMART] Searching for: 'Swagger UI' (trying 15+ strategies)
+2026-01-20T00:16:03.8106515Z     ✅ Smart selector found 'Swagger UI' via id-exact (confidence: 0.92)
+2026-01-20T00:16:03.8153350Z     ✅ Found 1 verified locators
+2026-01-20T00:16:06.8593077Z     ✅ State transitioned.
+2026-01-20T00:16:08.4652999Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:16:08.4653803Z [DEBUG] Received response (Length: 252)
+2026-01-20T00:16:08.4654906Z     🤖 AI Next Step Suggestion: click -> pet Everything about your Pets Find out more
+2026-01-20T00:16:08.4655774Z     🧩 Suggested Locator: #operations-tag-pet
+2026-01-20T00:16:08.4657259Z     💭 Reasoning: To explore the Pet operations, I need to click on the 'pet' section to expand it and see the available operations.
+2026-01-20T00:16:08.4658986Z     ➕ Injected AI step: click -> pet Everything about your Pets Find out more
+2026-01-20T00:16:08.4660012Z   ▶️ [STEP step_2_ai_1] CLICK: pet Everything about your Pets Find out more
+2026-01-20T00:16:08.4723262Z     🎯 Using AI-provided locator: #operations-tag-pet
+2026-01-20T00:16:08.4788852Z     ✅ Found 1 verified locators
+2026-01-20T00:16:12.5581685Z     ✅ State transitioned.
+2026-01-20T00:16:14.0903666Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:16:14.0904372Z [DEBUG] Received response (Length: 231)
+2026-01-20T00:16:14.0905180Z     🤖 AI Next Step Suggestion: click -> Explore
+2026-01-20T00:16:14.0906457Z     💭 Reasoning: After clicking on 'pet', the page reloaded with a default URL in the input field. Clicking 'Explore' will load the pet operations.
+2026-01-20T00:16:14.0907171Z     ➕ Injected AI step: click -> Explore
+2026-01-20T00:16:14.0907512Z   ▶️ [STEP step_2_ai_2] CLICK: Explore
+2026-01-20T00:16:14.0967732Z     🔍 Mining locators for: 'Explore'
+2026-01-20T00:16:14.1499878Z     ✅ Found 2 verified locators
+2026-01-20T00:16:17.6989244Z     ✅ State transitioned.
+2026-01-20T00:16:19.4882104Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:16:19.4882832Z [DEBUG] Received response (Length: 319)
+2026-01-20T00:16:19.4883723Z     🤖 AI Next Step Suggestion: fill -> download-url-input
+2026-01-20T00:16:19.4884397Z     🧩 Suggested Locator: #download-url-input
+2026-01-20T00:16:19.4885936Z     💭 Reasoning: The page is showing the swagger definition. To interact with the pet operations, we need to load the petstore swagger definition into the input field.
+2026-01-20T00:16:19.4887693Z     ➕ Injected AI step: fill -> download-url-input
+2026-01-20T00:16:19.4888403Z   ▶️ [STEP step_2_ai_3] FILL: download-url-input
+2026-01-20T00:16:19.4944548Z     🎯 Using AI-provided locator: #download-url-input
+2026-01-20T00:16:19.5003698Z     ✅ Found 1 verified locators
+2026-01-20T00:16:27.9131357Z     ✅ State transitioned.
+2026-01-20T00:16:27.9179937Z     🔄 Revisited state detected (count: 1)
+2026-01-20T00:16:29.6112701Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:16:29.6113379Z [DEBUG] Received response (Length: 229)
+2026-01-20T00:16:29.6114157Z     🤖 AI Next Step Suggestion: click -> Explore
+2026-01-20T00:16:29.6114768Z     🧩 Suggested Locator: button:nth-of-type(2)
+2026-01-20T00:16:29.6115962Z     💭 Reasoning: The last action was filling the download-url-input. Now, we need to click the 'Explore' button to load the Swagger definition.
+2026-01-20T00:16:29.6117260Z     ➕ Injected AI step: click -> Explore
+2026-01-20T00:16:29.6117788Z   ▶️ [STEP step_2_ai_4] CLICK: Explore
+2026-01-20T00:16:29.6173017Z     🎯 Using AI-provided locator: button:nth-of-type(2)
+2026-01-20T00:16:29.6237633Z     ✅ Found 1 verified locators
+2026-01-20T00:16:33.6797216Z     ✅ State transitioned.
+2026-01-20T00:16:35.3116956Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:16:35.3117570Z [DEBUG] Received response (Length: 288)
+2026-01-20T00:16:35.3118192Z     🤖 AI Next Step Suggestion: click -> Explore
+2026-01-20T00:16:35.3118601Z     🧩 Suggested Locator: button
+2026-01-20T00:16:35.3119841Z     💭 Reasoning: The last action was filling the download-url-input and clicking Explore. It seems like the page is still trying to load the swagger definition. Clicking Explore again might help reload the definition.
+2026-01-20T00:16:35.3120859Z     🔄 Same AI suggestion but state changed (URL or DOM). Resetting loop counter.
+2026-01-20T00:16:35.3121401Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'explore')
+2026-01-20T00:16:35.3121829Z   ▶️ [STEP step_3] CLICK: pet
+2026-01-20T00:16:35.3178609Z     🔍 Mining locators for: 'pet'
+2026-01-20T00:16:35.3532633Z     🧠 Consulting AI (Vision-First) to find 'pet'...
+2026-01-20T00:16:35.3533421Z     🔍 Trying smart selectors for 'pet'...
+2026-01-20T00:16:35.4360357Z     🔍 [SMART] Searching for: 'pet' (trying 15+ strategies)
+2026-01-20T00:16:35.4361185Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:16:35.4362187Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:16:40.2017603Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:16:40.2018288Z [DEBUG] Received response (Length: 214)
+2026-01-20T00:16:40.2019139Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:16:40.2019714Z     🔄 Retry 1/3 mining locators for 'pet'...
+2026-01-20T00:16:41.2358503Z     🧠 Consulting AI (Vision-First) to find 'pet'...
+2026-01-20T00:16:41.2359658Z     🔍 Trying smart selectors for 'pet'...
+2026-01-20T00:16:41.3162128Z     🔍 [SMART] Searching for: 'pet' (trying 15+ strategies)
+2026-01-20T00:16:41.3163043Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:16:41.3164131Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:16:41.3168778Z [CACHE HIT] 5d7611d5... (hits: 1, misses: 6)
+2026-01-20T00:16:41.3169374Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:16:41.3169923Z     🔄 Retry 2/3 mining locators for 'pet'...
+2026-01-20T00:16:42.3183038Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:16:42.3533164Z     🧠 Consulting AI (Vision-First) to find 'pet'...
+2026-01-20T00:16:42.3533892Z     🔍 Trying smart selectors for 'pet'...
+2026-01-20T00:16:42.4330425Z     🔍 [SMART] Searching for: 'pet' (trying 15+ strategies)
+2026-01-20T00:16:42.4331209Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:16:42.4332823Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:16:42.4335912Z [CACHE HIT] 5d7611d5... (hits: 2, misses: 6)
+2026-01-20T00:16:42.4336661Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:16:42.4337468Z     🧠 Verifying step validity for 'pet' after no candidates found...
+2026-01-20T00:16:44.9751611Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:16:44.9752248Z [DEBUG] Received response (Length: 283)
+2026-01-20T00:16:44.9754359Z     🗑️ Step deemed INVALID: The page failed to render correctly, displaying 'Could not render BaseLayout, see the console.' The 'pet' element is not visible or accessible in this state. We need a valid page render to interact with the 'pet' element.. Removing from workflow.
+2026-01-20T00:16:44.9755775Z     ⏭️ Skipping execution of invalid step: pet
+2026-01-20T00:16:44.9756118Z   ▶️ [STEP step_4] ASSERT_VISIBLE: /pet
+2026-01-20T00:16:44.9810981Z     🔍 Mining locators for: '/pet'
+2026-01-20T00:16:45.0189691Z     🧠 Consulting AI (Vision-First) to find '/pet'...
+2026-01-20T00:16:45.0190448Z     🔍 Trying smart selectors for '/pet'...
+2026-01-20T00:16:45.0992191Z     🔍 [SMART] Searching for: '/pet' (trying 15+ strategies)
+2026-01-20T00:16:45.0993158Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:16:45.0994104Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:16:49.9505191Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:16:49.9505631Z [DEBUG] Received response (Length: 225)
+2026-01-20T00:16:49.9506711Z     💡 Expert Suggestion: Clicking 'Explore' might load the Swagger UI with the API definitions, including /pet.
+2026-01-20T00:16:49.9507377Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:16:50.5056923Z     ✅ Executed corrective navigation
+2026-01-20T00:16:52.5080501Z     🔄 Retry 1/3 mining locators for '/pet'...
+2026-01-20T00:16:53.5357695Z     🧠 Consulting AI (Vision-First) to find '/pet'...
+2026-01-20T00:16:53.5358467Z     🔍 Trying smart selectors for '/pet'...
+2026-01-20T00:16:53.6150383Z     🔍 [SMART] Searching for: '/pet' (trying 15+ strategies)
+2026-01-20T00:16:53.6151330Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:16:53.6152452Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:16:55.3576811Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:16:55.3577309Z [DEBUG] Received response (Length: 249)
+2026-01-20T00:16:55.3577875Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:16:55.3579031Z     🔄 Retry 2/3 mining locators for '/pet'...
+2026-01-20T00:16:56.3590107Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:16:56.3855102Z     🧠 Consulting AI (Vision-First) to find '/pet'...
+2026-01-20T00:16:56.3855623Z     🔍 Trying smart selectors for '/pet'...
+2026-01-20T00:16:56.4630411Z     🔍 [SMART] Searching for: '/pet' (trying 15+ strategies)
+2026-01-20T00:16:56.4631346Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:16:56.4632307Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:16:56.4635944Z [CACHE HIT] 402a8d64... (hits: 3, misses: 9)
+2026-01-20T00:16:56.4636853Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:16:56.4637308Z     🧠 Verifying step validity for '/pet' after no candidates found...
+2026-01-20T00:16:59.9878628Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:16:59.9879174Z [DEBUG] Received response (Length: 308)
+2026-01-20T00:16:59.9880687Z     🗑️ Step deemed INVALID: The page failed to render the layout. The message 'Could not render BaseLayout, see the console' indicates a problem with the Swagger UI initialization. Therefore, the '/pet' endpoint is not visible or accessible on the page in its current state.. Removing from workflow.
+2026-01-20T00:16:59.9881916Z     ⏭️ Skipping execution of invalid step: /pet
+2026-01-20T00:16:59.9882264Z   ▶️ [STEP step_5] CLICK: /pet/findByStatus
+2026-01-20T00:16:59.9937941Z     🔍 Mining locators for: '/pet/findByStatus'
+2026-01-20T00:17:00.0194121Z     🧠 Consulting AI (Vision-First) to find '/pet/findByStatus'...
+2026-01-20T00:17:00.0195096Z     🔍 Trying smart selectors for '/pet/findByStatus'...
+2026-01-20T00:17:00.1029313Z     🔍 [SMART] Searching for: '/pet/findByStatus' (trying 15+ strategies)
+2026-01-20T00:17:00.1030390Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:00.1031866Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:04.9730169Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:17:04.9730727Z [DEBUG] Received response (Length: 266)
+2026-01-20T00:17:04.9731728Z     💡 Expert Suggestion: Clicking 'Explore' should load the Swagger UI definition and make the API endpoints, including '/pet/findByStatus', accessible.
+2026-01-20T00:17:04.9732472Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:17:05.5364529Z     ✅ Executed corrective navigation
+2026-01-20T00:17:07.5379927Z     🔄 Retry 1/3 mining locators for '/pet/findByStatus'...
+2026-01-20T00:17:08.5687960Z     🧠 Consulting AI (Vision-First) to find '/pet/findByStatus'...
+2026-01-20T00:17:08.5688841Z     🔍 Trying smart selectors for '/pet/findByStatus'...
+2026-01-20T00:17:08.6468967Z     🔍 [SMART] Searching for: '/pet/findByStatus' (trying 15+ strategies)
+2026-01-20T00:17:08.6469889Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:08.6471490Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:08.6473844Z [CACHE HIT] 433b25df... (hits: 4, misses: 11)
+2026-01-20T00:17:08.6474503Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:17:08.6474914Z     🔄 Retry 2/3 mining locators for '/pet/findByStatus'...
+2026-01-20T00:17:09.6488167Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:17:09.6863523Z     🧠 Consulting AI (Vision-First) to find '/pet/findByStatus'...
+2026-01-20T00:17:09.6864472Z     🔍 Trying smart selectors for '/pet/findByStatus'...
+2026-01-20T00:17:09.7630917Z     🔍 [SMART] Searching for: '/pet/findByStatus' (trying 15+ strategies)
+2026-01-20T00:17:09.7632053Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:09.7633193Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:09.7636537Z [CACHE HIT] 433b25df... (hits: 5, misses: 11)
+2026-01-20T00:17:09.7637174Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:17:09.7638400Z     🧠 Verifying step validity for '/pet/findByStatus' after no candidates found...
+2026-01-20T00:17:11.1095893Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:17:11.1096957Z [DEBUG] Received response (Length: 279)
+2026-01-20T00:17:11.1099757Z     🗑️ Step deemed INVALID: The page failed to render correctly, displaying 'Could not render BaseLayout, see the console.' Therefore, the '/pet/findByStatus' element is likely not present or accessible. It's not valid to proceed with this step.. Removing from workflow.
+2026-01-20T00:17:11.1101360Z     ⏭️ Skipping execution of invalid step: /pet/findByStatus
+2026-01-20T00:17:11.1101896Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Finds Pets by status
+2026-01-20T00:17:11.1150175Z     🔍 Mining locators for: 'Finds Pets by status'
+2026-01-20T00:17:11.1528268Z     🧠 Consulting AI (Vision-First) to find 'Finds Pets by status'...
+2026-01-20T00:17:11.1529169Z     🔍 Trying smart selectors for 'Finds Pets by status'...
+2026-01-20T00:17:11.2517122Z     🔍 [SMART] Searching for: 'Finds Pets by status' (trying 15+ strategies)
+2026-01-20T00:17:11.2518004Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:11.2518935Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:16.1148602Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:17:16.1149310Z [DEBUG] Received response (Length: 266)
+2026-01-20T00:17:16.1150867Z     💡 Expert Suggestion: The Swagger UI needs to be rendered first. Clicking 'Explore' might load the API definitions, including 'Finds Pets by status'.
+2026-01-20T00:17:16.1151959Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:17:16.6695170Z     ✅ Executed corrective navigation
+2026-01-20T00:17:18.6719175Z     🔄 Retry 1/3 mining locators for 'Finds Pets by status'...
+2026-01-20T00:17:19.7015431Z     🧠 Consulting AI (Vision-First) to find 'Finds Pets by status'...
+2026-01-20T00:17:19.7017051Z     🔍 Trying smart selectors for 'Finds Pets by status'...
+2026-01-20T00:17:19.7951076Z     🔍 [SMART] Searching for: 'Finds Pets by status' (trying 15+ strategies)
+2026-01-20T00:17:19.7952182Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:19.7953895Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:19.7955209Z [CACHE HIT] 89878ba7... (hits: 6, misses: 13)
+2026-01-20T00:17:19.7955860Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:17:19.7956744Z     🔄 Retry 2/3 mining locators for 'Finds Pets by status'...
+2026-01-20T00:17:20.7970042Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:17:20.8352003Z     🧠 Consulting AI (Vision-First) to find 'Finds Pets by status'...
+2026-01-20T00:17:20.8352960Z     🔍 Trying smart selectors for 'Finds Pets by status'...
+2026-01-20T00:17:20.9287954Z     🔍 [SMART] Searching for: 'Finds Pets by status' (trying 15+ strategies)
+2026-01-20T00:17:20.9288732Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:20.9290354Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:20.9293036Z [CACHE HIT] 89878ba7... (hits: 7, misses: 13)
+2026-01-20T00:17:20.9293504Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:17:20.9294771Z     🧠 Verifying step validity for 'Finds Pets by status' after no candidates found...
+2026-01-20T00:17:22.5369290Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:17:22.5369917Z [DEBUG] Received response (Length: 306)
+2026-01-20T00:17:22.5371470Z     🗑️ Step deemed INVALID: The page failed to render correctly, displaying 'Could not render BaseLayout, see the console.' Therefore, the element 'Finds Pets by status' is likely not present or accessible in the current state. We need a properly rendered page to proceed.. Removing from workflow.
+2026-01-20T00:17:22.5373055Z     ⏭️ Skipping execution of invalid step: Finds Pets by status
+2026-01-20T00:17:22.5373428Z   ▶️ [STEP step_7] CLICK: Try it out
+2026-01-20T00:17:22.5426899Z     🔍 Mining locators for: 'Try it out'
+2026-01-20T00:17:22.5683666Z     🧠 Consulting AI (Vision-First) to find 'Try it out'...
+2026-01-20T00:17:22.5684496Z     🔍 Trying smart selectors for 'Try it out'...
+2026-01-20T00:17:22.6583937Z     🔍 [SMART] Searching for: 'Try it out' (trying 15+ strategies)
+2026-01-20T00:17:22.6584873Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:22.6585810Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:27.1477614Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:17:27.1478469Z [DEBUG] Received response (Length: 209)
+2026-01-20T00:17:27.1479843Z     💡 Expert Suggestion: "Try it out" is likely available after exploring the API definition.
+2026-01-20T00:17:27.1481001Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:17:27.7012512Z     ✅ Executed corrective navigation
+2026-01-20T00:17:29.7036011Z     🔄 Retry 1/3 mining locators for 'Try it out'...
+2026-01-20T00:17:30.7342045Z     🧠 Consulting AI (Vision-First) to find 'Try it out'...
+2026-01-20T00:17:30.7343087Z     🔍 Trying smart selectors for 'Try it out'...
+2026-01-20T00:17:30.8228424Z     🔍 [SMART] Searching for: 'Try it out' (trying 15+ strategies)
+2026-01-20T00:17:30.8229329Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:30.8230299Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:30.8232772Z [CACHE HIT] a3db6a54... (hits: 8, misses: 15)
+2026-01-20T00:17:30.8233453Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:17:30.8233836Z     🔄 Retry 2/3 mining locators for 'Try it out'...
+2026-01-20T00:17:31.8247239Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:17:31.8507453Z     🧠 Consulting AI (Vision-First) to find 'Try it out'...
+2026-01-20T00:17:31.8508300Z     🔍 Trying smart selectors for 'Try it out'...
+2026-01-20T00:17:31.9364662Z     🔍 [SMART] Searching for: 'Try it out' (trying 15+ strategies)
+2026-01-20T00:17:31.9365897Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:31.9367086Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:31.9369891Z [CACHE HIT] a3db6a54... (hits: 9, misses: 15)
+2026-01-20T00:17:31.9370586Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:17:31.9389161Z     🧠 Verifying step validity for 'Try it out' after no candidates found...
+2026-01-20T00:17:33.3390328Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:17:33.3390899Z [DEBUG] Received response (Length: 333)
+2026-01-20T00:17:33.3392552Z     🗑️ Step deemed INVALID: The page is displaying an error: "Could not render BaseLayout, see the console." This indicates that the Swagger UI is not properly loaded, and therefore the "Try it out" button will not be present. We are on the correct page, but the page is not rendering correctly.. Removing from workflow.
+2026-01-20T00:17:33.3393895Z     ⏭️ Skipping execution of invalid step: Try it out
+2026-01-20T00:17:33.3394254Z   ▶️ [STEP step_8] ASSERT_VISIBLE: Execute
+2026-01-20T00:17:33.3450211Z     🔍 Mining locators for: 'Execute'
+2026-01-20T00:17:33.3841836Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:17:33.3843230Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:17:33.4620205Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:17:33.4621368Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:33.4623326Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:38.2709944Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:17:38.2710528Z [DEBUG] Received response (Length: 241)
+2026-01-20T00:17:38.2711584Z     💡 Expert Suggestion: The 'Explore' button likely navigates to a page where API endpoints and 'Execute' buttons are located.
+2026-01-20T00:17:38.2712417Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:17:38.8340419Z     ✅ Executed corrective navigation
+2026-01-20T00:17:40.8363409Z     🔄 Retry 1/3 mining locators for 'Execute'...
+2026-01-20T00:17:41.8673707Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:17:41.8681636Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:17:41.9429870Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:17:41.9430685Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:41.9431644Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:41.9434364Z [CACHE HIT] b9f73e41... (hits: 10, misses: 17)
+2026-01-20T00:17:41.9435004Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:17:41.9435544Z     🔄 Retry 2/3 mining locators for 'Execute'...
+2026-01-20T00:17:42.9449339Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:17:42.9838915Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:17:42.9840326Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:17:43.0592386Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:17:43.0593254Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:43.0594867Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:43.0597560Z [CACHE HIT] b9f73e41... (hits: 11, misses: 17)
+2026-01-20T00:17:43.0598058Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:17:43.0598859Z     🧠 Verifying step validity for 'Execute' after no candidates found...
+2026-01-20T00:17:44.8634590Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:17:44.8635120Z [DEBUG] Received response (Length: 369)
+2026-01-20T00:17:44.8637116Z     🗑️ Step deemed INVALID: The page displays 'Could not render BaseLayout, see the console.' This indicates that the Swagger UI failed to load correctly. Therefore, the 'Execute' button, which is part of the interactive API documentation, is not present on the page. We are on the correct page, but the content is not loaded properly.. Removing from workflow.
+2026-01-20T00:17:44.8638913Z     ⏭️ Skipping execution of invalid step: Execute
+2026-01-20T00:17:44.8639254Z   ▶️ [STEP step_9] FILL: status
+2026-01-20T00:17:44.8691194Z     🔍 Mining locators for: 'status'
+2026-01-20T00:17:44.9018491Z     🧠 Consulting AI (Vision-First) to find 'status'...
+2026-01-20T00:17:44.9019199Z     🔍 Trying smart selectors for 'status'...
+2026-01-20T00:17:44.9778566Z     🔍 [SMART] Searching for: 'status' (trying 15+ strategies)
+2026-01-20T00:17:44.9779557Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:44.9780506Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:49.2042892Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:17:49.2043613Z [DEBUG] Received response (Length: 219)
+2026-01-20T00:17:49.2044886Z     💡 Expert Suggestion: The 'status' information is likely available after exploring the API definition.
+2026-01-20T00:17:49.2046011Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:17:49.7665483Z     ✅ Executed corrective navigation
+2026-01-20T00:17:51.7688829Z     🔄 Retry 1/3 mining locators for 'status'...
+2026-01-20T00:17:52.8006407Z     🧠 Consulting AI (Vision-First) to find 'status'...
+2026-01-20T00:17:52.8007242Z     🔍 Trying smart selectors for 'status'...
+2026-01-20T00:17:52.8796858Z     🔍 [SMART] Searching for: 'status' (trying 15+ strategies)
+2026-01-20T00:17:52.8797889Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:52.8799627Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:52.8801463Z [CACHE HIT] 19716d9f... (hits: 12, misses: 19)
+2026-01-20T00:17:52.8802144Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:17:52.8802801Z     🔄 Retry 2/3 mining locators for 'status'...
+2026-01-20T00:17:53.8815972Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:17:53.9168623Z     🧠 Consulting AI (Vision-First) to find 'status'...
+2026-01-20T00:17:53.9169334Z     🔍 Trying smart selectors for 'status'...
+2026-01-20T00:17:53.9944426Z     🔍 [SMART] Searching for: 'status' (trying 15+ strategies)
+2026-01-20T00:17:53.9945329Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:53.9946622Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:53.9950349Z [CACHE HIT] 19716d9f... (hits: 13, misses: 19)
+2026-01-20T00:17:53.9950965Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:17:53.9951586Z     🧠 Verifying step validity for 'status' after no candidates found...
+2026-01-20T00:17:55.4806602Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:17:55.4807287Z [DEBUG] Received response (Length: 280)
+2026-01-20T00:17:55.4809566Z     🗑️ Step deemed INVALID: The page failed to render correctly, displaying 'Could not render BaseLayout, see the console.' The element 'status' is not visible or accessible in this state. Therefore, interacting with 'status' is not a valid step.. Removing from workflow.
+2026-01-20T00:17:55.4810773Z     ⏭️ Skipping execution of invalid step: status
+2026-01-20T00:17:55.4811420Z   ▶️ [STEP step_10] CLICK: Execute
+2026-01-20T00:17:55.4862326Z     🔍 Mining locators for: 'Execute'
+2026-01-20T00:17:55.5167089Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:17:55.5167844Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:17:55.5950846Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:17:55.5951829Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:55.5952783Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:55.5955449Z [CACHE HIT] b9f73e41... (hits: 14, misses: 20)
+2026-01-20T00:17:55.5956914Z     💡 Expert Suggestion: The 'Explore' button likely navigates to a page where API endpoints and 'Execute' buttons are located.
+2026-01-20T00:17:55.5958118Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:17:56.1512353Z     ✅ Executed corrective navigation
+2026-01-20T00:17:58.1535616Z     🔄 Retry 1/3 mining locators for 'Execute'...
+2026-01-20T00:17:59.1846441Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:17:59.1847264Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:17:59.2617517Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:17:59.2618402Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:17:59.2620027Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:17:59.2622414Z [CACHE HIT] b9f73e41... (hits: 15, misses: 20)
+2026-01-20T00:17:59.2623059Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:17:59.2623607Z     🔄 Retry 2/3 mining locators for 'Execute'...
+2026-01-20T00:18:00.2636717Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:18:00.2997185Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:18:00.2998162Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:18:00.3766438Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:18:00.3767385Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:18:00.3769003Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:18:00.3770913Z [CACHE HIT] b9f73e41... (hits: 16, misses: 20)
+2026-01-20T00:18:00.3771517Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:18:00.3772201Z     🧠 Verifying step validity for 'Execute' after no candidates found...
+2026-01-20T00:18:00.3775120Z [CACHE HIT] 6a700859... (hits: 17, misses: 20)
+2026-01-20T00:18:00.3777575Z     🗑️ Step deemed INVALID: The page displays 'Could not render BaseLayout, see the console.' This indicates that the Swagger UI failed to load correctly. Therefore, the 'Execute' button, which is part of the interactive API documentation, is not present on the page. We are on the correct page, but the content is not loaded properly.. Removing from workflow.
+2026-01-20T00:18:00.3779143Z     ⏭️ Skipping execution of invalid step: Execute
+2026-01-20T00:18:00.3779534Z   ▶️ [STEP step_11] ASSERT_VISIBLE: Server response
+2026-01-20T00:18:00.3824892Z     🔍 Mining locators for: 'Server response'
+2026-01-20T00:18:00.4175484Z     🧠 Consulting AI (Vision-First) to find 'Server response'...
+2026-01-20T00:18:00.4176492Z     🔍 Trying smart selectors for 'Server response'...
+2026-01-20T00:18:00.5091843Z     🔍 [SMART] Searching for: 'Server response' (trying 15+ strategies)
+2026-01-20T00:18:00.5092820Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:18:00.5094372Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:18:01.7732370Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:18:01.7733053Z [DEBUG] Received response (Length: 232)
+2026-01-20T00:18:01.7734450Z     💡 Expert Suggestion: Clicking 'Explore' might reveal the server response or navigate to a page where it's visible.
+2026-01-20T00:18:01.7735924Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:18:02.3328828Z     ✅ Executed corrective navigation
+2026-01-20T00:18:04.3351704Z     🔄 Retry 1/3 mining locators for 'Server response'...
+2026-01-20T00:18:05.3674351Z     🧠 Consulting AI (Vision-First) to find 'Server response'...
+2026-01-20T00:18:05.3683205Z     🔍 Trying smart selectors for 'Server response'...
+2026-01-20T00:18:05.4555662Z     🔍 [SMART] Searching for: 'Server response' (trying 15+ strategies)
+2026-01-20T00:18:05.4556796Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:18:05.4557845Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:18:05.4560498Z [CACHE HIT] a7b49681... (hits: 18, misses: 21)
+2026-01-20T00:18:05.4561110Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:18:05.4561719Z     🔄 Retry 2/3 mining locators for 'Server response'...
+2026-01-20T00:18:06.4575080Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:18:06.5007443Z     🧠 Consulting AI (Vision-First) to find 'Server response'...
+2026-01-20T00:18:06.5008276Z     🔍 Trying smart selectors for 'Server response'...
+2026-01-20T00:18:06.5963018Z     🔍 [SMART] Searching for: 'Server response' (trying 15+ strategies)
+2026-01-20T00:18:06.5964317Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:18:06.5966053Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:18:06.5967704Z [CACHE HIT] a7b49681... (hits: 19, misses: 21)
+2026-01-20T00:18:06.5968235Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:18:06.5968968Z     🧠 Verifying step validity for 'Server response' after no candidates found...
+2026-01-20T00:18:07.9266463Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:18:07.9266926Z [DEBUG] Received response (Length: 311)
+2026-01-20T00:18:07.9268559Z     🗑️ Step deemed INVALID: The page failed to render correctly ('Could not render BaseLayout, see the console.'). Therefore, the 'Server response' element is likely not present or accessible in the current state. We need a properly rendered page to interact with the elements.. Removing from workflow.
+2026-01-20T00:18:07.9269894Z     ⏭️ Skipping execution of invalid step: Server response
+2026-01-20T00:18:09.9787921Z 
+2026-01-20T00:18:09.9788886Z [2/3] Exploring Scenario: Explore Swagger UI - Store Operations
+2026-01-20T00:18:09.9790701Z     🧠 Initialized exploration context for goal: 'Verify basic interactions with the Store operations in Swagger UI.'
+2026-01-20T00:18:09.9792173Z     🎯 Scenario: Explore Swagger UI - Store Operations
+2026-01-20T00:18:09.9793966Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-20T00:18:11.1972469Z     ✅ Navigated to https://petstore.swagger.io/
+2026-01-20T00:18:11.1973244Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Swagger UI
+2026-01-20T00:18:11.2148650Z     🔍 Mining locators for: 'Swagger UI'
+2026-01-20T00:18:11.3527387Z     🧠 Consulting AI (Vision-First) to find 'Swagger UI'...
+2026-01-20T00:18:11.3528231Z     🔍 Trying smart selectors for 'Swagger UI'...
+2026-01-20T00:18:11.3655569Z     🔍 [SMART] Searching for: 'Swagger UI' (trying 15+ strategies)
+2026-01-20T00:18:11.3656728Z     ✅ Smart selector found 'Swagger UI' via id-exact (confidence: 0.92)
+2026-01-20T00:18:11.3699667Z     ✅ Found 1 verified locators
+2026-01-20T00:18:14.4212488Z     ✅ State transitioned.
+2026-01-20T00:18:16.1558082Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:18:16.1559188Z [DEBUG] Received response (Length: 292)
+2026-01-20T00:18:16.1560247Z     🤖 AI Next Step Suggestion: click -> store Access to Petstore orders
+2026-01-20T00:18:16.1561018Z     🧩 Suggested Locator: #operations-tag-store
+2026-01-20T00:18:16.1563121Z     💭 Reasoning: The goal is to verify basic interactions with the Store operations in Swagger UI. Clicking on the 'store' section will expand the operations available for the store.
+2026-01-20T00:18:16.1564698Z     ➕ Injected AI step: click -> store Access to Petstore orders
+2026-01-20T00:18:16.1566554Z   ▶️ [STEP step_2_ai_1] CLICK: store Access to Petstore orders
+2026-01-20T00:18:16.1633305Z     🎯 Using AI-provided locator: #operations-tag-store
+2026-01-20T00:18:16.1698837Z     ✅ Found 1 verified locators
+2026-01-20T00:18:20.2532819Z     ✅ State transitioned.
+2026-01-20T00:18:21.7764411Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:18:21.7764981Z [DEBUG] Received response (Length: 243)
+2026-01-20T00:18:21.7765617Z     🤖 AI Next Step Suggestion: click -> Explore
+2026-01-20T00:18:21.7766662Z     💭 Reasoning: After accessing the store operations, the next logical step is to explore the available operations within the store section of the Swagger UI.
+2026-01-20T00:18:21.7767427Z     ➕ Injected AI step: click -> Explore
+2026-01-20T00:18:21.7767756Z   ▶️ [STEP step_2_ai_2] CLICK: Explore
+2026-01-20T00:18:21.7829518Z     🔍 Mining locators for: 'Explore'
+2026-01-20T00:18:21.8289977Z     ✅ Found 2 verified locators
+2026-01-20T00:18:25.3792779Z     ✅ State transitioned.
+2026-01-20T00:18:26.9475310Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:18:26.9475975Z [DEBUG] Received response (Length: 391)
+2026-01-20T00:18:26.9476894Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-20T00:18:26.9478888Z     💭 Reasoning: The page displays the Swagger UI for the store operations. The goal was to verify basic interactions, and the 'Explore' button has already been clicked. Further interaction requires understanding the API definitions and making specific requests, which is beyond the scope of basic interaction verification. Therefore, the goal is considered achieved.
+2026-01-20T00:18:26.9480656Z   ▶️ [STEP step_3] CLICK: store
+2026-01-20T00:18:26.9530241Z     🔍 Mining locators for: 'store'
+2026-01-20T00:18:26.9831763Z     🧠 Consulting AI (Vision-First) to find 'store'...
+2026-01-20T00:18:26.9832568Z     🔍 Trying smart selectors for 'store'...
+2026-01-20T00:18:27.0637263Z     🔍 [SMART] Searching for: 'store' (trying 15+ strategies)
+2026-01-20T00:18:27.0638209Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:18:27.0639814Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:18:31.6797891Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:18:31.6798529Z [DEBUG] Received response (Length: 249)
+2026-01-20T00:18:31.6799172Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:18:31.6799528Z     🔄 Retry 1/3 mining locators for 'store'...
+2026-01-20T00:18:32.7162604Z     🧠 Consulting AI (Vision-First) to find 'store'...
+2026-01-20T00:18:32.7163395Z     🔍 Trying smart selectors for 'store'...
+2026-01-20T00:18:32.7939173Z     🔍 [SMART] Searching for: 'store' (trying 15+ strategies)
+2026-01-20T00:18:32.7940062Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:18:32.7941701Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:18:36.8576968Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:18:36.8577421Z [DEBUG] Received response (Length: 273)
+2026-01-20T00:18:36.8577951Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:18:36.8578339Z     🔄 Retry 2/3 mining locators for 'store'...
+2026-01-20T00:18:37.8589929Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:18:37.9000962Z     🧠 Consulting AI (Vision-First) to find 'store'...
+2026-01-20T00:18:37.9001766Z     🔍 Trying smart selectors for 'store'...
+2026-01-20T00:18:37.9806145Z     🔍 [SMART] Searching for: 'store' (trying 15+ strategies)
+2026-01-20T00:18:37.9807321Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:18:37.9808270Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:18:37.9811324Z [CACHE HIT] 9c1c6740... (hits: 20, misses: 27)
+2026-01-20T00:18:37.9812032Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:18:37.9812611Z     🧠 Verifying step validity for 'store' after no candidates found...
+2026-01-20T00:18:41.6803519Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:18:41.6804178Z [DEBUG] Received response (Length: 221)
+2026-01-20T00:18:41.6805345Z     🗑️ Step deemed INVALID: The page failed to render correctly, displaying 'Could not render BaseLayout, see the console.' The 'store' element is likely not present in this broken state.. Removing from workflow.
+2026-01-20T00:18:41.6806529Z     ⏭️ Skipping execution of invalid step: store
+2026-01-20T00:18:41.6806884Z   ▶️ [STEP step_4] ASSERT_VISIBLE: /store
+2026-01-20T00:18:41.6862101Z     🔍 Mining locators for: '/store'
+2026-01-20T00:18:41.7169972Z     🧠 Consulting AI (Vision-First) to find '/store'...
+2026-01-20T00:18:41.7170460Z     🔍 Trying smart selectors for '/store'...
+2026-01-20T00:18:41.7936505Z     🔍 [SMART] Searching for: '/store' (trying 15+ strategies)
+2026-01-20T00:18:41.7937418Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:18:41.7938368Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:18:46.7355731Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:18:46.7356674Z [DEBUG] Received response (Length: 215)
+2026-01-20T00:18:46.7357911Z     💡 Expert Suggestion: The /store endpoint is likely accessible after exploring the API definition.
+2026-01-20T00:18:46.7359045Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:18:47.3015073Z     ✅ Executed corrective navigation
+2026-01-20T00:18:49.3038346Z     🔄 Retry 1/3 mining locators for '/store'...
+2026-01-20T00:18:50.3500303Z     🧠 Consulting AI (Vision-First) to find '/store'...
+2026-01-20T00:18:50.3500782Z     🔍 Trying smart selectors for '/store'...
+2026-01-20T00:18:50.4272566Z     🔍 [SMART] Searching for: '/store' (trying 15+ strategies)
+2026-01-20T00:18:50.4273530Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:18:50.4274566Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:18:51.7161345Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:18:51.7161911Z [DEBUG] Received response (Length: 239)
+2026-01-20T00:18:51.7162504Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:18:51.7162913Z     🔄 Retry 2/3 mining locators for '/store'...
+2026-01-20T00:18:52.7174519Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:18:52.7499075Z     🧠 Consulting AI (Vision-First) to find '/store'...
+2026-01-20T00:18:52.7499889Z     🔍 Trying smart selectors for '/store'...
+2026-01-20T00:18:52.8280201Z     🔍 [SMART] Searching for: '/store' (trying 15+ strategies)
+2026-01-20T00:18:52.8281192Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:18:52.8282153Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:18:52.8285429Z [CACHE HIT] 799b8b35... (hits: 21, misses: 30)
+2026-01-20T00:18:52.8286143Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:18:52.8286849Z     🧠 Verifying step validity for '/store' after no candidates found...
+2026-01-20T00:18:57.0179266Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:18:57.0180179Z [DEBUG] Received response (Length: 314)
+2026-01-20T00:18:57.0183468Z     🗑️ Step deemed INVALID: The page failed to render the Swagger UI correctly. The message 'Could not render BaseLayout, see the console' indicates a problem with the page's initialization. Therefore, the '/store' element is likely not present or accessible in the current state.. Removing from workflow.
+2026-01-20T00:18:57.0186519Z     ⏭️ Skipping execution of invalid step: /store
+2026-01-20T00:18:57.0187384Z   ▶️ [STEP step_5] CLICK: /store/inventory
+2026-01-20T00:18:57.0241363Z     🔍 Mining locators for: '/store/inventory'
+2026-01-20T00:18:57.0656966Z     🧠 Consulting AI (Vision-First) to find '/store/inventory'...
+2026-01-20T00:18:57.0657881Z     🔍 Trying smart selectors for '/store/inventory'...
+2026-01-20T00:18:57.1503709Z     🔍 [SMART] Searching for: '/store/inventory' (trying 15+ strategies)
+2026-01-20T00:18:57.1504830Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:18:57.1506613Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:19:01.7343003Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:19:01.7343489Z [DEBUG] Received response (Length: 263)
+2026-01-20T00:19:01.7344500Z     💡 Expert Suggestion: The Swagger UI needs to be loaded by clicking the 'Explore' button to display the API endpoints, including /store/inventory.
+2026-01-20T00:19:01.7345312Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:19:02.2991775Z     ✅ Executed corrective navigation
+2026-01-20T00:19:04.3011263Z     🔄 Retry 1/3 mining locators for '/store/inventory'...
+2026-01-20T00:19:05.3316729Z     🧠 Consulting AI (Vision-First) to find '/store/inventory'...
+2026-01-20T00:19:05.3317615Z     🔍 Trying smart selectors for '/store/inventory'...
+2026-01-20T00:19:05.4091163Z     🔍 [SMART] Searching for: '/store/inventory' (trying 15+ strategies)
+2026-01-20T00:19:05.4092049Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:19:05.4093048Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:19:05.4095910Z [CACHE HIT] 7b509ccb... (hits: 22, misses: 32)
+2026-01-20T00:19:05.4096666Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:19:05.4097266Z     🔄 Retry 2/3 mining locators for '/store/inventory'...
+2026-01-20T00:19:06.4110862Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:19:06.4483199Z     🧠 Consulting AI (Vision-First) to find '/store/inventory'...
+2026-01-20T00:19:06.4484148Z     🔍 Trying smart selectors for '/store/inventory'...
+2026-01-20T00:19:06.5258658Z     🔍 [SMART] Searching for: '/store/inventory' (trying 15+ strategies)
+2026-01-20T00:19:06.5259888Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:19:06.5260823Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:19:06.5263515Z [CACHE HIT] 7b509ccb... (hits: 23, misses: 32)
+2026-01-20T00:19:06.5264220Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:19:06.5264821Z     🧠 Verifying step validity for '/store/inventory' after no candidates found...
+2026-01-20T00:20:09.0630871Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:20:09.0632179Z [DEBUG] LLM Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.', 'status': 'RESOURCE_EXHAUSTED'}}
+2026-01-20T00:20:09.0633749Z ⚠️ 429 Rate Limit Hit. Cooling down for 60s...
+2026-01-20T00:20:09.0634142Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:20:09.0634487Z [DEBUG] Received response (Length: 277)
+2026-01-20T00:20:09.0635650Z     🗑️ Step deemed INVALID: The page failed to render the Swagger UI correctly, displaying 'Could not render BaseLayout, see the console.' Therefore, the '/store/inventory' element is not visible or accessible on the page in its current state.. Removing from workflow.
+2026-01-20T00:20:09.0637024Z     ⏭️ Skipping execution of invalid step: /store/inventory
+2026-01-20T00:20:09.0637472Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Returns pet inventories by status
+2026-01-20T00:20:09.0701078Z     🔍 Mining locators for: 'Returns pet inventories by status'
+2026-01-20T00:20:09.1128234Z     🧠 Consulting AI (Vision-First) to find 'Returns pet inventories by status'...
+2026-01-20T00:20:09.1129225Z     🔍 Trying smart selectors for 'Returns pet inventories by status'...
+2026-01-20T00:20:09.2199849Z     🔍 [SMART] Searching for: 'Returns pet inventories by status' (trying 15+ strategies)
+2026-01-20T00:20:09.2201258Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:09.2202915Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:13.7898943Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:20:13.7899387Z [DEBUG] Received response (Length: 286)
+2026-01-20T00:20:13.7900390Z     💡 Expert Suggestion: The Swagger UI needs to be loaded by clicking the 'Explore' button to display the API documentation, including 'Returns pet inventories by status'.
+2026-01-20T00:20:13.7901234Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:20:14.3446552Z     ✅ Executed corrective navigation
+2026-01-20T00:20:16.3469890Z     🔄 Retry 1/3 mining locators for 'Returns pet inventories by status'...
+2026-01-20T00:20:17.3788166Z     🧠 Consulting AI (Vision-First) to find 'Returns pet inventories by status'...
+2026-01-20T00:20:17.3789278Z     🔍 Trying smart selectors for 'Returns pet inventories by status'...
+2026-01-20T00:20:17.4845871Z     🔍 [SMART] Searching for: 'Returns pet inventories by status' (trying 15+ strategies)
+2026-01-20T00:20:17.4847081Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:17.4848030Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:18.8488408Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:20:18.8489135Z [DEBUG] Received response (Length: 307)
+2026-01-20T00:20:18.8489995Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:20:18.8490766Z     🔄 Retry 2/3 mining locators for 'Returns pet inventories by status'...
+2026-01-20T00:20:19.8501676Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:20:19.8789378Z     🧠 Consulting AI (Vision-First) to find 'Returns pet inventories by status'...
+2026-01-20T00:20:19.8790502Z     🔍 Trying smart selectors for 'Returns pet inventories by status'...
+2026-01-20T00:20:19.9835644Z     🔍 [SMART] Searching for: 'Returns pet inventories by status' (trying 15+ strategies)
+2026-01-20T00:20:19.9836904Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:19.9838136Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:19.9840574Z [CACHE HIT] b4aa18e3... (hits: 24, misses: 36)
+2026-01-20T00:20:19.9841534Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:20:19.9842142Z     🧠 Verifying step validity for 'Returns pet inventories by status' after no candidates found...
+2026-01-20T00:20:23.8793787Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:20:23.8794505Z [DEBUG] Received response (Length: 326)
+2026-01-20T00:20:23.8797163Z     🗑️ Step deemed INVALID: The page is not rendering correctly. The message "Could not render BaseLayout, see the console." indicates a problem with the page's structure. Therefore, the element "Returns pet inventories by status" is likely not present or accessible in the current state.. Removing from workflow.
+2026-01-20T00:20:23.8798802Z     ⏭️ Skipping execution of invalid step: Returns pet inventories by status
+2026-01-20T00:20:23.8799242Z   ▶️ [STEP step_7] CLICK: Try it out
+2026-01-20T00:20:23.8852430Z     🔍 Mining locators for: 'Try it out'
+2026-01-20T00:20:23.9291552Z     🧠 Consulting AI (Vision-First) to find 'Try it out'...
+2026-01-20T00:20:23.9292178Z     🔍 Trying smart selectors for 'Try it out'...
+2026-01-20T00:20:24.0191005Z     🔍 [SMART] Searching for: 'Try it out' (trying 15+ strategies)
+2026-01-20T00:20:24.0192036Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:24.0193030Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:28.8339591Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:20:28.8340035Z [DEBUG] Received response (Length: 294)
+2026-01-20T00:20:28.8341064Z     💡 Expert Suggestion: "Try it out" is not visible on the current page. Clicking 'Explore' might lead to the interactive documentation where "Try it out" buttons are located.
+2026-01-20T00:20:28.8341867Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:20:29.3934918Z     ✅ Executed corrective navigation
+2026-01-20T00:20:31.3939130Z     🔄 Retry 1/3 mining locators for 'Try it out'...
+2026-01-20T00:20:32.4281954Z     🧠 Consulting AI (Vision-First) to find 'Try it out'...
+2026-01-20T00:20:32.4282794Z     🔍 Trying smart selectors for 'Try it out'...
+2026-01-20T00:20:32.5178483Z     🔍 [SMART] Searching for: 'Try it out' (trying 15+ strategies)
+2026-01-20T00:20:32.5179498Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:32.5180441Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:32.5183968Z [CACHE HIT] f671991d... (hits: 25, misses: 38)
+2026-01-20T00:20:32.5184619Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:20:32.5185000Z     🔄 Retry 2/3 mining locators for 'Try it out'...
+2026-01-20T00:20:33.5198179Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:20:33.5639209Z     🧠 Consulting AI (Vision-First) to find 'Try it out'...
+2026-01-20T00:20:33.5639750Z     🔍 Trying smart selectors for 'Try it out'...
+2026-01-20T00:20:33.6559302Z     🔍 [SMART] Searching for: 'Try it out' (trying 15+ strategies)
+2026-01-20T00:20:33.6560301Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:33.6561534Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:33.6563998Z [CACHE HIT] f671991d... (hits: 26, misses: 38)
+2026-01-20T00:20:33.6564713Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:20:33.6565289Z     🧠 Verifying step validity for 'Try it out' after no candidates found...
+2026-01-20T00:20:35.0304390Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:20:35.0305087Z [DEBUG] Received response (Length: 301)
+2026-01-20T00:20:35.0307904Z     🗑️ Step deemed INVALID: The page failed to render correctly, displaying 'Could not render BaseLayout, see the console.' Therefore, the 'Try it out' button is not visible or accessible in the current state. We are likely on the wrong page or the page has an error.. Removing from workflow.
+2026-01-20T00:20:35.0310436Z     ⏭️ Skipping execution of invalid step: Try it out
+2026-01-20T00:20:35.0311123Z   ▶️ [STEP step_8] ASSERT_VISIBLE: Execute
+2026-01-20T00:20:35.0364243Z     🔍 Mining locators for: 'Execute'
+2026-01-20T00:20:35.0782857Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:20:35.0783634Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:20:35.1553065Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:20:35.1554012Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:35.1555009Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:40.1165677Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:20:40.1166429Z [DEBUG] Received response (Length: 258)
+2026-01-20T00:20:40.1167394Z     💡 Expert Suggestion: The page currently displays an error. Clicking 'Explore' might load the API definition and reveal the 'Execute' button.
+2026-01-20T00:20:40.1168182Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:20:40.6804498Z     ✅ Executed corrective navigation
+2026-01-20T00:20:42.6827741Z     🔄 Retry 1/3 mining locators for 'Execute'...
+2026-01-20T00:20:43.7272671Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:20:43.7274865Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:20:43.8036557Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:20:43.8037536Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:43.8038638Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:43.8041886Z [CACHE HIT] b47f9452... (hits: 27, misses: 40)
+2026-01-20T00:20:43.8042533Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:20:43.8042916Z     🔄 Retry 2/3 mining locators for 'Execute'...
+2026-01-20T00:20:44.8055495Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:20:44.8453499Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:20:44.8453973Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:20:44.9217171Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:20:44.9218202Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:44.9219146Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:44.9222109Z [CACHE HIT] b47f9452... (hits: 28, misses: 40)
+2026-01-20T00:20:44.9222854Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:20:44.9223345Z     🧠 Verifying step validity for 'Execute' after no candidates found...
+2026-01-20T00:20:46.6048964Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:20:46.6050018Z [DEBUG] Received response (Length: 387)
+2026-01-20T00:20:46.6053340Z     🗑️ Step deemed INVALID: The page is displaying the raw swagger.json file. The Swagger UI is not rendering correctly, as indicated by the "Could not render BaseLayout" message. Therefore, the 'Execute' button, which is part of the interactive Swagger UI, is not present on this page. We are on the wrong page or the page is not rendering correctly.. Removing from workflow.
+2026-01-20T00:20:46.6056416Z     ⏭️ Skipping execution of invalid step: Execute
+2026-01-20T00:20:46.6057072Z   ▶️ [STEP step_9] CLICK: Execute
+2026-01-20T00:20:46.6107113Z     🔍 Mining locators for: 'Execute'
+2026-01-20T00:20:46.6442767Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:20:46.6443831Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:20:46.7212503Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:20:46.7213362Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:46.7214397Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:46.7217438Z [CACHE HIT] b47f9452... (hits: 29, misses: 41)
+2026-01-20T00:20:46.7218651Z     💡 Expert Suggestion: The page currently displays an error. Clicking 'Explore' might load the API definition and reveal the 'Execute' button.
+2026-01-20T00:20:46.7219398Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:20:47.2779931Z     ✅ Executed corrective navigation
+2026-01-20T00:20:49.2803106Z     🔄 Retry 1/3 mining locators for 'Execute'...
+2026-01-20T00:20:50.3114845Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:20:50.3115601Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:20:50.3881415Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:20:50.3882361Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:50.3883430Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:50.3886083Z [CACHE HIT] b47f9452... (hits: 30, misses: 41)
+2026-01-20T00:20:50.3886850Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:20:50.3887411Z     🔄 Retry 2/3 mining locators for 'Execute'...
+2026-01-20T00:20:51.3900709Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:20:51.4274748Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:20:51.4275565Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:20:51.5043179Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:20:51.5044246Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:51.5045307Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:51.5048982Z [CACHE HIT] b47f9452... (hits: 31, misses: 41)
+2026-01-20T00:20:51.5049693Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:20:51.5050272Z     🧠 Verifying step validity for 'Execute' after no candidates found...
+2026-01-20T00:20:51.5053417Z [CACHE HIT] 71a291a9... (hits: 32, misses: 41)
+2026-01-20T00:20:51.5056584Z     🗑️ Step deemed INVALID: The page is displaying the raw swagger.json file. The Swagger UI is not rendering correctly, as indicated by the "Could not render BaseLayout" message. Therefore, the 'Execute' button, which is part of the interactive Swagger UI, is not present on this page. We are on the wrong page or the page is not rendering correctly.. Removing from workflow.
+2026-01-20T00:20:51.5059191Z     ⏭️ Skipping execution of invalid step: Execute
+2026-01-20T00:20:51.5059896Z   ▶️ [STEP step_10] ASSERT_VISIBLE: Server response
+2026-01-20T00:20:51.5107111Z     🔍 Mining locators for: 'Server response'
+2026-01-20T00:20:51.5440545Z     🧠 Consulting AI (Vision-First) to find 'Server response'...
+2026-01-20T00:20:51.5441514Z     🔍 Trying smart selectors for 'Server response'...
+2026-01-20T00:20:51.6340544Z     🔍 [SMART] Searching for: 'Server response' (trying 15+ strategies)
+2026-01-20T00:20:51.6341580Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:51.6343187Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:52.9134780Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:20:52.9135252Z [DEBUG] Received response (Length: 217)
+2026-01-20T00:20:52.9136627Z     💡 Expert Suggestion: Clicking 'Explore' might load the Swagger UI with the server response details.
+2026-01-20T00:20:52.9137280Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:20:53.4767245Z     ✅ Executed corrective navigation
+2026-01-20T00:20:55.4789818Z     🔄 Retry 1/3 mining locators for 'Server response'...
+2026-01-20T00:20:56.5117013Z     🧠 Consulting AI (Vision-First) to find 'Server response'...
+2026-01-20T00:20:56.5117606Z     🔍 Trying smart selectors for 'Server response'...
+2026-01-20T00:20:56.6005227Z     🔍 [SMART] Searching for: 'Server response' (trying 15+ strategies)
+2026-01-20T00:20:56.6006389Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:56.6008018Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:56.6010190Z [CACHE HIT] 22216a33... (hits: 33, misses: 42)
+2026-01-20T00:20:56.6010835Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:20:56.6011421Z     🔄 Retry 2/3 mining locators for 'Server response'...
+2026-01-20T00:20:57.6024640Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:20:57.6450162Z     🧠 Consulting AI (Vision-First) to find 'Server response'...
+2026-01-20T00:20:57.6450819Z     🔍 Trying smart selectors for 'Server response'...
+2026-01-20T00:20:57.7332501Z     🔍 [SMART] Searching for: 'Server response' (trying 15+ strategies)
+2026-01-20T00:20:57.7333522Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:20:57.7335309Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:20:57.7338364Z [CACHE HIT] 22216a33... (hits: 34, misses: 42)
+2026-01-20T00:20:57.7338850Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:20:57.7339853Z     🧠 Verifying step validity for 'Server response' after no candidates found...
+2026-01-20T00:20:59.2077994Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:20:59.2078433Z [DEBUG] Received response (Length: 252)
+2026-01-20T00:20:59.2079737Z     🗑️ Step deemed INVALID: The page displays a JSON file. There is no element labeled "Server response" visible in the current page state. The page also shows an error 'Could not render BaseLayout, see the console.'. Removing from workflow.
+2026-01-20T00:20:59.2080789Z     ⏭️ Skipping execution of invalid step: Server response
+2026-01-20T00:21:01.2415482Z 
+2026-01-20T00:21:01.2416838Z [3/3] Exploring Scenario: Explore Swagger UI - User Operations
+2026-01-20T00:21:01.2418580Z     🧠 Initialized exploration context for goal: 'Verify basic interactions with the User operations in Swagger UI.'
+2026-01-20T00:21:01.2419714Z     🎯 Scenario: Explore Swagger UI - User Operations
+2026-01-20T00:21:01.2420389Z   ▶️ [STEP step_1] NAVIGATE: 
+2026-01-20T00:21:02.2007176Z     ✅ Navigated to https://petstore.swagger.io/
+2026-01-20T00:21:02.2007975Z   ▶️ [STEP step_2] ASSERT_VISIBLE: Swagger UI
+2026-01-20T00:21:02.3203039Z     🔍 Mining locators for: 'Swagger UI'
+2026-01-20T00:21:02.4823379Z     🧠 Consulting AI (Vision-First) to find 'Swagger UI'...
+2026-01-20T00:21:02.4824505Z     🔍 Trying smart selectors for 'Swagger UI'...
+2026-01-20T00:21:02.4975107Z     🔍 [SMART] Searching for: 'Swagger UI' (trying 15+ strategies)
+2026-01-20T00:21:02.4975999Z     ✅ Smart selector found 'Swagger UI' via id-exact (confidence: 0.92)
+2026-01-20T00:21:02.5016579Z     ✅ Found 1 verified locators
+2026-01-20T00:21:05.5465046Z     ✅ State transitioned.
+2026-01-20T00:21:07.3617986Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:21:07.3618678Z [DEBUG] Received response (Length: 366)
+2026-01-20T00:21:07.3620052Z     🤖 AI Next Step Suggestion: click -> user Operations about user Find out more about our store POST /user/createWithList Creates list of
+2026-01-20T00:21:07.3621191Z     🧩 Suggested Locator: span:nth-of-type(2)
+2026-01-20T00:21:07.3622057Z     💭 Reasoning: The goal is to verify basic interactions with the User operations in Swagger UI. Clicking on the 'user' section will expand it and allow interaction with the user operations.
+2026-01-20T00:21:07.3623187Z     ➕ Injected AI step: click -> user Operations about user Find out more about our store POST /user/createWithList Creates list of
+2026-01-20T00:21:07.3624080Z   ▶️ [STEP step_2_ai_1] CLICK: user Operations about user Find out more about our store POST /user/createWithList Creates list of
+2026-01-20T00:21:07.3687858Z     🎯 Using AI-provided locator: span:nth-of-type(2)
+2026-01-20T00:21:07.3754378Z     ✅ Found 1 verified locators
+2026-01-20T00:21:11.4338652Z     ✅ State transitioned.
+2026-01-20T00:21:13.1033205Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:21:13.1033760Z [DEBUG] Received response (Length: 378)
+2026-01-20T00:21:13.1034958Z     🤖 AI Next Step Suggestion: click -> user Operations about user Find out more about our store POST /user/createWithList Creates list of
+2026-01-20T00:21:13.1035669Z     🧩 Suggested Locator: span:nth-child(2)
+2026-01-20T00:21:13.1036844Z     💭 Reasoning: The previous action was clicking the 'user Operations' span. To continue exploring the User operations, I should click the same element again to expand it and see the available operations.
+2026-01-20T00:21:13.1037864Z     🔄 Same AI suggestion but state changed (URL or DOM). Resetting loop counter.
+2026-01-20T00:21:13.1038746Z     ⚠️ Skipping duplicate AI suggestion (just executed): ('click', 'user operations about user find out more about our store post /user/createwithlist creates list of')
+2026-01-20T00:21:13.1039441Z   ▶️ [STEP step_3] CLICK: user
+2026-01-20T00:21:13.1099420Z     🔍 Mining locators for: 'user'
+2026-01-20T00:21:13.4735677Z     ✅ Found 12 verified locators
+2026-01-20T00:21:17.0877853Z     ✅ State transitioned.
+2026-01-20T00:21:18.7839519Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:21:18.7840065Z [DEBUG] Received response (Length: 218)
+2026-01-20T00:21:18.7841013Z     🤖 AI Next Step Suggestion: click -> GET /user/{username} Get user by user name
+2026-01-20T00:21:18.7841485Z     🧩 Suggested Locator: button
+2026-01-20T00:21:18.7842106Z     💭 Reasoning: To explore other user operations, I will click on 'GET /user/{username} Get user by user name'.
+2026-01-20T00:21:18.7842779Z     ➕ Injected AI step: click -> GET /user/{username} Get user by user name
+2026-01-20T00:21:18.7843275Z   ▶️ [STEP step_3_ai_1] CLICK: GET /user/{username} Get user by user name
+2026-01-20T00:21:18.7900851Z     🎯 Using AI-provided locator: button
+2026-01-20T00:21:18.7963299Z     ✅ Found 1 verified locators
+2026-01-20T00:21:22.8685444Z     ✅ State transitioned.
+2026-01-20T00:21:24.7069917Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:21:24.7070636Z [DEBUG] Received response (Length: 242)
+2026-01-20T00:21:24.7071529Z     🤖 AI Next Step Suggestion: click -> ALLOW ALL COOKIES
+2026-01-20T00:21:24.7072685Z     🧩 Suggested Locator: button:contains('ALLOW ALL COOKIES')
+2026-01-20T00:21:24.7074077Z     💭 Reasoning: The cookie banner is obscuring the page and needs to be dismissed to continue testing the Swagger UI interactions.
+2026-01-20T00:21:24.7075541Z     ➕ Injected AI step: click -> ALLOW ALL COOKIES
+2026-01-20T00:21:24.7076444Z   ▶️ [STEP step_3_ai_2] CLICK: ALLOW ALL COOKIES
+2026-01-20T00:21:24.7141964Z     🎯 Using AI-provided locator: button:contains('ALLOW ALL COOKIES')
+2026-01-20T00:21:24.7176046Z     🔍 Mining locators for: 'ALLOW ALL COOKIES'
+2026-01-20T00:21:24.8308808Z     🧠 Consulting AI (Vision-First) to find 'ALLOW ALL COOKIES'...
+2026-01-20T00:21:24.8309455Z     🔍 Trying smart selectors for 'ALLOW ALL COOKIES'...
+2026-01-20T00:21:24.9685556Z     🔍 [SMART] Searching for: 'ALLOW ALL COOKIES' (trying 15+ strategies)
+2026-01-20T00:21:24.9686385Z     ✅ Smart selector found 'ALLOW ALL COOKIES' via visual-scoring (confidence: 0.7)
+2026-01-20T00:21:24.9736952Z     ✅ Found 1 verified locators
+2026-01-20T00:21:28.5218961Z     ✅ State transitioned.
+2026-01-20T00:21:30.3814898Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:21:30.3815558Z [DEBUG] Received response (Length: 308)
+2026-01-20T00:21:30.3817011Z     🤖 AI Next Step Suggestion: click -> POST /user/createWithArray Creates list of users with given input array
+2026-01-20T00:21:30.3818756Z     💭 Reasoning: To explore other user operations, clicking on 'POST /user/createWithArray Creates list of users with given input array' is a logical next step.
+2026-01-20T00:21:30.3820356Z     ➕ Injected AI step: click -> POST /user/createWithArray Creates list of users with given input array
+2026-01-20T00:21:30.3821181Z   ▶️ [STEP step_3_ai_3] CLICK: POST /user/createWithArray Creates list of users with given input array
+2026-01-20T00:21:30.3881814Z     🔍 Mining locators for: 'POST /user/createWithArray Creates list of users with given input array'
+2026-01-20T00:21:30.5631124Z     ✅ Found 1 verified locators
+2026-01-20T00:21:34.1597826Z     ✅ State transitioned.
+2026-01-20T00:21:35.8991849Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:21:35.8992328Z [DEBUG] Received response (Length: 312)
+2026-01-20T00:21:35.8993328Z     🤖 AI Next Step Suggestion: click -> GET /user/{username} Get user by user name
+2026-01-20T00:21:35.8993897Z     🧩 Suggested Locator: button[title='get user by user name']
+2026-01-20T00:21:35.8994823Z     💭 Reasoning: To continue exploring the user operations, I will click on the 'GET /user/{username} Get user by user name' operation to see its details and interact with it.
+2026-01-20T00:21:35.8995739Z     ➕ Injected AI step: click -> GET /user/{username} Get user by user name
+2026-01-20T00:21:35.8996510Z   ▶️ [STEP step_3_ai_4] CLICK: GET /user/{username} Get user by user name
+2026-01-20T00:21:35.9062233Z     🎯 Using AI-provided locator: button[title='get user by user name']
+2026-01-20T00:21:35.9085225Z     🔍 Mining locators for: 'GET /user/{username} Get user by user name'
+2026-01-20T00:21:36.0431616Z     ✅ Found 1 verified locators
+2026-01-20T00:21:39.6649766Z     ✅ State transitioned.
+2026-01-20T00:21:41.9956608Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:21:41.9957413Z [DEBUG] Received response (Length: 254)
+2026-01-20T00:21:41.9958438Z     🤖 AI Next Step Suggestion: click -> GET /user/login Logs user into the system
+2026-01-20T00:21:41.9959322Z     🧩 Suggested Locator: div:nth-child(7) > button
+2026-01-20T00:21:41.9960560Z     💭 Reasoning: To explore other user operations, clicking on 'GET /user/login Logs user into the system' is a logical next step.
+2026-01-20T00:21:41.9961983Z       ❌ Rejected: Login action 'get /user/login logs user into the system' not relevant to scenario
+2026-01-20T00:21:41.9963362Z     ⚠️ AI suggestion 'click -> GET /user/login Logs user into the system' not relevant for current page/scenario. Skipping.
+2026-01-20T00:21:41.9964699Z   ▶️ [STEP step_4] ASSERT_VISIBLE: /user
+2026-01-20T00:21:42.0031749Z     🔍 Mining locators for: '/user'
+2026-01-20T00:21:42.2956693Z     ✅ Found 5 verified locators
+2026-01-20T00:21:44.8294421Z     ✅ State transitioned.
+2026-01-20T00:21:44.8420197Z     🔄 Revisited state detected (count: 1)
+2026-01-20T00:21:46.5560514Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:21:46.5561208Z [DEBUG] Received response (Length: 257)
+2026-01-20T00:21:46.5562199Z     🤖 AI Next Step Suggestion: click -> GET /user/login Logs user into the system
+2026-01-20T00:21:46.5563605Z     💭 Reasoning: To continue exploring the User operations, clicking on 'GET /user/login Logs user into the system' is a logical next step.
+2026-01-20T00:21:46.5565051Z       ❌ Rejected: Login action 'get /user/login logs user into the system' not relevant to scenario
+2026-01-20T00:21:46.5565972Z     ⚠️ AI suggestion 'click -> GET /user/login Logs user into the system' not relevant for current page/scenario. Skipping.
+2026-01-20T00:21:46.5566934Z   ▶️ [STEP step_5] CLICK: /user/login
+2026-01-20T00:21:46.5628551Z     🔍 Mining locators for: '/user/login'
+2026-01-20T00:21:46.6917442Z     ✅ Found 1 verified locators
+2026-01-20T00:21:50.2941473Z     ✅ State transitioned.
+2026-01-20T00:21:52.0649242Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:21:52.0650385Z [DEBUG] Received response (Length: 212)
+2026-01-20T00:21:52.0651755Z     🤖 AI Next Step Suggestion: click -> GET /user/logout Logs out current logged in user session
+2026-01-20T00:21:52.0652972Z     🧩 Suggested Locator: div:nth-child(7) > button
+2026-01-20T00:21:52.0654101Z     💭 Reasoning: To test the logout functionality of the user operations.
+2026-01-20T00:21:52.0655320Z     ➕ Injected AI step: click -> GET /user/logout Logs out current logged in user session
+2026-01-20T00:21:52.0657035Z   ▶️ [STEP step_5_ai_1] CLICK: GET /user/logout Logs out current logged in user session
+2026-01-20T00:21:52.0721519Z     🎯 Using AI-provided locator: div:nth-child(7) > button
+2026-01-20T00:21:52.0802958Z     🔍 Mining locators for: 'GET /user/logout Logs out current logged in user session'
+2026-01-20T00:21:52.1905608Z     ✅ Found 1 verified locators
+2026-01-20T00:21:55.7964935Z     ✅ State transitioned.
+2026-01-20T00:21:57.7001236Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:21:57.7001921Z [DEBUG] Received response (Length: 240)
+2026-01-20T00:21:57.7002864Z     🤖 AI Next Step Suggestion: click -> PUT /user/{username} Updated user
+2026-01-20T00:21:57.7003648Z     🧩 Suggested Locator: div:nth-child(2) > button
+2026-01-20T00:21:57.7004738Z     💭 Reasoning: Now that we've logged out, let's try updating a user. This will allow us to explore another user operation.
+2026-01-20T00:21:57.7005845Z     ➕ Injected AI step: click -> PUT /user/{username} Updated user
+2026-01-20T00:21:57.7006841Z   ▶️ [STEP step_5_ai_2] CLICK: PUT /user/{username} Updated user
+2026-01-20T00:21:57.7070212Z     🎯 Using AI-provided locator: div:nth-child(2) > button
+2026-01-20T00:21:57.7093528Z     🔍 Mining locators for: 'PUT /user/{username} Updated user'
+2026-01-20T00:21:57.8228002Z     ✅ Found 1 verified locators
+2026-01-20T00:22:01.4279588Z     ✅ State transitioned.
+2026-01-20T00:22:03.0831047Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:22:03.0831557Z [DEBUG] Received response (Length: 275)
+2026-01-20T00:22:03.0832483Z     🤖 AI Next Step Suggestion: click -> DELETE /user/{username} Delete user
+2026-01-20T00:22:03.0832987Z     🧩 Suggested Locator: div:nth-child(6) > button
+2026-01-20T00:22:03.0833759Z     💭 Reasoning: To continue exploring the User operations, I will click on the 'DELETE /user/{username} Delete user' button to interact with that operation.
+2026-01-20T00:22:03.0834520Z     ➕ Injected AI step: click -> DELETE /user/{username} Delete user
+2026-01-20T00:22:03.0835001Z   ▶️ [STEP step_5_ai_3] CLICK: DELETE /user/{username} Delete user
+2026-01-20T00:22:03.0899145Z     🎯 Using AI-provided locator: div:nth-child(6) > button
+2026-01-20T00:22:03.0921763Z     🔍 Mining locators for: 'DELETE /user/{username} Delete user'
+2026-01-20T00:22:03.2569490Z     ✅ Found 1 verified locators
+2026-01-20T00:22:06.8574189Z     ✅ State transitioned.
+2026-01-20T00:22:08.7034929Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:22:08.7035751Z [DEBUG] Received response (Length: 286)
+2026-01-20T00:22:08.7036750Z     🤖 AI Next Step Suggestion: click -> POST /user Create user
+2026-01-20T00:22:08.7037521Z     🧩 Suggested Locator: div[title='POST /user'] > button
+2026-01-20T00:22:08.7038402Z     💭 Reasoning: The goal is to verify basic interactions with the User operations. Since we've interacted with other user operations, creating a user is a logical next step.
+2026-01-20T00:22:08.7039188Z     ➕ Injected AI step: click -> POST /user Create user
+2026-01-20T00:22:08.7039571Z   ▶️ [STEP step_5_ai_4] CLICK: POST /user Create user
+2026-01-20T00:22:08.7107412Z     🎯 Using AI-provided locator: div[title='POST /user'] > button
+2026-01-20T00:22:08.7131777Z     🔍 Mining locators for: 'POST /user Create user'
+2026-01-20T00:22:08.8219401Z     ✅ Found 1 verified locators
+2026-01-20T00:22:12.4239062Z     ✅ State transitioned.
+2026-01-20T00:22:14.0290383Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:22:14.0290996Z [DEBUG] Received response (Length: 195)
+2026-01-20T00:22:14.0291638Z     🤖 AI Next Step Suggestion: done -> N/A
+2026-01-20T00:22:14.0292705Z     💭 Reasoning: The page is not rendering correctly, and the goal is to test Swagger UI interactions. Since the UI is not rendering, there are no further actions to take.
+2026-01-20T00:22:14.0293760Z   ▶️ [STEP step_6] ASSERT_VISIBLE: Logs user into the system
+2026-01-20T00:22:14.0356629Z     🔍 Mining locators for: 'Logs user into the system'
+2026-01-20T00:22:14.1262613Z     🧠 Consulting AI (Vision-First) to find 'Logs user into the system'...
+2026-01-20T00:22:14.1263181Z     🔍 Trying smart selectors for 'Logs user into the system'...
+2026-01-20T00:22:14.2660911Z     🔍 [SMART] Searching for: 'Logs user into the system' (trying 15+ strategies)
+2026-01-20T00:22:14.2661976Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:22:14.2663758Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:22:19.0367429Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:22:19.0367956Z [DEBUG] Received response (Length: 217)
+2026-01-20T00:22:19.0368833Z     💡 Expert Suggestion: The 'user' section likely contains the 'Logs user into the system' functionality.
+2026-01-20T00:22:19.0369518Z     🛠️ Executing corrective action: click -> 'user'
+2026-01-20T00:22:19.6712208Z     ✅ Executed corrective navigation
+2026-01-20T00:22:21.6723182Z     🔄 Retry 1/3 mining locators for 'Logs user into the system'...
+2026-01-20T00:22:22.7066517Z     🧠 Consulting AI (Vision-First) to find 'Logs user into the system'...
+2026-01-20T00:22:22.7067617Z     🔍 Trying smart selectors for 'Logs user into the system'...
+2026-01-20T00:22:22.8518925Z     🔍 [SMART] Searching for: 'Logs user into the system' (trying 15+ strategies)
+2026-01-20T00:22:22.8520047Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:22:22.8521622Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:23:27.3717127Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:23:27.3718803Z [DEBUG] LLM Error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.', 'status': 'RESOURCE_EXHAUSTED'}}
+2026-01-20T00:23:27.3720490Z ⚠️ 429 Rate Limit Hit. Cooling down for 60s...
+2026-01-20T00:23:27.3721323Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:23:27.3721784Z [DEBUG] Received response (Length: 241)
+2026-01-20T00:23:27.3722629Z     💡 Expert Suggestion: The 'Logs user into the system' functionality is likely accessible after exploring the API definition.
+2026-01-20T00:23:27.3723673Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:23:27.9425598Z     ✅ Executed corrective navigation
+2026-01-20T00:23:29.9449682Z     🔄 Retry 2/3 mining locators for 'Logs user into the system'...
+2026-01-20T00:23:30.9463104Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:23:30.9876780Z     🧠 Consulting AI (Vision-First) to find 'Logs user into the system'...
+2026-01-20T00:23:30.9877749Z     🔍 Trying smart selectors for 'Logs user into the system'...
+2026-01-20T00:23:31.1122876Z     🔍 [SMART] Searching for: 'Logs user into the system' (trying 15+ strategies)
+2026-01-20T00:23:31.1124065Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:23:31.1125991Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:23:32.4061960Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:23:32.4062770Z [DEBUG] Received response (Length: 239)
+2026-01-20T00:23:32.4063722Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:23:32.4064832Z     🧠 Verifying step validity for 'Logs user into the system' after no candidates found...
+2026-01-20T00:23:37.7392189Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:23:37.7393058Z [DEBUG] Received response (Length: 266)
+2026-01-20T00:23:37.7395940Z     🗑️ Step deemed INVALID: The page failed to render correctly, displaying 'Could not render BaseLayout, see the console.' Therefore, the element 'Logs user into the system' is likely not present or accessible in the current state.. Removing from workflow.
+2026-01-20T00:23:37.7398919Z     ⏭️ Skipping execution of invalid step: Logs user into the system
+2026-01-20T00:23:37.7399814Z   ▶️ [STEP step_7] CLICK: Try it out
+2026-01-20T00:23:37.7460844Z     🔍 Mining locators for: 'Try it out'
+2026-01-20T00:23:37.7862650Z     🧠 Consulting AI (Vision-First) to find 'Try it out'...
+2026-01-20T00:23:37.7863495Z     🔍 Trying smart selectors for 'Try it out'...
+2026-01-20T00:23:37.8895462Z     🔍 [SMART] Searching for: 'Try it out' (trying 15+ strategies)
+2026-01-20T00:23:37.8896807Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:23:37.8898565Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:23:42.6328400Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:23:42.6328982Z [DEBUG] Received response (Length: 280)
+2026-01-20T00:23:42.6330166Z     💡 Expert Suggestion: "Try it out" functionality is typically found after exploring the API definition. Clicking 'Explore' might reveal the interactive elements.
+2026-01-20T00:23:42.6331176Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:23:43.1893716Z     ✅ Executed corrective navigation
+2026-01-20T00:23:45.1917119Z     🔄 Retry 1/3 mining locators for 'Try it out'...
+2026-01-20T00:23:46.2364563Z     🧠 Consulting AI (Vision-First) to find 'Try it out'...
+2026-01-20T00:23:46.2365354Z     🔍 Trying smart selectors for 'Try it out'...
+2026-01-20T00:23:46.3360287Z     🔍 [SMART] Searching for: 'Try it out' (trying 15+ strategies)
+2026-01-20T00:23:46.3361198Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:23:46.3362953Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:23:46.3365595Z [CACHE HIT] a3db6a54... (hits: 35, misses: 62)
+2026-01-20T00:23:46.3366745Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:23:46.3367171Z     🔄 Retry 2/3 mining locators for 'Try it out'...
+2026-01-20T00:23:47.3380208Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:23:47.3691335Z     🧠 Consulting AI (Vision-First) to find 'Try it out'...
+2026-01-20T00:23:47.3691854Z     🔍 Trying smart selectors for 'Try it out'...
+2026-01-20T00:23:47.4716509Z     🔍 [SMART] Searching for: 'Try it out' (trying 15+ strategies)
+2026-01-20T00:23:47.4717526Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:23:47.4718487Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:23:47.4721511Z [CACHE HIT] a3db6a54... (hits: 36, misses: 62)
+2026-01-20T00:23:47.4722216Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:23:47.4722773Z     🧠 Verifying step validity for 'Try it out' after no candidates found...
+2026-01-20T00:23:47.4725654Z [CACHE HIT] b6293950... (hits: 37, misses: 62)
+2026-01-20T00:23:47.4728432Z     🗑️ Step deemed INVALID: The page is displaying an error: "Could not render BaseLayout, see the console." This indicates that the Swagger UI is not properly loaded, and therefore the "Try it out" button will not be present. We are on the correct page, but the page is not rendering correctly.. Removing from workflow.
+2026-01-20T00:23:47.4730742Z     ⏭️ Skipping execution of invalid step: Try it out
+2026-01-20T00:23:47.4731353Z   ▶️ [STEP step_8] ASSERT_VISIBLE: Execute
+2026-01-20T00:23:47.4783776Z     🔍 Mining locators for: 'Execute'
+2026-01-20T00:23:47.5205489Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:23:47.5206384Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:23:47.6074391Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:23:47.6075351Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:23:47.6076529Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:23:47.6079238Z [CACHE HIT] b9f73e41... (hits: 38, misses: 62)
+2026-01-20T00:23:47.6080530Z     💡 Expert Suggestion: The 'Explore' button likely navigates to a page where API endpoints and 'Execute' buttons are located.
+2026-01-20T00:23:47.6081713Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:23:48.1800312Z     ✅ Executed corrective navigation
+2026-01-20T00:23:50.1823531Z     🔄 Retry 1/3 mining locators for 'Execute'...
+2026-01-20T00:23:51.2193991Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:23:51.2194695Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:23:51.3193473Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:23:51.3194285Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:23:51.3195272Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:23:51.3197800Z [CACHE HIT] b9f73e41... (hits: 39, misses: 62)
+2026-01-20T00:23:51.3198560Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:23:51.3198966Z     🔄 Retry 2/3 mining locators for 'Execute'...
+2026-01-20T00:23:52.3212250Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:23:52.3529375Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:23:52.3530188Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:23:52.4389679Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:23:52.4390643Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:23:52.4392251Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:23:52.4393971Z [CACHE HIT] b9f73e41... (hits: 40, misses: 62)
+2026-01-20T00:23:52.4394590Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:23:52.4395326Z     🧠 Verifying step validity for 'Execute' after no candidates found...
+2026-01-20T00:23:52.4398612Z [CACHE HIT] 6a700859... (hits: 41, misses: 62)
+2026-01-20T00:23:52.4401369Z     🗑️ Step deemed INVALID: The page displays 'Could not render BaseLayout, see the console.' This indicates that the Swagger UI failed to load correctly. Therefore, the 'Execute' button, which is part of the interactive API documentation, is not present on the page. We are on the correct page, but the content is not loaded properly.. Removing from workflow.
+2026-01-20T00:23:52.4403475Z     ⏭️ Skipping execution of invalid step: Execute
+2026-01-20T00:23:52.4403844Z     ⚡ PARALLEL MODE: Batching 2 fill steps
+2026-01-20T00:23:52.4404173Z     ⚡ Batch mining 2 fields in parallel...
+2026-01-20T00:23:52.4688416Z     🔍 Trying smart selectors for 'username'...
+2026-01-20T00:23:52.4698434Z     🔍 [SMART] Searching for: 'username' (trying 15+ strategies)
+2026-01-20T00:23:52.4699538Z     🔍 Trying smart selectors for 'password'...
+2026-01-20T00:23:52.5640465Z     🔍 [SMART] Searching for: 'password' (trying 15+ strategies)
+2026-01-20T00:23:52.5641431Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:23:52.5642983Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:23:52.5661378Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:23:52.5662306Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:23:52.5665329Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:23:58.9259369Z [DEBUG] Received response (Length: 270)
+2026-01-20T00:23:58.9260127Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:23:58.9260734Z [DEBUG] Received response (Length: 314)
+2026-01-20T00:23:58.9261637Z     ✅ Batch mined 'username' (1 locators)
+2026-01-20T00:23:58.9262206Z     ✅ Batch mined 'password' (1 locators)
+2026-01-20T00:23:58.9262733Z     ✅ Batch mined 2/2 steps successfully
+2026-01-20T00:23:58.9263253Z   ▶️ [STEP step_11] CLICK: Execute
+2026-01-20T00:23:58.9323421Z     🔍 Mining locators for: 'Execute'
+2026-01-20T00:23:58.9693046Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:23:58.9693856Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:23:59.0556872Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:23:59.0557741Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:23:59.0558880Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:24:03.7538189Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:24:03.7538894Z [DEBUG] Received response (Length: 215)
+2026-01-20T00:24:03.7540358Z     💡 Expert Suggestion: Clicking 'Explore' might reveal the API operations and the 'Execute' button.
+2026-01-20T00:24:03.7541299Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:24:04.3207992Z     ✅ Executed corrective navigation
+2026-01-20T00:24:06.3231783Z     🔄 Retry 1/3 mining locators for 'Execute'...
+2026-01-20T00:24:07.3684260Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:24:07.3685002Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:24:07.4544984Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:24:07.4545834Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:24:07.4547951Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:24:07.4549825Z [CACHE HIT] b9f73e41... (hits: 42, misses: 65)
+2026-01-20T00:24:07.4550459Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:24:07.4551050Z     🔄 Retry 2/3 mining locators for 'Execute'...
+2026-01-20T00:24:08.4564812Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:24:08.5015569Z     🧠 Consulting AI (Vision-First) to find 'Execute'...
+2026-01-20T00:24:08.5016518Z     🔍 Trying smart selectors for 'Execute'...
+2026-01-20T00:24:08.5877284Z     🔍 [SMART] Searching for: 'Execute' (trying 15+ strategies)
+2026-01-20T00:24:08.5878227Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:24:08.5879502Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:24:08.5882112Z [CACHE HIT] b9f73e41... (hits: 43, misses: 65)
+2026-01-20T00:24:08.5882715Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:24:08.5883346Z     🧠 Verifying step validity for 'Execute' after no candidates found...
+2026-01-20T00:24:08.5886793Z [CACHE HIT] 6a700859... (hits: 44, misses: 65)
+2026-01-20T00:24:08.5889047Z     🗑️ Step deemed INVALID: The page displays 'Could not render BaseLayout, see the console.' This indicates that the Swagger UI failed to load correctly. Therefore, the 'Execute' button, which is part of the interactive API documentation, is not present on the page. We are on the correct page, but the content is not loaded properly.. Removing from workflow.
+2026-01-20T00:24:08.5890569Z     ⏭️ Skipping execution of invalid step: Execute
+2026-01-20T00:24:08.5890949Z   ▶️ [STEP step_12] ASSERT_VISIBLE: Server response
+2026-01-20T00:24:08.5939166Z     🔍 Mining locators for: 'Server response'
+2026-01-20T00:24:08.6350141Z     🧠 Consulting AI (Vision-First) to find 'Server response'...
+2026-01-20T00:24:08.6350953Z     🔍 Trying smart selectors for 'Server response'...
+2026-01-20T00:24:08.7420102Z     🔍 [SMART] Searching for: 'Server response' (trying 15+ strategies)
+2026-01-20T00:24:08.7421025Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:24:08.7421949Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:24:08.7424893Z [CACHE HIT] a7b49681... (hits: 45, misses: 65)
+2026-01-20T00:24:08.7425949Z     💡 Expert Suggestion: Clicking 'Explore' might reveal the server response or navigate to a page where it's visible.
+2026-01-20T00:24:08.7426866Z     🛠️ Executing corrective action: click -> 'Explore'
+2026-01-20T00:24:09.3043872Z     ✅ Executed corrective navigation
+2026-01-20T00:24:11.3067474Z     🔄 Retry 1/3 mining locators for 'Server response'...
+2026-01-20T00:24:12.3527397Z     🧠 Consulting AI (Vision-First) to find 'Server response'...
+2026-01-20T00:24:12.3528282Z     🔍 Trying smart selectors for 'Server response'...
+2026-01-20T00:24:12.4538946Z     🔍 [SMART] Searching for: 'Server response' (trying 15+ strategies)
+2026-01-20T00:24:12.4540170Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:24:12.4541116Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:24:12.4543851Z [CACHE HIT] a7b49681... (hits: 46, misses: 65)
+2026-01-20T00:24:12.4544515Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:24:12.4544933Z     🔄 Retry 2/3 mining locators for 'Server response'...
+2026-01-20T00:24:13.4557946Z     🗑️ Invalidating stale AI cache (retry 2)...
+2026-01-20T00:24:13.4844206Z     🧠 Consulting AI (Vision-First) to find 'Server response'...
+2026-01-20T00:24:13.4844900Z     🔍 Trying smart selectors for 'Server response'...
+2026-01-20T00:24:13.5844664Z     🔍 [SMART] Searching for: 'Server response' (trying 15+ strategies)
+2026-01-20T00:24:13.5845602Z     ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...
+2026-01-20T00:24:13.5846907Z     🧠 [EXPERT] Strategy: Act as Senior SDET focusing on exploring the application to understand functional flow and identifying critical paths for end-to-end automation.
+2026-01-20T00:24:13.5849632Z [CACHE HIT] a7b49681... (hits: 47, misses: 65)
+2026-01-20T00:24:13.5850250Z     ⚠️ Skipping duplicate injection: Explore
+2026-01-20T00:24:13.5850985Z     🧠 Verifying step validity for 'Server response' after no candidates found...
+2026-01-20T00:24:13.5854127Z [CACHE HIT] 198f8f75... (hits: 48, misses: 65)
+2026-01-20T00:24:13.5855946Z     🗑️ Step deemed INVALID: The page failed to render correctly ('Could not render BaseLayout, see the console.'). Therefore, the 'Server response' element is likely not present or accessible in the current state. We need a properly rendered page to interact with the elements.. Removing from workflow.
+2026-01-20T00:24:13.5857634Z     ⏭️ Skipping execution of invalid step: Server response
+2026-01-20T00:24:15.6212584Z 🗂️  All generated tests written to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_petstore_swagger/tests/generated_scenarios.json
+2026-01-20T00:24:15.6215022Z 
+2026-01-20T00:24:15.6215734Z 📝 Processing scenario 'Explore Swagger UI - Pet Operations' with 6 steps
+2026-01-20T00:24:15.6217356Z   🔍 Step 1 (assert_visible): Found 1 mined locators
+2026-01-20T00:24:15.6218256Z       ✅ Kept robust locator (0.92): #swagger-ui...
+2026-01-20T00:24:15.6219138Z   💾 Saved 1 robust locators (top stability: 0.92)
+2026-01-20T00:24:15.6220123Z   🔍 Step 2 (click): Found 1 mined locators
+2026-01-20T00:24:15.6220987Z       ✅ Kept robust locator (0.95): #operations-tag-pet...
+2026-01-20T00:24:15.6221747Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:24:15.6222416Z   🔍 Step 3 (click): Found 2 mined locators
+2026-01-20T00:24:15.6223217Z       ✅ Kept robust locator (0.80): role=button[name='Explore']...
+2026-01-20T00:24:15.6224001Z       ✅ Kept robust locator (0.70): text='Explore'...
+2026-01-20T00:24:15.6224714Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-20T00:24:15.6225397Z   🔍 Step 4 (fill): Found 1 mined locators
+2026-01-20T00:24:15.6226084Z       ✅ Kept robust locator (0.95): #download-url-input...
+2026-01-20T00:24:15.6227014Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:24:15.6227667Z   🔍 Step 5 (click): Found 1 mined locators
+2026-01-20T00:24:15.6228387Z       ⚠️ Skipping positional locator: button:nth-of-type(2)...
+2026-01-20T00:24:15.6229363Z   ⚠️  No robust locators passed filtering. Executor will use fallback strategies.
+2026-01-20T00:24:15.6230477Z ✅ Updated scenario 'Explore Swagger UI - Pet Operations' with 6 validated steps
+2026-01-20T00:24:15.6231062Z 
+2026-01-20T00:24:15.6231574Z 📝 Processing scenario 'Explore Swagger UI - Store Operations' with 4 steps
+2026-01-20T00:24:15.6232499Z   🔍 Step 1 (assert_visible): Found 1 mined locators
+2026-01-20T00:24:15.6233213Z       ✅ Kept robust locator (0.92): #swagger-ui...
+2026-01-20T00:24:15.6233894Z   💾 Saved 1 robust locators (top stability: 0.92)
+2026-01-20T00:24:15.6234886Z   🔍 Step 2 (click): Found 1 mined locators
+2026-01-20T00:24:15.6235600Z       ✅ Kept robust locator (0.95): #operations-tag-store...
+2026-01-20T00:24:15.6236665Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:24:15.6237335Z   🔍 Step 3 (click): Found 2 mined locators
+2026-01-20T00:24:15.6238083Z       ✅ Kept robust locator (0.80): role=button[name='Explore']...
+2026-01-20T00:24:15.6238870Z       ✅ Kept robust locator (0.70): text='Explore'...
+2026-01-20T00:24:15.6239563Z   💾 Saved 2 robust locators (top stability: 0.80)
+2026-01-20T00:24:15.6240473Z ✅ Updated scenario 'Explore Swagger UI - Store Operations' with 4 validated steps
+2026-01-20T00:24:15.6241074Z 
+2026-01-20T00:24:15.6241933Z 📝 Processing scenario 'Explore Swagger UI - User Operations' with 16 steps
+2026-01-20T00:24:15.6242822Z   🔍 Step 1 (assert_visible): Found 1 mined locators
+2026-01-20T00:24:15.6243508Z       ✅ Kept robust locator (0.92): #swagger-ui...
+2026-01-20T00:24:15.6244220Z   💾 Saved 1 robust locators (top stability: 0.92)
+2026-01-20T00:24:15.6244869Z   🔍 Step 2 (click): Found 1 mined locators
+2026-01-20T00:24:15.6245580Z       ⚠️ Skipping positional locator: span:nth-of-type(2)...
+2026-01-20T00:24:15.6246710Z   ⚠️  No robust locators passed filtering. Executor will use fallback strategies.
+2026-01-20T00:24:15.6247572Z   🔍 Step 3 (click): Found 12 mined locators
+2026-01-20T00:24:15.6248469Z       ✅ Kept robust locator (0.80): role=button[name='POST /user/createWithList Create...
+2026-01-20T00:24:15.6249609Z       ✅ Kept robust locator (0.80): role=button[name='GET /user/{username} Get user by...
+2026-01-20T00:24:15.6250742Z       ✅ Kept robust locator (0.80): role=button[name='PUT /user/{username} Updated use...
+2026-01-20T00:24:15.6251890Z       ✅ Kept robust locator (0.80): role=button[name='DELETE /user/{username} Delete u...
+2026-01-20T00:24:15.6253033Z       ✅ Kept robust locator (0.80): role=button[name='GET /user/login Logs user into t...
+2026-01-20T00:24:15.6254167Z       ✅ Kept robust locator (0.80): role=button[name='GET /user/logout Logs out curren...
+2026-01-20T00:24:15.6255282Z       ✅ Kept robust locator (0.80): role=button[name='POST /user/createWithArray Creat...
+2026-01-20T00:24:15.6256532Z       ✅ Kept robust locator (0.80): role=button[name='POST /user Create user']...
+2026-01-20T00:24:15.6257453Z       ✅ Kept robust locator (0.80): role=button[name='User']...
+2026-01-20T00:24:15.6258194Z       ✅ Kept robust locator (0.85): #operations-tag-user...
+2026-01-20T00:24:15.6258866Z       ✅ Kept robust locator (0.70): text='User'...
+2026-01-20T00:24:15.6259571Z       ✅ Kept robust locator (0.70): text=Operations about user...
+2026-01-20T00:24:15.6260308Z   💾 Saved 3 robust locators (top stability: 0.85)
+2026-01-20T00:24:15.6260998Z   🔍 Step 4 (click): Found 1 mined locators
+2026-01-20T00:24:15.6261545Z       ✅ Kept robust locator (0.95): button...
+2026-01-20T00:24:15.6262160Z   💾 Saved 1 robust locators (top stability: 0.95)
+2026-01-20T00:24:15.6262756Z   🔍 Step 5 (click): Found 1 mined locators
+2026-01-20T00:24:15.6263576Z       ✅ Kept robust locator (0.70): button:has-text('ALLOW ALL COOKIES') >> nth=1...
+2026-01-20T00:24:15.6264380Z   💾 Saved 1 robust locators (top stability: 0.70)
+2026-01-20T00:24:15.6264968Z   🔍 Step 6 (click): Found 1 mined locators
+2026-01-20T00:24:15.6265769Z       ✅ Kept robust locator (0.80): role=button[name='POST /user/createWithArray Creat...
+2026-01-20T00:24:15.6266774Z   💾 Saved 1 robust locators (top stability: 0.80)
+2026-01-20T00:24:15.6267426Z   🔍 Step 7 (click): Found 1 mined locators
+2026-01-20T00:24:15.6268627Z       ✅ Kept robust locator (0.80): role=button[name='GET /user/{username} Get user by...
+2026-01-20T00:24:15.6269553Z   💾 Saved 1 robust locators (top stability: 0.80)
+2026-01-20T00:24:15.6270297Z   🔍 Step 8 (assert_visible): Found 5 mined locators
+2026-01-20T00:24:15.6271247Z       ✅ Kept robust locator (0.80): role=button[name='PUT /user/{username} Updated use...
+2026-01-20T00:24:15.6272600Z       ✅ Kept robust locator (0.80): role=button[name='DELETE /user/{username} Delete u...
+2026-01-20T00:24:15.6273774Z       ✅ Kept robust locator (0.80): role=button[name='GET /user/login Logs user into t...
+2026-01-20T00:24:15.6274567Z       ✅ Kept robust locator (0.80): role=button[name='GET /user/logout Logs out curren...
+2026-01-20T00:24:15.6275683Z       ✅ Kept robust locator (0.80): role=button[name='POST /user Create user']...
+2026-01-20T00:24:15.6276771Z   💾 Saved 3 robust locators (top stability: 0.80)
+2026-01-20T00:24:15.6277398Z   🔍 Step 9 (click): Found 1 mined locators
+2026-01-20T00:24:15.6278234Z       ✅ Kept robust locator (0.80): role=button[name='GET /user/login Logs user into t...
+2026-01-20T00:24:15.6279082Z   💾 Saved 1 robust locators (top stability: 0.80)
+2026-01-20T00:24:15.6279987Z   🔍 Step 10 (click): Found 1 mined locators
+2026-01-20T00:24:15.6280804Z       ✅ Kept robust locator (0.80): role=button[name='GET /user/logout Logs out curren...
+2026-01-20T00:24:15.6281639Z   💾 Saved 1 robust locators (top stability: 0.80)
+2026-01-20T00:24:15.6282318Z   🔍 Step 11 (click): Found 1 mined locators
+2026-01-20T00:24:15.6283154Z       ✅ Kept robust locator (0.80): role=button[name='PUT /user/{username} Updated use...
+2026-01-20T00:24:15.6284031Z   💾 Saved 1 robust locators (top stability: 0.80)
+2026-01-20T00:24:15.6286499Z   🔍 Step 12 (click): Found 1 mined locators
+2026-01-20T00:24:15.6287364Z       ✅ Kept robust locator (0.80): role=button[name='DELETE /user/{username} Delete u...
+2026-01-20T00:24:15.6288189Z   💾 Saved 1 robust locators (top stability: 0.80)
+2026-01-20T00:24:15.6288744Z   🔍 Step 13 (click): Found 1 mined locators
+2026-01-20T00:24:15.6289173Z       ✅ Kept robust locator (0.80): role=button[name='POST /user Create user']...
+2026-01-20T00:24:15.6289883Z   💾 Saved 1 robust locators (top stability: 0.80)
+2026-01-20T00:24:15.6290236Z   🔍 Step 14 (fill): Found 1 mined locators
+2026-01-20T00:24:15.6290572Z       ⚠️ Skipping low-confidence locator (0.60): ...
+2026-01-20T00:24:15.6291047Z   ⚠️  No robust locators passed filtering. Executor will use fallback strategies.
+2026-01-20T00:24:15.6291511Z   🔍 Step 15 (fill): Found 1 mined locators
+2026-01-20T00:24:15.6291845Z       ⚠️ Skipping low-confidence locator (0.60): ...
+2026-01-20T00:24:15.6292300Z   ⚠️  No robust locators passed filtering. Executor will use fallback strategies.
+2026-01-20T00:24:15.6292869Z ✅ Updated scenario 'Explore Swagger UI - User Operations' with 16 validated steps
+2026-01-20T00:24:15.6293374Z 🔄 Updated workflow.json with discovered steps and locators.
+2026-01-20T00:24:15.6293624Z 
+2026-01-20T00:24:15.6293728Z ============================================================
+2026-01-20T00:24:15.6294047Z 📊 EXPLORER PERFORMANCE SUMMARY
+2026-01-20T00:24:15.6294300Z ============================================================
+2026-01-20T00:24:15.6294502Z 
+2026-01-20T00:24:15.6294600Z 🔍 Locator Mining:
+2026-01-20T00:24:15.6294843Z    • Total Locators Mined: 40
+2026-01-20T00:24:15.6295104Z    • Filtered Out (Brittle): 4 (10.0%)
+2026-01-20T00:24:15.6295402Z    • Saved to Golden Path: 25 (62.5%)
+2026-01-20T00:24:15.6295569Z 
+2026-01-20T00:24:15.6295678Z ⚠️  Filtering Breakdown:
+2026-01-20T00:24:15.6295922Z    • Low Confidence (<0.75): 2
+2026-01-20T00:24:15.6296370Z    • Positional Selectors: 2
+2026-01-20T00:24:15.6296595Z 
+2026-01-20T00:24:15.6296718Z ✅ Golden Path Quality:
+2026-01-20T00:24:15.6296995Z    ✅ GOOD - 62.5% of mined locators are robust.
+2026-01-20T00:24:15.6297189Z 
+2026-01-20T00:24:15.6297279Z ============================================================
+2026-01-20T00:24:15.6297464Z 
+2026-01-20T00:24:15.6297584Z ✅ Deep Exploration Complete.
+2026-01-20T00:27:11.2185526Z 
+2026-01-20T00:27:11.2186709Z 🚀 [EXECUTE] Starting Automation Execution Engine
+2026-01-20T00:27:11.2187441Z 📍 Project: ci_petstore_swagger
+2026-01-20T00:27:11.2187899Z 🎬 Mode: Headless
+2026-01-20T00:27:11.2188100Z 
+2026-01-20T00:27:11.2188337Z --- Scenario: Explore Swagger UI - Pet Operations ---
+2026-01-20T00:27:11.2188873Z   ▶️  [STEP step_1] NAVIGATE: NAVIGATE
+2026-01-20T00:27:11.2189427Z     ✅ Step step_1 Passed.
+2026-01-20T00:27:11.2189725Z   ▶️  [STEP step_2] ASSERT_VISIBLE: Swagger UI
+2026-01-20T00:27:11.2190107Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:27:11.2190568Z     ✅ SUCCESS! Locator #1: #swagger-ui... (method: unknown, stability: 0.92)
+2026-01-20T00:27:11.2190962Z     ✅ Step step_2 Passed.
+2026-01-20T00:27:11.2191332Z   ▶️  [STEP step_2_ai_1] CLICK: pet Everything about your Pets Find out more
+2026-01-20T00:27:11.2191767Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:27:11.2192245Z     ✅ SUCCESS! Locator #1: #operations-tag-pet... (method: unknown, stability: 0.95)
+2026-01-20T00:27:11.2192670Z     ✅ Step step_2_ai_1 Passed.
+2026-01-20T00:27:11.2193120Z   ▶️  [STEP step_2_ai_2] CLICK: Explore
+2026-01-20T00:27:11.2193452Z     🔍 Trying 2 validated locators from golden path...
+2026-01-20T00:27:11.2193944Z     ✅ SUCCESS! Locator #1: role=button[name='Explore']... (method: unknown, stability: 0.80)
+2026-01-20T00:27:11.2194392Z     ✅ Step step_2_ai_2 Passed.
+2026-01-20T00:27:11.2194682Z   ▶️  [STEP step_2_ai_3] FILL: download-url-input
+2026-01-20T00:27:11.2195044Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:27:11.2195513Z     ✅ SUCCESS! Locator #1: #download-url-input... (method: unknown, stability: 0.95)
+2026-01-20T00:27:11.2195928Z     ✅ Step step_2_ai_3 Passed.
+2026-01-20T00:27:11.2196480Z   ▶️  [STEP step_2_ai_4] CLICK: Explore
+2026-01-20T00:27:11.2196933Z     ✅ Step step_2_ai_4 Passed.
+2026-01-20T00:27:11.2197355Z ✅ Scenario 'Explore Swagger UI - Pet Operations' completed successfully!
+2026-01-20T00:27:11.2197644Z 
+2026-01-20T00:27:11.2197779Z --- Scenario: Explore Swagger UI - Store Operations ---
+2026-01-20T00:27:11.2198154Z   ▶️  [STEP step_1] NAVIGATE: NAVIGATE
+2026-01-20T00:27:11.2198434Z     ✅ Step step_1 Passed.
+2026-01-20T00:27:11.2198704Z   ▶️  [STEP step_2] ASSERT_VISIBLE: Swagger UI
+2026-01-20T00:27:11.2199052Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:27:11.2199501Z     ✅ SUCCESS! Locator #1: #swagger-ui... (method: unknown, stability: 0.92)
+2026-01-20T00:27:11.2199882Z     ✅ Step step_2 Passed.
+2026-01-20T00:27:11.2200199Z   ▶️  [STEP step_2_ai_1] CLICK: store Access to Petstore orders
+2026-01-20T00:27:11.2200590Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:27:11.2201057Z     ✅ SUCCESS! Locator #1: #operations-tag-store... (method: unknown, stability: 0.95)
+2026-01-20T00:27:11.2201477Z     ✅ Step step_2_ai_1 Passed.
+2026-01-20T00:27:11.2201742Z   ▶️  [STEP step_2_ai_2] CLICK: Explore
+2026-01-20T00:27:11.2202065Z     🔍 Trying 2 validated locators from golden path...
+2026-01-20T00:27:11.2202550Z     ✅ SUCCESS! Locator #1: role=button[name='Explore']... (method: unknown, stability: 0.80)
+2026-01-20T00:27:11.2202996Z     ✅ Step step_2_ai_2 Passed.
+2026-01-20T00:27:11.2203380Z ✅ Scenario 'Explore Swagger UI - Store Operations' completed successfully!
+2026-01-20T00:27:11.2203664Z 
+2026-01-20T00:27:11.2203788Z --- Scenario: Explore Swagger UI - User Operations ---
+2026-01-20T00:27:11.2204129Z   ▶️  [STEP step_1] NAVIGATE: NAVIGATE
+2026-01-20T00:27:11.2204400Z     ✅ Step step_1 Passed.
+2026-01-20T00:27:11.2204669Z   ▶️  [STEP step_2] ASSERT_VISIBLE: Swagger UI
+2026-01-20T00:27:11.2205008Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:27:11.2205432Z     ✅ SUCCESS! Locator #1: #swagger-ui... (method: unknown, stability: 0.92)
+2026-01-20T00:27:11.2205808Z     ✅ Step step_2 Passed.
+2026-01-20T00:27:11.2206622Z   ▶️  [STEP step_2_ai_1] CLICK: user Operations about user Find out more about our store POST /user/createWithList Creates list of
+2026-01-20T00:27:11.2207417Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-20T00:27:11.2208002Z Call log:
+2026-01-20T00:27:11.2208206Z   - waiting for locator("text=user Operati...
+2026-01-20T00:27:11.2208910Z     🔧 [AUTO-HEAL] Re-mining page to find 'user Operations about user Find out more about our store POST /user/createWithList Creates list of'...
+2026-01-20T00:27:11.2209685Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:27:11.2210025Z [DEBUG] Received response (Length: 502)
+2026-01-20T00:27:11.2210350Z     ✨ AI heal found 2 alternatives. Validating...
+2026-01-20T00:27:11.2211127Z       ✅ Validated: 'https://petstore.swagger.io/v2...' matches 'user Operations about user Find out more about our store POST /user/createWithList Creates list of'
+2026-01-20T00:27:11.2211894Z       ❌ Validation error: Locator.count: SyntaxError: Failed to ex
+2026-01-20T00:27:11.2212253Z     ✅ 1 validated locators.
+2026-01-20T00:27:11.2212749Z     ✨ AI successfully healed the step! New selector: a[href='https://petstore.swagger.io/v2/swagger.json']
+2026-01-20T00:27:11.2213265Z     ✅ Step step_2_ai_1 Passed.
+2026-01-20T00:27:11.2213527Z   ▶️  [STEP step_3] CLICK: user
+2026-01-20T00:27:11.2213846Z     🔍 Trying 3 validated locators from golden path...
+2026-01-20T00:27:11.2214327Z     ✅ SUCCESS! Locator #1: #operations-tag-user... (method: unknown, stability: 0.85)
+2026-01-20T00:27:11.2214750Z     ✅ Step step_3 Passed.
+2026-01-20T00:27:11.2215104Z   ▶️  [STEP step_3_ai_1] CLICK: GET /user/{username} Get user by user name
+2026-01-20T00:27:11.2215525Z     🔍 Trying 1 validated locators from golden path...
+2026-01-20T00:27:11.2215924Z     ⚠️  Locator #1 matched 3 elements (need exactly 1): button...
+2026-01-20T00:27:11.2216866Z     ⚠️  All golden path locators failed. Will try text-based fallback.
+2026-01-20T00:27:11.2217439Z     ❌ Attempt 1 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-20T00:27:11.2217842Z Call log:
+2026-01-20T00:27:11.2218042Z   - waiting for locator("text=GET /user/{u...
+2026-01-20T00:27:11.2218507Z     🔧 [AUTO-HEAL] Re-mining page to find 'GET /user/{username} Get user by user name'...
+2026-01-20T00:27:11.2218992Z [DEBUG] Sending request to gemini-2.0-flash. Number of parts: 2
+2026-01-20T00:27:11.2219328Z [DEBUG] Received response (Length: 570)
+2026-01-20T00:27:11.2219662Z     ✨ AI heal found 2 alternatives. Validating...
+2026-01-20T00:27:11.2219980Z       ❌ Rejected: Element not found
+2026-01-20T00:27:11.2220249Z       ❌ Rejected: Element not found
+2026-01-20T00:27:11.2220587Z     ⚠️ All AI suggestions failed validation. Using original.
+2026-01-20T00:27:11.2221021Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-20T00:27:11.2221588Z     ❌ Attempt 2 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-20T00:27:11.2221972Z Call log:
+2026-01-20T00:27:11.2222164Z   - waiting for locator("text=GET /user/{u...
+2026-01-20T00:27:11.2222618Z     🔧 [AUTO-HEAL] Re-mining page to find 'GET /user/{username} Get user by user name'...
+2026-01-20T00:27:11.2223029Z [CACHE HIT] 31f5a08e... (hits: 1, misses: 2)
+2026-01-20T00:27:11.2223346Z     ✨ AI heal found 2 alternatives. Validating...
+2026-01-20T00:27:11.2223658Z       ❌ Rejected: Element not found
+2026-01-20T00:27:11.2223927Z       ❌ Rejected: Element not found
+2026-01-20T00:27:11.2224267Z     ⚠️ All AI suggestions failed validation. Using original.
+2026-01-20T00:27:11.2224698Z     ❌ AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-20T00:27:11.2225234Z     ❌ Attempt 3 failed (element_not_found): Locator.bounding_box: Timeout 30000ms exceeded.
+2026-01-20T00:27:11.2225622Z Call log:
+2026-01-20T00:27:11.2225817Z   - waiting for locator("text=GET /user/{u...
+2026-01-20T00:27:11.2226145Z     💀 Step step_3_ai_1 failed after all retries.
+2026-01-20T00:27:11.2226816Z 🛑 Scenario 'Explore Swagger UI - User Operations' aborted due to step failure.
+2026-01-20T00:27:11.2227119Z 
+2026-01-20T00:27:11.2227219Z ============================================================
+2026-01-20T00:27:11.2227635Z 🎯 EXECUTION SUMMARY
+2026-01-20T00:27:11.2228034Z ============================================================
+2026-01-20T00:27:11.2228222Z 
+2026-01-20T00:27:11.2228336Z 📋 Scenario Overview:
+2026-01-20T00:27:11.2228575Z    • Total Scenarios Planned: 3
+2026-01-20T00:27:11.2228957Z    • Scenarios Executed: 3
+2026-01-20T00:27:11.2229207Z    • Total Steps Executed: 15
+2026-01-20T00:27:11.2229352Z 
+2026-01-20T00:27:11.2229443Z ✅ Results:
+2026-01-20T00:27:11.2229633Z    ✅ Passed: 2 (66%)
+2026-01-20T00:27:11.2229846Z    ❌ Failed: 1 (33%)
+2026-01-20T00:27:11.2229956Z 
+2026-01-20T00:27:11.2230061Z ⚠️  Failed Scenarios:
+2026-01-20T00:27:11.2230326Z    • Explore Swagger UI - User Operations
+2026-01-20T00:27:11.2230519Z 
+2026-01-20T00:27:11.2230610Z ============================================================
+2026-01-20T00:27:11.2230797Z 
+2026-01-20T00:27:11.2231271Z 🏁 Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_petstore_swagger/execution.json
+2026-01-20T00:27:11.2231769Z 
+2026-01-20T00:27:11.2231858Z ============================================================
+2026-01-20T00:27:11.2232156Z 📊 EXECUTOR PERFORMANCE SUMMARY
+2026-01-20T00:27:11.2232393Z ============================================================
+2026-01-20T00:27:11.2232578Z 
+2026-01-20T00:27:11.2232677Z 🎯 Execution Results:
+2026-01-20T00:27:11.2232895Z    • Total Steps: 15
+2026-01-20T00:27:11.2233135Z    • First-Attempt Success: 13 (86.7%)
+2026-01-20T00:27:11.2233421Z    • Required AI Healing: 3 (20.0%)
+2026-01-20T00:27:11.2233685Z    • Final Failures: 1 (6.7%)
+2026-01-20T00:27:11.2233832Z 
+2026-01-20T00:27:11.2233948Z 🛤️  Golden Path Effectiveness:
+2026-01-20T00:27:11.2234212Z    • Steps with Mined Locators: 10
+2026-01-20T00:27:11.2234482Z    • Golden Path Hits: 9 (90.0%)
+2026-01-20T00:27:11.2234727Z    • Golden Path Misses: 1
+2026-01-20T00:27:11.2234975Z    • Fallback Used (No Locators): 5
+2026-01-20T00:27:11.2235136Z 
+2026-01-20T00:27:11.2235236Z 📈 Overall Assessment:
+2026-01-20T00:27:11.2235534Z    ✅ GOOD! Most steps following golden path successfully.
+2026-01-20T00:27:11.2235765Z 
+2026-01-20T00:27:11.2235878Z 🎯 vs Target (100% Flawless):
+2026-01-20T00:27:11.2236119Z    📊 Gap: 13.3% from target
+2026-01-20T00:27:11.2236664Z    💡 Recommendation: Review 1 golden path misses
+2026-01-20T00:27:11.2237094Z    💡 Recommendation: Explorer needs to mine locators for 5 steps
+2026-01-20T00:27:11.2237342Z 
+2026-01-20T00:27:11.2237437Z ============================================================
+2026-01-20T00:27:11.3314455Z 
+2026-01-20T00:27:11.3315152Z [PHASE] Running Phase: DISCOVERY
+2026-01-20T00:27:11.3319207Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/discovery.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_petstore_swagger --url https://petstore.swagger.io/ --deep
+2026-01-20T00:27:11.3321396Z ✅ Phase 'discovery' completed successfully.
+2026-01-20T00:27:11.3321714Z 
+2026-01-20T00:27:11.3321890Z [PHASE] Running Phase: PLANNING
+2026-01-20T00:27:11.3323781Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_petstore_swagger --goal Test Swagger UI interactions --url https://petstore.swagger.io/ --deep
+2026-01-20T00:27:11.3325851Z ✅ Phase 'planning' completed successfully.
+2026-01-20T00:27:11.3326329Z 
+2026-01-20T00:27:11.3326485Z [PHASE] Running Phase: EXPLORATION
+2026-01-20T00:27:11.3327994Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/deep_explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_petstore_swagger
+2026-01-20T00:27:11.3329663Z ✅ Phase 'exploration' completed successfully.
+2026-01-20T00:27:11.3330223Z 📊 Exploration Discovery Success Rate: 82.6%
+2026-01-20T00:27:11.3330520Z 
+2026-01-20T00:27:11.3330949Z [PHASE] Running Phase: EXECUTION
+2026-01-20T00:27:11.3332405Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_petstore_swagger
+2026-01-20T00:27:11.3334198Z ✅ Phase 'execution' completed successfully.
+2026-01-20T00:27:11.3334492Z 
+2026-01-20T00:27:11.3334643Z [DONE] Pipeline Execution Finished! [DONE]
