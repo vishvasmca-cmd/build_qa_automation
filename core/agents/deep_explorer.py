@@ -77,6 +77,9 @@ class DeepExplorerAgent:
         
         for loc in locators:
             selector = loc.get("value", "")
+            if not selector:
+                continue
+
             confidence = loc.get("confidence", 0.0)
             
             # 🐛 FIX Bug #5: Assign default confidence if missing or zero
