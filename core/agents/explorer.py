@@ -32,6 +32,9 @@ from core.lib.error_handler import ErrorHandler
 from core.lib.domain_expert import DomainExpert
 from core.lib.exploration_context import ExplorationContext
 from core.lib.navigation_metrics import NavigationMetrics
+from core.lib.failure_kb import FailureKnowledgeBase
+from core.lib.data_generator import DataGenerator
+from core.lib.debug_recorder import DebugRecorder
 
 class ExplorerAgent:
     """
@@ -41,12 +44,25 @@ class ExplorerAgent:
     def __init__(self, project_dir: str, headed: bool = False, shallow: bool = False):
         self.project_dir = os.path.abspath(project_dir)
         self.workflow_path = os.path.join(self.project_dir, "workflow.json")
+        self.sitemap_path = os.path.join(self.project_dir, "sitemap.json")
         self.debug_log = os.path.join(self.project_dir, "explorer_debug.log")
+        self.report_dir = os.path.join(self.project_dir, "reports")
         self.headed = headed
         self.shallow = shallow
         
         # Ensure project directory exists
         os.makedirs(self.project_dir, exist_ok=True)
+        os.makedirs(self.report_dir, exist_ok=True) # Ensure report directory exists
+        
+        self.failure_kb = FailureKnowledgeBase()
+        self.llm = SafeLLM(
+            model="gemini-2.0-flash",
+            temperature=0.0,
+            model_kwargs={"response_mime_type": "application/json"}
+        )
+        
+        # Initialize Debug Recorder
+        self.recorder = DebugRecorder(f"explorer_{int(time.time())}", self.report_dir)
         
         # Initialize Debug Log
         with open(self.debug_log, 'w', encoding='utf-8') as f:
@@ -466,10 +482,21 @@ class ExplorerAgent:
                                                     if count > 0 and await loc.first.is_visible():
                                                         await page.click(cand["value"], timeout=5000, force=True)
                                                         self.log(f"    ✅ Executed corrective navigation", "green")
+                                                        self.recorder.record_step(
+                                                            step_name=f"CORRECTIVE: {nav['action'].upper()}: {nav_target}",
+                                                            status="passed",
+                                                            details={"selector": cand["value"], "args": nav}
+                                                        )
                                                         await asyncio.sleep(2)
                                                         # Now retry the current step's mining
                                                         break
-                                                except Exception:
+                                                except Exception as e:
+                                                    self.log(f"    ❌ Corrective action failed: {e}", "red")
+                                                    self.recorder.record_step(
+                                                        step_name=f"CORRECTIVE: {nav['action'].upper()}: {nav_target}",
+                                                        status="failed",
+                                                        details={"error": str(e), "selector": cand["value"], "args": nav}
+                                                    )
                                                     continue
                                     
                                     # Since we navigated, we force a retry of mining immediately (or next loop)
@@ -1071,6 +1098,14 @@ class ExplorerAgent:
             if smart_result:
                 self.log(f"    ✅ Smart selector found '{description}' via {smart_result['method']} (confidence: {smart_result['confidence']})", "green")
                 self.metrics.record_element_resolution("smart")
+                
+                # Record in Debug Report
+                self.recorder.record_step(
+                     step_name=f"Smart Locator: {description}", 
+                     status="passed", 
+                     details={"result": smart_result, "input": description}
+                )
+                
                 return [{
                     "value": smart_result["selector"],
                     "confidence": smart_result["confidence"],
@@ -1148,6 +1183,15 @@ class ExplorerAgent:
             self.metrics.record_ai_call(is_batch=False, latency_ms=latency_ms)
             self.metrics.record_element_resolution("ai")
             
+            # ✅ Record AI Decision in Debug Report
+            candidates = fix.get("locators", []) if fix else []
+            self.recorder.record_ai_decision(
+                step_name=f"AI Vision: {description}",
+                prompt=message_content[0]["text"],
+                response=fix,
+                candidates=candidates
+            )
+            
             if fix:
                 if fix.get("found") and fix.get("locators"):
                     return fix["locators"]
@@ -1157,6 +1201,11 @@ class ExplorerAgent:
                     
         except Exception as e:
             self.log(f"    ⚠️ AI Vision Mining Error: {e}", "red")
+            self.recorder.record_step(
+                 step_name="AI Error",
+                 status="failed",
+                 details={"error": str(e)}
+            )
         return []
 
     async def _ask_llm_next_step(self, page: Page, goal: str, current_context: str, elements: List[Dict], screenshot: str = None) -> Optional[Dict]:
@@ -1420,12 +1469,90 @@ class ExplorerAgent:
             resp = await self.llm.ainvoke([{"role": "user", "content": message_content}])
             fix = try_parse_json(resp.content)
             
-            if fix and fix.get("found") and fix.get("selector"):
-                self.log(f"    ✨ AI Heal Reasoning: {fix.get('reasoning')}", "blue")
-                return fix["selector"]
+            # Record AI Decision
+            if fix:
+                self.recorder.record_ai_decision(
+                    step_name=f"HEAL: {description}",
+                    prompt=message_content[0]["text"],
+                    response=fix,
+                    candidates=fix.get("locators", [])
+                )
+            
+            if fix and fix.get("found"):
+                # Validate healed locators
+                candidates = fix.get("locators", [])
+                validated_candidates = []
+                
+                self.log(f"    ✨ AI suggested {len(candidates)} locators for healing.", "blue")
+                
+                for cand in candidates:
+                     # Check if it actually works
+                     try:
+                        count = await page.locator(cand["value"]).count()
+                        if count == 1:
+                            if await page.locator(cand["value"]).is_visible():
+                                validated_candidates.append(cand)
+                     except: pass
+                
+                if validated_candidates:
+                    best_fix = validated_candidates[0]
+                    self.log(f"    ✅ Selected best healed locator: {best_fix['value']}", "green")
+                    
+                    self.recorder.record_step(
+                        step_name=f"HEALED: {description}",
+                        status="passed",
+                        details={"original_failure": True, "healed_locator": best_fix}
+                    )
+                    
+                    return best_fix["value"]
+            
+            self.log(f"    ❌ AI healing failed to find valid replacements.", "red")
+            self.recorder.record_step(
+                step_name=f"HEAL FAILED: {description}",
+                status="failed",
+                details={"response": fix}
+            )
+            return None
+            
         except Exception as e:
-            self.log(f"    ⚠️ AI Healing Error: {e}", "red")
+            self.log(f"    ⚠️ Healing Error: {e}", "red")
+            self.recorder.record_step(
+                step_name=f"HEAL ERROR: {description}",
+                status="failed",
+                details={"error": str(e)}
+            )
         return None
+
+    async def replay_exploration(self, session_id: str):
+        """
+        Replays a previously recorded exploration session from its debug report.
+        """
+        import json
+        report_path = os.path.join(self.report_dir, f"debug_report_{session_id}.html")
+        if not os.path.exists(report_path):
+            self.log(f"❌ Replay failed: Report not found for session {session_id}", "red")
+            return
+            
+        self.log(f"🔄 Replaying session {session_id}...", "magenta")
+        
+        try:
+            with open(report_path, "r", encoding="utf-8") as f:
+                content = f.read()
+                # Extract JSON payload
+                start_marker = "const steps = "
+                end_marker = ";\n        const container"
+                start = content.find(start_marker) + len(start_marker)
+                end = content.find(end_marker)
+                if start > 0 and end > 0:
+                    steps_json = content[start:end]
+                    steps = json.loads(steps_json)
+                    
+                    self.log(f"    Found {len(steps)} recorded steps.", "cyan")
+                    for step in steps:
+                         self.log(f"    - {step['step']} ({step['status']})")
+                         
+        except Exception as e:
+            self.log(f"❌ Failed to parse report: {e}", "red")
 
     async def _verify_step_validity(self, page: Page, description: str, screenshot: str = None) -> Dict:
         """Uses AI (Vision) to verify if a step is valid or should be removed."""

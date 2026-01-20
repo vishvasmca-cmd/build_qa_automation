@@ -279,6 +279,13 @@ class ExecutorAgent:
                 # Target selector for this attempt
                 selector = best_selector or f"text={description}"
                 
+                # ✅ Support explicit index argument
+                if "index" in resolved_args:
+                    idx = resolved_args["index"]
+                    if selector and "nth=" not in selector:
+                        selector = f"{selector} >> nth={idx}"
+                        self.log(f"    🎯 Applied explicit index {idx}: {selector}", "cyan")
+                
                 # Visual highlight before action
                 await self._highlight_element(page, selector)
 

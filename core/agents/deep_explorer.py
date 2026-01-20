@@ -94,12 +94,29 @@ class DeepExplorerAgent:
                 self.log(f"      ⚠️ Skipping low-confidence locator ({confidence:.2f}): {selector[:50]}...", "yellow")
                 continue
             
-            # Rule 2: NEVER use positional selectors (too brittle)
-            if any(pattern in selector for pattern in ["nth-child", ":nth-of-type", "nth-last-child", ":nth("]):
-                self.perf_stats["total_locators_filtered_out"] += 1
-                self.perf_stats["filtering_reasons"]["positional"] += 1
-                self.log(f"      ⚠️ Skipping positional locator: {selector[:50]}...", "yellow")
-                continue
+            # Rule 2: Filter brittle positional selectors, but allow SCOPED ones
+            is_positional = any(pattern in selector for pattern in ["nth-child", ":nth-of-type", "nth-last-child", ":nth("])
+            
+            if is_positional:
+                # RELAXATION: Allow if it's a short scoped selector or has an ID/TestID
+                # e.g. "#todo-list > li:nth-child(2)" is GOOD
+                # e.g. "body > div:nth-child(4) > div:nth-child(2)" is BAD
+                
+                is_scoped = (
+                    "#" in selector or 
+                    "[data-" in selector or 
+                    len(selector.split(">")) <= 3  # Short chain
+                )
+                
+                if not is_scoped:
+                     self.perf_stats["total_locators_filtered_out"] += 1
+                     self.perf_stats["filtering_reasons"]["positional"] += 1
+                     self.log(f"      ⚠️ Skipping brittle positional locator: {selector[:50]}...", "yellow")
+                     continue
+                else:
+                     self.log(f"      ✨ Accepting scoped positional locator: {selector[:50]}...", "cyan")
+                     # Penalty for positional to prefer ID if available
+                     loc["confidence"] = loc.get("confidence", 0.7) - 0.1
             
             # Rule 3: Avoid state-dependent selectors
             if ":visible" in selector or ":hidden" in selector:
@@ -133,10 +150,25 @@ class DeepExplorerAgent:
         # Sort by stability score (highest first)
         robust_locators.sort(key=lambda x: x.get("stability_score", 0), reverse=True)
         
-        # Return top 3 most stable locators
-        top_locators = robust_locators[:3]
-        self.perf_stats["total_robust_locators_saved"] += len(top_locators)
-        return top_locators
+        # Rule 5: Diversity Check (Ensure we don't return 3 almost identical locators)
+        from core.lib.smart_locator import is_diverse_from_existing
+        
+        unique_locators = []
+        unique_values = []
+        
+        for loc in robust_locators:
+            if len(unique_locators) >= 3:
+                break
+                
+            if is_diverse_from_existing(loc["value"], unique_values):
+                unique_locators.append(loc)
+                unique_values.append(loc["value"])
+            else:
+                 self.log(f"      ⚠️ Skipping similar duplicate: {loc['value'][:30]}...", "grey")
+        
+        # Return top diverse stable locators
+        self.perf_stats["total_robust_locators_saved"] += len(unique_locators)
+        return unique_locators
     
     def _assign_default_confidence(self, selector: str) -> float:
         """🐛 FIX Bug #5: Assign confidence based on selector type when missing."""

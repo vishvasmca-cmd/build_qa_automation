@@ -14,7 +14,7 @@ IMPROVEMENTS (v2.0):
 Target: 93% success rate on modern sites (up from 85%)
 """
 
-from typing import Optional, Dict
+from typing import Optional, Dict, List, Any
 from playwright.async_api import Page
 import re
 
@@ -46,6 +46,7 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
     if debug is None:
         debug = DEBUG_SMART_SELECTORS
     
+    candidates = []
     strategies_tried = 0
     
     if debug:
@@ -56,7 +57,6 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
     desc_clean = re.sub(r'[^a-z0-9\s]', '', desc_lower)  # Remove special chars
     
     # === CRITICAL FIX: Detect CSS selectors to avoid parsing errors ===
-    # If description looks like a CSS selector, skip role/link strategies
     is_css_selector = (
         description.startswith(('div[', 'span[', 'button[', 'a[', 'input[', '#', '.')) or
         re.search(r'\[class\s*[=*^$~|]', description) or  # Matches [class=...] patterns
@@ -67,432 +67,153 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
     if debug and is_css_selector:
         print(f"    ⚠️ [SMART] Detected CSS selector syntax in '{description}' - skipping role/link strategies")
     
-    # === IMPROVEMENT 3 & 5: Role Locators + First Item Patterns (HIGHEST PRIORITY) ===
-    # Strategy 1: Semantic role locators with common e-commerce patterns
-    # SKIP if description is CSS selector (would cause InvalidSelectorError)
+    # === STRATEGIES ===
+    
+    # Strategy 1 & 2: Role Locators and generic ordinals
     if not is_css_selector:
+        # Ordinal generic
+        ordinal_selector = _handle_ordinals(description)
+        if ordinal_selector:
+            try:
+                base_part = ordinal_selector.split(" >> ")[0]
+                if await page.locator(base_part).count() >= 1:
+                    candidates.append({
+                        "selector": ordinal_selector,
+                        "confidence": 0.88,
+                        "method": "ordinal-generic",
+                        "count": 1
+                    })
+            except: pass
+            
+        # Role mappings
         role_mappings = {
             "button": ["button", "submit", "login", "register", "search", "add", "continue", "checkout", "proceed"],
             "link": ["link", "navigate", "view", "details", "cart", "product"],
             "textbox": ["email", "password", "username", "search", "name", "address", "city", "zip", "phone"],
         }
-        
         for role, keywords in role_mappings.items():
             if any(kw in desc_lower for kw in keywords):
-                # Try role with exact name
-                selector = f"role={role}[name='{description}' i]"
-                count = await page.locator(selector).count()
-                if count == 1:
-                    return {
-                        "selector": selector,
-                        "confidence": 0.96,
-                        "method": f"role-{role}-exact",
-                        "count": 1
-                    }
-                
-                # Try role with partial name
-                selector = f"role={role}[name*='{description}' i]"
-                count = await page.locator(selector).count()
-                if count == 1:
-                    return {
-                        "selector": selector,
-                        "confidence": 0.93,
-                        "method": f"role-{role}-partial",
-                        "count": 1
-                    }
+                # Exact
+                sel = f"role={role}[name='{description}' i]"
+                if await page.locator(sel).count() == 1:
+                    candidates.append({"selector": sel, "confidence": 0.96, "method": f"role-{role}-exact", "count": 1})
+                # Partial
+                sel = f"role={role}[name*='{description}' i]"
+                if await page.locator(sel).count() == 1:
+                    candidates.append({"selector": sel, "confidence": 0.93, "method": f"role-{role}-partial", "count": 1})
     
-    # === IMPROVEMENT 5: First Item / E-Commerce Patterns ===
-    # Strategy 2: Common e-commerce first-item patterns
-    if any(kw in desc_lower for kw in ["first", "product", "item", "add to cart"]):
+    # Strategy 3: Hardcoded e-commerce first-item (legacy)
+    if any(kw in desc_lower for kw in ["first", "product", "item"]):
         ecommerce_selectors = [
-            "a[data-product-id='1']",
-            "button[data-product-id='1']",
-            ".product:first-of-type button",
-            ".product:first-of-type a",
-            "[data-index='0'] button",
+             "ul > li:first-child a", "ul > li:first-child button", 
+             ".product:first-of-type button", "[data-index='0'] button"
         ]
-        
-        for selector in ecommerce_selectors:
-            count = await page.locator(selector).count()
-            if count == 1:
-                return {
-                    "selector": selector,
-                    "confidence": 0.90,
-                    "method": "ecommerce-first-item",
-                    "count": 1
-                }
-    
-    # Strategy 3: data-testid / data-test (explicit test hooks)
+        for sel in ecommerce_selectors:
+            if await page.locator(sel).count() == 1:
+                candidates.append({"selector": sel, "confidence": 0.90, "method": "ecommerce-first-item", "count": 1})
+                
+    # Strategy 4: data-testid
     for attr in ["data-testid", "data-test"]:
-        # Try exact match first
-        selector = f"[{attr}='{desc_clean}']"
-        count = await page.locator(selector).count()
-        if count == 1:
-            return {
-                "selector": selector,
-                "confidence": 0.98,
-                "method": f"{attr}-exact",
-                "count": 1
-            }
-        
-        # Try partial match (contains)
-        selector = f"[{attr}*='{desc_clean}']"
-        count = await page.locator(selector).count()
-        if count == 1:
-            return {
-                "selector": selector,
-                "confidence": 0.95,
-                "method": f"{attr}-partial",
-                "count": 1
-            }
-    
-    # === IMPROVEMENT 2: Exact IDs First (Before Partial) ===
-    # Strategy 4: id attribute - EXACT match with variations
-    # Convert description to common ID patterns
+        # Exact
+        sel = f"[{attr}='{desc_clean}']"
+        if await page.locator(sel).count() == 1:
+            candidates.append({"selector": sel, "confidence": 0.98, "method": f"{attr}-exact", "count": 1})
+        # Partial
+        sel = f"[{attr}*='{desc_clean}']"
+        if await page.locator(sel).count() == 1:
+            candidates.append({"selector": sel, "confidence": 0.95, "method": f"{attr}-partial", "count": 1})
+
+    # Strategy 5: ID exact/partial
     id_variations = [
-        desc_clean.replace(' ', '_'),      # "Search Product" -> "search_product"
-        desc_clean.replace(' ', '-'),      # "Search Product" -> "search-product"
-        desc_clean.replace(' ', ''),       # "Search Product" -> "searchproduct"
-        ''.join(word.capitalize() for word in desc_clean.split()) if ' ' in desc_clean else desc_clean,  # "searchProduct" (camelCase)
+        desc_clean.replace(' ', '_'),
+        desc_clean.replace(' ', '-'),
+        desc_clean.replace(' ', ''),
+        ''.join(word.capitalize() for word in desc_clean.split()) if ' ' in desc_clean else desc_clean
     ]
-    
-    for id_variant in id_variations:
-        if id_variant:  # Skip empty
-            selector = f"#{id_variant}"
-            count = await page.locator(selector).count()
-            if count == 1:
-                return {
-                    "selector": selector,
-                    "confidence": 0.92,
-                    "method": "id-exact",
-                    "count": 1
-                }
-    
-    # === IMPROVEMENT 1: Visibility Filtering (Before Rejection) ===
-    # Strategy 5: id attribute - PARTIAL match with visibility filter
-    selector = f"[id*='{desc_clean}']"
-    count = await page.locator(selector).count()
-    
-    if count > 1:
-        # Try filtering by visibility
-        visible_selector = f"{selector}:visible"
-        visible_count = await page.locator(visible_selector).count()
-        if visible_count == 1:
-            return {
-                "selector": visible_selector,
-                "confidence": 0.88,
-                "method": "id-partial-visible",
-                "count": 1
-            }
-    elif count == 1:
-        return {
-            "selector": selector,
-            "confidence": 0.85,
-            "method": "id-partial",
-            "count": 1
-        }
-    
-    # === IMPROVEMENT 4: Container Context ===
-    # Strategy 6: Context-aware selectors (visible containers)
-    containers = ["form:visible", ".modal:visible", ".popup:visible", "dialog:visible"]
-    
+    for id_var in id_variations:
+        if id_var:
+            sel = f"#{id_var}"
+            if await page.locator(sel).count() == 1:
+                candidates.append({"selector": sel, "confidence": 0.92, "method": "id-exact", "count": 1})
+                
+    sel = f"[id*='{desc_clean}']"
+    count = await page.locator(sel).count()
+    if count == 1:
+        candidates.append({"selector": sel, "confidence": 0.85, "method": "id-partial", "count": 1})
+    elif count > 1:
+        sel_vis = f"{sel}:visible"
+        if await page.locator(sel_vis).count() == 1:
+             candidates.append({"selector": sel_vis, "confidence": 0.88, "method": "id-partial-visible", "count": 1})
+             
+    # Strategy 6: Context Containers
+    containers = ["form:visible", ".modal:visible", "dialog:visible"]
     for container in containers:
-        # Check if container exists
         if await page.locator(container).count() > 0:
-            # Try button in container
-            selector = f"{container} button:has-text('{description}')"
-            count = await page.locator(selector).count()
-            if count == 1:
-                return {
-                    "selector": selector,
-                    "confidence": 0.87,
-                    "method": "container-button",
-                    "count": 1
-                }
-            
-            # Try input in container
-            selector = f"{container} input[placeholder*='{description}' i]"
-            count = await page.locator(selector).count()
-            if count == 1:
-                return {
-                    "selector": selector,
-                    "confidence": 0.86,
-                    "method": "container-input",
-                    "count": 1
-                }
-    
-    # Strategy 7: aria-label with visibility filter
-    selector = f"[aria-label*='{description}' i]"
-    count = await page.locator(selector).count()
-    
-    if count > 1:
-        visible_selector = f"{selector}:visible"
-        visible_count = await page.locator(visible_selector).count()
-        if visible_count == 1:
-            return {
-                "selector": visible_selector,
-                "confidence": 0.90,
-                "method": "aria-label-visible",
-                "count": 1
-            }
-    elif count == 1:
-        return {
-            "selector": selector,
-            "confidence": 0.92,
-            "method": "aria-label",
-            "count": 1
-        }
-    
-    # Strategy 8: placeholder with visibility filter
-    selector = f"[placeholder*='{description}' i]"
-    count = await page.locator(selector).count()
-    
-    if count > 1:
-        visible_selector = f"{selector}:visible"
-        visible_count = await page.locator(visible_selector).count()
-        if visible_count == 1:
-            return {
-                "selector": visible_selector,
-                "confidence": 0.88,
-                "method": "placeholder-visible",
-                "count": 1
-            }
-    elif count == 1:
-        return {
-            "selector": selector,
-            "confidence": 0.90,
-            "method": "placeholder",
-            "count": 1
-        }
-    
-    # Strategy 9: name attribute with visibility filter
-    selector = f"[name*='{desc_clean}']"
-    count = await page.locator(selector).count()
-    
-    if count > 1:
-        visible_selector = f"{selector}:visible"
-        visible_count = await page.locator(visible_selector).count()
-        if visible_count == 1:
-            return {
-                "selector": visible_selector,
-                "confidence": 0.86,
-                "method": "name-visible",
-                "count": 1
-            }
-    elif count == 1:
-        return {
-            "selector": selector,
-            "confidence": 0.88,
-            "method": "name",
-            "count": 1
-        }
-    
-    # Strategy 10: Semantic label + input association
-    try:
-        # Method A: label wrapping input
-        selector = f"label:has-text('{description}') input"
-        count = await page.locator(selector).count()
+            sel = f"{container} button:has-text('{description}')"
+            if await page.locator(sel).count() == 1:
+                candidates.append({"selector": sel, "confidence": 0.87, "method": "container-button", "count": 1})
+            sel = f"{container} input[placeholder*='{description}' i]"
+            if await page.locator(sel).count() == 1:
+                candidates.append({"selector": sel, "confidence": 0.86, "method": "container-input", "count": 1})
+
+    # Strategy 7-9: Attributes (aria-label, placeholder, name)
+    attr_map = {"aria-label": 0.92, "placeholder": 0.90, "name": 0.88}
+    for attr, conf in attr_map.items():
+        sel = f"[{attr}*='{desc_clean}' i]" if attr == "name" else f"[{attr}*='{description}' i]"
+        count = await page.locator(sel).count()
         if count == 1:
-            return {
-                "selector": selector,
-                "confidence": 0.87,
-                "method": "label-wrapped",
-                "count": 1
-            }
-        
-        # Method B: label with for= attribute
+            candidates.append({"selector": sel, "confidence": conf, "method": attr, "count": 1})
+        elif count > 1:
+            sel_vis = f"{sel}:visible"
+            if await page.locator(sel_vis).count() == 1:
+                candidates.append({"selector": sel_vis, "confidence": conf - 0.02, "method": f"{attr}-visible", "count": 1})
+
+    # Strategy 10: Label association
+    try:
+        sel = f"label:has-text('{description}') input"
+        if await page.locator(sel).count() == 1:
+            candidates.append({"selector": sel, "confidence": 0.87, "method": "label-wrapped", "count": 1})
+            
         labels = page.locator(f"label:has-text('{description}')")
-        label_count = await labels.count()
-        if label_count == 1:
+        if await labels.count() == 1:
             for_attr = await labels.get_attribute("for")
             if for_attr:
-                input_selector = f"#{for_attr}"
-                input_count = await page.locator(input_selector).count()
-                if input_count == 1:
-                    return {
-                        "selector": input_selector,
-                        "confidence": 0.87,
-                        "method": "label-for",
-                        "count": 1
-                    }
-    except Exception:
-        pass  # Label association failed, continue
+                sel = f"#{for_attr}"
+                if await page.locator(sel).count() == 1:
+                    candidates.append({"selector": sel, "confidence": 0.87, "method": "label-for", "count": 1})
+    except: pass
     
-    # Strategy 11: Button/link text (exact text match)
-    for tag in ["button", "a"]:
-        # Exact text match
-        selector = f"{tag}:has-text('{description}')"
-        count = await page.locator(selector).count()
-        if count == 1:
-            return {
-                "selector": selector,
-                "confidence": 0.90,
-                "method": f"{tag}-text-exact",
-                "count": 1
-            }
-    
-    # === NEW: Enhanced Button Text Matching ===
-    # Strategy 11b: Button text with :text-is() for case-insensitive exact match
-    for tag in ["button", "input[type='button']", "input[type='submit']", "a.btn", "a.button"]:
+    # Strategy 11: Text exact
+    for tag in ["button", "a", "span", "div"]:
         try:
-            selector = f"{tag}:text-is('{description}')"
-            count = await page.locator(selector).count()
+            sel = f"{tag}:text-is('{description}')"
+            count = await page.locator(sel).count()
             if count == 1:
-                return {
-                    "selector": selector,
-                    "confidence": 0.88,
-                    "method": "button-text-is",
-                    "count": 1
-                }
-            
-            # Try with visible filter
-            if count > 1:
-                visible_selector = f"{selector}:visible"
-                visible_count = await page.locator(visible_selector).count()
-                if visible_count == 1:
-                    return {
-                        "selector": visible_selector,
-                        "confidence": 0.86,
-                        "method": "button-text-is-visible",
-                        "count": 1
-                    }
-        except Exception:
-            pass
-    
-    # === IMPROVED: Enhanced Placeholder Matching ===  
-    # Strategy 11c: Exact placeholder match (case-insensitive)
-    try:
-        selector = f"input[placeholder='{description}' i]"
-        count = await page.locator(selector).count()
-        if count == 1:
-            return {
-                "selector": selector,
-                "confidence": 0.92,
-                "method": "placeholder-exact-ci",
-                "count": 1
-            }
+                candidates.append({"selector": sel, "confidence": 0.88, "method": f"{tag}-text-is", "count": 1})
+            elif count > 1:
+                sel_vis = f"{sel}:visible"
+                if await page.locator(sel_vis).count() == 1:
+                    candidates.append({"selector": sel_vis, "confidence": 0.86, "method": f"{tag}-text-is-visible", "count": 1})
+        except: pass
         
-        # Try textarea as well
-        selector = f"textarea[placeholder='{description}' i]"
-        count = await page.locator(selector).count()
-        if count == 1:
-            return {
-                "selector": selector,
-                "confidence": 0.92,
-                "method": "placeholder-exact-ci-textarea",
-                "count": 1
-            }
-    except Exception:
-        pass
-    
-    # === NEW: Name Attribute Exact Match ===
-    # Strategy 11d: Exact name match (case-insensitive) for form fields
+    # Strategy 11c: Exact placeholder/name
     try:
-        for tag in ["input", "select", "textarea"]:
-            selector = f"{tag}[name='{desc_clean}' i]"
-            count = await page.locator(selector).count()
-            if count == 1:
-                return {
-                    "selector": selector,
-                    "confidence": 0.90,
-                    "method": "name-exact",
-                    "count": 1
-                }
-    except Exception:
-        pass
-
-    
-    # === ADVANCED STRATEGIES FOR LEGACY SITES ===
-    
-    # Strategy 12: Fuzzy Token Matching
-    desc_tokens = desc_clean.split()
-    if len(desc_tokens) >= 2:
-        for tag in ["input", "select", "textarea"]:
-            for token in desc_tokens:
-                if len(token) >= 3:
-                    selector = f"{tag}[name*='{token}' i], {tag}[id*='{token}' i], {tag}[class*='{token}' i]"
-                    count = await page.locator(selector).count()
-                    if count == 1:
-                        return {
-                            "selector": selector,
-                            "confidence": 0.75,
-                            "method": "fuzzy-token",
-                            "count": 1
-                        }
-    
-    # Strategy 13: Proximity-Based (ENHANCED - Multi-level + Multiple Element Types)
-    try:
-        text_selector = f"text={description}"
-        text_count = await page.locator(text_selector).count()
-        
-        if text_count == 1:
-            # Define element types to try (in priority order)
-            element_types = ["input", "select", "textarea", "button"]
+        sel = f"input[placeholder='{description}' i]"
+        if await page.locator(sel).count() == 1:
+            candidates.append({"selector": sel, "confidence": 0.92, "method": "placeholder-exact-ci", "count": 1})
             
-            # Define proximity patterns with confidence levels
-            proximity_patterns = [
-                # Adjacent sibling (highest confidence - immediate neighbor)
-                {
-                    "pattern": "text={description} + {element}",
-                    "confidence": 0.82,
-                    "method": "proximity-adjacent"
-                },
-                # General sibling (any following sibling)
-                {
-                    "pattern": "text={description} ~ {element}",
-                    "confidence": 0.78,
-                    "method": "proximity-sibling"
-                },
-                # One parent level (most common)
-                {
-                    "pattern": "text={description} >> xpath=.. >> {element}",
-                    "confidence": 0.80,
-                    "method": "proximity-parent-1"
-                },
-                # Two parent levels (grandparent)
-                {
-                    "pattern": "text={description} >> xpath=.. >> xpath=.. >> {element}",
-                    "confidence": 0.75,
-                    "method": "proximity-parent-2"
-                },
-                # Three parent levels (great-grandparent)
-                {
-                    "pattern": "text={description} >> xpath=.. >> xpath=.. >> xpath=.. >> {element}",
-                    "confidence": 0.70,
-                    "method": "proximity-parent-3"
-                },
-            ]
-            
-            # Try each pattern with each element type
-            for element_type in element_types:
-                for pattern_config in proximity_patterns:
-                    selector = pattern_config["pattern"].format(
-                        description=description,
-                        element=element_type
-                    )
-                    count = await page.locator(selector).count()
-                    
-                    if count == 1:
-                        return {
-                            "selector": selector,
-                            "confidence": pattern_config["confidence"],
-                            "method": pattern_config["method"],
-                            "count": 1
-                        }
-    except Exception:
-        pass
+        sel = f"input[name='{desc_clean}' i]"
+        if await page.locator(sel).count() == 1:
+             candidates.append({"selector": sel, "confidence": 0.90, "method": "name-exact", "count": 1})
+    except: pass
     
-    # Strategy 14: Case-Insensitive Text
+    # Strategy 14: Case-insensitive text
     for tag in ["button", "a", "span"]:
-        selector = f"{tag}:text-is('{description}')"
-        count = await page.locator(selector).count()
-        if count == 1:
-            return {
-                "selector": selector,
-                "confidence": 0.85,
-                "method": "text-case-insensitive",
-                "count": 1
-            }
+        try:
+            sel = f"{tag}:text-is('{description}')"
+            if await page.locator(sel).count() == 1:
+                candidates.append({"selector": sel, "confidence": 0.85, "method": "text-case-insensitive", "count": 1})
+        except: pass
     
     # Strategy 15: Visual Scoring Fallback (when count > 1)
     fallback_selectors = [
@@ -508,15 +229,73 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
         if count > 1:
             best_selector = await _visual_scoring_fallback(page, selector)
             if best_selector:
-                return {
+                candidates.append({
                     "selector": best_selector,
                     "confidence": 0.70,
                     "method": "visual-scoring",
                     "count": 1
-                }
+                })
+
+    # === SELECT BEST CANDIDATE ===
+    if not candidates:
+        return None
+        
+    # Calculate stability scores for all candidates
+    for cand in candidates:
+        cand["stability_score"] = _calculate_stability_score(cand["selector"], cand)
+        
+    # === PHASE 5: History-Based Prioritization ===
+    try:
+        from urllib.parse import urlparse
+        domain = urlparse(page.url).netloc
+        candidates = prioritize_by_history(candidates, domain)
+    except:
+        pass
+        
+    # Sort by stability score (descending)
+    candidates.sort(key=lambda x: x["stability_score"], reverse=True)
     
-    # All deterministic strategies failed - return None to trigger AI fallback
-    return None
+    # Log TOP 3 (as requested)
+    if debug:
+        print(f"    🏆 TOP 3 Smart Locators found:")
+        for i, cand in enumerate(candidates[:3]):
+            score = cand['stability_score']
+            bonus = " (+History)" if cand.get("history_bonus") else ""
+            print(f"       {i+1}. {cand['selector']} (Score: {score:.2f}{bonus}, Method: {cand['method']})")
+            
+    # Return best
+    best = candidates[0]
+    return best
+
+
+def _calculate_stability_score(locator: str, context: Dict) -> float:
+    """Multi-factor stability scoring as requested."""
+    score = context.get("confidence", 0.5)  # Start with base confidence
+    
+    # Factor 1: Selector type
+    if 'id=' in locator or locator.startswith('#'):
+        score += 0.15  # IDs are stable
+    elif 'data-testid=' in locator or 'data-test=' in locator:
+        score += 0.20  # Test attributes are stable
+    elif 'role=' in locator:
+        score += 0.10  # ARIA roles are fairly stable
+    
+    # Factor 2: Brittle inclusions
+    import re
+    if ':nth-child(' in locator or ':nth-of-type(' in locator:
+        # Check if scoped
+        if not ("#" in locator or "data-" in locator or len(locator.split(">>")) < 3):
+             score -= 0.20  # Unscoped positional is brittle
+        else:
+             score -= 0.05  # Scoped positional is okayish
+             
+    if re.search(r'\.css-[a-z0-9]+', locator):  # CSS-in-JS classes
+        score -= 0.15
+        
+    if len(locator.split()) > 6:  # Very complex selectors
+        score -= 0.10
+        
+    return min(max(score, 0.0), 1.0)  # Clamp to [0, 1]
 
 
 async def _visual_scoring_fallback(page: Page, selector: str) -> Optional[str]:
@@ -583,3 +362,147 @@ async def _visual_scoring_fallback(page: Page, selector: str) -> Optional[str]:
         
     except Exception:
         return None
+
+
+def is_diverse_from_existing(new_locator: str, existing_locators: List[str], threshold: float = 0.85) -> bool:
+    """
+    Checks if a new locator is sufficiently different from existing ones using Jaccard similarity.
+    Returns True if diverse (keep it), False if too similar (discard).
+    """
+    if not existing_locators:
+        return True
+        
+    def _tokenize(s):
+        # Split by common CSS delimiters
+        return set(re.split(r'[\s>\+\~\.\[\]"#=]+', s))
+
+    new_tokens = _tokenize(new_locator)
+    
+    for existing in existing_locators:
+        # Exact match check
+        if new_locator == existing:
+            return False
+            
+        existing_tokens = _tokenize(existing)
+        
+        # Jaccard Similarity
+        intersection = len(new_tokens.intersection(existing_tokens))
+        union = len(new_tokens.union(existing_tokens))
+        
+        if union == 0:
+            continue
+            
+        similarity = intersection / union
+        
+        if similarity > threshold:
+            # Too similar!
+            return False
+            
+    return True
+
+
+def prioritize_by_history(candidates: List[Dict], domain: str) -> List[Dict]:
+    """
+    Reorders candidates based on historical success rates from knowledge/locator_patterns.json.
+    """
+    try:
+        # Locate knowledge file relative to this file
+        # core/lib/smart_locator.py -> ../../knowledge/locator_patterns.json
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        kb_path = os.path.join(base_dir, "knowledge", "locator_patterns.json")
+        
+        if not os.path.exists(kb_path):
+            return candidates
+            
+        with open(kb_path, "r", encoding="utf-8") as f:
+            patterns = json.load(f)
+            
+        domain_patterns = patterns.get(domain, {}).get("successful_patterns", [])
+        if not domain_patterns:
+            return candidates
+            
+        # Apply bonuses
+        for cand in candidates:
+            selector = cand["selector"]
+            # Check for exact or pattern match
+            for pattern in domain_patterns:
+                if pattern in selector:
+                     cand["stability_score"] += 0.15 # Success bonus
+                     cand["history_bonus"] = True
+                     break
+                     
+        # Re-sort
+        candidates.sort(key=lambda x: x["stability_score"], reverse=True)
+        return candidates
+        
+    except Exception:
+        return candidates
+
+def _handle_ordinals(description: str) -> Optional[str]:
+    """
+    Convert ordinal descriptions like 'first product', '2nd item' into :nth-child selectors.
+    
+    Returns:
+        Selector string (e.g., '.product >> nth=0') or None if no ordinal found.
+    """
+    desc_lower = description.lower().strip()
+    
+    # Map ordinal words to indices
+    ordinal_map = {
+        "first": 0, "1st": 0,
+        "second": 1, "2nd": 1,
+        "third": 2, "3rd": 2,
+        "fourth": 3, "4th": 3,
+        "fifth": 4, "5th": 4,
+        "last": -1
+    }
+    
+    # Find ordinal keyword
+    found_index = None
+    cleaned_desc = desc_lower
+    
+    for word, index in ordinal_map.items():
+        if word in desc_lower:
+            found_index = index
+            # Remove the ordinal word to get the "base" description
+            # e.g., "first product" -> "product"
+            cleaned_desc = desc_lower.replace(word, "").strip()
+            break
+            
+    if found_index is None:
+        return None
+        
+    # Heuristic: Map common item names to selectors
+    base_selector = None
+    
+    # 1. Product/Item heuristics
+    if any(x in cleaned_desc for x in ["product", "item", "result", "card"]):
+        # Try generic list items
+        base_selector = ".product, .item, .card, li, div[role='article']"
+        
+    # 2. Table row heuristics
+    elif "row" in cleaned_desc:
+        base_selector = "tr"
+        
+    # 3. List item heuristics
+    elif any(x in cleaned_desc for x in ["element", "entry", "option"]):
+        base_selector = "li, option, div[role='option']"
+        
+    # 4. Button/Link heuristics
+    elif "button" in cleaned_desc:
+        base_selector = "button, input[type='button'], a.btn"
+    elif "link" in cleaned_desc:
+        base_selector = "a"
+        
+    # 5. Fallback: Try to use the cleaned description as a class or ID
+    if not base_selector:
+        # e.g., "first todo-item" -> ".todo-item"
+        import re
+        clean_token = re.sub(r'[^a-z0-9-]', '', cleaned_desc.replace(" ", "-"))
+        if clean_token:
+            base_selector = f".{clean_token}, [data-test*='{clean_token}'], [id*='{clean_token}']"
+            
+    if base_selector:
+        return f"{base_selector} >> nth={found_index}"
+        
+    return None

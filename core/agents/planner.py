@@ -206,8 +206,8 @@ class PlannerAgent:
         
         **VALID KEYWORDS:**
         - navigate(url)
-        - click(description)
-        - fill(value, description)
+        - click(description, index=0)  # Use index for ordinal items (0=first, 1=second)
+        - fill(value, description, index=0)
         - type(value, description)
         - hover(description)
         - select(value, description)
