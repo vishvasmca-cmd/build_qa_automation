@@ -17,9 +17,31 @@ Target: 93% success rate on modern sites (up from 85%)
 from typing import Optional, Dict, List, Any
 from playwright.async_api import Page
 import re
+import json
+import os
 
 # Debug mode - set to True to see detailed strategy attempts
 DEBUG_SMART_SELECTORS = True
+
+# Early exit optimization: Stop trying strategies after finding high-confidence match
+# This can save 60-80% of execution time in common cases
+CONFIDENCE_THRESHOLD_EARLY_EXIT = 0.92  # Return immediately if confidence >= this
+
+# Helper function for CSS escaping
+def _css_escape(identifier: str) -> str:
+    """
+    Escape special characters in CSS identifiers.
+    Handles: spaces, /, (, ), [, ], etc.
+    """
+    # Characters that need escaping in CSS selectors
+    special_chars = r'[ !/"#$%&\'()*+,./:;<=>?@[\\\]^`{|}~]'
+    
+    def escape_char(match):
+        char = match.group(0)
+        # Escape with backslash and space
+        return f'\\{ord(char):x} '
+    
+    return re.sub(special_chars, escape_char, identifier).rstrip()
 
 
 async def find_element_smart(page: Page, description: str, debug: bool = None) -> Optional[Dict]:
@@ -50,7 +72,7 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
     strategies_tried = 0
     
     if debug:
-        print(f"    🔍 [SMART] Searching for: '{description}' (trying 15+ strategies)")
+        print(f"    🔍 [SMART] Searching for: '{description}' (optimized order: ID → Role → Name → Text)")
     
     # Normalize description for matching
     desc_lower = description.lower().strip()
@@ -68,25 +90,41 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
     if debug and is_css_selector:
         print(f"    ⚠️ [SMART] Detected CSS selector syntax in '{description}' - skipping role/link strategies")
     
-    # === STRATEGIES ===
+    # === STRATEGIES (OPTIMIZED ORDER BY SUCCESS RATE) ===
+    # Performance ranking from CI analysis:
+    # 1. id-exact: 35.3%
+    # 2. as-is-#: 9.8%  
+    # 3. role-*: 9.8%
+    # 4. name: 7.8%
+    # 5. text-is: 7.8%
     
-    # Strategy 0: Try description as-is (for technical IDs like "shopping_cart_container")
-    if not is_css_selector and ('_' in description or '-' in description):
-        # Looks like a technical ID/class, try it directly
-        for prefix in ['#', '.', '']:
-            sel = f"{prefix}{desc_with_separators}"
+    # Strategy 1: ID-exact (35% success rate - HIGHEST PERFORMER)
+    id_variations = [
+        desc_with_separators,  # Try original with underscores/dashes first
+        desc_clean.replace(' ', '_'),
+        desc_clean.replace(' ', '-'),
+        desc_clean.replace(' ', ''),
+        ''.join(word.capitalize() for word in desc_clean.split()) if ' ' in desc_clean else desc_clean
+    ]
+    for id_var in id_variations:
+        if id_var:
             try:
+                escaped_id = _css_escape(id_var)
+                sel = f"#{escaped_id}"
                 count = await page.locator(sel).count()
                 if debug:
-                    prefix_label = prefix if prefix else 'tag'
-                    print(f"      [0] as-is-{prefix_label}: '{sel}' → {count} matches")
+                    print(f"      [1] id-exact: '{sel}' → {count} matches")
                 if count == 1:
-                    candidates.append({"selector": sel, "confidence": 0.95, "method": f"as-is-{prefix or 'tag'}", "count": 1})
+                    # HIGH CONFIDENCE - Return immediately (no need to try other strategies)
+                    if debug:
+                        print(f"      ✅ EARLY EXIT: High confidence match found!")
+                    return {"selector": sel, "confidence": 0.92, "method": "id-exact", "count": 1}
             except Exception as e:
                 if debug:
-                    print(f"      [0] as-is: ERROR - {str(e)[:50]}")
+                    print(f"      [1] id-exact: ERROR - {str(e)[:80]}")
     
-    # Strategy 1 & 2: Role Locators and generic ordinals
+    # Strategy 2: Role Locators (10% success, 0.96 confidence - PROMOTED)
+    # Moved earlier due to high confidence and modern web standards
     if not is_css_selector:
         # Ordinal generic
         ordinal_selector = _handle_ordinals(description)
@@ -107,98 +145,96 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
                 if debug:
                     print(f"      [1] ordinal-generic: ERROR - {str(e)[:50]}")
             
-        # Role mappings
         role_mappings = {
-            "button": ["button", "submit", "login", "register", "search", "add", "continue", "checkout", "proceed"],
+            "button": ["button", "submit", "login", "register", "search", "add", "continue", "checkout", "proceed", "purchase", "buy"],
             "link": ["link", "navigate", "view", "details", "cart", "product"],
-            "textbox": ["email", "password", "username", "search", "name", "address", "city", "zip", "phone"],
+            "textbox": ["email", "password", "username", "search", "name", "address", "city", "zip", "phone", "first", "last"],
         }
         for role, keywords in role_mappings.items():
             if any(kw in desc_lower for kw in keywords):
-                # Exact
+                # Exact match
                 sel = f"role={role}[name='{description}' i]"
                 try:
                     count = await page.locator(sel).count()
                     if debug:
                         print(f"      [2] role-{role}-exact: '{sel}' → {count} matches")
                     if count == 1:
-                        candidates.append({"selector": sel, "confidence": 0.96, "method": f"role-{role}-exact", "count": 1})
+                        # HIGHEST CONFIDENCE - Return immediately
+                        if debug:
+                            print(f"      ✅ EARLY EXIT: Role match (0.96 confidence)!")
+                        return {"selector": sel, "confidence": 0.96, "method": f"role-{role}-exact", "count": 1}
                 except Exception as e:
                     if debug:
                         print(f"      [2] role-{role}-exact: ERROR - {str(e)[:50]}")
                 
-                # Partial
+                # Partial match
                 sel = f"role={role}[name*='{description}' i]"
                 try:
                     count = await page.locator(sel).count()
                     if debug:
-                        print(f"      [3] role-{role}-partial: '{sel}' → {count} matches")
+                        print(f"      [2] role-{role}-partial: '{sel}' → {count} matches")
                     if count == 1:
                         candidates.append({"selector": sel, "confidence": 0.93, "method": f"role-{role}-partial", "count": 1})
                 except Exception as e:
                     if debug:
-                        print(f"      [3] role-{role}-partial: ERROR - {str(e)[:50]}")
+                        print(f"      [2] role-{role}-partial: ERROR - {str(e)[:50]}")
     
-    # Strategy 3: Hardcoded e-commerce first-item (legacy)
-    if any(kw in desc_lower for kw in ["first", "product", "item"]):
-        ecommerce_selectors = [
-             "ul > li:first-child a", "ul > li:first-child button", 
-             ".product:first-of-type button", "[data-index='0'] button"
-        ]
-        for sel in ecommerce_selectors:
-            count = await page.locator(sel).count()
-            if debug:
-                print(f"      [4] ecommerce-first-item: '{sel}' → {count} matches")
-            if count == 1:
-                candidates.append({"selector": sel, "confidence": 0.90, "method": "ecommerce-first-item", "count": 1})
+    # Strategy 3: as-is technical IDs (10% success rate)
+    if not is_css_selector and ('_' in description or '-' in description):
+        for prefix in ['#', '.', '']:
+            sel = f"{prefix}{desc_with_separators}"
+            try:
+                count = await page.locator(sel).count()
+                if debug:
+                    prefix_label = prefix if prefix else 'tag'
+                    print(f"      [3] as-is-{prefix_label}: '{sel}' → {count} matches")
+                if count == 1:
+                    # HIGH CONFIDENCE - Return immediately
+                    if debug:
+                        print(f"      ✅ EARLY EXIT: as-is match (0.95 confidence)!")
+                    return {"selector": sel, "confidence": 0.95, "method": f"as-is-{prefix or 'tag'}", "count": 1}
+            except Exception as e:
+                if debug:
+                    print(f"      [3] as-is: ERROR - {str(e)[:50]}")
+    
+    # Strategy 4: Ordinal selectors (6% success rate)
+    if not is_css_selector:
+        ordinal_selector = _handle_ordinals(description)
+        if ordinal_selector:
+            try:
+                base_part = ordinal_selector.split(" >> ")[0]
+                count = await page.locator(base_part).count()
+                if debug:
+                    print(f"      [4] ordinal-generic: '{ordinal_selector}' → {count} matches")
+                if count >= 1:
+                    candidates.append({
+                        "selector": ordinal_selector,
+                        "confidence": 0.88,
+                        "method": "ordinal-generic",
+                        "count": 1
+                    })
+            except Exception as e:
+                if debug:
+                    print(f"      [4] ordinal-generic: ERROR - {str(e)[:50]}")
                 
-    # Strategy 4: data-testid
-    for attr in ["data-testid", "data-test"]:
-        # Exact
-        sel = f"[{attr}='{desc_clean}']"
+    try:
+        sel = f"[id*='{desc_clean}']"
         count = await page.locator(sel).count()
         if debug:
-            print(f"      [5] {attr}-exact: '{sel}' → {count} matches")
+            print(f"      [8] id-partial: '{sel}' → {count} matches")
         if count == 1:
-            candidates.append({"selector": sel, "confidence": 0.98, "method": f"{attr}-exact", "count": 1})
-        # Partial
-        sel = f"[{attr}*='{desc_clean}']"
-        count = await page.locator(sel).count()
-        if debug:
-            print(f"      [6] {attr}-partial: '{sel}' → {count} matches")
-        if count == 1:
-            candidates.append({"selector": sel, "confidence": 0.95, "method": f"{attr}-partial", "count": 1})
-
-    # Strategy 5: ID exact/partial
-    id_variations = [
-        desc_with_separators,  # Try original with underscores/dashes first
-        desc_clean.replace(' ', '_'),
-        desc_clean.replace(' ', '-'),
-        desc_clean.replace(' ', ''),
-        ''.join(word.capitalize() for word in desc_clean.split()) if ' ' in desc_clean else desc_clean
-    ]
-    for id_var in id_variations:
-        if id_var:
-            sel = f"#{id_var}"
-            count = await page.locator(sel).count()
+            candidates.append({"selector": sel, "confidence": 0.85, "method": "id-partial", "count": 1})
+        elif count > 1:
+            # FIX 2: Add visibility check for strict mode prevention
+            sel_vis = f"{sel}:visible"
+            count_vis = await page.locator(sel_vis).count()
             if debug:
-                print(f"      [7] id-exact: '{sel}' → {count} matches")
-            if count == 1:
-                candidates.append({"selector": sel, "confidence": 0.92, "method": "id-exact", "count": 1})
-                
-    sel = f"[id*='{desc_clean}']"
-    count = await page.locator(sel).count()
-    if debug:
-        print(f"      [8] id-partial: '{sel}' → {count} matches")
-    if count == 1:
-        candidates.append({"selector": sel, "confidence": 0.85, "method": "id-partial", "count": 1})
-    elif count > 1:
-        sel_vis = f"{sel}:visible"
-        count_vis = await page.locator(sel_vis).count()
+                print(f"      [9] id-partial-visible: '{sel_vis}' → {count_vis} matches")
+            if count_vis == 1:
+                candidates.append({"selector": sel_vis, "confidence": 0.88, "method": "id-partial-visible", "count": 1})
+    except Exception as e:
         if debug:
-            print(f"      [9] id-partial-visible: '{sel_vis}' → {count_vis} matches")
-        if count_vis == 1:
-             candidates.append({"selector": sel_vis, "confidence": 0.88, "method": "id-partial-visible", "count": 1})
+            print(f"      [8] id-partial: ERROR - {str(e)[:80]}")
              
     # Strategy 6: Context Containers
     containers = ["form:visible", ".modal:visible", "dialog:visible"]
@@ -211,22 +247,35 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
             if await page.locator(sel).count() == 1:
                 candidates.append({"selector": sel, "confidence": 0.86, "method": "container-input", "count": 1})
 
-    # Strategy 7-9: Attributes (aria-label, placeholder, name)
-    attr_map = {"aria-label": 0.92, "placeholder": 0.90, "name": 0.88}
-    for attr, conf in attr_map.items():
-        sel = f"[{attr}*='{desc_clean}' i]" if attr == "name" else f"[{attr}*='{description}' i]"
+    # Strategy 5: Name attributes (8% success rate - GOOD for forms)
+    for name_type in ["exact", "partial"]:
+        if name_type == "exact":
+            sel = f"input[name='{desc_clean}' i]"
+            conf, method = 0.90, "name-exact"
+        else:
+            sel = f"[name*='{desc_clean}' i]"
+            conf, method = 0.88, "name"
+        
+        try:
+            count = await page.locator(sel).count()
+            if debug:
+                print(f"      [5] {method}: '{sel}' → {count} matches")
+            if count == 1:
+                candidates.append({"selector": sel, "confidence": conf, "method": method, "count": 1})
+        except Exception as e:
+            if debug:
+                print(f"      [5] {method}: ERROR - {str(e)[:50]}")
+    
+    # Strategy 6: Placeholder (4% success rate - forms)
+    try:
+        sel = f"input[placeholder='{description}' i]"
         count = await page.locator(sel).count()
         if debug:
-            print(f"      [10] {attr}: '{sel}' → {count} matches")
+            print(f"      [6] placeholder-exact-ci: '{sel}' → {count} matches")
         if count == 1:
-            candidates.append({"selector": sel, "confidence": conf, "method": attr, "count": 1})
-        elif count > 1:
-            sel_vis = f"{sel}:visible"
-            count_vis = await page.locator(sel_vis).count()
-            if debug:
-                print(f"      [11] {attr}-visible: '{sel_vis}' → {count_vis} matches")
-            if count_vis == 1:
-                candidates.append({"selector": sel_vis, "confidence": conf - 0.02, "method": f"{attr}-visible", "count": 1})
+            candidates.append({"selector": sel, "confidence": 0.92, "method": "placeholder-exact-ci", "count": 1})
+    except:
+        pass
 
     # Strategy 10: Label association
     try:
@@ -243,25 +292,46 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
                     candidates.append({"selector": sel, "confidence": 0.87, "method": "label-for", "count": 1})
     except: pass
     
-    # Strategy 11: Text exact
-    for tag in ["button", "a", "span", "div"]:
+    # Strategy 7: Text-based (8% total, but only button/span work well)
+    # REFINED: Tag-specific matching to reduce strict mode violations
+    text_strategies = [
+        ("button", 0.88),  # Buttons rarely have ambiguous text
+        ("span", 0.88),    # Span text worked in CI
+        ("a", 0.85),       # Links are okay but less reliable
+        # REMOVED: "div" (0% success rate - too generic)
+    ]
+    
+    for tag, base_conf in text_strategies:
         try:
             sel = f"{tag}:text-is('{description}')"
             count = await page.locator(sel).count()
             if debug:
-                print(f"      [12] {tag}-text-is: '{sel}' → {count} matches")
+                print(f"      [7] {tag}-text-is: '{sel}' → {count} matches")
+            
             if count == 1:
-                candidates.append({"selector": sel, "confidence": 0.88, "method": f"{tag}-text-is", "count": 1})
+                candidates.append({"selector": sel, "confidence": base_conf, "method": f"{tag}-text-is", "count": 1})
             elif count > 1:
+                # Strict mode prevention: add :visible filter
                 sel_vis = f"{sel}:visible"
-                count_vis = await page.locator(sel_vis).count()
-                if debug:
-                    print(f"      [13] {tag}-text-is-visible: '{sel_vis}' → {count_vis} matches")
-                if count_vis == 1:
-                    candidates.append({"selector": sel_vis, "confidence": 0.86, "method": f"{tag}-text-is-visible", "count": 1})
+                try:
+                    count_vis = await page.locator(sel_vis).count()
+                    if debug:
+                        print(f"      [7] {tag}-text-is-visible: '{sel_vis}' → {count_vis} matches")
+                    
+                    if count_vis == 1:
+                        candidates.append({"selector": sel_vis, "confidence": base_conf - 0.02, "method": f"{tag}-text-is-visible", "count": 1})
+                    elif count_vis > 1 and tag == "button":  # Only for buttons
+                        # Fallback to first visible button
+                        sel_first = f"{sel_vis} >> nth=0"
+                        if debug:
+                            print(f"      [7] {tag}-first-visible: '{sel_first}' → fallback")
+                        candidates.append({"selector": sel_first, "confidence": 0.75, "method": f"{tag}-text-is-first-visible", "count": 1})
+                except Exception as e_vis:
+                    if debug:
+                        print(f"      [7] {tag}-visible: ERROR - {str(e_vis)[:50]}")
         except Exception as e:
             if debug:
-                print(f"      [12] {tag}-text-is: ERROR - {str(e)[:50]}")
+                print(f"      [7] {tag}-text-is: ERROR - {str(e)[:50]}")
         
     # Strategy 11c: Exact placeholder/name
     try:

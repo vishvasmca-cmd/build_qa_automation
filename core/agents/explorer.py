@@ -1444,13 +1444,21 @@ class ExplorerAgent:
         await asyncio.sleep(2.0) # Increased stability wait
 
     async def _heal_exploration_action(self, page: Page, step: Dict, description: str, scenario_name: str, keyword: str = "") -> Optional[str]:
-        """Vision-centric healing during discovery."""
+        """
+        Vision-centric healing during discovery with enhanced fallback strategies.
+        
+        FIX 3: Improved AI healing with multiple fallback approaches:
+        - Primary: Try alternative CSS selectors
+        - Secondary: Coordinate-based clicking for visual elements
+        - Tertiary: Text-based approximations
+        """
         try:
             goal = self.workflow.get("goal", "Complete the scenario")
             mindmap = await analyze_page(page, page.url, description)
             elements = mindmap.get("elements", [])
             screenshot = mindmap.get("screenshot")
             
+            # FIX 3: Enhanced AI prompt with more fallback options
             message_content = [
                 {
                     "type": "text",
@@ -1458,16 +1466,44 @@ class ExplorerAgent:
                     **MISSION:**
                     Goal: "{goal}"
                     
-                    **TASK:**
-                    Identify the best VISIBLE element for "{description}" on the current page to perform "{keyword}".
-                    If action is "fill", it MUST be an input/textarea.
+                    **HEALING TASK:**
+                    Find the BEST way to interact with "{description}" using action "{keyword}".
                     
-                    **RESPONSE FORMAT (JSON):**
+                    **CRITICAL - Return ALL possible approaches in priority order:**
+                    
+                    1. **CSS SELECTORS** (Primary): Multiple high-quality CSS selectors
+                       - ID/data-testid based (highest priority)
+                       - Class/attribute based
+                       - Role-based (aria roles)
+                       - Text-based as last resort
+                    
+                    2. **VISUAL COORDINATES** (Fallback for click actions): 
+                       If action is "click" and CSS selectors are unstable, provide:
+                       - Visual description of element location (e.g., "blue button at top-right")
+                       - Estimated coordinates (x%, y%) from top-left
+                    
+                    3. **TEXT APPROXIMATION** (Last resort):
+                       - Nearby text or label that can help locate the element
+                       - Container identifiers
+                    
+                    **RESPONSE FORMAT (Strict JSON):**
                     {{
                         "found": true,
-                        "selector": "css selector",
-                        "reasoning": "how this element matches visually"
+                        "locators": [
+                            {{"value": "css selector 1", "confidence": 0.95, "priority": 0}},
+                            {{"value": "css selector 2", "confidence": 0.85, "priority": 1}},
+                            {{"value": "css selector 3", "confidence": 0.75, "priority": 2}}
+                        ],
+                        "visual_fallback": {{
+                            "available": true,
+                            "description": "Button with blue background at top-right",
+                            "coordinates": {{"x_percent": 85, "y_percent": 15}}
+                        }},
+                        "text_context": "Near 'Welcome' header, inside .main-content"
                     }}
+                    
+                    **CRITICAL:** For "fill" actions, ONLY suggest <input> or <textarea> elements.
+                    For "click" actions, prioritize <button>, <a>, or clickable elements.
                     """
                 }
             ]
@@ -1491,20 +1527,37 @@ class ExplorerAgent:
                 )
             
             if fix and fix.get("found"):
-                # Validate healed locators
+                # FIX 3: Try each locator approach in sequence
                 candidates = fix.get("locators", [])
                 validated_candidates = []
                 
-                self.log(f"    ✨ AI suggested {len(candidates)} locators for healing.", "blue")
+                self.log(f"    ✨ AI suggested {len(candidates)} healing approaches.", "blue")
                 
-                for cand in candidates:
-                     # Check if it actually works
-                     try:
-                        count = await page.locator(cand["value"]).count()
+                for i, cand in enumerate(candidates):
+                    try:
+                        selector = cand.get("value")
+                        if not selector:
+                            continue
+                        
+                        count = await page.locator(selector).count()
+                        self.log(f"      [{i+1}] Testing: '{selector}' → {count} matches", "grey")
+                        
                         if count == 1:
-                            if await page.locator(cand["value"]).is_visible():
+                            if await page.locator(selector).is_visible():
                                 validated_candidates.append(cand)
-                     except: pass
+                                self.log(f"      ✅ Validated: Unique and visible!", "green")
+                                break  # Found a good one, stop trying
+                        elif count > 1:
+                            # Try with :visible filter
+                            vis_selector = f"{selector}:visible"
+                            vis_count = await page.locator(vis_selector).count()
+                            if vis_count == 1:
+                                cand["value"] = vis_selector
+                                validated_candidates.append(cand)
+                                self.log(f"      ✅ Refined with :visible filter", "green")
+                                break
+                    except Exception as e:
+                        self.log(f"      ❌ Rejected: {str(e)[:50]}", "grey")
                 
                 if validated_candidates:
                     best_fix = validated_candidates[0]
@@ -1517,12 +1570,42 @@ class ExplorerAgent:
                     )
                     
                     return best_fix["value"]
+                
+                # FIX 3: If all CSS selectors failed but visual fallback is available
+                visual_fb = fix.get("visual_fallback", {})
+                if keyword == "click" and visual_fb.get("available"):
+                    coords = visual_fb.get("coordinates", {})
+                    x_pct = coords.get("x_percent")
+                    y_pct = coords.get("y_percent")
+                    
+                    if x_pct is not None and y_pct is not None:
+                        self.log(f"    🎯 Using coordinate-based fallback: ({x_pct}%, {y_pct}%)", "yellow")
+                        
+                        # Convert percentage to actual coordinates
+                        viewport = page.viewport_size or {"width": 1280, "height": 720}
+                        x = int(viewport["width"] * x_pct / 100)
+                        y = int(viewport["height"] * y_pct / 100)
+                        
+                        # Perform coordinate click directly
+                        await page.mouse.click(x, y)
+                        await asyncio.sleep(2)
+                        
+                        self.recorder.record_step(
+                            step_name=f"COORDINATE HEAL: {description}",
+                            status="passed",
+                            details={"method": "coordinate_click", "x": x, "y": y}
+                        )
+                        
+                        return "__COORDINATE_CLICK_DONE__"  # Special marker
             
+            # All strategies failed
             self.log(f"    ❌ AI healing failed to find valid replacements.", "red")
+            self.log(f"       Tried: CSS selectors, visibility filters, coordinate fallback", "grey")
+            
             self.recorder.record_step(
                 step_name=f"HEAL FAILED: {description}",
                 status="failed",
-                details={"response": fix}
+                details={"response": fix, "keyword": keyword}
             )
             return None
             
