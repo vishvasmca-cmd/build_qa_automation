@@ -1292,13 +1292,17 @@ class ExplorerAgent:
                     }}
                     
                     **CRITICAL GUIDELINES:**
-                    1. **ANTI-LOOPING:** Do NOT suggest an action that appears in the 'ACTION HISTORY' as ✅ (Success) unless it's a form input or strictly necessary repetitive task. 
-                    2. If the last action was 'click Products' and you are on the Products page, DO NOT suggest 'click Products' again. Look for the next step (e.g. Search, Add to Cart).
-                    3. **SPECIFICITY:** Avoid suggesting actions on generic text like "here", "click here", "read more" or "learn more" unless they are uniquely and obviously the only path forward. Favor named buttons/links (e.g., "Add to Cart", "Checkout", "Products").
-                    4. If the goal is checkout and a popup asks to 'Login / Register', you MUST click 'Register / Login'.
-                    5. Only dismiss popups if they are actual ads.
-                    6. If the goal is achievable with the visible elements, do it.
-                    7. **HALLUCINATIONS:** Only suggest acting on elements listed in 'Visible Elements' or strongly implied by the DOM. Do NOT invent 'All Products' buttons if they don't exist.
+                    1. **VERIFICATION CHECK**: Before suggesting "done", you MUST verify the goal is actually met.
+                       - If goal is "Checkout", you must see "Thank You" or "Order Placed".
+                       - If goal is "Add to Cart", you must see the cart count increase.
+                       - If not verified, suggest a check (e.g. "click Cart").
+                    2. **ANTI-LOOPING:** Do NOT suggest an action that appears in the 'ACTION HISTORY' as ✅ (Success) unless it's a form input or strictly necessary repetitive task. 
+                    3. If the last action was 'click Products' and you are on the Products page, DO NOT suggest 'click Products' again. Look for the next step (e.g. Search, Add to Cart).
+                    4. **SPECIFICITY:** Avoid suggesting actions on generic text like "here", "click here", "read more" or "learn more" unless they are uniquely and obviously the only path forward. Favor named buttons/links (e.g., "Add to Cart", "Checkout", "Products").
+                    5. If the goal is checkout and a popup asks to 'Login / Register', you MUST click 'Register / Login'.
+                    6. Only dismiss popups if they are actual ads.
+                    7. If the goal is achievable with the visible elements, do it.
+                    8. **HALLUCINATIONS:** Only suggest acting on elements listed in 'Visible Elements' or strongly implied by the DOM. Do NOT invent 'All Products' buttons if they don't exist.
                     
                     If the goal is unlikely to be achieved from here or is already done, return {{"action": "done"}}.
                     """

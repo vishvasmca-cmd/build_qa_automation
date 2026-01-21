@@ -1,4 +1,4 @@
-import asyncio
+﻿import asyncio
 import json
 import os
 import sys
@@ -18,13 +18,27 @@ async def analyze_page(page: Page, url: str, user_goal: str = None) -> Dict:
     """
     Hybrid mining: DOM + Vision (Optimized).
     """
-    # 1. Background Cleanup (Ads, Cookie Banners)
+    # 1. Background Cleanup (Ads, Cookie Banners, Chat Widgets)
     await page.evaluate("""
         () => {
             const noise = [
+                // Ads & Iframes
                 'iframe[id*="google"]', 'iframe[src*="doubleclick"]',
-                '.ad', '.ads', '.advertisement', '#cookies-banner', 
-                '[class*="cookie-banner"]', '.vignette'
+                '.ad', '.ads', '.advertisement', 
+                
+                // Cookie Banners & GDPR
+                '#cookies-banner', '[class*="cookie-banner"]', '#onetrust-banner-sdk', 
+                '.osano-cm-window', '#usercentrics-root',
+                
+                // Popups & Overlays
+                '.vignette', '.modal-backdrop', '[class*="popup"]', '[class*="overlay"]',
+                
+                // Chat Widgets
+                '#intercom-container', '#drift-widget', '.crisp-client', 
+                'iframe[id*="chat"]', '[class*="chat-widget"]',
+                
+                // Newsletter / Sticky Bars
+                '[class*="newsletter"]', '[class*="sticky-footer"]', '[class*="fixed-bottom"]'
             ];
             document.querySelectorAll(noise.join(',')).forEach(el => {
                 try { el.remove(); } catch(e) {}
@@ -68,7 +82,7 @@ async def analyze_page(page: Page, url: str, user_goal: str = None) -> Dict:
         elements = sorted(raw_elements, key=calculate_score, reverse=True)[:100]  # Increased limit to 100
         
     except Exception as e:
-        print(f"   ⚠️ DOM Extraction failed: {e}")
+        print(f"   ΓÜá∩╕Å DOM Extraction failed: {e}")
         elements = []
 
     # 3. Optimized Vision capture
@@ -89,7 +103,7 @@ async def analyze_page(page: Page, url: str, user_goal: str = None) -> Dict:
         import base64
         screenshot_b64 = base64.b64encode(screenshot_bytes).decode('utf-8')
     except Exception as e:
-        print(f"   ⚠️ Screenshot failed: {e}")
+        print(f"   ΓÜá∩╕Å Screenshot failed: {e}")
 
     return {
         "summary": {"title": await page.title(), "status": "active"},
