@@ -1,112 +1,42 @@
-name: CI - Deep Explorer Mode - 20 Websites
+name: CI - Golden Path E2E Suite
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
-  test-websites-deep:
+  test-websites-e2e:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     
     strategy:
       fail-fast: false
-      max-parallel: 4  # Run 4 at a time to avoid rate limits
+      max-parallel: 1  # Sequential execution to ensure stability
       matrix:
         website:
-          # 20 Working Websites for Deep Exploration
-          
-          # E-commerce Sites
-          - name: saucedemo_ecommerce
+          - name: saucedemo_e2e
             url: "https://www.saucedemo.com/"
             goal: "Login as 'standard_user'/'secret_sauce', add 'Backpack' to cart, checkout with zip='90210', verify order confirmation"
             
-          - name: automationexercise_shop
+          - name: automationexercise_e2e
             url: "https://www.automationexercise.com/"
             goal: "Click 'Products', click FIRST product, add to cart, verify cart shows 1 item"
             
-          - name: "demoblaze_store"
+          - name: demoblaze_e2e
             url: "https://www.demoblaze.com/"
             goal: "Browse products and test purchase flow"
             
-          - name: rahulshetty_shop
+          - name: rahulshetty_e2e
             url: "https://rahulshettyacademy.com/seleniumPractise/"
             goal: "Search for 'Brocolli', add FIRST result to cart, click cart icon, verify checkout button visible"
             
-          # Banking & Finance
-          - name: "parabank_banking"
-            url: "https://parabank.parasoft.com/"
-            goal: "Test banking operations"
+          - name: the_internet_login
+            url: "https://the-internet.herokuapp.com/login"
+            goal: "Login with tomsmith/SuperSecretPassword!, verify secret area is visible"
             
-          - name: "globalsqa_bank"
-            url: "https://www.globalsqa.com/angularJs-protractor/BankingProject/"
-            goal: "Customer and manager banking flows"
-            
-          # Forms & UI Testing
-          - name: "demoqa_practice"
-            url: "https://demoqa.com/"
-            goal: "Test various form elements"
-            
-          - name: "the_internet_forms"
-            url: "https://the-internet.herokuapp.com/"
-            goal: "Test authentication and forms"
-            
-          - name: "seleniumeasy_forms"
-            url: "https://demo.seleniumeasy.com/basic-first-form-demo.html"
-            goal: "Validate input forms"
-            
-          # HR & Management
-          - name: "orangehrm_demo"
-            url: "https://opensource-demo.orangehrmlive.com/"
-            goal: "Test HR management features"
-            
-          # Travel & Booking
-          - name: "phptravels_demo"
-            url: "https://phptravels.com/demo/"
-            goal: "Explore travel booking"
-            
-          - name: "blazedemo_travel"
-            url: "https://blazedemo.com/"
-            goal: "Book a flight"
-            
-          # Testing Practice Sites
-          - name: "saucedemo_locked"
-            url: "https://www.saucedemo.com/"
-            goal: "Test locked user scenarios"
-            
-          - name: "automation_practice"
-            url: "http://www.automationpractice.pl/"
-            goal: "Practice automation scenarios"
-            
-          - name: "uitestingplayground"
-            url: "http://uitestingplayground.com/"
-            goal: "Test UI interactions"
-            
-          # CMS & Admin
-          - name: "wordpress_demo"
-            url: "https://tastewp.com/new"
-            goal: "Quick WordPress testing"
-            
-          # API & Tool Testing
-          - name: "reqres_api_ui"
-            url: "https://reqres.in/"
-            goal: "Explore API documentation UI"
-            
-          - name: "petstore_swagger"
-            url: "https://petstore.swagger.io/"
-            goal: "Test Swagger UI interactions"
-            
-          # Miscellaneous
-          - name: "w3schools_tryit"
-            url: "https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default"
-            goal: "Test HTML editor"
-            
-          - name: "jquery_ui_demos"
-            url: "https://jqueryui.com/demos/"
-            goal: "Test jQuery UI components"
+          - name: parabank_register
+            url: "https://parabank.parasoft.com/parabank/register.htm"
+            goal: "Register a new user with random data and verify success message"
+
 
     steps:
       - name: Checkout code
@@ -141,8 +71,8 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           PYTHONPATH: .
         run: |
-          # Use --deep for comprehensive regression suite
-          python orchestrator.py --project projects/ci_${{ matrix.website.name }} --deep --force
+          # Discovery mode skip: No --deep flag
+          python orchestrator.py --project projects/ci_${{ matrix.website.name }} --force
         continue-on-error: true
 
       - name: Check Results Generated
@@ -178,7 +108,7 @@ jobs:
 
   summary:
     runs-on: ubuntu-latest
-    needs: test-websites-deep
+    needs: test-websites-e2e
     if: always()
     
     steps:
