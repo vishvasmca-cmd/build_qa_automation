@@ -184,14 +184,19 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
                 sel = f"role={role}[name*='{safe_desc}' i]"
                 try:
                     count = await page.locator(sel).count()
-                    if count > 10:
+                    if count > 50:  # Increased limit for collection items
                         if debug: print(f"      ΓÜá∩╕Å [2] Too ambiguous ({count} matches). Skipping.")
-                        continue # Skip ambiguous
+                        continue
                         
                     if debug:
                         print(f"      [2] role-{role}-partial: '{sel}' ΓåÆ {count} matches")
                     if count == 1:
                         candidates.append({"selector": sel, "confidence": 0.93, "method": f"role-{role}-partial", "count": 1})
+                    elif count > 1:
+                        # Collection support - pick best via visual scoring
+                        best_sel = await _visual_scoring_fallback(page, sel)
+                        if best_sel:
+                            candidates.append({"selector": best_sel, "confidence": 0.85, "method": f"role-{role}-disambiguated", "count": 1})
                 except Exception as e:
                     if debug:
                         print(f"      [2] role-{role}-partial: ERROR - {str(e)[:50]}")

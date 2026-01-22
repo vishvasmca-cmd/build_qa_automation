@@ -56,7 +56,7 @@ class ExplorerAgent:
         
         self.failure_kb = FailureKnowledgeBase()
         self.llm = SafeLLM(
-            model="gemini-2.0-flash",
+            model=None,
             temperature=0.0,
             model_kwargs={"response_mime_type": "application/json"}
         )
@@ -94,14 +94,13 @@ class ExplorerAgent:
             with open(self.workflow_path, 'r', encoding='utf-8') as f:
                 self.workflow = json.load(f)
 
-        self.llm = SafeLLM(
-            model="gemini-2.0-flash",
-            temperature=0.0,
-            model_kwargs={"response_mime_type": "application/json"}
-        )
         
         # Initialize exploration context (will be created per scenario)
         self.exploration_context = None
+        
+        # Action history for robust loop detection (last 15 actions)
+        self.action_history = []
+        self.max_history = 15
 
     def log(self, msg: str, color: Optional[str] = None, attrs: Optional[List[str]] = None):
         """Unified logging to console and debug file."""
@@ -121,9 +120,9 @@ class ExplorerAgent:
         discovery_stats = {"passed": 0, "healed": 0, "failed": 0, "details": []}
 
         async with async_playwright() as p:
-            # Slow-mo for better visibility
             browser = await p.chromium.launch(headless=not self.headed, slow_mo=500)
             context = await browser.new_context(viewport={"width": 1280, "height": 720})
+            await self._setup_ad_blocking(context)
             page = await context.new_page()
             
             if self.shallow:
@@ -719,39 +718,25 @@ class ExplorerAgent:
                             i += 1
                             continue
                         
-                        # ---- Enhanced Loop Detection with State Change Awareness ----
-                        cur_tuple = (next_suggestion.get("action"), next_suggestion.get("target"))
-                        prev_url = getattr(self, "_prev_url_for_loop_check", None)
-                        current_url = page.url
-                        revisit_count = getattr(self, "_revisit_counter", 0)
+                        # ---- Enhanced Loop Detection with Action History ----
+                        cur_action = (next_suggestion.get("action"), next_suggestion.get("target"), page.url)
                         
-                        # Check if suggestion is repeated
-                        if cur_tuple == getattr(self, "_last_ai_suggestion", None):
-                            # Same suggestion - but did we make progress?
-                            if prev_url != current_url or revisit_count == 0:
-                                # State changed! Not a loop, reset counter
-                                self._repeat_ai_counter = 1
-                                self.log(f"    🔄 Same AI suggestion but state changed (URL or DOM). Resetting loop counter.", "cyan")
-                            else:
-                                # State didn't change - increment loop counter
-                                self._repeat_ai_counter = getattr(self, "_repeat_ai_counter", 0) + 1
-                        else:
-                            # Different suggestion
-                            self._repeat_ai_counter = 1
-                            self._last_ai_suggestion = cur_tuple
+                        # Add to history (keep only max_history)
+                        self.action_history.append(cur_action)
+                        if len(self.action_history) > self.max_history:
+                            self.action_history.pop(0)
                         
-                        # Update URL tracker for next iteration
-                        self._prev_url_for_loop_check = current_url
+                        # Count occurrences of this specific action on this URL in history
+                        repeat_count = self.action_history.count(cur_action)
                         
-                        if self._repeat_ai_counter >= 2:
+                        if repeat_count >= 3:
                             self.log(
-                                f"⚠️ Loop detected: same AI suggestion repeated {self._repeat_ai_counter} times without state change. Moving to next step.",
-                                "red",
+                                f"⚠️ Loop detected: AI suggested '{cur_action[0]} -> {cur_action[1]}' "
+                                f"{repeat_count} times on this page. Inhibiting and moving to next step.",
+                                "red"
                             )
-                            # Reset counters for future suggestions
-                            self._repeat_ai_counter = 0
-                            self._last_ai_suggestion = None
-                            # Skip injecting this suggestion and continue with next step
+                            # Record as loop in metrics
+                            self.metrics.record_retry("loop_detected")
                             i += 1
                             continue
                             
@@ -1352,15 +1337,37 @@ class ExplorerAgent:
         except:
             pass
 
+    async def _setup_ad_blocking(self, context):
+        """Blocks common ad domains to prevent overlays and save bandwidth."""
+        ad_domains = [
+            "googleads.g.doubleclick.net",
+            "google-analytics.com",
+            "googletagmanager.com",
+            "adsbygoogle.js",
+            "amazon-adsystem.com",
+            "adnxs.com",
+            "pagead2.googlesyndication.com"
+        ]
+        
+        async def block_ads(route):
+            if any(domain in route.request.url for domain in ad_domains):
+                await route.abort()
+            else:
+                await route.continue_()
+                
+        await context.route("**/*", block_ads)
+
     async def _dismiss_vignettes(self, page: Page):
         """Attempts to dismiss ad overlays (google_vignette) if they appear."""
         try:
-            overlay_selectors = ["#google_vignette", ".google-vignette-container", "ins.adsbygoogle"]
+            overlay_selectors = ["#google_vignette", ".google-vignette-container", "ins.adsbygoogle", "div[id^='aswift_']"]
             for sel in overlay_selectors:
                 if await page.is_visible(sel, timeout=1000):
-                    self.log(f"    📢 Detected overlay ({sel}). Dismissing...", "yellow")
+                    self.log(f"    📢 Detected overlay ({sel}). Forcing removal...", "yellow")
+                    # Try to remove the element from DOM to be sure
+                    await page.evaluate(f"document.querySelectorAll('{sel}').forEach(el => el.remove())")
                     await page.keyboard.press("Escape")
-                    await asyncio.sleep(1)
+                    await asyncio.sleep(0.5)
                     dismiss_btn = "div[id='dismiss-button'], div.dismiss-button"
                     if await page.is_visible(dismiss_btn, timeout=1000):
                         await page.click(dismiss_btn, force=True)

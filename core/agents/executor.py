@@ -56,7 +56,7 @@ class ExecutorAgent:
             self.workflow = json.load(f)
             
         self.llm = SafeLLM(
-            model="gemini-2.0-flash",
+            model=None,
             temperature=0.0,
             model_kwargs={"response_mime_type": "application/json"}
         )
@@ -102,8 +102,9 @@ class ExecutorAgent:
             for scenario in self.workflow.get("scenarios", []):
                 self.log(f"\n--- Scenario: {scenario['name']} ---", "cyan", attrs=["bold"])
                 
-                # New context for isolation
+                # New context for isolation with Ad Blocking
                 context = await browser.new_context()
+                await self._setup_ad_blocking(context)
                 page = await context.new_page()
                 
                 scenario_result = {
@@ -568,17 +569,39 @@ class ExecutorAgent:
             self.log(f"      ❌ Validation error: {str(e)[:40]}", "grey")
             return False
 
+    async def _setup_ad_blocking(self, context):
+        """Blocks common ad domains to prevent overlays and save bandwidth."""
+        ad_domains = [
+            "googleads.g.doubleclick.net",
+            "google-analytics.com",
+            "googletagmanager.com",
+            "adsbygoogle.js",
+            "amazon-adsystem.com",
+            "adnxs.com",
+            "pagead2.googlesyndication.com"
+        ]
+        
+        async def block_ads(route):
+            if any(domain in route.request.url for domain in ad_domains):
+                await route.abort()
+            else:
+                await route.continue_()
+                
+        await context.route("**/*", block_ads)
+
     async def _dismiss_vignettes(self, page: Page):
         """Attempts to dismiss ad overlays (google_vignette) if they appear."""
         try:
             # Check for common vignette IDs/classes
-            overlay_selectors = ["#google_vignette", ".google-vignette-container", "ins.adsbygoogle"]
+            overlay_selectors = ["#google_vignette", ".google-vignette-container", "ins.adsbygoogle", "div[id^='aswift_']"]
             for sel in overlay_selectors:
                 if await page.is_visible(sel, timeout=500):
-                    self.log(f"    📢 Detected overlay ({sel}). Attempting to dismiss...", "yellow")
+                    self.log(f"    📢 Detected overlay ({sel}). Forcing removal...", "yellow")
+                    # Try to remove the element from DOM to be sure
+                    await page.evaluate(f"document.querySelectorAll('{sel}').forEach(el => el.remove())")
                     # Try clicking outside or pressing ESC
                     await page.keyboard.press("Escape")
-                    await asyncio.sleep(1)
+                    await asyncio.sleep(0.5)
                     # If it's a specific 'dismiss' button, try to click it (site specific, but often there)
                     dismiss_btn = "div[id='dismiss-button'], div.dismiss-button"
                     if await page.is_visible(dismiss_btn, timeout=500):
