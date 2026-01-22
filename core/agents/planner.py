@@ -29,11 +29,11 @@ class PlannerAgent:
         self.workflow = self._load_workflow()
         
         self.llm = SafeLLM(
-            model="gemini-2.0-flash",
+            model=None,
             temperature=0.0,
             model_kwargs={
                 "response_mime_type": "application/json",
-                # 🔧 FIX: Limit output tokens to prevent parsing failures
+                #   FIX: Limit output tokens to prevent parsing failures
                 # Normal: 2000 tokens = ~1-2 scenarios
                 # Deep mode will override to 4000 in plan_goal()
                 "max_output_tokens": 2000
@@ -85,7 +85,7 @@ class PlannerAgent:
     
     def _create_fallback_workflow(self, goal: str, base_url: str) -> dict:
         """Create a simple fallback workflow when LLM fails to parse."""
-        print(colored(f"   🔧 Creating simple fallback scenario from goal: {goal[:50]}...", "yellow"))
+        print(colored(f"     Creating simple fallback scenario from goal: {goal[:50]}...", "yellow"))
         
         # Parse goal for basic keywords
         goal_lower = goal.lower()
@@ -161,16 +161,16 @@ class PlannerAgent:
             with open(self.sitemap_path, 'r', encoding='utf-8') as f:
                 sitemap = json.load(f)
                 sitemap_text = json.dumps(sitemap, indent=2)
-                # ✅ Parse structured sitemap
+                # [OK] Parse structured sitemap
                 knowledge = self._parse_sitemap(sitemap)
-            print(colored(f"🗺️ [PLAN] Loaded Sitemap with {len(sitemap)} pages.", "cyan"))
-            print(colored(f"📊 [KNOWLEDGE] Page types: {list(knowledge['pages_by_type'].keys())}", "cyan"))
-            print(colored(f"🔄 [KNOWLEDGE] Flows: {len(knowledge['user_flows'])}, Forms: {len(knowledge['form_endpoints'])}", "cyan"))
+            print(colored(f"[PLAN] Loaded Sitemap with {len(sitemap)} pages.", "cyan"))
+            print(colored(f"[PLAN] Page types: {list(knowledge['pages_by_type'].keys())}", "cyan"))
+            print(colored(f"[PLAN] Flows: {len(knowledge['user_flows'])}, Forms: {len(knowledge['form_endpoints'])}", "cyan"))
 
         # Detect Domain and get Persona
         domain = DomainExpert.detect_domain(url, landmarks_text, goal)
         persona = DomainExpert.get_persona_prompt(domain)
-        print(colored(f"🎭 [EXPERT] Detected Domain: {domain.upper()}. Persona: {persona.split('.')[0]}", "yellow"))
+        print(colored(f"[EXPERT] Detected Domain: {domain.upper()}. Persona: {persona.split('.')[0]}", "yellow"))
 
         # Deep Mode: Request comprehensive suite
         task_desc = f'Create a test scenario for the goal: "{goal}"'
@@ -237,10 +237,10 @@ class PlannerAgent:
            - DO NOT wait for elements from a different page than the current one
         
         2. **E-Commerce Flow Understanding:**
-           - Product List Page → has product tiles/cards
-           - Product Detail Page → has single product details, 'Add to Cart' button
-           - Cart Page → has cart items, quantities, 'Proceed to Checkout' button
-           - Checkout Page → has payment/shipping forms, 'Place Order' button
+           - Product List Page -> has product tiles/cards
+           - Product Detail Page -> has single product details, 'Add to Cart' button
+           - Cart Page -> has cart items, quantities, 'Proceed to Checkout' button
+           - Checkout Page -> has payment/shipping forms, 'Place Order' button
            - DO NOT expect product browsing elements on checkout/cart pages
         
         3. **Context Switching:**
@@ -253,10 +253,10 @@ class PlannerAgent:
         - ONLY use the actual base URL: {url}
         
         **DESCRIPTION QUALITY RULES:**
-        - ✅ GOOD: Use user-facing text like "Cart", "Login", "Search", "Add to Cart"
-        - ❌ BAD: Do NOT use technical IDs like "shopping_cart_container", "btn_login", "search_input"
-        - ✅ GOOD: "Continue", "Checkout", "Submit"
-        - ❌ BAD: "continue_button", "checkout-btn", "submit_form"
+        - [OK] GOOD: Use user-facing text like "Cart", "Login", "Search", "Add to Cart"
+        - [FAIL] BAD: Do NOT use technical IDs like "shopping_cart_container", "btn_login", "search_input"
+        - [OK] GOOD: "Continue", "Checkout", "Submit"
+        - [FAIL] BAD: "continue_button", "checkout-btn", "submit_form"
         - The "description" field should be what a user SEES, not what developers NAME elements
         
         **RESPONSE FORMAT (JSON):**
@@ -278,13 +278,13 @@ class PlannerAgent:
             parsed = try_parse_json(response)
             
             if not parsed:
-                print(colored("❌ Failed to parse valid JSON from LLM.", "red"))
+                print(colored("[FAIL] Failed to parse valid JSON from LLM.", "red"))
                 print(colored(f"   Response length: {len(response)} characters", "yellow"))
                 print(colored(f"   Sitemap pages: {len(sitemap) if os.path.exists(self.sitemap_path) else 0}", "yellow"))
                 
-                # 🔧 FIX: Retry with reduced context (only 10 pages)
+                #   FIX: Retry with reduced context (only 10 pages)
                 if os.path.exists(self.sitemap_path) and len(sitemap) > 10:
-                    print(colored("   🔄 Retry #1: Reducing sitemap to 10 most relevant pages...", "yellow"))
+                    print(colored("     Retry #1: Reducing sitemap to 10 most relevant pages...", "yellow"))
                     
                     # Keep only most relevant pages (homepage, login, forms)
                     reduced_sitemap = []
@@ -301,13 +301,13 @@ class PlannerAgent:
                     response = await self.llm.ainvoke(reduced_prompt)
                     parsed = try_parse_json(response)
                 
-                # 🔧 FIX: Create fallback workflow if still failing
+                #   FIX: Create fallback workflow if still failing
                 if not parsed:
-                    print(colored("   ⚠️  Retry failed. Creating fallback workflow from goal...", "yellow"))
+                    print(colored("   [WARN]  Retry failed. Creating fallback workflow from goal...", "yellow"))
                     parsed = self._create_fallback_workflow(goal, url)
                     
                 if not parsed:
-                    print(colored("   ❌ Fallback creation failed. Cannot proceed.", "red"))
+                    print(colored("   [FAIL] Fallback creation failed. Cannot proceed.", "red"))
                     return False
 
             # Normalize to list of scenarios
@@ -322,7 +322,7 @@ class PlannerAgent:
                 scenarios_list = parsed
             
             if not scenarios_list:
-                print(colored("❌ No scenarios found in response.", "red"))
+                print(colored("[FAIL] No scenarios found in response.", "red"))
                 return False
             
             # Update workflow
@@ -348,11 +348,11 @@ class PlannerAgent:
                         invalid_urls = ["example.com", "banking application", "application homepage", 
                                         "http://example.com", "https://example.com"]
                         if any(invalid in first_url.lower() for invalid in invalid_urls) or not first_url.startswith("http"):
-                            print(colored(f"    🔧 Fixing invalid first URL: '{first_url}' -> '{url}'", "yellow"))
+                            print(colored(f"      Fixing invalid first URL: '{first_url}' -> '{url}'", "yellow"))
                             first_step["args"]["url"] = url
                     else:
                         # Inject navigate step if missing
-                        print(colored(f"    ➕ Injecting missing navigate step to: {url}", "yellow"))
+                        print(colored(f"      Injecting missing navigate step to: {url}", "yellow"))
                         scenario["steps"].insert(0, {
                             "id": "step_0",
                             "keyword": "navigate",
@@ -375,16 +375,16 @@ class PlannerAgent:
             with open(self.workflow_path, 'w') as f:
                 json.dump(self.workflow, f, indent=2)
                 
-            print(colored(f"✅ Planner generated {count} scenarios. Workflow updated.", "green"))
+            print(colored(f"[OK] Planner generated {count} scenarios. Workflow updated.", "green"))
             return True
             
         except Exception as e:
-            print(colored(f"❌ Planner Error: {e}", "red"))
+            print(colored(f"[FAIL] Planner Error: {e}", "red"))
             import traceback
             traceback.print_exc()
             
-            # 🔧 FIX: Create fallback workflow even on exception
-            print(colored("   🔄 Creating fallback workflow due to exception...", "yellow"))
+            #   FIX: Create fallback workflow even on exception
+            print(colored("     Creating fallback workflow due to exception...", "yellow"))
             fallback = self._create_fallback_workflow(goal, url)
             if fallback:
                 parsed = fallback
@@ -406,7 +406,7 @@ class PlannerAgent:
                     with open(self.workflow_path, 'w') as f:
                         json.dump(self.workflow, f, indent=2)
                     
-                    print(colored(f"✅ Created fallback workflow with {len(scenarios_list)} scenario(s).", "green"))
+                    print(colored(f"[OK] Created fallback workflow with {len(scenarios_list)} scenario(s).", "green"))
                     return True
             
             return False

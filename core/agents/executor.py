@@ -67,7 +67,7 @@ class ExecutorAgent:
             "scenarios": []
         }
         
-        # ✅ Performance tracking (Explorer vs Executor comparison)
+        # [OK] Performance tracking (Explorer vs Executor comparison)
         self.perf_stats = {
             "total_steps": 0,
             "first_attempt_success": 0,
@@ -91,9 +91,9 @@ class ExecutorAgent:
             f.write(f"[{datetime.now().isoformat()}] {plain_msg}\n")
 
     async def execute(self):
-        self.log("\n🚀 [EXECUTE] Starting Automation Execution Engine", "blue", attrs=["bold"])
-        self.log(f"📍 Project: {os.path.basename(self.project_dir)}")
-        self.log(f"🎬 Mode: {'Headed' if self.headed else 'Headless'}")
+        self.log("\n  [EXECUTE] Starting Automation Execution Engine", "blue", attrs=["bold"])
+        self.log(f"[LOC] Project: {os.path.basename(self.project_dir)}")
+        self.log(f"  Mode: {'Headed' if self.headed else 'Headless'}")
         
         async with async_playwright() as p:
             # Slow-mo for better visibility
@@ -123,16 +123,16 @@ class ExecutorAgent:
                         
                         if step_result["status"] == "failed":
                             scenario_result["status"] = "failed"
-                            self.log(f"🛑 Scenario '{scenario['name']}' aborted due to step failure.", "red")
+                            self.log(f"[ABORT] Scenario '{scenario['name']}' aborted due to step failure.", "red")
                             break 
                     
                     if scenario_result["status"] == "passed":
-                        self.log(f"✅ Scenario '{scenario['name']}' completed successfully!", "green")
+                        self.log(f"[OK] Scenario '{scenario['name']}' completed successfully!", "green")
                         
                 except Exception as e:
                     scenario_result["status"] = "failed"
                     scenario_result["error"] = str(e)
-                    self.log(f"💥 Fatal scenario error: {e}", "red")
+                    self.log(f"[FATAL] Fatal scenario error: {e}", "red")
                 
                 self.results["scenarios"].append(scenario_result)
                 await context.close()
@@ -152,36 +152,36 @@ class ExecutorAgent:
             failed_scenarios = executed_scenarios - passed_scenarios
             
             self.log("\n" + "="*60, "blue")
-            self.log("🎯 EXECUTION SUMMARY", "blue", attrs=["bold"])
+            self.log("[TARGET] EXECUTION SUMMARY", "blue", attrs=["bold"])
             self.log("="*60, "blue")
             
             # High-level overview
-            self.log(f"\n📋 Scenario Overview:", "cyan", attrs=["bold"])
-            self.log(f"   • Total Scenarios Planned: {total_scenarios}")
-            self.log(f"   • Scenarios Executed: {executed_scenarios}")
-            self.log(f"   • Total Steps Executed: {sum(len(s.get('steps', [])) for s in self.results['scenarios'])}")
+            self.log(f"\n[INFO] Scenario Overview:", "cyan", attrs=["bold"])
+            self.log(f"     Total Scenarios Planned: {total_scenarios}")
+            self.log(f"     Scenarios Executed: {executed_scenarios}")
+            self.log(f"     Total Steps Executed: {sum(len(s.get('steps', [])) for s in self.results['scenarios'])}")
             
             # Pass/Fail breakdown
-            self.log(f"\n✅ Results:", "cyan", attrs=["bold"])
+            self.log(f"\n[OK] Results:", "cyan", attrs=["bold"])
             if passed_scenarios > 0:
-                self.log(f"   ✅ Passed: {passed_scenarios} ({int(passed_scenarios/executed_scenarios*100)}%)" if executed_scenarios > 0 else "   ✅ Passed: 0", "green")
+                self.log(f"   [OK] Passed: {passed_scenarios} ({int(passed_scenarios/executed_scenarios*100)}%)" if executed_scenarios > 0 else "   [OK] Passed: 0", "green")
             if failed_scenarios > 0:
-                self.log(f"   ❌ Failed: {failed_scenarios} ({int(failed_scenarios/executed_scenarios*100)}%)" if executed_scenarios > 0 else "   ❌ Failed: 0", "red")
+                self.log(f"   [FAIL] Failed: {failed_scenarios} ({int(failed_scenarios/executed_scenarios*100)}%)" if executed_scenarios > 0 else "   [FAIL] Failed: 0", "red")
             
             # List failed scenarios
             if failed_scenarios > 0:
-                self.log(f"\n⚠️  Failed Scenarios:", "red", attrs=["bold"])
+                self.log(f"\n[WARN]  Failed Scenarios:", "red", attrs=["bold"])
                 for scenario_result in self.results["scenarios"]:
                     if scenario_result["status"] == "failed":
                         scenario_name = next((s["name"] for s in self.workflow.get("scenarios", []) if s["id"] == scenario_result["id"]), "Unknown")
-                        self.log(f"   • {scenario_name}")
+                        self.log(f"     {scenario_name}")
                         if "error" in scenario_result:
                             self.log(f"     Error: {scenario_result['error'][:100]}...", "red")
             
             self.log("\n" + "="*60, "blue")
-            self.log(f"\n🏁 Execution Finished. Report: {self.execution_path}", "green", attrs=["bold"])
+            self.log(f"\n[DONE] Execution Finished. Report: {self.execution_path}", "green", attrs=["bold"])
             
-            # ✅ Print Performance Comparison
+            # [OK] Print Performance Comparison
             self._print_performance_summary()
 
     async def execute_step(self, page: Page, step: Dict, scenario_name: str, step_index: int = 0) -> Dict:
@@ -190,16 +190,16 @@ class ExecutorAgent:
         args = step.get("args") or step.get("arguments", {})
         locators = step.get("locators", [])
         
-        # ✅ Better step ID handling
+        # [OK] Better step ID handling
         step_id = step.get("id") or f"step_{step_index}"
         
         description = args.get("description") or f"{keyword.upper()}"
-        self.log(f"  ▶️  [STEP {step_id}] {keyword.upper()}: {description}", "white")
+        self.log(f"  [STEP]  [STEP {step_id}] {keyword.upper()}: {description}", "white")
         
         # 1. Resolve Dynamic Data
         resolved_args = {k: DataGenerator.resolve(v) for k, v in args.items()}
         
-        # 2. ✅ Enhanced: Extract best selector from mined locators using stability score
+        # 2. [OK] Enhanced: Extract best selector from mined locators using stability score
         best_selector = None
         if locators:
             # Sort by stability_score (if exists, from exploration) or confidence
@@ -212,9 +212,9 @@ class ExecutorAgent:
                 reverse=True  # Higher stability/confidence first
             )
             
-            self.log(f"    🔍 Trying {len(candidate_selectors)} validated locators from golden path...", "cyan")
+            self.log(f"    [SEARCH] Trying {len(candidate_selectors)} validated locators from golden path...", "cyan")
             
-            # ✅ Try each validated locator with detailed logging
+            # [OK] Try each validated locator with detailed logging
             for idx, candidate in enumerate(candidate_selectors):
                 sel_value = candidate["value"]
                 method = candidate.get("method", "unknown")
@@ -224,21 +224,21 @@ class ExecutorAgent:
                 try:
                     count = await page.locator(sel_value).count()
                     
-                    # 🐛 FIX Bug #3: Validate uniqueness (exactly 1 match)
+                    #   FIX Bug #3: Validate uniqueness (exactly 1 match)
                     if count == 1:
                         best_selector = sel_value
                         self.log(
-                            f"    ✅ SUCCESS! Locator #{idx+1}: {sel_value[:60]}... "
+                            f"    [OK] SUCCESS! Locator #{idx+1}: {sel_value[:60]}... "
                             f"(method: {method}, stability: {stability:.2f})",
                             "green"
                         )
                         break
                     elif count > 1:
                         self.log(
-                            f"    ⚠️  Locator #{idx+1} matched {count} elements (need exactly 1): {sel_value[:40]}...",
+                            f"    [WARN]  Locator #{idx+1} matched {count} elements (need exactly 1): {sel_value[:40]}...",
                             "yellow"
                         )
-                        # 🐛 FIX Bug #3: Try making it more specific
+                        #   FIX Bug #3: Try making it more specific
                         if count == 2:
                             # Try .first
                             specific_selector = f"({sel_value}).first"
@@ -246,24 +246,24 @@ class ExecutorAgent:
                                 specific_count = await page.locator(specific_selector).count()
                                 if specific_count == 1:
                                     best_selector = specific_selector
-                                    self.log(f"    🔧 Made specific: {specific_selector[:40]}...", "cyan")
+                                    self.log(f"      Made specific: {specific_selector[:40]}...", "cyan")
                                     break
                             except:
                                 pass
                     elif count == 0:
                         self.log(
-                            f"    ❌ Locator #{idx+1} found 0 elements: {sel_value[:40]}...",
+                            f"    [FAIL] Locator #{idx+1} found 0 elements: {sel_value[:40]}...",
                             "grey"
                         )
                 except Exception as e:
                     self.log(
-                        f"    ⚠️  Locator #{idx+1} error: {str(e)[:50]}...",
+                        f"    [WARN]  Locator #{idx+1} error: {str(e)[:50]}...",
                         "grey"
                     )
                     continue
             
             if not best_selector:
-                self.log("    ⚠️  All golden path locators failed. Will try text-based fallback.", "yellow")
+                self.log("    [WARN]  All golden path locators failed. Will try text-based fallback.", "yellow")
                 self.perf_stats["golden_path_misses"] += 1
             else:
                 self.perf_stats["golden_path_hits"] += 1
@@ -280,12 +280,12 @@ class ExecutorAgent:
                 # Target selector for this attempt
                 selector = best_selector or f"text={description}"
                 
-                # ✅ Support explicit index argument
+                # [OK] Support explicit index argument
                 if "index" in resolved_args:
                     idx = resolved_args["index"]
                     if selector and "nth=" not in selector:
                         selector = f"{selector} >> nth={idx}"
-                        self.log(f"    🎯 Applied explicit index {idx}: {selector}", "cyan")
+                        self.log(f"    [TARGET] Applied explicit index {idx}: {selector}", "cyan")
                 
                 # Visual highlight before action
                 await self._highlight_element(page, selector)
@@ -297,7 +297,7 @@ class ExecutorAgent:
                     
                     if nav_url and nav_url.startswith("/") and base_url:
                         full_url = base_url.rstrip("/") + nav_url
-                        self.log(f"    🔗 Joining relative URL: {nav_url} -> {full_url}", "grey")
+                        self.log(f"      Joining relative URL: {nav_url} -> {full_url}", "grey")
                         nav_url = full_url
                         
                     if nav_url:
@@ -305,12 +305,12 @@ class ExecutorAgent:
                     else:
                         raise ValueError("No URL provided for navigation")
                 elif keyword == "click":
-                    # 🐛 FIX Bug #1: Try force click if element not visible (modal handling)
+                    #   FIX Bug #1: Try force click if element not visible (modal handling)
                     try:
                         await KeywordEngine.click(page, selector)
                     except Exception as click_err:
                         if "not visible" in str(click_err) or "hidden" in str(click_err).lower():
-                            self.log(f"    🔧 Element not visible, trying force click...", "yellow")
+                            self.log(f"      Element not visible, trying force click...", "yellow")
                             await page.locator(selector).click(force=True, timeout=10000)
                         else:
                             raise
@@ -324,27 +324,27 @@ class ExecutorAgent:
                     await KeywordEngine.screenshot(page, resolved_args.get("name", f"step_{step_id}"))
                 # ... other keywords mapping ...
                 
-                self.log(f"    ✅ Step {step_id} Passed.", "green")
-                # ✅ Track first-attempt success
+                self.log(f"    [OK] Step {step_id} Passed.", "green")
+                # [OK] Track first-attempt success
                 if attempt == 0:
                     self.perf_stats["first_attempt_success"] += 1
                 return {"id": step_id, "status": "passed", "attempt": attempt + 1}
                 
             except Exception as e:
                 error_type = ErrorHandler.categorize(e)
-                self.log(f"    ❌ Attempt {attempt+1} failed ({error_type.value}): {str(e)[:100]}...", "yellow")
+                self.log(f"    [FAIL] Attempt {attempt+1} failed ({error_type.value}): {str(e)[:100]}...", "yellow")
                 
                 # If last attempt, give up
                 if attempt == self.max_retries - 1:
-                    self.log(f"    💀 Step {step_id} failed after all retries.", "red", attrs=["bold"])
+                    self.log(f"      Step {step_id} failed after all retries.", "red", attrs=["bold"])
                     self.failure_kb.record_failure(scenario_name, step_id, description, str(e))
-                    # ✅ Track final failure
+                    # [OK] Track final failure
                     self.perf_stats["final_failures"] += 1
                     return {"id": step_id, "status": "failed", "error": str(e), "error_type": error_type.value}
                 
                 # --- AI HEALING TRIGGER ---
-                self.log(f"    🔧 [AUTO-HEAL] Re-mining page to find '{description}'...", "magenta")
-                # ✅ Track healing attempt
+                self.log(f"      [AUTO-HEAL] Re-mining page to find '{description}'...", "magenta")
+                # [OK] Track healing attempt
                 self.perf_stats["required_healing"] += 1
                 
                 # Capture fresh mindmap
@@ -353,15 +353,15 @@ class ExecutorAgent:
                 
                 if new_selector:
                     best_selector = new_selector
-                    self.log(f"    ✨ AI successfully healed the step! New selector: {best_selector}", "green")
+                    self.log(f"    [HEAL] AI successfully healed the step! New selector: {best_selector}", "green")
                 else:
-                    self.log("    ❌ AI could not re-locate the element. Waiting 1s before next retry.", "yellow")
+                    self.log("    [FAIL] AI could not re-locate the element. Waiting 1s before next retry.", "yellow")
                     await asyncio.sleep(1)
     
     def _print_performance_summary(self):
         """Print executor performance metrics and compare with golden path expectations."""
         self.log("\n" + "="*60, "blue")
-        self.log("📊 EXECUTOR PERFORMANCE SUMMARY", "blue", attrs=["bold"])
+        self.log("PERFORMANCE SUMMARY", "blue", attrs=["bold"])
         self.log("="*60, "blue")
         
         total = self.perf_stats["total_steps"]
@@ -389,40 +389,40 @@ class ExecutorAgent:
         else:
             golden_hit_rate = 0
         
-        self.log(f"\n🎯 Execution Results:", "cyan")
-        self.log(f"   • Total Steps: {total}")
-        self.log(f"   • First-Attempt Success: {first_success} ({first_success_rate:.1f}%)", "green" if first_success_rate >= 90 else "yellow")
-        self.log(f"   • Required AI Healing: {healing} ({healing_rate:.1f}%)", "yellow" if healing > 0 else "green")
-        self.log(f"   • Final Failures: {failures} ({failure_rate:.1f}%)", "red" if failures > 0 else "green")
+        self.log(f"\nExecution Results:", "cyan")
+        self.log(f"   - Total Steps: {total}")
+        self.log(f"   - First-Attempt Success: {first_success} ({first_success_rate:.1f}%)", "green" if first_success_rate >= 90 else "yellow")
+        self.log(f"   - Required AI Healing: {healing} ({healing_rate:.1f}%)", "yellow" if healing > 0 else "green")
+        self.log(f"   - Final Failures: {failures} ({failure_rate:.1f}%)", "red" if failures > 0 else "green")
         
-        self.log(f"\n🛤️  Golden Path Effectiveness:", "cyan")
-        self.log(f"   • Steps with Mined Locators: {golden_total}")
-        self.log(f"   • Golden Path Hits: {golden_hits} ({golden_hit_rate:.1f}%)", "green" if golden_hit_rate >= 90 else "yellow")
-        self.log(f"   • Golden Path Misses: {golden_misses}", "yellow" if golden_misses > 0 else "green")
-        self.log(f"   • Fallback Used (No Locators): {fallback}", "yellow" if fallback > 0 else "green")
+        self.log(f"\n[GOLDEN]  Golden Path Effectiveness:", "cyan")
+        self.log(f"     Steps with Mined Locators: {golden_total}")
+        self.log(f"     Golden Path Hits: {golden_hits} ({golden_hit_rate:.1f}%)", "green" if golden_hit_rate >= 90 else "yellow")
+        self.log(f"     Golden Path Misses: {golden_misses}", "yellow" if golden_misses > 0 else "green")
+        self.log(f"     Fallback Used (No Locators): {fallback}", "yellow" if fallback > 0 else "green")
         
         # Overall Assessment
-        self.log(f"\n📈 Overall Assessment:", "cyan")
+        self.log(f"\n[ASSESS] Overall Assessment:", "cyan")
         if first_success_rate >= 90 and golden_hit_rate >= 90:
-            self.log(f"   🌟 EXCELLENT! Golden path is working perfectly.", "green")
+            self.log(f"   [EXCELLENT] EXCELLENT! Golden path is working perfectly.", "green")
         elif first_success_rate >= 75 and golden_hit_rate >= 75:
-            self.log(f"   ✅ GOOD! Most steps following golden path successfully.", "green")
+            self.log(f"   [OK] GOOD! Most steps following golden path successfully.", "green")
         elif first_success_rate >= 60 and golden_hit_rate >= 60:
-            self.log(f"   ⚠️  FAIR. Golden path needs improvement.", "yellow")
+            self.log(f"   [WARN]  FAIR. Golden path needs improvement.", "yellow")
         else:
-            self.log(f"   ❌ POOR. Golden path is not effective. Explorer may need better locator mining.", "red")
+            self.log(f"   [FAIL] POOR. Golden path is not effective. Explorer may need better locator mining.", "red")
         
         # Comparison with target
-        self.log(f"\n🎯 vs Target (100% Flawless):", "cyan")
+        self.log(f"\n[TARGET] vs Target (100% Flawless):", "cyan")
         if first_success_rate >= 100:
-            self.log(f"   ✅ TARGET ACHIEVED! 100% first-attempt success!", "green")
+            self.log(f"   [OK] TARGET ACHIEVED! 100% first-attempt success!", "green")
         else:
             gap = 100 - first_success_rate
-            self.log(f"   📊 Gap: {gap:.1f}% from target", "yellow" if gap <= 25 else "red")
+            self.log(f"   [STATS] Gap: {gap:.1f}% from target", "yellow" if gap <= 25 else "red")
             if golden_misses > 0:
-                self.log(f"   💡 Recommendation: Review {golden_misses} golden path misses", "cyan")
+                self.log(f"   [TIP] Recommendation: Review {golden_misses} golden path misses", "cyan")
             if fallback > 0:
-                self.log(f"   💡 Recommendation: Explorer needs to mine locators for {fallback} steps", "cyan")
+                self.log(f"   [TIP] Recommendation: Explorer needs to mine locators for {fallback} steps", "cyan")
         
         self.log("\n" + "="*60, "blue")
 
@@ -477,19 +477,19 @@ class ExecutorAgent:
             
             if fix and fix.get("found") and fix.get("locators"):
                 new_locators = fix["locators"]
-                self.log(f"    ✨ AI heal found {len(new_locators)} alternatives. Validating...", "blue")
+                self.log(f"    [AI] AI heal found {len(new_locators)} alternatives. Validating...", "blue")
                 
-                # 🐛 FIX Bug #2: Validate AI suggestions before accepting
+                #   FIX Bug #2: Validate AI suggestions before accepting
                 validated_locators = []
                 for loc in new_locators:
                     if await self._validate_healed_locator(page, loc, description, keyword):
                         validated_locators.append(loc)
                 
                 if not validated_locators:
-                    self.log(f"    ⚠️ All AI suggestions failed validation. Using original.", "yellow")
+                    self.log(f"    [WARN] All AI suggestions failed validation. Using original.", "yellow")
                     return None
                 
-                self.log(f"    ✅ {len(validated_locators)} validated locators.", "green")
+                self.log(f"    [OK] {len(validated_locators)} validated locators.", "green")
                 
                 # Update Workflow
                 step["locators"] = validated_locators
@@ -498,11 +498,11 @@ class ExecutorAgent:
                 
                 return validated_locators[0]["value"]
         except Exception as e:
-            self.log(f"    ⚠️ Healing Error: {e}", "red")
+            self.log(f"    [WARN] Healing Error: {e}", "red")
         return None
     
     async def _validate_healed_locator(self, page: Page, locator: Dict, description: str, keyword: str) -> bool:
-        """🐛 FIX Bug #2: Validate AI heal suggestions to prevent hallucinations."""
+        """  FIX Bug #2: Validate AI heal suggestions to prevent hallucinations."""
         try:
             selector = locator.get("value")
             if not selector:
@@ -511,7 +511,7 @@ class ExecutorAgent:
             # Check if element exists
             count = await page.locator(selector).count()
             if count == 0:
-                self.log(f"      ❌ Rejected: Element not found", "grey")
+                self.log(f"      [FAIL] Rejected: Element not found", "grey")
                 return False
             
             # Get element type and text
@@ -526,7 +526,7 @@ class ExecutorAgent:
                     # Input/textarea OK if it has onclick or is wrapped
                     has_click = await element.evaluate("el => el.onclick != null || el.parentElement.onclick != null")
                     if not has_click:
-                        self.log(f"      ❌ Rejected: {tag_name} for click action", "grey")
+                        self.log(f"      [FAIL] Rejected: {tag_name} for click action", "grey")
                         return False
             
             # Validation 2: Text content should contain keywords from description
@@ -539,34 +539,34 @@ class ExecutorAgent:
                 # Check for strong keyword match
                 matched_keywords = [kw for kw in meaningful_keywords if kw in text_content]
                 if matched_keywords:
-                    self.log(f"      ✅ Validated: '{text_content[:30]}...' matches '{description}'", "green")
+                    self.log(f"      [OK] Validated: '{text_content[:30]}...' matches '{description}'", "green")
                     return True
                 else:
-                    # 🐛 FIX: More lenient - accept if element type matches action
+                    #   FIX: More lenient - accept if element type matches action
                     # Don't reject just because keywords don't match exactly
                     if keyword in ["click", "view"] and tag_name in ["button", "a", "div", "span", "li"]:
-                        self.log(f"      ✅ Validated: Clickable {tag_name} (lenient)", "green")
+                        self.log(f"      [OK] Validated: Clickable {tag_name} (lenient)", "green")
                         return True
                     if keyword in ["fill"] and tag_name in ["input", "textarea", "select"]:
-                        self.log(f"      ✅ Validated: Input {tag_name} (lenient)", "green")
+                        self.log(f"      [OK] Validated: Input {tag_name} (lenient)", "green")
                         return True
                     
                     # Still reject if really no match
-                    self.log(f"      ❌ Rejected: No keyword match in '{text_content[:30]}' for '{description}'", "grey")
+                    self.log(f"      [FAIL] Rejected: No keyword match in '{text_content[:30]}' for '{description}'", "grey")
                     return False
             
             # If no text match, check if selector itself contains relevant terms
             selector_lower = selector.lower()
             if any(kw in selector_lower for kw in meaningful_keywords):
-                self.log(f"      ✅ Validated: Selector contains relevant terms", "green")
+                self.log(f"      [OK] Validated: Selector contains relevant terms", "green")
                 return True
            
-            # 🐛 FIX: Reject weak matches instead of accepting
-            self.log(f"      ❌ Rejected: No match for '{description}'", "grey")
+            #   FIX: Reject weak matches instead of accepting
+            self.log(f"      [FAIL] Rejected: No match for '{description}'", "grey")
             return False
             
         except Exception as e:
-            self.log(f"      ❌ Validation error: {str(e)[:40]}", "grey")
+            self.log(f"      [FAIL] Validation error: {str(e)[:40]}", "grey")
             return False
 
     async def _setup_ad_blocking(self, context):
@@ -596,7 +596,7 @@ class ExecutorAgent:
             overlay_selectors = ["#google_vignette", ".google-vignette-container", "ins.adsbygoogle", "div[id^='aswift_']"]
             for sel in overlay_selectors:
                 if await page.is_visible(sel, timeout=500):
-                    self.log(f"    📢 Detected overlay ({sel}). Forcing removal...", "yellow")
+                    self.log(f"      Detected overlay ({sel}). Forcing removal...", "yellow")
                     # Try to remove the element from DOM to be sure
                     await page.evaluate(f"document.querySelectorAll('{sel}').forEach(el => el.remove())")
                     # Try clicking outside or pressing ESC
@@ -606,7 +606,7 @@ class ExecutorAgent:
                     dismiss_btn = "div[id='dismiss-button'], div.dismiss-button"
                     if await page.is_visible(dismiss_btn, timeout=500):
                         await page.click(dismiss_btn, force=True)
-                        self.log("    ✅ Dismiss button clicked.", "green")
+                        self.log("    [OK] Dismiss button clicked.", "green")
         except:
             pass
 

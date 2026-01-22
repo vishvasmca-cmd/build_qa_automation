@@ -34,7 +34,7 @@ def safe_llm_call(max_retries=10, initial_delay=1, backoff_factor=2):
                     
                     # Special handling for Rate Limits (429)
                     if "429" in str(e) or "ResourceExhausted" in str(e):
-                        print(colored(f"⚠️ 429 Rate Limit Hit. Cooling down for 60s...", "yellow"))
+                        print(colored(f"[LIMIT] 429 Rate Limit Hit. Cooling down for 60s...", "yellow"))
                         time.sleep(60)
                     elif "INVALID_ARGUMENT" in str(e) or "image" in str(e).lower():
                         # Don't retry invalid requests (like bad images), fail fast so fallback kicks in
@@ -52,13 +52,23 @@ class SafeLLM:
     Bypasses Langchain/Pydantic version conflicts in the current environment.
     """
 
-    def __init__(self, model="gemini-2.0-flash", temperature=0.1, **kwargs):
+    def __init__(self, model=None, temperature=0.1, **kwargs):
         api_key = os.environ.get("GOOGLE_API_KEY")
         if not api_key:
             raise ValueError("GOOGLE_API_KEY not found in environment")
         
         self.client = genai.Client(api_key=api_key)
-        self.model_name = model
+        
+        #   DEFAULT MODEL: Use env var or Lite preview for better free tier limits
+        if model is None:
+            env_model = os.environ.get("LLM_MODEL")
+            if env_model and env_model.lower() != "none" and env_model.strip() != "":
+                model = env_model
+            else:
+                model = "gemini-2.0-flash-lite-preview-02-05"
+            
+        self.model_name = model.strip()
+        print(colored(f"[LLM] SafeLLM Initialized: model={self.model_name}", "cyan"))
         self.temperature = temperature
         
         # Capture model_kwargs (like response_mime_type, max_output_tokens)
@@ -68,7 +78,7 @@ class SafeLLM:
         elif "response_mime_type" in kwargs:
              self.config["response_mime_type"] = kwargs["response_mime_type"]
         
-        # 🔧 FIX: Add default max_output_tokens if not specified
+        #   FIX: Add default max_output_tokens if not specified
         # Prevents overly large responses that cause JSON parsing failures
         if "max_output_tokens" not in self.config:
             self.config["max_output_tokens"] = 4096  # Reasonable default
@@ -104,7 +114,11 @@ class SafeLLM:
                     with open(lock_path, "r") as f:
                         last_call = json.load(f).get("last_call", 0)
                     elapsed = time.time() - last_call
-                    return max(0, 5.0 - elapsed) # 12 RPM target
+                    
+                    #   THROTTLE: Configurable RPM (Default to ~25 RPM for Lite model)
+                    rpm_limit = float(os.environ.get("LLM_RPM_LIMIT", 25))
+                    wait_seconds = 60.0 / rpm_limit if rpm_limit > 0 else 0
+                    return max(0, wait_seconds - elapsed) 
             except: pass
             return 0
 

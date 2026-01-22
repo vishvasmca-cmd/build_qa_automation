@@ -113,8 +113,8 @@ class ExplorerAgent:
             f.write(f"[{datetime.now().isoformat()}] {msg}\n")
 
     async def explore(self):
-        self.log("\n🧭 [EXPLORE] Starting AI-Guided Exploration & Mining", "blue", attrs=["bold"])
-        self.log(f"📍 Project: {os.path.basename(self.project_dir)}")
+        self.log("\n[EXPLORE] [EXPLORE] Starting AI-Guided Exploration & Mining", "blue", attrs=["bold"])
+        self.log(f"[LOC] Project: {os.path.basename(self.project_dir)}")
         
         # Track discoveries
         discovery_stats = {"passed": 0, "healed": 0, "failed": 0, "details": []}
@@ -126,11 +126,11 @@ class ExplorerAgent:
             page = await context.new_page()
             
             if self.shallow:
-                self.log("🌊 [SHALLOW] Performing quick landing page mapping...", "cyan")
+                self.log("  [SHALLOW] Performing quick landing page mapping...", "cyan")
                 url = self.workflow.get("base_url") or "about:blank"
                 if url != "about:blank":
                     await page.goto(url, wait_until="domcontentloaded")
-                    self.log(f"    🔍 Mapping landmarks on {url}...")
+                    self.log(f"    [SEARCH] Mapping landmarks on {url}...")
                     # Capture a general mindmap of the homepage
                     mindmap = await analyze_page(page, url, "Homepage landmarks")
                     self.workflow["landmarks"] = mindmap.get("elements", [])[:50] # Store key elements
@@ -139,7 +139,7 @@ class ExplorerAgent:
                 with open(self.workflow_path, 'w', encoding='utf-8') as f:
                     json.dump(self.workflow, f, indent=2)
                 await browser.close()
-                self.log("🏁 Shallow mapping complete.", "green")
+                self.log("[DONE] Shallow mapping complete.", "green")
                 return
 
             for scenario in self.workflow.get("scenarios", []):
@@ -153,7 +153,7 @@ class ExplorerAgent:
                                      if s.get('steps') and len(s.get('steps', [])) > 0)
 
             # Save updated workflow
-            self.log(f"💾 Saving {len(self.workflow.get('scenarios', []))} scenarios to {self.workflow_path}", "cyan")
+            self.log(f"[SAVE] Saving {len(self.workflow.get('scenarios', []))} scenarios to {self.workflow_path}", "cyan")
             with open(self.workflow_path, 'w', encoding='utf-8') as f:
                 json.dump(self.workflow, f, indent=2)
             
@@ -162,23 +162,23 @@ class ExplorerAgent:
             # --- FINAL EXPLORATION SUMMARY ---
             total_scenarios = len(self.workflow.get('scenarios', []))
             self.log("\n" + "="*60, "blue")
-            self.log("📊 EXPLORATION SUMMARY", "blue", attrs=["bold"])
+            self.log("[STATS] EXPLORATION SUMMARY", "blue", attrs=["bold"])
             self.log("="*60, "blue")
             
             # High-level overview
-            self.log(f"\n📋 Scenario Overview:", "cyan", attrs=["bold"])
-            self.log(f"   • Total Scenarios Planned: {total_scenarios}")
-            self.log(f"   • Scenarios Explored: {completed_scenarios}")
-            self.log(f"   • Total Steps Generated: {sum(len(s.get('steps', [])) for s in self.workflow.get('scenarios', []))}")
+            self.log(f"\n[INFO] Scenario Overview:", "cyan", attrs=["bold"])
+            self.log(f"     Total Scenarios Planned: {total_scenarios}")
+            self.log(f"     Scenarios Explored: {completed_scenarios}")
+            self.log(f"     Total Steps Generated: {sum(len(s.get('steps', [])) for s in self.workflow.get('scenarios', []))}")
             
             # Discovery stats
-            self.log(f"\n🔍 Discovery Statistics:", "cyan", attrs=["bold"])
-            self.log(f"   ✅ Successfully Mined: {discovery_stats['passed']}")
-            self.log(f"   ✨ AI Assisted/Healed: {discovery_stats['healed']}")
-            self.log(f"   ❌ Discovery Failures: {discovery_stats['failed']}")
+            self.log(f"\n[SEARCH] Discovery Statistics:", "cyan", attrs=["bold"])
+            self.log(f"   [OK] Successfully Mined: {discovery_stats['passed']}")
+            self.log(f"   [AI] AI Assisted/Healed: {discovery_stats['healed']}")
+            self.log(f"   [FAIL] Discovery Failures: {discovery_stats['failed']}")
             
             if discovery_stats["details"]:
-                self.log("\n⚠️  Failure Details:", "red")
+                self.log("\n[WARN]  Failure Details:", "red")
                 for detail in discovery_stats["details"][:5]:  # Show first 5
                     self.log(f"   - {detail}")
                 if len(discovery_stats["details"]) > 5:
@@ -187,7 +187,7 @@ class ExplorerAgent:
             self.log("\n" + "="*60, "blue")
             # ----------------------------------
             
-            self.log(f"🏁 Exploration Complete. Locators saved to: {self.workflow_path}", "green", attrs=["bold"])
+            self.log(f"[DONE] Exploration Complete. Locators saved to: {self.workflow_path}", "green", attrs=["bold"])
             
             # Navigation Optimization & Metrics
             if hasattr(self, 'exploration_context') and self.exploration_context:
@@ -216,35 +216,35 @@ class ExplorerAgent:
                     
                     metrics.print_summary()
                     metrics_file = metrics.save(os.path.join(self.project_dir, "outputs"))
-                    self.log(f"📊 Navigation metrics saved to: {metrics_file}", "cyan")
+                    self.log(f"[STATS] Navigation metrics saved to: {metrics_file}", "cyan")
                 except Exception as e:
-                    self.log(f"⚠️ Metrics tracking error: {e}", "yellow")
+                    self.log(f"[WARN] Metrics tracking error: {e}", "yellow")
             
             # Performance Metrics Summary
             try:
                 self.metrics.print_summary()
                 perf_metrics_file = self.metrics.save(os.path.join(self.project_dir, "outputs"))
-                self.log(f"📊 Performance metrics saved to: {perf_metrics_file}", "cyan")
+                self.log(f"[STATS] Performance metrics saved to: {perf_metrics_file}", "cyan")
             except Exception as e:
-                self.log(f"⚠️ Performance metrics error: {e}", "yellow")
+                self.log(f"[WARN] Performance metrics error: {e}", "yellow")
 
     async def _explore_scenario(self, page: Page, scenario: Dict, discovery_stats: Dict, depth: int = 0):
         """Recursively explores a scenario, supporting dynamic step injection."""
         
         # SAFETY: Prevent infinite recursion loops
         if depth > 3:
-            self.log("    ⛔ Recursion limit reached. Aborting self-healing loop.", "red")
+            self.log("      Recursion limit reached. Aborting self-healing loop.", "red")
             return
 
         # Initialize exploration context on first call (depth 0)
         if depth == 0:
             goal = self.workflow.get("goal", "Complete scenario")
-            # 🐛 FIX Bug #4: Use scenario-specific goal instead of global goal
+            #   FIX Bug #4: Use scenario-specific goal instead of global goal
             scenario_goal = scenario.get("description") or scenario.get("name") or goal
             base_url = self.workflow.get("base_url", "")
             self.exploration_context = ExplorationContext(scenario_goal, base_url)
-            self.log(f"    🧠 Initialized exploration context for goal: '{scenario_goal}'", "cyan")
-            self.log(f"    🎯 Scenario: {scenario.get('name')}", "grey")
+            self.log(f"    [AI] Initialized exploration context for goal: '{scenario_goal}'", "cyan")
+            self.log(f"    [TARGET] Scenario: {scenario.get('name')}", "grey")
 
         i = 0
         steps = scenario.get("steps", [])
@@ -257,7 +257,7 @@ class ExplorerAgent:
             resume_from = self.checkpoint_mgr.get_resume_point(scenario["name"])
             
             if resume_from > 0:
-                self.log(f"    📌 CHECKPOINT FOUND! Resuming from step {resume_from + 1} (skipping {resume_from} completed steps)", "cyan")
+                self.log(f"      CHECKPOINT FOUND! Resuming from step {resume_from + 1} (skipping {resume_from} completed steps)", "cyan")
                 
                 # Load and restore proven locators
                 checkpoint = self.checkpoint_mgr.load_checkpoint(scenario["name"])
@@ -268,7 +268,7 @@ class ExplorerAgent:
                             # Restore proven locator
                             steps[idx]["locators"] = [{"value": completed["locator"], "priority": 0}]
                             steps[idx]["skipped"] = True  # Mark as already done
-                            self.log(f"    ✓ Restored step {idx + 1}: {completed['description']} (locator: {completed['locator']})", "grey")
+                            self.log(f"    [OK] Restored step {idx + 1}: {completed['description']} (locator: {completed['locator']})", "grey")
                 
                 i = resume_from  # Jump to failure point
         
@@ -287,7 +287,7 @@ class ExplorerAgent:
                 
             except Exception as e:
                 # ULTIMATE FALLBACK: On wrapper error, proceed sequentially
-                self.log(f"    ⚠️ Batch wrapper error: {e}. Using sequential", "yellow")
+                self.log(f"    [WARN] Batch wrapper error: {e}. Using sequential", "yellow")
             
             # Original sequential processing (fallback path)
             step = steps[i]
@@ -301,7 +301,7 @@ class ExplorerAgent:
             is_healed = False
             
             try:
-                self.log(f"  ▶️ [STEP {step_id}] {keyword.upper()}: {description or ''}", "white")
+                self.log(f"  [STEP] [STEP {step_id}] {keyword.upper()}: {description or ''}", "white")
                 
                 # Dismiss overlays/ads before each step
                 await self._dismiss_vignettes(page)
@@ -316,15 +316,15 @@ class ExplorerAgent:
                     
                     invalid_nav_terms = ["home", "application url", "main page", " back"]
                     if nav_url.lower() in invalid_nav_terms:
-                        self.log(f"    ⚠️ Skipping invalid navigation target: '{nav_url}' (not a valid URL)", "yellow")
-                        self.log(f"    💡 Hint: AI should suggest clicking a link/button, not navigating to '{nav_url}'", "cyan")
+                        self.log(f"    [WARN] Skipping invalid navigation target: '{nav_url}' (not a valid URL)", "yellow")
+                        self.log(f"    [TIP] Hint: AI should suggest clicking a link/button, not navigating to '{nav_url}'", "cyan")
                         i += 1
                         continue
                     
                     # Handle relative URLs
                     if nav_url.startswith("/") and base_url:
                         full_url = base_url.rstrip("/") + nav_url
-                        self.log(f"    🔗 Joining relative URL: {nav_url} -> {full_url}", "grey")
+                        self.log(f"      Joining relative URL: {nav_url} -> {full_url}", "grey")
                         nav_url = full_url
                     
                     # Domain validation: Prevent cross-domain navigation
@@ -334,8 +334,8 @@ class ExplorerAgent:
                         nav_domain = urlparse(nav_url).netloc
                         
                         if nav_domain and base_domain and nav_domain != base_domain:
-                            self.log(f"    ⚠️ Skipping cross-domain navigation: {nav_domain} (target: {base_domain})", "yellow")
-                            self.log(f"    🎯 Staying on target domain to maintain test focus", "cyan")
+                            self.log(f"    [WARN] Skipping cross-domain navigation: {nav_domain} (target: {base_domain})", "yellow")
+                            self.log(f"    [TARGET] Staying on target domain to maintain test focus", "cyan")
                             i += 1
                             continue
                     
@@ -347,10 +347,10 @@ class ExplorerAgent:
                         for attempt, timeout in enumerate(timeouts, 1):
                             try:
                                 if attempt > 1:
-                                    self.log(f"    🔄 Retrying navigation with {timeout/1000}s timeout...", "yellow")
+                                    self.log(f"      Retrying navigation with {timeout/1000}s timeout...", "yellow")
                                 
                                 await page.goto(nav_url, wait_until="domcontentloaded", timeout=timeout)
-                                self.log(f"    ✅ Navigated to {nav_url}", "green")
+                                self.log(f"    [OK] Navigated to {nav_url}", "green")
                                 nav_successful = True
                                 break
                             except Exception as e:
@@ -358,18 +358,18 @@ class ExplorerAgent:
                                     # Last attempt failed
                                     raise e
                                 elif "Timeout" in str(e):
-                                    self.log(f"    ⚠️ Navigation timeout ({timeout/1000}s). Will retry with longer timeout...", "yellow")
+                                    self.log(f"    [WARN] Navigation timeout ({timeout/1000}s). Will retry with longer timeout...", "yellow")
                                     continue
                                 else:
                                     # Non-timeout error, don't retry
                                     raise e
                         
                         if not nav_successful:
-                            self.log(f"    ❌ Navigation failed to {nav_url} after all attempts", "red")
+                            self.log(f"    [FAIL] Navigation failed to {nav_url} after all attempts", "red")
                             raise Exception(f"Navigation failed after {len(timeouts)} attempts")
                             
                     except Exception as e:
-                        self.log(f"    ❌ Navigation failed to {nav_url}: {e}", "red")
+                        self.log(f"    [FAIL] Navigation failed to {nav_url}: {e}", "red")
                         # If it's a relative URL and we didn't have a base_url, this is expected to fail
                         # But we'll let it try to heal if possible, though navigation is tricky
                         raise e
@@ -386,7 +386,7 @@ class ExplorerAgent:
                     
                     while mining_retries < max_mining_retries and not found_stable_locator:
                         if mining_retries > 0:
-                            self.log(f"    🔄 Retry {mining_retries}/{max_mining_retries} mining locators for '{description}'...", "yellow")
+                            self.log(f"      Retry {mining_retries}/{max_mining_retries} mining locators for '{description}'...", "yellow")
                             # Refresh page analysis on retry
                             await asyncio.sleep(1)
                         
@@ -394,7 +394,7 @@ class ExplorerAgent:
                         candidates = []
                         
                         if pre_locator and mining_retries == 0:
-                            self.log(f"    🎯 Using AI-provided locator: {pre_locator}", "cyan")
+                            self.log(f"    [TARGET] Using AI-provided locator: {pre_locator}", "cyan")
                             # Quick visibility check - if it works, skip mining
                             try:
                                 if await page.is_visible(pre_locator):
@@ -404,13 +404,13 @@ class ExplorerAgent:
                         
                         if not candidates:
                             if mining_retries == 0:
-                                self.log(f"    🔍 Mining locators for: '{description}'", "magenta")
+                                self.log(f"    [SEARCH] Mining locators for: '{description}'", "magenta")
                             
                             # CACHE INVALIDATION: On retry >= 2, invalidate previous AI response
                             # to force a fresh query instead of using potentially stale cache
                             if mining_retries >= 2:
                                 try:
-                                    self.log(f"    🗑️ Invalidating stale AI cache (retry {mining_retries})...", "yellow")
+                                    self.log(f"       Invalidating stale AI cache (retry {mining_retries})...", "yellow")
                                     # Construct the same message that _find_candidates_with_ai will use
                                     # This is a simplified version just for cache key generation
                                     goal = self.workflow.get("goal", "Complete the scenario")
@@ -436,7 +436,7 @@ class ExplorerAgent:
                                     
                                     self.llm.invalidate_last_cache(cache_msg)
                                 except Exception as e:
-                                    self.log(f"    ⚠️ Cache invalidation warning: {e}", "grey")
+                                    self.log(f"    [WARN] Cache invalidation warning: {e}", "grey")
                             
                             mindmap = await analyze_page(page, page.url, description)
                             elements = mindmap.get("elements", [])
@@ -445,7 +445,7 @@ class ExplorerAgent:
                             candidates = self._find_candidates_deterministically(elements, description)
                         
                         if not candidates:
-                            self.log(f"    🧠 Consulting AI (Vision-First) to find '{description}'...", "yellow")
+                            self.log(f"    [AI] Consulting AI (Vision-First) to find '{description}'...", "yellow")
                             ai_locators = await self._find_candidates_with_ai(page, elements, description, scenario['name'], screenshot)
                             if ai_locators:
                                     # Check for Navigation Suggestion
@@ -459,44 +459,41 @@ class ExplorerAgent:
                                                       scenario["steps"][i-1].get("args", {}).get("description") == nav_target)
                                     
                                     if is_local_dupe or is_global_dupe:
-                                        self.log(f"    ⚠️ Skipping duplicate injection: {nav_target}", "yellow")
+                                        self.log(f"    [WARN] Skipping duplicate injection: {nav_target}", "yellow")
                                     else:
-                                        self.log(f"    💡 Expert Suggestion: {nav['reasoning']}", "cyan")
-                                        self.log(f"    🛠️ Executing corrective action: {nav['action']} -> '{nav_target}'", "yellow")
-                                        attempted_fix_targets.add(nav_target)
+                                        self.log(f"    [TIP] Expert Suggestion: {nav['reasoning']}", "cyan")
+                                        # 💉 GOAL PRIMING: Inject goal into env for smart_locator to use for prioritization
+                                        os.environ["CURRENT_GOAL"] = self.workflow.get("goal", "")
                                         
                                         # Execute the suggested navigation INLINE
                                         await self._dismiss_vignettes(page)
-                                        mindmap_nav = await analyze_page(page, page.url, nav["target"])
-                                        nav_candidates = self._find_candidates_deterministically(mindmap_nav.get("elements", []), nav["target"])
                                         
-                                        if nav_candidates:
+                                        from core.lib.smart_locator import find_element_smart
+                                        smart_nav = await find_element_smart(page, nav["target"])
+                                        
+                                        if smart_nav:
                                             # Validate and execute
-                                            for cand in nav_candidates:
-                                                if "value" not in cand: continue
-                                                # Inline validation instead of locator_engine
-                                                try:
-                                                    loc = page.locator(cand["value"])
-                                                    count = await loc.count()
-                                                    if count > 0 and await loc.first.is_visible():
-                                                        await page.click(cand["value"], timeout=5000, force=True)
-                                                        self.log(f"    ✅ Executed corrective navigation", "green")
-                                                        self.recorder.record_step(
-                                                            step_name=f"CORRECTIVE: {nav['action'].upper()}: {nav_target}",
-                                                            status="passed",
-                                                            details={"selector": cand["value"], "args": nav}
-                                                        )
-                                                        await asyncio.sleep(2)
-                                                        # Now retry the current step's mining
-                                                        break
-                                                except Exception as e:
-                                                    self.log(f"    ❌ Corrective action failed: {e}", "red")
-                                                    self.recorder.record_step(
-                                                        step_name=f"CORRECTIVE: {nav['action'].upper()}: {nav_target}",
-                                                        status="failed",
-                                                        details={"error": str(e), "selector": cand["value"], "args": nav}
-                                                    )
-                                                    continue
+                                            sel_value = smart_nav["selector"]
+                                            try:
+                                                await page.click(sel_value, timeout=5000, force=True)
+                                                self.log(f"    [OK] Executed corrective navigation: {nav['action']} -> {nav['target']}", "green")
+                                                attempted_fix_targets.add(nav_target)
+                                                self.recorder.record_step(
+                                                    step_name=f"CORRECTIVE: {nav['action'].upper()}: {nav_target}",
+                                                    status="passed",
+                                                    details={"selector": sel_value, "args": nav}
+                                                )
+                                                await asyncio.sleep(2)
+                                                # Now retry the current step's mining
+                                                break
+                                            except Exception as e:
+                                                self.log(f"    [FAIL] Corrective action failed: {e}", "red")
+                                                self.recorder.record_step(
+                                                    step_name=f"CORRECTIVE: {nav['action'].upper()}: {nav_target}",
+                                                    status="failed",
+                                                    details={"error": str(e), "selector": sel_value, "args": nav}
+                                                )
+                                                continue
                                     
                                     # Since we navigated, we force a retry of mining immediately (or next loop)
                                     # Setting candidates empty ensures we loop again if not stable
@@ -528,35 +525,35 @@ class ExplorerAgent:
                             
                             if valid_locators:
                                 step["locators"] = sorted({c["value"]: c for c in valid_locators}.values(), key=lambda x: x["priority"])
-                                self.log(f"    ✅ Found {len(step['locators'])} verified locators", "green")
+                                self.log(f"    [OK] Found {len(step['locators'])} verified locators", "green")
                                 found_stable_locator = True
                             else:
                                 # Only log error if this was the last retry
                                 if mining_retries == max_mining_retries - 1:
                                     # ADVANCED SELF-HEALING: Verify step validity if all attempts fail
-                                    self.log(f"    🧠 Verifying step validity for '{description}' after mining failure...", "magenta")
+                                    self.log(f"    [AI] Verifying step validity for '{description}' after mining failure...", "magenta")
                                     verification = await self._verify_step_validity(page, description, screenshot)
                                     
                                     if verification.get("is_valid") and verification.get("new_locator"):
-                                        self.log(f"    🛠️ Self-Correction: Step is valid. Using new locator: {verification['new_locator']}", "green")
+                                        self.log(f"       Self-Correction: Step is valid. Using new locator: {verification['new_locator']}", "green")
                                         step["locators"] = [{"value": verification["new_locator"], "confidence": 0.9, "priority": 0}]
                                         found_stable_locator = True
                                     else:
-                                        self.log(f"    🗑️ Step deemed INVALID: {verification.get('reason')}. Removing from workflow.", "red")
+                                        self.log(f"       Step deemed INVALID: {verification.get('reason')}. Removing from workflow.", "red")
                                         step["skipped"] = True
                                         break # Exit mining retries
                         else:
                             if mining_retries == max_mining_retries - 1:
                                 # ADVANCED SELF-HEALING: Verify step validity if no candidates ever found
-                                self.log(f"    🧠 Verifying step validity for '{description}' after no candidates found...", "magenta")
+                                self.log(f"    [AI] Verifying step validity for '{description}' after no candidates found...", "magenta")
                                 verification = await self._verify_step_validity(page, description, screenshot)
                                 
                                 if verification.get("is_valid") and verification.get("new_locator"):
-                                    self.log(f"    🛠️ Self-Correction: Step is valid. Using new locator: {verification['new_locator']}", "green")
+                                    self.log(f"       Self-Correction: Step is valid. Using new locator: {verification['new_locator']}", "green")
                                     step["locators"] = [{"value": verification["new_locator"], "confidence": 0.9, "priority": 0}]
                                     found_stable_locator = True
                                 else:
-                                    self.log(f"    🗑️ Step deemed INVALID: {verification.get('reason')}. Removing from workflow.", "red")
+                                    self.log(f"       Step deemed INVALID: {verification.get('reason')}. Removing from workflow.", "red")
                                     step["skipped"] = True
                                     break # Exit mining retries
                         
@@ -564,7 +561,7 @@ class ExplorerAgent:
     
                 # Check if step was skipped (removed) during self-healing
                 if step.get("skipped"):
-                    self.log(f"    ⏭️ Skipping execution of invalid step: {description}", "yellow")
+                    self.log(f"       Skipping execution of invalid step: {description}", "yellow")
                     i += 1
                     continue
     
@@ -573,7 +570,7 @@ class ExplorerAgent:
                     # Re-dismiss just in case action triggers one (though usually happens AFTER)
                     await self._dismiss_vignettes(page)
                     await self._execute_exploration_action(page, step, keyword, args, description)
-                    self.log(f"    ✅ State transitioned.", "green")
+                    self.log(f"    [OK] State transitioned.", "green")
                     
                     # Record PAGE STATE after successful action
                     if self.exploration_context:
@@ -605,11 +602,11 @@ class ExplorerAgent:
                             if not is_new_state:
                                 # Track revisit count to prevent infinite loops
                                 self._revisit_counter = getattr(self, "_revisit_counter", 0) + 1
-                                self.log(f"    🔄 Revisited state detected (count: {self._revisit_counter})", "yellow")
+                                self.log(f"      Revisited state detected (count: {self._revisit_counter})", "yellow")
                                 
                                 # If we've revisited too many times, stop injecting AI steps
                                 if self._revisit_counter >= 3:
-                                    self.log(f"    ⚠️ Too many revisits ({self._revisit_counter}). Stopping AI step injection to prevent loops.", "red")
+                                    self.log(f"    [WARN] Too many revisits ({self._revisit_counter}). Stopping AI step injection to prevent loops.", "red")
                                     # Skip AI suggestion by jumping to next step
                                     i += 1
                                     continue
@@ -708,10 +705,10 @@ class ExplorerAgent:
                     )
                     
                     if next_suggestion and next_suggestion.get("action") != "done":
-                        # 🐛 FIX P1: Page-aware AI filtering
+                        #   FIX P1: Page-aware AI filtering
                         if not self._is_suggestion_relevant(next_suggestion, page, scenario):
                             self.log(
-                                f"    ⚠️ AI suggestion '{next_suggestion.get('action')} -> {next_suggestion.get('target')}' "
+                                f"    [WARN] AI suggestion '{next_suggestion.get('action')} -> {next_suggestion.get('target')}' "
                                 f"not relevant for current page/scenario. Skipping.",
                                 "yellow"
                             )
@@ -731,7 +728,7 @@ class ExplorerAgent:
                         
                         if repeat_count >= 3:
                             self.log(
-                                f"⚠️ Loop detected: AI suggested '{cur_action[0]} -> {cur_action[1]}' "
+                                f"[WARN] Loop detected: AI suggested '{cur_action[0]} -> {cur_action[1]}' "
                                 f"{repeat_count} times on this page. Inhibiting and moving to next step.",
                                 "red"
                             )
@@ -754,17 +751,17 @@ class ExplorerAgent:
                         suggested_action = (sa_key, sa_desc)
                         
                         if just_executed == suggested_action:
-                             self.log(f"    ⚠️ Skipping duplicate AI suggestion (just executed): {suggested_action}", "yellow")
+                             self.log(f"    [WARN] Skipping duplicate AI suggestion (just executed): {suggested_action}", "yellow")
                         else:
                             is_duplicate = False 
                             
                             if not is_duplicate:
-                                # 🐛 FIX: Validate that target element exists before injecting
+                                #   FIX: Validate that target element exists before injecting
                                 can_inject = await self._validate_ai_step_target(page, next_suggestion)
                                 
                                 if not can_inject:
                                     self.log(
-                                        f"    ⚠️ Skipping AI step '{next_suggestion['action']} -> {next_suggestion.get('target')}': "
+                                        f"    [WARN] Skipping AI step '{next_suggestion['action']} -> {next_suggestion.get('target')}': "
                                         f"Target element not found in current page state (likely moved to next page).",
                                         "yellow"
                                     )
@@ -794,7 +791,7 @@ class ExplorerAgent:
                                     }
                                 }
                                 
-                                self.log(f"    ➕ Injected AI step: {suggested_step['keyword']} -> {suggested_step['args']['description']}", "cyan")
+                                self.log(f"      Injected AI step: {suggested_step['keyword']} -> {suggested_step['args']['description']}", "cyan")
                                 
                                 # Modify the scenario in-place
                                 steps.insert(i + 1, suggested_step)
@@ -806,7 +803,7 @@ class ExplorerAgent:
                                 continue
                         
                 except Exception as e:
-                    self.log(f"    ⚠️ Action failed: {str(e)[:50]}...", "yellow")
+                    self.log(f"    [WARN] Action failed: {str(e)[:50]}...", "yellow")
                     
                     # Record failed action in context
                     if self.exploration_context:
@@ -817,7 +814,7 @@ class ExplorerAgent:
                         )
                     healed_selector = await self._heal_exploration_action(page, step, description, scenario['name'], keyword)
                     if healed_selector:
-                         self.log(f"    ✨ AI healed exploration action! New selector: {healed_selector}", "green")
+                         self.log(f"    [AI] AI healed exploration action! New selector: {healed_selector}", "green")
                          try:
                              await self._execute_exploration_action(page, step, keyword, args, description, healed_selector)
                              discovery_stats["healed"] += 1
@@ -830,10 +827,10 @@ class ExplorerAgent:
             except Exception as outer_e:
                 err_msg = str(outer_e)
                 if "Target page, context or browser has been closed" in err_msg or "Connection closed" in err_msg:
-                    self.log(f"    🛑 Critical: Browser disconnected or closed. Aborting exploration.", "red")
+                    self.log(f"    [ABORT] Critical: Browser disconnected or closed. Aborting exploration.", "red")
                     break
                 else:
-                    self.log(f"    ⚠️ Critical step failure: {err_msg[:100]}", "red")
+                    self.log(f"    [WARN] Critical step failure: {err_msg[:100]}", "red")
                     discovery_stats["failed"] += 1
                     discovery_stats["details"].append(f"Step {step_id}: {err_msg}")
 
@@ -995,7 +992,7 @@ class ExplorerAgent:
                 age = now - cached["timestamp"]
                 
                 if age < self.cache_ttl:
-                    self.log(f"    ⚡ Cache HIT (age: {age:.1f}s)", "cyan")
+                    self.log(f"      Cache HIT (age: {age:.1f}s)", "cyan")
                     self.metrics.record_cache_event("hit")
                     return {
                         "elements": cached["elements"],
@@ -1020,7 +1017,7 @@ class ExplorerAgent:
             
         except Exception as e:
             # FALLBACK: Always mine fresh on error
-            self.log(f"    ⚠️ Cache error: {e}. Falling back to fresh mining", "yellow")
+            self.log(f"    [WARN] Cache error: {e}. Falling back to fresh mining", "yellow")
             from core.agents.miner import analyze_page
             return await analyze_page(page, page.url, description)
     
@@ -1043,7 +1040,7 @@ class ExplorerAgent:
         Returns:
             Dict mapping {step_index: [locators]}
         """
-        self.log(f"    ⚡ Batch mining {len(steps)} fields in parallel...", "cyan")
+        self.log(f"      Batch mining {len(steps)} fields in parallel...", "cyan")
         
         # Capture page state once (shared by all parallel AI calls)
         from core.agents.miner import analyze_page
@@ -1072,12 +1069,12 @@ class ExplorerAgent:
         locators_map = {}
         for i, (step, result) in enumerate(zip(steps, results)):
             if isinstance(result, Exception):
-                self.log(f"    ⚠️ Batch mining error for '{step.get('args', {}).get('description')}': {result}", "red")
+                self.log(f"    [WARN] Batch mining error for '{step.get('args', {}).get('description')}': {result}", "red")
                 locators_map[i] = []
             else:
                 locators_map[i] = result if result else []
                 desc = step.get('args', {}).get('description', '')
-                self.log(f"    ✅ Batch mined '{desc}' ({len(locators_map[i])} locators)", "green")
+                self.log(f"    [OK] Batch mined '{desc}' ({len(locators_map[i])} locators)", "green")
         
         return locators_map
 
@@ -1089,11 +1086,14 @@ class ExplorerAgent:
         try:
             from core.lib.smart_locator import find_element_smart
             
-            self.log(f"    🔍 Trying smart selectors for '{description}'...", "cyan")
+            self.log(f"    [SEARCH] Trying smart selectors for '{description}'...", "cyan")
+            
+            #   GOAL PRIMING: Inject goal into env for smart_locator to use for prioritization
+            os.environ["CURRENT_GOAL"] = self.workflow.get("goal", "")
             smart_result = await find_element_smart(page, description)
             
             if smart_result:
-                self.log(f"    ✅ Smart selector found '{description}' via {smart_result['method']} (confidence: {smart_result['confidence']})", "green")
+                self.log(f"    [OK] Smart selector found '{description}' via {smart_result['method']} (confidence: {smart_result['confidence']})", "green")
                 self.metrics.record_element_resolution("smart")
                 
                 # Record in Debug Report
@@ -1109,9 +1109,9 @@ class ExplorerAgent:
                     "priority": 0  # Highest priority
                 }]
             else:
-                self.log(f"    ⚠️ Smart selectors failed (no unique match). Falling back to AI Vision...", "yellow")
+                self.log(f"    [WARN] Smart selectors failed (no unique match). Falling back to AI Vision...", "yellow")
         except Exception as e:
-            self.log(f"    ⚠️ Smart selector error: {e}. Falling back to AI Vision...", "yellow")
+            self.log(f"    [WARN] Smart selector error: {e}. Falling back to AI Vision...", "yellow")
         
         # FALLBACK: Original AI Vision logic
         start_time = time.time()
@@ -1124,7 +1124,7 @@ class ExplorerAgent:
             persona = DomainExpert.get_persona_prompt(domain)
             
             # VISIBLE FEEDBACK for the user
-            self.log(f"    🧠 [EXPERT] Strategy: {persona}", "cyan")
+            self.log(f"    [AI] [EXPERT] Strategy: {persona}", "cyan")
             
             message_content = [
                 {
@@ -1180,7 +1180,7 @@ class ExplorerAgent:
             self.metrics.record_ai_call(is_batch=False, latency_ms=latency_ms)
             self.metrics.record_element_resolution("ai")
             
-            # ✅ Record AI Decision in Debug Report
+            # [OK] Record AI Decision in Debug Report
             candidates = fix.get("locators", []) if fix else []
             self.recorder.record_ai_decision(
                 step_name=f"AI Vision: {description}",
@@ -1197,7 +1197,7 @@ class ExplorerAgent:
                     return [{"suggest_navigation": fix["suggest_navigation"]}]
                     
         except Exception as e:
-            self.log(f"    ⚠️ AI Vision Mining Error: {e}", "red")
+            self.log(f"    [WARN] AI Vision Mining Error: {e}", "red")
             self.recorder.record_step(
                  step_name="AI Error",
                  status="failed",
@@ -1281,7 +1281,7 @@ class ExplorerAgent:
                        - If goal is "Checkout", you must see "Thank You" or "Order Placed".
                        - If goal is "Add to Cart", you must see the cart count increase.
                        - If not verified, suggest a check (e.g. "click Cart").
-                    2. **ANTI-LOOPING:** Do NOT suggest an action that appears in the 'ACTION HISTORY' as ✅ (Success) unless it's a form input or strictly necessary repetitive task. 
+                    2. **ANTI-LOOPING:** Do NOT suggest an action that appears in the 'ACTION HISTORY' as [OK] (Success) unless it's a form input or strictly necessary repetitive task. 
                     3. If the last action was 'click Products' and you are on the Products page, DO NOT suggest 'click Products' again. Look for the next step (e.g. Search, Add to Cart).
                     4. **SPECIFICITY:** Avoid suggesting actions on generic text like "here", "click here", "read more" or "learn more" unless they are uniquely and obviously the only path forward. Favor named buttons/links (e.g., "Add to Cart", "Checkout", "Products").
                     5. If the goal is checkout and a popup asks to 'Login / Register', you MUST click 'Register / Login'.
@@ -1300,19 +1300,19 @@ class ExplorerAgent:
             resp = await self.llm.ainvoke([{"role": "user", "content": message_content}])
             suggestion = try_parse_json(resp.content)
             
-            if suggestion:
+            if suggestion and isinstance(suggestion, dict):
                 action = suggestion.get("action")
                 target = suggestion.get("target", "N/A")
                 locator = suggestion.get("locator")
                 
-                self.log(f"    🤖 AI Next Step Suggestion: {action} -> {target}", "magenta")
+                self.log(f"      AI Next Step Suggestion: {action} -> {target}", "magenta")
                 if locator:
-                    self.log(f"    🧩 Suggested Locator: {locator}", "cyan")
-                self.log(f"    💭 Reasoning: {suggestion.get('reasoning', 'No reasoning provided')}", "blue")
+                    self.log(f"    [SUGGEST] Suggested Locator: {locator}", "cyan")
+                self.log(f"    [REASON] Reasoning: {suggestion.get('reasoning', 'No reasoning provided')}", "blue")
                 return suggestion
                 
         except Exception as e:
-            self.log(f"    ⚠️ Contextual Planning Error: {e}", "red")
+            self.log(f"    [WARN] Contextual Planning Error: {e}", "red")
         return None
 
     async def _highlight_element(self, page: Page, selector: str):
@@ -1363,7 +1363,7 @@ class ExplorerAgent:
             overlay_selectors = ["#google_vignette", ".google-vignette-container", "ins.adsbygoogle", "div[id^='aswift_']"]
             for sel in overlay_selectors:
                 if await page.is_visible(sel, timeout=1000):
-                    self.log(f"    📢 Detected overlay ({sel}). Forcing removal...", "yellow")
+                    self.log(f"      Detected overlay ({sel}). Forcing removal...", "yellow")
                     # Try to remove the element from DOM to be sure
                     await page.evaluate(f"document.querySelectorAll('{sel}').forEach(el => el.remove())")
                     await page.keyboard.press("Escape")
@@ -1371,11 +1371,14 @@ class ExplorerAgent:
                     dismiss_btn = "div[id='dismiss-button'], div.dismiss-button"
                     if await page.is_visible(dismiss_btn, timeout=1000):
                         await page.click(dismiss_btn, force=True)
-                        self.log("    ✅ Dismiss button clicked.", "green")
+                        self.log("    [OK] Dismiss button clicked.", "green")
         except:
             pass
 
     async def _execute_exploration_action(self, page: Page, step: Dict, keyword: str, args: Dict, description: str, override_selector: str = None):
+        if not description or description == "None":
+            description = keyword or "Element"
+        
         selector = override_selector or (step["locators"][0]["value"] if step.get("locators") else f"text={description}")
         
         # Handle collections (e.g., multiple products)
@@ -1390,13 +1393,13 @@ class ExplorerAgent:
                     if "random" in desc:
                         import random
                         idx = random.randint(0, count - 1)
-                        self.log(f"    🎲 Randomly selected item {idx+1} of {count} from collection.", "blue")
+                        self.log(f"    [RANDOM] Randomly selected item {idx+1} of {count} from collection.", "blue")
                     elif "second" in desc or "2nd" in desc:
                         idx = 1
                     elif "third" in desc or "3rd" in desc:
                         idx = 2
                     else:
-                        self.log(f"    🎯 Defaulting to first item (1 of {count}) in collection.", "blue")
+                        self.log(f"    [TARGET] Defaulting to first item (1 of {count}) in collection.", "blue")
                     
                     selector = f"{selector} >> nth={idx}"
                     
@@ -1405,20 +1408,23 @@ class ExplorerAgent:
                     step["locators"][0]["is_collection"] = False
             except: pass
 
-        # Pre-interaction highlight
-        await self._highlight_element(page, selector)
+        # Highlight and Interaction logic only for interactive keywords
+        interactive_keywords = ["click", "fill", "type", "hover", "press", "scroll_to", "wait_for_element"]
+        if keyword in interactive_keywords:
+            # Pre-interaction highlight
+            await self._highlight_element(page, selector)
 
-        # HUMAN-LIKE INTERACTIONS
-        target = page.locator(selector).first
-        try:
-            await target.scroll_into_view_if_needed(timeout=5000)
-        except:
-            self.log(f"    ⚠️ Scroll into view failed for {selector}. Proceeding anyway.", "yellow")
+            # HUMAN-LIKE INTERACTIONS
+            target = page.locator(selector).first
+            try:
+                await target.scroll_into_view_if_needed(timeout=5000)
+            except:
+                self.log(f"    [WARN] Scroll into view failed for {selector}. Proceeding anyway.", "yellow")
         
         if keyword == "navigate":
             target_url = args.get("url") or args.get("description")
             if target_url:
-                self.log(f"    🌐 Navigating to: {target_url}", "blue")
+                self.log(f"      Navigating to: {target_url}", "blue")
                 await page.goto(target_url, wait_until="domcontentloaded", timeout=15000)
                 await asyncio.sleep(2)
                 return
@@ -1534,15 +1540,15 @@ class ExplorerAgent:
                     step_name=f"HEAL: {description}",
                     prompt=message_content[0]["text"],
                     response=fix,
-                    candidates=fix.get("locators", [])
+                    candidates=fix.get("locators", []) if isinstance(fix, dict) else []
                 )
             
-            if fix and fix.get("found"):
+            if fix and isinstance(fix, dict) and fix.get("found"):
                 # FIX 3: Try each locator approach in sequence
                 candidates = fix.get("locators", [])
                 validated_candidates = []
                 
-                self.log(f"    ✨ AI suggested {len(candidates)} healing approaches.", "blue")
+                self.log(f"    [AI] AI suggested {len(candidates)} healing approaches.", "blue")
                 
                 for i, cand in enumerate(candidates):
                     try:
@@ -1551,12 +1557,12 @@ class ExplorerAgent:
                             continue
                         
                         count = await page.locator(selector).count()
-                        self.log(f"      [{i+1}] Testing: '{selector}' → {count} matches", "grey")
+                        self.log(f"      [{i+1}] Testing: '{selector}' -> {count} matches", "grey")
                         
                         if count == 1:
                             if await page.locator(selector).is_visible():
                                 validated_candidates.append(cand)
-                                self.log(f"      ✅ Validated: Unique and visible!", "green")
+                                self.log(f"      [OK] Validated: Unique and visible!", "green")
                                 break  # Found a good one, stop trying
                         elif count > 1:
                             # Try with :visible filter
@@ -1565,14 +1571,14 @@ class ExplorerAgent:
                             if vis_count == 1:
                                 cand["value"] = vis_selector
                                 validated_candidates.append(cand)
-                                self.log(f"      ✅ Refined with :visible filter", "green")
+                                self.log(f"      [OK] Refined with :visible filter", "green")
                                 break
                     except Exception as e:
-                        self.log(f"      ❌ Rejected: {str(e)[:50]}", "grey")
+                        self.log(f"      [FAIL] Rejected: {str(e)[:50]}", "grey")
                 
                 if validated_candidates:
                     best_fix = validated_candidates[0]
-                    self.log(f"    ✅ Selected best healed locator: {best_fix['value']}", "green")
+                    self.log(f"    [OK] Selected best healed locator: {best_fix['value']}", "green")
                     
                     self.recorder.record_step(
                         step_name=f"HEALED: {description}",
@@ -1590,7 +1596,7 @@ class ExplorerAgent:
                     y_pct = coords.get("y_percent")
                     
                     if x_pct is not None and y_pct is not None:
-                        self.log(f"    🎯 Using coordinate-based fallback: ({x_pct}%, {y_pct}%)", "yellow")
+                        self.log(f"    [TARGET] Using coordinate-based fallback: ({x_pct}%, {y_pct}%)", "yellow")
                         
                         # Convert percentage to actual coordinates
                         viewport = page.viewport_size or {"width": 1280, "height": 720}
@@ -1610,7 +1616,7 @@ class ExplorerAgent:
                         return "__COORDINATE_CLICK_DONE__"  # Special marker
             
             # All strategies failed
-            self.log(f"    ❌ AI healing failed to find valid replacements.", "red")
+            self.log(f"    [FAIL] AI healing failed to find valid replacements.", "red")
             self.log(f"       Tried: CSS selectors, visibility filters, coordinate fallback", "grey")
             
             self.recorder.record_step(
@@ -1621,7 +1627,7 @@ class ExplorerAgent:
             return None
             
         except Exception as e:
-            self.log(f"    ⚠️ Healing Error: {e}", "red")
+            self.log(f"    [WARN] Healing Error: {e}", "red")
             self.recorder.record_step(
                 step_name=f"HEAL ERROR: {description}",
                 status="failed",
@@ -1636,10 +1642,10 @@ class ExplorerAgent:
         import json
         report_path = os.path.join(self.report_dir, f"debug_report_{session_id}.html")
         if not os.path.exists(report_path):
-            self.log(f"❌ Replay failed: Report not found for session {session_id}", "red")
+            self.log(f"[FAIL] Replay failed: Report not found for session {session_id}", "red")
             return
             
-        self.log(f"🔄 Replaying session {session_id}...", "magenta")
+        self.log(f"  Replaying session {session_id}...", "magenta")
         
         try:
             with open(report_path, "r", encoding="utf-8") as f:
@@ -1658,7 +1664,7 @@ class ExplorerAgent:
                          self.log(f"    - {step['step']} ({step['status']})")
                          
         except Exception as e:
-            self.log(f"❌ Failed to parse report: {e}", "red")
+            self.log(f"[FAIL] Failed to parse report: {e}", "red")
 
     async def _verify_step_validity(self, page: Page, description: str, screenshot: str = None) -> Dict:
         """Uses AI (Vision) to verify if a step is valid or should be removed."""
@@ -1711,12 +1717,12 @@ class ExplorerAgent:
                     "reason": result.get("reason", "No reason provided")
                 }
         except Exception as e:
-            self.log(f"    ⚠️ AI Step Verification Error: {e}", "red")
+            self.log(f"    [WARN] AI Step Verification Error: {e}", "red")
             
         return {"is_valid": True, "new_locator": None, "reason": "Error during verification"}
     
     def _is_suggestion_relevant(self, suggestion: Dict, page: Page, scenario: Dict) -> bool:
-        """🐛 FIX P1: Validate AI suggestion relevance to current page and scenario."""
+        """  FIX P1: Validate AI suggestion relevance to current page and scenario."""
         try:
             action = suggestion.get("action", "").lower()
             target = (suggestion.get("target") or "").lower()
@@ -1729,33 +1735,33 @@ class ExplorerAgent:
             # Get current URL to infer page type
             current_url = page.url.lower()
             
-            # 🐛 FIX P1+: State-aware filtering - detect completed actions
+            #   FIX P1+: State-aware filtering - detect completed actions
             # Rule 0: Check if action already completed based on URL
             if "login" in target or "sign in" in target or "username" in target or "password" in target:
                 # If on inventory/products/dashboard page, login already completed
                 if any(indicator in current_url for indicator in ["/inventory", "/products", "/dashboard", "/home", "/account"]):
-                    self.log(f"      ❌ Rejected: Already logged in (on {current_url})", "grey")
+                    self.log(f"      [FAIL] Rejected: Already logged in (on {current_url})", "grey")
                     return False
             
             # Rule 1: Don't suggest product/cart actions on contact pages
             if any(word in current_url for word in ["contact", "contact_us", "contactus"]):
                 if any(word in target for word in ["product", "cart", "checkout", "add to cart", "view product"]):
-                    self.log(f"      ❌ Rejected: Product action '{target}' on contact page", "grey")
+                    self.log(f"      [FAIL] Rejected: Product action '{target}' on contact page", "grey")
                     return False
             
             # Rule 2: Don't suggest contact actions on product/cart pages  
             if any(word in current_url for word in ["product", "cart", "checkout"]):
                 if "contact" in scenario_context and "contact" in target and "product" not in scenario_context:
-                    self.log(f"      ❌ Rejected: Contact action '{target}' when scenario is about products", "grey")
+                    self.log(f"      [FAIL] Rejected: Contact action '{target}' when scenario is about products", "grey")
                     return False
             
             # Rule 3: Don't suggest login actions if scenario is explicitly non-auth
             if "login" in target or "sign in" in target or "register" in target:
-                # 🐛 FIX: Be more specific - only reject for clearly non-auth scenarios
+                #   FIX: Be more specific - only reject for clearly non-auth scenarios
                 scenario_lower = scenario_context.lower()
                 if any(word in scenario_lower for word in ["contact", "about us", "browse", "view", "search only"]):
                     # These scenarios explicitly don't need login
-                    self.log(f"      ❌ Rejected: Login action '{target}' not relevant to scenario", "grey")
+                    self.log(f"      [FAIL] Rejected: Login action '{target}' not relevant to scenario", "grey")
                     return False
                 # Otherwise allow - scenario might need login even if not explicitly mentioned
             
@@ -1763,19 +1769,19 @@ class ExplorerAgent:
             if "contact" in scenario_context and "form" in scenario_context:
                 # Contact form scenario - should focus on form filling
                 if any(word in target for word in ["product", "cart", "checkout"]):
-                    self.log(f"      ❌ Rejected: '{target}' not relevant for contact form scenario", "grey")
+                    self.log(f"      [FAIL] Rejected: '{target}' not relevant for contact form scenario", "grey")
                     return False
             
             # All checks passed
             return True
             
         except Exception as e:
-            self.log(f"      ⚠️ Error validating suggestion relevance: {e}", "grey")
+            self.log(f"      [WARN] Error validating suggestion relevance: {e}", "grey")
             return True  # Accept if validation fails
 
     async def _validate_ai_step_target(self, page: Page, suggestion: Dict) -> bool:
         """
-        🐛 FIX: Validate that the target element for an AI-suggested step exists in the current page.
+          FIX: Validate that the target element for an AI-suggested step exists in the current page.
         
         This prevents injecting steps that target elements from previous pages 
         (e.g., login form fields after already logged in).
@@ -1801,18 +1807,18 @@ class ExplorerAgent:
                 # Check if the AI-suggested locator exists
                 count = await page.locator(locator_hint).count()
                 if count == 0:
-                    self.log(f"    🔍 AI suggested locator '{locator_hint}' not found (0 elements)", "grey")
+                    self.log(f"    [SEARCH] AI suggested locator '{locator_hint}' not found (0 elements)", "grey")
                     return False
                 elif count > 1:
-                    self.log(f"    🔍 AI suggested locator '{locator_hint}' matched {count} elements (ambiguous)", "grey")
+                    self.log(f"    [SEARCH] AI suggested locator '{locator_hint}' matched {count} elements (ambiguous)", "grey")
                     # Still allow - mining will refine it
                     return True
                 else:
-                    self.log(f"    ✓ AI suggested locator '{locator_hint}' validated (1 element found)", "grey")
+                    self.log(f"    [OK] AI suggested locator '{locator_hint}' validated (1 element found)", "grey")
                     return True
             except Exception as e:
                 # Locator syntax error or page closed
-                self.log(f"    ⚠️ Error validating AI locator: {str(e)[:50]}", "grey")
+                self.log(f"    [WARN] Error validating AI locator: {str(e)[:50]}", "grey")
                 return False
         
         # For other actions, allow injection

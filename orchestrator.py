@@ -86,10 +86,10 @@ class Orchestrator:
             result = subprocess.run(cmd, check=True, cwd=project_root)
             if result.returncode == 0:
                 self._save_checkpoint(phase_name)
-                print(colored(f"✅ Phase '{phase_name}' completed successfully.", "green"))
+                print(colored(f"[OK] Phase '{phase_name}' completed successfully.", "green"))
                 return True
         except subprocess.CalledProcessError as e:
-            print(colored(f"❌ Phase '{phase_name}' failed with error: {e}", "red"))
+            print(colored(f"[FAIL] Phase '{phase_name}' failed with error: {e}", "red"))
             return False
         
         return False
@@ -120,12 +120,12 @@ class Orchestrator:
              should_skip = not (phase == "discovery")
              
              if os.path.exists(sitemap_path) and os.path.getsize(sitemap_path) > 100:
-                 print(colored(f"⚡ [SKIP] Sitemap found ({os.path.getsize(sitemap_path)} bytes). Skipping Discovery.", "cyan"))
+                 print(colored(f"[SKIP] Sitemap found ({os.path.getsize(sitemap_path)} bytes). Skipping Discovery.", "cyan"))
                  # Update checkpoint to satisfy dependencies
                  self._save_checkpoint("discovery")
              else:
                  if not self.run_phase("discovery", discovery_script, discovery_args, skip_if_done=should_skip):
-                     print(colored("⚠️ Initial discovery failed, but proceeding to planning...", "yellow"))
+                     print(colored("[WARN] Initial discovery failed, but proceeding to planning...", "yellow"))
 
         # 2. PLANNING PHASE
         if not phase or phase == "planning":
@@ -143,7 +143,7 @@ class Orchestrator:
             # If specifically requested via --phase, don't skip
             skip = not (phase == "planning")
             if not self.run_phase("planning", planner_script, planner_args, skip_if_done=skip):
-                print(colored("⛔ Pipeline aborted at Planning phase.", "red"))
+                print(colored("[STOP] Pipeline aborted at Planning phase.", "red"))
                 return
 
         # 3. EXPLORATION / MINING PHASE
@@ -156,12 +156,12 @@ class Orchestrator:
             
             skip = not (phase == "exploration")
             if not self.run_phase("exploration", explorer_script, explorer_args, skip_if_done=skip):
-                print(colored("⛔ Pipeline aborted at Exploration phase.", "red"))
+                print(colored("[STOP] Pipeline aborted at Exploration phase.", "red"))
                 return
             
             # Validation: Did exploration actually find things?
             if not self._is_exploration_healthy():
-                print(colored("⚠️ Exploration failed to find stable locators for key steps. Execution might fail.", "yellow"))
+                print(colored("[WARN] Exploration failed to find stable locators for key steps. Execution might fail.", "yellow"))
                 # Optionally stop here if we want to be strict
 
         # 3. EXECUTION PHASE
@@ -173,7 +173,7 @@ class Orchestrator:
             
             skip = not (phase == "execution")
             if not self.run_phase("execution", executor_script, executor_args, skip_if_done=skip):
-                print(colored("⛔ Pipeline aborted at Execution phase.", "red"))
+                print(colored("[STOP] Pipeline aborted at Execution phase.", "red"))
                 return
 
         # 4. SECURITY AUDIT (Optional)
@@ -210,7 +210,7 @@ class Orchestrator:
             
             if total_steps == 0: return True
             success_rate = (steps_with_locators / total_steps) * 100
-            print(colored(f"📊 Exploration Discovery Success Rate: {success_rate:.1f}%", "cyan"))
+            print(colored(f"Summary: Exploration Discovery Success Rate: {success_rate:.1f}%", "cyan"))
             
             # If less than 50% found, consider it unhealthy
             return success_rate > 50
