@@ -36,7 +36,7 @@ class DiscoveryAgent:
         self.sitemap: List[Dict] = []
         
         self.llm = SafeLLM(
-            model="gemini-2.0-flash",
+            model=None,
             temperature=0.0,
             model_kwargs={"response_mime_type": "application/json"}
         )
@@ -173,7 +173,7 @@ class DiscoveryAgent:
         """Enhanced structured page analysis for rich test generation."""
         try:
             # Run all analysis in parallel for speed
-            (page_type, elements, forms, business_rules, relationships, summary_text) = await asyncio.gather(
+            (page_type, raw_elements, forms, business_rules, relationships, summary_text) = await asyncio.gather(
                 self._classify_page_type(page),
                 self._extract_interactive_elements(page),
                 self._extract_forms(page),
@@ -183,10 +183,16 @@ class DiscoveryAgent:
                 return_exceptions=True
             )
             
+            # Semantic Filtering: Use LLM to verify if elements make sense for this page type
+            validated_elements = raw_elements
+            if not isinstance(page_type, Exception) and not isinstance(raw_elements, Exception):
+                self.log(f"    🧠 Semantically validating {len(raw_elements.get('buttons', []))} buttons for {page_type} page...", "yellow")
+                validated_elements = await self._semantically_filter_elements(page_type, raw_elements, summary_text)
+            
             # Handle any failures gracefully
             return {
                 "page_type": page_type if not isinstance(page_type, Exception) else "unknown",
-                "elements": elements if not isinstance(elements, Exception) else {},
+                "elements": validated_elements,
                 "forms": forms if not isinstance(forms, Exception) else [],
                 "business_rules": business_rules if not isinstance(business_rules, Exception) else {},
                 "relationships": relationships if not isinstance(relationships, Exception) else {},
@@ -287,7 +293,10 @@ class DiscoveryAgent:
                     // Buttons
                     document.querySelectorAll('button, input[type="button"], input[type="submit"], a.btn, .button').forEach(btn => {
                         const text = (btn.textContent || btn.value || '').trim();
-                        if (text && text.length < 50 && text.length > 0) {
+                        // VISIBILITY CHECK: Only include if element is actually visible to user
+                        const isVisible = !!(btn.offsetWidth || btn.offsetHeight || btn.getClientRects().length);
+                        
+                        if (isVisible && text && text.length < 50 && text.length > 0) {
                             const item = {text: text};
                             if (btn.id) item.selector = '#' + btn.id;
                             else if (btn.className) item.selector = '.' + btn.className.split(' ')[0];
@@ -304,7 +313,8 @@ class DiscoveryAgent:
                     
                     // Inputs
                     document.querySelectorAll('input:not([type="hidden"]), textarea').forEach(input => {
-                        if (input.type !== 'submit' && input.type !== 'button') {
+                        const isVisible = !!(input.offsetWidth || input.offsetHeight || input.getClientRects().length);
+                        if (isVisible && input.type !== 'submit' && input.type !== 'button') {
                             result.inputs.push({
                                 name: input.name || input.id || input.placeholder,
                                 type: input.type || 'text',
@@ -415,6 +425,30 @@ class DiscoveryAgent:
         except:
             return {}
     
+    async def _semantically_filter_elements(self, page_type: str, elements: Dict, summary: str) -> Dict:
+        """Filters out ghost or irrelevant elements using LLM semantic analysis."""
+        try:
+            prompt = f"""
+            Analyze these discovered interactive elements for a {page_type} page.
+            Page Summary: {summary}
+            
+            RAW ELEMENTS:
+            {json.dumps(elements, indent=2)}
+            
+            TASK:
+            1. Filter out "ghost" elements or items that seem like part of a hidden template (e.g., repeating buttons that aren't actually on screen).
+            2. Remove elements that are irrelevant to the primary functional purpose of this page.
+            3. Return the sanitized version of the JSON elements.
+            
+            Format: JSON only.
+            """
+            
+            resp = await self.llm.ainvoke(prompt)
+            sanitized = try_parse_json(resp)
+            return sanitized if sanitized else elements
+        except:
+            return elements
+
     async def _map_page_relationships(self, page: Page) -> Dict:
         """Map page relationships and flow position."""
         try:

@@ -175,16 +175,49 @@ class PlannerAgent:
         # Deep Mode: Request comprehensive suite
         task_desc = f'Create a test scenario for the goal: "{goal}"'
         if deep_mode:
+            # Domain-specific examples to prevent hallucinations
+            examples = {
+                "ecommerce": "Search -> Add to Cart -> Checkout",
+                "finance": "Check Balance -> View Transactions -> Transfer Funds",
+                "saas": "Login -> Dashboard -> Settings -> Profile Update",
+                "social_media": "Login -> Feed Scroll -> Like/Comment -> Profile"
+            }
+            example_flow = examples.get(domain, "Login -> Main Feature -> Dashboard")
+            
             task_desc = f"""
             Act as a Lead SDET. 
             Analyze the domain ({domain}) and generate a COMPREHENSIVE REGRESSION SUITE (3-5 distinct scenarios).
-            Cover key flows such as:
+            Cover key flows appropriate for this domain ({domain}) such as:
             - Authentication (if applicable)
-            - Main User Flow (e.g. Search -> Add to Cart -> Checkout)
-            - Secondary Flows (e.g. Contact Us, Profile update)
-            - Edge cases if relevant.
+            - Main User Flow (e.g. {example_flow})
+            - Secondary Flows (e.g. Navigation to Statement, Profile, or Settings)
+            - Edge cases (e.g. Failed login, empty search results).
             
             The user goal provided is: "{goal}" (Ensure this is covered).
+            """
+
+        # --- Domain-Specific Rule Injection ---
+        domain_rules = ""
+        if domain == "ecommerce":
+            domain_rules = """
+        2. **E-Commerce Flow Understanding:**
+           - Product List Page -> has product tiles/cards
+           - Product Detail Page -> has single product details, 'Add to Cart' button
+           - Cart Page -> has cart items, quantities, 'Proceed to Checkout' button
+           - Checkout Page -> has payment/shipping forms, 'Place Order' button
+           - DO NOT expect product browsing elements on checkout/cart pages
+        
+        3. **Context Switching:**
+           - After 'Checkout' or 'Place Order', you are done with that flow
+           - To browse products again, navigate back to home or products page first
+            """
+        elif domain == "finance":
+            domain_rules = """
+        2. **Financial Flow Understanding:**
+           - Dashboard -> Overview of accounts and balances
+           - Transaction List -> Historical data, search filters for dates/amounts
+           - Transfers/Payments -> Secure forms for moving funds
+           - DO NOT expect shopping cart or physical shipping address forms on banking pages.
             """
 
         prompt = f"""
@@ -204,9 +237,13 @@ class PlannerAgent:
         
         **YOUR TASK:**
         1. **CRITICAL FIRST STEP:** The very FIRST step MUST be `navigate` to: {url}
-        2. Break this goal into sequential automation steps using valid Keywords.
-        3. **Automatic Validation**: Add `assert_visible` or `assert_url` steps after major actions (like clicking a link or filling a search) to verify the process.
-        4. Prefer items from the DISCOVERED LANDMARKS if they match the intent.
+        2. **STRICT GROUNDING RULE**: You MUST ONLY interact with elements (click, fill, etc.) that are explicitly listed in the **DISCOVERED LANDMARKS** or **VALIDATED SITE MAP**.
+        3. **NO HALLUCINATION**: If a button or link (like "Add Account" or "Search") is NOT in the provided landmarks/sitemap for that page, it DOES NOT EXIST. DO NOT include it in your plan.
+        4. **COMPOUND GOAL HANDLING**: If the goal contains "Verify" or "Check", map these to `assert_text` or `assert_visible` steps. DO NOT map verification text to a `fill` or `click` description.
+        5. **MULTI-ASSERTION HANDLING**: If the goal lists multiple specific details (e.g., "Verify Balance, Credit, and Due Date"), you MUST create a SEPARATE assertion step for EACH detail. DO NOT group them into a single step if they are distinct UI elements.
+        6. **LOGIN FLOW OPTIMIZATION**: If the goal involves "login" and the page contains a username/password form, the sequence MUST be: `fill` username -> `fill` password -> `click` Sign In. DO NOT click Sign In before filling the fields.
+        7. Break this goal into sequential automation steps using valid Keywords.
+        8. **Automatic Validation**: Add `assert_visible` or `assert_url` steps after major actions (like clicking a link or filling a search) to verify the process.
         
         **VALID KEYWORDS:**
         - navigate(url)
@@ -236,20 +273,19 @@ class PlannerAgent:
            - DO NOT use for elements that should be present on initial page load
            - DO NOT wait for elements from a different page than the current one
         
-        2. **E-Commerce Flow Understanding:**
-           - Product List Page -> has product tiles/cards
-           - Product Detail Page -> has single product details, 'Add to Cart' button
-           - Cart Page -> has cart items, quantities, 'Proceed to Checkout' button
-           - Checkout Page -> has payment/shipping forms, 'Place Order' button
-           - DO NOT expect product browsing elements on checkout/cart pages
-        
-        3. **Context Switching:**
-           - After 'Checkout' or 'Place Order', you are done with that flow
-           - To browse products again, navigate back to home or products page first
+        {domain_rules}
         
         **CRITICAL RULES:**
         - Step 1 MUST be: navigate("{url}")
-        - DO NOT use placeholder URLs like "example.com", "banking application", or "application homepage"
+        
+        - **HALLUCINATION WARNING**:
+          - DO NOT invent URLs like "product.html", "cart.html", or "checkout.html" unless they are explicitly listed in the VALIDATED SITE MAP.
+          - DO NOT assume this is an E-Commerce site if the domain is {domain}.
+          - **BAD EXAMPLE**: Suggesting "Add to Cart" or "Product Search" for a Banking application.
+          - **GOOD EXAMPLE**: Suggesting "View Statement" or "Transfer Funds" for a Banking application.
+          
+        - If NO SITE MAP is available, STAY on the Base URL and use semantic descriptions for elements on that page.
+        - DO NOT use placeholder URLs like "example.com", "banking application", or "application homepage".
         - ONLY use the actual base URL: {url}
         
         **DESCRIPTION QUALITY RULES:**

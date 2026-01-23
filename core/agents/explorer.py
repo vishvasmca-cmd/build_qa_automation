@@ -444,6 +444,16 @@ class ExplorerAgent:
                             
                             candidates = self._find_candidates_deterministically(elements, description)
                         
+                        # --- FIX: Locator Integrity Check ---
+                        if candidates and keyword:
+                            valid_candidates = []
+                            for cand in candidates:
+                                if await self._is_locator_appropriate_for_action(page, cand["value"], keyword):
+                                    valid_candidates.append(cand)
+                                else:
+                                    self.log(f"    [SEARCH] Rejecting incompatible locator for '{keyword}': {cand['value']}", "grey")
+                            candidates = valid_candidates
+                        
                         if not candidates:
                             self.log(f"    [AI] Consulting AI (Vision-First) to find '{description}'...", "yellow")
                             ai_locators = await self._find_candidates_with_ai(page, elements, description, scenario['name'], screenshot)
@@ -515,7 +525,9 @@ class ExplorerAgent:
                                     val = {"exists": count > 0, "unique": count == 1, "visible": False}
                                     if count > 0:
                                         val["visible"] = await loc.first.is_visible()
-                                except Exception:
+                                except Exception as e:
+                                    if "SyntaxError" in str(type(e)) or "is not a valid selector" in str(e):
+                                        print(f"    [WARN] Invalid AI selector syntax: {cand['value']}")
                                     val = {"exists": False, "unique": False, "visible": False}
                                 if val["exists"]:
                                     # Update candidate with visibility/uniqueness info
@@ -791,6 +803,25 @@ class ExplorerAgent:
                                     }
                                 }
                                 
+                                # --- RECONCILIATION LOGIC ---
+                                # Check if this AI suggestion matches an upcoming planned step
+                                for look_ahead in range(1, 4):  # Look up to 3 steps ahead
+                                    next_idx = i + look_ahead
+                                    if next_idx < len(steps):
+                                        planned_step = steps[next_idx]
+                                        if planned_step.get("skipped") or planned_step.get("id", "").endswith("_ai_"): 
+                                            continue
+                                        
+                                        if self._is_fuzzy_match(
+                                            next_suggestion["action"], next_suggestion.get("target", ""),
+                                            planned_step.get("keyword", ""), planned_step.get("args", {}).get("description", "")
+                                        ):
+                                            self.log(f"      [RECONCILE] AI suggestion matches upcoming planned step: '{planned_step.get('args', {}).get('description')}'", "cyan")
+                                            self.log(f"      [RECONCILE] Marking planned step as skipped to avoid redundancy.", "cyan")
+                                            planned_step["skipped"] = True
+                                            # We continue to inject the AI step as it's the one we'll execute NOW with proper locator mining
+                                            break
+
                                 self.log(f"      Injected AI step: {suggested_step['keyword']} -> {suggested_step['args']['description']}", "cyan")
                                 
                                 # Modify the scenario in-place
@@ -1064,6 +1095,24 @@ class ExplorerAgent:
         
         # Execute all AI calls in parallel
         results = await asyncio.gather(*tasks, return_exceptions=True)
+        
+        # --- FIX: Locator Integrity Check ---
+        # Filter results to ensure they match the required element type for 'fill'
+        filtered_results = []
+        for i, res in enumerate(results):
+            if isinstance(res, Exception):
+                filtered_results.append(res)
+                continue
+                
+            valid_cands = []
+            for cand in res:
+                # All batch steps are 'fill'
+                if await self._is_locator_appropriate_for_action(page, cand["value"], "fill"):
+                    valid_cands.append(cand)
+                else:
+                    self.log(f"    [SEARCH] Batch rejecting incompatible locator for 'fill': {cand['value']}", "grey")
+            filtered_results.append(valid_cands)
+        results = filtered_results
         
         # Map results back to steps
         locators_map = {}
@@ -1556,7 +1605,16 @@ class ExplorerAgent:
                         if not selector:
                             continue
                         
-                        count = await page.locator(selector).count()
+                        # Wrap locator validation in try-except to handle SyntaxErrors
+                        try:
+                            count = await page.locator(selector).count()
+                        except Exception as e:
+                            # Handle Playwright SyntaxError for invalid selectors
+                            if "SyntaxError" in str(type(e)) or "is not a valid selector" in str(e):
+                                self.log(f"      [FAIL] Rejected: Invalid selector syntax '{selector}' ({str(e)[:50]})", "grey")
+                                continue # Skip this candidate
+                            raise e # Re-raise other exceptions
+                            
                         self.log(f"      [{i+1}] Testing: '{selector}' -> {count} matches", "grey")
                         
                         if count == 1:
@@ -1718,6 +1776,29 @@ class ExplorerAgent:
                 }
         except Exception as e:
             self.log(f"    [WARN] AI Step Verification Error: {e}", "red")
+            return {"is_valid": True, "new_locator": None, "reason": str(e)}
+
+    async def _is_locator_appropriate_for_action(self, page: Page, selector: str, action: str) -> bool:
+        """
+        FIX: Checks if a locator targets an element appropriate for the requested action.
+        Prevents e.g. trying to 'fill' a <div> or <span> that just contains text.
+        """
+        if action.lower() != "fill":
+            return True
+            
+        try:
+            # Check tag name for fill actions
+            tag_name = await page.eval_on_selector(selector, "el => el.tagName.toLowerCase()")
+            is_input = tag_name in ["input", "textarea", "select"] 
+            
+            # If it's a div, check if it's contenteditable or a rich text editor
+            if tag_name == "div":
+                is_editable = await page.eval_on_selector(selector, "el => el.contentEditable === 'true' || el.getAttribute('role') === 'textbox'")
+                return is_editable
+                
+            return is_input
+        except:
+            return True
             
         return {"is_valid": True, "new_locator": None, "reason": "Error during verification"}
     
@@ -1765,7 +1846,15 @@ class ExplorerAgent:
                     return False
                 # Otherwise allow - scenario might need login even if not explicitly mentioned
             
-            # Rule 4: Scenario-specific validation
+            # Rule 5: Strict Action/Locator Integrity
+            # Rule 5: Strict Action/Locator Integrity (for AI suggestions)
+            if action == 'fill':
+                # Note: target here is a description. We can't check selector yet 
+                # unless it's provided in the suggestion. 
+                # This check is better performed in _validate_ai_step_target or _explore_scenario.
+                pass
+            
+            # Rule 6: Scenario-specific validation
             if "contact" in scenario_context and "form" in scenario_context:
                 # Contact form scenario - should focus on form filling
                 if any(word in target for word in ["product", "cart", "checkout"]):
@@ -1778,6 +1867,46 @@ class ExplorerAgent:
         except Exception as e:
             self.log(f"      [WARN] Error validating suggestion relevance: {e}", "grey")
             return True  # Accept if validation fails
+
+    def _is_fuzzy_match(self, kw1: str, desc1: str, kw2: str, desc2: str) -> bool:
+        """Helper to determine if two steps are semantically similar."""
+        if not kw1 or not kw2: return False
+        if kw1.lower() != kw2.lower():
+            return False
+            
+        def normalize(s: str) -> str:
+            import re
+            if not s: return ""
+            # Remove punctuation and generic terms
+            s = re.sub(r'[^a-z0-9\s]', '', s.lower())
+            s = s.replace("button", "").replace("link", "").replace("input", "").strip()
+            return s
+            
+        n1 = normalize(desc1)
+        n2 = normalize(desc2)
+        
+        if not n1 or not n2:
+            return n1 == n2
+            
+        # Check for inclusion or high similarity
+        if n1 in n2 or n2 in n1:
+            return True
+            
+        # Common synonym mapping
+        synonyms = {
+            "login": ["sign in", "signin", "log in", "authenticat"],
+            "register": ["sign up", "signup", "create account", "join"],
+            "submit": ["confirm", "continue", "send", "save"],
+            "username": ["user name", "email", "login id"],
+            "password": ["pass word", "secret"]
+        }
+        
+        for key, vals in synonyms.items():
+            if (key in n1 or any(v in n1 for v in vals)) and \
+               (key in n2 or any(v in n2 for v in vals)):
+                return True
+                
+        return False
 
     async def _validate_ai_step_target(self, page: Page, suggestion: Dict) -> bool:
         """
@@ -1814,6 +1943,11 @@ class ExplorerAgent:
                     # Still allow - mining will refine it
                     return True
                 else:
+                    # --- FIX: Integrity Check ---
+                    if not await self._is_locator_appropriate_for_action(page, locator_hint, action):
+                        self.log(f"    [FAIL] AI suggested locator '{locator_hint}' is INAPPROPRIATE for '{action}'", "red")
+                        return False
+                        
                     self.log(f"    [OK] AI suggested locator '{locator_hint}' validated (1 element found)", "grey")
                     return True
             except Exception as e:
