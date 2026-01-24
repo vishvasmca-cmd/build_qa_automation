@@ -86,6 +86,29 @@ jobs:
             exit 1
           fi
 
+      - name: Commit Learned Knowledge
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "AI Learner"
+          git config --global user.email "ai-learner@github-actions"
+          
+          # Pull latest to avoid conflict
+          git pull origin main --rebase || echo "Pull failed, proceeding with potential overwrite precaution"
+          
+          # Add learned assets
+          git add knowledge/ datasets/
+          
+          # Check for changes
+          if [[ -n $(git status --porcelain knowledge/ datasets/) ]]; then
+            git commit -m "🧠 AI Update: Learned new locators for ${{ matrix.website.name }}"
+            git push origin HEAD:main
+            echo "✅ Knowledge base updated in repository."
+          else
+            echo "ℹ️ No new knowledge learned in this run."
+          fi
+
       - name: Upload artifacts on failure
         if: failure()
         uses: actions/upload-artifact@v4
