@@ -1,0 +1,85 @@
+{
+  "project": "applitools_test",
+  "goal": "Explore the Applitools demo site and verify the login flow.",
+  "base_url": "https://demo.applitools.com/",
+  "scenarios": [
+    {
+      "id": "TC001",
+      "name": "Verify Login Flow",
+      "description": "Navigates to the Applitools demo site and verifies the login flow.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://demo.applitools.com/"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://demo.applitools.com/"
+          }
+        },
+        {
+          "id": "step_2_fill_username",
+          "keyword": "fill",
+          "args": {
+            "description": "Enter your username",
+            "locator": "input#username",
+            "value": "someuser"
+          },
+          "locators": [
+            {
+              "value": "input#username",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_3_fill_password",
+          "keyword": "fill",
+          "args": {
+            "description": "Enter your password",
+            "locator": "#password",
+            "value": "password"
+          },
+          "locators": [
+            {
+              "value": "#password",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_4_click_signin",
+          "keyword": "click",
+          "args": {
+            "description": "Sign in",
+            "locator": "a#log-in"
+          },
+          "locators": [
+            {
+              "value": "a#log-in",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://demo.applitools.com/app.html"
+          }
+        }
+      ]
+    }
+  ]
+}

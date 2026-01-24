@@ -29,6 +29,7 @@ from core.lib.error_handler import ErrorHandler, ErrorType
 from core.lib.llm_utils import SafeLLM, try_parse_json
 from core.agents.miner import analyze_page
 from core.lib.domain_expert import DomainExpert
+from core.lib.smart_locator import sanitize_ai_selector
 
 class ExecutorAgent:
     """
@@ -78,6 +79,10 @@ class ExecutorAgent:
             "fallback_used": 0,  # Steps with no mined locators
             "locator_methods_used": {}
         }
+        
+        # Action history for loop detection
+        self.action_history = []
+        self.max_history = 10
 
     def log(self, msg: str, color: Optional[str] = None, attrs: Optional[List[str]] = None):
         """Unified logging to console (with color) and debug file."""
@@ -273,6 +278,9 @@ class ExecutorAgent:
         
         # Track total steps
         self.perf_stats["total_steps"] += 1
+        
+        # Loop detection setup
+        executed_actions = set()
 
         # 3. Execution with AI Healing Loop
         for attempt in range(self.max_retries):
@@ -342,6 +350,23 @@ class ExecutorAgent:
                     self.perf_stats["final_failures"] += 1
                     return {"id": step_id, "status": "failed", "error": str(e), "error_type": error_type.value}
                 
+                # --- LOOP DETECTION & RECOVERY ---
+                action_key = (keyword, selector, page.url)
+                if action_key in executed_actions:
+                    self.log(f"      [WARN] Potential loop detected for {keyword} on {selector}. Attempting recovery...", "yellow")
+                    
+                    # Recovery Strategy: Hard Refresh or Navigate Back
+                    if attempt == 0:
+                        self.log("      [RECOVER] Performing Hard Refresh...", "cyan")
+                        await page.reload(wait_until="domcontentloaded")
+                    else:
+                        self.log("      [RECOVER] Navigating Back...", "cyan")
+                        await page.go_back(wait_until="domcontentloaded")
+                    
+                    await asyncio.sleep(2)
+                
+                executed_actions.add(action_key)
+
                 # --- AI HEALING TRIGGER ---
                 self.log(f"      [AUTO-HEAL] Re-mining page to find '{description}'...", "magenta")
                 # [OK] Track healing attempt
@@ -482,6 +507,8 @@ class ExecutorAgent:
                 #   FIX Bug #2: Validate AI suggestions before accepting
                 validated_locators = []
                 for loc in new_locators:
+                    # Sanitize before validation
+                    loc["value"] = sanitize_ai_selector(loc["value"])
                     if await self._validate_healed_locator(page, loc, description, keyword):
                         validated_locators.append(loc)
                 
@@ -593,7 +620,7 @@ class ExecutorAgent:
         """Attempts to dismiss ad overlays (google_vignette) if they appear."""
         try:
             # Check for common vignette IDs/classes
-            overlay_selectors = ["#google_vignette", ".google-vignette-container", "ins.adsbygoogle", "div[id^='aswift_']"]
+            overlay_selectors = ["#google_vignette", ".google-vignette-container", "ins.adsbygoogle", "div[id^='aswift_']", ".ad-overlay", "#interstitial"]
             for sel in overlay_selectors:
                 if await page.is_visible(sel, timeout=500):
                     self.log(f"      Detected overlay ({sel}). Forcing removal...", "yellow")
@@ -602,11 +629,40 @@ class ExecutorAgent:
                     # Try clicking outside or pressing ESC
                     await page.keyboard.press("Escape")
                     await asyncio.sleep(0.5)
-                    # If it's a specific 'dismiss' button, try to click it (site specific, but often there)
-                    dismiss_btn = "div[id='dismiss-button'], div.dismiss-button"
+                    # If it's a specific 'dismiss' button, try to click it
+                    dismiss_btn = "div[id='dismiss-button'], div.dismiss-button, .close-button, .dismiss-link"
                     if await page.is_visible(dismiss_btn, timeout=500):
                         await page.click(dismiss_btn, force=True)
                         self.log("    [OK] Dismiss button clicked.", "green")
+        except:
+            pass
+
+    async def _ensure_visible(self, page: Page, selector: str):
+        """Centered scrolling and overlay check."""
+        try:
+            loc = page.locator(selector).first
+            if await loc.count() > 0:
+                # Centered scroll
+                await loc.evaluate("el => el.scrollIntoView({block: 'center', inline: 'center'})")
+                await asyncio.sleep(0.5)
+                
+                # Check if covered by fixed overlay
+                is_covered = await page.evaluate("""
+                    (sel) => {
+                        const el = document.querySelector(sel);
+                        if (!el) return false;
+                        const rect = el.getBoundingClientRect();
+                        const centerX = rect.left + rect.width / 2;
+                        const centerY = rect.top + rect.height / 2;
+                        const elementAtPoint = document.elementFromPoint(centerX, centerY);
+                        return elementAtPoint && !el.contains(elementAtPoint) && 
+                               (getComputedStyle(elementAtPoint).position === 'fixed' || 
+                                getComputedStyle(elementAtPoint).position === 'sticky');
+                    }
+                """, selector)
+                
+                if is_covered:
+                    self.log(f"      [WARN] Element {selector} possibly covered by fixed header/overlay. Using force click fallback.", "yellow")
         except:
             pass
 

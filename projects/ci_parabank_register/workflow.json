@@ -1,0 +1,412 @@
+{
+  "project": "ci_parabank_register",
+  "goal": "Explore the website and identify key user flows and interactive elements.",
+  "base_url": "https://parabank.parasoft.com",
+  "scenarios": [
+    {
+      "id": "TC_REGISTER_01",
+      "name": "User Registration",
+      "description": "Navigate to registration page and create a new account.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://parabank.parasoft.com/parabank/register.htm"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "First Name",
+            "value": "John"
+          },
+          "locators": [
+            {
+              "value": ".name, [data-test*='name'], [id*='name'] >> nth=0",
+              "confidence": 0.88,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "Last Name",
+            "value": "Doe"
+          },
+          "locators": [
+            {
+              "value": ".name, [data-test*='name'], [id*='name'] >> nth=-1",
+              "confidence": 0.88,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "Address",
+            "value": "123 Test St"
+          },
+          "locators": [
+            {
+              "value": "input[name*='address'] >> nth=0",
+              "confidence": 0.7,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "City",
+            "value": "Test City"
+          },
+          "locators": [
+            {
+              "value": "[name*='city' i]",
+              "confidence": 0.88,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "State",
+            "value": "TS"
+          },
+          "locators": [
+            {
+              "value": "[name*='state' i]",
+              "confidence": 0.88,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "Zip Code",
+            "value": "12345"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "Phone",
+            "value": "555-555-5555"
+          },
+          "locators": [
+            {
+              "value": "[name*='phone' i]",
+              "confidence": 0.88,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "SSN",
+            "value": "999-99-9999"
+          },
+          "locators": [
+            {
+              "value": "[name*='ssn' i]",
+              "confidence": 0.88,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "Username",
+            "value": "{random_username}"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "Password",
+            "value": "password123"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "Confirm",
+            "value": "password123"
+          },
+          "locators": [
+            {
+              "value": "input[name='confirmPassword']",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Register"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=link[name='Register']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text='Register'",
+              "priority": 2,
+              "is_unique": false,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_13_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Confirm",
+            "locator": "input[name='repeatedPassword']",
+            "value": "password",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='repeatedPassword']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "description": "Welcome",
+            "expected_text": "Welcome"
+          },
+          "locators": [
+            {
+              "value": "h1:contains('Welcome to ParaBank')",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TC001",
+      "name": "Explore Website and Identify Key User Flows",
+      "description": "Navigates to the ParaBank website and explores the initial page.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://parabank.parasoft.com"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://parabank.parasoft.com"
+          }
+        },
+        {
+          "id": "step_2_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Username",
+            "locator": "input[name='username']",
+            "value": "your_username",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='username']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_2_ai_2",
+          "keyword": "fill",
+          "args": {
+            "description": "password",
+            "locator": "input[name='password']",
+            "value": "password",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='password']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_2_ai_3",
+          "keyword": "click",
+          "args": {
+            "description": "LOG IN",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[value='Log In']",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_2_ai_4",
+          "keyword": "fill",
+          "args": {
+            "description": "Username",
+            "locator": "input[name='username']",
+            "value": "john",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='username']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_2_ai_5",
+          "keyword": "fill",
+          "args": {
+            "description": "password",
+            "locator": "input[name='password']",
+            "value": "password",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='password']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_2_ai_6",
+          "keyword": "fill",
+          "args": {
+            "description": "Username",
+            "locator": "input[name='username']",
+            "value": "john",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='username']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Customer Login"
+          },
+          "locators": [
+            {
+              "type": "text",
+              "value": "text='Customer Login'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_9_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "LOG IN",
+            "locator": "input[value='Log In']",
+            "value": "",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[value='Log In']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Register"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=link[name='Register']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text='Register'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_11_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "LOG IN",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[value='Log In']",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

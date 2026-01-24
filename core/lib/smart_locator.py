@@ -44,6 +44,36 @@ def _css_escape(identifier: str) -> str:
     return re.sub(special_chars, escape_char, identifier).rstrip()
 
 
+def sanitize_ai_selector(selector: str) -> str:
+    """
+    Sanitize AI-suggested selectors to prevent Playwright SyntaxErrors.
+    Fixes common LLM hallucinations like :contains(), raw text, or unescaped characters.
+    """
+    if not selector:
+        return selector
+    
+    # 1. Remove unsupported :contains() - usually meant to be :has-text() or text=
+    if ":contains(" in selector:
+        # Extract the text from :contains('text')
+        match = re.search(r":contains\(['\"]?(.*?)['\"]?\)", selector)
+        if match:
+            text_val = match.group(1)
+            # Replace with Playwright's preferred text= or :has-text()
+            # If it's a simple tag like 'a:contains', we can change it to 'text=text'
+            base_tag = selector.split(":contains")[0]
+            if base_tag and base_tag != "*":
+                selector = f"{base_tag}:has-text('{text_val}')"
+            else:
+                selector = f"text='{text_val}'"
+    
+    # 2. Fix unescaped hashes/dots in descriptions that aren't real selectors
+    # e.g. "Click #1 button" -> text="Click #1 button"
+    if selector.startswith('#') and ' ' in selector:
+        selector = f"text='{selector}'"
+        
+    return selector
+
+
 async def find_element_smart(page: Page, description: str, debug: bool = None) -> Optional[Dict]:
     """
     Try deterministic element finding strategies before AI fallback.

@@ -1,0 +1,838 @@
+{
+  "project": "verification_ae",
+  "goal": "Explore the website and identify key user flows and interactive elements.",
+  "base_url": "https://www.automationexercise.com/",
+  "scenarios": [
+    {
+      "id": "TC001",
+      "name": "Explore Website and Identify Key User Flows",
+      "description": "This test scenario explores the website, identifies key user flows, and validates interactive elements.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://www.automationexercise.com/"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/"
+          }
+        },
+        {
+          "id": "step_2_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Products",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=link[name='\ue8f8 Products']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text=\ue8f8 Products",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_2_ai_2",
+          "keyword": "fill",
+          "args": {
+            "description": "Search Product",
+            "locator": "#search_product",
+            "value": "dress",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "#search_product",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_2_ai_3",
+          "keyword": "click",
+          "args": {
+            "description": "Search",
+            "locator": "button[type='submit']",
+            "value": "",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "button[type='submit']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_2_ai_4",
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "text",
+              "value": "text='Add to cart'",
+              "priority": 2,
+              "is_unique": false,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_2_ai_5",
+          "keyword": "click",
+          "args": {
+            "description": "Continue Shopping",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=button[name='Continue Shopping']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text='Continue Shopping'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Signup / Login"
+          },
+          "locators": [
+            {
+              "value": "a:text-is('Signup / Login')",
+              "confidence": 0.85,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_8_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Email Address",
+            "locator": "input[name='email']",
+            "value": "test@example.com",
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "css",
+              "value": "input[placeholder='Email Address']",
+              "priority": 0,
+              "reasoning": "This CSS selector targets the input field with the placeholder 'Email Address', which is the most direct and reliable way to identify the email address field."
+            },
+            {
+              "type": "css",
+              "value": "input[type='email']",
+              "priority": 1,
+              "reasoning": "This CSS selector targets the input field with the type 'email', which is a valid HTML attribute for email input fields."
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/login"
+          }
+        },
+        {
+          "id": "step_10_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Name",
+            "locator": "input[name='name']",
+            "value": "test name",
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=textbox[name='Name']",
+              "priority": 1
+            },
+            {
+              "type": "text",
+              "value": "text='Name'",
+              "priority": 2
+            },
+            {
+              "type": "placeholder",
+              "value": "[placeholder='Name']",
+              "priority": 2
+            },
+            {
+              "type": "css",
+              "value": "input[name='name']",
+              "priority": 3
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "{random_name}",
+            "description": "Name"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=textbox[name='Name']",
+              "priority": 1
+            },
+            {
+              "type": "text",
+              "value": "text='Name'",
+              "priority": 2
+            },
+            {
+              "type": "placeholder",
+              "value": "[placeholder='Name']",
+              "priority": 2
+            },
+            {
+              "type": "css",
+              "value": "input[name='name']",
+              "priority": 3
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "{random_email}",
+            "description": "Email Address"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=textbox[name='Email Address']",
+              "priority": 1
+            },
+            {
+              "type": "text",
+              "value": "text='Email Address'",
+              "priority": 2
+            },
+            {
+              "type": "placeholder",
+              "value": "[placeholder='Email Address']",
+              "priority": 2
+            },
+            {
+              "type": "css",
+              "value": "input[name='email']",
+              "priority": 3
+            },
+            {
+              "type": "role",
+              "value": "role=textbox[name='Email Address']",
+              "priority": 1
+            },
+            {
+              "type": "text",
+              "value": "text='Email Address'",
+              "priority": 2
+            },
+            {
+              "type": "placeholder",
+              "value": "[placeholder='Email Address']",
+              "priority": 2
+            },
+            {
+              "type": "css",
+              "value": "input[name='email']",
+              "priority": 3
+            },
+            {
+              "type": "role",
+              "value": "role=textbox[name='Your email address']",
+              "priority": 1
+            },
+            {
+              "type": "text",
+              "value": "text=Your email address",
+              "priority": 3
+            },
+            {
+              "type": "placeholder",
+              "value": "[placeholder='Your email address']",
+              "priority": 2
+            },
+            {
+              "type": "css",
+              "value": "#susbscribe_email",
+              "priority": 2
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Signup"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=button[name='Signup']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text='Signup'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text=New User Signup!",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text=Signup / Login",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_14_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Name",
+            "locator": "input[name='name']",
+            "value": "test name",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='name']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/signup"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "{random_password}",
+            "description": "Password"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=textbox[name='Password']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "placeholder",
+              "value": "[placeholder='Password']",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "input[name='password']",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Sign up"
+          },
+          "locators": [
+            {
+              "value": "div.signup-form > form > button",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Account Created!"
+          },
+          "skipped": true
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Continue"
+          },
+          "skipped": true
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Logged in as"
+          },
+          "skipped": true
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Products"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=link[name='\ue8f8 Products']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text=ALL PRODUCTS",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text=\ue8f8 Products",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_22_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Search Product",
+            "locator": "#search_product",
+            "value": "dress",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "#search_product",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_22_ai_2",
+          "keyword": "click",
+          "args": {
+            "description": "Search Product",
+            "locator": "input[name='search']",
+            "value": "dress",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='search']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/products"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "View Product",
+            "index": 0
+          },
+          "locators": [
+            {
+              "type": "text",
+              "value": "text='View Product'",
+              "priority": 2,
+              "is_unique": false,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_26_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "text",
+              "value": "text='Add to cart'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text=Rs. 500 Quantity: Add to cart",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_26_ai_2",
+          "keyword": "click",
+          "args": {
+            "description": "Continue Shopping",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=button[name='Continue Shopping']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text='Continue Shopping'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_26_ai_3",
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "text",
+              "value": "text='Add to cart'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text=Rs. 500 Quantity: Add to cart",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_26_ai_4",
+          "keyword": "click",
+          "args": {
+            "description": "Continue Shopping",
+            "locator": "button",
+            "value": "",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "button",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": false,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/product_details"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart"
+          },
+          "locators": [
+            {
+              "type": "text",
+              "value": "text='Add to cart'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text=Rs. 500 Quantity: Add to cart",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "View Cart"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=link[name='View Cart']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text='View Cart'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/view_cart"
+          }
+        },
+        {
+          "id": "step_34_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Proceed To Checkout",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "text",
+              "value": "text='Proceed To Checkout'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Proceed To Checkout"
+          },
+          "locators": [
+            {
+              "type": "text",
+              "value": "text='Proceed To Checkout'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/checkout"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Place Order"
+          },
+          "skipped": true
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "Some description",
+            "description": "Your message"
+          },
+          "skipped": true
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Pay and Confirm Order"
+          },
+          "skipped": true
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Order placed successfully!"
+          },
+          "skipped": true
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Continue"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=button[name='Continue On Cart']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text=Continue On Cart",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Logout"
+          },
+          "skipped": true
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.automationexercise.com/login"
+          }
+        },
+        {
+          "id": "step_44_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Email Address",
+            "locator": "input[name='email']",
+            "value": "test@example.com",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='email']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": false,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_44_ai_2",
+          "keyword": "fill",
+          "args": {
+            "description": "Name",
+            "locator": "input[name='name']",
+            "value": "test name",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='name']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_44_ai_3",
+          "keyword": "fill",
+          "args": {
+            "description": "Email Address",
+            "locator": "input[name='email']",
+            "value": "test@example.com",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='email']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": false,
+              "is_visible": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

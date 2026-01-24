@@ -1,0 +1,110 @@
+{
+  "project": "ci_saucedemo_e2e",
+  "goal": "Login as 'standard_user'/'secret_sauce', add 'Backpack' to cart, checkout with zip='90210', verify order confirmation",
+  "base_url": "https://www.saucedemo.com/",
+  "scenarios": [
+    {
+      "id": "TC001",
+      "name": "Add Backpack to Cart and Checkout",
+      "description": "Logs in, adds a backpack to the cart, and checks out.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://www.saucedemo.com/"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "standard_user",
+            "description": "Username"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "secret_sauce",
+            "description": "Password"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Login"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.saucedemo.com/inventory.html"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart",
+            "index": 0
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Cart"
+          }
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Your Cart"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Checkout"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "First Name",
+            "description": "First Name"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "Last Name",
+            "description": "Last Name"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "90210",
+            "description": "Zip/Postal Code"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Continue"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Finish"
+          }
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "THANK YOU FOR YOUR ORDER"
+          }
+        }
+      ]
+    }
+  ]
+}

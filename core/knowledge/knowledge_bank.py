@@ -3,7 +3,10 @@ import json
 import yaml
 from urllib.parse import urlparse
 
-KB_ROOT = "knowledge"
+# Resolve absolute path to knowledge directory relative to this file
+# This ensures it works regardless of where the script is run from
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+KB_ROOT = os.path.join(BASE_DIR, "knowledge")
 
 class KnowledgeBank:
     """
@@ -15,6 +18,92 @@ class KnowledgeBank:
         os.makedirs(os.path.join(self.root, "domains"), exist_ok=True)
         os.makedirs(os.path.join(self.root, "sites"), exist_ok=True)
         os.makedirs(os.path.join(self.root, "library"), exist_ok=True)
+
+    def get_best_locator(self, url: str, description: str) -> str:
+        """
+        Retrieves the highest-stability locator for a given description on a page.
+        Returns None if no reliable locator is found.
+        """
+        try:
+            domain_netloc = urlparse(url).netloc
+            site_path = os.path.join(self.root, "sites", domain_netloc)
+            loc_file = os.path.join(site_path, "locators.json")
+            
+            if not os.path.exists(loc_file):
+                return None
+                
+            with open(loc_file, "r") as f:
+                all_locs = json.load(f)
+                
+            # Try exact URL match first
+            url_specific_locs = all_locs.get(url, [])
+            
+            # Simple fuzzy match for description
+            best_candidate = None
+            highest_score = -10
+            
+            from difflib import SequenceMatcher
+            
+            for loc_entry in url_specific_locs:
+                stored_desc = loc_entry.get("description", "")
+                ratio = SequenceMatcher(None, description.lower(), stored_desc.lower()).ratio()
+                
+                # If descriptions match well enough (>0.7) and stability is good
+                if ratio > 0.7:
+                    stability = loc_entry.get("stability", 0)
+                    if stability > highest_score and stability >= 1: # Only trust positive stability
+                        highest_score = stability
+                        best_candidate = loc_entry.get("playwright")
+            
+            return best_candidate
+            
+        except Exception as e:
+            print(f"⚠️ Memory Retrieval Error: {e}")
+            return None
+
+    def record_successful_locator(self, url: str, selector: str, description: str):
+        """
+        Immediately updates the persistent knowledge store with a success.
+        """
+        try:
+            domain_netloc = urlparse(url).netloc
+            site_path = os.path.join(self.root, "sites", domain_netloc)
+            os.makedirs(site_path, exist_ok=True)
+            loc_file = os.path.join(site_path, "locators.json")
+            
+            locs = {}
+            if os.path.exists(loc_file):
+                with open(loc_file, "r") as f:
+                    try:
+                        locs = json.load(f)
+                    except: locs = {}
+            
+            if url not in locs:
+                locs[url] = []
+                
+            # Check if this selector already exists
+            found = False
+            for entry in locs[url]:
+                if entry["playwright"] == selector:
+                    entry["stability"] = entry.get("stability", 0) + 1
+                    entry["last_used"] = str(datetime.now())
+                    found = True
+                    break
+            
+            if not found:
+                locs[url].append({
+                    "description": description,
+                    "playwright": selector,
+                    "stability": 1, 
+                    "first_seen": str(datetime.now())
+                })
+                
+            with open(loc_file, "w") as f:
+                json.dump(locs, f, indent=2)
+                
+        except Exception as e:
+            print(f"⚠️ Memory Save Error: {e}")
+
 
     def get_rag_context(self, url, goal):
         """

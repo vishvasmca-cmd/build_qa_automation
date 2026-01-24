@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Report: explorer_1769051568</title>
+    <style>
+        :root { --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --accent: #3b82f6; --success: #22c55e; --fail: #ef4444; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 20px; }
+        .timeline { max-width: 1000px; margin: 0 auto; }
+        .step-card { background: var(--card); border-radius: 8px; padding: 16px; margin-bottom: 16px; border-left: 4px solid var(--accent); }
+        .step-card.passed { border-left-color: var(--success); }
+        .step-card.failed { border-left-color: var(--fail); }
+        .step-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; }
+        .step-details { font-family: monospace; background: #0f172a; padding: 10px; border-radius: 4px; overflow-x: auto; white-space: pre-wrap; font-size: 0.9em; }
+        .screenshot { margin-top: 10px; border-radius: 4px; border: 1px solid #334155; max-width: 100%; }
+        .json-tree { color: #94a3b8; }
+        .badge { padding: 2px 6px; border-radius: 4px; font-size: 0.8em; background: #334155; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🐞 Debug Report: explorer_1769051568</h1>
+        <div>Total Steps: 4 | Duration: 244.84s</div>
+    </div>
+    
+    <div class="timeline" id="timeline">
+        <!-- Steps will be rendered here by JS -->
+    </div>
+
+    <script>
+        const steps = [{"timestamp": "2026-01-21T21:12:51.737993", "elapsed": 3.71, "step": "Smart Locator: Login", "status": "passed", "details": {"result": {"selector": "role=button[name='Login' i]", "confidence": 0.96, "method": "role-button-exact", "count": 1}, "input": "Login"}, "screenshot": null}, {"timestamp": "2026-01-21T21:16:50.000862", "elapsed": 241.97, "step": "AI Vision: Add to cart", "status": "info", "details": {"type": "ai_decision", "prompt_summary": "\n                    **ROLE & STRATEGY:**\n                    Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.\n      ...", "response": {"found": false, "suggest_navigation": {"needed": true, "action": "click", "target": "Login", "reasoning": "The current page is the login page. The 'Add to cart' button is not present. The next step is to login and then navigate to the products page."}}, "candidates": []}, "screenshot": null}, {"timestamp": "2026-01-21T21:16:51.506664", "elapsed": 243.48, "step": "AI Vision: Add to cart", "status": "info", "details": {"type": "ai_decision", "prompt_summary": "\n                    **ROLE & STRATEGY:**\n                    Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.\n      ...", "response": {"found": false, "suggest_navigation": {"needed": true, "action": "click", "target": "Login", "reasoning": "The current page is the login page. The 'Add to cart' button is not present. The next step is to login and then navigate to the products page."}}, "candidates": []}, "screenshot": null}, {"timestamp": "2026-01-21T21:16:52.865042", "elapsed": 244.84, "step": "AI Vision: Add to cart", "status": "info", "details": {"type": "ai_decision", "prompt_summary": "\n                    **ROLE & STRATEGY:**\n                    Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability. Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation.\n      ...", "response": {"found": false, "suggest_navigation": {"needed": true, "action": "click", "target": "Login", "reasoning": "The current page is the login page. The 'Add to cart' button is not present. The next step is to login and then navigate to the products page."}}, "candidates": []}, "screenshot": null}];
+        const container = document.getElementById('timeline');
+
+        steps.forEach((step, index) => {
+            const card = document.createElement('div');
+            card.className = `step-card ${step.status}`;
+            
+            let detailsHtml = '';
+            
+            if (step.details.type === 'ai_decision') {
+                detailsHtml = `
+                    <div style="margin-bottom: 5px; color: #60a5fa;">🧠 AI Decision Logic</div>
+                    <div class="json-tree">${JSON.stringify(step.details.response, null, 2)}</div>
+                    ${step.details.candidates && step.details.candidates.length > 0 ? 
+                        `<div style="margin-top: 5px; color: #a3e635;">🏆 Top Candidates:</div>
+                         <div class="json-tree">${JSON.stringify(step.details.candidates, null, 2)}</div>` : ''}
+                `;
+            } else {
+                detailsHtml = `<div class="json-tree">${typeof step.details === 'string' ? step.details : JSON.stringify(step.details, null, 2)}</div>`;
+            }
+
+            const screenshotHtml = step.screenshot ? 
+                `<img src="data:image/jpeg;base64,${step.screenshot}" class="screenshot" alt="Step Screenshot" />` : '';
+
+            card.innerHTML = `
+                <div class="step-header">
+                    <span>#${index + 1} ${step.step}</span>
+                    <span class="badge">${step.elapsed}s</span>
+                </div>
+                <div class="step-details">${detailsHtml}</div>
+                ${screenshotHtml}
+            `;
+            
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>

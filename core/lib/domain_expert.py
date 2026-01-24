@@ -8,24 +8,24 @@ class DomainExpert:
     
     DOMAINS = {
         "ecommerce": {
-            "keywords": ["cart", "shop", "checkout", "product", "price", "buy", "order", "stock"],
+            "keywords": ["cart", "shop", "checkout", "product", "price", "buy", "order", "catalog", "shipping", "inventory", "store", "sale", "deals"],
             "persona": "Senior SDET focusing on e-commerce flow automation and conversion funnel reliability",
-            "heuristics": "Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS, magnifying glass icons, and 'Add to Cart' buttons as primary automation targets. Dismiss popups that block the flow. For product lists, default to selecting the FIRST available item for consistent automation."
+            "heuristics": "Focus on the complete shopping funnel (Search -> Product Selection -> Add to Cart -> Checkout). CRITICAL: Identify SEARCH BARS and 'Add to Cart' buttons. Avoid looking for financial portfolios unless explicitly in the goal. FORBIDDEN: Do not suggest transfers or loans unless prompted."
         },
         "finance": {
-            "keywords": ["account", "balance", "transfer", "bank", "loan", "invest", "trading", "stock"],
-            "persona": "Senior SDET focusing on exploring application to understand functional flow and automating FinTech scenarios",
-            "heuristics": "Focus on the end-to-end functional flow (e.g., Account Creation, Login, Funds Transfer, Loan Application). Prioritize identifying stable locators and interactive elements for automation. Ensure core banking features are accessible and functional."
+            "keywords": ["account", "balance", "transfer", "bank", "loan", "invest", "trading", "transaction", "payment", "credit card", "debit card", "statement", "portfolio", "acme", "wealth", "recent transactions", "amount", "status", "category"],
+            "persona": "Senior SDET focusing on high-accuracy FinTech automation and transactional integrity",
+            "heuristics": "Focus on secure functional flows (e.g., Login -> Statement View -> Funds Transfer -> Payment Verification). Prioritize transaction tables, balance displays, and financial dashboards. DO NOT suggest e-commerce 'Add to Cart' or 'Shopping' flows for banking applications. This is a dashboard for MANAGING MONEY, not buying products."
         },
         "saas": {
-            "keywords": ["dashboard", "settings", "profile", "billing", "features", "solutions", "pricing"],
-            "persona": "Senior SDET focusing on SaaS platform stability and functional coverage",
-            "heuristics": "Focus on user onboarding flows and dashboard state transitions. Prioritize 'Sign Up', 'Upgrade', and navigation sidebar items as critical automation paths."
+            "keywords": ["dashboard", "settings", "profile", "billing", "features", "solutions", "pricing", "integration", "workspace", "admin", "console", "subscription", "users", "api"],
+            "persona": "Senior SDET focusing on SaaS platform stability and multi-tenant functional coverage",
+            "heuristics": "Focus on user onboarding flows, dashboard state transitions, and workspace configuration. Prioritize navigation sidebar items, 'Upgrade' triggers, and profile settings."
         },
         "social_media": {
-            "keywords": ["feed", "post", "friend", "follow", "comment", "share", "like", "profile"],
-            "persona": "Senior SDET focusing on social interaction and feed reliability",
-            "heuristics": "Focus on interactive engagement elements: like, share, comment. Prioritize feed scrolling behavior and profile settings automation."
+            "keywords": ["feed", "post", "friend", "follow", "comment", "share", "like", "profile", "message", "notification", "status", "timeline", "story", "hashtag"],
+            "persona": "Senior SDET focusing on social interaction reliability and real-time engagement automation",
+            "heuristics": "Focus on interactive engagement elements: like, share, comment, and direct messaging. Prioritize feed scrolling behavior and notification handling."
         }
     }
 

@@ -1,0 +1,649 @@
+﻿2026-01-23T04:28:58.2146303Z Current runner version: '2.331.0'
+2026-01-23T04:28:58.2178829Z ##[group]Runner Image Provisioner
+2026-01-23T04:28:58.2179607Z Hosted Compute Agent
+2026-01-23T04:28:58.2180162Z Version: 20260115.477
+2026-01-23T04:28:58.2180882Z Commit: 4b342d620503cbe250a3154040964899ea7c9b00
+2026-01-23T04:28:58.2181606Z Build Date: 2026-01-15T22:32:41Z
+2026-01-23T04:28:58.2182260Z Worker ID: {37f837ec-c1bd-4bf4-ad07-c09234b61c5a}
+2026-01-23T04:28:58.2183042Z Azure Region: northcentralus
+2026-01-23T04:28:58.2183631Z ##[endgroup]
+2026-01-23T04:28:58.2185329Z ##[group]Operating System
+2026-01-23T04:28:58.2186032Z Ubuntu
+2026-01-23T04:28:58.2186525Z 24.04.3
+2026-01-23T04:28:58.2186954Z LTS
+2026-01-23T04:28:58.2187519Z ##[endgroup]
+2026-01-23T04:28:58.2188025Z ##[group]Runner Image
+2026-01-23T04:28:58.2188549Z Image: ubuntu-24.04
+2026-01-23T04:28:58.2189115Z Version: 20260119.4.1
+2026-01-23T04:28:58.2190244Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260119.4/images/ubuntu/Ubuntu2404-Readme.md
+2026-01-23T04:28:58.2191780Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260119.4
+2026-01-23T04:28:58.2192648Z ##[endgroup]
+2026-01-23T04:28:58.2193753Z ##[group]GITHUB_TOKEN Permissions
+2026-01-23T04:28:58.2195897Z Contents: read
+2026-01-23T04:28:58.2196511Z Metadata: read
+2026-01-23T04:28:58.2197138Z Packages: read
+2026-01-23T04:28:58.2197626Z ##[endgroup]
+2026-01-23T04:28:58.2199587Z Secret source: Actions
+2026-01-23T04:28:58.2200343Z Prepare workflow directory
+2026-01-23T04:28:58.2595423Z Prepare all required actions
+2026-01-23T04:28:58.2650205Z Getting action download info
+2026-01-23T04:28:58.5833947Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-01-23T04:28:58.6809493Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-01-23T04:28:58.7924752Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-01-23T04:28:59.0478944Z Complete job name: test-websites-e2e (rahulshetty_e2e, https://rahulshettyacademy.com/seleniumPractise/, Search for ...
+2026-01-23T04:28:59.1165546Z ##[group]Run actions/checkout@v4
+2026-01-23T04:28:59.1166386Z with:
+2026-01-23T04:28:59.1166849Z   repository: vishvasmca-cmd/build_qa_automation
+2026-01-23T04:28:59.1167567Z   token: ***
+2026-01-23T04:28:59.1167959Z   ssh-strict: true
+2026-01-23T04:28:59.1168365Z   ssh-user: git
+2026-01-23T04:28:59.1168767Z   persist-credentials: true
+2026-01-23T04:28:59.1169212Z   clean: true
+2026-01-23T04:28:59.1169619Z   sparse-checkout-cone-mode: true
+2026-01-23T04:28:59.1170107Z   fetch-depth: 1
+2026-01-23T04:28:59.1170503Z   fetch-tags: false
+2026-01-23T04:28:59.1170925Z   show-progress: true
+2026-01-23T04:28:59.1171339Z   lfs: false
+2026-01-23T04:28:59.1171719Z   submodules: false
+2026-01-23T04:28:59.1172139Z   set-safe-directory: true
+2026-01-23T04:28:59.1172774Z ##[endgroup]
+2026-01-23T04:28:59.2251414Z Syncing repository: vishvasmca-cmd/build_qa_automation
+2026-01-23T04:28:59.2254471Z ##[group]Getting Git version info
+2026-01-23T04:28:59.2255823Z Working directory is '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-23T04:28:59.2257667Z [command]/usr/bin/git version
+2026-01-23T04:28:59.2335237Z git version 2.52.0
+2026-01-23T04:28:59.2362357Z ##[endgroup]
+2026-01-23T04:28:59.2377030Z Temporarily overriding HOME='/home/runner/work/_temp/5d2a6b03-426e-4c04-bcd8-5573ea35d831' before making global git config changes
+2026-01-23T04:28:59.2382592Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-23T04:28:59.2384949Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-23T04:28:59.2428775Z Deleting the contents of '/home/runner/work/build_qa_automation/build_qa_automation'
+2026-01-23T04:28:59.2432519Z ##[group]Initializing the repository
+2026-01-23T04:28:59.2437633Z [command]/usr/bin/git init /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-23T04:28:59.2550779Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-01-23T04:28:59.2551776Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-01-23T04:28:59.2552673Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-01-23T04:28:59.2553369Z hint: call:
+2026-01-23T04:28:59.2553722Z hint:
+2026-01-23T04:28:59.2554335Z hint: 	git config --global init.defaultBranch <name>
+2026-01-23T04:28:59.2554916Z hint:
+2026-01-23T04:28:59.2555446Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-01-23T04:28:59.2556322Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-01-23T04:28:59.2557164Z hint:
+2026-01-23T04:28:59.2557872Z hint: 	git branch -m <name>
+2026-01-23T04:28:59.2558653Z hint:
+2026-01-23T04:28:59.2559643Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-01-23T04:28:59.2561636Z Initialized empty Git repository in /home/runner/work/build_qa_automation/build_qa_automation/.git/
+2026-01-23T04:28:59.2573209Z [command]/usr/bin/git remote add origin https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-23T04:28:59.2611734Z ##[endgroup]
+2026-01-23T04:28:59.2613049Z ##[group]Disabling automatic garbage collection
+2026-01-23T04:28:59.2616151Z [command]/usr/bin/git config --local gc.auto 0
+2026-01-23T04:28:59.2647152Z ##[endgroup]
+2026-01-23T04:28:59.2648296Z ##[group]Setting up auth
+2026-01-23T04:28:59.2654473Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-23T04:28:59.2686009Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-23T04:28:59.3085508Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-23T04:28:59.3116674Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-23T04:28:59.3337087Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-23T04:28:59.3369295Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-23T04:28:59.3606850Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-01-23T04:28:59.3642670Z ##[endgroup]
+2026-01-23T04:28:59.3643934Z ##[group]Fetching the repository
+2026-01-23T04:28:59.3652325Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +5bd9297783ab53bda39be1bd4569712a8a384e82:refs/remotes/origin/main
+2026-01-23T04:28:59.7432920Z From https://github.com/vishvasmca-cmd/build_qa_automation
+2026-01-23T04:28:59.7434921Z  * [new ref]         5bd9297783ab53bda39be1bd4569712a8a384e82 -> origin/main
+2026-01-23T04:28:59.7468003Z ##[endgroup]
+2026-01-23T04:28:59.7469332Z ##[group]Determining the checkout info
+2026-01-23T04:28:59.7471420Z ##[endgroup]
+2026-01-23T04:28:59.7476170Z [command]/usr/bin/git sparse-checkout disable
+2026-01-23T04:28:59.7519166Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-01-23T04:28:59.7547696Z ##[group]Checking out the ref
+2026-01-23T04:28:59.7550118Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-01-23T04:28:59.8134565Z Switched to a new branch 'main'
+2026-01-23T04:28:59.8139353Z branch 'main' set up to track 'origin/main'.
+2026-01-23T04:28:59.8145274Z ##[endgroup]
+2026-01-23T04:28:59.8182114Z [command]/usr/bin/git log -1 --format=%H
+2026-01-23T04:28:59.8203507Z 5bd9297783ab53bda39be1bd4569712a8a384e82
+2026-01-23T04:28:59.8511036Z ##[group]Run actions/setup-python@v5
+2026-01-23T04:28:59.8512233Z with:
+2026-01-23T04:28:59.8513056Z   python-version: 3.11
+2026-01-23T04:28:59.8514359Z   cache: pip
+2026-01-23T04:28:59.8515205Z   check-latest: false
+2026-01-23T04:28:59.8516388Z   token: ***
+2026-01-23T04:28:59.8517251Z   update-environment: true
+2026-01-23T04:28:59.8518276Z   allow-prereleases: false
+2026-01-23T04:28:59.8519276Z   freethreaded: false
+2026-01-23T04:28:59.8520183Z ##[endgroup]
+2026-01-23T04:29:00.0197517Z ##[group]Installed versions
+2026-01-23T04:29:00.0304915Z Successfully set up CPython (3.11.14)
+2026-01-23T04:29:00.0306775Z ##[endgroup]
+2026-01-23T04:29:00.1640043Z [command]/opt/hostedtoolcache/Python/3.11.14/x64/bin/pip cache dir
+2026-01-23T04:29:01.5022014Z /home/runner/.cache/pip
+2026-01-23T04:29:01.6351137Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-23T04:29:02.7422384Z Received 163577856 of 254742636 (64.2%), 156.0 MBs/sec
+2026-01-23T04:29:03.1031019Z Received 254742636 of 254742636 (100.0%), 178.5 MBs/sec
+2026-01-23T04:29:03.1032558Z Cache Size: ~243 MB (254742636 B)
+2026-01-23T04:29:03.1179279Z [command]/usr/bin/tar -xf /home/runner/work/_temp/ba38310e-3315-4024-b0c9-1351ba8e8fe0/cache.tzst -P -C /home/runner/work/build_qa_automation/build_qa_automation --use-compress-program unzstd
+2026-01-23T04:29:03.5218083Z Cache restored successfully
+2026-01-23T04:29:03.5713522Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4
+2026-01-23T04:29:03.5874919Z ##[group]Run pip install -r requirements.txt
+2026-01-23T04:29:03.5875363Z [36;1mpip install -r requirements.txt[0m
+2026-01-23T04:29:03.5937818Z [36;1mplaywright install chromium[0m
+2026-01-23T04:29:03.5978255Z shell: /usr/bin/bash -e {0}
+2026-01-23T04:29:03.5978517Z env:
+2026-01-23T04:29:03.5978782Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:29:03.5979235Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-23T04:29:03.5979687Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:29:03.5980077Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:29:03.5980473Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:29:03.5980850Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-23T04:29:03.5981155Z ##[endgroup]
+2026-01-23T04:29:04.6387283Z Collecting playwright (from -r requirements.txt (line 1))
+2026-01-23T04:29:04.6404257Z   Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl.metadata (3.5 kB)
+2026-01-23T04:29:04.6566095Z Collecting python-dotenv (from -r requirements.txt (line 2))
+2026-01-23T04:29:04.6580951Z   Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+2026-01-23T04:29:04.6839447Z Collecting requests (from -r requirements.txt (line 3))
+2026-01-23T04:29:04.6853489Z   Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2026-01-23T04:29:04.8533307Z Collecting pillow (from -r requirements.txt (line 4))
+2026-01-23T04:29:04.8550753Z   Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+2026-01-23T04:29:04.8847790Z Collecting google-genai>=0.3.0 (from -r requirements.txt (line 5))
+2026-01-23T04:29:04.9413474Z   Downloading google_genai-1.60.0-py3-none-any.whl.metadata (53 kB)
+2026-01-23T04:29:04.9726637Z Collecting termcolor (from -r requirements.txt (line 6))
+2026-01-23T04:29:04.9740267Z   Using cached termcolor-3.3.0-py3-none-any.whl.metadata (6.5 kB)
+2026-01-23T04:29:05.0079298Z Collecting PyYAML (from -r requirements.txt (line 7))
+2026-01-23T04:29:05.0093559Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-01-23T04:29:05.0644886Z Collecting opencv-python-headless (from -r requirements.txt (line 8))
+2026-01-23T04:29:05.0659205Z   Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl.metadata (19 kB)
+2026-01-23T04:29:05.2574876Z Collecting numpy (from -r requirements.txt (line 9))
+2026-01-23T04:29:05.2590333Z   Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-01-23T04:29:05.3351346Z Collecting faker (from -r requirements.txt (line 10))
+2026-01-23T04:29:05.3365084Z   Using cached faker-40.1.2-py3-none-any.whl.metadata (16 kB)
+2026-01-23T04:29:05.3502859Z Collecting pyee<14,>=13 (from playwright->-r requirements.txt (line 1))
+2026-01-23T04:29:05.3516264Z   Using cached pyee-13.0.0-py3-none-any.whl.metadata (2.9 kB)
+2026-01-23T04:29:05.4728122Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r requirements.txt (line 1))
+2026-01-23T04:29:05.4743216Z   Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+2026-01-23T04:29:05.4916723Z Collecting typing-extensions (from pyee<14,>=13->playwright->-r requirements.txt (line 1))
+2026-01-23T04:29:05.4930060Z   Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+2026-01-23T04:29:05.5707277Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 3))
+2026-01-23T04:29:05.5722259Z   Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+2026-01-23T04:29:05.5859467Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 3))
+2026-01-23T04:29:05.5872763Z   Using cached idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+2026-01-23T04:29:05.6146078Z Collecting urllib3<3,>=1.21.1 (from requests->-r requirements.txt (line 3))
+2026-01-23T04:29:05.6159142Z   Using cached urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+2026-01-23T04:29:05.6348711Z Collecting certifi>=2017.4.17 (from requests->-r requirements.txt (line 3))
+2026-01-23T04:29:05.6362089Z   Using cached certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+2026-01-23T04:29:05.6556333Z Collecting anyio<5.0.0,>=4.8.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:05.6569599Z   Using cached anyio-4.12.1-py3-none-any.whl.metadata (4.3 kB)
+2026-01-23T04:29:05.7004296Z Collecting google-auth<3.0.0,>=2.47.0 (from google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:05.7017539Z   Using cached google_auth-2.47.0-py3-none-any.whl.metadata (6.4 kB)
+2026-01-23T04:29:05.7239959Z Collecting httpx<1.0.0,>=0.28.1 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:05.7256673Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-01-23T04:29:05.8681167Z Collecting pydantic<3.0.0,>=2.9.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:05.8696103Z   Using cached pydantic-2.12.5-py3-none-any.whl.metadata (90 kB)
+2026-01-23T04:29:05.8962001Z Collecting tenacity<9.2.0,>=8.2.3 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:05.8974881Z   Using cached tenacity-9.1.2-py3-none-any.whl.metadata (1.2 kB)
+2026-01-23T04:29:05.9847913Z Collecting websockets<15.1.0,>=13.0.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:05.9866442Z   Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.8 kB)
+2026-01-23T04:29:05.9996548Z Collecting distro<2,>=1.7.0 (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:06.0009276Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+2026-01-23T04:29:06.0096743Z Collecting sniffio (from google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:06.0109460Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+2026-01-23T04:29:06.0371995Z Collecting pyasn1-modules>=0.2.1 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:06.0384853Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+2026-01-23T04:29:06.0523776Z Collecting rsa<5,>=3.1.4 (from google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:06.0536497Z   Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2026-01-23T04:29:06.0815136Z Collecting httpcore==1.* (from httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:06.0827777Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-01-23T04:29:06.0936571Z Collecting h11>=0.16 (from httpcore==1.*->httpx<1.0.0,>=0.28.1->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:06.0948640Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-01-23T04:29:06.1044178Z Collecting annotated-types>=0.6.0 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:06.1056912Z   Using cached annotated_types-0.7.0-py3-none-any.whl.metadata (15 kB)
+2026-01-23T04:29:06.7652593Z Collecting pydantic-core==2.41.5 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:06.7669263Z   Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.3 kB)
+2026-01-23T04:29:06.7814503Z Collecting typing-inspection>=0.4.2 (from pydantic<3.0.0,>=2.9.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:06.7828526Z   Using cached typing_inspection-0.4.2-py3-none-any.whl.metadata (2.6 kB)
+2026-01-23T04:29:06.8525809Z Collecting pyasn1>=0.1.3 (from rsa<5,>=3.1.4->google-auth<3.0.0,>=2.47.0->google-auth[requests]<3.0.0,>=2.47.0->google-genai>=0.3.0->-r requirements.txt (line 5))
+2026-01-23T04:29:06.8541929Z   Using cached pyasn1-0.6.2-py3-none-any.whl.metadata (8.4 kB)
+2026-01-23T04:29:06.8808331Z Using cached playwright-1.57.0-py3-none-manylinux1_x86_64.whl (46.0 MB)
+2026-01-23T04:29:06.9150743Z Using cached greenlet-3.3.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (590 kB)
+2026-01-23T04:29:06.9168589Z Using cached pyee-13.0.0-py3-none-any.whl (15 kB)
+2026-01-23T04:29:06.9182278Z Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+2026-01-23T04:29:06.9195775Z Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+2026-01-23T04:29:06.9210090Z Using cached charset_normalizer-3.4.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+2026-01-23T04:29:06.9223610Z Using cached idna-3.11-py3-none-any.whl (71 kB)
+2026-01-23T04:29:06.9237326Z Using cached urllib3-2.6.3-py3-none-any.whl (131 kB)
+2026-01-23T04:29:06.9251343Z Using cached pillow-12.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+2026-01-23T04:29:06.9341813Z Downloading google_genai-1.60.0-py3-none-any.whl (719 kB)
+2026-01-23T04:29:06.9513766Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 719.4/719.4 kB 83.3 MB/s  0:00:00
+2026-01-23T04:29:06.9528324Z Using cached anyio-4.12.1-py3-none-any.whl (113 kB)
+2026-01-23T04:29:06.9542718Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+2026-01-23T04:29:06.9556254Z Using cached google_auth-2.47.0-py3-none-any.whl (234 kB)
+2026-01-23T04:29:06.9571094Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-01-23T04:29:06.9584857Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-01-23T04:29:06.9601948Z Using cached pydantic-2.12.5-py3-none-any.whl (463 kB)
+2026-01-23T04:29:06.9619516Z Using cached pydantic_core-2.41.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+2026-01-23T04:29:06.9647040Z Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+2026-01-23T04:29:06.9660387Z Using cached tenacity-9.1.2-py3-none-any.whl (28 kB)
+2026-01-23T04:29:06.9673592Z Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+2026-01-23T04:29:06.9687769Z Using cached websockets-15.0.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (182 kB)
+2026-01-23T04:29:06.9701933Z Using cached termcolor-3.3.0-py3-none-any.whl (7.7 kB)
+2026-01-23T04:29:06.9715843Z Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+2026-01-23T04:29:06.9734832Z Using cached opencv_python_headless-4.13.0.90-cp37-abi3-manylinux_2_28_x86_64.whl (62.5 MB)
+2026-01-23T04:29:07.0188127Z Using cached numpy-2.4.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-01-23T04:29:07.0319228Z Using cached faker-40.1.2-py3-none-any.whl (2.0 MB)
+2026-01-23T04:29:07.0347010Z Using cached annotated_types-0.7.0-py3-none-any.whl (13 kB)
+2026-01-23T04:29:07.0360480Z Using cached certifi-2026.1.4-py3-none-any.whl (152 kB)
+2026-01-23T04:29:07.0374634Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-01-23T04:29:07.0388035Z Using cached pyasn1-0.6.2-py3-none-any.whl (83 kB)
+2026-01-23T04:29:07.0401639Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+2026-01-23T04:29:07.0415838Z Using cached typing_inspection-0.4.2-py3-none-any.whl (14 kB)
+2026-01-23T04:29:07.0428941Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+2026-01-23T04:29:07.2609195Z Installing collected packages: websockets, urllib3, typing-extensions, termcolor, tenacity, sniffio, PyYAML, python-dotenv, pyasn1, pillow, numpy, idna, h11, greenlet, faker, distro, charset_normalizer, certifi, annotated-types, typing-inspection, rsa, requests, pyee, pydantic-core, pyasn1-modules, opencv-python-headless, httpcore, anyio, pydantic, playwright, httpx, google-auth, google-genai
+2026-01-23T04:29:14.3105711Z 
+2026-01-23T04:29:14.3129629Z Successfully installed PyYAML-6.0.3 annotated-types-0.7.0 anyio-4.12.1 certifi-2026.1.4 charset_normalizer-3.4.4 distro-1.9.0 faker-40.1.2 google-auth-2.47.0 google-genai-1.60.0 greenlet-3.3.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.11 numpy-2.4.1 opencv-python-headless-4.13.0.90 pillow-12.1.0 playwright-1.57.0 pyasn1-0.6.2 pyasn1-modules-0.4.2 pydantic-2.12.5 pydantic-core-2.41.5 pyee-13.0.0 python-dotenv-1.2.1 requests-2.32.5 rsa-4.9.1 sniffio-1.3.1 tenacity-9.1.2 termcolor-3.3.0 typing-extensions-4.15.0 typing-inspection-0.4.2 urllib3-2.6.3 websockets-15.0.1
+2026-01-23T04:29:14.9049399Z Downloading Chromium 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-linux.zip
+2026-01-23T04:29:15.0064165Z (node:2248) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-23T04:29:15.0065460Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-23T04:29:15.1350047Z |                                                                                |   0% of 164.7 MiB
+2026-01-23T04:29:15.2626538Z |■■■■■■■■                                                                        |  10% of 164.7 MiB
+2026-01-23T04:29:15.3609425Z |■■■■■■■■■■■■■■■■                                                                |  20% of 164.7 MiB
+2026-01-23T04:29:15.4404840Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 164.7 MiB
+2026-01-23T04:29:15.5284235Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 164.7 MiB
+2026-01-23T04:29:15.6185023Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 164.7 MiB
+2026-01-23T04:29:15.7005232Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 164.7 MiB
+2026-01-23T04:29:15.8030379Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 164.7 MiB
+2026-01-23T04:29:15.8946681Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 164.7 MiB
+2026-01-23T04:29:15.9875996Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 164.7 MiB
+2026-01-23T04:29:16.0845273Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 164.7 MiB
+2026-01-23T04:29:18.7392983Z Chromium 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium-1200
+2026-01-23T04:29:18.7397817Z Downloading FFMPEG playwright build v1011 from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-01-23T04:29:18.8396753Z (node:2259) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-23T04:29:18.8398702Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-23T04:29:18.9016157Z |                                                                                |   0% of 2.3 MiB
+2026-01-23T04:29:18.9064289Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-01-23T04:29:18.9103319Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-01-23T04:29:18.9122228Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-01-23T04:29:18.9183404Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-01-23T04:29:18.9212605Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-01-23T04:29:18.9236947Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-01-23T04:29:18.9250630Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-01-23T04:29:18.9296899Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-01-23T04:29:18.9310486Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-01-23T04:29:18.9324901Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-01-23T04:29:18.9982948Z FFMPEG playwright build v1011 downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-01-23T04:29:18.9993193Z Downloading Chromium Headless Shell 143.0.7499.4 (playwright build v1200) from https://cdn.playwright.dev/dbazure/download/playwright/builds/chromium/1200/chromium-headless-shell-linux.zip
+2026-01-23T04:29:19.1014728Z (node:2270) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-01-23T04:29:19.1016658Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-01-23T04:29:19.1812768Z |                                                                                |   0% of 109.7 MiB
+2026-01-23T04:29:19.3213295Z |■■■■■■■■                                                                        |  10% of 109.7 MiB
+2026-01-23T04:29:19.3862218Z |■■■■■■■■■■■■■■■■                                                                |  20% of 109.7 MiB
+2026-01-23T04:29:19.4404980Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 109.7 MiB
+2026-01-23T04:29:19.4986730Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 109.7 MiB
+2026-01-23T04:29:19.5544625Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 109.7 MiB
+2026-01-23T04:29:19.6047209Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 109.7 MiB
+2026-01-23T04:29:19.6476556Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 109.7 MiB
+2026-01-23T04:29:19.7079171Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 109.7 MiB
+2026-01-23T04:29:19.7681136Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 109.7 MiB
+2026-01-23T04:29:19.8187130Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 109.7 MiB
+2026-01-23T04:29:21.6953957Z Chromium Headless Shell 143.0.7499.4 (playwright build v1200) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1200
+2026-01-23T04:29:21.7178446Z ##[group]Run mkdir -p projects/ci_rahulshetty_e2e
+2026-01-23T04:29:21.7178857Z [36;1mmkdir -p projects/ci_rahulshetty_e2e[0m
+2026-01-23T04:29:21.7179227Z [36;1mcat > projects/ci_rahulshetty_e2e/config.json << 'EOF'[0m
+2026-01-23T04:29:21.7179541Z [36;1m{[0m
+2026-01-23T04:29:21.7179744Z [36;1m  "project_name": "ci_rahulshetty_e2e",[0m
+2026-01-23T04:29:21.7180144Z [36;1m  "target_url": "https://rahulshettyacademy.com/seleniumPractise/",[0m
+2026-01-23T04:29:21.7180745Z [36;1m  "goal": "Search for 'Brocolli', add FIRST result to cart, click cart icon, verify checkout button visible",[0m
+2026-01-23T04:29:21.7181232Z [36;1m  "headless": true[0m
+2026-01-23T04:29:21.7181446Z [36;1m}[0m
+2026-01-23T04:29:21.7181608Z [36;1mEOF[0m
+2026-01-23T04:29:21.7214970Z shell: /usr/bin/bash -e {0}
+2026-01-23T04:29:21.7215196Z env:
+2026-01-23T04:29:21.7215454Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:29:21.7215938Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-23T04:29:21.7216354Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:29:21.7216716Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:29:21.7217087Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:29:21.7217457Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-23T04:29:21.7217765Z ##[endgroup]
+2026-01-23T04:29:21.7323658Z ##[group]Run # Discovery mode skip: No --deep flag
+2026-01-23T04:29:21.7324299Z [36;1m# Discovery mode skip: No --deep flag[0m
+2026-01-23T04:29:21.7324713Z [36;1mpython orchestrator.py --project projects/ci_rahulshetty_e2e --force[0m
+2026-01-23T04:29:21.7354617Z shell: /usr/bin/bash -e {0}
+2026-01-23T04:29:21.7354849Z env:
+2026-01-23T04:29:21.7355097Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:29:21.7355543Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-23T04:29:21.7356146Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:29:21.7356532Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:29:21.7356907Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:29:21.7357278Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-23T04:29:21.7357780Z   GOOGLE_API_KEY: ***
+2026-01-23T04:29:21.7357985Z   PYTHONPATH: .
+2026-01-23T04:29:21.7358195Z ##[endgroup]
+2026-01-23T04:29:26.6973610Z [LLM] SafeLLM Initialized: model=gemini-2.0-flash-lite-preview-02-05
+2026-01-23T04:29:26.6974279Z 
+2026-01-23T04:29:26.6974861Z [PLAN] PLANNER: Planning goal -> 'Search for 'Brocolli', add FIRST result to cart, click cart icon, verify checkout button visible' (Deep Mode: False)
+2026-01-23T04:29:26.6976039Z [EXPERT] Detected Domain: ECOMMERCE. Persona: Act as a Senior SDET focusing on e-commerce flow automation and conversion funnel reliability
+2026-01-23T04:29:26.6976945Z [DEBUG] Sending request to gemini-2.0-flash-lite-preview-02-05. Number of parts: 1
+2026-01-23T04:29:26.6977514Z [DEBUG] Received response (Length: 1153)
+2026-01-23T04:29:26.6977889Z [OK] Planner generated 1 scenarios. Workflow updated.
+2026-01-23T04:29:27.7279002Z [LLM] SafeLLM Initialized: model=gemini-2.0-flash-lite-preview-02-05
+2026-01-23T04:29:27.7279537Z 
+2026-01-23T04:29:27.7279720Z [EXPLORE] [EXPLORE] Starting AI-Guided Exploration & Mining
+2026-01-23T04:29:27.7280145Z [LOC] Project: ci_rahulshetty_e2e
+2026-01-23T04:29:28.8490322Z 
+2026-01-23T04:29:28.8491071Z --- Exploring Scenario: Search for Broccoli, add to cart, and verify checkout button ---
+2026-01-23T04:29:28.8494309Z     [AI] Initialized exploration context for goal: 'This test searches for 'Brocolli', adds the first result to the cart, navigates to the cart, and verifies the checkout button is visible.'
+2026-01-23T04:29:28.8495654Z     [TARGET] Scenario: Search for Broccoli, add to cart, and verify checkout button
+2026-01-23T04:29:28.8501725Z   [STEP] [STEP step_1] NAVIGATE: 
+2026-01-23T04:29:31.5067512Z     [OK] Navigated to https://rahulshettyacademy.com/seleniumPractise/
+2026-01-23T04:29:31.5068168Z   [STEP] [STEP step_2] FILL: Search
+2026-01-23T04:29:31.5271925Z     [SEARCH] Mining locators for: 'Search'
+2026-01-23T04:29:31.7368291Z     [OK] Found 1 verified locators
+2026-01-23T04:29:38.0499997Z     [OK] State transitioned.
+2026-01-23T04:29:39.9527503Z [DEBUG] Sending request to gemini-2.0-flash-lite-preview-02-05. Number of parts: 2
+2026-01-23T04:29:39.9528094Z [DEBUG] Received response (Length: 254)
+2026-01-23T04:29:39.9528505Z       AI Next Step Suggestion: click -> ADD TO CART
+2026-01-23T04:29:39.9528954Z     [SUGGEST] Suggested Locator: button:contains('ADD TO CART')
+2026-01-23T04:29:39.9529932Z     [REASON] Reasoning: The goal is to add 'Brocolli' to the cart. The search has been performed, and the product is visible. Now, click the 'Add to Cart' button.
+2026-01-23T04:29:39.9576971Z     [WARN] Error validating AI locator: Locator.count: SyntaxError: Failed to execute 'que
+2026-01-23T04:29:39.9578029Z     [WARN] Skipping AI step 'click -> ADD TO CART': Target element not found in current page state (likely moved to next page).
+2026-01-23T04:29:39.9578649Z   [STEP] [STEP step_3] CLICK: Search
+2026-01-23T04:29:39.9651159Z     [SEARCH] Mining locators for: 'Search'
+2026-01-23T04:29:40.0210299Z     [OK] Found 2 verified locators
+2026-01-23T04:29:43.6002232Z     [OK] State transitioned.
+2026-01-23T04:29:45.0086968Z [DEBUG] Sending request to gemini-2.0-flash-lite-preview-02-05. Number of parts: 2
+2026-01-23T04:29:45.0087829Z [DEBUG] Received response (Length: 257)
+2026-01-23T04:29:45.0088416Z       AI Next Step Suggestion: click -> ADD TO CART
+2026-01-23T04:29:45.0089140Z     [SUGGEST] Suggested Locator: button:contains('ADD TO CART')
+2026-01-23T04:29:45.0090607Z     [REASON] Reasoning: The previous steps were to search for 'Brocolli'. Now, the first result 'Brocolli - 1 Kg' is visible. The next step is to add it to the cart.
+2026-01-23T04:29:45.0126302Z     [WARN] Error validating AI locator: Locator.count: SyntaxError: Failed to execute 'que
+2026-01-23T04:29:45.0127900Z     [WARN] Skipping AI step 'click -> ADD TO CART': Target element not found in current page state (likely moved to next page).
+2026-01-23T04:29:45.0128862Z   [STEP] [STEP step_4] CLICK: Add to cart
+2026-01-23T04:29:45.0196725Z     [SEARCH] Mining locators for: 'Add to cart'
+2026-01-23T04:29:45.0618237Z     [OK] Found 2 verified locators
+2026-01-23T04:29:48.6195808Z     [OK] State transitioned.
+2026-01-23T04:29:50.0350488Z [DEBUG] Sending request to gemini-2.0-flash-lite-preview-02-05. Number of parts: 2
+2026-01-23T04:29:50.0351316Z [DEBUG] Received response (Length: 244)
+2026-01-23T04:29:50.0351895Z       AI Next Step Suggestion: click -> CHECKOUT
+2026-01-23T04:29:50.0352601Z     [SUGGEST] Suggested Locator: #checkoutModalBtnOne
+2026-01-23T04:29:50.0354435Z     [REASON] Reasoning: The goal is to verify the checkout button is visible. The cart icon has been clicked, and the checkout button is visible on the current page.
+2026-01-23T04:29:50.0386083Z     [OK] AI suggested locator '#checkoutModalBtnOne' validated (1 element found)
+2026-01-23T04:29:50.0387431Z       Injected AI step: click -> CHECKOUT
+2026-01-23T04:29:50.0388159Z   [STEP] [STEP step_4_ai_1] CLICK: CHECKOUT
+2026-01-23T04:29:50.0460457Z     [TARGET] Using AI-provided locator: #checkoutModalBtnOne
+2026-01-23T04:29:50.0529144Z     [OK] Found 1 verified locators
+2026-01-23T04:29:54.1139506Z     [OK] State transitioned.
+2026-01-23T04:29:55.3755749Z [DEBUG] Sending request to gemini-2.0-flash-lite-preview-02-05. Number of parts: 2
+2026-01-23T04:29:55.3756576Z [DEBUG] Received response (Length: 246)
+2026-01-23T04:29:55.3757254Z       AI Next Step Suggestion: done -> The order has been placed successfully.
+2026-01-23T04:29:55.3758530Z     [REASON] Reasoning: The goal was to verify the checkout button. The image shows the order was placed successfully, so the goal is met.
+2026-01-23T04:29:55.3759386Z   [STEP] [STEP step_6] CLICK: Cart
+2026-01-23T04:29:55.3831736Z     [SEARCH] Mining locators for: 'Cart'
+2026-01-23T04:29:55.4332838Z     [OK] Found 3 verified locators
+2026-01-23T04:29:58.9845037Z     [OK] State transitioned.
+2026-01-23T04:30:00.6436385Z [DEBUG] Sending request to gemini-2.0-flash-lite-preview-02-05. Number of parts: 2
+2026-01-23T04:30:00.6437172Z [DEBUG] Received response (Length: 236)
+2026-01-23T04:30:00.6437514Z       AI Next Step Suggestion: click -> CHECKOUT
+2026-01-23T04:30:00.6437884Z     [SUGGEST] Suggested Locator: #checkoutModalBtnOne
+2026-01-23T04:30:00.6438548Z     [REASON] Reasoning: The goal is to verify the checkout button is visible. The previous action was to click the cart icon. Now, click the checkout button.
+2026-01-23T04:30:00.6468196Z     [OK] AI suggested locator '#checkoutModalBtnOne' validated (1 element found)
+2026-01-23T04:30:00.6468880Z       Injected AI step: click -> CHECKOUT
+2026-01-23T04:30:00.6469345Z   [STEP] [STEP step_6_ai_1] CLICK: CHECKOUT
+2026-01-23T04:30:00.6539603Z     [TARGET] Using AI-provided locator: #checkoutModalBtnOne
+2026-01-23T04:30:00.6598370Z     [OK] Found 1 verified locators
+2026-01-23T04:30:04.7127328Z     [OK] State transitioned.
+2026-01-23T04:30:07.4052388Z [DEBUG] Sending request to gemini-2.0-flash-lite-preview-02-05. Number of parts: 2
+2026-01-23T04:30:07.4052959Z [DEBUG] Received response (Length: 248)
+2026-01-23T04:30:07.4053409Z       AI Next Step Suggestion: done -> The order has been placed successfully
+2026-01-23T04:30:07.4054708Z     [REASON] Reasoning: The goal is to verify the checkout button is visible, and the order has been placed successfully, so the goal is met.
+2026-01-23T04:30:07.4055389Z   [STEP] [STEP step_8] ASSERT_VISIBLE: PROCEED TO CHECKOUT
+2026-01-23T04:30:07.4131174Z     [SEARCH] Mining locators for: 'PROCEED TO CHECKOUT'
+2026-01-23T04:30:07.4616061Z     [OK] Found 2 verified locators
+2026-01-23T04:30:09.4729846Z     [OK] State transitioned.
+2026-01-23T04:30:09.4784739Z       Revisited state detected (count: 1)
+2026-01-23T04:30:10.6063108Z [DEBUG] Sending request to gemini-2.0-flash-lite-preview-02-05. Number of parts: 2
+2026-01-23T04:30:10.6064180Z [DEBUG] Received response (Length: 263)
+2026-01-23T04:30:10.6064703Z       AI Next Step Suggestion: done -> The goal has been met, the order has been placed successfully.
+2026-01-23T04:30:10.6065441Z     [REASON] Reasoning: The goal was to verify the checkout button. The order has been placed successfully, so the goal is complete.
+2026-01-23T04:30:12.6088675Z [SAVE] Saving 1 scenarios to /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_rahulshetty_e2e/workflow.json
+2026-01-23T04:30:12.6399650Z 
+2026-01-23T04:30:12.6400829Z ============================================================
+2026-01-23T04:30:12.6402324Z [STATS] EXPLORATION SUMMARY
+2026-01-23T04:30:12.6402746Z ============================================================
+2026-01-23T04:30:12.6403083Z 
+2026-01-23T04:30:12.6403223Z [INFO] Scenario Overview:
+2026-01-23T04:30:12.6403599Z      Total Scenarios Planned: 1
+2026-01-23T04:30:12.6406602Z      Scenarios Explored: 1
+2026-01-23T04:30:12.6406895Z      Total Steps Generated: 8
+2026-01-23T04:30:12.6407058Z 
+2026-01-23T04:30:12.6407156Z [SEARCH] Discovery Statistics:
+2026-01-23T04:30:12.6407387Z    [OK] Successfully Mined: 7
+2026-01-23T04:30:12.6407605Z    [AI] AI Assisted/Healed: 0
+2026-01-23T04:30:12.6407824Z    [FAIL] Discovery Failures: 0
+2026-01-23T04:30:12.6407976Z 
+2026-01-23T04:30:12.6408081Z ============================================================
+2026-01-23T04:30:12.6408732Z [DONE] Exploration Complete. Locators saved to: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_rahulshetty_e2e/workflow.json
+2026-01-23T04:30:12.6409644Z 
+2026-01-23T04:30:12.6409804Z ============================================================
+2026-01-23T04:30:12.6410481Z 📊 Navigation Metrics: all_scenarios
+2026-01-23T04:30:12.6410755Z ============================================================
+2026-01-23T04:30:12.6411021Z Total Steps Generated:    8
+2026-01-23T04:30:12.6411238Z Optimized Steps:          7
+2026-01-23T04:30:12.6411535Z Duplicate Steps Removed:  1
+2026-01-23T04:30:12.6411916Z Path Efficiency:          87.5%
+2026-01-23T04:30:12.6412171Z Redundancy Rate:          12.5%
+2026-01-23T04:30:12.6412431Z ------------------------------------------------------------
+2026-01-23T04:30:12.6412790Z Cache Hits:               0
+2026-01-23T04:30:12.6413165Z Cache Misses:             7
+2026-01-23T04:30:12.6413560Z Cache Hit Rate:           0.0%
+2026-01-23T04:30:12.6414196Z ------------------------------------------------------------
+2026-01-23T04:30:12.6414737Z States Visited:           1
+2026-01-23T04:30:12.6415133Z Unique States:            6
+2026-01-23T04:30:12.6415537Z Circular Paths Blocked:   1
+2026-01-23T04:30:12.6415969Z ============================================================
+2026-01-23T04:30:12.6416327Z 
+2026-01-23T04:30:12.6417471Z [STATS] Navigation metrics saved to: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_rahulshetty_e2e/outputs/navigation_metrics_ci_rahulshetty_e2e_all_scenarios.json
+2026-01-23T04:30:12.6418814Z 
+2026-01-23T04:30:12.6419034Z ============================================================
+2026-01-23T04:30:12.6419672Z 📊 PERFORMANCE METRICS
+2026-01-23T04:30:12.6420064Z ============================================================
+2026-01-23T04:30:12.6420393Z 
+2026-01-23T04:30:12.6420608Z ⏱️  Phase Timings:
+2026-01-23T04:30:12.6420809Z 
+2026-01-23T04:30:12.6421011Z 🎯 Element Resolution:
+2026-01-23T04:30:12.6421773Z    Total Attempts: 0
+2026-01-23T04:30:12.6422153Z    Smart Selectors: 0 (0.0%)
+2026-01-23T04:30:12.6422537Z    AI Fallbacks: 0
+2026-01-23T04:30:12.6422846Z    Deterministic: 0
+2026-01-23T04:30:12.6423023Z 
+2026-01-23T04:30:12.6423214Z 🤖 AI Performance:
+2026-01-23T04:30:12.6423492Z    Total Calls: 0
+2026-01-23T04:30:12.6423664Z 
+2026-01-23T04:30:12.6423821Z 💾 Cache Performance:
+2026-01-23T04:30:12.6424320Z    Hits: 0
+2026-01-23T04:30:12.6424553Z    Misses: 0
+2026-01-23T04:30:12.6424811Z    Hit Rate: 0.0%
+2026-01-23T04:30:12.6424980Z 
+2026-01-23T04:30:12.6425564Z 🔄 Retry Metrics:
+2026-01-23T04:30:12.6425855Z    Mining Retries: 0
+2026-01-23T04:30:12.6426155Z    Loop Detections: 0
+2026-01-23T04:30:12.6426477Z    State Revisits: 0
+2026-01-23T04:30:12.6426824Z ============================================================
+2026-01-23T04:30:12.6427117Z 
+2026-01-23T04:30:12.6427901Z [STATS] Performance metrics saved to: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_rahulshetty_e2e/outputs/performance_metrics.json
+2026-01-23T04:30:51.7535565Z [LLM] SafeLLM Initialized: model=gemini-2.0-flash-lite-preview-02-05
+2026-01-23T04:30:51.7535899Z 
+2026-01-23T04:30:51.7536031Z   [EXECUTE] Starting Automation Execution Engine
+2026-01-23T04:30:51.7536333Z [LOC] Project: ci_rahulshetty_e2e
+2026-01-23T04:30:51.7536577Z   Mode: Headless
+2026-01-23T04:30:51.7536698Z 
+2026-01-23T04:30:51.7536909Z --- Scenario: Search for Broccoli, add to cart, and verify checkout button ---
+2026-01-23T04:30:51.7537311Z   [STEP]  [STEP step_0] NAVIGATE: NAVIGATE
+2026-01-23T04:30:51.7537603Z     [OK] Step step_0 Passed.
+2026-01-23T04:30:51.7537832Z   [STEP]  [STEP step_1] FILL: Search
+2026-01-23T04:30:51.7538131Z     [SEARCH] Trying 1 validated locators from golden path...
+2026-01-23T04:30:51.7538729Z     [OK] SUCCESS! Locator #1: [placeholder='Search for Vegetables and Fruits']... (method: unknown, stability: 0.00)
+2026-01-23T04:30:51.7539229Z     [OK] Step step_1 Passed.
+2026-01-23T04:30:51.7539464Z   [STEP]  [STEP step_2] CLICK: Search
+2026-01-23T04:30:51.7539768Z     [SEARCH] Trying 2 validated locators from golden path...
+2026-01-23T04:30:51.7540146Z     [FAIL] Locator #1 found 0 elements: role=link[name='search']...
+2026-01-23T04:30:51.7540693Z     [OK] SUCCESS! Locator #2: [placeholder='Search for Vegetables and Fruits']... (method: unknown, stability: 0.00)
+2026-01-23T04:30:51.7541168Z     [OK] Step step_2 Passed.
+2026-01-23T04:30:51.7541397Z   [STEP]  [STEP step_3] CLICK: Add to cart
+2026-01-23T04:30:51.7541708Z     [SEARCH] Trying 2 validated locators from golden path...
+2026-01-23T04:30:51.7542163Z     [OK] SUCCESS! Locator #1: role=button[name='ADD TO CART']... (method: unknown, stability: 0.00)
+2026-01-23T04:30:51.7542685Z     [TARGET] Applied explicit index 0: role=button[name='ADD TO CART'] >> nth=0
+2026-01-23T04:30:51.7543052Z     [OK] Step step_3 Passed.
+2026-01-23T04:30:51.7543283Z   [STEP]  [STEP step_4_ai_1] CLICK: CHECKOUT
+2026-01-23T04:30:51.7543635Z     [SEARCH] Trying 1 validated locators from golden path...
+2026-01-23T04:30:51.7544269Z     [OK] SUCCESS! Locator #1: #checkoutModalBtnOne... (method: unknown, stability: 0.95)
+2026-01-23T04:30:51.7544696Z       Element not visible, trying force click...
+2026-01-23T04:30:51.7545094Z     [FAIL] Attempt 1 failed (element_not_visible): Locator.click: Element is not visible
+2026-01-23T04:30:51.7545474Z Call log:
+2026-01-23T04:30:51.7545681Z   - waiting for locator("#checkoutModalBtnOne")
+2026-01-23T04:30:51.7545934Z     ...
+2026-01-23T04:30:51.7546153Z       [AUTO-HEAL] Re-mining page to find 'CHECKOUT'...
+2026-01-23T04:30:51.7546616Z [DEBUG] Sending request to gemini-2.0-flash-lite-preview-02-05. Number of parts: 2
+2026-01-23T04:30:51.7547028Z [DEBUG] Received response (Length: 271)
+2026-01-23T04:30:51.7547317Z     [AI] AI heal found 1 alternatives. Validating...
+2026-01-23T04:30:51.7547678Z       [FAIL] Validation error: Locator.count: SyntaxError: Failed to ex
+2026-01-23T04:30:51.7548090Z     [WARN] All AI suggestions failed validation. Using original.
+2026-01-23T04:30:51.7548775Z     [FAIL] AI could not re-locate the element. Waiting 1s before next retry.
+2026-01-23T04:30:51.7549144Z     [OK] Step step_4_ai_1 Passed.
+2026-01-23T04:30:51.7549378Z   [STEP]  [STEP step_5] CLICK: Cart
+2026-01-23T04:30:51.7549671Z     [SEARCH] Trying 3 validated locators from golden path...
+2026-01-23T04:30:51.7550125Z     [OK] SUCCESS! Locator #1: role=button[name='ADD TO CART']... (method: unknown, stability: 0.00)
+2026-01-23T04:30:51.7550541Z     [OK] Step step_5 Passed.
+2026-01-23T04:30:51.7550776Z   [STEP]  [STEP step_6_ai_1] CLICK: CHECKOUT
+2026-01-23T04:30:51.7551245Z     [SEARCH] Trying 1 validated locators from golden path...
+2026-01-23T04:30:51.7551674Z     [OK] SUCCESS! Locator #1: #checkoutModalBtnOne... (method: unknown, stability: 0.95)
+2026-01-23T04:30:51.7552062Z     [OK] Step step_6_ai_1 Passed.
+2026-01-23T04:30:51.7552343Z   [STEP]  [STEP step_7] ASSERT_VISIBLE: PROCEED TO CHECKOUT
+2026-01-23T04:30:51.7552700Z     [SEARCH] Trying 2 validated locators from golden path...
+2026-01-23T04:30:51.7553194Z     [OK] SUCCESS! Locator #1: role=button[name='PROCEED TO CHECKOUT']... (method: unknown, stability: 0.00)
+2026-01-23T04:30:51.7553641Z     [OK] Step step_7 Passed.
+2026-01-23T04:30:51.7554224Z [OK] Scenario 'Search for Broccoli, add to cart, and verify checkout button' completed successfully!
+2026-01-23T04:30:51.7554590Z 
+2026-01-23T04:30:51.7554689Z ============================================================
+2026-01-23T04:30:51.7554960Z [TARGET] EXECUTION SUMMARY
+2026-01-23T04:30:51.7555189Z ============================================================
+2026-01-23T04:30:51.7555380Z 
+2026-01-23T04:30:51.7555458Z [INFO] Scenario Overview:
+2026-01-23T04:30:51.7555676Z      Total Scenarios Planned: 1
+2026-01-23T04:30:51.7555897Z      Scenarios Executed: 1
+2026-01-23T04:30:51.7556106Z      Total Steps Executed: 8
+2026-01-23T04:30:51.7556247Z 
+2026-01-23T04:30:51.7556315Z [OK] Results:
+2026-01-23T04:30:51.7556493Z    [OK] Passed: 1 (100%)
+2026-01-23T04:30:51.7556619Z 
+2026-01-23T04:30:51.7556716Z ============================================================
+2026-01-23T04:30:51.7556896Z 
+2026-01-23T04:30:51.7557304Z [DONE] Execution Finished. Report: /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_rahulshetty_e2e/execution.json
+2026-01-23T04:30:51.7557797Z 
+2026-01-23T04:30:51.7557885Z ============================================================
+2026-01-23T04:30:51.7558141Z PERFORMANCE SUMMARY
+2026-01-23T04:30:51.7558342Z ============================================================
+2026-01-23T04:30:51.7558524Z 
+2026-01-23T04:30:51.7558600Z Execution Results:
+2026-01-23T04:30:51.7558803Z    - Total Steps: 8
+2026-01-23T04:30:51.7559109Z    - First-Attempt Success: 7 (87.5%)
+2026-01-23T04:30:51.7559363Z    - Required AI Healing: 1 (12.5%)
+2026-01-23T04:30:51.7559608Z    - Final Failures: 0 (0.0%)
+2026-01-23T04:30:51.7559750Z 
+2026-01-23T04:30:51.7559846Z [GOLDEN]  Golden Path Effectiveness:
+2026-01-23T04:30:51.7560089Z      Steps with Mined Locators: 7
+2026-01-23T04:30:51.7560326Z      Golden Path Hits: 7 (100.0%)
+2026-01-23T04:30:51.7560550Z      Golden Path Misses: 0
+2026-01-23T04:30:51.7560766Z      Fallback Used (No Locators): 1
+2026-01-23T04:30:51.7560920Z 
+2026-01-23T04:30:51.7561001Z [ASSESS] Overall Assessment:
+2026-01-23T04:30:51.7561267Z    [OK] GOOD! Most steps following golden path successfully.
+2026-01-23T04:30:51.7561490Z 
+2026-01-23T04:30:51.7561572Z [TARGET] vs Target (100% Flawless):
+2026-01-23T04:30:51.7561803Z    [STATS] Gap: 12.5% from target
+2026-01-23T04:30:51.7562109Z    [TIP] Recommendation: Explorer needs to mine locators for 1 steps
+2026-01-23T04:30:51.7562370Z 
+2026-01-23T04:30:51.7562460Z ============================================================
+2026-01-23T04:30:51.9125714Z 
+2026-01-23T04:30:51.9126248Z [PHASE] Running Phase: PLANNING
+2026-01-23T04:30:51.9129195Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/planner.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_rahulshetty_e2e --goal Search for 'Brocolli', add FIRST result to cart, click cart icon, verify checkout button visible --url https://rahulshettyacademy.com/seleniumPractise/
+2026-01-23T04:30:51.9131642Z [OK] Phase 'planning' completed successfully.
+2026-01-23T04:30:51.9131942Z 
+2026-01-23T04:30:51.9132088Z [PHASE] Running Phase: EXPLORATION
+2026-01-23T04:30:51.9133541Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/explorer.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_rahulshetty_e2e
+2026-01-23T04:30:51.9135493Z [OK] Phase 'exploration' completed successfully.
+2026-01-23T04:30:51.9135987Z Summary: Exploration Discovery Success Rate: 100.0%
+2026-01-23T04:30:51.9136301Z 
+2026-01-23T04:30:51.9136434Z [PHASE] Running Phase: EXECUTION
+2026-01-23T04:30:51.9137888Z    Command: /opt/hostedtoolcache/Python/3.11.14/x64/bin/python /home/runner/work/build_qa_automation/build_qa_automation/core/agents/executor.py --project /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_rahulshetty_e2e
+2026-01-23T04:30:51.9139415Z [OK] Phase 'execution' completed successfully.
+2026-01-23T04:30:51.9139722Z 
+2026-01-23T04:30:51.9139876Z [DONE] Pipeline Execution Finished! [DONE]
+2026-01-23T04:30:52.0400777Z ##[group]Run RESULT_FILE="projects/ci_rahulshetty_e2e/execution.json"
+2026-01-23T04:30:52.0401303Z [36;1mRESULT_FILE="projects/ci_rahulshetty_e2e/execution.json"[0m
+2026-01-23T04:30:52.0401678Z [36;1mif [ -f "$RESULT_FILE" ]; then[0m
+2026-01-23T04:30:52.0402019Z [36;1m  echo "✅ Results generated successfully: $RESULT_FILE"[0m
+2026-01-23T04:30:52.0402470Z [36;1m  cat "$RESULT_FILE" | jq '.scenarios | length' || echo "Result file exists"[0m
+2026-01-23T04:30:52.0402835Z [36;1melse[0m
+2026-01-23T04:30:52.0403060Z [36;1m  echo "❌ No result file found at $RESULT_FILE"[0m
+2026-01-23T04:30:52.0403343Z [36;1m  exit 1[0m
+2026-01-23T04:30:52.0403519Z [36;1mfi[0m
+2026-01-23T04:30:52.0435800Z shell: /usr/bin/bash -e {0}
+2026-01-23T04:30:52.0436034Z env:
+2026-01-23T04:30:52.0436282Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:30:52.0436708Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-23T04:30:52.0437143Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:30:52.0437506Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:30:52.0437859Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:30:52.0438254Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-23T04:30:52.0456869Z ##[endgroup]
+2026-01-23T04:30:52.0511264Z ✅ Results generated successfully: projects/ci_rahulshetty_e2e/execution.json
+2026-01-23T04:30:52.0538105Z 1
+2026-01-23T04:30:52.0604820Z ##[group]Run actions/upload-artifact@v4
+2026-01-23T04:30:52.0605120Z with:
+2026-01-23T04:30:52.0605324Z   name: rahulshetty_e2e-execution-results
+2026-01-23T04:30:52.0605770Z   path: projects/ci_rahulshetty_e2e/execution.json
+projects/ci_rahulshetty_e2e/workflow.json
+
+2026-01-23T04:30:52.0606197Z   retention-days: 30
+2026-01-23T04:30:52.0606400Z   if-no-files-found: warn
+2026-01-23T04:30:52.0606613Z   compression-level: 6
+2026-01-23T04:30:52.0606811Z   overwrite: false
+2026-01-23T04:30:52.0607002Z   include-hidden-files: false
+2026-01-23T04:30:52.0607213Z env:
+2026-01-23T04:30:52.0607444Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:30:52.0607856Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib/pkgconfig
+2026-01-23T04:30:52.0608265Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:30:52.0608622Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:30:52.0609005Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.14/x64
+2026-01-23T04:30:52.0609364Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.14/x64/lib
+2026-01-23T04:30:52.0609661Z ##[endgroup]
+2026-01-23T04:30:52.2775195Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-01-23T04:30:52.2779392Z The least common ancestor is /home/runner/work/build_qa_automation/build_qa_automation/projects/ci_rahulshetty_e2e. This will be the root directory of the artifact
+2026-01-23T04:30:52.2780814Z With the provided path, there will be 2 files uploaded
+2026-01-23T04:30:52.2786785Z Artifact name is valid!
+2026-01-23T04:30:52.2788335Z Root directory input is valid!
+2026-01-23T04:30:52.3937744Z Beginning upload of artifact content to blob storage
+2026-01-23T04:30:52.5035776Z Uploaded bytes 1142
+2026-01-23T04:30:52.5330212Z Finished uploading artifact content to blob storage!
+2026-01-23T04:30:52.5333370Z SHA256 digest of uploaded artifact zip is 77ad2d2d9cab8b01a46b3e07448a40abe73789734ddb49b0d9968fd23a0073fd
+2026-01-23T04:30:52.5335737Z Finalizing artifact upload
+2026-01-23T04:30:52.6236354Z Artifact rahulshetty_e2e-execution-results.zip successfully finalized. Artifact ID 5229304735
+2026-01-23T04:30:52.6237966Z Artifact rahulshetty_e2e-execution-results has been successfully uploaded! Final size is 1142 bytes. Artifact ID is 5229304735
+2026-01-23T04:30:52.6245046Z Artifact download URL: https://github.com/vishvasmca-cmd/build_qa_automation/actions/runs/21274347091/artifacts/5229304735
+2026-01-23T04:30:52.6371420Z Post job cleanup.
+2026-01-23T04:30:52.7886769Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.11.14-pip-dde08d0e0b672972dcda9f1a063036a2e0c226f5d0a20362e9401931676d80a4, not saving cache.
+2026-01-23T04:30:52.7998416Z Post job cleanup.
+2026-01-23T04:30:52.9000144Z [command]/usr/bin/git version
+2026-01-23T04:30:52.9040879Z git version 2.52.0
+2026-01-23T04:30:52.9086938Z Temporarily overriding HOME='/home/runner/work/_temp/601a4123-0c15-448d-a49b-6f35572506ec' before making global git config changes
+2026-01-23T04:30:52.9087844Z Adding repository directory to the temporary git global config as a safe directory
+2026-01-23T04:30:52.9092791Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/build_qa_automation/build_qa_automation
+2026-01-23T04:30:52.9132478Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-01-23T04:30:52.9166230Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-01-23T04:30:52.9402834Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-01-23T04:30:52.9428017Z http.https://github.com/.extraheader
+2026-01-23T04:30:52.9440976Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-01-23T04:30:52.9473424Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-01-23T04:30:52.9710758Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-01-23T04:30:52.9744329Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-01-23T04:30:53.0089506Z Cleaning up orphan processes

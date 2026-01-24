@@ -33,8 +33,10 @@ from core.lib.domain_expert import DomainExpert
 from core.lib.exploration_context import ExplorationContext
 from core.lib.navigation_metrics import NavigationMetrics
 from core.lib.failure_kb import FailureKnowledgeBase
+from core.knowledge.knowledge_bank import KnowledgeBank
 from core.lib.data_generator import DataGenerator
 from core.lib.debug_recorder import DebugRecorder
+from core.lib.data_collector import DataCollector
 
 class ExplorerAgent:
     """
@@ -55,6 +57,7 @@ class ExplorerAgent:
         os.makedirs(self.report_dir, exist_ok=True) # Ensure report directory exists
         
         self.failure_kb = FailureKnowledgeBase()
+        self.knowledge_bank = KnowledgeBank()
         self.llm = SafeLLM(
             model=None,
             temperature=0.0,
@@ -72,6 +75,9 @@ class ExplorerAgent:
         # Initialize Performance Metrics
         from core.lib.performance_metrics import PerformanceMetrics
         self.metrics = PerformanceMetrics()
+        
+        # Initialize Self-Learning Data Collector
+        self.collector = DataCollector(self.project_dir)
         
         # Performance Optimization Flags (ENABLED BY DEFAULT for 3x speedup)
         self.enable_parallel_ai = True  # Parallel batching for multi-field forms
@@ -402,6 +408,18 @@ class ExplorerAgent:
                             except:
                                 pass
                         
+                        # --- MEMORY CHECK (The Amnesia Cure) ---
+                        if not candidates and mining_retries == 0:
+                            memory_locator = self.knowledge_bank.get_best_locator(page.url, description)
+                            if memory_locator:
+                                self.log(f"    [MEMORY] Found proven locator from previous run: {memory_locator}", "cyan")
+                                try:
+                                    if await page.is_visible(memory_locator):
+                                        candidates = [{"value": memory_locator, "confidence": 0.99, "priority": 0, "source": "memory"}]
+                                        self.metrics.record_element_resolution("memory")
+                                except:
+                                    self.log(f"    [MEMORY] Stored locator {memory_locator} failed visibility check. Re-mining.", "yellow")
+
                         if not candidates:
                             if mining_retries == 0:
                                 self.log(f"    [SEARCH] Mining locators for: '{description}'", "magenta")
@@ -636,6 +654,33 @@ class ExplorerAgent:
                             step_id=step_id, keyword=keyword, description=description or "",
                             selector=selector, success=True, page_url=page.url, confidence=confidence
                         )
+                        
+                        # --- SAVE TO MEMORY ---
+                        if selector and keyword != "navigate":
+                            self.knowledge_bank.record_successful_locator(page.url, selector, description)
+                            
+                        # --- CAPTURE TRAINING EXAMPLE ---
+                        start_time = time.time()
+                        # (Snapshot logic would go here, omitting for speed for now)
+                        
+                        reward = self.collector.capture_experience(
+                            goal=self.workflow.get("goal", ""),
+                            url=page.url,
+                            state={"dom_hash": self.exploration_context.current_fingerprint}, # Lightweight state
+                            action_details={
+                                "keyword": keyword,
+                                "selector": selector,
+                                "description": description,
+                                "source": step.get("locators", [{}])[0].get("source", "unknown"),
+                                "is_healed": is_healed
+                            },
+                            outcome={
+                                "success": True,
+                                "latency_ms": (time.time() - start_time) * 1000
+                            }
+                        )
+                        self.log(f"      [LEARN] Experience captured. Reward: {reward:.1f}", "grey")
+
                     if is_healed: discovery_stats["healed"] += 1
                     else: discovery_stats["passed"] += 1
                     
@@ -848,6 +893,8 @@ class ExplorerAgent:
                          self.log(f"    [AI] AI healed exploration action! New selector: {healed_selector}", "green")
                          try:
                              await self._execute_exploration_action(page, step, keyword, args, description, healed_selector)
+                             # Record HEALED locator to memory immediately
+                             self.knowledge_bank.record_successful_locator(page.url, healed_selector, description)
                              discovery_stats["healed"] += 1
                          except: 
                              discovery_stats["failed"] += 1
@@ -1106,6 +1153,10 @@ class ExplorerAgent:
                 
             valid_cands = []
             for cand in res:
+                # FIXED: Safety check for 'value' key (Crash Fix)
+                if "value" not in cand:
+                    continue
+                    
                 # All batch steps are 'fill'
                 if await self._is_locator_appropriate_for_action(page, cand["value"], "fill"):
                     valid_cands.append(cand)

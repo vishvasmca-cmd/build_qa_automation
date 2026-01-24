@@ -22,7 +22,7 @@ class FeedbackAgent:
     """
     def __init__(self):
         load_dotenv()
-        self.llm = SafeLLM(model="gemini-2.0-flash", temperature=0.1)
+        self.llm = SafeLLM(model=None, temperature=0.1)
         self.kb = KnowledgeBank()
 
     def analyze_run(self, config_or_path, test_output_log, success):

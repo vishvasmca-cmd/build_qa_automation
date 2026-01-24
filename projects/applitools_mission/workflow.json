@@ -1,0 +1,244 @@
+{
+  "project": "applitools_mission",
+  "goal": "login to application, Verify Your nearest branch closes in: 30m 5s Financial Overview Total Balance \\%7 Credit Available \\,800 Due Today \\ --Click on Pay Now",
+  "base_url": "https://demo.applitools.com/",
+  "scenarios": [
+    {
+      "id": "TC001",
+      "name": "Verify Branch Closing Time and Financial Overview",
+      "description": "Logs in and verifies branch closing time, total balance, credit available, and due date.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://demo.applitools.com/"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "username",
+            "description": "username"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=textbox[name='Enter your username']",
+              "priority": 1
+            },
+            {
+              "type": "text",
+              "value": "text=Enter your username",
+              "priority": 3
+            },
+            {
+              "type": "placeholder",
+              "value": "[placeholder='Enter your username']",
+              "priority": 2
+            },
+            {
+              "type": "css",
+              "value": "#username",
+              "priority": 2
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "password",
+            "description": "password"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=textbox[name='Enter your password']",
+              "priority": 1
+            },
+            {
+              "type": "text",
+              "value": "text=Enter your password",
+              "priority": 3
+            },
+            {
+              "type": "placeholder",
+              "value": "[placeholder='Enter your password']",
+              "priority": 2
+            },
+            {
+              "type": "css",
+              "value": "#password",
+              "priority": 2
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Sign In"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=link[name='Sign in']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text='Sign in'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "#log-in",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "expected_text": "Your nearest branch closes in: 30m 5s",
+            "description": "Verify Your nearest branch closes in"
+          },
+          "locators": [
+            {
+              "value": "body > div > div > div.main-content > div.header",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_5_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Pay Now",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "text",
+              "value": "text='Pay Now'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "expected_text": "Total Balance",
+            "description": "Financial Overview Total Balance"
+          },
+          "locators": [
+            {
+              "value": "div.financial-overview > div:nth-child(1) > div:nth-child(1)",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_7_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Pay Now",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "text",
+              "value": "text='Pay Now'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "expected_text": "%7",
+            "description": "Financial Overview Total Balance %"
+          },
+          "locators": [
+            {
+              "value": "div.financial-overview > div:nth-child(1) > span:nth-child(2)",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "expected_text": "Credit Available",
+            "description": "Credit Available"
+          },
+          "locators": [
+            {
+              "value": "div.financial-overview > div:nth-child(2) > div:nth-child(2) > a",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "expected_text": "\\,800",
+            "description": "Credit Available \\,800"
+          },
+          "locators": [
+            {
+              "value": "Credit Available",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "expected_text": "Due Today",
+            "description": "Due Today"
+          },
+          "locators": [
+            {
+              "value": "a:contains('Pay Now')",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Pay Now"
+          },
+          "locators": [
+            {
+              "type": "text",
+              "value": "text='Pay Now'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

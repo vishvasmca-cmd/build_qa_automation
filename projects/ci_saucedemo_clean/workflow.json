@@ -1,0 +1,426 @@
+{
+  "project": "ci_saucedemo_clean",
+  "goal": "Login as 'standard_user'/'secret_sauce', add 'Backpack' to cart, checkout with zip='90210', verify order confirmation",
+  "base_url": "https://www.saucedemo.com/",
+  "scenarios": [
+    {
+      "id": "TC001",
+      "name": "Add Backpack to Cart and Checkout",
+      "description": "Logs in, adds a backpack to the cart, and checks out.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://www.saucedemo.com/"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "standard_user",
+            "description": "Username"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=textbox[name='Username']",
+              "priority": 1
+            },
+            {
+              "type": "text",
+              "value": "text='Username'",
+              "priority": 2
+            },
+            {
+              "type": "placeholder",
+              "value": "[placeholder='Username']",
+              "priority": 2
+            },
+            {
+              "type": "css",
+              "value": "#user-name",
+              "priority": 2
+            },
+            {
+              "type": "css",
+              "value": "input[name='user-name']",
+              "priority": 3
+            },
+            {
+              "type": "text",
+              "value": "text=Accepted usernames are:",
+              "priority": 3
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "secret_sauce",
+            "description": "Password"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=textbox[name='Password']",
+              "priority": 1
+            },
+            {
+              "type": "text",
+              "value": "text='Password'",
+              "priority": 2
+            },
+            {
+              "type": "placeholder",
+              "value": "[placeholder='Password']",
+              "priority": 2
+            },
+            {
+              "type": "css",
+              "value": "#password",
+              "priority": 2
+            },
+            {
+              "type": "css",
+              "value": "input[name='password']",
+              "priority": 3
+            },
+            {
+              "type": "text",
+              "value": "text=Password for all users:",
+              "priority": 3
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Login"
+          },
+          "locators": [
+            {
+              "value": "role=button[name='Login' i]",
+              "confidence": 0.96,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_4_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Username",
+            "locator": "#user-name",
+            "value": "standard_user",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "#user-name",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_4_ai_2",
+          "keyword": "fill",
+          "args": {
+            "description": "Password",
+            "locator": "#password",
+            "value": "secret_sauce",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "#password",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_4_ai_3",
+          "keyword": "fill",
+          "args": {
+            "description": "Username",
+            "locator": "#user-name",
+            "value": "standard_user",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "#user-name",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.saucedemo.com/inventory.html"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart",
+            "index": 0
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Cart"
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=button[name='Add to cart']",
+              "priority": 1,
+              "is_unique": false,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "#add-to-cart-sauce-labs-bolt-t-shirt",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "#add-to-cart-sauce-labs-bike-light",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "#add-to-cart-sauce-labs-fleece-jacket",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "#add-to-cart-sauce-labs-onesie",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text=Add to cart",
+              "priority": 3,
+              "is_unique": false,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "button[name='add-to-cart-sauce-labs-bolt-t-shirt']",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "button[name='add-to-cart-sauce-labs-bike-light']",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "button[name='add-to-cart-sauce-labs-fleece-jacket']",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "button[name='add-to-cart-sauce-labs-onesie']",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "button[name='add-to-cart-test.allthethings()-t-shirt-(red)']",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Your Cart"
+          },
+          "locators": [
+            {
+              "value": ".shopping_cart_link",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_11_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Cart",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=button[name='Add to cart']",
+              "priority": 1,
+              "is_unique": false,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "#add-to-cart-sauce-labs-bolt-t-shirt",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "#add-to-cart-sauce-labs-fleece-jacket",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "#add-to-cart-sauce-labs-onesie",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text=Add to cart",
+              "priority": 3,
+              "is_unique": false,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "button[name='add-to-cart-sauce-labs-bolt-t-shirt']",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "button[name='add-to-cart-sauce-labs-fleece-jacket']",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "button[name='add-to-cart-sauce-labs-onesie']",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            },
+            {
+              "type": "css",
+              "value": "button[name='add-to-cart-test.allthethings()-t-shirt-(red)']",
+              "priority": 3,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Checkout"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "First Name",
+            "description": "First Name"
+          },
+          "locators": [
+            {
+              "value": ".name, [data-test*='name'], [id*='name'] >> nth=0",
+              "confidence": 0.88,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "Last Name",
+            "description": "Last Name"
+          },
+          "locators": [
+            {
+              "value": ".name, [data-test*='name'], [id*='name'] >> nth=-1",
+              "confidence": 0.88,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "90210",
+            "description": "Zip/Postal Code"
+          },
+          "locators": [
+            {
+              "suggest_navigation": {
+                "needed": true,
+                "action": "click",
+                "target": "Products",
+                "reasoning": "The current page is the product listing page. The zip code field is likely on the checkout page, which is not accessible from this page."
+              }
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Continue"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Finish"
+          },
+          "skipped": true
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "THANK YOU FOR YOUR ORDER"
+          }
+        }
+      ]
+    }
+  ]
+}

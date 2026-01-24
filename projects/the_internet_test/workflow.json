@@ -1,0 +1,71 @@
+{
+  "project": "the_internet_test",
+  "goal": "Explore the landing page and verify the Login functionality.",
+  "base_url": "https://the-internet.herokuapp.com/",
+  "scenarios": [
+    {
+      "id": "TC001",
+      "name": "Verify Login Functionality on Landing Page",
+      "description": "This test scenario explores the landing page and verifies the login functionality.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://the-internet.herokuapp.com/"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://the-internet.herokuapp.com/"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Form Authentication"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://the-internet.herokuapp.com/login"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "tomsmith",
+            "description": "Username"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "SuperSecretPassword!",
+            "description": "Password"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Login"
+          }
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://the-internet.herokuapp.com/secure"
+          }
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "expected_text": "You logged into a secure area!",
+            "description": "Flash message"
+          }
+        }
+      ]
+    }
+  ]
+}

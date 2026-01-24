@@ -1,0 +1,272 @@
+{
+  "project": "applitools_perfect",
+  "goal": "Verify the login flow on Applitools demo site",
+  "base_url": "https://demo.applitools.com/",
+  "scenarios": [
+    {
+      "id": "TC001",
+      "name": "Successful Login",
+      "description": "Verify successful login with valid credentials.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://demo.applitools.com/"
+          },
+          "id": "step_1"
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Sign in"
+          },
+          "id": "step_2",
+          "locators": [
+            {
+              "type": "css",
+              "value": "#log-in",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=link[name='Sign in']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            },
+            {
+              "type": "text",
+              "value": "text='Sign in'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.7,
+              "stability_score": 0.7
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "username",
+            "description": "Enter your username"
+          },
+          "id": "step_3",
+          "locators": [
+            {
+              "type": "css",
+              "value": "input[placeholder='Enter your username']",
+              "priority": 0,
+              "reasoning": "This selector targets the input field specifically for the username, using the placeholder text for high specificity and reliability."
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "password",
+            "description": "Enter your password"
+          },
+          "id": "step_4",
+          "locators": [
+            {
+              "type": "css",
+              "value": "input[placeholder='Enter your password']",
+              "priority": 0,
+              "reasoning": "This CSS selector targets the input field specifically for the password, using the placeholder text for precision."
+            },
+            {
+              "type": "css",
+              "value": "input[type='password']",
+              "priority": 1,
+              "reasoning": "This CSS selector targets the input field with type 'password', which is a common attribute for password fields."
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Sign in"
+          },
+          "id": "step_5"
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://demo.applitools.com/app.html"
+          },
+          "id": "step_6"
+        }
+      ]
+    },
+    {
+      "id": "TC002",
+      "name": "Failed Login - Invalid Credentials",
+      "description": "Verify failed login attempt with invalid credentials.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://demo.applitools.com/"
+          },
+          "id": "step_1"
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Sign in"
+          },
+          "id": "step_2",
+          "locators": [
+            {
+              "type": "css",
+              "value": "#log-in",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=link[name='Sign in']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            },
+            {
+              "type": "text",
+              "value": "text='Sign in'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.7,
+              "stability_score": 0.7
+            }
+          ]
+        },
+        {
+          "id": "step_2_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Start typing to search...",
+            "locator": "input",
+            "value": "invalid credentials",
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=textbox[name='Start typing to search...']",
+              "priority": 1,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            },
+            {
+              "type": "text",
+              "value": "text='Start typing to search...'",
+              "priority": 2,
+              "confidence": 0.7,
+              "stability_score": 0.7
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "invalid_username",
+            "description": "Enter your username"
+          },
+          "id": "step_3"
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "invalid_password",
+            "description": "Enter your password"
+          },
+          "id": "step_4"
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Sign in"
+          },
+          "id": "step_5"
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Error message"
+          },
+          "id": "step_6"
+        }
+      ]
+    },
+    {
+      "id": "TC003",
+      "name": "Navigate to App Page",
+      "description": "Verify navigation to the app page.",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://demo.applitools.com/"
+          },
+          "id": "step_1"
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Sign in"
+          },
+          "id": "step_2",
+          "locators": [
+            {
+              "type": "css",
+              "value": "#log-in",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=link[name='Sign in']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            },
+            {
+              "type": "text",
+              "value": "text='Sign in'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.7,
+              "stability_score": 0.7
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://demo.applitools.com/app.html"
+          },
+          "id": "step_3"
+        }
+      ]
+    }
+  ]
+}
