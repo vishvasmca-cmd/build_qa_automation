@@ -2,6 +2,7 @@ import os
 import json
 import yaml
 from urllib.parse import urlparse
+from datetime import datetime
 
 # Resolve absolute path to knowledge directory relative to this file
 # This ensures it works regardless of where the script is run from

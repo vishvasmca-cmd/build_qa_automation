@@ -94,16 +94,27 @@ jobs:
           git config --global user.name "AI Learner"
           git config --global user.email "ai-learner@github-actions"
           
-          # Pull latest to avoid conflict
-          git pull origin main --rebase || echo "Pull failed, proceeding with potential overwrite precaution"
+          # Ensure directories exist so git add doesn't fail
+          mkdir -p knowledge/ sites/ datasets/
           
-          # Add learned assets
+          # Pull latest to avoid conflict
+          git pull origin main --rebase || echo "Pull failed, proceeding..."
+          
+          # Add learned assets (recursive and includes deletions)
           git add knowledge/ datasets/
           
-          # Check for changes
+          # Check for changes across both tracked and untracked files in these dirs
           if [[ -n $(git status --porcelain knowledge/ datasets/) ]]; then
-            git commit -m "🧠 AI Update: Learned new locators for ${{ matrix.website.name }}"
-            git push origin HEAD:main
+            git commit -m "🧠 AI Update: Learned new locators and training data for ${{ matrix.website.name }}"
+            
+            # Retry push to handle concurrent CI runs
+            for i in {1..5}; do
+              git push origin HEAD:main && break
+              echo "Push failed, retrying in 5s ($i/5)..."
+              sleep 5
+              git pull origin main --rebase
+            done
+            
             echo "✅ Knowledge base updated in repository."
           else
             echo "ℹ️ No new knowledge learned in this run."

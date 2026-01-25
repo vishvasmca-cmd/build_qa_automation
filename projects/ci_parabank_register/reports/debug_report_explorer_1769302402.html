@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Report: explorer_1769302402</title>
+    <style>
+        :root { --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --accent: #3b82f6; --success: #22c55e; --fail: #ef4444; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 20px; }
+        .timeline { max-width: 1000px; margin: 0 auto; }
+        .step-card { background: var(--card); border-radius: 8px; padding: 16px; margin-bottom: 16px; border-left: 4px solid var(--accent); }
+        .step-card.passed { border-left-color: var(--success); }
+        .step-card.failed { border-left-color: var(--fail); }
+        .step-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; }
+        .step-details { font-family: monospace; background: #0f172a; padding: 10px; border-radius: 4px; overflow-x: auto; white-space: pre-wrap; font-size: 0.9em; }
+        .screenshot { margin-top: 10px; border-radius: 4px; border: 1px solid #334155; max-width: 100%; }
+        .json-tree { color: #94a3b8; }
+        .badge { padding: 2px 6px; border-radius: 4px; font-size: 0.8em; background: #334155; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🐞 Debug Report: explorer_1769302402</h1>
+        <div>Total Steps: 8 | Duration: 56.59s</div>
+    </div>
+    
+    <div class="timeline" id="timeline">
+        <!-- Steps will be rendered here by JS -->
+    </div>
+
+    <script>
+        const steps = [{"timestamp": "2026-01-24T18:53:49.722487", "elapsed": 26.98, "step": "Smart Locator: State", "status": "passed", "details": {"result": {"selector": "[name*='state' i]", "confidence": 0.88, "method": "name", "count": 1, "stability_score": 0.88}, "input": "State"}, "screenshot": null}, {"timestamp": "2026-01-24T18:53:49.750554", "elapsed": 27.01, "step": "Smart Locator: City", "status": "passed", "details": {"result": {"selector": "[name*='city' i]", "confidence": 0.88, "method": "name", "count": 1, "stability_score": 0.88}, "input": "City"}, "screenshot": null}, {"timestamp": "2026-01-24T18:53:49.769646", "elapsed": 27.03, "step": "Smart Locator: First Name", "status": "passed", "details": {"result": {"selector": ".name, [data-test*='name'], [id*='name'] >> nth=0", "confidence": 0.88, "method": "ordinal-generic", "count": 1, "stability_score": 0.88}, "input": "First Name"}, "screenshot": null}, {"timestamp": "2026-01-24T18:53:49.772097", "elapsed": 27.03, "step": "Smart Locator: Last Name", "status": "passed", "details": {"result": {"selector": ".name, [data-test*='name'], [id*='name'] >> nth=-1", "confidence": 0.88, "method": "ordinal-generic", "count": 1, "stability_score": 0.88}, "input": "Last Name"}, "screenshot": null}, {"timestamp": "2026-01-24T18:53:50.089634", "elapsed": 27.35, "step": "Smart Locator: Address", "status": "passed", "details": {"result": {"selector": "input[name*='address'] >> nth=0", "confidence": 0.7, "method": "visual-scoring", "count": 1, "stability_score": 0.7}, "input": "Address"}, "screenshot": null}, {"timestamp": "2026-01-24T18:54:19.258777", "elapsed": 56.52, "step": "Smart Locator: SSN", "status": "passed", "details": {"result": {"selector": "[name*='ssn' i]", "confidence": 0.88, "method": "name", "count": 1, "stability_score": 0.88}, "input": "SSN"}, "screenshot": null}, {"timestamp": "2026-01-24T18:54:19.302256", "elapsed": 56.56, "step": "Smart Locator: Phone", "status": "passed", "details": {"result": {"selector": "[name*='phone' i]", "confidence": 0.88, "method": "name", "count": 1, "stability_score": 0.88}, "input": "Phone"}, "screenshot": null}, {"timestamp": "2026-01-24T18:54:19.329879", "elapsed": 56.59, "step": "AI Vision: Zip Code", "status": "info", "details": {"type": "ai_decision", "prompt_summary": "\n                    **ROLE & STRATEGY:**\n                    Act as a Senior SDET focusing on high-accuracy FinTech automation and transactional integrity. Focus on secure functional flows (e.g., Login -> Statement View -> Funds Transfer -> Payment Verification). Prioritize transaction tables, balance displays, and financial dashboards. DO NOT suggest e-commerce 'Add to Cart' or 'Shopping' flows for banking applications. This is a dashboard for MANAGING MONEY, not buying products.\n             ...", "response": {"found": true, "locators": [{"selector": "input[placeholder=\"Zip Code\"]", "confidence": 0.8}, {"selector": "input[name=\"zip\"]", "confidence": 0.7}, {"selector": "input[type=\"text\"][id*=\"zip\"]", "confidence": 0.6}], "suggest_navigation": {"needed": false}}, "candidates": [{"selector": "input[placeholder=\"Zip Code\"]", "confidence": 0.8}, {"selector": "input[name=\"zip\"]", "confidence": 0.7}, {"selector": "input[type=\"text\"][id*=\"zip\"]", "confidence": 0.6}]}, "screenshot": null}];
+        const container = document.getElementById('timeline');
+
+        steps.forEach((step, index) => {
+            const card = document.createElement('div');
+            card.className = `step-card ${step.status}`;
+            
+            let detailsHtml = '';
+            
+            if (step.details.type === 'ai_decision') {
+                detailsHtml = `
+                    <div style="margin-bottom: 5px; color: #60a5fa;">🧠 AI Decision Logic</div>
+                    <div class="json-tree">${JSON.stringify(step.details.response, null, 2)}</div>
+                    ${step.details.candidates && step.details.candidates.length > 0 ? 
+                        `<div style="margin-top: 5px; color: #a3e635;">🏆 Top Candidates:</div>
+                         <div class="json-tree">${JSON.stringify(step.details.candidates, null, 2)}</div>` : ''}
+                `;
+            } else {
+                detailsHtml = `<div class="json-tree">${typeof step.details === 'string' ? step.details : JSON.stringify(step.details, null, 2)}</div>`;
+            }
+
+            const screenshotHtml = step.screenshot ? 
+                `<img src="data:image/jpeg;base64,${step.screenshot}" class="screenshot" alt="Step Screenshot" />` : '';
+
+            card.innerHTML = `
+                <div class="step-header">
+                    <span>#${index + 1} ${step.step}</span>
+                    <span class="badge">${step.elapsed}s</span>
+                </div>
+                <div class="step-details">${detailsHtml}</div>
+                ${screenshotHtml}
+            `;
+            
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>

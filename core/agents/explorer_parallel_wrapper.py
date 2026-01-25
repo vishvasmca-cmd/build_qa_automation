@@ -58,20 +58,63 @@ async def process_batch_or_sequential(explorer_agent, page, steps, scenario, sta
             scenario["name"]
         )
         
-        # Assign mined locators back to steps
+        # Assign mined locators back to steps AND Execute
         success_count = 0
+        execution_failed = False
+        
         for batch_idx, step_idx in enumerate(first_batch):
             locators = locators_map.get(batch_idx, [])
+            step = steps[step_idx]
+            
             if locators:
                 steps[step_idx]["locators"] = locators
-                success_count += 1
+                
+                # Execute Step
+                try:
+                    # Dismiss vignettes
+                    await explorer_agent._dismiss_vignettes(page)
+                    
+                    description = step.get("args", {}).get("description", "")
+                    explorer_agent.log(f"    [EXEC] Executing batched step {step_idx + 1}: {description}", "white")
+                    
+                    await explorer_agent._execute_exploration_action(
+                        page, step, step["keyword"], step["args"], description
+                    )
+                    
+                    # Record context (Simplified for speed)
+                    if explorer_agent.exploration_context:
+                        selector = locators[0].get("value")
+                        explorer_agent.exploration_context.add_action(
+                            step_id=step.get("id", f"step_{step_idx+1}"), 
+                            keyword=step["keyword"], 
+                            description=description,
+                            selector=selector, 
+                            success=True, 
+                            page_url=page.url,
+                            confidence=locators[0].get("confidence", 1.0)
+                        )
+                        
+                        # --- SAVE TO MEMORY (FIXED) ---
+                        if selector and step["keyword"] != "navigate":
+                            explorer_agent.knowledge_bank.record_successful_locator(page.url, selector, description)
+                    
+                    success_count += 1
+                except Exception as e:
+                    explorer_agent.log(f"    [FAIL] Batch execution failed for step {step_idx}: {e}", "red")
+                    execution_failed = True
+                    break
             else:
-                explorer_agent.log(f"    ⚠️ No locators for step {step_idx}. Will try sequential", "yellow")
+                explorer_agent.log(f"    ⚠️ No locators for step {step_idx}. Stopping batch.", "yellow")
+                execution_failed = True
+                break
         
-        explorer_agent.log(f"    ✅ Batch mined {success_count}/{len(first_batch)} steps successfully", "green")
-        
-        # Return batch size (caller will increment index by this amount)
-        return (len(first_batch), True)
+        if success_count > 0:
+            explorer_agent.log(f"    ✅ Batch executed {success_count}/{len(first_batch)} steps successfully", "green")
+            # Return count of successfully executed steps to advance the main loop index
+            return (success_count, True)
+        else:
+            # If 0 executed, fallback to sequential
+            return await _process_sequential_single(explorer_agent, page, steps, scenario, start_idx)
         
     except Exception as e:
         # FALLBACK: On ANY error, use sequential

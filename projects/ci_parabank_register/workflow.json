@@ -23,8 +23,9 @@
           "locators": [
             {
               "value": ".name, [data-test*='name'], [id*='name'] >> nth=0",
-              "confidence": 0.88,
-              "priority": 0
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
             }
           ]
         },
@@ -36,9 +37,10 @@
           },
           "locators": [
             {
-              "value": ".name, [data-test*='name'], [id*='name'] >> nth=-1",
-              "confidence": 0.88,
-              "priority": 0
+              "value": ".name, [data-test*='name'], [id*='name'] >> nth=0",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
             }
           ]
         },
@@ -51,8 +53,9 @@
           "locators": [
             {
               "value": "input[name*='address'] >> nth=0",
-              "confidence": 0.7,
-              "priority": 0
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
             }
           ]
         },
@@ -65,8 +68,9 @@
           "locators": [
             {
               "value": "[name*='city' i]",
-              "confidence": 0.88,
-              "priority": 0
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
             }
           ]
         },
@@ -79,8 +83,9 @@
           "locators": [
             {
               "value": "[name*='state' i]",
-              "confidence": 0.88,
-              "priority": 0
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
             }
           ]
         },
@@ -89,7 +94,15 @@
           "args": {
             "description": "Zip Code",
             "value": "12345"
-          }
+          },
+          "locators": [
+            {
+              "value": "input[name='customer.address.zipCode']",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
+            }
+          ]
         },
         {
           "keyword": "fill",
@@ -100,8 +113,9 @@
           "locators": [
             {
               "value": "[name*='phone' i]",
-              "confidence": 0.88,
-              "priority": 0
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
             }
           ]
         },
@@ -114,8 +128,9 @@
           "locators": [
             {
               "value": "[name*='ssn' i]",
-              "confidence": 0.88,
-              "priority": 0
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
             }
           ]
         },
@@ -124,14 +139,66 @@
           "args": {
             "description": "Username",
             "value": "{random_username}"
-          }
+          },
+          "locators": [
+            {
+              "value": "input[name='username' i]",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
+            }
+          ]
         },
         {
           "keyword": "fill",
           "args": {
             "description": "Password",
             "value": "password123"
-          }
+          },
+          "locators": [
+            {
+              "value": "input[name='password' i]",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
+            }
+          ]
+        },
+        {
+          "id": "step_11_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Zip Code",
+            "locator": "input[name='customer.address.zipCode']",
+            "value": "12345",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='customer.address.zipCode']",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
+            }
+          ]
+        },
+        {
+          "id": "step_11_ai_2",
+          "keyword": "fill",
+          "args": {
+            "description": "First Name",
+            "locator": "input[name='customer.firstName']",
+            "value": "Test",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": ".name, [data-test*='name'], [id*='name'] >> nth=0",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
+            }
+          ]
         },
         {
           "keyword": "fill",
@@ -170,7 +237,7 @@
           ]
         },
         {
-          "id": "step_13_ai_1",
+          "id": "step_15_ai_1",
           "keyword": "fill",
           "args": {
             "description": "Confirm",
@@ -189,6 +256,44 @@
           ]
         },
         {
+          "id": "step_15_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Confirm",
+            "locator": "input[name='repeatedPassword']",
+            "value": "password",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='repeatedPassword']",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
+            }
+          ],
+          "skipped": true
+        },
+        {
+          "id": "step_13_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Confirm",
+            "locator": "input[name='repeatedPassword']",
+            "value": "password",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='repeatedPassword']",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
+            }
+          ],
+          "skipped": true
+        },
+        {
           "keyword": "assert_text",
           "args": {
             "description": "Welcome",
@@ -198,6 +303,74 @@
             {
               "value": "h1:contains('Welcome to ParaBank')",
               "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_18_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Last Name",
+            "locator": "input[id='customer.lastName']",
+            "value": "test",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": ".name, [data-test*='name'], [id*='name'] >> nth=-1",
+              "confidence": 0.88,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_18_ai_2",
+          "keyword": "fill",
+          "args": {
+            "description": "Address",
+            "locator": "input[name='customer.address.street']",
+            "value": "123 Main St",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name*='address'] >> nth=0",
+              "confidence": 0.7,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_18_ai_3",
+          "keyword": "fill",
+          "args": {
+            "description": "City",
+            "locator": "input[name='customer.address.city']",
+            "value": "Anytown",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "[name*='city' i]",
+              "confidence": 0.88,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_18_ai_4",
+          "keyword": "fill",
+          "args": {
+            "description": "State",
+            "locator": "input[id='customer.address.state']",
+            "value": "CA",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "[name*='state' i]",
+              "confidence": 0.88,
               "priority": 0
             }
           ]
@@ -225,6 +398,43 @@
           "id": "step_2_ai_1",
           "keyword": "fill",
           "args": {
+            "description": "input",
+            "locator": "input[name='password']",
+            "value": "password",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='password']",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
+            }
+          ]
+        },
+        {
+          "id": "step_2_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "input",
+            "locator": "input[name='password']",
+            "value": "password",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='password']",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory"
+            }
+          ],
+          "skipped": true
+        },
+        {
+          "id": "step_2_ai_1",
+          "keyword": "fill",
+          "args": {
             "description": "Username",
             "locator": "input[name='username']",
             "value": "your_username",
@@ -233,10 +443,9 @@
           "locators": [
             {
               "value": "input[name='username']",
-              "confidence": 0.95,
+              "confidence": 0.99,
               "priority": 0,
-              "is_unique": true,
-              "is_visible": true
+              "source": "memory"
             }
           ]
         },
@@ -277,6 +486,44 @@
           ]
         },
         {
+          "id": "step_2_ai_3",
+          "keyword": "click",
+          "args": {
+            "description": "LOG IN",
+            "locator": "input[value='Log In']",
+            "value": "",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[value='Log In']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ],
+          "skipped": true
+        },
+        {
+          "id": "step_2_ai_3",
+          "keyword": "click",
+          "args": {
+            "description": "LOG IN",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[value='Log In']",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ],
+          "skipped": true
+        },
+        {
           "id": "step_2_ai_4",
           "keyword": "fill",
           "args": {
@@ -293,7 +540,8 @@
               "is_unique": true,
               "is_visible": true
             }
-          ]
+          ],
+          "skipped": true
         },
         {
           "id": "step_2_ai_5",
@@ -331,7 +579,8 @@
               "is_unique": true,
               "is_visible": true
             }
-          ]
+          ],
+          "skipped": true
         },
         {
           "keyword": "assert_visible",
@@ -343,6 +592,176 @@
               "type": "text",
               "value": "text='Customer Login'",
               "priority": 2,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_13_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Get Started",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "a:text-is('Get Started')",
+              "confidence": 0.85,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_13_ai_2",
+          "keyword": "click",
+          "args": {
+            "description": "Trials & Demos",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "a:text-is('Trials & Demos'):visible",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory",
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_13_ai_3",
+          "keyword": "click",
+          "args": {
+            "description": "Start Free Trial",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=link[name='Start Free Trial']",
+              "priority": 1,
+              "is_unique": false,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text='Start Free Trial'",
+              "priority": 2,
+              "is_unique": false,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_13_ai_4",
+          "keyword": "fill",
+          "args": {
+            "description": "Company Email*",
+            "locator": "input[name='email']",
+            "value": "test@example.com",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='email']",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_11_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Get Started",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "a:text-is('Get Started')",
+              "confidence": 0.85,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ],
+          "skipped": true
+        },
+        {
+          "id": "step_11_ai_2",
+          "keyword": "click",
+          "args": {
+            "description": "Trials & Demos",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "a:text-is('Trials & Demos'):visible",
+              "confidence": 0.83,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ],
+          "skipped": true
+        },
+        {
+          "id": "step_11_ai_3",
+          "keyword": "click",
+          "args": {
+            "description": "Start Free Trial",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=link[name='Start Free Trial']",
+              "priority": 1,
+              "is_unique": false,
+              "is_visible": true
+            },
+            {
+              "type": "text",
+              "value": "text='Start Free Trial'",
+              "priority": 2,
+              "is_unique": false,
+              "is_visible": true
+            }
+          ],
+          "skipped": true
+        },
+        {
+          "id": "step_11_ai_4",
+          "keyword": "fill",
+          "args": {
+            "description": "Company Email*",
+            "locator": "input[name='email']",
+            "value": "test@example.com",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "input[name='email']",
+              "confidence": 0.95,
+              "priority": 0,
               "is_unique": true,
               "is_visible": true
             }
@@ -365,7 +784,8 @@
               "is_unique": true,
               "is_visible": true
             }
-          ]
+          ],
+          "skipped": true
         },
         {
           "keyword": "assert_visible",
@@ -374,18 +794,26 @@
           },
           "locators": [
             {
-              "type": "role",
-              "value": "role=link[name='Register']",
-              "priority": 1,
-              "is_unique": true,
-              "is_visible": true
-            },
+              "value": "input[type='email']",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_17_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Start Free Trial",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
             {
-              "type": "text",
-              "value": "text='Register'",
-              "priority": 2,
-              "is_unique": true,
-              "is_visible": true
+              "value": "input[name='company_email']",
+              "confidence": 0.9,
+              "priority": 0
             }
           ]
         },
@@ -404,7 +832,8 @@
               "confidence": 0.9,
               "priority": 0
             }
-          ]
+          ],
+          "skipped": true
         }
       ]
     }

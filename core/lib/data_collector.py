@@ -12,7 +12,10 @@ class DataCollector:
     """
     def __init__(self, project_dir: str):
         self.project_dir = project_dir
-        self.dataset_dir = os.path.join(project_dir, "datasets")
+        # Resolve root directory (parent of parent of parent of this file)
+        # This ensures datasets are global, not per-project
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        self.dataset_dir = os.path.join(base_dir, "datasets")
         os.makedirs(self.dataset_dir, exist_ok=True)
         self.dataset_path = os.path.join(self.dataset_dir, "autonomy_dataset.jsonl")
         

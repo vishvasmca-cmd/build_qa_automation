@@ -1130,6 +1130,18 @@ class ExplorerAgent:
         tasks = []
         for step in steps:
             description = step.get("args", {}).get("description", "")
+            
+            # --- MEMORY CHECK (Cure for Batch Amnesia) ---
+            memory_locator = self.knowledge_bank.get_best_locator(page.url, description)
+            if memory_locator:
+                try:
+                    if await page.is_visible(memory_locator, timeout=1000):
+                        self.log(f"    [MEMORY] Found proven locator for batch field '{description}': {memory_locator}", "cyan")
+                        tasks.append(asyncio.sleep(0, result=[{"value": memory_locator, "confidence": 0.99, "priority": 0, "source": "memory"}]))
+                        continue
+                except:
+                    pass
+            
             # Try deterministic first
             candidates = self._find_candidates_deterministically(elements, description)
             if candidates:
