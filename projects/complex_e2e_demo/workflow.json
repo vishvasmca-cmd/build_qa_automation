@@ -1,0 +1,643 @@
+{
+  "project": "complex_e2e_demo",
+  "goal": "Comprehensive E2E purchase flow: Browse categories, add 3 unique items to cart, and complete purchase",
+  "base_url": "https://www.demoblaze.com",
+  "scenarios": [
+    {
+      "id": "TC001",
+      "name": "Comprehensive E2E purchase flow",
+      "description": "Browse categories, add 3 unique items to cart, and complete purchase",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://www.demoblaze.com"
+          },
+          "id": "step_1"
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.demoblaze.com"
+          },
+          "id": "step_2"
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Phones"
+          },
+          "id": "step_3",
+          "locators": [
+            {
+              "type": "css",
+              "value": "#itemc",
+              "priority": 2,
+              "is_unique": false,
+              "is_visible": true,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=link[name='Phones']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            },
+            {
+              "type": "text",
+              "value": "text='Phones'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.7,
+              "stability_score": 0.7
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.demoblaze.com/index.html"
+          },
+          "id": "step_4"
+        },
+        {
+          "id": "step_4_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Samsung galaxy s6",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "css",
+              "value": "#article",
+              "priority": 2,
+              "is_unique": false,
+              "is_visible": true,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=link[name='Samsung galaxy s6']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            },
+            {
+              "type": "text",
+              "value": "text='Samsung galaxy s6'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.7,
+              "stability_score": 0.7
+            }
+          ]
+        },
+        {
+          "id": "step_4_ai_2",
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=link[name='Add to cart']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            },
+            {
+              "type": "text",
+              "value": "text='Add to cart'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.7,
+              "stability_score": 0.7
+            }
+          ]
+        },
+        {
+          "keyword": "wait",
+          "args": {
+            "seconds": 2
+          },
+          "id": "step_6"
+        },
+        {
+          "id": "step_6_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "role=link[name='Add to cart']",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory",
+              "is_unique": true,
+              "is_visible": true,
+              "stability_score": 1.0
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Home (current)"
+          },
+          "id": "step_7",
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=link[name='Home (current)']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            }
+          ]
+        },
+        {
+          "id": "step_7_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Nokia lumia 1520",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "css",
+              "value": "a:has-text('Nokia lumia 1520')",
+              "priority": 0,
+              "reasoning": "Directly targets the product name, which is the primary element to click."
+            },
+            {
+              "type": "css",
+              "value": "a:has-text('Nokia lumia 1520')",
+              "priority": 1,
+              "reasoning": "Targets the product description, which is a secondary element to click."
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.demoblaze.com/index.html"
+          },
+          "id": "step_8"
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.demoblaze.com/index.html"
+          },
+          "id": "step_10"
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart",
+            "index": 0
+          },
+          "id": "step_11",
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=link[name='Add to cart']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            },
+            {
+              "type": "text",
+              "value": "text='Add to cart'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.7,
+              "stability_score": 0.7
+            }
+          ]
+        },
+        {
+          "keyword": "wait",
+          "args": {
+            "seconds": 2
+          },
+          "id": "step_12"
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Home (current)"
+          },
+          "id": "step_13",
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=link[name='Home (current)']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            }
+          ]
+        },
+        {
+          "id": "step_13_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Phones",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "css",
+              "value": "#itemc",
+              "priority": 2,
+              "is_unique": false,
+              "is_visible": true,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=link[name='Phones']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            },
+            {
+              "type": "text",
+              "value": "text='Phones'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.7,
+              "stability_score": 0.7
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.demoblaze.com/index.html"
+          },
+          "id": "step_14"
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Monitors"
+          },
+          "id": "step_15",
+          "locators": [
+            {
+              "type": "css",
+              "value": "#itemc",
+              "priority": 2,
+              "is_unique": false,
+              "is_visible": true,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=link[name='Monitors']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            },
+            {
+              "type": "text",
+              "value": "text='Monitors'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.7,
+              "stability_score": 0.7
+            }
+          ]
+        },
+        {
+          "id": "step_15_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Phones",
+            "locator": "#itemc",
+            "value": "",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "#itemc",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": false,
+              "is_visible": true,
+              "stability_score": 0.95
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.demoblaze.com/index.html"
+          },
+          "id": "step_16"
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart",
+            "index": 0
+          },
+          "id": "step_17",
+          "locators": [
+            {
+              "type": "css",
+              "value": "a:has-text('Phones')",
+              "priority": 0,
+              "reasoning": "This CSS selector targets the 'Phones' category link, which is a primary navigation element for browsing products."
+            },
+            {
+              "type": "css",
+              "value": "a:has-text('Laptops')",
+              "priority": 1,
+              "reasoning": "This CSS selector targets the 'Laptops' category link, which is a secondary navigation element for browsing products."
+            }
+          ]
+        },
+        {
+          "keyword": "wait",
+          "args": {
+            "seconds": 2
+          },
+          "id": "step_18"
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Cart"
+          },
+          "id": "step_19",
+          "locators": [
+            {
+              "type": "css",
+              "value": "#cartur",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=link[name='Add to cart']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            },
+            {
+              "type": "role",
+              "value": "role=link[name='Cart']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            }
+          ]
+        },
+        {
+          "keyword": "assert_url",
+          "args": {
+            "expected_url": "https://www.demoblaze.com/cart.html"
+          },
+          "id": "step_20"
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Place Order"
+          },
+          "id": "step_21",
+          "locators": [
+            {
+              "type": "css",
+              "value": "button:has-text('Place Order')",
+              "priority": 0,
+              "reasoning": "This CSS selector targets the 'Place Order' button, which is the primary action to complete the purchase."
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "Test Name",
+            "description": "name"
+          },
+          "id": "step_22",
+          "locators": [
+            {
+              "value": "#name",
+              "confidence": 0.92,
+              "priority": 0,
+              "stability_score": 0.92
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "Test Country",
+            "description": "country"
+          },
+          "id": "step_23",
+          "locators": [
+            {
+              "type": "css",
+              "value": "#country",
+              "priority": 2,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=textbox[name='Country:']",
+              "priority": 1,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "Test City",
+            "description": "city"
+          },
+          "id": "step_24",
+          "locators": [
+            {
+              "type": "css",
+              "value": "#city",
+              "priority": 2,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=textbox[name='City:']",
+              "priority": 1,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "1234567890123456",
+            "description": "card"
+          },
+          "id": "step_25",
+          "locators": [
+            {
+              "type": "css",
+              "value": "#card",
+              "priority": 2,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=textbox[name='Credit card:']",
+              "priority": 1,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "12",
+            "description": "month"
+          },
+          "id": "step_26",
+          "locators": [
+            {
+              "type": "css",
+              "value": "#month",
+              "priority": 2,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=textbox[name='Month:']",
+              "priority": 1,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            }
+          ]
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "value": "2025",
+            "description": "year"
+          },
+          "id": "step_27",
+          "locators": [
+            {
+              "type": "css",
+              "value": "#year",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.85,
+              "stability_score": 0.85
+            },
+            {
+              "type": "role",
+              "value": "role=textbox[name='Year:']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            }
+          ]
+        },
+        {
+          "id": "step_27_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Purchase",
+            "locator": null,
+            "value": null,
+            "url": ""
+          },
+          "locators": [
+            {
+              "type": "role",
+              "value": "role=button[name='Purchase']",
+              "priority": 1,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.75,
+              "stability_score": 0.8
+            },
+            {
+              "type": "text",
+              "value": "text='Purchase'",
+              "priority": 2,
+              "is_unique": true,
+              "is_visible": true,
+              "confidence": 0.7,
+              "stability_score": 0.7
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
