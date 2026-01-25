@@ -94,16 +94,28 @@ jobs:
           git config --global user.name "AI Learner"
           git config --global user.email "ai-learner@github-actions"
           
-          # Ensure directories exist so git add doesn't fail
+          # Ensure directories exist so git commands don't fail
           mkdir -p knowledge/ sites/ datasets/
+          
+          # Stash changes if any exist to allow clean pull/rebase
+          CHANGED=$(git status --porcelain knowledge/ datasets/ | wc -l)
+          if [ "$CHANGED" -gt 0 ]; then
+            git add knowledge/ datasets/
+            git stash
+            echo "STASHED=true" >> $GITHUB_ENV
+          fi
           
           # Pull latest to avoid conflict
           git pull origin main --rebase || echo "Pull failed, proceeding..."
           
-          # Add learned assets (recursive and includes deletions)
-          git add knowledge/ datasets/
+          # Restore stashed changes
+          if [ "${{ env.STASHED }}" == "true" ] || [ "$STASHED_LOCALLY" == "true" ]; then
+            # Small hack to handle local vs env var
+            git stash pop || echo "Stash pop failed - resolving..."
+          fi
           
-          # Check for changes across both tracked and untracked files in these dirs
+          # Final add and check
+          git add knowledge/ datasets/
           if [[ -n $(git status --porcelain knowledge/ datasets/) ]]; then
             git commit -m "🧠 AI Update: Learned new locators and training data for ${{ matrix.website.name }}"
             
