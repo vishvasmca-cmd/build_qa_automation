@@ -625,7 +625,11 @@ class ExecutorAgent:
                 if await page.is_visible(sel, timeout=500):
                     self.log(f"      Detected overlay ({sel}). Forcing removal...", "yellow")
                     # Try to remove the element from DOM to be sure
-                    await page.evaluate(f"document.querySelectorAll('{sel}').forEach(el => el.remove())")
+                    # Playwright safe removal (handles Playwright selectors)
+                    try:
+                        await page.locator(sel).evaluate_all("els => els.forEach(el => el.remove())")
+                    except:
+                        pass
                     # Try clicking outside or pressing ESC
                     await page.keyboard.press("Escape")
                     await asyncio.sleep(0.5)

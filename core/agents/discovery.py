@@ -252,10 +252,15 @@ class DiscoveryAgent:
             # DOM-based detection for ambiguous cases
             dom_indicators = await page.evaluate("""
                 () => {
+                    const findByText = (tag, text) => {
+                        return Array.from(document.querySelectorAll(tag)).find(el => 
+                            el.textContent.toLowerCase().includes(text.toLowerCase())
+                        );
+                    };
                     return {
                         hasProductGrid: !!document.querySelector('.product, .item, [data-product], .product-card'),
-                        hasAddToCart: !!document.querySelector('[data-product-id], button:contains("Add to Cart"), .add-to-cart'),
-                        hasCheckoutButton: !!document.querySelector('button:contains("Checkout"), a[href*="checkout"]'),
+                        hasAddToCart: !!(document.querySelector('[data-product-id], .add-to-cart') || findByText('button', 'Add to Cart')),
+                        hasCheckoutButton: !!(document.querySelector('a[href*="checkout"]') || findByText('button', 'Checkout')),
                         hasLoginForm: !!document.querySelector('input[type="password"]'),
                         hasContactForm: !!(document.querySelector('textarea') && document.querySelector('input[type="email"]'))
                     };

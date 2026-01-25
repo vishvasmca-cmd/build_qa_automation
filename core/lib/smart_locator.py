@@ -65,12 +65,42 @@ def sanitize_ai_selector(selector: str) -> str:
                 selector = f"{base_tag}:has-text('{text_val}')"
             else:
                 selector = f"text='{text_val}'"
-    
-    # 2. Fix unescaped hashes/dots in descriptions that aren't real selectors
+        else:
+            # Fallback for malformed :contains()
+            selector = selector.replace(":contains()", "")
+
+    # 2. Fix :text("...") variant (another common hallucination)
+    if ":text(" in selector:
+        match = re.search(r":text\(['\"]?(.*?)['\"]?\)", selector)
+        if match:
+            text_val = match.group(1)
+            base_tag = selector.split(":text")[0]
+            if base_tag and base_tag != "*":
+                selector = f"{base_tag}:has-text('{text_val}')"
+            else:
+                selector = f"text='{text_val}'"
+
+    # 3. Fix unescaped hashes/dots in descriptions that aren't real selectors
     # e.g. "Click #1 button" -> text="Click #1 button"
-    if selector.startswith('#') and ' ' in selector:
+    if selector.startswith('#') and (' ' in selector or len(selector) < 2):
         selector = f"text='{selector}'"
         
+    # 4. Handle [text='...'] hallucinations
+    if "[text=" in selector:
+        match = re.search(r"\[text=(.*?)\]", selector)
+        if match:
+            text_val = match.group(1).strip("'\"")
+            base_tag = selector.split("[text=")[0]
+            if base_tag and base_tag != "*":
+                selector = f"{base_tag}:has-text('{text_val}')"
+            else:
+                selector = f"text='{text_val}'"
+
+    # 5. Handle raw text that AI returns as a "selector"
+    # If it doesn't look like a selector (no brackets, dots, hashes, or tags), wrap it
+    if not any(c in selector for c in ['[', ']', '.', '#', '>', ' ', ':']) and not selector.islower():
+        selector = f"text='{selector}'"
+
     return selector
 
 

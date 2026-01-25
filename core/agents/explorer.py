@@ -28,6 +28,7 @@ if project_root not in sys.path:
 from core.agents.miner import analyze_page
 from core.lib.keywords import KeywordEngine
 from core.lib.llm_utils import SafeLLM, try_parse_json
+from core.lib.smart_locator import sanitize_ai_selector
 from core.lib.error_handler import ErrorHandler
 from core.lib.domain_expert import DomainExpert
 from core.lib.exploration_context import ExplorationContext
@@ -1303,6 +1304,10 @@ class ExplorerAgent:
             
             if fix:
                 if fix.get("found") and fix.get("locators"):
+                    # SANITIZE: Fix AI hallucinations before returning
+                    for loc in fix["locators"]:
+                        if "value" in loc:
+                            loc["value"] = sanitize_ai_selector(loc["value"])
                     return fix["locators"]
                 elif fix.get("suggest_navigation", {}).get("needed"):
                     # Return special signal for navigation injection
@@ -1477,7 +1482,11 @@ class ExplorerAgent:
                 if await page.is_visible(sel, timeout=1000):
                     self.log(f"      Detected overlay ({sel}). Forcing removal...", "yellow")
                     # Try to remove the element from DOM to be sure
-                    await page.evaluate(f"document.querySelectorAll('{sel}').forEach(el => el.remove())")
+                    # Playwright safe removal (handles Playwright selectors)
+                    try:
+                        await page.locator(sel).evaluate_all("els => els.forEach(el => el.remove())")
+                    except:
+                        pass
                     await page.keyboard.press("Escape")
                     await asyncio.sleep(0.5)
                     dismiss_btn = "div[id='dismiss-button'], div.dismiss-button"
@@ -1667,6 +1676,10 @@ class ExplorerAgent:
                         selector = cand.get("value")
                         if not selector:
                             continue
+                        
+                        # SANITIZE: Fix AI hallucinations
+                        selector = sanitize_ai_selector(selector)
+                        cand["value"] = selector
                         
                         # Wrap locator validation in try-except to handle SyntaxErrors
                         try:
