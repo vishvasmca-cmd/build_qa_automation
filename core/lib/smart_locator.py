@@ -21,7 +21,7 @@ import json
 import os
 
 # Debug mode - set to True to see detailed strategy attempts
-DEBUG_SMART_SELECTORS = True
+DEBUG_SMART_SELECTORS = False
 
 # Early exit optimization: Stop trying strategies after finding high-confidence match
 # This can save 60-80% of execution time in common cases
@@ -170,13 +170,15 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
     # 5. text-is: 7.8%
     
     # Strategy 1: ID-exact (35% success rate - HIGHEST PERFORMER)
-    id_variations = [
+    # Deduplicate variations to avoid redundant logs
+    id_variations = list(dict.fromkeys([
         desc_with_separators,  # Try original with underscores/dashes first
         desc_clean.replace(' ', '_'),
         desc_clean.replace(' ', '-'),
         desc_clean.replace(' ', ''),
         ''.join(word.capitalize() for word in desc_clean.split()) if ' ' in desc_clean else desc_clean
-    ]
+    ]))
+    
     for id_var in id_variations:
         if id_var:
             try:
@@ -199,12 +201,13 @@ async def find_element_smart(page: Page, description: str, debug: bool = None) -
     if not is_css_selector:
         for attr in data_attrs:
             # Try variations matching description
-            attr_variations = [
+            # Deduplicate variations
+            attr_variations = list(dict.fromkeys([
                 desc_with_separators,
                 desc_clean.replace(' ', '_'),
                 desc_clean.replace(' ', '-'),
                 desc_clean.replace(' ', '')
-            ]
+            ]))
             for val in attr_variations:
                 if not val: continue
                 try:

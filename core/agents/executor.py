@@ -256,15 +256,16 @@ class ExecutorAgent:
                             except:
                                 pass
                     elif count == 0:
-                        self.log(
-                            f"    [FAIL] Locator #{idx+1} found 0 elements: {sel_value[:40]}...",
-                            "grey"
-                        )
+                        # self.log(
+                        #     f"    [FAIL] Locator #{idx+1} found 0 elements: {sel_value[:40]}...",
+                        #     "grey"
+                        # )
+                        pass
                 except Exception as e:
-                    self.log(
-                        f"    [WARN]  Locator #{idx+1} error: {str(e)[:50]}...",
-                        "grey"
-                    )
+                    # self.log(
+                    #     f"    [WARN]  Locator #{idx+1} error: {str(e)[:50]}...",
+                    #     "grey"
+                    # )
                     continue
             
             if not best_selector:

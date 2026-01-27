@@ -1071,7 +1071,7 @@ class ExplorerAgent:
                 age = now - cached["timestamp"]
                 
                 if age < self.cache_ttl:
-                    self.log(f"      Cache HIT (age: {age:.1f}s)", "cyan")
+                    # self.log(f"      Cache HIT (age: {age:.1f}s)", "cyan")
                     self.metrics.record_cache_event("hit")
                     return {
                         "elements": cached["elements"],
@@ -1119,7 +1119,8 @@ class ExplorerAgent:
         Returns:
             Dict mapping {step_index: [locators]}
         """
-        self.log(f"      Batch mining {len(steps)} fields in parallel...", "cyan")
+        if len(steps) > 5:
+            self.log(f"      Batch mining {len(steps)} fields...", "cyan")
         
         # Capture page state once (shared by all parallel AI calls)
         from core.agents.miner import analyze_page
@@ -1174,7 +1175,7 @@ class ExplorerAgent:
                 if await self._is_locator_appropriate_for_action(page, cand["value"], "fill"):
                     valid_cands.append(cand)
                 else:
-                    self.log(f"    [SEARCH] Batch rejecting incompatible locator for 'fill': {cand['value']}", "grey")
+                    pass # self.log(f"    [SEARCH] Batch rejecting incompatible locator for 'fill': {cand['value']}", "grey")
             filtered_results.append(valid_cands)
         results = filtered_results
         
