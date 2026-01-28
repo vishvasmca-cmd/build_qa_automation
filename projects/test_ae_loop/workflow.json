@@ -1,0 +1,102 @@
+{
+  "project": "test_ae_loop",
+  "base_url": "https://www.automationexercise.com/",
+  "goal": "Click 'Products', click FIRST product, add to cart, verify cart shows 1 item",
+  "scenarios": [
+    {
+      "id": "JIT_SCENARIO",
+      "name": "Interactive Session",
+      "description": "Click 'Products', click FIRST product, add to cart, verify cart shows 1 item",
+      "steps": [
+        {
+          "id": "step_1",
+          "keyword": "navigate",
+          "args": {
+            "url": "https://www.automationexercise.com/"
+          }
+        },
+        {
+          "id": "step_2",
+          "keyword": "click",
+          "args": {
+            "selector": "role=link[name*='Products' i]"
+          },
+          "description": "Click Products button",
+          "locators": [
+            {
+              "value": "role=link[name*='Products' i]",
+              "confidence": 0.93,
+              "method": "role-link-partial"
+            },
+            {
+              "value": "a:has-text(\"\\ue8f8 Products\")",
+              "confidence": 1.0,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_3",
+          "keyword": "click",
+          "args": {
+            "selector": "a:has-text(\"View Product\")"
+          },
+          "description": "Click first product",
+          "locators": [
+            {
+              "value": "a:has-text(\"View Product\")",
+              "confidence": 1.0,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_4",
+          "keyword": "click",
+          "args": {
+            "selector": "a:has-text(\"Add to cart\")"
+          },
+          "description": "Add to cart",
+          "locators": [
+            {
+              "value": "a:has-text(\"Add to cart\")",
+              "confidence": 1.0,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_5",
+          "keyword": "click",
+          "args": {
+            "selector": "a:has-text(\"Cart\")"
+          },
+          "description": "Cart",
+          "locators": [
+            {
+              "value": "a:has-text(\"Cart\")",
+              "confidence": 1.0,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "id": "step_6",
+          "keyword": "assert_text",
+          "args": {
+            "selector": "P:nth-of-type(2)",
+            "text": "View Cart"
+          },
+          "description": "Verify cart shows 1 item",
+          "locators": [
+            {
+              "value": "P:nth-of-type(2)",
+              "confidence": 1.0,
+              "priority": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

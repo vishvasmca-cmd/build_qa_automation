@@ -65,7 +65,7 @@ class SafeLLM:
             if env_model and env_model.lower() != "none" and env_model.strip() != "":
                 model = env_model
             else:
-                model = "gemini-2.0-flash-lite-preview-02-05"
+                model = "gemini-2.0-flash"
             
         self.model_name = model.strip()
         print(colored(f"[LLM] SafeLLM Initialized: model={self.model_name}", "cyan"))
