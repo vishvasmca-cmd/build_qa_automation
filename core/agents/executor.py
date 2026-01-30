@@ -236,7 +236,28 @@ class ExecutorAgent:
                     count = await page.locator(sel_value).count()
                     
                     #   FIX Bug #3: Validate uniqueness (exactly 1 match)
-                    if count == 1:
+                    #   BUT: If 'index' is specified, we expect multiple matches!
+                    target_index = resolved_args.get("index")
+                    
+                    if target_index is not None and isinstance(target_index, int):
+                         # If index is used, we just need enough elements
+                         if count > target_index:
+                              best_selector = sel_value
+                              self.log(
+                                  f"    [OK] SUCCESS! Locator #{idx+1}: {sel_value[:60]}... "
+                                  f"(matches {count} elements, need > {target_index})",
+                                  "green"
+                              )
+                              break
+                         else:
+                              # Not enough elements for the requested index
+                              self.log(
+                                  f"    [WARN] Locator #{idx+1} found {count} elements, but need index {target_index}",
+                                  "yellow"
+                              )
+                              pass
+
+                    elif count == 1:
                         best_selector = sel_value
                         self.log(
                             f"    [OK] SUCCESS! Locator #{idx+1}: {sel_value[:60]}... "
