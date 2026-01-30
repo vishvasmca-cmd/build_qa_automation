@@ -190,6 +190,12 @@ class ExecutorAgent:
             self._print_performance_summary()
 
     async def execute_step(self, page: Page, step: Dict, scenario_name: str, step_index: int = 0) -> Dict:
+        # Check if step is marked as skipped (e.g. by Explorer due to impossibility)
+        if step.get("skipped"):
+            step_id = step.get("id") or f"step_{step_index}"
+            self.log(f"  [STEP]  [STEP {step_id}] SKIPPED (Marked by Explorer)", "yellow")
+            return {"id": step_id, "status": "skipped"}
+
         keyword = step["keyword"]
         # Compatibility handling: args vs arguments
         args = step.get("args") or step.get("arguments", {})

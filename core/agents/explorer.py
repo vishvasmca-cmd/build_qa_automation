@@ -512,6 +512,24 @@ class ExplorerAgent:
                                                     status="passed",
                                                     details={"selector": sel_value, "args": nav}
                                                 )
+                                                
+                                                # CRITICAL FIX: Inject corrective step into workflow so Executor performs it
+                                                corrective_step = {
+                                                    "id": f"{step_id}_cx_{int(time.time())}",
+                                                    "keyword": nav["action"], 
+                                                    "args": {"description": nav["target"], "locator": sel_value, "value": ""},
+                                                    "locators": [{"value": sel_value, "confidence": 1.0, "priority": 0}]
+                                                }
+                                                self.log(f"    [FIX] Injecting corrective step: {nav['action']} -> {nav['target']}", "cyan")
+                                                steps.insert(i, corrective_step)
+                                                # We inserted at i, so corrective_step is at i. Original step is at i+1.
+                                                # We want to SKIP executing corrective_step again (we just did it).
+                                                # But we want to SAVE it.
+                                                # So we simply increment i to move to the original step (now at i+1).
+                                                # Wait, if we increment i, we land on original step.
+                                                # Correct.
+                                                i += 1
+                                                
                                                 await asyncio.sleep(2)
                                                 # Now retry the current step's mining
                                                 break
@@ -870,6 +888,12 @@ class ExplorerAgent:
 
                                 self.log(f"      Injected AI step: {suggested_step['keyword']} -> {suggested_step['args']['description']}", "cyan")
                                 
+                                # CRITICAL FIX: If we are injecting a step because we couldn't find the current one,
+                                # we must SKIP the current step to prevent Executor from failing on it.
+                                if not found_stable_locator:
+                                    self.log(f"      [SKIP] Marking current step '{description}' as skipped (replacing with AI path)", "yellow")
+                                    step["skipped"] = True
+
                                 # Modify the scenario in-place
                                 steps.insert(i + 1, suggested_step)
                                 
@@ -896,6 +920,15 @@ class ExplorerAgent:
                              await self._execute_exploration_action(page, step, keyword, args, description, healed_selector)
                              # Record HEALED locator to memory immediately
                              self.knowledge_bank.record_successful_locator(page.url, healed_selector, description)
+                             
+                             # CRITICAL FIX: Persist healed locator to workflow so Executor can find it
+                             step["locators"] = [{
+                                 "value": healed_selector, 
+                                 "confidence": 0.85, 
+                                 "priority": 0, 
+                                 "method": "healed"
+                             }]
+
                              discovery_stats["healed"] += 1
                          except: 
                              discovery_stats["failed"] += 1
@@ -903,6 +936,10 @@ class ExplorerAgent:
                     else:
                         discovery_stats["failed"] += 1
                         discovery_stats["details"].append(f"Step {step_id}: Action failed and no healing")
+                        
+                        # CRITICAL FIX: Skip this step in Executor to prevent blind failure
+                        self.log(f"    [SKIP] Marking step as skipped due to repeated failure: {description}", "yellow")
+                        step["skipped"] = True
             except Exception as outer_e:
                 err_msg = str(outer_e)
                 if "Target page, context or browser has been closed" in err_msg or "Connection closed" in err_msg:

@@ -27,6 +27,35 @@ class KeywordEngine:
     @staticmethod
     async def click(page: Page, selector: str, force: bool = False, timeout: int = 10000):
         loc = await KeywordEngine._get_best_locator(page, selector)
+        
+        # [FIX] Smart handling for <option> elements: Convert Click -> Select
+        try:
+            # Check if we are targeting an <option> tag
+            tag_name = await loc.evaluate("el => el.tagName.toLowerCase()", timeout=1000)
+            if tag_name == "option":
+                # Find the parent <select>
+                parent = loc.locator("xpath=..")
+                parent_tag = await parent.evaluate("el => el.tagName.toLowerCase()", timeout=1000)
+                
+                # Handle optgroups
+                if parent_tag == "optgroup":
+                    parent = parent.locator("xpath=..")
+                    parent_tag = await parent.evaluate("el => el.tagName.toLowerCase()", timeout=1000)
+                
+                if parent_tag == "select":
+                    # Get value or label to select
+                    val = await loc.get_attribute("value")
+                    text = await loc.text_content()
+                    
+                    if val is not None:
+                        await parent.select_option(value=val, timeout=timeout)
+                    elif text:
+                        await parent.select_option(label=text, timeout=timeout)
+                    return # Action complete
+        except Exception:
+            # Ignore detection errors and proceed to standard click
+            pass
+
         try:
             await loc.scroll_into_view_if_needed(timeout=5000)
         except: pass
