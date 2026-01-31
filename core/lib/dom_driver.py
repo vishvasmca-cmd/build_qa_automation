@@ -6,10 +6,10 @@
 DOM_EXTRACTION_SCRIPT = """
 (offset = 0) => {
     const INTERACTIVE_SELECTORS = [
-        'a', 'button', 'input', 'textarea', 'select', 'details', 
+        'a', 'button', 'input', 'textarea', 'select', 'option', 'details', 
         'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span',
         '[role="button"]', '[role="checkbox"]', '[role="radio"]', 
-        '[role="link"]', '[role="menuitem"]', '[role="tab"]',
+        '[role="link"]', '[role="menuitem"]', '[role="tab"]', '[role="option"]',
         '[contenteditable="true"]', '[onclick]', '[tabindex]:not([tabindex="-1"])',
         'iframe', '[id*="captcha"]', '[class*="captcha"]', '#px-captcha', '#px-captcha-wrapper'
     ];
@@ -91,7 +91,11 @@ DOM_EXTRACTION_SCRIPT = """
                     isInteractive = true;
                 }
 
-                if (isInteractive && isVisible(node)) {
+                // FIX: Allow <option> elements even if they are technically invisible (0x0)
+                // standard HTML <select> options are often reported as invisible by getBoundingClientRect
+                const isOption = node.tagName.toLowerCase() === 'option';
+                
+                if (isInteractive && (isVisible(node) || isOption)) {
                     idCounter++;
                     const rect = node.getBoundingClientRect();
                     

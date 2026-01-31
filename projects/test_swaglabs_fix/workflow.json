@@ -1,0 +1,199 @@
+{
+  "project": "test_swaglabs_fix",
+  "goal": "Add 'Bolt T-Shirt' and 'Onesie' to cart, verify cart badge shows '2'",
+  "base_url": "https://www.saucedemo.com/inventory.html",
+  "scenarios": [
+    {
+      "id": "TC001",
+      "name": "Add Bolt T-Shirt and Onesie to cart and verify cart badge",
+      "description": "Add 'Bolt T-Shirt' and 'Onesie' to cart, verify cart badge shows '2'",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://www.saucedemo.com/inventory.html"
+          }
+        },
+        {
+          "id": "step_2_cx_1769735813",
+          "keyword": "click",
+          "args": {
+            "description": "Login",
+            "locator": "role=button[name='Login' i]",
+            "value": ""
+          },
+          "locators": [
+            {
+              "value": "role=button[name='Login' i]",
+              "confidence": 1.0,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart",
+            "index": 1
+          },
+          "skipped": true
+        },
+        {
+          "id": "step_4_cx_1769735828",
+          "keyword": "click",
+          "args": {
+            "description": "Login",
+            "locator": "role=button[name='Login' i]",
+            "value": ""
+          },
+          "locators": [
+            {
+              "value": "role=button[name='Login' i]",
+              "confidence": 1.0,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Remove"
+          },
+          "skipped": true
+        },
+        {
+          "id": "step_4_ai_1",
+          "keyword": "fill",
+          "args": {
+            "description": "Username",
+            "locator": "#user-name",
+            "value": "standard_user",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "#user-name",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_4_ai_2",
+          "keyword": "fill",
+          "args": {
+            "description": "Password",
+            "locator": "#password",
+            "value": "secret_sauce",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "#password",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_4_ai_3",
+          "keyword": "fill",
+          "args": {
+            "description": "Username",
+            "locator": "#user-name",
+            "value": "standard_user",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "#user-name",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_9_cx_1769735856",
+          "keyword": "click",
+          "args": {
+            "description": "Login",
+            "locator": "role=button[name='Login' i]",
+            "value": ""
+          },
+          "locators": [
+            {
+              "value": "role=button[name='Login' i]",
+              "confidence": 1.0,
+              "priority": 0
+            }
+          ]
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart",
+            "index": 5
+          }
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Remove"
+          },
+          "locators": [
+            {
+              "value": "role=button[name='Remove']",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory",
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "id": "step_11_ai_1",
+          "keyword": "click",
+          "args": {
+            "description": "Add to cart",
+            "locator": "#add-to-cart-sauce-labs-onesie",
+            "value": "",
+            "url": ""
+          },
+          "locators": [
+            {
+              "value": "#add-to-cart-sauce-labs-onesie",
+              "confidence": 0.95,
+              "priority": 0,
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "expected_text": "2",
+            "description": "2"
+          },
+          "locators": [
+            {
+              "value": "text='2'",
+              "confidence": 0.99,
+              "priority": 0,
+              "source": "memory",
+              "is_unique": true,
+              "is_visible": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

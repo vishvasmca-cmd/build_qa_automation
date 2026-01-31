@@ -150,6 +150,28 @@ class KeywordEngine:
         await loc.press(key, timeout=timeout)
 
     @staticmethod
+    async def right_click(page: Page, selector: str, timeout: int = 10000):
+        loc = await KeywordEngine._get_best_locator(page, selector)
+        try:
+            await loc.scroll_into_view_if_needed(timeout=5000)
+        except: pass
+        await loc.click(button="right", timeout=timeout)
+
+    @staticmethod
+    async def drag_and_drop(page: Page, source_selector: str, target_selector: str, timeout: int = 15000):
+        # We need to ensure both elements are present
+        source = await KeywordEngine._get_best_locator(page, source_selector)
+        target = await KeywordEngine._get_best_locator(page, target_selector)
+        
+        # Ensure visible
+        await source.scroll_into_view_if_needed(timeout=5000)
+        await target.scroll_into_view_if_needed(timeout=5000)
+        
+        # Perform drag
+        await page.drag_and_drop(source_selector, target_selector, timeout=timeout)
+
+
+    @staticmethod
     async def scroll_to(page: Page, selector: str, timeout: int = 5000):
         try:
             loc = await KeywordEngine._get_best_locator(page, selector)

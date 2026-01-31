@@ -1,0 +1,95 @@
+{
+  "project": "chk_gap_analysis",
+  "base_url": "https://the-internet.herokuapp.com",
+  "scenarios": [
+    {
+      "name": "dropdown_test",
+      "enabled": true,
+      "description": "Test native dropdown support",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://the-internet.herokuapp.com/dropdown"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Please select Option 2 from the dropdown"
+          },
+          "locators": [
+            {
+              "value": "#dropdown > option:nth-child(3)",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ],
+          "skipped": true
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "description": "Verify option 2 is selected",
+            "locator": "option[selected='selected']",
+            "expected_text": "Option 2"
+          },
+          "locators": [
+            {
+              "value": "#dropdown option[selected='selected'][value='2']",
+              "confidence": 0.9,
+              "priority": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "drag_drop_test",
+      "enabled": true,
+      "description": "Test drag and drop capability",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://the-internet.herokuapp.com/drag_and_drop"
+          }
+        },
+        {
+          "keyword": "drag_and_drop",
+          "args": {
+            "description": "Drag column A on top of column B",
+            "target_selector": "#column-b"
+          }
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "description": "Verify A is now in the second spot",
+            "locator": "#column-b header",
+            "expected_text": "A"
+          }
+        }
+      ]
+    },
+    {
+      "name": "context_menu_test",
+      "enabled": true,
+      "description": "Test right click context menu",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://the-internet.herokuapp.com/context_menu"
+          }
+        },
+        {
+          "keyword": "right_click",
+          "args": {
+            "description": "Right click the hot-spot box"
+          }
+        }
+      ]
+    }
+  ]
+}

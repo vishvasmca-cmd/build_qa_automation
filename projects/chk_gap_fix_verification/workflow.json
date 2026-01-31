@@ -1,0 +1,32 @@
+{
+  "project": "chk_gap_fix_verification",
+  "base_url": "https://testpages.herokuapp.com",
+  "scenarios": [
+    {
+      "name": "dropdown_verification",
+      "description": "Verify dropdown fix on alternative site",
+      "steps": [
+        {
+          "keyword": "navigate",
+          "args": {
+            "url": "https://testpages.herokuapp.com/styled/basic-html-form-test.html"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Select 'Dropdown Item 2' from the dropdown"
+          }
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "description": "Verify item 2 is selected",
+            "locator": "#dropdown",
+            "expected_text": "Dropdown Item 2"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -4,9 +4,8 @@
   "base_url": "https://www.saucedemo.com/",
   "scenarios": [
     {
-      "id": "TC001",
-      "name": "Add cheapest and most expensive items to cart and verify total",
-      "description": "Login, sort items by price, add cheapest and most expensive to cart, verify cart total.",
+      "name": "saucedemo_e2e_sort_and_verify",
+      "description": "Login, sort, add items, and verify checkout total.",
       "steps": [
         {
           "keyword": "navigate",
@@ -17,434 +16,111 @@
         {
           "keyword": "fill",
           "args": {
+            "description": "Username",
             "value": "standard_user",
-            "description": "Username"
-          },
-          "locators": [
-            {
-              "value": "#user-name",
-              "confidence": 0.99,
-              "priority": 0,
-              "source": "memory"
-            }
-          ]
-        },
-        {
-          "keyword": "fill",
-          "args": {
-            "value": "secret_sauce",
-            "description": "Password"
-          },
-          "locators": [
-            {
-              "value": "#password",
-              "confidence": 0.99,
-              "priority": 0,
-              "source": "memory"
-            }
-          ]
-        },
-        {
-          "keyword": "click",
-          "args": {
-            "description": "Login"
-          },
-          "locators": [
-            {
-              "value": "role=button[name='Login' i]",
-              "confidence": 0.96,
-              "priority": 0,
-              "is_unique": true,
-              "is_visible": true
-            }
-          ]
-        },
-        {
-          "id": "step_4_ai_1",
-          "keyword": "click",
-          "args": {
-            "description": "Name (A to Z)",
-            "locator": "div.right_component > span",
-            "value": "",
-            "url": ""
-          },
-          "locators": [
-            {
-              "value": "div.right_component > span",
-              "confidence": 0.95,
-              "priority": 0,
-              "is_unique": true,
-              "is_visible": true
-            }
-          ]
-        },
-        {
-          "keyword": "assert_url",
-          "args": {
-            "expected_url": "https://www.saucedemo.com/inventory.html"
+            "locator": "#user-name"
           }
         },
         {
-          "id": "step_6_ai_1",
-          "keyword": "click",
-          "args": {
-            "description": "Name (A to Z)",
-            "locator": "div.right_component > span > select",
-            "value": null,
-            "url": ""
-          },
-          "locators": [
-            {
-              "value": "div.right_component > span > select",
-              "confidence": 0.95,
-              "priority": 0,
-              "is_unique": true,
-              "is_visible": true
-            }
-          ]
-        },
-        {
-          "keyword": "select",
-          "args": {
-            "value": "Price (low to high)",
-            "description": "Name (A to Z)"
-          },
-          "locators": [
-            {
-              "value": "div.right_component > span",
-              "confidence": 0.99,
-              "priority": 0,
-              "source": "memory",
-              "is_unique": true,
-              "is_visible": true
-            }
-          ]
-        },
-        {
-          "keyword": "click",
-          "args": {
-            "description": "Add to cart",
-            "index": 0
-          },
-          "locators": [
-            {
-              "value": "#add-to-cart-sauce-labs-onesie",
-              "confidence": 0.99,
-              "priority": 0,
-              "source": "memory",
-              "is_unique": true,
-              "is_visible": true
-            }
-          ]
-        },
-        {
-          "keyword": "click",
-          "args": {
-            "description": "Add to cart",
-            "index": 5
-          },
-          "locators": [
-            {
-              "type": "css",
-              "value": ".inventory_item button",
-              "priority": 0,
-              "reasoning": "Structural locator fits the 'index' strategy best as it matches all items regardless of state (Add/Remove)."
-            }
-          ]
-        },
-        {
-          "keyword": "click",
-          "args": {
-            "description": "Cart"
-          },
-          "locators": [
-            {
-              "type": "role",
-              "value": "role=button[name='Add to cart']",
-              "priority": 1,
-              "is_unique": false,
-              "is_visible": true
-            },
-            {
-              "type": "css",
-              "value": "#add-to-cart-sauce-labs-bolt-t-shirt",
-              "priority": 2,
-              "is_unique": true,
-              "is_visible": true
-            },
-            {
-              "type": "css",
-              "value": "#add-to-cart-sauce-labs-bike-light",
-              "priority": 2,
-              "is_unique": true,
-              "is_visible": true
-            },
-            {
-              "type": "css",
-              "value": "#add-to-cart-sauce-labs-fleece-jacket",
-              "priority": 2,
-              "is_unique": true,
-              "is_visible": true
-            },
-            {
-              "type": "text",
-              "value": "text=Add to cart",
-              "priority": 3,
-              "is_unique": false,
-              "is_visible": true
-            },
-            {
-              "type": "css",
-              "value": "button[name='add-to-cart-sauce-labs-bolt-t-shirt']",
-              "priority": 3,
-              "is_unique": true,
-              "is_visible": true
-            },
-            {
-              "type": "css",
-              "value": "button[name='add-to-cart-sauce-labs-bike-light']",
-              "priority": 3,
-              "is_unique": true,
-              "is_visible": true
-            },
-            {
-              "type": "css",
-              "value": "button[name='add-to-cart-sauce-labs-fleece-jacket']",
-              "priority": 3,
-              "is_unique": true,
-              "is_visible": true
-            },
-            {
-              "type": "css",
-              "value": "button[name='add-to-cart-test.allthethings()-t-shirt-(red)']",
-              "priority": 3,
-              "is_unique": true,
-              "is_visible": true
-            }
-          ]
-        },
-        {
-          "keyword": "assert_visible",
-          "args": {
-            "description": "Remove",
-            "index": 0
-          },
-          "locators": [
-            {
-              "value": "role=button[name='Remove']",
-              "confidence": 0.99,
-              "priority": 0,
-              "source": "memory",
-              "is_unique": false,
-              "is_visible": true
-            }
-          ]
-        },
-        {
-          "keyword": "assert_visible",
-          "args": {
-            "description": "Remove",
-            "index": 1
-          },
-          "locators": [
-            {
-              "value": "role=button[name='Remove']",
-              "confidence": 0.99,
-              "priority": 0,
-              "source": "memory",
-              "is_unique": false,
-              "is_visible": true
-            }
-          ]
-        },
-        {
-          "id": "step_14_cx_1769737501",
-          "keyword": "click",
-          "args": {
-            "description": "cart",
-            "locator": "[data-test*='cart' i] >> nth=2",
-            "value": ""
-          },
-          "locators": [
-            {
-              "value": "[data-test*='cart' i] >> nth=2",
-              "confidence": 1.0,
-              "priority": 0
-            }
-          ]
-        },
-        {
-          "keyword": "click",
-          "args": {
-            "description": "Checkout"
-          },
-          "skipped": true
-        },
-        {
           "keyword": "fill",
           "args": {
-            "value": "Test",
-            "description": "First Name"
-          },
-          "locators": [
-            {
-              "value": ".name, [data-test*='name'], [id*='name'] >> nth=0",
-              "confidence": 0.88,
-              "priority": 0,
-              "is_unique": true,
-              "is_visible": true
-            }
-          ]
-        },
-        {
-          "id": "step_16_ai_1",
-          "keyword": "click",
-          "args": {
-            "description": "Back to products",
-            "locator": "#back-to-products",
-            "value": null,
-            "url": ""
-          },
-          "locators": [
-            {
-              "value": "#back-to-products",
-              "confidence": 0.95,
-              "priority": 0,
-              "is_unique": true,
-              "is_visible": true
-            }
-          ]
-        },
-        {
-          "keyword": "fill",
-          "args": {
-            "value": "User",
-            "description": "Last Name"
-          },
-          "locators": [
-            {
-              "value": ".name, [data-test*='name'], [id*='name'] >> nth=-1",
-              "confidence": 0.88,
-              "priority": 0,
-              "is_unique": true,
-              "is_visible": true
-            }
-          ]
-        },
-        {
-          "id": "step_18_ai_1",
-          "keyword": "click",
-          "args": {
-            "description": "Back to products",
-            "locator": "#back-to-products",
-            "value": null,
-            "url": ""
-          },
-          "locators": [
-            {
-              "value": "#back-to-products",
-              "confidence": 0.95,
-              "priority": 0,
-              "is_unique": true,
-              "is_visible": true
-            }
-          ]
-        },
-        {
-          "id": "step_20_cx_1769737751",
-          "keyword": "click",
-          "args": {
-            "description": "cart",
-            "locator": "[data-test*='cart' i] >> nth=2",
-            "value": ""
-          },
-          "locators": [
-            {
-              "value": "[data-test*='cart' i] >> nth=2",
-              "confidence": 1.0,
-              "priority": 0
-            }
-          ]
-        },
-        {
-          "keyword": "fill",
-          "args": {
-            "value": "90210",
-            "description": "Zip/Postal Code"
-          },
-          "skipped": true
-        },
-        {
-          "id": "step_22_cx_1769737771",
-          "keyword": "click",
-          "args": {
-            "description": "cart",
-            "locator": "[data-test*='cart' i] >> nth=2",
-            "value": ""
-          },
-          "locators": [
-            {
-              "value": "[data-test*='cart' i] >> nth=2",
-              "confidence": 1.0,
-              "priority": 0
-            }
-          ]
+            "description": "Password",
+            "value": "secret_sauce",
+            "locator": "#password"
+          }
         },
         {
           "keyword": "click",
           "args": {
-            "description": "Continue"
-          },
-          "skipped": true
+            "description": "Login",
+            "locator": "#login-button"
+          }
         },
         {
-          "keyword": "assert_visible",
-          "args": {
-            "description": "Finish"
-          },
-          "skipped": true
-        },
-        {
-          "id": "step_25_cx_1769737800",
           "keyword": "click",
           "args": {
-            "description": "cart",
-            "locator": "[data-test*='cart' i] >> nth=0",
-            "value": ""
-          },
-          "locators": [
-            {
-              "value": "[data-test*='cart' i] >> nth=0",
-              "confidence": 1.0,
-              "priority": 0
-            }
-          ]
+            "description": "Sort Dropdown"
+          }
         },
         {
-          "keyword": "assert_visible",
+          "keyword": "click",
           "args": {
-            "description": "Item total: $"
-          },
-          "skipped": true
+            "description": "Price (low to high)"
+          }
         },
         {
-          "id": "step_25_ai_1",
-          "keyword": "checkout",
+          "keyword": "click",
+          "args": {
+            "description": "Add cheapest item to cart",
+            "locator": ".inventory_item:first-child button"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Add most expensive item to cart",
+            "locator": ".inventory_item:last-child button"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Shopping Cart",
+            "locator": ".shopping_cart_link"
+          }
+        },
+        {
+          "keyword": "assert_text",
+          "args": {
+            "description": "Verify 2 items in cart badge",
+            "locator": ".shopping_cart_badge",
+            "expected_text": "2"
+          }
+        },
+        {
+          "keyword": "click",
           "args": {
             "description": "Checkout",
-            "locator": "button[name='checkout']",
-            "value": "",
-            "url": ""
-          },
-          "locators": [
-            {
-              "value": "button[name='checkout']",
-              "confidence": 0.95,
-              "priority": 0,
-              "is_unique": true,
-              "is_visible": true
-            }
-          ]
+            "locator": "#checkout"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "First Name",
+            "value": "Test",
+            "locator": "#first-name"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "Last Name",
+            "value": "User",
+            "locator": "#last-name"
+          }
+        },
+        {
+          "keyword": "fill",
+          "args": {
+            "description": "Zip Code",
+            "value": "90210",
+            "locator": "#postal-code"
+          }
+        },
+        {
+          "keyword": "click",
+          "args": {
+            "description": "Continue",
+            "locator": "#continue"
+          }
+        },
+        {
+          "keyword": "assert_visible",
+          "args": {
+            "description": "Item total label",
+            "locator": ".summary_subtotal_label"
+          }
         }
       ]
     }

@@ -1424,8 +1424,9 @@ class ExplorerAgent:
                     
                     **RESPONSE FORMAT (Strict JSON):**
                     {{
-                        "action": "click" | "fill" | "navigate" | "done",
+                        "action": "click" | "fill" | "navigate" | "done" | "right_click" | "drag_and_drop",
                         "target": "description of element to interact with",
+                        "target_selector": "CSS selector for drop target (ONLY for drag_and_drop)",
                         "locator": "CSS selector (optional but preferred)",
                         "value": "value to fill (only for 'fill' action)",
                         "reasoning": "why this is the logical next step"
@@ -1568,7 +1569,7 @@ class ExplorerAgent:
             except: pass
 
         # Highlight and Interaction logic only for interactive keywords
-        interactive_keywords = ["click", "fill", "type", "hover", "press", "scroll_to", "wait_for_element"]
+        interactive_keywords = ["click", "fill", "type", "hover", "press", "scroll_to", "wait_for_element", "drag_and_drop", "right_click"]
         if keyword in interactive_keywords:
             # Pre-interaction highlight
             await self._highlight_element(page, selector)
@@ -1584,40 +1585,44 @@ class ExplorerAgent:
             target_url = args.get("url") or args.get("description")
             if target_url:
                 self.log(f"      Navigating to: {target_url}", "blue")
-                await page.goto(target_url, wait_until="domcontentloaded", timeout=15000)
-                await asyncio.sleep(2)
+                await KeywordEngine.navigate(page, target_url)
                 return
 
-        if keyword == "click":
-            # Move mouse to element and click
-            box = await target.bounding_box(timeout=5000)
-            if box:
-                await page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
-                await page.mouse.click(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
-            else:
-                # Force click if no bounding box (likely obscured/hidden)
-                await target.click(force=True, timeout=5000)
+        # Delegate all interactions to KeywordEngine for consistency and robustness
+        # This fixes issues like <option> selection, which KeywordEngine handles but raw playwright doesn't
+        try:
+            if keyword == "click":
+                await KeywordEngine.click(page, selector, timeout=5000)
+            elif keyword == "fill":
+                val = args.get("value", "test")
+                await KeywordEngine.fill(page, selector, str(val), timeout=5000)
+            elif keyword == "type":
+                val = args.get("value", "")
+                await KeywordEngine.type(page, selector, str(val), timeout=5000)
+            elif keyword == "hover":
+                await KeywordEngine.hover(page, selector, timeout=5000)
+            elif keyword == "press":
+                key = args.get("key", "Enter")
+                await KeywordEngine.press(page, selector, key, timeout=5000)
+            elif keyword == "wait_for_element":
+                await KeywordEngine.wait_for_element(page, selector, timeout=5000)
+            elif keyword == "scroll_to":
+                await KeywordEngine.scroll_to(page, selector, timeout=5000)
+            elif keyword == "right_click":
+                await KeywordEngine.right_click(page, selector, timeout=5000)
+            elif keyword == "drag_and_drop":
+                target_selector = args.get("target_selector") or args.get("drop_target")
+                if not target_selector:
+                    self.log("    [ERROR] drag_and_drop requires 'target_selector'", "red")
+                    return
+                await KeywordEngine.drag_and_drop(page, selector, target_selector, timeout=10000)
             
-            # Wait for potential navigation
-            try:
-                await page.wait_for_load_state("domcontentloaded", timeout=3000)
-            except: pass
+            # Wait for potential navigation/network idle after interaction
+            await page.wait_for_load_state("domcontentloaded", timeout=3000)
             
-        elif keyword in ["fill", "type"]:
-            val = args.get("value", "test")
-            await target.click(timeout=5000) # Focus first
-            await page.keyboard.press("Control+A")
-            await page.keyboard.press("Backspace")
-            import random
-            await page.keyboard.type(str(val), delay=random.randint(50, 150))
-        elif keyword == "hover":
-            box = await target.bounding_box(timeout=5000)
-            if box:
-                await page.mouse.move(box["x"] + box["width"] / 2, box["y"] + box["height"] / 2)
-            else:
-                await target.hover(timeout=5000)
-        
-        await asyncio.sleep(2.0) # Increased stability wait
+        except Exception as e:
+            # Re-raise to be handled by the caller's healing logic
+            raise e
 
     async def _heal_exploration_action(self, page: Page, step: Dict, description: str, scenario_name: str, keyword: str = "") -> Optional[str]:
         """
