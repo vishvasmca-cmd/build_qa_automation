@@ -30,6 +30,19 @@ from core.lib.llm_utils import SafeLLM, try_parse_json
 from core.agents.miner import analyze_page
 from core.lib.domain_expert import DomainExpert
 from core.lib.smart_locator import sanitize_ai_selector
+from core.lib.webmcp_polyfill import (
+    WebMCPPolyfill,
+    create_sort_products_tool_polyfill,
+    create_add_to_cart_by_rank_tool_polyfill,
+    create_get_cart_total_tool_polyfill,
+    create_login_tool_polyfill,
+    create_verify_cart_items_tool_polyfill,
+    create_get_cart_count_tool_polyfill,
+    create_verify_cart_total_tool_polyfill,
+    create_get_sorted_products_tool_polyfill,
+    create_verify_checkout_form_tool_polyfill,
+    create_verify_order_success_tool_polyfill
+)
 
 class ExecutorAgent:
     """
@@ -84,6 +97,20 @@ class ExecutorAgent:
         self.action_history = []
         self.max_history = 10
 
+        # WebMCP Integration - Tool-Driven Autonomous Agent
+        self.webmcp = WebMCPPolyfill()
+        self.webmcp.register_tool(create_sort_products_tool_polyfill())
+        self.webmcp.register_tool(create_add_to_cart_by_rank_tool_polyfill())
+        self.webmcp.register_tool(create_get_cart_total_tool_polyfill())
+        self.webmcp.register_tool(create_login_tool_polyfill())
+        # Verification tools for e-commerce validation
+        self.webmcp.register_tool(create_verify_cart_items_tool_polyfill())
+        self.webmcp.register_tool(create_get_cart_count_tool_polyfill())
+        self.webmcp.register_tool(create_verify_cart_total_tool_polyfill())
+        self.webmcp.register_tool(create_get_sorted_products_tool_polyfill())
+        self.webmcp.register_tool(create_verify_checkout_form_tool_polyfill())
+        self.webmcp.register_tool(create_verify_order_success_tool_polyfill())
+
     def log(self, msg: str, color: Optional[str] = None, attrs: Optional[List[str]] = None):
         """Unified logging to console (with color) and debug file."""
         plain_msg = msg
@@ -102,7 +129,13 @@ class ExecutorAgent:
         
         async with async_playwright() as p:
             # Slow-mo for better visibility
-            browser = await p.chromium.launch(headless=not self.headed, slow_mo=500)
+            # Use Chrome channel for WebMCP support
+            browser = await p.chromium.launch(
+                headless=not self.headed, 
+                slow_mo=500,
+                channel="chrome"
+            )
+            self.log(f"  [BROWSER] Launched Chrome: {browser.version}", "green")
             
             for scenario in self.workflow.get("scenarios", []):
                 self.log(f"\n--- Scenario: {scenario['name']} ---", "cyan", attrs=["bold"])
@@ -111,6 +144,9 @@ class ExecutorAgent:
                 context = await browser.new_context()
                 await self._setup_ad_blocking(context)
                 page = await context.new_page()
+                
+                # WebMCP tool injection
+                await self.webmcp.inject_tools(page)
                 
                 scenario_result = {
                     "id": scenario["id"],
@@ -352,6 +388,18 @@ class ExecutorAgent:
                             raise
                 elif keyword == "fill":
                     await KeywordEngine.fill(page, selector, resolved_args["value"])
+                elif keyword == "login":
+                    self.log(f"      [WebMCP] Using specialized login tool...", "cyan")
+                    login_result = await self._execute_webmcp_tool(page, "login", {
+                        "username": resolved_args["username"],
+                        "password": resolved_args["password"]
+                    })
+                    if not login_result.get("success"):
+                         self.log(f"    [WARN] WebMCP Login failed: {login_result.get('error')}. Falling back.", "yellow")
+                         # Manual fallback if tool fails (using standard selectors for SauceDemo as fallback)
+                         await KeywordEngine.fill(page, "#user-name", str(resolved_args["username"]))
+                         await KeywordEngine.fill(page, "#password", str(resolved_args["password"]))
+                         await KeywordEngine.click(page, "#login-button")
                 elif keyword == "assert_visible":
                     await KeywordEngine.assert_visible(page, selector)
                 elif keyword == "wait_for_element":
@@ -719,6 +767,20 @@ class ExecutorAgent:
             await asyncio.sleep(0.5) 
         except:
             pass
+
+    async def _execute_webmcp_tool(self, page: Page, tool_name: str, params: Dict):
+        """Executes a WebMCP tool on the page and returns results."""
+        self.log(f"    [WebMCP] Executing Tool: {tool_name}", "cyan")
+        try:
+            result = await self.webmcp.call_tool(page, tool_name, params)
+            if result.get("success"):
+                self.log(f"    [WebMCP] Tool Success: {tool_name}", "green")
+            else:
+                self.log(f"    [WebMCP] Tool Failed: {tool_name} - {result.get('error', 'Unknown error')}", "red")
+            return result
+        except Exception as e:
+            self.log(f"    [WebMCP] Error executing tool {tool_name}: {e}", "red")
+            return {"success": False, "error": str(e)}
 
 async def main():
     parser = argparse.ArgumentParser(description="AI Test Executor")

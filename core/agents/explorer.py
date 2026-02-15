@@ -38,6 +38,19 @@ from core.knowledge.knowledge_bank import KnowledgeBank
 from core.lib.data_generator import DataGenerator
 from core.lib.debug_recorder import DebugRecorder
 from core.lib.data_collector import DataCollector
+from core.lib.webmcp_polyfill import (
+    WebMCPPolyfill,
+    create_sort_products_tool_polyfill,
+    create_add_to_cart_by_rank_tool_polyfill,
+    create_get_cart_total_tool_polyfill,
+    create_login_tool_polyfill,
+    create_verify_cart_items_tool_polyfill,
+    create_get_cart_count_tool_polyfill,
+    create_verify_cart_total_tool_polyfill,
+    create_get_sorted_products_tool_polyfill,
+    create_verify_checkout_form_tool_polyfill,
+    create_verify_order_success_tool_polyfill
+)
 
 class ExplorerAgent:
     """
@@ -52,6 +65,8 @@ class ExplorerAgent:
         self.report_dir = os.path.join(self.project_dir, "reports")
         self.headed = headed
         self.shallow = shallow
+        self.scenario_results = []
+        self.current_scenario_idx = 0
         
         # Ensure project directory exists
         os.makedirs(self.project_dir, exist_ok=True)
@@ -106,8 +121,66 @@ class ExplorerAgent:
         self.exploration_context = None
         
         # Action history for robust loop detection (last 15 actions)
-        self.action_history = []
         self.max_history = 15
+        self.action_history = []
+        
+        # WebMCP Integration - Tool-Driven Autonomous Agent
+        self.webmcp = WebMCPPolyfill()
+        self.webmcp.register_tool(create_sort_products_tool_polyfill())
+        self.webmcp.register_tool(create_add_to_cart_by_rank_tool_polyfill())
+        self.webmcp.register_tool(create_get_cart_total_tool_polyfill())
+        self.webmcp.register_tool(create_login_tool_polyfill())
+        # Verification tools for e-commerce validation
+        self.webmcp.register_tool(create_verify_cart_items_tool_polyfill())
+        self.webmcp.register_tool(create_get_cart_count_tool_polyfill())
+        self.webmcp.register_tool(create_verify_cart_total_tool_polyfill())
+        self.webmcp.register_tool(create_get_sorted_products_tool_polyfill())
+        self.webmcp.register_tool(create_verify_checkout_form_tool_polyfill())
+        self.webmcp.register_tool(create_verify_order_success_tool_polyfill())
+        
+        # Sidebar Persistence
+        self.sidebar_log_history = []
+        self.last_cart_count = "-"
+        self.last_cart_total = "-"
+
+    def _translate_to_plain_english(self, keyword: str, description: str, args: Dict = None) -> str:
+        """Centralized translation layer for Senior SDET reporting."""
+        if not description or description == "None":
+            description = keyword or "Element"
+        if not args: args = {}
+            
+        action_translations = {
+            "click": "Interacting with",
+            "fill": "Providing input for",
+            "navigate": "Moving to",
+            "hover": "Focusing on",
+            "press": "Sending keyboard input to"
+        }
+        
+        friendly_action = action_translations.get(keyword.lower(), keyword.title())
+        plain_english = f"{friendly_action} {description}"
+        
+        # Professional/Domain Overrides
+        kw_lower = keyword.lower()
+        desc_lower = description.lower()
+        
+        if kw_lower == "click":
+            if "login" in desc_lower: return "Authenticating with provided credentials"
+            if "cart" in desc_lower: return "Reviewing shopping cart contents"
+            if "checkout" in desc_lower: return "Initiating checkout process"
+            if "finish" in desc_lower: return "Finalizing the order"
+            if "products" in desc_lower: return "Browsing product selection"
+        elif kw_lower == "navigate":
+            url = args.get("url") or description
+            return f"Starting mission at {url}"
+        elif kw_lower == "fill":
+            if "user" in desc_lower: return "Entering user identification"
+            if "pass" in desc_lower: return "Entering secure access key"
+            if "first" in desc_lower: return "Providing customer first name"
+            if "last" in desc_lower: return "Providing customer last name"
+            if "zip" in desc_lower or "postal" in desc_lower: return "Setting delivery location code"
+            
+        return plain_english
 
     def log(self, msg: str, color: Optional[str] = None, attrs: Optional[List[str]] = None):
         """Unified logging to console and debug file."""
@@ -120,17 +193,44 @@ class ExplorerAgent:
             f.write(f"[{datetime.now().isoformat()}] {msg}\n")
 
     async def explore(self):
-        self.log("\n[EXPLORE] [EXPLORE] Starting AI-Guided Exploration & Mining", "blue", attrs=["bold"])
-        self.log(f"[LOC] Project: {os.path.basename(self.project_dir)}")
+        banner = """
+        ==================================================
+                  eCommerce AI Agent Active
+        ==================================================
+        """
+        self.log(banner, "cyan", attrs=["bold"])
+        self.log(f"Mission: {os.path.basename(self.project_dir)}", "cyan")
+        
+        # Reset tracking
+        self.scenario_results = []
+        self.current_scenario_idx = 0
         
         # Track discoveries
         discovery_stats = {"passed": 0, "healed": 0, "failed": 0, "details": []}
 
         async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=not self.headed, slow_mo=500)
-            context = await browser.new_context(viewport={"width": 1280, "height": 720})
+            # Use Chrome channel for WebMCP support
+            browser = await p.chromium.launch(
+                headless=not self.headed, 
+                slow_mo=500,
+                channel="chrome",
+                args=["--start-fullscreen"] if self.headed else []
+            )
+            self.log(f"  [BROWSER] Launched Chrome: {browser.version}", "green")
+            # If headed, don't set a fixed viewport to allow it to be maximized
+            context_args = {}
+            if self.headed:
+                context_args["viewport"] = None
+            else:
+                context_args["viewport"] = {"width": 1280, "height": 720}
+            
+            context = await browser.new_context(**context_args)
             await self._setup_ad_blocking(context)
             page = await context.new_page()
+            
+            # WebMCP tool injection & Overlay
+            await self.webmcp.inject_tools(page)
+            await self._create_overlay(page)
             
             if self.shallow:
                 self.log("  [SHALLOW] Performing quick landing page mapping...", "cyan")
@@ -164,6 +264,23 @@ class ExplorerAgent:
             with open(self.workflow_path, 'w', encoding='utf-8') as f:
                 json.dump(self.workflow, f, indent=2)
             
+            # FINAL MISSION REPORT in Sidebar
+            if self.scenario_results:
+                summary_items = []
+                for res in self.scenario_results:
+                    color = "#10b981" if res['status'] == 'PASSED' else ("#f87171" if res['status'] == 'FAILED' else "#f59e0b")
+                    item = f"• {res['name']}: <b style='color:{color}'>{res['status']}</b> ({res['passed']}/{res['steps']} steps)"
+                    summary_items.append(item)
+                
+                summary_detail = "<br>".join(summary_items)
+                await self._update_overlay(page, "Mission Summary", detail=summary_detail, phase="SUMMARY")
+                
+                self.log("\n" + "="*50 + "\nMISSION REPORT SUMMARY\n" + "="*50, "magenta", attrs=["bold"])
+                for res in self.scenario_results:
+                    self.log(f" - {res['name']}: {res['status']} ({res['passed']}/{res['steps']} steps)")
+                
+                await asyncio.sleep(5) # Give user time to see the summary
+
             await browser.close()
             
             # --- FINAL EXPLORATION SUMMARY ---
@@ -237,6 +354,14 @@ class ExplorerAgent:
 
     async def _explore_scenario(self, page: Page, scenario: Dict, discovery_stats: Dict, depth: int = 0):
         """Recursively explores a scenario, supporting dynamic step injection."""
+        self.current_scenario_idx += 1
+        name = scenario.get('name', 'Discovery')
+        
+        # Display Scenario Header in Sidebar
+        await self._update_overlay(page, f"Scenario {self.current_scenario_idx}: {name}", phase="SCENARIO")
+        self.log(f"\n==================================================", "yellow")
+        self.log(f"SCENARIO {self.current_scenario_idx}: {name}", "yellow", attrs=["bold"])
+        self.log(f"==================================================\n", "yellow")
         
         # SAFETY: Prevent infinite recursion loops
         if depth > 3:
@@ -287,7 +412,19 @@ class ExplorerAgent:
                 )
                 
                 if used_batch:
-                    # Batch processed N steps - skip ahead
+                    # After batch, check state
+                    self.log(f"    [AUTONOMOUS] Batch complete. Checking state...", "cyan")
+                    await self._update_overlay(page, "AI Verification", "Batch complete. Checking goal status...")
+                    goal = self.workflow.get("goal", "Complete scenario")
+                    state = await self._check_page_state_with_tools(page, goal)
+                    decision = await self._reason_about_next_step(page, goal, state)
+                    
+                    if decision.get("goal_complete"):
+                        self.log(f"    [AUTONOMOUS] Goal complete after batch! Skipping remaining steps.", "green")
+                        await self._update_overlay(page, "GOAL COMPLETE", decision.get("reasoning", ""))
+                        for j in range(i + processed_count, len(steps)):
+                            steps[j]["skipped"] = True
+                    
                     i += processed_count
                     continue
                 # Else: Fall through to sequential processing below
@@ -307,13 +444,34 @@ class ExplorerAgent:
             step_id = step.get("id", f"step_{i+1}")
             is_healed = False
             
+            # --- TOOL-DRIVEN AUTONOMOUS CHECK: URL TRACKING ---
+            current_url_before = page.url
+            
             try:
-                self.log(f"  [STEP] [STEP {step_id}] {keyword.upper()}: {description or ''}", "white")
+                plain_english = self._translate_to_plain_english(keyword, description, args)
+                self.log(f"  [QA-AGENT] {plain_english}", "white")
+                await self._update_overlay(page, plain_english, description, phase="REASON")
                 
                 # Dismiss overlays/ads before each step
-                await self._dismiss_vignettes(page)
-                
-                # 1. Navigation
+                # 1. Specialized Login Tool (WebMCP)
+                if keyword == "login":
+                    self.log(f"      [WebMCP] Authenticating with specialized tool...")
+                    await self._update_overlay(page, "Authenticating with provided credentials", f"Establishing secure session for {args.get('username') or 'user'}...", phase="ACT")
+                    try:
+                        login_result = await self._execute_webmcp_tool(page, "login", {
+                            "username": args["username"],
+                            "password": args["password"]
+                        })
+                        if login_result.get("success"):
+                            self.log(f"    [OK] WebMCP Login successful", "green")
+                            i += 1
+                            continue
+                        else:
+                            self.log(f"    [WARN] WebMCP Login failed: {login_result.get('error')}. Falling back.", "yellow")
+                    except Exception as e:
+                        self.log(f"    [WARN] WebMCP Login error: {e}. Falling back.", "yellow")
+
+                # 2. Navigation
                 if keyword == "navigate":
                     nav_url = args["url"]
                     base_url = self.workflow.get("base_url", "")
@@ -823,6 +981,26 @@ class ExplorerAgent:
                         sa_key = next_suggestion["action"].lower()
                         sa_desc = (next_suggestion.get("target") or "").lower()
                         
+                        # --- TOOL-DRIVEN AUTONOMOUS CHECK: POST-STEP VERIFICATION ---
+                        if page.url != current_url_before or keyword in ["click", "navigate"]:
+                            self.log(f"    [AUTONOMOUS] Page state changed. Triggering WebMCP verification...", "cyan")
+                            current_state = await self._check_page_state_with_tools(page, scenario.get("description", ""))
+                            
+                            # Consult AI for goal progress and next steps
+                            autonomous_decision = await self._reason_about_next_step(page, scenario.get("description", ""), current_state)
+                            
+                            if autonomous_decision.get("suggested_action") == "goal_complete":
+                                self.log(f"    [DONE] Autonomous check confirmed goal completion: {autonomous_decision.get('reasoning')}", "green")
+                                # Mark remaining steps as done/skipped to complete scenario
+                                for j in range(i + 1, len(steps)):
+                                    steps[j]["skipped"] = True
+                                break
+                            elif autonomous_decision.get("suggested_action") != "continue_workflow":
+                                self.log(f"    [ADJUST] AI suggesting correction: {autonomous_decision.get('suggested_action')}", "yellow")
+                                # If AI suggests filling missing fields, we keep going but with heightened awareness
+                                # Future: Inject new steps here if needed
+                        
+                        
                         just_executed = (je_key, je_desc)
                         suggested_action = (sa_key, sa_desc)
                         
@@ -951,9 +1129,45 @@ class ExplorerAgent:
                     discovery_stats["details"].append(f"Step {step_id}: {err_msg}")
 
             # Move to next step
+            # --- TOOL-DRIVEN AUTONOMOUS CHECK: POST-STEP VERIFICATION ---
+            if page.url != current_url_before or keyword in ["click", "navigate", "login"]:
+                self.log(f"    [AUTONOMOUS] Page transition or key action. Verifying state...", "cyan")
+                await self._update_overlay(page, "State Analysis", "Verifying goal progress after action...")
+                goal = self.workflow.get("goal", "Complete scenario")
+                state = await self._check_page_state_with_tools(page, goal)
+                decision = await self._reason_about_next_step(page, goal, state)
+                
+                if decision.get("goal_complete") or decision.get("suggested_action") == "goal_complete":
+                    self.log(f"    [AUTONOMOUS] AI confirms GOAL COMPLETE! Skipping remaining steps.", "green", attrs=["bold"])
+                    await self._update_overlay(page, "GOAL REACHED", decision.get("reasoning", ""), count=str(state.get('cart_count', '-')))
+                    for j in range(i + 1, len(steps)):
+                        steps[j]["skipped"] = True
+                    i = len(steps)
+                    break
+                
+                if decision.get("corrective_action") or decision.get("suggested_action") not in ["continue_workflow", "goal_complete"]:
+                    suggested_action_name = decision.get("suggested_action", "correction")
+                    self.log(f"    [AUTONOMOUS] AI suggested corrective action: {suggested_action_name}", "cyan")
+                    await self._update_overlay(page, "Dynamic Correction", decision.get("reasoning", ""), count=str(state.get('cart_count', '-')))
+
+                    steps.insert(i + 1, suggested_step)
+            
             i += 1
 
         await asyncio.sleep(1)
+        
+        # Record scenario outcome
+        status = "PASSED" if discovery_stats["failed"] == 0 else "PARTIAL"
+        if discovery_stats["failed"] > 0 and discovery_stats["passed"] == 0:
+            status = "FAILED"
+            
+        self.scenario_results.append({
+            "name": name,
+            "status": status,
+            "steps": len(steps),
+            "passed": discovery_stats["passed"],
+            "failed": discovery_stats["failed"]
+        })
 
     def _find_candidates_deterministically(self, elements: List[Dict], description: str) -> List[Dict]:
         """Builds a list of candidate locators for an element, prioritizing stable CSS & patient locators."""
@@ -1536,8 +1750,11 @@ class ExplorerAgent:
             pass
 
     async def _execute_exploration_action(self, page: Page, step: Dict, keyword: str, args: Dict, description: str, override_selector: str = None):
-        if not description or description == "None":
-            description = keyword or "Element"
+        plain_english = self._translate_to_plain_english(keyword, description, args)
+            
+        # Update Overlay with Structured QA Phase (Plain English)
+        await self._update_overlay(page, plain_english, phase="ACT")
+        self.log(f"  [QA-AGENT] {plain_english}", "cyan")
         
         selector = override_selector or (step["locators"][0]["value"] if step.get("locators") else f"text={description}")
         
@@ -2076,6 +2293,337 @@ class ExplorerAgent:
         
         # For other actions, allow injection
         return True
+
+
+    async def _execute_webmcp_tool(self, page: Page, tool_name: str, params: Dict):
+        """Executes a WebMCP tool on the page and returns results."""
+        self.log(f"    [QA-AGENT] Performing automated validation: {tool_name}", "cyan")
+        try:
+            result = await self.webmcp.call_tool(page, tool_name, params)
+            if result.get("success"):
+                self.log(f"    [QA-AGENT] Validation successful: {tool_name}", "green")
+            else:
+                self.log(f"    [QA-AGENT] Validation failed: {tool_name} - {result.get('error', 'Unknown error')}", "red")
+            return result
+        except Exception as e:
+            self.log(f"    [QA-AGENT] Audit error ({tool_name}): {e}", "red")
+            return {"success": False, "error": str(e)}
+
+    async def _check_page_state_with_tools(self, page: Page, goal: str) -> Dict[str, Any]:
+        """After page transition, use WebMCP tools to check state."""
+        import json
+        state = {"url": page.url}
+        url = page.url
+        try:
+            if 'cart.html' in url:
+                self.log(f"    [QA-AGENT] [VALIDATE] Checking cart state...", "cyan")
+                await self._update_overlay(page, "Checking Cart Contents", "Reading items and counts...", phase="VALIDATE")
+                cart_result = await self._execute_webmcp_tool(page, "verify_cart_items", {})
+                count_result = await self._execute_webmcp_tool(page, "get_cart_count", {})
+                
+                success = cart_result.get("success") and count_result.get("success")
+                state.update({
+                    "page_type": "cart",
+                    "cart_items": cart_result.get("items", []) if cart_result.get("success") else [],
+                    "cart_count": count_result.get("count", 0) if count_result.get("success") else 0
+                })
+                
+                status_text = f"Inventory Status: {state['cart_count']} items verified"
+                qa_res = "PASS" if success else "FAIL"
+                await self._update_overlay(page, status_text, detail=f"Confirmed {len(state['cart_items'])} line items in the cart.", count=str(state['cart_count']), phase="STATUS", qa_result=qa_res)
+                
+            elif 'inventory.html' in url:
+                self.log(f"    [QA-AGENT] Auditing product catalog...", "cyan")
+                await self._update_overlay(page, "Auditing Product Catalog", "Updating list of available items and pricing...", phase="VALIDATE")
+                products_result = await self._execute_webmcp_tool(page, "get_sorted_products", {})
+                
+                if products_result.get("success"):
+                    state.update({
+                        "page_type": "inventory",
+                        "products": products_result.get("products", []),
+                        "cheapest": products_result.get("cheapest"),
+                        "most_expensive": products_result.get("most_expensive")
+                    })
+                    await self._update_overlay(page, f"Audit Finished: {len(state['products'])} products available", phase="STATUS", qa_result="PASS")
+                else:
+                    await self._update_overlay(page, "Catalog audit failed", phase="STATUS", qa_result="FAIL")
+                    
+            elif 'checkout-step-two' in url:
+                self.log(f"    [QA-AGENT] Auditing order totals...", "cyan")
+                await self._update_overlay(page, "Auditing Order Totals", "Verifying invoice breakdown and tax calculations...", phase="VALIDATE")
+                total_result = await self._execute_webmcp_tool(page, "verify_cart_total", {})
+                
+                if total_result.get("success"):
+                    state.update({
+                        "page_type": "checkout_summary",
+                        "total_amount": total_result.get("total_amount", 0),
+                        "subtotal": total_result.get("subtotal_amount", 0)
+                    })
+                    await self._update_overlay(page, f"Invoice Verified: ${state['total_amount']}", total=f"${state['total_amount']}", phase="STATUS", qa_result="PASS")
+                else:
+                    await self._update_overlay(page, "Financial audit failed", phase="STATUS", qa_result="FAIL")
+                    
+            elif 'checkout' in url:
+                self.log(f"    [QA-AGENT] Auditing customer information form...", "cyan")
+                await self._update_overlay(page, "Auditing Form Integrity", "Checking for required customer details...", phase="VALIDATE")
+                form_result = await self._execute_webmcp_tool(page, "verify_checkout_form", {})
+                
+                if form_result.get("success"):
+                    state.update({
+                        "page_type": "checkout",
+                        "form_complete": form_result.get("is_complete", False),
+                        "missing_fields": form_result.get("missing_fields", [])
+                    })
+                    status_msg = "Form Complete" if state['form_complete'] else f"Form Incomplete: Missing {len(state['missing_fields'])} fields"
+                    qa_res = "PASS" if state['form_complete'] else "INFO"
+                    await self._update_overlay(page, status_msg, phase="STATUS", qa_result=qa_res)
+                
+            elif 'checkout-complete' in url:
+                self.log(f"    [QA-AGENT] Verifying order success state...", "cyan")
+                await self._update_overlay(page, "Order Confirmation Auditing", "Confirming mission completion at checkout...", phase="VALIDATE")
+                success_result = await self._execute_webmcp_tool(page, "verify_order_success", {})
+                
+                state.update({
+                    "page_type": "completion",
+                    "order_success": success_result.get("is_success", False) if success_result.get("success") else False
+                })
+                
+                if state.get("order_success"):
+                    await self._update_overlay(page, "MISSION SUCCESS: Order Confirmed", phase="STATUS", qa_result="PASS")
+                else:
+                    await self._update_overlay(page, "Mission incomplete: Order success not found", phase="STATUS", qa_result="FAIL")
+            else:
+                state["page_type"] = "other"
+        except Exception as e:
+            self.log(f"    [QA-AGENT] Audit error: {str(e)}", "red")
+            await self._update_overlay(page, "Mission Audit Error", str(e), phase="WARN", qa_result="FAIL")
+            
+        return state
+
+    async def _reason_about_next_step(self, page: Page, goal: str, state: Dict[str, Any]) -> Dict[str, Any]:
+        """Use LLM to reason about what to do next given goal and current state."""
+        self.log(f"    [QA-AGENT] [REASON] Analyzing state against goal...", "magenta")
+        from core.lib.llm_utils import try_parse_json
+        prompt = f"""GOAL: {goal}\nCURRENT PAGE: {page.url}\nCURRENT STATE: {json.dumps(state, indent=2)}\n\nQUESTION: Should I proceed to the next workflow step, or take corrective action?\n\nRULES:\n- If cart_count < required (goal says "2 items"), suggest "add_missing_items"\n- If cart_count > required, suggest "remove_excess_items"\n- If form incomplete, suggest "fill_missing_fields"\n- If goal is met (at complete/confirmation page), suggest "goal_complete"\n- Otherwise, suggest "continue_workflow"\n\nOUTPUT (JSON):\n{{"should_continue": true/false, "suggested_action": "add_missing_items|remove_excess_items|fill_missing_fields|goal_complete|continue_workflow", "reasoning": "explanation"}}"""
+        try:
+            self.log(f"    [REASONING] Asking AI about next step...", "magenta")
+            await self._update_overlay(page, "Planning Next Action", "Analyzing current page state against goal...", phase="REASON")
+            response = await self.llm.ainvoke([{"role": "user", "content": prompt}])
+            result = try_parse_json(response.content)
+            if not result:
+                return {"should_continue": True, "suggested_action": "continue_workflow", "reasoning": "Failed to parse AI response"}
+            
+            self.log(f"    [AI-DECISION] {result.get('suggested_action')}: {result.get('reasoning')}", "magenta")
+            
+            # Map Reasoning to Detail and Decision to Status
+            suggested = result.get("suggested_action", "Proceeding...").replace("_", " ").title()
+            await self._update_overlay(
+                page, 
+                status=suggested, 
+                detail=result.get("reasoning", ""),
+                count=str(state.get('cart_count', '-')),
+                total=f"${state.get('total_amount', '-')}" if state.get('total_amount') else "-",
+                phase="REASON"
+            )
+            return result
+        except Exception as e:
+            self.log(f"    [WARN] Reasoning error: {e}", "yellow")
+            return {"should_continue": True, "suggested_action": "continue_workflow", "reasoning": f"Error: {e}"}
+
+    async def _create_overlay(self, page: Page):
+        """Creates a dedicated sidebar for AI reasoning log, utilizing the right-hand space in maximized mode."""
+        sidebarWidth = '400px'
+        overlay_script = f"""
+        (() => {{
+            if (document.getElementById('antigravity-sidebar')) return;
+            
+            const sidebarWidth = '{sidebarWidth}';
+            
+            const shiftPage = () => {{
+                document.body.style.marginRight = sidebarWidth;
+                document.body.style.width = `calc(100% - ${{sidebarWidth}})`;
+                document.body.style.position = 'relative';
+                document.documentElement.style.overflowX = 'hidden';
+            }};
+            
+            if (document.body) {{
+                shiftPage();
+            }} else {{
+                document.addEventListener('DOMContentLoaded', shiftPage);
+            }}
+            
+            const sidebar = document.createElement('div');
+            sidebar.id = 'antigravity-sidebar';
+            sidebar.style.position = 'fixed';
+            sidebar.style.top = '0';
+            sidebar.style.right = '0';
+            sidebar.style.width = sidebarWidth;
+            sidebar.style.height = '100vh';
+            sidebar.style.backgroundColor = '#0f172a';
+            sidebar.style.color = 'white';
+            sidebar.style.zIndex = '2147483647';
+            sidebar.style.fontFamily = 'Segoe UI, system-ui, sans-serif';
+            sidebar.style.fontSize = '12px';
+            sidebar.style.borderLeft = '1px solid #1e293b';
+            sidebar.style.display = 'flex';
+            sidebar.style.flexDirection = 'column';
+            sidebar.style.boxSizing = 'border-box';
+            sidebar.style.boxShadow = '-10px 0 30px rgba(0,0,0,0.5)';
+            
+            sidebar.innerHTML = `
+                <div style="padding: 20px; border-bottom: 2px solid #334155; background: #1e293b; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 12px; height: 12px; background-color: #10b981; border-radius: 50%; margin-right: 12px; animation: ag-pulse 2s infinite;"></div>
+                        <strong style="color: #38bdf8; text-transform: uppercase; font-size: 11px; letter-spacing: 0.15em;">eCommerce Autonomous QA</strong>
+                    </div>
+                </div>
+                
+                <div id="ag-log-container" style="flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; background: #0f172a;">
+                    <!-- QA phases will append here -->
+                </div>
+
+                <div id="ag-indicators" style="padding: 20px; background: #1e293b; border-top: 2px solid #334155;">
+                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 10px; background: rgba(56, 189, 248, 0.1); border-radius: 8px;">
+                        <span style="color: #94a3b8; font-size: 10px; text-transform: uppercase; font-weight: 700;">🛒 Cart Count</span>
+                        <span id="ag-count" style="color: white; font-weight: 700; font-size: 14px;">-</span>
+                     </div>
+                     <div style="display: flex; justify-content: space-between; padding: 10px; background: rgba(167, 139, 250, 0.1); border-radius: 8px;">
+                        <span style="color: #94a3b8; font-size: 10px; text-transform: uppercase; font-weight: 700;">💰 Total Value</span>
+                        <span id="ag-total" style="color: white; font-weight: 700; font-size: 14px;">-</span>
+                     </div>
+                </div>
+
+                <style>
+                    @keyframes ag-pulse {{
+                        0% {{ transform: scale(0.9); opacity: 0.7; }}
+                        50% {{ transform: scale(1.1); opacity: 1; }}
+                        100% {{ transform: scale(0.9); opacity: 0.7; }}
+                    }}
+                    @keyframes entry-fade {{
+                        from {{ opacity: 0; transform: translateX(20px); }}
+                        to {{ opacity: 1; transform: translateX(0); }}
+                    }}
+                    #ag-log-container::-webkit-scrollbar {{ width: 6px; }}
+                    #ag-log-container::-webkit-scrollbar-track {{ background: transparent; }}
+                    #ag-log-container::-webkit-scrollbar-thumb {{ background: #334155; border-radius: 3px; }}
+                    
+                    body {{ 
+                        margin-right: ${{sidebarWidth}} !important; 
+                        width: calc(100% - ${{sidebarWidth}}) !important;
+                        overflow-x: hidden !important; 
+                    }}
+                </style>
+            `;
+            document.documentElement.appendChild(sidebar);
+            window.agAddEntry = (phase, status, detail, timestamp, color, border, isScenario, isSummary) => {{
+                 const container = document.getElementById('ag-log-container');
+                 if (!container) return;
+                 
+                 const entry = document.createElement('div');
+                 entry.style.backgroundColor = isScenario ? 'rgba(245, 158, 11, 0.1)' : (isSummary ? 'rgba(236, 72, 153, 0.1)' : '#1e293b');
+                 entry.style.borderLeft = `4px solid ${{border}}`;
+                 entry.style.padding = isScenario ? '15px' : '12px';
+                 entry.style.borderRadius = '6px';
+                 entry.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.2)';
+                 entry.style.animation = 'entry-fade 0.4s ease-out forwards';
+                 entry.style.border = isScenario ? '1px solid rgba(245, 158, 11, 0.3)' : (isSummary ? '1px solid rgba(236, 72, 153, 0.3)' : 'none');
+                 entry.style.borderLeft = `4px solid ${{border}}`;
+
+                 entry.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                        <span style="color: ${{color}}; font-weight: 800; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em;">${{phase}}</span>
+                        <span style="color: #64748b; font-size: 9px;">${{timestamp}}</span>
+                    </div>
+                    <div style="color: ${{isScenario ? '#f59e0b' : '#f8fafc'}}; font-weight: ${{isScenario ? '800' : '600'}}; font-size: ${{isScenario ? '13px' : '11.5px'}}; line-height: 1.4;">
+                        ${{status}}
+                    </div>
+                    ${{detail}}
+                 `;
+                 container.appendChild(entry);
+                 container.scrollTop = container.scrollHeight;
+            }};
+        }})();
+        """
+        self._sidebar_script = overlay_script
+        try:
+            await page.add_init_script(overlay_script)
+            await page.evaluate(overlay_script)
+        except:
+            pass
+
+    async def _update_overlay(self, page: Page, status: str, detail: str = "", count: str = "-", total: str = "-", phase: str = "REASON", qa_result: str = "INFO"):
+        """Appends a structured QA entry (ACT, VALIDATE, STATUS) to the sidebar with persistence."""
+        safe_status = str(status).replace("`", "'").replace("\\", "\\\\").replace("\n", " ").strip()
+        safe_detail = str(detail).replace("`", "'").replace("\\", "\\\\").replace("\n", " ").strip()
+        timestamp = datetime.now().strftime("%H:%M:%S")
+        
+        # Color mapping for QA phases
+        phase_colors = {
+            "ACT": "#38bdf8",      # Sky Blue
+            "VALIDATE": "#a78bfa", # Purple
+            "STATUS": "#10b981",   # Emerald (Pass)
+            "REASON": "#94a3b8",   # Slate
+            "WARN": "#f87171",     # Red (Fail)
+            "SCENARIO": "#f59e0b", # Amber (Scenario Header)
+            "SUMMARY": "#ec4899"   # Pink (Mission Report)
+        }
+        
+        # Selection of theme colors
+        phase_color = phase_colors.get(phase, "#38bdf8")
+        border_color = phase_color
+        if qa_result == "FAIL": border_color = "#f87171"
+        elif qa_result == "PASS": border_color = "#10b981"
+        
+        is_scenario = "true" if phase == "SCENARIO" else "false"
+        is_summary = "true" if phase == "SUMMARY" else "false"
+        detail_html = f'<div style="color: #94a3b8; font-size: 10.5px; line-height: 1.4; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 6px; margin-top: 4px; font-style: italic;">{safe_detail}</div>' if safe_detail else ''
+        
+        # Update persistent history
+        self.sidebar_log_history.append({
+            "phase": phase, "status": safe_status, "detail": detail_html, 
+            "timestamp": timestamp, "color": phase_color, "border": border_color,
+            "is_scenario": is_scenario, "is_summary": is_summary
+        })
+        
+        # Update sticky indicators if provided
+        if count != "-": self.last_cart_count = count
+        if total != "-": self.last_cart_total = total
+
+        import json
+        history_json = json.dumps(self.sidebar_log_history)
+        
+        update_script = f"""
+        (() => {{
+            let sidebar = document.getElementById('antigravity-sidebar');
+            if (!sidebar) {{
+                // FULL RE-INJECTION and RE-HYDRATION
+                {self._sidebar_script}
+                
+                // Re-populate history
+                const history = {history_json};
+                history.forEach(item => {{
+                    if (window.agAddEntry) {{
+                        window.agAddEntry(item.phase, item.status, item.detail, item.timestamp, item.color, item.border, item.is_scenario === "true", item.is_summary === "true");
+                    }}
+                }});
+            }} else {{
+                // Simple append
+                if (window.agAddEntry) {{
+                    window.agAddEntry("{phase}", "{safe_status}", `{detail_html}`, "{timestamp}", "{phase_color}", "{border_color}", {is_scenario}, {is_summary});
+                }}
+            }}
+            
+            // Update sticky indicators
+            const countEl = document.getElementById('ag-count');
+            const totalEl = document.getElementById('ag-total');
+            if (countEl) countEl.innerText = "{self.last_cart_count}";
+            if (totalEl) totalEl.innerText = "{self.last_cart_total}";
+        }})();
+        """
+        try:
+            await page.evaluate(update_script)
+        except:
+            pass
 
 
 async def main():
