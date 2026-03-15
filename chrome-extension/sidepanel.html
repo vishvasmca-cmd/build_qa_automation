@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gemini QA Agent</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4285f4 0%, #9c27b0 100%);
+            --background: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --border-radius: 12px;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --bubble-agent: #e8f0fe;
+            --bubble-user: #f1f3f4;
+        }
+
+        body {
+            font-family: 'Google Sans', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            color: var(--text-primary);
+        }
+
+        /* HEADER */
+        header {
+            background: var(--card-bg);
+            padding: 16px;
+            box-shadow: var(--shadow);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 500;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h1::before {
+            content: '✨';
+            -webkit-text-fill-color: initial;
+        }
+
+        /* STATUS BADGE */
+        .status-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #dadce0;
+            transition: all 0.3s ease;
+        }
+
+        .status-dot.active {
+            background: #34a853;
+            box-shadow: 0 0 0 2px rgba(52, 168, 83, 0.2);
+            animation: pulse 1.5s infinite;
+        }
+
+        .status-dot.error {
+            background: #ea4335;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(52, 168, 83, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 4px rgba(52, 168, 83, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(52, 168, 83, 0);
+            }
+        }
+
+        #target-url {
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* LOG STREAM (Test Steps) */
+        #logs {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+        }
+
+        .log-entry {
+            padding: 8px 16px;
+            border-bottom: 1px solid #f1f3f4;
+            font-size: 13px;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-family: 'Roboto Mono', monospace;
+            color: #333;
+        }
+
+        /* Log Types */
+        .log-info {
+            color: #5f6368;
+            font-style: italic;
+            font-family: sans-serif;
+            background: #f8f9fa;
+        }
+
+        .log-driver {
+            /* Agent Action - Test Step */
+            background: #fff;
+            color: #202124;
+            font-weight: 500;
+        }
+
+        .log-success {
+            background: #e6f4ea;
+            color: #137333;
+        }
+
+        .log-error {
+            background: #fce8e6;
+            color: #c5221f;
+        }
+
+        .step-number {
+            color: #1a73e8;
+            font-weight: bold;
+            min-width: 24px;
+        }
+
+        /* INPUT AREA */
+        .input-area {
+            background: var(--card-bg);
+            padding: 16px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .textarea-wrapper {
+            position: relative;
+            border-radius: 24px;
+            background: #f1f3f4;
+            padding: 2px;
+            /* Gradient border space if needed */
+            transition: background 0.2s;
+        }
+
+        .textarea-wrapper:focus-within {
+            background: var(--primary-gradient);
+        }
+
+        textarea {
+            width: 100%;
+            height: 48px;
+            padding: 12px 16px;
+            border: 2px solid transparent;
+            border-radius: 22px;
+            background: #ffffff;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 14px;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: transform 0.1s, opacity 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #btn-start {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 2px 6px rgba(66, 133, 244, 0.3);
+        }
+
+        #btn-stop {
+            background: #f1f3f4;
+            color: var(--text-primary);
+        }
+
+        #btn-stop:hover {
+            background: #e8eaed;
+            color: #d93025;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #dadce0;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bdc1c6;
+        }
+
+        /* Status Badge Hook for JS */
+        #status-badge {
+            display: none;
+        }
+
+        /* Hidden, we use the dot */
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- Title removed per user request -->
+        <div class="status-container">
+            <div id="status-dot" class="status-dot"></div>
+            <span id="target-url">Not Connected</span>
+        </div>
+        <!-- Hidden legacy badge for JS compatibility -->
+        <span id="status-badge"></span>
+    </header>
+
+    <div id="logs">
+        <div class="log-entry log-info">Ready to test based on your goal.</div>
+    </div>
+
+    <div class="input-area">
+        <div style="margin-bottom: 8px; display: flex; gap: 8px;">
+            <select id="ai-provider"
+                style="flex: 1; padding: 6px; border-radius: 6px; border: 1px solid #ddd; font-size: 12px; background: #fff;">
+                <option value="gemini">Gemini 2.0 Flash (Fastest)</option>
+                <option value="ollama-llava">Local LLaVA (Standard)</option>
+                <option value="ollama-moondream" selected>Local Moondream (Fast CPU)</option>
+            </select>
+        </div>
+        <div class="textarea-wrapper">
+            <textarea id="goal-input" placeholder="Describe test case... (e.g. Login and verify title)"></textarea>
+        </div>
+        <div class="controls">
+            <button id="btn-start">
+                <span>Run Test</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                </svg>
+            </button>
+            <button id="btn-stop">
+                <span>Stop</span>
+            </button>
+        </div>
+    </div>
+
+    <script type="module" src="sidepanel.js"></script>
+</body>
+
+</html>

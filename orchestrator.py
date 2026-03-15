@@ -7,6 +7,7 @@ import core.lib.llm_utils # Ensure any early side effects don't break
 from datetime import datetime
 from termcolor import colored
 from typing import Dict, Any
+from core.agents.feedback_agent import FeedbackAgent
 
 # Framework Version
 
@@ -27,6 +28,8 @@ class Orchestrator:
         self.config_path = os.path.join(self.project_dir, "config.json")
         self.config = self._load_config()
         self.deep_mode = deep_mode  # New flag to trigger deep explorer
+        self.feedback_agent = FeedbackAgent()
+        self.max_retries = 2
         
     def _load_config(self) -> Dict:
         if os.path.exists(self.config_path):
@@ -74,25 +77,70 @@ class Orchestrator:
         # Use absolute path for script
         script_path = os.path.join(os.path.dirname(__file__), "core", "agents", script_name)
         if not os.path.exists(script_path):
-            # Try root level for script_name
             script_path = os.path.join(os.path.dirname(__file__), script_name)
             
         cmd = [sys.executable, script_path] + args
-        print(colored(f"   Command: {' '.join(cmd)}", "grey"))
         
-        try:
-            # Run from project root to ensure imports work
-            project_root = os.path.dirname(__file__)
-            result = subprocess.run(cmd, check=True, cwd=project_root)
-            if result.returncode == 0:
-                self._save_checkpoint(phase_name)
-                print(colored(f"[OK] Phase '{phase_name}' completed successfully.", "green"))
-                return True
-        except subprocess.CalledProcessError as e:
-            print(colored(f"[FAIL] Phase '{phase_name}' failed with error: {e}", "red"))
-            return False
+        attempts = 0
+        while attempts <= self.max_retries:
+            attempts += 1
+            if attempts > 1:
+                print(colored(f"\n[RETRY] Attempt {attempts}/{self.max_retries + 1} for phase '{phase_name}'", "yellow"))
+
+            try:
+                project_root = os.path.dirname(__file__)
+                result = subprocess.run(cmd, check=True, cwd=project_root)
+                if result.returncode == 0:
+                    self._save_checkpoint(phase_name)
+                    print(colored(f"[OK] Phase '{phase_name}' completed successfully.", "green"))
+                    return True
+            except subprocess.CalledProcessError as e:
+                print(colored(f"[FAIL] Phase '{phase_name}' failed at attempt {attempts}.", "red"))
+                
+                # Feedback Loop: Analyze failure if it's an execution or planning phase
+                if phase_name in ["execution", "exploration"]:
+                    self._run_feedback_analysis(phase_name)
+                
+                if attempts > self.max_retries:
+                    print(colored(f"[FATAL] Max retries reached for phase '{phase_name}'.", "red", attrs=["bold"]))
+                    return False
+                
+                print(colored("🔄 Self-Learning: Adapting strategy and retrying...", "cyan"))
+                # Potential sleep/wait before retry
+                import time
+                time.sleep(2)
         
         return False
+
+    def _run_feedback_analysis(self, phase_name: str):
+        """Invoke FeedbackAgent to analyze session logs and update Knowledge Bank."""
+        log_file = os.path.join(os.getcwd(), "chrome-extension", "scripts", "qa_session_logs.json")
+        
+        # Fallback to local project dir
+        if not os.path.exists(log_file):
+             log_file = os.path.join(self.project_dir, "qa_session_logs.json")
+
+        if os.path.exists(log_file):
+            print(colored("🧠 ENGAGING FEEDBACK AGENT: Analyzing Failure...", "magenta"))
+            try:
+                with open(log_file, "r") as f:
+                    session_data = json.load(f)
+                
+                logs = session_data.get("logs", [])
+                log_text = "\n".join([f"[{l.get('timestamp')}] {l.get('status')}: {l.get('detail')}" for l in logs])
+                
+                # Mock config for feedback agent
+                config = {
+                    "project_name": self.project_name,
+                    "target_url": self.config.get("target_url", "unknown")
+                }
+                
+                self.feedback_agent.analyze_run(config, log_text, success=False)
+                print(colored("✅ Lessons Learned! Knowledge Bank updated for the next attempt.", "green"))
+            except Exception as e:
+                 print(colored(f"⚠️ Feedback Agent error: {e}", "red"))
+        else:
+            print(colored("⚠️ No session logs found for analysis. Skipping self-learning.", "yellow"))
 
     def execute_pipeline(self, goal: str = None, force: bool = False, security: bool = False, headed: bool = False, phase: str = None, base_url: str = None):
         # Use config defaults if not provided

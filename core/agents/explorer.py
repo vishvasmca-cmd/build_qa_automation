@@ -2432,6 +2432,7 @@ class ExplorerAgent:
 
     async def _create_overlay(self, page: Page):
         """Creates a dedicated sidebar for AI reasoning log, utilizing the right-hand space in maximized mode."""
+        return # Sidebar Disabled by User Request
         sidebarWidth = '400px'
         overlay_script = f"""
         (() => {{
@@ -2474,7 +2475,7 @@ class ExplorerAgent:
                 <div style="padding: 20px; border-bottom: 2px solid #334155; background: #1e293b; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
                     <div style="display: flex; align-items: center;">
                         <div style="width: 12px; height: 12px; background-color: #10b981; border-radius: 50%; margin-right: 12px; animation: ag-pulse 2s infinite;"></div>
-                        <strong style="color: #38bdf8; text-transform: uppercase; font-size: 11px; letter-spacing: 0.15em;">eCommerce Autonomous QA</strong>
+                        <strong style="color: #38bdf8; text-transform: uppercase; font-size: 11px; letter-spacing: 0.15em;">Autonomous QA Agent</strong>
                     </div>
                 </div>
                 
@@ -2553,6 +2554,7 @@ class ExplorerAgent:
 
     async def _update_overlay(self, page: Page, status: str, detail: str = "", count: str = "-", total: str = "-", phase: str = "REASON", qa_result: str = "INFO"):
         """Appends a structured QA entry (ACT, VALIDATE, STATUS) to the sidebar with persistence."""
+        return # Sidebar Disabled by User Request
         safe_status = str(status).replace("`", "'").replace("\\", "\\\\").replace("\n", " ").strip()
         safe_detail = str(detail).replace("`", "'").replace("\\", "\\\\").replace("\n", " ").strip()
         timestamp = datetime.now().strftime("%H:%M:%S")

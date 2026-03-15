@@ -1,0 +1,41 @@
+{
+    "manifest_version": 3,
+    "name": "eCommerce Autonomous QA",
+    "version": "1.0.0",
+    "description": "AI-powered autonomous testing agent for e-commerce websites",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "scripting",
+        "sidePanel",
+        "debugger"
+    ],
+    "host_permissions": [
+        "<all_urls>",
+        "http://localhost/*",
+        "http://127.0.0.1/*"
+    ],
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    },
+    "action": {
+        "default_title": "Open QA Agent"
+    },
+    "side_panel": {
+        "default_path": "sidepanel.html"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "sidebar.js",
+                "content.module.js",
+                "automation/*",
+                "ai/*"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>eCommerce Autonomous QA</title>
+  <style>
+    body {
+      width: 400px;
+      padding: 20px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #f1f5f9;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 18px;
+      color: #38bdf8;
+      margin: 0 0 20px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #10b981;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .config-section {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      color: #f1f5f9;
+      font-size: 13px;
+      box-sizing: border-box;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #38bdf8;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #38bdf8 0%, #0ea5e9 100%);
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #0ea5e9 0%, #0284c7 100%);
+    }
+
+    button:disabled {
+      background: #475569;
+      cursor: not-allowed;
+    }
+
+    .status-message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .status-message.success {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+      color: #10b981;
+    }
+
+    .status-message.error {
+      background: rgba(248, 113, 113, 0.2);
+      border: 1px solid #f87171;
+      color: #f87171;
+    }
+
+    .quick-tests {
+      margin-top: 20px;
+    }
+
+    .quick-test-btn {
+      background: rgba(167, 139, 250, 0.2);
+      border: 1px solid #a78bfa;
+      color: #a78bfa;
+      padding: 8px;
+      font-size: 11px;
+      margin-bottom: 8px;
+    }
+
+    .quick-test-btn:hover {
+      background: rgba(167, 139, 250, 0.3);
+    }
+
+    /* Loading Spinner */
+    .spinner {
+      display: none;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid #ffffff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-left: 10px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    #startTest {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>
+    <span class="status-indicator"></span>
+    eCommerce Autonomous QA
+  </h1>
+
+  <div class="config-section">
+    <label>Gemini API Key</label>
+    <input type="password" id="apiKey" placeholder="Enter your Gemini API key">
+
+    <label style="margin-top: 12px;">AI Model</label>
+    <select id="model">
+      <option value="gemini-2.0-flash">Gemini 2.0 Flash (Standard)</option>
+      <option value="gemini-1.5-pro">Gemini 1.5 Pro (Capable)</option>
+      <option value="gemini-1.5-flash">Gemini 1.5 Flash (Fast)</option>
+      <option value="gemini-pro">Gemini Pro 1.0 (Legacy)</option>
+      <option value="gemini-2.0-flash-exp">Gemini 2.0 Flash (Experimental)</option>
+    </select>
+
+    <button id="saveConfig">Save Configuration</button>
+  </div>
+
+  <div class="config-section">
+    <div id="targetSiteDisplay"
+      style="font-size: 11px; margin-bottom: 8px; font-weight: 600; color: #94a3b8; text-align: center;">Detecting
+      website...</div>
+    <input type="text" id="manualUrlInput" placeholder="https://www.example.com"
+      style="display: none; margin-bottom: 10px; border-color: #f87171;">
+
+    <label>Test Goal</label>
+    <input type="text" id="testGoal" placeholder="e.g., Login and add 2 products to cart">
+
+    <button id="startTest">
+      <span>🚀 Start Autonomous Test</span>
+      <div class="spinner" id="startSpinner"></div>
+    </button>
+  </div>
+
+  <div class="quick-tests">
+    <label>Quick Test Templates</label>
+    <button class="quick-test-btn" data-goal="Login with valid credentials and verify dashboard access">✅ Valid Login
+      Test</button>
+    <button class="quick-test-btn" data-goal="Attempt login with locked_out_user and verify error message">🚫
+      Unauthorized Access Test</button>
+    <button class="quick-test-btn" data-goal="Add single product to cart and verify price at checkout">💰 Single Product
+      Checkout</button>
+    <button class="quick-test-btn" data-goal="Add product, navigate away, return and verify cart persistence">🛒 Cart
+      Persistence Test</button>
+  </div>
+
+  <div id="statusMessage"></div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+
+</html>
